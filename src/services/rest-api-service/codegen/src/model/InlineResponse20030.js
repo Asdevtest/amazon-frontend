@@ -13,9 +13,9 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
 import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
+import ApiV1ClientsProductsVacRedFlags from './ApiV1ClientsProductsVacRedFlags';
 
 /**
  * The InlineResponse20030 model module.
@@ -115,7 +115,7 @@ class InlineResponse20030 {
                 obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
             }
             if (data.hasOwnProperty('redFlags')) {
-                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1ClientsProductsVacRedFlags]);
             }
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
@@ -264,7 +264,7 @@ InlineResponse20030.prototype['supervisorRate'] = undefined;
 InlineResponse20030.prototype['buyerRate'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
+ * @member {Array.<module:model/ApiV1ClientsProductsVacRedFlags>} redFlags
  */
 InlineResponse20030.prototype['redFlags'] = undefined;
 

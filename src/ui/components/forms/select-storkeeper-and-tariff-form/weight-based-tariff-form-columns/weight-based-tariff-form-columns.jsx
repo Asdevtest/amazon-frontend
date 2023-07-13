@@ -15,7 +15,6 @@ import { DestinationVariationsSpanningCell } from '@components/data-grid/data-gr
 
 export const WeightBasedTariffFormColumns = (
   showCheckbox,
-  destinationsData,
   variationTariffId,
   currentDestinationId,
   onClickSelectTariff,
@@ -48,7 +47,6 @@ export const WeightBasedTariffFormColumns = (
       <DestinationVariationsSpanningCell
         showCheckbox={showCheckbox}
         destinationVariations={params.row.originalData.destinationVariations}
-        destinationData={destinationsData}
         activeDestinationId={currentDestinationId}
         activeDedestinationVariationt={variationTariffId}
         selectVariationTariff={setVariationTariff}
@@ -124,7 +122,7 @@ export const WeightBasedTariffFormColumns = (
           showCheckbox &&
           ((currentDestinationId &&
             params.row.originalData?.destinationVariations.every(
-              item => item?.destinationId !== currentDestinationId,
+              item => item?.destination?._id !== currentDestinationId,
             )) ||
             !variationTariffId ||
             params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))

@@ -4,7 +4,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -210,8 +210,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
     {
       field: 'deadline',
-      headerName: 'Deadline',
-      renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+      headerName: t(TranslationKey.Deadline),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
         params.row.originalData.status < 20 ? (
           <MultilineTextCell
@@ -230,7 +230,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
     {
       field: 'paymentDateToSupplier',
-      headerName: 'Payment date',
+      headerName: t(TranslationKey['Payment date']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment date'])} />,
       renderCell: params => (
         <MultilineTextCell

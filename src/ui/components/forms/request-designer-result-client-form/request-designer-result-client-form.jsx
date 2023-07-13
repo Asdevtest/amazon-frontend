@@ -4,17 +4,15 @@
 import { cx } from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import { Link, Typography, Avatar, Checkbox, ClickAwayListener, Menu, Tooltip } from '@mui/material'
+import { Avatar, Checkbox, ClickAwayListener, Link, Menu, Tooltip, Typography } from '@mui/material'
 import Zoom from '@mui/material/Zoom'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { nanoid } from 'nanoid'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
@@ -28,6 +26,7 @@ import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './request-designer-result-client-form.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const Slot = ({
   item,
@@ -192,19 +191,20 @@ export const RequestDesignerResultClientForm = ({
   // console.log('userInfo', userInfo)
 
   const isNotClient =
-    userInfo._id !== request.request?.createdBy?._id && userInfo.masterUser?._id !== request.request?.createdBy?._id
+    userInfo._id !== request?.request?.createdBy?._id && userInfo.masterUser?._id !== request?.request?.createdBy?._id
 
   const proposalIsAccepted = [
     RequestProposalStatus.ACCEPTED_BY_CLIENT,
     RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-  ].includes(proposal.proposal.status)
+  ].includes(proposal?.proposal?.status)
 
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [curImageId, setCurImageId] = useState(null)
+  const [curImageIndex, setCurImageIndex] = useState(0)
 
   const [comment, setComment] = useState('')
 
@@ -219,6 +219,24 @@ export const RequestDesignerResultClientForm = ({
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
+  const [filteredImages, setFilteredImages] = useState([])
+
+  useEffect(() => {
+    setFilteredImages(
+      imagesData
+        .filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
+        .map(el => {
+          const url = typeof el?.image === 'string' ? el?.image : el?.image?.data_url
+
+          return {
+            url,
+            title: el.comment,
+            comment: el.imageComment,
+            _id: el._id,
+          }
+        }),
+    )
+  }, [imagesData])
 
   const onChangeImageFileds = (field, imageId) => event => {
     const findImage = { ...imagesData.find(el => el._id === imageId) }
@@ -297,7 +315,7 @@ export const RequestDesignerResultClientForm = ({
         <div className={classNames.titleWrapper}>
           <Typography className={cx(classNames.headerLabel)}>{`${t(TranslationKey['Request result'])} /`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel)}>{`ID ${request.request.humanFriendlyId}`}</Typography>
+          <Typography className={cx(classNames.headerLabel)}>{`ID ${request?.request?.humanFriendlyId}`}</Typography>
         </div>
         <div className={classNames.headerRightSubWrapper}>
           <Field
@@ -305,7 +323,7 @@ export const RequestDesignerResultClientForm = ({
             label={t(TranslationKey['Source Files'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              proposal.proposal.sourceFiles?.[0]?.sourceFile ? (
+              proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
                 <div className={classNames.viewLinkWrapper}>
                   <Link href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)} target="_blank">
                     {t(TranslationKey.View)}
@@ -349,9 +367,9 @@ export const RequestDesignerResultClientForm = ({
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request.request.asin}`}
+                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request?.request?.asin}`}
                 >
-                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request.request.asin}</span>
+                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request?.request?.asin}</span>
                 </a>
               </Typography>
             }
@@ -368,7 +386,10 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
-            setCurImageId={setCurImageId}
+            setCurImageId={id => {
+              setCurImageId(id)
+              setCurImageIndex(filteredImages.findIndex(el => el._id === id))
+            }}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
@@ -582,12 +603,13 @@ export const RequestDesignerResultClientForm = ({
         </Button>
       </div>
 
-      <BigObjectImagesModal
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({ ...el, imageComment: el.commentByClient || '' }))}
-        curImageId={curImageId}
-        setCurImageId={setCurImageId}
+      <ImageModal
+        showPreviews
+        isOpenModal={showImageModal}
+        handleOpenModal={() => setShowImageModal(!showImageModal)}
+        imageList={filteredImages}
+        currentImageIndex={curImageIndex}
+        handleCurrentImageIndex={index => setCurImageIndex(index)}
       />
     </div>
   )

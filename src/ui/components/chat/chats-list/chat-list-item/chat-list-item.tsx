@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { Avatar } from '@mui/material'
 
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 
 import he from 'he'
 import { observer } from 'mobx-react'
@@ -13,6 +13,8 @@ import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 
 import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
+
+import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -26,9 +28,8 @@ interface Props {
   chat: ChatContract
   userId: string
   isSelected: boolean
+  onClick: VoidFunction
   typingUsers?: OnTypingMessageResponse[]
-
-  onClick: () => void
 }
 
 export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onClick, typingUsers }) => {
@@ -45,6 +46,8 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
   const lastMessage = messages[messages.length - 1] || {}
 
   const isGroupChat = chat.type === chatsType.GROUP
+
+  const isCurrentUser = lastMessage.user?._id === userId
 
   const oponentUser = users.filter(
     (user: ChatUserContract) =>
@@ -101,16 +104,14 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
 
   return (
     <div className={cx(classNames.root, { [classNames.rootIsSelected]: isSelected })} onClick={onClick}>
-      <div>
-        <Avatar
-          src={
-            isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
-              ? chat.info?.image
-              : getUserAvatarSrc(oponentUser?._id)
-          }
-          className={classNames.avatarWrapper}
-        />
-      </div>
+      <Avatar
+        src={
+          isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
+            ? chat.info?.image
+            : getUserAvatarSrc(oponentUser?._id)
+        }
+        className={classNames.avatarWrapper}
+      />
       <div className={classNames.rightSide}>
         <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>
@@ -121,35 +122,44 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
             <p className={classNames.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>
           ) : null}
         </div>
-        {lastMessage ? (
+
+        {lastMessage && (
           <div className={classNames.lastMessageWrapper}>
             {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser?._id) ? (
               <div className={classNames.lastMessageSubWrapper}>
-                <Avatar src={getUserAvatarSrc(oponentUser?._id)} className={classNames.miniAvatar} />
-
-                <p className={classNames.lastMessageText}>{t(TranslationKey.Writes) + '...'}</p>
+                <p className={classNames.nickName}>{oponentUser?.name}</p>
+                <p
+                  className={cx(classNames.lastMessageText, {
+                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                  })}
+                >
+                  {t(TranslationKey.Writes) + '...'}
+                </p>
               </div>
             ) : (
               <div className={classNames.lastMessageSubWrapper}>
-                {!lastMessage?.type?.includes('system') ? (
-                  <Avatar src={getUserAvatarSrc(lastMessage.user?._id)} className={classNames.miniAvatar} />
-                ) : null}
+                {isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${t(TranslationKey.You)}:`}</p>}
+                {!isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${lastMessage.user?.name}:`}</p>}
 
-                <p className={classNames.lastMessageText}>
-                  {message + (lastMessage?.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
+                <p
+                  className={cx(classNames.lastMessageText, {
+                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                  })}
+                >
+                  {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
                 </p>
               </div>
             )}
-            {/* user?._id */}
-            {userId === lastMessage.user?._id ? (
-              <div className={classNames.readIconsWrapper}>
-                <img src={lastMessage.isRead ? '/assets/icons/is-read.svg' : '/assets/icons/no-read.svg'} />
-              </div>
-            ) : null}
 
-            {unReadMessages.length ? <div className={classNames.badge}>{unReadMessages.length}</div> : undefined}
+            {unReadMessages.length > 0 ? (
+              <span className={classNames.badge}>{unReadMessages.length}</span>
+            ) : isCurrentUser && lastMessage.isRead ? (
+              <IsReadIcon className={classNames.isReadIcon} />
+            ) : (
+              <NoReadIcon className={classNames.noReadIcon} />
+            )}
           </div>
-        ) : undefined}
+        )}
       </div>
     </div>
   )

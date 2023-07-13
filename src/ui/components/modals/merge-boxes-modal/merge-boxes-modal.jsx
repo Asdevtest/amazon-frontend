@@ -34,6 +34,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 
 export const MergeBoxesModal = ({
   showCheckbox,
@@ -57,11 +58,13 @@ export const MergeBoxesModal = ({
   const [priority, setPriority] = useState()
   const [priorityReason, setPriorityReason] = useState()
 
+  const hasDifferentDestinations = selectedBoxes.some(
+    box => box?.destination?._id !== selectedBoxes[0]?.destination?._id,
+  )
+
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
-    destinationId: selectedBoxes.some(box => box?.destination?._id !== selectedBoxes[0]?.destination?._id)
-      ? null
-      : selectedBoxes[0]?.destination?._id,
+    destinationId: hasDifferentDestinations ? null : selectedBoxes[0]?.destination?._id,
 
     storekeeperId: selectedBoxes.some(box => box.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
       ? ''
@@ -167,7 +170,8 @@ export const MergeBoxesModal = ({
     ((boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
-    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
+    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length) ||
+    selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||
@@ -315,9 +319,9 @@ export const MergeBoxesModal = ({
                     data={
                       boxBody.logicsTariffId &&
                       currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations
-                            // ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
-                            .filter(el => el?._id === destinationId)
+                        ? destinations.filter(
+                            el => el?._id === (destinationId || selectedBoxes[0]?.variationTariff?.destinationId),
+                          )
                         : destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
                     }
                     searchFields={['name']}

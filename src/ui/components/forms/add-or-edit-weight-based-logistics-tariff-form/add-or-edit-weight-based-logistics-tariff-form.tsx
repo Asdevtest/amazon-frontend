@@ -20,9 +20,9 @@ import AddIcon from '@mui/icons-material/Add'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 
-import { DestinationVariationInterface, LogisticTariffInterface } from '../../../../types/logistics-tariff'
+import { LogisticTariffInterface } from '../../../../types/logistics-tariff'
 import { toFixed } from '@utils/text'
-import { DestinationInterface } from '../../../../types/destination'
+import { DestinationType, DestinationVariationType } from '../../../../types/destination'
 
 interface FormFields {
   tariffType: number
@@ -35,12 +35,12 @@ interface FormFields {
   minWeightInKg: number
   archive: boolean
   yuanToDollarRate: number
-  destinationVariations: Array<DestinationVariationInterface>
+  destinationVariations: Array<DestinationVariationType>
 }
 
 interface DestinationVariationsContentProps {
-  destinationVariations: Array<DestinationVariationInterface>
-  destinationData: Array<DestinationInterface>
+  destinationVariations: Array<DestinationVariationType>
+  destinationData: Array<DestinationType>
   currentCurrency: string
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -53,7 +53,7 @@ interface AddOrEditWeightBasedLogisticsTariffFormProps {
   tariffToEdit: LogisticTariffInterface
   sourceYuanToDollarRate: number
   logisticsTariffsData: Array<LogisticTariffInterface>
-  destinationData: Array<DestinationInterface>
+  destinationData: Array<DestinationType>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
   onCreateSubmit: (formFields: FormFields) => void
@@ -80,7 +80,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     const regex = /^[-0-9]+$/
 
     const emptyDestinationVariation = {
-      destinationId: '',
+      destination: {
+        _id: '',
+        name: '',
+      },
       minWeight: '',
       maxWeight: '',
       pricePerKgRmb: '',
@@ -98,7 +101,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       minWeightInKg: tariffToEdit?.minWeightInKg || 0,
       archive: tariffToEdit?.archive || false,
       yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
-      destinationVariations: tariffToEdit?.destinationVariations || [emptyDestinationVariation],
+      destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
+        ...variation,
+        pricePerKgUsd: toFixed(variation.pricePerKgUsd, 2),
+        pricePerKgRmb: toFixed(variation.pricePerKgRmb, 2),
+      })) || [emptyDestinationVariation],
     }
 
     const [formFields, setFormFields] = useState<FormFields>(initialState)
@@ -113,8 +120,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       !formFields.etd ||
       !formFields.eta ||
       formFields.destinationVariations.some(
-        (variant: DestinationVariationInterface) =>
-          !variant.destinationId ||
+        (variant: DestinationVariationType) =>
+          !variant.destination._id ||
           !variant.pricePerKgRmb ||
           !variant.pricePerKgUsd ||
           !variant.minWeight ||
@@ -135,7 +142,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         name: tariff.name,
         description: tariff.description,
         destinationVariations: tariff.destinationVariations.map(item => ({
-          destinationId: item.destinationId,
+          destination: item.destination,
           minWeight: item.minWeight,
           maxWeight: item.maxWeight,
           pricePerKgRmb: item.pricePerKgRmb,
@@ -147,7 +154,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     const [currentCurrency, setCurrentCurrency] = useState(currencyTypes.DOLLAR)
 
-    const onChangeField = (fieldName: string) => (value: string | number | Array<DestinationVariationInterface>) => {
+    const onChangeField = (fieldName: string) => (value: string | number | Array<DestinationVariationType>) => {
       const newFormFields = { ...formFields }
       if (fieldName === 'yuanToDollarRate') {
         newFormFields[fieldName] = Number(value)
@@ -179,6 +186,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           updatedDestinationVariation[fieldName] = toFixed(value, 2)
           updatedDestinationVariation.pricePerKgUsd = toFixed(value, 2) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
+        } else if (fieldName === 'destinationId') {
+          const updatedDestinationVariation = { ...newDestinationVariations[index] }
+          updatedDestinationVariation.destination._id = String(value)
         } else {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
           // @ts-ignore
@@ -234,11 +244,17 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       }
     }
 
-    const calcWeightRangeValid = (destinationVariations: Array<DestinationVariationInterface>) => {
+    const calcWeightRangeValid = (destinationVariations: Array<DestinationVariationType>) => {
+      const currectArray = destinationVariations.map(variant => ({
+        destinationId: variant.destination._id,
+        minWeight: variant.minWeight,
+        maxWeight: variant.maxWeight,
+      }))
+
       const groupedByDestinationId = {}
 
       // Group objects by destinationId
-      destinationVariations.forEach(variant => {
+      currectArray.forEach(variant => {
         const { destinationId, minWeight, maxWeight } = variant
 
         if (groupedByDestinationId.hasOwnProperty(destinationId)) {
@@ -255,7 +271,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           // @ts-ignore
           const group = groupedByDestinationId[destinationId]
           const sortedRanges = group.sort(
-            (a: DestinationVariationInterface, b: DestinationVariationInterface) => a.minWeight - b.minWeight,
+            (a: DestinationVariationType, b: DestinationVariationType) => a.minWeight - b.minWeight,
           )
 
           for (let i = 0; i < sortedRanges.length - 1; i++) {
@@ -411,6 +427,26 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
           <div className={classNames.dateBlockWrapper}>
             <Field
+              label={t(TranslationKey['CLS (batch closing date)'])}
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.blockItemContainer}
+              inputComponent={
+                <div
+                  className={cx({
+                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                  })}
+                >
+                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                  {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
+                    <p className={classNames.deadlineErrorText}>
+                      {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
+                    </p>
+                  )}
+                </div>
+              }
+            />
+
+            <Field
               label={t(TranslationKey['ETD (date of shipment)'])}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.blockItemContainer}
@@ -443,26 +479,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                 >
                   <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
-                    <p className={classNames.deadlineErrorText}>
-                      {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
-                    </p>
-                  )}
-                </div>
-              }
-            />
-
-            <Field
-              label={t(TranslationKey['CLS (batch closing date)'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.blockItemContainer}
-              inputComponent={
-                <div
-                  className={cx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
-                  })}
-                >
-                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
-                  {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
                     <p className={classNames.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                     </p>
@@ -517,7 +533,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
 
     return (
       <>
-        {destinationVariations?.map((variant: DestinationVariationInterface, variantIndex: number) => (
+        {destinationVariations?.map((variant: DestinationVariationType, variantIndex: number) => (
           <div key={variantIndex} className={classNames.optionsWrapper}>
             <Field
               label={t(TranslationKey.Destination)}
@@ -542,12 +558,12 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                   customSubMainWrapper={classNames.destinationWrapper}
                   customSearchInput={classNames.destinationSearchInput}
                   selectedItemName={
-                    variant.destinationId
-                      ? destinationData?.find(obj => obj?._id === variant?.destinationId)?.name
+                    variant.destination?._id
+                      ? destinationData?.find(obj => obj?._id === variant?.destination?._id)?.name
                       : t(TranslationKey.Select)
                   }
                   onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                  onClickSelect={(el: DestinationInterface) => {
+                  onClickSelect={(el: DestinationType) => {
                     onChangeDestinationVariations('destinationId')(variantIndex)(el._id)
                   }}
                 />

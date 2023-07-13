@@ -67,10 +67,6 @@ export const lightTheme = createTheme({
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
           // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#001029',
-
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
-          },
         },
         // Убрать
         columnHeaders: {
@@ -84,21 +80,21 @@ export const lightTheme = createTheme({
 
         columnHeaderDraggableContainer: {
           flexDirection: 'row !important',
-
           position: 'relative',
           paddingRight: 20,
         },
         columnHeaderTitleContainer: {
-          flexDirection: 'row !important',
-          display: 'flex !important',
-          alignItems: 'center !important',
+          display: 'flex  !important',
+          alignItems: 'center  !important',
+          flexDirection: 'row  !important',
+          justifyContent: 'space-between  !important',
           overflow: 'visible',
         },
         menuIconButton: {
           zIndex: 1000,
           position: 'absolute !important',
           right: -7,
-          top: 13,
+
           // visibility: 'visible !important',
 
           width: '18px !important',
@@ -251,6 +247,7 @@ export const lightTheme = createTheme({
 
     primary: {
       main: '#007bff',
+      mainRgb: '0, 123, 255',
     },
     text: {
       general: '#001029',
@@ -300,6 +297,8 @@ export const lightTheme = createTheme({
 
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
+
+      paper: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
 
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
@@ -361,9 +360,6 @@ export const darkTheme = createTheme({
           color: '#fff',
 
           // border: '1px solid rgba(81, 81, 81, 1) !important',
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
-          },
         },
 
         columnSeparator: {
@@ -403,7 +399,7 @@ export const darkTheme = createTheme({
           zIndex: 1000,
           position: 'absolute !important',
           right: -7,
-          top: 13,
+
           // visibility: 'visible !important',
 
           width: '18px !important',
@@ -438,14 +434,14 @@ export const darkTheme = createTheme({
         // Убрать
         columnHeaderDraggableContainer: {
           flexDirection: 'row !important',
-
           position: 'relative',
           paddingRight: 20,
         },
         columnHeaderTitleContainer: {
-          flexDirection: 'row !important',
           display: 'flex !important',
           alignItems: 'center !important',
+          flexDirection: 'row !important',
+          justifyContent: 'space-between !important',
           overflow: 'visible',
         },
         iconButtonContainer: {
@@ -708,6 +704,7 @@ export const darkTheme = createTheme({
       primary: {
         // main: '#008CF1',
         main: '#4CA1DE',
+        mainRgb: '76, 161, 222',
       },
       text: {
         general: '#fff',
@@ -773,6 +770,8 @@ export const darkTheme = createTheme({
 
       boxShadow: {
         general: 'rgba(31, 31, 31, 0.6)',
+
+        paper: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
 
         yellow:
           'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',

@@ -79,19 +79,22 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
     }
   }
 
   async getIdeas() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await IdeaModel.getIdeas(this.productId)
 
       runInAction(() => {
         this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -393,7 +396,13 @@ export class SuppliersAndIdeasModel {
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)

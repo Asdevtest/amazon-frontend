@@ -4,7 +4,6 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 import {
   BoxestatusMenuItem,
-  ClientFreelancePriorityMenuItem,
   ClientOrderAllStatusesMenuItem,
   CreatedByMenuItem,
   DestinationMenuItem,
@@ -257,6 +256,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.shared.STRING,
       columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
       columnnsKeys.client.ORDERS_STATUS,
+      columnnsKeys.buyer.MY_PRODUCTS_STATUS,
     ].includes(currentColumn.columnKey)
   ) {
     return (

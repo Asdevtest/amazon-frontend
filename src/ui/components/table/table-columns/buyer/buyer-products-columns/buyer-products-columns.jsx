@@ -54,7 +54,7 @@ export const buyerProductsViewColumns = handlers => [
       />
     ),
 
-    columnKey: columnnsKeys.client.INVENTORY_STATUS,
+    columnKey: columnnsKeys.buyer.MY_PRODUCTS_STATUS,
   },
 
   {

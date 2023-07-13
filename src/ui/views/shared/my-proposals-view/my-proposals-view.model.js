@@ -3,7 +3,11 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+} from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -42,6 +46,8 @@ export class MyProposalsViewModel {
 
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
+  showRequestStandartResultModal = false
+  showRequestResultModal = false
   selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
@@ -301,8 +307,6 @@ export class MyProposalsViewModel {
 
       runInAction(() => {
         this.currentProposal = result
-
-        // console.log('this.requests', this.requests)
       })
     } catch (error) {
       console.log(error)
@@ -314,7 +318,13 @@ export class MyProposalsViewModel {
 
     this.getProposalById(proposalId)
 
-    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.DESIGNER) {
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.BLOGGER) {
+      this.onTriggerOpenModal('showRequestResultModal')
+    } else {
+      this.onTriggerOpenModal('showRequestStandartResultModal')
+    }
   }
 
   onChangeNameSearchValue(e) {

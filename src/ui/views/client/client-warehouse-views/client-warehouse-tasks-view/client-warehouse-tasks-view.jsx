@@ -12,6 +12,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
   mapTaskOperationTypeEnumToKey,
   mapTaskOperationTypeKeyToEnum,
+  mapTaskOperationTypeToLabel,
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
@@ -50,7 +51,15 @@ export const ClientWarehouseTasksViewRaw = props => {
   }, [])
 
   useEffect(() => {
-    setIsDisabledDownload(!viewModel.selectedBoxes?.length || viewModel.selectedBoxes?.length > 1)
+    setIsDisabledDownload(
+      !viewModel.selectedBoxes?.length ||
+        viewModel.selectedBoxes?.length > 1 ||
+        viewModel.tasksMy
+          .filter(el => viewModel.selectedBoxes.includes(el.id))
+          .some(box => {
+            return box.operationType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
+          }),
+    )
   }, [viewModel.selectedBoxes])
 
   return (

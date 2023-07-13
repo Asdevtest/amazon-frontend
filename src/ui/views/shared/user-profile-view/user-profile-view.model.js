@@ -15,6 +15,8 @@ import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { dataURLtoFile } from '@utils/upload-files'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { checkIsFreelancer } from '@utils/checks'
 
 export class ProfileViewModel {
   history = undefined
@@ -32,7 +34,8 @@ export class ProfileViewModel {
 
   productsVacant = []
 
-  wrongPassword = null
+  isUniqueProfileData = true
+  wrongPassword = undefined
 
   warningInfoModalTitle = ''
 
@@ -116,6 +119,7 @@ export class ProfileViewModel {
     })
     this.setDataGridState()
   }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -138,7 +142,11 @@ export class ProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getProductsVacant()
+
+      if (!checkIsFreelancer(UserRoleCodeMap[UserModel.userInfo.role])) {
+        await this.getProductsVacant()
+      }
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -200,16 +208,28 @@ export class ProfileViewModel {
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        const [isUniqueProfileData] = await Promise.all([
-          this.changeUserNameOrEmail(data),
-          this.changeUserPassword(data),
-        ])
+        // const [isUniqueProfileData] = await Promise.all([
+        //   this.changeUserNameOrEmail(data),
+        //   this.changeUserPassword(data),
+        // ])
 
-        if (!this.wrongPassword && isUniqueProfileData) {
+        const { name, email, oldPassword, newPassword } = data
+
+        if (name || email) {
+          await this.changeUserNameOrEmail(data)
+        }
+
+        if (oldPassword || newPassword) {
+          await this.changeUserPassword(data)
+        }
+
+        if (!this.wrongPassword && this.isUniqueProfileData) {
           this.onTriggerOpenModal('showUserInfoModal')
           this.warningInfoModalTitle = t(TranslationKey['Data was successfully saved'])
           this.onTriggerOpenModal('showInfoModal')
         }
+
+        this.loadData()
       } else {
         return
       }
@@ -259,12 +279,17 @@ export class ProfileViewModel {
         this.checkValidationNameOrEmail.nameIsUnique === false ||
         this.checkValidationNameOrEmail.emailIsUnique === false
       ) {
-        return false
+        runInAction(() => {
+          this.isUniqueProfileData = false
+        })
       } else {
         await UserModel.changeUserInfo({ name: data.name, email: data.email })
 
         await UserModel.getUserInfo()
-        return true
+
+        runInAction(() => {
+          this.isUniqueProfileData = true
+        })
       }
     } catch (error) {
       runInAction(() => {
@@ -331,5 +356,9 @@ export class ProfileViewModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  resetProfileDataValidation() {
+    this.checkValidationNameOrEmail = {}
   }
 }

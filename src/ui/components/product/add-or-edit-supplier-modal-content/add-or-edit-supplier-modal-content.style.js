@@ -110,6 +110,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
+  nameBlockFlexStart: {
+    alignItems: 'flex-start',
+  },
+
   nameContainer: {
     width: '380px !important',
   },
@@ -118,13 +122,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '590px !important',
   },
 
-  linkContainerOnlyRead: {
-    width: 'fit-content',
-  },
-
   middleContainer: {
     width: '190px !important',
-    marginBottom: 17,
+    marginBottom: 20,
   },
 
   shortContainer: {

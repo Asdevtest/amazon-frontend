@@ -5,8 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **String** | Название идеи | [optional] 
-**status** | **Number** | Статус идеи | [optional] 
-**media** | **[String]** | Images URLs | [optional] 
+**media** | **[String]** | Image URL | [optional] 
 **comments** | **String** | Комментарий к идее | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
 **productLinks** | **[String]** | Ссылки на продукт, если есть | [optional] 
@@ -16,5 +15,6 @@ Name | Type | Description | Notes
 **width** | **Number** | Ширина, см | [optional] 
 **height** | **Number** | Высота, см | [optional] 
 **length** | **Number** | Длина, см | [optional] 
+**productId** | **String** | Product ID | [optional] 
 
 

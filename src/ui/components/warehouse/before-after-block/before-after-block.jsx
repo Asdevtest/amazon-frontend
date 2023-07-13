@@ -13,7 +13,6 @@ import {
   getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -21,24 +20,19 @@ import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { Text } from '@components/shared/text'
+import { BoxArrow } from '@components/shared/svg-icons'
 
 import {
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBoxOrOrder,
   getNewTariffTextForBoxOrOrder,
   getShortenStringIfLongerThanCount,
   toFixed,
-  toFixedWithKg,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -48,7 +42,7 @@ import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { calcVolumeWeightForBox } from '@utils/calculation'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const Box = observer(
   ({
@@ -111,8 +105,19 @@ const Box = observer(
 
     const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
     const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
     const weightSizesType = getWeightSizesType(sizeSetting)
+
+    const volumeWeightWarehouse =
+      ((parseFloat(box.lengthCmWarehouse) || 0) *
+        (parseFloat(box.heightCmWarehouse) || 0) *
+        (parseFloat(box.widthCmWarehouse) || 0)) /
+      volumeWeightCoefficient
+
+    const volumeWeightSupplier =
+      ((parseFloat(box.lengthCmSupplier) || 0) *
+        (parseFloat(box.heightCmSupplier) || 0) *
+        (parseFloat(box.widthCmSupplier) || 0)) /
+      volumeWeightCoefficient
 
     const renderImageInfo = (img, imgName) => (
       <div className={classNames.tooltipWrapper}>
@@ -269,22 +274,8 @@ const Box = observer(
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {isCurrentBox
-                          ? toFixed(
-                              ((parseFloat(box.lengthCmSupplier) || 0) *
-                                (parseFloat(box.heightCmSupplier) || 0) *
-                                (parseFloat(box.widthCmSupplier) || 0)) /
-                                volumeWeightCoefficient /
-                                weightConversion,
-                              2,
-                            )
-                          : toFixed(
-                              ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                (parseFloat(box.heightCmWarehouse) || 0) *
-                                (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient /
-                                weightConversion,
-                              2,
-                            )}
+                          ? toFixed(volumeWeightSupplier / weightConversion, 2)
+                          : toFixed(volumeWeightWarehouse / weightConversion, 2)}
                         {' ' + weightSizesType}
                       </Typography>
 
@@ -292,33 +283,15 @@ const Box = observer(
                         {t(TranslationKey['Final weight']) + ': '}
                         {isCurrentBox
                           ? toFixed(
-                              box.weighGrossKgSupplier >
-                                ((parseFloat(box.lengthCmSupplier) || 0) *
-                                  (parseFloat(box.heightCmSupplier) || 0) *
-                                  (parseFloat(box.widthCmSupplier) || 0)) /
-                                  volumeWeightCoefficient /
-                                  weightConversion
-                                ? box.weighGrossKgSupplier
-                                : ((parseFloat(box.lengthCmSupplier) || 0) *
-                                    (parseFloat(box.heightCmSupplier) || 0) *
-                                    (parseFloat(box.widthCmSupplier) || 0)) /
-                                    volumeWeightCoefficient /
-                                    weightConversion,
+                              box.weighGrossKgSupplier > volumeWeightSupplier
+                                ? box.weighGrossKgSupplier / weightConversion
+                                : volumeWeightWarehouse / weightConversion,
                               2,
                             )
                           : toFixed(
-                              box.weighGrossKgWarehouse >
-                                ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                  (parseFloat(box.heightCmWarehouse) || 0) *
-                                  (parseFloat(box.widthCmWarehouse) || 0)) /
-                                  volumeWeightCoefficient /
-                                  weightConversion
-                                ? box.weighGrossKgWarehouse
-                                : ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                    (parseFloat(box.heightCmWarehouse) || 0) *
-                                    (parseFloat(box.widthCmWarehouse) || 0)) /
-                                    volumeWeightCoefficient /
-                                    weightConversion,
+                              box.weighGrossKgWarehouse > volumeWeightSupplier
+                                ? box.weighGrossKgWarehouse / weightConversion
+                                : volumeWeightWarehouse / weightConversion,
                               2,
                             )}
                         {' ' + weightSizesType}
@@ -356,31 +329,15 @@ const Box = observer(
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
-                        {toFixed(
-                          ((parseFloat(box.lengthCmWarehouse) || 0) *
-                            (parseFloat(box.heightCmWarehouse) || 0) *
-                            (parseFloat(box.widthCmWarehouse) || 0)) /
-                            volumeWeightCoefficient /
-                            weightConversion,
-                          2,
-                        )}
+                        {toFixed(volumeWeightWarehouse / weightConversion, 2)}
                         {' ' + weightSizesType}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {toFixed(
-                          box.weighGrossKgWarehouse >
-                            ((parseFloat(box.lengthCmWarehouse) || 0) *
-                              (parseFloat(box.heightCmWarehouse) || 0) *
-                              (parseFloat(box.widthCmWarehouse) || 0)) /
-                              volumeWeightCoefficient /
-                              weightConversion
-                            ? box.weighGrossKgWarehouse
-                            : ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                (parseFloat(box.heightCmWarehouse) || 0) *
-                                (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient /
-                                weightConversion,
+                          box.weighGrossKgWarehouse > volumeWeightWarehouse
+                            ? box.weighGrossKgWarehouse / weightConversion
+                            : volumeWeightWarehouse / weightConversion,
                           2,
                         )}
                         {' ' + weightSizesType}
@@ -912,12 +869,12 @@ const Box = observer(
           </div>
         )}
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       </div>
     )
@@ -926,28 +883,30 @@ const Box = observer(
 
 const ReceiveBoxes = ({ taskType, onClickOpenModal }) => {
   const { classes: classNames } = useClassNames()
+
   return (
     <div className={classNames.receiveBoxWrapper}>
-      <div className={classNames.receiveBox}>
-        <img src="/assets/img/receive-big.png" className={classNames.imageBox} />
-        <Typography className={classNames.receiveBoxTitle}>
-          {t(TranslationKey['Add boxes that have arrived in stock'])}
-        </Typography>
-        <div className={classNames.buttonWrapper}>
-          {taskType === TaskOperationType.RECEIVE && (
-            <Button
-              disableElevation
-              className={classNames.button}
-              // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-              color="primary"
-              variant="contained"
-              onClick={onClickOpenModal}
-            >
-              {t(TranslationKey.Receive)}
-            </Button>
-          )}
-        </div>
+      <div className={classNames.boxImageContainer}>
+        <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+        <BoxArrow className={classNames.boxArrowSvg} />
       </div>
+
+      <Typography className={classNames.receiveBoxTitle}>
+        {t(TranslationKey['Add boxes that have arrived in stock'])}
+      </Typography>
+
+      {taskType === TaskOperationType.RECEIVE && (
+        <Button
+          disableElevation
+          className={classNames.button}
+          // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+          color="primary"
+          variant="contained"
+          onClick={onClickOpenModal}
+        >
+          {t(TranslationKey.Receive)}
+        </Button>
+      )}
     </div>
   )
 }

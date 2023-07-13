@@ -35,6 +35,7 @@ import { useClassNames } from './reditstribute-box-modal.style'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 
 const Box = ({
   showCheckbox,
@@ -149,9 +150,9 @@ const Box = ({
                     data={
                       box?.variationTariffId &&
                       currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations
-                            // ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
-                            ?.filter(el => el._id === box?.destinationId)
+                        ? destinations?.filter(
+                            el => el._id === (box?.destinationId || box?.variationTariff?.destinationId),
+                          )
                         : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
                     }
                     searchFields={['name']}
@@ -538,7 +539,9 @@ export const RedistributeBox = observer(
           // Добавил новое условие для блокировки, убрать чтобы вернуться в предыдущему виду
           newBoxes.some(item => item.items.every(el => el.amount === 0)),
       ) ||
-      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] &&
+        !priorityReason?.length) ||
+      selectedBox?.status !== BoxStatus.IN_STOCK
 
     return (
       <div>

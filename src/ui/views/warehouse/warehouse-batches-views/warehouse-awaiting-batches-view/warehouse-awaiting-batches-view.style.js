@@ -26,8 +26,8 @@ export const styles = theme => ({
 
   leftBtnsWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
+    gap: 25,
+
     [theme.breakpoints.down(768)]: {
       gap: '15px',
     },
@@ -46,7 +46,11 @@ export const styles = theme => ({
     },
   },
   createBtn: {
-    width: '200px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '8px 20px 8px 15px',
+    gap: 10,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
@@ -55,9 +59,6 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
   root: {
     border: '0 !important',

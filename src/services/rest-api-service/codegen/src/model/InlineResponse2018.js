@@ -47,11 +47,8 @@ class InlineResponse2018 {
         if (data) {
             obj = obj || new InlineResponse2018();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('wsUrl')) {
-                obj['wsUrl'] = ApiClient.convertToType(data['wsUrl'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
         }
         return obj;
@@ -61,16 +58,10 @@ class InlineResponse2018 {
 }
 
 /**
- * Тестовый статус запуска
- * @member {String} status
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse2018.prototype['status'] = undefined;
-
-/**
- * Строка подключения к WS соединению
- * @member {String} wsUrl
- */
-InlineResponse2018.prototype['wsUrl'] = undefined;
+InlineResponse2018.prototype['_id'] = undefined;
 
 
 

@@ -20,7 +20,7 @@ import {
   OrderStatusByCode,
   OrderStatusByKey,
   OrderStatusTranslate,
-} from '@constants/statuses/order-status'
+} from '@constants/orders/order-status'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -31,7 +31,6 @@ import { CreateBoxForm } from '@components/forms/create-box-form'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -62,6 +61,7 @@ import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { SaveIcon } from '@components/shared/svg-icons'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -1030,7 +1030,7 @@ export const EditOrderModal = observer(
                     className={classNames.trackNumberPhotoBtn}
                     onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                   >
-                    {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                    {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
                   </Button>
                 </div>
 
@@ -1062,7 +1062,7 @@ export const EditOrderModal = observer(
                       ))}
                     </CustomSlider>
                   ) : (
-                    <Typography>{'no photo track number...'}</Typography>
+                    <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}
                 </div>
               </div>
@@ -1158,7 +1158,7 @@ export const EditOrderModal = observer(
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
-            title={'Track number'}
+            title={t(TranslationKey['Track number'])}
             tmpCode={trackNumber.files}
             maxNumber={50 - trackNumber.files.length}
             onClickSaveBarcode={value => {
@@ -1169,12 +1169,12 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          currentImageIndex={bigImagesOptions.imgIndex}
+          imageList={bigImagesOptions.images}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          isOpenModal={showPhotosModal}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal

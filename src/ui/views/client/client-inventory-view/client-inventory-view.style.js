@@ -46,9 +46,6 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   archiveIcon: {
@@ -119,7 +116,7 @@ export const styles = theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
+    width: '330px',
     height: 36,
   },
 

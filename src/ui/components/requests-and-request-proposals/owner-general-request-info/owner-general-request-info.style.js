@@ -3,15 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
-    borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    padding: '40px',
     justifyContent: 'space-between',
-    marginBottom: '30px',
+    marginBottom: 20,
   },
-  mainBlockWrapper: {
-    minWidth: '45%',
-  },
+
   middleBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -22,11 +17,13 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid rgba(0,0,0, .1)',
     padding: '10px',
   },
+
   middleBlockItemInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+
   titleBlockWrapper: {
     display: 'flex',
     marginBottom: '20px',
@@ -43,15 +40,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 57,
     objectFit: 'contain',
     objectPosition: 'center',
-  },
-  requestInfoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: 950,
-    height: 140,
-    padding: 20,
-    border: `1px solid rgba(0,0,0, .1)`,
-    borderRadius: 4,
   },
 
   blockInfoWrapper: {
@@ -79,14 +67,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
   btnsBlockWrapper: {
-    width: '23%',
+    width: 262,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
     gap: 20,
   },
   recoverBtn: {
-    marginLeft: 'auto',
+    width: '100%',
   },
   stopBtn: {
     width: '100%',
@@ -115,7 +103,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
   },
   button: {
-    display: 'flex',
+    width: '100%',
   },
   buttonEditRemoveBtnIsShown: {
     marginLeft: '10px',
@@ -123,12 +111,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   deleteBtn: {
     color: '#fff',
-    width: 140,
+    width: 97,
     height: 40,
   },
   editBtn: {
     color: '#fff',
-    width: 190,
+    width: 145,
     height: 40,
   },
   publishBtn: {
@@ -201,12 +189,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#FB1D5B',
   },
 
-  linkSpan: {
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
-  },
-
   userInfo: {
     display: 'flex',
     gap: 15,
@@ -225,5 +207,127 @@ export const useClassNames = makeStyles()(theme => ({
 
   listingButton: {
     width: '100%',
+  },
+
+  requestInformationWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  firstBlock: {
+    width: 377,
+  },
+
+  secondBlock: {
+    width: 670,
+  },
+
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.text.second,
+  },
+
+  requestInformationCardWrapper: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    borderRadius: 7,
+    boxShadow: theme.palette.boxShadow.paper,
+    padding: 20,
+  },
+
+  requestInformation: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
+  sectionSubTitle: {
+    fontSize: 12,
+    fontWeight: 400,
+    color: theme.palette.text.second,
+  },
+
+  requestInformationCardInfoTitles: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  sectionText: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.text.general,
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    wordBreak: 'break-word',
+  },
+
+  requestMoreInformation: {
+    display: 'flex',
+    gap: 40,
+  },
+
+  moreInformationSection: {
+    height: '100%',
+    width: 'fit-content',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 7,
+  },
+
+  linkSpan: {
+    color: theme.palette.primary.main,
+  },
+
+  requestInfoWrapper: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'space-between',
+    borderRadius: 7,
+    padding: 20,
+  },
+
+  requestInformationTitleWrapper: {
+    display: 'flex',
+    gap: 15,
+  },
+
+  doneIcon: {
+    width: '19px !important',
+    height: '19px !important',
+    color: '#0B903E',
+  },
+
+  confirmationWrapper: {
+    display: 'flex',
+  },
+
+  thirdBlock: {
+    width: 291,
+  },
+
+  announcementWrapper: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    borderRadius: 7,
+    boxShadow: theme.palette.boxShadow.paper,
+    padding: 20,
+    gap: 20,
+  },
+
+  announcementInfoSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 7,
   },
 }))

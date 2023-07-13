@@ -115,22 +115,11 @@ export const DeliveryParameters = ({
             disabled={!isCanChange}
             color="primary"
             variant={formFields.storekeeperId && 'text'}
-            className={cx({ [classNames.storekeeperBtn]: !formFields.storekeeperId })}
+            className={cx(classNames.chosenTariff, {
+              [classNames.notChosenTariff]: !formFields?.storekeeperId,
+            })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {/* {formFields?.storekeeperId
-              ? `${
-                  storekeepers?.find(el => el._id === formFields?.storekeeperId)?.name ||
-                  `${t(TranslationKey['Not available'])}`
-                } /  
-                        ${
-                          formFields?.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-              : t(TranslationKey.Select)} */}
             {formFields?.storekeeperId
               ? `${formFields?.storekeeperId ? `${tariffName ? tariffName : ''}` : 'none'}`
               : t(TranslationKey.Select)}

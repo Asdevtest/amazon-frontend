@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject77 from '../model/InlineObject77';
+import InlineObject78 from '../model/InlineObject78';
 import InlineResponse20052 from '../model/InlineResponse20052';
 import InlineResponse20053 from '../model/InlineResponse20053';
 import InternalServerError from '../model/InternalServerError';
@@ -573,7 +573,7 @@ export default class PermissionsApi {
      * ## Переписать разрешения для продукта для саба.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject77} opts.body 
+     * @param {module:model/InlineObject78} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1PermissionsProductsPatchWithHttpInfo(opts) {
@@ -606,7 +606,7 @@ export default class PermissionsApi {
      * ## Переписать разрешения для продукта для саба.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject77} opts.body 
+     * @param {module:model/InlineObject78} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1PermissionsProductsPatch(opts) {

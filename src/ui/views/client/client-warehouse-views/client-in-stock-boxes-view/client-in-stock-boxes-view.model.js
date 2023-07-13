@@ -1621,8 +1621,6 @@ export class ClientInStockBoxesViewModel {
     await this.getStorekeepers()
     await ClientModel.getDestinations()
 
-    console.log('this.destinations', this.destinations)
-
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
   }
 

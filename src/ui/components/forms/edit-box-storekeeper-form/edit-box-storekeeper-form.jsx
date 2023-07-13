@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Avatar, Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -21,7 +21,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -46,6 +45,7 @@ import { useClassNames } from './edit-box-storekeeper-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField, showCheckbox }) => {
   const { classes: classNames } = useClassNames()
@@ -259,13 +259,12 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     useEffect(() => {
       setDestinationId(boxFields?.destinationId)
     }, [boxFields?.destinationId])
-
-    console.log('boxFields', boxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -694,7 +693,7 @@ export const EditBoxStorekeeperForm = observer(
                             ? `${
                                 storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
                                 t(TranslationKey['Not available'])
-                              } /  
+                              } /
                         ${
                           boxFields.storekeeperId
                             ? `${tariffName ? tariffName + ' / ' : ''}${
@@ -987,12 +986,12 @@ export const EditBoxStorekeeperForm = observer(
           </Button>
         </div>
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal
@@ -1016,7 +1015,6 @@ export const EditBoxStorekeeperForm = observer(
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
-            destinationsData={destinations}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}

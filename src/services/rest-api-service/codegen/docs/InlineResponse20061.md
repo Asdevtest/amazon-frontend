@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** |  | [optional] 
-**rows** | [**[InlineResponse20061Rows]**](InlineResponse20061Rows.md) | Массив заявок. | [optional] 
+**_id** | **String** | GUID заявки | [optional] 
+**humanFriendlyId** | **Number** | Номер заявки | [optional] 
+**typeTask** | **Number** | Тип задачи заявки | [optional] 
+**title** | **String** | Название заявки | [optional] 
+**status** | **String** | Статус заявки | [optional] 
 
 

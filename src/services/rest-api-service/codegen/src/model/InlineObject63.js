@@ -50,9 +50,6 @@ class InlineObject63 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
@@ -83,6 +80,9 @@ class InlineObject63 {
             if (data.hasOwnProperty('length')) {
                 obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
         }
         return obj;
     }
@@ -97,13 +97,7 @@ class InlineObject63 {
 InlineObject63.prototype['title'] = undefined;
 
 /**
- * Статус идеи
- * @member {Number} status
- */
-InlineObject63.prototype['status'] = undefined;
-
-/**
- * Images URLs
+ * Image URL
  * @member {Array.<String>} media
  */
 InlineObject63.prototype['media'] = undefined;
@@ -161,6 +155,12 @@ InlineObject63.prototype['height'] = undefined;
  * @member {Number} length
  */
 InlineObject63.prototype['length'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject63.prototype['productId'] = undefined;
 
 
 

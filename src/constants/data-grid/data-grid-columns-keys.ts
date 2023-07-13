@@ -3,6 +3,7 @@ export const columnnsKeys = {
   buyer: {
     MY_ORDERS_STATUS: 'MY_ORDERS_STATUS',
     ORDERS_PRIORITY: 'ORDERS_PRIORITY',
+    MY_PRODUCTS_STATUS: 'MY_PRODUCTS_STATUS',
   },
   storekeeper: {},
   client: {

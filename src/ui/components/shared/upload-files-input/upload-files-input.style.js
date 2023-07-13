@@ -30,7 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '250px',
     width: '100%',
     height: '100px',
-    border: ' 3px dashed rgba(0,123, 255, .7)',
+    border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
