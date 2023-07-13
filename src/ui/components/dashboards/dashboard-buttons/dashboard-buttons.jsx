@@ -26,7 +26,8 @@ export const DashboardButtons = ({ user, routes }) => {
     (user.needConfirmPriceChange?.boxes || 0) +
     (user.needConfirmPriceChange?.orders || 0) +
     (user.needUpdateTariff?.boxes || 0) +
-    (user.freelanceNotices?.length || 0)
+    (user.freelanceNotices?.length || 0) +
+    (user.updatesOnIdeas || 0)
 
   return (
     <div className={classNames.buttonsWrapper}>
