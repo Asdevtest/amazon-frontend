@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {
-  Checkbox,
   CircularProgress,
   Divider,
   FormControl,
@@ -37,6 +36,7 @@ import { t } from '@utils/translations'
 import { styles } from './data-grid-menu-items.style'
 import { cx } from '@emotion/css'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { Checkbox } from '@components/shared/checkbox'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
