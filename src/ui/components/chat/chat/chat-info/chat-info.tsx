@@ -116,7 +116,6 @@ export const ChatInfo = (props: ChatInfoProps) => {
         onClickEditGroupChatInfo={onClickEditGroupChatInfo}
       />
       <Tabs
-        // variant={'fullWidth'}
         classes={{
           root: styles.tabs,
           indicator: styles.tabBtn,
