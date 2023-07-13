@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { ChatGroupUsers } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users'
 import { ChatsModel } from '@models/chats-model'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 interface ChatAttachmentItemTypes {
   files?: string[]
@@ -57,7 +58,7 @@ const TabPanel = ({ children, value, index, ...other }: React.PropsWithChildren<
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
+    {value === index && <Box paddingTop={'10px'}>{children}</Box>}
   </div>
 )
 
@@ -72,6 +73,8 @@ export const ChatInfo = (props: ChatInfoProps) => {
     onClickAddUsersToGroupChat,
   } = props
   const { classes: styles } = useChatInfoStyles()
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
+  const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false)
   const [currentTab, setCurrentTab] = useState(isGroupChat ? tab.groupChatUsers : tab.media)
   const [images, setImages] = useState<ChatFileType[]>()
   const [files, setFiles] = useState<ChatFileType[]>()
@@ -81,7 +84,14 @@ export const ChatInfo = (props: ChatInfoProps) => {
     ChatsModel.getChatMedia(chat._id)
       .then((res: ChatAttachmentsType) => {
         const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
-          file.images?.forEach(el => acc.push({ file: el, _id: file._id, isVideo: videoRegexp.test(el) }))
+          file.images?.forEach(el => {
+            const isVideo = videoRegexp.test(el)
+
+            if (!isVideo) {
+              acc.push({ file: el, _id: file._id, isVideo })
+            }
+          })
+
           return acc
         }, [])
 
@@ -106,7 +116,6 @@ export const ChatInfo = (props: ChatInfoProps) => {
         onClickEditGroupChatInfo={onClickEditGroupChatInfo}
       />
       <Tabs
-        variant={'fullWidth'}
         classes={{
           root: styles.tabs,
           indicator: styles.tabBtn,
@@ -153,7 +162,15 @@ export const ChatInfo = (props: ChatInfoProps) => {
         {!!images?.length && (
           <div className={styles.imageList}>
             {images?.map((el, index) => (
-              <img key={index} src={el.file} alt={el._id} />
+              <img
+                key={index}
+                src={el.file}
+                alt={el._id}
+                onClick={() => {
+                  setCurrentImageIndex(index)
+                  setIsImageModalOpen(true)
+                }}
+              />
             ))}
           </div>
         )}
@@ -174,6 +191,15 @@ export const ChatInfo = (props: ChatInfoProps) => {
 
         {isFilesLoading && <Typography className={styles.noData}>{t(TranslationKey['Loading data'])}...</Typography>}
       </TabPanel>
+
+      <ImageModal
+        showPreviews
+        isOpenModal={isImageModalOpen}
+        handleOpenModal={() => setIsImageModalOpen(prevState => !prevState)}
+        imageList={images?.map(el => el.file) || []}
+        currentImageIndex={currentImageIndex}
+        handleCurrentImageIndex={index => setCurrentImageIndex(index)}
+      />
     </div>
   )
 }

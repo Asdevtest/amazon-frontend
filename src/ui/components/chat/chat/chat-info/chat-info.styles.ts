@@ -8,14 +8,33 @@ export const useChatInfoStyles = makeStyles()(theme => ({
     maxWidth: 350,
   },
   tabs: {
+    minHeight: 'unset',
+
+    '.MuiTabs-scroller': {
+      width: 'fit-content',
+      padding: '10px 8px 0',
+    },
+
+    '.MuiTabs-flexContainer': {
+      width: 'fit-content',
+      gap: '15px',
+    },
+
     '& button': {
       // padding: '14px 10px',
       fontSize: '14px',
       fontWeight: 400,
+      textTransform: 'none',
+      padding: '0 0 5px 0',
+      lineHeight: '1',
+      minHeight: 'unset',
+      whiteSpace: 'nowrap',
     },
   },
+
   tabBtn: {
     backgroundColor: theme.palette.primary.main,
+    height: 1,
   },
   imageList: {
     display: 'grid',
@@ -28,11 +47,11 @@ export const useChatInfoStyles = makeStyles()(theme => ({
     maxHeight: 425,
 
     img: {
-      width: '100%',
-      height: '100%',
-      maxWidth: '103px',
-      maxHeight: '103px',
-      objectFit: 'contain',
+      borderRadius: 4,
+      cursor: 'pointer',
+      width: '103px',
+      height: '103px',
+      objectFit: 'cover',
     },
   },
 
