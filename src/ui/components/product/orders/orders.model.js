@@ -17,12 +17,28 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const chosenStatusSettings = {
+export const chosenStatuses = {
   ALL: 'ALL',
   AT_PROCESS: 'AT_PROCESS',
   CANCELED: 'CANCELED',
   COMPLETED: 'COMPLETED',
 }
+
+const selectedStatus = [
+  OrderStatusByKey[OrderStatus.AT_PROCESS],
+  OrderStatusByKey[OrderStatus.READY_TO_PROCESS],
+  OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+  OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
+  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+]
+
+const canceledStatus = [
+  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+]
+
+const completedStatus = [OrderStatusByKey[OrderStatus.IN_STOCK], OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]]
 
 export class OrdersModel {
   history = undefined
@@ -46,8 +62,6 @@ export class OrdersModel {
   reorderOrder = undefined
   uploadedFiles = []
 
-  chosenStatus = chosenStatusSettings.ALL
-
   isPendingOrdering = false
 
   storekeepers = []
@@ -65,22 +79,12 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.chosenStatus)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
-  get orderStatusData() {
-    return {
-      chosenStatusSettings,
-      chosenStatus: this.chosenStatus,
-      onChangeOrderStatusData: this.onChangeOrderStatusData,
-    }
-  }
-
-  constructor({ history, productId, showAtProcessOrders }) {
+  constructor({ history, productId }) {
     runInAction(() => {
       this.history = history
-
-      this.chosenStatus = showAtProcessOrders ? chosenStatusSettings.AT_PROCESS : chosenStatusSettings.ALL
 
       this.productId = productId
     })
@@ -98,59 +102,87 @@ export class OrdersModel {
     })
   }
 
+  isCheckedStatus = {
+    [chosenStatuses.ALL]: true,
+    [chosenStatuses.AT_PROCESS]: true,
+    [chosenStatuses.CANCELED]: true,
+    [chosenStatuses.COMPLETED]: true,
+  }
+
+  get orderStatusData() {
+    return {
+      chosenStatuses,
+      chosenStatusSettings: this.isCheckedStatus,
+      onCheckboxChange: this.onCheckboxChange,
+    }
+  }
+
+  onCheckboxChange(event) {
+    const { name, checked } = event.target
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatuses
+
+    if (name === ALL) {
+      this.isCheckedStatus = {
+        [ALL]: checked,
+        [AT_PROCESS]: checked,
+        [CANCELED]: checked,
+        [COMPLETED]: checked,
+      }
+    } else {
+      this.isCheckedStatus = {
+        ...this.isCheckedStatus,
+        [name]: checked,
+      }
+
+      if (this.isCheckedStatus[AT_PROCESS] && this.isCheckedStatus[CANCELED] && this.isCheckedStatus[COMPLETED]) {
+        this.isCheckedStatus = {
+          ...this.isCheckedStatus,
+          [ALL]: true,
+        }
+      } else {
+        this.isCheckedStatus = {
+          ...this.isCheckedStatus,
+          [ALL]: false,
+        }
+      }
+    }
+  }
+
   onClickResetFilters() {
-    this.chosenStatus = chosenStatusSettings.ALL
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatuses
+
+    this.isCheckedStatus = {
+      [ALL]: true,
+      [AT_PROCESS]: true,
+      [CANCELED]: true,
+      [COMPLETED]: true,
+    }
+
     this.getOrdersByProductId()
   }
 
   get isSomeFilterOn() {
-    return this.chosenStatus !== chosenStatusSettings.ALL
+    return { isActiveFilter: Object.values(this.isCheckedStatus).includes(false) }
   }
 
   getCurrentData() {
-    switch (this.chosenStatus) {
-      case chosenStatusSettings.ALL:
-        return toJS(this.orders)
-      case chosenStatusSettings.AT_PROCESS:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-          ),
-        )
-      case chosenStatusSettings.CANCELED:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-          ),
-        )
-      case chosenStatusSettings.COMPLETED:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-          ),
-        )
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatuses
 
-      default:
-        return toJS(this.orders)
+    let filteredOrders = toJS(this.orders)
+
+    if (!this.isCheckedStatus[ALL]) {
+      filteredOrders = filteredOrders.filter(el => {
+        const { status } = el.originalData
+
+        return (
+          (this.isCheckedStatus[AT_PROCESS] && selectedStatus.includes(status)) ||
+          (this.isCheckedStatus[CANCELED] && canceledStatus.includes(status)) ||
+          (this.isCheckedStatus[COMPLETED] && completedStatus.includes(status))
+        )
+      })
     }
 
-    // return toJS(this.orders)
-  }
-
-  onChangeOrderStatusData(status) {
-    runInAction(() => {
-      this.chosenStatus = status === this.chosenStatus ? chosenStatusSettings.ALL : status
-    })
+    return toJS(filteredOrders)
   }
 
   async loadData() {

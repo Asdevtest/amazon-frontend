@@ -309,54 +309,46 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
 )
 
 export const OrderStatusMenuItem = React.memo(
-  withStyles(
-    ({ classes: classNames, orderStatusData }) => (
+  withStyles(({ classes: classNames, orderStatusData }) => {
+    const { chosenStatuses, chosenStatusSettings, onCheckboxChange } = orderStatusData
+
+    const checkboxes = [
+      {
+        name: chosenStatuses.ALL,
+        label: t(TranslationKey.All),
+        checked: chosenStatusSettings.ALL,
+      },
+      {
+        name: chosenStatuses.AT_PROCESS,
+        label: t(TranslationKey['At process']),
+        checked: chosenStatusSettings.AT_PROCESS,
+      },
+      {
+        name: chosenStatuses.CANCELED,
+        label: t(TranslationKey.Canceled),
+        checked: chosenStatusSettings.CANCELED,
+      },
+      {
+        name: chosenStatuses.COMPLETED,
+        label: t(TranslationKey.Completed),
+        checked: chosenStatusSettings.COMPLETED,
+      },
+    ]
+
+    return (
       <div className={classNames.isFormedWrapper}>
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.All)}</Typography>
+        {checkboxes.map(item => (
+          <div key={item.name} className={classNames.isFormedSubWrapper}>
+            <Typography>{item.label}</Typography>
 
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.ALL}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.ALL)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['At process'])}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.AT_PROCESS}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.AT_PROCESS)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Canceled)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.CANCELED}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.CANCELED)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Completed)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.COMPLETED}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.COMPLETED)}
-          />
-        </div>
+            <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
+          </div>
+        ))}
 
         <Divider />
       </div>
-    ),
-    styles,
-  ),
+    )
+  }, styles),
 )
 
 export const MyRequestsStatusMenuItem = React.memo(
