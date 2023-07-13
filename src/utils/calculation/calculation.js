@@ -57,7 +57,7 @@ export const calcExchangePrice = (price, rate) =>
   toFixed(Math.round(((parseFloat(price) || 0) / (parseFloat(rate) || 1)) * 100) / 100, 2)
 
 export const calcExchangeDollarsInYuansPrice = (price, rate) =>
-  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 1) * 100) / 100, 2)
+  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 1)), 2)
 
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 1)
 

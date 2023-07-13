@@ -305,8 +305,6 @@ export class MyProposalsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
 
-      console.log('result', result)
-
       runInAction(() => {
         this.currentProposal = result
       })

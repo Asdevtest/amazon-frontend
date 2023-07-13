@@ -26,6 +26,8 @@ Name | Type | Description | Notes
 **title** | **String** | Название предложения | [optional] 
 **approvedByMaster** | **Boolean** |  | [optional] 
 **createdBy** | [**ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy**](ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md) |  | [optional] 
+**amazonOrderId** | **String** | ключ с Амазона | [optional] 
+**publicationLinks** | **[String]** |  | [optional] 
 
 
 

@@ -230,7 +230,7 @@ export const ProductAsinCell = React.memo(
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
-                {t(TranslationKey.ASIN)}
+                {`${t(TranslationKey.ASIN)}: `}
 
                 {asin ? (
                   <a
@@ -250,7 +250,7 @@ export const ProductAsinCell = React.memo(
 
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
-                {t(TranslationKey.SKU)}
+                {`${t(TranslationKey.SKU)}: `}
                 <span className={classNames.typoSpan}>
                   {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
@@ -1279,7 +1279,7 @@ export const BatchTrackingCell = React.memo(
     ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
-          containerClasses={cx(classNames.batchTrackingContainer)}
+          containerClasses={classNames.batchTrackingContainer}
           label={t(TranslationKey['Track number'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
@@ -1297,7 +1297,7 @@ export const BatchTrackingCell = React.memo(
         />
 
         <Field
-          containerClasses={cx(classNames.dateAndTimeContainerleft)}
+          containerClasses={classNames.batchTrackingContainer}
           label={t(TranslationKey['Arrival date'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
