@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    padding: '20px 12px',
+    padding: '20px 90px 20px 20px',
   },
   messageWrapper: {
     width: '100%',
