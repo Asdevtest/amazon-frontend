@@ -53,6 +53,12 @@ class ApiV1RequestProposalsCustomByRequestIdGuidDetails {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
+            if (data.hasOwnProperty('amazonOrderId')) {
+                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
+            }
+            if (data.hasOwnProperty('publicationLinks')) {
+                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
+            }
         }
         return obj;
     }
@@ -71,6 +77,17 @@ ApiV1RequestProposalsCustomByRequestIdGuidDetails.prototype['result'] = undefine
  * @member {Array.<String>} linksToMediaFiles
  */
 ApiV1RequestProposalsCustomByRequestIdGuidDetails.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * ключ с Амазона
+ * @member {String} amazonOrderId
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidDetails.prototype['amazonOrderId'] = undefined;
+
+/**
+ * @member {Array.<String>} publicationLinks
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidDetails.prototype['publicationLinks'] = undefined;
 
 
 

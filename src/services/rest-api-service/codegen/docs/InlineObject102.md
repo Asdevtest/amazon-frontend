@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**requestId** | **String** | Guid заявки | [optional] 
+**proposalId** | **String** | Guid предложения | [optional] 
 **commentByClient** | **String** | комментарий клиента | [optional] 
 **commentByPerformer** | **String** | комментарий исполнителя | [optional] 
-**fileLink** | **String** | Ссылка на файл | [optional] 
-**proposalId** | **String** | Файл для записи в FreelanceSource | [optional] 
-**requestId** | **String** | Комментарий к файлу | [optional] 
+**fileLink** | **String** | Ссылка на файл | 
 
 

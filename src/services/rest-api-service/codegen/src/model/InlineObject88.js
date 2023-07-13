@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject88 model module.
@@ -57,12 +56,6 @@ class InlineObject88 {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
-            }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
-            }
         }
         return obj;
     }
@@ -87,16 +80,6 @@ InlineObject88.prototype['reason'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject88.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {Number} timeLimitInMinutes
- */
-InlineObject88.prototype['timeLimitInMinutes'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
- */
-InlineObject88.prototype['media'] = undefined;
 
 
 

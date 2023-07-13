@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**orderPayments** | [**[ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]**](ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md) |  | [optional] 
 
 

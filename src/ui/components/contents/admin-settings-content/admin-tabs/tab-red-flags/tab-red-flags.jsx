@@ -156,11 +156,7 @@ export const TabRedFlags = observer(() => {
               redFlags.map(flag => (
                 <div key={flag._id} className={classNames.redFlagWrapper}>
                   <div className={classNames.iconContainer}>
-                    <img
-                      src={`/assets/icons/redflags/${flag.title}.svg`}
-                      alt={flag.title}
-                      className={classNames.iconImage}
-                    />
+                    <img src={flag.iconImage} alt={flag.title} className={classNames.iconImage} />
                     <Typography className={classNames.redFlag}>{flag.title}</Typography>
                   </div>
 

@@ -22,11 +22,12 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
+     * @param requestIds {Array.<String>} 
+     * @param uploadedToListing {Boolean} 
      */
-    constructor(totalCost) { 
+    constructor(requestIds, uploadedToListing) { 
         
-        InlineObject97.initialize(this, totalCost);
+        InlineObject97.initialize(this, requestIds, uploadedToListing);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj, requestIds, uploadedToListing) { 
+        obj['requestIds'] = requestIds;
+        obj['uploadedToListing'] = uploadedToListing;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('requestIds')) {
+                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
+            }
+            if (data.hasOwnProperty('uploadedToListing')) {
+                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
         }
         return obj;
@@ -60,10 +65,14 @@ class InlineObject97 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * @member {Array.<String>} requestIds
  */
-InlineObject97.prototype['totalCost'] = undefined;
+InlineObject97.prototype['requestIds'] = undefined;
+
+/**
+ * @member {Boolean} uploadedToListing
+ */
+InlineObject97.prototype['uploadedToListing'] = undefined;
 
 
 
