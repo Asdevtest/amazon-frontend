@@ -1279,7 +1279,7 @@ export const BatchTrackingCell = React.memo(
     ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
-          containerClasses={cx(classNames.batchTrackingContainer)}
+          containerClasses={classNames.batchTrackingContainer}
           label={t(TranslationKey['Track number'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
@@ -1297,7 +1297,7 @@ export const BatchTrackingCell = React.memo(
         />
 
         <Field
-          containerClasses={cx(classNames.dateAndTimeContainerleft)}
+          containerClasses={classNames.batchTrackingContainer}
           label={t(TranslationKey['Arrival date'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
