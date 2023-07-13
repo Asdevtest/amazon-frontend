@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {
-  Checkbox,
   CircularProgress,
   Divider,
   FormControl,
@@ -20,7 +19,7 @@ import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/r
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatusTranslate } from '@constants/statuses/order-status'
+import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
@@ -37,6 +36,7 @@ import { t } from '@utils/translations'
 import { styles } from './data-grid-menu-items.style'
 import { cx } from '@emotion/css'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { Checkbox } from '@components/shared/checkbox'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -978,7 +978,11 @@ export const NormalFieldMenuItem = React.memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(item =>
+            String(getStatusByColumnKeyAndStatusKey(item, columnKey))
+              .toLowerCase()
+              .includes(nameSearchValue.toLowerCase()),
+          )
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -986,8 +990,14 @@ export const NormalFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
-          <div className={classNames.searchInputWrapper}>
+        <div
+          className={cx({
+            [classNames.universalFilterWrapper]: !asBlock,
+            [classNames.shopsDataWrapperBlocked]: asBlock,
+            [classNames.fullName]: columnKey === columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+          })}
+        >
+          <div className={classNames.universalFilterSearchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
               inputClasses={classNames.searchInput}
@@ -997,38 +1007,37 @@ export const NormalFieldMenuItem = React.memo(
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
-                <CircularProgress />
-              ) : (
-                <>
-                  {itemsForRender.length ? (
-                    <>
-                      <DataGridSelectAllFilters
-                        choosenItems={choosenItems}
-                        itemsForRender={itemsForRender}
-                        setChoosenItems={setChoosenItems}
-                      />
-                      {itemsForRender.map((el, index) => (
-                        <div key={index} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={choosenItems.some(item => item === el)}
-                            onClick={() => onClickItem(el)}
-                          />
-                          <div className={classNames.shopName}>
-                            {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                          </div>
+
+          <div className={classNames.universalFilterBody}>
+            {filterRequestStatus === loadingStatuses.isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {itemsForRender.length ? (
+                  <>
+                    <DataGridSelectAllFilters
+                      choosenItems={choosenItems}
+                      itemsForRender={itemsForRender}
+                      setChoosenItems={setChoosenItems}
+                    />
+                    {itemsForRender.map((el, index) => (
+                      <div key={index} className={classNames.shop}>
+                        <Checkbox
+                          color="primary"
+                          checked={choosenItems.some(item => item === el)}
+                          onClick={() => onClickItem(el)}
+                        />
+                        <div className={classNames.shopName}>
+                          {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
                         </div>
-                      ))}
-                    </>
-                  ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
-                  )}
-                </>
-              )}
-            </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                )}
+              </>
+            )}
           </div>
 
           <div className={classNames.buttonsWrapper}>
@@ -1860,8 +1869,6 @@ export const NumberFieldMenuItem = React.memo(
         }
       }
 
-      console.log('choosenItems', choosenItems)
-
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
@@ -1900,6 +1907,15 @@ export const NumberFieldMenuItem = React.memo(
           'purchaseQuantity',
           'sentToFbaSum',
           'reservedSum',
+          'bsr',
+          'fbaFbmStockSum',
+          'reservedSum',
+          'sentToFbaSum',
+          'sumStock',
+          'humanFriendlyId',
+          'ideasOnCheck',
+          'ideasClosed',
+          'ideasVerified',
         ]
         return whiteList.includes(field)
       }, [field])
@@ -2268,6 +2284,62 @@ export const OnListingCellMenuItem = React.memo(
                     data.onListingFiltersData.handleListingFilters(true, false)
                   } else {
                     data.onListingFiltersData.handleListingFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.No)}</Typography>
+            </div>
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
+export const YesNoCellMenuItem = React.memo(
+  withStyles(({ classes: classNames, data, onClose, field }) => {
+    const filterData = data[`${field}YesNoFilterData`]
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.yes}
+                onClick={() => {
+                  if (filterData.yes) {
+                    filterData.handleFilters(false, true)
+                  } else {
+                    filterData.handleFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.Yes)}</Typography>
+            </div>
+
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.no}
+                onClick={() => {
+                  if (filterData.no) {
+                    filterData.handleFilters(true, false)
+                  } else {
+                    filterData.handleFilters(true, true)
                   }
                 }}
               />

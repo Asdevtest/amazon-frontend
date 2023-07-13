@@ -6,7 +6,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Box, Grid, Paper, Typography, Alert } from '@mui/material'
+import { Alert, Box, Grid, Paper, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
@@ -14,14 +14,11 @@ import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import { observer } from 'mobx-react'
-
-import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -36,6 +33,7 @@ import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
 import { useClassNames } from './top-card.style'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -69,6 +67,7 @@ export const TopCard = observer(
     handleProductActionButtons,
     onChangeImagesForLoad,
     acceptMessage,
+    showAcceptMessage,
     onClickHsCode,
   }) => {
     const { classes: classNames } = useClassNames()
@@ -335,6 +334,7 @@ export const TopCard = observer(
               product={product}
               productBase={productBase}
               acceptMessage={acceptMessage}
+              showAcceptMessage={showAcceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}
@@ -536,13 +536,13 @@ export const TopCard = observer(
           {actionStatus === loadingStatuses.isLoading && !showProgress ? <CircularProgressWithLabel /> : null}
         </Paper>
 
-        <BigImagesModal
+        <ImageModal
           showPreviews
-          openModal={showImageModal}
-          setOpenModal={() => setShowImageModal(!showImageModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           controls={bigImagesModalControls}
         />
 

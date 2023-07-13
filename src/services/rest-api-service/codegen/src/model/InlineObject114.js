@@ -22,11 +22,11 @@ class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
      * @alias module:model/InlineObject114
-     * @param price {Number} Цена услуги.
+     * @param storekeeperComment {String} 
      */
-    constructor(price) { 
+    constructor(storekeeperComment) { 
         
-        InlineObject114.initialize(this, price);
+        InlineObject114.initialize(this, storekeeperComment);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, price) { 
-        obj['price'] = price;
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -49,14 +49,8 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -66,22 +60,9 @@ class InlineObject114 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * @member {String} storekeeperComment
  */
-InlineObject114.prototype['name'] = undefined;
-
-/**
- * Описание услуги
- * @member {String} description
- */
-InlineObject114.prototype['description'] = undefined;
-
-/**
- * Цена услуги.
- * @member {Number} price
- */
-InlineObject114.prototype['price'] = undefined;
+InlineObject114.prototype['storekeeperComment'] = undefined;
 
 
 

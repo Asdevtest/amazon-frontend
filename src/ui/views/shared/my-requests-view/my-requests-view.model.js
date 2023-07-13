@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestModel } from '@models/request-model'
@@ -37,6 +36,7 @@ const filtersFields = [
   'subUsers',
   'priority',
   'createdAt',
+  'announcementCreatedBy',
 ]
 
 export class MyRequestsViewModel {
@@ -47,8 +47,10 @@ export class MyRequestsViewModel {
   showRequestForm = false
   showConfirmModal = false
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   selectedIndex = null
   selectedRequests = []
@@ -59,7 +61,7 @@ export class MyRequestsViewModel {
 
   currentData = []
 
-  rowsCount = 0
+  rowCount = 0
 
   searchRequests = []
   openModal = null
@@ -145,8 +147,10 @@ export class MyRequestsViewModel {
       this.history = history
 
       if (location?.state) {
-        this.acceptMessage = location?.state?.acceptMessage
-        this.showAcceptMessage = location?.state?.showAcceptMessage
+        this.alertShieldSettings = {
+          showAlertShield: location?.state?.showAcceptMessage,
+          alertShieldMessage: location?.state?.acceptMessage,
+        }
 
         const state = { ...history?.location?.state }
         delete state?.acceptMessage
@@ -160,10 +164,19 @@ export class MyRequestsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     runInAction(() => {
-      if (this.showAcceptMessage) {
+      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       }
     })
@@ -186,8 +199,6 @@ export class MyRequestsViewModel {
       () => this.searchRequests,
       () => {
         this.currentData = this.getCurrentData()
-
-        console.log('this.currentData', this.currentData)
       },
     )
   }
@@ -205,8 +216,8 @@ export class MyRequestsViewModel {
       this.paginationModel = model
     })
 
-    this.setDataGridState()
     this.getCustomRequests()
+    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -219,7 +230,6 @@ export class MyRequestsViewModel {
 
   onClickChangeCatigory(value) {
     runInAction(() => {
-      // console.log('value', value)
       this.isRequestsAtWork = value
     })
   }
@@ -507,8 +517,6 @@ export class MyRequestsViewModel {
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
 
-        console.log('this.searchRequests', this.searchRequests)
-
         this.rowCount = result.count
       })
     } catch (error) {
@@ -552,6 +560,10 @@ export class MyRequestsViewModel {
 
     const createdAtFilter =
       exclusion !== 'createdAt' && this.columnMenuSettings?.createdAt?.currentFilterData?.join(',')
+
+    const announcementCreatedByFilter =
+      exclusion !== 'announcementCreatedBy' &&
+      this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -611,6 +623,10 @@ export class MyRequestsViewModel {
       }),
       ...(createdAtFilter && {
         createdAt: { $eq: createdAtFilter },
+      }),
+
+      ...(announcementCreatedByFilter && {
+        announcementCreatedBy: { $eq: announcementCreatedByFilter },
       }),
     })
 

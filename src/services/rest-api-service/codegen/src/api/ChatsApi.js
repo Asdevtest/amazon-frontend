@@ -14,7 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject43 from '../model/InlineObject43';
+import InlineObject44 from '../model/InlineObject44';
 import InlineResponse20028 from '../model/InlineResponse20028';
 import InlineResponse20029 from '../model/InlineResponse20029';
 import InternalServerError from '../model/InternalServerError';
@@ -45,7 +45,7 @@ export default class ChatsApi {
      * Метод создает групповой чат не привязаный к другим инстансам   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject44} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ChatsGroupPostWithHttpInfo(opts) {
@@ -78,7 +78,7 @@ export default class ChatsApi {
      * Метод создает групповой чат не привязаный к другим инстансам   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject43} opts.body 
+     * @param {module:model/InlineObject44} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ChatsGroupPost(opts) {
@@ -146,7 +146,7 @@ export default class ChatsApi {
     /**
      * Получить все файлы и имеджы с чата по гуиду
      * Получить все файлы и имеджы с чата по гуиду   
-     * @param {String} guid GUID юзера в БД.
+     * @param {String} guid GUID чата в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
@@ -184,7 +184,7 @@ export default class ChatsApi {
     /**
      * Получить все файлы и имеджы с чата по гуиду
      * Получить все файлы и имеджы с чата по гуиду   
-     * @param {String} guid GUID юзера в БД.
+     * @param {String} guid GUID чата в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}

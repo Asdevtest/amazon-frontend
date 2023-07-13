@@ -5,7 +5,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
@@ -942,7 +942,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   async saveOrderPayment(order, orderPayments) {
-    console.log('orderPayments', orderPayments)
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
         orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
@@ -1059,7 +1058,7 @@ export class BuyerMyOrdersViewModel {
 
       await this.onSaveOrder(order, orderFields)
 
-      this.saveOrderPayment(order, orderPayments)
+      await this.saveOrderPayment(order, orderPayments)
 
       if (
         boxesForCreation.length > 0 &&
@@ -1267,6 +1266,9 @@ export class BuyerMyOrdersViewModel {
           const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
               ...order.orderSupplier,
+              paymentMethods: order?.orderSupplier?.paymentMethods?.map(paymentMethod => ({
+                _id: paymentMethod._id,
+              })),
               boxProperties: {
                 amountInBox: elementOrderBox.items[0].amount || 0,
                 boxHeightCm: parseFloat(elementOrderBox?.heightCmSupplier) || 0,

@@ -43,7 +43,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     width: 190,
-    color: theme.palette.text.general,
 
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -347,9 +346,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
+    marginLeft: 24,
 
     '& > div': {
-      maxWidth: 148,
+      maxWidth: 218,
     },
   },
 

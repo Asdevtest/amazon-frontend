@@ -33,7 +33,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ChatsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
+  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
 };
 apiInstance.apiV1ChatsGroupPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -49,7 +49,7 @@ apiInstance.apiV1ChatsGroupPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
+ **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
 
 ### Return type
 
@@ -139,7 +139,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.ChatsApi();
-let guid = null; // String | GUID юзера в БД.
+let guid = null; // String | GUID чата в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -156,7 +156,7 @@ apiInstance.apiV1ChatsMediaGuidGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| GUID юзера в БД. | 
+ **guid** | [**String**](.md)| GUID чата в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

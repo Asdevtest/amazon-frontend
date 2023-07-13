@@ -1,5 +1,5 @@
 import InboxIcon from '@mui/icons-material/Inbox'
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Paper, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@mui/material'
 
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -28,6 +28,7 @@ import { t } from '@utils/translations'
 import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 import { styles } from './owner-requests-detail-custom-view.style'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const OwnerRequestDetailCustomViewRaw = props => {
   const chatRef = useRef()
@@ -58,8 +59,9 @@ export const OwnerRequestDetailCustomViewRaw = props => {
       <MainContent>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
-            requestProposals={viewModel.requestProposals}
             request={viewModel.request}
+            requestProposals={viewModel.requestProposals}
+            requestAnnouncement={viewModel.requestAnnouncement}
             onClickPublishBtn={viewModel.onClickPublishBtn}
             onClickEditBtn={viewModel.onClickEditBtn}
             onClickCancelBtn={viewModel.onClickCancelBtn}
@@ -240,13 +242,12 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

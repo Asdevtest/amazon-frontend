@@ -14,7 +14,7 @@ import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -206,6 +206,7 @@ export const getTableByColumn = (column, hint) => {
       'bsr',
       'fbaamount',
       'client',
+      'buyer',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -213,7 +214,7 @@ export const getTableByColumn = (column, hint) => {
     // } else {
     return 'products'
     // }
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
+  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy'].includes(column)) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
@@ -229,11 +230,12 @@ export const getTableByColumn = (column, hint) => {
       'typeTask',
       'price',
       'timeoutAt',
-      'createdBy',
+      // 'createdBy',
       'subUsers',
       'priority',
       'priceAmazon',
       'withoutConfirmation',
+      'announcementCreatedBy',
     ].includes(column)
   ) {
     if (hint === 'orders') {
@@ -251,6 +253,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
       return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
     case columnnsKeys.client.INVENTORY_STATUS:
+      return t(productStatusTranslateKey(ProductStatusByCode[status]))
+    case columnnsKeys.buyer.MY_PRODUCTS_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)

@@ -103,6 +103,11 @@ export class ClientProductViewModel {
   actionStatus = undefined
   acceptMessage = ''
 
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   product = undefined
   productBase = undefined
   productId = undefined
@@ -537,9 +542,23 @@ export class ClientProductViewModel {
       this.getProductById()
 
       runInAction(() => {
-        this.acceptMessage = t(TranslationKey['Data was successfully saved'])
+        this.alertShieldSettings = {
+          showAlertShield: true,
+          alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+        }
+
         setTimeout(() => {
-          this.acceptMessage = ''
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       })
 
@@ -680,30 +699,36 @@ export class ClientProductViewModel {
     try {
       await ClientModel.updateProduct(
         this.productId,
-        getObjectFilteredByKeyArrayWhiteList(this.product, fieldsOfProductAllowedToUpdate, false, (key, value) => {
-          switch (key) {
-            case 'bsr':
-              return (value && parseInt(value)) || 0
-            case 'amazon':
-              return (value && parseFloat(value)) || 0
-            case 'weight':
-              return (value && parseFloat(value)) || 0
-            case 'length':
-              return (value && parseFloat(value)) || 0
-            case 'width':
-              return (value && parseFloat(value)) || 0
-            case 'height':
-              return (value && parseFloat(value)) || 0
-            case 'fbaamount':
-              return (value && parseFloat(value)) || 0
-            case 'fbafee':
-              return (value && parseFloat(value)) || 0
-            case 'profit':
-              return value && parseFloat(value)
-            default:
-              return value
-          }
-        }),
+        getObjectFilteredByKeyArrayWhiteList(
+          this.product,
+          fieldsOfProductAllowedToUpdate,
+          true,
+          (key, value) => {
+            switch (key) {
+              case 'bsr':
+                return (value && parseInt(value)) || 0
+              case 'amazon':
+                return (value && parseFloat(value)) || 0
+              case 'weight':
+                return (value && parseFloat(value)) || 0
+              case 'length':
+                return (value && parseFloat(value)) || 0
+              case 'width':
+                return (value && parseFloat(value)) || 0
+              case 'height':
+                return (value && parseFloat(value)) || 0
+              case 'fbaamount':
+                return (value && parseFloat(value)) || 0
+              case 'fbafee':
+                return (value && parseFloat(value)) || 0
+              case 'profit':
+                return value && parseFloat(value)
+              default:
+                return value
+            }
+          },
+          true,
+        ),
       )
 
       this.loadData()

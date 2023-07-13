@@ -29,8 +29,22 @@ const regExpNameCheking = /^(?! )(?!(?:.* ){1})/
 const regExpNameStartCheking = /^(?! )/
 
 export const UserInfoEditForm = observer(
-  ({ user, wrongPassword, onSubmit, onCloseModal, clearError, checkValidationNameOrEmail }) => {
+  ({
+    user,
+    wrongPassword,
+    onSubmit,
+    onCloseModal,
+    clearError,
+    checkValidationNameOrEmail,
+    resetProfileDataValidation,
+  }) => {
     const { classes: classNames } = useClassNames()
+
+    useEffect(() => {
+      return () => {
+        resetProfileDataValidation()
+      }
+    }, [])
 
     const sourceFields = {
       name: user?.name || '',
@@ -211,19 +225,6 @@ export const UserInfoEditForm = observer(
         }
       }
     }, [formFields.oldPassword, formFields.password, formFields.confirmPassword])
-
-    // const onSubmitForm = event => {
-    //   event.preventDefault()
-    //   setSubmit(true)
-    //   !errorLowercaseLetter &&
-    //     !errorMinLength &&
-    //     !errorOneNumber &&
-    //     !errorUppercaseLetter &&
-    //     !errorMaxLength &&
-    //     !equalityError &&
-    //     !errorNoEngLetter &&
-    //     onSubmit()
-    // }
 
     const showError =
       (submit && errorLowercaseLetter) ||

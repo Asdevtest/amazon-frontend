@@ -4,8 +4,41 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | 
-**sellerBoardWarehouseReportUrlDaily** | **String** | uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard. | 
-**sellerBoardWarehouseReportUrlMonthly** | **String** | uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц. | 
+**category** | **String** | Категория | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**bsr** | **Number** |  | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
+**amazon** | **Number** |  | [optional] 
+**height** | **Number** |  | [optional] 
+**width** | **Number** |  | [optional] 
+**length** | **Number** |  | [optional] 
+**weight** | **Number** |  | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком | [optional] 
+**icomment** | **String** | Комментарии к товару. | [optional] 
+**images** | **[String]** | Массив изображений. | [optional] 
+**amazonDescription** | **String** |  | [optional] 
+**amazonDetail** | **String** |  | [optional] 
+**amazonTitle** | **String** |  | [optional] 
+**material** | **String** | Материл продукта | [optional] 
+**productUsage** | **String** | Применение продукта | [optional] 
+**chinaTitle** | **String** | chinese title? | [optional] 
+**barCode** | **String** |  | [optional] 
+**minpurchase** | **Number** |  | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**niche** | **String** | Ниша | [optional] 
+**asins** | **String** | Асины | [optional] 
+**totalRevenue** | **String** | Общий доход | [optional] 
+**coefficient** | **String** | Коэффициент прибыли | [optional] 
+**avgRevenue** | **String** | Средний доход | [optional] 
+**avgBSR** | **String** | Средний BSR | [optional] 
+**avgPrice** | **String** | Средняя цена | [optional] 
+**avgReviews** | **String** | Средний отзывы | [optional] 
+**redFlags** | [**[ApiV1ClientsProductsGuidRedFlags]**](ApiV1ClientsProductsGuidRedFlags.md) |  | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 

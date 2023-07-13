@@ -11,6 +11,11 @@ class SupervisorModelStatic {
     return response
   }
 
+  getProductsMyPag = async options => {
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsPagMyGet(options)
+    return response
+  }
+
   getProductsMyLight = async () => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsLightGet()
     return response

@@ -18,6 +18,7 @@ docs/ApiV1AdminsOrdersDestinationStorekeeper.md
 docs/ApiV1AdminsOrdersLogicsTariff.md
 docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md
 docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.md
+docs/ApiV1AdminsOrdersLogicsTariffDestination.md
 docs/ApiV1AdminsOrdersLogicsTariffDestinationVariations.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
 docs/ApiV1AdminsProductsVacCheckedby.md
@@ -55,6 +56,7 @@ docs/ApiV1BuyersOrdersMyProduct.md
 docs/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md
 docs/ApiV1BuyersProductsGuidTags.md
 docs/ApiV1ClientsProductsGuidRedFlags.md
+docs/ApiV1ClientsProductsVacRedFlags.md
 docs/ApiV1GologinProfileNavigator.md
 docs/ApiV1IdeasNotificationsCreatedBy.md
 docs/ApiV1IdeasNotificationsIdea.md
@@ -145,6 +147,8 @@ docs/InlineObject129.md
 docs/InlineObject13.md
 docs/InlineObject130.md
 docs/InlineObject131.md
+docs/InlineObject132.md
+docs/InlineObject133.md
 docs/InlineObject14.md
 docs/InlineObject15.md
 docs/InlineObject16.md
@@ -324,6 +328,7 @@ docs/InlineResponse20058.md
 docs/InlineResponse20059.md
 docs/InlineResponse2006.md
 docs/InlineResponse20060.md
+docs/InlineResponse20060Announcement.md
 docs/InlineResponse20060CountProposalsByStatuses.md
 docs/InlineResponse20060Media.md
 docs/InlineResponse20060Product.md
@@ -347,7 +352,8 @@ docs/InlineResponse20075.md
 docs/InlineResponse20076.md
 docs/InlineResponse20077.md
 docs/InlineResponse20078.md
-docs/InlineResponse20078Details.md
+docs/InlineResponse20079.md
+docs/InlineResponse20079Details.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
 docs/InlineResponse201.md
@@ -463,6 +469,7 @@ src/model/ApiV1AdminsOrdersDestinationStorekeeper.js
 src/model/ApiV1AdminsOrdersLogicsTariff.js
 src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.js
 src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.js
+src/model/ApiV1AdminsOrdersLogicsTariffDestination.js
 src/model/ApiV1AdminsOrdersLogicsTariffDestinationVariations.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js
 src/model/ApiV1AdminsProductsVacCheckedby.js
@@ -500,6 +507,7 @@ src/model/ApiV1BuyersOrdersMyProduct.js
 src/model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.js
 src/model/ApiV1BuyersProductsGuidTags.js
 src/model/ApiV1ClientsProductsGuidRedFlags.js
+src/model/ApiV1ClientsProductsVacRedFlags.js
 src/model/ApiV1GologinProfileNavigator.js
 src/model/ApiV1IdeasNotificationsCreatedBy.js
 src/model/ApiV1IdeasNotificationsIdea.js
@@ -581,6 +589,8 @@ src/model/InlineObject129.js
 src/model/InlineObject13.js
 src/model/InlineObject130.js
 src/model/InlineObject131.js
+src/model/InlineObject132.js
+src/model/InlineObject133.js
 src/model/InlineObject14.js
 src/model/InlineObject15.js
 src/model/InlineObject16.js
@@ -760,6 +770,7 @@ src/model/InlineResponse20058.js
 src/model/InlineResponse20059.js
 src/model/InlineResponse2006.js
 src/model/InlineResponse20060.js
+src/model/InlineResponse20060Announcement.js
 src/model/InlineResponse20060CountProposalsByStatuses.js
 src/model/InlineResponse20060Media.js
 src/model/InlineResponse20060Product.js
@@ -783,7 +794,8 @@ src/model/InlineResponse20075.js
 src/model/InlineResponse20076.js
 src/model/InlineResponse20077.js
 src/model/InlineResponse20078.js
-src/model/InlineResponse20078Details.js
+src/model/InlineResponse20079.js
+src/model/InlineResponse20079Details.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js
 src/model/InlineResponse201.js

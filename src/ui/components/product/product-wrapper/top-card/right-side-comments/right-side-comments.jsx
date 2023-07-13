@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Alert, Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 
 import React from 'react'
 
@@ -25,6 +25,7 @@ import { errorMessagesTranslate } from '@utils/validation'
 
 import { ProductStatusButtons } from './product-status-buttons'
 import { useClassNames } from './right-side-comments.style'
+import { AlertShield } from '@components/shared/alert-shield'
 
 const withoutStatus = true
 
@@ -48,6 +49,7 @@ export const RightSideComments = observer(
     handleProductActionButtons,
     formFieldsValidationErrors,
     acceptMessage,
+    showAcceptMessage,
   }) => {
     const { classes: classNames } = useClassNames()
     const productStatusButtonsConfig =
@@ -216,13 +218,7 @@ export const RightSideComments = observer(
             </>
           )}
 
-          {acceptMessage ? (
-            <div className={classNames.acceptMessageWrapper}>
-              <Alert elevation={5} severity="success">
-                {acceptMessage}
-              </Alert>
-            </div>
-          ) : null}
+          {acceptMessage && <AlertShield showAcceptMessage={showAcceptMessage} acceptMessage={acceptMessage} />}
         </div>
       </div>
     )

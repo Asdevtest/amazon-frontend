@@ -4,9 +4,6 @@ export const styles = createStyles(theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   footerContainer: {

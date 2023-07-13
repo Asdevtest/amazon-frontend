@@ -137,7 +137,7 @@ export const MyProposalsListCard = ({
         <Divider flexItem orientation="vertical" classes={{ root: classNames.divider }} />
         <div className={classNames.rightBlockWrapper}>
           <CustomSlider title={t(TranslationKey.Proposal)} view="complex">
-            {item.proposals.map((proposal, index) => (
+            {item?.proposals?.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <div className={classNames.performerInfoCell}>
                   <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
@@ -170,16 +170,14 @@ export const MyProposalsListCard = ({
                       {t(TranslationKey.Cancel)}
                     </Button>
                     <div className={classNames.editAndOpenButtonWrapper}>
-                      {freelanceRequestTypeByCode[item.typeTask] === freelanceRequestType.DESIGNER && (
-                        <Button
-                          disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
-                          className={classNames.button}
-                          variant="contained"
-                          onClick={() => onClickResultBtn(item, proposal._id)}
-                        >
-                          {t(TranslationKey.Result)}
-                        </Button>
-                      )}
+                      <Button
+                        disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
+                        className={classNames.button}
+                        variant="contained"
+                        onClick={() => onClickResultBtn(item, proposal._id)}
+                      >
+                        {t(TranslationKey.Result)}
+                      </Button>
 
                       <Button
                         tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}

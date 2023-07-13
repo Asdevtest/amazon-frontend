@@ -21,9 +21,12 @@ export const styles = theme => ({
   },
 
   addUserButton: {
-    width: '200px',
-    height: '40px',
     display: 'flex',
+    gap: 10,
+    padding: '8px 20px 8px 15px',
+
+    height: '40px',
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
@@ -87,6 +90,7 @@ export const styles = theme => ({
       },
     },
   },
+
   buttonWrapper: {
     [theme.breakpoints.down(768)]: {
       width: '100%',

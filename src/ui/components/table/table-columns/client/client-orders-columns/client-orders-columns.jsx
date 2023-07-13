@@ -6,7 +6,7 @@ import React from 'react'
 import { t } from 'i18n-js'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -66,7 +66,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         status={params.row.originalData.status}
       />
     ),
-    width: 50,
+    width: 75,
     // sortable: false,
 
     columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
@@ -93,7 +93,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
-    width: 100,
+    width: 160,
     sortable: false,
 
     columnKey: columnnsKeys.client.ORDERS_STATUS,
@@ -107,7 +107,6 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       <>
         {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
           <NormalActionBtnCell
-            smallActionBtn
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
@@ -116,7 +115,6 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
           />
         ) : (
           <SuccessActionBtnCell
-            smallActionBtn
             bTnText={t(TranslationKey['To order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
@@ -126,7 +124,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         )}
       </>
     ),
-    width: 200,
+    width: 180,
     filterable: false,
     sortable: false,
   },
@@ -149,7 +147,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 100,
     type: 'number',
     sortable: false,
 
@@ -174,7 +172,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
     renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
-    width: 120,
+    width: 140,
     sortable: false,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -206,7 +204,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 150,
 
     columnKey: columnnsKeys.shared.DATE,
   },

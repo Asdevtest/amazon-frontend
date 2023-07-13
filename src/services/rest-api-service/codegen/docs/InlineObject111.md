@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperComment** | **String** |  | 
+**priority** | **Number** | Выставить приоритет задачи | 
+**reason** | **String** | Reason of high priority | [optional] 
 
 

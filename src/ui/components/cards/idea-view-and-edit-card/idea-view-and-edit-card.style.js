@@ -243,7 +243,6 @@ export const useClassNames = makeStyles()(theme => ({
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    // color: theme.palette.text.general,
     color: theme.palette.text.general,
   },
   demensionsTitle: {
@@ -270,8 +269,8 @@ export const useClassNames = makeStyles()(theme => ({
   iconBtn: {
     maxHeight: '40px',
     maxWidth: '40px',
-    color: 'white',
-    backgroundColor: 'rgba(0, 123, 255, 1)',
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
 
     '&:hover': {

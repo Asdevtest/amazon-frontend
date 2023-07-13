@@ -47,11 +47,14 @@ class InlineObject92 {
         if (data) {
             obj = obj || new InlineObject92();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -61,16 +64,22 @@ class InlineObject92 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject92.prototype['sourceFile'] = undefined;
+InlineObject92.prototype['rating'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comments
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject92.prototype['comments'] = undefined;
+InlineObject92.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject92.prototype['linksToMediaFiles'] = undefined;
 
 
 

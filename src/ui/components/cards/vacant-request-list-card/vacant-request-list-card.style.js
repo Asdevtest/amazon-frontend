@@ -121,13 +121,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainInfosWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'flex-end',
     width: '100%',
-    // margin: '0px auto',
     gap: '7%',
-    // height: 300,
-    paddingRight: 30,
   },
 
   priceAmazonWrapper: {
@@ -178,5 +175,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   idText: {
     color: `${theme.palette.text.second} !important`,
+  },
+
+  emptyDiv: {
+    width: 100,
+  },
+
+  priorityWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    marginRight: 20,
   },
 }))

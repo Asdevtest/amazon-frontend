@@ -2,9 +2,6 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   attentionRow: {
@@ -78,6 +75,10 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    marginLeft: '50%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 10,
   },
 })

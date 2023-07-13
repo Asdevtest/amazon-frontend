@@ -43,9 +43,10 @@ export const styles = theme => ({
     },
   },
 
-  // row: {
-  //   transition: '0.3s ease',
-  // },
+  row: {
+    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    transition: '0.3s ease',
+  },
 
   archiveIcon: {
     marginLeft: '10px',
@@ -115,7 +116,7 @@ export const styles = theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
+    width: '330px',
     height: 36,
   },
 

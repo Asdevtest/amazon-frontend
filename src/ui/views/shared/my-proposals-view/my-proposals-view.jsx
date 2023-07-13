@@ -44,6 +44,8 @@ import { MyProposalsViewModel } from './my-proposals-view.model'
 import { styles } from './my-proposals-view.style'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 
 export const MyProposalsViewRaw = props => {
   const [viewModel] = useState(
@@ -230,6 +232,28 @@ export const MyProposalsViewRaw = props => {
             // onClickSendAsResult={viewModel.onClickSendAsResult}
           />
         </Modal>
+      )}
+
+      {viewModel.currentRequest && viewModel.currentProposal && (
+        <Modal
+          openModal={viewModel.showRequestStandartResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+        >
+          <RequestStandartResultForm
+            request={{ request: viewModel.currentRequest }}
+            proposal={viewModel.currentProposal}
+            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.currentRequest && viewModel.currentProposal && (
+        <RequestResultModal
+          request={{ request: viewModel.currentRequest }}
+          proposal={viewModel.currentProposal}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
       )}
     </React.Fragment>
   )

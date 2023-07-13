@@ -4,7 +4,6 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 import {
   BoxestatusMenuItem,
-  ClientFreelancePriorityMenuItem,
   ClientOrderAllStatusesMenuItem,
   CreatedByMenuItem,
   DestinationMenuItem,
@@ -25,6 +24,7 @@ import {
   RedFlagsCellMenuItem,
   OnListingCellMenuItem,
   PriorityMenuItem,
+  YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -256,6 +256,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.shared.STRING,
       columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
       columnnsKeys.client.ORDERS_STATUS,
+      columnnsKeys.buyer.MY_PRODUCTS_STATUS,
     ].includes(currentColumn.columnKey)
   ) {
     return (
@@ -403,6 +404,16 @@ export const DataGridCustomColumnMenuComponent = props => {
           // onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           // onClickAccept={onClickAccept}
         />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.YES_NO) {
+    const { ...rest } = other
+
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
+        <YesNoCellMenuItem data={props} field={currentColumn.field} onClose={hideMenu} />
       </GridColumnMenuContainer>
     )
   }

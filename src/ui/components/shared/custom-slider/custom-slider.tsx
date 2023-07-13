@@ -8,7 +8,6 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './custom-slider.style'
-import { nanoid } from 'nanoid'
 import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 interface CustomSliderProps {
@@ -19,10 +18,20 @@ interface CustomSliderProps {
   arrowSize?: string
   index?: number
   onChangeIndex?: (index: number) => void
+  isHideCounter?: boolean
 }
 
 export const CustomSlider: FC<CustomSliderProps> = props => {
-  const { title, view = 'simple', alignButtons = 'center', index, onChangeIndex, arrowSize, children } = props
+  const {
+    title,
+    view = 'simple',
+    alignButtons = 'center',
+    index,
+    onChangeIndex,
+    arrowSize,
+    children,
+    isHideCounter,
+  } = props
   const { classes: classNames } = useClassNames()
   const [clides, setClides] = useState<ReactNode[]>([])
   const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
@@ -34,7 +43,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
 
   useEffect(() => {
     setClides(
-      children.map((child, indexChild) => (
+      children?.map((child, indexChild) => (
         <div
           key={indexChild}
           style={{
@@ -53,7 +62,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
   }, [SettingsModel.languageTag, children])
 
   useEffect(() => {
-    if (index) {
+    if (index !== undefined) {
       setSlideCount(index + 1)
       setOffset(-RIGHT_BLOCK_WIDTH * index)
     }
@@ -124,7 +133,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
           </div>
           {alignButtons === 'center' ? (
             <div className={classNames.numberOfFiles}>
-              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+              {!isHideCounter && <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>}
             </div>
           ) : (
             <div className={classNames.numberOfFilesFlex}>

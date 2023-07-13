@@ -4,7 +4,6 @@ import { FreelancerDashboardCardDataKey } from '@constants/navigation/dashboard-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
-import { ResearcherModel } from '@models/researcher-model'
 import { UserModel } from '@models/user-model'
 
 export class FreelancerDashboardViewModel {
@@ -68,13 +67,6 @@ export class FreelancerDashboardViewModel {
         this.error = error
       })
     }
-  }
-
-  async getProductsVacant() {
-    const result = await ResearcherModel.getProductsVacant()
-    runInAction(() => {
-      this.productsVacant = result
-    })
   }
 
   setRequestStatus(requestStatus) {

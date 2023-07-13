@@ -21,12 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject108
-     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor(priority) { 
+    constructor() { 
         
-        InlineObject108.initialize(this, priority);
+        InlineObject108.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject108 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +48,14 @@ class InlineObject108 {
         if (data) {
             obj = obj || new InlineObject108();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -63,16 +65,22 @@ class InlineObject108 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject108.prototype['priority'] = undefined;
+InlineObject108.prototype['name'] = undefined;
 
 /**
- * Reason of high priority
- * @member {String} reason
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject108.prototype['reason'] = undefined;
+InlineObject108.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject108.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

@@ -22,11 +22,11 @@ class InlineObject111 {
     /**
      * Constructs a new <code>InlineObject111</code>.
      * @alias module:model/InlineObject111
-     * @param storekeeperComment {String} 
+     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor(storekeeperComment) { 
+    constructor(priority) { 
         
-        InlineObject111.initialize(this, storekeeperComment);
+        InlineObject111.initialize(this, priority);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperComment) { 
-        obj['storekeeperComment'] = storekeeperComment;
+    static initialize(obj, priority) { 
+        obj['priority'] = priority;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject111 {
         if (data) {
             obj = obj || new InlineObject111();
 
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -60,9 +63,16 @@ class InlineObject111 {
 }
 
 /**
- * @member {String} storekeeperComment
+ * Выставить приоритет задачи
+ * @member {Number} priority
  */
-InlineObject111.prototype['storekeeperComment'] = undefined;
+InlineObject111.prototype['priority'] = undefined;
+
+/**
+ * Reason of high priority
+ * @member {String} reason
+ */
+InlineObject111.prototype['reason'] = undefined;
 
 
 

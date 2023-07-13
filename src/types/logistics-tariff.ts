@@ -1,10 +1,4 @@
-export interface DestinationVariationInterface {
-  destinationId: string
-  minWeight: number
-  maxWeight: number
-  pricePerKgRmb: number
-  pricePerKgUsd: number
-}
+import { DestinationVariationType } from './destination'
 
 export interface LogisticTariffInterface {
   name: string
@@ -28,7 +22,7 @@ export interface LogisticTariffInterface {
     }
     yuanToDollarRate: number
   }
-  destinationVariations: Array<DestinationVariationInterface>
+  destinationVariations: Array<DestinationVariationType>
   _id: string
   storekeeperId: string
   updatedAt: string

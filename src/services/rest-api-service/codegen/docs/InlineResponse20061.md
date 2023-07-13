@@ -4,13 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID в базе данных | [optional] 
-**requestId** | **String** | Guid заявки к которой относится данное media. | [optional] 
-**proposalId** | **String** | Guid предложения к которой относится данное media. | [optional] 
-**commentByClient** | **String** | комментарий клиента | [optional] 
-**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
-**fileLink** | **String** | Ссылка на файл | [optional] 
-**createdAt** | **Date** | Дата создания. | [optional] 
-**updatedAt** | **Date** | Дата обновления. | [optional] 
+**_id** | **String** | GUID заявки | [optional] 
+**humanFriendlyId** | **Number** | Номер заявки | [optional] 
+**typeTask** | **Number** | Тип задачи заявки | [optional] 
+**title** | **String** | Название заявки | [optional] 
+**status** | **String** | Статус заявки | [optional] 
 
 

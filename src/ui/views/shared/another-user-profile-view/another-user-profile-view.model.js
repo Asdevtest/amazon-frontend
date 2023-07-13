@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,6 +24,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { checkIsClient, checkIsFreelancer } from '@utils/checks'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -409,13 +410,18 @@ export class AnotherProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.all([
-        this.getUserById(),
-        this.getProductsVacant(),
-        this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT] && this.getShops(),
-      ])
+      await this.getUserById()
 
-      this.getDataGridState()
+      if (!checkIsFreelancer(UserRoleCodeMap[this.curUser.role])) {
+        await this.getProductsVacant()
+      }
+
+      if (checkIsClient(UserRoleCodeMap[this.curUser.role])) {
+        await this.getShops()
+      }
+
+      await this.getDataGridState()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -454,19 +460,6 @@ export class AnotherProfileViewModel {
       console.log(error)
     }
   }
-
-  // async loadData() {
-  //   try {
-  //     this.setRequestStatus(loadingStatuses.isLoading)
-
-  //     await this.getUserById()
-
-  //     this.setRequestStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     this.setRequestStatus(loadingStatuses.failed)
-  //     console.log(error)
-  //   }
-  // }
 
   onChangeTabReview(e, value) {
     runInAction(() => {
