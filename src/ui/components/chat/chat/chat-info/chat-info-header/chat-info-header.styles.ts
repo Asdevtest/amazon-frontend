@@ -13,7 +13,6 @@ export const useChatInfoHeaderStyles = makeStyles()(theme => ({
   },
   chatHeaderOverlay: {
     position: 'absolute',
-    // top: 0,
     maxHeight: '100%',
     left: 0,
     right: 0,
