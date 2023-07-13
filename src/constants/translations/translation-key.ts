@@ -2020,5 +2020,12 @@ export enum TranslationKey {
   'Red flag successfully saved' = 'Red flag successfully saved',
   'Red flag is not saved' = 'Red flag is not saved',
   'Are you sure you want to delete the red flag?' = 'Are you sure you want to delete the red flag?',
+  'Participants' = 'Participants',
+  'Photo and Video' = 'Photo and Video',
+  'Photo track numbers' = 'Photo track numbers',
+  'no photo track number' = 'no photo track number',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

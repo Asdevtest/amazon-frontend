@@ -44,7 +44,6 @@ import { t } from '@utils/translations'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
@@ -76,9 +75,9 @@ export const VacantRequestsViewRaw = props => {
 
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
-      return classNames.redBorder
+      return [classNames.deadlineBorder, classNames.redBorder]
     } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
-      return classNames.yellowBorder
+      return [classNames.deadlineBorder, classNames.yellowBorder]
     }
   }
 
@@ -158,11 +157,7 @@ export const VacantRequestsViewRaw = props => {
           </div>
         </div>
 
-        {viewModel.requestStatus === loadingStatuses.isLoading ? (
-          <div className={classNames.loadingWrapper}>
-            <CircularProgressWithLabel />
-          </div>
-        ) : viewModel.currentData?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
+        {viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
             container
             classes={{ root: classNames.dashboardCardWrapper }}
@@ -194,7 +189,7 @@ export const VacantRequestsViewRaw = props => {
               ),
             )}
           </Box>
-        ) : viewModel.currentData?.length && viewModel.viewMode === tableViewMode.TABLE ? (
+        ) : viewModel.viewMode === tableViewMode.TABLE ? (
           <div className={classNames.dataGridWrapper}>
             <MemoDataGrid
               disableVirtualization
@@ -253,12 +248,15 @@ export const VacantRequestsViewRaw = props => {
             />
           </div>
         ) : (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey['No vacant applications yet'])}
-            </Typography>
-          </div>
+          !viewModel.currentData?.length &&
+          loadingStatuses.success && (
+            <div className={classNames.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={classNames.emptyTableText}>
+                {t(TranslationKey['No vacant applications yet'])}
+              </Typography>
+            </div>
+          )
         )}
       </MainContent>
     </React.Fragment>

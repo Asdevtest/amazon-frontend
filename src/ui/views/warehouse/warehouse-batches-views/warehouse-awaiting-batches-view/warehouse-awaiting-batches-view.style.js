@@ -47,8 +47,8 @@ export const styles = theme => ({
   },
   createBtn: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
+    padding: '8px 20px 8px 15px',
     gap: 10,
 
     [theme.breakpoints.down(768)]: {

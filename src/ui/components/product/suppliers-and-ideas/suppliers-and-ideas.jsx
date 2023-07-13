@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -101,7 +102,9 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
         />
       ) : null}
 
-      {SettingsModel.languageTag && ideasData.length ? (
+      {requestStatus === loadingStatuses.isLoading ? (
+        <CircularProgressWithLabel />
+      ) : SettingsModel.languageTag && ideasData.length ? (
         ideasData.map(idea => (
           <IdeaViewAndEditCard
             key={idea._id}

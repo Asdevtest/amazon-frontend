@@ -1728,7 +1728,7 @@
   "Proxy": "Прокси",
   "Such dialogue already exists": "Такой диалог уже существует",
   "Name of group chat": "Название группового чата",
-  "Members": "Участников",
+  "Members": "Участники",
   "Add member": "Добавить участника",
   "Owner": "Владелец",
   "Update supplier data": "Обновить данные поставщика",
@@ -2004,7 +2004,7 @@
   "Thank you for your feedback": "Благодарим за обратную связь",
   "Attach files": "Прикрепить файлы",
   "You": "Вы",
-  "Request information": "Информаци о заявке",
+  "Request information": "Информация о заявке",
   "Request creator": "Создатель заявки",
   "Request terms": "Условия заявки",
   "Without confirmation": "Без подтверждения",
@@ -2021,5 +2021,9 @@
   "Name of the red flag": "Название красного флага",
   "Red flag successfully saved": "Красный флаг успешно сохранен",
   "Red flag is not saved": "Красный флаг не сохранен",
-  "Are you sure you want to delete the red flag?": "Вы уверены, что хотите удалить красный флаг?"
+  "Are you sure you want to delete the red flag?": "Вы уверены, что хотите удалить красный флаг?",
+  "Participants": "Участников",
+  "Photo and Video": "Фото и Видео",
+  "Photo track numbers": "Фото трек номеров",
+  "no photo track number": "нет фото трек номера"
 }

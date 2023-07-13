@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    padding: '20px 70px',
+    padding: '20px 108px 20px 64px',
     position: 'relative',
     [theme.breakpoints.down(768)]: {
       padding: '10px 40px 10px 10px',
@@ -92,14 +92,18 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputIcon: {
     position: 'absolute',
-    width: 38,
-    height: 38,
-
+    width: '38px !important',
+    height: '38px !important',
+    color: theme.palette.text.second,
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.1)',
     },
+  },
+
+  inputIconActive: {
+    color: theme.palette.primary.main,
   },
 
   emojiIconPos: {
@@ -114,6 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
   fileIconPos: {
     top: -30,
     left: 32,
+
     [theme.breakpoints.down(768)]: {
       top: -30,
       left: 25,
@@ -150,6 +155,11 @@ export const useClassNames = makeStyles()(theme => ({
     right: 65,
     bottom: 70,
     transform: 'translate(-50%, 0%)',
+
+    'em-emoji-picker': {
+      '--rgb-accent': theme.palette.primary.mainRgb,
+    },
+
     [theme.breakpoints.down(768)]: {
       zIndex: 999,
       position: 'absolute',
@@ -186,15 +196,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  groupSettingsWrapper: {
-    width: 350,
-    background: theme.palette.background.general,
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-
   hideAndShowIconWrapper: {
     position: 'absolute',
     top: 20,
@@ -203,8 +204,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
     // backgroundColor: '#d1d1d1a8', // старый цвет
+    border: '1px solid #E0E0E0',
     backgroundColor: theme.palette.background.general,
-    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+    boxShadow: 'none',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -214,84 +216,20 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'none',
     },
   },
-  hideAndShowIcon: {
-    top: 20,
-    right: 155,
-    width: 'max-content',
-    borderRadius: 20,
-    padding: '0 10px',
-  },
+
   arrowIcon: {
     // marginLeft: 8,
     color: theme.palette.primary.main,
   },
 
-  collapseWrapper: {
-    display: 'flex',
+  hideArrow: {
+    width: '15px !important',
+    height: '15px !important',
   },
 
   collapseText: {
     color: theme.palette.primary.main,
     marginRight: 5,
-  },
-
-  groupSettingsImageWrapper: {
-    width: '100%',
-    height: 180,
-    display: 'flex',
-    alignItems: 'flex-end',
-    position: 'relative',
-    // background: 'black',
-    padding: 10,
-    marginBottom: 15,
-  },
-
-  groupSettingsImageShadow: {
-    width: '100%',
-    height: 180,
-    background: 'black',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    opacity: 0.4,
-  },
-
-  groupSettingsImage: {
-    width: '100%',
-    height: 180,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    objectFit: 'contain',
-    objectPosition: 'center',
-    // opacity: 0.6,
-  },
-
-  groupSettingsInfoWrapper: {
-    zIndex: 99,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-  },
-
-  groupSettingsInfoTitle: {
-    fontWeight: 600,
-    fontSize: 14,
-    // color: theme.palette.text.general,
-    color: '#fff',
-
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    maxWidth: 200,
-  },
-
-  usersCount: {
-    // marginLeft: 15,
-    fontWeight: 400,
-    fontSize: 14,
-    color: '#E1E1E1',
   },
 
   pencilEditIcon: {
@@ -302,43 +240,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  addMemberBtnWrapper: {
-    display: 'flex',
-  },
-
-  addMemberBtnText: {
-    color: '#fff',
-    marginRight: 5,
-  },
-
-  membersWrapper: {
-    marginTop: 30,
-    width: '100%',
-    height: 420,
-
-    padding: '0 15px',
-
-    overflow: 'auto',
-  },
-
   avatarWrapper: {
     width: 30,
     height: 30,
 
     marginRight: 10,
-  },
-
-  memberWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  memberInfo: {
-    display: 'flex',
-    alignItems: 'center',
   },
 
   opponentName: {
@@ -347,11 +253,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-
-  ownerSign: {
-    color: theme.palette.text.second,
-    marginLeft: 5,
   },
 
   messageToReplyWrapper: {
@@ -389,6 +290,7 @@ export const useClassNames = makeStyles()(theme => ({
   messageToReplySubWrapper: {},
 
   scrollToBottom: {
+    border: '1px solid #E0E0E0',
     position: 'absolute',
     bottom: 146,
     right: 30,
@@ -396,12 +298,16 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
     backgroundColor: theme.palette.background.general,
-    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+    boxShadow: 'none',
     borderRadius: '50%',
     cursor: 'pointer',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  scrollToBottomWithChatInfo: {
+    right: 380,
   },
 
   scrollToBottomBadge: {

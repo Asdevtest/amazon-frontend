@@ -23,7 +23,9 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
         <div className={classNames.userInfoAndFooterWrapper}>
           <div className={classNames.userInfoAndMoreInfoWrapper}>
             <div className={classNames.userInfoWrapper}>
-              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={classNames.userAvatar} />
+              {announcementData?.createdBy?._id && (
+                <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={classNames.userAvatar} />
+              )}
 
               <div className={classNames.userInfoSubWrapper}>
                 <UserLink

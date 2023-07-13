@@ -234,9 +234,8 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
   },
   orderText: {
-    fontSize: '14px',
-
-    maxWidth: 200,
+    fontSize: 13,
+    maxWidth: 250,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -550,7 +549,7 @@ export const styles = theme => ({
     fontSize: 26,
     fontWeight: 600,
     color: theme.palette.primary.main,
-    padding: '0 5px',
+    paddingRight: 5,
   },
 
   batchProductTitle: {
@@ -563,7 +562,6 @@ export const styles = theme => ({
   needPay: {
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
   },
 
   alertText: {
@@ -627,6 +625,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     padding: '5px 0',
+    overflow: 'hidden',
   },
 
   illuminationCell: {
@@ -912,7 +911,7 @@ export const styles = theme => ({
 
   copyAsin: {
     display: 'flex',
-    gap: '2px',
+    gap: 5,
     alignItems: 'center',
   },
 
@@ -1137,15 +1136,8 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    gap: 30,
-    padding: '15px 0',
-  },
-
-  editOrRemoveIconBtnsSubCell: {
-    width: 'min-content',
-    display: 'flex',
-    alignItems: 'center',
     gap: 15,
+    padding: '15px 0',
   },
 
   editOrRemoveBtnWrapper: {
@@ -1560,7 +1552,6 @@ export const styles = theme => ({
     },
   },
   ChangeInputCommentCellWrapper: {
-    padding: '16px 0',
     display: 'flex',
     width: '100%',
   },
@@ -1681,22 +1672,23 @@ export const styles = theme => ({
   },
 
   batchTrackingWrapper: {
-    width: '100%',
+    padding: '20px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
   },
 
   batchTrackingTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
-
     margin: '0 !important',
   },
 
   batchTrackingContainer: {
-    width: '100%',
+    margin: '0 !important',
   },
+
   arrivalDateWrapper: {
     display: 'flex',
   },

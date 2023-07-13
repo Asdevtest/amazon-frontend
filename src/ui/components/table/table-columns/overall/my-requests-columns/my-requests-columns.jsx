@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,7 +17,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover, onListingFiltersData) => [
+export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
@@ -129,6 +127,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
     type: 'number',
+    align: 'center',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
 

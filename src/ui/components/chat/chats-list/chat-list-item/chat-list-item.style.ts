@@ -99,6 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    // color: theme.palette.text.second,
     color: '#fff',
     fontSize: 12,
     lineHeight: '14px',

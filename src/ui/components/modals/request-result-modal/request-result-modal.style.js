@@ -79,6 +79,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   linkWrapper: {
     width: '100%',
+    minHeight: 40,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    padding: '20px 12px',
+    padding: '20px 90px 20px 20px',
   },
   messageWrapper: {
     width: '100%',
@@ -133,39 +133,6 @@ export const useClassNames = makeStyles()(theme => ({
       '.controlsOverlay': {
         display: 'flex',
       },
-    },
-  },
-
-  controlsOverlay: {
-    pointerEvents: 'none',
-    display: 'none',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    background: 'rgba(0,0,0, .1)',
-    borderRadius: '20px',
-    margin: '0 44px',
-    justifyContent: 'flex-end',
-  },
-
-  controls: {
-    backgroundColor: theme.palette.background.general,
-    display: 'flex',
-    gap: '16px',
-    padding: '6px 16px',
-    height: 'fit-content',
-    pointerEvents: 'all',
-    borderRadius: '8px',
-
-    button: {
-      all: 'unset',
-      cursor: 'pointer',
-    },
-
-    svg: {
-      width: 18,
     },
   },
 }))
