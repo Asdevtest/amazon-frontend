@@ -765,9 +765,9 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj =>
-            (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
-          )
+          const filter = filterData?.filter(obj => {
+            return obj && (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase())
+          })
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
