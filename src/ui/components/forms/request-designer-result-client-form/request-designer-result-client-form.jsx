@@ -222,7 +222,20 @@ export const RequestDesignerResultClientForm = ({
   const [filteredImages, setFilteredImages] = useState([])
 
   useEffect(() => {
-    setFilteredImages(imagesData.filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image)))
+    setFilteredImages(
+      imagesData
+        .filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
+        .map(el => {
+          const url = typeof el?.image === 'string' ? el?.image : el?.image?.data_url
+
+          return {
+            url,
+            title: el.comment,
+            comment: el.imageComment,
+            _id: el._id,
+          }
+        }),
+    )
   }, [imagesData])
 
   const onChangeImageFileds = (field, imageId) => event => {
@@ -594,18 +607,9 @@ export const RequestDesignerResultClientForm = ({
         showPreviews
         isOpenModal={showImageModal}
         handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages?.map(el => ({ ...el, imageComment: el.commentByClient || '' }))}
+        imageList={filteredImages}
         currentImageIndex={curImageIndex}
         handleCurrentImageIndex={index => setCurImageIndex(index)}
-        getImageTitle={(index, item) => item?.comment}
-        getImageComment={(index, image) => image?.imageComment}
-        getImageUrl={(index, image) => {
-          return typeof image?.image === 'string'
-            ? image?.image
-            : image?.image?.file.type.includes('image')
-            ? image?.image?.data_url
-            : '/assets/icons/file.png'
-        }}
       />
     </div>
   )
