@@ -22,11 +22,12 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
-     * @param timeoutAt {Date} Время закрытия заявки.
+     * @param requestIds {Array.<String>} 
+     * @param uploadedToListing {Boolean} 
      */
-    constructor(timeoutAt) { 
+    constructor(requestIds, uploadedToListing) { 
         
-        InlineObject97.initialize(this, timeoutAt);
+        InlineObject97.initialize(this, requestIds, uploadedToListing);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, timeoutAt) { 
-        obj['timeoutAt'] = timeoutAt;
+    static initialize(obj, requestIds, uploadedToListing) { 
+        obj['requestIds'] = requestIds;
+        obj['uploadedToListing'] = uploadedToListing;
     }
 
     /**
@@ -49,11 +51,11 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('timeoutAt')) {
-                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            if (data.hasOwnProperty('requestIds')) {
+                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            if (data.hasOwnProperty('uploadedToListing')) {
+                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
         }
         return obj;
@@ -63,16 +65,14 @@ class InlineObject97 {
 }
 
 /**
- * Время закрытия заявки.
- * @member {Date} timeoutAt
+ * @member {Array.<String>} requestIds
  */
-InlineObject97.prototype['timeoutAt'] = undefined;
+InlineObject97.prototype['requestIds'] = undefined;
 
 /**
- * Количество предложений. null без лимитов
- * @member {Number} maxAmountOfProposals
+ * @member {Boolean} uploadedToListing
  */
-InlineObject97.prototype['maxAmountOfProposals'] = undefined;
+InlineObject97.prototype['uploadedToListing'] = undefined;
 
 
 

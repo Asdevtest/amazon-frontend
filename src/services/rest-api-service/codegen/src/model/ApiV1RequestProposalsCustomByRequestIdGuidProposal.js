@@ -117,12 +117,6 @@ class ApiV1RequestProposalsCustomByRequestIdGuidProposal {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('amazonOrderId')) {
-                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
-            }
-            if (data.hasOwnProperty('publicationLinks')) {
-                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
-            }
         }
         return obj;
     }
@@ -256,17 +250,6 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['approvedByMaster']
  * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy} createdBy
  */
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['createdBy'] = undefined;
-
-/**
- * ключ с Амазона
- * @member {String} amazonOrderId
- */
-ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['amazonOrderId'] = undefined;
-
-/**
- * @member {Array.<String>} publicationLinks
- */
-ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['publicationLinks'] = undefined;
 
 
 

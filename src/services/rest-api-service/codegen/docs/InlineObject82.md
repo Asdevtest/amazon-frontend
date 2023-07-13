@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**parentProductId** | **String** | Ключ родительского продукта | 
-**childProductIds** | **[String]** |  | 
+**suppliersIds** | **[String]** | GUIDы магазинов, которые нужно удалить. | [optional] 
 
 

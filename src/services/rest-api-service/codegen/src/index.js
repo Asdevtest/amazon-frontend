@@ -65,6 +65,7 @@ import ApiV1BuyersOrdersMyProduct from './model/ApiV1BuyersOrdersMyProduct';
 import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 import ApiV1BuyersProductsGuidTags from './model/ApiV1BuyersProductsGuidTags';
 import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRedFlags';
+import ApiV1ClientsProductsVacRedFlags from './model/ApiV1ClientsProductsVacRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
 import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
 import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
@@ -147,6 +148,7 @@ import InlineObject13 from './model/InlineObject13';
 import InlineObject130 from './model/InlineObject130';
 import InlineObject131 from './model/InlineObject131';
 import InlineObject132 from './model/InlineObject132';
+import InlineObject133 from './model/InlineObject133';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -788,6 +790,12 @@ export {
     ApiV1ClientsProductsGuidRedFlags,
 
     /**
+     * The ApiV1ClientsProductsVacRedFlags model constructor.
+     * @property {module:model/ApiV1ClientsProductsVacRedFlags}
+     */
+    ApiV1ClientsProductsVacRedFlags,
+
+    /**
      * The ApiV1GologinProfileNavigator model constructor.
      * @property {module:model/ApiV1GologinProfileNavigator}
      */
@@ -1278,6 +1286,12 @@ export {
      * @property {module:model/InlineObject132}
      */
     InlineObject132,
+
+    /**
+     * The InlineObject133 model constructor.
+     * @property {module:model/InlineObject133}
+     */
+    InlineObject133,
 
     /**
      * The InlineObject14 model constructor.

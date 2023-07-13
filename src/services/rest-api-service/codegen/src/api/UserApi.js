@@ -18,12 +18,12 @@ import CheckIsUniqueNameOrEmailReqSchema from '../model/CheckIsUniqueNameOrEmail
 import CheckIsUniqueNameOrEmailSchema from '../model/CheckIsUniqueNameOrEmailSchema';
 import ConflictInTheState from '../model/ConflictInTheState';
 import ForbiddenError from '../model/ForbiddenError';
-import InlineObject124 from '../model/InlineObject124';
 import InlineObject125 from '../model/InlineObject125';
 import InlineObject126 from '../model/InlineObject126';
 import InlineObject127 from '../model/InlineObject127';
 import InlineObject128 from '../model/InlineObject128';
 import InlineObject129 from '../model/InlineObject129';
+import InlineObject130 from '../model/InlineObject130';
 import InlineResponse20074 from '../model/InlineResponse20074';
 import InlineResponse20075 from '../model/InlineResponse20075';
 import InlineResponse20076 from '../model/InlineResponse20076';
@@ -65,7 +65,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject127} opts.body 
+     * @param {module:model/InlineObject128} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangeForgottenPasswordPostWithHttpInfo(opts) {
@@ -98,7 +98,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject127} opts.body 
+     * @param {module:model/InlineObject128} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangeForgottenPasswordPost(opts) {
@@ -114,7 +114,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject125} opts.body 
+     * @param {module:model/InlineObject126} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangePasswordPatchWithHttpInfo(opts) {
@@ -147,7 +147,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject125} opts.body 
+     * @param {module:model/InlineObject126} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangePasswordPatch(opts) {
@@ -427,7 +427,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject129} opts.body 
+     * @param {module:model/InlineObject130} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersFeedbackGuidPatchWithHttpInfo(guid, opts) {
@@ -466,7 +466,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject129} opts.body 
+     * @param {module:model/InlineObject130} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersFeedbackGuidPatch(guid, opts) {
@@ -483,7 +483,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject128} opts.body 
+     * @param {module:model/InlineObject129} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20112} and HTTP response
      */
     apiV1UsersFeedbackGuidPostWithHttpInfo(guid, opts) {
@@ -522,7 +522,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject128} opts.body 
+     * @param {module:model/InlineObject129} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20112}
      */
     apiV1UsersFeedbackGuidPost(guid, opts) {
@@ -588,7 +588,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject126} opts.body 
+     * @param {module:model/InlineObject127} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersForgotPasswordPostWithHttpInfo(opts) {
@@ -621,7 +621,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject126} opts.body 
+     * @param {module:model/InlineObject127} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersForgotPasswordPost(opts) {
@@ -1028,7 +1028,7 @@ export default class UserApi {
      * ## Создание/изменение subNote, если null, то удаляется
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject124} opts.body 
+     * @param {module:model/InlineObject125} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersSubNotePatchWithHttpInfo(opts) {
@@ -1061,7 +1061,7 @@ export default class UserApi {
      * ## Создание/изменение subNote, если null, то удаляется
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject124} opts.body 
+     * @param {module:model/InlineObject125} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersSubNotePatch(opts) {
