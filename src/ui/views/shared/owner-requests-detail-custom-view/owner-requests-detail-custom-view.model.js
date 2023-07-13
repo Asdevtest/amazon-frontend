@@ -157,6 +157,7 @@ export class OwnerRequestDetailCustomViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)

@@ -40,19 +40,11 @@ export const OwnerRequestProposalsCard = ({
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
   const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
 
-  const onClickpenResult = () => {
-    switch (freelanceRequestTypeByCode[request.request.typeTask]) {
-      case freelanceRequestType.DESIGNER:
-        setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)
-        break
-
-      case freelanceRequestType.SEO:
-        setShowRequestStandartResultModal(!showRequestStandartResultModal)
-        break
-
-      default:
-        setShowRequestStandartResultModal(!showRequestStandartResultModal)
-        break
+  const onClickOpenResult = () => {
+    if (freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER) {
+      setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)
+    } else {
+      setShowRequestStandartResultModal(!showRequestStandartResultModal)
     }
   }
 
@@ -140,14 +132,13 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
-        {(freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER ||
-          freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.SEO) && (
+        {freelanceRequestTypeByCode[request.request.typeTask] !== freelanceRequestType.BLOGGER && (
           <Button
             disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
             variant="contained"
             color="primary"
             className={cx(classNames.actionButton)}
-            onClick={onClickpenResult}
+            onClick={onClickOpenResult}
           >
             {t(TranslationKey.Result)}
           </Button>

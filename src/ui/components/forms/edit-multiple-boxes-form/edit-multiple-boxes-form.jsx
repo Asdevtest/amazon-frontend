@@ -157,8 +157,10 @@ const Box = ({
     el => el._id === box?.variationTariffId,
   )
 
-  const tariffRate =
-    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate || selectedVariationTariff?.pricePerKgUsd
+  const tariffRate = toFixed(
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate || selectedVariationTariff?.pricePerKgUsd,
+    2,
+  )
 
   const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
 
@@ -349,11 +351,7 @@ const Box = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {box.logicsTariffId
-                      ? `${
-                          box.logicsTariffId
-                            ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                            : 'none'
-                        }`
+                      ? `${box.logicsTariffId ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'}`
                       : t(TranslationKey.Select)}
                   </Button>
                 }
@@ -818,9 +816,12 @@ export const EditMultipleBoxesForm = observer(
 
     const tariffName = currentLogicsTariff?.name
 
-    const tariffRate =
+    const tariffRate = toFixed(
       currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-      currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)?.pricePerKgUsd
+        currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)
+          ?.pricePerKgUsd,
+      2,
+    )
 
     const disabledSubmitBtn =
       newBoxes.some(
