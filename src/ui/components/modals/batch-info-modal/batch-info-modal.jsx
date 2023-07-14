@@ -392,6 +392,9 @@ export const BatchInfoModal = observer(
                 // ),
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: batchInfoModalColumn(

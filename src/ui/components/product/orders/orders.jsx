@@ -77,6 +77,9 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
           columnMenu: DataGridCustomColumnMenuComponent,
         }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           columnMenu: { orderStatusData },
           toolbar: {
             resetFiltersBtnSettings: {
