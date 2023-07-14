@@ -660,11 +660,16 @@ export const ChangeInputCell = React.memo(
               ) : null}
             </InputAdornment>
           }
-          onChange={e =>
-            isInts
-              ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
-              : setValue(e.target.value)
-          }
+          onChange={e => {
+            if (isInts) {
+              setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+            } else {
+              setValue(e.target.value)
+            }
+          }}
+          onKeyDown={e => {
+            e.stopPropagation()
+          }}
           onBlur={() => setIsMyInputFocused(false)}
           onFocus={() => setIsMyInputFocused(true)}
         />
