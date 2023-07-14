@@ -35,6 +35,7 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { dataGridFiltersConverter } from '@utils/data-grid-filters-converter'
 
 const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
@@ -875,6 +876,24 @@ export class ClientInventoryViewModel {
     const redFlagsFilter =
       exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
 
+    const newFilter = objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.nameSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'skusByClient', 'amazonTitle'],
+        {
+          archive: { $eq: this.isArchive },
+          ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+            barCode: {
+              [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
+            },
+          }),
+        },
+      ),
+    )
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -979,7 +998,10 @@ export class ClientInventoryViewModel {
       }),
     })
 
-    return filter
+    console.log(newFilter, 'newFilter')
+    console.log(filter, 'filter')
+
+    return newFilter
   }
 
   async getProductsMy(noProductBaseUpdate) {
