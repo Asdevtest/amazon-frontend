@@ -88,8 +88,6 @@ export const BatchInfoModal = observer(
 
     const [dataToRender, setDataToRender] = useState(sourceBoxes)
 
-    const [receivedFiles, setReceivedFiles] = useState(null)
-
     const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
       sourceBoxes,
       currentBatch.volumeWeightDivide,
@@ -129,6 +127,9 @@ export const BatchInfoModal = observer(
       await OtherModel.getReportBatchByHumanFriendlyId(currentBatch.humanFriendlyId)
       setIsFileDownloading(false)
     }
+
+    console.log('currentBatch', currentBatch)
+    console.log('isActualGreaterTheVolume', isActualGreaterTheVolume)
 
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
