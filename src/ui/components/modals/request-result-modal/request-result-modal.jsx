@@ -168,7 +168,6 @@ export const RequestResultModal = ({
               notToShowEmpty
               small
               files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
-              width={520}
             />
           ) : (
             <UploadFilesInput
