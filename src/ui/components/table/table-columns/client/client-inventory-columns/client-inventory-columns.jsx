@@ -77,7 +77,6 @@ export const clientInventoryColumns = (
       )
     },
     width: 295,
-
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
