@@ -94,21 +94,17 @@ export const batchInfoModalColumn = (
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => {
-      console.log('params', params)
-
-      return (
-        <MultilineTextCell
-          text={toFixedWithKg(
-            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-              params.row,
-              volumeWeightCoefficient,
-            ) * params.row.amount,
-            2,
-          )}
-        />
-      )
-    },
+    renderCell: params => (
+      <MultilineTextCell
+        text={toFixedWithKg(
+          getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+            params.row,
+            volumeWeightCoefficient,
+          ) * params.row.amount,
+          2,
+        )}
+      />
+    ),
     type: 'number',
     width: 100,
   },

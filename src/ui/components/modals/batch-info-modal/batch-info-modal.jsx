@@ -128,9 +128,6 @@ export const BatchInfoModal = observer(
       setIsFileDownloading(false)
     }
 
-    console.log('currentBatch', currentBatch)
-    console.log('isActualGreaterTheVolume', isActualGreaterTheVolume)
-
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
         <div className={classNames.form}>
