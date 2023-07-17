@@ -41,6 +41,7 @@ export const colorByBoxStatus = status => {
       BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
       BoxStatus.IN_BATCH,
       BoxStatus.ACCEPTED_IN_PROCESSING,
+      BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
     ].includes(status)
   ) {
     return {
