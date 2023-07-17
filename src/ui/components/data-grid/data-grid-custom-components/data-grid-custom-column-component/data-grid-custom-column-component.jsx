@@ -24,6 +24,7 @@ import {
   RedFlagsCellMenuItem,
   OnListingCellMenuItem,
   PriorityMenuItem,
+  YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -403,6 +404,16 @@ export const DataGridCustomColumnMenuComponent = props => {
           // onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           // onClickAccept={onClickAccept}
         />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.YES_NO) {
+    const { ...rest } = other
+
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
+        <YesNoCellMenuItem data={props} field={currentColumn.field} onClose={hideMenu} />
       </GridColumnMenuContainer>
     )
   }

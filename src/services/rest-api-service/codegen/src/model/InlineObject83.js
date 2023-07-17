@@ -22,10 +22,12 @@ class InlineObject83 {
     /**
      * Constructs a new <code>InlineObject83</code>.
      * @alias module:model/InlineObject83
+     * @param parentProductId {String} Ключ родительского продукта
+     * @param childProductIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(parentProductId, childProductIds) { 
         
-        InlineObject83.initialize(this);
+        InlineObject83.initialize(this, parentProductId, childProductIds);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject83 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, parentProductId, childProductIds) { 
+        obj['parentProductId'] = parentProductId;
+        obj['childProductIds'] = childProductIds;
     }
 
     /**
@@ -47,14 +51,11 @@ class InlineObject83 {
         if (data) {
             obj = obj || new InlineObject83();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('childProductIds')) {
+                obj['childProductIds'] = ApiClient.convertToType(data['childProductIds'], ['String']);
             }
         }
         return obj;
@@ -64,22 +65,15 @@ class InlineObject83 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Ключ родительского продукта
+ * @member {String} parentProductId
  */
-InlineObject83.prototype['rating'] = undefined;
+InlineObject83.prototype['parentProductId'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * @member {Array.<String>} childProductIds
  */
-InlineObject83.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject83.prototype['linksToMediaFiles'] = undefined;
+InlineObject83.prototype['childProductIds'] = undefined;
 
 
 

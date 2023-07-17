@@ -22,11 +22,10 @@ class InlineObject74 {
     /**
      * Constructs a new <code>InlineObject74</code>.
      * @alias module:model/InlineObject74
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor(fileUrl) { 
+    constructor() { 
         
-        InlineObject74.initialize(this, fileUrl);
+        InlineObject74.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject74 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject74 {
         if (data) {
             obj = obj || new InlineObject74();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -60,10 +61,16 @@ class InlineObject74 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * Комментарий клиента
+ * @member {String} clientComment
  */
-InlineObject74.prototype['fileUrl'] = undefined;
+InlineObject74.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарий баера
+ * @member {String} buyerComment
+ */
+InlineObject74.prototype['buyerComment'] = undefined;
 
 
 

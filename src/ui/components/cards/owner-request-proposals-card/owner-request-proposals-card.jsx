@@ -25,6 +25,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './owner-request-proposals-card.style'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 
 export const OwnerRequestProposalsCard = ({
   item,
@@ -39,10 +40,13 @@ export const OwnerRequestProposalsCard = ({
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
   const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
+  const [showRequestResultModal, setShowRequestResultModal] = useState(false)
 
   const onClickOpenResult = () => {
     if (freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER) {
       setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)
+    } else if (freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.BLOGGER) {
+      setShowRequestResultModal(!showRequestResultModal)
     } else {
       setShowRequestStandartResultModal(!showRequestStandartResultModal)
     }
@@ -132,17 +136,15 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
-        {freelanceRequestTypeByCode[request.request.typeTask] !== freelanceRequestType.BLOGGER && (
-          <Button
-            disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
-            variant="contained"
-            color="primary"
-            className={cx(classNames.actionButton)}
-            onClick={onClickOpenResult}
-          >
-            {t(TranslationKey.Result)}
-          </Button>
-        )}
+        <Button
+          disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
+          variant="contained"
+          color="primary"
+          className={cx(classNames.actionButton)}
+          onClick={onClickOpenResult}
+        >
+          {t(TranslationKey.Result)}
+        </Button>
 
         <div className={classNames.actionButtonWrapper}>
           {(item.proposal.status === RequestProposalStatus.CREATED ||
@@ -239,6 +241,13 @@ export const OwnerRequestProposalsCard = ({
           // onClickSendAsResult={onClickSendAsResult}
         />
       </Modal>
+
+      <RequestResultModal
+        request={request}
+        proposal={item}
+        openModal={showRequestResultModal}
+        setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
+      />
     </div>
   )
 }

@@ -1551,7 +1551,6 @@ export const styles = theme => ({
     },
   },
   ChangeInputCommentCellWrapper: {
-    padding: '16px 0',
     display: 'flex',
     width: '100%',
   },
@@ -1672,22 +1671,23 @@ export const styles = theme => ({
   },
 
   batchTrackingWrapper: {
-    width: '100%',
+    padding: '20px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
   },
 
   batchTrackingTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
-
     margin: '0 !important',
   },
 
   batchTrackingContainer: {
-    width: '100%',
+    margin: '0 !important',
   },
+
   arrivalDateWrapper: {
     display: 'flex',
   },

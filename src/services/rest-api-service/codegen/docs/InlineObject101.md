@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | [optional] 
+**proposalId** | **String** | Файл для записи в FreelanceSource | [optional] 
+**requestId** | **String** | Комментарий к файлу | [optional] 
 
 

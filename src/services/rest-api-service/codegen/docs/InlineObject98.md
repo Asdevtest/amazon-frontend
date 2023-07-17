@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestIds** | **[String]** |  | 
-**uploadedToListing** | **Boolean** |  | 
+**timeoutAt** | **Date** | Время закрытия заявки. | 
+**maxAmountOfProposals** | **Number** | Количество предложений. null без лимитов | [optional] 
 
 
