@@ -31,7 +31,7 @@ import {
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
+export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -70,13 +70,17 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
   {
     field: 'orderStatus',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        isFilterActive={chosenStatus() !== 'ALL'}
-        text={t(TranslationKey.Status)}
-        Icon={FilterAltOutlinedIcon}
-      />
-    ),
+    renderHeader: () => {
+      const { isActiveFilter } = isSomeFilterOn()
+
+      return (
+        <MultilineTextHeaderCell
+          isFilterActive={isActiveFilter}
+          text={t(TranslationKey.Status)}
+          Icon={FilterAltOutlinedIcon}
+        />
+      )
+    },
 
     width: 160,
     renderCell: params => (

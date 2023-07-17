@@ -50,6 +50,10 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
+    isSomeFilterOn,
+    onColumnVisibilityModelChange,
+    columnVisibilityModel,
+    onClickResetFilters,
   } = model.current
 
   useEffect(() => {
@@ -85,13 +89,13 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
           columnMenu: { orderStatusData },
           toolbar: {
             resetFiltersBtnSettings: {
-              onClickResetFilters: model.current.onClickResetFilters,
-              isSomeFilterOn: model.current.isSomeFilterOn,
+              onClickResetFilters,
+              isSomeFilterOn,
             },
             columsBtnSettings: {
               columnsModel,
-              columnVisibilityModel: model.current.columnVisibilityModel,
-              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              columnVisibilityModel,
+              onColumnVisibilityModelChange,
             },
           },
         }}
