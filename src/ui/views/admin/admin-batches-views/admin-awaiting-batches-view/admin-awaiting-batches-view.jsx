@@ -76,15 +76,15 @@ export const AdminAwaitingBatchesViewRaw = props => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
         />
       </MainContent>
 
       <BatchInfoModal
+        batch={viewModel.curBatch}
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
       />
     </React.Fragment>
   )

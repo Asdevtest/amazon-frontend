@@ -88,8 +88,6 @@ export const BatchInfoModal = observer(
 
     const [dataToRender, setDataToRender] = useState(sourceBoxes)
 
-    const [receivedFiles, setReceivedFiles] = useState(null)
-
     const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
       sourceBoxes,
       currentBatch.volumeWeightDivide,
