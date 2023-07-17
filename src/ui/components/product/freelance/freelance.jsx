@@ -113,6 +113,9 @@ export const Freelance = observer(({ productId }) => {
             columnMenu: DataGridCustomColumnMenuComponent,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             columnMenu: columnMenuSettings,
 
             toolbar: {

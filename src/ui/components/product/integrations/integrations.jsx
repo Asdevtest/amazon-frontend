@@ -88,6 +88,9 @@ export const Integrations = observer(({ productId }) => {
           columnMenuIcon: FilterAltOutlinedIcon,
         }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           toolbar: {
             columsBtnSettings: {
               columnsModel,
