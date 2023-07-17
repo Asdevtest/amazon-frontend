@@ -331,11 +331,7 @@ class ChatModelStatic {
     if (findSimpleChatIndexById !== -1) {
       // console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
-      if (
-        this.noticeOfSimpleChats /* && message.user?._id !== this.userId */ &&
-        !this.mutedChats.includes(message.chatId)
-      ) {
-        console.log('this.mutedChats', this.mutedChats)
+      if (this.noticeOfSimpleChats && message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
         noticeSound.play()
 
         // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
