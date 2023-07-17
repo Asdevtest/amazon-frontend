@@ -11,7 +11,6 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
@@ -174,14 +173,10 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['The request was not created'])
-      })
-
       this.history.push('/client/freelance/my-requests', {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
+        showAcceptMessage: true,
+        acceptMessage: t(TranslationKey['The request was not created']),
+        error: true,
       })
 
       runInAction(() => {
@@ -226,7 +221,6 @@ export class CreateOrEditRequestViewModel {
       this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
-        // request: this.requestToEdit.request,
       })
     } catch (error) {
       console.log(error)
@@ -239,13 +233,7 @@ export class CreateOrEditRequestViewModel {
       this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
-        // request: this.requestToEdit.request,
       })
-      // this.history.push('/client/freelance/my-requests/custom-request', {
-      //   showAcceptMessage: this.showAcceptMessage,
-      //   acceptMessage: this.acceptMessage,
-      //   request: this.requestToEdit.request,
-      // })
 
       runInAction(() => {
         this.error = error

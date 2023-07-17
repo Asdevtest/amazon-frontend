@@ -56,6 +56,7 @@ docs/ApiV1BuyersOrdersMyProduct.md
 docs/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md
 docs/ApiV1BuyersProductsGuidTags.md
 docs/ApiV1ClientsProductsGuidRedFlags.md
+docs/ApiV1ClientsProductsVacRedFlags.md
 docs/ApiV1GologinProfileNavigator.md
 docs/ApiV1IdeasNotificationsCreatedBy.md
 docs/ApiV1IdeasNotificationsIdea.md
@@ -147,6 +148,7 @@ docs/InlineObject13.md
 docs/InlineObject130.md
 docs/InlineObject131.md
 docs/InlineObject132.md
+docs/InlineObject133.md
 docs/InlineObject14.md
 docs/InlineObject15.md
 docs/InlineObject16.md
@@ -326,12 +328,12 @@ docs/InlineResponse20058.md
 docs/InlineResponse20059.md
 docs/InlineResponse2006.md
 docs/InlineResponse20060.md
+docs/InlineResponse20060Announcement.md
+docs/InlineResponse20060CountProposalsByStatuses.md
+docs/InlineResponse20060Media.md
+docs/InlineResponse20060Product.md
+docs/InlineResponse20060Rows.md
 docs/InlineResponse20061.md
-docs/InlineResponse20061Announcement.md
-docs/InlineResponse20061CountProposalsByStatuses.md
-docs/InlineResponse20061Media.md
-docs/InlineResponse20061Product.md
-docs/InlineResponse20061Rows.md
 docs/InlineResponse20062.md
 docs/InlineResponse20063.md
 docs/InlineResponse20064.md
@@ -505,6 +507,7 @@ src/model/ApiV1BuyersOrdersMyProduct.js
 src/model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.js
 src/model/ApiV1BuyersProductsGuidTags.js
 src/model/ApiV1ClientsProductsGuidRedFlags.js
+src/model/ApiV1ClientsProductsVacRedFlags.js
 src/model/ApiV1GologinProfileNavigator.js
 src/model/ApiV1IdeasNotificationsCreatedBy.js
 src/model/ApiV1IdeasNotificationsIdea.js
@@ -587,6 +590,7 @@ src/model/InlineObject13.js
 src/model/InlineObject130.js
 src/model/InlineObject131.js
 src/model/InlineObject132.js
+src/model/InlineObject133.js
 src/model/InlineObject14.js
 src/model/InlineObject15.js
 src/model/InlineObject16.js
@@ -766,12 +770,12 @@ src/model/InlineResponse20058.js
 src/model/InlineResponse20059.js
 src/model/InlineResponse2006.js
 src/model/InlineResponse20060.js
+src/model/InlineResponse20060Announcement.js
+src/model/InlineResponse20060CountProposalsByStatuses.js
+src/model/InlineResponse20060Media.js
+src/model/InlineResponse20060Product.js
+src/model/InlineResponse20060Rows.js
 src/model/InlineResponse20061.js
-src/model/InlineResponse20061Announcement.js
-src/model/InlineResponse20061CountProposalsByStatuses.js
-src/model/InlineResponse20061Media.js
-src/model/InlineResponse20061Product.js
-src/model/InlineResponse20061Rows.js
 src/model/InlineResponse20062.js
 src/model/InlineResponse20063.js
 src/model/InlineResponse20064.js

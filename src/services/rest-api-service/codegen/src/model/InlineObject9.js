@@ -22,10 +22,11 @@ class InlineObject9 {
     /**
      * Constructs a new <code>InlineObject9</code>.
      * @alias module:model/InlineObject9
+     * @param productId {String} ГУид продукта
      */
-    constructor() { 
+    constructor(productId) { 
         
-        InlineObject9.initialize(this);
+        InlineObject9.initialize(this, productId);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject9 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId) { 
+        obj['productId'] = productId;
     }
 
     /**
@@ -47,17 +49,8 @@ class InlineObject9 {
         if (data) {
             obj = obj || new InlineObject9();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -67,24 +60,10 @@ class InlineObject9 {
 }
 
 /**
- * @member {Number} type
+ * ГУид продукта
+ * @member {String} productId
  */
-InlineObject9.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject9.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineObject9.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject9.prototype['description'] = undefined;
+InlineObject9.prototype['productId'] = undefined;
 
 
 

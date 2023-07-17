@@ -50,11 +50,11 @@ class InlineObject91 {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -70,16 +70,16 @@ class InlineObject91 {
 InlineObject91.prototype['rating'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject91.prototype['reason'] = undefined;
+InlineObject91.prototype['review'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
  */
-InlineObject91.prototype['linksToMediaFiles'] = undefined;
+InlineObject91.prototype['sourceFile'] = undefined;
 
 
 

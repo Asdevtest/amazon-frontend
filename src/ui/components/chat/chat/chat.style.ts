@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    padding: '20px 70px',
+    padding: '20px 108px 20px 64px',
     position: 'relative',
     [theme.breakpoints.down(768)]: {
       padding: '10px 40px 10px 10px',
@@ -204,8 +204,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
     // backgroundColor: '#d1d1d1a8', // старый цвет
+    border: '1px solid #E0E0E0',
     backgroundColor: theme.palette.background.general,
-    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+    boxShadow: 'none',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -289,6 +290,7 @@ export const useClassNames = makeStyles()(theme => ({
   messageToReplySubWrapper: {},
 
   scrollToBottom: {
+    border: '1px solid #E0E0E0',
     position: 'absolute',
     bottom: 146,
     right: 30,
@@ -296,7 +298,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
     backgroundColor: theme.palette.background.general,
-    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+    boxShadow: 'none',
     borderRadius: '50%',
     cursor: 'pointer',
     display: 'flex',

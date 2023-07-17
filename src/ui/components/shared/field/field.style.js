@@ -73,5 +73,6 @@ export const useClassNames = makeStyles()(theme => ({
   labelWrapper: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: 5,
   },
 }))

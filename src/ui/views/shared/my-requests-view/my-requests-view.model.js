@@ -50,6 +50,7 @@ export class MyRequestsViewModel {
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
+    error: undefined,
   }
 
   selectedIndex = null
@@ -150,6 +151,7 @@ export class MyRequestsViewModel {
         this.alertShieldSettings = {
           showAlertShield: location?.state?.showAcceptMessage,
           alertShieldMessage: location?.state?.acceptMessage,
+          error: location?.state?.error,
         }
 
         const state = { ...history?.location?.state }

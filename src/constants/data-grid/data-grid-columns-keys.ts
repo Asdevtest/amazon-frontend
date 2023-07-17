@@ -49,5 +49,6 @@ export const columnnsKeys = {
     MY_REQUESTS_ORDERS_STATUS: 'MY_REQUESTS_ORDERS_STATUS',
     PAYMENTS: 'PAYMENTS',
     RED_FLAGS: 'RED_FLAGS',
+    YES_NO: 'YES_NO',
   },
 }

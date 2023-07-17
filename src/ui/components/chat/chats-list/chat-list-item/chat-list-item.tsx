@@ -102,6 +102,13 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
       })()
     : ''
 
+  const readingTick =
+    isCurrentUser && lastMessage.isRead ? (
+      <IsReadIcon className={classNames.isReadIcon} />
+    ) : (
+      <NoReadIcon className={classNames.noReadIcon} />
+    )
+
   return (
     <div className={cx(classNames.root, { [classNames.rootIsSelected]: isSelected })} onClick={onClick}>
       <Avatar
@@ -153,11 +160,9 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
 
             {unReadMessages.length > 0 ? (
               <span className={classNames.badge}>{unReadMessages.length}</span>
-            ) : isCurrentUser && lastMessage.isRead ? (
-              <IsReadIcon className={classNames.isReadIcon} />
-            ) : (
-              <NoReadIcon className={classNames.noReadIcon} />
-            )}
+            ) : isCurrentUser ? (
+              readingTick
+            ) : null}
           </div>
         )}
       </div>

@@ -75,13 +75,11 @@ export const VacantRequestsViewRaw = props => {
 
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
-      return classNames.redBorder
+      return [classNames.deadlineBorder, classNames.redBorder]
     } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
-      return classNames.yellowBorder
+      return [classNames.deadlineBorder, classNames.yellowBorder]
     }
   }
-
-  console.log('viewModel.currentData', viewModel.currentData)
 
   return (
     <React.Fragment>
@@ -223,6 +221,9 @@ export const VacantRequestsViewRaw = props => {
                 columnMenu: DataGridCustomColumnMenuComponent,
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 columnMenu: viewModel.columnMenuSettings,
 
                 toolbar: {

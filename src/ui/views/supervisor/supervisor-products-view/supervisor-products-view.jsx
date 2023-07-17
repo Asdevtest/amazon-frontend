@@ -11,6 +11,7 @@ import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
+  ProductStatusGroups,
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -27,6 +28,7 @@ import { t } from '@utils/translations'
 
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 import { styles } from './supervisor-products-view.style'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 const allowProductStatuses = [
   `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
@@ -57,6 +59,49 @@ const attentionStatuses = [
   ProductStatus.RESEARCHER_CREATED_PRODUCT,
 ]
 
+const statusesList = [
+  {
+    userInfoKey: ProductStatusGroups.allProducts,
+    status: ProductStatusByKey[ProductStatus.DEFAULT],
+  },
+  {
+    userInfoKey: ProductStatusGroups.atTheBuyerInWork,
+    status: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
+  },
+  {
+    userInfoKey: ProductStatusGroups.buyerFoundSupplier,
+    status: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+  },
+  {
+    userInfoKey: ProductStatusGroups.paidByTheClient,
+    status: ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  },
+  {
+    userInfoKey: ProductStatusGroups.productIsAppropriate,
+    status: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+  },
+  {
+    userInfoKey: ProductStatusGroups.rejectedBySupervisor,
+    status: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+  },
+  {
+    userInfoKey: ProductStatusGroups.searchComplete,
+    status: ProductStatusByKey[ProductStatus.SUPPLIER_FOUND],
+  },
+  {
+    userInfoKey: ProductStatusGroups.supplierPriceDoesNotFit,
+    status: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+  },
+  {
+    userInfoKey: ProductStatusGroups.supplierWasNotFound,
+    status: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+  },
+  {
+    userInfoKey: ProductStatusGroups.onCheckWithSupervisor,
+    status: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+  },
+]
+
 export const SupervisorProductsViewRaw = props => {
   const [viewModel] = useState(
     () =>
@@ -78,41 +123,38 @@ export const SupervisorProductsViewRaw = props => {
     <React.Fragment>
       <MainContent>
         <div className={classNames.headerWrapper}>
-          {Object.keys({
-            ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
-          }).map((status, statusIndex) => {
-            const count = viewModel.getProductsCountByStatus(status)
-
-            return (
-              <Button
-                key={statusIndex}
-                variant="text"
-                disabled={!count}
-                // disabled={Number(statusIndex) === Number(currentFilterStatus)}
-                className={cx(classNames.selectStatusFilterButton, {
-                  [classNames.selectedStatusFilterButton]: Number(status) === Number(viewModel.currentFilterStatus),
-                })}
-                onClick={() => viewModel.onClickStatusFilterButton(status)}
-              >
-                {t(productStatusTranslateKey(ProductStatusByCode[status]))}{' '}
-                {count >= 1 && <span className={classNames.badge}>{count}</span>}
-              </Button>
-            )
-          })}
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              value={viewModel.nameSearchValue}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-              onChange={viewModel.onChangeNameSearchValue}
-            />
-          </div>
+          {statusesList.map(el => (
+            <Button
+              key={el.status}
+              variant="text"
+              disabled={!viewModel.userInfo[el.userInfoKey]}
+              // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+              className={cx(classNames.selectStatusFilterButton, {
+                [classNames.selectedStatusFilterButton]: el.userInfoKey === viewModel.currentStatusGroup,
+              })}
+              onClick={() => viewModel.onClickStatusFilterButton(el.userInfoKey)}
+            >
+              {t(productStatusTranslateKey(ProductStatusByCode[el.status]))}{' '}
+              <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>
+            </Button>
+          ))}
+        </div>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            onChange={viewModel.onChangeNameSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
+          />
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
             pagination
             useResizeContainer
+            rowCount={viewModel.rowCount}
+            sortingMode="server"
+            paginationMode="server"
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -132,9 +174,19 @@ export const SupervisorProductsViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,

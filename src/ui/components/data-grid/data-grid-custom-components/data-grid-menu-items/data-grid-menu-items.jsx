@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { cx } from '@emotion/css'
 import {
-  Checkbox,
   CircularProgress,
   Divider,
   FormControl,
@@ -16,15 +16,18 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { compareDesc, isAfter, parseISO } from 'date-fns'
 import { withStyles } from 'tss-react/mui'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
@@ -35,8 +38,6 @@ import { getStatusByColumnKeyAndStatusKey, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
-import { cx } from '@emotion/css'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -309,54 +310,46 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
 )
 
 export const OrderStatusMenuItem = React.memo(
-  withStyles(
-    ({ classes: classNames, orderStatusData }) => (
+  withStyles(({ classes: classNames, orderStatusData }) => {
+    const { isCheckedStatusByFilter, onCheckboxChange } = orderStatusData
+
+    const checkboxes = [
+      {
+        name: chosenStatusesByFilter.ALL,
+        label: t(TranslationKey.All),
+        checked: isCheckedStatusByFilter.ALL,
+      },
+      {
+        name: chosenStatusesByFilter.AT_PROCESS,
+        label: t(TranslationKey['At process']),
+        checked: isCheckedStatusByFilter.AT_PROCESS,
+      },
+      {
+        name: chosenStatusesByFilter.CANCELED,
+        label: t(TranslationKey.Canceled),
+        checked: isCheckedStatusByFilter.CANCELED,
+      },
+      {
+        name: chosenStatusesByFilter.COMPLETED,
+        label: t(TranslationKey.Completed),
+        checked: isCheckedStatusByFilter.COMPLETED,
+      },
+    ]
+
+    return (
       <div className={classNames.isFormedWrapper}>
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.All)}</Typography>
+        {checkboxes.map(item => (
+          <div key={item.name} className={classNames.isFormedSubWrapper}>
+            <Typography>{item.label}</Typography>
 
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.ALL}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.ALL)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['At process'])}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.AT_PROCESS}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.AT_PROCESS)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Canceled)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.CANCELED}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.CANCELED)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Completed)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.COMPLETED}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.COMPLETED)}
-          />
-        </div>
+            <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
+          </div>
+        ))}
 
         <Divider />
       </div>
-    ),
-    styles,
-  ),
+    )
+  }, styles),
 )
 
 export const MyRequestsStatusMenuItem = React.memo(
@@ -765,9 +758,9 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj =>
-            (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
-          )
+          const filter = filterData?.filter(obj => {
+            return obj && (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase())
+          })
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -1907,11 +1900,15 @@ export const NumberFieldMenuItem = React.memo(
           'purchaseQuantity',
           'sentToFbaSum',
           'reservedSum',
+          'bsr',
           'fbaFbmStockSum',
           'reservedSum',
           'sentToFbaSum',
           'sumStock',
           'humanFriendlyId',
+          'ideasVerified',
+          'ideasClosed',
+          'ideasOnCheck',
           'ideasOnCheck',
           'ideasClosed',
           'ideasVerified',
@@ -2283,6 +2280,62 @@ export const OnListingCellMenuItem = React.memo(
                     data.onListingFiltersData.handleListingFilters(true, false)
                   } else {
                     data.onListingFiltersData.handleListingFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.No)}</Typography>
+            </div>
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
+export const YesNoCellMenuItem = React.memo(
+  withStyles(({ classes: classNames, data, onClose, field }) => {
+    const filterData = data[`${field}YesNoFilterData`]
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.yes}
+                onClick={() => {
+                  if (filterData.yes) {
+                    filterData.handleFilters(false, true)
+                  } else {
+                    filterData.handleFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.Yes)}</Typography>
+            </div>
+
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.no}
+                onClick={() => {
+                  if (filterData.no) {
+                    filterData.handleFilters(true, false)
+                  } else {
+                    filterData.handleFilters(true, true)
                   }
                 }}
               />

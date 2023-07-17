@@ -79,12 +79,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
   linkWrapper: {
     width: '100%',
+    minHeight: 40,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   linkTextWrapper: {
-    width: '80%',
+    width: '95%',
     overflow: 'auto',
     whiteSpace: 'nowrap',
   },
@@ -104,6 +105,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
   },
   dragAndDropWrapper: {
+    width: '100%',
     marginBottom: 20,
   },
 }))

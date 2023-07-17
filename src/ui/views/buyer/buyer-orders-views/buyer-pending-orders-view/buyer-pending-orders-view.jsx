@@ -77,6 +77,9 @@ export const BuyerPendingOrdersViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: { orderStatusData: viewModel.orderStatusData },
 
               toolbar: {

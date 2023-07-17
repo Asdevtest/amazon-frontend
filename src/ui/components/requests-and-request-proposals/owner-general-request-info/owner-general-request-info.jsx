@@ -32,6 +32,7 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './owner-general-request-info.style'
 import { Text } from '@components/shared/text'
+import { requestPriority } from '@constants/requests/request-priority'
 
 export const OwnerGeneralRequestInfo = ({
   request,
@@ -50,8 +51,6 @@ export const OwnerGeneralRequestInfo = ({
 
   const now = new Date()
 
-  const isDraft = request?.request?.status === RequestStatus.DRAFT
-
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
@@ -61,7 +60,17 @@ export const OwnerGeneralRequestInfo = ({
   return (
     <div className={classNames.root}>
       <div className={cx(classNames.requestInformationWrapper, classNames.firstBlock)}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
+        <div className={classNames.priorityWrapper}>
+          <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
+
+          {Number(request?.request?.priority) === requestPriority.urgentPriority && (
+            <div className={classNames.prioritySubWrapper}>
+              <Typography className={classNames.sectionTitle}>{t(TranslationKey['Urgent request'])}</Typography>
+
+              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            </div>
+          )}
+        </div>
 
         <Paper className={classNames.requestInformationCardWrapper}>
           <div className={classNames.requestInformation}>

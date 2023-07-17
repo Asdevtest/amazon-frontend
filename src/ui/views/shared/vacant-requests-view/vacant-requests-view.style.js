@@ -138,14 +138,31 @@ export const styles = theme => ({
     gap: 20,
   },
 
+  deadlineBorder: {
+    position: 'relative',
+    ':after': {
+      content: '" "',
+      display: 'block',
+      position: 'absolute',
+      left: 0,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: 6,
+      height: '85%',
+    },
+  },
+
   yellowBorder: {
-    background:
-      'linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(234, 169, 1, 0) 17.27%, rgba(227, 164, 3, 0) 84.43%, rgba(224, 162, 3, 0.5) 100%)',
+    ':after': {
+      background: '#C69109',
+    },
   },
   redBorder: {
-    background:
-      'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+    ':after': {
+      background: '#D70D0D',
+    },
   },
+
   loadingWrapper: {
     display: 'flex',
     justifyContent: 'center',

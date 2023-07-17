@@ -464,11 +464,6 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  // onLeaveColumnField() {
-  //   this.onHover = null
-  //   this.getDataGridState()
-  // }
-
   onClickResetFilters() {
     runInAction(() => {
       this.columnMenuSettings = {
@@ -885,17 +880,11 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
-      await Promise.all([
-        ProductModel.getProductsHsCodeByGuid(orderData.product._id),
-        this.onClickHsCode(orderData.product._id),
-        this.getSuppliersPaymentMethods(),
-      ])
+      await Promise.all([this.onClickHsCode(orderData.product._id), this.getSuppliersPaymentMethods()])
 
       runInAction(() => {
         this.selectedOrder = orderData
-
         this.clearImagesForLoad()
-
         this.updateImagesForLoad(orderData.images)
       })
       this.getBoxesOfOrder(orderId)

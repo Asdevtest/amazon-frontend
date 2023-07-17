@@ -88,8 +88,6 @@ export const BatchInfoModal = observer(
 
     const [dataToRender, setDataToRender] = useState(sourceBoxes)
 
-    const [receivedFiles, setReceivedFiles] = useState(null)
-
     const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
       sourceBoxes,
       currentBatch.volumeWeightDivide,
@@ -392,6 +390,9 @@ export const BatchInfoModal = observer(
                 // ),
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: batchInfoModalColumn(
