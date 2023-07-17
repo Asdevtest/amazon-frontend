@@ -1570,6 +1570,7 @@ export const styles = theme => ({
   ChangeInputCommentCellWrapper: {
     display: 'flex',
     width: '100%',
+    padding: '20px 10px',
   },
 
   menuItem: {
