@@ -22,10 +22,11 @@ class InlineObject85 {
     /**
      * Constructs a new <code>InlineObject85</code>.
      * @alias module:model/InlineObject85
+     * @param approvedByMaster {Boolean} 
      */
-    constructor() { 
+    constructor(approvedByMaster) { 
         
-        InlineObject85.initialize(this);
+        InlineObject85.initialize(this, approvedByMaster);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject85 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, approvedByMaster) { 
+        obj['approvedByMaster'] = approvedByMaster;
     }
 
     /**
@@ -47,14 +49,8 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('approvedByMaster')) {
+                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
             }
         }
         return obj;
@@ -64,22 +60,9 @@ class InlineObject85 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * @member {Boolean} approvedByMaster
  */
-InlineObject85.prototype['rating'] = undefined;
-
-/**
- * Комментарий причин изменения статуса.
- * @member {String} reason
- */
-InlineObject85.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject85.prototype['linksToMediaFiles'] = undefined;
+InlineObject85.prototype['approvedByMaster'] = undefined;
 
 
 

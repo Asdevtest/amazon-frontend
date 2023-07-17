@@ -77,6 +77,19 @@ export const ProductStatusByCode = {
   300: ProductStatus.SUPPLIER_FOUND,
 }
 
+export const ProductStatusGroups = {
+  allProducts: 'allProducts',
+  rejectedBySupervisor: 'rejectedBySupervisor',
+  onCheckWithSupervisor: 'onCheckWithSupervisor',
+  atTheBuyerInWork: 'atTheBuyerInWork',
+  searchComplete: 'searchComplete',
+  supplierWasNotFound: 'supplierWasNotFound',
+  supplierPriceDoesNotFit: 'supplierPriceDoesNotFit',
+  paidByTheClient: 'paidByTheClient',
+  productIsAppropriate: 'productIsAppropriate',
+  buyerFoundSupplier: 'buyerFoundSupplier',
+}
+
 export const colorByProductStatus = status => {
   if (
     [

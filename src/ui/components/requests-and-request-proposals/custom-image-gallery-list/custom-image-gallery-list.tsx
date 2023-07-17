@@ -14,7 +14,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-image-gallery-list.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 
 interface FilesObject {
   fileLink: string
@@ -44,18 +44,21 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
   const [filesForRender, setFilesForRender] = useState(files)
 
   const [curImageId, setCurImageId] = useState<string | null>(null)
-  const [filteredFiles, setFilteredFiles] = useState<unknown[]>()
+  const [filteredFiles, setFilteredFiles] = useState<ImageObjectType[]>([])
 
   useEffect(() => {
-    setFilteredFiles(
-      files
-        .map(el => {
-          if (typeof el === 'object') {
-            return { ...el, image: el.fileLink, imageComment: el.commentByClient || '' }
+    const images: ImageObjectType[] = files
+      ?.map(el => {
+        if (typeof el === 'object') {
+          return {
+            comment: el.commentByClient,
+            url: el.fileLink,
+            _id: el?._id,
           }
-        })
-        .filter(el => !!el),
-    )
+        }
+      })
+      .filter((el): el is Exclude<typeof el, undefined> => el !== undefined)
+    setFilteredFiles(images)
   }, [files])
 
   // console.log('filesForRender', filesForRender)
@@ -90,6 +93,10 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
             onClick={() => {
               if (isObjectFiles) {
                 setCurImageId(typeof photo === 'string' ? photo : photo._id)
+                setBigImagesOptions(prevState => ({
+                  ...prevState,
+                  imgIndex: typeof photo === 'string' ? index : filteredFiles.findIndex(el => el._id === photo._id),
+                }))
               } else {
                 setBigImagesOptions({
                   images: isAmazonPhoto
@@ -130,7 +137,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
             showPreviews
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={filteredFiles as Record<string, unknown>[]}
+            imageList={filteredFiles}
             currentImageIndex={bigImagesOptions.imgIndex}
             handleCurrentImageIndex={imgIndex =>
               setBigImagesOptions(() => ({
@@ -138,18 +145,6 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
                 imgIndex,
               }))
             }
-            getImageTitle={(index, item) => (typeof item === 'string' ? item : (item?.commentByClient as string))}
-            getImageComment={(index, image) => (typeof image === 'string' ? image : (image?.imageComment as string))}
-            getImageUrl={(index, image: string | Record<string, any>) => {
-              if (typeof image === 'string') {
-                return image
-              }
-              return typeof image?.image === 'string'
-                ? image?.image
-                : image?.image?.file.type.includes('image')
-                ? image?.image?.data_url
-                : '/assets/icons/file.png'
-            }}
           />
         </>
       ) : (

@@ -1,5 +1,3 @@
-import { color } from '@mui/system'
-
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -207,6 +205,7 @@ export const styles = theme => ({
   },
 
   order: {
+    width: '100%',
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
@@ -234,9 +233,8 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
   },
   orderText: {
-    fontSize: '14px',
-
-    maxWidth: 200,
+    fontSize: 13,
+    maxWidth: 250,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -506,6 +504,7 @@ export const styles = theme => ({
 
   withScrollBatchBoxesWrapper: {
     justifyContent: 'center',
+    gap: 15,
     maxHeight: 'unset',
     overflow: 'unset',
   },
@@ -530,19 +529,23 @@ export const styles = theme => ({
   },
 
   batchProductInfoWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
 
   amountBoxesWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     gap: 20,
   },
 
   amountBoxesText: {
+    width: 34,
     fontSize: 14,
     fontWeight: 400,
+    whiteSpace: 'nowrap',
     color: theme.palette.primary.main,
   },
 
@@ -550,12 +553,12 @@ export const styles = theme => ({
     fontSize: 26,
     fontWeight: 600,
     color: theme.palette.primary.main,
-    padding: '0 5px',
+    paddingRight: 5,
   },
 
   batchProductTitle: {
     whiteSpace: 'nowrap',
-    maxWidth: '360px',
+    maxWidth: 225,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -563,7 +566,7 @@ export const styles = theme => ({
   needPay: {
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
+    width: 'fit-content',
   },
 
   alertText: {
@@ -800,7 +803,7 @@ export const styles = theme => ({
   },
 
   multilineTextHeaderWrapperWithComponent: {
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
 
   boxesAndQuantityWrapper: {
@@ -912,9 +915,24 @@ export const styles = theme => ({
   },
 
   copyAsin: {
+    width: '100%',
     display: 'flex',
-    gap: '2px',
+    gap: 5,
     alignItems: 'center',
+  },
+
+  boxInfoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 158,
+  },
+
+  boxInfoText: {
+    fontSize: 13,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 
   flexDirectionColumn: {
@@ -1137,16 +1155,10 @@ export const styles = theme => ({
   editOrRemoveIconBtnsCell: {
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
-    gap: '40px',
-    padding: '15px 0',
-  },
-
-  editOrRemoveIconBtnsSubCell: {
-    width: 'min-content',
-    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     gap: 15,
+    padding: '15px 0',
   },
 
   editOrRemoveBtnWrapper: {
@@ -1561,7 +1573,6 @@ export const styles = theme => ({
     },
   },
   ChangeInputCommentCellWrapper: {
-    padding: '16px 0',
     display: 'flex',
     width: '100%',
   },
@@ -1682,22 +1693,23 @@ export const styles = theme => ({
   },
 
   batchTrackingWrapper: {
-    width: '100%',
+    padding: '20px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
   },
 
   batchTrackingTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
-
     margin: '0 !important',
   },
 
   batchTrackingContainer: {
-    width: '100%',
+    margin: '0 !important',
   },
+
   arrivalDateWrapper: {
     display: 'flex',
   },
@@ -1801,19 +1813,27 @@ export const styles = theme => ({
   abbreviatedTitle: {
     fontSize: 14,
     fontWeight: 400,
-
     whiteSpace: 'nowrap',
+    // width: 250,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
-    flex: 1,
   },
 
   abbreviatedBatchProductInfoWrapper: {
     width: '100%',
-
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+  },
+
+  abbreviatedWrapperDivider: {
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRight: 'none',
+    borderLeft: 'none',
+  },
+
+  div: {
+    display: 'flex',
+    width: 104,
   },
 })

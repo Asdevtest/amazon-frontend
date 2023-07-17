@@ -28,17 +28,16 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
           <DataGridSelectViewProductBatch
             changeViewModeHandler={rowHandlers?.changeViewModeHandler}
             selectedViewMode={getProductViewMode()}
+            rootStyles={{ marginLeft: 15 }}
           />
         }
       />
     ),
     headerName: t(TranslationKey.Product),
-    width: 540,
-    renderCell: params => {
-      // const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
-
-      return <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
-    },
+    width: 384,
+    renderCell: params => (
+      <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
+    ),
     filterable: false,
     sortable: false,
   },

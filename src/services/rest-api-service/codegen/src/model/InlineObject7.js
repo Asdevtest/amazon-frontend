@@ -52,6 +52,9 @@ class InlineObject7 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('iconImage')) {
+                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
+            }
         }
         return obj;
     }
@@ -64,6 +67,11 @@ class InlineObject7 {
  * @member {String} title
  */
 InlineObject7.prototype['title'] = undefined;
+
+/**
+ * @member {String} iconImage
+ */
+InlineObject7.prototype['iconImage'] = undefined;
 
 
 

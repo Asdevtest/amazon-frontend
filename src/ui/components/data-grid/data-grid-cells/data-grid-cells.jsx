@@ -230,7 +230,7 @@ export const ProductAsinCell = React.memo(
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
-                {t(TranslationKey.ASIN)}
+                {`${t(TranslationKey.ASIN)}: `}
 
                 {asin ? (
                   <a
@@ -250,7 +250,7 @@ export const ProductAsinCell = React.memo(
 
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
-                {t(TranslationKey.SKU)}
+                {`${t(TranslationKey.SKU)}: `}
                 <span className={classNames.typoSpan}>
                   {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
@@ -1279,7 +1279,7 @@ export const BatchTrackingCell = React.memo(
     ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
-          containerClasses={cx(classNames.batchTrackingContainer)}
+          containerClasses={classNames.batchTrackingContainer}
           label={t(TranslationKey['Track number'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
@@ -1297,7 +1297,7 @@ export const BatchTrackingCell = React.memo(
         />
 
         <Field
-          containerClasses={cx(classNames.dateAndTimeContainerleft)}
+          containerClasses={classNames.batchTrackingContainer}
           label={t(TranslationKey['Arrival date'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
@@ -1573,7 +1573,6 @@ export const MultilineTextHeaderCell = React.memo(
       <Tooltip title={text}>
         <div
           className={cx(classNames.multilineTextHeaderWrapper, {
-            [classNames.multilineTextHeaderWrapperWithComponent]: component,
             [classNames.multilineTextAlignStartWrapper]: textAlignStart,
           })}
         >
@@ -2003,7 +2002,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           rowId={rowId}
           text={fourMonthesStock}
-          checkValue={value => value > 50}
+          checkValue={value => value >= 0}
           onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>
@@ -2657,50 +2656,48 @@ export const EditOrRemoveIconBtnsCell = React.memo(
     }) => {
       return (
         <div className={classNames.editOrRemoveIconBtnsCell}>
-          <div className={classNames.editOrRemoveIconBtnsSubCell}>
-            {!isSave && (
-              <div className={classNames.editOrRemoveBtnWrapper}>
-                <Button
-                  tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                  disabled={disableActionBtn}
-                  className={classNames.removeOrEditBtn}
-                  onClick={() => handlers && handlers.onClickEditBtn(row)}
-                >
-                  {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
-                </Button>
-                <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
-              </div>
-            )}
+          {!isSave && (
+            <div className={classNames.editOrRemoveBtnWrapper}>
+              <Button
+                tooltipInfoContent={isFirstRow && tooltipFirstButton}
+                disabled={disableActionBtn}
+                className={classNames.removeOrEditBtn}
+                onClick={() => handlers && handlers.onClickEditBtn(row)}
+              >
+                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+              </Button>
+              <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
+            </div>
+          )}
 
-            {isSave && (
-              <div className={classNames.editOrRemoveBtnWrapper}>
-                <Button
-                  tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                  disabled={disableActionBtn}
-                  className={classNames.removeOrEditBtn}
-                  onClick={() => handlers.onClickSaveBtn(row)}
-                >
-                  {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
-                </Button>
-                <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Save)}</Typography>
-              </div>
-            )}
+          {isSave && (
+            <div className={classNames.editOrRemoveBtnWrapper}>
+              <Button
+                tooltipInfoContent={isFirstRow && tooltipFirstButton}
+                disabled={disableActionBtn}
+                className={classNames.removeOrEditBtn}
+                onClick={() => handlers.onClickSaveBtn(row)}
+              >
+                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
+              </Button>
+              <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Save)}</Typography>
+            </div>
+          )}
 
-            {handlers?.onTriggerArchive && (
-              <div className={classNames.editOrRemoveBtnWrapper}>
-                <Button
-                  success={isArchive}
-                  // tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                  disabled={disableActionBtn}
-                  className={classNames.removeOrEditBtn}
-                  onClick={() => handlers?.onTriggerArchive(row)}
-                >
-                  <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
-                </Button>
-                <Typography className={classNames.editOrRemoveBtnText}>{isArchive ? 'Reveal' : 'Hide'}</Typography>
-              </div>
-            )}
-          </div>
+          {handlers?.onTriggerArchive && (
+            <div className={classNames.editOrRemoveBtnWrapper}>
+              <Button
+                success={isArchive}
+                // tooltipInfoContent={isFirstRow && tooltipFirstButton}
+                disabled={disableActionBtn}
+                className={classNames.removeOrEditBtn}
+                onClick={() => handlers?.onTriggerArchive(row)}
+              >
+                <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
+              </Button>
+              <Typography className={classNames.editOrRemoveBtnText}>{isArchive ? 'Reveal' : 'Hide'}</Typography>
+            </div>
+          )}
 
           {isArchive || isArchive === undefined ? (
             <div className={classNames.editOrRemoveBtnWrapper}>
@@ -3058,20 +3055,21 @@ export const ProductInfoExtended = React.memo(
               <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.orderImg} />
               <div className={classNames.batchProductInfoWrapper}>
                 <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
-                <div className={classNames.copyAsin}>
-                  <Typography className={classNames.orderText}>
+                <div className={classNames.boxInfoWrapper}>
+                  <Typography className={classNames.boxInfoText}>
                     <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
                     {item.asin}
                   </Typography>
                   {item.asin ? <CopyValue text={item.asin} /> : null}
-                  <Typography className={classNames.orderText}>
-                    {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                      <span className={classNames.needPay}>{`${t(
-                        TranslationKey['Extra payment required!'],
-                      )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                    )}
-                  </Typography>
                 </div>
+
+                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                  <Typography className={classNames.orderText}>
+                    <span className={classNames.needPay}>{`${t(
+                      TranslationKey['Extra payment required!'],
+                    )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                  </Typography>
+                )}
 
                 <div className={classNames.amountBoxesWrapper}>
                   <Typography className={classNames.amountBoxesText}>{`x ${item.amount}`}</Typography>
@@ -3098,34 +3096,42 @@ export const ProductInfoExtended = React.memo(
 export const ProductInfoAbbreviated = React.memo(
   withStyles(
     ({ classes: classNames, box, boxesLength }) => (
-      <div className={classNames.abbreviatedBatchProductsWrapper}>
+      <div
+        className={cx(classNames.abbreviatedBatchProductsWrapper, {
+          [classNames.abbreviatedWrapperDivider]: boxesLength > 1 && box.items.length > 1,
+        })}
+      >
         {/* {boxesLength > 1 ? <Typography className={classNames.amountBoxesText}>{`x${boxesLength}`}</Typography> : null} */}
 
         {box.items.map((item, itemIndex) => (
-          <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
-            <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
+          <>
+            <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
+              <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
 
-            <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
+              <div className={classNames.div}>
+                <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
 
-            {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+                {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+              </div>
 
-            <div className={classNames.copyAsin}>
-              <Typography className={classNames.orderText}>
-                <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                {item.asin}
-              </Typography>
-              {item.asin ? <CopyValue text={item.asin} /> : null}
-              <Typography className={classNames.orderText}>
-                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                  <span className={classNames.needPay}>{`${t(
-                    TranslationKey['Extra payment required!'],
-                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                )}
-              </Typography>
+              <div className={classNames.boxInfoWrapper}>
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                  {item.asin}
+                </Typography>
+                {item.asin ? <CopyValue text={item.asin} /> : null}
+              </div>
+
+              <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
             </div>
-
-            <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
-          </div>
+            {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+              <Typography className={classNames.orderText}>
+                <span className={classNames.needPay}>{`${t(
+                  TranslationKey['Extra payment required!'],
+                )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+              </Typography>
+            )}
+          </>
         ))}
 
         {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (

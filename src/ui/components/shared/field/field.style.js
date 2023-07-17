@@ -22,9 +22,9 @@ export const useClassNames = makeStyles()(theme => ({
   labelOneLine: {
     marginBottom: 0,
   },
-  input: {
-    border: `1px solid ${theme.palette.input?.customBorder}`,
-  },
+  // input: {
+  //   border: `1px solid ${theme.palette.input?.customBorder}`,
+  // },
   errorText: {
     marginTop: '2px',
     color: 'red',
@@ -73,5 +73,6 @@ export const useClassNames = makeStyles()(theme => ({
   labelWrapper: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: 5,
   },
 }))

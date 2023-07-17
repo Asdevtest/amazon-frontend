@@ -4,14 +4,20 @@ import { cx } from '@emotion/css'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { Button } from '@components/shared/buttons/button'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 
-export type ImageObjectType = Record<string, unknown>
+export interface ImageObjectType {
+  url: string
+  title?: string
+  comment?: string
+  file?: unknown
+  _id?: string
+}
 
 interface ImageModalProps {
   isOpenModal: boolean
@@ -20,9 +26,6 @@ interface ImageModalProps {
   currentImageIndex: number
   handleCurrentImageIndex: (index: number) => void
   showPreviews?: boolean
-  getImageTitle?: (index: number, image: string | ImageObjectType) => string
-  getImageComment?: (index: number, image: string | ImageObjectType) => string
-  getImageUrl?: (index: number, image: string | ImageObjectType) => string
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
@@ -30,20 +33,27 @@ export const ImageModal = (props: ImageModalProps) => {
   const { classes: styles } = useImageModalStyles()
   const [isZoomActive, setIsZoomActive] = useState<boolean>(false)
   const [zoomImage, setZoomImage] = useState<string | null>(null)
+  const [currentImage, setCurrentImage] = useState<string | ImageObjectType>()
+
+  useEffect(() => {
+    setCurrentImage(props.imageList?.[props.currentImageIndex])
+  }, [props.imageList, props.currentImageIndex])
 
   const onClickDownloadBtn = (image: string | ImageObjectType) => {
-    typeof image === 'string'
-      ? downloadFileByLink(getAmazonImageUrl(image))
-      : image.image
-      ? downloadFileByLink(getAmazonImageUrl(image.image))
-      : downloadFile(image.file)
+    if (typeof image === 'string') {
+      downloadFileByLink(getAmazonImageUrl(image))
+    } else if (image.file) {
+      downloadFile(image.file, image.title)
+    } else {
+      downloadFileByLink(getAmazonImageUrl(image.url))
+    }
   }
 
   const onClickZoomBtn = () => {
-    if (typeof props.imageList[props.currentImageIndex] === 'string') {
-      setZoomImage(getAmazonImageUrl(props.imageList[props.currentImageIndex], true))
-    } else if (props?.getImageUrl?.(props.currentImageIndex, props.imageList[props.currentImageIndex]) !== undefined) {
-      setZoomImage(props.getImageUrl(props.currentImageIndex, props.imageList[props.currentImageIndex]))
+    if (typeof currentImage === 'string') {
+      setZoomImage(getAmazonImageUrl(currentImage, true))
+    } else {
+      setZoomImage(currentImage!.url)
     }
 
     setIsZoomActive(true)
@@ -78,25 +88,21 @@ export const ImageModal = (props: ImageModalProps) => {
                       image
                         ? typeof image === 'string'
                           ? getAmazonImageUrl(image, true)
-                          : props.getImageUrl?.(index, image) ?? '/assets/img/no-photo.jpg'
+                          : image.url
                         : '/assets/img/no-photo.jpg'
                     }
                     alt="Image"
                   />
 
-                  {(props.getImageTitle || props.getImageComment) && (
+                  {typeof image !== 'string' && (
                     <div>
-                      {props.getImageTitle && (
-                        <Typography className={cx(styles.imagesListItemTitle, styles.shortText)}>
-                          {props.getImageTitle(index, image)}
-                        </Typography>
-                      )}
+                      <Typography className={cx(styles.imagesListItemTitle, styles.shortText)}>
+                        {image?.title}
+                      </Typography>
 
-                      {props.getImageComment && (
-                        <Typography className={styles.imagesListItemComment}>
-                          {getShortenStringIfLongerThanCount(props.getImageComment(index, image), 20)}
-                        </Typography>
-                      )}
+                      <Typography className={styles.imagesListItemComment}>
+                        {getShortenStringIfLongerThanCount(image?.comment, 20)}
+                      </Typography>
                     </div>
                   )}
                 </div>
@@ -107,11 +113,7 @@ export const ImageModal = (props: ImageModalProps) => {
         {/* Slider */}
 
         <div className={styles.body}>
-          {props.getImageTitle && (
-            <Typography className={styles.title}>
-              {props.getImageTitle(props.currentImageIndex, props.imageList[props.currentImageIndex]) || ''}
-            </Typography>
-          )}
+          {typeof currentImage !== 'string' && <Typography className={styles.title}>{currentImage?.title}</Typography>}
 
           <div className={styles.slider}>
             {!!props.imageList?.length && (
@@ -128,7 +130,7 @@ export const ImageModal = (props: ImageModalProps) => {
                         el
                           ? typeof el === 'string'
                             ? getAmazonImageUrl(el, true)
-                            : props.getImageUrl?.(index, el) ?? '/assets/img/no-photo.jpg'
+                            : el.url
                           : '/assets/img/no-photo.jpg'
                       }
                       loading="lazy"
@@ -143,10 +145,8 @@ export const ImageModal = (props: ImageModalProps) => {
           {/* Info */}
 
           <div className={styles.info}>
-            {props.getImageComment && (
-              <Typography className={styles.comment}>
-                {props.getImageComment?.(props.currentImageIndex, props.imageList[props.currentImageIndex]) || ''}
-              </Typography>
+            {typeof currentImage !== 'string' && (
+              <Typography className={styles.comment}>{currentImage?.comment}</Typography>
             )}
             <Typography className={styles.currentSlide} color="primary">
               {`${props.currentImageIndex + 1}/${props.imageList?.length || 0}`}

@@ -12,6 +12,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
   mapTaskOperationTypeEnumToKey,
   mapTaskOperationTypeKeyToEnum,
+  mapTaskOperationTypeToLabel,
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
@@ -55,7 +56,9 @@ export const ClientWarehouseTasksViewRaw = props => {
         viewModel.selectedBoxes?.length > 1 ||
         viewModel.tasksMy
           .filter(el => viewModel.selectedBoxes.includes(el.id))
-          .some(box => box.operationType !== taskOperationTypeTranslate(TaskOperationType.RECEIVE)),
+          .some(box => {
+            return box.operationType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
+          }),
     )
   }, [viewModel.selectedBoxes])
 

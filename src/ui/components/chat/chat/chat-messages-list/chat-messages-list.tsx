@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
 import { Avatar, Link, Typography } from '@mui/material'
 
-import React, { FC, MutableRefObject, Ref, useEffect, useRef, useState } from 'react'
+import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { observer } from 'mobx-react'
-
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
@@ -18,8 +17,8 @@ import { ChatMessageProposalHandlers } from './chat-messages/chat-message-propos
 import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages/chat-message-proposal-status-changed'
 import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/chat-message-request-proposal-result-edited'
 import { ChatMessageByType } from './chat-message-by-type'
-import { ReplyIcon } from '@components/shared/svg-icons'
 import { toFixed } from '@utils/text'
+import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay'
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &
@@ -117,138 +116,129 @@ export const ChatMessagesList: FC<Props> = observer(
     return (
       <div className={classNames.root}>
         <div ref={messagesWrapperRef} className={classNames.messagesWrapper}>
-          {messages && SettingsModel.languageTag
-            ? messages.map((messageItem: ChatMessageContract, index: number) => {
-                const isIncomming = userId !== messageItem.user?._id
+          {messages &&
+            SettingsModel.languageTag &&
+            messages.map((messageItem: ChatMessageContract, index: number) => {
+              const isIncomming = userId !== messageItem.user?._id
 
-                const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
+              const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
 
-                const isLastMessage = index === messages.length - 1
+              const isLastMessage = index === messages.length - 1
 
-                const isNextMessageSameAuthor =
-                  !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
+              const isNextMessageSameAuthor =
+                !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
-                const isBeforeMessageAnotherAuthor = messages[index - 1]?.user?._id !== messageItem.user?._id
+              const isBeforeMessageAnotherAuthor = messages[index - 1]?.user?._id !== messageItem.user?._id
 
-                const unReadMessage = !messageItem.isRead
+              const unReadMessage = !messageItem.isRead
 
-                const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
+              const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
-                const isReply = messageItem?.replyMessageId
+              const isReply = messageItem?.replyMessageId
 
-                const repleyMessage = messages.find(
-                  el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
-                )
+              const repleyMessage = messages.find(
+                el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
+              )
 
-                const isDisabledReply = messageItem.type !== ChatMessageType.USER
+              const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
-                return (
-                  <div
-                    ref={
-                      messageToScroll?._id === messageItem._id || toScrollMesId === messageItem._id
-                        ? messageToScrollRef
-                        : undefined
-                    }
-                    key={`chatMessage_${messageItem._id}`}
-                    // ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
-                    className={cx(classNames.message, {
-                      [classNames.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
-                    })}
-                  >
-                    {index === 0 ||
-                    formatDateWithoutTime(messages[index - 1].createdAt) !==
-                      formatDateWithoutTime(messageItem.createdAt) ? (
-                      <div className={classNames.timeTextWrapper}>
-                        <Typography className={classNames.timeText}>
-                          {formatDateWithoutTime(messageItem.createdAt)}
-                        </Typography>
-                      </div>
-                    ) : null}
+              return (
+                <div
+                  ref={
+                    messageToScroll?._id === messageItem._id || toScrollMesId === messageItem._id
+                      ? messageToScrollRef
+                      : undefined
+                  }
+                  key={`chatMessage_${messageItem._id}`}
+                  // ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
+                  className={cx(classNames.message, {
+                    [classNames.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
+                  })}
+                >
+                  {index === 0 ||
+                  formatDateWithoutTime(messages[index - 1].createdAt) !==
+                    formatDateWithoutTime(messageItem.createdAt) ? (
+                    <div className={classNames.timeTextWrapper}>
+                      <Typography className={classNames.timeText}>
+                        {formatDateWithoutTime(messageItem.createdAt)}
+                      </Typography>
+                    </div>
+                  ) : null}
 
-                    <div className={classNames.messageContent}>
+                  <div className={classNames.messageContent}>
+                    <div
+                      className={cx(classNames.messageWrapper, {
+                        [classNames.messageWrapperIsIncomming]: isIncomming,
+                        [classNames.messageWrapperIsLastMessage]: isLastMessage,
+                        [classNames.messageWrapperisNotPersonal]: isNotPersonal,
+                      })}
+                    >
+                      {!isNextMessageSameAuthor && !isNotPersonal ? (
+                        <Link
+                          target="_blank"
+                          href={
+                            userId === messageItem.user?._id
+                              ? `${window.location.origin}/profile`
+                              : `${window.location.origin}/another-user?${messageItem.user?._id}`
+                          }
+                        >
+                          <Avatar
+                            src={getUserAvatarSrc(messageItem.user?._id)}
+                            className={cx(classNames.messageAvatarWrapper, {
+                              [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
+                            })}
+                          />
+                        </Link>
+                      ) : null}
+
                       <div
-                        className={cx(classNames.messageWrapper, {
-                          [classNames.messageWrapperIsIncomming]: isIncomming,
-                          [classNames.messageWrapperIsLastMessage]: isLastMessage,
-                          [classNames.messageWrapperisNotPersonal]: isNotPersonal,
+                        className={cx(classNames.messageInner, {
+                          [classNames.messageInnerIsIncomming]: isIncomming,
+                          [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
+                          [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
+                            isNextMessageSameAuthor && isIncomming,
                         })}
                       >
-                        {!isNextMessageSameAuthor && !isNotPersonal ? (
-                          <Link
-                            target="_blank"
-                            href={
-                              userId === messageItem.user?._id
-                                ? `${window.location.origin}/profile`
-                                : `${window.location.origin}/another-user?${messageItem.user?._id}`
-                            }
-                          >
-                            <Avatar
-                              src={getUserAvatarSrc(messageItem.user?._id)}
-                              className={cx(classNames.messageAvatarWrapper, {
-                                [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
-                              })}
-                            />
-                          </Link>
-                        ) : null}
-
-                        <div
-                          className={cx(classNames.messageInner, {
-                            [classNames.messageInnerIsIncomming]: isIncomming,
-                            [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
-                            [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
-                              isNextMessageSameAuthor && isIncomming,
-                          })}
-                        >
-                          <div className={classNames.messageInnerContentWrapper}>
-                            {isReply && repleyMessage && (
-                              <div
-                                className={classNames.repleyWrapper}
-                                onClick={e => {
-                                  e.stopPropagation()
-                                  setMessageToScroll(repleyMessage)
-                                }}
-                              >
-                                <div className={classNames.repleyDivider} />
-                                <ChatMessageByType
-                                  showName
-                                  isIncomming={isIncomming}
-                                  messageItem={repleyMessage}
-                                  unReadMessage={false}
-                                  isLastMessage={false}
-                                />
-                              </div>
-                            )}
-                            <ChatMessageByType
-                              isIncomming={isIncomming}
-                              messageItem={messageItem}
-                              unReadMessage={unReadMessage}
-                              showName={showName}
-                              isLastMessage={isLastMessage}
-                              handlers={handlers}
-                              messagesFoundIds={messagesFoundIds}
-                              searchPhrase={searchPhrase}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      {!isDisabledReply && (
-                        <div className={cx(classNames.controlsOverlay, 'controlsOverlay')}>
-                          <div className={classNames.controls}>
-                            <button
-                              onClick={() => {
-                                onClickReply(messageItem, isIncomming)
+                        <div className={classNames.messageInnerContentWrapper}>
+                          {isReply && repleyMessage && (
+                            <div
+                              className={classNames.repleyWrapper}
+                              onClick={e => {
+                                e.stopPropagation()
+                                setMessageToScroll(repleyMessage)
                               }}
                             >
-                              <ReplyIcon />
-                            </button>
-                          </div>
+                              <div className={classNames.repleyDivider} />
+                              <ChatMessageByType
+                                showName
+                                isIncomming={isIncomming}
+                                messageItem={repleyMessage}
+                                unReadMessage={false}
+                                isLastMessage={false}
+                              />
+                            </div>
+                          )}
+                          <ChatMessageByType
+                            isIncomming={isIncomming}
+                            messageItem={messageItem}
+                            unReadMessage={unReadMessage}
+                            showName={showName}
+                            isLastMessage={isLastMessage}
+                            handlers={handlers}
+                            messagesFoundIds={messagesFoundIds}
+                            searchPhrase={searchPhrase}
+                          />
                         </div>
-                      )}
+                      </div>
                     </div>
+
+                    {!isDisabledControls && (
+                      <ChatMessageControlsOverlay onClickReply={() => onClickReply(messageItem, isIncomming)} />
+                    )}
                   </div>
-                )
-              })
-            : undefined}
+                </div>
+              )
+            })}
         </div>
       </div>
     )

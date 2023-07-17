@@ -38,6 +38,7 @@ import { useClassNames } from './chat.style'
 import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 import { toFixed } from '@utils/text'
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
+import { ChatCurrentReplyMessage } from '@components/chat/chat/chat-current-reply-message'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -333,31 +334,11 @@ export const Chat: FC<Props> = observer(
         </div>
 
         {messageToReply && (
-          <div
-            className={classNames.messageToReplyWrapper}
-            onClick={() => {
-              setMessageToScroll(messageToReply)
-              setTimeout(() => setMessageToScroll(null), 1000)
-            }}
-          >
-            <ReplyOutlinedIcon className={classNames.messageToReplyIcon} />
-            <div className={classNames.messageToReplySubWrapper}>
-              <ChatMessageByType
-                isIncomming
-                showName
-                messageItem={messageToReply}
-                unReadMessage={false}
-                isLastMessage={false}
-              />
-            </div>
-            <CloseOutlinedIcon
-              className={classNames.messageToReplyCloseIcon}
-              onClick={e => {
-                e.stopPropagation()
-                setMessageToReply(null)
-              }}
-            />
-          </div>
+          <ChatCurrentReplyMessage
+            message={messageToReply}
+            setMessageToReply={setMessageToReply}
+            setMessageToScroll={setMessageToScroll}
+          />
         )}
 
         <div className={classNames.bottomPartWrapper}>
