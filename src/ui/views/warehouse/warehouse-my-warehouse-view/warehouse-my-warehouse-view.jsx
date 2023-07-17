@@ -99,8 +99,8 @@ export const WarehouseMyWarehouseViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            // disableVirtualization
             key={SettingsModel.languageTag}
+            disableVirtualization
             checkboxSelection
             pagination
             localeText={getLocalizationByLanguageTag()}
@@ -136,6 +136,9 @@ export const WarehouseMyWarehouseViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: viewModel.columnMenuSettings,
 
               toolbar: {

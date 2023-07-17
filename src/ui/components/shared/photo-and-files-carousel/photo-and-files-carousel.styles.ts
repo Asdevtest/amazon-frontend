@@ -138,13 +138,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageSubWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-
-  notToShowEmptyWrapper: {
-    width: '100%',
   },
 
   documentsWrapper: {

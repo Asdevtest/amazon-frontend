@@ -167,7 +167,7 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={cx(classNames.imagesWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
+            <div className={classNames.imagesWrapper}>
               {notEmptyPhotos?.length ? (
                 <CustomSlider>
                   {(isEditable

@@ -660,11 +660,16 @@ export const ChangeInputCell = React.memo(
               ) : null}
             </InputAdornment>
           }
-          onChange={e =>
-            isInts
-              ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
-              : setValue(e.target.value)
-          }
+          onChange={e => {
+            if (isInts) {
+              setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+            } else {
+              setValue(e.target.value)
+            }
+          }}
+          onKeyDown={e => {
+            e.stopPropagation()
+          }}
           onBlur={() => setIsMyInputFocused(false)}
           onFocus={() => setIsMyInputFocused(true)}
         />
@@ -1573,7 +1578,6 @@ export const MultilineTextHeaderCell = React.memo(
       <Tooltip title={text}>
         <div
           className={cx(classNames.multilineTextHeaderWrapper, {
-            [classNames.multilineTextHeaderWrapperWithComponent]: component,
             [classNames.multilineTextAlignStartWrapper]: textAlignStart,
           })}
         >
@@ -2003,7 +2007,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           rowId={rowId}
           text={fourMonthesStock}
-          checkValue={value => value > 50}
+          checkValue={value => value >= 0}
           onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>
@@ -3056,20 +3060,21 @@ export const ProductInfoExtended = React.memo(
               <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.orderImg} />
               <div className={classNames.batchProductInfoWrapper}>
                 <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
-                <div className={classNames.copyAsin}>
-                  <Typography className={classNames.orderText}>
+                <div className={classNames.boxInfoWrapper}>
+                  <Typography className={classNames.boxInfoText}>
                     <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
                     {item.asin}
                   </Typography>
                   {item.asin ? <CopyValue text={item.asin} /> : null}
-                  <Typography className={classNames.orderText}>
-                    {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                      <span className={classNames.needPay}>{`${t(
-                        TranslationKey['Extra payment required!'],
-                      )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                    )}
-                  </Typography>
                 </div>
+
+                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                  <Typography className={classNames.orderText}>
+                    <span className={classNames.needPay}>{`${t(
+                      TranslationKey['Extra payment required!'],
+                    )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                  </Typography>
+                )}
 
                 <div className={classNames.amountBoxesWrapper}>
                   <Typography className={classNames.amountBoxesText}>{`x ${item.amount}`}</Typography>
@@ -3096,34 +3101,42 @@ export const ProductInfoExtended = React.memo(
 export const ProductInfoAbbreviated = React.memo(
   withStyles(
     ({ classes: classNames, box, boxesLength }) => (
-      <div className={classNames.abbreviatedBatchProductsWrapper}>
+      <div
+        className={cx(classNames.abbreviatedBatchProductsWrapper, {
+          [classNames.abbreviatedWrapperDivider]: boxesLength > 1 && box.items.length > 1,
+        })}
+      >
         {/* {boxesLength > 1 ? <Typography className={classNames.amountBoxesText}>{`x${boxesLength}`}</Typography> : null} */}
 
         {box.items.map((item, itemIndex) => (
-          <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
-            <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
+          <>
+            <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
+              <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
 
-            <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
+              <div className={classNames.div}>
+                <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
 
-            {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+                {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+              </div>
 
-            <div className={classNames.copyAsin}>
-              <Typography className={classNames.orderText}>
-                <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                {item.asin}
-              </Typography>
-              {item.asin ? <CopyValue text={item.asin} /> : null}
-              <Typography className={classNames.orderText}>
-                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                  <span className={classNames.needPay}>{`${t(
-                    TranslationKey['Extra payment required!'],
-                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                )}
-              </Typography>
+              <div className={classNames.boxInfoWrapper}>
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                  {item.asin}
+                </Typography>
+                {item.asin ? <CopyValue text={item.asin} /> : null}
+              </div>
+
+              <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
             </div>
-
-            <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
-          </div>
+            {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+              <Typography className={classNames.orderText}>
+                <span className={classNames.needPay}>{`${t(
+                  TranslationKey['Extra payment required!'],
+                )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+              </Typography>
+            )}
+          </>
         ))}
 
         {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (

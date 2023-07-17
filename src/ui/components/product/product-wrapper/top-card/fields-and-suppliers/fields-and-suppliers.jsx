@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Box, Grid, Link, ListItemText, MenuItem, Select, Tooltip, Typography } from '@mui/material'
-import MuiCheckbox from '@mui/material/Checkbox'
+import { Box, Grid, Link, MenuItem, Select, Radio, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -26,7 +24,7 @@ import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
-import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './fields-and-suppliers.style'
@@ -226,8 +224,7 @@ export const FieldsAndSuppliers = observer(
               <Typography className={classNames.label}>{t(TranslationKey['Delivery Method'])}</Typography>
               <div className={classNames.productCheckboxBoxWrapper}>
                 <Box className={classNames.productCheckboxBox}>
-                  <Typography className={classNames.label}>{t(TranslationKey.FBA)}</Typography>
-                  <MuiCheckbox
+                  <Radio
                     disabled={
                       !(
                         checkIsSupervisor(curUserRole) ||
@@ -239,15 +236,15 @@ export const FieldsAndSuppliers = observer(
                           !product.archive)
                       )
                     }
-                    color="primary"
+                    classes={{ root: classNames.radioRoot }}
                     checked={product.fba}
-                    onClick={() => onChangeField('fba')({ target: { value: !product.fba } })}
+                    onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
+                  <Typography className={classNames.radioLabel}>{t(TranslationKey.FBA)}</Typography>
                 </Box>
 
                 <Box className={classNames.productCheckboxBox}>
-                  <Typography className={classNames.label}>{'FBM'}</Typography>
-                  <MuiCheckbox
+                  <Radio
                     disabled={
                       !(
                         checkIsSupervisor(curUserRole) ||
@@ -259,10 +256,11 @@ export const FieldsAndSuppliers = observer(
                           !product.archive)
                       )
                     }
-                    color="primary"
+                    classes={{ root: classNames.radioRoot }}
                     checked={!product.fba}
-                    onClick={() => onChangeField('fba')({ target: { value: !product.fba } })}
+                    onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
+                  <Typography className={classNames.radioLabel}>{'FBM'}</Typography>
                 </Box>
               </div>
             </div>
