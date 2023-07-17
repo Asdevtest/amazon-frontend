@@ -65,7 +65,7 @@ export const adminTasksViewColumns = handlers => [
     align: 'center',
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={t(TranslationKey['View more'])}
+        bTnText={t(TranslationKey.Details)}
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
