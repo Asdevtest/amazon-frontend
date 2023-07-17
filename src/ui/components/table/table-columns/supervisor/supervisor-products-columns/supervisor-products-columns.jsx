@@ -9,6 +9,8 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductAsinCell,
+  RedFlagsCell,
+  TagsCell,
   ToFixedWithDollarSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -160,6 +162,26 @@ export const supervisorProductsViewColumns = () => [
     type: 'boolean',
     sortable: false,
     columnKey: columnnsKeys.shared.YES_NO,
+  },
+
+  {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
+    width: 160,
+    sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    width: 130,
+    sortable: false,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {
