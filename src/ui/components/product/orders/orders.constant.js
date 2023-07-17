@@ -1,12 +1,5 @@
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
-export const chosenStatuses = {
-  ALL: 'ALL',
-  AT_PROCESS: 'AT_PROCESS',
-  CANCELED: 'CANCELED',
-  COMPLETED: 'COMPLETED',
-}
-
 export const selectedStatus = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
   OrderStatusByKey[OrderStatus.READY_TO_PROCESS],

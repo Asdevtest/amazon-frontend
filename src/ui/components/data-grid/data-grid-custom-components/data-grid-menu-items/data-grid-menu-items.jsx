@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { cx } from '@emotion/css'
 import {
   CircularProgress,
   Divider,
@@ -15,15 +16,18 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { compareDesc, isAfter, parseISO } from 'date-fns'
 import { withStyles } from 'tss-react/mui'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
@@ -34,9 +38,6 @@ import { getStatusByColumnKeyAndStatusKey, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
-import { cx } from '@emotion/css'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { Checkbox } from '@components/shared/checkbox'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -310,28 +311,28 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
 
 export const OrderStatusMenuItem = React.memo(
   withStyles(({ classes: classNames, orderStatusData }) => {
-    const { chosenStatuses, chosenStatusSettings, onCheckboxChange } = orderStatusData
+    const { isCheckedStatusByFilter, onCheckboxChange } = orderStatusData
 
     const checkboxes = [
       {
-        name: chosenStatuses.ALL,
+        name: chosenStatusesByFilter.ALL,
         label: t(TranslationKey.All),
-        checked: chosenStatusSettings.ALL,
+        checked: isCheckedStatusByFilter.ALL,
       },
       {
-        name: chosenStatuses.AT_PROCESS,
+        name: chosenStatusesByFilter.AT_PROCESS,
         label: t(TranslationKey['At process']),
-        checked: chosenStatusSettings.AT_PROCESS,
+        checked: isCheckedStatusByFilter.AT_PROCESS,
       },
       {
-        name: chosenStatuses.CANCELED,
+        name: chosenStatusesByFilter.CANCELED,
         label: t(TranslationKey.Canceled),
-        checked: chosenStatusSettings.CANCELED,
+        checked: isCheckedStatusByFilter.CANCELED,
       },
       {
-        name: chosenStatuses.COMPLETED,
+        name: chosenStatusesByFilter.COMPLETED,
         label: t(TranslationKey.Completed),
-        checked: chosenStatusSettings.COMPLETED,
+        checked: isCheckedStatusByFilter.COMPLETED,
       },
     ]
 

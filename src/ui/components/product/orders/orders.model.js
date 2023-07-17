@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +16,8 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { canceledStatus, chosenStatuses, completedStatus, selectedStatus } from './orders.constant'
+
+import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
   history = undefined
@@ -79,24 +81,23 @@ export class OrdersModel {
     })
   }
 
-  isCheckedStatusByFilterByFilter = {
-    [chosenStatuses.ALL]: true,
-    [chosenStatuses.AT_PROCESS]: true,
-    [chosenStatuses.CANCELED]: true,
-    [chosenStatuses.COMPLETED]: true,
+  isCheckedStatusByFilter = {
+    [chosenStatusesByFilter.ALL]: true,
+    [chosenStatusesByFilter.AT_PROCESS]: true,
+    [chosenStatusesByFilter.CANCELED]: true,
+    [chosenStatusesByFilter.COMPLETED]: true,
   }
 
   get orderStatusData() {
     return {
-      chosenStatuses,
-      chosenStatusSettings: this.isCheckedStatusByFilter,
+      isCheckedStatusByFilter: this.isCheckedStatusByFilter,
       onCheckboxChange: this.onCheckboxChange,
     }
   }
 
   onCheckboxChange(event) {
     const { name, checked } = event.target
-    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatuses
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
     if (name === ALL) {
       this.isCheckedStatusByFilter = {
@@ -130,7 +131,7 @@ export class OrdersModel {
   }
 
   onClickResetFilters() {
-    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatuses
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
     this.isCheckedStatusByFilter = {
       [ALL]: true,
@@ -147,7 +148,7 @@ export class OrdersModel {
   }
 
   getCurrentData() {
-    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatuses
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
     let filteredOrders = toJS(this.orders)
 
