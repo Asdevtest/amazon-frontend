@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { observer } from 'mobx-react'
 import { useHistory } from 'react-router-dom'
@@ -30,7 +30,6 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
 
   const {
     orderStatusData,
-
     platformSettings,
     storekeepers,
     destinations,
@@ -66,6 +65,9 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
+          footerContainer: classNames.footerContainer,
+          footerCell: classNames.footerCell,
+          toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}

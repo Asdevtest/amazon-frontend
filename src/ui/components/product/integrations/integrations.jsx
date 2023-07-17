@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { observer } from 'mobx-react'
 import { useHistory } from 'react-router-dom'
@@ -60,7 +60,7 @@ export const Integrations = observer(({ productId }) => {
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 
-          <Button disabled={!selectedRowIds.length} className={classNames.buttonOffset} onClick={onUnlinkSkuSProduct}>
+          <Button disabled={!selectedRowIds.length} onClick={onUnlinkSkuSProduct}>
             {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>
@@ -70,14 +70,13 @@ export const Integrations = observer(({ productId }) => {
         pagination
         useResizeContainer
         checkboxSelection
-        // sx={{
-        //   border: 0,
-        //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-        //   backgroundColor: theme.palette.background.general,
-        // }}
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
+          root: classNames.root,
+          footerContainer: classNames.footerContainer,
+          footerCell: classNames.footerCell,
+          toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}
