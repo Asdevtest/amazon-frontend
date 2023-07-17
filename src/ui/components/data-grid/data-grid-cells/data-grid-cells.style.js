@@ -626,11 +626,9 @@ export const styles = theme => ({
   },
 
   multilineTextWrapper: {
-    height: '100%',
     width: '100%',
-    display: 'flex',
-    alignItems: 'center',
     padding: '5px 0',
+    textAlign: 'center',
     overflow: 'hidden',
   },
 
@@ -698,14 +696,10 @@ export const styles = theme => ({
   },
 
   statusMultilineText: {
-    width: '100%',
-    maxHeight: '100%',
-    textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
   },
 
   multilineTextAlignLeftHeaderWrapper: {
