@@ -175,7 +175,7 @@ export const styles = theme => ({
     width: '100%',
     height: 'auto',
     whiteSpace: 'pre-wrap',
-    overflow: 'hidden',
+    overflow: 'auto',
     paddingLeft: 5,
 
     '&::placeholder': {
