@@ -83,13 +83,19 @@ export const lightTheme = createTheme({
           position: 'relative',
           paddingRight: 20,
         },
+
         columnHeaderTitleContainer: {
           display: 'flex  !important',
           alignItems: 'center  !important',
           flexDirection: 'row  !important',
-          justifyContent: 'space-between  !important',
+          justifyContent: 'space-between !important',
           overflow: 'visible',
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100% !important',
+          },
         },
+
         menuIconButton: {
           zIndex: 1000,
           position: 'absolute !important',
@@ -106,12 +112,14 @@ export const lightTheme = createTheme({
             height: 14,
           },
         },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
@@ -437,6 +445,7 @@ export const darkTheme = createTheme({
           position: 'relative',
           paddingRight: 20,
         },
+
         columnHeaderTitleContainer: {
           display: 'flex !important',
           alignItems: 'center !important',
@@ -444,12 +453,14 @@ export const darkTheme = createTheme({
           justifyContent: 'space-between !important',
           overflow: 'visible',
         },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
