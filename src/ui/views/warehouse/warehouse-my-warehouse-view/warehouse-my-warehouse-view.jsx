@@ -99,8 +99,8 @@ export const WarehouseMyWarehouseViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            // disableVirtualization
             key={SettingsModel.languageTag}
+            disableVirtualization
             checkboxSelection
             pagination
             localeText={getLocalizationByLanguageTag()}
