@@ -793,12 +793,8 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
-  multilineTextAlignStartWrapper: {
-    justifyContent: 'start',
-  },
-
-  multilineTextHeaderWrapperWithComponent: {
-    // justifyContent: 'space-between',
+  multilineTextHeaderCenter: {
+    justifyContent: 'center',
   },
 
   boxesAndQuantityWrapper: {
@@ -1235,7 +1231,7 @@ export const styles = theme => ({
     // right: -5,
     // right: -7,
     right: -15,
-    top: 15,
+    top: 20,
 
     overflow: 'visible',
   },

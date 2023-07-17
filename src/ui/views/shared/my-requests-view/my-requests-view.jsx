@@ -16,6 +16,7 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -27,7 +28,6 @@ import { t } from '@utils/translations'
 
 import { MyRequestsViewModel } from './my-requests-view.model'
 import { styles } from './my-requests-view.style'
-import { AlertShield } from '@components/shared/alert-shield'
 
 export const MyRequestsViewRaw = props => {
   const [viewModel] = useState(
@@ -124,10 +124,6 @@ export const MyRequestsViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              menuIconButton: classNames.menuIconButton,
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}

@@ -91,34 +91,4 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
-
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-
-    position: 'relative',
-    paddingRight: 20,
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-  menuIconButton: {
-    zIndex: 1000,
-    position: 'absolute !important',
-    right: -7,
-    top: 13,
-    visibility: 'visible !important',
-
-    width: '18px !important',
-    height: '18px !important',
-
-    '.MuiSvgIcon-root': {
-      display: 'none',
-    },
-  },
-  iconSeparator: {
-    padding: '0 1px',
-  },
 })

@@ -58,10 +58,6 @@ export const ServiceDetailsViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              iconSeparator: classNames.iconSeparator,
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
             rowCount={viewModel.rowCount}
             columnVisibilityModel={viewModel.columnVisibilityModel}

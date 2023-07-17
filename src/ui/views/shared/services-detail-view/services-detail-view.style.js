@@ -31,16 +31,4 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
-
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-  },
-  iconSeparator: {
-    padding: '0 1px',
-  },
 })

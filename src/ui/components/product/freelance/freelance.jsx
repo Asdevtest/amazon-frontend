@@ -11,20 +11,20 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
-import { SearchInput } from '@components/shared/search-input'
-import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 export const Freelance = observer(({ productId }) => {
   const { classes: classNames } = useClassNames()
@@ -100,9 +100,6 @@ export const Freelance = observer(({ productId }) => {
             footerContainer: classNames.footerContainer,
             footerCell: classNames.footerCell,
             toolbarContainer: classNames.toolbarContainer,
-
-            columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-            columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
           }}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}

@@ -32,6 +32,7 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -43,7 +44,6 @@ import { t } from '@utils/translations'
 
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { styles } from './client-inventory-view.style'
-import { AlertShield } from '@components/shared/alert-shield'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(
@@ -224,12 +224,6 @@ export const ClientInventoryViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              iconSeparator: classNames.iconSeparator,
-              menuIconButton: classNames.menuIconButton,
-              iconButtonContainer: classNames.iconButtonContainer,
             }}
             sx={{
               '.MuiDataGrid-sortIcon': {
