@@ -172,10 +172,17 @@ export const getTableByColumn = (column, hint) => {
       'etd',
       'eta',
       'cls',
+      'trackingNumber',
+      'arrivalDate',
+      'deliveryTotalPrice',
     ].includes(column)
   ) {
-    if (['humanFriendlyId', 'boxesCount', 'totalPrice'].includes(column) && hint === 'batches') {
+    if (['humanFriendlyId', 'boxesCount'].includes(column) && hint === 'batches') {
       return 'batches'
+    }
+
+    if (['totalPrice'].includes(column) && hint === 'batches') {
+      return 'orders'
     }
 
     if (hint === 'orders') {
@@ -258,7 +265,7 @@ export const getTableByColumn = (column, hint) => {
     return 'requests'
   } else if (['productionTerm'].includes(column)) {
     return 'suppliers'
-  } else if (['finalWeight', 'deliveryTotalPrice'].includes(column)) {
+  } else if (['finalWeight'].includes(column)) {
     return 'batches'
   }
 }

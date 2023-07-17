@@ -30,7 +30,6 @@ const filtersFields = [
   'destination',
   'humanFriendlyId',
   'storekeeper',
-  'boxesCount',
   'logicsTariff',
   'finalWeight',
   'deliveryTotalPrice',
@@ -39,6 +38,7 @@ const filtersFields = [
   'eta',
   'cls',
   'updatedAt',
+  'amount',
 ]
 
 export class ClientAwaitingBatchesViewModel {
@@ -625,7 +625,11 @@ export class ClientAwaitingBatchesViewModel {
 
   getFilter(exclusion) {
     return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields),
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'amazonTitle',
+        'humanFriendlyId',
+        'asin',
+      ]),
     )
   }
 }

@@ -1,8 +1,16 @@
 interface ColumnMenuSettings {
   [key: string]: {
-    currentFilterData: string[] | Array<Record<string, unknown>>
+    currentFilterData: string[] | number[] | Array<Record<string, unknown>>
   }
 }
+
+const onlyDigitsRegex = /^\d+$/
+
+const searchOperatorByColumn = {
+  $eq: ['humanFriendlyId', 'id'],
+}
+
+const onlyNumberColumns = ['humanFriendlyId', 'id']
 
 /*
  * Функция для генераций объекта фильтров таблицы
@@ -23,11 +31,32 @@ export const dataGridFiltersConverter = (
   additionalOptions?: Record<string, unknown>,
 ) => {
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
-  const searchFieldsArray = searchFields.map(el => {
-    return {
-      [el]: { $contains: searchValue },
-    }
-  })
+  const searchFieldsArray = searchValue
+    ? searchFields
+        .map(el => {
+          let operator = '$contains'
+
+          for (const key in searchOperatorByColumn) {
+            if (searchOperatorByColumn[key as keyof typeof searchOperatorByColumn].includes(el)) {
+              operator = key
+              break
+            }
+          }
+
+          return {
+            [el]: { [operator]: searchValue },
+          }
+        })
+        .filter(el => {
+          const key = Object.keys(el)[0]
+
+          if (onlyNumberColumns.includes(key)) {
+            return onlyDigitsRegex.test(searchValue)
+          }
+
+          return true
+        })
+    : []
 
   // * Проходимся по всем колонкам, получаем фильтра для каждой и генерируем итоговый объект
   const columnFilters = columns.reduce((acc, column) => {
@@ -43,7 +72,13 @@ export const dataGridFiltersConverter = (
       if (typeof item === 'object') {
         finalFilterString += `${item._id},`
       } else {
-        finalFilterString += `${item},`
+        const isHaveMultipleWords = typeof item === 'string' && item.split(' ').length > 1
+
+        if (isHaveMultipleWords) {
+          finalFilterString += `"${item}",`
+        } else {
+          finalFilterString += `${item},`
+        }
       }
     })
 

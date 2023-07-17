@@ -876,24 +876,6 @@ export class ClientInventoryViewModel {
     const redFlagsFilter =
       exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
 
-    const newFilter = objectToUrlQs(
-      dataGridFiltersConverter(
-        this.columnMenuSettings,
-        this.nameSearchValue,
-        exclusion,
-        filtersFields,
-        ['asin', 'skusByClient', 'amazonTitle'],
-        {
-          archive: { $eq: this.isArchive },
-          ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-            barCode: {
-              [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
-            },
-          }),
-        },
-      ),
-    )
-
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -998,10 +980,10 @@ export class ClientInventoryViewModel {
       }),
     })
 
-    console.log(newFilter, 'newFilter')
+    // console.log(newFilter, 'newFilter')
     console.log(filter, 'filter')
 
-    return newFilter
+    return filter
   }
 
   async getProductsMy(noProductBaseUpdate) {

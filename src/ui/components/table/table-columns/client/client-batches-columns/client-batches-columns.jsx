@@ -69,7 +69,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   },
 
   {
-    field: 'boxesCount',
+    field: 'amount',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
