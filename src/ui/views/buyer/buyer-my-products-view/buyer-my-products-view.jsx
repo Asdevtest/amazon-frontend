@@ -58,6 +58,7 @@ export const BuyerMyProductsViewRaw = props => {
         <div className={classNames.headerWrapper}>
           <SearchInput
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            inputClasses={classNames.searchInput}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
