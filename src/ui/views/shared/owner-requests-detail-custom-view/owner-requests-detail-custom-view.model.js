@@ -445,7 +445,10 @@ export class OwnerRequestDetailCustomViewModel {
             result.totalCost,
             2,
           )} $. ${t(TranslationKey['Confirm the publication?'])}`,
-          onSubmit: () => this.toPublishRequest(result.totalCost),
+          onSubmit: () => {
+            this.toPublishRequest(result.totalCost)
+            this.confirmModalSettings.message = ''
+          },
         }
       })
 
