@@ -987,7 +987,10 @@ export const NormalFieldMenuItem = React.memo(
           className={cx({
             [classNames.universalFilterWrapper]: !asBlock,
             [classNames.shopsDataWrapperBlocked]: asBlock,
-            [classNames.fullName]: columnKey === columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+            [classNames.fullName]: [
+              columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+              columnnsKeys.client.INVENTORY_STATUS,
+            ].includes(columnKey),
           })}
         >
           <div className={classNames.universalFilterSearchInputWrapper}>
