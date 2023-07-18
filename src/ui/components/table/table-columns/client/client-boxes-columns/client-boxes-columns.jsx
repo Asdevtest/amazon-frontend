@@ -186,7 +186,13 @@ export const clientBoxesViewColumns = (
   {
     field: 'isFormed',
     headerName: t(TranslationKey.Formed),
-    renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.Formed)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        withIcon
+        isFilterActive={getColumnMenuSettings()?.isFormedData?.isFormed !== null}
+        text={t(TranslationKey.Formed)}
+      />
+    ),
 
     renderCell: params => {
       return params.row.originalData ? (
