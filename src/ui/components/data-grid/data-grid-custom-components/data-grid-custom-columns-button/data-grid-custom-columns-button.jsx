@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Checkbox, Menu, Typography } from '@mui/material'
@@ -80,7 +79,7 @@ export const DataGridCustomColumnsButton = props => {
         onClose={handleClose}
       >
         <div className={classNames.mainWrapper}>
-          <Typography className={classNames.titleText}>{t(TranslationKey.Columns)}</Typography>
+          {/* <Typography className={classNames.titleText}>{t(TranslationKey.Columns)}</Typography> */}
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               inputClasses={classNames.searchInput}
