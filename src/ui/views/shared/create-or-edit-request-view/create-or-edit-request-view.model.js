@@ -173,11 +173,15 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.log(error)
 
-      this.history.push('/client/freelance/my-requests', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['The request was not created']),
-        error: true,
-      })
+      if (error?.response?.error?.url?.includes('calculate_request_cost')) {
+        this.pushSuccess()
+      } else {
+        this.history.push('/client/freelance/my-requests', {
+          showAcceptMessage: true,
+          acceptMessage: t(TranslationKey['The request was not created']),
+          error: true,
+        })
+      }
 
       runInAction(() => {
         this.error = error

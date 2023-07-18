@@ -119,6 +119,7 @@ const BlockOfNewBox = ({
             onChange={setFormField('amount', orderBoxIndex)}
           />
           <Field
+            inputProps={{ maxLength: 7 }}
             error={
               currentSupplier.multiplicity &&
               currentSupplier.boxProperties?.amountInBox &&
