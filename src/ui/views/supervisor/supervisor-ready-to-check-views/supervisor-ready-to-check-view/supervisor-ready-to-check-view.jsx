@@ -47,6 +47,7 @@ export const SupervisorReadyToCheckViewRaw = props => {
             checkboxSelection
             pagination
             useResizeContainer
+            paginationModel={viewModel.paginationModel}
             classes={{
               root: classNames.root,
               footerContainer: classNames.footerContainer,
@@ -76,6 +77,7 @@ export const SupervisorReadyToCheckViewRaw = props => {
             rowHeight={100}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
