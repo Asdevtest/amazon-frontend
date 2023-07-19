@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1OrdersCheckPendingOrderByProductGuidGet
 
-> [InlineResponse20050] apiV1OrdersCheckPendingOrderByProductGuidGet(guid, opts)
+> [InlineResponse20051] apiV1OrdersCheckPendingOrderByProductGuidGet(guid, opts)
 
 # Проверить, существует ли заказ в статусах 0, 2, 3(formed, pending, readyForBuyout) с данным продуктом
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20050]**](InlineResponse20050.md)
+[**[InlineResponse20051]**](InlineResponse20051.md)
 
 ### Authorization
 
@@ -88,7 +88,7 @@ let apiInstance = new TestSwagger.OrderApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
+  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
 };
 apiInstance.apiV1OrdersCommentGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
+ **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
 
 ### Return type
 
@@ -144,7 +144,7 @@ let apiInstance = new TestSwagger.OrderApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
+  'body': new TestSwagger.InlineObject70() // InlineObject70 | 
 };
 apiInstance.apiV1OrdersPendingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
+ **body** | [**InlineObject70**](InlineObject70.md)|  | [optional] 
 
 ### Return type
 

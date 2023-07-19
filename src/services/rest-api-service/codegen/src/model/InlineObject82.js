@@ -22,10 +22,11 @@ class InlineObject82 {
     /**
      * Constructs a new <code>InlineObject82</code>.
      * @alias module:model/InlineObject82
+     * @param approvedByMaster {Boolean} 
      */
-    constructor() { 
+    constructor(approvedByMaster) { 
         
-        InlineObject82.initialize(this);
+        InlineObject82.initialize(this, approvedByMaster);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject82 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, approvedByMaster) { 
+        obj['approvedByMaster'] = approvedByMaster;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject82 {
         if (data) {
             obj = obj || new InlineObject82();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('approvedByMaster')) {
+                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
             }
         }
         return obj;
@@ -58,10 +60,9 @@ class InlineObject82 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * @member {Boolean} approvedByMaster
  */
-InlineObject82.prototype['suppliersIds'] = undefined;
+InlineObject82.prototype['approvedByMaster'] = undefined;
 
 
 

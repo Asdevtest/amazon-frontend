@@ -22,10 +22,11 @@ class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
      * @alias module:model/InlineObject112
+     * @param storekeeperComment {String} 
      */
-    constructor() { 
+    constructor(storekeeperComment) { 
         
-        InlineObject112.initialize(this);
+        InlineObject112.initialize(this, storekeeperComment);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject112 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -58,10 +60,9 @@ class InlineObject112 {
 }
 
 /**
- * Статус
- * @member {Number} status
+ * @member {String} storekeeperComment
  */
-InlineObject112.prototype['status'] = undefined;
+InlineObject112.prototype['storekeeperComment'] = undefined;
 
 
 

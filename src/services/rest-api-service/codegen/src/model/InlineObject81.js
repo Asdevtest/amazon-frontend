@@ -47,8 +47,14 @@ class InlineObject81 {
         if (data) {
             obj = obj || new InlineObject81();
 
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -58,10 +64,22 @@ class InlineObject81 {
 }
 
 /**
- * GUIDы магазинов, которые нужно добавить к продукту.
- * @member {Array.<String>} shopIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject81.prototype['shopIds'] = undefined;
+InlineObject81.prototype['rating'] = undefined;
+
+/**
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
+ */
+InlineObject81.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject81.prototype['linksToMediaFiles'] = undefined;
 
 
 

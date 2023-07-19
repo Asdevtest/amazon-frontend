@@ -50,9 +50,6 @@ class InlineObject64 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
@@ -95,12 +92,6 @@ class InlineObject64 {
  * @member {String} title
  */
 InlineObject64.prototype['title'] = undefined;
-
-/**
- * Статус идеи
- * @member {Number} status
- */
-InlineObject64.prototype['status'] = undefined;
 
 /**
  * Images URLs

@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
-**sellerBoardWarehouseReportUrlDaily** | **String** | uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard. | [optional] 
-**sellerBoardWarehouseReportUrlMonthly** | **String** | uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+**priority** | **Number** | Приоритет задачи | [optional] 
 
 

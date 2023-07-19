@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject20]**](InlineObject20.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**priority** | **Number** | Выставить приоритет задачи | 
+**reason** | **String** | Reason of high priority | [optional] 
 
 

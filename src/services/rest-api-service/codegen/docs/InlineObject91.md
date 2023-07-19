@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rating** | **Number** | Поставить оценку юзеру | [optional] 
-**review** | **String** | Отзыв о работе | [optional] 
-**sourceFile** | **String** | Файл для записи в FreelanceSource по этому пропоузалу | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | 
+**comment** | **String** | Комментарий к файлу | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | 
+**productId** | **String** | гуид продукта | 
+**proposalId** | **String** | Гуид пропоузала | [optional] 
 
 

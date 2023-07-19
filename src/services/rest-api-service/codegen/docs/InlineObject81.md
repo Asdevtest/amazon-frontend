@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

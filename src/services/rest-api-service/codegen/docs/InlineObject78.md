@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productIds** | **[String]** |  | [optional] 
+**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
 
 

@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1StorekeepersBoxesGuidItems from './ApiV1StorekeepersBoxesGuidItems';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject113 model module.
@@ -23,10 +24,11 @@ class InlineObject113 {
     /**
      * Constructs a new <code>InlineObject113</code>.
      * @alias module:model/InlineObject113
+     * @param name {String} Название тарифа
      */
-    constructor() { 
+    constructor(name) { 
         
-        InlineObject113.initialize(this);
+        InlineObject113.initialize(this, name);
     }
 
     /**
@@ -34,7 +36,8 @@ class InlineObject113 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -48,62 +51,38 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('variationTariffId')) {
-                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
             }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
             }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
             }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperTaskComment')) {
-                obj['storekeeperTaskComment'] = ApiClient.convertToType(data['storekeeperTaskComment'], 'String');
-            }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1StorekeepersBoxesGuidItems]);
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
             }
         }
         return obj;
@@ -113,116 +92,68 @@ class InlineObject113 {
 }
 
 /**
- * Гуид вариации
- * @member {String} variationTariffId
+ * Тип тарифа
+ * @member {Number} tariffType
  */
-InlineObject113.prototype['variationTariffId'] = undefined;
+InlineObject113.prototype['tariffType'] = undefined;
 
 /**
- * Значение информационного ключа
- * @member {String} prepId
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject113.prototype['prepId'] = undefined;
+InlineObject113.prototype['name'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject113.prototype['lengthCmWarehouse'] = undefined;
+InlineObject113.prototype['description'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject113.prototype['widthCmWarehouse'] = undefined;
+InlineObject113.prototype['deliveryTimeInDay'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
  */
-InlineObject113.prototype['heightCmWarehouse'] = undefined;
+InlineObject113.prototype['cls'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
  */
-InlineObject113.prototype['weighGrossKgWarehouse'] = undefined;
+InlineObject113.prototype['etd'] = undefined;
 
 /**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
  */
-InlineObject113.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject113.prototype['eta'] = undefined;
 
 /**
- * Комментарии к коробке
- * @member {String} storekeeperComment
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
  */
-InlineObject113.prototype['storekeeperComment'] = undefined;
+InlineObject113.prototype['minWeightInKg'] = undefined;
 
 /**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
  */
-InlineObject113.prototype['referenceId'] = undefined;
+InlineObject113.prototype['archive'] = undefined;
 
 /**
- * Текст трек номера
- * @member {String} trackNumberText
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
-InlineObject113.prototype['trackNumberText'] = undefined;
+InlineObject113.prototype['conditionsByRegion'] = undefined;
 
 /**
- * @member {Array.<String>} trackNumberFile
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
  */
-InlineObject113.prototype['trackNumberFile'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject113.prototype['upsTrackNumber'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject113.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject113.prototype['fbaNumber'] = undefined;
-
-/**
- *  logicsTariff GUID
- * @member {String} logicsTariffId
- */
-InlineObject113.prototype['logicsTariffId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject113.prototype['images'] = undefined;
-
-/**
- * destination GUID 
- * @member {String} destinationId
- */
-InlineObject113.prototype['destinationId'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} storekeeperTaskComment
- */
-InlineObject113.prototype['storekeeperTaskComment'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1StorekeepersBoxesGuidItems>} items
- */
-InlineObject113.prototype['items'] = undefined;
+InlineObject113.prototype['destinationVariations'] = undefined;
 
 
 

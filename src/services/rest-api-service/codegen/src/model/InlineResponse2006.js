@@ -266,8 +266,8 @@ class InlineResponse2006 {
             if (data.hasOwnProperty('ideasOnCheck')) {
                 obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
             }
-            if (data.hasOwnProperty('ideasVerified')) {
-                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            if (data.hasOwnProperty('ideasFinished')) {
+                obj['ideasFinished'] = ApiClient.convertToType(data['ideasFinished'], 'Number');
             }
             if (data.hasOwnProperty('ideasClosed')) {
                 obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
@@ -705,9 +705,9 @@ InlineResponse2006.prototype['fbaFbmStockSum'] = undefined;
 InlineResponse2006.prototype['ideasOnCheck'] = undefined;
 
 /**
- * @member {Number} ideasVerified
+ * @member {Number} ideasFinished
  */
-InlineResponse2006.prototype['ideasVerified'] = undefined;
+InlineResponse2006.prototype['ideasFinished'] = undefined;
 
 /**
  * @member {Number} ideasClosed
