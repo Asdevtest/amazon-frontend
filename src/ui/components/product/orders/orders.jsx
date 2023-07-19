@@ -22,8 +22,9 @@ import { t } from '@utils/translations'
 
 import { OrdersModel } from './orders.model'
 import { useClassNames } from './orders.style'
+import { cx } from '@emotion/css'
 
-export const Orders = observer(({ productId, showAtProcessOrders }) => {
+export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
@@ -61,7 +62,7 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
   }, [])
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       <MemoDataGrid
         pagination
         useResizeContainer

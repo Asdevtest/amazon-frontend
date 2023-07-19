@@ -39,7 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '63px',
     zIndex: 999,
     opacity: 0,
-    transform: 'translateY(-200%)',
   },
 
   fadeInAnimation: {

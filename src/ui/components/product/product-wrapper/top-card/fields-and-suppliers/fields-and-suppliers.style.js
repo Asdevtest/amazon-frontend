@@ -55,6 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonParseAmazon: {
+    whiteSpace: 'nowrap',
     width: '100%',
   },
   productFieldBox: {
