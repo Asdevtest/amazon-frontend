@@ -46,9 +46,10 @@ const getTab = tabKey => {
   }
 }
 
-const TabPanel = ({ children, value, index, ...other }) => (
+const TabPanel = ({ children, value, index, isModalProductCard, ...other }) => (
   <div
     role="tabpanel"
+    style={isModalProductCard && { width: '100%', height: 'calc(100% - 40px)', overflowY: 'auto' }}
     hidden={value !== index}
     id={`simple-tabpanel-${index}`}
     aria-labelledby={`simple-tab-${index}`}
@@ -70,6 +71,7 @@ export const ProductWrapper = observer(
     shops,
     productBase,
     userRole,
+    modal,
 
     handleSupplierButtons,
     selectedSupplier,
@@ -79,6 +81,7 @@ export const ProductWrapper = observer(
     onChangeField,
     actionStatus,
     handleProductActionButtons,
+    setCurrentTab,
     onClickParseProductData,
     onChangeImagesForLoad,
     acceptMessage,
@@ -88,12 +91,11 @@ export const ProductWrapper = observer(
     const { classes: classNames } = useClassNames()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
-
-    const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
-
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
     }, [SettingsModel.languageTag, userRole])
+
+    const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
 
     return (
       <>
@@ -108,6 +110,7 @@ export const ProductWrapper = observer(
               value={tabIndex}
               onChange={(e, value) => {
                 setTabIndex(value)
+                setCurrentTab && setCurrentTab(value)
               }}
             >
               <ITab
@@ -147,8 +150,9 @@ export const ProductWrapper = observer(
               )}
             </Tabs>
 
-            <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
+                modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}
                 showProgress={showProgress}
@@ -183,23 +187,27 @@ export const ProductWrapper = observer(
               )}
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.ORDERS}>
+              <Orders
+                modal={modal}
+                productId={product._id}
+                showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS}
+              />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations productId={product._id} />
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
+              <Integrations modal={modal} productId={product._id} />
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
               <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
             </TabPanel> */}
 
-            <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
-              <Freelance productId={product._id} />
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
+              <Freelance modal={modal} productId={product._id} />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
           </React.Fragment>

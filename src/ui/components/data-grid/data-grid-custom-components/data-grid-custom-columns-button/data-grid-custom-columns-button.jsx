@@ -27,19 +27,23 @@ export const DataGridCustomColumnsButton = props => {
     setMenuAnchor(null)
   }
 
-  const [itemsForRender, setItemsForRender] = useState(columnsModel || [])
+  const [filteredColumnsModel] = useState(columnsModel?.filter(column => column?.type !== 'checkboxSelection'))
+  const [itemsForRender, setItemsForRender] = useState(filteredColumnsModel || [])
+
   const [nameSearchValue, setNameSearchValue] = useState('')
 
   useEffect(() => {
-    setItemsForRender(columnsModel)
-  }, [columnsModel])
+    setItemsForRender(filteredColumnsModel)
+  }, [filteredColumnsModel])
 
   useEffect(() => {
     if (nameSearchValue) {
-      const filter = columnsModel?.filter(item => item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()))
+      const filter = filteredColumnsModel?.filter(item =>
+        item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()),
+      )
       setItemsForRender(filter)
     } else {
-      setItemsForRender(columnsModel)
+      setItemsForRender(filteredColumnsModel)
     }
   }, [nameSearchValue])
 
@@ -54,9 +58,9 @@ export const DataGridCustomColumnsButton = props => {
 
   const onClickAllItemBtn = () => {
     if (isSomeItemChecked) {
-      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
+      onColumnVisibilityModelChange(filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
     } else {
-      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
+      onColumnVisibilityModelChange(filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
     }
   }
 
