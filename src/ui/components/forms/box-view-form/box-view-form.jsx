@@ -40,6 +40,7 @@ import { useClassNames } from './box-view-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { orderPriority } from '@constants/orders/order-priority'
 
 export const BoxViewForm = observer(
   ({
@@ -554,7 +555,7 @@ const Content = React.memo(
                 value={item.product.hsCode}
                 placeholder={t(TranslationKey['Not available'])}
                 inputComponent={
-                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id, true)}>
                     {t(TranslationKey['HS code'])}
                   </Button>
                 }
@@ -563,13 +564,13 @@ const Content = React.memo(
 
               <div className={classNames.priorityWrapper}>
                 <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
-                {item.order.priority === '40' ? (
+                {item.order.priority === orderPriority.urgentPriority ? (
                   <div className={classNames.rushOrderWrapper}>
                     <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
                     <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
                   </div>
                 ) : null}
-                {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
+                {item.order.priority !== orderPriority.urgentPriority && !item.order.expressChinaDelivery ? (
                   <div className={classNames.rushOrderWrapper}>
                     <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
                   </div>
