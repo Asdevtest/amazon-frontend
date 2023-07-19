@@ -21,7 +21,7 @@ export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeF
         labelClasses={classNames.label}
         classes={{ root: classNames.textField, inputClasses: classNames.input }}
         value={formFields.timeToDeadlinePendingOrder}
-        onChange={onChangeField('timeToDeadlinePendingOrder')}
+        onChange={e => onChangeField('timeToDeadlinePendingOrder', e)}
       />
       <Button disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>
         {t(TranslationKey.Save)}

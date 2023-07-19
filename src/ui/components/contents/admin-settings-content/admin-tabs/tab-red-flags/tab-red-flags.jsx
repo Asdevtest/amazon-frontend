@@ -1,33 +1,34 @@
 import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useState, useEffect } from 'react'
-
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { IconButton, Typography } from '@mui/material'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import { IconButton, Typography } from '@mui/material'
+
+import { useState, useEffect } from 'react'
+
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { SettingsModel } from '@models/settings-model'
+
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { UploadIcon } from '@components/shared/svg-icons'
-import { Field } from '@components/shared/field/field'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { UploadIcon } from '@components/shared/svg-icons'
 
 import { checkValidImageUrl } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
-
 import { useClassNames } from './tab-red-flags.style'
 
 export const TabRedFlags = observer(() => {
   const { classes: classNames } = useClassNames()
-
+  const history = useHistory()
   const [viewModel] = useState(() => new AdminSettingsRedFlagsModel({ history }))
 
   useEffect(() => {

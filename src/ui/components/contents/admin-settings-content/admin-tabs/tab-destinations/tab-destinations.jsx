@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react'
-import { observer } from 'mobx-react'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
+import { useEffect, useState } from 'react'
+
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { Button } from '@components/shared/buttons/button'
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -16,12 +19,11 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { AdminSettingsDestinationsModel } from './tab-destinations.model'
-
 import { useClassNames } from './tab-destinations.style'
 
 export const TabDestinations = observer(() => {
   const { classes: classNames } = useClassNames()
-
+  const history = useHistory()
   const [viewModel] = useState(() => new AdminSettingsDestinationsModel({ history }))
 
   useEffect(() => {
@@ -76,8 +78,8 @@ export const TabDestinations = observer(() => {
         <AddOrEditDestinationForm
           destinationToEdit={viewModel.destinationToEdit}
           onCloseModal={viewModel.onClickCancelBtn}
-          onCreateSubmit={viewModel.createDestination}
-          onEditSubmit={viewModel.editDestination}
+          onCreateSubmit={viewModel.onCreateDestination}
+          onEditSubmit={viewModel.onEditDestination}
         />
       </Modal>
 

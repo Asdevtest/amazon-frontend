@@ -23,21 +23,21 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
         labelClasses={classNames.label}
         classes={{ root: classNames.textField }}
         value={formFields.costOfFindingSupplier}
-        onChange={onChangeField('costOfFindingSupplier')}
+        onChange={e => onChangeField('costOfFindingSupplier', e)}
       />
       <Field
         labelClasses={classNames.label}
         label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'}
         classes={{ root: classNames.textField }}
         value={formFields.costOfCheckingProduct}
-        onChange={onChangeField('costOfCheckingProduct')}
+        onChange={e => onChangeField('costOfCheckingProduct', e)}
       />
       <Field
         labelClasses={classNames.label}
         label={t(TranslationKey['Time to find a supplier, h'])}
         classes={{ root: classNames.textField }}
         value={formFields.deadlineForFindingSupplier}
-        onChange={onChangeField('deadlineForFindingSupplier')}
+        onChange={e => onChangeField('deadlineForFindingSupplier', e)}
       />
 
       <Button disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>

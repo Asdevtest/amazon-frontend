@@ -25,21 +25,21 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
           label={t(TranslationKey['Percentage of each proposal']) + ', %'}
           classes={{ root: classNames.textField }}
           value={formFields.requestPlatformMarginInPercent}
-          onChange={onChangeField('requestPlatformMarginInPercent')}
+          onChange={e => onChangeField('requestPlatformMarginInPercent', e)}
         />
         <Field
           labelClasses={classNames.label}
           label={t(TranslationKey['Time after which the offer will automatically be accepted, h'])}
           classes={{ root: classNames.textField }}
           value={formFields.requestTimeLimitInHourForCancelingProposalsByClient}
-          onChange={onChangeField('requestTimeLimitInHourForCancelingProposalsByClient')}
+          onChange={e => onChangeField('requestTimeLimitInHourForCancelingProposalsByClient', e)}
         />
         <Field
           labelClasses={classNames.label}
           label={t(TranslationKey['Minimum price per proposal to the order']) + ', $'}
           classes={{ root: classNames.textField }}
           value={formFields.requestMinAmountPriceOfProposal}
-          onChange={onChangeField('requestMinAmountPriceOfProposal')}
+          onChange={e => onChangeField('requestMinAmountPriceOfProposal', e)}
         />
       </div>
 
@@ -50,14 +50,14 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
             label={t(TranslationKey['Percentage of each proposal for the supervisor']) + ', %'}
             classes={{ root: classNames.textField }}
             value={formFields.requestSupervisorFeeInPercent}
-            onChange={onChangeField('requestSupervisorFeeInPercent')}
+            onChange={e => onChangeField('requestSupervisorFeeInPercent', e)}
           />
           <Field
             labelClasses={classNames.label}
             label={t(TranslationKey['Time after which the supervisor will automatically be removed from the check, h'])}
             classes={{ root: classNames.textField }}
             value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
-            onChange={onChangeField('requestTimeLimitInHourForCheckingProposalBySuper')}
+            onChange={e => onChangeField('requestTimeLimitInHourForCheckingProposalBySuper', e)}
           />
         </div>
 

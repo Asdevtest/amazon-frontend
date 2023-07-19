@@ -30,14 +30,11 @@ export const tagsColumns = handlers => [
     width: 150,
   },
 
-  // TODO: When they add methods, remove disableActionBtn
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => (
-      <EditOrRemoveIconBtnsCell disableActionBtn isShowButtonText={false} handlers={handlers} row={params.row} />
-    ),
+    renderCell: params => <EditOrRemoveIconBtnsCell isShowButtonText={false} handlers={handlers} row={params.row} />,
 
     filterable: false,
     sortable: false,

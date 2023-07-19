@@ -1,28 +1,29 @@
-import { useState, useEffect } from 'react'
-import { observer } from 'mobx-react'
-import isEqual from 'lodash.isequal'
-
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Typography } from '@mui/material'
+
+import { useState, useEffect } from 'react'
+
+import isEqual from 'lodash.isequal'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
 import { AdminSettingsMainModel } from './tab-main.model'
-
 import { useClassNames } from './tab-main.style'
 
 export const TabMain = observer(({ formFields, isFormFieldsChanged, onChangeField, onSubmit }) => {
   const { classes: classNames } = useClassNames()
-
+  const history = useHistory()
   const [viewModel] = useState(() => new AdminSettingsMainModel({ history }))
 
   useEffect(() => {
@@ -86,16 +87,16 @@ export const TabMain = observer(({ formFields, isFormFieldsChanged, onChangeFiel
             label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
             labelClasses={classNames.label}
             classes={{ root: classNames.textField }}
-            value={formFields?.yuanToDollarRate}
-            onChange={onChangeField('yuanToDollarRate')}
+            value={formFields.yuanToDollarRate}
+            onChange={e => onChangeField('yuanToDollarRate', e)}
           />
 
           <Field
             label={t(TranslationKey['Divider for calculating volume weight'])}
             labelClasses={classNames.label}
             classes={{ root: classNames.textField }}
-            value={formFields?.volumeWeightCoefficient}
-            onChange={onChangeField('volumeWeightCoefficient')}
+            value={formFields.volumeWeightCoefficient}
+            onChange={e => onChangeField('volumeWeightCoefficient', e)}
           />
 
           <Field

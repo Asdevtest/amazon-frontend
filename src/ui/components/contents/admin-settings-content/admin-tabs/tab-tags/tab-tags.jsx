@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,7 +24,7 @@ import { useClassNames } from './tab-tags.style'
 
 export const TabTags = observer(() => {
   const { classes: classNames } = useClassNames()
-
+  const history = useHistory()
   const [viewModel] = useState(() => new AdminSettingsTagsModel({ history }))
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export const TabTags = observer(() => {
           danger
           disabled={!viewModel.rowSelectionModel.length}
           className={classNames.deleteButton}
-          // onClick={viewModel.removeTags}
+          onClick={viewModel.onRemoveTags}
         >
           {t(TranslationKey['Delete selected tags'])}
         </Button>
@@ -97,8 +98,8 @@ export const TabTags = observer(() => {
         <AddOrEditTagForm
           tagToEdit={viewModel.tagToEdit}
           onCloseModal={viewModel.onClickCancelBtn}
-          onCreateSubmit={viewModel.createTag}
-          // onEditSubmit={viewModel.editTag}
+          onCreateSubmit={viewModel.onCreateTag}
+          onEditSubmit={viewModel.onEditTag}
         />
       </Modal>
 

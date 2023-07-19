@@ -176,6 +176,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsRedFlagsPost({ body: data })
     return response
   }
+
+  removeTags = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsTagsDelete({ body: data })
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

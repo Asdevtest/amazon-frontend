@@ -38,8 +38,8 @@ export class AdminSettingsTagsModel {
     onClickSuccess: () => {},
   }
   rowHandlers = {
-    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
+    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
   }
 
   columnsModel = tagsColumns(this.rowHandlers)
@@ -148,7 +148,7 @@ export class AdminSettingsTagsModel {
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete the tag?']),
-      onClickSuccess: () => this.removeTag(),
+      onClickSuccess: () => this.onRemoveTag(),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -185,7 +185,7 @@ export class AdminSettingsTagsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async createTag(titleTag) {
+  async onCreateTag(titleTag) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -201,12 +201,11 @@ export class AdminSettingsTagsModel {
     }
   }
 
-  // TODO: There isn't method to remove a tag (wait beck)
-  /* async editTag(titleTag, tagId) {
+  async onEditTag(id, title) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await GeneralModel.editTag(titleTag, tagId)
+      // await AdministratorModel.editTag(id, title)
 
       this.onTriggerOpenModal('showAddOrEditTagModal')
 
@@ -216,16 +215,15 @@ export class AdminSettingsTagsModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
-  } */
+  }
 
-  // TODO: There isn't method to remove a tag (wait beck)
-  /* async removeTag() {
+  async onRemoveTag() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await GeneralModel.removeTag(this.tagIdToRemove)
+      await AdministratorModel.removeTags([this.tagIdToRemove])
 
-      this.onTriggerOpenModal('showAddOrEditTagModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
 
@@ -233,13 +231,14 @@ export class AdminSettingsTagsModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
-  } */
+  }
 
-  async removeTags() {
+  async onRemoveTags() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await AdministratorModel
+      await AdministratorModel.removeTags(this.rowSelectionModel)
+
       this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)

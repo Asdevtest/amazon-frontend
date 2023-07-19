@@ -10,7 +10,6 @@ import { t } from '@utils/translations'
 
 export class AdminSettingsMainModel {
   history = undefined
-
   requestStatus = ''
 
   serverProxy = []

@@ -5,17 +5,24 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { fieldsWithoutCharsAfterDote, startValueFields } from './admin-settings.constants'
 
 export class AdminSettingsModel {
   history = undefined
-
   requestStatus = ''
 
   infoModalText = ''
   showInfoModal = false
 
-  adminSettings = {}
+  formFields = startValueFields
+  prevFormFields = {}
+
+  tabIndex = 0
+
+  isFormFieldsChanged = false
 
   constructor({ history }) {
     this.history = history
@@ -46,7 +53,8 @@ export class AdminSettingsModel {
       const result = await AdministratorModel.getSettings()
 
       runInAction(() => {
-        this.adminSettings = result
+        this.formFields = result?.dynamicSettings
+        this.prevFormFields = result?.dynamicSettings
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -55,17 +63,19 @@ export class AdminSettingsModel {
     }
   }
 
-  async createAdminSettings(data) {
+  async onCreateAdminSettings() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await AdministratorModel.setSettings(data)
+      await AdministratorModel.setSettings(this.formFields)
 
       this.infoModalText = t(TranslationKey['The settings are saved.'])
 
       this.onTriggerOpenModal('showInfoModal')
 
       this.loadData()
+
+      this.isFormFieldsChanged = false
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -75,6 +85,28 @@ export class AdminSettingsModel {
 
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  onChangeField(fieldName, event) {
+    if (
+      !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(
+        event.target.value,
+        fieldsWithoutCharsAfterDote.includes(fieldName) ? 0 : 2,
+      )
+    ) {
+      return
+    }
+
+    this.formFields = {
+      ...this.formFields,
+      [fieldName]: event.target.value,
+    }
+
+    this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
+  }
+
+  onChangeTab(_, selectedTab) {
+    this.tabIndex = selectedTab
   }
 
   onClickToggleInfoModal() {

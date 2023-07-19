@@ -3,14 +3,13 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { t } from '@utils/translations'
-
 import { AdministratorModel } from '@models/administrator-model'
 import { ProductModel } from '@models/product-model'
 
+import { t } from '@utils/translations'
+
 export class AdminSettingsRedFlagsModel {
   history = undefined
-
   requestStatus = ''
 
   infoModalText = ''
