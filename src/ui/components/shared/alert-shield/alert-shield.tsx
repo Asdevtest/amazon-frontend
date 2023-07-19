@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC } from 'react'
 import { useClassNames } from './alert-shield.style'
-import { Alert } from '@mui/material'
 import { ClassNamesArg, cx } from '@emotion/css'
+import Alert from '@mui/material/Alert'
 
 interface AlertShieldProps {
   acceptMessage?: string

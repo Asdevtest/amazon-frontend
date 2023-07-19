@@ -111,7 +111,7 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 130,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -267,7 +267,7 @@ export const clientInventoryColumns = (
         onClickInStock={otherHandlers.onClickInStock}
       />
     ),
-    width: 155,
+    width: 145,
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
   },

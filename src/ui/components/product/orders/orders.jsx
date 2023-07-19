@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { observer } from 'mobx-react'
 import { useHistory } from 'react-router-dom'
@@ -31,7 +31,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
 
   const {
     orderStatusData,
-
     platformSettings,
     storekeepers,
     destinations,
@@ -52,6 +51,10 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
+    isSomeFilterOn,
+    onColumnVisibilityModelChange,
+    columnVisibilityModel,
+    onClickResetFilters,
   } = model.current
 
   useEffect(() => {
@@ -67,6 +70,9 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
+          footerContainer: classNames.footerContainer,
+          footerCell: classNames.footerCell,
+          toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}
@@ -78,16 +84,19 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           columnMenu: DataGridCustomColumnMenuComponent,
         }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           columnMenu: { orderStatusData },
           toolbar: {
             resetFiltersBtnSettings: {
-              onClickResetFilters: model.current.onClickResetFilters,
-              isSomeFilterOn: model.current.isSomeFilterOn,
+              onClickResetFilters,
+              isSomeFilterOn,
             },
             columsBtnSettings: {
               columnsModel,
-              columnVisibilityModel: model.current.columnVisibilityModel,
-              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              columnVisibilityModel,
+              onColumnVisibilityModelChange,
             },
           },
         }}
