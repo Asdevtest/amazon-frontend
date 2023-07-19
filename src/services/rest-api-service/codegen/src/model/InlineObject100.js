@@ -47,8 +47,11 @@ class InlineObject100 {
         if (data) {
             obj = obj || new InlineObject100();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('onCheckedIdeaId')) {
+                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            }
+            if (data.hasOwnProperty('onFinishedIdeaId')) {
+                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,18 @@ class InlineObject100 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Гуид идеи в статусе onChecked(10)
+ * @member {String} onCheckedIdeaId
+ * @default 'null'
  */
-InlineObject100.prototype['reason'] = undefined;
+InlineObject100.prototype['onCheckedIdeaId'] = 'null';
+
+/**
+ * Гуид идеи в статусе finished(20)
+ * @member {String} onFinishedIdeaId
+ * @default 'null'
+ */
+InlineObject100.prototype['onFinishedIdeaId'] = 'null';
 
 
 

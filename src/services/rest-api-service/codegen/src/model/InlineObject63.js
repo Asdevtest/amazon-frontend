@@ -22,10 +22,12 @@ class InlineObject63 {
     /**
      * Constructs a new <code>InlineObject63</code>.
      * @alias module:model/InlineObject63
+     * @param productName {String} Назавние продукта
+     * @param price {Number} Желаемая цена
      */
-    constructor() { 
+    constructor(productName, price) { 
         
-        InlineObject63.initialize(this);
+        InlineObject63.initialize(this, productName, price);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject63 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productName, price) { 
+        obj['productName'] = productName;
+        obj['price'] = price;
     }
 
     /**
@@ -55,6 +59,9 @@ class InlineObject63 {
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
@@ -83,6 +90,9 @@ class InlineObject63 {
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
         }
         return obj;
     }
@@ -107,6 +117,12 @@ InlineObject63.prototype['media'] = undefined;
  * @member {String} comments
  */
 InlineObject63.prototype['comments'] = undefined;
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineObject63.prototype['buyerComment'] = undefined;
 
 /**
  * Назавние продукта
@@ -161,6 +177,12 @@ InlineObject63.prototype['length'] = undefined;
  * @member {String} productId
  */
 InlineObject63.prototype['productId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineObject63.prototype['parentProductId'] = undefined;
 
 
 

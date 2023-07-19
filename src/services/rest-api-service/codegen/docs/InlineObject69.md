@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestStatus** | **String** | новый статус заявки | [optional] 
+**productId** | **String** |  | 
+**skus** | **[String]** |  | 
 
 

@@ -75,7 +75,7 @@ Name | Type | Description | Notes
 **sentToFbaSum** | **Number** |  | [optional] 
 **fbaFbmStockSum** | **Number** |  | [optional] 
 **ideasOnCheck** | **Number** |  | [optional] 
-**ideasVerified** | **Number** |  | [optional] 
+**ideasFinished** | **Number** |  | [optional] 
 **ideasClosed** | **Number** |  | [optional] 
 **subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 

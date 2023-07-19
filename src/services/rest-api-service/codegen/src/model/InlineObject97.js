@@ -22,12 +22,10 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
-     * @param requestIds {Array.<String>} 
-     * @param uploadedToListing {Boolean} 
      */
-    constructor(requestIds, uploadedToListing) { 
+    constructor() { 
         
-        InlineObject97.initialize(this, requestIds, uploadedToListing);
+        InlineObject97.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, requestIds, uploadedToListing) { 
-        obj['requestIds'] = requestIds;
-        obj['uploadedToListing'] = uploadedToListing;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('requestIds')) {
-                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
-            }
-            if (data.hasOwnProperty('uploadedToListing')) {
-                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -65,14 +58,10 @@ class InlineObject97 {
 }
 
 /**
- * @member {Array.<String>} requestIds
+ * Причины закрытия приема предложений.
+ * @member {String} reason
  */
-InlineObject97.prototype['requestIds'] = undefined;
-
-/**
- * @member {Boolean} uploadedToListing
- */
-InlineObject97.prototype['uploadedToListing'] = undefined;
+InlineObject97.prototype['reason'] = undefined;
 
 
 

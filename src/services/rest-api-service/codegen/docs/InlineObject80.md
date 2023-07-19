@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**parentProductId** | **String** | Ключ родительского продукта | 
+**childProductIds** | **[String]** |  | 
 
 

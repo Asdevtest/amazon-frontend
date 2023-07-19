@@ -47,11 +47,8 @@ class InlineObject78 {
         if (data) {
             obj = obj || new InlineObject78();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
-            }
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -61,14 +58,10 @@ class InlineObject78 {
 }
 
 /**
- * @member {String} userId
+ * GUIDы магазинов, которые нужно добавить к продукту.
+ * @member {Array.<String>} shopIds
  */
-InlineObject78.prototype['userId'] = undefined;
-
-/**
- * @member {Array.<String>} productIds
- */
-InlineObject78.prototype['productIds'] = undefined;
+InlineObject78.prototype['shopIds'] = undefined;
 
 
 

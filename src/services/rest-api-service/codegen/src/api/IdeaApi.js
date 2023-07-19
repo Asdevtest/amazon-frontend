@@ -18,11 +18,9 @@ import InlineObject63 from '../model/InlineObject63';
 import InlineObject64 from '../model/InlineObject64';
 import InlineObject65 from '../model/InlineObject65';
 import InlineObject66 from '../model/InlineObject66';
-import InlineObject67 from '../model/InlineObject67';
-import InlineObject68 from '../model/InlineObject68';
-import InlineObject69 from '../model/InlineObject69';
 import InlineResponse20045 from '../model/InlineResponse20045';
 import InlineResponse20046 from '../model/InlineResponse20046';
+import InlineResponse20047 from '../model/InlineResponse20047';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 
@@ -103,20 +101,19 @@ export default class IdeaApi {
 
 
     /**
-     * Изменить заявку на поиск поставщика к идее
-     * ## Изменение заявки на поиск поставщика  
+     * Изменить статус заявки на addingAsin(18)
+     * ## Изменить статус заявки с supplierFound(14) или productCreating(16) на addingAsin(18)
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject68} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1IdeasEditRequestGuidPatchWithHttpInfo(guid, opts) {
+    apiV1IdeasAddingAsinGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['body'];
+      let postBody = null;
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasEditRequestGuidPatch");
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasAddingAsinGuidPatch");
       }
 
       let pathParams = {
@@ -131,27 +128,26 @@ export default class IdeaApi {
       };
 
       let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/ideas/edit_request/{guid}', 'PATCH',
+        '/api/v1/ideas/adding_asin/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Изменить заявку на поиск поставщика к идее
-     * ## Изменение заявки на поиск поставщика  
+     * Изменить статус заявки на addingAsin(18)
+     * ## Изменить статус заявки с supplierFound(14) или productCreating(16) на addingAsin(18)
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject68} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1IdeasEditRequestGuidPatch(guid, opts) {
-      return this.apiV1IdeasEditRequestGuidPatchWithHttpInfo(guid, opts)
+    apiV1IdeasAddingAsinGuidPatch(guid, opts) {
+      return this.apiV1IdeasAddingAsinGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -159,20 +155,19 @@ export default class IdeaApi {
 
 
     /**
-     * Изменить стаус заявки на поиск поставщика
-     * ## Изменение статуса заявки на поиск поставщика  
+     * Изменить статус заявки на finished(20)
+     * ## Изменить статус заявки с addingAsin(18) на finished(20)
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject69} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1IdeasEditRequestsStatusGuidPatchWithHttpInfo(guid, opts) {
+    apiV1IdeasFinishedGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
-      let postBody = opts['body'];
+      let postBody = null;
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasEditRequestsStatusGuidPatch");
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasFinishedGuidPatch");
       }
 
       let pathParams = {
@@ -187,83 +182,26 @@ export default class IdeaApi {
       };
 
       let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/ideas/edit_requests_status/{guid}', 'PATCH',
+        '/api/v1/ideas/finished/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Изменить стаус заявки на поиск поставщика
-     * ## Изменение статуса заявки на поиск поставщика  
+     * Изменить статус заявки на finished(20)
+     * ## Изменить статус заявки с addingAsin(18) на finished(20)
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject69} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1IdeasEditRequestsStatusGuidPatch(guid, opts) {
-      return this.apiV1IdeasEditRequestsStatusGuidPatchWithHttpInfo(guid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Создать заявку на поиск поставщика к идее
-     * ## Создание заявки на поиск поставщика  
-     * @param {String} guid ID идеи
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1IdeasFindSupplierGuidPostWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasFindSupplierGuidPost");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/ideas/find_supplier/{guid}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Создать заявку на поиск поставщика к идее
-     * ## Создание заявки на поиск поставщика  
-     * @param {String} guid ID идеи
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1IdeasFindSupplierGuidPost(guid, opts) {
-      return this.apiV1IdeasFindSupplierGuidPostWithHttpInfo(guid, opts)
+    apiV1IdeasFinishedGuidPatch(guid, opts) {
+      return this.apiV1IdeasFinishedGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -314,107 +252,6 @@ export default class IdeaApi {
      */
     apiV1IdeasGet(opts) {
       return this.apiV1IdeasGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Получить все заяки на поиск поставщика
-     * ## Получение всех заявок на поиск поставщика  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1IdeasGetSupplierRequestsGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/ideas/get_supplier_requests/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить все заяки на поиск поставщика
-     * ## Получение всех заявок на поиск поставщика  
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1IdeasGetSupplierRequestsGet(opts) {
-      return this.apiV1IdeasGetSupplierRequestsGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Получить определенную заявку на поиск поставщика
-     * ## Получение определенной заявки на поиск поставщика  
-     * @param {String} guid ID идеи
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1IdeasGetSupplierRequestsGuidGetWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasGetSupplierRequestsGuidGet");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/ideas/get_supplier_requests/{guid}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Получить определенную заявку на поиск поставщика
-     * ## Получение определенной заявки на поиск поставщика  
-     * @param {String} guid ID идеи
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1IdeasGetSupplierRequestsGuidGet(guid, opts) {
-      return this.apiV1IdeasGetSupplierRequestsGuidGetWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -591,7 +428,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20046>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20047>} and HTTP response
      */
     apiV1IdeasNotificationsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -611,7 +448,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20046];
+      let returnType = [InlineResponse20047];
       return this.apiClient.callApi(
         '/api/v1/ideas/notifications', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -625,10 +462,132 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20046>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20047>}
      */
     apiV1IdeasNotificationsGet(opts) {
       return this.apiV1IdeasNotificationsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Изменить статус заявки на OnCheck(10)
+     * ## Изменить статус заявки с new(5) на OnCheck(10)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasOnCheckingGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasOnCheckingGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/on_checking/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить статус заявки на OnCheck(10)
+     * ## Изменить статус заявки с new(5) на OnCheck(10)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasOnCheckingGuidPatch(guid, opts) {
+      return this.apiV1IdeasOnCheckingGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Список всех идей с пагинацией
+     * Получить список всех идей с пагинацией
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля: asin:, _id, title, status, comments, intervalStatusNew, intervalStatusOnCheck,               intervalStatusSupplierSearch, intervalStatusCardCreating, intervalStatusAddingAsin,               intervalStatusFinished, intervalStatusRejected, intervalsSum, dateStatusOnCheck, dateStatusSupplierSearch               dateStatusCardCreating, dateStatusAddingAsin, dateStatusFinished, dateStatusRejected, dateStatusClosed               intervalsSum, onCheckRequestsHumanFriendlyId, onFinishedRequestsHumanFriendlyId, onCheckRequestStatus, onFinishedRequestStatus, childProductSkusByClient, childProductAmazonTitle,               childProductShopIds, childProductAsin, parentProductSkusByClient, parentProductAmazonTitle,               parentProductShopIds, parentProductAsin               2 варианта использования:                 1. Фильтр по одному полю:                   [parentProductAmazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][parentProductAmazonTitle][$eq]=some_title;or[1][parentProductAsin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых parentProductAmazonTitle равен some_title или parentProductAsin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Boolean} opts.withRequests Наличие в ответе заявок в продуктах
+     * @param {Boolean} opts.withOrder Наличие в ответе заказа в продуктах
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20046} and HTTP response
+     */
+    apiV1IdeasPagMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'filters': opts['filters'],
+        'withRequests': opts['withRequests'],
+        'withOrder': opts['withOrder'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20046;
+      return this.apiClient.callApi(
+        '/api/v1/ideas/pag/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Список всех идей с пагинацией
+     * Получить список всех идей с пагинацией
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля: asin:, _id, title, status, comments, intervalStatusNew, intervalStatusOnCheck,               intervalStatusSupplierSearch, intervalStatusCardCreating, intervalStatusAddingAsin,               intervalStatusFinished, intervalStatusRejected, intervalsSum, dateStatusOnCheck, dateStatusSupplierSearch               dateStatusCardCreating, dateStatusAddingAsin, dateStatusFinished, dateStatusRejected, dateStatusClosed               intervalsSum, onCheckRequestsHumanFriendlyId, onFinishedRequestsHumanFriendlyId, onCheckRequestStatus, onFinishedRequestStatus, childProductSkusByClient, childProductAmazonTitle,               childProductShopIds, childProductAsin, parentProductSkusByClient, parentProductAmazonTitle,               parentProductShopIds, parentProductAsin               2 варианта использования:                 1. Фильтр по одному полю:                   [parentProductAmazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][parentProductAmazonTitle][$eq]=some_title;or[1][parentProductAsin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых parentProductAmazonTitle равен some_title или parentProductAsin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Boolean} opts.withRequests Наличие в ответе заявок в продуктах
+     * @param {Boolean} opts.withOrder Наличие в ответе заказа в продуктах
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20046}
+     */
+    apiV1IdeasPagMyGet(opts) {
+      return this.apiV1IdeasPagMyGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -685,6 +644,114 @@ export default class IdeaApi {
 
 
     /**
+     * Изменить статус заявки на productCreating(16)
+     * ## Изменить статус заявки с supplierFound(14) на productCreating(16)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasProductCreatingGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasProductCreatingGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/product_creating/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить статус заявки на productCreating(16)
+     * ## Изменить статус заявки с supplierFound(14) на productCreating(16)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasProductCreatingGuidPatch(guid, opts) {
+      return this.apiV1IdeasProductCreatingGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Изменить статус заявки на rejected(25)
+     * ## Изменить статус заявки со статусов 5/10/13/14/15 на rejected(25)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasRejectedGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasRejectedGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/rejected/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить статус заявки на rejected(25)
+     * ## Изменить статус заявки со статусов 5/10/13/14/15 на rejected(25)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasRejectedGuidPatch(guid, opts) {
+      return this.apiV1IdeasRejectedGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Удалить поставщика
      * ## Удаление поставщика у идеи  
      * @param {String} guid ID идеи
@@ -734,6 +801,222 @@ export default class IdeaApi {
      */
     apiV1IdeasRemoveSupplierGuidPost(guid, opts) {
       return this.apiV1IdeasRemoveSupplierGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Открыть заявку заново
+     * ## Открыть заявку заново rejected(25) -> new(5), затереть даты и интервалы
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasReopenGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasReopenGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/reopen/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Открыть заявку заново
+     * ## Открыть заявку заново rejected(25) -> new(5), затереть даты и интервалы
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasReopenGuidPatch(guid, opts) {
+      return this.apiV1IdeasReopenGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Изменить статус заявки на supplierFound(14)
+     * ## Изменить статус заявки с supplierSearch(13) на supplierFound(14)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasSupplierFoundGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasSupplierFoundGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/supplier_found/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить статус заявки на supplierFound(14)
+     * ## Изменить статус заявки с supplierSearch(13) на supplierFound(14)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasSupplierFoundGuidPatch(guid, opts) {
+      return this.apiV1IdeasSupplierFoundGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Изменить статус заявки на supplierNotFound(15)
+     * ## Изменить статус заявки с supplierSearch(13) на supplierNotFound(15)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasSupplierNotFoundGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasSupplierNotFoundGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/supplier_not_found/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить статус заявки на supplierNotFound(15)
+     * ## Изменить статус заявки с supplierSearch(13) на supplierNotFound(15)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasSupplierNotFoundGuidPatch(guid, opts) {
+      return this.apiV1IdeasSupplierNotFoundGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Изменить статус заявки на supplierSearch(13)
+     * ## Изменить статус заявки с OnCheck(10) на supplierSearch(13)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1IdeasSupplierSearchGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasSupplierSearchGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/ideas/supplier_search/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить статус заявки на supplierSearch(13)
+     * ## Изменить статус заявки с OnCheck(10) на supplierSearch(13)
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1IdeasSupplierSearchGuidPatch(guid, opts) {
+      return this.apiV1IdeasSupplierSearchGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
