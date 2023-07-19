@@ -176,8 +176,6 @@ export class ClientProductViewModel {
         this.setOpenModal = setOpenModal
       }
 
-      // this.productId = url.searchParams.get("product-id");
-
       this.showTab = url.searchParams.get('show-tab')
     })
 
