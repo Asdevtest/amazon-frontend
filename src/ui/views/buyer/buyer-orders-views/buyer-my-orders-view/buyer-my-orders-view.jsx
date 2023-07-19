@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
+import { CircularProgress, Portal, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { styles } from './buyer-my-orders-view.style'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
@@ -307,6 +308,10 @@ export const BuyerMyOrdersViewRaw = props => {
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
       </Modal>
+
+      {viewModel.savingOrderStatus === loadingStatuses.isLoading && (
+        <CircularProgressWithLabel wrapperClassName={classNames.loadingCircle} />
+      )}
     </React.Fragment>
   )
 }

@@ -81,6 +81,7 @@ const filtersFields = [
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
+  savingOrderStatus = undefined
   error = undefined
 
   // НЕ было до создания фильтрации по статусам (3 строки)
@@ -989,6 +990,8 @@ export class BuyerMyOrdersViewModel {
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.savingOrderStatus = loadingStatuses.isLoading
+
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
@@ -1160,6 +1163,7 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
+      this.savingOrderStatus = loadingStatuses.success
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
@@ -1173,6 +1177,7 @@ export class BuyerMyOrdersViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      this.savingOrderStatus = loadingStatuses.failed
       console.log(error)
     }
   }
