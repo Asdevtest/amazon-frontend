@@ -17,7 +17,7 @@ export const tagsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
 
-    width: 240,
+    width: 300,
   },
 
   {
@@ -26,7 +26,8 @@ export const tagsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of uses'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
 
-    width: 170,
+    align: 'center',
+    width: 150,
   },
 
   // TODO: When they add methods, remove disableActionBtn
@@ -34,10 +35,13 @@ export const tagsColumns = handlers => [
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => <EditOrRemoveIconBtnsCell disableActionBtn handlers={handlers} row={params.row} />,
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell disableActionBtn isShowButtonText={false} handlers={handlers} row={params.row} />
+    ),
 
     filterable: false,
     sortable: false,
-    width: 150,
+    align: 'center',
+    width: 130,
   },
 ]

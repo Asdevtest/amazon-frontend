@@ -1,9 +1,10 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 
@@ -234,20 +235,18 @@ export class AdminSettingsTagsModel {
     }
   } */
 
-  // TODO: There isn't method to remove a tag (wait beck)
-  /* async removeTags() {
+  async removeTags() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await GeneralModel.removeTags(this.tagIdToRemove)
-
+      await AdministratorModel
       this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
-  } */
+  }
 
   onClickToggleAddOrEditModal() {
     this.onTriggerOpenModal('showAddOrEditTagModal')
