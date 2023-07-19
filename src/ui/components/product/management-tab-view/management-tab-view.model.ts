@@ -14,8 +14,8 @@ import { IProduct } from '../../../../types/product'
 import { DataIdsType, MemberType, Members } from './management-tab-view.types'
 
 export class ManagementTabViewModel {
-  private history: History<unknown>
-  public requestStatus = ''
+  history: History<unknown>
+  requestStatus = ''
 
   private initialMember: MemberType = { _id: '', name: '' }
   private initialDataIds: DataIdsType = {
@@ -29,24 +29,24 @@ export class ManagementTabViewModel {
   private dataIds: DataIdsType = this.initialDataIds
   private product: IProduct | undefined = undefined
 
-  public client: MemberType = this.initialMember
-  public clients: MemberType[] = []
-  public buyer: MemberType = this.initialMember
-  public buyers: MemberType[] = []
-  public supervisor: MemberType = this.initialMember
-  public supervisors: MemberType[] = []
-  public researcher: MemberType = this.initialMember
-  public researchers: MemberType[] = []
+  client: MemberType = this.initialMember
+  clients: MemberType[] = []
+  buyer: MemberType = this.initialMember
+  buyers: MemberType[] = []
+  supervisor: MemberType = this.initialMember
+  supervisors: MemberType[] = []
+  researcher: MemberType = this.initialMember
+  researchers: MemberType[] = []
 
-  public isDisabledClient = true
-  public isDisabledBuyer = true
-  public isDisabledSupervisor = true
-  public isDisabledResearcher = true
+  isDisabledClient = true
+  isDisabledBuyer = true
+  isDisabledSupervisor = true
+  isDisabledResearcher = true
 
-  public isEditableClient = false
-  public isEditableBuyer = false
-  public isEditableSupervisor = false
-  public isEditableResearcher = false
+  isEditableClient = false
+  isEditableBuyer = false
+  isEditableSupervisor = false
+  isEditableResearcher = false
 
   constructor({ history }: IHistory) {
     this.history = history
