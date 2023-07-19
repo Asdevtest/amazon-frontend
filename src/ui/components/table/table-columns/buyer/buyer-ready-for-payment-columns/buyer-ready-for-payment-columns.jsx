@@ -166,7 +166,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       type: 'number',
       width: 90,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.buyer.TO_PAY,
     },
 
     {
