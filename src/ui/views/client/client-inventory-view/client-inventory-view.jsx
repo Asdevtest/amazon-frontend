@@ -24,6 +24,7 @@ import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
@@ -216,6 +217,7 @@ export const ClientInventoryViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
+            disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             classes={{
@@ -289,6 +291,7 @@ export const ClientInventoryViewRaw = props => {
             onCellDoubleClick={params =>
               !disableSelectionCells.includes(params.field) && viewModel.onClickShowProduct(params.row)
             }
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
           />
         </div>
       </MainContent>
@@ -305,6 +308,13 @@ export const ClientInventoryViewRaw = props => {
           onSubmit={viewModel.onSubmitCreateProduct}
         />
       </Modal>
+
+      <ProductCardModal
+        history={viewModel.history}
+        openModal={viewModel.productCardModal}
+        setOpenModal={() => viewModel.onClickProductModal()}
+        onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+      />
 
       <Modal
         openModal={viewModel.showProductLotDataModal}

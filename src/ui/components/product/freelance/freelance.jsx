@@ -26,7 +26,7 @@ import { t } from '@utils/translations'
 import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
 
-export const Freelance = observer(({ productId }) => {
+export const Freelance = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const freelanceModel = useRef(new FreelanceModel({ history, productId }))
@@ -87,7 +87,7 @@ export const Freelance = observer(({ productId }) => {
           onSubmit={onSearchSubmit}
         />
       </div>
-      <div className={classNames.mainWrapper}>
+      <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
         <MemoDataGrid
           disableVirtualization
           pagination
