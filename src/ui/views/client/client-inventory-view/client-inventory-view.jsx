@@ -214,8 +214,8 @@ export const ClientInventoryViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            disableVirtualization
             pagination
+            disableVirtualization
             checkboxSelection
             disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover }}
@@ -315,12 +315,14 @@ export const ClientInventoryViewRaw = props => {
         />
       </Modal>
 
-      <ProductCardModal
-        history={viewModel.history}
-        openModal={viewModel.productCardModal}
-        setOpenModal={() => viewModel.onClickProductModal()}
-        onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
-      />
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+        />
+      )}
 
       <Modal
         openModal={viewModel.showProductLotDataModal}

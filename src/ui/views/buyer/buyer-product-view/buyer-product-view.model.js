@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { ProductStatusByKey, ProductStatus } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -117,6 +117,13 @@ export class BuyerProductViewModel {
   showWarningModal = false
   showConfirmModal = false
 
+  setOpenModal = undefined
+
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -139,8 +146,12 @@ export class BuyerProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history }) {
+  constructor({ history, setOpenModal }) {
     const url = new URL(window.location.href)
+
+    if (setOpenModal) {
+      this.setOpenModal = setOpenModal
+    }
 
     runInAction(() => {
       this.history = history
@@ -177,6 +188,7 @@ export class BuyerProductViewModel {
         this.product = this.product ? { ...result, status: this.product.status } : result
 
         this.productBase = result
+
         updateProductAutoCalculatedFields.call(this)
       })
 
@@ -191,6 +203,10 @@ export class BuyerProductViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  getCurrentData() {
+    return toJS(this.product)
   }
 
   async getStorekeepers() {
@@ -310,14 +326,19 @@ export class BuyerProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus()
+        this.openConfirmModalWithTextByStatus(isModal)
 
         break
       case 'cancel':
         this.history.push('/buyer/my-products')
+
+        break
+
+      case 'closeModal':
+        this.setOpenModal()
         break
     }
   }
@@ -336,8 +357,6 @@ export class BuyerProductViewModel {
           }
         },
       )
-
-      // console.log('this.curUpdateProductData', this.curUpdateProductData)
 
       if (
         this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||
@@ -419,10 +438,11 @@ export class BuyerProductViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
 
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
+      await this.loadData()
+
+      this.showSuccesAlert()
 
       this.setActionStatus(loadingStatuses.success)
-
-      this.history.push('/buyer/my-products')
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -431,6 +451,29 @@ export class BuyerProductViewModel {
         this.error = error.body.message
       }
     }
+  }
+
+  async showSuccesAlert() {
+    runInAction(() => {
+      this.alertShieldSettings = {
+        showAlertShield: true,
+        alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+      }
+
+      setTimeout(() => {
+        this.alertShieldSettings = {
+          ...this.alertShieldSettings,
+          showAlertShield: false,
+        }
+
+        setTimeout(() => {
+          this.alertShieldSettings = {
+            showAlertShield: false,
+            alertShieldMessage: '',
+          }
+        }, 1000)
+      }, 3000)
+    })
   }
 
   async onSaveForceProductData() {
@@ -554,5 +597,23 @@ export class BuyerProductViewModel {
     runInAction(() => {
       this.readyImages = []
     })
+  }
+
+  clearProduct() {
+    runInAction(() => {
+      this.product = undefined
+    })
+  }
+
+  async updateProductId(productId) {
+    runInAction(() => {
+      this.productId = productId
+    })
+
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
