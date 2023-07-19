@@ -70,6 +70,26 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
+const statusColorGroups = {
+  orange: [
+    OrderStatusByKey[OrderStatus.PENDING],
+    OrderStatusByKey[OrderStatus.AT_PROCESS],
+    OrderStatusByKey[OrderStatus.PARTIALLY_PAID],
+    OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+  ],
+  green: [
+    OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT],
+    OrderStatusByKey[OrderStatus.IN_STOCK],
+    OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+  ],
+  red: [
+    OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+    OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+    OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+  ],
+  blue: [OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT], OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]],
+}
+
 export const EditOrderModal = observer(
   ({
     platformSettings,
@@ -631,24 +651,10 @@ export const EditOrderModal = observer(
                   value={orderFields.status}
                   classes={{
                     select: cx({
-                      [classNames.orange]:
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                        `${orderFields.status}` ===
-                          `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-
-                      [classNames.green]:
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-
-                      [classNames.red]:
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                      [classNames.orange]: statusColorGroups.orange.includes(orderFields.status),
+                      [classNames.green]: statusColorGroups.green.includes(orderFields.status),
+                      [classNames.red]: statusColorGroups.red.includes(orderFields.status),
+                      [classNames.blue]: statusColorGroups.blue.includes(orderFields.status),
                     }),
                   }}
                   input={
@@ -657,24 +663,10 @@ export const EditOrderModal = observer(
                         <InputAdornment position="start">
                           <FiberManualRecordRoundedIcon
                             className={cx({
-                              [classNames.orange]:
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                                `${orderFields.status}` ===
-                                  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-
-                              [classNames.green]:
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-
-                              [classNames.red]:
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                              [classNames.orange]: statusColorGroups.orange.includes(orderFields.status),
+                              [classNames.green]: statusColorGroups.green.includes(orderFields.status),
+                              [classNames.red]: statusColorGroups.red.includes(orderFields.status),
+                              [classNames.blue]: statusColorGroups.blue.includes(orderFields.status),
                             })}
                           />
                         </InputAdornment>
@@ -705,23 +697,10 @@ export const EditOrderModal = observer(
                       value={statusCode}
                       className={cx(
                         cx(classNames.stantartSelect, {
-                          [classNames.orange]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-
-                          [classNames.green]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-
-                          [classNames.red]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                          [classNames.orange]: statusColorGroups.orange.includes(Number(statusCode)),
+                          [classNames.green]: statusColorGroups.green.includes(Number(statusCode)),
+                          [classNames.red]: statusColorGroups.red.includes(Number(statusCode)),
+                          [classNames.blue]: statusColorGroups.blue.includes(Number(statusCode)),
                           [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
                         }),
                       )}
