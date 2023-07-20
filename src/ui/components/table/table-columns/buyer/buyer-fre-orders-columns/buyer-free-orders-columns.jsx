@@ -138,8 +138,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
     width: 100,
     renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-    sortable: false,
-    filterable: false,
+    type: 'boolean',
   },
 
   {

@@ -135,8 +135,6 @@ export class BuyerFreeOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersVacant()
 
-      console.log('result', result)
-
       runInAction(() => {
         this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
