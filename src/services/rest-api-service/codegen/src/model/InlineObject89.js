@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject89 model module.
@@ -48,20 +47,20 @@ class InlineObject89 {
         if (data) {
             obj = obj || new InlineObject89();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
-            }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -71,32 +70,34 @@ class InlineObject89 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject89.prototype['rating'] = undefined;
+InlineObject89.prototype['execution_time'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject89.prototype['reason'] = undefined;
+InlineObject89.prototype['price'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
+ * Комментарий к предложению.
+ * @member {String} comment
+ */
+InlineObject89.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject89.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * @member {Number} timeLimitInMinutes
+ * Название предложения
+ * @member {String} title
  */
-InlineObject89.prototype['timeLimitInMinutes'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
- */
-InlineObject89.prototype['media'] = undefined;
+InlineObject89.prototype['title'] = undefined;
 
 
 

@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20057 model module.
@@ -23,6 +21,7 @@ import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposa
 class InlineResponse20057 {
     /**
      * Constructs a new <code>InlineResponse20057</code>.
+     * Успешный ответ.
      * @alias module:model/InlineResponse20057
      */
     constructor() { 
@@ -49,32 +48,11 @@ class InlineResponse20057 {
         if (data) {
             obj = obj || new InlineResponse20057();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -84,56 +62,16 @@ class InlineResponse20057 {
 }
 
 /**
- * Гуид медиа
- * @member {String} _id
+ * Флаг, показывает есть ли такой ASIN в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20057.prototype['_id'] = undefined;
+InlineResponse20057.prototype['isExist'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Причина из таблицы с асинами
+ * @member {String} reason
  */
-InlineResponse20057.prototype['sourceFile'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} comments
- */
-InlineResponse20057.prototype['comments'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
- */
-InlineResponse20057.prototype['proposal'] = undefined;
-
-/**
- * Код специализации фрилансера
- * @member {Number} typeTask
- */
-InlineResponse20057.prototype['typeTask'] = undefined;
-
-/**
- * гуид продукта
- * @member {String} productId
- */
-InlineResponse20057.prototype['productId'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20057.prototype['createdBy'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20057.prototype['createdAt'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse20057.prototype['updatedAt'] = undefined;
+InlineResponse20057.prototype['reason'] = undefined;
 
 
 

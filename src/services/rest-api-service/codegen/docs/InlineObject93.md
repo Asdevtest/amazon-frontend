@@ -4,18 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**action** | **String** |  | 
-**reason** | **String** | Причина смены статуса. | [optional] 
-
-
-
-## Enum: ActionEnum
-
-
-* `LINK` (value: `"LINK"`)
-
-* `UNLINK` (value: `"UNLINK"`)
-
-
+**onCheckedIdeaId** | **String** | Гуид идеи в статусе onChecked(10) | [optional] [default to &#39;null&#39;]
+**onFinishedIdeaId** | **String** | Гуид идеи в статусе finished(20) | [optional] [default to &#39;null&#39;]
 
 

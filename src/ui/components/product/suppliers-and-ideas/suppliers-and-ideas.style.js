@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
-    gap: '5px',
+    gap: 30,
     width: '100%',
     display: 'flex',
     flexDirection: 'column',

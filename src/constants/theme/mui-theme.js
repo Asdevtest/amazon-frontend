@@ -282,7 +282,6 @@ export const lightTheme = createTheme({
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
-
       searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
       red: '#FFC7C7',

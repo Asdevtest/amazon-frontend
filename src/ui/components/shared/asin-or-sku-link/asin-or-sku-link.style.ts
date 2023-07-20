@@ -7,7 +7,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
   normalizeLink: {
-    color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {
@@ -15,6 +14,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   linkSpan: {
+    color: theme.palette.primary.main,
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',

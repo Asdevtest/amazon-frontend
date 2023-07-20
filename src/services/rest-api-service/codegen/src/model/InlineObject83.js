@@ -22,12 +22,11 @@ class InlineObject83 {
     /**
      * Constructs a new <code>InlineObject83</code>.
      * @alias module:model/InlineObject83
-     * @param parentProductId {String} Ключ родительского продукта
-     * @param childProductIds {Array.<String>} 
+     * @param action {module:model/InlineObject83.ActionEnum} 
      */
-    constructor(parentProductId, childProductIds) { 
+    constructor(action) { 
         
-        InlineObject83.initialize(this, parentProductId, childProductIds);
+        InlineObject83.initialize(this, action);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject83 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, parentProductId, childProductIds) { 
-        obj['parentProductId'] = parentProductId;
-        obj['childProductIds'] = childProductIds;
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -51,11 +49,11 @@ class InlineObject83 {
         if (data) {
             obj = obj || new InlineObject83();
 
-            if (data.hasOwnProperty('parentProductId')) {
-                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('childProductIds')) {
-                obj['childProductIds'] = ApiClient.convertToType(data['childProductIds'], ['String']);
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -65,18 +63,39 @@ class InlineObject83 {
 }
 
 /**
- * Ключ родительского продукта
- * @member {String} parentProductId
+ * @member {module:model/InlineObject83.ActionEnum} action
  */
-InlineObject83.prototype['parentProductId'] = undefined;
+InlineObject83.prototype['action'] = undefined;
 
 /**
- * @member {Array.<String>} childProductIds
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject83.prototype['childProductIds'] = undefined;
+InlineObject83.prototype['reason'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject83['ActionEnum'] = {
+
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
+
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

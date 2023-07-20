@@ -1,12 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
-    padding: '20px',
-    overflow: 'hidden',
+    minHeight: 603,
+    padding: 50,
+    background: theme.palette.background.general,
+    borderRadius: 7,
   },
   cardWrapper: {
     width: '100%',
@@ -38,7 +40,6 @@ export const useClassNames = makeStyles()(theme => ({
   commentField: {
     height: '140px',
     width: '100%',
-    // marginBottom: '25px'
   },
 
   leftSubBlockWrapper: {

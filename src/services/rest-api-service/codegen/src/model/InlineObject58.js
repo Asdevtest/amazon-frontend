@@ -22,11 +22,10 @@ class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
      * @alias module:model/InlineObject58
-     * @param title {String} Тег
      */
-    constructor(title) { 
+    constructor() { 
         
-        InlineObject58.initialize(this, title);
+        InlineObject58.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject58 {
 }
 
 /**
- * Тег
- * @member {String} title
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject58.prototype['title'] = undefined;
+InlineObject58.prototype['suppliersIds'] = undefined;
 
 
 

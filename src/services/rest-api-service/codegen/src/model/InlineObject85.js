@@ -22,11 +22,10 @@ class InlineObject85 {
     /**
      * Constructs a new <code>InlineObject85</code>.
      * @alias module:model/InlineObject85
-     * @param approvedByMaster {Boolean} 
      */
-    constructor(approvedByMaster) { 
+    constructor() { 
         
-        InlineObject85.initialize(this, approvedByMaster);
+        InlineObject85.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject85 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, approvedByMaster) { 
-        obj['approvedByMaster'] = approvedByMaster;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('approvedByMaster')) {
-                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -60,9 +61,16 @@ class InlineObject85 {
 }
 
 /**
- * @member {Boolean} approvedByMaster
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject85.prototype['approvedByMaster'] = undefined;
+InlineObject85.prototype['sourceFile'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} comments
+ */
+InlineObject85.prototype['comments'] = undefined;
 
 
 

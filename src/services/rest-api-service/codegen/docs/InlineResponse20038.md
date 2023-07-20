@@ -4,9 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**products** | [**InlineResponse20038Products**](InlineResponse20038Products.md) |  | [optional] 
-**orders** | [**InlineResponse20038Orders**](InlineResponse20038Orders.md) |  | [optional] 
-**pendingOrders** | [**InlineResponse20038PendingOrders**](InlineResponse20038PendingOrders.md) |  | [optional] 
-**finances** | [**InlineResponse20038Finances**](InlineResponse20038Finances.md) |  | [optional] 
+**_id** | **String** | GUID идеи | [optional] 
+**title** | **String** | Название идеи | [optional] 
+**status** | **Number** | Статус идеи | [optional] 
+**media** | **[Object]** | Image URL | [optional] 
+**comments** | **String** | Комментарий к идее | [optional] 
+**productName** | **String** | Назавние продукта | [optional] 
+**productLinks** | **[Object]** | Ссылка на продукт, если есть | [optional] 
+**criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
+**quantity** | **Number** | Количество товаров | [optional] 
+**price** | **Number** | Желаемая цена | [optional] 
+**width** | **Number** | Ширина, см | [optional] 
+**height** | **Number** | Высота, см | [optional] 
+**length** | **Number** | Длина, см | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата последнего обновления | [optional] 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) | Массив поставщиков. | [optional] 
+**productId** | **String** | Product ID | [optional] 
 
 

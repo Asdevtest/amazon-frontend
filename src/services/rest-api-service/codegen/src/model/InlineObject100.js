@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject21 from './InlineObject21';
 
 /**
  * The InlineObject100 model module.
@@ -47,8 +48,8 @@ class InlineObject100 {
         if (data) {
             obj = obj || new InlineObject100();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject21]);
             }
         }
         return obj;
@@ -58,10 +59,10 @@ class InlineObject100 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject21>} additionalBoxes
  */
-InlineObject100.prototype['reason'] = undefined;
+InlineObject100.prototype['additionalBoxes'] = undefined;
 
 
 

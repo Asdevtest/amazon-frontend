@@ -23,7 +23,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 import { CustomSlider } from '@components/shared/custom-slider'
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -65,7 +65,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           <div className={classNames.asinAndIdWrapper}>
             <div className={classNames.asinWrapper}>
               <Typography className={classNames.idText}>{t(TranslationKey.ASIN) + ':'}</Typography>
-              <AsinLink
+              <AsinOrSkuLink
                 asin={requestProposals[0]?.request?.asin}
                 linkSpanClass={classNames.linkSpan}
                 missingSpanClass={classNames.idText}

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject20 from './InlineObject20';
 
 /**
  * The InlineObject109 model module.
@@ -48,8 +47,14 @@ class InlineObject109 {
         if (data) {
             obj = obj || new InlineObject109();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject20]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -59,10 +64,22 @@ class InlineObject109 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject20>} additionalBoxes
+ * Название услуги
+ * @member {String} name
  */
-InlineObject109.prototype['additionalBoxes'] = undefined;
+InlineObject109.prototype['name'] = undefined;
+
+/**
+ * Описание услуги
+ * @member {String} description
+ */
+InlineObject109.prototype['description'] = undefined;
+
+/**
+ * Цена услуги.
+ * @member {Number} price
+ */
+InlineObject109.prototype['price'] = undefined;
 
 
 

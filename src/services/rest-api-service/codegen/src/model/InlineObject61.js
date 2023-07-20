@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject61 model module.
@@ -22,11 +23,10 @@ class InlineObject61 {
     /**
      * Constructs a new <code>InlineObject61</code>.
      * @alias module:model/InlineObject61
-     * @param profileId {String} id профайла
      */
-    constructor(profileId) { 
+    constructor() { 
         
-        InlineObject61.initialize(this, profileId);
+        InlineObject61.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject61 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +48,8 @@ class InlineObject61 {
         if (data) {
             obj = obj || new InlineObject61();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('payload')) {
+                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
             }
         }
         return obj;
@@ -60,10 +59,9 @@ class InlineObject61 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
  */
-InlineObject61.prototype['profileId'] = undefined;
+InlineObject61.prototype['payload'] = undefined;
 
 
 

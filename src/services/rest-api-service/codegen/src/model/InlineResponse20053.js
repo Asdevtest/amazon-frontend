@@ -47,11 +47,11 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
         }
         return obj;
@@ -61,15 +61,16 @@ class InlineResponse20053 {
 }
 
 /**
- * @member {String} productId
+ * Гуид заявки
+ * @member {String} _id
  */
-InlineResponse20053.prototype['productId'] = undefined;
+InlineResponse20053.prototype['_id'] = undefined;
 
 /**
- * Массив магазинов
- * @member {Array.<String>} shopIds
+ * удобный ключ заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20053.prototype['shopIds'] = undefined;
+InlineResponse20053.prototype['humanFriendlyId'] = undefined;
 
 
 

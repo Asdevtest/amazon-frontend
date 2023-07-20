@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject79 model module.
@@ -47,8 +48,20 @@ class InlineObject79 {
         if (data) {
             obj = obj || new InlineObject79();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
             }
         }
         return obj;
@@ -58,10 +71,32 @@ class InlineObject79 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject79.prototype['suppliersIds'] = undefined;
+InlineObject79.prototype['rating'] = undefined;
+
+/**
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
+ */
+InlineObject79.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject79.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {Number} timeLimitInMinutes
+ */
+InlineObject79.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
+ */
+InlineObject79.prototype['media'] = undefined;
 
 
 

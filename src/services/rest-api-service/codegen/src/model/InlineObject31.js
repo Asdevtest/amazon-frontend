@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject31 model module.
@@ -23,11 +22,10 @@ class InlineObject31 {
     /**
      * Constructs a new <code>InlineObject31</code>.
      * @alias module:model/InlineObject31
-     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
      */
-    constructor(itemsBarCodeChanges) { 
+    constructor() { 
         
-        InlineObject31.initialize(this, itemsBarCodeChanges);
+        InlineObject31.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, itemsBarCodeChanges) { 
-        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,32 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('itemsBarCodeChanges')) {
-                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -61,9 +82,53 @@ class InlineObject31 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject31.prototype['itemsBarCodeChanges'] = undefined;
+InlineObject31.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} widthCmWarehouse
+ */
+InlineObject31.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject31.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject31.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineObject31.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject31.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineObject31.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineObject31.prototype['variationTariffId'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject31.prototype['images'] = undefined;
 
 
 

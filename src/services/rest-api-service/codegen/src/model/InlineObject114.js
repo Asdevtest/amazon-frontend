@@ -22,11 +22,11 @@ class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
      * @alias module:model/InlineObject114
-     * @param storekeeperComment {String} 
+     * @param title {String} 
      */
-    constructor(storekeeperComment) { 
+    constructor(title) { 
         
-        InlineObject114.initialize(this, storekeeperComment);
+        InlineObject114.initialize(this, title);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperComment) { 
-        obj['storekeeperComment'] = storekeeperComment;
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('iconImage')) {
+                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
             }
         }
         return obj;
@@ -60,9 +63,14 @@ class InlineObject114 {
 }
 
 /**
- * @member {String} storekeeperComment
+ * @member {String} title
  */
-InlineObject114.prototype['storekeeperComment'] = undefined;
+InlineObject114.prototype['title'] = undefined;
+
+/**
+ * @member {String} iconImage
+ */
+InlineObject114.prototype['iconImage'] = undefined;
 
 
 

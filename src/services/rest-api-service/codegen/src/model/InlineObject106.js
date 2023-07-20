@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject106 model module.
@@ -22,12 +23,12 @@ import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 class InlineObject106 {
     /**
      * Constructs a new <code>InlineObject106</code>.
-     * Схема продажи магазина
      * @alias module:model/InlineObject106
+     * @param name {String} Название тарифа
      */
-    constructor() { 
+    constructor(name) { 
         
-        InlineObject106.initialize(this);
+        InlineObject106.initialize(this, name);
     }
 
     /**
@@ -35,7 +36,8 @@ class InlineObject106 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,47 +51,38 @@ class InlineObject106 {
         if (data) {
             obj = obj || new InlineObject106();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
             }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
             }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
-            }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
-            }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
-            }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
             }
         }
         return obj;
@@ -99,88 +92,68 @@ class InlineObject106 {
 }
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * Тип тарифа
+ * @member {Number} tariffType
  */
-InlineObject106.prototype['title'] = undefined;
+InlineObject106.prototype['tariffType'] = undefined;
 
 /**
- * Стоимость магазина
- * @member {Number} price
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject106.prototype['price'] = undefined;
+InlineObject106.prototype['name'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject106.prototype['businessStartDate'] = undefined;
+InlineObject106.prototype['description'] = undefined;
 
 /**
- * Детали магазина
- * @member {String} shopDetails
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject106.prototype['shopDetails'] = undefined;
+InlineObject106.prototype['deliveryTimeInDay'] = undefined;
 
 /**
- * Активы магазина
- * @member {Array.<String>} shopAssets
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
  */
-InlineObject106.prototype['shopAssets'] = undefined;
+InlineObject106.prototype['cls'] = undefined;
 
 /**
- * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
- * @member {Array.<String>} files
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
  */
-InlineObject106.prototype['files'] = undefined;
+InlineObject106.prototype['etd'] = undefined;
 
 /**
- * Ссылка на сайт магазина
- * @member {String} shopLink
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
  */
-InlineObject106.prototype['shopLink'] = undefined;
+InlineObject106.prototype['eta'] = undefined;
 
 /**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
  */
-InlineObject106.prototype['statistics'] = undefined;
+InlineObject106.prototype['minWeightInKg'] = undefined;
 
 /**
- * Возможности магазина
- * @member {Array.<String>} opportunities
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
  */
-InlineObject106.prototype['opportunities'] = undefined;
+InlineObject106.prototype['archive'] = undefined;
 
 /**
- * Риски магазина
- * @member {Array.<String>} risks
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
-InlineObject106.prototype['risks'] = undefined;
+InlineObject106.prototype['conditionsByRegion'] = undefined;
 
 /**
- * Требуемые навыки
- * @member {Array.<String>} requiredSkills
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
  */
-InlineObject106.prototype['requiredSkills'] = undefined;
-
-/**
- * В продажу также включено
- * @member {Array.<String>} sellIncludes
- */
-InlineObject106.prototype['sellIncludes'] = undefined;
-
-/**
- * Причина продажи
- * @member {Array.<String>} reasonForSale
- */
-InlineObject106.prototype['reasonForSale'] = undefined;
-
-/**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
- */
-InlineObject106.prototype['additionalInfo'] = undefined;
+InlineObject106.prototype['destinationVariations'] = undefined;
 
 
 

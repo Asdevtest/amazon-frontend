@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**text** | **String** | текст отзыва/репорта | 
-**media** | **[String]** | Прикрепленные ссылки на медиа для репорта/отзыва | [optional] 
+**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
+**price** | **Number** | Цена предложения. | [optional] 
+**comment** | **String** | Комментарий к предложению. | [optional] 
+**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
+**title** | **String** | Название предложения | [optional] 
 
 

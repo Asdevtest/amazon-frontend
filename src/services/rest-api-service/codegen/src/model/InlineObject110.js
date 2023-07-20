@@ -47,17 +47,26 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
             }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -67,28 +76,46 @@ class InlineObject110 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Название склада.
+ * @member {String} name
  */
-InlineObject110.prototype['status'] = undefined;
+InlineObject110.prototype['name'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Страна.
+ * @member {String} country
  */
-InlineObject110.prototype['images'] = undefined;
+InlineObject110.prototype['country'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
  */
-InlineObject110.prototype['storekeeperComment'] = undefined;
+InlineObject110.prototype['zipCode'] = undefined;
 
 /**
- * Приоритет задачи
- * @member {Number} priority
+ * Штат.
+ * @member {String} state
  */
-InlineObject110.prototype['priority'] = undefined;
+InlineObject110.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject110.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject110.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject110.prototype['fontColor'] = undefined;
 
 
 

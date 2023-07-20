@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject71 model module.
@@ -48,8 +47,8 @@ class InlineObject71 {
         if (data) {
             obj = obj || new InlineObject71();
 
-            if (data.hasOwnProperty('payload')) {
-                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -59,9 +58,10 @@ class InlineObject71 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
+ * GUIDы магазинов, которые нужно добавить к продукту.
+ * @member {Array.<String>} shopIds
  */
-InlineObject71.prototype['payload'] = undefined;
+InlineObject71.prototype['shopIds'] = undefined;
 
 
 

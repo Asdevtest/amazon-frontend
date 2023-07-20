@@ -22,10 +22,11 @@ class InlineObject51 {
     /**
      * Constructs a new <code>InlineObject51</code>.
      * @alias module:model/InlineObject51
+     * @param title {String} Тег
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject51.initialize(this);
+        InlineObject51.initialize(this, title);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject51 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject51 {
         if (data) {
             obj = obj || new InlineObject51();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -58,9 +60,10 @@ class InlineObject51 {
 }
 
 /**
- * @member {String} clientComment
+ * Тег
+ * @member {String} title
  */
-InlineObject51.prototype['clientComment'] = undefined;
+InlineObject51.prototype['title'] = undefined;
 
 
 

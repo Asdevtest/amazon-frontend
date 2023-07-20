@@ -22,10 +22,11 @@ class InlineObject92 {
     /**
      * Constructs a new <code>InlineObject92</code>.
      * @alias module:model/InlineObject92
+     * @param fileLink {String} Ссылка на файл
      */
-    constructor() { 
+    constructor(fileLink) { 
         
-        InlineObject92.initialize(this);
+        InlineObject92.initialize(this, fileLink);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject92 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileLink) { 
+        obj['fileLink'] = fileLink;
     }
 
     /**
@@ -47,14 +49,20 @@ class InlineObject92 {
         if (data) {
             obj = obj || new InlineObject92();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
         }
         return obj;
@@ -64,22 +72,34 @@ class InlineObject92 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Guid заявки
+ * @member {String} requestId
  */
-InlineObject92.prototype['rating'] = undefined;
+InlineObject92.prototype['requestId'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Guid предложения
+ * @member {String} proposalId
  */
-InlineObject92.prototype['reason'] = undefined;
+InlineObject92.prototype['proposalId'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject92.prototype['linksToMediaFiles'] = undefined;
+InlineObject92.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject92.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject92.prototype['fileLink'] = undefined;
 
 
 

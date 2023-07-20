@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject99
      */
     constructor() { 
@@ -47,20 +48,14 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -70,34 +65,22 @@ class InlineObject99 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject99.prototype['execution_time'] = undefined;
+InlineObject99.prototype['name'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject99.prototype['price'] = undefined;
+InlineObject99.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * Комментарий к предложению.
- * @member {String} comment
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineObject99.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject99.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject99.prototype['title'] = undefined;
+InlineObject99.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

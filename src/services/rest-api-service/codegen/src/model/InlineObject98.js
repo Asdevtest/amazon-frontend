@@ -21,12 +21,15 @@ import ApiClient from '../ApiClient';
 class InlineObject98 {
     /**
      * Constructs a new <code>InlineObject98</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject98
-     * @param timeoutAt {Date} Время закрытия заявки.
+     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor(timeoutAt) { 
+    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
         
-        InlineObject98.initialize(this, timeoutAt);
+        InlineObject98.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
     }
 
     /**
@@ -34,8 +37,10 @@ class InlineObject98 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, timeoutAt) { 
-        obj['timeoutAt'] = timeoutAt;
+    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+        obj['name'] = name;
+        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
+        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
     }
 
     /**
@@ -49,11 +54,14 @@ class InlineObject98 {
         if (data) {
             obj = obj || new InlineObject98();
 
-            if (data.hasOwnProperty('timeoutAt')) {
-                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -63,16 +71,22 @@ class InlineObject98 {
 }
 
 /**
- * Время закрытия заявки.
- * @member {Date} timeoutAt
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject98.prototype['timeoutAt'] = undefined;
+InlineObject98.prototype['name'] = undefined;
 
 /**
- * Количество предложений. null без лимитов
- * @member {Number} maxAmountOfProposals
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject98.prototype['maxAmountOfProposals'] = undefined;
+InlineObject98.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject98.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**orderPayments** | [**[ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]**](ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md) |  | [optional] 
+**userIds** | **[String]** |  | 
+**title** | **String** | Название группового чата | 
 
 

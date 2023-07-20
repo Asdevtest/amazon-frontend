@@ -47,8 +47,11 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineResponse20044 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * GUID заказа
+ * @member {String} _id
  */
-InlineResponse20044.prototype['profileId'] = undefined;
+InlineResponse20044.prototype['_id'] = undefined;
+
+/**
+ * id заказа
+ * @member {Number} id
+ */
+InlineResponse20044.prototype['id'] = undefined;
 
 
 

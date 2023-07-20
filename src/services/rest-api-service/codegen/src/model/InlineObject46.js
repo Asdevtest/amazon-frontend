@@ -22,10 +22,11 @@ class InlineObject46 {
     /**
      * Constructs a new <code>InlineObject46</code>.
      * @alias module:model/InlineObject46
+     * @param productIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(productIds) { 
         
-        InlineObject46.initialize(this);
+        InlineObject46.initialize(this, productIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject46 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject46 {
         if (data) {
             obj = obj || new InlineObject46();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -58,10 +60,9 @@ class InlineObject46 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * @member {Array.<String>} productIds
  */
-InlineObject46.prototype['guids'] = undefined;
+InlineObject46.prototype['productIds'] = undefined;
 
 
 

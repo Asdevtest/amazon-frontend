@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**additionalBoxes** | [**[InlineObject21]**](InlineObject21.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20039Batches from './InlineResponse20039Batches';
-import InlineResponse20039Boxes from './InlineResponse20039Boxes';
-import InlineResponse20039Tasks from './InlineResponse20039Tasks';
+import InlineResponse20039Rows from './InlineResponse20039Rows';
 
 /**
  * The InlineResponse20039 model module.
@@ -50,14 +48,11 @@ class InlineResponse20039 {
         if (data) {
             obj = obj || new InlineResponse20039();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20039Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20039Boxes.constructFromObject(data['boxes']);
-            }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20039Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20039Rows]);
             }
         }
         return obj;
@@ -67,19 +62,16 @@ class InlineResponse20039 {
 }
 
 /**
- * @member {module:model/InlineResponse20039Tasks} tasks
+ * Общее кол-во идей
+ * @member {Number} count
  */
-InlineResponse20039.prototype['tasks'] = undefined;
+InlineResponse20039.prototype['count'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20039Boxes} boxes
+ * Список идей
+ * @member {Array.<module:model/InlineResponse20039Rows>} rows
  */
-InlineResponse20039.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20039Batches} batches
- */
-InlineResponse20039.prototype['batches'] = undefined;
+InlineResponse20039.prototype['rows'] = undefined;
 
 
 

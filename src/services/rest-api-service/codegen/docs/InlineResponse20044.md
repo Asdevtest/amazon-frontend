@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id созданного профайла | [optional] 
+**_id** | **String** | GUID заказа | [optional] 
+**id** | **Number** | id заказа | [optional] 
 
 

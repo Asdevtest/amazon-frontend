@@ -7,7 +7,7 @@ import React, { FC, useState } from 'react'
 import { useClassNames } from './copy-value.style'
 
 interface CopyValueProps {
-  text: string
+  text: string | undefined
   disabled?: boolean
 }
 
@@ -33,7 +33,7 @@ export const CopyValue: FC<CopyValueProps> = props => {
             className={cx(classNames.copyImg, { [classNames.disabledIcon]: disabled })}
             onClick={e => {
               e.stopPropagation()
-              !disabled && copyValue(text)
+              !disabled && !!text && copyValue(text)
             }}
           />
         )}

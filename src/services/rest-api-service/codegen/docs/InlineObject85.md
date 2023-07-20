@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**approvedByMaster** | **Boolean** |  | 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
 
 

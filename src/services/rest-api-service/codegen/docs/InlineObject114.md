@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperComment** | **String** |  | 
+**title** | **String** |  | 
+**iconImage** | **String** |  | [optional] 
 
 

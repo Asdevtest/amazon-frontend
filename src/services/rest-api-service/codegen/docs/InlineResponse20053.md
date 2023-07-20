@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | [optional] 
-**shopIds** | **[String]** | Массив магазинов | [optional] 
+**_id** | **String** | Гуид заявки | [optional] 
+**humanFriendlyId** | **Number** | удобный ключ заявки | [optional] 
 
 

@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1StorekeepersBoxesGuidItems from './ApiV1StorekeepersBoxesGuidItems';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
+import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
+import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 
 /**
  * The InlineObject113 model module.
@@ -48,62 +50,59 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('variationTariffId')) {
-                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('multiplicity')) {
+                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('paymentMethods')) {
+                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1SuppliersPaymentMethods]);
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperTaskComment')) {
-                obj['storekeeperTaskComment'] = ApiClient.convertToType(data['storekeeperTaskComment'], 'String');
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
             }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1StorekeepersBoxesGuidItems]);
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
+            }
+            if (data.hasOwnProperty('priceVariations')) {
+                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [ApiV1SuppliersPriceVariations]);
             }
         }
         return obj;
@@ -113,116 +112,108 @@ class InlineObject113 {
 }
 
 /**
- * Гуид вариации
- * @member {String} variationTariffId
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject113.prototype['variationTariffId'] = undefined;
+InlineObject113.prototype['name'] = undefined;
 
 /**
- * Значение информационного ключа
- * @member {String} prepId
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject113.prototype['prepId'] = undefined;
+InlineObject113.prototype['link'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
+ * Цена за еденицу, dollar
+ * @member {Number} price
  */
-InlineObject113.prototype['lengthCmWarehouse'] = undefined;
+InlineObject113.prototype['price'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
+ * кол-во
+ * @member {Number} amount
  */
-InlineObject113.prototype['widthCmWarehouse'] = undefined;
+InlineObject113.prototype['amount'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
+ * Минимальный лот.
+ * @member {Number} minlot
  */
-InlineObject113.prototype['heightCmWarehouse'] = undefined;
+InlineObject113.prototype['minlot'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
+ * Имеет ли обязательный делитель на кол-во в заказе поставщик
+ * @member {Boolean} multiplicity
  */
-InlineObject113.prototype['weighGrossKgWarehouse'] = undefined;
+InlineObject113.prototype['multiplicity'] = undefined;
 
 /**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ * @member {Array.<module:model/ApiV1SuppliersPaymentMethods>} paymentMethods
  */
-InlineObject113.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject113.prototype['paymentMethods'] = undefined;
 
 /**
- * Комментарии к коробке
- * @member {String} storekeeperComment
- */
-InlineObject113.prototype['storekeeperComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject113.prototype['referenceId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject113.prototype['trackNumberText'] = undefined;
-
-/**
- * @member {Array.<String>} trackNumberFile
- */
-InlineObject113.prototype['trackNumberFile'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject113.prototype['upsTrackNumber'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject113.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject113.prototype['fbaNumber'] = undefined;
-
-/**
- *  logicsTariff GUID
- * @member {String} logicsTariffId
- */
-InlineObject113.prototype['logicsTariffId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
+ * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineObject113.prototype['images'] = undefined;
 
 /**
- * destination GUID 
- * @member {String} destinationId
+ * Комментарий
+ * @member {String} comment
  */
-InlineObject113.prototype['destinationId'] = undefined;
+InlineObject113.prototype['comment'] = undefined;
 
 /**
- * Комментарии к коробке
- * @member {String} storekeeperTaskComment
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
  */
-InlineObject113.prototype['storekeeperTaskComment'] = undefined;
+InlineObject113.prototype['yuanRate'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1StorekeepersBoxesGuidItems>} items
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
  */
-InlineObject113.prototype['items'] = undefined;
+InlineObject113.prototype['priceInYuan'] = undefined;
+
+/**
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
+ */
+InlineObject113.prototype['batchDeliveryCostInDollar'] = undefined;
+
+/**
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
+ */
+InlineObject113.prototype['batchDeliveryCostInYuan'] = undefined;
+
+/**
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
+ */
+InlineObject113.prototype['batchTotalCostInDollar'] = undefined;
+
+/**
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
+ */
+InlineObject113.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Number} productionTerm
+ */
+InlineObject113.prototype['productionTerm'] = undefined;
+
+/**
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ */
+InlineObject113.prototype['boxProperties'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1SuppliersPriceVariations>} priceVariations
+ */
+InlineObject113.prototype['priceVariations'] = undefined;
 
 
 

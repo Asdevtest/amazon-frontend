@@ -18,7 +18,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { UserLink } from '@components/user/user-link'
@@ -110,7 +110,7 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.moreInformationSection}>
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
 
-              <AsinLink
+              <AsinOrSkuLink
                 asin={request?.request.asin}
                 linkSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
                 missingSpanClass={cx(classNames.sectionText, classNames.linkSpan)}

@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20036 {
     /**
      * Constructs a new <code>InlineResponse20036</code>.
-     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20036
      */
     constructor() { 
@@ -48,8 +47,14 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('productCount')) {
+                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
             }
         }
         return obj;
@@ -59,9 +64,22 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {Number} priceForClient
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse20036.prototype['priceForClient'] = undefined;
+InlineResponse20036.prototype['_id'] = undefined;
+
+/**
+ * Тег
+ * @member {String} title
+ */
+InlineResponse20036.prototype['title'] = undefined;
+
+/**
+ * Кол-во продуктов, которые используют этот тег
+ * @member {Number} productCount
+ */
+InlineResponse20036.prototype['productCount'] = undefined;
 
 
 

@@ -22,10 +22,12 @@ class InlineResponse20061 {
     /**
      * Constructs a new <code>InlineResponse20061</code>.
      * @alias module:model/InlineResponse20061
+     * @param _id {String} Гуид магазина
+     * @param name {String} Название магазина
      */
-    constructor() { 
+    constructor(_id, name) { 
         
-        InlineResponse20061.initialize(this);
+        InlineResponse20061.initialize(this, _id, name);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineResponse20061 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
     }
 
     /**
@@ -50,17 +54,8 @@ class InlineResponse20061 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
         }
         return obj;
@@ -70,34 +65,16 @@ class InlineResponse20061 {
 }
 
 /**
- * GUID заявки
+ * Гуид магазина
  * @member {String} _id
  */
 InlineResponse20061.prototype['_id'] = undefined;
 
 /**
- * Номер заявки
- * @member {Number} humanFriendlyId
+ * Название магазина
+ * @member {String} name
  */
-InlineResponse20061.prototype['humanFriendlyId'] = undefined;
-
-/**
- * Тип задачи заявки
- * @member {Number} typeTask
- */
-InlineResponse20061.prototype['typeTask'] = undefined;
-
-/**
- * Название заявки
- * @member {String} title
- */
-InlineResponse20061.prototype['title'] = undefined;
-
-/**
- * Статус заявки
- * @member {String} status
- */
-InlineResponse20061.prototype['status'] = undefined;
+InlineResponse20061.prototype['name'] = undefined;
 
 
 

@@ -22,11 +22,10 @@ class InlineObject77 {
     /**
      * Constructs a new <code>InlineObject77</code>.
      * @alias module:model/InlineObject77
-     * @param text {String} текст отзыва/репорта
      */
-    constructor(text) { 
+    constructor() { 
         
-        InlineObject77.initialize(this, text);
+        InlineObject77.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject77 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, text) { 
-        obj['text'] = text;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,20 @@ class InlineObject77 {
         if (data) {
             obj = obj || new InlineObject77();
 
-            if (data.hasOwnProperty('text')) {
-                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -63,16 +70,34 @@ class InlineObject77 {
 }
 
 /**
- * текст отзыва/репорта
- * @member {String} text
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject77.prototype['text'] = undefined;
+InlineObject77.prototype['execution_time'] = undefined;
 
 /**
- * Прикрепленные ссылки на медиа для репорта/отзыва
- * @member {Array.<String>} media
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject77.prototype['media'] = undefined;
+InlineObject77.prototype['price'] = undefined;
+
+/**
+ * Комментарий к предложению.
+ * @member {String} comment
+ */
+InlineObject77.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject77.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineObject77.prototype['title'] = undefined;
 
 
 

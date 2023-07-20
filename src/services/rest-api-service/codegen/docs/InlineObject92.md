@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rating** | **Number** | Поставить оценку юзеру | [optional] 
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**requestId** | **String** | Guid заявки | [optional] 
+**proposalId** | **String** | Guid предложения | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | 
 
 

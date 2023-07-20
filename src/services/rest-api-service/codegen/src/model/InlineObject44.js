@@ -22,12 +22,10 @@ class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
      * @alias module:model/InlineObject44
-     * @param userIds {Array.<String>} 
-     * @param title {String} Название группового чата
      */
-    constructor(userIds, title) { 
+    constructor() { 
         
-        InlineObject44.initialize(this, userIds, title);
+        InlineObject44.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject44 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userIds, title) { 
-        obj['userIds'] = userIds;
-        obj['title'] = title;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('userIds')) {
-                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
         }
         return obj;
@@ -65,15 +58,9 @@ class InlineObject44 {
 }
 
 /**
- * @member {Array.<String>} userIds
+ * @member {String} clientComment
  */
-InlineObject44.prototype['userIds'] = undefined;
-
-/**
- * Название группового чата
- * @member {String} title
- */
-InlineObject44.prototype['title'] = undefined;
+InlineObject44.prototype['clientComment'] = undefined;
 
 
 

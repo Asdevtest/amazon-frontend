@@ -47,14 +47,20 @@ class InlineObject91 {
         if (data) {
             obj = obj || new InlineObject91();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -64,22 +70,34 @@ class InlineObject91 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject91.prototype['rating'] = undefined;
+InlineObject91.prototype['commentByClient'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineObject91.prototype['review'] = undefined;
+InlineObject91.prototype['commentByPerformer'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource по этому пропоузалу
- * @member {String} sourceFile
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineObject91.prototype['sourceFile'] = undefined;
+InlineObject91.prototype['fileLink'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
+ */
+InlineObject91.prototype['proposalId'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} requestId
+ */
+InlineObject91.prototype['requestId'] = undefined;
 
 
 

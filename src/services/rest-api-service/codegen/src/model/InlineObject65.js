@@ -22,10 +22,11 @@ class InlineObject65 {
     /**
      * Constructs a new <code>InlineObject65</code>.
      * @alias module:model/InlineObject65
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor() { 
+    constructor(fileUrl) { 
         
-        InlineObject65.initialize(this);
+        InlineObject65.initialize(this, fileUrl);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject65 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -58,10 +60,10 @@ class InlineObject65 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * uri полный путь до файла, для скачивания
+ * @member {String} fileUrl
  */
-InlineObject65.prototype['suppliersIds'] = undefined;
+InlineObject65.prototype['fileUrl'] = undefined;
 
 
 

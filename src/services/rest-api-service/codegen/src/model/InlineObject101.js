@@ -47,20 +47,17 @@ class InlineObject101 {
         if (data) {
             obj = obj || new InlineObject101();
 
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
         }
         return obj;
@@ -70,34 +67,28 @@ class InlineObject101 {
 }
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject101.prototype['commentByClient'] = undefined;
+InlineObject101.prototype['status'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject101.prototype['commentByPerformer'] = undefined;
+InlineObject101.prototype['images'] = undefined;
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject101.prototype['fileLink'] = undefined;
+InlineObject101.prototype['storekeeperComment'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
+ * Приоритет задачи
+ * @member {Number} priority
  */
-InlineObject101.prototype['proposalId'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} requestId
- */
-InlineObject101.prototype['requestId'] = undefined;
+InlineObject101.prototype['priority'] = undefined;
 
 
 

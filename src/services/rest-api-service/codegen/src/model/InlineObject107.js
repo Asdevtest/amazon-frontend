@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject107 model module.
@@ -21,15 +23,11 @@ import ApiClient from '../ApiClient';
 class InlineObject107 {
     /**
      * Constructs a new <code>InlineObject107</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject107
-     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    constructor() { 
         
-        InlineObject107.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
+        InlineObject107.initialize(this);
     }
 
     /**
@@ -37,10 +35,7 @@ class InlineObject107 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
-        obj['name'] = name;
-        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
-        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
+    static initialize(obj) { 
     }
 
     /**
@@ -57,11 +52,32 @@ class InlineObject107 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
+            }
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
+            }
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
+            }
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
             }
         }
         return obj;
@@ -71,22 +87,62 @@ class InlineObject107 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * Название тарифа
  * @member {String} name
  */
 InlineObject107.prototype['name'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject107.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject107.prototype['description'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject107.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject107.prototype['deliveryTimeInDay'] = undefined;
+
+/**
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
+ */
+InlineObject107.prototype['cls'] = undefined;
+
+/**
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
+ */
+InlineObject107.prototype['etd'] = undefined;
+
+/**
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
+ */
+InlineObject107.prototype['eta'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject107.prototype['minWeightInKg'] = undefined;
+
+/**
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
+ */
+InlineObject107.prototype['archive'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject107.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
+ */
+InlineObject107.prototype['destinationVariations'] = undefined;
 
 
 

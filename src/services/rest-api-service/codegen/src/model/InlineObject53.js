@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject53 model module.
@@ -22,11 +23,10 @@ class InlineObject53 {
     /**
      * Constructs a new <code>InlineObject53</code>.
      * @alias module:model/InlineObject53
-     * @param productIds {Array.<String>} 
      */
-    constructor(productIds) { 
+    constructor() { 
         
-        InlineObject53.initialize(this, productIds);
+        InlineObject53.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject53 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productIds) { 
-        obj['productIds'] = productIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +48,14 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
+            }
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -60,9 +65,22 @@ class InlineObject53 {
 }
 
 /**
- * @member {Array.<String>} productIds
+ * Название профиля
+ * @member {String} name
  */
-InlineObject53.prototype['productIds'] = undefined;
+InlineObject53.prototype['name'] = undefined;
+
+/**
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
+ */
+InlineObject53.prototype['os'] = 'mac';
+
+/**
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
+ */
+InlineObject53.prototype['navigator'] = undefined;
 
 
 

@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** | Комментарий клиента | [optional] 
-**buyerComment** | **String** | Комментарий баера | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource по этому пропоузалу | [optional] 
 
 

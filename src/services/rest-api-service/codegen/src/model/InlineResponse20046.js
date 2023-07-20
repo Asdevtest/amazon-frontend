@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20046 model module.
@@ -50,17 +47,11 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -70,24 +61,14 @@ class InlineResponse20046 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * @member {String} userId
  */
-InlineResponse20046.prototype['product'] = undefined;
+InlineResponse20046.prototype['userId'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ * @member {String} productId
  */
-InlineResponse20046.prototype['idea'] = undefined;
-
-/**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
- */
-InlineResponse20046.prototype['createdBy'] = undefined;
-
-/**
- * @member {String} createdAt
- */
-InlineResponse20046.prototype['createdAt'] = undefined;
+InlineResponse20046.prototype['productId'] = undefined;
 
 
 

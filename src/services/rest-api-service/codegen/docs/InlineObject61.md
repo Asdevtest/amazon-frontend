@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id профайла | 
+**payload** | [**[ApiV1IntegrationsCreateAndLinkSkuProductsPayload]**](ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md) |  | [optional] 
 
 

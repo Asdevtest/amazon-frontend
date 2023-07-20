@@ -47,11 +47,14 @@ class InlineObject74 {
         if (data) {
             obj = obj || new InlineObject74();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -61,16 +64,22 @@ class InlineObject74 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject74.prototype['clientComment'] = undefined;
+InlineObject74.prototype['rating'] = undefined;
 
 /**
- * Комментарий баера
- * @member {String} buyerComment
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject74.prototype['buyerComment'] = undefined;
+InlineObject74.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject74.prototype['linksToMediaFiles'] = undefined;
 
 
 

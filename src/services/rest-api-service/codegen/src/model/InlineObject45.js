@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
-import ApiV1ClientsProductsGuidRedFlags from './ApiV1ClientsProductsGuidRedFlags';
+import ApiV1ClientsProductsGuidTags from './ApiV1ClientsProductsGuidTags';
 
 /**
  * The InlineObject45 model module.
@@ -24,10 +23,12 @@ class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
      * @alias module:model/InlineObject45
+     * @param asin {String} ASIN продукта
+     * @param images {Array.<String>} Массив изображений.
      */
-    constructor() { 
+    constructor(asin, images) { 
         
-        InlineObject45.initialize(this);
+        InlineObject45.initialize(this, asin, images);
     }
 
     /**
@@ -35,7 +36,9 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, asin, images) { 
+        obj['asin'] = asin;
+        obj['images'] = images;
     }
 
     /**
@@ -54,6 +57,12 @@ class InlineObject45 {
             }
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('currentSupplierId')) {
+                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
+            }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
@@ -118,6 +127,9 @@ class InlineObject45 {
             if (data.hasOwnProperty('chinaTitle')) {
                 obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
             }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
             if (data.hasOwnProperty('minpurchase')) {
                 obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
             }
@@ -133,11 +145,11 @@ class InlineObject45 {
             if (data.hasOwnProperty('needCheckBySupervisor')) {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
-            }
             if (data.hasOwnProperty('hsCode')) {
                 obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
             if (data.hasOwnProperty('niche')) {
                 obj['niche'] = ApiClient.convertToType(data['niche'], 'String');
@@ -166,14 +178,11 @@ class InlineObject45 {
             if (data.hasOwnProperty('fourMonthesStock')) {
                 obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
             }
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
-            }
-            if (data.hasOwnProperty('redFlags')) {
-                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1ClientsProductsGuidRedFlags]);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1ClientsProductsGuidTags]);
             }
         }
         return obj;
@@ -192,6 +201,18 @@ InlineObject45.prototype['asin'] = undefined;
  * @member {Array.<String>} skusByClient
  */
 InlineObject45.prototype['skusByClient'] = undefined;
+
+/**
+ * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+ * @member {String} currentSupplierId
+ */
+InlineObject45.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineObject45.prototype['parentProductId'] = undefined;
 
 /**
  * Категория
@@ -313,6 +334,11 @@ InlineObject45.prototype['productUsage'] = undefined;
 InlineObject45.prototype['chinaTitle'] = undefined;
 
 /**
+ * @member {String} barCode
+ */
+InlineObject45.prototype['barCode'] = undefined;
+
+/**
  * @member {Number} minpurchase
  */
 InlineObject45.prototype['minpurchase'] = undefined;
@@ -342,16 +368,16 @@ InlineObject45.prototype['strategyStatus'] = undefined;
 InlineObject45.prototype['needCheckBySupervisor'] = undefined;
 
 /**
- * Флаг указывает что продукт в архиве.
- * @member {Boolean} archive
- */
-InlineObject45.prototype['archive'] = undefined;
-
-/**
  * hsCode продукта.
  * @member {String} hsCode
  */
 InlineObject45.prototype['hsCode'] = undefined;
+
+/**
+ * Гуид баера, Байер создал идею для продукта. Клиенту понравилась идея, он создал на основе ее карточку.
+ * @member {String} buyerId
+ */
+InlineObject45.prototype['buyerId'] = undefined;
 
 /**
  * Ниша
@@ -408,18 +434,13 @@ InlineObject45.prototype['avgReviews'] = undefined;
 InlineObject45.prototype['fourMonthesStock'] = undefined;
 
 /**
- * ID магазинов для продукта
- * @member {Array.<String>} shopIds
+ * GUIDы поставщиков продукта
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject45.prototype['shopIds'] = undefined;
+InlineObject45.prototype['suppliersIds'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1ClientsProductsGuidRedFlags>} redFlags
- */
-InlineObject45.prototype['redFlags'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
+ * @member {Array.<module:model/ApiV1ClientsProductsGuidTags>} tags
  */
 InlineObject45.prototype['tags'] = undefined;
 

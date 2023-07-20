@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
 
 /**
  * The InlineObject36 model module.
@@ -23,10 +22,11 @@ class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
      * @alias module:model/InlineObject36
+     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor() { 
+    constructor(isFormed) { 
         
-        InlineObject36.initialize(this);
+        InlineObject36.initialize(this, isFormed);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, isFormed) { 
+        obj['isFormed'] = isFormed;
     }
 
     /**
@@ -48,32 +49,8 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
-            }
-            if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
             }
         }
         return obj;
@@ -83,57 +60,10 @@ class InlineObject36 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
  */
-InlineObject36.prototype['amazon'] = undefined;
-
-/**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
- */
-InlineObject36.prototype['reffee'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject36.prototype['fbafee'] = undefined;
-
-/**
- * ФБА кол-во
- * @member {Number} fbaamount
- */
-InlineObject36.prototype['fbaamount'] = undefined;
-
-/**
- * Код статуса
- * @member {Number} status
- */
-InlineObject36.prototype['status'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject36.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject36.prototype['margin'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyersComment
- */
-InlineObject36.prototype['buyersComment'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
- */
-InlineObject36.prototype['tags'] = undefined;
+InlineObject36.prototype['isFormed'] = undefined;
 
 
 

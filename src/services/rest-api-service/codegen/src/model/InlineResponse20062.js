@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse2004 from './InlineResponse2004';
 
 /**
  * The InlineResponse20062 model module.
@@ -47,29 +48,11 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
-            }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2004]);
             }
         }
         return obj;
@@ -79,52 +62,15 @@ class InlineResponse20062 {
 }
 
 /**
- * GUID в базе данных
- * @member {String} _id
+ * Общее кол-во записей
+ * @member {Number} count
  */
-InlineResponse20062.prototype['_id'] = undefined;
+InlineResponse20062.prototype['count'] = undefined;
 
 /**
- * Guid заявки к которой относится данное media.
- * @member {String} requestId
+ * @member {Array.<module:model/InlineResponse2004>} rows
  */
-InlineResponse20062.prototype['requestId'] = undefined;
-
-/**
- * Guid предложения к которой относится данное media.
- * @member {String} proposalId
- */
-InlineResponse20062.prototype['proposalId'] = undefined;
-
-/**
- * комментарий клиента
- * @member {String} commentByClient
- */
-InlineResponse20062.prototype['commentByClient'] = undefined;
-
-/**
- * комментарий исполнителя
- * @member {String} commentByPerformer
- */
-InlineResponse20062.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineResponse20062.prototype['fileLink'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20062.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updatedAt
- */
-InlineResponse20062.prototype['updatedAt'] = undefined;
+InlineResponse20062.prototype['rows'] = undefined;
 
 
 

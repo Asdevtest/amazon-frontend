@@ -47,11 +47,14 @@ class InlineObject78 {
         if (data) {
             obj = obj || new InlineObject78();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -61,14 +64,22 @@ class InlineObject78 {
 }
 
 /**
- * @member {String} userId
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject78.prototype['userId'] = undefined;
+InlineObject78.prototype['rating'] = undefined;
 
 /**
- * @member {Array.<String>} productIds
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject78.prototype['productIds'] = undefined;
+InlineObject78.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject78.prototype['linksToMediaFiles'] = undefined;
 
 
 

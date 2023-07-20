@@ -4,9 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
-**priority** | **Number** | Приоритет задачи | [optional] 
+**name** | **String** | Название склада. | [optional] 
+**country** | **String** | Страна. | [optional] 
+**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
+**state** | **String** | Штат. | [optional] 
+**city** | **String** | Город. | [optional] 
+**address** | **String** | Адрес склада. | [optional] 
+**fontColor** | **String** | Цвет шрифта | [optional] 
 
 

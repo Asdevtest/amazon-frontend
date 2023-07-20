@@ -22,12 +22,10 @@ class InlineObject72 {
     /**
      * Constructs a new <code>InlineObject72</code>.
      * @alias module:model/InlineObject72
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
      */
-    constructor(productId, skus) { 
+    constructor() { 
         
-        InlineObject72.initialize(this, productId, skus);
+        InlineObject72.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject72 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject72 {
         if (data) {
             obj = obj || new InlineObject72();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -65,14 +58,10 @@ class InlineObject72 {
 }
 
 /**
- * @member {String} productId
+ * GUIDы магазинов, которые нужно удалить.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject72.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<String>} skus
- */
-InlineObject72.prototype['skus'] = undefined;
+InlineObject72.prototype['suppliersIds'] = undefined;
 
 
 

@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
 
 

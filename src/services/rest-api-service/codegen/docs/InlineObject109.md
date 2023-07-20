@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject20]**](InlineObject20.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**name** | **String** | Название услуги | [optional] 
+**description** | **String** | Описание услуги | [optional] 
+**price** | **Number** | Цена услуги. | [optional] 
 
 

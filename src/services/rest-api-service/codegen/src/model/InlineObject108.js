@@ -21,12 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject108
+     * @param price {Number} Цена услуги.
      */
-    constructor() { 
+    constructor(price) { 
         
-        InlineObject108.initialize(this);
+        InlineObject108.initialize(this, price);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject108 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, price) { 
+        obj['price'] = price;
     }
 
     /**
@@ -51,11 +52,11 @@ class InlineObject108 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -65,22 +66,22 @@ class InlineObject108 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * Название услуги
  * @member {String} name
  */
 InlineObject108.prototype['name'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject108.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject108.prototype['description'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject108.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject108.prototype['price'] = undefined;
 
 
 

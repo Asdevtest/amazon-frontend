@@ -47,8 +47,14 @@ class InlineObject81 {
         if (data) {
             obj = obj || new InlineObject81();
 
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -58,10 +64,22 @@ class InlineObject81 {
 }
 
 /**
- * GUIDы магазинов, которые нужно добавить к продукту.
- * @member {Array.<String>} shopIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject81.prototype['shopIds'] = undefined;
+InlineObject81.prototype['rating'] = undefined;
+
+/**
+ * Отзыв о работе
+ * @member {String} review
+ */
+InlineObject81.prototype['review'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
+ */
+InlineObject81.prototype['sourceFile'] = undefined;
 
 
 

@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tasks** | [**InlineResponse20039Tasks**](InlineResponse20039Tasks.md) |  | [optional] 
-**boxes** | [**InlineResponse20039Boxes**](InlineResponse20039Boxes.md) |  | [optional] 
-**batches** | [**InlineResponse20039Batches**](InlineResponse20039Batches.md) |  | [optional] 
+**count** | **Number** | Общее кол-во идей | [optional] 
+**rows** | [**[InlineResponse20039Rows]**](InlineResponse20039Rows.md) | Список идей | [optional] 
 
 

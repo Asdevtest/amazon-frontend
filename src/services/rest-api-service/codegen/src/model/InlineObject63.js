@@ -47,41 +47,53 @@ class InlineObject63 {
         if (data) {
             obj = obj || new InlineObject63();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
             }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
+                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
             }
         }
         return obj;
@@ -91,79 +103,142 @@ class InlineObject63 {
 }
 
 /**
- * Название идеи
- * @member {String} title
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject63.prototype['title'] = undefined;
+InlineObject63.prototype['amount'] = undefined;
 
 /**
- * Image URL
- * @member {Array.<String>} media
+ * Гуид сапплаера
+ * @member {String} orderSupplierId
  */
-InlineObject63.prototype['media'] = undefined;
+InlineObject63.prototype['orderSupplierId'] = undefined;
 
 /**
- * Комментарий к идее
- * @member {String} comments
+ * Склад для изменения
+ * @member {String} storekeeperId
  */
-InlineObject63.prototype['comments'] = undefined;
+InlineObject63.prototype['storekeeperId'] = undefined;
 
 /**
- * Назавние продукта
- * @member {String} productName
+ * Пункт назначения
+ * @member {String} destinationId
  */
-InlineObject63.prototype['productName'] = undefined;
+InlineObject63.prototype['destinationId'] = undefined;
 
 /**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * Тариф для изменения
+ * @member {String} logicsTariffId
  */
-InlineObject63.prototype['productLinks'] = undefined;
+InlineObject63.prototype['logicsTariffId'] = undefined;
 
 /**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject63.prototype['criteria'] = undefined;
+InlineObject63.prototype['images'] = undefined;
 
 /**
- * Количество товаров
- * @member {Number} quantity
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
  */
-InlineObject63.prototype['quantity'] = undefined;
+InlineObject63.prototype['totalPrice'] = undefined;
 
 /**
- * Желаемая цена
- * @member {Number} price
+ * Комментарий баера
+ * @member {String} buyerComment
  */
-InlineObject63.prototype['price'] = undefined;
+InlineObject63.prototype['buyerComment'] = undefined;
 
 /**
- * Ширина, см
- * @member {Number} width
+ * Не настоящий ключ, используется только для нужд юзера
+ * @member {String} item
  */
-InlineObject63.prototype['width'] = undefined;
+InlineObject63.prototype['item'] = undefined;
 
 /**
- * Высота, см
- * @member {Number} height
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
  */
-InlineObject63.prototype['height'] = undefined;
+InlineObject63.prototype['needsResearch'] = undefined;
 
 /**
- * Длина, см
- * @member {Number} length
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
  */
-InlineObject63.prototype['length'] = undefined;
+InlineObject63.prototype['deadline'] = undefined;
 
 /**
- * Product ID
- * @member {String} productId
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject63.PriorityEnum} priority
  */
-InlineObject63.prototype['productId'] = undefined;
+InlineObject63.prototype['priority'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject63.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Комментарий клтента в заказе
+ * @member {String} clientComment
+ */
+InlineObject63.prototype['clientComment'] = undefined;
+
+/**
+ * Цена в юанях
+ * @member {Number} priceInYuan
+ */
+InlineObject63.prototype['priceInYuan'] = undefined;
+
+/**
+ * Цена доставки партии в юанях
+ * @member {Number} priceBatchDeliveryInYuan
+ */
+InlineObject63.prototype['priceBatchDeliveryInYuan'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject63['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 

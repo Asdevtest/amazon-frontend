@@ -4,7 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**parentProductId** | **String** | Ключ родительского продукта | 
-**childProductIds** | **[String]** |  | 
+**action** | **String** |  | 
+**reason** | **String** | Причина смены статуса. | [optional] 
+
+
+
+## Enum: ActionEnum
+
+
+* `LINK` (value: `"LINK"`)
+
+* `UNLINK` (value: `"UNLINK"`)
+
+
 
 

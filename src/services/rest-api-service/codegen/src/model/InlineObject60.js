@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject60 model module.
@@ -23,10 +23,12 @@ class InlineObject60 {
     /**
      * Constructs a new <code>InlineObject60</code>.
      * @alias module:model/InlineObject60
+     * @param productId {String} 
+     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor() { 
+    constructor(productId, warehouseStocks) { 
         
-        InlineObject60.initialize(this);
+        InlineObject60.initialize(this, productId, warehouseStocks);
     }
 
     /**
@@ -34,7 +36,9 @@ class InlineObject60 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, warehouseStocks) { 
+        obj['productId'] = productId;
+        obj['warehouseStocks'] = warehouseStocks;
     }
 
     /**
@@ -48,14 +52,11 @@ class InlineObject60 {
         if (data) {
             obj = obj || new InlineObject60();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('warehouseStocks')) {
+                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
             }
         }
         return obj;
@@ -65,22 +66,14 @@ class InlineObject60 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * @member {String} productId
  */
-InlineObject60.prototype['name'] = undefined;
+InlineObject60.prototype['productId'] = undefined;
 
 /**
- * Название ОС
- * @member {String} os
- * @default 'mac'
+ * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
  */
-InlineObject60.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject60.prototype['navigator'] = undefined;
+InlineObject60.prototype['warehouseStocks'] = undefined;
 
 
 

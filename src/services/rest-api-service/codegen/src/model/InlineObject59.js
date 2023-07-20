@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject59 model module.
@@ -23,11 +22,10 @@ class InlineObject59 {
     /**
      * Constructs a new <code>InlineObject59</code>.
      * @alias module:model/InlineObject59
-     * @param name {String} Название профиля
      */
-    constructor(name) { 
+    constructor() { 
         
-        InlineObject59.initialize(this, name);
+        InlineObject59.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject59 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,14 +47,8 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('suppliersId')) {
+                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
             }
         }
         return obj;
@@ -67,22 +58,10 @@ class InlineObject59 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * GUID поставщика, который нужно удалить в БД.
+ * @member {String} suppliersId
  */
-InlineObject59.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject59.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject59.prototype['navigator'] = undefined;
+InlineObject59.prototype['suppliersId'] = undefined;
 
 
 

@@ -22,11 +22,11 @@ class InlineObject102 {
     /**
      * Constructs a new <code>InlineObject102</code>.
      * @alias module:model/InlineObject102
-     * @param fileLink {String} Ссылка на файл
+     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor(fileLink) { 
+    constructor(priority) { 
         
-        InlineObject102.initialize(this, fileLink);
+        InlineObject102.initialize(this, priority);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject102 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileLink) { 
-        obj['fileLink'] = fileLink;
+    static initialize(obj, priority) { 
+        obj['priority'] = priority;
     }
 
     /**
@@ -49,20 +49,11 @@ class InlineObject102 {
         if (data) {
             obj = obj || new InlineObject102();
 
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
-            }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -72,34 +63,16 @@ class InlineObject102 {
 }
 
 /**
- * Guid заявки
- * @member {String} requestId
+ * Выставить приоритет задачи
+ * @member {Number} priority
  */
-InlineObject102.prototype['requestId'] = undefined;
+InlineObject102.prototype['priority'] = undefined;
 
 /**
- * Guid предложения
- * @member {String} proposalId
+ * Reason of high priority
+ * @member {String} reason
  */
-InlineObject102.prototype['proposalId'] = undefined;
-
-/**
- * комментарий клиента
- * @member {String} commentByClient
- */
-InlineObject102.prototype['commentByClient'] = undefined;
-
-/**
- * комментарий исполнителя
- * @member {String} commentByPerformer
- */
-InlineObject102.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineObject102.prototype['fileLink'] = undefined;
+InlineObject102.prototype['reason'] = undefined;
 
 
 

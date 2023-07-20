@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productIds** | **[String]** |  | 
+**profileId** | **String** | id профайла | 
 
 

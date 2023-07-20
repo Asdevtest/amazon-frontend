@@ -44,6 +44,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './idea-view-and-edit-card.style'
 import { useHistory } from 'react-router-dom'
 import { routsPathes } from '@constants/navigation/routs-pathes'
+import { IdeaProgressBar } from './progress-bar'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -217,12 +218,16 @@ export const IdeaViewAndEditCard = observer(
 
     const disabledSubmit = JSON.stringify(formFields) === JSON.stringify(sourceFormFields)
 
+    console.log('idea', idea)
+    console.log('curIdea', curIdea)
+
     return (
-      <Grid item className={classNames.mainWrapper}>
+      <div className={classNames.root}>
         <div className={classNames.headerWrapper}>
-          <Typography variant="h5" className={classNames.ideaTitle}>
+          <IdeaProgressBar />
+          {/* <Typography variant="h5" className={classNames.ideaTitle}>
             {formFields.productName}
-          </Typography>
+          </Typography> */}
 
           {!inCreate && !checkIsSupervisor(UserRoleCodeMap[curUser.role]) && (
             <div className={classNames.orderStatusWrapper}>
@@ -674,7 +679,7 @@ export const IdeaViewAndEditCard = observer(
             </div>
           </div>
         ) : null}
-      </Grid>
+      </div>
     )
   },
 )
