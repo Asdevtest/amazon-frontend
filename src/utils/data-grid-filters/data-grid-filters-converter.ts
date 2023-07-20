@@ -4,6 +4,15 @@ interface ColumnMenuSettings {
   }
 }
 
+type FilterObject = {
+  [key: string]: { [operator: string]: string }
+}
+
+type FilterList = {
+  or: FilterObject[]
+  [field: string]: FilterObject | FilterObject[] | Record<string, unknown>
+}
+
 const onlyDigitsRegex = /^\d+$/
 
 const searchOperatorByColumn = {
@@ -29,22 +38,22 @@ export const dataGridFiltersConverter = (
   columns: string[],
   searchFields: string[] = [],
   additionalOptions?: Record<string, unknown>,
-) => {
+): FilterList => {
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
-  const searchFieldsArray = searchValue
+  const searchFieldsArray: FilterObject[] = searchValue
     ? searchFields
-        .map(el => {
+        .map(searchField => {
           let operator = '$contains'
 
           for (const key in searchOperatorByColumn) {
-            if (searchOperatorByColumn[key as keyof typeof searchOperatorByColumn].includes(el)) {
+            if (searchOperatorByColumn[key as keyof typeof searchOperatorByColumn].includes(searchField)) {
               operator = key
               break
             }
           }
 
           return {
-            [el]: { [operator]: searchValue },
+            [searchField]: { [operator]: searchValue },
           }
         })
         .filter(el => {
@@ -59,7 +68,7 @@ export const dataGridFiltersConverter = (
     : []
 
   // * Проходимся по всем колонкам, получаем фильтра для каждой и генерируем итоговый объект
-  const columnFilters = columns.reduce((acc, column) => {
+  const columnFilters: FilterObject = columns.reduce((acc, column) => {
     const filterList = exclusion !== column ? columnMenuSettings[column].currentFilterData : []
 
     if (filterList.length === 0) {

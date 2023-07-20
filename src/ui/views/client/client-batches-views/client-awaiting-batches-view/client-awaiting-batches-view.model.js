@@ -20,7 +20,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
-import { dataGridFiltersConverter } from '@utils/data-grid-filters-converter'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { GeneralModel } from '@models/general-model'
 
 const filtersFields = [
@@ -108,17 +108,7 @@ export class ClientAwaitingBatchesViewModel {
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   get userInfo() {
@@ -604,18 +594,7 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.columnMenuSettings = {
         ...this.columnMenuSettings,
-
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
+        ...dataGridFiltersInitializer(filtersFields),
       }
     })
 

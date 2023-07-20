@@ -35,7 +35,6 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { dataGridFiltersConverter } from '@utils/data-grid-filters-converter'
 
 const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
