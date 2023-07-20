@@ -22,11 +22,11 @@ class InlineObject9 {
     /**
      * Constructs a new <code>InlineObject9</code>.
      * @alias module:model/InlineObject9
-     * @param productId {String} ГУид продукта
+     * @param title {String} 
      */
-    constructor(productId) { 
+    constructor(title) { 
         
-        InlineObject9.initialize(this, productId);
+        InlineObject9.initialize(this, title);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject9 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId) { 
-        obj['productId'] = productId;
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject9 {
         if (data) {
             obj = obj || new InlineObject9();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -60,10 +60,9 @@ class InlineObject9 {
 }
 
 /**
- * ГУид продукта
- * @member {String} productId
+ * @member {String} title
  */
-InlineObject9.prototype['productId'] = undefined;
+InlineObject9.prototype['title'] = undefined;
 
 
 

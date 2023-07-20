@@ -147,6 +147,7 @@ import InlineObject129 from './model/InlineObject129';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject130 from './model/InlineObject130';
 import InlineObject131 from './model/InlineObject131';
+import InlineObject132 from './model/InlineObject132';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -321,8 +322,8 @@ import InlineResponse20049 from './model/InlineResponse20049';
 import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse20050 from './model/InlineResponse20050';
 import InlineResponse20051 from './model/InlineResponse20051';
+import InlineResponse20051Failed from './model/InlineResponse20051Failed';
 import InlineResponse20052 from './model/InlineResponse20052';
-import InlineResponse20052Failed from './model/InlineResponse20052Failed';
 import InlineResponse20053 from './model/InlineResponse20053';
 import InlineResponse20054 from './model/InlineResponse20054';
 import InlineResponse20055 from './model/InlineResponse20055';
@@ -1285,6 +1286,12 @@ export {
      * @property {module:model/InlineObject131}
      */
     InlineObject131,
+
+    /**
+     * The InlineObject132 model constructor.
+     * @property {module:model/InlineObject132}
+     */
+    InlineObject132,
 
     /**
      * The InlineObject14 model constructor.
@@ -2331,16 +2338,16 @@ export {
     InlineResponse20051,
 
     /**
+     * The InlineResponse20051Failed model constructor.
+     * @property {module:model/InlineResponse20051Failed}
+     */
+    InlineResponse20051Failed,
+
+    /**
      * The InlineResponse20052 model constructor.
      * @property {module:model/InlineResponse20052}
      */
     InlineResponse20052,
-
-    /**
-     * The InlineResponse20052Failed model constructor.
-     * @property {module:model/InlineResponse20052Failed}
-     */
-    InlineResponse20052Failed,
 
     /**
      * The InlineResponse20053 model constructor.

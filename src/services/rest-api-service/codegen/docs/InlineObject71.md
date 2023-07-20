@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** | Комментарий клиента | [optional] 
-**buyerComment** | **String** | Комментарий баера | [optional] 
+**fileUrl** | **String** | uri полный путь до файла, для скачивания | 
 
 

@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** | ГУид продукта | 
+**title** | **String** |  | 
 
 

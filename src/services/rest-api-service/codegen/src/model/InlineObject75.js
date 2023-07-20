@@ -47,11 +47,11 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -61,14 +61,16 @@ class InlineObject75 {
 }
 
 /**
- * @member {String} userId
+ * Комментарий клиента
+ * @member {String} clientComment
  */
-InlineObject75.prototype['userId'] = undefined;
+InlineObject75.prototype['clientComment'] = undefined;
 
 /**
- * @member {Array.<String>} productIds
+ * Комментарий баера
+ * @member {String} buyerComment
  */
-InlineObject75.prototype['productIds'] = undefined;
+InlineObject75.prototype['buyerComment'] = undefined;
 
 
 
