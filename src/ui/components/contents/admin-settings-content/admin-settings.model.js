@@ -4,20 +4,27 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { UserModel } from '@models/user-model'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { fieldsWithoutCharsAfterDote, startValueFields } from './admin-settings.constants'
+import { fieldsWithoutCharsAfterDote } from './admin-settings.constants'
 
 export class AdminSettingsModel {
   history = undefined
   requestStatus = ''
 
+  serverProxy = []
+  get user() {
+    return UserModel.userInfo
+  }
+  showAsinCheckerModal = false
+
   infoModalText = ''
   showInfoModal = false
 
-  formFields = startValueFields
+  formFields = {}
   prevFormFields = {}
 
   tabIndex = 0
@@ -35,6 +42,8 @@ export class AdminSettingsModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getAdminSettings()
+
+      await this.getServerProxy()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -69,20 +78,12 @@ export class AdminSettingsModel {
 
       await AdministratorModel.setSettings(this.formFields)
 
-      this.infoModalText = t(TranslationKey['The settings are saved.'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
       this.loadData()
 
       this.isFormFieldsChanged = false
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['The settings are not saved!'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -109,8 +110,55 @@ export class AdminSettingsModel {
     this.tabIndex = selectedTab
   }
 
+  async onCreateProxy(proxy) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await AdministratorModel.createProxy(proxy)
+
+      this.infoModalText = t(TranslationKey['The settings are saved.'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.infoModalText = t(TranslationKey['The settings are not saved!'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async getServerProxy() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await AdministratorModel.getProxy()
+
+      runInAction(() => {
+        this.serverProxy = result
+      })
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  onSubmitMain(proxy) {
+    this.onCreateAdminSettings()
+    this.onCreateProxy(proxy)
+  }
+
   onClickToggleInfoModal() {
     this.onTriggerOpenModal('showInfoModal')
+  }
+
+  onClickToggleProxyModal() {
+    this.onTriggerOpenModal('showAsinCheckerModal')
   }
 
   onTriggerOpenModal(modal) {

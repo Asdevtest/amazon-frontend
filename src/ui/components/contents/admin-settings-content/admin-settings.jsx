@@ -59,9 +59,16 @@ export const AdminSettings = observer(() => {
       <TabPanel value={viewModel.tabIndex} index={tabIndexes.main}>
         <div className={classNames.contentWrapper}>
           <TabMain
+            user={viewModel.user}
+            serverProxy={viewModel.serverProxy}
+            showAsinCheckerModal={viewModel.showAsinCheckerModal}
+            showInfoModal={viewModel.showInfoModal}
+            infoModalText={viewModel.infoModalText}
             formFields={viewModel.formFields}
             isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
+            onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
+            onClickToggleInfoModal={viewModel.onClickToggleInfoModal}
+            onSubmit={viewModel.onSubmitMain}
             onChangeField={viewModel.onChangeField}
           />
         </div>

@@ -1,11 +1,10 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Typography } from '@mui/material'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,148 +17,126 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { AdminSettingsMainModel } from './tab-main.model'
+import { fieldNameObject } from '../../admin-settings.constants'
 import { useClassNames } from './tab-main.style'
 
-export const TabMain = observer(({ formFields, isFormFieldsChanged, onChangeField, onSubmit }) => {
-  const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const [viewModel] = useState(() => new AdminSettingsMainModel({ history }))
+export const TabMain = observer(
+  ({
+    user,
+    serverProxy,
+    showAsinCheckerModal,
+    showInfoModal,
+    infoModalText,
+    formFields,
+    isFormFieldsChanged,
+    onClickToggleProxyModal,
+    onClickToggleInfoModal,
+    onChangeField,
+    onSubmit,
+  }) => {
+    const { classes: classNames } = useClassNames()
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+    const [updatedProxy, setUpdatedProxy] = useState(serverProxy)
 
-  const [proxyArr, setProxyArr] = useState([])
-
-  useEffect(() => {
-    if (viewModel.serverProxy.length > 0) {
-      setProxyArr(viewModel.serverProxy)
-    }
-  }, [viewModel.serverProxy])
-
-  const handleClickDeleteProxy = selectedProxy => {
-    const updatedProxyArr = proxyArr.filter(proxy => proxy !== selectedProxy)
-
-    setProxyArr(updatedProxyArr)
-  }
-
-  const disabledSubmitProxy = isEqual(viewModel.serverProxy, proxyArr)
-  const disabledSubmitFields =
-    !isFormFieldsChanged ||
-    Number(formFields.yuanToDollarRate) === 0 ||
-    Number(formFields.volumeWeightCoefficient) === 0
-
-  const [disabledSubmit, setDisabledSubmit] = useState(true)
-
-  useEffect(() => {
-    if (!disabledSubmitFields || !disabledSubmitProxy) {
-      setDisabledSubmit(false)
-    } else {
-      setDisabledSubmit(true)
-    }
-  }, [disabledSubmitFields, disabledSubmitProxy])
-
-  const handleSaveButton = (disabledSubmitFields, disabledSubmitProxy) => {
-    let handleClick = null
-
-    if (!disabledSubmitFields && !disabledSubmitProxy) {
-      handleClick = () => {
-        onSubmit()
-        viewModel.createProxy(proxyArr)
+    useEffect(() => {
+      if (serverProxy.length > 0) {
+        setUpdatedProxy(serverProxy)
       }
-    } else if (!disabledSubmitFields) {
-      handleClick = () => onSubmit()
-    } else if (!disabledSubmitProxy) {
-      handleClick = () => viewModel.createProxy(proxyArr)
+    }, [serverProxy])
+
+    const handleDeleteProxy = selectedProxy => {
+      const result = updatedProxy?.filter(proxy => proxy !== selectedProxy)
+
+      setUpdatedProxy(result)
     }
 
-    setDisabledSubmit(true)
+    const disabledSubmitProxy = isEqual(serverProxy, updatedProxy)
+    const disabledSubmitFields =
+      (!isFormFieldsChanged ||
+        Number(formFields.yuanToDollarRate) === 0 ||
+        Number(formFields.volumeWeightCoefficient) === 0) &&
+      disabledSubmitProxy
 
-    return handleClick()
-  }
+    return (
+      <>
+        <div className={classNames.wrapper}>
+          <div className={classNames.textFileds}>
+            <Field
+              label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textField }}
+              value={formFields.yuanToDollarRate}
+              error={Number(formFields.yuanToDollarRate) === 0}
+              onChange={e => onChangeField(fieldNameObject.yuanToDollarRate, e)}
+            />
 
-  return (
-    <>
-      <div className={classNames.wrapper}>
-        <div className={classNames.textFileds}>
-          <Field
-            label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
-            labelClasses={classNames.label}
-            classes={{ root: classNames.textField }}
-            value={formFields.yuanToDollarRate}
-            onChange={e => onChangeField('yuanToDollarRate', e)}
-          />
+            <Field
+              label={t(TranslationKey['Divider for calculating volume weight'])}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textField }}
+              value={formFields.volumeWeightCoefficient}
+              error={Number(formFields.volumeWeightCoefficient) === 0}
+              onChange={e => onChangeField(fieldNameObject.volumeWeightCoefficient, e)}
+            />
 
-          <Field
-            label={t(TranslationKey['Divider for calculating volume weight'])}
-            labelClasses={classNames.label}
-            classes={{ root: classNames.textField }}
-            value={formFields.volumeWeightCoefficient}
-            onChange={e => onChangeField('volumeWeightCoefficient', e)}
-          />
+            <Field
+              disabled
+              label={t(TranslationKey['Link for financial transactions'])}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textField }}
+            />
+          </div>
 
-          <Field
-            disabled
-            label={t(TranslationKey['Link for financial transactions'])}
-            labelClasses={classNames.label}
-            classes={{ root: classNames.textField }}
-          />
-        </div>
+          <div className={classNames.proxyContent}>
+            <div className={classNames.proxyAdd}>
+              <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
+              <Button className={classNames.buttonAdd} onClick={onClickToggleProxyModal}>
+                {t(TranslationKey['Add proxy'])}
+              </Button>
+            </div>
 
-        <div className={classNames.proxyContent}>
-          <div className={classNames.proxyAdd}>
-            <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-            <Button className={classNames.buttonAdd} onClick={viewModel.onClickToggleProxyModal}>
-              {t(TranslationKey['Add proxy'])}
+            <div className={classNames.proxyList}>
+              {updatedProxy?.length !== 0 &&
+                updatedProxy?.map((proxy, index) => (
+                  <div key={index} className={classNames.proxyWrapper}>
+                    <Typography className={classNames.proxy}>{proxy}</Typography>
+
+                    <div className={classNames.iconsWrapper}>
+                      <CopyValue text={proxy} />
+                      <IconButton
+                        size="small"
+                        classes={{ root: classNames.iconDelete }}
+                        onClick={() => handleDeleteProxy(proxy)}
+                      >
+                        <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} />
+                      </IconButton>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            <Button
+              disabled={disabledSubmitFields}
+              className={classNames.buttonSave}
+              onClick={() => onSubmit(updatedProxy)}
+            >
+              {t(TranslationKey.Save)}
             </Button>
           </div>
-
-          <div className={classNames.proxyList}>
-            {proxyArr?.length !== 0 &&
-              proxyArr?.map((proxy, index) => (
-                <div key={index} className={classNames.proxyWrapper}>
-                  <Typography className={classNames.proxy}>{proxy}</Typography>
-
-                  <div className={classNames.iconsWrapper}>
-                    <CopyValue text={proxy} />
-                    <IconButton
-                      size="small"
-                      classes={{ root: classNames.iconDelete }}
-                      onClick={() => handleClickDeleteProxy(proxy)}
-                    >
-                      <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} />
-                    </IconButton>
-                  </div>
-                </div>
-              ))}
-          </div>
-
-          <Button
-            disabled={disabledSubmit}
-            className={classNames.buttonSave}
-            onClick={() => handleSaveButton(disabledSubmitFields, disabledSubmitProxy)}
-          >
-            {t(TranslationKey.Save)}
-          </Button>
         </div>
-      </div>
 
-      <Modal openModal={viewModel.showAsinCheckerModal} setOpenModal={viewModel.onClickToggleProxyModal}>
-        <AsinProxyCheckerForm
-          user={viewModel.user}
-          onSubmit={setProxyArr}
-          onClose={viewModel.onClickToggleProxyModal}
+        <Modal openModal={showAsinCheckerModal} setOpenModal={onClickToggleProxyModal}>
+          <AsinProxyCheckerForm user={user} onSubmit={setUpdatedProxy} onClose={onClickToggleProxyModal} />
+        </Modal>
+
+        <WarningInfoModal
+          openModal={showInfoModal}
+          setOpenModal={onClickToggleInfoModal}
+          title={infoModalText}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={onClickToggleInfoModal}
         />
-      </Modal>
-
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickToggleInfoModal}
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={viewModel.onClickToggleInfoModal}
-      />
-    </>
-  )
-})
+      </>
+    )
+  },
+)
