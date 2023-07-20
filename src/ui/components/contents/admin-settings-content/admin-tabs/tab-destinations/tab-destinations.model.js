@@ -30,7 +30,7 @@ export class AdminSettingsDestinationsModel {
   destinationToEdit = undefined
   destinationIdToRemove = undefined
   confirmModalSettings = {
-    isWarning: false,
+    isWarning: true,
     message: '',
     onClickSuccess: () => {},
   }

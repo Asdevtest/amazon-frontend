@@ -59,13 +59,16 @@ export const AddOrEditDestinationForm = observer(
     return (
       <div className={classNames.root}>
         <Typography variant="h5" className={classNames.standartText}>
-          {t(TranslationKey['Add a new drop off location'])}
+          {destinationToEdit
+            ? t(TranslationKey['Edit drop off location'])
+            : t(TranslationKey['Add a new drop off location'])}
         </Typography>
 
         <div className={classNames.form}>
           {destinationToEdit && (
             <Field
               label={t(TranslationKey.Account)}
+              labelClasses={classNames.label}
               inputComponent={
                 <>
                   {destinationToEdit.storekeeper ? (
@@ -85,51 +88,63 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Title)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.name}
+            error={formFields.name === ''}
             placeholder={t(TranslationKey.Title) + '...'}
             onChange={onChangeField('name')}
           />
 
           <Field
             label={t(TranslationKey.Country)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.country}
+            error={formFields.country === ''}
             placeholder={t(TranslationKey.Country) + '...'}
             onChange={onChangeField('country')}
           />
 
           <Field
             label={t(TranslationKey.City)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.city}
+            error={formFields.city === ''}
             placeholder={t(TranslationKey.City) + '...'}
             onChange={onChangeField('city')}
           />
 
           <Field
             label={t(TranslationKey.State)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.state}
+            error={formFields.state === ''}
             placeholder={t(TranslationKey.State) + '...'}
             onChange={onChangeField('state')}
           />
 
           <Field
             label={t(TranslationKey.Address)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.address}
+            error={formFields.address === ''}
             placeholder={t(TranslationKey.Address) + '...'}
             onChange={onChangeField('address')}
           />
 
           <Field
             label={t(TranslationKey['ZIP code'])}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             error={
-              formFields.zipCode &&
-              !/^[0-9]{5}$/.test(formFields.zipCode) &&
-              t(TranslationKey['numeric format, example:']) + ' 90001'
+              (formFields.zipCode &&
+                !/^[0-9]{5}$/.test(formFields.zipCode) &&
+                t(TranslationKey['numeric format, example:']) + ' 90001') ||
+              formFields.zipCode.length === 0
             }
             value={formFields.zipCode}
             placeholder={t(TranslationKey['ZIP code']) + '...'}
