@@ -14,13 +14,14 @@ import {
   BatchTrackingCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   {
-    field: 'orders',
+    field: 'asin',
     renderHeader: () => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Product)}
@@ -41,6 +42,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     },
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
   {
@@ -50,6 +53,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -59,10 +64,12 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'boxesCount',
+    field: 'amount',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
@@ -73,6 +80,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     width: 70,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -82,7 +91,9 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 60,
+    width: 80,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -95,16 +106,22 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     ),
     width: 150,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'tariff',
+    field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    renderCell: params => {
+      return <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />
+    },
+    width: 160,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -134,6 +151,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
 
     type: 'number',
     width: 100,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -145,6 +164,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     type: 'number',
     width: 110,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -157,10 +177,12 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     type: 'number',
     width: 120,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'dates',
+    field: 'cls',
     headerName: t(TranslationKey['Shipping dates']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Shipping dates'])} />,
 
@@ -175,6 +197,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     width: 350,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
   },
 
   {
@@ -184,5 +208,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

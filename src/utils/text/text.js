@@ -168,8 +168,23 @@ export const getTableByColumn = (column, hint) => {
       'clientComment',
       'buyerComment',
       'partiallyPaid',
+      'boxesCount',
+      'etd',
+      'eta',
+      'cls',
+      'trackingNumber',
+      'arrivalDate',
+      'deliveryTotalPrice',
     ].includes(column)
   ) {
+    if (['humanFriendlyId', 'boxesCount'].includes(column) && hint === 'batches') {
+      return 'batches'
+    }
+
+    if (['totalPrice'].includes(column) && hint === 'batches') {
+      return 'orders'
+    }
+
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
@@ -221,6 +236,8 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
+    } else if (hint === 'batches') {
+      return 'batches'
     } else {
       return 'requests'
     }
@@ -241,10 +258,15 @@ export const getTableByColumn = (column, hint) => {
     if (hint === 'orders') {
       return 'orders'
     }
+    if (hint === 'batches') {
+      return 'batches'
+    }
 
     return 'requests'
   } else if (['productionTerm'].includes(column)) {
     return 'suppliers'
+  } else if (['finalWeight'].includes(column)) {
+    return 'batches'
   }
 }
 

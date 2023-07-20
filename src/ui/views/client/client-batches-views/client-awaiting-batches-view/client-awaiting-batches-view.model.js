@@ -16,10 +16,30 @@ import { UserModel } from '@models/user-model'
 import { clientBatchesViewColumns } from '@components/table/table-columns/client/client-batches-columns'
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
-import { objectToUrlQs } from '@utils/text'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { GeneralModel } from '@models/general-model'
+
+const filtersFields = [
+  'asin',
+  'amazonTitle',
+  'title',
+  'destination',
+  'humanFriendlyId',
+  'storekeeper',
+  'logicsTariff',
+  'finalWeight',
+  'deliveryTotalPrice',
+  'totalPrice',
+  'etd',
+  'eta',
+  'cls',
+  'updatedAt',
+  'amount',
+]
 
 export class ClientAwaitingBatchesViewModel {
   history = undefined
@@ -76,6 +96,20 @@ export class ClientAwaitingBatchesViewModel {
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getBatchesPagMy()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -300,7 +334,7 @@ export class ClientAwaitingBatchesViewModel {
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
-          filters: this.nameSearchValue ? filter : null,
+          filters: this.getFilter(),
           storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
         },
       })
@@ -495,5 +529,86 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  // * Filtration
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'batches'),
+        column,
+
+        `batches/with_filters?filters=${this.getFilter(column)}&status=${BatchStatus.IS_BEING_COLLECTED}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        ...dataGridFiltersInitializer(filtersFields),
+      }
+    })
+
+    this.getBatchesPagMy()
+    this.getDataGridState()
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'amazonTitle',
+        'humanFriendlyId',
+        'asin',
+      ]),
+    )
   }
 }
