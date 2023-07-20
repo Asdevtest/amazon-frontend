@@ -12,12 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20037Batch from './InlineResponse20037Batch';
-import InlineResponse20037Boxes from './InlineResponse20037Boxes';
-import InlineResponse20037Orders from './InlineResponse20037Orders';
-import InlineResponse20037Products from './InlineResponse20037Products';
-import InlineResponse20037Requests from './InlineResponse20037Requests';
-import InlineResponse20037Shops from './InlineResponse20037Shops';
 
 /**
  * The InlineResponse20037 model module.
@@ -53,23 +47,23 @@ class InlineResponse20037 {
         if (data) {
             obj = obj || new InlineResponse20037();
 
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20037Orders.constructFromObject(data['orders']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('shops')) {
-                obj['shops'] = InlineResponse20037Shops.constructFromObject(data['shops']);
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = InlineResponse20037Requests.constructFromObject(data['requests']);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20037Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = InlineResponse20037Batch.constructFromObject(data['batch']);
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20037Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -79,34 +73,39 @@ class InlineResponse20037 {
 }
 
 /**
- * @member {module:model/InlineResponse20037Orders} orders
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20037.prototype['orders'] = undefined;
+InlineResponse20037.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20037Shops} shops
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20037.prototype['shops'] = undefined;
+InlineResponse20037.prototype['asin'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20037Requests} requests
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20037.prototype['requests'] = undefined;
+InlineResponse20037.prototype['shopIds'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20037Products} products
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
  */
-InlineResponse20037.prototype['products'] = undefined;
+InlineResponse20037.prototype['amazonTitle'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20037Batch} batch
+ * @member {Array.<String>} skusByClient
  */
-InlineResponse20037.prototype['batch'] = undefined;
+InlineResponse20037.prototype['skusByClient'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20037Boxes} boxes
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineResponse20037.prototype['boxes'] = undefined;
+InlineResponse20037.prototype['images'] = undefined;
 
 
 

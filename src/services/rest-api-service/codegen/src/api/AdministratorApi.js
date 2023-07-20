@@ -1308,16 +1308,22 @@ export default class AdministratorApi {
     /**
      * #  Редактирование тега
      * ## Редактирование тега   
+     * @param {String} guid GUID тега в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject9} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsTagsGuidPatchWithHttpInfo(opts) {
+    apiV1AdminsTagsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsTagsGuidPatch");
+      }
 
       let pathParams = {
+        'guid': guid
       };
       let queryParams = {
       };
@@ -1341,13 +1347,14 @@ export default class AdministratorApi {
     /**
      * #  Редактирование тега
      * ## Редактирование тега   
+     * @param {String} guid GUID тега в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject9} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsTagsGuidPatch(opts) {
-      return this.apiV1AdminsTagsGuidPatchWithHttpInfo(opts)
+    apiV1AdminsTagsGuidPatch(guid, opts) {
+      return this.apiV1AdminsTagsGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
