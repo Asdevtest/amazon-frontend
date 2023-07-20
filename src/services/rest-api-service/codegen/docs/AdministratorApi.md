@@ -1379,7 +1379,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsTagsGuidPatch
 
-> String apiV1AdminsTagsGuidPatch(opts)
+> String apiV1AdminsTagsGuidPatch(guid, opts)
 
 #  Редактирование тега
 
@@ -1397,11 +1397,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.AdministratorApi();
+let guid = null; // String | GUID тега в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject9() // InlineObject9 | 
 };
-apiInstance.apiV1AdminsTagsGuidPatch(opts).then((data) => {
+apiInstance.apiV1AdminsTagsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1414,6 +1415,7 @@ apiInstance.apiV1AdminsTagsGuidPatch(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID тега в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
 
