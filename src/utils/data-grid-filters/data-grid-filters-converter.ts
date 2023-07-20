@@ -16,10 +16,10 @@ type FilterList = {
 const onlyDigitsRegex = /^\d+$/
 
 const searchOperatorByColumn = {
-  $eq: ['humanFriendlyId', 'id'],
+  $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId'],
 }
 
-const onlyNumberColumns = ['humanFriendlyId', 'id']
+const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId']
 
 /*
  * Функция для генераций объекта фильтров таблицы

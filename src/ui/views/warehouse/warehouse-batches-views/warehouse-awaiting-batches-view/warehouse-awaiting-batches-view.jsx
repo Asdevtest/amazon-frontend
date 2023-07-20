@@ -27,6 +27,7 @@ import { t } from '@utils/translations'
 
 import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 import { styles } from './warehouse-awaiting-batches-view.style'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 export const WarehouseAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
@@ -121,9 +122,16 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,

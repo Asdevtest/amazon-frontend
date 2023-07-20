@@ -24,6 +24,7 @@ import { t } from '@utils/translations'
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
 import { styles } from './warehouse-sent-batches-view.style'
 import { Button } from '@components/shared/buttons/button'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 export const WarehouseSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({ history: props.history }))
@@ -99,9 +100,16 @@ export const WarehouseSentBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
