@@ -33,13 +33,13 @@ export class AdminSettingsTagsModel {
   tagToEdit = undefined
   tagIdToRemove = ''
   confirmModalSettings = {
-    isWarning: false,
+    isWarning: true,
     message: '',
     onClickSuccess: () => {},
   }
   rowHandlers = {
     onClickEditBtn: row => this.onClickEditBtn(row),
-    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
+    onClickRemoveBtn: row => this.onClickRemoveTagBtn(row),
   }
 
   columnsModel = tagsColumns(this.rowHandlers)
@@ -143,12 +143,22 @@ export class AdminSettingsTagsModel {
     this.rowSelectionModel = model
   }
 
-  onClickRemoveBtn(row) {
+  onClickRemoveTagBtn(row) {
     this.tagIdToRemove = row._id
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete the tag?']),
       onClickSuccess: () => this.onRemoveTag(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickRemoveTagsBtn() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Are you sure you want to delete the tag?']),
+      onClickSuccess: () => this.onRemoveTags(),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -201,11 +211,11 @@ export class AdminSettingsTagsModel {
     }
   }
 
-  async onEditTag(id, title) {
+  async onEditTag(id, data) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // await AdministratorModel.editTag(id, title)
+      await AdministratorModel.editTag(id, data)
 
       this.onTriggerOpenModal('showAddOrEditTagModal')
 
@@ -238,6 +248,8 @@ export class AdminSettingsTagsModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await AdministratorModel.removeTags(this.rowSelectionModel)
+
+      this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
 

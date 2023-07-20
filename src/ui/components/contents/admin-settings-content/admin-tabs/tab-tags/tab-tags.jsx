@@ -38,7 +38,7 @@ export const TabTags = observer(() => {
           danger
           disabled={!viewModel.rowSelectionModel.length}
           className={classNames.deleteButton}
-          onClick={viewModel.onRemoveTags}
+          onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
         </Button>
@@ -96,6 +96,7 @@ export const TabTags = observer(() => {
 
       <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditTagForm
+          tags={viewModel.tags}
           tagToEdit={viewModel.tagToEdit}
           onCloseModal={viewModel.onClickCancelBtn}
           onCreateSubmit={viewModel.onCreateTag}
