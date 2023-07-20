@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -19,7 +16,6 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
 
 export const clientTasksViewColumns = handlers => [
   {
@@ -58,7 +54,7 @@ export const clientTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    width: 271,
+    width: 280,
 
     renderCell: params => (
       <ChangeInputCommentCell
