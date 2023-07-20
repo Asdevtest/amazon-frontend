@@ -62,6 +62,7 @@ export const checkIsImageLink = link =>
   link?.endsWith('.avif') ||
   link?.endsWith('.jpeg') ||
   link?.endsWith('.rotated-image') ||
+  link?.endsWith('.jfif') ||
   link?.includes('rotated-image') ||
   link?.includes('placeimg.com')
 
