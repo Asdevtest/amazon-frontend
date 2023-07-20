@@ -101,5 +101,6 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
   },
 }))

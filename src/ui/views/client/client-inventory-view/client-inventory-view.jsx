@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, { useEffect, useState } from 'react'
@@ -24,6 +23,7 @@ import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
@@ -32,19 +32,19 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { styles } from './client-inventory-view.style'
-import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(
@@ -167,15 +167,10 @@ export const ClientInventoryViewRaw = props => {
                   disabled={!viewModel.selectedRowIds.length}
                   variant="outlined"
                   className={classNames.archiveAddBtn}
-                  sx={{
-                    '&.Mui-disabled': {
-                      background: 'none',
-                    },
-                  }}
                   onClick={viewModel.onClickTriggerArchOrResetProducts}
                 >
-                  {t(TranslationKey['Move to archive'])}
-                  {<DeleteIcon className={classNames.archiveIcon} />}
+                  {<ArchiveIcon />}
+                  {t(TranslationKey.Archiving)}
                 </Button>
 
                 <Button
