@@ -10,6 +10,7 @@ import {
   NormDateCell,
   ProductAsinCell,
   RedFlagsCell,
+  SelectRowCell,
   TagsCell,
   ToFixedWithDollarSignCell,
   UserLinkCell,
@@ -17,8 +18,20 @@ import {
 
 import { t } from '@utils/translations'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
-export const supervisorProductsViewColumns = () => [
+export const supervisorProductsViewColumns = handlers => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => handlers.onClickShowProduct(params.row)}
+      />
+    ),
+    width: 80,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),

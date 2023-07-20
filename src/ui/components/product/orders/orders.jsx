@@ -22,8 +22,9 @@ import { t } from '@utils/translations'
 
 import { OrdersModel } from './orders.model'
 import { useClassNames } from './orders.style'
+import { cx } from '@emotion/css'
 
-export const Orders = observer(({ productId, showAtProcessOrders }) => {
+export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
@@ -50,6 +51,10 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
+    isSomeFilterOn,
+    onColumnVisibilityModelChange,
+    columnVisibilityModel,
+    onClickResetFilters,
   } = model.current
 
   useEffect(() => {
@@ -57,7 +62,7 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
   }, [])
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       <MemoDataGrid
         pagination
         useResizeContainer
@@ -85,13 +90,13 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
           columnMenu: { orderStatusData },
           toolbar: {
             resetFiltersBtnSettings: {
-              onClickResetFilters: model.current.onClickResetFilters,
-              isSomeFilterOn: model.current.isSomeFilterOn,
+              onClickResetFilters,
+              isSomeFilterOn,
             },
             columsBtnSettings: {
               columnsModel,
-              columnVisibilityModel: model.current.columnVisibilityModel,
-              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              columnVisibilityModel,
+              onColumnVisibilityModelChange,
             },
           },
         }}

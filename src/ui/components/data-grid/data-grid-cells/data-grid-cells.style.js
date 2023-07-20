@@ -1359,7 +1359,6 @@ export const styles = theme => ({
   iconWrapper: {
     display: 'flex',
     gap: 5,
-    paddingLeft: 5,
   },
   destinationAndTariffWrapper: {
     width: '100%',
@@ -1570,6 +1569,7 @@ export const styles = theme => ({
   ChangeInputCommentCellWrapper: {
     display: 'flex',
     width: '100%',
+    padding: '20px 10px',
   },
 
   menuItem: {
@@ -1789,6 +1789,35 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 7,
+  },
+
+  selectRowCellWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+  },
+
+  shareLinkIconWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+  },
+
+  shareLinkIcon: {
+    // color: theme.palette.primary.main,
+    color: '#0056B2',
+    width: '21px !important',
+    height: '21px !important',
+    cursor: 'pointer',
+  },
+
+  tooltip: {
+    backgroundColor: '#0056B2',
+  },
+
+  arrow: {
+    color: '#0056B2',
   },
 
   abbreviatedBatchProductsWrapper: {

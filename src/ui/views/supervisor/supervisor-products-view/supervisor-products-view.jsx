@@ -23,25 +23,12 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 import { styles } from './supervisor-products-view.style'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-
-const allowProductStatuses = [
-  `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]}`,
-  `${ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}`,
-  `${ProductStatusByKey[ProductStatus.SUPPLIER_FOUND]}`,
-  `${ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]}`,
-  `${ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]}`,
-  `${ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
-  `${ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]}`,
-  `${ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]}`,
-]
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 
 const attentionStatuses = [
   ProductStatus.BUYER_FOUND_SUPPLIER,
@@ -152,6 +139,7 @@ export const SupervisorProductsViewRaw = props => {
           <MemoDataGrid
             pagination
             useResizeContainer
+            checkboxSelection
             rowCount={viewModel.rowCount}
             sortingMode="server"
             paginationMode="server"
@@ -200,10 +188,20 @@ export const SupervisorProductsViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
+
+        {viewModel.productCardModal && (
+          <ProductCardModal
+            role={viewModel.userInfo.role}
+            history={viewModel.history}
+            openModal={viewModel.productCardModal}
+            setOpenModal={() => viewModel.onClickProductModal()}
+            onClickOpenNewTab={row => viewModel.onClickTableRow(row)}
+          />
+        )}
       </MainContent>
     </React.Fragment>
   )

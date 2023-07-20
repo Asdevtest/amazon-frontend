@@ -60,7 +60,16 @@ import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon, SaveIcon } from '@components/shared/svg-icons'
+import {
+  BoxArrow,
+  ClockIcon,
+  CubeIcon,
+  EditIcon,
+  EqualIcon,
+  PlusIcon,
+  SaveIcon,
+  ShareLinkIcon,
+} from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
@@ -3040,6 +3049,27 @@ export const FormedCell = React.memo(
           onClick={onChangeIsFormedInBox}
         />
         {sub?.name && <MultilineTextCell text={sub.name} />}
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const SelectRowCell = React.memo(
+  withStyles(
+    ({ classes: classNames, checkboxComponent, onClickShareIcon }) => (
+      <div className={classNames.selectRowCellWrapper}>
+        {checkboxComponent}
+        <Tooltip
+          arrow
+          title={t(TranslationKey['Open in a new tab'])}
+          placement="top"
+          classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
+        >
+          <div className={classNames.iconWrapper} onClick={onClickShareIcon}>
+            <ShareLinkIcon className={classNames.shareLinkIcon} />
+          </div>
+        </Tooltip>
       </div>
     ),
     styles,

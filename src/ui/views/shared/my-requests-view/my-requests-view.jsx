@@ -203,6 +203,7 @@ export const MyRequestsViewRaw = props => {
         <AlertShield
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+          severity={viewModel?.alertShieldSettings?.error ? 'error' : 'success'}
         />
       )}
     </React.Fragment>
