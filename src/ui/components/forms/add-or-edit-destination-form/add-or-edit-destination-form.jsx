@@ -91,7 +91,6 @@ export const AddOrEditDestinationForm = observer(
             labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.name}
-            error={formFields.name === ''}
             placeholder={t(TranslationKey.Title) + '...'}
             onChange={onChangeField('name')}
           />
@@ -101,7 +100,6 @@ export const AddOrEditDestinationForm = observer(
             labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.country}
-            error={formFields.country === ''}
             placeholder={t(TranslationKey.Country) + '...'}
             onChange={onChangeField('country')}
           />
@@ -111,7 +109,6 @@ export const AddOrEditDestinationForm = observer(
             labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.city}
-            error={formFields.city === ''}
             placeholder={t(TranslationKey.City) + '...'}
             onChange={onChangeField('city')}
           />
@@ -121,7 +118,6 @@ export const AddOrEditDestinationForm = observer(
             labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.state}
-            error={formFields.state === ''}
             placeholder={t(TranslationKey.State) + '...'}
             onChange={onChangeField('state')}
           />
@@ -131,7 +127,6 @@ export const AddOrEditDestinationForm = observer(
             labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.address}
-            error={formFields.address === ''}
             placeholder={t(TranslationKey.Address) + '...'}
             onChange={onChangeField('address')}
           />
@@ -141,10 +136,9 @@ export const AddOrEditDestinationForm = observer(
             labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             error={
-              (formFields.zipCode &&
-                !/^[0-9]{5}$/.test(formFields.zipCode) &&
-                t(TranslationKey['numeric format, example:']) + ' 90001') ||
-              formFields.zipCode.length === 0
+              formFields.zipCode &&
+              !/^[0-9]{5}$/.test(formFields.zipCode) &&
+              t(TranslationKey['numeric format, example:']) + ' 90001'
             }
             value={formFields.zipCode}
             placeholder={t(TranslationKey['ZIP code']) + '...'}

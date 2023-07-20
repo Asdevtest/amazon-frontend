@@ -48,7 +48,7 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
           labelClasses={classNames.label}
           inputProps={{ maxLength: 255 }}
           value={formField.title}
-          error={disabledButton}
+          error={isExistsTag}
           placeholder={t(TranslationKey.Title) + '...'}
           onChange={handleChangeField}
         />

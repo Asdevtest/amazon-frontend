@@ -6,7 +6,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AdministratorModel } from '@models/administrator-model'
 import { ProductModel } from '@models/product-model'
 
+import { checkValidImageUrl } from '@utils/checks'
 import { t } from '@utils/translations'
+import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 export class AdminSettingsRedFlagsModel {
   history = undefined
@@ -21,7 +23,10 @@ export class AdminSettingsRedFlagsModel {
     onClickSuccess: () => {},
   }
 
+  flag = { title: '', iconImage: '' }
   redFlags = []
+  isValidUrl = false
+  currentImageName = ''
 
   constructor({ history }) {
     this.history = history
@@ -61,7 +66,7 @@ export class AdminSettingsRedFlagsModel {
     }
   }
 
-  async createRedFlag(redFlag) {
+  async onCreateRedFlag(redFlag) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -83,7 +88,7 @@ export class AdminSettingsRedFlagsModel {
     }
   }
 
-  async removeRedFlag(id) {
+  async onRemoveRedFlag(id) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -103,15 +108,75 @@ export class AdminSettingsRedFlagsModel {
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete the red flag?']),
-      onClickSuccess: () => this.removeRedFlag(id),
+      onClickSuccess: () => this.onRemoveRedFlag(id),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
+  async onSubmitRedFlag() {
+    const result =
+      typeof this.flag.iconImage === 'string'
+        ? await uploadFileByUrl(this.flag.iconImage)
+        : await onPostImage(this.flag.iconImage)
+
+    const updatedFlag = { ...this.flag, iconImage: result }
+
+    this.onCreateRedFlag(updatedFlag)
+
+    this.flag = { title: '', iconImage: '' }
+  }
+
+  onChangeTitle(event) {
+    this.flag = { ...this.flag, title: event.target.value }
+  }
+
+  onChangeIconImage(event) {
+    this.currentImageName = this.flag.title
+    this.flag = { ...this.flag, iconImage: event.target.value }
+
+    const img = new Image()
+    img.src = event.target.value
+    img.onload = () => {
+      this.isValidUrl = true
+    }
+
+    img.onerror = () => {
+      this.isValidUrl = false
+    }
+  }
+
+  onRemoveImg() {
+    this.flag = { ...this.flag, iconImage: '' }
+  }
+
+  onImageUpload(event) {
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    if (file) {
+      this.currentImageName = file.name
+
+      reader.onload = e => {
+        checkValidImageUrl(e.target.result, isValid => {
+          this.isValidUrl = isValid
+        })
+
+        this.flag = {
+          ...this.flag,
+          iconImage: {
+            data_url: e.target.result,
+            file,
+          },
+        }
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   onClickToggleInfoModal() {
     this.onTriggerOpenModal('showInfoModal')
   }
+
   onClickToggleConfirmModal() {
     this.onTriggerOpenModal('showConfirmModal')
   }
