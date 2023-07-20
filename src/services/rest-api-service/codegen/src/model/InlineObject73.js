@@ -22,10 +22,11 @@ class InlineObject73 {
     /**
      * Constructs a new <code>InlineObject73</code>.
      * @alias module:model/InlineObject73
+     * @param text {String} текст отзыва/репорта
      */
-    constructor() { 
+    constructor(text) { 
         
-        InlineObject73.initialize(this);
+        InlineObject73.initialize(this, text);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject73 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -47,14 +49,11 @@ class InlineObject73 {
         if (data) {
             obj = obj || new InlineObject73();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -64,58 +63,19 @@ class InlineObject73 {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject73.prototype['asin'] = undefined;
+InlineObject73.prototype['text'] = undefined;
 
 /**
- * Причина
- * @member {String} reason
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
  */
-InlineObject73.prototype['reason'] = undefined;
-
-/**
- * Стратегия
- * @member {module:model/InlineObject73.StrategyEnum} strategy
- */
-InlineObject73.prototype['strategy'] = undefined;
+InlineObject73.prototype['media'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>strategy</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject73['StrategyEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40"
-};
 
 
 

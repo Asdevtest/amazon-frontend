@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject41
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor() { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject41.initialize(this);
+        InlineObject41.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -47,56 +50,8 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('paymentDetails')) {
-                obj['paymentDetails'] = ApiClient.convertToType(data['paymentDetails'], ['String']);
-            }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
-                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
-                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
-            }
-            if (data.hasOwnProperty('partiallyPaid')) {
-                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
-            }
-            if (data.hasOwnProperty('partialPayment')) {
-                obj['partialPayment'] = ApiClient.convertToType(data['partialPayment'], 'Boolean');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -106,104 +61,10 @@ class InlineObject41 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject41.prototype['buyerComment'] = undefined;
-
-/**
- * GUID storekeeper-a
- * @member {String} storekeeperId
- */
-InlineObject41.prototype['storekeeperId'] = undefined;
-
-/**
- * @member {Array.<String>} paymentDetails
- */
-InlineObject41.prototype['paymentDetails'] = undefined;
-
-/**
- * Цена в юанях
- * @member {Number} priceInYuan
- */
-InlineObject41.prototype['priceInYuan'] = undefined;
-
-/**
- * Цена доставки партии в юанях
- * @member {Number} priceBatchDeliveryInYuan
- */
-InlineObject41.prototype['priceBatchDeliveryInYuan'] = undefined;
-
-/**
- * GUID тарифа доставки.
- * @member {String} logicsTariffId
- */
-InlineObject41.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID пункта назначения.
- * @member {String} destinationId
- */
-InlineObject41.prototype['destinationId'] = undefined;
-
-/**
- * @member {String} item
- */
-InlineObject41.prototype['item'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject41.prototype['images'] = undefined;
-
-/**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
- */
-InlineObject41.prototype['yuanToDollarRate'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject41.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
- */
-InlineObject41.prototype['trackingNumberChina'] = undefined;
-
-/**
- * GUID поставщика, для данного заказа.
- * @member {String} orderSupplierId
- */
-InlineObject41.prototype['orderSupplierId'] = undefined;
-
-/**
- * Cумма частичной оплаты
- * @member {Number} partialPaymentAmountRmb
- */
-InlineObject41.prototype['partialPaymentAmountRmb'] = undefined;
-
-/**
- * Cумма частичной оплаты
- * @member {Number} partiallyPaid
- */
-InlineObject41.prototype['partiallyPaid'] = undefined;
-
-/**
- * Оплачивается ли заказ частично
- * @member {Boolean} partialPayment
- */
-InlineObject41.prototype['partialPayment'] = undefined;
-
-/**
- * Кол-во в заказе
- * @member {Number} amount
- */
-InlineObject41.prototype['amount'] = undefined;
+InlineObject41.prototype['totalPriceChanged'] = undefined;
 
 
 

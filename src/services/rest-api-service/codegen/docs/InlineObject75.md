@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productIds** | **[String]** |  | [optional] 
+**clientComment** | **String** | Комментарий клиента | [optional] 
+**buyerComment** | **String** | Комментарий баера | [optional] 
 
 

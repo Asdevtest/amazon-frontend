@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject67 from '../model/InlineObject67';
 import InlineObject68 from '../model/InlineObject68';
 import InlineObject69 from '../model/InlineObject69';
+import InlineObject70 from '../model/InlineObject70';
 import InlineResponse20048 from '../model/InlineResponse20048';
 import InlineResponse20049 from '../model/InlineResponse20049';
 import InlineResponse20050 from '../model/InlineResponse20050';
@@ -49,7 +49,7 @@ export default class IntegrationsApi {
      * ## Создать, привязать товары к SKU. Спарсить данные.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject68} opts.body 
+     * @param {module:model/InlineObject69} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IntegrationsCreateAndLinkSkuProductsPostWithHttpInfo(opts) {
@@ -82,7 +82,7 @@ export default class IntegrationsApi {
      * ## Создать, привязать товары к SKU. Спарсить данные.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject68} opts.body 
+     * @param {module:model/InlineObject69} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IntegrationsCreateAndLinkSkuProductsPost(opts) {
@@ -305,7 +305,7 @@ export default class IntegrationsApi {
      * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
+     * @param {module:model/InlineObject68} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatchWithHttpInfo(opts) {
@@ -338,7 +338,7 @@ export default class IntegrationsApi {
      * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
+     * @param {module:model/InlineObject68} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts) {
@@ -354,7 +354,7 @@ export default class IntegrationsApi {
      * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject69} opts.body 
+     * @param {module:model/InlineObject70} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatchWithHttpInfo(opts) {
@@ -387,7 +387,7 @@ export default class IntegrationsApi {
      * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject69} opts.body 
+     * @param {module:model/InlineObject70} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts) {

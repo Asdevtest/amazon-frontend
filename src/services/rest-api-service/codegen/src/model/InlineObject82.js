@@ -22,11 +22,10 @@ class InlineObject82 {
     /**
      * Constructs a new <code>InlineObject82</code>.
      * @alias module:model/InlineObject82
-     * @param approvedByMaster {Boolean} 
      */
-    constructor(approvedByMaster) { 
+    constructor() { 
         
-        InlineObject82.initialize(this, approvedByMaster);
+        InlineObject82.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject82 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, approvedByMaster) { 
-        obj['approvedByMaster'] = approvedByMaster;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,14 @@ class InlineObject82 {
         if (data) {
             obj = obj || new InlineObject82();
 
-            if (data.hasOwnProperty('approvedByMaster')) {
-                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -60,9 +64,22 @@ class InlineObject82 {
 }
 
 /**
- * @member {Boolean} approvedByMaster
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject82.prototype['approvedByMaster'] = undefined;
+InlineObject82.prototype['rating'] = undefined;
+
+/**
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
+ */
+InlineObject82.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject82.prototype['linksToMediaFiles'] = undefined;
 
 
 
