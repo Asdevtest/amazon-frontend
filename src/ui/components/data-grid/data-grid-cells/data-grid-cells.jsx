@@ -2669,64 +2669,51 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       return (
         <div className={classNames.editOrRemoveIconBtnsCell}>
           {!isSave && (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                disabled={disableActionBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => handlers && handlers.onClickEditBtn(row)}
-              >
-                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
-            </div>
+            <Button
+              tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers && handlers.onClickEditBtn(row)}
+            >
+              {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+            </Button>
           )}
 
           {isSave && (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                disabled={disableActionBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => handlers.onClickSaveBtn(row)}
-              >
-                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Save)}</Typography>
-            </div>
+            <Button
+              tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers.onClickSaveBtn(row)}
+            >
+              {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
+            </Button>
           )}
 
           {handlers?.onTriggerArchive && (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                success={isArchive}
-                // tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                disabled={disableActionBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => handlers?.onTriggerArchive(row)}
-              >
-                <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{isArchive ? 'Reveal' : 'Hide'}</Typography>
-            </div>
+            <Button
+              success={isArchive}
+              // tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers?.onTriggerArchive(row)}
+            >
+              <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
+            </Button>
           )}
 
           {isArchive || isArchive === undefined ? (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                danger
-                tooltipInfoContent={isFirstRow && tooltipSecondButton}
-                disabled={disableActionBtn}
-                // className={classNames.rowCancelBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => {
-                  handlers && handlers.onClickRemoveBtn(row)
-                }}
-              >
-                <DeleteOutlineOutlinedIcon />
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography>
-            </div>
+            <Button
+              danger
+              tooltipInfoContent={isFirstRow && tooltipSecondButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => {
+                handlers && handlers.onClickRemoveBtn(row)
+              }}
+            >
+              <DeleteOutlineOutlinedIcon />
+            </Button>
           ) : null}
         </div>
       )

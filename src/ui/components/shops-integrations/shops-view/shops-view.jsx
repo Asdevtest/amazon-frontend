@@ -103,8 +103,7 @@ export const ShopsViewRaw = props => {
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
-          // rowHeight={100}
-          getRowHeight={() => 'auto'}
+          getRowHeight={() => 90}
           slots={{
             toolbar: DataGridCustomToolbar,
             columnMenuIcon: FilterAltOutlinedIcon,
