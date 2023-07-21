@@ -98,6 +98,8 @@ export const Chat: FC<Props> = observer(
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
   }) => {
+    const { classes: classNames } = useClassNames()
+
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
 
@@ -112,12 +114,8 @@ export const Chat: FC<Props> = observer(
 
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
 
-    const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
-
-    // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
     const isGroupChat = chat.type === chatsType.GROUP
 
@@ -160,10 +158,6 @@ export const Chat: FC<Props> = observer(
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     useEffect(() => {
-      setStartMessagesCount(messages.length)
-    }, [])
-
-    useEffect(() => {
       if (isSendTypingPossible && message) {
         onTypingMessage(chat._id)
         setIsSendTypingPossible(false)
@@ -192,6 +186,7 @@ export const Chat: FC<Props> = observer(
           setUnreadMessages(messages.slice(startMessagesCount, messages.length).filter(el => el.user?._id !== userId))
         } else {
           setStartMessagesCount(messages.length)
+          setUnreadMessages([])
         }
       }
     }, [messages?.length])
@@ -200,6 +195,7 @@ export const Chat: FC<Props> = observer(
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
       setIsShowChatInfo(false)
+      setStartMessagesCount(messages.length)
 
       return () => {
         setMessageToReply(null)
@@ -218,13 +214,10 @@ export const Chat: FC<Props> = observer(
       setMessage(value)
       SettingsModel.setChatMessageState({ message: value, files }, chat._id)
     }
-
     const changeFilesAndState = (value: IFile[]) => {
       setFiles(value)
       SettingsModel.setChatMessageState({ message, files: value }, chat._id)
     }
-
-    const { classes: classNames } = useClassNames()
 
     const resetAllInputs = () => {
       setMessage('')
@@ -268,7 +261,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const onClickScrollToBottom = () => {
-      setMessageToScroll({ ...(unreadMessages?.[0] || messages.at(-1)!) })
+      setMessageToScroll({ ...messages.at(-1)! })
       setStartMessagesCount(messages.length)
       setUnreadMessages([])
     }
@@ -276,8 +269,6 @@ export const Chat: FC<Props> = observer(
     const disabledSubmit = !message.replace(/\n/g, '') && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
-
-    // console.log('messageToReply', messageToReply)
 
     return (
       <div className={classNames.root}>
@@ -290,6 +281,7 @@ export const Chat: FC<Props> = observer(
         </div>
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList
+            chatId={chat._id}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
@@ -311,15 +303,20 @@ export const Chat: FC<Props> = observer(
             )}
           </div>
 
-          <div
-            className={cx(classNames.scrollToBottom, {
-              [classNames.scrollToBottomWithChatInfo]: isShowChatInfo,
-            })}
-            onClick={onClickScrollToBottom}
-          >
-            <KeyboardArrowDownIcon />
-            {!!unreadMessages?.length && <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>}
-          </div>
+          {isShowScrollToBottomBtn && (
+            <div
+              className={cx(classNames.scrollToBottom, {
+                [classNames.scrollToBottomWithChatInfo]: isShowChatInfo,
+              })}
+              onClick={onClickScrollToBottom}
+            >
+              <KeyboardArrowDownIcon />
+              {!!unreadMessages?.length && (
+                <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>
+              )}
+            </div>
+          )}
+
           {isShowChatInfo && (
             <ChatInfo
               chat={chat}

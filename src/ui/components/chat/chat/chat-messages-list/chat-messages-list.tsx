@@ -33,6 +33,7 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
+  chatId?: string
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
@@ -52,9 +53,11 @@ export const ChatMessagesList: FC<Props> = observer(
     setMessageToScroll,
     setMessageToReply,
     messagesWrapperRef,
+    chatId,
   }) => {
     const { classes: classNames } = useClassNames()
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
+    const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
     const [choosenMessageState, setChoosenMessageState] = useState<{
       message: ChatMessageContract | null
@@ -78,27 +81,17 @@ export const ChatMessagesList: FC<Props> = observer(
       const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
 
       if (scrolledFromBottom < messagesWrapperRef.current!.clientHeight || messagesWrapperRef.current!.scrollTop < 20) {
-        const unreadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
-
-        if (unreadMessages?.length) {
-          setMessageToScroll(unreadMessages[0])
-        } else {
-          messagesWrapperRef.current?.scrollTo({
-            left: 0,
-            top: messagesWrapperRef.current.scrollHeight,
-            behavior: 'smooth',
-          })
-        }
+        chatBottomRef.current?.scrollIntoView({})
       }
-    }, [messages])
+    }, [messages?.length])
+
+    useEffect(() => {
+      chatBottomRef.current?.scrollIntoView({})
+    }, [chatId])
 
     useEffect(() => {
       scrollToMessage()
-    }, [messageToScroll])
-
-    useEffect(() => {
-      scrollToMessage()
-    }, [toScrollMesId])
+    }, [toScrollMesId, messageToScroll])
 
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
@@ -239,6 +232,7 @@ export const ChatMessagesList: FC<Props> = observer(
                 </div>
               )
             })}
+          <div ref={chatBottomRef} />
         </div>
       </div>
     )
