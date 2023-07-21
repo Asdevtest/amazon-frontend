@@ -97,15 +97,16 @@ export const isStringInArray = (str, arr) => arr.includes(str)
 
 export const checkDateByDeadline = date => (date !== null ? date < new Date() : false)
 
-export const checkValidImageUrl = (selectedImageUrl, callback) => {
-  const img = new Image()
-  img.src = selectedImageUrl
+export const checkIsImageUrlValid = async selectedImageUrl =>
+  new Promise(resolve => {
+    const img = new Image()
+    img.src = selectedImageUrl
 
-  img.onload = () => {
-    callback(true)
-  }
+    img.onload = () => {
+      resolve(true)
+    }
 
-  img.onerror = () => {
-    callback(false)
-  }
-}
+    img.onerror = () => {
+      resolve(false)
+    }
+  })

@@ -24,7 +24,7 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
         labelClasses={classNames.label}
         classes={{ root: classNames.textField }}
         value={formFields.costOfFindingSupplier}
-        error={Number(formFields.costOfFindingSupplier) === 0}
+        error={formFields.costOfFindingSupplier === ''}
         onChange={e => onChangeField(fieldNameObject.costOfFindingSupplier, e)}
       />
       <Field
@@ -32,7 +32,7 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
         label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'}
         classes={{ root: classNames.textField }}
         value={formFields.costOfCheckingProduct}
-        error={Number(formFields.costOfCheckingProduct) === 0}
+        error={formFields.costOfCheckingProduct === ''}
         onChange={e => onChangeField(fieldNameObject.costOfCheckingProduct, e)}
       />
       <Field
@@ -40,7 +40,7 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
         label={t(TranslationKey['Time to find a supplier, h'])}
         classes={{ root: classNames.textField }}
         value={formFields.deadlineForFindingSupplier}
-        error={Number(formFields.deadlineForFindingSupplier) === 0}
+        error={formFields.deadlineForFindingSupplier === ''}
         onChange={e => onChangeField(fieldNameObject.deadlineForFindingSupplier, e)}
       />
 

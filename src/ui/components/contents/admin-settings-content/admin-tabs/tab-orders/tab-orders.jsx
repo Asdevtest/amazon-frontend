@@ -22,7 +22,7 @@ export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeF
         labelClasses={classNames.label}
         classes={{ root: classNames.textField, inputClasses: classNames.input }}
         value={formFields.timeToDeadlinePendingOrder}
-        error={Number(formFields.timeToDeadlinePendingOrder) === 0}
+        error={formFields.timeToDeadlinePendingOrder === ''}
         onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
       <Button disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>

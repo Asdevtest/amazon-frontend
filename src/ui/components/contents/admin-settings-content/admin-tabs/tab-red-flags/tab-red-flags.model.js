@@ -6,15 +6,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AdministratorModel } from '@models/administrator-model'
 import { ProductModel } from '@models/product-model'
 
-import { checkValidImageUrl } from '@utils/checks'
+import { checkIsImageUrlValid } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 export class AdminSettingsRedFlagsModel {
   history = undefined
-  requestStatus = ''
+  requestStatus = undefined
 
-  infoModalText = ''
+  infoModalText = undefined
   showInfoModal = false
   showConfirmModal = false
   confirmModalSettings = {
@@ -26,7 +26,7 @@ export class AdminSettingsRedFlagsModel {
   flag = { title: '', iconImage: '' }
   redFlags = []
   isValidUrl = false
-  currentImageName = ''
+  currentImageName = undefined
 
   constructor({ history }) {
     this.history = history
@@ -120,56 +120,48 @@ export class AdminSettingsRedFlagsModel {
         ? await uploadFileByUrl(this.flag.iconImage)
         : await onPostImage(this.flag.iconImage)
 
-    const updatedFlag = { ...this.flag, iconImage: result }
+    this.flag.iconImage = result
 
-    this.onCreateRedFlag(updatedFlag)
+    this.onCreateRedFlag(this.flag)
 
     this.flag = { title: '', iconImage: '' }
   }
 
   onChangeTitle(event) {
-    this.flag = { ...this.flag, title: event.target.value }
+    this.flag.title = event.target.value
   }
 
-  onChangeIconImage(event) {
+  async onChangeIconImage(event) {
     this.currentImageName = this.flag.title
-    this.flag = { ...this.flag, iconImage: event.target.value }
+    this.flag.iconImage = event.target.value
 
-    const img = new Image()
-    img.src = event.target.value
-    img.onload = () => {
-      this.isValidUrl = true
-    }
-
-    img.onerror = () => {
-      this.isValidUrl = false
-    }
+    this.isValidUrl = await checkIsImageUrlValid(event.target.value)
   }
 
   onRemoveImg() {
-    this.flag = { ...this.flag, iconImage: '' }
+    this.flag.iconImage = ''
   }
 
   onImageUpload(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
+
     if (file) {
       this.currentImageName = file.name
 
-      reader.onload = e => {
-        checkValidImageUrl(e.target.result, isValid => {
-          this.isValidUrl = isValid
-        })
-
-        this.flag = {
-          ...this.flag,
-          iconImage: {
-            data_url: e.target.result,
-            file,
-          },
+      reader.onload = async e => {
+        this.isValidUrl = await checkIsImageUrlValid(e.target.result)
+        this.flag.iconImage = {
+          data_url: e.target.result,
+          file,
         }
       }
+
+      event.target.value = ''
+
       reader.readAsDataURL(file)
+    } else {
+      this.flag.iconImage = ''
     }
   }
 

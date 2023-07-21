@@ -6,15 +6,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AdministratorModel } from '@models/administrator-model'
 import { SupplierModel } from '@models/supplier-model'
 
-import { checkValidImageUrl } from '@utils/checks'
+import { checkIsImageUrlValid } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 export class AdminSettingsPaymentMethodsModel {
   history = undefined
-  requestStatus = ''
+  requestStatus = undefined
 
-  infoModalText = ''
+  infoModalText = undefined
   showInfoModal = false
   showConfirmModal = false
   confirmModalSettings = {
@@ -26,7 +26,7 @@ export class AdminSettingsPaymentMethodsModel {
   method = { title: '', iconImage: '' }
   paymentMethods = []
   isValidUrl = false
-  currentImageName = ''
+  currentImageName = undefined
 
   constructor({ history }) {
     this.history = history
@@ -120,56 +120,47 @@ export class AdminSettingsPaymentMethodsModel {
         ? await uploadFileByUrl(this.method.iconImage)
         : await onPostImage(this.method.iconImage)
 
-    const updatedMethod = { ...this.method, iconImage: result }
+    this.method.iconImage = result
 
-    this.createPaymentMethod(updatedMethod)
+    this.createPaymentMethod(this.method)
 
     this.method = { title: '', iconImage: '' }
   }
 
   onChangeTitle(event) {
-    this.method = { ...this.method, title: event.target.value }
+    this.method.title = event.target.value
   }
 
-  onChangeIconImage(event) {
-    this.currentImageName = this.method.title
-    this.method = { ...this.method, iconImage: event.target.value }
+  async onChangeIconImage(event) {
+    this.method.iconImage = event.target.value
 
-    const img = new Image()
-    img.src = event.target.value
-    img.onload = () => {
-      this.isValidUrl = true
-    }
-
-    img.onerror = () => {
-      this.isValidUrl = false
-    }
+    this.isValidUrl = await checkIsImageUrlValid(event.target.value)
   }
 
   onRemoveImg() {
-    this.method = { ...this.method, iconImage: '' }
+    this.method.iconImage = ''
   }
 
   onImageUpload(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
+
     if (file) {
       this.currentImageName = file.name
 
-      reader.onload = e => {
-        checkValidImageUrl(e.target.result, isValid => {
-          this.isValidUrl = isValid
-        })
-
-        this.method = {
-          ...this.method,
-          iconImage: {
-            data_url: e.target.result,
-            file,
-          },
+      reader.onload = async e => {
+        this.isValidUrl = await checkIsImageUrlValid(e.target.result)
+        this.method.iconImage = {
+          data_url: e.target.result,
+          file,
         }
       }
+
+      event.target.value = ''
+
       reader.readAsDataURL(file)
+    } else {
+      this.method.iconImage = ''
     }
   }
 

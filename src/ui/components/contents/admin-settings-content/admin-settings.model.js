@@ -9,7 +9,7 @@ import { UserModel } from '@models/user-model'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { fieldsWithoutCharsAfterDote } from './admin-settings.constants'
+import { fieldsWithoutCharsAfterDote, startValueFields } from './admin-settings.constants'
 
 export class AdminSettingsModel {
   history = undefined
@@ -24,7 +24,7 @@ export class AdminSettingsModel {
   infoModalText = ''
   showInfoModal = false
 
-  formFields = {}
+  formFields = startValueFields
   prevFormFields = {}
 
   tabIndex = 0

@@ -66,7 +66,7 @@ export const TabMain = observer(
               labelClasses={classNames.label}
               classes={{ root: classNames.textField }}
               value={formFields.yuanToDollarRate}
-              error={Number(formFields.yuanToDollarRate) === 0}
+              error={formFields.yuanToDollarRate === ''}
               onChange={e => onChangeField(fieldNameObject.yuanToDollarRate, e)}
             />
 
@@ -75,7 +75,7 @@ export const TabMain = observer(
               labelClasses={classNames.label}
               classes={{ root: classNames.textField }}
               value={formFields.volumeWeightCoefficient}
-              error={Number(formFields.volumeWeightCoefficient) === 0}
+              error={formFields.volumeWeightCoefficient === ''}
               onChange={e => onChangeField(fieldNameObject.volumeWeightCoefficient, e)}
             />
 

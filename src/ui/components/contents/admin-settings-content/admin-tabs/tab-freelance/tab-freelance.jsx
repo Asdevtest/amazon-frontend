@@ -27,7 +27,7 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
           label={t(TranslationKey['Percentage of each proposal']) + ', %'}
           classes={{ root: classNames.textField }}
           value={formFields.requestPlatformMarginInPercent}
-          error={Number(formFields.requestPlatformMarginInPercent) === 0}
+          error={formFields.requestPlatformMarginInPercent === ''}
           onChange={e => onChangeField(fieldNameObject.requestPlatformMarginInPercent, e)}
         />
         <Field
@@ -35,7 +35,7 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
           label={t(TranslationKey['Time after which the offer will automatically be accepted, h'])}
           classes={{ root: classNames.textField }}
           value={formFields.requestTimeLimitInHourForCancelingProposalsByClient}
-          error={Number(formFields.requestTimeLimitInHourForCancelingProposalsByClient) === 0}
+          error={formFields.requestTimeLimitInHourForCancelingProposalsByClient === ''}
           onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCancelingProposalsByClient, e)}
         />
         <Field
@@ -43,7 +43,7 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
           label={t(TranslationKey['Minimum price per proposal to the order']) + ', $'}
           classes={{ root: classNames.textField }}
           value={formFields.requestMinAmountPriceOfProposal}
-          error={Number(formFields.requestMinAmountPriceOfProposal) === 0}
+          error={formFields.requestMinAmountPriceOfProposal === ''}
           onChange={e => onChangeField(fieldNameObject.requestMinAmountPriceOfProposal, e)}
         />
       </div>
@@ -55,15 +55,16 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
             label={t(TranslationKey['Percentage of each proposal for the supervisor']) + ', %'}
             classes={{ root: classNames.textField }}
             value={formFields.requestSupervisorFeeInPercent}
-            error={Number(formFields.requestSupervisorFeeInPercent) === 0}
+            error={formFields.requestSupervisorFeeInPercent === ''}
             onChange={e => onChangeField(fieldNameObject.requestSupervisorFeeInPercent, e)}
           />
+
           <Field
             labelClasses={classNames.label}
             label={t(TranslationKey['Time after which the supervisor will automatically be removed from the check, h'])}
             classes={{ root: classNames.textField }}
             value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
-            error={Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0}
+            error={formFields.requestTimeLimitInHourForCheckingProposalBySuper === ''}
             onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
           />
         </div>

@@ -49,3 +49,9 @@ export const fieldNameObject = fieldNames.reduce((obj, fieldName) => {
 
   return obj
 }, {})
+
+export const startValueFields = fieldNames.reduce((obj, fieldName) => {
+  obj[fieldName] = 0
+
+  return obj
+}, {})
