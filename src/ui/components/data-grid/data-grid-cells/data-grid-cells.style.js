@@ -1050,12 +1050,6 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
-  normalActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -1067,30 +1061,13 @@ export const styles = theme => ({
   },
 
   actionBtn: {
-    display: 'flex',
-    width: 136,
     height: 30,
-    padding: '0 12px',
+    padding: '0 15px',
 
     [theme.breakpoints.down(1282)]: {
-      width: 128,
-      fontWeight: 400,
       fontSize: 13,
       lineHeight: 18,
     },
-  },
-
-  smallActionBtn: {
-    display: 'flex',
-    height: 30,
-    width: 120,
-    padding: '0 15px',
-  },
-
-  successActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   copyImgButton: {

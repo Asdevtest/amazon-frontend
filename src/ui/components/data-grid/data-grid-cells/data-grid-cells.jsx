@@ -2184,17 +2184,15 @@ export const ToFixedWithDollarSignCell = React.memo(
 
 export const SuccessActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow, smallActionBtn }) => (
-      <div className={classNames.successActionBtnWrapper}>
-        <Button
-          success
-          tooltipInfoContent={isFirstRow && tooltipText}
-          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
-          onClick={onClickOkBtn}
-        >
-          {bTnText}
-        </Button>
-      </div>
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
+      <Button
+        success
+        tooltipInfoContent={isFirstRow && tooltipText}
+        className={classNames.actionBtn}
+        onClick={onClickOkBtn}
+      >
+        {bTnText}
+      </Button>
     ),
     styles,
   ),
@@ -2202,19 +2200,17 @@ export const SuccessActionBtnCell = React.memo(
 
 export const NormalActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow, smallActionBtn }) => (
-      <div className={classNames.normalActionBtnWrapper}>
-        <Button
-          disabled={disabled}
-          tooltipInfoContent={isFirstRow && tooltipText}
-          variant="contained"
-          color="primary"
-          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
-          onClick={onClickOkBtn}
-        >
-          {bTnText}
-        </Button>
-      </div>
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow }) => (
+      <Button
+        disabled={disabled}
+        tooltipInfoContent={isFirstRow && tooltipText}
+        variant="contained"
+        color="primary"
+        className={classNames.actionBtn}
+        onClick={onClickOkBtn}
+      >
+        {bTnText}
+      </Button>
     ),
     styles,
   ),
