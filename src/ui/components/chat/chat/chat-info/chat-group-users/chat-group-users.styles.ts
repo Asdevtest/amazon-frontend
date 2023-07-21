@@ -28,7 +28,8 @@ export const useChatGroupUsersStyles = makeStyles()(theme => ({
   membersWrapper: {
     marginTop: 30,
     width: '100%',
-    height: 420,
+    height: '100%',
+    maxHeight: 380,
 
     padding: '0 15px',
 
