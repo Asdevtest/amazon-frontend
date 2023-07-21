@@ -7,6 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+
 import { t } from '@utils/translations'
 
 import { ManagementTabViewModel } from './management-tab-view.model'
@@ -72,6 +74,15 @@ export const ManagementTabView: FC = observer(() => {
           </div>
         </div>
       )}
+
+      <WarningInfoModal
+        isWarning={false}
+        title={viewModel.infoModalText}
+        btnText={t(TranslationKey.Close)}
+        openModal={viewModel.showInfoModal}
+        setOpenModal={viewModel.onClickToggleInfoModal}
+        onClickBtn={viewModel.onClickToggleInfoModal}
+      />
     </>
   )
 })

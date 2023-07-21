@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
 import { History } from 'history'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { ProductModel } from '@models/product-model'
+
+import { t } from '@utils/translations'
 
 import { IHistory } from '../../../../types/history'
 import { IProduct } from '../../../../types/product'
@@ -15,7 +19,7 @@ import { DataIdsType, MemberType, Members } from './management-tab-view.types'
 
 export class ManagementTabViewModel {
   history: History<unknown>
-  requestStatus = ''
+  requestStatus: string | undefined = undefined
 
   private initialMember: MemberType = { _id: '', name: '' }
   private initialDataIds: DataIdsType = {
@@ -28,6 +32,9 @@ export class ManagementTabViewModel {
   private isEmptyStore = false
   private dataIds: DataIdsType = this.initialDataIds
   private product: IProduct | undefined = undefined
+
+  infoModalText: string | undefined = undefined
+  showInfoModal = false
 
   client: MemberType = this.initialMember
   clients: MemberType[] = []
@@ -110,9 +117,9 @@ export class ManagementTabViewModel {
       })
 
       const currentProductStatus = Number(this.product?.status)
-      this.isEmptyStore = this.product?.shopIds?.length === 0
-      this.isEditableClient = currentProductStatus === 200 || (currentProductStatus === 275 && this.isEmptyStore)
-      this.isEditableBuyer = currentProductStatus <= 200 || (currentProductStatus === 275 && this.isEmptyStore)
+      // this.isEmptyStore = this.product?.shopIds?.length === 0 // empty store check
+      this.isEditableClient = currentProductStatus === 200 || currentProductStatus === 275
+      this.isEditableBuyer = currentProductStatus <= 200 || currentProductStatus === 275
       this.isEditableSupervisor = true
       this.isEditableResearcher = currentProductStatus < 200
 
@@ -134,8 +141,16 @@ export class ManagementTabViewModel {
 
       this.updateDataIdsAndDisabledFlags()
 
+      this.infoModalText = t(TranslationKey['The members are saved!'])
+
+      this.onTriggerOpenModal()
+
       this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
+    } catch (error: any) {
+      this.infoModalText = `${error.body.message}!`
+
+      this.onTriggerOpenModal()
+
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -203,5 +218,15 @@ export class ManagementTabViewModel {
     defaultMember: MemberType,
   ): MemberType {
     return members.find(member => member._id === memberId) || defaultMember
+  }
+
+  onClickToggleInfoModal() {
+    this.onComponentDidMount()
+
+    this.onTriggerOpenModal()
+  }
+
+  onTriggerOpenModal() {
+    this.showInfoModal = !this.showInfoModal
   }
 }

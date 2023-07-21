@@ -78,12 +78,20 @@ export class AdminSettingsModel {
 
       await AdministratorModel.setSettings(this.formFields)
 
+      this.infoModalText = t(TranslationKey['The settings are saved.'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
       this.loadData()
 
       this.isFormFieldsChanged = false
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.infoModalText = t(TranslationKey['The settings are not saved!'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -116,18 +124,10 @@ export class AdminSettingsModel {
 
       await AdministratorModel.createProxy(proxy)
 
-      this.infoModalText = t(TranslationKey['The settings are saved.'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
       this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['The settings are not saved!'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -149,8 +149,8 @@ export class AdminSettingsModel {
   }
 
   onSubmitMain(proxy) {
-    this.onCreateAdminSettings()
     this.onCreateProxy(proxy)
+    this.onCreateAdminSettings()
   }
 
   onClickToggleInfoModal() {
