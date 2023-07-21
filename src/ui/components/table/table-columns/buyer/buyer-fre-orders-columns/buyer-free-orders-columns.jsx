@@ -89,7 +89,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Price),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 110,
   },
@@ -110,9 +110,10 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row?.originalData?.orderSupplier?.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
     sortable: false,
+    type: 'number',
   },
 
   {
@@ -121,12 +122,6 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
 
     renderCell: params => (
-      // <MultilineTextCell
-      //   withLineBreaks
-      //   tooltipText={formatNormDateTime(params.value)}
-      //   color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-      //   text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
-      // />
       <MultilineTextCell
         withLineBreaks
         tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
@@ -144,6 +139,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
     width: 120,
     renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    type: 'boolean',
   },
 
   {
