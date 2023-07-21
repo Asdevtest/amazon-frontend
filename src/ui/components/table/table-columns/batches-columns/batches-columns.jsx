@@ -65,8 +65,6 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 70,
     filterable: false,
     sortable: false,
-
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -92,7 +90,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
   },
 
   {
-    field: 'batchTracking',
+    field: 'trackingNumber',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
     renderCell: params => (
@@ -108,6 +106,8 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 198,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.BATCHES_TRACKING,
   },
 
   {

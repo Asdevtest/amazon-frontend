@@ -177,7 +177,7 @@ export const getTableByColumn = (column, hint) => {
       'deliveryTotalPrice',
     ].includes(column)
   ) {
-    if (['humanFriendlyId', 'boxesCount'].includes(column) && hint === 'batches') {
+    if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
       return 'batches'
     }
 

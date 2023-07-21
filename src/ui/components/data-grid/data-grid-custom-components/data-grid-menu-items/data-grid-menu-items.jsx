@@ -1308,7 +1308,15 @@ export const ProductMenuItem = React.memo(
         <div>
           <FormControl className={classNames.formControl}>
             <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-            <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+            <RadioGroup
+              row
+              className={cx({
+                [classNames.radioGroup]: !withoutSku,
+                [classNames.radioGroupTwoItems]: withoutSku,
+              })}
+              value={currentOption}
+              onChange={handleCategory}
+            >
               <FormControlLabel
                 className={classNames.radioOption}
                 value="asin"
@@ -2431,6 +2439,89 @@ export const BatchShippingDateCellMenuItem = React.memo(
         onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
         onClickAccept={onClickAccept}
       />
+    )
+  }, styles),
+)
+
+const batchTrackingTabs = [
+  {
+    label: t(TranslationKey['Track number']),
+    value: 'trackingNumber',
+  },
+  {
+    label: t(TranslationKey['Arrival date']),
+    value: 'arrivalDate',
+  },
+]
+
+export const BatchTrackingCellMenuItem = React.memo(
+  withStyles(props => {
+    const {
+      classes: classNames,
+      data,
+      field,
+      filterRequestStatus,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClose,
+    } = props
+    const [currentTab, setCurrentTab] = useState(field)
+
+    useEffect(() => {
+      onClickFilterBtn(currentTab)
+    }, [currentTab])
+
+    console.log(currentTab === batchShippingDateTabs[0].value)
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div>
+          <FormControl className={classNames.formControl}>
+            <RadioGroup
+              row
+              className={cx(classNames.radioGroupTwoItems)}
+              value={currentTab}
+              onChange={event => setCurrentTab(event.target.value)}
+            >
+              {batchTrackingTabs.map((el, index) => (
+                <FormControlLabel
+                  key={index}
+                  className={classNames.radioOption}
+                  value={el.value}
+                  control={<Radio className={classNames.radioControl} />}
+                  label={el.label}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </div>
+
+        {currentTab === batchTrackingTabs[0].value && (
+          <NormalFieldMenuItem
+            data={data[currentTab]}
+            field={currentTab}
+            filterRequestStatus={filterRequestStatus}
+            columnKey={currentTab}
+            onClickFilterBtn={onClickFilterBtn}
+            onClose={onClose}
+            onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+            onClickAccept={onClickAccept}
+          />
+        )}
+
+        {currentTab === batchTrackingTabs[1].value && (
+          <FromToDateMenuItem
+            data={data[currentTab]}
+            field={currentTab}
+            filterRequestStatus={filterRequestStatus}
+            onClickFilterBtn={onClickFilterBtn}
+            onClose={onClose}
+            onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+            onClickAccept={onClickAccept}
+          />
+        )}
+      </div>
     )
   }, styles),
 )
