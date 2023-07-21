@@ -43,7 +43,10 @@ export class OwnerRequestDetailCustomViewModel {
     isWarning: false,
     message: '',
     smallMessage: '',
-    onSubmit: () => {},
+    onSubmit: () => {
+      this.showConfirmModal = false
+      this.showConfirmWithCommentModal = false
+    },
   }
 
   acceptProposalResultSetting = {
