@@ -20,7 +20,7 @@ export const ManagementTabView: FC = observer(() => {
   const [viewModel] = useState(() => new ManagementTabViewModel({ history }))
 
   useEffect(() => {
-    viewModel.initialize()
+    viewModel.onComponentDidMount()
   }, [])
 
   return (

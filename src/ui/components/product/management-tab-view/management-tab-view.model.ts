@@ -3,7 +3,6 @@ import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 import { History } from 'history'
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { UserRolesForAdminProduct } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -11,6 +10,7 @@ import { ProductModel } from '@models/product-model'
 
 import { IHistory } from '../../../../types/history'
 import { IProduct } from '../../../../types/product'
+import { roles } from './management-tab-view-constants'
 import { DataIdsType, MemberType, Members } from './management-tab-view.types'
 
 export class ManagementTabViewModel {
@@ -58,7 +58,7 @@ export class ManagementTabViewModel {
     this.requestStatus = requestStatus
   }
 
-  async initialize() {
+  async onComponentDidMount() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -66,11 +66,10 @@ export class ManagementTabViewModel {
         await this.onGetProduct(this.productIdFromUrl)
       }
 
-      const promises = Object.keys(UserRolesForAdminProduct).map(roleCode =>
-        AdministratorModel.getUsersByRole(roleCode),
-      )
-      const result = await Promise.all(promises)
-      const [clients, supervisors, researchers, buyers] = result
+      const promises = roles.map(role => AdministratorModel.getUsersByRole(role))
+      const results = await Promise.all(promises)
+
+      const [clients, supervisors, researchers, buyers] = results
 
       runInAction(() => {
         this.clients = clients
@@ -79,10 +78,18 @@ export class ManagementTabViewModel {
         this.buyers = buyers
       })
 
-      this.client = this.findMemberById(this.clients, this.product?.client?._id, this.client)
-      this.buyer = this.findMemberById(this.buyers, this.product?.buyer?._id, this.buyer)
-      this.supervisor = this.findMemberById(this.supervisors, this.product?.checkedBy?._id, this.supervisor)
-      this.researcher = this.findMemberById(this.researchers, this.product?.createdBy?._id, this.researcher)
+      this.client = this.findMemberByIdOrPickDefailtMember(this.clients, this.product?.client?._id, this.client)
+      this.buyer = this.findMemberByIdOrPickDefailtMember(this.buyers, this.product?.buyer?._id, this.buyer)
+      this.supervisor = this.findMemberByIdOrPickDefailtMember(
+        this.supervisors,
+        this.product?.checkedBy?._id,
+        this.supervisor,
+      )
+      this.researcher = this.findMemberByIdOrPickDefailtMember(
+        this.researchers,
+        this.product?.createdBy?._id,
+        this.researcher,
+      )
 
       this.updateDataIdsAndDisabledFlags()
 
@@ -136,27 +143,21 @@ export class ManagementTabViewModel {
   private onMemberChange = (event: SelectChangeEvent<string>, memberType: number) => {
     const selectedMemberId = event.target.value
 
-    let selectedMember = null
-
     switch (memberType) {
       case Members.Client:
-        selectedMember = this.clients.find(member => member._id === selectedMemberId)
-        this.client = selectedMember || this.initialMember
+        this.client = this.findMemberByIdOrPickDefailtMember(this.clients, selectedMemberId, this.client)
         this.updateDataIdsAndDisabledFlags()
         break
       case Members.Buyer:
-        selectedMember = this.buyers.find(member => member._id === selectedMemberId)
-        this.buyer = selectedMember || this.initialMember
+        this.buyer = this.findMemberByIdOrPickDefailtMember(this.buyers, selectedMemberId, this.buyer)
         this.updateDataIdsAndDisabledFlags()
         break
       case Members.Supervisor:
-        selectedMember = this.supervisors.find(member => member._id === selectedMemberId)
-        this.supervisor = selectedMember || this.initialMember
+        this.supervisor = this.findMemberByIdOrPickDefailtMember(this.supervisors, selectedMemberId, this.supervisor)
         this.updateDataIdsAndDisabledFlags()
         break
       case Members.Researcher:
-        selectedMember = this.researchers.find(member => member._id === selectedMemberId)
-        this.researcher = selectedMember || this.initialMember
+        this.researcher = this.findMemberByIdOrPickDefailtMember(this.researchers, selectedMemberId, this.researcher)
         this.updateDataIdsAndDisabledFlags()
         break
       default:
@@ -196,7 +197,11 @@ export class ManagementTabViewModel {
     this.isDisabledResearcher = foundResearcher ? this.researcher._id === (this.product?.createdBy?._id ?? '') : true
   }
 
-  private findMemberById(members: MemberType[], memberId: string | undefined, defaultValue: MemberType): MemberType {
-    return members.find(member => member._id === memberId) || defaultValue
+  private findMemberByIdOrPickDefailtMember(
+    members: MemberType[],
+    memberId: string | undefined,
+    defaultMember: MemberType,
+  ): MemberType {
+    return members.find(member => member._id === memberId) || defaultMember
   }
 }
