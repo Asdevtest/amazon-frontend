@@ -8,6 +8,10 @@ export const useClassNames = makeStyles()(() => ({
     height: '76vh',
   },
 
+  modalWrapper: {
+    height: 605,
+  },
+
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',

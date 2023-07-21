@@ -34,6 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
+    width: '100%',
     justifyContent: 'flex-start',
   },
   heightFieldAuto: {
@@ -58,7 +59,6 @@ export const useClassNames = makeStyles()(theme => ({
     bottom: 50,
     right: 60,
     zIndex: 999,
-    marginBottom: '20px',
     width: '33%',
     display: 'grid',
   },
@@ -131,5 +131,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   acceptMessage: {
     color: '#00B746',
+  },
+
+  rightBoxCommentsWrapper: {
+    display: 'flex',
+    // flexDirection: 'column',
+    width: '50%',
+  },
+
+  alertShieldWrapperStyle: {
+    left: '44% !important',
   },
 }))

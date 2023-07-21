@@ -30,20 +30,6 @@ export const styles = theme => ({
     height: '52px',
   },
 
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-
-  iconSeparator: {
-    padding: '0 1px',
-  },
-
   card: {
     padding: '16px 20px',
     marginBottom: '42px',

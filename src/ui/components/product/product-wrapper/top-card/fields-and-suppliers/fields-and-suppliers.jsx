@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
+import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
   mapProductStrategyStatusEnum,
@@ -22,14 +23,13 @@ import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './fields-and-suppliers.style'
-import { UserRole } from '@constants/keys/user-roles'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -285,20 +285,13 @@ export const FieldsAndSuppliers = observer(
                       }
                       value={product.strategyStatus}
                       className={classNames.nativeSelect}
-                      input={<Input className={classNames.nativeSelect} />}
                       onChange={onChangeField('strategyStatus')}
                     >
-                      {/* <MenuItem disabled value={null} className={classNames.strategyOption}> */}
-                      {/*   <em>{t(TranslationKey['not selected'])}</em> */}
-                      {/* </MenuItem> */}
                       {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
                         <MenuItem
                           key={statusIndex}
                           value={statusCode}
-                          className={cx(classNames.strategyOption, {
-                            [classNames.disabledOption]:
-                              checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
-                          })}
+                          className={classNames.strategyOption}
                           disabled={
                             checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                           }

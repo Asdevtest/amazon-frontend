@@ -200,10 +200,6 @@ export const VacantRequestsViewRaw = props => {
                 footerContainer: classNames.footerContainer,
                 footerCell: classNames.footerCell,
                 toolbarContainer: classNames.toolbarContainer,
-
-                iconSeparator: classNames.iconSeparator,
-                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
               }}
               sortingMode="server"
               paginationMode="server"

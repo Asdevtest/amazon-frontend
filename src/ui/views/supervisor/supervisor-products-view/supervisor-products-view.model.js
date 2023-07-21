@@ -73,7 +73,13 @@ export class SupervisorProductsViewModel {
   rowCount = 0
   columnVisibilityModel = {}
 
-  columnsModel = supervisorProductsViewColumns()
+  productCardModal = false
+
+  rowHandlers = {
+    onClickShowProduct: row => this.onClickTableRow(row),
+  }
+
+  columnsModel = supervisorProductsViewColumns(this.rowHandlers)
 
   orderedYesNoFilterData = {
     yes: true,
@@ -176,6 +182,7 @@ export class SupervisorProductsViewModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+    this.getProductsMy()
     this.setDataGridState()
   }
 
@@ -530,5 +537,17 @@ export class SupervisorProductsViewModel {
         },
       }
     })
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.history.push(`/supervisor/products?product-id=${row.originalData._id}`)
+    } else {
+      this.history.push(`/supervisor/products`)
+
+      this.loadData()
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 }

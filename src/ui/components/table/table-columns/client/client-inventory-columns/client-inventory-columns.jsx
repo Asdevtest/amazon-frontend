@@ -19,6 +19,7 @@ import {
   OrderIdAndAmountCountCell,
   ProductAsinCell,
   RedFlagsCell,
+  SelectRowCell,
   ShortDateCell,
   TagsCell,
   ToFixedCell,
@@ -26,6 +27,7 @@ import {
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 export const clientInventoryColumns = (
   barCodeHandlers,
@@ -36,6 +38,17 @@ export const clientInventoryColumns = (
   getColumnMenuSettings,
   getOnHover,
 ) => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row)}
+      />
+    ),
+    width: 80,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -64,7 +77,6 @@ export const clientInventoryColumns = (
       )
     },
     width: 295,
-
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 

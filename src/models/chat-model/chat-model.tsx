@@ -63,6 +63,10 @@ class ChatModelStatic {
     return SettingsModel.noticeOfSimpleChats
   }
 
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -327,7 +331,7 @@ class ChatModelStatic {
     if (findSimpleChatIndexById !== -1) {
       // console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
-      if (this.noticeOfSimpleChats && message.user?._id !== this.userId) {
+      if (this.noticeOfSimpleChats && message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
         noticeSound.play()
 
         // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})

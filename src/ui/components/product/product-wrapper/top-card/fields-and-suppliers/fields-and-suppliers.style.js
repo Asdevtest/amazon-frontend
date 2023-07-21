@@ -55,6 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonParseAmazon: {
+    whiteSpace: 'nowrap',
     width: '100%',
   },
   productFieldBox: {
@@ -159,10 +160,6 @@ export const useClassNames = makeStyles()(theme => ({
   linkOnEdit: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     color: theme.palette.primary.main,
-  },
-
-  disabledOption: {
-    color: 'rgba(0, 0, 0, 0.2)',
   },
 
   shopsWrapper: {
