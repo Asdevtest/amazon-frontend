@@ -209,6 +209,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
+    padding: '10px 0',
   },
 
   orderImg: {
@@ -628,7 +629,6 @@ export const styles = theme => ({
   multilineTextWrapper: {
     width: '100%',
     padding: '5px 0',
-    textAlign: 'center',
     overflow: 'hidden',
   },
 
@@ -637,6 +637,7 @@ export const styles = theme => ({
   },
 
   multilineText: {
+    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
