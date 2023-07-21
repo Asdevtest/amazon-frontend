@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     borderRadius: 10,
-    border: '1px solid #fff',
+    border: '1px solid #E0E0E0',
     padding: 2,
   },
 

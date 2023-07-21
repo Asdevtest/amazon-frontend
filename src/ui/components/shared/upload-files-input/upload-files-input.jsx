@@ -49,6 +49,7 @@ export const UploadFilesInput = observer(props => {
     isNotShowActionsBtns = false,
     requestWidth = false,
     fullWidth = false,
+    withoutDragAndDropTitle = false,
   } = props
 
   const { classes: classNames } = useClassNames()
@@ -184,6 +185,7 @@ export const UploadFilesInput = observer(props => {
                     <Field
                       tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
                       label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
+                      labelClasses={classNames.label}
                       error={linkInputError && t(TranslationKey['Invalid link!'])}
                       containerClasses={cx(сontainerStyles)}
                       inputComponent={
@@ -215,7 +217,7 @@ export const UploadFilesInput = observer(props => {
                     />
                   )}
 
-                  {!minimized && !withoutLinks && (
+                  {!minimized && !withoutLinks && !withoutDragAndDropTitle && (
                     <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography>
                   )}
 

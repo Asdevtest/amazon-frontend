@@ -300,4 +300,8 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: 5,
     height: 55,
   },
+
+  label: {
+    margin: '0 !important',
+  },
 }))

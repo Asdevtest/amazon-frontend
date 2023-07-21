@@ -2009,7 +2009,7 @@ export enum TranslationKey {
   'By date' = 'By date',
   'On page' = 'On page',
   'Client commentary' = 'Client commentary',
-  'Bayer comments' = 'Bayer comments',
+  'Buyer comments' = 'Buyer comments',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',
