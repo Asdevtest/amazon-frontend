@@ -3,9 +3,7 @@ export type MemberType = {
   name: string
 }
 
-export type MembersType = Record<string, MemberType[]>
-
-export type DataType = Record<string, string>
+export type DataIdsType = Record<string, string>
 
 export enum Members {
   Client,

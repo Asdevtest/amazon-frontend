@@ -17,13 +17,12 @@ import { t } from '@utils/translations'
 
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
-
+import { ManagementTabView } from '../management-tab-view'
 import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
 import { BottomCard } from './bottom-card'
 import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
-import { Management } from '../management'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
@@ -222,7 +221,7 @@ export const ProductWrapper = observer(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
-              <Management product={product} />
+              <ManagementTabView product={product} />
             </TabPanel>
           </>
         )}
