@@ -44,6 +44,7 @@ import { t } from '@utils/translations'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
+import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
@@ -81,6 +82,8 @@ export const VacantRequestsViewRaw = props => {
     }
   }
 
+  const pageSizeOptions = [15, 25, 50, 100]
+
   return (
     <React.Fragment>
       <MainContent>
@@ -112,6 +115,27 @@ export const VacantRequestsViewRaw = props => {
           />
 
           <div className={classNames.tablePanelSubWrapper}>
+            {viewModel.viewMode !== tableViewMode.TABLE && (
+              <>
+                <CustomPageSwitcher
+                  rowCount={viewModel.rowCount}
+                  paginationModel={viewModel.paginationModel}
+                  pageSizeOptions={pageSizeOptions}
+                  onChangePaginationModelChange={viewModel.onChangePaginationModelChange}
+                />
+
+                <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['By date'])}</Typography>
+
+                  {viewModel.sortMode === tableSortMode.DESK ? (
+                    <ArrowDropDownIcon color="primary" />
+                  ) : (
+                    <ArrowDropUpIcon color="primary" />
+                  )}
+                </div>
+              </>
+            )}
+
             <div className={classNames.tablePanelViewWrapper}>
               <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
                 <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewModel.viewMode === tableViewMode.TABLE}>
@@ -140,18 +164,6 @@ export const VacantRequestsViewRaw = props => {
                 </ToggleBtnFreelancer>
               </ToggleBtnGroupFreelance>
             </div>
-
-            {viewModel.viewMode !== tableViewMode.TABLE && (
-              <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-                <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-                {viewModel.sortMode === tableSortMode.DESK ? (
-                  <ArrowDropDownIcon color="primary" />
-                ) : (
-                  <ArrowDropUpIcon color="primary" />
-                )}
-              </div>
-            )}
           </div>
         </div>
 
@@ -208,7 +220,7 @@ export const VacantRequestsViewRaw = props => {
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={[15, 25, 50, 100]}
+              pageSizeOptions={pageSizeOptions}
               rows={viewModel.currentData}
               rowHeight={75}
               slots={{

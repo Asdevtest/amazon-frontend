@@ -121,7 +121,7 @@ export const styles = theme => ({
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 30,
   },
 
   deadlineBorder: {
