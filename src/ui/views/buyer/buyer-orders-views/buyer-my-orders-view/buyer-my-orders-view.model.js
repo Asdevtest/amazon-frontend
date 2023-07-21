@@ -76,11 +76,13 @@ const filtersFields = [
   'createdAt',
   'updatedAt',
   'partiallyPaid',
+  'partialPaymentAmountRmb',
 ]
 
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
+  savingOrderStatus = undefined
   error = undefined
 
   // НЕ было до создания фильтрации по статусам (3 строки)
@@ -337,6 +339,10 @@ export class BuyerMyOrdersViewModel {
     const partiallyPaidFilter =
       exclusion !== 'partiallyPaid' && this.columnMenuSettings.partiallyPaid?.currentFilterData.join(',')
 
+    const partialPaymentAmountRmbFilter =
+      exclusion !== 'partialPaymentAmountRmb' &&
+      this.columnMenuSettings.partialPaymentAmountRmb?.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -437,6 +443,10 @@ export class BuyerMyOrdersViewModel {
 
       ...(partiallyPaidFilter && {
         partiallyPaid: { $eq: partiallyPaidFilter },
+      }),
+
+      ...(partialPaymentAmountRmbFilter && {
+        partialPaymentAmountRmb: { $eq: partialPaymentAmountRmbFilter },
       }),
     })
 
@@ -780,20 +790,16 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async onClickHsCode(id) {
+  async onClickHsCode(id, showModal) {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    if (showModal) {
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    }
   }
 
   getCurrentData() {
-    // if (this.columnMenuSettings.paymentMethod.currentFilterData.length) {
-    //   const curPaymentsIds = this.columnMenuSettings.paymentMethod.currentFilterData.map(el => el._id)
-
-    //   return toJS(this.ordersMy).filter(el =>
-    //     el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
-    //   )
-    // } else {
     return toJS(this.ordersMy)
-    // }
   }
 
   async setColumnsModel() {
@@ -989,6 +995,8 @@ export class BuyerMyOrdersViewModel {
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.savingOrderStatus = loadingStatuses.isLoading
+
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
@@ -1160,6 +1168,7 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
+      this.savingOrderStatus = loadingStatuses.success
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
@@ -1173,6 +1182,7 @@ export class BuyerMyOrdersViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      this.savingOrderStatus = loadingStatuses.failed
       console.log(error)
     }
   }

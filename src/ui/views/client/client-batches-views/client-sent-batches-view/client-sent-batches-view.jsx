@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, { useEffect, useState } from 'react'
@@ -20,6 +19,7 @@ import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -75,8 +75,8 @@ export const ClientSentBatchesViewRaw = props => {
                 t(TranslationKey['Relocate from archive'])
               ) : (
                 <>
-                  {t(TranslationKey['Move to archive'])}
-                  <DeleteIcon className={className.archiveIcon} />
+                  {<ArchiveIcon />}
+                  {t(TranslationKey.Archiving)}
                 </>
               )}
             </Button>

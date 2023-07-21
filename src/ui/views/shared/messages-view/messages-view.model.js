@@ -61,6 +61,10 @@ export class MessagesViewModel {
     return SettingsModel.noticeOfSimpleChats
   }
 
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
+
   constructor({ history, location }) {
     runInAction(() => {
       this.history = history
@@ -274,6 +278,10 @@ export class MessagesViewModel {
 
   onTriggerNoticeOfSimpleChats() {
     SettingsModel.onTriggerNoticeOfSimpleChats()
+  }
+
+  muteChatHandler(chatId) {
+    SettingsModel.setMutedChat(chatId)
   }
 
   onClickChat(chat) {

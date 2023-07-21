@@ -19,7 +19,9 @@ export const styles = theme => ({
     justifyContent: 'center',
     marginBottom: 20,
   },
-
+  searchInput: {
+    width: 320,
+  },
   footerContainer: {
     position: 'absolute',
     top: 0,

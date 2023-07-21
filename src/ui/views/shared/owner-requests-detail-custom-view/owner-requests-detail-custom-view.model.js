@@ -43,7 +43,10 @@ export class OwnerRequestDetailCustomViewModel {
     isWarning: false,
     message: '',
     smallMessage: '',
-    onSubmit: () => {},
+    onSubmit: () => {
+      this.showConfirmModal = false
+      this.showConfirmWithCommentModal = false
+    },
   }
 
   acceptProposalResultSetting = {
@@ -445,7 +448,10 @@ export class OwnerRequestDetailCustomViewModel {
             result.totalCost,
             2,
           )} $. ${t(TranslationKey['Confirm the publication?'])}`,
-          onSubmit: () => this.toPublishRequest(result.totalCost),
+          onSubmit: () => {
+            this.toPublishRequest(result.totalCost)
+            this.confirmModalSettings.message = ''
+          },
         }
       })
 

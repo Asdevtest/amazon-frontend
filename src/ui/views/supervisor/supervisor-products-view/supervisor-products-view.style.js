@@ -81,4 +81,9 @@ export const styles = theme => ({
     justifyContent: 'center',
     paddingTop: 10,
   },
+
+  searchInput: {
+    width: '100%',
+    maxWidth: 320,
+  },
 })

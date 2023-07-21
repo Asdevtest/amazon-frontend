@@ -52,6 +52,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './create-or-edit-request-content.style'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
+import { AsinLink } from '@components/shared/asin-link'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -915,23 +916,12 @@ export const CreateOrEditRequestContent = ({
                             labelClasses={cx(classNames.spanLabel, classNames.fitContentContainer)}
                             containerClasses={cx(classNames.asinContainerStapTwo)}
                             inputComponent={
-                              <div className={classNames.asinWrapper}>
-                                <Typography className={classNames.orderText}>
-                                  {formFields.request.asin ? (
-                                    <a
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      href={`https://www.amazon.com/dp/${formFields.request.asin}`}
-                                      className={classNames.normalizeLink}
-                                    >
-                                      <span className={classNames.linkSpan}>{shortAsin(formFields.request.asin)}</span>
-                                    </a>
-                                  ) : (
-                                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-                                  )}
-                                </Typography>
-                                {formFields.request.asin ? <CopyValue text={formFields.request.asin} /> : null}
-                              </div>
+                              <AsinLink
+                                withCopyValue
+                                asin={formFields.request.asin}
+                                linkSpanClass={classNames.copyAsinlinkSpan}
+                                missingSpanClass={classNames.copyAsinlinkSpan}
+                              />
                             }
                           />
                         )}

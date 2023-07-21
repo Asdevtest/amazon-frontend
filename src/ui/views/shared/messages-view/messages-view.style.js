@@ -105,6 +105,28 @@ export const styles = theme => ({
     marginLeft: 20,
   },
 
+  selectedChatPersonalInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  unMutedNotificationIcon: {
+    color: '#AEAEAE',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#656565',
+    },
+  },
+
+  mutedNotificationIcon: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#0056B2',
+    },
+  },
+
   '@media (max-width: 768px)': {
     noticesTextActive: {
       display: 'none',

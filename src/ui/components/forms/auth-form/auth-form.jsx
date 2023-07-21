@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -79,11 +78,21 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
                 <LockIcon color="primary" />
               </InputAdornment>
             }
+            endAdornment={
+              <InputAdornment
+                position="start"
+                className={classNames.inputAdornmentVisibility}
+                onClick={() => setVisibilityPass(!visibilityPass)}
+              >
+                {visibilityPass ? (
+                  <VisibilityIcon className={classNames.visibilityIcon} />
+                ) : (
+                  <VisibilityOffIcon className={classNames.visibilityIcon} />
+                )}
+              </InputAdornment>
+            }
             onChange={onChangeFormField('password')}
           />
-          <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-            {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
-          </div>
         </div>
 
         <div className={classNames.formFooter}>

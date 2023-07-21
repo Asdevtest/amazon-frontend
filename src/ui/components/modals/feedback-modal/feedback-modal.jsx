@@ -1,12 +1,13 @@
 import { cx } from '@emotion/css'
 import { Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field/field'
+import { FileIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -43,19 +44,17 @@ export const FeedBackModal = ({ onSubmit, onClose }) => {
           minRows={6}
           maxRows={6}
           inputProps={{ maxLength: 1000 }}
-          // placeholder={t(TranslationKey.Reason)}
           labelClasses={classNames.commentLabelText}
           label={t(TranslationKey['Tell us how we can improve our platform'])}
           value={comment}
           onChange={e => setComment(e.target.value)}
         />
-        <img
-          src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-          className={cx(classNames.inputIcon, classNames.fileIconPos)}
+        <FileIcon
+          className={cx(classNames.fileIcon, { [classNames.fileIconActive]: showFiles })}
           onClick={() => setShowFiles(!showFiles)}
         />
       </div>
-      {showFiles ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}
+      {showFiles ? <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} /> : null}
 
       <div className={classNames.buttonsWrapper}>
         <Button

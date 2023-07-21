@@ -239,6 +239,8 @@ export const buyerVacantOrdersDataConverter = data =>
     client: item.product.client?.name,
     needsResearch: item.needsResearch,
     deadline: item.deadline,
+    productionTerm: item?.orderSupplier?.productionTerm,
+    totalPrice: item?.totalPrice,
   }))
 
 export const clientProductsDataConverter = data =>

@@ -79,20 +79,16 @@ export const lightTheme = createTheme({
         },
 
         columnHeaderDraggableContainer: {
-          flexDirection: 'row !important',
           position: 'relative',
           paddingRight: 20,
+          flexDirection: 'row !important',
         },
 
         columnHeaderTitleContainer: {
-          display: 'flex  !important',
-          alignItems: 'center  !important',
-          flexDirection: 'row  !important',
-          justifyContent: 'space-between !important',
-          overflow: 'visible',
+          flexDirection: 'row !important',
 
           '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
+            width: '100%',
           },
         },
 
@@ -100,14 +96,11 @@ export const lightTheme = createTheme({
           zIndex: 1000,
           position: 'absolute !important',
           right: -7,
-
           // visibility: 'visible !important',
-
           width: '18px !important',
           height: '18px !important',
 
           '.MuiSvgIcon-root': {
-            // display: 'none',
             width: 14,
             height: 14,
           },
@@ -123,8 +116,6 @@ export const lightTheme = createTheme({
         iconSeparator: {
           padding: '0 1px',
         },
-
-        //
       },
     },
 
@@ -399,58 +390,43 @@ export const darkTheme = createTheme({
           color: '#fff',
         },
 
-        menuIconButton: {
-          color: '#fff',
-
-          // Убрать
-          zIndex: 1000,
-          position: 'absolute !important',
-          right: -7,
-
-          // visibility: 'visible !important',
-
-          width: '18px !important',
-          height: '18px !important',
-
-          '.MuiSvgIcon-root': {
-            // display: 'none',
-            width: 14,
-            height: 14,
-          },
-        },
-
         sortIcon: {
-          // color: 'rgba(255, 255, 255, 1)',
           color: '#fff !important',
-          // color: 'red',
-
-          // '& > disabled': {
-          //   color: 'red',
-          // },
-
-          // Убрать
           width: 14,
           height: 14,
         },
 
         cell: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
-          // border: 'none',
         },
 
-        // Убрать
         columnHeaderDraggableContainer: {
           flexDirection: 'row !important',
           position: 'relative',
-          paddingRight: 20,
         },
 
         columnHeaderTitleContainer: {
-          display: 'flex !important',
-          alignItems: 'center !important',
           flexDirection: 'row !important',
-          justifyContent: 'space-between !important',
-          overflow: 'visible',
+          paddingRight: 20,
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
+        },
+
+        menuIconButton: {
+          color: '#fff',
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          // visibility: 'visible !important',
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            width: 14,
+            height: 14,
+          },
         },
 
         iconButtonContainer: {

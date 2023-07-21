@@ -237,13 +237,6 @@ export const ClientInStockBoxesViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              columnHeader: classNames.columnHeader,
-              menuIconButton: classNames.menuIconButton,
-              iconButtonContainer: classNames.iconButtonContainer,
-              iconSeparator: classNames.iconSeparator,
             }}
             sx={{
               '.MuiDataGrid-sortIcon': {

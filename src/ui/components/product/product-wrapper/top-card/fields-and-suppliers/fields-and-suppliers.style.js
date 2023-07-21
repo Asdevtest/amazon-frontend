@@ -162,10 +162,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  disabledOption: {
-    color: 'rgba(0, 0, 0, 0.2)',
-  },
-
   shopsWrapper: {
     marginBottom: '30px',
   },
