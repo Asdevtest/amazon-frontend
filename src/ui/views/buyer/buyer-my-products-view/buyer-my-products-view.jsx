@@ -21,6 +21,7 @@ import { t } from '@utils/translations'
 import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 import { styles } from './buyer-my-products-view.style'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,
@@ -58,6 +59,7 @@ export const BuyerMyProductsViewRaw = props => {
         <div className={classNames.headerWrapper}>
           <SearchInput
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            inputClasses={classNames.searchInput}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
@@ -67,6 +69,7 @@ export const BuyerMyProductsViewRaw = props => {
             disableVirtualization
             pagination
             useResizeContainer
+            checkboxSelection
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -115,10 +118,20 @@ export const BuyerMyProductsViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
+
+        {viewModel.productCardModal && (
+          <ProductCardModal
+            role={viewModel.userInfo.role}
+            history={viewModel.history}
+            openModal={viewModel.productCardModal}
+            setOpenModal={() => viewModel.onClickProductModal()}
+            onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+          />
+        )}
       </MainContent>
     </React.Fragment>
   )

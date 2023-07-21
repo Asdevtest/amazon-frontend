@@ -19,6 +19,7 @@ const persistProperties = [
   'chatMessageState',
   'uiTheme',
   'destinationsFavourites',
+  'mutedChats',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -34,7 +35,9 @@ class SettingsModelStatic {
   isHydrated = false
   breadcrumbsForProfile = null
   showHints = true
+
   noticeOfSimpleChats = true
+  mutedChats = []
 
   lastCrumbAdditionalText = ''
 
@@ -138,6 +141,14 @@ class SettingsModelStatic {
 
   onTriggerNoticeOfSimpleChats() {
     this.noticeOfSimpleChats = !this.noticeOfSimpleChats
+  }
+
+  setMutedChat(chatId) {
+    if (this.mutedChats.includes(chatId)) {
+      this.mutedChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+    } else {
+      this.mutedChats.push(chatId)
+    }
   }
 
   setDataGridState(state, tableKey) {

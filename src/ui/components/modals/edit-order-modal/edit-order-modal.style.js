@@ -329,6 +329,11 @@ export const useClassNames = makeStyles()(theme => ({
 
     cursor: 'pointer',
   },
+
+  supplierCheckboxWrapperDisabled: {
+    cursor: 'unset',
+  },
+
   checkboxTitle: {
     fontWeight: 400,
     fontSize: 14,

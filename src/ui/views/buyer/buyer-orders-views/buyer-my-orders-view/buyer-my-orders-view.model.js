@@ -76,6 +76,7 @@ const filtersFields = [
   'createdAt',
   'updatedAt',
   'partiallyPaid',
+  'partialPaymentAmountRmb',
 ]
 
 export class BuyerMyOrdersViewModel {
@@ -337,6 +338,10 @@ export class BuyerMyOrdersViewModel {
     const partiallyPaidFilter =
       exclusion !== 'partiallyPaid' && this.columnMenuSettings.partiallyPaid?.currentFilterData.join(',')
 
+    const partialPaymentAmountRmbFilter =
+      exclusion !== 'partialPaymentAmountRmb' &&
+      this.columnMenuSettings.partialPaymentAmountRmb?.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -437,6 +442,10 @@ export class BuyerMyOrdersViewModel {
 
       ...(partiallyPaidFilter && {
         partiallyPaid: { $eq: partiallyPaidFilter },
+      }),
+
+      ...(partialPaymentAmountRmbFilter && {
+        partialPaymentAmountRmb: { $eq: partialPaymentAmountRmbFilter },
       }),
     })
 

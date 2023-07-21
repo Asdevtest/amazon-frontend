@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { colorByProductStatus, ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,15 +11,27 @@ import {
   NormDateCell,
   ProductAsinCell,
   RedFlagsCell,
+  SelectRowCell,
   TagsCell,
   ToFixedWithDollarSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
-export const supervisorProductsViewColumns = () => [
+export const supervisorProductsViewColumns = handlers => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => handlers.onClickShowProduct(params.row)}
+      />
+    ),
+    width: 80,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
@@ -62,7 +75,8 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 130,
+    align: 'center',
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },

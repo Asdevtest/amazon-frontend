@@ -13,6 +13,7 @@ import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { GeneralModel } from '@models/general-model'
+import { UserModel } from '@models/user-model'
 
 const filtersFields = [
   'shopIds',
@@ -58,6 +59,7 @@ export class BuyerMyProductsViewModel {
 
   rowHandlers = {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
+    onClickShowProduct: row => this.onClickTableRow(row),
   }
 
   rowCount = 0
@@ -94,8 +96,14 @@ export class BuyerMyProductsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  productCardModal = false
+
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   constructor({ history, location }) {
@@ -559,5 +567,21 @@ export class BuyerMyProductsViewModel {
     })
 
     return filter
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.history.push(`/buyer/my-products?product-id=${row.originalData._id}`)
+    } else {
+      this.history.push(`/buyer/my-products`)
+
+      this.loadData()
+    }
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }
