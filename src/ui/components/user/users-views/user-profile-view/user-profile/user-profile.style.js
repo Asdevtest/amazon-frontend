@@ -133,6 +133,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   writeBtn: {
     marginTop: 20,
+    color: '#fff',
+
     [theme.breakpoints.down(768)]: {
       width: '260px',
       height: 40,

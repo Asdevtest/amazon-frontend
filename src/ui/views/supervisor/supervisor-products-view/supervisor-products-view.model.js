@@ -182,6 +182,7 @@ export class SupervisorProductsViewModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+    this.getProductsMy()
     this.setDataGridState()
   }
 

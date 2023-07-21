@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import CircleIcon from '@mui/icons-material/Circle'
 import { Typography, Select, Input, InputAdornment, MenuItem } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
@@ -9,17 +8,10 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 
-import {
-  deepCompare,
-  getObjectFilteredByKeyArrayBlackList,
-  getObjectFilteredByKeyArrayWhiteList,
-  objectDeepCompare,
-} from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList, objectDeepCompare } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-services-content.style'

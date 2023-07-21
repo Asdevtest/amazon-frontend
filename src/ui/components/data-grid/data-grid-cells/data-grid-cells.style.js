@@ -209,6 +209,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
+    padding: '10px 0',
   },
 
   orderImg: {
@@ -234,7 +235,7 @@ export const styles = theme => ({
   },
   orderText: {
     fontSize: 13,
-    maxWidth: 250,
+    maxWidth: 165,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -628,7 +629,6 @@ export const styles = theme => ({
   multilineTextWrapper: {
     width: '100%',
     padding: '5px 0',
-    textAlign: 'center',
     overflow: 'hidden',
   },
 
@@ -637,6 +637,7 @@ export const styles = theme => ({
   },
 
   multilineText: {
+    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -793,12 +794,8 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
-  multilineTextAlignStartWrapper: {
-    justifyContent: 'start',
-  },
-
-  multilineTextHeaderWrapperWithComponent: {
-    // justifyContent: 'space-between',
+  multilineTextHeaderCenter: {
+    justifyContent: 'center',
   },
 
   boxesAndQuantityWrapper: {
@@ -1235,7 +1232,7 @@ export const styles = theme => ({
     // right: -5,
     // right: -7,
     right: -15,
-    top: 15,
+    top: 20,
 
     overflow: 'visible',
   },
@@ -1569,6 +1566,7 @@ export const styles = theme => ({
   ChangeInputCommentCellWrapper: {
     display: 'flex',
     width: '100%',
+    padding: '20px 10px',
   },
 
   menuItem: {

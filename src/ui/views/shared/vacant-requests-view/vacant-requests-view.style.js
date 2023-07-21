@@ -30,20 +30,6 @@ export const styles = theme => ({
     height: '52px',
   },
 
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-
-  iconSeparator: {
-    padding: '0 1px',
-  },
-
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -135,7 +121,7 @@ export const styles = theme => ({
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 30,
   },
 
   deadlineBorder: {

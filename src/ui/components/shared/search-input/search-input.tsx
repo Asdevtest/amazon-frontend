@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './search-input.style'
 
-interface SearchInputProps {
+interface Props {
   disabled?: boolean
   value?: string
   placeholder?: string
@@ -23,12 +23,20 @@ interface SearchInputProps {
   inputClasses?: ClassNamesArg
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
+  onKeyDown?: VoidFunction
 }
 
-export const SearchInput: FC<SearchInputProps> = props => {
+export const SearchInput: FC<Props> = ({
+  disabled,
+  value,
+  placeholder,
+  inputClasses,
+  startText,
+  onChange,
+  onSubmit,
+  onKeyDown,
+}) => {
   const { classes: classNames } = useClassNames()
-
-  const { disabled, value, onChange, placeholder, inputClasses, onSubmit, startText } = props
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
@@ -91,6 +99,7 @@ export const SearchInput: FC<SearchInputProps> = props => {
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         onSubmit ? setInternalValue(e.target.value) : !!onChange && onChange(e)
       }
+      onKeyDown={onKeyDown}
     />
   )
 }

@@ -15,7 +15,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
     field: 'number',
     headerName: '№',
-    renderHeader: () => <MultilineTextHeaderCell text={'№'} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={'№'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 300,
@@ -24,7 +24,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
       <NormalActionBtnCell
@@ -39,6 +39,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
       />
     ),
     width: 550,
+    align: 'center',
   },
 
   {

@@ -59,8 +59,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNumberPhoto: {
-    width: 225,
-    height: 130,
+    maxWidth: 225,
+    width: '100%',
     objectFit: 'contain',
     cursor: 'pointer',
     transition: '.3s ease',

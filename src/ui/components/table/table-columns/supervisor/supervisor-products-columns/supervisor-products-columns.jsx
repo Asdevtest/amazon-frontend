@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { colorByProductStatus, ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +18,6 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 export const supervisorProductsViewColumns = handlers => [
@@ -75,7 +75,8 @@ export const supervisorProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 130,
+    align: 'center',
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },

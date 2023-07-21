@@ -221,12 +221,6 @@ export const ClientInventoryViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              iconSeparator: classNames.iconSeparator,
-              menuIconButton: classNames.menuIconButton,
-              iconButtonContainer: classNames.iconButtonContainer,
             }}
             sx={{
               '.MuiDataGrid-sortIcon': {
