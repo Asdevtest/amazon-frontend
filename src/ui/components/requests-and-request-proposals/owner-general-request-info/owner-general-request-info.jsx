@@ -213,6 +213,7 @@ export const OwnerGeneralRequestInfo = ({
                         fontSize: 14,
                         lineHeight: '19px',
                         textAlign: 'left',
+                        whiteSpace: 'pre-wrap',
                       }}
                     />
                   }
