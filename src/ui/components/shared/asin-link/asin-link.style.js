@@ -4,6 +4,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   copyAsin: {
     display: 'flex',
+    alignItems: 'center',
     gap: 5,
   },
   normalizeLink: {
