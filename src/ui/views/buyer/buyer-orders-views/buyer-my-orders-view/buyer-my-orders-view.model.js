@@ -789,20 +789,16 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async onClickHsCode(id) {
+  async onClickHsCode(id, showModal) {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    if (showModal) {
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    }
   }
 
   getCurrentData() {
-    // if (this.columnMenuSettings.paymentMethod.currentFilterData.length) {
-    //   const curPaymentsIds = this.columnMenuSettings.paymentMethod.currentFilterData.map(el => el._id)
-
-    //   return toJS(this.ordersMy).filter(el =>
-    //     el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
-    //   )
-    // } else {
     return toJS(this.ordersMy)
-    // }
   }
 
   async setColumnsModel() {
