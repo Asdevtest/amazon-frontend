@@ -39,6 +39,8 @@ const filtersFields = [
   'cls',
   'updatedAt',
   'amount',
+  'trackingNumber',
+  'arrivalDate',
 ]
 
 export class ClientSentBatchesViewModel {

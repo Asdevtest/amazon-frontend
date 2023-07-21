@@ -26,6 +26,7 @@ import {
   PriorityMenuItem,
   YesNoCellMenuItem,
   BatchShippingDateCellMenuItem,
+  BatchTrackingCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -361,6 +362,22 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <BatchShippingDateCellMenuItem
+          data={props}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.BATCHES_TRACKING].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <BatchTrackingCellMenuItem
           data={props}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
