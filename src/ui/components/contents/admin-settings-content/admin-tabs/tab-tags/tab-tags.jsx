@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react'
-import { observer } from 'mobx-react'
-
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
+import { useEffect, useState } from 'react'
+
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
-import { Button } from '@components/shared/buttons/button'
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -18,12 +20,11 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { AdminSettingsTagsModel } from './tab-tags.model'
-
 import { useClassNames } from './tab-tags.style'
 
 export const TabTags = observer(() => {
   const { classes: classNames } = useClassNames()
-
+  const history = useHistory()
   const [viewModel] = useState(() => new AdminSettingsTagsModel({ history }))
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export const TabTags = observer(() => {
           danger
           disabled={!viewModel.rowSelectionModel.length}
           className={classNames.deleteButton}
-          // onClick={viewModel.removeTags}
+          onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
         </Button>
@@ -58,8 +59,8 @@ export const TabTags = observer(() => {
           pagination
           useResizeContainer
           classes={{
-            footerContainer: classNames.footerContainer,
             footerCell: classNames.footerCell,
+            footerContainer: classNames.footerContainer,
             toolbarContainer: classNames.toolbarContainer,
           }}
           localeText={getLocalizationByLanguageTag()}
@@ -95,10 +96,11 @@ export const TabTags = observer(() => {
 
       <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditTagForm
+          tags={viewModel.tags}
           tagToEdit={viewModel.tagToEdit}
           onCloseModal={viewModel.onClickCancelBtn}
-          onCreateSubmit={viewModel.createTag}
-          // onEditSubmit={viewModel.editTag}
+          onCreateSubmit={viewModel.onCreateTag}
+          onEditSubmit={viewModel.onEditTag}
         />
       </Modal>
 

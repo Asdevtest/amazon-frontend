@@ -5,6 +5,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
+import { fieldNameObject } from '../../admin-settings.constants'
 import { useClassNames } from '../../admin-settings.style'
 
 export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
@@ -21,7 +22,8 @@ export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeF
         labelClasses={classNames.label}
         classes={{ root: classNames.textField, inputClasses: classNames.input }}
         value={formFields.timeToDeadlinePendingOrder}
-        onChange={onChangeField('timeToDeadlinePendingOrder')}
+        error={formFields.timeToDeadlinePendingOrder === ''}
+        onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
       <Button disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>
         {t(TranslationKey.Save)}

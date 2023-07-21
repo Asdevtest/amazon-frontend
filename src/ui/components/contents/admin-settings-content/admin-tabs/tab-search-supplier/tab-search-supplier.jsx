@@ -5,6 +5,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
+import { fieldNameObject } from '../../admin-settings.constants'
 import { useClassNames } from '../../admin-settings.style'
 
 export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
@@ -23,21 +24,24 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
         labelClasses={classNames.label}
         classes={{ root: classNames.textField }}
         value={formFields.costOfFindingSupplier}
-        onChange={onChangeField('costOfFindingSupplier')}
+        error={formFields.costOfFindingSupplier === ''}
+        onChange={e => onChangeField(fieldNameObject.costOfFindingSupplier, e)}
       />
       <Field
         labelClasses={classNames.label}
         label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'}
         classes={{ root: classNames.textField }}
         value={formFields.costOfCheckingProduct}
-        onChange={onChangeField('costOfCheckingProduct')}
+        error={formFields.costOfCheckingProduct === ''}
+        onChange={e => onChangeField(fieldNameObject.costOfCheckingProduct, e)}
       />
       <Field
         labelClasses={classNames.label}
         label={t(TranslationKey['Time to find a supplier, h'])}
         classes={{ root: classNames.textField }}
         value={formFields.deadlineForFindingSupplier}
-        onChange={onChangeField('deadlineForFindingSupplier')}
+        error={formFields.deadlineForFindingSupplier === ''}
+        onChange={e => onChangeField(fieldNameObject.deadlineForFindingSupplier, e)}
       />
 
       <Button disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>

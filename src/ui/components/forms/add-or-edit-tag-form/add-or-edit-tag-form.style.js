@@ -18,6 +18,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 20,
   },
 
+  label: {
+    margin: 0,
+  },
+
   btnsWrapper: {
     marginTop: 30,
     display: 'flex',

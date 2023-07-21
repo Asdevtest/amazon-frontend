@@ -59,13 +59,16 @@ export const AddOrEditDestinationForm = observer(
     return (
       <div className={classNames.root}>
         <Typography variant="h5" className={classNames.standartText}>
-          {t(TranslationKey['Add a new drop off location'])}
+          {destinationToEdit
+            ? t(TranslationKey['Edit drop off location'])
+            : t(TranslationKey['Add a new drop off location'])}
         </Typography>
 
         <div className={classNames.form}>
           {destinationToEdit && (
             <Field
               label={t(TranslationKey.Account)}
+              labelClasses={classNames.label}
               inputComponent={
                 <>
                   {destinationToEdit.storekeeper ? (
@@ -85,6 +88,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Title)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.name}
             placeholder={t(TranslationKey.Title) + '...'}
@@ -93,6 +97,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Country)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.country}
             placeholder={t(TranslationKey.Country) + '...'}
@@ -101,6 +106,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.City)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.city}
             placeholder={t(TranslationKey.City) + '...'}
@@ -109,6 +115,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.State)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.state}
             placeholder={t(TranslationKey.State) + '...'}
@@ -117,6 +124,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Address)}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.address}
             placeholder={t(TranslationKey.Address) + '...'}
@@ -125,6 +133,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey['ZIP code'])}
+            labelClasses={classNames.label}
             inputProps={{ maxLength: 255 }}
             error={
               formFields.zipCode &&

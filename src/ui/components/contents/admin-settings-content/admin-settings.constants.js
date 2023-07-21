@@ -42,8 +42,13 @@ export const fieldNames = [
   'requestTimeLimitInHourForCheckingProposalBySuper',
   'volumeWeightCoefficient',
   'timeToDeadlinePendingOrder',
-  'tech_pause',
 ]
+
+export const fieldNameObject = fieldNames.reduce((obj, fieldName) => {
+  obj[fieldName] = fieldName
+
+  return obj
+}, {})
 
 export const startValueFields = fieldNames.reduce((obj, fieldName) => {
   obj[fieldName] = 0

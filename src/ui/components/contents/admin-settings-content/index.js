@@ -1,1 +1,1 @@
-export { AdminSettings } from './admin-settings.jsx'
+export { AdminSettings } from './admin-settings'

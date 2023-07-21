@@ -2024,8 +2024,7 @@ export enum TranslationKey {
   'Photo and Video' = 'Photo and Video',
   'Photo track numbers' = 'Photo track numbers',
   'no photo track number' = 'no photo track number',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Edit tag' = 'Edit tag',
+  'Edit drop off location' = 'Edit drop off location',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

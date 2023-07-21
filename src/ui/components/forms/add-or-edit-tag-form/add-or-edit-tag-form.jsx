@@ -1,48 +1,54 @@
+import { Typography } from '@mui/material'
+
 import { useState } from 'react'
+
 import { observer } from 'mobx-react'
 
-import { Typography } from '@mui/material'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { useClassNames } from './add-or-edit-tag-form.style'
 
-export const AddOrEditTagForm = observer(({ onCloseModal, onCreateSubmit, onEditSubmit, tagToEdit }) => {
+export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCreateSubmit, onEditSubmit }) => {
   const { classes: classNames } = useClassNames()
 
-  const startValue = tagToEdit ? tagToEdit?.name : ''
+  const startValue = {
+    title: tagToEdit?.title ?? '',
+  }
   const [formField, setFormField] = useState(startValue)
 
   const handleChangeField = event => {
-    setFormField(event.target.value)
+    setFormField(state => ({ ...state, title: event.target.value }))
   }
 
   const handleClick = () => {
     if (tagToEdit) {
-      onEditSubmit(formField, tagToEdit._id)
+      onEditSubmit(tagToEdit._id, formField)
     } else {
-      onCreateSubmit(formField)
+      onCreateSubmit(formField.title)
     }
   }
 
-  const disabledButton = formField?.length === 0
+  const isExistsTag = tags.find(tag => tag.title === formField.title)
+  const disabledButton = formField.title.length === 0 || isExistsTag
 
   return (
     <div className={classNames.wrapper}>
       <Typography variant="h5" className={classNames.standartText}>
-        {t(TranslationKey['Add a new tag'])}
+        {tagToEdit ? t(TranslationKey['Edit tag']) : t(TranslationKey['Add a new tag'])}
       </Typography>
 
       <div className={classNames.form}>
         <Field
           label={t(TranslationKey.Title)}
+          labelClasses={classNames.label}
           inputProps={{ maxLength: 255 }}
-          value={formField}
+          value={formField.title}
+          error={isExistsTag}
           placeholder={t(TranslationKey.Title) + '...'}
           onChange={handleChangeField}
         />

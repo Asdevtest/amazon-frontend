@@ -1,12 +1,12 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-import { ClientModel } from '@models/client-model'
 import { AdministratorModel } from '@models/administrator-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
 
 import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
@@ -15,10 +15,9 @@ import { t } from '@utils/translations'
 
 export class AdminSettingsDestinationsModel {
   history = undefined
+  requestStatus = ''
 
   destinations = []
-
-  requestStatus = ''
 
   showConfirmModal = false
   showAddOrEditDestinationModal = false
@@ -28,10 +27,10 @@ export class AdminSettingsDestinationsModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  destinationToEditToEdit = undefined
+  destinationToEdit = undefined
   destinationIdToRemove = undefined
   confirmModalSettings = {
-    isWarning: false,
+    isWarning: true,
     message: '',
     onClickSuccess: () => {},
   }
@@ -79,6 +78,7 @@ export class AdminSettingsDestinationsModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.destinations = []
+
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -138,7 +138,7 @@ export class AdminSettingsDestinationsModel {
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete the destination?']),
-      onClickSuccess: () => this.removeDestination(),
+      onClickSuccess: () => this.onRemoveDestination(),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -171,7 +171,7 @@ export class AdminSettingsDestinationsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async createDestination(data) {
+  async onCreateDestination(data) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -187,7 +187,7 @@ export class AdminSettingsDestinationsModel {
     }
   }
 
-  async editDestination(data, destinationId) {
+  async onEditDestination(data, destinationId) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -203,7 +203,7 @@ export class AdminSettingsDestinationsModel {
     }
   }
 
-  async removeDestination() {
+  async onRemoveDestination() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
