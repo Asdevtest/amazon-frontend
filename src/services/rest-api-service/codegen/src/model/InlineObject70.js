@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject70 model module.
@@ -24,11 +23,11 @@ class InlineObject70 {
      * Constructs a new <code>InlineObject70</code>.
      * @alias module:model/InlineObject70
      * @param productId {String} 
-     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
+     * @param skus {Array.<String>} 
      */
-    constructor(productId, warehouseStocks) { 
+    constructor(productId, skus) { 
         
-        InlineObject70.initialize(this, productId, warehouseStocks);
+        InlineObject70.initialize(this, productId, skus);
     }
 
     /**
@@ -36,9 +35,9 @@ class InlineObject70 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, warehouseStocks) { 
+    static initialize(obj, productId, skus) { 
         obj['productId'] = productId;
-        obj['warehouseStocks'] = warehouseStocks;
+        obj['skus'] = skus;
     }
 
     /**
@@ -55,8 +54,8 @@ class InlineObject70 {
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('warehouseStocks')) {
-                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -71,9 +70,9 @@ class InlineObject70 {
 InlineObject70.prototype['productId'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
+ * @member {Array.<String>} skus
  */
-InlineObject70.prototype['warehouseStocks'] = undefined;
+InlineObject70.prototype['skus'] = undefined;
 
 
 

@@ -14,7 +14,6 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject12 from '../model/InlineObject12';
 import InlineObject13 from '../model/InlineObject13';
 import InlineObject14 from '../model/InlineObject14';
 import InlineObject15 from '../model/InlineObject15';
@@ -22,6 +21,7 @@ import InlineObject16 from '../model/InlineObject16';
 import InlineObject17 from '../model/InlineObject17';
 import InlineObject18 from '../model/InlineObject18';
 import InlineObject19 from '../model/InlineObject19';
+import InlineObject20 from '../model/InlineObject20';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
@@ -55,7 +55,7 @@ export default class BatchesApi {
      * ## Изменить у массива партий поле archive
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BatchesArchivePatchWithHttpInfo(opts) {
@@ -88,7 +88,7 @@ export default class BatchesApi {
      * ## Изменить у массива партий поле archive
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject19} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BatchesArchivePatch(opts) {
@@ -161,7 +161,7 @@ export default class BatchesApi {
      * ## Рассчитать стоимость доставки коробов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20012>} and HTTP response
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
@@ -194,7 +194,7 @@ export default class BatchesApi {
      * ## Рассчитать стоимость доставки коробов.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject17} opts.body 
+     * @param {module:model/InlineObject18} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20012>}
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts) {
@@ -264,7 +264,7 @@ export default class BatchesApi {
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject14} opts.body 
+     * @param {module:model/InlineObject15} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BatchesGuidAddBoxesPatchWithHttpInfo(guid, opts) {
@@ -303,7 +303,7 @@ export default class BatchesApi {
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject14} opts.body 
+     * @param {module:model/InlineObject15} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BatchesGuidAddBoxesPatch(guid, opts) {
@@ -374,7 +374,7 @@ export default class BatchesApi {
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1BatchesGuidEditAttachedDocumentsPatchWithHttpInfo(guid, opts) {
@@ -413,7 +413,7 @@ export default class BatchesApi {
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject18} opts.body 
+     * @param {module:model/InlineObject19} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts) {
@@ -484,7 +484,7 @@ export default class BatchesApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject16} opts.body 
+     * @param {module:model/InlineObject17} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BatchesGuidPatchWithHttpInfo(guid, opts) {
@@ -523,7 +523,7 @@ export default class BatchesApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject16} opts.body 
+     * @param {module:model/InlineObject17} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BatchesGuidPatch(guid, opts) {
@@ -540,7 +540,7 @@ export default class BatchesApi {
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject15} opts.body 
+     * @param {module:model/InlineObject16} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BatchesGuidRemoveBoxesPatchWithHttpInfo(guid, opts) {
@@ -579,7 +579,7 @@ export default class BatchesApi {
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject15} opts.body 
+     * @param {module:model/InlineObject16} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BatchesGuidRemoveBoxesPatch(guid, opts) {
@@ -595,7 +595,7 @@ export default class BatchesApi {
      * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH, IN_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject13} opts.body 
+     * @param {module:model/InlineObject14} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1BatchesPostWithHttpInfo(opts) {
@@ -628,7 +628,7 @@ export default class BatchesApi {
      * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH, IN_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject13} opts.body 
+     * @param {module:model/InlineObject14} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1BatchesPost(opts) {
@@ -704,7 +704,7 @@ export default class BatchesApi {
      * ## Запросить отправку набора коробок в партию.  при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         У клиента замораживаются средства.         Стоимость доставки записывается в поле deliveryTotalPrice         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject12} opts.body 
+     * @param {module:model/InlineObject13} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BatchesRequestSendBoxesToBatchPostWithHttpInfo(opts) {
@@ -737,7 +737,7 @@ export default class BatchesApi {
      * ## Запросить отправку набора коробок в партию.  при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         У клиента замораживаются средства.         Стоимость доставки записывается в поле deliveryTotalPrice         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject12} opts.body 
+     * @param {module:model/InlineObject13} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BatchesRequestSendBoxesToBatchPost(opts) {

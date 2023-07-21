@@ -14,8 +14,8 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject10 from '../model/InlineObject10';
 import InlineObject11 from '../model/InlineObject11';
+import InlineObject12 from '../model/InlineObject12';
 import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse201 from '../model/InlineResponse201';
 import InternalServerError from '../model/InternalServerError';
@@ -155,7 +155,7 @@ export default class AnnouncementsApi {
      * @param {String} guid Гуид анонса
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject11} opts.body 
+     * @param {module:model/InlineObject12} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AnnouncementsGuidPatchWithHttpInfo(guid, opts) {
@@ -194,7 +194,7 @@ export default class AnnouncementsApi {
      * @param {String} guid Гуид анонса
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject11} opts.body 
+     * @param {module:model/InlineObject12} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AnnouncementsGuidPatch(guid, opts) {
@@ -260,7 +260,7 @@ export default class AnnouncementsApi {
      * ## Создать анонс
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject10} opts.body 
+     * @param {module:model/InlineObject11} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
      */
     apiV1AnnouncementsPostWithHttpInfo(opts) {
@@ -293,7 +293,7 @@ export default class AnnouncementsApi {
      * ## Создать анонс
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject10} opts.body 
+     * @param {module:model/InlineObject11} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
      */
     apiV1AnnouncementsPost(opts) {
