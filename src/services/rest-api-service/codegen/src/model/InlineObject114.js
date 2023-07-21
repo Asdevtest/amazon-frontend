@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject114 model module.
@@ -22,11 +24,11 @@ class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
      * @alias module:model/InlineObject114
-     * @param title {String} 
+     * @param name {String} Название тарифа
      */
-    constructor(title) { 
+    constructor(name) { 
         
-        InlineObject114.initialize(this, title);
+        InlineObject114.initialize(this, name);
     }
 
     /**
@@ -34,8 +36,8 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,11 +51,38 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
             }
-            if (data.hasOwnProperty('iconImage')) {
-                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
+            }
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
+            }
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
+            }
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
             }
         }
         return obj;
@@ -63,14 +92,68 @@ class InlineObject114 {
 }
 
 /**
- * @member {String} title
+ * Тип тарифа
+ * @member {Number} tariffType
  */
-InlineObject114.prototype['title'] = undefined;
+InlineObject114.prototype['tariffType'] = undefined;
 
 /**
- * @member {String} iconImage
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject114.prototype['iconImage'] = undefined;
+InlineObject114.prototype['name'] = undefined;
+
+/**
+ * Описание тарифа
+ * @member {String} description
+ */
+InlineObject114.prototype['description'] = undefined;
+
+/**
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
+ */
+InlineObject114.prototype['deliveryTimeInDay'] = undefined;
+
+/**
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
+ */
+InlineObject114.prototype['cls'] = undefined;
+
+/**
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
+ */
+InlineObject114.prototype['etd'] = undefined;
+
+/**
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
+ */
+InlineObject114.prototype['eta'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject114.prototype['minWeightInKg'] = undefined;
+
+/**
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
+ */
+InlineObject114.prototype['archive'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject114.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
+ */
+InlineObject114.prototype['destinationVariations'] = undefined;
 
 
 

@@ -47,8 +47,11 @@ class InlineObject72 {
         if (data) {
             obj = obj || new InlineObject72();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineObject72 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * Комментарий клиента
+ * @member {String} clientComment
  */
-InlineObject72.prototype['suppliersIds'] = undefined;
+InlineObject72.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарий баера
+ * @member {String} buyerComment
+ */
+InlineObject72.prototype['buyerComment'] = undefined;
 
 
 

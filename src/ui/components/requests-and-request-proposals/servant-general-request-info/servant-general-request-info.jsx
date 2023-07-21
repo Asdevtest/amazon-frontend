@@ -67,8 +67,8 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
               <Typography className={classNames.idText}>{t(TranslationKey.ASIN) + ':'}</Typography>
               <AsinOrSkuLink
                 asin={requestProposals[0]?.request?.asin}
-                linkSpanClass={classNames.linkSpan}
-                missingSpanClass={classNames.idText}
+                textStyles={classNames.linkSpan}
+                missingValueTextStyles={classNames.idText}
               />
             </div>
             <div className={classNames.idWrapper}>

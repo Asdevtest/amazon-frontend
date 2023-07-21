@@ -198,7 +198,7 @@ let apiInstance = new TestSwagger.SupplierApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
+  'body': new TestSwagger.InlineObject121() // InlineObject121 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
+ **body** | [**InlineObject121**](InlineObject121.md)|  | [optional] 
 
 ### Return type
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPaymentMethodsGet
 
-> [InlineResponse20069] apiV1SuppliersPaymentMethodsGet(opts)
+> [InlineResponse20074] apiV1SuppliersPaymentMethodsGet(opts)
 
 # Получить все доступные методы оплаты для поставщика
 
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20069]**](InlineResponse20069.md)
+[**[InlineResponse20074]**](InlineResponse20074.md)
 
 ### Authorization
 
@@ -306,7 +306,7 @@ let apiInstance = new TestSwagger.SupplierApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject115() // InlineObject115 | 
+  'body': new TestSwagger.InlineObject123() // InlineObject123 | 
 };
 apiInstance.apiV1SuppliersPaymentMethodsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject115**](InlineObject115.md)|  | [optional] 
+ **body** | [**InlineObject123**](InlineObject123.md)|  | [optional] 
 
 ### Return type
 
@@ -361,7 +361,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject114() // InlineObject114 | 
+  'body': new TestSwagger.InlineObject122() // InlineObject122 | 
 };
 apiInstance.apiV1SuppliersPaymentMethodsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -377,7 +377,7 @@ apiInstance.apiV1SuppliersPaymentMethodsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject114**](InlineObject114.md)|  | [optional] 
+ **body** | [**InlineObject122**](InlineObject122.md)|  | [optional] 
 
 ### Return type
 
@@ -415,7 +415,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
+  'body': new TestSwagger.InlineObject120() // InlineObject120 | 
 };
 apiInstance.apiV1SuppliersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -431,7 +431,7 @@ apiInstance.apiV1SuppliersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
+ **body** | [**InlineObject120**](InlineObject120.md)|  | [optional] 
 
 ### Return type
 

@@ -2008,8 +2008,8 @@ export enum TranslationKey {
   'To pay partial' = 'To pay partial',
   'By date' = 'By date',
   'On page' = 'On page',
-  // '' = '',
-  // '' = '',
+  'Client commentary' = 'Client commentary',
+  'Bayer comments' = 'Bayer comments',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',

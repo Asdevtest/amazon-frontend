@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject58
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor() { 
+    constructor(shippingLabel) { 
         
-        InlineObject58.initialize(this);
+        InlineObject58.initialize(this, shippingLabel);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -47,8 +50,8 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,10 @@ class InlineObject58 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject58.prototype['suppliersIds'] = undefined;
+InlineObject58.prototype['shippingLabel'] = undefined;
 
 
 

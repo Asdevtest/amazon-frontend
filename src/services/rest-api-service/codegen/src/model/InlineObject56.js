@@ -22,12 +22,12 @@ class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
-     * @param productName {String} Назавние продукта
-     * @param price {Number} Желаемая цена
+     * @param clientComment {String} 
+     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(productName, price) { 
+    constructor(clientComment, priceForClient) { 
         
-        InlineObject56.initialize(this, productName, price);
+        InlineObject56.initialize(this, clientComment, priceForClient);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productName, price) { 
-        obj['productName'] = productName;
-        obj['price'] = price;
+    static initialize(obj, clientComment, priceForClient) { 
+        obj['clientComment'] = clientComment;
+        obj['priceForClient'] = priceForClient;
     }
 
     /**
@@ -51,47 +51,11 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
-            }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('parentProductId')) {
-                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -101,88 +65,15 @@ class InlineObject56 {
 }
 
 /**
- * Название идеи
- * @member {String} title
+ * @member {String} clientComment
  */
-InlineObject56.prototype['title'] = undefined;
+InlineObject56.prototype['clientComment'] = undefined;
 
 /**
- * Image URL
- * @member {Array.<String>} media
+ * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+ * @member {Number} priceForClient
  */
-InlineObject56.prototype['media'] = undefined;
-
-/**
- * Комментарий к идее
- * @member {String} comments
- */
-InlineObject56.prototype['comments'] = undefined;
-
-/**
- * Комментарий байера
- * @member {String} buyerComment
- */
-InlineObject56.prototype['buyerComment'] = undefined;
-
-/**
- * Назавние продукта
- * @member {String} productName
- */
-InlineObject56.prototype['productName'] = undefined;
-
-/**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
- */
-InlineObject56.prototype['productLinks'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineObject56.prototype['criteria'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineObject56.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineObject56.prototype['price'] = undefined;
-
-/**
- * Ширина, см
- * @member {Number} width
- */
-InlineObject56.prototype['width'] = undefined;
-
-/**
- * Высота, см
- * @member {Number} height
- */
-InlineObject56.prototype['height'] = undefined;
-
-/**
- * Длина, см
- * @member {Number} length
- */
-InlineObject56.prototype['length'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject56.prototype['productId'] = undefined;
-
-/**
- * Гуид родительского продукта
- * @member {String} parentProductId
- */
-InlineObject56.prototype['parentProductId'] = undefined;
+InlineObject56.prototype['priceForClient'] = undefined;
 
 
 

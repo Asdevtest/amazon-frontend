@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
+import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20058 model module.
@@ -23,7 +23,6 @@ import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 class InlineResponse20058 {
     /**
      * Constructs a new <code>InlineResponse20058</code>.
-     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20058
      */
     constructor() { 
@@ -53,32 +52,29 @@ class InlineResponse20058 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('owner')) {
-                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('proposal')) {
+                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
             }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('monthlyMultiplier')) {
-                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
-            }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -88,62 +84,56 @@ class InlineResponse20058 {
 }
 
 /**
- * GUID магазина на продажу.
+ * Гуид медиа
  * @member {String} _id
  */
 InlineResponse20058.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineResponse20058.prototype['owner'] = undefined;
+InlineResponse20058.prototype['sourceFile'] = undefined;
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * Комментарий к файлу
+ * @member {String} comments
  */
-InlineResponse20058.prototype['title'] = undefined;
+InlineResponse20058.prototype['comments'] = undefined;
 
 /**
- * Статус магазина для продажи
- * @member {String} status
+ * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
  */
-InlineResponse20058.prototype['status'] = undefined;
+InlineResponse20058.prototype['proposal'] = undefined;
 
 /**
- * Файлы, которые привязаны к магазину
- * @member {Array.<String>} files
+ * Код специализации фрилансера
+ * @member {Number} typeTask
  */
-InlineResponse20058.prototype['files'] = undefined;
+InlineResponse20058.prototype['typeTask'] = undefined;
 
 /**
- * Стоимость магазина
- * @member {Number} price
+ * гуид продукта
+ * @member {String} productId
  */
-InlineResponse20058.prototype['price'] = undefined;
+InlineResponse20058.prototype['productId'] = undefined;
 
 /**
- * Ежемесячный множитель
- * @member {Number} monthlyMultiplier
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
-InlineResponse20058.prototype['monthlyMultiplier'] = undefined;
+InlineResponse20058.prototype['createdBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1ShopSellStatistics} statistics
+ * Дата создания.
+ * @member {Date} createdAt
  */
-InlineResponse20058.prototype['statistics'] = undefined;
+InlineResponse20058.prototype['createdAt'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * Дата создания.
+ * @member {Date} updatedAt
  */
-InlineResponse20058.prototype['businessStartDate'] = undefined;
-
-/**
- * Детали магазина
- * @member {String} shopDetails
- */
-InlineResponse20058.prototype['shopDetails'] = undefined;
+InlineResponse20058.prototype['updatedAt'] = undefined;
 
 
 

@@ -4,8 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название услуги | [optional] 
-**description** | **String** | Описание услуги | [optional] 
-**price** | **Number** | Цена услуги. | 
+**additionalBoxes** | [**[InlineObject21]**](InlineObject21.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

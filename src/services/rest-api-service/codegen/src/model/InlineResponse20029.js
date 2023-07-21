@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20029AllFiles from './InlineResponse20029AllFiles';
+import InlineResponse20029AllImages from './InlineResponse20029AllImages';
 
 /**
  * The InlineResponse20029 model module.
@@ -21,7 +23,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20029 {
     /**
      * Constructs a new <code>InlineResponse20029</code>.
-     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20029
      */
     constructor() { 
@@ -48,8 +49,11 @@ class InlineResponse20029 {
         if (data) {
             obj = obj || new InlineResponse20029();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('allImages')) {
+                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20029AllImages]);
+            }
+            if (data.hasOwnProperty('allFiles')) {
+                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20029AllFiles]);
             }
         }
         return obj;
@@ -59,9 +63,14 @@ class InlineResponse20029 {
 }
 
 /**
- * @member {Number} priceForClient
+ * @member {Array.<module:model/InlineResponse20029AllImages>} allImages
  */
-InlineResponse20029.prototype['priceForClient'] = undefined;
+InlineResponse20029.prototype['allImages'] = undefined;
+
+/**
+ * @member {Array.<module:model/InlineResponse20029AllFiles>} allFiles
+ */
+InlineResponse20029.prototype['allFiles'] = undefined;
 
 
 

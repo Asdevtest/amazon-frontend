@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineObject97 model module.
@@ -22,7 +21,6 @@ import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
-     * Схема продажи магазина
      * @alias module:model/InlineObject97
      */
     constructor() { 
@@ -49,47 +47,20 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
-            }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
-            }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
-            }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
-            }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
-            }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
-            }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
-            }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -99,88 +70,34 @@ class InlineObject97 {
 }
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject97.prototype['title'] = undefined;
+InlineObject97.prototype['execution_time'] = undefined;
 
 /**
- * Стоимость магазина
+ * Цена предложения.
  * @member {Number} price
  */
 InlineObject97.prototype['price'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * Комментарий к предложению.
+ * @member {String} comment
  */
-InlineObject97.prototype['businessStartDate'] = undefined;
+InlineObject97.prototype['comment'] = undefined;
 
 /**
- * Детали магазина
- * @member {String} shopDetails
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject97.prototype['shopDetails'] = undefined;
+InlineObject97.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Активы магазина
- * @member {Array.<String>} shopAssets
+ * Название предложения
+ * @member {String} title
  */
-InlineObject97.prototype['shopAssets'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
- * @member {Array.<String>} files
- */
-InlineObject97.prototype['files'] = undefined;
-
-/**
- * Ссылка на сайт магазина
- * @member {String} shopLink
- */
-InlineObject97.prototype['shopLink'] = undefined;
-
-/**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
- */
-InlineObject97.prototype['statistics'] = undefined;
-
-/**
- * Возможности магазина
- * @member {Array.<String>} opportunities
- */
-InlineObject97.prototype['opportunities'] = undefined;
-
-/**
- * Риски магазина
- * @member {Array.<String>} risks
- */
-InlineObject97.prototype['risks'] = undefined;
-
-/**
- * Требуемые навыки
- * @member {Array.<String>} requiredSkills
- */
-InlineObject97.prototype['requiredSkills'] = undefined;
-
-/**
- * В продажу также включено
- * @member {Array.<String>} sellIncludes
- */
-InlineObject97.prototype['sellIncludes'] = undefined;
-
-/**
- * Причина продажи
- * @member {Array.<String>} reasonForSale
- */
-InlineObject97.prototype['reasonForSale'] = undefined;
-
-/**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
- */
-InlineObject97.prototype['additionalInfo'] = undefined;
+InlineObject97.prototype['title'] = undefined;
 
 
 

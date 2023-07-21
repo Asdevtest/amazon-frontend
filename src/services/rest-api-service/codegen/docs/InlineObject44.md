@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** |  | [optional] 
+**refundPrice** | **Number** | Сумма воврата | [optional] 
 
 

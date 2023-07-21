@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
+**reason** | **String** | Причина из таблицы с асинами | [optional] 
 
 

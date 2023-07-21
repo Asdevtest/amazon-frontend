@@ -4,36 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**buyerComment** | **String** | комментарии байера. | [optional] 
 **storekeeperId** | **String** | GUID storekeeper-a | [optional] 
-**buyerId** | **String** | GUID баера | [optional] 
-**item** | **String** |  | [optional] 
-**logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
-**priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
+**paymentDetails** | **[String]** |  | [optional] 
+**priceInYuan** | **Number** | Цена в юанях | [optional] 
+**priceBatchDeliveryInYuan** | **Number** | Цена доставки партии в юанях | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
 **destinationId** | **String** | GUID пункта назначения. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
+**item** | **String** |  | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
-**clientComment** | **String** | Комментарии клиента. | [optional] 
-**images** | **[String]** | Массив изображений. | [optional] 
-**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
-**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
-**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
-**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
-
-
-
-## Enum: PriorityEnum
-
-
-* `10` (value: `"10"`)
-
-* `20` (value: `"20"`)
-
-* `30` (value: `"30"`)
-
-* `40` (value: `"40"`)
-
-* `50` (value: `"50"`)
-
-
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**orderSupplierId** | **String** | GUID поставщика, для данного заказа. | [optional] 
+**partialPaymentAmountRmb** | **Number** | Cумма частичной оплаты | [optional] 
+**partiallyPaid** | **Number** | Cумма частичной оплаты | [optional] 
+**partialPayment** | **Boolean** | Оплачивается ли заказ частично | [optional] 
+**amount** | **Number** | Кол-во в заказе | [optional] 
 
 

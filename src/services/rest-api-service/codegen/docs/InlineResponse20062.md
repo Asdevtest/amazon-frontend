@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Общее кол-во записей | [optional] 
-**rows** | [**[InlineResponse2004]**](InlineResponse2004.md) |  | [optional] 
+**_id** | **String** | GUID заявки | [optional] 
+**humanFriendlyId** | **Number** | Номер заявки | [optional] 
+**typeTask** | **Number** | Тип задачи заявки | [optional] 
+**title** | **String** | Название заявки | [optional] 
+**status** | **String** | Статус заявки | [optional] 
 
 

@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
-import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
-import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
+import ApiV1StorekeepersBoxesGuidItems from './ApiV1StorekeepersBoxesGuidItems';
 
 /**
  * The InlineObject112 model module.
@@ -24,19 +22,11 @@ import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
-     * Новый поставщик.
      * @alias module:model/InlineObject112
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена за еденицу, dollar
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param comment {String} Комментарий
-     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor(name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
+    constructor() { 
         
-        InlineObject112.initialize(this, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar);
+        InlineObject112.initialize(this);
     }
 
     /**
@@ -44,14 +34,7 @@ class InlineObject112 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['comment'] = comment;
-        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
+    static initialize(obj) { 
     }
 
     /**
@@ -65,59 +48,62 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('multiplicity')) {
-                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('paymentMethods')) {
-                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1SuppliersPaymentMethods]);
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
+            }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
-            if (data.hasOwnProperty('yuanRate')) {
-                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            if (data.hasOwnProperty('storekeeperTaskComment')) {
+                obj['storekeeperTaskComment'] = ApiClient.convertToType(data['storekeeperTaskComment'], 'String');
             }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
-                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
-                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInDollar')) {
-                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInYuan')) {
-                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('productionTerm')) {
-                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxProperties')) {
-                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
-            }
-            if (data.hasOwnProperty('priceVariations')) {
-                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [ApiV1SuppliersPriceVariations]);
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1StorekeepersBoxesGuidItems]);
             }
         }
         return obj;
@@ -127,108 +113,116 @@ class InlineObject112 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Гуид вариации
+ * @member {String} variationTariffId
  */
-InlineObject112.prototype['name'] = undefined;
+InlineObject112.prototype['variationTariffId'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
+ * Значение информационного ключа
+ * @member {String} prepId
  */
-InlineObject112.prototype['link'] = undefined;
+InlineObject112.prototype['prepId'] = undefined;
 
 /**
- * Цена за еденицу, dollar
- * @member {Number} price
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject112.prototype['price'] = undefined;
+InlineObject112.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * кол-во
- * @member {Number} amount
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} widthCmWarehouse
  */
-InlineObject112.prototype['amount'] = undefined;
+InlineObject112.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * Минимальный лот.
- * @member {Number} minlot
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} heightCmWarehouse
  */
-InlineObject112.prototype['minlot'] = undefined;
+InlineObject112.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * Имеет ли обязательный делитель на кол-во в заказе поставщик
- * @member {Boolean} multiplicity
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject112.prototype['multiplicity'] = undefined;
+InlineObject112.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1SuppliersPaymentMethods>} paymentMethods
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
-InlineObject112.prototype['paymentMethods'] = undefined;
+InlineObject112.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
- * Массив картинок.
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineObject112.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineObject112.prototype['referenceId'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject112.prototype['trackNumberText'] = undefined;
+
+/**
+ * @member {Array.<String>} trackNumberFile
+ */
+InlineObject112.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject112.prototype['upsTrackNumber'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject112.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject112.prototype['fbaNumber'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject112.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
  * @member {Array.<String>} images
  */
 InlineObject112.prototype['images'] = undefined;
 
 /**
- * Комментарий
- * @member {String} comment
+ * destination GUID 
+ * @member {String} destinationId
  */
-InlineObject112.prototype['comment'] = undefined;
+InlineObject112.prototype['destinationId'] = undefined;
 
 /**
- * Курс доллара к юаню поставщика. 
- * @member {Number} yuanRate
+ * Комментарии к коробке
+ * @member {String} storekeeperTaskComment
  */
-InlineObject112.prototype['yuanRate'] = undefined;
+InlineObject112.prototype['storekeeperTaskComment'] = undefined;
 
 /**
- * Цена за еденицу, yuan
- * @member {Number} priceInYuan
+ * @member {Array.<module:model/ApiV1StorekeepersBoxesGuidItems>} items
  */
-InlineObject112.prototype['priceInYuan'] = undefined;
-
-/**
- * Доставка партии, dollar
- * @member {Number} batchDeliveryCostInDollar
- */
-InlineObject112.prototype['batchDeliveryCostInDollar'] = undefined;
-
-/**
- * Доставка партии, yuan
- * @member {Number} batchDeliveryCostInYuan
- */
-InlineObject112.prototype['batchDeliveryCostInYuan'] = undefined;
-
-/**
- * Цена партии, dollar
- * @member {Number} batchTotalCostInDollar
- */
-InlineObject112.prototype['batchTotalCostInDollar'] = undefined;
-
-/**
- * Цена партии, yuan
- * @member {Number} batchTotalCostInYuan
- */
-InlineObject112.prototype['batchTotalCostInYuan'] = undefined;
-
-/**
- * @member {Number} productionTerm
- */
-InlineObject112.prototype['productionTerm'] = undefined;
-
-/**
- * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
- */
-InlineObject112.prototype['boxProperties'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1SuppliersPriceVariations>} priceVariations
- */
-InlineObject112.prototype['priceVariations'] = undefined;
+InlineObject112.prototype['items'] = undefined;
 
 
 

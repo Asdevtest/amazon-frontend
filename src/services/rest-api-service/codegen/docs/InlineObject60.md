@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | 
-**warehouseStocks** | [**[ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]**](ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md) |  | 
+**name** | **String** | Название профиля | 
+**os** | **String** | Название ОС | [optional] [default to &#39;mac&#39;]
+**navigator** | [**ApiV1GologinProfileNavigator**](ApiV1GologinProfileNavigator.md) |  | [optional] 
 
 

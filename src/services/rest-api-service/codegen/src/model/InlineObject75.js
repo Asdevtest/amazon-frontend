@@ -22,11 +22,11 @@ class InlineObject75 {
     /**
      * Constructs a new <code>InlineObject75</code>.
      * @alias module:model/InlineObject75
-     * @param approvedByMaster {Boolean} 
+     * @param text {String} текст отзыва/репорта
      */
-    constructor(approvedByMaster) { 
+    constructor(text) { 
         
-        InlineObject75.initialize(this, approvedByMaster);
+        InlineObject75.initialize(this, text);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject75 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, approvedByMaster) { 
-        obj['approvedByMaster'] = approvedByMaster;
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('approvedByMaster')) {
-                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -60,9 +63,16 @@ class InlineObject75 {
 }
 
 /**
- * @member {Boolean} approvedByMaster
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject75.prototype['approvedByMaster'] = undefined;
+InlineObject75.prototype['text'] = undefined;
+
+/**
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
+ */
+InlineObject75.prototype['media'] = undefined;
 
 
 

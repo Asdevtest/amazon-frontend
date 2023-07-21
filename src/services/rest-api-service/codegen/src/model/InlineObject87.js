@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject87 model module.
@@ -22,12 +23,10 @@ class InlineObject87 {
     /**
      * Constructs a new <code>InlineObject87</code>.
      * @alias module:model/InlineObject87
-     * @param requestIds {Array.<String>} 
-     * @param uploadedToListing {Boolean} 
      */
-    constructor(requestIds, uploadedToListing) { 
+    constructor() { 
         
-        InlineObject87.initialize(this, requestIds, uploadedToListing);
+        InlineObject87.initialize(this);
     }
 
     /**
@@ -35,9 +34,7 @@ class InlineObject87 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, requestIds, uploadedToListing) { 
-        obj['requestIds'] = requestIds;
-        obj['uploadedToListing'] = uploadedToListing;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +48,20 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('requestIds')) {
-                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('uploadedToListing')) {
-                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
             }
         }
         return obj;
@@ -65,14 +71,32 @@ class InlineObject87 {
 }
 
 /**
- * @member {Array.<String>} requestIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject87.prototype['requestIds'] = undefined;
+InlineObject87.prototype['rating'] = undefined;
 
 /**
- * @member {Boolean} uploadedToListing
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject87.prototype['uploadedToListing'] = undefined;
+InlineObject87.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject87.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {Number} timeLimitInMinutes
+ */
+InlineObject87.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
+ */
+InlineObject87.prototype['media'] = undefined;
 
 
 

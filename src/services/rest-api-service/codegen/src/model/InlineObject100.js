@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject21 from './InlineObject21';
 
 /**
  * The InlineObject100 model module.
@@ -23,10 +22,11 @@ class InlineObject100 {
     /**
      * Constructs a new <code>InlineObject100</code>.
      * @alias module:model/InlineObject100
+     * @param fileLink {String} Ссылка на файл
      */
-    constructor() { 
+    constructor(fileLink) { 
         
-        InlineObject100.initialize(this);
+        InlineObject100.initialize(this, fileLink);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject100 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileLink) { 
+        obj['fileLink'] = fileLink;
     }
 
     /**
@@ -48,8 +49,20 @@ class InlineObject100 {
         if (data) {
             obj = obj || new InlineObject100();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject21]);
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
         }
         return obj;
@@ -59,10 +72,34 @@ class InlineObject100 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject21>} additionalBoxes
+ * Guid заявки
+ * @member {String} requestId
  */
-InlineObject100.prototype['additionalBoxes'] = undefined;
+InlineObject100.prototype['requestId'] = undefined;
+
+/**
+ * Guid предложения
+ * @member {String} proposalId
+ */
+InlineObject100.prototype['proposalId'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineObject100.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject100.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject100.prototype['fileLink'] = undefined;
 
 
 

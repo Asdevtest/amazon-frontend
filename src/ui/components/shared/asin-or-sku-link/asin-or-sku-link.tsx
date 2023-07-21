@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
 
 import { observer } from 'mobx-react'
 
@@ -18,17 +17,24 @@ import { FC } from 'react'
 interface AsinOrSkuLinkProps {
   asin?: string
   sku?: string
+  withAttributeTitle?: boolean
   withCopyValue?: boolean
-  linkSpanClass?: string
-  missingSpanClass?: string
+  textStyles?: string
+  missingValueTextStyles?: string
 }
 
 export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
-  ({ asin, sku, withCopyValue, linkSpanClass, missingSpanClass }) => {
+  ({ asin, sku, withCopyValue, withAttributeTitle, textStyles, missingValueTextStyles }) => {
     const { classes: classNames } = useClassNames()
 
     return (
-      <div className={classNames.copyAsin}>
+      <div className={classNames.root}>
+        {withAttributeTitle && (
+          <p className={cx(classNames.attributeTitle, missingValueTextStyles)}>
+            {(asin && t(TranslationKey.ASIN)) || (sku && t(TranslationKey.SKU))}
+          </p>
+        )}
+
         {asin ? (
           <a
             target="_blank"
@@ -36,12 +42,12 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
             href={`https://www.amazon.com/dp/${asin}`}
             className={classNames.normalizeLink}
           >
-            <Typography className={cx(classNames.linkSpan, linkSpanClass)}>{shortAsin(asin)}</Typography>
+            <p className={cx(classNames.valueText, classNames.asinValueText, textStyles)}>{shortAsin(asin)}</p>
           </a>
         ) : sku ? (
-          <Typography className={cx(classNames.linkSpan, linkSpanClass)}>{shortSku(sku)}</Typography>
+          <p className={cx(classNames.valueText, classNames.skuValueText, textStyles)}>{shortSku(sku)}</p>
         ) : (
-          <Typography className={cx(classNames.missingSpan, missingSpanClass)}>{t(TranslationKey.Missing)}</Typography>
+          <p className={cx(classNames.missingValueText, missingValueTextStyles)}>{t(TranslationKey.Missing)}</p>
         )}
         {(asin || sku) && withCopyValue && <CopyValue text={asin || sku} />}
       </div>

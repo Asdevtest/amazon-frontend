@@ -22,10 +22,11 @@ class InlineObject91 {
     /**
      * Constructs a new <code>InlineObject91</code>.
      * @alias module:model/InlineObject91
+     * @param action {module:model/InlineObject91.ActionEnum} 
      */
-    constructor() { 
+    constructor(action) { 
         
-        InlineObject91.initialize(this);
+        InlineObject91.initialize(this, action);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject91 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -47,20 +49,11 @@ class InlineObject91 {
         if (data) {
             obj = obj || new InlineObject91();
 
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -70,37 +63,39 @@ class InlineObject91 {
 }
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * @member {module:model/InlineObject91.ActionEnum} action
  */
-InlineObject91.prototype['commentByClient'] = undefined;
+InlineObject91.prototype['action'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject91.prototype['commentByPerformer'] = undefined;
+InlineObject91.prototype['reason'] = undefined;
+
+
+
+
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject91.prototype['fileLink'] = undefined;
+InlineObject91['ActionEnum'] = {
 
-/**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
- */
-InlineObject91.prototype['proposalId'] = undefined;
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
 
-/**
- * Комментарий к файлу
- * @member {String} requestId
- */
-InlineObject91.prototype['requestId'] = undefined;
-
-
-
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

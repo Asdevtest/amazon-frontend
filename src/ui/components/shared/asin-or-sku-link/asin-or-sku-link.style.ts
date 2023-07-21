@@ -2,11 +2,12 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  copyAsin: {
+  root: {
     display: 'flex',
     alignItems: 'center',
     gap: 5,
   },
+
   normalizeLink: {
     textDecoration: 'none',
     transition: '.3s ease',
@@ -14,15 +15,30 @@ export const useClassNames = makeStyles()(theme => ({
       opacity: '.7',
     },
   },
-  linkSpan: {
-    color: theme.palette.primary.main,
-    fontWeight: 600,
+
+  valueText: {
+    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
   },
-  missingSpan: {
+
+  asinValueText: {
+    color: theme.palette.primary.main,
+  },
+
+  skuValueText: {
+    color: '#AEAEAE',
+  },
+
+  attributeTitle: {
     fontWeight: 400,
-    fontSize: 16,
+    fontSize: 14,
+    color: theme.palette.text.second,
+  },
+
+  missingValueText: {
+    fontWeight: 400,
+    fontSize: 14,
     lineHeight: '22px',
     color: theme.palette.text.second,
   },

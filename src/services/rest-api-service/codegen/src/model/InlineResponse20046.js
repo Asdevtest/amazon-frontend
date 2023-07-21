@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20046Rows from './InlineResponse20046Rows';
 
 /**
  * The InlineResponse20046 model module.
@@ -47,11 +48,11 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20046Rows]);
             }
         }
         return obj;
@@ -61,14 +62,16 @@ class InlineResponse20046 {
 }
 
 /**
- * @member {String} userId
+ * Общее кол-во идей
+ * @member {Number} count
  */
-InlineResponse20046.prototype['userId'] = undefined;
+InlineResponse20046.prototype['count'] = undefined;
 
 /**
- * @member {String} productId
+ * Список идей
+ * @member {Array.<module:model/InlineResponse20046Rows>} rows
  */
-InlineResponse20046.prototype['productId'] = undefined;
+InlineResponse20046.prototype['rows'] = undefined;
 
 
 

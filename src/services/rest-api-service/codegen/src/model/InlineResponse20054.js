@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20054Rows from './InlineResponse20054Rows';
 
 /**
  * The InlineResponse20054 model module.
@@ -48,11 +47,11 @@ class InlineResponse20054 {
         if (data) {
             obj = obj || new InlineResponse20054();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20054Rows]);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -62,15 +61,15 @@ class InlineResponse20054 {
 }
 
 /**
- * @member {Number} count
+ * @member {String} productId
  */
-InlineResponse20054.prototype['count'] = undefined;
+InlineResponse20054.prototype['productId'] = undefined;
 
 /**
- * Массив заявок.
- * @member {Array.<module:model/InlineResponse20054Rows>} rows
+ * Массив магазинов
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20054.prototype['rows'] = undefined;
+InlineResponse20054.prototype['shopIds'] = undefined;
 
 
 

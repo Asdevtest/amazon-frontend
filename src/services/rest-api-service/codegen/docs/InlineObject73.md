@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**parentProductId** | **String** | Ключ родительского продукта | 
-**childProductIds** | **[String]** |  | 
+**fileUrl** | **String** | uri полный путь до файла, для скачивания | 
 
 

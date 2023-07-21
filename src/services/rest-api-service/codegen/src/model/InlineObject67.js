@@ -22,11 +22,10 @@ class InlineObject67 {
     /**
      * Constructs a new <code>InlineObject67</code>.
      * @alias module:model/InlineObject67
-     * @param text {String} текст отзыва/репорта
      */
-    constructor(text) { 
+    constructor() { 
         
-        InlineObject67.initialize(this, text);
+        InlineObject67.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject67 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, text) { 
-        obj['text'] = text;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,8 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('text')) {
-                obj['text'] = ApiClient.convertToType(data['text'], 'String');
-            }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('suppliersId')) {
+                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
             }
         }
         return obj;
@@ -63,16 +58,10 @@ class InlineObject67 {
 }
 
 /**
- * текст отзыва/репорта
- * @member {String} text
+ * GUID поставщика, который нужно удалить в БД.
+ * @member {String} suppliersId
  */
-InlineObject67.prototype['text'] = undefined;
-
-/**
- * Прикрепленные ссылки на медиа для репорта/отзыва
- * @member {Array.<String>} media
- */
-InlineObject67.prototype['media'] = undefined;
+InlineObject67.prototype['suppliersId'] = undefined;
 
 
 

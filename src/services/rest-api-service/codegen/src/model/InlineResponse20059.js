@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineResponse20059 model module.
@@ -23,7 +21,6 @@ import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 class InlineResponse20059 {
     /**
      * Constructs a new <code>InlineResponse20059</code>.
-     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20059
      */
     constructor() { 
@@ -50,80 +47,29 @@ class InlineResponse20059 {
         if (data) {
             obj = obj || new InlineResponse20059();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('owner')) {
-                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
-            }
-            if (data.hasOwnProperty('bidderId')) {
-                obj['bidderId'] = ApiClient.convertToType(data['bidderId'], 'String');
-            }
-            if (data.hasOwnProperty('moderatorId')) {
-                obj['moderatorId'] = ApiClient.convertToType(data['moderatorId'], 'String');
-            }
-            if (data.hasOwnProperty('chatId')) {
-                obj['chatId'] = ApiClient.convertToType(data['chatId'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('monthlyProfit')) {
-                obj['monthlyProfit'] = ApiClient.convertToType(data['monthlyProfit'], 'Number');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('monthlyPureProfit')) {
-                obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
             }
-            if (data.hasOwnProperty('monthlyMultiplier')) {
-                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
             }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
-            }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
-            }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
-            }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
-            }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
-            }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
-            }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
-            }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -133,153 +79,52 @@ class InlineResponse20059 {
 }
 
 /**
- * GUID магазина на продажу.
- * @member {String} _id
- */
-InlineResponse20059.prototype['_id'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
- */
-InlineResponse20059.prototype['owner'] = undefined;
-
-/**
- * GUID покупателя магазина
- * @member {String} bidderId
- */
-InlineResponse20059.prototype['bidderId'] = undefined;
-
-/**
- * GUID модератора магазина
- * @member {String} moderatorId
- */
-InlineResponse20059.prototype['moderatorId'] = undefined;
-
-/**
- * GUID чата
- * @member {String} chatId
- */
-InlineResponse20059.prototype['chatId'] = undefined;
-
-/**
- * Имя магазина для продажи
- * @member {String} title
- */
-InlineResponse20059.prototype['title'] = undefined;
-
-/**
- * Статус магазина для продажи
- * @member {String} status
- */
-InlineResponse20059.prototype['status'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину
- * @member {Array.<String>} files
- */
-InlineResponse20059.prototype['files'] = undefined;
-
-/**
- * Стоимость магазина
+ * Цена за каждое предложение.
  * @member {Number} price
  */
 InlineResponse20059.prototype['price'] = undefined;
 
 /**
- * Ежемесячная прибыль
- * @member {Number} monthlyProfit
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20059.prototype['monthlyProfit'] = undefined;
+InlineResponse20059.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * Ежемесячная чистая прибыль
- * @member {Number} monthlyPureProfit
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20059.prototype['monthlyPureProfit'] = undefined;
+InlineResponse20059.prototype['platformMargin'] = undefined;
 
 /**
- * Ежемесячный множитель
- * @member {Number} monthlyMultiplier
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineResponse20059.prototype['monthlyMultiplier'] = undefined;
+InlineResponse20059.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
  */
-InlineResponse20059.prototype['statistics'] = undefined;
+InlineResponse20059.prototype['supervisorFee'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * Сумма.
+ * @member {Number} unitCost
  */
-InlineResponse20059.prototype['businessStartDate'] = undefined;
+InlineResponse20059.prototype['unitCost'] = undefined;
 
 /**
- * Детали магазина
- * @member {String} shopDetails
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
  */
-InlineResponse20059.prototype['shopDetails'] = undefined;
+InlineResponse20059.prototype['maxAmountOfProposals'] = undefined;
 
 /**
- * Ссылка магазина
- * @member {String} shopLink
+ * Итого.
+ * @member {Number} totalCost
  */
-InlineResponse20059.prototype['shopLink'] = undefined;
-
-/**
- * Массив активов
- * @member {Array.<String>} shopAssets
- */
-InlineResponse20059.prototype['shopAssets'] = undefined;
-
-/**
- * Массив возможностей
- * @member {Array.<String>} opportunities
- */
-InlineResponse20059.prototype['opportunities'] = undefined;
-
-/**
- * Массив рисков
- * @member {Array.<String>} risks
- */
-InlineResponse20059.prototype['risks'] = undefined;
-
-/**
- * Массив требуемых навыков
- * @member {Array.<String>} requiredSkills
- */
-InlineResponse20059.prototype['requiredSkills'] = undefined;
-
-/**
- * Поддержка продавца включает
- * @member {Array.<String>} sellIncludes
- */
-InlineResponse20059.prototype['sellIncludes'] = undefined;
-
-/**
- * Причины продажи
- * @member {Array.<String>} reasonForSale
- */
-InlineResponse20059.prototype['reasonForSale'] = undefined;
-
-/**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
- */
-InlineResponse20059.prototype['additionalInfo'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20059.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20059.prototype['updatedAt'] = undefined;
+InlineResponse20059.prototype['totalCost'] = undefined;
 
 
 

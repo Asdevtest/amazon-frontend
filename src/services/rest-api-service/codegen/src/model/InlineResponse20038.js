@@ -12,7 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import InlineResponse20038Finances from './InlineResponse20038Finances';
+import InlineResponse20038Orders from './InlineResponse20038Orders';
+import InlineResponse20038PendingOrders from './InlineResponse20038PendingOrders';
+import InlineResponse20038Products from './InlineResponse20038Products';
 
 /**
  * The InlineResponse20038 model module.
@@ -48,56 +51,17 @@ class InlineResponse20038 {
         if (data) {
             obj = obj || new InlineResponse20038();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20038Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20038Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20038PendingOrders.constructFromObject(data['pendingOrders']);
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
-            }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [Object]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('suppliers')) {
-                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusSuppliers]);
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -107,106 +71,24 @@ class InlineResponse20038 {
 }
 
 /**
- * GUID идеи
- * @member {String} _id
+ * @member {module:model/InlineResponse20038Products} products
  */
-InlineResponse20038.prototype['_id'] = undefined;
+InlineResponse20038.prototype['products'] = undefined;
 
 /**
- * Название идеи
- * @member {String} title
+ * @member {module:model/InlineResponse20038Orders} orders
  */
-InlineResponse20038.prototype['title'] = undefined;
+InlineResponse20038.prototype['orders'] = undefined;
 
 /**
- * Статус идеи
- * @member {Number} status
+ * @member {module:model/InlineResponse20038PendingOrders} pendingOrders
  */
-InlineResponse20038.prototype['status'] = undefined;
+InlineResponse20038.prototype['pendingOrders'] = undefined;
 
 /**
- * Image URL
- * @member {Array.<Object>} media
+ * @member {module:model/InlineResponse20038Finances} finances
  */
-InlineResponse20038.prototype['media'] = undefined;
-
-/**
- * Комментарий к идее
- * @member {String} comments
- */
-InlineResponse20038.prototype['comments'] = undefined;
-
-/**
- * Назавние продукта
- * @member {String} productName
- */
-InlineResponse20038.prototype['productName'] = undefined;
-
-/**
- * Ссылка на продукт, если есть
- * @member {Array.<Object>} productLinks
- */
-InlineResponse20038.prototype['productLinks'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineResponse20038.prototype['criteria'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineResponse20038.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineResponse20038.prototype['price'] = undefined;
-
-/**
- * Ширина, см
- * @member {Number} width
- */
-InlineResponse20038.prototype['width'] = undefined;
-
-/**
- * Высота, см
- * @member {Number} height
- */
-InlineResponse20038.prototype['height'] = undefined;
-
-/**
- * Длина, см
- * @member {Number} length
- */
-InlineResponse20038.prototype['length'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20038.prototype['createdAt'] = undefined;
-
-/**
- * Дата последнего обновления
- * @member {Date} updatedAt
- */
-InlineResponse20038.prototype['updatedAt'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} suppliers
- */
-InlineResponse20038.prototype['suppliers'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineResponse20038.prototype['productId'] = undefined;
+InlineResponse20038.prototype['finances'] = undefined;
 
 
 

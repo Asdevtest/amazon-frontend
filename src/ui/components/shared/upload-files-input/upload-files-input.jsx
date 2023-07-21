@@ -154,41 +154,6 @@ export const UploadFilesInput = observer(props => {
   return (
     SettingsModel.languageTag && (
       <div>
-        {/* {!withoutLinks ? ( */}
-        {/*   <Field */}
-        {/*     tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])} */}
-        {/*     label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])} */}
-        {/*     error={linkInputError && t(TranslationKey['Invalid link!'])} */}
-        {/*     containerClasses={cx(сontainerStyles)} */}
-        {/*     inputComponent={ */}
-        {/*       <div className={classNames.amazonLinkWrapper}> */}
-        {/*         <Input */}
-        {/*           disabled={disabled} */}
-        {/*           placeholder={t(TranslationKey.Link)} */}
-        {/*           classes={{ root: classNames.loadImageInput, input: classNames.inputColor }} */}
-        {/*           value={linkInput} */}
-        {/*           onChange={e => onChangeLinkInput(e.target.value)} */}
-        {/*           onPaste={onPasteFiles} */}
-        {/*         /> */}
-
-        {/*         <Button */}
-        {/*           disableElevation */}
-        {/*           tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])} */}
-        {/*           disabled={linkInput === '' || images?.length >= maxNumber} */}
-        {/*           className={classNames.loadBtn} */}
-        {/*           variant="contained" */}
-        {/*           color="primary" */}
-        {/*           onClick={() => onClickLoadBtn()} */}
-        {/*         > */}
-        {/*           {t(TranslationKey.Add)} */}
-        {/*         </Button> */}
-        {/*       </div> */}
-        {/*     } */}
-        {/*   /> */}
-        {/* ) : ( */}
-        {/*   <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography> */}
-        {/* )} */}
-
         <ImageUploading
           multiple
           acceptType={acceptType}
@@ -275,19 +240,6 @@ export const UploadFilesInput = observer(props => {
                     <input className={classNames.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
                   </button>
                 </div>
-                {/* <button */}
-                {/*   disabled={disabled} */}
-                {/*   className={cx(classNames.dragAndDropBtn, { */}
-                {/*   [classNames.dragingOnDropBtn]: isDragging, */}
-                {/*   [classNames.minimizedDragAndDropBtn]: minimized */}
-                {/* })} */}
-                {/*   style={dragAndDropBtnHeight && { height: dragAndDropBtnHeight }} */}
-                {/*   onClick={onImageUpload} */}
-                {/*   {...dragProps} */}
-                {/* > */}
-                {/*   {t(TranslationKey["Click or Drop here"])} */}
-                {/*   <input className={classNames.pasteInput} defaultValue={""} onPaste={onPasteFiles} /> */}
-                {/* </button> */}
 
                 {!isNotShowActionsBtns && (
                   <div className={classNames.actionBtnsWrapper}>

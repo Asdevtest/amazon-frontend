@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ## apiV1GeneralTagsGet
 
-> [InlineResponse20036] apiV1GeneralTagsGet(opts)
+> [InlineResponse20043] apiV1GeneralTagsGet(opts)
 
 Получить теги
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20036]**](InlineResponse20036.md)
+[**[InlineResponse20043]**](InlineResponse20043.md)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GeneralApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject51() // InlineObject51 | 
+  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
 };
 apiInstance.apiV1GeneralTagsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -158,7 +158,7 @@ apiInstance.apiV1GeneralTagsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject51**](InlineObject51.md)|  | [optional] 
+ **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
 
 ### Return type
 

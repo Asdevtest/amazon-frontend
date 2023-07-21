@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | 
-**skus** | **[String]** |  | 
+**profileId** | **String** | id профайла | 
 
 

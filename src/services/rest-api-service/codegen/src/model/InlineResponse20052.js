@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20052Failed from './InlineResponse20052Failed';
 
 /**
  * The InlineResponse20052 model module.
@@ -47,29 +48,8 @@ class InlineResponse20052 {
         if (data) {
             obj = obj || new InlineResponse20052();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
-            }
-            if (data.hasOwnProperty('platformMargin')) {
-                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
-            }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFee')) {
-                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
-            }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
-            }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20052Failed]);
             }
         }
         return obj;
@@ -79,52 +59,9 @@ class InlineResponse20052 {
 }
 
 /**
- * Цена за каждое предложение.
- * @member {Number} price
+ * @member {Array.<module:model/InlineResponse20052Failed>} failed
  */
-InlineResponse20052.prototype['price'] = undefined;
-
-/**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
- */
-InlineResponse20052.prototype['requestPlatformMarginInPercent'] = undefined;
-
-/**
- * Услуги платформы.
- * @member {Number} platformMargin
- */
-InlineResponse20052.prototype['platformMargin'] = undefined;
-
-/**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
- */
-InlineResponse20052.prototype['requestSupervisorFeeInPercent'] = undefined;
-
-/**
- * Услуги супервайзера.
- * @member {Number} supervisorFee
- */
-InlineResponse20052.prototype['supervisorFee'] = undefined;
-
-/**
- * Сумма.
- * @member {Number} unitCost
- */
-InlineResponse20052.prototype['unitCost'] = undefined;
-
-/**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
- */
-InlineResponse20052.prototype['maxAmountOfProposals'] = undefined;
-
-/**
- * Итого.
- * @member {Number} totalCost
- */
-InlineResponse20052.prototype['totalCost'] = undefined;
+InlineResponse20052.prototype['failed'] = undefined;
 
 
 

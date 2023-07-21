@@ -22,10 +22,11 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
+     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor() { 
+    constructor(priority) { 
         
-        InlineObject110.initialize(this);
+        InlineObject110.initialize(this, priority);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, priority) { 
+        obj['priority'] = priority;
     }
 
     /**
@@ -47,26 +49,11 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -76,46 +63,16 @@ class InlineObject110 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * Выставить приоритет задачи
+ * @member {Number} priority
  */
-InlineObject110.prototype['name'] = undefined;
+InlineObject110.prototype['priority'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Reason of high priority
+ * @member {String} reason
  */
-InlineObject110.prototype['country'] = undefined;
-
-/**
- * Индекс. 5 цифр.
- * @member {String} zipCode
- */
-InlineObject110.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject110.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject110.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject110.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject110.prototype['fontColor'] = undefined;
+InlineObject110.prototype['reason'] = undefined;
 
 
 

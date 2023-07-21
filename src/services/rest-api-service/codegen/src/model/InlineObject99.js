@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject99
      */
     constructor() { 
@@ -48,14 +47,20 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -65,22 +70,34 @@ class InlineObject99 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject99.prototype['name'] = undefined;
+InlineObject99.prototype['commentByClient'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineObject99.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject99.prototype['commentByPerformer'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineObject99.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject99.prototype['fileLink'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
+ */
+InlineObject99.prototype['proposalId'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} requestId
+ */
+InlineObject99.prototype['requestId'] = undefined;
 
 
 

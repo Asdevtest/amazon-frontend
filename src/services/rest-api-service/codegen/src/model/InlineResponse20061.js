@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20061Rows from './InlineResponse20061Rows';
 
 /**
  * The InlineResponse20061 model module.
@@ -22,12 +23,10 @@ class InlineResponse20061 {
     /**
      * Constructs a new <code>InlineResponse20061</code>.
      * @alias module:model/InlineResponse20061
-     * @param _id {String} Гуид магазина
-     * @param name {String} Название магазина
      */
-    constructor(_id, name) { 
+    constructor() { 
         
-        InlineResponse20061.initialize(this, _id, name);
+        InlineResponse20061.initialize(this);
     }
 
     /**
@@ -35,9 +34,7 @@ class InlineResponse20061 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +48,11 @@ class InlineResponse20061 {
         if (data) {
             obj = obj || new InlineResponse20061();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20061Rows]);
             }
         }
         return obj;
@@ -65,16 +62,15 @@ class InlineResponse20061 {
 }
 
 /**
- * Гуид магазина
- * @member {String} _id
+ * @member {Number} count
  */
-InlineResponse20061.prototype['_id'] = undefined;
+InlineResponse20061.prototype['count'] = undefined;
 
 /**
- * Название магазина
- * @member {String} name
+ * Массив заявок.
+ * @member {Array.<module:model/InlineResponse20061Rows>} rows
  */
-InlineResponse20061.prototype['name'] = undefined;
+InlineResponse20061.prototype['rows'] = undefined;
 
 
 

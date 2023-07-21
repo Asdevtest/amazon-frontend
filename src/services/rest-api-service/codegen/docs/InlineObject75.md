@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**approvedByMaster** | **Boolean** |  | 
+**text** | **String** | текст отзыва/репорта | 
+**media** | **[String]** | Прикрепленные ссылки на медиа для репорта/отзыва | [optional] 
 
 

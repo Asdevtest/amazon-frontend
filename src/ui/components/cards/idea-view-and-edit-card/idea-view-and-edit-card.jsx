@@ -37,7 +37,7 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
 } from '@utils/checks'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList, objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -45,6 +45,7 @@ import { useClassNames } from './idea-view-and-edit-card.style'
 import { useHistory } from 'react-router-dom'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { IdeaProgressBar } from './progress-bar'
+import { SourceProduct } from './source-product'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -76,13 +77,8 @@ export const IdeaViewAndEditCard = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    const history = useHistory()
-    const isDisabledForAdmin = history.location.pathname === routsPathes.ADMIN_INVENTORY_PRODUCT
-
     const [linkLine, setLinkLine] = useState('')
-
     const [showFullCard, setShowFullCard] = useState(idea ? false : true)
-
     const [images, setImages] = useState([])
 
     const setShowFullCardByCurIdea = () => {
@@ -108,7 +104,6 @@ export const IdeaViewAndEditCard = observer(
 
     const sourceFormFields = {
       status: idea?.status,
-
       media: idea?.media?.length ? [...idea.media] : [],
       comments: idea?.comments || '',
       productName: idea?.productName || '',
@@ -116,11 +111,9 @@ export const IdeaViewAndEditCard = observer(
       criteria: idea?.criteria || '',
       quantity: idea?.quantity || '',
       price: idea?.price || '',
-
       width: idea?.width || '',
       height: idea?.height || '',
       length: idea?.length || '',
-
       suppliers: idea?.suppliers || [],
       _id: idea?._id || null,
     }
@@ -216,7 +209,7 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
-    const disabledSubmit = JSON.stringify(formFields) === JSON.stringify(sourceFormFields)
+    const disabledSubmit = objectDeepCompare(formFields, sourceFormFields)
 
     console.log('idea', idea)
     console.log('curIdea', curIdea)
@@ -225,115 +218,55 @@ export const IdeaViewAndEditCard = observer(
       <div className={classNames.root}>
         <div className={classNames.headerWrapper}>
           <IdeaProgressBar />
+
+          <SourceProduct />
           {/* <Typography variant="h5" className={classNames.ideaTitle}>
             {formFields.productName}
           </Typography> */}
-
-          {!inCreate && !checkIsSupervisor(UserRoleCodeMap[curUser.role]) && (
-            <div className={classNames.orderStatusWrapper}>
-              <Typography variant="h5" className={classNames.label}>
-                {t(TranslationKey['Idea Status']) + ':'}
-              </Typography>
-              <Field
-                tooltipInfoContent={t(TranslationKey['Current idea status'])}
-                value={formFields?.status}
-                containerClasses={classNames.fieldWrapper}
-                inputComponent={
-                  <Select
-                    variant="filled"
-                    value={formFields.status}
-                    disabled={isDisabledForAdmin}
-                    classes={{
-                      select: cx({
-                        [classNames.orange]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-
-                        [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-
-                        [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                      }),
-                    }}
-                    input={
-                      <Input
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <FiberManualRecordRoundedIcon
-                              className={cx({
-                                [classNames.orange]:
-                                  `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-
-                                [classNames.green]:
-                                  `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-
-                                [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                              })}
-                            />
-                          </InputAdornment>
-                        }
-                      />
-                    }
-                    onChange={onChangeField('status')}
-                  >
-                    {Object.keys({
-                      ...getObjectFilteredByKeyArrayWhiteList(ideaStatusByCode, allowOrderStatuses),
-                    }).map((statusCode, statusIndex) => (
-                      <MenuItem
-                        key={statusIndex}
-                        value={statusCode}
-                        className={cx(
-                          cx(classNames.stantartSelect, {
-                            [classNames.orange]: statusCode === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-
-                            [classNames.green]: statusCode === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-
-                            [classNames.red]: statusCode === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                            [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                          }),
-                        )}
-                        disabled={disabledOrderStatuses.includes(statusCode)}
-                      >
-                        {ideaStatusTranslate(ideaStatusByCode[statusCode])}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                }
-              />
-              <SaveIcon
-                className={cx(classNames.saveIcon, {
-                  [classNames.disableSelect]: `${idea?.status}` === `${formFields?.status}`,
-                })}
-                onClick={() => {
-                  if (`${idea?.status}` !== `${formFields?.status}`) {
-                    onClickSaveIcon(formFields)
-                  }
-                }}
-              />
-            </div>
-          )}
         </div>
 
         <div className={classNames.cardWrapper}>
-          <div className={classNames.cardBlockWrapper}>
-            <div className={!disableFields ? classNames.leftSubBlockWrapper : classNames.leftDisSubBlockWrapper}>
-              <div className={!disableFields ? classNames.photoWrapper : classNames.bigPhotoWrapper}>
-                <PhotoCarousel files={formFields?.media} />
-              </div>
-
-              {!disableFields ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}
+          <div className={classNames.mediaBlock}>
+            <div className={classNames.photoCarouselWrapper}>
+              <PhotoCarousel files={formFields?.media} />
             </div>
+
+            {!disableFields && (
+              <UploadFilesInput
+                fullWidth
+                dragAndDropBtnHeight={59}
+                images={images}
+                setImages={setImages}
+                maxNumber={50}
+              />
+            )}
           </div>
 
-          <Divider className={classNames.divider} orientation="vertical" />
-
-          <div className={classNames.cardBlockWrapper}>
+          <div className={classNames.commentsWrapper}>
             <Field
               multiline
               disabled={disableFields}
               className={classNames.commentField}
+              containerClasses={classNames.fieldContainerClasses}
               labelClasses={classNames.spanLabel}
               inputProps={{ maxLength: 255 }}
               minRows={6}
               maxRows={6}
-              label={t(TranslationKey.Comments)}
+              label={t(TranslationKey['Client commentary'])}
+              value={formFields.comments}
+              onChange={onChangeField('comments')}
+            />
+
+            <Field
+              multiline
+              disabled={disableFields}
+              label={t(TranslationKey['Buyer comments'])}
+              labelClasses={classNames.spanLabel}
+              className={classNames.commentField}
+              containerClasses={classNames.fieldContainerClasses}
+              inputProps={{ maxLength: 255 }}
+              minRows={6}
+              maxRows={6}
               value={formFields.comments}
               onChange={onChangeField('comments')}
             />
@@ -622,6 +555,14 @@ export const IdeaViewAndEditCard = observer(
 
         {idea && disableFields ? (
           <div className={classNames.existedIdeaBtnsWrapper}>
+            <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
+              <Typography className={classNames.tablePanelViewText}>
+                {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+              </Typography>
+
+              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+            </div>
+
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) ? (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
                 {checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
@@ -669,14 +610,6 @@ export const IdeaViewAndEditCard = observer(
             ) : (
               <div className={classNames.existedIdeaBtnsSubWrapper} />
             )}
-
-            <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-              <Typography className={classNames.tablePanelViewText}>
-                {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
-
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
-            </div>
           </div>
         ) : null}
       </div>

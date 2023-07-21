@@ -47,17 +47,11 @@ class InlineObject101 {
         if (data) {
             obj = obj || new InlineObject101();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('onCheckedIdeaId')) {
+                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('onFinishedIdeaId')) {
+                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
             }
         }
         return obj;
@@ -67,28 +61,18 @@ class InlineObject101 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Гуид идеи в статусе onChecked(10)
+ * @member {String} onCheckedIdeaId
+ * @default 'null'
  */
-InlineObject101.prototype['status'] = undefined;
+InlineObject101.prototype['onCheckedIdeaId'] = 'null';
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Гуид идеи в статусе finished(20)
+ * @member {String} onFinishedIdeaId
+ * @default 'null'
  */
-InlineObject101.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject101.prototype['storekeeperComment'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineObject101.prototype['priority'] = undefined;
+InlineObject101.prototype['onFinishedIdeaId'] = 'null';
 
 
 

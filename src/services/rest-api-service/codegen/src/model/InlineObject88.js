@@ -22,11 +22,10 @@ class InlineObject88 {
     /**
      * Constructs a new <code>InlineObject88</code>.
      * @alias module:model/InlineObject88
-     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor(timeoutAt) { 
+    constructor() { 
         
-        InlineObject88.initialize(this, timeoutAt);
+        InlineObject88.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject88 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, timeoutAt) { 
-        obj['timeoutAt'] = timeoutAt;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,14 @@ class InlineObject88 {
         if (data) {
             obj = obj || new InlineObject88();
 
-            if (data.hasOwnProperty('timeoutAt')) {
-                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -63,16 +64,22 @@ class InlineObject88 {
 }
 
 /**
- * Время закрытия заявки.
- * @member {Date} timeoutAt
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject88.prototype['timeoutAt'] = undefined;
+InlineObject88.prototype['rating'] = undefined;
 
 /**
- * Количество предложений. null без лимитов
- * @member {Number} maxAmountOfProposals
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject88.prototype['maxAmountOfProposals'] = undefined;
+InlineObject88.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject88.prototype['linksToMediaFiles'] = undefined;
 
 
 

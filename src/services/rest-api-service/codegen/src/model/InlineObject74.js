@@ -47,14 +47,14 @@ class InlineObject74 {
         if (data) {
             obj = obj || new InlineObject74();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
             }
         }
         return obj;
@@ -64,25 +64,58 @@ class InlineObject74 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineObject74.prototype['rating'] = undefined;
+InlineObject74.prototype['asin'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
+ * Причина
  * @member {String} reason
  */
 InlineObject74.prototype['reason'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Стратегия
+ * @member {module:model/InlineObject74.StrategyEnum} strategy
  */
-InlineObject74.prototype['linksToMediaFiles'] = undefined;
+InlineObject74.prototype['strategy'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>strategy</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject74['StrategyEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40"
+};
 
 
 

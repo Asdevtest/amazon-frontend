@@ -47,11 +47,11 @@ class InlineObject93 {
         if (data) {
             obj = obj || new InlineObject93();
 
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -61,18 +61,16 @@ class InlineObject93 {
 }
 
 /**
- * Гуид идеи в статусе onChecked(10)
- * @member {String} onCheckedIdeaId
- * @default 'null'
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject93.prototype['onCheckedIdeaId'] = 'null';
+InlineObject93.prototype['sourceFile'] = undefined;
 
 /**
- * Гуид идеи в статусе finished(20)
- * @member {String} onFinishedIdeaId
- * @default 'null'
+ * Комментарий к файлу
+ * @member {String} comments
  */
-InlineObject93.prototype['onFinishedIdeaId'] = 'null';
+InlineObject93.prototype['comments'] = undefined;
 
 
 

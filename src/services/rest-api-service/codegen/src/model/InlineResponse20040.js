@@ -12,9 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
+import InlineResponse20038Finances from './InlineResponse20038Finances';
+import InlineResponse20040Products from './InlineResponse20040Products';
 
 /**
  * The InlineResponse20040 model module.
@@ -50,17 +49,11 @@ class InlineResponse20040 {
         if (data) {
             obj = obj || new InlineResponse20040();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20040Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -70,24 +63,14 @@ class InlineResponse20040 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * @member {module:model/InlineResponse20040Products} products
  */
-InlineResponse20040.prototype['product'] = undefined;
+InlineResponse20040.prototype['products'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ * @member {module:model/InlineResponse20038Finances} finances
  */
-InlineResponse20040.prototype['idea'] = undefined;
-
-/**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
- */
-InlineResponse20040.prototype['createdBy'] = undefined;
-
-/**
- * @member {String} createdAt
- */
-InlineResponse20040.prototype['createdAt'] = undefined;
+InlineResponse20040.prototype['finances'] = undefined;
 
 
 

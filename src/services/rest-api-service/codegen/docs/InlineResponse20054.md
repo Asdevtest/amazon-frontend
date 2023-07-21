@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** |  | [optional] 
-**rows** | [**[InlineResponse20054Rows]**](InlineResponse20054Rows.md) | Массив заявок. | [optional] 
+**productId** | **String** |  | [optional] 
+**shopIds** | **[String]** | Массив магазинов | [optional] 
 
 

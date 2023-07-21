@@ -112,8 +112,8 @@ export const OwnerGeneralRequestInfo = ({
 
               <AsinOrSkuLink
                 asin={request?.request.asin}
-                linkSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
-                missingSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
+                textStyles={cx(classNames.sectionText, classNames.linkSpan)}
+                missingValueTextStyles={cx(classNames.sectionText, classNames.linkSpan)}
               />
             </div>
             <div className={classNames.moreInformationSection}>

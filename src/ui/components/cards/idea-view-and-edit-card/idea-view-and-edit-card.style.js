@@ -12,17 +12,47 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cardWrapper: {
     width: '100%',
-    marginTop: '20px',
+    height: '360px',
+    overflow: 'hidden',
+    marginTop: '30px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  cardBlockWrapper: {
+    width: '887px',
 
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
-  cardBlockWrapper: {
-    width: '50%',
+
+  commentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    gap: '30px',
+    width: '543px',
   },
+
+  mediaBlock: {
+    width: '887px',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+
+  spanLabel: {
+    marginBottom: 0,
+  },
+
+  photoCarouselWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 343,
+  },
+
   photoWrapper: {
     width: '200px',
     display: 'flex',
@@ -37,9 +67,14 @@ export const useClassNames = makeStyles()(theme => ({
     height: 280,
     padding: '0 0 35px',
   },
+
   commentField: {
     height: '140px',
     width: '100%',
+  },
+
+  fieldContainerClasses: {
+    margin: 0,
   },
 
   leftSubBlockWrapper: {

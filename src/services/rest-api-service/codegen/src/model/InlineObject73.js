@@ -22,12 +22,11 @@ class InlineObject73 {
     /**
      * Constructs a new <code>InlineObject73</code>.
      * @alias module:model/InlineObject73
-     * @param parentProductId {String} Ключ родительского продукта
-     * @param childProductIds {Array.<String>} 
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor(parentProductId, childProductIds) { 
+    constructor(fileUrl) { 
         
-        InlineObject73.initialize(this, parentProductId, childProductIds);
+        InlineObject73.initialize(this, fileUrl);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject73 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, parentProductId, childProductIds) { 
-        obj['parentProductId'] = parentProductId;
-        obj['childProductIds'] = childProductIds;
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject73 {
         if (data) {
             obj = obj || new InlineObject73();
 
-            if (data.hasOwnProperty('parentProductId')) {
-                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
-            }
-            if (data.hasOwnProperty('childProductIds')) {
-                obj['childProductIds'] = ApiClient.convertToType(data['childProductIds'], ['String']);
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -65,15 +60,10 @@ class InlineObject73 {
 }
 
 /**
- * Ключ родительского продукта
- * @member {String} parentProductId
+ * uri полный путь до файла, для скачивания
+ * @member {String} fileUrl
  */
-InlineObject73.prototype['parentProductId'] = undefined;
-
-/**
- * @member {Array.<String>} childProductIds
- */
-InlineObject73.prototype['childProductIds'] = undefined;
+InlineObject73.prototype['fileUrl'] = undefined;
 
 
 

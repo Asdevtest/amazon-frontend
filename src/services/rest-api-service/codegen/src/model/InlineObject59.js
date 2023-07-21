@@ -22,10 +22,11 @@ class InlineObject59 {
     /**
      * Constructs a new <code>InlineObject59</code>.
      * @alias module:model/InlineObject59
+     * @param title {String} Тег
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject59.initialize(this);
+        InlineObject59.initialize(this, title);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject59 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('suppliersId')) {
-                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -58,10 +60,10 @@ class InlineObject59 {
 }
 
 /**
- * GUID поставщика, который нужно удалить в БД.
- * @member {String} suppliersId
+ * Тег
+ * @member {String} title
  */
-InlineObject59.prototype['suppliersId'] = undefined;
+InlineObject59.prototype['title'] = undefined;
 
 
 
