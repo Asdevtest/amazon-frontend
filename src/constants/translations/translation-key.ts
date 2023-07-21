@@ -2005,6 +2005,8 @@ export enum TranslationKey {
   'Photo track numbers' = 'Photo track numbers',
   'no photo track number' = 'no photo track number',
   'To pay partial' = 'To pay partial',
+  'By date' = 'By date',
+  'On page' = 'On page',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

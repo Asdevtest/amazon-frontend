@@ -987,7 +987,10 @@ export const NormalFieldMenuItem = React.memo(
           className={cx({
             [classNames.universalFilterWrapper]: !asBlock,
             [classNames.shopsDataWrapperBlocked]: asBlock,
-            [classNames.fullName]: columnKey === columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+            [classNames.fullName]: [
+              columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+              columnnsKeys.client.INVENTORY_STATUS,
+            ].includes(columnKey),
           })}
         >
           <div className={classNames.universalFilterSearchInputWrapper}>
@@ -1013,18 +1016,21 @@ export const NormalFieldMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender.map((el, index) => (
-                      <div key={index} className={classNames.shop}>
-                        <Checkbox
-                          color="primary"
-                          checked={choosenItems.some(item => item === el)}
-                          onClick={() => onClickItem(el)}
-                        />
-                        <div className={classNames.shopName}>
-                          {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                        </div>
-                      </div>
-                    ))}
+                    {itemsForRender.map(
+                      (el, index) =>
+                        el && (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={choosenItems.some(item => item === el)}
+                              onClick={() => onClickItem(el)}
+                            />
+                            <div className={classNames.shopName}>
+                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
+                            </div>
+                          </div>
+                        ),
+                    )}
                   </>
                 ) : (
                   <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -1913,6 +1919,7 @@ export const NumberFieldMenuItem = React.memo(
           'ideasOnCheck',
           'ideasClosed',
           'ideasVerified',
+          'fbaamount',
         ]
         return whiteList.includes(field)
       }, [field])

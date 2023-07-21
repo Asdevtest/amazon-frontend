@@ -32,31 +32,38 @@ import { useReactToPrint } from 'react-to-print'
 import { withStyles } from 'tss-react/mui'
 
 import { imageTypes } from '@constants/configs/image-types'
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-import { mapUserRoleEnumToKey, UserRole, UserRolePrettyMap } from '@constants/keys/user-roles'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { RequestStatus } from '@constants/requests/request-status'
-import { BoxStatus } from '@constants/statuses/box-status'
-import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
-import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { UiTheme } from '@constants/theme/themes'
 import {
   getConversion,
   getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { tableProductViewMode } from '@constants/keys/table-product-view'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { mapUserRoleEnumToKey, UserRole, UserRolePrettyMap } from '@constants/keys/user-roles'
+import { orderPriority } from '@constants/orders/order-priority'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { requestPriority } from '@constants/requests/request-priority'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
+import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -72,7 +79,6 @@ import {
 } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
-import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 import {
   calcFinalWeightForBox,
@@ -106,12 +112,6 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-
-import { SettingsModel } from '@models/settings-model'
-import { tableProductViewMode } from '@constants/keys/table-product-view'
-import { requestPriority } from '@constants/requests/request-priority'
-import { orderPriority } from '@constants/orders/order-priority'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1583,24 +1583,22 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textAlignStart }) => (
-      <Tooltip title={text}>
-        <div
-          className={cx(classNames.multilineTextHeaderWrapper, {
-            [classNames.multilineTextAlignStartWrapper]: textAlignStart,
-          })}
-        >
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter }) => (
+      <div
+        className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
+      >
+        <Tooltip title={text}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
-          {component}
-          {withIcon || isShowIconOnHover || isFilterActive ? (
-            <FilterAltOutlinedIcon
-              className={cx(classNames.headerIcon, {
-                [classNames.headerIconBlue]: isFilterActive,
-              })}
-            />
-          ) : null}
-        </div>
-      </Tooltip>
+        </Tooltip>
+        {component}
+        {withIcon || isShowIconOnHover || isFilterActive ? (
+          <FilterAltOutlinedIcon
+            className={cx(classNames.headerIcon, {
+              [classNames.headerIconBlue]: isFilterActive,
+            })}
+          />
+        ) : null}
+      </div>
     ),
     styles,
   ),

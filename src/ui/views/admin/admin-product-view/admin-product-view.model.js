@@ -76,14 +76,9 @@ export class AdminProductViewModel {
 
     runInAction(() => {
       this.history = history
-      this.productId = url.searchParams.get('product-id')
+      this.productId = url.searchParams.get('productId')
     })
 
-    // if (location.state) {
-    //   runInAction(() => {
-    //     this.inInventory = location.state.inInventory
-    //   })
-    // }
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
