@@ -4,11 +4,16 @@ import Typography from '@mui/material/Typography'
 import React from 'react'
 
 import { useClassNames } from './circular-progress-with-label.style'
+import { cx } from '@emotion/css'
 
-export const CircularProgressWithLabel = ({ value, title }) => {
+export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) => {
   const { classes: classNames } = useClassNames()
   return (
-    <div className={classNames.mainWrapper}>
+    <div
+      className={cx(classNames.mainWrapper, {
+        [wrapperClassName]: !!wrapperClassName,
+      })}
+    >
       <div className={classNames.progressContainer}>
         {title ? (
           <Typography variant="h4" className={classNames.standartText}>
