@@ -17,20 +17,20 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject100 from '../model/InlineObject100';
 import InlineObject101 from '../model/InlineObject101';
-import InlineObject102 from '../model/InlineObject102';
-import InlineObject103 from '../model/InlineObject103';
 import InlineObject131 from '../model/InlineObject131';
 import InlineObject132 from '../model/InlineObject132';
 import InlineObject5 from '../model/InlineObject5';
+import InlineObject94 from '../model/InlineObject94';
+import InlineObject95 from '../model/InlineObject95';
 import InlineObject96 from '../model/InlineObject96';
 import InlineObject97 from '../model/InlineObject97';
 import InlineObject98 from '../model/InlineObject98';
 import InlineObject99 from '../model/InlineObject99';
+import InlineResponse20059 from '../model/InlineResponse20059';
 import InlineResponse20060 from '../model/InlineResponse20060';
 import InlineResponse20061 from '../model/InlineResponse20061';
 import InlineResponse20062 from '../model/InlineResponse20062';
 import InlineResponse20063 from '../model/InlineResponse20063';
-import InlineResponse20064 from '../model/InlineResponse20064';
 import InlineResponse20079 from '../model/InlineResponse20079';
 import InlineResponse20080 from '../model/InlineResponse20080';
 import InlineResponse20112 from '../model/InlineResponse20112';
@@ -65,7 +65,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20063>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20062>} and HTTP response
      */
     apiV1RequestsByProductLightGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -89,7 +89,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20063];
+      let returnType = [InlineResponse20062];
       return this.apiClient.callApi(
         '/api/v1/requests/by_product/light/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -103,7 +103,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20063>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20062>}
      */
     apiV1RequestsByProductLightGuidGet(guid, opts) {
       return this.apiV1RequestsByProductLightGuidGetWithHttpInfo(guid, opts)
@@ -119,7 +119,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20060} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20059} and HTTP response
      */
     apiV1RequestsCalculateRequestCostGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -143,7 +143,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20060;
+      let returnType = InlineResponse20059;
       return this.apiClient.callApi(
         '/api/v1/requests/calculate_request_cost/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -157,7 +157,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20060}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20059}
      */
     apiV1RequestsCalculateRequestCostGuidGet(guid, opts) {
       return this.apiV1RequestsCalculateRequestCostGuidGetWithHttpInfo(guid, opts)
@@ -393,7 +393,7 @@ export default class RequestsApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20062} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20061} and HTTP response
      */
     apiV1RequestsGetWithHttpInfo(kind, opts) {
       opts = opts || {};
@@ -424,7 +424,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20062;
+      let returnType = InlineResponse20061;
       return this.apiClient.callApi(
         '/api/v1/requests/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -445,7 +445,7 @@ export default class RequestsApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20062}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20061}
      */
     apiV1RequestsGet(kind, opts) {
       return this.apiV1RequestsGetWithHttpInfo(kind, opts)
@@ -462,7 +462,7 @@ export default class RequestsApi {
      * @param {Number} typeTask Тип задачи заявки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20061>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20060>} and HTTP response
      */
     apiV1RequestsGetExistingRequestsTypeTaskGuidGetWithHttpInfo(guid, typeTask, opts) {
       opts = opts || {};
@@ -491,7 +491,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20061];
+      let returnType = [InlineResponse20060];
       return this.apiClient.callApi(
         '/api/v1/requests/get_existing_requests/{typeTask}/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -506,7 +506,7 @@ export default class RequestsApi {
      * @param {Number} typeTask Тип задачи заявки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20061>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20060>}
      */
     apiV1RequestsGetExistingRequestsTypeTaskGuidGet(guid, typeTask, opts) {
       return this.apiV1RequestsGetExistingRequestsTypeTaskGuidGetWithHttpInfo(guid, typeTask, opts)
@@ -522,7 +522,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject100} opts.body 
+     * @param {module:model/InlineObject98} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidAbortPatchWithHttpInfo(guid, opts) {
@@ -561,7 +561,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject100} opts.body 
+     * @param {module:model/InlineObject98} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidAbortPatch(guid, opts) {
@@ -686,7 +686,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject97} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20112} and HTTP response
      */
     apiV1RequestsGuidPickupPostWithHttpInfo(guid, opts) {
@@ -725,7 +725,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject97} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20112}
      */
     apiV1RequestsGuidPickupPost(guid, opts) {
@@ -742,7 +742,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject96} opts.body 
+     * @param {module:model/InlineObject94} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidToPublishPatchWithHttpInfo(guid, opts) {
@@ -781,7 +781,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject96} opts.body 
+     * @param {module:model/InlineObject94} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidToPublishPatch(guid, opts) {
@@ -798,7 +798,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject98} opts.body 
+     * @param {module:model/InlineObject96} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidUpdateDeadlinePatchWithHttpInfo(guid, opts) {
@@ -837,7 +837,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject98} opts.body 
+     * @param {module:model/InlineObject96} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidUpdateDeadlinePatch(guid, opts) {
@@ -853,7 +853,7 @@ export default class RequestsApi {
      * ## Связать заявку с идеей
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject103} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsIdeasGuidPatchWithHttpInfo(opts) {
@@ -886,7 +886,7 @@ export default class RequestsApi {
      * ## Связать заявку с идеей
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject103} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsIdeasGuidPatch(opts) {
@@ -957,7 +957,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20064>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20063>} and HTTP response
      */
     apiV1RequestsMediaGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -981,7 +981,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20064];
+      let returnType = [InlineResponse20063];
       return this.apiClient.callApi(
         '/api/v1/requests/media/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -995,7 +995,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20064>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20063>}
      */
     apiV1RequestsMediaGuidGet(guid, opts) {
       return this.apiV1RequestsMediaGuidGetWithHttpInfo(guid, opts)
@@ -1011,7 +1011,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject101} opts.body 
+     * @param {module:model/InlineObject99} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsMediaGuidPatchWithHttpInfo(guid, opts) {
@@ -1050,7 +1050,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject101} opts.body 
+     * @param {module:model/InlineObject99} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsMediaGuidPatch(guid, opts) {
@@ -1115,7 +1115,7 @@ export default class RequestsApi {
      * ## Создать медиа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject102} opts.body 
+     * @param {module:model/InlineObject100} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20113} and HTTP response
      */
     apiV1RequestsMediaPostWithHttpInfo(opts) {
@@ -1148,7 +1148,7 @@ export default class RequestsApi {
      * ## Создать медиа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject102} opts.body 
+     * @param {module:model/InlineObject100} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20113}
      */
     apiV1RequestsMediaPost(opts) {
@@ -1164,7 +1164,7 @@ export default class RequestsApi {
      * # Изменить uploadedToListing
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject97} opts.body 
+     * @param {module:model/InlineObject95} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsUploadedToListingPatchWithHttpInfo(opts) {
@@ -1197,7 +1197,7 @@ export default class RequestsApi {
      * # Изменить uploadedToListing
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject97} opts.body 
+     * @param {module:model/InlineObject95} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsUploadedToListingPatch(opts) {

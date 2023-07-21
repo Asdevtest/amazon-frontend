@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20062Rows from './InlineResponse20062Rows';
 
 /**
  * The InlineResponse20062 model module.
@@ -48,11 +47,20 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20062Rows]);
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
         }
         return obj;
@@ -62,15 +70,34 @@ class InlineResponse20062 {
 }
 
 /**
- * @member {Number} count
+ * GUID заявки
+ * @member {String} _id
  */
-InlineResponse20062.prototype['count'] = undefined;
+InlineResponse20062.prototype['_id'] = undefined;
 
 /**
- * Массив заявок.
- * @member {Array.<module:model/InlineResponse20062Rows>} rows
+ * Номер заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20062.prototype['rows'] = undefined;
+InlineResponse20062.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Тип задачи заявки
+ * @member {Number} typeTask
+ */
+InlineResponse20062.prototype['typeTask'] = undefined;
+
+/**
+ * Название заявки
+ * @member {String} title
+ */
+InlineResponse20062.prototype['title'] = undefined;
+
+/**
+ * Статус заявки
+ * @member {String} status
+ */
+InlineResponse20062.prototype['status'] = undefined;
 
 
 

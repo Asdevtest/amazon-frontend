@@ -12,10 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20031Finances from './InlineResponse20031Finances';
-import InlineResponse20031Orders from './InlineResponse20031Orders';
-import InlineResponse20031PendingOrders from './InlineResponse20031PendingOrders';
-import InlineResponse20031Products from './InlineResponse20031Products';
 
 /**
  * The InlineResponse20031 model module.
@@ -51,17 +47,23 @@ class InlineResponse20031 {
         if (data) {
             obj = obj || new InlineResponse20031();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20031Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20031Orders.constructFromObject(data['orders']);
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('pendingOrders')) {
-                obj['pendingOrders'] = InlineResponse20031PendingOrders.constructFromObject(data['pendingOrders']);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20031Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -71,24 +73,39 @@ class InlineResponse20031 {
 }
 
 /**
- * @member {module:model/InlineResponse20031Products} products
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20031.prototype['products'] = undefined;
+InlineResponse20031.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20031Orders} orders
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20031.prototype['orders'] = undefined;
+InlineResponse20031.prototype['asin'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20031PendingOrders} pendingOrders
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20031.prototype['pendingOrders'] = undefined;
+InlineResponse20031.prototype['shopIds'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20031Finances} finances
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
  */
-InlineResponse20031.prototype['finances'] = undefined;
+InlineResponse20031.prototype['amazonTitle'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20031.prototype['skusByClient'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20031.prototype['images'] = undefined;
 
 
 

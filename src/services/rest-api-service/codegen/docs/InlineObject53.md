@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **asin** | **String** | ASIN продукта | 
 **skusByClient** | **[String]** |  | [optional] 
 **currentSupplierId** | **String** | GUID поставщика, если передать строку \&quot;clear\&quot; то поставщику будет сброшен (у байера и ресечера). | [optional] 
+**parentProductId** | **String** | Гуид родительского продукта | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
 **bsr** | **Number** |  | [optional] 
