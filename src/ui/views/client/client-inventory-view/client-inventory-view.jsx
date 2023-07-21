@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, { useEffect, useState } from 'react'
@@ -39,6 +38,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -167,15 +167,10 @@ export const ClientInventoryViewRaw = props => {
                   disabled={!viewModel.selectedRowIds.length}
                   variant="outlined"
                   className={classNames.archiveAddBtn}
-                  sx={{
-                    '&.Mui-disabled': {
-                      background: 'none',
-                    },
-                  }}
                   onClick={viewModel.onClickTriggerArchOrResetProducts}
                 >
-                  {t(TranslationKey['Move to archive'])}
-                  {<DeleteIcon className={classNames.archiveIcon} />}
+                  {<ArchiveIcon />}
+                  {t(TranslationKey.Archiving)}
                 </Button>
 
                 <Button

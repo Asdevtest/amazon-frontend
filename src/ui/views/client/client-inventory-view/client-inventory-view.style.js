@@ -28,12 +28,15 @@ export const styles = theme => ({
   },
 
   archiveAddBtn: {
-    width: 230,
-    border: '1px solid #FF1616',
-    color: '#FF1616',
+    width: 172,
+    display: 'flex',
+    gap: 10,
+    border: '1px solid #D70D0D',
+    color: '#D70D0D',
+    transition: 'all 0.3s ease-in-out',
 
     '&:hover': {
-      border: '1px solid #FF1616',
+      border: '1px solid #D70D0D',
       opacity: 0.6,
     },
 
@@ -41,22 +44,19 @@ export const styles = theme => ({
       borderColor: '#FEB9B9',
       color: '#FEB9B9',
     },
+
+    '&.Mui-disabled': {
+      background: 'none',
+    },
   },
 
   row: {
-    // cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     cursor: 'pointer',
     transition: '0.3s ease',
   },
 
-  archiveIcon: {
-    marginLeft: '10px',
-  },
-
   openArchiveBtn: {
-    width: 230,
-    height: 40,
-
+    width: 172,
     color: theme.palette.primary.main,
   },
 
