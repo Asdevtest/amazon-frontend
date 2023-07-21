@@ -1682,6 +1682,7 @@ export const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    lineHeight: '16px',
   },
 
   batchTrackingWrapper: {
