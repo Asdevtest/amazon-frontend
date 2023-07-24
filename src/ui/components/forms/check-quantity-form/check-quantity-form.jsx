@@ -11,6 +11,7 @@ import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDo
 import { t } from '@utils/translations'
 
 import { useClassNames } from './check-quantity-form.style'
+import { cx } from '@emotion/css'
 
 export const CheckQuantityForm = ({
   title,
@@ -91,7 +92,7 @@ export const CheckQuantityForm = ({
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button variant="text" className={classNames.closeButton} onClick={onClose}>
+        <Button variant="text" className={cx(classNames.closeButton, classNames.button)} onClick={onClose}>
           {t(TranslationKey.No)}
         </Button>
       </div>
