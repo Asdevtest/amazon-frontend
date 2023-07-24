@@ -1,19 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import React, { useState } from 'react'
+
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import {
@@ -35,9 +38,6 @@ import {
 import { t } from '@utils/translations'
 
 import { useClassNames } from './select-fields.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const SelectFields = ({
   userInfo,

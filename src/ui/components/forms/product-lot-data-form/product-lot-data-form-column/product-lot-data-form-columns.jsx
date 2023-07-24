@@ -2,12 +2,12 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  WarehouseTariffDatesCell,
-  MultilineTextCell,
-  NormalActionBtnCell,
   BoxesAndQuantity,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
   StringListCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'

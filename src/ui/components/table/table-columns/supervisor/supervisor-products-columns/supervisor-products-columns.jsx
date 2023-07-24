@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { colorByProductStatus, ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
+import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -18,7 +20,6 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
-import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 export const supervisorProductsViewColumns = handlers => [
   {

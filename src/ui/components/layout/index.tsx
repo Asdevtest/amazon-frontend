@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useState } from 'react'
-
 import { useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'

@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -23,8 +22,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
+
+import { FreelanceModel } from './freelance.model'
 
 export const Freelance = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()

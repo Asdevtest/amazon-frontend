@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
@@ -24,8 +23,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 import { styles } from './buyer-pending-orders-view.style'
+
+import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
 export const BuyerPendingOrdersViewRaw = props => {
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history: props.history, location: props.location }))

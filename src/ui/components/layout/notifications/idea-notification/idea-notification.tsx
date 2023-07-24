@@ -1,8 +1,7 @@
-import { Avatar, Typography } from '@mui/material'
-
+import { format } from 'date-fns'
 import { FC } from 'react'
 
-import { format } from 'date-fns'
+import { Avatar, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { UiTheme } from '@constants/theme/themes'

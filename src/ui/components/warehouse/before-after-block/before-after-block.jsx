@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Avatar, Checkbox, Divider, Link, Paper, Tooltip, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import {
   getConversion,
@@ -20,13 +19,17 @@ import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { Text } from '@components/shared/text'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { BoxArrow } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import {
   checkAndMakeAbsoluteUrl,
@@ -36,13 +39,12 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
 import { useClassNames } from './before-after-block.style'
+
+import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
+
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const Box = observer(
   ({

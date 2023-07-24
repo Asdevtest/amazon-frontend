@@ -1,12 +1,11 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Chip, IconButton, Link, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { operationTypes } from '@constants/keys/operation-types'

@@ -1,12 +1,12 @@
-import { Typography } from '@mui/material'
-
 import React, { FC, useState } from 'react'
 
+import { Typography } from '@mui/material'
+
 import {
+  TaskPriorityStatus,
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
   mapTaskPriorityStatusEnumToKey,
-  TaskPriorityStatus,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,10 +14,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.styles'
 
 import { t } from '@utils/translations'
-import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 interface EditTaskPriorityModalProps {
   data: {

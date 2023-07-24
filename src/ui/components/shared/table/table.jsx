@@ -1,12 +1,12 @@
-import { Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar, Typography } from '@mui/material'
-
-import React from 'react'
-
 import { Pagination } from '@material-ui/lab'
 import { observer } from 'mobx-react'
+import React from 'react'
+
+import { Table as MuiTable, Paper, TableBody, TableContainer, TableHead, Toolbar, Typography } from '@mui/material'
+
+import { useClassNames } from './table.style'
 
 import { TableToolbar } from './table-toolbar'
-import { useClassNames } from './table.style'
 
 export const Table = observer(
   ({

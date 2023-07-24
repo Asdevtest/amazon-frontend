@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { RegistrationForm } from '@components/forms/registration-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -14,8 +13,9 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { t } from '@utils/translations'
 import { disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail } from '@utils/validation'
 
-import { RegistrationViewModel } from './registration-view.model'
 import { styles } from './registration-view.style'
+
+import { RegistrationViewModel } from './registration-view.model'
 
 export const RegistrationViewRaw = props => {
   const { classes: classNames } = props

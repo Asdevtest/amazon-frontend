@@ -2,13 +2,13 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import React, { useEffect, useState } from 'react'
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
-
-import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

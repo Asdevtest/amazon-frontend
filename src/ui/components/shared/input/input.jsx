@@ -1,6 +1,6 @@
-import { InputBase } from '@mui/material'
-
 import { withStyles } from 'tss-react/mui'
+
+import { InputBase } from '@mui/material'
 
 import { styles, stylesWithIcon } from './input.style'
 

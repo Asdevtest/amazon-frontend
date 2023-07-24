@@ -1,12 +1,12 @@
-import { Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'

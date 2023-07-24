@@ -1,26 +1,25 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable no-unused-vars */
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
-import { Link, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
+import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
-
 import { NoDocumentIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
+import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './files-carousel.style'
+
 import { CustomSlider } from '../custom-slider'
 
 interface FilesCarouselProps {

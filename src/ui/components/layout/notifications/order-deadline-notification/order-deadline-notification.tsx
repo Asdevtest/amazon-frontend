@@ -1,8 +1,7 @@
-import { Avatar, Typography } from '@mui/material'
-
+import { format } from 'date-fns'
 import { FC } from 'react'
 
-import { format } from 'date-fns'
+import { Avatar, Typography } from '@mui/material'
 
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'

@@ -1,12 +1,11 @@
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Button, Checkbox, InputAdornment, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

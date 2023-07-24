@@ -1,11 +1,10 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
-import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,8 +17,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
 import { useClassNames } from './client-buy-shops-deals.style'
+
+import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
 
 export const ClientBuyShopsDeals = observer(() => {
   const { classes: classNames } = useClassNames()

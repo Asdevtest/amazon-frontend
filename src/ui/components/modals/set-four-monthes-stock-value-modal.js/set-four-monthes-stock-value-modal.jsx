@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Box, Container, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Box, Container, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

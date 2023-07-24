@@ -1,15 +1,18 @@
-import { useImageModalStyles } from '@components/modals/image-modal/image-modal.styles'
-import { Typography } from '@mui/material'
 import { cx } from '@emotion/css'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { Modal } from '@components/shared/modal'
 import { ReactNode, useEffect, useState } from 'react'
-import { Button } from '@components/shared/buttons/button'
+
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
-import { downloadFile, downloadFileByLink } from '@utils/upload-files'
+import { Typography } from '@mui/material'
+
+import { useImageModalStyles } from '@components/modals/image-modal/image-modal.styles'
+import { Button } from '@components/shared/buttons/button'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { Modal } from '@components/shared/modal'
+
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 export interface ImageObjectType {
   url: string

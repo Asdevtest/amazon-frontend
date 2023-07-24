@@ -1,6 +1,6 @@
-import { Box, Checkbox, FormControlLabel } from '@mui/material'
-
 import React, { FC, useEffect, useState } from 'react'
+
+import { Box, Checkbox, FormControlLabel } from '@mui/material'
 
 import { ProductModel } from '@models/product-model'
 

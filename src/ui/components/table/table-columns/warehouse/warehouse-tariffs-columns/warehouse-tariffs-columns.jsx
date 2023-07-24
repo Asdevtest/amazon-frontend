@@ -3,11 +3,11 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  EditOrRemoveIconBtnsCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
   ScrollingCell,
-  EditOrRemoveIconBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

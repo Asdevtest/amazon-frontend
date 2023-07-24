@@ -3,13 +3,13 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormalActionBtnCell,
   MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
   ScrollingCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
-  MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

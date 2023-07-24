@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material'
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,8 +12,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { t } from '@utils/translations'
 
-import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
 import { useClassNames } from './move-box-to-batch-form.style'
+
+import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
 
 export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, box, onSubmitCreateBatch }) => {
   const { classes: classNames } = useClassNames()

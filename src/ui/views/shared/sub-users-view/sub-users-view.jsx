@@ -1,10 +1,9 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
 import AddIcon from '@mui/icons-material/Add'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -26,8 +25,9 @@ import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SubUsersViewModel } from './sub-users-view.model'
 import { styles } from './sub-users-view.style'
+
+import { SubUsersViewModel } from './sub-users-view.model'
 
 export const SubUsersViewRaw = props => {
   const [viewModel] = useState(() => new SubUsersViewModel({ history: props.history }))

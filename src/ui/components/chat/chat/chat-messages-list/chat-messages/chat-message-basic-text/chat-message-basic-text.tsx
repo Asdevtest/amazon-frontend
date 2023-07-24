@@ -1,20 +1,19 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { FC, useEffect, useState } from 'react'
-
 import he from 'he'
 import { observer } from 'mobx-react'
+import React, { FC, useEffect, useState } from 'react'
 import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
+
+import { Typography } from '@mui/material'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 // import {Button} from '@components/buttons/button'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { ImagesTile } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
-import { UserLink } from '@components/user/user-link'
 import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
+import { UserLink } from '@components/user/user-link'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 

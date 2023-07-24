@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
+import React, { useEffect, useState } from 'react'
+
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Checkbox, Menu, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

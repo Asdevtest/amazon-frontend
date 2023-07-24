@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -14,14 +13,19 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -37,10 +41,6 @@ import {
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { orderPriority } from '@constants/orders/order-priority'
 
 export const BoxViewForm = observer(
   ({

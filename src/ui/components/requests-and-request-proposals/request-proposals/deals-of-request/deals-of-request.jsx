@@ -1,10 +1,10 @@
+import React, { useState } from 'react'
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Avatar, Typography, Rating } from '@mui/material'
+import { Avatar, Rating, Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
-
-import React, { useState } from 'react'
 
 import { RequestProposalStatusColor, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'

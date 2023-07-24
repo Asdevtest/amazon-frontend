@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getClientDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -21,8 +20,9 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ClientDashboardViewModel } from './client-dashboard-view.model'
 import { styles } from './client-dashboard-view.style'
+
+import { ClientDashboardViewModel } from './client-dashboard-view.model'
 
 export const ClientDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ClientDashboardViewModel({ history: props.history }))

@@ -1,9 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getWarehouseDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,8 +19,9 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { WarehouseDashboardViewModel } from './warehouse-dashboard-view.model'
 import { styles } from './warehouse-dashboard-view.style'
+
+import { WarehouseDashboardViewModel } from './warehouse-dashboard-view.model'
 
 export const WarehouseDashboardViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseDashboardViewModel({ history: props.history }))

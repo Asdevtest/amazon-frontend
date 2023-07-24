@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { Box, Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Box, Tabs } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,13 +14,15 @@ import { ITab } from '@components/shared/i-tab/i-tab'
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './product-wrapper.style'
+
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
 import { Listing } from '../listing'
 import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
+
 import { BottomCard } from './bottom-card'
-import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
 
 const tabsValues = {

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 
-import React, { useState, useEffect } from 'react'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

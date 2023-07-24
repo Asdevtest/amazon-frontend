@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { CircularProgress, Typography } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
-
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { CircularProgress, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

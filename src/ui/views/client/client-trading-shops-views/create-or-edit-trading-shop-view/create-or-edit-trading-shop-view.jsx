@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

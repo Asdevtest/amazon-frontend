@@ -1,9 +1,8 @@
-import { IconButton, Select, Typography, MenuItem } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
+import { IconButton, MenuItem, Select, Typography } from '@mui/material'
 
 import { HttpMethod } from '@constants/keys/http-method'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'

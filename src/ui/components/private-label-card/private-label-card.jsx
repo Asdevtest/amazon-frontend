@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+
 import { Divider, InputBase, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'

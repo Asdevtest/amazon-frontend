@@ -5,12 +5,12 @@ import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-st
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
   MultilineTextCell,
-  UserLinkCell,
+  MultilineTextHeaderCell,
   NormalActionBtnCell,
   ProductAsinCell,
   ShortDateCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

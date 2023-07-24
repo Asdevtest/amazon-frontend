@@ -1,8 +1,7 @@
-import { Typography, TableRow, TableCell, Select, MenuItem } from '@mui/material'
-
 import React, { useState } from 'react'
-
 import { withStyles } from 'tss-react/mui'
+
+import { MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
 
 import { Input } from '@components/shared/input'
 

@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import React from 'react'
 
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { Checkbox } from '@mui/material'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/orders/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -24,7 +25,6 @@ import {
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { Checkbox } from '@mui/material'
 
 export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
   const arr = [

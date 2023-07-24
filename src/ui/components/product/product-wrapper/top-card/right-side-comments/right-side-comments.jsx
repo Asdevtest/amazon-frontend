@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Box, Grid, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Box, Grid, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
@@ -23,9 +23,9 @@ import {
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
-import { ProductStatusButtons } from './product-status-buttons'
 import { useClassNames } from './right-side-comments.style'
-import { AlertShield } from '@components/shared/alert-shield'
+
+import { ProductStatusButtons } from './product-status-buttons'
 
 const withoutStatus = true
 

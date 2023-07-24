@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Typography } from '@mui/material'
 
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'

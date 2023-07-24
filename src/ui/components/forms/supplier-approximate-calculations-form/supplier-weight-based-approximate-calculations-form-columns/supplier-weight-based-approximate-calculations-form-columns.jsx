@@ -3,9 +3,9 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { WeightBasedApproximateCalculationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
-import { WeightBasedApproximateCalculationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 export const SupplierWeightBasedApproximateCalculationsFormColumns = destinationData => [
   {

@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { usePriorityFormStyles } from '@components/shared/priority-form/priority-form.styles'
-import { Field } from '@components/shared/field'
+
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { t } from '@utils/translations'
+
+import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { usePriorityFormStyles } from '@components/shared/priority-form/priority-form.styles'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
+
+import { t } from '@utils/translations'
 
 interface PriorityFormProps {
   currentPriority?: number

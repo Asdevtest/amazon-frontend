@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
+import React, { FC, useState } from 'react'
+
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
-
-import React, { FC, useState } from 'react'
 
 import { useClassNames } from './copy-value.style'
 

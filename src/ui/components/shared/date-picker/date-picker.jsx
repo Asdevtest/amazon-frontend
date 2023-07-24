@@ -1,15 +1,6 @@
 /* eslint-disable no-unused-vars */
 import DateFnsUtils from '@date-io/date-fns'
-import TextField from '@mui/material/TextField'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-// import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
-// import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
-import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-
-import { useEffect, useState } from 'react'
-
+import { cx } from '@emotion/css'
 import {
   KeyboardDatePicker,
   KeyboardDateTimePicker, // KeyboardTimePicker,
@@ -18,6 +9,15 @@ import {
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 import zhLocale from 'date-fns/locale/zh-CN'
+import { useEffect, useState } from 'react'
+
+import TextField from '@mui/material/TextField'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+// import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+// import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
+import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 import { UiTheme } from '@constants/theme/themes'
 import { LanguageKey } from '@constants/translations/language-key'
@@ -25,7 +25,6 @@ import { LanguageKey } from '@constants/translations/language-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './date-picker.style'
-import { cx } from '@emotion/css'
 
 const getLocalByLanguageTag = languageTag => {
   switch (languageTag) {

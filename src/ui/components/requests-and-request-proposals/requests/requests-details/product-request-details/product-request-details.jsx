@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Typography, Paper } from '@mui/material'
-
 import React from 'react'
+
+import { Paper, Typography } from '@mui/material'
 
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 

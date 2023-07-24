@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Menu, Typography } from '@mui/material'
-
+import { t } from 'i18n-js'
 import React, { useState } from 'react'
 
-import { t } from 'i18n-js'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { Menu, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -1,10 +1,9 @@
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,8 +12,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ClientTradingShopsViewModel } from './client-trading-shops-view.model'
 import { styles } from './client-trading-shops-view.style'
+
+import { ClientTradingShopsViewModel } from './client-trading-shops-view.model'
 
 export const ClientTradingShopsViewRaw = props => {
   const [viewModel] = useState(() => new ClientTradingShopsViewModel({ history: props.history }))

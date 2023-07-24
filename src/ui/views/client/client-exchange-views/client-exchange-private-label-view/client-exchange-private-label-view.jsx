@@ -1,9 +1,8 @@
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,8 +15,9 @@ import { Modal } from '@components/shared/modal'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-label-view.model'
 import { styles } from './client-exchange-private-label-view.style'
+
+import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-label-view.model'
 
 export const ClientExchangePrivateLabelViewRaw = props => {
   const [viewModel] = useState(() => new ClientExchangePrivateLabelViewModel({ history: props.history }))

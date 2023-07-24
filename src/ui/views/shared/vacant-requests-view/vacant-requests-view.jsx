@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { Component, useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Box, Typography } from '@mui/material'
-
-import React, { Component, useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import {
   freelanceRequestType,
@@ -28,6 +27,7 @@ import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
@@ -42,9 +42,9 @@ import {
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
-import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
+
+import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))

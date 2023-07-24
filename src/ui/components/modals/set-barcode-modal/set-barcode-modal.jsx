@@ -1,6 +1,6 @@
-import { Box, Container, Typography, Link } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Box, Container, Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

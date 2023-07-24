@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-
 import React, { FC } from 'react'
 
 import { useClassNames } from './chat-message-creator-accepted-proposal.style'
+
 import { LabelValueDoubleBlock } from './label-value-double-block'
 
 interface Props {}

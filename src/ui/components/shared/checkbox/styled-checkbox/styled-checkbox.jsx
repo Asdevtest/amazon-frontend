@@ -1,6 +1,6 @@
-import MuiCheckbox from '@mui/material/Checkbox'
-
 import { withStyles } from 'tss-react/mui'
+
+import MuiCheckbox from '@mui/material/Checkbox'
 
 import { styles } from './styled-checkbox.style'
 
