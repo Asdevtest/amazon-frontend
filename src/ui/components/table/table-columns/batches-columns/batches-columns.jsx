@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  Ayaya,
   BatchBoxesCell,
   BatchTrackingCell,
   MultilineTextCell,
@@ -34,7 +30,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
     width: 150,
   },
 
