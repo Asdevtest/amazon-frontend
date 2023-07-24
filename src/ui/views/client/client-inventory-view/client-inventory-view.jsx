@@ -169,8 +169,8 @@ export const ClientInventoryViewRaw = props => {
                   className={classNames.archiveAddBtn}
                   onClick={viewModel.onClickTriggerArchOrResetProducts}
                 >
+                  {t(TranslationKey['Move to archive'])}
                   {<ArchiveIcon />}
-                  {t(TranslationKey.Archiving)}
                 </Button>
 
                 <Button
