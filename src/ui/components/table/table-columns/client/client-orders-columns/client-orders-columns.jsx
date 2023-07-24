@@ -1,27 +1,26 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
+import { t } from 'i18n-js'
 import React from 'react'
 
-import { t } from 'i18n-js'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/orders/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  NormalActionBtnCell,
   OrderCell,
-  MultilineTextCell,
+  PriorityAndChinaDeliverCell,
+  RenderFieldValueCell,
+  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  DownloadAndCopyBtnsCell,
-  NormalActionBtnCell,
-  PriorityAndChinaDeliverCell,
-  SuccessActionBtnCell,
-  RenderFieldValueCell,
-  IconHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -77,7 +76,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
-    width: 290,
+    width: 390,
     sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,

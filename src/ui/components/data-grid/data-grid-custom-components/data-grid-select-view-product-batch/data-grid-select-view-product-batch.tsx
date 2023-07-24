@@ -1,8 +1,11 @@
-import { useClassNames } from './data-grid-select-view-product-batch.style'
 import { cx } from '@emotion/css'
 import { CSSProperties, FC } from 'react'
+
 import { tableProductViewMode } from '@constants/keys/table-product-view'
+
 import { AbbreviatedViewIcon, ExtendedViewIcon } from '@components/shared/svg-icons'
+
+import { useClassNames } from './data-grid-select-view-product-batch.style'
 
 interface DataGridSelectViewProductBatchProps {
   selectedViewMode: string

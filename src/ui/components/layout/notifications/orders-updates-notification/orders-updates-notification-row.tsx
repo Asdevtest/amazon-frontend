@@ -1,8 +1,7 @@
-import { Link, Typography } from '@mui/material'
-
+import { History } from 'history'
 import React, { FC } from 'react'
 
-import { History } from 'history'
+import { Link, Typography } from '@mui/material'
 
 import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
 import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'

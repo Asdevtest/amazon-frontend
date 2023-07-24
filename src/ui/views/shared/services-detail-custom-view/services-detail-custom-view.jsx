@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-undef */
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,8 +14,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 import { styles } from './services-detail-custom-view.style'
+
+import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 
 export const ServicesDetailCustomViewRaw = props => {
   const [viewModel] = useState(

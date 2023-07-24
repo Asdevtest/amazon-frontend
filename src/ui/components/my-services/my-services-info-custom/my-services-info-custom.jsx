@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography, Paper, Avatar, Rating, Divider } from '@mui/material'
-
 import React from 'react'
+
+import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
 
 import {
   freelanceRequestType,

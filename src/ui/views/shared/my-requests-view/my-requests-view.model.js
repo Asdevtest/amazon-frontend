@@ -6,6 +6,7 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -14,7 +15,6 @@ import { myRequestsViewColumns } from '@components/table/table-columns/overall/m
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
-import { GeneralModel } from '@models/general-model'
 
 const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
 

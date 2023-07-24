@@ -1,14 +1,14 @@
 import { cx } from '@emotion/css'
-import { Typography, Paper } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'

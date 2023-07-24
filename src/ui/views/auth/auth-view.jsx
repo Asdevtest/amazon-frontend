@@ -1,22 +1,22 @@
-import { Typography } from '@mui/material'
-
-import { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { AuthForm } from '@components/forms/auth-form'
 
 import { t } from '@utils/translations'
 
-import { AuthViewModel } from './auth-view.model'
 import { styles } from './auth-view.style'
+
+import { AuthViewModel } from './auth-view.model'
 
 export const AuthViewRaw = props => {
   const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))

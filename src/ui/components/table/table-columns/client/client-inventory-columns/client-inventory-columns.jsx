@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -27,7 +29,6 @@ import {
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 export const clientInventoryColumns = (
   barCodeHandlers,

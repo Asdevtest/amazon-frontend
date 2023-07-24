@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,8 +19,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientBoxesNotificationsViewModel } from './client-boxes-notifications-view.model'
 import { styles } from './client-boxes-notifications-view.style'
+
+import { ClientBoxesNotificationsViewModel } from './client-boxes-notifications-view.model'
 
 export const ClientBoxesNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientBoxesNotificationsViewModel({ history: props.history }))

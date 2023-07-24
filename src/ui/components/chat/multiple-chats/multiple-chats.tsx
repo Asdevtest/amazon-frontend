@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { forwardRef, ReactElement } from 'react'
-
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
+import React, { ReactElement, forwardRef } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,14 +13,16 @@ import { SettingsModel } from '@models/settings-model'
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
+import { NoSelectedChat } from '@components/shared/svg-icons'
+
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { useClassNames } from './multiple-chats.style'
 
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
 import { ChatsList } from '../chats-list'
-import { useClassNames } from './multiple-chats.style'
-import { NoSelectedChat } from '@components/shared/svg-icons'
 
 export interface IFile {
   data_url: string

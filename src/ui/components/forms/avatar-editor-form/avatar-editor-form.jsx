@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Typography, Avatar as AvatarMui } from '@mui/material'
-
 import React, { useState } from 'react'
-
 import Avatar from 'react-avatar-edit'
+
+import { Avatar as AvatarMui, Typography } from '@mui/material'
 
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'

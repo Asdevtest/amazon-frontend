@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-
 import React, { FC } from 'react'
 
 import { useClassNames } from './label-value-double-block.style'

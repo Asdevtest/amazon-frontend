@@ -1,17 +1,16 @@
 import { cx } from '@emotion/css'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
+import React from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Grid, Typography } from '@mui/material'
 
-import React from 'react'
-
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 
 import { getYearDate } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'

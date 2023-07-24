@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
+import React, { useEffect, useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,8 +14,9 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { chosenGoodsColumns, inventoryColumns } from './bind-stock-goods-to-inventory-columns'
 import { useClassNames } from './bind-stock-goods-to-inventory-form.style'
+
+import { chosenGoodsColumns, inventoryColumns } from './bind-stock-goods-to-inventory-columns'
 
 const chipConfigSettings = {
   RECOMMENDED: 'RECOMMENDED',

@@ -16,9 +16,9 @@ import {
   ChatMessageType,
   OnReadMessageResponse,
   OnTypingMessageResponse,
-  patchInfoGroupChatParams,
   RemoveUsersFromGroupChatParams,
   TypingMessageRequestParams,
+  patchInfoGroupChatParams,
 } from '@services/websocket-chat-service/interfaces'
 
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'

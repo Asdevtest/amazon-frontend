@@ -1,6 +1,7 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +14,6 @@ import { logisticsTariffsColumns } from '@components/table/table-columns/warehou
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
-import { tariffTypes } from '@constants/keys/tariff-types'
 
 export class LogisticsTariffsModel {
   history = undefined

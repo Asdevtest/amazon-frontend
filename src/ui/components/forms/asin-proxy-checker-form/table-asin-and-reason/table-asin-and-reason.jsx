@@ -1,9 +1,8 @@
-import ClearIcon from '@mui/icons-material/Clear'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import ClearIcon from '@mui/icons-material/Clear'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

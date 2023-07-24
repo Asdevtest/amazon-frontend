@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { useCallback, useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -19,7 +16,7 @@ export const subUsersColumns = handlers => [
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
 
-    width: 346,
+    width: 350,
     renderCell: params => {
       const user = params.row
 
@@ -32,7 +29,7 @@ export const subUsersColumns = handlers => [
     headerName: t(TranslationKey.Roles),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
 
-    width: 213,
+    width: 215,
     renderCell: params => <UserRolesCell user={params.row} />,
   },
 
@@ -41,7 +38,7 @@ export const subUsersColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 381,
+    width: 340,
     renderCell: params => (
       <EditOrRemoveBtnsCell
         isSubUsersTable
@@ -63,7 +60,7 @@ export const subUsersColumns = handlers => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    width: 381,
+    width: 335,
     renderCell: params => (
       <CommentUsersCell
         id={params.row._id}

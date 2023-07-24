@@ -272,6 +272,11 @@ export const useClassNames = makeStyles()(theme => ({
   green: {
     color: `${theme.palette.text.green} !important`,
   },
+
+  blue: {
+    color: '#0A6FE8 !important',
+  },
+
   priorityWrapper: {
     width: 210,
   },

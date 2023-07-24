@@ -1,6 +1,6 @@
-import { Paper, Typography, Checkbox, Link } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Checkbox, Link, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

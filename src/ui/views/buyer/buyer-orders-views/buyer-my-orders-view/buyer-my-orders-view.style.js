@@ -76,4 +76,8 @@ export const styles = theme => ({
   totalPriceTextWrapper: {
     display: 'flex',
   },
+
+  loadingCircle: {
+    zIndex: 10000,
+  },
 })

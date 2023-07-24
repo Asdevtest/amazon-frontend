@@ -1,12 +1,11 @@
 import { cx } from '@emotion/css'
-import { Avatar, Typography } from '@mui/material'
-
 import React, {
   FC,
   /* , useContext */
 } from 'react'
-
 import Linkify from 'react-linkify-always-blank'
+
+import { Avatar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

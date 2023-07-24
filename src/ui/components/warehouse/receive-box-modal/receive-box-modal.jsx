@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
-import AddIcon from '@mui/icons-material/Add'
-import { Divider, IconButton, Paper, TableCell, TableRow, Typography, Tooltip } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import DeleteIcon from '@material-ui/icons/Delete'
 import { transformAndValidate } from 'class-transformer-validator'
+import React, { useState } from 'react'
+
+import AddIcon from '@mui/icons-material/Add'
+import { Divider, IconButton, Paper, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,6 +16,7 @@ import { CheckQuantityForm } from '@components/forms/check-quantity-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { Table } from '@components/shared/table'
@@ -24,12 +24,11 @@ import { TableHeadRow } from '@components/table/table-rows/batches-view/table-he
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
-import { toFixed, toFixedWithKg, getShortenStringIfLongerThanCount, shortAsin } from '@utils/text'
+import { getShortenStringIfLongerThanCount, shortAsin, toFixed, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
 import { useClassNames } from './receive-box-modal.style'
-import { CustomSlider } from '@components/shared/custom-slider'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
   { title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography> },

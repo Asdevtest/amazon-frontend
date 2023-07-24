@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
 import { SettingsModel } from '@models/settings-model'

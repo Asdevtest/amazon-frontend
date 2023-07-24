@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { orderColorByStatus, OrderStatusByCode } from '@constants/orders/order-status'
+import { OrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
-  OrderCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
   DownloadAndCopyBtnsCell,
-  MultilineTextAlignLeftCell,
   IconHeaderCell,
+  MultilineTextAlignLeftCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'

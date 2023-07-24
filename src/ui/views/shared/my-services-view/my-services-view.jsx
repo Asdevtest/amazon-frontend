@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Box, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Box, Typography } from '@mui/material'
 
 import {
   freelanceRequestType,
@@ -19,6 +18,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { MainContent } from '@components/layout/main-content'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -29,10 +30,9 @@ import { checkIsFreelancer } from '@utils/checks'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { MyServicesViewModel } from './my-services-view.model'
 import { styles } from './my-services-view.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { AlertShield } from '@components/shared/alert-shield'
+
+import { MyServicesViewModel } from './my-services-view.model'
 
 export const MyServicesViewRaw = props => {
   const [viewModel] = useState(() => new MyServicesViewModel({ history: props.history, location: props.location }))

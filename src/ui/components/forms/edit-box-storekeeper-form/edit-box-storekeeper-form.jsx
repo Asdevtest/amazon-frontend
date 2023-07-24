@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Checkbox, Chip, Divider, Typography } from '@mui/material'
-
-import React, { useState, useEffect } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
+import { Avatar, Checkbox, Chip, Divider, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -15,21 +14,25 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
@@ -40,12 +43,9 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 import { useClassNames } from './edit-box-storekeeper-form.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+
+import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField, showCheckbox }) => {
   const { classes: classNames } = useClassNames()

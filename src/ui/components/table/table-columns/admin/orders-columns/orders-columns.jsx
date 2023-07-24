@@ -1,18 +1,18 @@
 import React from 'react'
 
-import { orderColorByStatus, OrderStatusByCode } from '@constants/orders/order-status'
+import { OrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
-  MultilineTextCell,
+  PriorityAndChinaDeliverCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  IconHeaderCell,
-  PriorityAndChinaDeliverCell,
-  DownloadAndCopyBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'

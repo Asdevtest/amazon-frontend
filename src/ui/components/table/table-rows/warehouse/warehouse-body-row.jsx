@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Modal } from '@components/shared/modal'
@@ -22,7 +23,6 @@ import { shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg } from '@util
 import { t } from '@utils/translations'
 
 import { styles } from './warehouse-body-row.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const WarehouseBodyRowRaw = ({
   item: box,

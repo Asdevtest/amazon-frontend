@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from 'react'
+
 import ClearIcon from '@mui/icons-material/Clear'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { ListItemText, MenuItem, Select, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

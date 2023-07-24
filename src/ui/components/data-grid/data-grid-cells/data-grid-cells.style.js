@@ -209,6 +209,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
+    padding: '10px 0',
   },
 
   orderImg: {
@@ -234,7 +235,7 @@ export const styles = theme => ({
   },
   orderText: {
     fontSize: 13,
-    maxWidth: 250,
+    maxWidth: 165,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -628,7 +629,6 @@ export const styles = theme => ({
   multilineTextWrapper: {
     width: '100%',
     padding: '5px 0',
-    textAlign: 'center',
     overflow: 'hidden',
   },
 
@@ -637,6 +637,7 @@ export const styles = theme => ({
   },
 
   multilineText: {
+    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -793,12 +794,8 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
-  multilineTextAlignStartWrapper: {
-    justifyContent: 'start',
-  },
-
-  multilineTextHeaderWrapperWithComponent: {
-    // justifyContent: 'space-between',
+  multilineTextHeaderCenter: {
+    justifyContent: 'center',
   },
 
   boxesAndQuantityWrapper: {
@@ -960,7 +957,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    gap: '40px',
+    gap: 20,
   },
 
   addPermissionBtn: {
@@ -970,7 +967,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '20px',
   },
 
   userAvatar: {
@@ -1053,12 +1049,6 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
-  normalActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -1070,30 +1060,13 @@ export const styles = theme => ({
   },
 
   actionBtn: {
-    display: 'flex',
-    width: 136,
     height: 30,
-    padding: '0 12px',
+    padding: '0 15px',
 
     [theme.breakpoints.down(1282)]: {
-      width: 128,
-      fontWeight: 400,
       fontSize: 13,
       lineHeight: 18,
     },
-  },
-
-  smallActionBtn: {
-    display: 'flex',
-    height: 30,
-    width: 120,
-    padding: '0 15px',
-  },
-
-  successActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   copyImgButton: {
@@ -1143,24 +1116,21 @@ export const styles = theme => ({
   },
 
   removeOrEditBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
+    padding: 0,
+    height: 30,
+    width: 30,
+
+    '> svg': {
+      width: 18,
+      height: 18,
+    },
   },
 
   editOrRemoveIconBtnsCell: {
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: 15,
+    gap: 20,
     padding: '15px 0',
-  },
-
-  editOrRemoveBtnWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    flexDirection: 'column',
   },
 
   editOrRemoveBtnText: {
@@ -1235,7 +1205,7 @@ export const styles = theme => ({
     // right: -5,
     // right: -7,
     right: -15,
-    top: 15,
+    top: 20,
 
     overflow: 'visible',
   },
@@ -1685,6 +1655,7 @@ export const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    lineHeight: '16px',
   },
 
   batchTrackingWrapper: {

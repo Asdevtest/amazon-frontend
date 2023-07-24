@@ -1,10 +1,10 @@
 import {
   ChatMessageDataAddUsersToGroupChatContract,
   ChatMessageDataBloggerProposalResultEditedContract,
-  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
-  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataCreateNewBloggerProposalContract,
   ChatMessageDataCreateNewDesignerProposalContract,
+  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
+  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,

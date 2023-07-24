@@ -1,14 +1,15 @@
 import { cx } from '@emotion/css'
+import { FC, ReactNode, useEffect, useState } from 'react'
+
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Typography } from '@mui/material'
 
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './custom-slider.style'
-import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 interface CustomSliderProps {
   children: Array<ReactNode>

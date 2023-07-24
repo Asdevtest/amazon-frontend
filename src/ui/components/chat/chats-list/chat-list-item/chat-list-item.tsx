@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import { Avatar } from '@mui/material'
-
-import { FC, useContext } from 'react'
-
 import he from 'he'
 import { observer } from 'mobx-react'
+import { FC, useContext } from 'react'
+
+import { Avatar } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'

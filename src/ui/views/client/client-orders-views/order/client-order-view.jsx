@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,9 +20,9 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ClientOrderViewModel } from './client-order-view.model'
 import { styles } from './client-order-view.style'
-import { useLocation } from 'react-router-dom'
+
+import { ClientOrderViewModel } from './client-order-view.model'
 
 export const ClientOrderViewRaw = props => {
   const { search } = useLocation()

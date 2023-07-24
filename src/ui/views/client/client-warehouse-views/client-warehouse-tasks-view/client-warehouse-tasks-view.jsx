@@ -1,23 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Checkbox, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
+  TaskOperationType,
   mapTaskOperationTypeEnumToKey,
   mapTaskOperationTypeKeyToEnum,
   mapTaskOperationTypeToLabel,
-  TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
 import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
-import { mapTaskStatusKeyToEnum, TaskStatusTranslate } from '@constants/task/task-status'
+import { TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
@@ -31,15 +30,16 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 import { styles } from './client-warehouse-tasks-view.style'
-import { DownloadIcon } from '@components/shared/svg-icons'
+
+import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 
 export const ClientWarehouseTasksViewRaw = props => {
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history: props.history }))

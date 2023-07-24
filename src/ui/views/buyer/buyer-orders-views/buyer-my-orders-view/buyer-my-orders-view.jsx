@@ -1,15 +1,14 @@
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { CircularProgress, Portal, Typography } from '@mui/material'
+
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,6 +21,7 @@ import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -30,8 +30,9 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { styles } from './buyer-my-orders-view.style'
+
+import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
@@ -307,6 +308,10 @@ export const BuyerMyOrdersViewRaw = props => {
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
       </Modal>
+
+      {viewModel.savingOrderStatus === loadingStatuses.isLoading && (
+        <CircularProgressWithLabel wrapperClassName={classNames.loadingCircle} />
+      )}
     </React.Fragment>
   )
 }

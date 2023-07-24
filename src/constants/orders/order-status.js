@@ -200,23 +200,25 @@ export const orderColorByStatus = status => {
     [
       OrderStatus.FORMED,
       OrderStatus.PENDING,
-
       OrderStatus.AT_PROCESS,
-      OrderStatus.PAID_TO_SUPPLIER,
-      OrderStatus.READY_FOR_PAYMENT,
       OrderStatus.PARTIALLY_PAID,
-
       OrderStatus.READY_TO_PROCESS,
       OrderStatus.TRACK_NUMBER_ISSUED,
-      OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-      OrderStatus.VERIFY_RECEIPT,
     ].includes(status)
   ) {
     return '#F3AF00'
-  } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT].includes(status)) {
+  } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT, OrderStatus.PAID_TO_SUPPLIER].includes(status)) {
     return '#00B746'
-  } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
+  } else if (
+    [
+      OrderStatus.CANCELED_BY_BUYER,
+      OrderStatus.CANCELED_BY_CLIENT,
+      OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+    ].includes(status)
+  ) {
     return '#FF1616'
+  } else if ([OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT].includes(status)) {
+    return '#0A6FE8'
   } else {
     return '#black'
   }
@@ -228,22 +230,25 @@ export const OrderStatusText = ({ className, status, isClient }) => {
       [
         OrderStatus.FORMED,
         OrderStatus.PENDING,
-
         OrderStatus.AT_PROCESS,
-        OrderStatus.PAID_TO_SUPPLIER,
-        OrderStatus.TRACK_NUMBER_ISSUED,
-        OrderStatus.READY_TO_PROCESS,
-        OrderStatus.READY_FOR_PAYMENT,
         OrderStatus.PARTIALLY_PAID,
-        OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-        OrderStatus.VERIFY_RECEIPT,
+        OrderStatus.READY_TO_PROCESS,
+        OrderStatus.TRACK_NUMBER_ISSUED,
       ].includes(status)
     ) {
       return '#F3AF00'
-    } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT].includes(status)) {
+    } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT, OrderStatus.PAID_TO_SUPPLIER].includes(status)) {
       return '#00B746'
-    } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
+    } else if (
+      [
+        OrderStatus.CANCELED_BY_BUYER,
+        OrderStatus.CANCELED_BY_CLIENT,
+        OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+      ].includes(status)
+    ) {
       return '#FF1616'
+    } else if ([OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT].includes(status)) {
+      return '#0A6FE8'
     } else {
       return '#black'
     }

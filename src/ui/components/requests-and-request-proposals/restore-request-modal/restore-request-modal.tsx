@@ -1,6 +1,7 @@
-import { Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React, { FC, useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,7 +13,6 @@ import { Input } from '@components/shared/input'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
-import { cx } from '@emotion/css'
 
 interface RestoreRequestModalProps {
   currentDate: string
@@ -48,11 +48,13 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['Enter the number of proposals'])}
-        error={requestCount <= currentRequestsCount && `${t(TranslationKey['At least'])} ${currentRequestsCount}`}
+        error={
+          Number(requestCount) <= currentRequestsCount && `${t(TranslationKey['At least'])} ${currentRequestsCount}`
+        }
         inputComponent={
           <Input
             // type="number"
-            className={cx({ [styles.errorInput]: requestCount <= currentRequestsCount })}
+            className={cx({ [styles.errorInput]: Number(requestCount) <= currentRequestsCount })}
             value={requestCount}
             slotProps={{
               input: {
@@ -72,7 +74,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <div className={styles.controls}>
         <Button
           success
-          disabled={!date || currentRequestsCount > requestCount}
+          disabled={!date || currentRequestsCount > Number(requestCount)}
           className={styles.controlButton}
           onClick={() => {
             handleSubmit(date, requestCount).then(() => handleCloseModal())

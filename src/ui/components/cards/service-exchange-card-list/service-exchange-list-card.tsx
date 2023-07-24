@@ -4,15 +4,16 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography, Avatar } from '@mui/material'
-import Rating from '@mui/material/Rating'
-
 import React, { FC } from 'react'
+
+import { Avatar, Typography } from '@mui/material'
+import Rating from '@mui/material/Rating'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -21,7 +22,6 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './service-exchange-list-card.style'
-import { CustomSlider } from '@components/shared/custom-slider'
 
 interface CreatedByInterface {
   _id: string

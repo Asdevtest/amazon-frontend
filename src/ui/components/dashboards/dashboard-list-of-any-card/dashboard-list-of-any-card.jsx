@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
+import React from 'react'
+
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { Typography } from '@mui/material'
-
-import React from 'react'
 
 import { useClassNames } from '@components/dashboards/dashboard-list-of-any-card/dashboard-list-of-any-card.style'
 
