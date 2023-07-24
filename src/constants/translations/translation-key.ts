@@ -2004,7 +2004,7 @@ export enum TranslationKey {
   'Photo and Video' = 'Photo and Video',
   'Photo track numbers' = 'Photo track numbers',
   'no photo track number' = 'no photo track number',
-  // '' = '',
+  'An error occurred while loading the image from the link. Please replace the image' = 'An error occurred while loading the image from the link. Please replace the image',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

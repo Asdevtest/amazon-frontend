@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **productUsage** | **String** | Применение продукта | [optional] 
 **chinaTitle** | **String** | chinese title? | [optional] 
 **ideasOnCheck** | **Number** |  | [optional] 
-**ideasVerified** | **Number** |  | [optional] 
+**ideasFinished** | **Number** |  | [optional] 
 **ideasClosed** | **Number** |  | [optional] 
 **tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
 **redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 

@@ -22,11 +22,10 @@ class InlineObject93 {
     /**
      * Constructs a new <code>InlineObject93</code>.
      * @alias module:model/InlineObject93
-     * @param action {module:model/InlineObject93.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject93.initialize(this, action);
+        InlineObject93.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject93 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,11 @@ class InlineObject93 {
         if (data) {
             obj = obj || new InlineObject93();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -63,39 +61,19 @@ class InlineObject93 {
 }
 
 /**
- * @member {module:model/InlineObject93.ActionEnum} action
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject93.prototype['action'] = undefined;
+InlineObject93.prototype['sourceFile'] = undefined;
 
 /**
- * Причина смены статуса.
- * @member {String} reason
+ * Комментарий к файлу
+ * @member {String} comments
  */
-InlineObject93.prototype['reason'] = undefined;
+InlineObject93.prototype['comments'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject93['ActionEnum'] = {
-
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
-
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
 
 
 

@@ -2005,5 +2005,6 @@
   "Participants": "Участников",
   "Photo and Video": "Фото и Видео",
   "Photo track numbers": "Фото трек номеров",
-  "no photo track number": "нет фото трек номера"
+  "no photo track number": "нет фото трек номера",
+  "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение"
 }
