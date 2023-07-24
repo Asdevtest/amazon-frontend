@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     borderRadius: '4px',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
+    background: theme.palette.background.general,
 
     display: 'flex',
     justifyContent: 'space-between',
@@ -44,7 +44,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardTitle: {
-    // margin: '0 10px 0 20px',
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
@@ -144,7 +143,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    // color: '#656565',
   },
 
   accentText: {
@@ -185,5 +183,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     marginRight: 20,
+  },
+
+  yellowBackground: {
+    background: `${theme.palette.background.yellowRow} !important`,
+    border: '2px solid #C69109',
+  },
+
+  redBackground: {
+    background: `${theme.palette.background.redRow} !important`,
+    border: '2px solid #D70D0D',
   },
 }))

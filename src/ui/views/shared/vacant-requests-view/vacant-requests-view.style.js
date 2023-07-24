@@ -14,7 +14,7 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
+    background: theme.palette.background.general,
   },
   footerContainer: {
     position: 'absolute',
@@ -130,20 +130,33 @@ export const styles = theme => ({
       content: '" "',
       display: 'block',
       position: 'absolute',
-      left: 0,
-      top: '50%',
-      transform: 'translateY(-50%)',
+      left: 4,
+      top: 1,
+
       width: 6,
-      height: '85%',
+      height: 72,
     },
   },
 
   yellowBorder: {
+    background: theme.palette.background.yellowRow,
+
+    ':hover': {
+      background: theme.palette.background.yellowRow,
+    },
+
     ':after': {
       background: '#C69109',
     },
   },
+
   redBorder: {
+    background: theme.palette.background.redRow,
+
+    ':hover': {
+      background: theme.palette.background.redRow,
+    },
+
     ':after': {
       background: '#D70D0D',
     },

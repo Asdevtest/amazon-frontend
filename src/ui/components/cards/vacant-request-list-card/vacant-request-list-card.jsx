@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import Avatar from '@mui/material/Avatar'
 import Rating from '@mui/material/Rating'
@@ -23,7 +21,6 @@ import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getBorderForDeadline } from '@utils/deadline-border'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -34,8 +31,16 @@ import { useClassNames } from './vacant-request-list-card.style'
 export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
+  const getCardClassName = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return classNames.redBackground
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return classNames.yellowBackground
+    }
+  }
+
   return (
-    <div className={classNames.cardWrapper} style={getBorderForDeadline(item.timeoutAt)}>
+    <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
       <div className={classNames.cardTitleBlockWrapper}>
         <div className={classNames.cardTitleBlockHeaderWrapper}>
           <div className={classNames.userInfoWrapper}>

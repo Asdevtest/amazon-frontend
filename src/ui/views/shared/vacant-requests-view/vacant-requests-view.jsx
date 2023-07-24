@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
