@@ -1716,7 +1716,7 @@ export const RequestStatusCell = React.memo(
   withStyles(({ classes: classNames, status, isChat, styles }) => {
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
-        return '#006CFF'
+        return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
       } else if (
         [
           RequestStatus.CANCELED_BY_CREATOR,
