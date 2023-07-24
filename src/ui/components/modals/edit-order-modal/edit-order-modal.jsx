@@ -87,7 +87,11 @@ const statusColorGroups = {
     OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
     OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
   ],
-  blue: [OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT], OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]],
+  blue: [
+    OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
+    OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+    OrderStatusByKey[OrderStatus.READY_TO_PROCESS],
+  ],
 }
 
 export const EditOrderModal = observer(

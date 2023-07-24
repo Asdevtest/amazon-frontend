@@ -266,7 +266,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   red: {
-    color: 'red !important',
+    color: `${theme.palette.orderStatus.red} !important`,
   },
 
   green: {
@@ -274,7 +274,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   blue: {
-    color: '#0A6FE8 !important',
+    color: `${theme.palette.primary.main} !important`,
   },
 
   priorityWrapper: {
