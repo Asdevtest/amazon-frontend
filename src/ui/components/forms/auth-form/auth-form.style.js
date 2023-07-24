@@ -33,10 +33,12 @@ export const styles = theme => ({
   loginBtn: {
     width: 200,
     height: 40,
+    color: '#fff',
+    boxShadow: 'none',
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
-    color: '#fff',
   },
 
   forgotPassword: {
