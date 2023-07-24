@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
 
-import { privateRoutesConfigs } from '@constants/navigation/routes'
+import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
 import { Appbar } from '@components/layout/appbar'
 import { Main } from '@components/layout/main'
@@ -29,8 +29,9 @@ export const Layout: FC<LayoutProps> = props => {
   const location = useLocation()
 
   useEffect(() => {
-    const navigationInfo = privateRoutesConfigs.find(el => el.routePath === location.pathname)
-      ?.navigationInfo as CurrentPageInfo
+    const navigationInfo = [...overallRoutesConfigs, ...privateRoutesConfigs].find(
+      el => el.routePath === location.pathname,
+    )?.navigationInfo as CurrentPageInfo
     if (!navigationInfo) return
 
     setCurrentPageInfo(navigationInfo)
