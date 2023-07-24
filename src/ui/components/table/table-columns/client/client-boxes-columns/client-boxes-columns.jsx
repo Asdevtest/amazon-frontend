@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-
 import React from 'react'
 
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,13 +19,12 @@ import {
   ShortBoxDimensions,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 export const clientBoxesViewColumns = (
   handlers,

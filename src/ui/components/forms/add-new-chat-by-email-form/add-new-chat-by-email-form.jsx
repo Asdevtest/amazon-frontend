@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { css, cx } from '@emotion/css'
-import { Avatar, Typography } from '@mui/material'
-
-import React, { useMemo, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useMemo, useState } from 'react'
 import { components } from 'react-select'
+
+import { Avatar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

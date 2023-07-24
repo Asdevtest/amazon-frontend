@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   Accordion,
@@ -13,11 +17,6 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -25,8 +24,9 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { sourceColumns } from '../access-to-products-columns'
 import { useClassNames } from './access-to-product-form.style'
+
+import { sourceColumns } from '../access-to-products-columns'
 
 const accessProductSettings = {
   ALL_PRODUCTS: 'ALL_PRODUCTS',

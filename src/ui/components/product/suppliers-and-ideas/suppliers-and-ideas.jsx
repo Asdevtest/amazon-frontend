@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { Typography } from '@mui/material'
+
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { TranslationKey } from '@constants/translations/translation-key'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -22,9 +21,11 @@ import { Modal } from '@components/shared/modal'
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 import { useClassNames } from './suppliers-and-ideas.style'
+
+import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+
+import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
 export const SuppliersAndIdeas = observer(({ productId, product }) => {
   const { classes: classNames } = useClassNames()

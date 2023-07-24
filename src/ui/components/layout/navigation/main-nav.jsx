@@ -1,15 +1,15 @@
+import { observer } from 'mobx-react'
+import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
+
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
-
-import { Suspense, useEffect, useMemo, useRef } from 'react'
-
-import { observer } from 'mobx-react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { darkTheme, lightTheme } from '@constants/theme/mui-theme'
 import { UiTheme } from '@constants/theme/themes'
 
 import { SettingsModel } from '@models/settings-model'
+
 import { ToastifyProvder } from '@components/layout/navigation/toastify/toastify-provder'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 

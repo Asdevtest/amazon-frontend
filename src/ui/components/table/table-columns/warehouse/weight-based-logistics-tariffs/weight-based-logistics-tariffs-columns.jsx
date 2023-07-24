@@ -3,16 +3,16 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  MultilineTextCell,
-  WarehouseTariffDatesCell,
   EditOrRemoveIconBtnsCell,
   MultilineTextAlignLeftCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
-import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDestinationData) => [
   {

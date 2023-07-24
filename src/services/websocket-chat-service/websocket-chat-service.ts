@@ -8,12 +8,12 @@ import {
   AddUsersToGroupChatParams,
   Chat,
   ChatMessage,
-  patchInfoGroupChatParams,
   RemoveUsersFromGroupChatParams,
   SendMessageRequestParams,
   TypingMessageRequestParams,
   WebsocketChatResponse,
   WebsocketChatServiceHandlers,
+  patchInfoGroupChatParams,
 } from './interfaces'
 
 export interface WebsocketChatServiceConstructorParams {

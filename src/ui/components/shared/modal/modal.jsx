@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
+import React, { useEffect, useState } from 'react'
+
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { Dialog, DialogContent } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { useFaviconNotification } from 'react-favicon-notification'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
@@ -10,8 +9,9 @@ import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigatio
 import { ChatModel } from '@models/chat-model'
 import { UserModel } from '@models/user-model'
 
-import { isHaveMasterUser } from '@utils/checks'
 import { Layout } from '@components/layout'
+
+import { isHaveMasterUser } from '@utils/checks'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()

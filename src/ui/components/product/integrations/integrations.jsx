@@ -1,9 +1,9 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import { useEffect, useRef } from 'react'
-
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -21,9 +21,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { IntegrationsModel } from './integrations.model'
 import { useClassNames } from './integrations.style'
-import { cx } from '@emotion/css'
+
+import { IntegrationsModel } from './integrations.model'
 
 export const Integrations = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()

@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Box, TextareaAutosize, Typography, Alert, Select, MenuItem } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
+import { Alert, Box, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
+
 import {
+  ProductStrategyStatus,
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
-  ProductStrategyStatus,
 } from '@constants/product/product-strategy-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'

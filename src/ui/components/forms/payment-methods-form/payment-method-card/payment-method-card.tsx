@@ -2,14 +2,14 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Typography } from '@mui/material'
-
 import React, { ChangeEvent, FC, useState } from 'react'
+
+import { Checkbox, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'

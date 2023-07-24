@@ -1,16 +1,15 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
+import { t } from 'i18n-js'
 import React from 'react'
 
-import { t } from 'i18n-js'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
-  orderColorByStatus,
   OrderStatus,
   OrderStatusByCode,
   OrderStatusByKey,
   OrderStatusTranslate,
+  orderColorByStatus,
 } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,8 +18,8 @@ import {
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   NormDateCell,
+  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,

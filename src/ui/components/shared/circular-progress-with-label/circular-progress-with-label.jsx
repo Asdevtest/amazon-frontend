@@ -1,10 +1,10 @@
+import { cx } from '@emotion/css'
+import React from 'react'
+
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 
-import React from 'react'
-
 import { useClassNames } from './circular-progress-with-label.style'
-import { cx } from '@emotion/css'
 
 export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) => {
   const { classes: classNames } = useClassNames()

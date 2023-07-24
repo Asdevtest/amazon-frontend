@@ -4,15 +4,16 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
 import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
 import { BuyerModel } from '@models/buyer-model'
+import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
@@ -25,10 +26,8 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
-
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { GeneralModel } from '@models/general-model'
 
 const updateOrderKeys = [
   'deliveryMethod',

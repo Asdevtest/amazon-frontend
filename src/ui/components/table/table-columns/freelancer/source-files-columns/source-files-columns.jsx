@@ -1,14 +1,14 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ShortDateCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
-  UserMiniCell,
   AsinCell,
-  EditOrRemoveIconBtnsCell,
-  CopyAndEditLinkCell,
   ChangeInputCommentCell,
+  CopyAndEditLinkCell,
+  EditOrRemoveIconBtnsCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  ShortDateCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

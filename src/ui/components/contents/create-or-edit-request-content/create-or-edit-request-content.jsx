@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import dayjs from 'dayjs'
+import React, { useEffect, useRef, useState } from 'react'
+
 import CircleIcon from '@mui/icons-material/Circle'
 import {
   Avatar,
@@ -16,10 +19,6 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useEffect, useRef, useState } from 'react'
-
-import dayjs from 'dayjs'
-
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -28,18 +27,21 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
+import { AsinLink } from '@components/shared/asin-link'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
@@ -50,9 +52,6 @@ import { replaceCommaByDot, shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-request-content.style'
-import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
-import { AsinLink } from '@components/shared/asin-link'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',

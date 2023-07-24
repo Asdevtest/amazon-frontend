@@ -18,14 +18,14 @@ import {
   NormalFieldMenuItem,
   NumberFieldMenuItem,
   ObJectFieldMenuItem,
+  OnListingCellMenuItem,
   OrderOrItemMenuItem,
   OrderStatusMenuItem,
+  PriorityMenuItem,
   ProductMenuItem,
   RedFlagsCellMenuItem,
-  OnListingCellMenuItem,
-  PriorityMenuItem,
-  YesNoCellMenuItem,
   ToPayCellMenuItem,
+  YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {

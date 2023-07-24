@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 
 import { MainContent } from '@components/layout/main-content'
 import { UserInfoAndEdit } from '@components/user/user-info-and-edit'

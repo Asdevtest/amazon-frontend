@@ -1,10 +1,11 @@
-import { Avatar, Grid, Typography, Rating } from '@mui/material'
-
 import React from 'react'
+
+import { Avatar, Grid, Rating, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -24,7 +25,6 @@ import { t } from '@utils/translations'
 // import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import { useClassNames } from './appeal-details-card.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const AppealDetailsCard = () => {
   const { classes: classNames } = useClassNames()

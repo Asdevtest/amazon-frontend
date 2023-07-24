@@ -1,28 +1,33 @@
 /* eslint-disable no-prototype-builtins */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, useState } from 'react'
-import { observer } from 'mobx-react'
-import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
-import RemoveIcon from '@mui/icons-material/Remove'
-import { Typography } from '@mui/material'
-import { t } from '@utils/translations'
-import { Input } from '@components/shared/input'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { Field } from '@components/shared/field'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
-import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { cx } from '@emotion/css'
-import { Button } from '@components/shared/buttons/button'
+import { observer } from 'mobx-react'
+import React, { FC, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
+import RemoveIcon from '@mui/icons-material/Remove'
+import { Typography } from '@mui/material'
 
-import { LogisticTariffInterface } from '../../../../types/logistics-tariff'
+import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+
+import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+
+import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
+
 import { DestinationType, DestinationVariationType } from '../../../../types/destination'
+import { LogisticTariffInterface } from '../../../../types/logistics-tariff'
 
 interface FormFields {
   tariffType: number

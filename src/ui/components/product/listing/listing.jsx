@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { Typography, Divider, Paper } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import { Divider, Paper, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,16 +11,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserBalanceHistory } from '@components/user/user-balance-history'
 
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ListingModel } from './listing.model'
 import { useClassNames } from './listing.style'
+
+import { ListingModel } from './listing.model'
 
 export const Listing = observer(({ productId, onClickBack }) => {
   const { classes: classNames } = useClassNames()

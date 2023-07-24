@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Box } from '@mui/material'
-
 import React, { FC, useState } from 'react'
+
+import { Box } from '@mui/material'
 
 import { useClassNames } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
 import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'

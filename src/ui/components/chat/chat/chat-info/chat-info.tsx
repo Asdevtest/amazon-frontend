@@ -1,16 +1,21 @@
-import { useChatInfoStyles } from '@components/chat/chat/chat-info/chat-info.styles'
-import { ChatContract } from '@models/chat-model/contracts'
-import { CurrentOpponent } from '@components/chat/multiple-chats'
-import { ChatInfoHeader } from '@components/chat/chat/chat-info/chat-info-header/chat-info-header'
-import { Box, Tabs, Typography } from '@mui/material'
-import { ITab } from '@components/shared/i-tab'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
 import React, { useEffect, useState } from 'react'
-import { ChatGroupUsers } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users'
+
+import { Box, Tabs, Typography } from '@mui/material'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
+
+import { ChatGroupUsers } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users'
+import { ChatInfoHeader } from '@components/chat/chat/chat-info/chat-info-header/chat-info-header'
+import { useChatInfoStyles } from '@components/chat/chat/chat-info/chat-info.styles'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
+import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { ITab } from '@components/shared/i-tab'
+
+import { t } from '@utils/translations'
 
 interface ChatAttachmentItemTypes {
   files?: string[]

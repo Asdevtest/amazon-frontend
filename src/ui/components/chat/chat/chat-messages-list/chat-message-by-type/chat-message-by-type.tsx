@@ -1,7 +1,8 @@
+import { observer } from 'mobx-react'
 import React, { FC } from 'react'
 
-import { observer } from 'mobx-react'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+
 import {
   checkIsChatMessageAddUsersToGroupChatContract,
   checkIsChatMessageBloggerProposalResultEditedContract,

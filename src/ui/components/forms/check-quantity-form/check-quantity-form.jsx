@@ -1,6 +1,7 @@
-import { Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React, { useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,7 +12,6 @@ import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDo
 import { t } from '@utils/translations'
 
 import { useClassNames } from './check-quantity-form.style'
-import { cx } from '@emotion/css'
 
 export const CheckQuantityForm = ({
   title,

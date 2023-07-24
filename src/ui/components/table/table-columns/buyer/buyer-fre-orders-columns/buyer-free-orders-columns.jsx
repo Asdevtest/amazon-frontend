@@ -3,16 +3,16 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  OrderCell,
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
+  MultilineTextAlignLeftCell,
   MultilineTextCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   NormalActionBtnCell,
-  UserLinkCell,
-  MultilineTextHeaderCell,
-  DownloadAndCopyBtnsCell,
-  MultilineTextAlignLeftCell,
-  IconHeaderCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'

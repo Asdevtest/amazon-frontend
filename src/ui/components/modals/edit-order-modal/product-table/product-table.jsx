@@ -1,10 +1,11 @@
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
@@ -13,7 +14,6 @@ import { checkAndMakeAbsoluteUrl, shortAsin, toFixed, toFixedWithDollarSign } fr
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-table.style'
-import { CopyValue } from '@components/shared/copy-value'
 
 export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice }) => {
   const { classes: classNames } = useClassNames()

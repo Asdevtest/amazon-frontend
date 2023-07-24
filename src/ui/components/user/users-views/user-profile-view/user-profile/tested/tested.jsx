@@ -1,7 +1,7 @@
+import React from 'react'
+
 import CheckIcon from '@mui/icons-material/Check'
 import { Box, Paper, Typography } from '@mui/material'
-
-import React from 'react'
 
 // import AcUnitIcon from '@material-ui/icons/AcUnit'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'

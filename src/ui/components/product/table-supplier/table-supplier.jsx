@@ -1,13 +1,13 @@
 import { cx } from '@emotion/css'
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -19,7 +19,6 @@ import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './table-supplier.style'
-import { UserModel } from '@models/user-model'
 
 const tableHeaders = [
   t(TranslationKey.Name),

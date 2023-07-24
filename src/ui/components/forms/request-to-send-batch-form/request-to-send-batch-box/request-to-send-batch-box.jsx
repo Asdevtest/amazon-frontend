@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Typography, Checkbox } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Checkbox, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,9 +10,9 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Modal } from '@components/shared/modal'
 
-import { calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
+import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixedWithDollarSign, toFixedWithKg, getShortenStringIfLongerThanCount } from '@utils/text'
+import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-to-send-batch-box.styles'

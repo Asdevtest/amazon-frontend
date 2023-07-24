@@ -1,7 +1,7 @@
+import React, { FC } from 'react'
+
 import CircleIcon from '@mui/icons-material/Circle'
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
-
-import React, { FC } from 'react'
 
 import { useClassNames } from './custom-list.style'
 

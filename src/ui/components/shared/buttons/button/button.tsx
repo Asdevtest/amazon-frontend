@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
-import { Box } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
-
+import { observer } from 'mobx-react'
 import React, { FC, ReactElement, useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Box } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { useClassNames } from './button.style'
+
 import { StyledButton } from './styled-button'
 
 enum tooltipPositions {

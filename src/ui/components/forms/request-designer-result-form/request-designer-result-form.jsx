@@ -2,6 +2,11 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { nanoid } from 'nanoid'
+import React, { useCallback, useEffect, useState } from 'react'
+import { DndProvider, useDrag, useDrop } from 'react-dnd'
+import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -9,13 +14,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typography, Zoom } from '@mui/material'
 
-import React, { useCallback, useEffect, useState } from 'react'
-
-import { nanoid } from 'nanoid'
-import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -27,9 +28,9 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ImageEditForm } from '../image-edit-form'
 import { useClassNames } from './request-designer-result-form.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+
+import { ImageEditForm } from '../image-edit-form'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)

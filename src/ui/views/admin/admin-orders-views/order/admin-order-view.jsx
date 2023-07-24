@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,8 +14,9 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { AdminOrderViewModel } from './admin-order-view.model'
 import { styles } from './admin-order-view.style'
+
+import { AdminOrderViewModel } from './admin-order-view.model'
 
 export const AdminOrderViewRaw = props => {
   const [viewModel] = useState(

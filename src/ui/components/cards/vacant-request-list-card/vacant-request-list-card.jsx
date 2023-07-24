@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import Avatar from '@mui/material/Avatar'
-import Typography from '@mui/material/Typography'
-import Rating from '@mui/material/Rating'
-
 import React from 'react'
 
+import Avatar from '@mui/material/Avatar'
+import Rating from '@mui/material/Rating'
+import Typography from '@mui/material/Typography'
+
+import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByRequestStatus } from '@constants/requests/request-status'
 import {
@@ -22,14 +23,13 @@ import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { getBorderForDeadline } from '@utils/deadline-border'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-list-card.style'
-import { requestPriority } from '@constants/requests/request-priority'
-import { getBorderForDeadline } from '@utils/deadline-border'
 
 export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()

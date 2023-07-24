@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { cx } from '@emotion/css'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import { observer } from 'mobx-react'
+import React, { FC, ReactElement, useEffect, useRef, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
+import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
-import { cx } from '@emotion/css'
-import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import { Avatar, Divider, Paper, Typography } from '@mui/material'
@@ -10,17 +16,11 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, { FC, ReactElement, useEffect, useRef, useState } from 'react'
-
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { observer } from 'mobx-react'
-import { useHistory, useLocation } from 'react-router-dom'
-import { toast } from 'react-toastify'
-
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import { SettingsModel } from '@models/settings-model'
 
 import { BreadCrumbsLine } from '@components/layout/bread-crumbs-line'
@@ -38,8 +38,9 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { AppbarModel } from './appbar.model'
 import { useClassNames } from './appbar.style'
+
+import { AppbarModel } from './appbar.model'
 
 interface Props {
   avatarSrc: string

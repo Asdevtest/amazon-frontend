@@ -1,8 +1,7 @@
-import { Typography } from '@mui/material'
-
 import React, { FC } from 'react'
-
 import Linkify from 'react-linkify-always-blank'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,15 +9,16 @@ import { ChatMessageDataCreatedNewProposalRequestDescriptionContract } from '@mo
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { LabelValuePairBlock } from '../label-value-pair-block'
 import { useClassNames } from './chat-message-request.style'
+
+import { LabelValuePairBlock } from '../label-value-pair-block'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreatedNewProposalRequestDescriptionContract>

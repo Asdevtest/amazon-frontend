@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { ProductStatusByKey, ProductStatus } from '@constants/product/product-status'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'

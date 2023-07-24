@@ -1,18 +1,18 @@
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateFromUnixCell,
-  TaskDescriptionCell,
-  ClientTasksActionBtnsCell,
-  UserLinkCell,
-  TaskTypeCell,
-  MultilineTextHeaderCell,
-  TaskStatusCell,
-  TaskPriorityCell,
   ChangeInputCommentCell,
-  StringListCell,
   CheckboxCell,
+  ClientTasksActionBtnsCell,
+  MultilineTextHeaderCell,
+  NormDateFromUnixCell,
+  StringListCell,
+  TaskDescriptionCell,
+  TaskPriorityCell,
+  TaskStatusCell,
+  TaskTypeCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
