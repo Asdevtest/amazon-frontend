@@ -540,7 +540,12 @@ export const TopCard = observer(
           showPreviews
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={bigImagesOptions.images}
+          imageList={bigImagesOptions.images.map(el => {
+            if (typeof el === 'object') {
+              return el.data_url
+            }
+            return el
+          })}
           currentImageIndex={bigImagesOptions.imgIndex}
           handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           controls={bigImagesModalControls}
