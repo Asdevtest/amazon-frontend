@@ -957,7 +957,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    gap: '40px',
+    gap: 20,
   },
 
   addPermissionBtn: {
@@ -967,7 +967,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '20px',
   },
 
   userAvatar: {
