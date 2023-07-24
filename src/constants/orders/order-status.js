@@ -49,35 +49,6 @@ export const OrderStatusByCode = {
   50: OrderStatus.SHIPPED, // Отправлен
 }
 
-// export const OrderStatusTranslateKey = status => {
-//   switch (status) {
-//     case OrderStatus.FORMED:
-//       return TranslationKey.Formed
-//     case OrderStatus.NEW:
-//       return TranslationKey.New
-//     case OrderStatus.READY_TO_PROCESS:
-//       return TranslationKey['Ready to process']
-//     case OrderStatus.AT_PROCESS:
-//       return TranslationKey['At process']
-//     case OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE:
-//       return TranslationKey['Need confirming to price change']
-//     case OrderStatus.PAID_TO_SUPPLIER:
-//       return TranslationKey['Paid to supplier']
-//     case OrderStatus.TRACK_NUMBER_ISSUED:
-//       return TranslationKey['Track number issued']
-//     case OrderStatus.IN_STOCK:
-//       return TranslationKey['In stock']
-//     case OrderStatus.CANCELED_BY_BUYER:
-//       return TranslationKey['Canceled by Buyer']
-//     case OrderStatus.CANCELED_BY_CLIENT:
-//       return TranslationKey['Canceled by Client']
-//     case OrderStatus.AWAITING_SHIPMENT:
-//       return TranslationKey['Awaiting shipment']
-//     case OrderStatus.SHIPPED:
-//       return TranslationKey.Shipped
-//   }
-// }
-
 export const OrderStatusTranslate = (status, isClient) => {
   switch (status) {
     case OrderStatus.FORMED:
@@ -118,6 +89,34 @@ export const OrderStatusTranslate = (status, isClient) => {
 }
 
 export const OrderStatusByKey = objectFlip(OrderStatusByCode, parseInt)
+
+export const buyerOrderModalAllowOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.PENDING]}`,
+  `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
+  `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
+  `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`,
+  `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}`,
+  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+  `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+  `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+  `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+]
+
+export const buyerOrderModalDisabledOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+]
+
+export const buyerOrderModalSubmitDisabledOrderStatuses = [
+  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+]
 
 export const ORDER_STATUS_OPTIONS = [
   {

@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Typography, Link } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Link, Typography } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -22,14 +21,15 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { SoundNotificationIcon, SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { MessagesViewModel } from './messages-view.model'
 import { styles } from './messages-view.style'
-import { SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
+
+import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesViewRaw = props => {
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
@@ -65,16 +65,25 @@ export const MessagesViewRaw = props => {
             {viewModel.chatSelectedId && viewModel.simpleChats.length ? (
               <div className={classNames.chatSelectedWrapper}>
                 {currentChat?.type === chatsType.DEFAULT ? (
-                  <Link
-                    target="_blank"
-                    href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
-                    underline="none"
-                  >
-                    <div className={classNames.opponentWrapper}>
-                      <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-                      <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-                    </div>
-                  </Link>
+                  <div className={classNames.selectedChatPersonalInfo}>
+                    <Link
+                      target="_blank"
+                      href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
+                      underline="none"
+                    >
+                      <div className={classNames.opponentWrapper}>
+                        <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+                        <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+                      </div>
+                    </Link>
+
+                    <SoundNotificationIcon
+                      className={cx(classNames.unMutedNotificationIcon, {
+                        [classNames.mutedNotificationIcon]: viewModel.mutedChats.includes(viewModel.chatSelectedId),
+                      })}
+                      onClick={() => viewModel.muteChatHandler(viewModel.chatSelectedId)}
+                    />
+                  </div>
                 ) : (
                   <div className={classNames.opponentWrapper}>
                     <Avatar src={currentChat?.info.image} className={classNames.avatarWrapper} />

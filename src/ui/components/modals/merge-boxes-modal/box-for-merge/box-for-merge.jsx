@@ -1,8 +1,8 @@
+import React, { useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Link, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

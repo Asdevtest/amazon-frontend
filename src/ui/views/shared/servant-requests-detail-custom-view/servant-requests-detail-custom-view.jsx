@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -24,8 +23,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 import { styles } from './servant-requests-detail-custom-view.style'
+
+import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 
 const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,

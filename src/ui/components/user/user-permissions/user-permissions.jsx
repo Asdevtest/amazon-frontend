@@ -1,8 +1,7 @@
-import { Box, Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Box, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,9 +11,10 @@ import { ITab } from '@components/shared/i-tab/i-tab'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './user-permissions.style'
+
 import { GroupPermissions } from './group-permissions'
 import { SinglePermissions } from './single-permissions'
-import { useClassNames } from './user-permissions.style'
 
 const TabPanel = ({ children, value, index, ...other }) => (
   <div

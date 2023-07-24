@@ -24,19 +24,6 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-  iconSeparator: {
-    padding: '0 1px',
-  },
-
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

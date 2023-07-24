@@ -1,5 +1,6 @@
-import { tooltipClasses } from '@mui/material/Tooltip'
 import { makeStyles } from 'tss-react/mui'
+
+import { tooltipClasses } from '@mui/material/Tooltip'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {

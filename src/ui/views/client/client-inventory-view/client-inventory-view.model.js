@@ -347,7 +347,6 @@ export class ClientInventoryViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    console.log('model', model)
     runInAction(() => {
       this.columnVisibilityModel = model
     })
@@ -449,13 +448,6 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    // if (this.selectedRowIds.includes(model[0])) {
-    //   this.selectedRowIds.filter(id => id !== model[0])
-    // } else {
-    //   this.selectedRowIds.push(model[0])
-    // }
-
-    // console.log('this.selectedRowIds', this.selectedRowIds)
     this.selectedRowIds = model
   }
 
@@ -641,9 +633,6 @@ export class ClientInventoryViewModel {
 
   async getShops() {
     try {
-      // Старый метод
-      // const result = await ShopModel.getMyShops()
-
       const result = await ShopModel.getMyShopNames()
 
       runInAction(() => {

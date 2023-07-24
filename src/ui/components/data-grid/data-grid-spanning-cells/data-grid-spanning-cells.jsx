@@ -1,16 +1,16 @@
-import { Checkbox, Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React from 'react'
-
 import { withStyles } from 'tss-react/mui'
 
+import { Checkbox, Typography } from '@mui/material'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 import { styles } from './data-grid-spanning-cells.style'
-import { cx } from '@emotion/css'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { getGroupDataByDestinationId } from '@utils/array'
 
 export const DestinationVariationsSpanningCell = React.memo(
   withStyles(

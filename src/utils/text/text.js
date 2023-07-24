@@ -4,17 +4,17 @@ import QueryString from 'qs'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
 
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -168,6 +168,7 @@ export const getTableByColumn = (column, hint) => {
       'clientComment',
       'buyerComment',
       'partiallyPaid',
+      'partialPaymentAmountRmb',
     ].includes(column)
   ) {
     if (hint === 'orders') {

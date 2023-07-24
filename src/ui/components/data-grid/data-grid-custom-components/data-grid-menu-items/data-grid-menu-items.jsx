@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { compareDesc, isAfter, parseISO } from 'date-fns'
+import React, { useCallback, useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import {
   CircularProgress,
   Divider,
@@ -10,11 +14,6 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material'
-
-import React, { useCallback, useEffect, useState } from 'react'
-
-import { compareDesc, isAfter, parseISO } from 'date-fns'
-import { withStyles } from 'tss-react/mui'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusTranslate } from '@constants/orders/order-status'
@@ -987,7 +986,10 @@ export const NormalFieldMenuItem = React.memo(
           className={cx({
             [classNames.universalFilterWrapper]: !asBlock,
             [classNames.shopsDataWrapperBlocked]: asBlock,
-            [classNames.fullName]: columnKey === columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+            [classNames.fullName]: [
+              columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+              columnnsKeys.client.INVENTORY_STATUS,
+            ].includes(columnKey),
           })}
         >
           <div className={classNames.universalFilterSearchInputWrapper}>
@@ -1013,18 +1015,21 @@ export const NormalFieldMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender.map((el, index) => (
-                      <div key={index} className={classNames.shop}>
-                        <Checkbox
-                          color="primary"
-                          checked={choosenItems.some(item => item === el)}
-                          onClick={() => onClickItem(el)}
-                        />
-                        <div className={classNames.shopName}>
-                          {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                        </div>
-                      </div>
-                    ))}
+                    {itemsForRender.map(
+                      (el, index) =>
+                        el && (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={choosenItems.some(item => item === el)}
+                              onClick={() => onClickItem(el)}
+                            />
+                            <div className={classNames.shopName}>
+                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
+                            </div>
+                          </div>
+                        ),
+                    )}
                   </>
                 ) : (
                   <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -1840,6 +1845,7 @@ export const NumberFieldMenuItem = React.memo(
 
       onClickAccept,
       onClickFilterBtn,
+      asBlock = false,
     }) => {
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
@@ -1912,12 +1918,13 @@ export const NumberFieldMenuItem = React.memo(
           'ideasOnCheck',
           'ideasClosed',
           'ideasVerified',
+          'fbaamount',
         ]
         return whiteList.includes(field)
       }, [field])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.numInputsWrapper}>
             <Input
               className={classNames.numInput}
@@ -2357,4 +2364,121 @@ export const YesNoCellMenuItem = React.memo(
       </div>
     )
   }, styles),
+)
+
+export const NumberWithTabsMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: styles,
+      onClose,
+      data,
+      filterRequestStatus,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+      tabs,
+    }) => {
+      const [activeTab, setActiveTab] = useState(tabs[0].value)
+
+      useEffect(() => {
+        onClickFilterBtn(activeTab)
+      }, [activeTab])
+
+      return (
+        <div className={styles.shopsDataWrapper}>
+          <div>
+            <FormControl className={styles.formControl}>
+              <RadioGroup
+                row
+                className={styles.radioGroup}
+                value={activeTab}
+                onChange={event => setActiveTab(event.target.value)}
+              >
+                {tabs.map((el, index) => (
+                  <FormControlLabel
+                    key={index}
+                    className={styles.radioOption}
+                    value={el.value}
+                    control={<Radio className={styles.radioControl} />}
+                    label={el.label}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <NumberFieldMenuItem
+            asBlock
+            data={data[activeTab]}
+            field={activeTab}
+            filterRequestStatus={filterRequestStatus}
+            onClickFilterBtn={onClickFilterBtn}
+            onClose={onClose}
+            onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+            onClickAccept={onClickAccept}
+          />
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+const toPayCellTabs = [
+  {
+    value: 'priceInYuan',
+    label: t(TranslationKey['To pay']),
+  },
+  {
+    value: 'partialPaymentAmountRmb',
+    label: t(TranslationKey['To pay partial']),
+  },
+]
+
+export const ToPayCellMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: styles,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      const isShowTabs = ['/buyer/partially-paid-orders', '/buyer/all-orders'].includes(window.location.pathname)
+
+      return (
+        <>
+          {isShowTabs && (
+            <NumberWithTabsMenuItem
+              data={data}
+              filterRequestStatus={filterRequestStatus}
+              tabs={toPayCellTabs}
+              onClickFilterBtn={onClickFilterBtn}
+              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+              onClickAccept={() => {
+                onClickAccept()
+              }}
+              onClose={onClose}
+            />
+          )}
+
+          {!isShowTabs && (
+            <NumberFieldMenuItem
+              data={data[field]}
+              field={field}
+              filterRequestStatus={filterRequestStatus}
+              onClickFilterBtn={onClickFilterBtn}
+              onClose={onClose}
+              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+              onClickAccept={onClickAccept}
+            />
+          )}
+        </>
+      )
+    },
+    styles,
+  ),
 )

@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
+
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 import { TranslationKey } from '@constants/translations/translation-key'

@@ -1,9 +1,8 @@
-import CloseIcon from '@mui/icons-material/Close'
-
 import React, { FC } from 'react'
-
 import { Theme, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
+import CloseIcon from '@mui/icons-material/Close'
 
 import { useToastStyles } from '@components/layout/navigation/toastify/toastify.styles'
 

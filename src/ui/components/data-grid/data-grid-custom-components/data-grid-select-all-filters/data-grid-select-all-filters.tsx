@@ -1,6 +1,6 @@
-import { Checkbox } from '@mui/material'
-
 import React, { FC } from 'react'
+
+import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

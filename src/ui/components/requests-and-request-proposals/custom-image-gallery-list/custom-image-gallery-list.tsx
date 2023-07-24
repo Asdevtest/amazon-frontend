@@ -1,12 +1,13 @@
-import { Avatar, Tooltip, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Avatar, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -14,7 +15,6 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-image-gallery-list.style'
-import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 
 interface FilesObject {
   fileLink: string

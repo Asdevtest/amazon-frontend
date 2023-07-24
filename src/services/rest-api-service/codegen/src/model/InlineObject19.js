@@ -22,12 +22,11 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
-     * @param batchIds {Array.<String>} 
-     * @param archive {Boolean} Заархивирована ли партия
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor(batchIds, archive) { 
+    constructor(attachedDocuments) { 
         
-        InlineObject19.initialize(this, batchIds, archive);
+        InlineObject19.initialize(this, attachedDocuments);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batchIds, archive) { 
-        obj['batchIds'] = batchIds;
-        obj['archive'] = archive;
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('batchIds')) {
-                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -65,15 +60,9 @@ class InlineObject19 {
 }
 
 /**
- * @member {Array.<String>} batchIds
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject19.prototype['batchIds'] = undefined;
-
-/**
- * Заархивирована ли партия
- * @member {Boolean} archive
- */
-InlineObject19.prototype['archive'] = undefined;
+InlineObject19.prototype['attachedDocuments'] = undefined;
 
 
 

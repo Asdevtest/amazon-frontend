@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable no-unused-vars */
-import { Typography, Box } from '@mui/material'
-
 import React, { FC, useEffect, useState } from 'react'
+
+import { Box, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

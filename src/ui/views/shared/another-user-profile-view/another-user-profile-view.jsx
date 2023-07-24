@@ -1,12 +1,11 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
-import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,8 +23,9 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AnotherProfileViewModel } from './another-user-profile-view.model'
 import { styles } from './another-user-profile-view.style'
+
+import { AnotherProfileViewModel } from './another-user-profile-view.model'
 
 export const AnotherUserProfileViewRaw = props => {
   const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))

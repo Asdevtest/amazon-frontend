@@ -4,19 +4,19 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
   BatchBoxesCell,
+  BatchTrackingCell,
   MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
-  MultilineTextHeaderCell,
-  BatchTrackingCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   {

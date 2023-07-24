@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { Component, useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Box, Typography } from '@mui/material'
-
-import React, { Component, useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import {
   freelanceRequestType,
@@ -28,6 +27,7 @@ import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
@@ -42,8 +42,9 @@ import {
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
+
+import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
@@ -81,6 +82,8 @@ export const VacantRequestsViewRaw = props => {
     }
   }
 
+  const pageSizeOptions = [15, 25, 50, 100]
+
   return (
     <React.Fragment>
       <MainContent>
@@ -112,6 +115,27 @@ export const VacantRequestsViewRaw = props => {
           />
 
           <div className={classNames.tablePanelSubWrapper}>
+            {viewModel.viewMode !== tableViewMode.TABLE && (
+              <>
+                <CustomPageSwitcher
+                  rowCount={viewModel.rowCount}
+                  paginationModel={viewModel.paginationModel}
+                  pageSizeOptions={pageSizeOptions}
+                  onChangePaginationModelChange={viewModel.onChangePaginationModelChange}
+                />
+
+                <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['By date'])}</Typography>
+
+                  {viewModel.sortMode === tableSortMode.DESK ? (
+                    <ArrowDropDownIcon color="primary" />
+                  ) : (
+                    <ArrowDropUpIcon color="primary" />
+                  )}
+                </div>
+              </>
+            )}
+
             <div className={classNames.tablePanelViewWrapper}>
               <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
                 <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewModel.viewMode === tableViewMode.TABLE}>
@@ -140,18 +164,6 @@ export const VacantRequestsViewRaw = props => {
                 </ToggleBtnFreelancer>
               </ToggleBtnGroupFreelance>
             </div>
-
-            {viewModel.viewMode !== tableViewMode.TABLE && (
-              <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-                <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-                {viewModel.sortMode === tableSortMode.DESK ? (
-                  <ArrowDropDownIcon color="primary" />
-                ) : (
-                  <ArrowDropUpIcon color="primary" />
-                )}
-              </div>
-            )}
           </div>
         </div>
 
@@ -200,10 +212,6 @@ export const VacantRequestsViewRaw = props => {
                 footerContainer: classNames.footerContainer,
                 footerCell: classNames.footerCell,
                 toolbarContainer: classNames.toolbarContainer,
-
-                iconSeparator: classNames.iconSeparator,
-                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
               }}
               sortingMode="server"
               paginationMode="server"
@@ -212,7 +220,7 @@ export const VacantRequestsViewRaw = props => {
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={[15, 25, 50, 100]}
+              pageSizeOptions={pageSizeOptions}
               rows={viewModel.currentData}
               rowHeight={75}
               slots={{

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { Divider, Typography, Button } from '@mui/material'
-
 import React from 'react'
+
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { Button, Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,6 +12,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './left-panel.style'
+
 import { ProductParameters } from './product-parameters'
 
 export const LeftPanel = ({

@@ -1,8 +1,9 @@
+import { cx } from '@emotion/css'
 import React, { FC } from 'react'
 
-import { useClassNames } from './custom-switcher.style'
 import { Button } from '@components/shared/buttons/button'
-import { cx } from '@emotion/css'
+
+import { useClassNames } from './custom-switcher.style'
 
 interface CustomSwitcherProps {
   condition: string

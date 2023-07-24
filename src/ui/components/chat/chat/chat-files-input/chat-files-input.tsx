@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-
 import { ImageType } from 'react-images-uploading-alex76457-version'
 
 import { IFile } from '@components/chat/multiple-chats'

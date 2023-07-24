@@ -5,11 +5,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  MultilineTextCell,
   SuperboxQtyCell,
   ToFixedWithKgSignCell,
   UserLinkCell,

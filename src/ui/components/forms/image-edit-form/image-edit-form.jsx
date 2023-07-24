@@ -1,7 +1,7 @@
+import { useState } from 'react'
+
 import RotateLeftOutlinedIcon from '@mui/icons-material/RotateLeftOutlined'
 import RotateRightOutlinedIcon from '@mui/icons-material/RotateRightOutlined'
-
-import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

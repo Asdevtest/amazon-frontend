@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,11 +16,10 @@ import {
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
   {
@@ -144,7 +144,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
-    width: 200,
+    width: 140,
     sortable: false,
   },
 

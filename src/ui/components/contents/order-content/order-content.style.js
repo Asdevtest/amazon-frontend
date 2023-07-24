@@ -124,7 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 40,
     maxWidth: 40,
     color: '#fff',
-    backgroundColor: 'rgba(0, 123, 255, 1)',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: 4,
 
     '&:hover': {

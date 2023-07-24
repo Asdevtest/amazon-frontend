@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Box } from '@mui/material'
-
 import React, { FC, useEffect, useState } from 'react'
+
+import { Box } from '@mui/material'
 
 import { useChatMessageFileStyles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files.styles'
 

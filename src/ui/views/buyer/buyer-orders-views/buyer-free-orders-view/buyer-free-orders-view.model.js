@@ -2,8 +2,8 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
@@ -134,6 +134,7 @@ export class BuyerFreeOrdersViewModel {
   async getOrdersVacant() {
     try {
       const result = await BuyerModel.getOrdersVacant()
+
       runInAction(() => {
         this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),

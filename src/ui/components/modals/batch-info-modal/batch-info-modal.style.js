@@ -224,12 +224,7 @@ export const useClassNames = makeStyles()(theme => ({
     minHeight: 150,
     maxHeight: 450,
   },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
+
   disabled: {
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },

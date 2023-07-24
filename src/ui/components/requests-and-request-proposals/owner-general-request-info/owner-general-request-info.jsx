@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
+import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
 
+import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import {
@@ -21,6 +21,7 @@ import { RestoreRequestModal } from '@components/requests-and-request-proposals/
 import { AsinLink } from '@components/shared/asin-link'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
@@ -31,8 +32,6 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './owner-general-request-info.style'
-import { Text } from '@components/shared/text'
-import { requestPriority } from '@constants/requests/request-priority'
 
 export const OwnerGeneralRequestInfo = ({
   request,
@@ -213,6 +212,7 @@ export const OwnerGeneralRequestInfo = ({
                         fontSize: 14,
                         lineHeight: '19px',
                         textAlign: 'left',
+                        whiteSpace: 'pre-wrap',
                       }}
                     />
                   }

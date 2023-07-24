@@ -81,15 +81,6 @@ export const styles = theme => ({
     color: '#00B746',
   },
 
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    overflow: 'visible',
-  },
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
     zIndex: -1,
@@ -134,18 +125,6 @@ export const styles = theme => ({
       height: 1,
       width: '100%',
       background: theme.palette.primary.main,
-    },
-  },
-  menuIconButton: {
-    zIndex: 1000,
-    position: 'absolute !important',
-    right: -7,
-    top: 13,
-    visibility: 'visible !important',
-    width: '18px !important',
-    height: '18px !important',
-    '.MuiSvgIcon-root': {
-      display: 'none',
     },
   },
 })

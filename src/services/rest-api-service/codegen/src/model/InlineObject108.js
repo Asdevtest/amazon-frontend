@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject21 from './InlineObject21';
 
 /**
  * The InlineObject108 model module.
@@ -21,7 +22,6 @@ import ApiClient from '../ApiClient';
 class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject108
      */
     constructor() { 
@@ -48,14 +48,8 @@ class InlineObject108 {
         if (data) {
             obj = obj || new InlineObject108();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject21]);
             }
         }
         return obj;
@@ -65,22 +59,10 @@ class InlineObject108 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject21>} additionalBoxes
  */
-InlineObject108.prototype['name'] = undefined;
-
-/**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
- */
-InlineObject108.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
-
-/**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
- */
-InlineObject108.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject108.prototype['additionalBoxes'] = undefined;
 
 
 

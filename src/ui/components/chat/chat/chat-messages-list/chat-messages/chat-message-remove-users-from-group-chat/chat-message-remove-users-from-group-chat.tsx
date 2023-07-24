@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
-
 import React, { FC } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

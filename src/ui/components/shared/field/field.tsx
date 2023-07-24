@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
+import { observer } from 'mobx-react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
+
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-
-import React, { FC, ReactElement, useState, useEffect } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { SettingsModel } from '@models/settings-model'
 

@@ -206,6 +206,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.main,
   },
+
   requestTitle: {
     maxHeight: 150,
     maxWidth: '320px !important',
@@ -214,10 +215,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
   },
-  typoSpan: {
-    fontWeight: 600,
-    color: theme.palette.text.main,
-  },
+
   oldPrice: {
     textDecoration: 'line-through',
   },
@@ -469,11 +467,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
   },
-  asinWrapper: {
-    display: 'flex',
-    width: 'fit-content',
-    gap: 5,
-  },
+
   changePerformerBtn: {
     width: 190,
   },
@@ -581,9 +575,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 30,
     marginBottom: 20,
   },
-  orderText: {
-    width: 'fit-content',
-  },
 
   editorMaxHeight: {
     maxHeight: '138px !important',
@@ -602,5 +593,9 @@ export const useClassNames = makeStyles()(theme => ({
   priorityText: {
     display: 'flex',
     gap: 15,
+  },
+
+  copyAsinlinkSpan: {
+    fontSize: 16,
   },
 }))

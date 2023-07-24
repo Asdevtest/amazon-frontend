@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { Box, Container, Link, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Box, Container, Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './supplier-payment-form.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const SupplierPaymentForm = ({
   item,

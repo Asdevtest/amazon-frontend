@@ -1,6 +1,5 @@
-import React from 'react'
-
 import { observer } from 'mobx-react'
+import React from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { ClientBuyShopsContent } from '@components/contents/client-buy-shops-content'

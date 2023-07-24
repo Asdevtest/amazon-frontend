@@ -1,8 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getBuyerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,9 +17,9 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 import { styles } from './buyer-dashboard-view.style'
-import { observer } from 'mobx-react'
+
+import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 
 export const BuyerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))

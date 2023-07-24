@@ -1,24 +1,22 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
-import { Checkbox, Menu, Typography } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
 
-import { t } from 'i18n-js'
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
+import { Checkbox, Menu, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { SearchInput } from '@components/shared/search-input'
 
+import { t } from '@utils/translations'
+
 import { useClassNames } from './data-grid-custom-columns-button.style'
 
-export const DataGridCustomColumnsButton = props => {
+export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) => {
   const { classes: classNames } = useClassNames()
-  const { className, columsBtnSettings, ...other } = props
 
-  const { columnsModel, changeColumnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
+  const { columnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
 
   const [menuAnchor, setMenuAnchor] = useState(null)
   const handleClick = event => {
@@ -92,6 +90,7 @@ export const DataGridCustomColumnsButton = props => {
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
+              onKeyDown={e => e.stopPropagation()}
             />
           </div>
 

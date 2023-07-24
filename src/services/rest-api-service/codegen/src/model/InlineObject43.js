@@ -22,10 +22,13 @@ class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
      * @alias module:model/InlineObject43
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<String>} 
+     * @param operationType {module:model/InlineObject43.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, boxes, operationType) { 
         
-        InlineObject43.initialize(this);
+        InlineObject43.initialize(this, taskId, boxes, operationType);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, boxes, operationType) { 
+        obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -47,8 +53,35 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -58,13 +91,138 @@ class InlineObject43 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject43.prototype['refundPrice'] = undefined;
+InlineObject43.prototype['taskId'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesBefore
+ */
+InlineObject43.prototype['boxesBefore'] = undefined;
+
+/**
+ * @member {Array.<String>} boxes
+ */
+InlineObject43.prototype['boxes'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineObject43.OperationTypeEnum} operationType
+ */
+InlineObject43.prototype['operationType'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
+ */
+InlineObject43.prototype['clientComment'] = '';
+
+/**
+ * Комментарий баера
+ * @member {String} buyerComment
+ */
+InlineObject43.prototype['buyerComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject43.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject43.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject43.PriorityEnum} priority
+ */
+InlineObject43.prototype['priority'] = undefined;
+
+/**
+ * Причина приоритета
+ * @member {String} reason
+ */
+InlineObject43.prototype['reason'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject43['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject43['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 

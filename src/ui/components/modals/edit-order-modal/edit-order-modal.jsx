@@ -1,26 +1,28 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import AddIcon from '@material-ui/icons/Add'
+import AcceptIcon from '@material-ui/icons/Check'
+import AcceptRevokeIcon from '@material-ui/icons/Clear'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import { observer } from 'mobx-react'
-
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
-  getOrderStatusOptionByCode,
   OrderStatus,
   OrderStatusByCode,
   OrderStatusByKey,
   OrderStatusTranslate,
+  buyerOrderModalAllowOrderStatuses,
+  buyerOrderModalDisabledOrderStatuses,
+  buyerOrderModalSubmitDisabledOrderStatuses,
+  getOrderStatusOptionByCode,
 } from '@constants/orders/order-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,13 +34,16 @@ import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
 import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
@@ -54,14 +59,12 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { BoxesToCreateTable } from './boxes-to-create-table'
 import { useClassNames } from './edit-order-modal.style'
+
+import { BoxesToCreateTable } from './boxes-to-create-table'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { SaveIcon } from '@components/shared/svg-icons'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -125,6 +128,28 @@ export const EditOrderModal = observer(
     const { classes: classNames } = useClassNames()
 
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
+    const [usePriceInDollars, setUsePriceInDollars] = useState(false)
+    const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
+    const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+    const [showAddOrEditSupplierModal, setShowAddOrEditSupplierModal] = useState(false)
+    const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
+    const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
+    const [commentModal, setCommentModalModal] = useState(false)
+    const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
+    const [showWarningInfoModal, setShowWarningInfoModal] = useState(
+      order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
+    )
+    const [commentToWarehouse, setCommentToWarehouse] = useState('')
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
+    const [boxesForCreation, setBoxesForCreation] = useState([])
+    const [isEdit, setIsEdit] = useState(false)
+    const [headCells, setHeadCells] = useState(BUYER_WAREHOUSE_HEAD_CELLS)
+    const [forceReadOnly, setForceReadOnly] = useState(false)
 
     const deliveredGoodsCount =
       boxes
@@ -139,42 +164,55 @@ export const EditOrderModal = observer(
           0,
         ) || 0
 
-    const [usePriceInDollars, setUsePriceInDollars] = useState(false)
+    const initialState = {
+      ...order,
+      status: order?.status || undefined,
+      clientComment: order?.clientComment || '',
+      buyerComment: order?.buyerComment || '',
+      deliveryCostToTheWarehouse:
+        order?.deliveryCostToTheWarehouse ||
+        (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
+        (order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount) * order?.amount ||
+        0,
+      priceBatchDeliveryInYuan:
+        order?.priceBatchDeliveryInYuan ||
+        (order?.priceInYuan !== 0 && Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
+        (order?.orderSupplier?.batchDeliveryCostInYuan / order?.orderSupplier?.amount) * order?.amount ||
+        0,
+      trackId: '',
+      material: order?.product?.material || '',
+      amount: order?.amount || 0,
+      trackingNumberChina: order?.trackingNumberChina || '',
+      batchPrice: 0,
+      totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
+      yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
+      item: order?.item || 0,
+      tmpRefundToClient: 0,
+      priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
+      paymentDetails: order?.paymentDetails || [],
+      payments: order?.payments || [],
+      orderSupplier: order?.orderSupplier || {},
+      partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
+      partiallyPaid: order?.partiallyPaid || 0,
+      partialPayment: order?.partialPayment || false,
+    }
 
-    const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
+    const [orderFields, setOrderFields] = useState(initialState)
+    const [hsCode, setHsCode] = useState({ ...hsCodeData })
+    const [selectedSupplier, setSelectedSupplier] = useState(null)
 
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
+      ? orderFields?.orderSupplier?.paymentMethods.filter(
+          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
+      : paymentMethods.filter(
+          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
 
-    const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
-
-    const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
-
-    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-
-    const [showAddOrEditSupplierModal, setShowAddOrEditSupplierModal] = useState(false)
-
-    const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
-
-    const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
-
-    const [commentModal, setCommentModalModal] = useState(false)
-
-    const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
-
-    const [showWarningInfoModal, setShowWarningInfoModal] = useState(
-      order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
-    )
-
-    const [commentToWarehouse, setCommentToWarehouse] = useState('')
-
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
-    const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
-
-    const [boxesForCreation, setBoxesForCreation] = useState([])
-    const [isEdit, setIsEdit] = useState(false)
-
-    const [headCells, setHeadCells] = useState(BUYER_WAREHOUSE_HEAD_CELLS)
+    const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
+    const [photosToLoad, setPhotosToLoad] = useState([])
+    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
+    const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
 
     const renderHeadRow = () => (
       <TableRow>
@@ -189,6 +227,12 @@ export const EditOrderModal = observer(
     useEffect(() => {
       setHeadCells(BUYER_WAREHOUSE_HEAD_CELLS)
     }, [SettingsModel.languageTag])
+
+    useEffect(() => {
+      setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
+
+      setSelectedSupplier(null)
+    }, [order])
 
     const onRemoveForCreationBox = boxIndex => {
       const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
@@ -224,56 +268,6 @@ export const EditOrderModal = observer(
 
       setBoxesForCreation(newStateFormFields)
     }
-
-    const initialState = {
-      ...order,
-      status: order?.status || undefined,
-      clientComment: order?.clientComment || '',
-      buyerComment: order?.buyerComment || '',
-      deliveryCostToTheWarehouse:
-        order?.deliveryCostToTheWarehouse ||
-        (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
-        (order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount) * order?.amount ||
-        0,
-      priceBatchDeliveryInYuan:
-        // order?.priceBatchDeliveryInYuan ||
-        // (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
-        // 0,
-        order?.priceBatchDeliveryInYuan ||
-        (order?.priceInYuan !== 0 && Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
-        (order?.orderSupplier?.batchDeliveryCostInYuan / order?.orderSupplier?.amount) * order?.amount ||
-        0,
-      trackId: '',
-      material: order?.product?.material || '',
-      amount: order?.amount || 0,
-      trackingNumberChina: order?.trackingNumberChina || '',
-      batchPrice: 0,
-      totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
-      yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
-      item: order?.item || 0,
-      tmpRefundToClient: 0,
-      priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
-      paymentDetails: order?.paymentDetails || [],
-      payments: order?.payments || [],
-      orderSupplier: order?.orderSupplier || {},
-      partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
-      partiallyPaid: order?.partiallyPaid || 0,
-      partialPayment: order?.partialPayment || false,
-    }
-
-    const [orderFields, setOrderFields] = useState(initialState)
-
-    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
-      ? orderFields?.orderSupplier?.paymentMethods.filter(
-          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-      : paymentMethods.filter(
-          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-
-    const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
-
-    const [hsCode, setHsCode] = useState({ ...hsCodeData })
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = { ...orderFields }
@@ -349,14 +343,6 @@ export const EditOrderModal = observer(
         }
       }
     }
-
-    const [selectedSupplier, setSelectedSupplier] = useState(null)
-
-    useEffect(() => {
-      setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
-
-      setSelectedSupplier(null)
-    }, [order])
 
     const setOrderField = filedName => e => {
       const newOrderFieldsState = { ...orderFields }
@@ -454,7 +440,6 @@ export const EditOrderModal = observer(
       switch (confirmModalMode) {
         case 'STATUS':
           return t(TranslationKey['Within the current edit, you can only change once!'])
-
         case 'SUBMIT':
           return t(TranslationKey['Are you sure you entered all the data correctly?'])
       }
@@ -464,21 +449,8 @@ export const EditOrderModal = observer(
       switch (confirmModalMode) {
         case 'STATUS':
           return setOrderFields(tmpNewOrderFieldsState)
-
         case 'SUBMIT':
-          return onSubmitSaveOrder(
-            //   {
-            //   order,
-            //   orderFields,
-            //   boxesForCreation,
-            //   photosToLoad,
-            //   // hsCode,
-            //   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-            //   commentToWarehouse,
-            //   editPaymentDetailsPhotos,
-            // }
-            getDataForSaveOrder(),
-          )
+          return onSubmitSaveOrder(getDataForSaveOrder())
       }
     }
 
@@ -490,43 +462,6 @@ export const EditOrderModal = observer(
       onClickSaveSupplierBtn(data)
     }
 
-    const allowOrderStatuses = [
-      `${OrderStatusByKey[OrderStatus.PENDING]}`,
-      `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
-      `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
-      `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`,
-      `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}`,
-      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-      `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
-      `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
-
-      `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-      `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-    ]
-
-    const disabledOrderStatuses = [
-      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-      // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-      // `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
-    ]
-
-    const submitDisabledOrderStatuses = [
-      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-      // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-      `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-      // `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
-    ]
-
-    const [photosToLoad, setPhotosToLoad] = useState([])
-    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
-
-    const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
-
     const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
       setPaymentDetailsPhotosToLoad(loadedFiles)
       setEditPaymentDetailsPhotos(editedFiles)
@@ -534,7 +469,7 @@ export const EditOrderModal = observer(
 
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
-      submitDisabledOrderStatuses.includes(order.status + '') ||
+      buyerOrderModalSubmitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields?.yuanToDollarRate ||
       !orderFields.amount ||
@@ -542,14 +477,17 @@ export const EditOrderModal = observer(
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
         !boxesForCreation.length)
 
+    const updateSuplierDisable =
+      isPendingOrder ||
+      (orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
+        userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
+
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
 
     const isOnlyRead =
       selectedSupplier?.createdBy._id !== userInfo._id &&
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
-
-    const [forceReadOnly, setForceReadOnly] = useState(false)
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -682,7 +620,7 @@ export const EditOrderModal = observer(
                   {Object.keys({
                     ...getObjectFilteredByKeyArrayWhiteList(
                       OrderStatusByCode,
-                      allowOrderStatuses.filter(el => {
+                      buyerOrderModalAllowOrderStatuses.filter(el => {
                         return (
                           el >= order.status ||
                           (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
@@ -705,11 +643,11 @@ export const EditOrderModal = observer(
                           [classNames.green]: statusColorGroups.green.includes(Number(statusCode)),
                           [classNames.red]: statusColorGroups.red.includes(Number(statusCode)),
                           [classNames.blue]: statusColorGroups.blue.includes(Number(statusCode)),
-                          [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                          [classNames.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
                         }),
                       )}
                       disabled={
-                        disabledOrderStatuses.includes(statusCode) ||
+                        buyerOrderModalDisabledOrderStatuses.includes(statusCode) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
@@ -886,27 +824,16 @@ export const EditOrderModal = observer(
                 ) : null}
               </div>
               <div
-                className={classNames.supplierCheckboxWrapper}
+                className={cx(classNames.supplierCheckboxWrapper, {
+                  [classNames.supplierCheckboxWrapperDisabled]: updateSuplierDisable,
+                })}
                 onClick={() => {
-                  if (
-                    orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
-                    userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id
-                  ) {
-                    return
-                  } else {
+                  if (!updateSuplierDisable) {
                     setUpdateSupplierData(!updateSupplierData)
                   }
                 }}
               >
-                <Checkbox
-                  disabled={
-                    isPendingOrder ||
-                    (orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
-                      userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
-                  }
-                  checked={updateSupplierData}
-                  color="primary"
-                />
+                <Checkbox disabled={updateSuplierDisable} checked={updateSupplierData} color="primary" />
                 <Typography className={classNames.checkboxTitle}>
                   {t(TranslationKey['Update supplier data'])}
                 </Typography>

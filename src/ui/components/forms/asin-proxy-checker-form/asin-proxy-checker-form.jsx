@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react'
+
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -18,6 +18,7 @@ import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './asin-proxy-checker-form.style'
+
 import { TableAsinAndReason } from './table-asin-and-reason/table-asin-and-reason'
 
 export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
