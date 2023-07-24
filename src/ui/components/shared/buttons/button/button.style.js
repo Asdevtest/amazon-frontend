@@ -2,8 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '36px !important',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    minWidth: '30px !important',
+    cursor: 'pointer',
     color: '#fff',
     height: 40,
     // padding: '11px 25px 10px', ломает все кнопки

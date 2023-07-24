@@ -1116,24 +1116,21 @@ export const styles = theme => ({
   },
 
   removeOrEditBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
+    padding: 0,
+    height: 30,
+    width: 30,
+
+    '> svg': {
+      width: 18,
+      height: 18,
+    },
   },
 
   editOrRemoveIconBtnsCell: {
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: 15,
+    gap: 20,
     padding: '15px 0',
-  },
-
-  editOrRemoveBtnWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    flexDirection: 'column',
   },
 
   editOrRemoveBtnText: {
