@@ -600,6 +600,18 @@ const WarehouseVacantTasksView = lazy(() =>
   })),
 )
 
+const CategoryRootView = lazy(() =>
+  import('@views/shared/category-root-view/category-root-view').then(module => ({
+    default: module.CategoryRootView,
+  })),
+)
+
+const ClientIdeasView = lazy(() =>
+  import('@views/client/client-ideas-view/client-ideas-view').then(module => ({
+    default: module.ClientIdeasView,
+  })),
+)
+
 export const publicRoutesConfigs = [
   {
     routePath: '/auth',
@@ -3174,5 +3186,131 @@ export const privateRoutesConfigs = [
     },
   },
 
-  // ////////////////////////////////////////////////////////////////////////////////////////////////
+  // * Client Ideas
+
+  {
+    routePath: '/client/ideas',
+    component: CategoryRootView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Ideas,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Ideas),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/new',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['New ideas']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey['New ideas']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/on-checking',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['On checking']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 1,
+      title: () => t(TranslationKey['On checking']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/search-suppliers',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Search for suppliers']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 2,
+      title: () => t(TranslationKey['Search for suppliers']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/create-card',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Create a product card']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 3,
+      title: () => t(TranslationKey['Create a product card']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/add-asin',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey.Add) + ' ASIN',
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 4,
+      title: () => t(TranslationKey.Add) + ' ASIN',
+    },
+  },
+
+  {
+    routePath: '/client/ideas/realized',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Realized ideas']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 5,
+      title: () => t(TranslationKey['Realized ideas']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/closed',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Rejected and closed']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 6,
+      title: () => t(TranslationKey['Rejected and closed']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/all',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey.All),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 7,
+      title: () => t(TranslationKey.All),
+    },
+  },
 ]

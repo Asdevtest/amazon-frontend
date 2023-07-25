@@ -67,6 +67,7 @@ import ApiV1BuyersProductsGuidTags from './model/ApiV1BuyersProductsGuidTags';
 import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRedFlags';
 import ApiV1ClientsProductsVacRedFlags from './model/ApiV1ClientsProductsVacRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
+import ApiV1IdeasByParentGuidChildProduct from './model/ApiV1IdeasByParentGuidChildProduct';
 import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
 import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
 import ApiV1IdeasNotificationsProduct from './model/ApiV1IdeasNotificationsProduct';
@@ -806,6 +807,12 @@ export {
      * @property {module:model/ApiV1GologinProfileNavigator}
      */
     ApiV1GologinProfileNavigator,
+
+    /**
+     * The ApiV1IdeasByParentGuidChildProduct model constructor.
+     * @property {module:model/ApiV1IdeasByParentGuidChildProduct}
+     */
+    ApiV1IdeasByParentGuidChildProduct,
 
     /**
      * The ApiV1IdeasNotificationsCreatedBy model constructor.

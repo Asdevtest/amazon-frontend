@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1IdeasAddSuppliersGuidPost**](IdeaApi.md#apiV1IdeasAddSuppliersGuidPost) | **POST** /api/v1/ideas/add_suppliers/{guid} | Добавить поставщиков к идее
 [**apiV1IdeasAddingAsinGuidPatch**](IdeaApi.md#apiV1IdeasAddingAsinGuidPatch) | **PATCH** /api/v1/ideas/adding_asin/{guid} | Изменить статус заявки на addingAsin(18)
+[**apiV1IdeasByParentGuidGet**](IdeaApi.md#apiV1IdeasByParentGuidGet) | **GET** /api/v1/ideas/by_parent/{guid} | Получить идеи по родительскому продукту
 [**apiV1IdeasFinishedGuidPatch**](IdeaApi.md#apiV1IdeasFinishedGuidPatch) | **PATCH** /api/v1/ideas/finished/{guid} | Изменить статус заявки на finished(20)
-[**apiV1IdeasGet**](IdeaApi.md#apiV1IdeasGet) | **GET** /api/v1/ideas/ | Список всех идей
 [**apiV1IdeasGuidDelete**](IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 [**apiV1IdeasGuidGet**](IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
@@ -135,6 +135,60 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1IdeasByParentGuidGet
+
+> [InlineResponse20045] apiV1IdeasByParentGuidGet(guid, opts)
+
+Получить идеи по родительскому продукту
+
+Получить идеи по родительскому продукту
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let guid = null; // String | ID родительского продукта, который должен быть в идее
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1IdeasByParentGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID родительского продукта, который должен быть в идее | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20045]**](InlineResponse20045.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1IdeasFinishedGuidPatch
 
 > String apiV1IdeasFinishedGuidPatch(guid, opts)
@@ -178,60 +232,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## apiV1IdeasGet
-
-> [InlineResponse20045] apiV1IdeasGet(opts)
-
-Список всех идей
-
-Получить список всех идей
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.IdeaApi();
-let opts = {
-  'productId': "productId_example", // String | ID продукта, который должен быть в идее
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1IdeasGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **productId** | **String**| ID продукта, который должен быть в идее | [optional] 
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**[InlineResponse20045]**](InlineResponse20045.md)
 
 ### Authorization
 
@@ -378,7 +378,7 @@ let apiInstance = new TestSwagger.IdeaApi();
 let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject65() // InlineObject65 | 
+  'body': new TestSwagger.InlineObject64() // InlineObject64 | 
 };
 apiInstance.apiV1IdeasGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -395,7 +395,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject65**](InlineObject65.md)|  | [optional] 
+ **body** | [**InlineObject64**](InlineObject64.md)|  | [optional] 
 
 ### Return type
 
@@ -607,7 +607,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IdeaApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject64() // InlineObject64 | 
+  'body': new TestSwagger.InlineObject65() // InlineObject65 | 
 };
 apiInstance.apiV1IdeasPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -623,7 +623,7 @@ apiInstance.apiV1IdeasPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject64**](InlineObject64.md)|  | [optional] 
+ **body** | [**InlineObject65**](InlineObject65.md)|  | [optional] 
 
 ### Return type
 
