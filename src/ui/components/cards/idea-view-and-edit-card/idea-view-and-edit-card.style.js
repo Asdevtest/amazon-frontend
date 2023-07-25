@@ -411,4 +411,26 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
     justifyContent: 'flex-end',
   },
+
+  requestsWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '33px',
+    overflow: 'auto',
+    paddingBottom: '10px',
+
+    '&::-webkit-scrollbar': {
+      height: '9px',
+      padding: '2px 2px',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#DAE1E9',
+      borderRadius: '22px',
+    },
+
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
+  },
 }))

@@ -56,8 +56,11 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     successModalTitle,
     paymentMethods,
     currentProduct,
+    onClickRejectButton,
+    onClickReoperButton,
+    onClickAcceptButton,
     onTriggerOpenModal,
-    onClickRemoveIdea,
+    onClickCloseIdea,
     onClickCheckButton,
     onCreateIdea,
     onClickCancelBtn,
@@ -115,7 +118,10 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}
             onClickCheckButton={onClickCheckButton}
-            onRemove={onClickRemoveIdea}
+            onClickAcceptButton={onClickAcceptButton}
+            onClickCloseIdea={onClickCloseIdea}
+            onClickRejectButton={onClickRejectButton}
+            onClickReoperButton={onClickReoperButton}
             onSetCurIdea={onSetCurIdea}
             onEditIdea={onEditIdea}
             onClickSupplierBtns={onClickSupplierButtons}
