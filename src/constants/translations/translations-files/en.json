@@ -773,7 +773,7 @@
   "Data saved": "Data saved",
   "Links": "Links",
   "Are you sure you want to cancel the task?": "Are you sure you want to cancel the task?",
-  "Are you sure you want to remove the idea?": "Are you sure you want to remove the idea?",
+  "Are you sure you want to reject this idea?": "Are you sure you want to reject this idea?",
   "The order has been created": "The order has been created",
   "Result": "Result",
   "Supplier glued the barcode": "Supplier glued the barcode",
@@ -2005,5 +2005,15 @@
   "Archiving": "Archiving",
   "To pay partial": "To pay partial",
   "By date": "By date",
-  "On page": "On page"
+  "On page": "On page",
+  "Client commentary": "Client commentary",
+  "Buyer comments": "Buyer comments",
+  "New Ideas": "New Ideas",
+  "On checking": "On checking",
+  "Search for suppliers": "Search for suppliers",
+  "Add ASIN": "Add ASIN",
+  "Realized ideas": "Realized ideas",
+  "Rejected ideas": "Rejected ideas",
+  "Parent product": "Parent product",
+  "Child product": "Child product"
 }

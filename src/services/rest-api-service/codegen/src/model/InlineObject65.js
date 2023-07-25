@@ -22,10 +22,12 @@ class InlineObject65 {
     /**
      * Constructs a new <code>InlineObject65</code>.
      * @alias module:model/InlineObject65
+     * @param productName {String} Назавние продукта
+     * @param price {Number} Желаемая цена
      */
-    constructor() { 
+    constructor(productName, price) { 
         
-        InlineObject65.initialize(this);
+        InlineObject65.initialize(this, productName, price);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject65 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productName, price) { 
+        obj['productName'] = productName;
+        obj['price'] = price;
     }
 
     /**
@@ -55,6 +59,9 @@ class InlineObject65 {
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
@@ -80,6 +87,12 @@ class InlineObject65 {
             if (data.hasOwnProperty('length')) {
                 obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
         }
         return obj;
     }
@@ -94,7 +107,7 @@ class InlineObject65 {
 InlineObject65.prototype['title'] = undefined;
 
 /**
- * Images URLs
+ * Image URL
  * @member {Array.<String>} media
  */
 InlineObject65.prototype['media'] = undefined;
@@ -104,6 +117,12 @@ InlineObject65.prototype['media'] = undefined;
  * @member {String} comments
  */
 InlineObject65.prototype['comments'] = undefined;
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineObject65.prototype['buyerComment'] = undefined;
 
 /**
  * Назавние продукта
@@ -152,6 +171,18 @@ InlineObject65.prototype['height'] = undefined;
  * @member {Number} length
  */
 InlineObject65.prototype['length'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject65.prototype['productId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineObject65.prototype['parentProductId'] = undefined;
 
 
 

@@ -775,7 +775,7 @@
   "Data saved": "数据已保存了",
   "Links": "链接",
   "Are you sure you want to cancel the task?": "取消任务。确定吗 ?",
-  "Are you sure you want to remove the idea?": "删除理念。确定吗?",
+  "Are you sure you want to reject this idea?": "删除理念。确定吗?",
   "The order has been created": "订单已创建了",
   "Result": "结果",
   "Supplier glued the barcode": "供货方贴上条形码",
@@ -2008,5 +2008,15 @@
   "Archiving": "Archiving",
   "To pay partial": "To pay partial",
   "By date": "By date",
-  "On page": "On page"
+  "On page": "On page",
+  "Client commentary": "Client commentary",
+  "Buyer comments": "Buyer comments",
+  "New Ideas": "New Ideas",
+  "On checking": "On checking",
+  "Search for suppliers": "Search for suppliers",
+  "Add ASIN": "Add ASIN",
+  "Realized ideas": "Realized ideas",
+  "Rejected ideas": "Rejected ideas",
+  "Parent product": "Parent product",
+  "Child product": "Child product"
 }

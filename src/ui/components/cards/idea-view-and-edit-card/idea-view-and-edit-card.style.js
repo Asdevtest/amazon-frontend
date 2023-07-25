@@ -1,26 +1,80 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
-    padding: '20px',
-    overflow: 'hidden',
+    minHeight: 603,
+    padding: 50,
+    background: theme.palette.background.general,
+    borderRadius: 7,
+    gap: '30px',
   },
   cardWrapper: {
     width: '100%',
-    marginTop: '20px',
-
+    height: '370px',
+    overflow: 'hidden',
     display: 'flex',
     justifyContent: 'space-between',
   },
+
+  fullCardWpapper: {
+    height: 'fit-content',
+  },
+
   cardBlockWrapper: {
-    width: '50%',
+    width: '887px',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+
+  nameAndInfoProductWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '691px',
+  },
+
+  linksAndDimensionsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '733px',
   },
+
+  commentsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '30px',
+    width: '543px',
+  },
+
+  mediaBlock: {
+    width: '887px',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: '40px',
+  },
+
+  spanLabel: {
+    fontSize: '14px',
+    fontWeight: 400,
+    color: theme.palette.text.second,
+    marginBottom: 0,
+  },
+
+  photoCarouselWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 343,
+  },
+
   photoWrapper: {
     width: '200px',
     display: 'flex',
@@ -35,10 +89,17 @@ export const useClassNames = makeStyles()(theme => ({
     height: 280,
     padding: '0 0 35px',
   },
-  commentField: {
-    height: '140px',
-    width: '100%',
-    // marginBottom: '25px'
+
+  noMarginContainer: {
+    margin: '0 !important',
+  },
+
+  сlientСomment: {
+    height: '220px',
+  },
+
+  buyerComment: {
+    height: '199px',
   },
 
   leftSubBlockWrapper: {
@@ -73,9 +134,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   existedIdeaBtnsSubWrapper: {
-    width: '50%',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '50px',
   },
 
   tablePanelSortWrapper: {
@@ -104,28 +165,31 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   fullMiddleBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
     maxHeight: '100vh',
     overflow: 'visible',
   },
 
-  linksContainer: {
-    width: '100%',
+  oneLineField: {
+    height: '40px',
   },
 
   linksWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    gap: '21px',
   },
 
   linksSubWrapper: {
     width: '100%',
-    maxHeight: '200px',
+    maxHeight: '86px',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 10,
-    gap: 5,
+    gap: '5px',
   },
 
   linkWrapper: {
@@ -148,12 +212,6 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
   },
 
-  shortFieldsWrapper: {
-    width: '100%',
-
-    justifySelf: 'flex-end',
-  },
-
   shortFieldsSubWrapper: {
     width: '100%',
     display: 'flex',
@@ -168,11 +226,10 @@ export const useClassNames = makeStyles()(theme => ({
   sizesWrapper: {
     display: 'flex',
     flexDirection: 'column',
-
-    width: 341,
   },
 
   sizesSubWrapper: {
+    width: 350,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -181,12 +238,13 @@ export const useClassNames = makeStyles()(theme => ({
   sizesBottomWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginTop: '10px',
+
+    gap: '10px',
   },
 
   sizesContainer: {
-    width: 'min-content',
+    width: '110px',
   },
 
   sizesInput: {
@@ -201,12 +259,12 @@ export const useClassNames = makeStyles()(theme => ({
   defaultBtn: {
     marginLeft: '10px',
     borderRadius: '4px',
-    height: '32px',
+    height: '40px',
     width: '100px',
   },
 
   input: {
-    height: '32px',
+    height: '40px',
     borderRadius: '4px',
     width: 'calc(100% - 110px)',
   },
@@ -236,16 +294,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   criterionsField: {
-    height: 'auto',
+    height: '245px',
     width: '100%',
   },
 
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    color: theme.palette.text.general,
-  },
-  demensionsTitle: {
     color: theme.palette.text.general,
   },
 
@@ -255,12 +310,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   supplierActionsWrapper: {
     display: 'flex',
-  },
-  supplierContainer: {
-    marginBottom: '20px',
-    display: 'flex',
     gap: '16px',
   },
+  supplierContainer: {},
   supplierButtonWrapper: {
     display: 'flex',
     gap: '10px',
@@ -348,5 +400,15 @@ export const useClassNames = makeStyles()(theme => ({
   saveIcon: {
     color: theme.palette.primary.main,
     cursor: 'pointer',
+  },
+
+  mediumSizeContainer: {
+    width: 350,
+  },
+
+  sourcesProductWraper: {
+    display: 'flex',
+    gap: '30px',
+    justifyContent: 'flex-end',
   },
 }))

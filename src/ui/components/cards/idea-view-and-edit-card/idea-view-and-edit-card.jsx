@@ -9,15 +9,15 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import SaveIcon from '@mui/icons-material/Save'
+
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Divider, Grid, IconButton, InputAdornment, Link, MenuItem, Select, Typography } from '@mui/material'
+import { Link, Typography, IconButton, Divider, Grid, InputAdornment, MenuItem, Select } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { ideaStatus, ideaStatusByKey, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { ideaStatus, ideaStatusByCode, ideaStatusByKey, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TableSupplier } from '@components/product/table-supplier'
@@ -38,11 +38,13 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
 } from '@utils/checks'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './idea-view-and-edit-card.style'
+import { IdeaProgressBar } from './progress-bar'
+import { SourceProduct } from './source-product'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -63,6 +65,7 @@ export const IdeaViewAndEditCard = observer(
     curIdea,
     onRemove,
     selectedSupplier,
+    currentProduct,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
@@ -70,17 +73,13 @@ export const IdeaViewAndEditCard = observer(
     onCreateProduct,
     onClickSupplierBtns,
     onClickSupplier,
+    onClickCheckButton,
     onClickSaveIcon,
   }) => {
     const { classes: classNames } = useClassNames()
 
-    const history = useHistory()
-    const isDisabledForAdmin = history.location.pathname === routsPathes.ADMIN_INVENTORY_PRODUCT
-
     const [linkLine, setLinkLine] = useState('')
-
     const [showFullCard, setShowFullCard] = useState(idea ? false : true)
-
     const [images, setImages] = useState([])
 
     const setShowFullCardByCurIdea = () => {
@@ -104,30 +103,46 @@ export const IdeaViewAndEditCard = observer(
       setImages([])
     }, [curIdea?._id, inEdit])
 
-    const sourceFormFields = {
+    const getShortIdea = () => ({
+      _id: idea?._id,
       status: idea?.status,
-
-      media: idea?.media?.length ? [...idea.media] : [],
+      media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
       comments: idea?.comments || '',
-      productName: idea?.productName || '',
-      productLinks: idea?.productLinks || [],
-      criteria: idea?.criteria || '',
-      quantity: idea?.quantity || '',
-      price: idea?.price || '',
+      buyerComment: idea?.buyerComment || '',
+      childProduct: idea?.childProduct || undefined,
+    })
 
-      width: idea?.width || '',
-      height: idea?.height || '',
-      length: idea?.length || '',
+    const getFullIdea = () => ({
+      ...curIdea,
+      status: curIdea?.status,
+      media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
+      comments: curIdea?.comments || '',
+      buyerComment: curIdea?.buyerComment || '',
+      productName: curIdea?.productName || '',
+      productLinks: curIdea?.productLinks || [],
+      criteria: curIdea?.criteria || '',
+      quantity: curIdea?.quantity || '',
+      price: curIdea?.price || '',
+      width: curIdea?.width || '',
+      height: curIdea?.height || '',
+      length: curIdea?.length || '',
+      suppliers: curIdea?.suppliers || [],
+      _id: curIdea?._id || undefined,
+      parentProduct: curIdea?.parentProduct || undefined,
+      childProduct: curIdea?.childProduct || undefined,
+    })
 
-      suppliers: idea?.suppliers || [],
-      _id: idea?._id || null,
-    }
-
-    const [formFields, setFormFields] = useState(sourceFormFields)
+    const [formFields, setFormFields] = useState({})
 
     useEffect(() => {
-      setFormFields(sourceFormFields)
-    }, [idea])
+      if (!curIdea) {
+        setFormFields(getShortIdea())
+      } else {
+        if (curIdea._id === idea._id) {
+          setFormFields(getFullIdea())
+        }
+      }
+    }, [curIdea, idea])
 
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
@@ -213,385 +228,376 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
+    const disabledSubmit = objectDeepCompare(formFields, getFullIdea())
+    const checkIsClientOrBuyer =
+      checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])
 
-    const disabledSubmit = JSON.stringify(formFields) === JSON.stringify(sourceFormFields)
+    const showRejectButton =
+      formFields?.status === ideaStatusByKey[ideaStatus.NEW] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
 
     return (
-      <Grid item className={classNames.mainWrapper}>
+      <div className={classNames.root}>
         <div className={classNames.headerWrapper}>
-          <Typography variant="h5" className={classNames.ideaTitle}>
-            {formFields.productName}
-          </Typography>
+          <IdeaProgressBar currentStatus={formFields?.status} />
 
-          {!inCreate && !checkIsSupervisor(UserRoleCodeMap[curUser.role]) && (
-            <div className={classNames.orderStatusWrapper}>
-              <Typography variant="h5" className={classNames.label}>
-                {t(TranslationKey['Idea Status']) + ':'}
-              </Typography>
-              <Field
-                tooltipInfoContent={t(TranslationKey['Current idea status'])}
-                value={formFields?.status}
-                containerClasses={classNames.fieldWrapper}
-                inputComponent={
-                  <Select
-                    variant="filled"
-                    value={formFields.status}
-                    disabled={isDisabledForAdmin}
-                    classes={{
-                      select: cx({
-                        [classNames.orange]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-
-                        [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-
-                        [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                      }),
-                    }}
-                    input={
-                      <Input
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <FiberManualRecordRoundedIcon
-                              className={cx({
-                                [classNames.orange]:
-                                  `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-
-                                [classNames.green]:
-                                  `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-
-                                [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                              })}
-                            />
-                          </InputAdornment>
-                        }
-                      />
-                    }
-                    onChange={onChangeField('status')}
-                  >
-                    {Object.keys({
-                      ...getObjectFilteredByKeyArrayWhiteList(ideaStatusByCode, allowOrderStatuses),
-                    }).map((statusCode, statusIndex) => (
-                      <MenuItem
-                        key={statusIndex}
-                        value={statusCode}
-                        className={cx(
-                          cx(classNames.stantartSelect, {
-                            [classNames.orange]: statusCode === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-
-                            [classNames.green]: statusCode === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-
-                            [classNames.red]: statusCode === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                            [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                          }),
-                        )}
-                        disabled={disabledOrderStatuses.includes(statusCode)}
-                      >
-                        {ideaStatusTranslate(ideaStatusByCode[statusCode])}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                }
+          <div className={classNames.sourcesProductWraper}>
+            {formFields.childProduct && (
+              <SourceProduct
+                title={t(TranslationKey['Child product'])}
+                img={formFields.childProduct?.images[0]}
+                asin={formFields.childProduct?.asin}
+                sku={formFields.childProduct?.skusByClient[0]}
               />
-              <SaveIcon
-                className={cx(classNames.saveIcon, {
-                  [classNames.disableSelect]: `${idea?.status}` === `${formFields?.status}`,
-                })}
-                onClick={() => {
-                  if (`${idea?.status}` !== `${formFields?.status}`) {
-                    onClickSaveIcon(formFields)
-                  }
-                }}
+            )}
+            {currentProduct && (
+              <SourceProduct
+                title={t(TranslationKey['Parent product'])}
+                img={currentProduct.images[0]}
+                asin={currentProduct.asin}
+                sku={currentProduct.skusByClient[0]}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        <div className={classNames.cardWrapper}>
-          <div className={classNames.cardBlockWrapper}>
-            <div className={!disableFields ? classNames.leftSubBlockWrapper : classNames.leftDisSubBlockWrapper}>
-              <div className={!disableFields ? classNames.photoWrapper : classNames.bigPhotoWrapper}>
+        <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
+          <div className={classNames.mediaBlock}>
+            {!inCreate && (
+              <div className={classNames.photoCarouselWrapper}>
                 <PhotoCarousel files={formFields?.media} />
               </div>
+            )}
 
-              {!disableFields ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}
-            </div>
+            {!disableFields && (
+              <UploadFilesInput
+                fullWidth
+                withoutDragAndDropTitle
+                dragAndDropBtnHeight={59}
+                images={images}
+                setImages={setImages}
+                maxNumber={50}
+              />
+            )}
           </div>
 
-          <Divider className={classNames.divider} orientation="vertical" />
-
-          <div className={classNames.cardBlockWrapper}>
+          <div className={classNames.commentsWrapper}>
             <Field
               multiline
-              disabled={disableFields}
-              className={classNames.commentField}
+              disabled={disableFields || checkIsBuyer(UserRoleCodeMap[curUser.role])}
+              className={classNames.сlientСomment}
+              containerClasses={classNames.noMarginContainer}
               labelClasses={classNames.spanLabel}
               inputProps={{ maxLength: 255 }}
-              minRows={6}
-              maxRows={6}
-              label={t(TranslationKey.Comments)}
+              sx={{
+                '.MuiInputBase-inputMultiline': {
+                  height: '100% !important',
+                  width: '100% !important',
+                },
+              }}
+              label={t(TranslationKey['Client commentary'])}
               value={formFields.comments}
               onChange={onChangeField('comments')}
+            />
+
+            <Field
+              multiline
+              disabled={disableFields || checkIsClient(UserRoleCodeMap[curUser.role])}
+              label={t(TranslationKey['Buyer comments'])}
+              labelClasses={classNames.spanLabel}
+              className={classNames.buyerComment}
+              containerClasses={classNames.noMarginContainer}
+              inputProps={{ maxLength: 255 }}
+              sx={{
+                '.MuiInputBase-inputMultiline': {
+                  height: '100% !important',
+                  width: '100% !important',
+                },
+              }}
+              value={formFields.buyerComment}
+              onChange={onChangeField('buyerComment')}
             />
           </div>
         </div>
 
-        <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
-          <Typography className={classNames.supplierSearchTitle}>
-            {t(TranslationKey['Supplier search options'])}
-          </Typography>
+        {showFullCard && (
+          <>
+            <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
+              <Typography className={classNames.supplierSearchTitle}>
+                {t(TranslationKey['Supplier search options'])}
+              </Typography>
 
-          <div className={classNames.cardWrapper}>
-            <div className={classNames.cardBlockWrapper}>
-              <div className={classNames.middleSubBlockWrapper}>
-                <Field
-                  disabled={disableFields}
-                  labelClasses={classNames.spanLabel}
-                  inputProps={{ maxLength: 130 }}
-                  label={t(TranslationKey['Product name'])}
-                  value={formFields.productName}
-                  onChange={onChangeField('productName')}
-                />
-                <span className={cx(classNames.count, { [classNames.error]: formFields.productName.length > 128 })}>{`${
-                  formFields.productName.length
-                } ${t(TranslationKey.of)} 128 ${t(TranslationKey.characters)}`}</span>
+              <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
+                <div className={classNames.nameAndInfoProductWrapper}>
+                  <Field
+                    disabled={disableFields}
+                    label={t(TranslationKey['Product name'])}
+                    inputProps={{ maxLength: 130 }}
+                    value={formFields.productName}
+                    labelClasses={classNames.spanLabel}
+                    containerClasses={classNames.noMarginContainer}
+                    className={classNames.oneLineField}
+                    onChange={onChangeField('productName')}
+                  />
 
-                <Field
-                  multiline
-                  disabled={disableFields}
-                  className={classNames.criterionsField}
-                  inputProps={{ maxLength: 250 }}
-                  minRows={9}
-                  maxRows={9}
-                  label={t(TranslationKey['Important criteria'])}
-                  value={formFields.criteria}
-                  onChange={onChangeField('criteria')}
-                />
+                  <Field
+                    multiline
+                    disabled={disableFields}
+                    labelClasses={classNames.spanLabel}
+                    className={classNames.criterionsField}
+                    containerClasses={classNames.noMarginContainer}
+                    inputProps={{ maxLength: 250 }}
+                    sx={{
+                      '.MuiInputBase-inputMultiline': {
+                        height: '100% !important',
+                        width: '100% !important',
+                      },
+                    }}
+                    label={t(TranslationKey['Important criteria'])}
+                    value={formFields.criteria}
+                    onChange={onChangeField('criteria')}
+                  />
+                </div>
+
+                <div className={classNames.linksAndDimensionsWrapper}>
+                  <Field
+                    labelClasses={classNames.spanLabel}
+                    label={t(TranslationKey.Links)}
+                    containerClasses={classNames.noMarginContainer}
+                    className={classNames.oneLineField}
+                    inputComponent={
+                      <div className={classNames.linksWrapper}>
+                        {(inEdit || inCreate) && (
+                          <div className={classNames.inputWrapper}>
+                            <Input
+                              disabled={disableFields}
+                              placeholder={t(TranslationKey['Link to the product'])}
+                              inputProps={{ maxLength: 510 }}
+                              value={linkLine}
+                              className={classNames.input}
+                              onChange={e => setLinkLine(e.target.value)}
+                            />
+                            <Button
+                              disableElevation
+                              disabled={!linkLine || disableFields}
+                              className={classNames.defaultBtn}
+                              variant="contained"
+                              color="primary"
+                              onClick={onClickLinkBtn}
+                            >
+                              {t(TranslationKey.Add)}
+                            </Button>
+                          </div>
+                        )}
+                        <div className={classNames.linksSubWrapper}>
+                          {formFields?.productLinks?.length ? (
+                            formFields?.productLinks?.map((el, index) => (
+                              <div key={index} className={classNames.linkWrapper}>
+                                <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
+                                  <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                                </Link>
+
+                                <div className={classNames.linksBtnsWrapper}>
+                                  <CopyValue text={el} />
+                                  {!disableFields && (
+                                    <IconButton
+                                      className={classNames.deleteBtnWrapper}
+                                      onClick={() => onRemoveLink(index)}
+                                    >
+                                      <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+                                    </IconButton>
+                                  )}
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
+                          )}
+                        </div>
+                      </div>
+                    }
+                  />
+
+                  <div className={classNames.shortFieldsSubWrapper}>
+                    <Field
+                      disabled={disableFields}
+                      inputProps={{ maxLength: 6 }}
+                      labelClasses={classNames.spanLabel}
+                      inputClasses={classNames.shortInput}
+                      className={classNames.oneLineField}
+                      containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                      label={t(TranslationKey.Quantity)}
+                      value={formFields.quantity}
+                      onChange={onChangeField('quantity')}
+                    />
+                    <Field
+                      disabled={disableFields}
+                      inputProps={{ maxLength: 6 }}
+                      labelClasses={classNames.spanLabel}
+                      inputClasses={classNames.shortInput}
+                      containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                      label={t(TranslationKey['Desired purchase price']) + ', $'}
+                      value={formFields.price}
+                      className={classNames.oneLineField}
+                      onChange={onChangeField('price')}
+                    />
+                  </div>
+
+                  <div className={classNames.sizesWrapper}>
+                    <div className={classNames.sizesSubWrapper}>
+                      <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
+
+                      <ToggleBtnGroup
+                        exclusive
+                        size="small"
+                        color="primary"
+                        value={sizeSetting}
+                        onChange={handleChange}
+                      >
+                        <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                          {'In'}
+                        </ToggleBtn>
+                        <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                          {'Cm'}
+                        </ToggleBtn>
+                      </ToggleBtnGroup>
+                    </div>
+
+                    <div className={classNames.sizesBottomWrapper}>
+                      <Field
+                        disabled={disableFields}
+                        inputProps={{ maxLength: 6 }}
+                        labelClasses={classNames.spanLabel}
+                        inputClasses={classNames.sizesInput}
+                        className={classNames.oneLineField}
+                        containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                        label={t(TranslationKey.Width)}
+                        value={formFields.width}
+                        onChange={onChangeField('width')}
+                      />
+                      <Field
+                        disabled={disableFields}
+                        inputProps={{ maxLength: 6 }}
+                        labelClasses={classNames.spanLabel}
+                        inputClasses={classNames.sizesInput}
+                        className={classNames.oneLineField}
+                        containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                        label={t(TranslationKey.Height)}
+                        value={formFields.height}
+                        onChange={onChangeField('height')}
+                      />
+                      <Field
+                        disabled={disableFields}
+                        inputProps={{ maxLength: 6 }}
+                        labelClasses={classNames.spanLabel}
+                        inputClasses={classNames.sizesInput}
+                        className={classNames.oneLineField}
+                        containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                        label={t(TranslationKey.Length)}
+                        value={formFields.length}
+                        onChange={onChangeField('length')}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <Divider className={classNames.divider} orientation="vertical" />
-
-            <div className={classNames.cardBlockWrapper}>
+            <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
               <Field
                 labelClasses={classNames.spanLabel}
-                label={t(TranslationKey.Links)}
-                containerClasses={classNames.linksContainer}
+                label={t(TranslationKey.Suppliers)}
+                containerClasses={classNames.noMarginContainer}
                 inputComponent={
-                  <div className={classNames.linksWrapper}>
-                    {inEdit || inCreate ? (
-                      <div className={classNames.inputWrapper}>
-                        <Input
-                          disabled={disableFields}
-                          placeholder={t(TranslationKey['Link to the product'])}
-                          inputProps={{ maxLength: 510 }}
-                          value={linkLine}
-                          className={classNames.input}
-                          onChange={e => setLinkLine(e.target.value)}
-                        />
-                        <Button
-                          disableElevation
-                          disabled={!linkLine || disableFields}
-                          className={classNames.defaultBtn}
-                          variant="contained"
-                          color="primary"
-                          onClick={onClickLinkBtn}
-                        >
-                          {t(TranslationKey.Add)}
-                        </Button>
-                      </div>
-                    ) : null}
-                    <div className={classNames.linksSubWrapper}>
-                      {formFields.productLinks.length ? (
-                        formFields.productLinks.map((el, index) => (
-                          <div key={index} className={classNames.linkWrapper}>
-                            <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                              <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
-                            </Link>
-
-                            <div className={classNames.linksBtnsWrapper}>
-                              <CopyValue text={el} />
-                              {!disableFields && (
-                                <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                                  <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-                                </IconButton>
-                              )}
+                  <>
+                    {checkIsClientOrBuyer && (inEdit || inCreate) ? (
+                      <div className={classNames.supplierActionsWrapper}>
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            className={classNames.iconBtn}
+                            onClick={() =>
+                              onClickSupplierBtns('add', () =>
+                                onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
+                              )
+                            }
+                          >
+                            <AddIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Add supplier'])}
+                          </Typography>
+                        </div>
+                        {selectedSupplier && (
+                          <>
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                                className={classNames.iconBtn}
+                                onClick={() =>
+                                  onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
+                                }
+                              >
+                                <EditOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Edit a supplier'])}
+                              </Typography>
                             </div>
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                                className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                onClick={() =>
+                                  onClickSupplierBtns('delete', () =>
+                                    onClickSaveBtn(calculateFieldsToSubmit(), [], true),
+                                  )
+                                }
+                              >
+                                <DeleteOutlineOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Delete supplier'])}
+                              </Typography>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ) : (
+                      <>
+                        {(checkIsClientOrBuyer || checkIsSupervisor(UserRoleCodeMap[curUser.role])) && (
+                          <div className={classNames.supplierButtonWrapper}>
+                            <Button
+                              disabled={!selectedSupplier}
+                              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                              className={classNames.iconBtn}
+                              onClick={() => onClickSupplierBtns('view')}
+                            >
+                              <VisibilityOutlinedIcon />
+                            </Button>
+                            <Typography className={classNames.supplierButtonText}>
+                              {t(TranslationKey['Open the parameters supplier'])}
+                            </Typography>
                           </div>
-                        ))
-                      ) : (
-                        <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
-                      )}
-                    </div>
-                  </div>
+                        )}
+                      </>
+                    )}
+                  </>
                 }
               />
 
-              <div className={classNames.shortFieldsWrapper}>
-                <div className={classNames.shortFieldsSubWrapper}>
-                  <Field
-                    disabled={disableFields}
-                    inputProps={{ maxLength: 6 }}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.shortInput}
-                    label={t(TranslationKey.Quantity)}
-                    value={formFields.quantity}
-                    onChange={onChangeField('quantity')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    inputProps={{ maxLength: 6 }}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.shortInput}
-                    label={t(TranslationKey['Desired purchase price']) + ', $'}
-                    value={formFields.price}
-                    onChange={onChangeField('price')}
-                  />
-                </div>
-
-                <div className={classNames.sizesWrapper}>
-                  <div className={classNames.sizesSubWrapper}>
-                    <Typography className={classNames.demensionsTitle}>{t(TranslationKey.Dimensions)}</Typography>
-
-                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                        {'In'}
-                      </ToggleBtn>
-                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                        {'Cm'}
-                      </ToggleBtn>
-                    </ToggleBtnGroup>
-                  </div>
-
-                  <div className={classNames.sizesBottomWrapper}>
-                    <Field
-                      disabled={disableFields}
-                      inputProps={{ maxLength: 6 }}
-                      labelClasses={classNames.spanLabel}
-                      inputClasses={classNames.sizesInput}
-                      containerClasses={classNames.sizesContainer}
-                      label={t(TranslationKey.Width)}
-                      value={formFields.width}
-                      onChange={onChangeField('width')}
-                    />
-                    <Field
-                      disabled={disableFields}
-                      inputProps={{ maxLength: 6 }}
-                      labelClasses={classNames.spanLabel}
-                      inputClasses={classNames.sizesInput}
-                      containerClasses={classNames.sizesContainer}
-                      label={t(TranslationKey.Height)}
-                      value={formFields.height}
-                      onChange={onChangeField('height')}
-                    />
-                    <Field
-                      disabled={disableFields}
-                      inputProps={{ maxLength: 6 }}
-                      labelClasses={classNames.spanLabel}
-                      inputClasses={classNames.sizesInput}
-                      containerClasses={classNames.sizesContainer}
-                      label={t(TranslationKey.Length)}
-                      value={formFields.length}
-                      onChange={onChangeField('length')}
-                    />
-                  </div>
-                </div>
-              </div>
+              <TableSupplier
+                product={formFields}
+                selectedSupplier={selectedSupplier}
+                onClickSupplier={onClickSupplier}
+              />
             </div>
-          </div>
+          </>
+        )}
 
-          <Field
-            labelClasses={classNames.spanLabel}
-            label={t(TranslationKey.Suppliers)}
-            containerClasses={classNames.linksContainer}
-            inputComponent={
-              <>
-                {(checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role])) &&
-                (inEdit || inCreate) ? (
-                  <div className={classNames.supplierActionsWrapper}>
-                    <div className={classNames.supplierContainer}>
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          className={classNames.iconBtn}
-                          onClick={() =>
-                            onClickSupplierBtns('add', () =>
-                              onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
-                            )
-                          }
-                        >
-                          <AddIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Add supplier'])}
-                        </Typography>
-                      </div>
-                      {selectedSupplier ? (
-                        <>
-                          <div className={classNames.supplierButtonWrapper}>
-                            <Button
-                              tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                              className={classNames.iconBtn}
-                              onClick={() =>
-                                onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
-                              }
-                            >
-                              <EditOutlinedIcon />
-                            </Button>
-                            <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Edit a supplier'])}
-                            </Typography>
-                          </div>
-                          <div className={classNames.supplierButtonWrapper}>
-                            <Button
-                              tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                              className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
-                              onClick={() =>
-                                onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
-                              }
-                            >
-                              <DeleteOutlineOutlinedIcon />
-                            </Button>
-                            <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Delete supplier'])}
-                            </Typography>
-                          </div>
-                        </>
-                      ) : null}
-                    </div>
-                  </div>
-                ) : (
-                  <div className={classNames.supplierActionsWrapper}>
-                    <div className={classNames.supplierContainer}>
-                      {checkIsBuyer(UserRoleCodeMap[curUser.role]) ||
-                      checkIsClient(UserRoleCodeMap[curUser.role]) ||
-                      checkIsSupervisor(UserRoleCodeMap[curUser.role]) ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied' */}
-                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('view')}
-                          >
-                            <VisibilityOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Open the parameters supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
-
-                <TableSupplier
-                  product={formFields}
-                  selectedSupplier={selectedSupplier}
-                  onClickSupplier={onClickSupplier}
-                />
-              </>
-            }
-          />
-        </div>
-
-        {inCreate || !disableFields ? (
+        {(inCreate || !disableFields) && (
           <div className={classNames.addOrEditBtnsWrapper}>
             <Button
               success
@@ -612,58 +618,10 @@ export const IdeaViewAndEditCard = observer(
               {t(TranslationKey.Close)}
             </Button>
           </div>
-        ) : null}
+        )}
 
-        {idea && disableFields ? (
+        {!!idea && disableFields && (
           <div className={classNames.existedIdeaBtnsWrapper}>
-            {!checkIsAdmin(UserRoleCodeMap[curUser.role]) ? (
-              <div className={classNames.existedIdeaBtnsSubWrapper}>
-                {checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
-                  <>
-                    {!checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
-                      <Button
-                        success
-                        tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                        variant="contained"
-                        color="primary"
-                        className={[classNames.actionButton]}
-                        onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
-                      >
-                        {t(TranslationKey['Create a product card'])}
-                      </Button>
-                    ) : (
-                      <div className={classNames.emptyBlock} />
-                    )}
-
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      className={classNames.actionButton}
-                      onClick={() => onEditIdea(idea)}
-                    >
-                      {t(TranslationKey.Edit)}
-                    </Button>
-                  </>
-                ) : null}
-                <div>
-                  {checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
-                    <Button
-                      danger
-                      variant="contained"
-                      className={[classNames.actionButton, classNames.btnLeftMargin]}
-                      onClick={() => {
-                        onRemove(formFields._id)
-                      }}
-                    >
-                      {t(TranslationKey.Remove)}
-                    </Button>
-                  ) : null}
-                </div>
-              </div>
-            ) : (
-              <div className={classNames.existedIdeaBtnsSubWrapper} />
-            )}
-
             <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
               <Typography className={classNames.tablePanelViewText}>
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
@@ -671,9 +629,63 @@ export const IdeaViewAndEditCard = observer(
 
               {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
             </div>
+
+            {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
+              <div className={classNames.existedIdeaBtnsSubWrapper}>
+                {checkIsClientOrBuyer && !checkIsBuyer(UserRoleCodeMap[curUser.role]) && (
+                  <Button
+                    success
+                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                    variant="contained"
+                    color="primary"
+                    className={[classNames.actionButton]}
+                    onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
+                  >
+                    {t(TranslationKey['Create a product card'])}
+                  </Button>
+                )}
+
+                {checkIsClientOrBuyer && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classNames.actionButton}
+                    onClick={() => onEditIdea(idea)}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                )}
+
+                {checkIsClientOrBuyer && formFields?.status === ideaStatusByKey[ideaStatus.NEW] && (
+                  <Button
+                    variant="contained"
+                    className={classNames.actionButton}
+                    onClick={() => {
+                      onClickCheckButton(formFields._id)
+                    }}
+                  >
+                    {t(TranslationKey.Check)}
+                  </Button>
+                )}
+
+                {checkIsClientOrBuyer && showRejectButton && (
+                  <Button
+                    danger
+                    variant="contained"
+                    className={classNames.actionButton}
+                    onClick={() => {
+                      console.log('formFields._id', formFields._id)
+                      onRemove(formFields._id)
+                    }}
+                  >
+                    {t(TranslationKey.Reject)}
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
-        ) : null}
-      </Grid>
+        )}
+      </div>
     )
   },
 )

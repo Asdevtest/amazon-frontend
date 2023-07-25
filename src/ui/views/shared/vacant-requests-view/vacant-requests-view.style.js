@@ -145,7 +145,7 @@ export const styles = theme => ({
   },
   redBorder: {
     ':after': {
-      background: '#D70D0D',
+      background: theme.palette.other.rejected,
     },
   },
 
