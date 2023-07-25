@@ -39,3 +39,17 @@ export const creatSupplier = [
   'boxProperties',
   'priceVariations',
 ]
+
+export const IdeaPatch = [
+  'title',
+  'media',
+  'comments',
+  'productName',
+  'productLinks',
+  'criteria',
+  'quantity',
+  'price',
+  'width',
+  'height',
+  'length',
+]

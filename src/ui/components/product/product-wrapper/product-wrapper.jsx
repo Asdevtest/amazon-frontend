@@ -101,7 +101,7 @@ export const ProductWrapper = observer(
     return (
       <>
         {SettingsModel.languageTag && (
-          <React.Fragment>
+          <div className={classNames.mainWrapper}>
             <Tabs
               variant={'fullWidth'}
               classes={{
@@ -211,7 +211,7 @@ export const ProductWrapper = observer(
             <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
-          </React.Fragment>
+          </div>
         )}
       </>
     )

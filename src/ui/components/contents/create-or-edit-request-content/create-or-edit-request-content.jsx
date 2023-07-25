@@ -27,9 +27,9 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
+import { CheckRequestByTypeExist, CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value'
@@ -915,11 +915,11 @@ export const CreateOrEditRequestContent = ({
                             labelClasses={cx(classNames.spanLabel, classNames.fitContentContainer)}
                             containerClasses={cx(classNames.asinContainerStapTwo)}
                             inputComponent={
-                              <AsinLink
+                              <AsinOrSkuLink
                                 withCopyValue
                                 asin={formFields.request.asin}
-                                linkSpanClass={classNames.copyAsinlinkSpan}
-                                missingSpanClass={classNames.copyAsinlinkSpan}
+                                textStyles={classNames.copyAsinlinkSpan}
+                                missingValueTextStyles={classNames.copyAsinlinkSpan}
                               />
                             }
                           />

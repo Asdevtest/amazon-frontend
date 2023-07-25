@@ -17,7 +17,7 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { UserLink } from '@components/user/user-link'
@@ -115,7 +115,7 @@ export const MyProposalsListCard = ({
 
               <div className={classNames.blockInfoCell}>
                 <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
-                <AsinLink asin={item.asin} />
+                <AsinOrSkuLink asin={item.asin} />
               </div>
 
               <div className={classNames.blockInfoCell}>

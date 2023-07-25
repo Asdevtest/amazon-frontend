@@ -1,6 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
+  mainWrapper: {
+    padding: '0 30px 0 40px',
+  },
+
   root: {
     width: '100%',
     boxShadow: 'inset 0 -1px 0 0 #E6ECF0',

@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier, patchSuppliers } from '@constants/white-list'
+import { IdeaPatch, creatSupplier, patchIdea, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
@@ -22,7 +22,7 @@ export class SuppliersAndIdeasModel {
   error = undefined
 
   curIdea = undefined
-  product = undefined
+  currentProduct = undefined
 
   inCreate = false
   inEdit = false
@@ -62,10 +62,8 @@ export class SuppliersAndIdeasModel {
 
   constructor({ history, productId, product }) {
     this.history = history
-
     this.productId = productId
-
-    this.product = product
+    this.currentProduct = product
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -95,6 +93,18 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async getIdea(ideaId) {
+    try {
+      const result = await IdeaModel.getIdeaById(ideaId)
+
+      runInAction(() => {
+        this.curIdea = result
+      })
+    } catch (error) {
+      console.log('error', error)
     }
   }
 
@@ -128,9 +138,9 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async removeIdea(id) {
+  async rejectIdea(id) {
     try {
-      await IdeaModel.removeIdea(id)
+      await IdeaModel.rejectIdea(id)
     } catch (error) {
       console.log(error)
     }
@@ -138,12 +148,11 @@ export class SuppliersAndIdeasModel {
 
   onCreateIdea() {
     this.curIdea = undefined
-
     this.inCreate = true
   }
 
   onSetCurIdea(idea) {
-    this.curIdea = idea
+    this.getIdea(idea?._id)
     this.inEdit = false
     this.selectedSupplier = undefined
   }
@@ -169,14 +178,14 @@ export class SuppliersAndIdeasModel {
         await onSubmitPostImages.call(this, { images: files, type: 'readyFiles' })
       }
 
-      const submitData = getObjectFilteredByKeyArrayBlackList(
+      const submitData = getObjectFilteredByKeyArrayWhiteList(
         {
           ...formFields,
           media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media,
           price: formFields.price || 0,
           quantity: Math.floor(formFields.quantity) || 0,
         },
-        ['_id', 'suppliers'],
+        IdeaPatch,
       )
 
       if (this.inEdit) {
@@ -236,7 +245,7 @@ export class SuppliersAndIdeasModel {
         amazonDetail: this.dataToCreateProduct.criteria,
         clientComment: this.dataToCreateProduct.comments,
 
-        ...(this.product.buyer?._id && { buyerId: this.product.buyer?._id }),
+        ...(this.currentProduct.buyer?._id && { buyerId: this.currentProduct.buyer?._id }),
       }
 
       const result = await ClientModel.createProduct(createData)
@@ -269,9 +278,9 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onSubmitRemoveIdea() {
+  async onSubmitRemoveIdea(ideaId) {
     try {
-      await this.removeIdea(this.ideaIdToRemove)
+      await this.rejectIdea(ideaId)
 
       this.loadData()
 
@@ -281,14 +290,21 @@ export class SuppliersAndIdeasModel {
     }
   }
 
+  async onClickCheckButton(ideaId) {
+    try {
+      await IdeaModel.checkIdea(ideaId)
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   onClickRemoveIdea(ideaId) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to remove the idea?']),
-      onClickConfirm: () => this.onSubmitRemoveIdea(),
+      confirmMessage: t(TranslationKey['Are you sure you want to reject this idea?']),
+      onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
     }
-
-    this.ideaIdToRemove = ideaId
 
     this.onTriggerOpenModal('showConfirmModal')
   }
