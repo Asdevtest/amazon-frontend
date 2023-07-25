@@ -73,7 +73,6 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
               blackText={undefined}
               withAvatar={undefined}
               maxNameWidth={undefined}
-              customStyles={undefined}
               customClassNames={undefined}
             />
             <Typography className={classNames.messageText}>

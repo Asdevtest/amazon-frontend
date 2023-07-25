@@ -2018,6 +2018,9 @@ export enum TranslationKey {
   'Rejected ideas' = 'Rejected ideas',
   'Parent product' = 'Parent product',
   'Child product' = 'Child product',
+  'Are you sure you want to close this idea?' = 'Are you sure you want to close this idea?',
+  'Link request' = 'Link request',
+  'Realized' = 'Realized',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',

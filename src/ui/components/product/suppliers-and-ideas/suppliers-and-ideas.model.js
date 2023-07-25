@@ -15,6 +15,7 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 
 export class SuppliersAndIdeasModel {
   history = undefined
@@ -133,14 +134,6 @@ export class SuppliersAndIdeasModel {
 
         this.onTriggerOpenModal('showSuccessModal')
       }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async rejectIdea(id) {
-    try {
-      await IdeaModel.rejectIdea(id)
     } catch (error) {
       console.log(error)
     }
@@ -278,18 +271,6 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onSubmitRemoveIdea(ideaId) {
-    try {
-      await this.rejectIdea(ideaId)
-
-      this.loadData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async onClickCheckButton(ideaId) {
     try {
       await IdeaModel.checkIdea(ideaId)
@@ -299,14 +280,65 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  onClickRemoveIdea(ideaId) {
+  async onClickAcceptButton(ideaId, status) {
+    switch (status) {
+      case ideaStatusByKey[ideaStatus.NEW]:
+        await IdeaModel.changeStatusToSupplierSearchIdea(ideaId)
+        break
+
+      case ideaStatusByKey[ideaStatus.ON_CHECK]:
+        await IdeaModel.changeStatusToSupplierSearchIdea(ideaId)
+        break
+
+      case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]:
+        await IdeaModel.changeStatusToProductCreating(ideaId)
+        break
+
+      // case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] || ideaStatusByKey[ideaStatus.CARD_CREATING]:
+      //   await IdeaModel.changeStatusToAddingAsin(ideaId)
+      //   break
+
+      case ideaStatusByKey[ideaStatus.ADDING_ASIN]:
+        await IdeaModel.changeStatusToFinished(ideaId)
+        break
+    }
+  }
+
+  async onSubmitRejectOrRemoveIdea(ideaId, close) {
+    try {
+      if (close) {
+        await IdeaModel.removeIdea(ideaId)
+      } else {
+        await IdeaModel.rejectIdea(ideaId)
+      }
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickCloseIdea(ideaId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to close this idea?']),
+      onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId, true),
+    }
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickRejectButton(ideaId) {
     this.confirmModalSettings = {
       isWarning: true,
       confirmMessage: t(TranslationKey['Are you sure you want to reject this idea?']),
-      onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
+      onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId),
     }
-
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onClickReoperButton(ideaId) {
+    await IdeaModel.reopenIdea(ideaId)
+    this.loadData()
   }
 
   setRequestStatus(requestStatus) {

@@ -45,6 +45,8 @@ import { t } from '@utils/translations'
 import { useClassNames } from './idea-view-and-edit-card.style'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
+import { IdeaRequestCard } from './idea-request-card'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -63,7 +65,6 @@ export const IdeaViewAndEditCard = observer(
     inCreate,
     idea,
     curIdea,
-    onRemove,
     selectedSupplier,
     currentProduct,
     onClickCancelBtn,
@@ -74,7 +75,10 @@ export const IdeaViewAndEditCard = observer(
     onClickSupplierBtns,
     onClickSupplier,
     onClickCheckButton,
-    onClickSaveIcon,
+    onClickCloseIdea,
+    onClickAcceptButton,
+    onClickRejectButton,
+    onClickReoperButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -227,15 +231,23 @@ export const IdeaViewAndEditCard = observer(
       return res
     }
 
-    const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
-    const disabledSubmit = objectDeepCompare(formFields, getFullIdea())
-    const checkIsClientOrBuyer =
-      checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])
+    const disabledSubmit = objectDeepCompare(formFields, getFullIdea()) && !images.length
 
+    const currentUserIsClient = checkIsClient(UserRoleCodeMap[curUser.role])
+    const currentUserIsBuyer = checkIsBuyer(UserRoleCodeMap[curUser.role])
+
+    const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
+
+    const isNewIdea = formFields?.status === ideaStatusByKey[ideaStatus.NEW]
     const showRejectButton =
-      formFields?.status === ideaStatusByKey[ideaStatus.NEW] ||
+      isNewIdea ||
       formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK] ||
       formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+
+    const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
+    const disableAcceptButton =
       formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] ||
       formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
 
@@ -281,6 +293,44 @@ export const IdeaViewAndEditCard = observer(
                 setImages={setImages}
                 maxNumber={50}
               />
+            )}
+
+            {!!formFields?.requestsOnCheck?.length && (
+              // <div className={classNames.requestsBlockWrapper}>
+              //   <div className={classNames.requestsControlWrapper}>
+              //     <p>{t(TranslationKey.Freelance)}</p>
+
+              //     <div className={classNames.requestsControlButtonsWrapper}>
+              //       <CustomSwitcher
+              //         condition={sizeSetting}
+              //         nameFirstArg={t(TranslationKey['On check'])}
+              //         nameSecondArg={t(TranslationKey.Realized)}
+              //         // firstArgValue={unitsOfChangeOptions.EU}
+              //         // secondArgValue={unitsOfChangeOptions.US}
+              //         // changeConditionHandler={condition => setSizeSetting(condition)}
+              //       />
+
+              //       <Button
+              //         // className={classNames.iconBtn}
+              //         onClick={() => {}}
+              //       >
+              //         {t(TranslationKey['Link request'])}
+              //       </Button>
+              //     </div>
+              //   </div>
+
+              <div className={classNames.requestsWrapper}>
+                {formFields?.requestsOnCheck.map((request, requestIndex) => (
+                  <IdeaRequestCard
+                    key={requestIndex}
+                    requestType={request.typeTask}
+                    requestId={request.humanFriendlyId}
+                    requestStatus={request.status}
+                    executor={request.executor}
+                  />
+                ))}
+              </div>
+              // </div>
             )}
           </div>
 
@@ -632,31 +682,34 @@ export const IdeaViewAndEditCard = observer(
 
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
-                {checkIsClientOrBuyer && !checkIsBuyer(UserRoleCodeMap[curUser.role]) && (
+                {checkIsClientOrBuyer && !isNewIdea && (
                   <Button
-                    success
-                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                    variant="contained"
-                    color="primary"
-                    className={[classNames.actionButton]}
-                    onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
-                  >
-                    {t(TranslationKey['Create a product card'])}
-                  </Button>
-                )}
-
-                {checkIsClientOrBuyer && (
-                  <Button
+                    disabled={disableAcceptButton || currentUserIsBuyer}
                     variant="contained"
                     color="primary"
                     className={classNames.actionButton}
-                    onClick={() => onEditIdea(idea)}
+                    onClick={() => onClickAcceptButton(formFields._id, formFields.status)}
                   >
-                    {t(TranslationKey.Edit)}
+                    {t(TranslationKey.Accept)}
                   </Button>
                 )}
 
-                {checkIsClientOrBuyer && formFields?.status === ideaStatusByKey[ideaStatus.NEW] && (
+                {checkIsClientOrBuyer &&
+                  !checkIsBuyer(UserRoleCodeMap[curUser.role]) &&
+                  formFields?.status === ideaStatusByKey[ideaStatus.CARD_CREATING] && (
+                    <Button
+                      success
+                      tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                      variant="contained"
+                      color="primary"
+                      className={[classNames.actionButton]}
+                      onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
+                    >
+                      {t(TranslationKey['Create a product card'])}
+                    </Button>
+                  )}
+
+                {checkIsClientOrBuyer && isNewIdea && (
                   <Button
                     variant="contained"
                     className={classNames.actionButton}
@@ -668,15 +721,47 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {checkIsClientOrBuyer && showRejectButton && (
+                {currentUserIsClient && formFields?.status === ideaStatusByKey[ideaStatus.REJECTED] && (
+                  <Button
+                    success
+                    variant="contained"
+                    className={classNames.actionButton}
+                    onClick={() => onClickReoperButton(formFields._id)}
+                  >
+                    {t(TranslationKey.Restore)}
+                  </Button>
+                )}
+
+                {checkIsClientOrBuyer && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classNames.actionButton}
+                    onClick={() => onEditIdea(formFields)}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                )}
+
+                {currentUserIsClient && formFields?.status === ideaStatusByKey[ideaStatus.REJECTED] && (
                   <Button
                     danger
                     variant="contained"
                     className={classNames.actionButton}
                     onClick={() => {
-                      console.log('formFields._id', formFields._id)
-                      onRemove(formFields._id)
+                      onClickCloseIdea(formFields._id)
                     }}
+                  >
+                    {t(TranslationKey.Close)}
+                  </Button>
+                )}
+
+                {currentUserIsClient && showRejectButton && (
+                  <Button
+                    danger
+                    variant="contained"
+                    className={classNames.actionButton}
+                    onClick={() => onClickRejectButton(formFields._id)}
                   >
                     {t(TranslationKey.Reject)}
                   </Button>

@@ -1,3 +1,5 @@
+import { RequestProposalStatus } from './request-proposal-status'
+
 export const RequestStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
@@ -46,6 +48,62 @@ export const colorByRequestStatus = status => {
     return 'black'
   }
 }
+
+export const colorByStatus = status => {
+  if ([RequestStatus.DRAFT].includes(status)) {
+    return '#006CFF'
+  } else if (
+    [
+      RequestStatus.CANCELED_BY_CREATOR,
+      RequestStatus.FORBID_NEW_PROPOSALS,
+      RequestStatus.CANCELED_BY_ADMIN,
+      RequestStatus.CANCELED_BY_SUPERVISOR,
+      RequestStatus.CANCELED_BY_EXECUTOR,
+      RequestStatus.OFFER_CONDITIONS_REJECTED,
+    ].includes(status)
+  ) {
+    return '#FF1616'
+  } else if (
+    [
+      RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
+      RequestStatus.IN_PROCESS,
+      RequestStatus.VERIFYING_BY_SUPERVISOR,
+      RequestStatus.ACCEPTED_BY_SUPERVISOR,
+      RequestStatus.ACCEPTED_BY_CLIENT,
+      RequestStatus.CORRECTED,
+      RequestStatus.OFFER_CONDITIONS_CORRECTED,
+    ].includes(status)
+  ) {
+    return '#00B746'
+  } else if (
+    [
+      RequestStatus.PUBLISHED,
+      RequestStatus.TO_CORRECT_BY_ADMIN,
+      RequestStatus.READY_TO_VERIFY,
+      RequestStatus.TO_CORRECT,
+    ].includes(status)
+  ) {
+    return '#F3AF00'
+  } else if ([RequestStatus.EXPIRED].includes(status)) {
+    return '#C4C4C4'
+  } else {
+    return 'black'
+  }
+}
+
+export const showResultStatuses = [
+  RequestProposalStatus.READY_TO_VERIFY,
+  RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+  RequestProposalStatus.TO_CORRECT,
+  RequestProposalStatus.CORRECTED,
+
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+  RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+
+  RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+  RequestProposalStatus.PROPOSAL_EDITED,
+]
 
 // DRAFT - черновик, заявка создана, но не опубликована
 // PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при

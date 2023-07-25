@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   categoryTitle: {
+    width: 'max-content',
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.text.second,
@@ -15,5 +16,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   categoryText: {
     color: theme.palette.text.general,
+  },
+
+  categoresWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
   },
 }))
