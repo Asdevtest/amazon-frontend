@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Typography } from '@mui/material'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,8 +14,9 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { RequestToSendBatchBox } from '../request-to-send-batch-box'
 import { useClassNames } from './request-to-send-batch-group-boxes.style'
+
+import { RequestToSendBatchBox } from '../request-to-send-batch-box'
 
 export const RequestToSendBatchesGroupBoxes = ({
   userInfo,

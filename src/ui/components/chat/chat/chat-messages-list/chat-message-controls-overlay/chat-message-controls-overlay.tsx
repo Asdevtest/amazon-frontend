@@ -1,12 +1,16 @@
-import { useChatMessageControlsOverlayStyles } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay/chat-message-controls-overlay.styles'
 import { cx } from '@emotion/css'
-import { Popover, Tooltip } from '@mui/material'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { CheckInCircleIcon, ReactionSmileIcon, ReplyIcon } from '@components/shared/svg-icons'
-import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone'
 import React, { useRef, useState } from 'react'
+
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone'
+import { Popover, Tooltip } from '@mui/material'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { useChatMessageControlsOverlayStyles } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay/chat-message-controls-overlay.styles'
+import { CheckInCircleIcon, ReactionSmileIcon, ReplyIcon } from '@components/shared/svg-icons'
+
+import { t } from '@utils/translations'
 
 interface ChatMessageControlsOverlayProps {
   onClickReply: () => void

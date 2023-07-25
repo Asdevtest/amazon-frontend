@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Grid, Typography, Avatar, Divider } from '@mui/material'
-import Rating from '@mui/material/Rating'
-
 import React from 'react'
+
+import { Avatar, Divider, Grid, Typography } from '@mui/material'
+import Rating from '@mui/material/Rating'
 
 import {
   RequestProposalStatus,
@@ -11,15 +11,15 @@ import {
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
 import {
+  freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeTranslate,
-  freelanceRequestType,
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-
+import { CustomSlider } from '@components/shared/custom-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
@@ -27,7 +27,6 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './my-proposals-list-card.style'
-import { CustomSlider } from '@components/shared/custom-slider'
 
 export const MyProposalsListCard = ({
   item,

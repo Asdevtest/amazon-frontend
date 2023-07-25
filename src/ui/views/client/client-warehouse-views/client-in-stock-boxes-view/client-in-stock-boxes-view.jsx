@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef, useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -39,8 +38,9 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 import { styles } from './client-in-stock-boxes-view.style'
+
+import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
 export const ClientInStockBoxesViewRaw = props => {
   const topHeaderBtnsWrapperRef = useRef()

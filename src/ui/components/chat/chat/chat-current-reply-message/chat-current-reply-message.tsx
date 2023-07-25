@@ -1,10 +1,13 @@
-import { useChatCurrentReplyMessageStyles } from '@components/chat/chat/chat-current-reply-message/chat-current-reply-message.styles'
-import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { Typography } from '@mui/material'
-import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import { ReplyIcon } from '@components/shared/svg-icons'
 import { cx } from '@emotion/css'
+
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { Typography } from '@mui/material'
+
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+
+import { useChatCurrentReplyMessageStyles } from '@components/chat/chat/chat-current-reply-message/chat-current-reply-message.styles'
+import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
+import { ReplyIcon } from '@components/shared/svg-icons'
 
 interface ChatCurrentReplyMessageProps {
   message: ChatMessageContract

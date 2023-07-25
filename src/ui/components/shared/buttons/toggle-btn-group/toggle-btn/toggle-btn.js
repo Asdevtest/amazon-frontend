@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { ToggleButton } from '@mui/material'
-
 import { withStyles } from 'tss-react/mui'
+
+import { ToggleButton } from '@mui/material'
 
 export const ToggleBtn = withStyles(ToggleButton, theme => ({
   selected: {

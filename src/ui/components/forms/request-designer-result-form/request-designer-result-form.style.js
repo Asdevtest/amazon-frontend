@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { borderRadius } from '@mui/system'
-
 import { makeStyles } from 'tss-react/mui'
+
+import { borderRadius } from '@mui/system'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {

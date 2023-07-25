@@ -1,18 +1,23 @@
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
+import { FC } from 'react'
 
-import { useClassNames } from './custom-page-switcher.styles'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
-import Typography from '@mui/material/Typography'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { Field } from '../field'
-import Select from '@mui/material/Select'
-import { FC } from 'react'
 import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import Typography from '@mui/material/Typography'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { Input } from '@components/shared/input'
+
+import { t } from '@utils/translations'
+
+import { useClassNames } from './custom-page-switcher.styles'
+
 import { PaginationModel } from '../../../../types/pagination-model'
-import { cx } from '@emotion/css'
+import { Field } from '../field'
 
 interface CustomPageSwitcherProps {
   paginationModel: PaginationModel

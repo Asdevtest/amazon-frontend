@@ -1,12 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { ChatModel } from '@models/chat-model'
 import { OtherModel } from '@models/other-model'
 import { UserModel } from '@models/user-model'
 
-import { onSubmitPostImages } from '@utils/upload-files'
 import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class NavbarModel {
   showFeedbackModal = false

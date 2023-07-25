@@ -1,24 +1,26 @@
 import { cx } from '@emotion/css'
-import { Avatar, Link, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Avatar, Link, Typography } from '@mui/material'
+
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
+import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay'
+
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed } from '@utils/text'
 
 import { useClassNames } from './chat-messages-list.style'
+
+import { ChatMessageByType } from './chat-message-by-type'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
 import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages/chat-message-proposal-status-changed'
 import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/chat-message-request-proposal-result-edited'
-import { ChatMessageByType } from './chat-message-by-type'
-import { toFixed } from '@utils/text'
-import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay'
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &

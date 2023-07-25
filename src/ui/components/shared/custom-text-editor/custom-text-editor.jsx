@@ -2,17 +2,16 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cx } from '@emotion/css'
+import { EditorState, convertToRaw } from 'draft-js'
+import { observer } from 'mobx-react'
+import MUIRichTextEditor from 'mui-rte'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
+
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify'
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft'
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight'
 import { Typography } from '@mui/material'
-
-import React, { forwardRef, useEffect, useRef, useState } from 'react'
-
-import { EditorState, convertToRaw } from 'draft-js'
-import { observer } from 'mobx-react'
-import MUIRichTextEditor from 'mui-rte'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

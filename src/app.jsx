@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import * as Sentry from '@sentry/react'
-
 import { useEffect } from 'react'
-
 import { useFaviconNotification } from 'react-favicon-notification'
 
 import '@styles/global.css'

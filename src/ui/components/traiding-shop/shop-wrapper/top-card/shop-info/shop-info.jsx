@@ -1,16 +1,15 @@
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import { Box, Link, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import { Box, Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field/field'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'

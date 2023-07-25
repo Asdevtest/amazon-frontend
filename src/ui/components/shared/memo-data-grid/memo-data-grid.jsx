@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { DataGrid } from '@mui/x-data-grid'
-
+import { observer } from 'mobx-react'
 import React, { useMemo } from 'react'
 
-import { observer } from 'mobx-react'
+import { DataGrid } from '@mui/x-data-grid'
 
 import { SettingsModel } from '@models/settings-model'
 

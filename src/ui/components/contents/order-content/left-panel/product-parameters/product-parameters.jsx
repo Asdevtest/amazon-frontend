@@ -1,8 +1,7 @@
-import { Typography, Link, Chip } from '@mui/material'
-
+import clsx from 'clsx'
 import React, { useState } from 'react'
 
-import clsx from 'clsx'
+import { Chip, Link, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -14,13 +13,13 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
-import { toFixed, checkAndMakeAbsoluteUrl, trimBarcode } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-parameters.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const ProductParameters = ({
   order,

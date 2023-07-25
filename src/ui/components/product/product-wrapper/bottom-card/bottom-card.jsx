@@ -1,14 +1,13 @@
-import { Grid, Typography, Paper } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Grid, Paper, Typography } from '@mui/material'
 
 import {
-  colorByProductStatus,
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
+  colorByProductStatus,
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'

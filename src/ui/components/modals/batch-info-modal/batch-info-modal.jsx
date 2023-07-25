@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { Typography } from '@mui/material'
 
 import {
   BatchWeightCalculationMethodTranslateKey,
@@ -42,8 +41,9 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
+
+import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
   ({

@@ -1,6 +1,6 @@
-import { Badge as MuiBadge } from '@mui/material'
-
 import { withStyles } from 'tss-react/mui'
+
+import { Badge as MuiBadge } from '@mui/material'
 
 import { styles } from './badge.style'
 

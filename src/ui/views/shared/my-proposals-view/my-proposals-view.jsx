@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Checkbox, Grid, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import {
   RequestProposalStatus,
@@ -20,14 +19,18 @@ import {
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MyProposalsListCard } from '@components/cards/my-proposals-list-card'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -40,12 +43,9 @@ import {
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { MyProposalsViewModel } from './my-proposals-view.model'
 import { styles } from './my-proposals-view.style'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { RequestResultModal } from '@components/modals/request-result-modal'
+
+import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsViewRaw = props => {
   const [viewModel] = useState(

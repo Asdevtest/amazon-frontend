@@ -4,17 +4,17 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { UserModel } from '@models/user-model'
 
 import { supervisorProductsViewColumns } from '@components/table/table-columns/supervisor/supervisor-products-columns'
 
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { t } from '@utils/translations'
-import { UserModel } from '@models/user-model'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
-import { GeneralModel } from '@models/general-model'
+import { t } from '@utils/translations'
 
 const filtersFields = [
   'asin',

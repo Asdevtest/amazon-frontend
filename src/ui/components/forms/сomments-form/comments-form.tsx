@@ -1,8 +1,7 @@
-import { Typography } from '@mui/material'
-
+import { nanoid } from 'nanoid'
 import React, { FC } from 'react'
 
-import { nanoid } from 'nanoid'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -1,6 +1,5 @@
-import { forwardRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { forwardRef } from 'react'
 
 import { useClassNames } from './main-content.style'
 

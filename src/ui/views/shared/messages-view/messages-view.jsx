@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Typography, Link } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Link, Typography } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -22,14 +21,15 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { SoundNotificationIcon, SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { MessagesViewModel } from './messages-view.model'
 import { styles } from './messages-view.style'
-import { SoundNotificationIcon, SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
+
+import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesViewRaw = props => {
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))

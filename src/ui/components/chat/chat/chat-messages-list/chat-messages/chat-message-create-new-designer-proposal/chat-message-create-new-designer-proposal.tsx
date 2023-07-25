@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Divider, Typography } from '@mui/material'
-
 import React, { FC, useContext } from 'react'
-
 import Linkify from 'react-linkify-always-blank'
+
+import { Divider, Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,6 +13,7 @@ import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -21,9 +21,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { LabelValuePairBlock } from '../label-value-pair-block'
 import { useClassNames } from './chat-message-create-new-designer-proposal.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+
+import { LabelValuePairBlock } from '../label-value-pair-block'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void

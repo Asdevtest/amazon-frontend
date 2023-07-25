@@ -1,6 +1,6 @@
-import { Box, Container, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Box, Container, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -11,17 +11,17 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { calcVolumeWeightForBox } from '@utils/calculation'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-box-tasks-modal.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { calcVolumeWeightForBox } from '@utils/calculation'
 
 const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting, weightConversion }) => {
   const { classes: classNames } = useClassNames()

@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Link, Typography } from '@mui/material'
-
 import React, { FC, useContext } from 'react'
-
 import Linkify from 'react-linkify-always-blank'
+
+import { Link, Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,6 +14,7 @@ import { UserModel } from '@models/user-model'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { formatDateOnlyTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -23,7 +23,6 @@ import { t } from '@utils/translations'
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
 import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void

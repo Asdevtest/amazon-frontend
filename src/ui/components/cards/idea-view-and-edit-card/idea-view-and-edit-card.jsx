@@ -1,21 +1,23 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import AddIcon from '@material-ui/icons/Add'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Link, Typography, IconButton } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import AddIcon from '@material-ui/icons/Add'
-import { observer } from 'mobx-react'
+import { Link, Typography, IconButton, Divider, Grid, InputAdornment, MenuItem, Select } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
+import { ideaStatus, ideaStatusByKey, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+
+import { routsPathes } from '@constants/navigation/routs-pathes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TableSupplier } from '@components/product/table-supplier'
@@ -23,9 +25,9 @@ import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { roundSafely } from '@utils/calculation'

@@ -1,12 +1,15 @@
 import { cx } from '@emotion/css'
-import { Chip, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 
-import React, { useState, useEffect } from 'react'
+import { Chip, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,8 +18,11 @@ import { SettingsModel } from '@models/settings-model'
 import { WarehouseDemensions } from '@components/forms/edit-box-storekeeper-form/edit-box-storekeeper-form'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -26,15 +32,11 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { SetShippingLabelModal } from '../set-shipping-label-modal'
-import { BoxForMerge } from './box-for-merge'
 import { useClassNames } from './merge-boxes-modal.style'
-import { CopyValue } from '@components/shared/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { BoxStatus } from '@constants/statuses/box-status'
+
+import { SetShippingLabelModal } from '../set-shipping-label-modal'
+
+import { BoxForMerge } from './box-for-merge'
 
 export const MergeBoxesModal = ({
   showCheckbox,

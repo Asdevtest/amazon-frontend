@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cx } from '@emotion/css'
-import { Box, Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { FC, ReactElement, useEffect, useMemo } from 'react'
 
-import { observer } from 'mobx-react'
+import { Box, Tabs } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,8 +17,9 @@ import { ITab } from '@components/shared/i-tab/i-tab'
 
 import { t } from '@utils/translations'
 
-import { ChatListItem } from './chat-list-item'
 import { useClassNames } from './chats-list.style'
+
+import { ChatListItem } from './chat-list-item'
 
 interface TabPanelProps {
   children: ReactElement

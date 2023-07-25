@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import { Typography } from '@mui/material'
-
 import React, { FC } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { useClassNames } from './label-value-pair-block.style'
 

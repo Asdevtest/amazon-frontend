@@ -1,32 +1,36 @@
 /* eslint-disable no-unused-vars */
-
-import { Modal } from '@components/shared/modal'
-
-import { useClassNames } from './product-card-modal.style'
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { ProductWrapper } from '@components/product/product-wrapper'
-import { ClientProductViewModel } from '@views/client/client-product-view/client-product-view.model'
 import { useLocation } from 'react-router-dom'
+
 import Typography from '@mui/material/Typography'
-import { ShareLinkIcon } from '@components/shared/svg-icons'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
-import { Button } from '@components/shared/buttons/button'
-import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
+
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
-
-import { cx } from '@emotion/css'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
-import { WarningInfoModal } from '../warning-info-modal'
-import { ConfirmationModal } from '../confirmation-modal'
+import { ProductWrapper } from '@components/product/product-wrapper'
+import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
+import { ShareLinkIcon } from '@components/shared/svg-icons'
+
 import { BuyerProductViewModel } from '@views/buyer/buyer-product-view/buyer-product-view.model'
+import { ClientProductViewModel } from '@views/client/client-product-view/client-product-view.model'
 import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product-view/supervisor-product-view.model'
+
+import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
+import { t } from '@utils/translations'
+
+import { useClassNames } from './product-card-modal.style'
+
+import { ConfirmationModal } from '../confirmation-modal'
+import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
   const { classes: classNames } = useClassNames()

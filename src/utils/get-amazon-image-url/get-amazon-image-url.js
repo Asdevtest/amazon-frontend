@@ -1,7 +1,7 @@
 import {
-  amazonImageUrlSmallPostfix,
-  amazonImageUrlPrefix,
   amazonImageUrlBigPostfix,
+  amazonImageUrlPrefix,
+  amazonImageUrlSmallPostfix,
 } from '@constants/configs/amazon-images'
 import { BACKEND_API_URL } from '@constants/keys/env'
 

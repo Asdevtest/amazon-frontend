@@ -1,15 +1,14 @@
 import { cx } from '@emotion/css'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { withStyles } from 'tss-react/mui'
+
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Checkbox, InputAdornment, Typography } from '@mui/material'
-
-import { useEffect, useState } from 'react'
-
-import { Link } from 'react-router-dom'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

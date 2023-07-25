@@ -1,6 +1,6 @@
-import { Avatar, Typography } from '@mui/material'
-
 import { FC } from 'react'
+
+import { Avatar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

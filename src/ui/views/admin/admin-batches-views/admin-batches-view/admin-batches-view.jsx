@@ -1,10 +1,9 @@
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,8 +12,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { AdminBatchesViewModel } from './admin-batches-view.model'
 import { styles } from './admin-batches-view.style'
+
+import { AdminBatchesViewModel } from './admin-batches-view.model'
 
 export const AdminBatchesViewRaw = props => {
   const [viewModel] = useState(() => new AdminBatchesViewModel({ history: props.history }))

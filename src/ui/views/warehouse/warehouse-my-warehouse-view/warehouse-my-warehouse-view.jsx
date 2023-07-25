@@ -1,14 +1,15 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
@@ -34,9 +35,9 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 import { styles } from './warehouse-my-warehouse-view.style'
-import { SettingsModel } from '@models/settings-model'
+
+import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
 export const WarehouseMyWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))

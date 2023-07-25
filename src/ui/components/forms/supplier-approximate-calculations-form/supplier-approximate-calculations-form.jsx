@@ -1,28 +1,27 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
 
 import { Box, Tabs, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-
-import { ITab } from '@components/shared/i-tab/i-tab'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { Button } from '@components/shared/buttons/button'
+import { ITab } from '@components/shared/i-tab/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import { t } from '@utils/translations'
-
-import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
-import { useClassNames } from './supplier-approximate-calculations-form.style'
-import { SettingsModel } from '@models/settings-model'
 import {
   supplierApproximateCalculationsDataConverter,
   supplierWeightBasedApproximateCalculationsDataConverter,
 } from '@utils/data-grid-data-converters'
+import { t } from '@utils/translations'
+
+import { useClassNames } from './supplier-approximate-calculations-form.style'
+
+import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
 import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
 
 const TabPanel = ({ children, value, index, ...other }) => (

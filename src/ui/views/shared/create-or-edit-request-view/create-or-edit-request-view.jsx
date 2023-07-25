@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const CreateOrEditRequestView = observer(props => {
   const mainContentRef = useRef()

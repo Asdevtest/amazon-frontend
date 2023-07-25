@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Box, Divider, Paper, Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Box, Divider, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

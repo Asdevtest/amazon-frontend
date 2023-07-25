@@ -1,10 +1,9 @@
+import React, { useEffect } from 'react'
+import { useFaviconNotification } from 'react-favicon-notification'
+
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import { Divider, Typography } from '@mui/material'
-
-import React, { useEffect } from 'react'
-
-import { useFaviconNotification } from 'react-favicon-notification'
 
 import { appVersion } from '@constants/app-version.js'
 import { UiTheme } from '@constants/theme/themes'

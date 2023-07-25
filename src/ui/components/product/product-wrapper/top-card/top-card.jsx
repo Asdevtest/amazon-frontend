@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import AddIcon from '@material-ui/icons/Add'
+import AcceptIcon from '@material-ui/icons/Check'
+import AcceptRevokeIcon from '@material-ui/icons/Clear'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -8,19 +14,15 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { Alert, Box, Grid, Paper, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import { observer } from 'mobx-react'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -28,12 +30,12 @@ import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSu
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './top-card.style'
+
 import { TableSupplier } from '../../table-supplier'
+
 import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
-import { useClassNames } from './top-card.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],

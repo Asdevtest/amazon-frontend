@@ -1,15 +1,16 @@
 import { cx } from '@emotion/css'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Container, Divider, Paper, TableCell, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material'
-
+import { isPast, isValid, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 
-import { isPast, isValid, parseISO } from 'date-fns'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+import { Container, Divider, Paper, TableCell, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/orders/order-status'
 import { CLIENT_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import { SettingsModel } from '@models/settings-model'
+
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/buttons/button'
@@ -25,10 +26,11 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './order-content.style'
+
 import { DeliveryParameters } from './delivery-parameters'
 import { ExtraOrderInfo } from './extra-order-info'
 import { LeftPanel } from './left-panel'
-import { useClassNames } from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 

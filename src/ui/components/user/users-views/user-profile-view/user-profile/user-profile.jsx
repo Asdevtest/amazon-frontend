@@ -1,11 +1,10 @@
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import { Avatar, Box, Paper, Typography, Button, Rating } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
 
-import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,10 +18,11 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './user-profile.style'
+
 import { FeedbackCard } from './feedback-card'
 import { Info } from './info'
 import { Tested } from './tested'
-import { useClassNames } from './user-profile.style'
 
 export const UserProfile = observer(
   ({

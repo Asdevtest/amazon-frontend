@@ -1,24 +1,25 @@
 import React from 'react'
 
-import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
+
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
   FeesValuesWithCalculateBtnCell,
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
-  MultilineStatusCell,
-  TagsCell,
+  ProductAsinCell,
   RedFlagsCell,
   SelectRowCell,
+  TagsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 export const buyerProductsViewColumns = handlers => [
   {

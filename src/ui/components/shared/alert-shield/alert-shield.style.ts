@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-import { makeStyles } from 'tss-react/mui'
 
+/* eslint-disable no-unused-vars */
 import { keyframes } from '@emotion/react'
+import { makeStyles } from 'tss-react/mui'
 
 const fadeIn = keyframes`
   0% {

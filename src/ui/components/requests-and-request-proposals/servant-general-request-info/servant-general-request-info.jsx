@@ -1,15 +1,16 @@
 import { cx } from '@emotion/css'
-import { Typography, Paper, Avatar, Rating, Divider } from '@mui/material'
-
 import React from 'react'
 
+import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
+
+import { requestPriority } from '@constants/requests/request-priority'
 import {
   MyRequestStatusTranslate,
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
-import { colorByRequestStatus, RequestStatus } from '@constants/requests/request-status'
+import { RequestStatus, colorByRequestStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -19,10 +20,12 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+
 import { Button } from '@components/shared/buttons/button'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
-import { CustomSlider } from '@components/shared/custom-slider'
+
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
@@ -32,8 +35,6 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './servant-general-request-info.style'
-
-import { requestPriority } from '@constants/requests/request-priority'
 
 export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
   const { classes: classNames } = useClassNames()

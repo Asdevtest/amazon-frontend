@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-
-import { LineChart, Line } from 'recharts'
+import { Line, LineChart } from 'recharts'
 
 interface Props {
   profit?: boolean

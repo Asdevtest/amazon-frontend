@@ -1,16 +1,15 @@
 import { cx } from '@emotion/css'
-import { Box, Grid, Link, MenuItem, Select, Radio, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
 
 import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
+  ProductStrategyStatus,
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
-  ProductStrategyStatus,
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useMemo, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Box, Divider, ListItemText, Tabs, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
-
-import React, { useEffect, useState, useMemo } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,8 +17,9 @@ import { ITab } from '@components/shared/i-tab/i-tab'
 
 import { t } from '@utils/translations'
 
-import { AccessToProductForm } from './access-to-product-form'
 import { useClassNames } from './add-or-edit-user-permissions-form.style'
+
+import { AccessToProductForm } from './access-to-product-form'
 
 const tabsValues = {
   ASSIGN_PERMISSIONS: 'ASSIGN_PERMISSIONS',
