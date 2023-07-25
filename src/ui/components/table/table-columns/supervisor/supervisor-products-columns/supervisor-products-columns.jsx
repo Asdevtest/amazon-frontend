@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -182,7 +180,7 @@ export const supervisorProductsViewColumns = handlers => [
   {
     field: 'tags',
     headerName: t(TranslationKey.Tags),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
@@ -192,7 +190,7 @@ export const supervisorProductsViewColumns = handlers => [
   {
     field: 'redFlags',
     headerName: t(TranslationKey['Red flags']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
     sortable: false,
