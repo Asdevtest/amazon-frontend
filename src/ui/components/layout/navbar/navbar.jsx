@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { Drawer } from '@mui/material'
 
 import { navbarConfig } from '@constants/navigation/navbar'
 
@@ -18,7 +16,7 @@ import { useClassNames } from './navbar.style'
 import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
-  ({ activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory }) => {
+  ({ shortNavbar, setShortNavbar, activeCategory, activeSubCategory, onChangeSubCategory }) => {
     const { classes: classNames } = useClassNames()
 
     const viewModel = useRef(new NavbarModel())
@@ -36,91 +34,34 @@ export const Navbar = observer(
     } = viewModel.current
 
     const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
-
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
-    const [shortNavbar, setShortNavbar] = useState(() => {
-      const saved = localStorage.getItem('shortNavbar')
-      const initialValue = JSON.parse(saved)
-      return initialValue || window.innerWidth < 1282 ? true : false
-    })
+
     useEffect(() => {
       setCurNavbar(navbarConfig())
     }, [SettingsModel.languageTag])
 
-    useEffect(() => {
-      localStorage.setItem('shortNavbar', JSON.stringify(shortNavbar))
-    }, [shortNavbar])
-
     return (
       <div className={classNames.mainWrapper}>
-        {!showOverlayNavBar && (
-          <Drawer
-            open={false}
-            classes={{
-              root: cx(classNames.root, { [classNames.hideNavbar]: shortNavbar }),
-              paper: cx(classNames.paper, classNames.positionStatic),
-            }}
-            variant="permanent"
-          >
-            <NavbarDrawerContent
-              shortNavbar={shortNavbar}
-              setShortNavbar={setShortNavbar}
-              showOverlayNavBar={showOverlayNavBar}
-              setShowOverlayNavBar={setShowOverlayNavBar}
-              confirmModalSettings={confirmModalSettings}
-              alertShieldSettings={alertShieldSettings}
-              curNavbar={curNavbar}
-              userInfo={userInfo}
-              activeCategory={activeCategory}
-              viewModel={viewModel.current}
-              activeSubCategory={activeSubCategory}
-              sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
-              showFeedbackModal={showFeedbackModal}
-              showWarningModal={showWarningModal}
-              showConfirmModal={showConfirmModal}
-              onTriggerOpenModal={onTriggerOpenModal}
-              onChangeSubCategory={onChangeSubCategory}
-              onClickVersion={onClickVersion}
-            />
-          </Drawer>
-        )}
-
-        {showOverlayNavBar && (
-          <Drawer
-            open
-            anchor="left"
-            classes={{
-              root: classNames.root,
-              paper: cx(classNames.paper, { [classNames.moreWidth]: window.innerWidth < 1282 }),
-            }}
-            onClose={() => {
-              setDrawerOpen()
-              setShortNavbar(!shortNavbar)
-              setShowOverlayNavBar(!showOverlayNavBar)
-            }}
-          >
-            <NavbarDrawerContent
-              shortNavbar={shortNavbar}
-              setShortNavbar={setShortNavbar}
-              showOverlayNavBar={showOverlayNavBar}
-              setShowOverlayNavBar={setShowOverlayNavBar}
-              alertShieldSettings={alertShieldSettings}
-              confirmModalSettings={confirmModalSettings}
-              curNavbar={curNavbar}
-              userInfo={userInfo}
-              activeCategory={activeCategory}
-              viewModel={viewModel.current}
-              activeSubCategory={activeSubCategory}
-              sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
-              showFeedbackModal={showFeedbackModal}
-              showWarningModal={showWarningModal}
-              showConfirmModal={showConfirmModal}
-              onTriggerOpenModal={onTriggerOpenModal}
-              onChangeSubCategory={onChangeSubCategory}
-              onClickVersion={onClickVersion}
-            />
-          </Drawer>
-        )}
+        <NavbarDrawerContent
+          shortNavbar={shortNavbar}
+          setShortNavbar={setShortNavbar}
+          showOverlayNavBar={showOverlayNavBar}
+          setShowOverlayNavBar={setShowOverlayNavBar}
+          alertShieldSettings={alertShieldSettings}
+          confirmModalSettings={confirmModalSettings}
+          curNavbar={curNavbar}
+          userInfo={userInfo}
+          activeCategory={activeCategory}
+          viewModel={viewModel.current}
+          activeSubCategory={activeSubCategory}
+          sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
+          showFeedbackModal={showFeedbackModal}
+          showWarningModal={showWarningModal}
+          showConfirmModal={showConfirmModal}
+          onTriggerOpenModal={onTriggerOpenModal}
+          onChangeSubCategory={onChangeSubCategory}
+          onClickVersion={onClickVersion}
+        />
 
         <div
           className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}

@@ -1,11 +1,9 @@
-import { cx } from '@emotion/css'
 import MenuIcon from '@material-ui/icons/Menu'
 import { FC, memo } from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 
-import { useNavbarButtonStyles } from '@components/layout/navbar/navbar-button/navbar-button.styles'
+import { useClassNames } from './navbar-button.styles'
 
 interface NavbarButtonProps {
   shortNavbar: boolean
@@ -16,17 +14,17 @@ interface NavbarButtonProps {
 
 export const NavbarButton: FC<NavbarButtonProps> = memo(
   ({ shortNavbar, showOverlayNavBar, setShortNavbar, setShowOverlayNavBar }) => {
-    const { classes: styles } = useNavbarButtonStyles()
+    const { classes: styles } = useClassNames()
 
     return (
-      <div className={cx(styles.iconButtonWrapper, { [styles.iconButtonWrapperLeft]: !shortNavbar })}>
+      <div className={styles.iconButtonWrapper}>
         <IconButton
           onClick={() => {
             setShortNavbar(!shortNavbar)
             setShowOverlayNavBar(!showOverlayNavBar)
           }}
         >
-          {shortNavbar ? <MenuIcon /> : <CloseIcon className={styles.closeIcon} />}
+          {shortNavbar && <MenuIcon />}
         </IconButton>
       </div>
     )
