@@ -29,7 +29,7 @@ export const ideaStatusByCode: Record<number, ideaStatus> = {
   30: ideaStatus.CLOSED,
 }
 
-export const ideaStatusByKey = objectFlip(ideaStatusByCode, parseInt)
+export const ideaStatusByKey: Record<string, number> = objectFlip(ideaStatusByCode, parseInt)
 
 export const ideaStatusTranslate = (status: ideaStatus) => {
   switch (status) {

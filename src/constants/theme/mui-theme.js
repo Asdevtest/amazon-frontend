@@ -317,6 +317,8 @@ export const lightTheme = createTheme({
     },
 
     other: {
+      rejected: '#D70D0D',
+      succes: '#0B903E',
       tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
 
@@ -778,6 +780,8 @@ export const darkTheme = createTheme({
       },
 
       other: {
+        rejected: '#D70D0D',
+        succes: '#0B903E',
         tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
 

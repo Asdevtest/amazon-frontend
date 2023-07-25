@@ -111,8 +111,6 @@ export const ProductCardModal = observer(props => {
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]] &&
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]](viewModel?.productBase?.status)
 
-  console.log('viewModel?.product', viewModel?.product)
-
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.root}>

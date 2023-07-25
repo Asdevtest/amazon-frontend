@@ -1,21 +1,30 @@
-import { TranslationKey } from '@constants/translations/translation-key'
+import { FC } from 'react'
 import { useClassNames } from './source-product.styles'
-import { t } from '@utils/translations'
+
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
-export const SourceProduct = () => {
+interface SourceProductProps {
+  title: string
+  img: string
+  asin: string
+  sku: string
+}
+
+export const SourceProduct: FC<SourceProductProps> = props => {
   const { classes: classNames } = useClassNames()
+
+  const { title, img, asin, sku } = props
 
   return (
     <div className={classNames.root}>
-      <p>{t(TranslationKey.Comments)}</p>
+      <p className={classNames.sourceProductTitle}>{`${title}:`}</p>
 
       <div className={classNames.sourceProductWrapper}>
-        <img src={'222222'} alt="121" />
+        <img className={classNames.sourceProductImg} src={img} alt={img} />
 
         <div className={classNames.attributesProductWrapper}>
-          <AsinOrSkuLink withCopyValue asin={'ASIN'} />
-          <AsinOrSkuLink withCopyValue sku={'sku'} />
+          <AsinOrSkuLink withCopyValue asin={asin} />
+          <AsinOrSkuLink withCopyValue sku={sku} />
         </div>
       </div>
     </div>

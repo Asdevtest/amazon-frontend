@@ -61,8 +61,8 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
         <Table>
           {SettingsModel.languageTag && renderHeader()}
           <TableBody>
-            {!!product.suppliers.length &&
-              (product.currentSupplier && product.suppliers.find(el => product.currentSupplier._id === el._id)
+            {!!product?.suppliers?.length &&
+              (product?.currentSupplier && product?.suppliers?.find(el => product.currentSupplier._id === el._id)
                 ? [
                     product.suppliers.find(el => product.currentSupplier._id === el._id),
                     ...product.suppliers.filter(el => product.currentSupplier._id !== el._id),

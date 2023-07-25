@@ -1,8 +1,8 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class IdeaModelStatic {
-  getIdeas = async productId => {
-    const response = await restApiService.ideaApi.apiV1IdeasGet(productId && { productId })
+  getIdeas = async parentId => {
+    const response = await restApiService.ideaApi.apiV1IdeasByParentGuidGet(parentId)
     return response
   }
 
@@ -47,6 +47,16 @@ class IdeaModelStatic {
 
   removeSupplierFromIdea = async (id, data) => {
     const response = await restApiService.ideaApi.apiV1IdeasRemoveSupplierGuidPost(id, { body: data })
+    return response
+  }
+
+  rejectIdea = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasRejectedGuidPatch(id)
+    return response
+  }
+
+  checkIdea = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasOnCheckingGuidPatch(id)
     return response
   }
 }

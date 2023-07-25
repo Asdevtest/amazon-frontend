@@ -54,8 +54,10 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     confirmModalSettings,
     successModalTitle,
     paymentMethods,
+    currentProduct,
     onTriggerOpenModal,
     onClickRemoveIdea,
+    onClickCheckButton,
     onCreateIdea,
     onClickCancelBtn,
     onClickSaveBtn,
@@ -69,12 +71,6 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     onTriggerAddOrEditSupplierModal,
     onClickSaveSupplierBtn,
   } = model.current
-
-  const [updatedIdea, setUpdatedIdea] = useState(curIdea)
-
-  useEffect(() => {
-    setUpdatedIdea(() => ({ ...curIdea }))
-  }, [SettingsModel.languageTag, curIdea])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -92,7 +88,7 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
         <IdeaViewAndEditCard
           inCreate
           curUser={curUser}
-          curIdea={updatedIdea}
+          curIdea={curIdea}
           selectedSupplier={selectedSupplier}
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
@@ -109,13 +105,15 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
           <IdeaViewAndEditCard
             key={idea._id}
             curUser={curUser}
-            curIdea={updatedIdea}
+            curIdea={curIdea}
             inEdit={inEdit}
             idea={idea}
+            currentProduct={currentProduct}
             selectedSupplier={selectedSupplier}
             onCreateProduct={onClickCreateProduct}
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}
+            onClickCheckButton={onClickCheckButton}
             onRemove={onClickRemoveIdea}
             onSetCurIdea={onSetCurIdea}
             onEditIdea={onEditIdea}

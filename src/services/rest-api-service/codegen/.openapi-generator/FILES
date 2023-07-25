@@ -58,6 +58,7 @@ docs/ApiV1BuyersProductsGuidTags.md
 docs/ApiV1ClientsProductsGuidRedFlags.md
 docs/ApiV1ClientsProductsVacRedFlags.md
 docs/ApiV1GologinProfileNavigator.md
+docs/ApiV1IdeasByParentGuidChildProduct.md
 docs/ApiV1IdeasNotificationsCreatedBy.md
 docs/ApiV1IdeasNotificationsIdea.md
 docs/ApiV1IdeasNotificationsProduct.md
@@ -515,6 +516,7 @@ src/model/ApiV1BuyersProductsGuidTags.js
 src/model/ApiV1ClientsProductsGuidRedFlags.js
 src/model/ApiV1ClientsProductsVacRedFlags.js
 src/model/ApiV1GologinProfileNavigator.js
+src/model/ApiV1IdeasByParentGuidChildProduct.js
 src/model/ApiV1IdeasNotificationsCreatedBy.js
 src/model/ApiV1IdeasNotificationsIdea.js
 src/model/ApiV1IdeasNotificationsProduct.js
@@ -866,10 +868,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineResponse20046ChildProduct.spec.js
-test/model/InlineResponse20046ChildProductOrder.spec.js
-test/model/InlineResponse20046ParentProduct.spec.js
-test/model/InlineResponse20046RequestsOnCheck.spec.js
-test/model/InlineResponse20046Rows.spec.js
-test/model/InlineResponse20046Suppliers.spec.js
-test/model/InlineResponse20052Failed.spec.js
+test/model/ApiV1IdeasByParentGuidChildProduct.spec.js

@@ -58,6 +58,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    gap: '40px',
   },
 
   spanLabel: {
@@ -133,9 +134,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   existedIdeaBtnsSubWrapper: {
-    width: '50%',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '50px',
   },
 
   tablePanelSortWrapper: {
@@ -310,7 +311,6 @@ export const useClassNames = makeStyles()(theme => ({
   supplierActionsWrapper: {
     display: 'flex',
     gap: '16px',
-    marginBottom: '15px',
   },
   supplierContainer: {},
   supplierButtonWrapper: {
@@ -404,5 +404,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   mediumSizeContainer: {
     width: 350,
+  },
+
+  sourcesProductWraper: {
+    display: 'flex',
+    gap: '30px',
+    justifyContent: 'flex-end',
   },
 }))

@@ -6,7 +6,16 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.third,
     borderRadius: 5,
 
-    overflow: 'hidden',
+    // overflow: 'hidden',
+    '& :first-child': {
+      borderTopLeftRadius: '7px',
+      borderBottomLeftRadius: '7px',
+    },
+
+    '& :last-child': {
+      borderTopRightRadius: '7px',
+      borderBottomRightRadius: '7px',
+    },
   },
 
   settingItem: {
@@ -29,11 +38,17 @@ export const useClassNames = makeStyles()(theme => ({
       borderWidth: '20px 0 20px 12px',
       borderStyle: 'solid',
       borderColor: `transparent ${theme.palette.primary.main}`,
+      zIndex: 3,
     },
+  },
+
+  withoutBorderRadius: {
+    borderRadius: '0 !important',
   },
 
   activeItem: {
     backgroundColor: theme.palette.primary.main,
+    color: '#fff',
   },
 
   settingItemTitle: {
@@ -44,5 +59,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   settingItemActiveTitle: {
     color: '#fff',
+  },
+
+  finalStatus: {
+    backgroundColor: theme.palette.other.succes,
+    ':after': {
+      borderColor: `transparent ${theme.palette.other.succes}`,
+    },
+  },
+
+  rejectedStatus: {
+    backgroundColor: theme.palette.other.rejected,
+    ':after': {
+      borderColor: `transparent ${theme.palette.other.rejected}`,
+    },
   },
 }))
