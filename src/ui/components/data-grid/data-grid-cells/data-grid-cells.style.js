@@ -1831,4 +1831,34 @@ export const styles = theme => ({
     display: 'flex',
     width: 104,
   },
+
+  ideaActions: {
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    button: {
+      height: 30,
+    },
+  },
+
+  ideaRequestsControls: {
+    display: 'flex',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+
+    button: {
+      height: 30,
+      display: 'flex',
+      gap: 5,
+      minWidth: '155px !important',
+
+      svg: {
+        width: 12,
+      },
+    },
+  },
 })

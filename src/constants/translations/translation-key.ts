@@ -2022,6 +2022,10 @@ export enum TranslationKey {
   'New ideas' = 'New ideas',
   'Rejected and closed' = 'Rejected and closed',
   'Choose a section' = 'Choose a section',
+  'Status Updated' = 'Status Updated',
+  'To check' = 'To check',
+  'Idea title' = 'Idea title',
+  'Link request' = 'Link request',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',

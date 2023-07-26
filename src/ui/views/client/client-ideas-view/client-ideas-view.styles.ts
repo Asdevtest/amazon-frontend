@@ -29,7 +29,22 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
   },
 
   datagridWrapper: {
-    marginTop: '10px',
+    marginTop: '20px',
     height: 'calc(100vh - 230px)',
+  },
+
+  controls: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  createRequest: {
+    display: 'flex',
+    gap: '5px',
+
+    svg: {
+      width: 12,
+    },
   },
 }))

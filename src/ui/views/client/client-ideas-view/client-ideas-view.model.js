@@ -5,8 +5,11 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { IdeaModel } from '@models/ideas-model'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 
 import { clientIdeasColumns } from '@components/table/table-columns/client/client-ideas-columns'
+
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -82,6 +85,7 @@ export class ClientIdeasViewModel {
 
   ideaList = []
   currentData = []
+  shopList = []
 
   // * Filtration
 
@@ -97,9 +101,14 @@ export class ClientIdeasViewModel {
 
   // * Table settings
 
-  columnsModel = clientIdeasColumns()
   columnVisibilityModel = {}
-  rowHandlers = {}
+  rowHandlers = {
+    onClickToCheck: id => console.log(id),
+    onClickReject: id => console.log(id),
+    onClickCreateRequest: id => console.log(id),
+    onClickLinkRequest: id => console.log(id),
+  }
+  columnsModel = clientIdeasColumns(this.rowHandlers, this.shopList)
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -125,6 +134,12 @@ export class ClientIdeasViewModel {
       () => this.ideaList,
       () => {
         this.currentData = this.getCurrentData()
+      },
+    )
+    reaction(
+      () => this.shopList,
+      () => {
+        this.columnsModel = clientIdeasColumns(this.rowHandlers, this.shopList)
       },
     )
   }
@@ -191,11 +206,16 @@ export class ClientIdeasViewModel {
     this.getIdeaList()
   }
 
+  onChangeSearchValue(value) {
+    this.currentSearchValue = value
+  }
+
   // * Data getters
 
   async loadData() {
     this.getDataGridState()
     await this.getIdeaList()
+    await this.getShopList()
   }
 
   async getIdeaList() {
@@ -217,7 +237,7 @@ export class ClientIdeasViewModel {
       })
 
       runInAction(() => {
-        this.ideaList = response.rows
+        this.ideaList = response.rows || []
         this.rowCount = response.count
       })
 
@@ -232,5 +252,24 @@ export class ClientIdeasViewModel {
 
   getCurrentData() {
     return toJS(this.ideaList)
+  }
+
+  async getShopList() {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      const response = await ShopModel.getMyShopNames()
+
+      runInAction(() => {
+        this.shopList = response
+      })
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      console.log(error)
+      this.error = error
+
+      this.requestStatus = loadingStatuses.failed
+    }
   }
 }

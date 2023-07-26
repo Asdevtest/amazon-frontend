@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject60 model module.
@@ -23,11 +22,10 @@ class InlineObject60 {
     /**
      * Constructs a new <code>InlineObject60</code>.
      * @alias module:model/InlineObject60
-     * @param name {String} Название профиля
      */
-    constructor(name) { 
+    constructor() { 
         
-        InlineObject60.initialize(this, name);
+        InlineObject60.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject60 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,14 +47,41 @@ class InlineObject60 {
         if (data) {
             obj = obj || new InlineObject60();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('childProductId')) {
+                obj['childProductId'] = ApiClient.convertToType(data['childProductId'], 'String');
             }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('criteria')) {
+                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('quantity')) {
+                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
         }
         return obj;
@@ -67,22 +91,76 @@ class InlineObject60 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * Гуид дочернего компонента
+ * @member {String} childProductId
  */
-InlineObject60.prototype['name'] = undefined;
+InlineObject60.prototype['childProductId'] = undefined;
 
 /**
- * Название ОС
- * @member {String} os
- * @default 'mac'
+ * Название идеи
+ * @member {String} title
  */
-InlineObject60.prototype['os'] = 'mac';
+InlineObject60.prototype['title'] = undefined;
 
 /**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
+ * Images URLs
+ * @member {Array.<String>} media
  */
-InlineObject60.prototype['navigator'] = undefined;
+InlineObject60.prototype['media'] = undefined;
+
+/**
+ * Комментарий к идее
+ * @member {String} comments
+ */
+InlineObject60.prototype['comments'] = undefined;
+
+/**
+ * Назавние продукта
+ * @member {String} productName
+ */
+InlineObject60.prototype['productName'] = undefined;
+
+/**
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
+ */
+InlineObject60.prototype['productLinks'] = undefined;
+
+/**
+ * Дополнительные критерии для поиска товара
+ * @member {String} criteria
+ */
+InlineObject60.prototype['criteria'] = undefined;
+
+/**
+ * Количество товаров
+ * @member {Number} quantity
+ */
+InlineObject60.prototype['quantity'] = undefined;
+
+/**
+ * Желаемая цена
+ * @member {Number} price
+ */
+InlineObject60.prototype['price'] = undefined;
+
+/**
+ * Ширина, см
+ * @member {Number} width
+ */
+InlineObject60.prototype['width'] = undefined;
+
+/**
+ * Высота, см
+ * @member {Number} height
+ */
+InlineObject60.prototype['height'] = undefined;
+
+/**
+ * Длина, см
+ * @member {Number} length
+ */
+InlineObject60.prototype['length'] = undefined;
 
 
 

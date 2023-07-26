@@ -3157,3 +3157,35 @@ export const ProductInfoAbbreviated = React.memo(
     styles,
   ),
 )
+
+export const IdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickReject, onClickToCheck } = props
+
+    return (
+      <div className={styles.ideaActions}>
+        <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
+        <Button danger onClick={onClickReject}>
+          {t(TranslationKey.Reject)}
+        </Button>
+      </div>
+    )
+  }, styles),
+)
+
+export const IdeaRequests = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickCreateRequest, onClickLinkRequest } = props
+
+    return (
+      <div className={styles.ideaRequestsWrapper}>
+        <div className={styles.ideaRequestsControls}>
+          <Button success onClick={onClickCreateRequest}>
+            <PlusIcon /> {t(TranslationKey['Create a request'])}
+          </Button>
+          <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)

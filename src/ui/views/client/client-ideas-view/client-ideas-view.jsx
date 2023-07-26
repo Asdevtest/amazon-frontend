@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
@@ -8,7 +8,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
+import { PlusIcon } from '@components/shared/svg-icons'
 
 import { ClientIdeasViewModel } from '@views/client/client-ideas-view/client-ideas-view.model'
 import { useClientIdeasViewStyles } from '@views/client/client-ideas-view/client-ideas-view.styles'
@@ -26,6 +29,19 @@ export const ClientIdeasView = observer(props => {
 
   return (
     <MainContent>
+      <div className={styles.controls}>
+        <div />
+        <SearchInput
+          value={viewModel.currentSearchValue}
+          placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+          onSubmit={viewModel.onChangeSearchValue}
+        />
+
+        <Button success className={styles.createRequest}>
+          <PlusIcon /> {t(TranslationKey['Create a request'])}
+        </Button>
+      </div>
+
       <div className={styles.datagridWrapper}>
         <MemoDataGrid
           pagination
