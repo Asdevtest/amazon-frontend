@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '50%',
     cursor: 'pointer',
 
-    [theme.breakpoints.down(1282)]: {
+    [theme.breakpoints.down(768)]: {
       display: 'none',
     },
   },

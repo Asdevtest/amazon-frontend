@@ -10,7 +10,6 @@ import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { NavbarCategory } from '@components/layout/navbar'
-import { NavbarButton } from '@components/layout/navbar/navbar-button'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -40,9 +39,6 @@ interface CurNavbarType {
 
 interface Props {
   shortNavbar: boolean
-  setShortNavbar: (arg: boolean) => void
-  setShowOverlayNavBar: (arg: boolean) => void
-  showOverlayNavBar: boolean
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
@@ -62,9 +58,6 @@ interface Props {
 export const NavbarDrawerContent: FC<Props> = observer(
   ({
     shortNavbar,
-    setShortNavbar,
-    showOverlayNavBar,
-    setShowOverlayNavBar,
     confirmModalSettings,
     alertShieldSettings,
     curNavbar,
@@ -85,12 +78,6 @@ export const NavbarDrawerContent: FC<Props> = observer(
     return (
       <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShort]: shortNavbar })}>
         <List className={classNames.categoriesWrapper}>
-          <NavbarButton
-            shortNavbar={shortNavbar}
-            setShortNavbar={setShortNavbar}
-            setShowOverlayNavBar={setShowOverlayNavBar}
-            showOverlayNavBar={showOverlayNavBar}
-          />
           {curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar]
             .filter(el => !el.route?.includes('/messages'))
             .map((category, index) =>

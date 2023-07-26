@@ -33,7 +33,6 @@ export const Navbar = observer(
       userInfo,
     } = viewModel.current
 
-    const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
 
     useEffect(() => {
@@ -44,9 +43,6 @@ export const Navbar = observer(
       <div className={classNames.mainWrapper}>
         <NavbarDrawerContent
           shortNavbar={shortNavbar}
-          setShortNavbar={setShortNavbar}
-          showOverlayNavBar={showOverlayNavBar}
-          setShowOverlayNavBar={setShowOverlayNavBar}
           alertShieldSettings={alertShieldSettings}
           confirmModalSettings={confirmModalSettings}
           curNavbar={curNavbar}

@@ -29,7 +29,7 @@ import { OrdersUpdatesNotification } from '@components/layout/notifications/orde
 import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
 import { Button } from '@components/shared/buttons/button'
 import { LanguageSelector } from '@components/shared/selectors/language-selector'
-import { HintsOff, HintsOn } from '@components/shared/svg-icons'
+import { ExitIcon, HintsOff, HintsOn, LogoIcon, MenuIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -54,11 +54,20 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
 
   const {
     role,
+    userName,
+    balance,
+    userId,
     snackNotifications,
     simpleMessageCrmItemId,
+    allowedRoles,
+    showHints,
     clearSnackNoticeByKey: markNotificationAsReaded,
     onClickMessage,
     checkMessageIsRead,
+    onExitFromRole,
+    changeUserInfo,
+    changeUiTheme,
+    onTriggerShowHints,
   } = componentModel.current
 
   useEffect(() => {
@@ -131,12 +140,12 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
   const onClickExit = () => {
     handleClose()
     toast.dismiss()
-    componentModel.current.onExitFromRole()
+    onExitFromRole()
     history.push('/auth')
   }
 
   const onChangeUserInfo = (roleNun: number) => {
-    componentModel.current.changeUserInfo({ role: roleNun })
+    changeUserInfo({ role: roleNun })
   }
 
   const onClickProfile = () => {
@@ -144,10 +153,10 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
   }
 
   const onClickThemeIcon = (theme: string) => {
-    componentModel.current.changeUiTheme(theme)
+    changeUiTheme(theme)
   }
 
-  const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
+  const allowedRolesWithoutCandidate = allowedRoles?.filter(
     (el: number) => el !== (mapUserRoleEnumToKey as { [key: string]: number })[UserRole.CANDIDATE],
   )
 
@@ -170,15 +179,8 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
   return (
     <div className={classNames.header}>
       <div className={cx(classNames.logoWrapper, { [classNames.logoWrapperShort]: shortNavbar })}>
-        <img
-          alt="company logo"
-          src={
-            SettingsModel.uiTheme === UiTheme.light
-              ? '/assets/icons/logo-01.08.svg'
-              : '/assets/icons/dt-navbar-logo.svg'
-          }
-          className={cx(classNames.logo, { [classNames.logoNotShow]: shortNavbar })}
-        />
+        <LogoIcon className={cx(classNames.logoIcon, { [classNames.logoIconNotShow]: shortNavbar })} />
+        <MenuIcon className={classNames.menuIcon} />
       </div>
 
       <div className={classNames.toolbar}>
@@ -187,8 +189,8 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
             {title}
           </Typography>
 
-          <div className={classNames.tooltipWrapper} onClick={componentModel.current.onTriggerShowHints}>
-            {componentModel.current.showHints ? (
+          <div className={classNames.tooltipWrapper} onClick={onTriggerShowHints}>
+            {showHints ? (
               <HintsOn
                 className={cx(classNames.hintsIcon, classNames.hintsIconActive)}
                 fontSize={'small'}
@@ -197,7 +199,7 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
             ) : (
               <HintsOff className={classNames.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
             )}
-            {componentModel.current.showHints ? (
+            {showHints ? (
               <Typography className={classNames.hintsTextActive}>{t(TranslationKey['Hints included'])}</Typography>
             ) : (
               <Typography className={classNames.hintsTextNoActive}>{t(TranslationKey['Hints are off'])}</Typography>
@@ -215,7 +217,7 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
                   key={roleCode}
                   variant={'text'}
                   className={cx(classNames.allowedRolesItem, {
-                    [classNames.currentAllowedRolesItem]: roleCode === componentModel.current.role,
+                    [classNames.currentAllowedRolesItem]: roleCode === role,
                   })}
                   onClick={() => onChangeUserInfo(roleCode)}
                 >
@@ -225,7 +227,7 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
             </div>
           ) : (
             <Typography className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
-              {(UserRoleCodeMap as { [key: number]: string })[componentModel.current.role]}
+              {(UserRoleCodeMap as { [key: number]: string })[role]}
             </Typography>
           )}
         </div>
@@ -234,11 +236,11 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
 
         <div className={classNames.selectorsWrapper}>
           {isEnabledNotifications ? (
-            <NotificationsIcon className={classNames.notificationHandler} onClick={handleNotifications} />
+            <NotificationsIcon className={classNames.notificationIcon} onClick={handleNotifications} />
           ) : (
-            <NotificationsOffIcon className={classNames.notificationHandler} onClick={handleNotifications} />
+            <NotificationsOffIcon className={classNames.notificationIcon} onClick={handleNotifications} />
           )}
-          <LanguageSelector />
+          <LanguageSelector className={classNames.languageSelector} />
 
           {SettingsModel.uiTheme === UiTheme.light ? (
             <WbSunnyRoundedIcon className={classNames.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
@@ -255,19 +257,15 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />
+          <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
 
-          <div className={classNames.usernameAndBalanceWrapper}>
-            <Tooltip title={componentModel.current.userName}>
-              <Typography className={classNames.username}>
-                {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
-              </Typography>
+          <div className={classNames.userNameAndBalanceWrapper}>
+            <Tooltip title={userName}>
+              <Typography className={classNames.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</Typography>
             </Tooltip>
 
             {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-              <Typography className={classNames.balance}>
-                {toFixedWithDollarSign(componentModel.current.balance, 2)}
-              </Typography>
+              <Typography className={classNames.balance}>{toFixedWithDollarSign(balance, 2)}</Typography>
             )}
           </div>
           <ArrowDropDownIcon className={classNames.hideOnModile} />
@@ -280,64 +278,57 @@ export const Header: FC<Props> = observer(({ shortNavbar, title }) => {
         anchorEl={anchorEl}
         autoFocus={false}
         open={Boolean(anchorEl)}
-        classes={{ paper: classNames.menu, list: classNames.list }}
+        classes={{ root: classNames.menu, list: classNames.list }}
         onClose={handleClose}
       >
         <MenuItem className={classNames.menuClientInfoWrapper}>
           <div className={classNames.menuClientInfo}>
             <Typography className={classNames.menuClientInfoText}>
-              {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
+              {getShortenStringIfLongerThanCount(userName, 10)}
             </Typography>
 
             {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-              <Typography className={classNames.menuClientInfoText}>
-                {toFixedWithDollarSign(componentModel.current.balance, 2)}
-              </Typography>
+              <Typography className={classNames.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</Typography>
             )}
           </div>
 
-          <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />
+          <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
         </MenuItem>
         <MenuItem className={classNames.mobileAllowedRolesWrapper}>
-          <Typography className={classNames.mobileUserroleTitle}>{t(TranslationKey['your role:'])}</Typography>
-          <div>
-            {allowedRolesWithoutCandidate?.length > 1 ? (
-              <div className={classNames.allowedRolesWrapper}>
-                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                  <div key={roleCode} className={classNames.userRoleWrapper}>
-                    {roleCode === componentModel.current.role ? <span className={classNames.indicator}></span> : null}
+          <Typography className={classNames.mobileUserRoleTitle}>{t(TranslationKey['your role:'])}</Typography>
+          {allowedRolesWithoutCandidate?.length > 1 ? (
+            <div className={classNames.allowedRolesWrapper}>
+              {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                <div key={roleCode} className={classNames.userRoleWrapper}>
+                  {roleCode === role ? <span className={classNames.indicator}></span> : null}
 
-                    <Typography
-                      className={cx(classNames.userRole, {
-                        [classNames.currentAllowedRolesItem]: roleCode === componentModel.current.role,
-                      })}
-                      onClick={() => onChangeUserInfo(roleCode)}
-                    >
-                      {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
-                    </Typography>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className={classNames.userRoleWrapper}>
-                <span className={classNames.indicator}></span>
-                <Typography className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
-                  {(UserRoleCodeMap as { [key: number]: string })[componentModel.current.role]}
-                </Typography>
-              </div>
-            )}
-          </div>
+                  <Typography
+                    className={cx(classNames.userRole, {
+                      [classNames.currentAllowedRolesItem]: roleCode === role,
+                    })}
+                    onClick={() => onChangeUserInfo(roleCode)}
+                  >
+                    {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={classNames.userRoleWrapper}>
+              <span className={classNames.indicator}></span>
+              <Typography className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
+                {(UserRoleCodeMap as { [key: number]: string })[role]}
+              </Typography>
+            </div>
+          )}
         </MenuItem>
-        <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
+
+        <MenuItem className={classNames.menuItem} onClick={onClickProfile}>
           <PersonIcon className={classNames.icon} />
           {t(TranslationKey.Profile)}
         </MenuItem>
-
-        <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
-          <svg className={classNames.icon}>
-            <use href="/assets/icons/ion_log-out.svg#svg" />
-          </svg>
-
+        <MenuItem className={classNames.menuItem} onClick={onClickExit}>
+          <ExitIcon className={classNames.icon} />
           {t(TranslationKey.Exit)}
         </MenuItem>
       </Menu>
