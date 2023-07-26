@@ -433,4 +433,26 @@ export const useClassNames = makeStyles()(theme => ({
       backgroundColor: 'transparent',
     },
   },
+
+  requestsBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
+  requestsControlWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+  },
+
+  requestsBlockTitle: {
+    fontSize: '18px',
+    fontWeight: 600,
+  },
+
+  requestsControlButtonsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }))

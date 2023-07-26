@@ -2021,6 +2021,8 @@ export enum TranslationKey {
   'Are you sure you want to close this idea?' = 'Are you sure you want to close this idea?',
   'Link request' = 'Link request',
   'Realized' = 'Realized',
+  'See result' = 'See result',
+  'Link requests' = 'Link requests',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',

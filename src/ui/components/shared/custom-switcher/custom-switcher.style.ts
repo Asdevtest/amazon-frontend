@@ -33,4 +33,13 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.primary.main,
     color: '#fff',
   },
+
+  bigSwitcherWrapper: {
+    height: '40px',
+  },
+
+  bigSwitcherOption: {
+    padding: '0 15px',
+    height: '40px',
+  },
 }))
