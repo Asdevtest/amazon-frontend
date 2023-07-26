@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -23,7 +23,6 @@ export const NavbarCollapse = ({
   category,
   index,
   userInfo,
-  onChangeSubCategory,
   currentViewModel,
   shortNavbar,
   showHighPriorityNotification,
@@ -40,9 +39,8 @@ export const NavbarCollapse = ({
     setMenuAnchor(null)
   }
 
-  const onClickCategory = subIndex => {
+  const onClickCategory = () => {
     shortNavbar && handleClose()
-    onChangeSubCategory && onChangeSubCategory(subIndex)
   }
 
   const renderNotificationBySubRoute = subRoute => {

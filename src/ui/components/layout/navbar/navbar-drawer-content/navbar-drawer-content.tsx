@@ -24,28 +24,30 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './navbar-drawer-content.styles'
 
+interface Subtitles {
+  subtitle: string
+  subRoute: string
+  key: string
+}
+
 interface CurNavbarType {
   icon: React.ReactNode
   title: string
   route: string
-  subtitles: null | {
-    subtitle: string
-    subRoute: string
-    key: string
-  }
+  subtitles: null | Subtitles
   key: string
   checkHideBlock: (user: unknown) => boolean
 }
 
 interface Props {
   shortNavbar: boolean
+  onShowNavbar: VoidFunction
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
   userInfo: any
   activeCategory: string
   viewModel: NavbarModel
-  onChangeSubCategory?: () => void
   onClickVersion: NavbarModel['onClickVersion']
   onTriggerOpenModal: (arg: string) => void
   activeSubCategory: string
@@ -58,6 +60,7 @@ interface Props {
 export const NavbarDrawerContent: FC<Props> = observer(
   ({
     shortNavbar,
+    onShowNavbar,
     confirmModalSettings,
     alertShieldSettings,
     curNavbar,
@@ -65,7 +68,6 @@ export const NavbarDrawerContent: FC<Props> = observer(
     activeCategory,
     viewModel,
     onTriggerOpenModal,
-    onChangeSubCategory,
     onClickVersion,
     activeSubCategory,
     sendFeedbackAboutPlatform,
@@ -104,6 +106,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                       (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||
                       (category.route?.includes('/buyer/pending-orders') && userInfo.pendingOrders)
                     }
+                    onShowNavbar={onShowNavbar}
                   />
 
                   <NavbarCollapse
@@ -115,7 +118,6 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     index={category.key}
                     userInfo={userInfo}
                     currentViewModel={viewModel}
-                    onChangeSubCategory={onChangeSubCategory}
                   />
                 </React.Fragment>
               ) : null,
@@ -135,6 +137,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     userInfo={userInfo}
                     category={category}
                     badge={category.route?.includes('/messages') && viewModel.unreadMessages}
+                    onShowNavbar={onShowNavbar}
                   />
                 </React.Fragment>
               ) : null,

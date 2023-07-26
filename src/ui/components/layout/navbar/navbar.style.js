@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
     background: theme.palette.background.general,
-    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
+    boxShadow: theme.palette.boxShadow.paper,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -27,6 +27,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   hideAndShowIcon: {
     left: 20,
+
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   arrowIcon: {

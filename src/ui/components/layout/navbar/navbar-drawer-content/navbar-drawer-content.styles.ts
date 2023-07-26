@@ -11,6 +11,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainSubWrapperShort: {
     width: 75,
+
+    [theme.breakpoints.down(768)]: {
+      width: 0,
+    },
   },
 
   categoriesWrapper: {
@@ -37,17 +41,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   shortFeedBackButton: {
-    padding: 0,
-    margin: '0 auto',
-    width: '80%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      backgroundColor: 'rgba(0,123,255,0.3)',
-      opacity: 0.7,
-    },
+    padding: '0 10px',
+    justifyContent: 'flex-start',
   },
 
   feedBackText: {

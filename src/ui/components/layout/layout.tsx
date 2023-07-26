@@ -10,7 +10,6 @@ import { useClassNames } from './layout.styles'
 import { BreadCrumbsLine } from './bread-crumbs-line'
 import { Header } from './header'
 import { Navbar } from './navbar'
-import { useToggleNavbar } from './use-toggle-navbar'
 
 interface CurrentPageInfo {
   activeCategory: string
@@ -56,19 +55,22 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [breadcrumbsAdditionalText])
 
-  const { shortNavbar, setShortNavbar } = useToggleNavbar()
+  const [shortNavbar, setShortNavbar] = useState(false)
+
+  const handleShowNavbar = () => {
+    setShortNavbar(!shortNavbar)
+  }
 
   return (
     <>
-      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} />
+      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onShowNavbar={handleShowNavbar} />
 
       <div className={classNames.mainWrapper}>
         <Navbar
           shortNavbar={shortNavbar}
-          setShortNavbar={setShortNavbar}
           activeCategory={currentPageInfo?.activeCategory}
           activeSubCategory={currentPageInfo?.activeSubCategory}
-          onChangeSubCategory={undefined}
+          onShowNavbar={handleShowNavbar}
         />
 
         <main className={classNames.main}>

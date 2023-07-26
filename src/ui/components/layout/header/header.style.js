@@ -17,6 +17,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 240,
+
+    [theme.breakpoints.down(768)]: {
+      minWidth: 54,
+    },
   },
 
   logoWrapperShort: {
@@ -32,6 +36,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '42px !important',
     color: theme.palette.text.general,
     marginRight: 20,
+
+    [theme.breakpoints.down(768)]: {
+      display: 'none !important',
+    },
   },
 
   logoIconNotShow: {
