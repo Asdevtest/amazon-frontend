@@ -10,6 +10,8 @@ import { ShopModel } from '@models/shop-model'
 import { clientIdeasColumns } from '@components/table/table-columns/client/client-ideas-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -120,7 +122,7 @@ export class ClientIdeasViewModel {
 
     filterRequestStatus: undefined,
 
-    // ...dataGridFiltersInitializer(filtersFields),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   constructor({ history }) {
@@ -208,6 +210,25 @@ export class ClientIdeasViewModel {
 
   onChangeSearchValue(value) {
     this.currentSearchValue = value
+  }
+
+  getFilters(exclusion) {
+    const additionalFilters = additionalFiltersByUrl[this.history.location.pathname]
+
+    return objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.currentSearchValue,
+        exclusion,
+        filtersFields,
+        ['amazonTitle', 'humanFriendlyId', 'asin'],
+        {
+          status: {
+            $eq: additionalFilters.statuses.join(','),
+          },
+        },
+      ),
+    )
   }
 
   // * Data getters
