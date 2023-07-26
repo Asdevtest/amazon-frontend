@@ -989,6 +989,9 @@ export class ClientInventoryViewModel {
       }),
     })
 
+    // console.log(newFilter, 'newFilter')
+    console.log(filter, 'filter')
+
     return filter
   }
 
