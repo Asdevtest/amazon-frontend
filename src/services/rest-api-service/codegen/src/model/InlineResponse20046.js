@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20046Rows from './InlineResponse20046Rows';
+import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
+import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
+import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20046 model module.
@@ -48,11 +50,17 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20046Rows]);
+            if (data.hasOwnProperty('idea')) {
+                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -62,16 +70,24 @@ class InlineResponse20046 {
 }
 
 /**
- * Общее кол-во идей
- * @member {Number} count
+ * @member {module:model/ApiV1IdeasNotificationsProduct} product
  */
-InlineResponse20046.prototype['count'] = undefined;
+InlineResponse20046.prototype['product'] = undefined;
 
 /**
- * Список идей
- * @member {Array.<module:model/InlineResponse20046Rows>} rows
+ * @member {module:model/ApiV1IdeasNotificationsIdea} idea
  */
-InlineResponse20046.prototype['rows'] = undefined;
+InlineResponse20046.prototype['idea'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
+ */
+InlineResponse20046.prototype['createdBy'] = undefined;
+
+/**
+ * @member {String} createdAt
+ */
+InlineResponse20046.prototype['createdAt'] = undefined;
 
 
 
