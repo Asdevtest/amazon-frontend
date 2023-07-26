@@ -26,6 +26,11 @@ import { useClassNames } from './suppliers-and-ideas.style'
 import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 
 export const SuppliersAndIdeas = observer(({ productId, product }) => {
   const { classes: classNames } = useClassNames()
@@ -56,6 +61,12 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     successModalTitle,
     paymentMethods,
     currentProduct,
+    currentProposal,
+    showRequestDesignerResultModal,
+    showRequestStandartResultModal,
+    showRequestBloggerResultModal,
+    showBindingModal,
+    onClickResultButton,
     onClickRejectButton,
     onClickReoperButton,
     onClickAcceptButton,
@@ -122,6 +133,7 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
             onClickCloseIdea={onClickCloseIdea}
             onClickRejectButton={onClickRejectButton}
             onClickReoperButton={onClickReoperButton}
+            onClickResultButton={onClickResultButton}
             onSetCurIdea={onSetCurIdea}
             onEditIdea={onEditIdea}
             onClickSupplierBtns={onClickSupplierButtons}
@@ -179,6 +191,51 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
           onTriggerOpenModal('showSuccessModal')
         }}
       />
+
+      {showRequestDesignerResultModal /*  && currentProposal */ && (
+        <Modal
+          openModal={showRequestDesignerResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
+        >
+          <RequestDesignerResultClientForm
+            userInfo={curUser}
+            // request={{ request: viewModel.currentRequest }}
+            proposal={currentProposal}
+            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
+          />
+        </Modal>
+      )}
+
+      {showRequestStandartResultModal && (
+        /* currentProposal && */
+        <Modal
+          openModal={showRequestStandartResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
+        >
+          <RequestStandartResultForm
+            // request={{ request: viewModel.currentRequest }}
+            proposal={currentProposal}
+            setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
+          />
+        </Modal>
+      )}
+
+      {showRequestBloggerResultModal && (
+        /* currentProposal && */
+        <RequestResultModal
+          // request={{ request: viewModel.currentRequest }}
+          proposal={currentProposal}
+          openModal={showRequestBloggerResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
+        />
+      )}
+
+      {showBindingModal && (
+        /* currentProposal && */
+        <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
+          <BindIdeaToRequestForm />
+        </Modal>
+      )}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

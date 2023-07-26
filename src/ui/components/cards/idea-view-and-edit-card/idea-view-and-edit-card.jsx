@@ -15,7 +15,6 @@ import { Link, Typography, IconButton, Divider, Grid, InputAdornment, MenuItem, 
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { ideaStatus, ideaStatusByKey, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -47,6 +46,8 @@ import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
 import { IdeaRequestCard } from './idea-request-card'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
+import { RequestSwitherType } from '@constants/requests/request-type'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -79,33 +80,26 @@ export const IdeaViewAndEditCard = observer(
     onClickAcceptButton,
     onClickRejectButton,
     onClickReoperButton,
+    onClickResultButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
     const [linkLine, setLinkLine] = useState('')
-    const [showFullCard, setShowFullCard] = useState(idea ? false : true)
     const [images, setImages] = useState([])
+    const [showFullCard, setShowFullCard] = useState(idea ? false : true)
 
-    const setShowFullCardByCurIdea = () => {
-      if (curIdea?._id === idea?._id) {
-        setShowFullCard(!showFullCard)
-      } else {
-        onSetCurIdea(idea)
-        setShowFullCard(true)
-      }
-    }
+    const [formFields, setFormFields] = useState({})
+    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [showRequestType, setShowRequestType] = useState(RequestSwitherType.REQUESTS_ON_CHECK)
+    const [requestsToRender, setRequestsToRender] = useState([])
 
     useEffect(() => {
-      if (curIdea?._id !== idea?._id && !inEdit) {
-        setShowFullCard(idea ? false : true)
-      } else if (curIdea?._id === idea?._id && inEdit) {
-        setShowFullCard(true)
-      } else if (curIdea?._id !== idea?._id && inEdit) {
-        setShowFullCard(false)
+      if (showRequestType === RequestSwitherType.REQUESTS_ON_CHECK) {
+        setRequestsToRender(formFields.requestsOnCheck)
+      } else {
+        setRequestsToRender(formFields.requestsOnFinished)
       }
-
-      setImages([])
-    }, [curIdea?._id, inEdit])
+    }, [showRequestType, formFields.requestsOnCheck, formFields.requestsOnFinished])
 
     const getShortIdea = () => ({
       _id: idea?._id,
@@ -134,19 +128,9 @@ export const IdeaViewAndEditCard = observer(
       _id: curIdea?._id || undefined,
       parentProduct: curIdea?.parentProduct || undefined,
       childProduct: curIdea?.childProduct || undefined,
+      requestsOnCheck: curIdea?.requestsOnCheck || [],
+      requestsOnFinished: curIdea?.requestsOnFinished || [],
     })
-
-    const [formFields, setFormFields] = useState({})
-
-    useEffect(() => {
-      if (!curIdea) {
-        setFormFields(getShortIdea())
-      } else {
-        if (curIdea._id === idea._id) {
-          setFormFields(getFullIdea())
-        }
-      }
-    }, [curIdea, idea])
 
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
@@ -164,6 +148,15 @@ export const IdeaViewAndEditCard = observer(
       setFormFields(newFormFields)
     }
 
+    const setShowFullCardByCurIdea = async () => {
+      if (curIdea?._id === idea?._id) {
+        setShowFullCard(!showFullCard)
+      } else {
+        await onSetCurIdea(idea)
+        setShowFullCard(true)
+      }
+    }
+
     const onClickLinkBtn = () => {
       onChangeField('productLinks')({ target: { value: [...formFields.productLinks, linkLine] } })
 
@@ -176,7 +169,27 @@ export const IdeaViewAndEditCard = observer(
       onChangeField('productLinks')({ target: { value: [...newArr] } })
     }
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    useEffect(() => {
+      if (curIdea?._id !== idea?._id && !inEdit) {
+        setShowFullCard(idea ? false : true)
+      } else if (curIdea?._id === idea?._id && inEdit) {
+        setShowFullCard(true)
+      } else if (curIdea?._id !== idea?._id && inEdit) {
+        setShowFullCard(false)
+      }
+
+      setImages([])
+    }, [curIdea?._id, inEdit])
+
+    useEffect(() => {
+      if (!curIdea) {
+        setFormFields(getShortIdea())
+      } else {
+        if (curIdea._id === idea._id) {
+          setFormFields(getFullIdea())
+        }
+      }
+    }, [curIdea, idea])
 
     const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
@@ -295,42 +308,46 @@ export const IdeaViewAndEditCard = observer(
               />
             )}
 
-            {!!formFields?.requestsOnCheck?.length && (
-              // <div className={classNames.requestsBlockWrapper}>
-              //   <div className={classNames.requestsControlWrapper}>
-              //     <p>{t(TranslationKey.Freelance)}</p>
+            {showFullCard && (
+              <div className={classNames.requestsBlockWrapper}>
+                <div className={classNames.requestsControlWrapper}>
+                  <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
 
-              //     <div className={classNames.requestsControlButtonsWrapper}>
-              //       <CustomSwitcher
-              //         condition={sizeSetting}
-              //         nameFirstArg={t(TranslationKey['On check'])}
-              //         nameSecondArg={t(TranslationKey.Realized)}
-              //         // firstArgValue={unitsOfChangeOptions.EU}
-              //         // secondArgValue={unitsOfChangeOptions.US}
-              //         // changeConditionHandler={condition => setSizeSetting(condition)}
-              //       />
+                  <div className={classNames.requestsControlButtonsWrapper}>
+                    <CustomSwitcher
+                      bigSwitch
+                      condition={showRequestType}
+                      nameFirstArg={t(TranslationKey['On check'])}
+                      nameSecondArg={t(TranslationKey.Realized)}
+                      firstArgValue={RequestSwitherType.REQUESTS_ON_CHECK}
+                      secondArgValue={RequestSwitherType.REQUESTS_ON_FINISHED}
+                      changeConditionHandler={condition => setShowRequestType(condition)}
+                    />
 
-              //       <Button
-              //         // className={classNames.iconBtn}
-              //         onClick={() => {}}
-              //       >
-              //         {t(TranslationKey['Link request'])}
-              //       </Button>
-              //     </div>
-              //   </div>
+                    <Button
+                      // className={classNames.iconBtn}
+                      onClick={() => {}}
+                    >
+                      {t(TranslationKey['Link request'])}
+                    </Button>
+                  </div>
+                </div>
 
-              <div className={classNames.requestsWrapper}>
-                {formFields?.requestsOnCheck.map((request, requestIndex) => (
-                  <IdeaRequestCard
-                    key={requestIndex}
-                    requestType={request.typeTask}
-                    requestId={request.humanFriendlyId}
-                    requestStatus={request.status}
-                    executor={request.executor}
-                  />
-                ))}
+                {(!!formFields.requestsOnCheck?.length || !!formFields.requestsOnFinished?.length) && (
+                  <div className={classNames.requestsWrapper}>
+                    {requestsToRender?.map((request, requestIndex) => (
+                      <IdeaRequestCard
+                        key={requestIndex}
+                        requestType={request.typeTask}
+                        requestId={request.humanFriendlyId}
+                        requestStatus={request.status}
+                        executor={request.executor}
+                        onClickResultButton={onClickResultButton}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-              // </div>
             )}
           </div>
 

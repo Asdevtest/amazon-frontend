@@ -23,4 +23,14 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '5px',
   },
+
+  resultWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  resultButton: {
+    width: '100%',
+  },
 }))

@@ -6,6 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 import { useClassNames } from './custom-switcher.style'
 
 interface CustomSwitcherProps {
+  bigSwitch?: boolean
   condition: string
   nameFirstArg: string
   nameSecondArg: string
@@ -17,13 +18,15 @@ interface CustomSwitcherProps {
 export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { condition, nameFirstArg, nameSecondArg, firstArgValue, secondArgValue, changeConditionHandler } = props
+  const { bigSwitch, condition, nameFirstArg, nameSecondArg, firstArgValue, secondArgValue, changeConditionHandler } =
+    props
 
   return (
-    <div className={classNames.switcherWrapper}>
+    <div className={cx(classNames.switcherWrapper, { [classNames.bigSwitcherWrapper]: bigSwitch })}>
       <Button
         className={cx(classNames.switcherOption, {
           [classNames.activeOption]: condition === firstArgValue,
+          [classNames.bigSwitcherOption]: bigSwitch,
         })}
         onClick={() => {
           if (condition !== firstArgValue) {
@@ -36,6 +39,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
       <Button
         className={cx(classNames.switcherOption, {
           [classNames.activeOption]: condition === secondArgValue,
+          [classNames.bigSwitcherOption]: bigSwitch,
         })}
         onClick={() => {
           if (condition !== secondArgValue) {

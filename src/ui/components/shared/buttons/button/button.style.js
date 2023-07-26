@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
     color: '#fff',
     height: 40,
+    borderRadius: 7,
     // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
   },

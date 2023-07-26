@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { IdeaPatch, creatSupplier, patchIdea, patchSuppliers } from '@constants/white-list'
+import { IdeaPatch, creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
@@ -12,10 +12,13 @@ import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
+import { RequestProposalModel } from '@models/request-proposal'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { RequestModel } from '@models/request-model'
 
 export class SuppliersAndIdeasModel {
   history = undefined
@@ -24,6 +27,9 @@ export class SuppliersAndIdeasModel {
 
   curIdea = undefined
   currentProduct = undefined
+  currentProposal = undefined
+  requestTypeTask = undefined
+  requestsForProduct = []
 
   inCreate = false
   inEdit = false
@@ -50,6 +56,11 @@ export class SuppliersAndIdeasModel {
   showSuccessModal = false
   showAddOrEditSupplierModal = false
   supplierModalReadOnly = false
+
+  showRequestDesignerResultModal = false
+  showRequestStandartResultModal = false
+  showRequestBloggerResultModal = false
+  showBindingModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -277,6 +288,41 @@ export class SuppliersAndIdeasModel {
       this.loadData()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async onClickResultButton(requestTypeTask, proposalId) {
+    try {
+      // const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+
+      runInAction(() => {
+        // this.currentProposal = result
+      })
+
+      if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
+        this.onTriggerOpenModal('showRequestDesignerResultModal')
+      } else if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.BLOGGER) {
+        this.onTriggerOpenModal('showRequestBloggerResultModal')
+      } else {
+        this.onTriggerOpenModal('showRequestStandartResultModal')
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  // async getRequestsForProduct(productId) {
+
+  // }
+
+  async onClickLinkRequest(productId) {
+    try {
+      const result = await RequestModel.getRequestsByProductLight(productId)
+      this.requestsForProduct = result
+
+      this.onTriggerOpenModal('showBindingModal')
+    } catch (error) {
+      console.log('error', error)
     }
   }
 

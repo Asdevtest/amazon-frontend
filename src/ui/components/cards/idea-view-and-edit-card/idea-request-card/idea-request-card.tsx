@@ -3,9 +3,10 @@ import { useClassNames } from './idea-request-card.styles'
 import { t } from '@utils/translations'
 import { UserLink } from '@components/user/user-link'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { colorByStatus, showResultStatuses } from '@constants/requests/request-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { FC } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { Button } from '@components/shared/buttons/button'
 
 interface IdeaRequestCardProps {
   requestType: number
@@ -16,14 +17,13 @@ interface IdeaRequestCardProps {
     name: string
     rating: number
   }
+  onClickResultButton: (requestType: number) => void
 }
 
 export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { requestType, requestId, requestStatus, executor } = props
-
-  console.log('requestStatus', requestStatus)
+  const { requestType, requestId, requestStatus, executor, onClickResultButton } = props
 
   return (
     <div className={classNames.root}>
@@ -47,9 +47,22 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
         </p>
       </div>
 
-      {executor && (
-        <UserLink blackText withAvatar name={'executor.name'} userId={'executor._id'} rating={5} ratingSize={'small'} />
-      )}
+      <div className={classNames.resultWrapper}>
+        {executor && (
+          <UserLink
+            blackText
+            withAvatar
+            name={executor.name}
+            userId={executor._id}
+            rating={executor.rating}
+            ratingSize={'small'}
+          />
+        )}
+
+        <Button className={classNames.resultButton} onClick={() => onClickResultButton(requestType)}>
+          {t(TranslationKey['See result'])}
+        </Button>
+      </div>
     </div>
   )
 }

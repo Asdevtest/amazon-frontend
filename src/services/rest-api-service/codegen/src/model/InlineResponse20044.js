@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IdeasByParentGuidChildProduct from './ApiV1IdeasByParentGuidChildProduct';
 
 /**
  * The InlineResponse20044 model module.
@@ -47,8 +48,26 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('childProduct')) {
+                obj['childProduct'] = ApiV1IdeasByParentGuidChildProduct.constructFromObject(data['childProduct']);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -58,10 +77,44 @@ class InlineResponse20044 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {String} _id
  */
-InlineResponse20044.prototype['profileId'] = undefined;
+InlineResponse20044.prototype['_id'] = undefined;
+
+/**
+ * Название идеи
+ * @member {String} title
+ */
+InlineResponse20044.prototype['title'] = undefined;
+
+/**
+ * Статус идеи
+ * @member {Number} status
+ */
+InlineResponse20044.prototype['status'] = undefined;
+
+/**
+ * Медиа идеи
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineResponse20044.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasByParentGuidChildProduct} childProduct
+ */
+InlineResponse20044.prototype['childProduct'] = undefined;
+
+/**
+ * Комментарии к идее
+ * @member {String} comments
+ */
+InlineResponse20044.prototype['comments'] = undefined;
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineResponse20044.prototype['buyerComment'] = undefined;
 
 
 
