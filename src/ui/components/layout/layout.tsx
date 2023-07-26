@@ -57,20 +57,34 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
 
   const [shortNavbar, setShortNavbar] = useState(false)
 
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setShortNavbar(false)
+    }
+  }, [])
+
   const handleShowNavbar = () => {
     setShortNavbar(!shortNavbar)
   }
 
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleToggleModal = () => {
+    setIsOpenModal(!isOpenModal)
+  }
+
   return (
     <>
-      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onShowNavbar={handleShowNavbar} />
+      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
 
       <div className={classNames.mainWrapper}>
         <Navbar
+          isOpenModal={isOpenModal}
           shortNavbar={shortNavbar}
           activeCategory={currentPageInfo?.activeCategory}
           activeSubCategory={currentPageInfo?.activeSubCategory}
           onShowNavbar={handleShowNavbar}
+          onToggleModal={handleToggleModal}
         />
 
         <main className={classNames.main}>

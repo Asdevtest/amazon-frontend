@@ -11,10 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainSubWrapperShort: {
     width: 75,
-
-    [theme.breakpoints.down(768)]: {
-      width: 0,
-    },
   },
 
   categoriesWrapper: {

@@ -41,7 +41,7 @@ interface CurNavbarType {
 
 interface Props {
   shortNavbar: boolean
-  onShowNavbar: VoidFunction
+  onToggleModal: VoidFunction
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
@@ -60,7 +60,7 @@ interface Props {
 export const NavbarDrawerContent: FC<Props> = observer(
   ({
     shortNavbar,
-    onShowNavbar,
+    onToggleModal,
     confirmModalSettings,
     alertShieldSettings,
     curNavbar,
@@ -106,7 +106,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                       (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||
                       (category.route?.includes('/buyer/pending-orders') && userInfo.pendingOrders)
                     }
-                    onShowNavbar={onShowNavbar}
+                    onToggleModal={onToggleModal}
                   />
 
                   <NavbarCollapse
@@ -137,7 +137,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     userInfo={userInfo}
                     category={category}
                     badge={category.route?.includes('/messages') && viewModel.unreadMessages}
-                    onShowNavbar={onShowNavbar}
+                    onToggleModal={onToggleModal}
                   />
                 </React.Fragment>
               ) : null,

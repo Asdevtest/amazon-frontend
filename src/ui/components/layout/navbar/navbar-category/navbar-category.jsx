@@ -14,7 +14,7 @@ import { renderTooltipTitle } from '@utils/renders'
 import { styles } from './navbar-category.style'
 
 const NavBarCategoryRaw = observer(
-  ({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar, onShowNavbar }) => {
+  ({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
     const subRoutes = category.subtitles
       ?.map(subCategory =>
         subCategory.checkHideSubBlock
@@ -50,16 +50,13 @@ const NavBarCategoryRaw = observer(
     }
 
     const highPriorityValue = getHighPriorityValue(category.route)
-    const isMobileResolution = window.innerWidth < 768
 
     return (
       <Button
         tooltipPosition="center"
         tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title, userInfo.role)}
         className={classNames.menuItem}
-        onClick={() => {
-          isMobileResolution ? onShowNavbar() : null
-        }}
+        onClick={onToggleModal}
       >
         <MuiListItem
           disableGutters

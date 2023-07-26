@@ -16,61 +16,63 @@ import { useClassNames } from './navbar.style'
 
 import { NavbarModel } from './navbar.model'
 
-export const Navbar = observer(({ shortNavbar, onShowNavbar, activeCategory, activeSubCategory }) => {
-  const { classes: classNames } = useClassNames()
+export const Navbar = observer(
+  ({ shortNavbar, onShowNavbar, activeCategory, activeSubCategory, isOpenModal, onToggleModal }) => {
+    const { classes: classNames } = useClassNames()
 
-  const viewModel = useRef(new NavbarModel())
+    const viewModel = useRef(new NavbarModel())
 
-  const {
-    userInfo,
-    confirmModalSettings,
-    showFeedbackModal,
-    showWarningModal,
-    showConfirmModal,
-    alertShieldSettings,
-    onTriggerOpenModal,
-    sendFeedbackAboutPlatform,
-    onClickVersion,
-  } = viewModel.current
+    const {
+      userInfo,
+      confirmModalSettings,
+      showFeedbackModal,
+      showWarningModal,
+      showConfirmModal,
+      alertShieldSettings,
+      onTriggerOpenModal,
+      sendFeedbackAboutPlatform,
+      onClickVersion,
+    } = viewModel.current
 
-  const [curNavbar, setCurNavbar] = useState(navbarConfig())
+    const [curNavbar, setCurNavbar] = useState(navbarConfig())
 
-  useEffect(() => {
-    setCurNavbar(navbarConfig())
-  }, [SettingsModel.languageTag])
+    useEffect(() => {
+      setCurNavbar(navbarConfig())
+    }, [SettingsModel.languageTag])
 
-  return (
-    <div className={classNames.mainWrapper}>
-      <DrawerModal position="left" open={!shortNavbar} onClose={onShowNavbar}>
-        <NavbarDrawerContent
-          shortNavbar={shortNavbar}
-          alertShieldSettings={alertShieldSettings}
-          confirmModalSettings={confirmModalSettings}
-          curNavbar={curNavbar}
-          userInfo={userInfo}
-          activeCategory={activeCategory}
-          viewModel={viewModel.current}
-          activeSubCategory={activeSubCategory}
-          sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
-          showFeedbackModal={showFeedbackModal}
-          showWarningModal={showWarningModal}
-          showConfirmModal={showConfirmModal}
-          onTriggerOpenModal={onTriggerOpenModal}
-          onClickVersion={onClickVersion}
-          onShowNavbar={onShowNavbar}
-        />
-      </DrawerModal>
+    return (
+      <div className={classNames.mainWrapper}>
+        <DrawerModal position="left" open={isOpenModal} onClose={onToggleModal}>
+          <NavbarDrawerContent
+            shortNavbar={shortNavbar}
+            alertShieldSettings={alertShieldSettings}
+            confirmModalSettings={confirmModalSettings}
+            curNavbar={curNavbar}
+            userInfo={userInfo}
+            activeCategory={activeCategory}
+            viewModel={viewModel.current}
+            activeSubCategory={activeSubCategory}
+            sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
+            showFeedbackModal={showFeedbackModal}
+            showWarningModal={showWarningModal}
+            showConfirmModal={showConfirmModal}
+            onTriggerOpenModal={onTriggerOpenModal}
+            onClickVersion={onClickVersion}
+            onToggleModal={onToggleModal}
+          />
+        </DrawerModal>
 
-      <div
-        className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
-        onClick={onShowNavbar}
-      >
-        {shortNavbar ? (
-          <ArrowForwardIosIcon className={classNames.arrowIcon} />
-        ) : (
-          <ArrowBackIosIcon className={classNames.arrowIcon} />
-        )}
+        <div
+          className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
+          onClick={onShowNavbar}
+        >
+          {shortNavbar ? (
+            <ArrowForwardIosIcon className={classNames.arrowIcon} />
+          ) : (
+            <ArrowBackIosIcon className={classNames.arrowIcon} />
+          )}
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  },
+)

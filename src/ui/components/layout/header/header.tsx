@@ -44,10 +44,10 @@ import { HeaderModel } from './header.model'
 interface Props {
   shortNavbar: boolean
   title: string
-  onShowNavbar: VoidFunction
+  onToggleModal: VoidFunction
 }
 
-export const Header: FC<Props> = observer(({ shortNavbar, title, onShowNavbar }) => {
+export const Header: FC<Props> = observer(({ shortNavbar, title, onToggleModal }) => {
   const history = useHistory()
   const location = useLocation()
   const { classes: classNames } = useClassNames()
@@ -182,7 +182,7 @@ export const Header: FC<Props> = observer(({ shortNavbar, title, onShowNavbar })
     <div className={classNames.header}>
       <div className={cx(classNames.logoWrapper, { [classNames.logoWrapperShort]: shortNavbar })}>
         <LogoIcon className={cx(classNames.logoIcon, { [classNames.logoIconNotShow]: shortNavbar })} />
-        <MenuIcon className={classNames.menuIcon} onClick={onShowNavbar} />
+        <MenuIcon className={classNames.menuIcon} onClick={onToggleModal} />
       </div>
 
       <div className={classNames.toolbar}>
