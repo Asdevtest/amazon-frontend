@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -38,7 +37,7 @@ export const AdminDestinationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.placeAddBtnWrapper}>
           <Button success onClick={() => viewModel.onClickAddBtn()}>
             {t(TranslationKey['Add a destination'])}
@@ -98,7 +97,7 @@ export const AdminDestinationsViewRaw = props => {
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

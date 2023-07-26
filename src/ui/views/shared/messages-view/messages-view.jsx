@@ -15,7 +15,6 @@ import { SearchResult } from '@components/chat/search-result'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -50,7 +49,7 @@ export const MessagesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div
           className={cx(classNames.chatHeaderWrapper, { [classNames.hideChatHeaderWrapper]: viewModel.chatSelectedId })}
         >
@@ -217,7 +216,7 @@ export const MessagesViewRaw = props => {
             viewModel.onTriggerOpenModal('showWarningInfoModal')
           }}
         />
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

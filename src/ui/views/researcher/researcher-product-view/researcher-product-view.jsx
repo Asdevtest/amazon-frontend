@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -29,7 +28,7 @@ export const ResearcherProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.product ? (
           <ProductWrapper
             user={viewModel.userInfo}
@@ -52,7 +51,7 @@ export const ResearcherProductView = observer(props => {
             onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           />
         ) : undefined}
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}

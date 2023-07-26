@@ -21,7 +21,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -64,7 +63,7 @@ export const ClientWarehouseTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <SearchInput
             // disabled
@@ -289,7 +288,7 @@ export const ClientWarehouseTasksViewRaw = props => {
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showEditPriorityData}

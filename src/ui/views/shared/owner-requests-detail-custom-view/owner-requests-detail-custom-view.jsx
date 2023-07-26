@@ -13,7 +13,6 @@ import { RequestDesignerResultClientForm } from '@components/forms/request-desig
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form/request-proposal-accept-or-reject-result-form'
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
@@ -57,7 +56,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
             request={viewModel.request}
@@ -162,7 +161,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
             </Button>
           </div>
         )}
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
         <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>

@@ -15,7 +15,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
@@ -73,7 +72,7 @@ export const BuyerMyOrdersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div
           className={cx(classNames.headerWrapper, {
             [classNames.headerWrapperCenter]:
@@ -176,7 +175,7 @@ export const BuyerMyOrdersViewRaw = props => {
             onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn

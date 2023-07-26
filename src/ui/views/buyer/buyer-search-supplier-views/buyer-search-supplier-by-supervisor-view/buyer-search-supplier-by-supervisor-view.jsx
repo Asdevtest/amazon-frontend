@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -30,7 +29,7 @@ export const BuyerSearchSupplierBySupervisorViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.btnsWrapper}>
           <Button
             color="primary"
@@ -81,7 +80,7 @@ export const BuyerSearchSupplierBySupervisorViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
         </div>
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

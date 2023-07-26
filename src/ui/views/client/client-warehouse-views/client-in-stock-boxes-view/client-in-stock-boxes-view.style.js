@@ -31,7 +31,7 @@ export const styles = theme => ({
   },
 
   tasksWrapper: {
-    marginTop: '30px',
+    marginTop: 20,
   },
 
   boxesFiltersWrapper: {

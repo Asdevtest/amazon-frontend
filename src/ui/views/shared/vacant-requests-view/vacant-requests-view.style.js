@@ -1,6 +1,6 @@
 export const styles = theme => ({
   dataGridWrapper: {
-    height: 'calc(100vh - 200px)',
+    height: '78vh',
   },
 
   taskTypeWrapper: {

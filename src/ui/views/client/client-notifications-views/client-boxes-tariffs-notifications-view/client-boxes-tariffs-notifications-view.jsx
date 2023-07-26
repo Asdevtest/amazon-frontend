@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -34,7 +33,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tableWrapper}>
           <MemoDataGrid
             pagination
@@ -81,7 +80,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings.isWarning}

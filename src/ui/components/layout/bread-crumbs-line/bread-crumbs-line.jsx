@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
@@ -31,7 +28,7 @@ const exclusionWords = [
 export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCrumbAdditionalText }) => {
   const { classes: classNames } = useClassNames()
 
-  const hostory = useHistory()
+  const history = useHistory()
 
   const location = useLocation()
   const pathnames = SettingsModel.breadcrumbsForProfile
@@ -44,10 +41,9 @@ export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCru
 
   const onClickCrumb = (to, isPreLast, index) => {
     if (isPreLast && index !== 1) {
-      // hostory.goBack()
-      hostory.push(to)
+      history.push(to)
     } else {
-      hostory.push(to)
+      history.push(to)
     }
   }
   if (location.pathname === '/profile') {

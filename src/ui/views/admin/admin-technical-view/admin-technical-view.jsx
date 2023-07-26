@@ -6,7 +6,6 @@ import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -33,7 +32,7 @@ export const AdminTechnicalViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         <div className={classNames.mainWrapper}>
           <div className={classNames.btnsWrapper}>
             <Button className={classNames.backBtn} onClick={viewModel.onBackBtn}>
@@ -103,7 +102,7 @@ export const AdminTechnicalViewRaw = props => {
             </Paper>
           </div>
         </div>
-      </MainContent>
+      </div>
     </>
   )
 }

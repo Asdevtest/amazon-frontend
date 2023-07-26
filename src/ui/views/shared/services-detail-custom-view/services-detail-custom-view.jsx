@@ -7,7 +7,6 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { MyServicesInfoCustom } from '@components/my-services/my-services-info-custom'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { Button } from '@components/shared/buttons/button'
@@ -34,7 +33,7 @@ export const ServicesDetailCustomViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backBtnWrapper}>
           <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
             {t(TranslationKey.Back)}
@@ -54,7 +53,7 @@ export const ServicesDetailCustomViewRaw = props => {
             <CustomSearchRequestDetails request={viewModel.request} announcementData={viewModel.announcementData} />
           </div>
         ) : null}
-      </MainContent>
+      </div>
 
       {/* <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}

@@ -14,7 +14,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -46,7 +45,7 @@ export const SourceFilesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.tablePanelSubWrapper} />
 
@@ -117,7 +116,7 @@ export const SourceFilesViewRaw = props => {
             // onRowDoubleClick={e => onClickViewMore(e.row._id)}
           />
         </div>
-      </MainContent>
+      </div>
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings.isWarning}
         openModal={viewModel.showConfirmModal}

@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
-import { MainContent } from '@components/layout/main-content'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -31,7 +30,7 @@ export const AdminFeedbackViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -95,7 +94,7 @@ export const AdminFeedbackViewRaw = props => {
             onSubmit={viewModel.onClickWriteBtn}
           />
         </Modal>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

@@ -17,7 +17,6 @@ import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
 import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
-import { MainContent } from '@components/layout/main-content'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -72,7 +71,7 @@ export const ClientInventoryViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.topHeaderBtnsWrapper}>
           <div className={classNames.shopsFiltersWrapper}>
             <SearchInput
@@ -289,7 +288,7 @@ export const ClientInventoryViewRaw = props => {
             onRowClick={params => viewModel.onClickProductModal(params.row)}
           />
         </div>
-      </MainContent>
+      </div>
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
 

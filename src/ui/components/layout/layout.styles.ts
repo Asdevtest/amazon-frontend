@@ -9,13 +9,13 @@ export const useClassNames = makeStyles()(theme => ({
   main: {
     width: '100%',
     height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
     overflowY: 'auto',
     background: theme.palette.background.second,
   },
 
-  content: {},
+  content: {
+    padding: 10,
+  },
 
   breadCrumbsWrapper: {
     padding: '10px 30px',

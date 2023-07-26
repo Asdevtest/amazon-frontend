@@ -23,7 +23,6 @@ import { VacantRequestListCard } from '@components/cards/vacant-request-list-car
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -86,7 +85,7 @@ export const VacantRequestsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.taskTypeWrapper}>
             {Object.keys({
@@ -267,7 +266,7 @@ export const VacantRequestsViewRaw = props => {
             </div>
           )
         )}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

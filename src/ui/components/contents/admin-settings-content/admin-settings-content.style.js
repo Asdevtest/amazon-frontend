@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '600',
     borderRadius: 0,
-    marginBottom: '60px',
+    marginBottom: '10px',
     width: '100%',
     '&:hover': {
       background: 'linear-gradient(0deg, rgba(0, 108, 255, 0.2) 0%, rgba(0, 108, 255, 0) 100%)',
@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '600',
     borderRadius: 0,
-    marginBottom: '60px',
+    marginBottom: '10px',
     width: '100%',
     '&:hover': {
       background: 'linear-gradient(0deg, rgba(0, 108, 255, 0.2) 0%, rgba(0, 108, 255, 0) 100%)',
@@ -84,7 +84,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '74vh',
+    height: '68vh',
   },
   root: {
     border: '0 !important',
