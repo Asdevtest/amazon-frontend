@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { Box } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,8 +22,9 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminSettingsModel } from './admin-settings-content.model'
 import { useClassNames } from './admin-settings-content.style'
+
+import { AdminSettingsModel } from './admin-settings-content.model'
 import { TabFreelanceContent } from './admin-tabs-content/tab-freelance-content'
 import { TabMainContent } from './admin-tabs-content/tab-main-content'
 import { TabOrdersContent } from './admin-tabs-content/tab-orders-content'
@@ -341,6 +341,9 @@ export const AdminSettingsContent = observer(() => {
                     columnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   slotProps={{
+                    baseTooltip: {
+                      title: t(TranslationKey.Filter),
+                    },
                     toolbar: {
                       columsBtnSettings: {
                         columnsModel,

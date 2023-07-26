@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,6 +15,7 @@ import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -24,9 +24,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientOrdersViewModel } from './client-orders-view.model'
 import { styles } from './client-orders-view.style'
-import { AlertShield } from '@components/shared/alert-shield'
+
+import { ClientOrdersViewModel } from './client-orders-view.model'
 
 export const ClientOrdersViewRaw = props => {
   const [viewModel] = useState(
@@ -109,6 +109,9 @@ export const ClientOrdersViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: viewModel.columnMenuSettings,
 
               toolbar: {

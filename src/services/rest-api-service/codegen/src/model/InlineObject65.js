@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject65 model module.
@@ -47,8 +48,14 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
+            }
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -58,10 +65,22 @@ class InlineObject65 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * Название профиля
+ * @member {String} name
  */
-InlineObject65.prototype['suppliersIds'] = undefined;
+InlineObject65.prototype['name'] = undefined;
+
+/**
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
+ */
+InlineObject65.prototype['os'] = 'mac';
+
+/**
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
+ */
+InlineObject65.prototype['navigator'] = undefined;
 
 
 

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20061Rows from './InlineResponse20061Rows';
 
 /**
  * The InlineResponse20061 model module.
@@ -47,20 +48,11 @@ class InlineResponse20061 {
         if (data) {
             obj = obj || new InlineResponse20061();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20061Rows]);
             }
         }
         return obj;
@@ -70,34 +62,15 @@ class InlineResponse20061 {
 }
 
 /**
- * GUID заявки
- * @member {String} _id
+ * @member {Number} count
  */
-InlineResponse20061.prototype['_id'] = undefined;
+InlineResponse20061.prototype['count'] = undefined;
 
 /**
- * Номер заявки
- * @member {Number} humanFriendlyId
+ * Массив заявок.
+ * @member {Array.<module:model/InlineResponse20061Rows>} rows
  */
-InlineResponse20061.prototype['humanFriendlyId'] = undefined;
-
-/**
- * Тип задачи заявки
- * @member {Number} typeTask
- */
-InlineResponse20061.prototype['typeTask'] = undefined;
-
-/**
- * Название заявки
- * @member {String} title
- */
-InlineResponse20061.prototype['title'] = undefined;
-
-/**
- * Статус заявки
- * @member {String} status
- */
-InlineResponse20061.prototype['status'] = undefined;
+InlineResponse20061.prototype['rows'] = undefined;
 
 
 

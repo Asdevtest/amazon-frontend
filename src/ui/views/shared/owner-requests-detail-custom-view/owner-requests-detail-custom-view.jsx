@@ -1,10 +1,9 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import InboxIcon from '@mui/icons-material/Inbox'
 import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,15 +19,17 @@ import { OwnerGeneralRequestInfo } from '@components/requests-and-request-propos
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
-import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 import { styles } from './owner-requests-detail-custom-view.style'
-import { AlertShield } from '@components/shared/alert-shield'
+
+import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
+
+import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 
 export const OwnerRequestDetailCustomViewRaw = props => {
   const chatRef = useRef()

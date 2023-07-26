@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,6 +12,7 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-to-send-batch-form.style'
+
 import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-boxes'
 
 export const RequestToSendBatchForm = observer(

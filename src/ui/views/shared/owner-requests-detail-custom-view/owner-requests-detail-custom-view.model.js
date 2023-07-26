@@ -5,6 +5,7 @@ import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/stat
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
@@ -13,7 +14,6 @@ import { UserModel } from '@models/user-model'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { AnnouncementsModel } from '@models/announcements-model'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -43,7 +43,10 @@ export class OwnerRequestDetailCustomViewModel {
     isWarning: false,
     message: '',
     smallMessage: '',
-    onSubmit: () => {},
+    onSubmit: () => {
+      this.showConfirmModal = false
+      this.showConfirmWithCommentModal = false
+    },
   }
 
   acceptProposalResultSetting = {
@@ -445,7 +448,10 @@ export class OwnerRequestDetailCustomViewModel {
             result.totalCost,
             2,
           )} $. ${t(TranslationKey['Confirm the publication?'])}`,
-          onSubmit: () => this.toPublishRequest(result.totalCost),
+          onSubmit: () => {
+            this.toPublishRequest(result.totalCost)
+            this.confirmModalSettings.message = ''
+          },
         }
       })
 

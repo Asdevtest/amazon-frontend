@@ -152,6 +152,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.AdministratorApi* | [**apiV1AdminsRedFlagsPost**](docs/AdministratorApi.md#apiV1AdminsRedFlagsPost) | **POST** /api/v1/admins/red_flags | #  Получить список отзывов/репортов
 *TestSwagger.AdministratorApi* | [**apiV1AdminsSetSettingPatch**](docs/AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch**](docs/AdministratorApi.md#apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch) | **PATCH** /api/v1/admins/set_timeToDeadlinePendingOrder/{value} | # Изменить интервал нотификаций касательно дедлайна ордера
+*TestSwagger.AdministratorApi* | [**apiV1AdminsTagsDelete**](docs/AdministratorApi.md#apiV1AdminsTagsDelete) | **DELETE** /api/v1/admins/tags | #  Удалить массив тегов
+*TestSwagger.AdministratorApi* | [**apiV1AdminsTagsGuidPatch**](docs/AdministratorApi.md#apiV1AdminsTagsGuidPatch) | **PATCH** /api/v1/admins/tags/{guid} | #  Редактирование тега
 *TestSwagger.AdministratorApi* | [**apiV1AdminsTasksLightGet**](docs/AdministratorApi.md#apiV1AdminsTasksLightGet) | **GET** /api/v1/admins/tasks_light | #  Облегченная версия. Получить задачи.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsToggleServerPatch**](docs/AdministratorApi.md#apiV1AdminsToggleServerPatch) | **PATCH** /api/v1/admins/toggle_server | # Включить/выключить сервер
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersByRoleGet**](docs/AdministratorApi.md#apiV1AdminsUsersByRoleGet) | **GET** /api/v1/admins/users_by_role | #  Получить пользователей по роли
@@ -288,18 +290,24 @@ Class | Method | HTTP request | Description
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStartPost**](docs/GoLoginApi.md#apiV1GologinProfileStartPost) | **POST** /api/v1/gologin/profile/start | # Запустить пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStopPost**](docs/GoLoginApi.md#apiV1GologinProfileStopPost) | **POST** /api/v1/gologin/profile/stop | # Остановить профайл пользователя.
 *TestSwagger.IdeaApi* | [**apiV1IdeasAddSuppliersGuidPost**](docs/IdeaApi.md#apiV1IdeasAddSuppliersGuidPost) | **POST** /api/v1/ideas/add_suppliers/{guid} | Добавить поставщиков к идее
-*TestSwagger.IdeaApi* | [**apiV1IdeasEditRequestGuidPatch**](docs/IdeaApi.md#apiV1IdeasEditRequestGuidPatch) | **PATCH** /api/v1/ideas/edit_request/{guid} | Изменить заявку на поиск поставщика к идее
-*TestSwagger.IdeaApi* | [**apiV1IdeasEditRequestsStatusGuidPatch**](docs/IdeaApi.md#apiV1IdeasEditRequestsStatusGuidPatch) | **PATCH** /api/v1/ideas/edit_requests_status/{guid} | Изменить стаус заявки на поиск поставщика
-*TestSwagger.IdeaApi* | [**apiV1IdeasFindSupplierGuidPost**](docs/IdeaApi.md#apiV1IdeasFindSupplierGuidPost) | **POST** /api/v1/ideas/find_supplier/{guid} | Создать заявку на поиск поставщика к идее
-*TestSwagger.IdeaApi* | [**apiV1IdeasGet**](docs/IdeaApi.md#apiV1IdeasGet) | **GET** /api/v1/ideas/ | Список всех идей
-*TestSwagger.IdeaApi* | [**apiV1IdeasGetSupplierRequestsGet**](docs/IdeaApi.md#apiV1IdeasGetSupplierRequestsGet) | **GET** /api/v1/ideas/get_supplier_requests/ | Получить все заяки на поиск поставщика
-*TestSwagger.IdeaApi* | [**apiV1IdeasGetSupplierRequestsGuidGet**](docs/IdeaApi.md#apiV1IdeasGetSupplierRequestsGuidGet) | **GET** /api/v1/ideas/get_supplier_requests/{guid} | Получить определенную заявку на поиск поставщика
+*TestSwagger.IdeaApi* | [**apiV1IdeasAddingAsinGuidPatch**](docs/IdeaApi.md#apiV1IdeasAddingAsinGuidPatch) | **PATCH** /api/v1/ideas/adding_asin/{guid} | Изменить статус заявки на addingAsin(18)
+*TestSwagger.IdeaApi* | [**apiV1IdeasByParentGuidGet**](docs/IdeaApi.md#apiV1IdeasByParentGuidGet) | **GET** /api/v1/ideas/by_parent/{guid} | Получить идеи по родительскому продукту
+*TestSwagger.IdeaApi* | [**apiV1IdeasClosedGuidPatch**](docs/IdeaApi.md#apiV1IdeasClosedGuidPatch) | **PATCH** /api/v1/ideas/closed/{guid} | Изменить статус заявки на closed(30)
+*TestSwagger.IdeaApi* | [**apiV1IdeasFinishedGuidPatch**](docs/IdeaApi.md#apiV1IdeasFinishedGuidPatch) | **PATCH** /api/v1/ideas/finished/{guid} | Изменить статус заявки на finished(20)
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidDelete**](docs/IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidGet**](docs/IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidPatch**](docs/IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasNotificationsGet**](docs/IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Получить нотификации идей
+*TestSwagger.IdeaApi* | [**apiV1IdeasOnCheckingGuidPatch**](docs/IdeaApi.md#apiV1IdeasOnCheckingGuidPatch) | **PATCH** /api/v1/ideas/on_checking/{guid} | Изменить статус заявки на OnCheck(10)
+*TestSwagger.IdeaApi* | [**apiV1IdeasPagMyGet**](docs/IdeaApi.md#apiV1IdeasPagMyGet) | **GET** /api/v1/ideas/pag/my | Список всех идей с пагинацией
 *TestSwagger.IdeaApi* | [**apiV1IdeasPost**](docs/IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
+*TestSwagger.IdeaApi* | [**apiV1IdeasProductCreatingGuidPatch**](docs/IdeaApi.md#apiV1IdeasProductCreatingGuidPatch) | **PATCH** /api/v1/ideas/product_creating/{guid} | Изменить статус заявки на productCreating(16)
+*TestSwagger.IdeaApi* | [**apiV1IdeasRejectedGuidPatch**](docs/IdeaApi.md#apiV1IdeasRejectedGuidPatch) | **PATCH** /api/v1/ideas/rejected/{guid} | Изменить статус заявки на rejected(25)
 *TestSwagger.IdeaApi* | [**apiV1IdeasRemoveSupplierGuidPost**](docs/IdeaApi.md#apiV1IdeasRemoveSupplierGuidPost) | **POST** /api/v1/ideas/remove_supplier/{guid} | Удалить поставщика
+*TestSwagger.IdeaApi* | [**apiV1IdeasReopenGuidPatch**](docs/IdeaApi.md#apiV1IdeasReopenGuidPatch) | **PATCH** /api/v1/ideas/reopen/{guid} | Открыть заявку заново
+*TestSwagger.IdeaApi* | [**apiV1IdeasSupplierFoundGuidPatch**](docs/IdeaApi.md#apiV1IdeasSupplierFoundGuidPatch) | **PATCH** /api/v1/ideas/supplier_found/{guid} | Изменить статус заявки на supplierFound(14)
+*TestSwagger.IdeaApi* | [**apiV1IdeasSupplierNotFoundGuidPatch**](docs/IdeaApi.md#apiV1IdeasSupplierNotFoundGuidPatch) | **PATCH** /api/v1/ideas/supplier_not_found/{guid} | Изменить статус заявки на supplierNotFound(15)
+*TestSwagger.IdeaApi* | [**apiV1IdeasSupplierSearchGuidPatch**](docs/IdeaApi.md#apiV1IdeasSupplierSearchGuidPatch) | **PATCH** /api/v1/ideas/supplier_search/{guid} | Изменить статус заявки на supplierSearch(13)
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsCreateAndLinkSkuProductsPost**](docs/IntegrationsApi.md#apiV1IntegrationsCreateAndLinkSkuProductsPost) | **POST** /api/v1/integrations/create_and_link_sku_products | # Создать, привязать товары к SKU. Спарсить данные. 
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsGetSkusByProductIdGuidGet**](docs/IntegrationsApi.md#apiV1IntegrationsGetSkusByProductIdGuidGet) | **GET** /api/v1/integrations/get_skus_by_product_id/{guid} | Получить товары из склада (sku), через GUID продукта.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsRefreshProductsPatch**](docs/IntegrationsApi.md#apiV1IntegrationsRefreshProductsPatch) | **PATCH** /api/v1/integrations/refresh_products | # Обновить товары через парсер
@@ -389,6 +397,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidPickupPost**](docs/RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidToPublishPatch**](docs/RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidUpdateDeadlinePatch**](docs/RequestsApi.md#apiV1RequestsGuidUpdateDeadlinePatch) | **PATCH** /api/v1/requests/{guid}/update_deadline | # Обновить дедлайн, вернуть из статуса EXPIRED
+*TestSwagger.RequestsApi* | [**apiV1RequestsIdeasGuidPatch**](docs/RequestsApi.md#apiV1RequestsIdeasGuidPatch) | **PATCH** /api/v1/requests/ideas/{guid} | #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidDelete**](docs/RequestsApi.md#apiV1RequestsMediaGuidDelete) | **DELETE** /api/v1/requests/media/{guid} | #  Удалить исходник.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidGet**](docs/RequestsApi.md#apiV1RequestsMediaGuidGet) | **GET** /api/v1/requests/media/{guid} | #  Получить медиа.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidPatch**](docs/RequestsApi.md#apiV1RequestsMediaGuidPatch) | **PATCH** /api/v1/requests/media/{guid} | #  Изменить медиа.
@@ -534,6 +543,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1ClientsProductsGuidRedFlags](docs/ApiV1ClientsProductsGuidRedFlags.md)
  - [TestSwagger.ApiV1ClientsProductsVacRedFlags](docs/ApiV1ClientsProductsVacRedFlags.md)
  - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
+ - [TestSwagger.ApiV1IdeasByParentGuidChildProduct](docs/ApiV1IdeasByParentGuidChildProduct.md)
  - [TestSwagger.ApiV1IdeasNotificationsCreatedBy](docs/ApiV1IdeasNotificationsCreatedBy.md)
  - [TestSwagger.ApiV1IdeasNotificationsIdea](docs/ApiV1IdeasNotificationsIdea.md)
  - [TestSwagger.ApiV1IdeasNotificationsProduct](docs/ApiV1IdeasNotificationsProduct.md)
@@ -615,7 +625,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject130](docs/InlineObject130.md)
  - [TestSwagger.InlineObject131](docs/InlineObject131.md)
  - [TestSwagger.InlineObject132](docs/InlineObject132.md)
- - [TestSwagger.InlineObject133](docs/InlineObject133.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
  - [TestSwagger.InlineObject16](docs/InlineObject16.md)
@@ -729,6 +738,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20020Rows](docs/InlineResponse20020Rows.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
+ - [TestSwagger.InlineResponse20022AllFiles](docs/InlineResponse20022AllFiles.md)
+ - [TestSwagger.InlineResponse20022AllImages](docs/InlineResponse20022AllImages.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
@@ -736,8 +747,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
- - [TestSwagger.InlineResponse20029AllFiles](docs/InlineResponse20029AllFiles.md)
- - [TestSwagger.InlineResponse20029AllImages](docs/InlineResponse20029AllImages.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)
@@ -777,6 +786,12 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20043](docs/InlineResponse20043.md)
  - [TestSwagger.InlineResponse20044](docs/InlineResponse20044.md)
  - [TestSwagger.InlineResponse20045](docs/InlineResponse20045.md)
+ - [TestSwagger.InlineResponse20045ChildProduct](docs/InlineResponse20045ChildProduct.md)
+ - [TestSwagger.InlineResponse20045ChildProductOrder](docs/InlineResponse20045ChildProductOrder.md)
+ - [TestSwagger.InlineResponse20045ParentProduct](docs/InlineResponse20045ParentProduct.md)
+ - [TestSwagger.InlineResponse20045RequestsOnCheck](docs/InlineResponse20045RequestsOnCheck.md)
+ - [TestSwagger.InlineResponse20045Rows](docs/InlineResponse20045Rows.md)
+ - [TestSwagger.InlineResponse20045Suppliers](docs/InlineResponse20045Suppliers.md)
  - [TestSwagger.InlineResponse20046](docs/InlineResponse20046.md)
  - [TestSwagger.InlineResponse20047](docs/InlineResponse20047.md)
  - [TestSwagger.InlineResponse20048](docs/InlineResponse20048.md)
@@ -784,8 +799,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse20050](docs/InlineResponse20050.md)
  - [TestSwagger.InlineResponse20051](docs/InlineResponse20051.md)
- - [TestSwagger.InlineResponse20051Failed](docs/InlineResponse20051Failed.md)
  - [TestSwagger.InlineResponse20052](docs/InlineResponse20052.md)
+ - [TestSwagger.InlineResponse20052Failed](docs/InlineResponse20052Failed.md)
  - [TestSwagger.InlineResponse20053](docs/InlineResponse20053.md)
  - [TestSwagger.InlineResponse20054](docs/InlineResponse20054.md)
  - [TestSwagger.InlineResponse20055](docs/InlineResponse20055.md)
@@ -795,12 +810,12 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
- - [TestSwagger.InlineResponse20060Announcement](docs/InlineResponse20060Announcement.md)
- - [TestSwagger.InlineResponse20060CountProposalsByStatuses](docs/InlineResponse20060CountProposalsByStatuses.md)
- - [TestSwagger.InlineResponse20060Media](docs/InlineResponse20060Media.md)
- - [TestSwagger.InlineResponse20060Product](docs/InlineResponse20060Product.md)
- - [TestSwagger.InlineResponse20060Rows](docs/InlineResponse20060Rows.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
+ - [TestSwagger.InlineResponse20061Announcement](docs/InlineResponse20061Announcement.md)
+ - [TestSwagger.InlineResponse20061CountProposalsByStatuses](docs/InlineResponse20061CountProposalsByStatuses.md)
+ - [TestSwagger.InlineResponse20061Media](docs/InlineResponse20061Media.md)
+ - [TestSwagger.InlineResponse20061Product](docs/InlineResponse20061Product.md)
+ - [TestSwagger.InlineResponse20061Rows](docs/InlineResponse20061Rows.md)
  - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
  - [TestSwagger.InlineResponse20063](docs/InlineResponse20063.md)
  - [TestSwagger.InlineResponse20064](docs/InlineResponse20064.md)
@@ -820,8 +835,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20077](docs/InlineResponse20077.md)
  - [TestSwagger.InlineResponse20078](docs/InlineResponse20078.md)
  - [TestSwagger.InlineResponse20079](docs/InlineResponse20079.md)
- - [TestSwagger.InlineResponse20079Details](docs/InlineResponse20079Details.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
+ - [TestSwagger.InlineResponse20080](docs/InlineResponse20080.md)
+ - [TestSwagger.InlineResponse20080Details](docs/InlineResponse20080Details.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)

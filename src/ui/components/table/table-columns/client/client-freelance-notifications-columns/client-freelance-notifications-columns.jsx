@@ -1,12 +1,14 @@
-import { t } from '@utils/translations'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import {
   AsinCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { Button } from '@components/shared/buttons/button'
+
+import { t } from '@utils/translations'
 
 export const clientFreelanceNotificationsColumns = handlers => [
   {

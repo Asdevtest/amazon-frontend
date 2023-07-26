@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,8 +15,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminInventoryViewModel } from './admin-inventory-view.model'
 import { styles } from './admin-inventory-view.style'
+
+import { AdminInventoryViewModel } from './admin-inventory-view.model'
 
 export const AdminInventoryViewRaw = props => {
   const [viewModel] = useState(() => new AdminInventoryViewModel({ history: props.history }))
@@ -64,6 +64,9 @@ export const AdminInventoryViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

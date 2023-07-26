@@ -5,14 +5,14 @@ import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
+  Ayaya,
   BatchBoxesCell,
+  BatchTrackingCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
   ToFixedWithKgSignCell,
   WarehouseTariffDatesCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
-  Ayaya,
-  BatchTrackingCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'

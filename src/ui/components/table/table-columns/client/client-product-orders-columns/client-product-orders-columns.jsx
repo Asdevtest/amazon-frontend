@@ -1,16 +1,15 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
+import { t } from 'i18n-js'
 import React from 'react'
 
-import { t } from 'i18n-js'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
-  orderColorByStatus,
   OrderStatus,
   OrderStatusByCode,
   OrderStatusByKey,
   OrderStatusTranslate,
+  orderColorByStatus,
 } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,8 +18,8 @@ import {
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   NormDateCell,
+  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,
@@ -31,7 +30,7 @@ import {
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
+export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -70,13 +69,17 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
   {
     field: 'orderStatus',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        isFilterActive={chosenStatus() !== 'ALL'}
-        text={t(TranslationKey.Status)}
-        Icon={FilterAltOutlinedIcon}
-      />
-    ),
+    renderHeader: () => {
+      const { isActiveFilter } = isSomeFilterOn()
+
+      return (
+        <MultilineTextHeaderCell
+          isFilterActive={isActiveFilter}
+          text={t(TranslationKey.Status)}
+          Icon={FilterAltOutlinedIcon}
+        />
+      )
+    },
 
     width: 160,
     renderCell: params => (

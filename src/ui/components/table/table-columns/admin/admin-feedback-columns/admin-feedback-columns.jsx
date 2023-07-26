@@ -3,9 +3,9 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
   MultilineTextAlignLeftCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   NormalActionBtnCell,
   PhotoAndFilesCell,
   UserCell,

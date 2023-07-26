@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Typography } from '@mui/material'
-
+import dayjs from 'dayjs'
 import React, { useState } from 'react'
 
-import dayjs from 'dayjs'
+import { Checkbox, Typography } from '@mui/material'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'

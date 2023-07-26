@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
+**orderPayments** | [**[ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]**](ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md) |  | [optional] 
 
 

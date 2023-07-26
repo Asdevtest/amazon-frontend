@@ -1,12 +1,12 @@
-import { Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'

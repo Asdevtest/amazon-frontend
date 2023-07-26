@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, reaction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -59,6 +59,10 @@ export class MessagesViewModel {
 
   get noticeOfSimpleChats() {
     return SettingsModel.noticeOfSimpleChats
+  }
+
+  get mutedChats() {
+    return SettingsModel.mutedChats
   }
 
   constructor({ history, location }) {
@@ -274,6 +278,10 @@ export class MessagesViewModel {
 
   onTriggerNoticeOfSimpleChats() {
     SettingsModel.onTriggerNoticeOfSimpleChats()
+  }
+
+  muteChatHandler(chatId) {
+    SettingsModel.setMutedChat(chatId)
   }
 
   onClickChat(chat) {

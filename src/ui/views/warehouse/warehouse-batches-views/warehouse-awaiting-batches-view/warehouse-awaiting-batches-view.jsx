@@ -1,10 +1,9 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
 import AddIcon from '@mui/icons-material/Add'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,9 +24,10 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 import { styles } from './warehouse-awaiting-batches-view.style'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+
+import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 
 export const WarehouseAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
@@ -127,6 +127,9 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             slotProps={{
               columnMenu: viewModel.columnMenuSettings,
 
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,

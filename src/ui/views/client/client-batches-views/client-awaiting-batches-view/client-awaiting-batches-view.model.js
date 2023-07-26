@@ -1,6 +1,7 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,7 +20,6 @@ import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { GeneralModel } from '@models/general-model'
 
@@ -307,26 +307,6 @@ export class ClientAwaitingBatchesViewModel {
 
   async getBatchesPagMy() {
     try {
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
-
-      const filter = objectToUrlQs({
-        or: [
-          { asin: { $contains: this.nameSearchValue } },
-          { title: { $contains: this.nameSearchValue } },
-          { humanFriendlyId: { $eq: this.nameSearchValue } },
-          { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
-        ].filter(
-          el =>
-            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-              !el.humanFriendlyId &&
-              !el.orderHumanFriendlyId) ||
-            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-        ),
-      })
-
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
         options: {

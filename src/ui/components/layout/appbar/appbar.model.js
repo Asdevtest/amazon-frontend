@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UserRoleCodeMapForRoutes, UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMapForRoutes, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'

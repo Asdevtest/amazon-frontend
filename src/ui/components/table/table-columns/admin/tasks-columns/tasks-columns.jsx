@@ -3,13 +3,13 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateFromUnixCell,
-  TaskDescriptionCell,
-  NormalActionBtnCell,
-  UserLinkCell,
-  TaskTypeCell,
   MultilineTextHeaderCell,
+  NormDateFromUnixCell,
+  NormalActionBtnCell,
+  TaskDescriptionCell,
   TaskStatusCell,
+  TaskTypeCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -65,7 +65,7 @@ export const adminTasksViewColumns = handlers => [
     align: 'center',
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={t(TranslationKey['View more'])}
+        bTnText={t(TranslationKey.Details)}
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),

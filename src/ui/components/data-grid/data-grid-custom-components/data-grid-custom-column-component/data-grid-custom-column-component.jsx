@@ -18,12 +18,13 @@ import {
   NormalFieldMenuItem,
   NumberFieldMenuItem,
   ObJectFieldMenuItem,
+  OnListingCellMenuItem,
   OrderOrItemMenuItem,
   OrderStatusMenuItem,
+  PriorityMenuItem,
   ProductMenuItem,
   RedFlagsCellMenuItem,
-  OnListingCellMenuItem,
-  PriorityMenuItem,
+  ToPayCellMenuItem,
   YesNoCellMenuItem,
   BatchShippingDateCellMenuItem,
   BatchTrackingCellMenuItem,
@@ -395,6 +396,22 @@ export const DataGridCustomColumnMenuComponent = props => {
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <NumberFieldMenuItem
           data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.buyer.TO_PAY) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <ToPayCellMenuItem
+          data={props}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}

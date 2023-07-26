@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
+import React, { useState } from 'react'
+
 import { Avatar, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
-
-import React, { useState } from 'react'
 
 import {
   RequestProposalStatus,
@@ -10,11 +10,14 @@ import {
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { Modal } from '@components/shared/modal'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
@@ -23,9 +26,6 @@ import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './owner-request-proposals-card.style'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { RequestResultModal } from '@components/modals/request-result-modal'
 
 export const OwnerRequestProposalsCard = ({
   item,

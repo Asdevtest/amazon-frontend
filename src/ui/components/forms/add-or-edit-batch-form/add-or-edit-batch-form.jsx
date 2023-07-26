@@ -1,4 +1,8 @@
 import { cx } from '@emotion/css'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {
   FormControlLabel,
@@ -7,11 +11,6 @@ import {
   /* TablePagination, */
   Typography,
 } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -26,12 +25,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 import {
   calcFinalWeightForBatchByMoreTotalWeight,
@@ -45,9 +46,9 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 import { useClassNames } from './add-or-edit-batch-form.style'
-import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
+
+import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(
   ({
@@ -516,6 +517,9 @@ export const AddOrEditBatchForm = observer(
                 columnMenuIcon: FilterAltOutlinedIcon,
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
@@ -619,6 +623,9 @@ export const AddOrEditBatchForm = observer(
                 columnMenuIcon: FilterAltOutlinedIcon,
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,

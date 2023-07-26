@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,6 +15,7 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -25,9 +25,9 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { MyRequestsViewModel } from './my-requests-view.model'
 import { styles } from './my-requests-view.style'
-import { AlertShield } from '@components/shared/alert-shield'
+
+import { MyRequestsViewModel } from './my-requests-view.model'
 
 export const MyRequestsViewRaw = props => {
   const [viewModel] = useState(
@@ -124,10 +124,6 @@ export const MyRequestsViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              menuIconButton: classNames.menuIconButton,
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -143,6 +139,9 @@ export const MyRequestsViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: viewModel.columnMenuSettings,
 
               toolbar: {
@@ -200,6 +199,7 @@ export const MyRequestsViewRaw = props => {
         <AlertShield
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+          severity={viewModel?.alertShieldSettings?.error ? 'error' : 'success'}
         />
       )}
     </React.Fragment>

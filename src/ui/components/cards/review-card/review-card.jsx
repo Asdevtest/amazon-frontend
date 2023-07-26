@@ -1,7 +1,7 @@
+import React from 'react'
+
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
-
-import React from 'react'
 
 import { UserLink } from '@components/user/user-link'
 

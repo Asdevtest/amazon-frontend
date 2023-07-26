@@ -1,26 +1,21 @@
-/* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React from 'react'
-
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ShortDateCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
-  MultilineRequestStatusCell,
-  UserMiniCell,
-  NormalActionBtnCell,
   AsinCell,
-  VacantRequestPriceCell,
+  MultilineRequestStatusCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
   PriorityAndChinaDeliverCell,
+  ShortDateCell,
+  UserMiniCell,
+  VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const FreelancerVacantRequestColumns = handlers => [
   {
@@ -36,7 +31,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
-    renderHeader: params => (
+    renderHeader: () => (
       <MultilineTextHeaderCell
         component={<img src="/assets/icons/bookmark.svg" />}
         // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
@@ -57,7 +52,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 50,
+    width: 70,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -73,7 +68,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   {
     field: 'price',
     headerName: t(TranslationKey['Request price']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Request price'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
@@ -96,7 +91,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   {
     field: 'typeTask',
     headerName: t(TranslationKey['Request type']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
 
     renderCell: params => (
       <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
@@ -214,7 +209,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         // disabled={!params.row.batch}
-        smallActionBtn
         bTnText={t(TranslationKey.Details)}
         onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
       />

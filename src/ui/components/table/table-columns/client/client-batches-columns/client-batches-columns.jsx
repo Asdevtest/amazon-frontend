@@ -4,19 +4,19 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
   BatchBoxesCell,
+  BatchTrackingCell,
   MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
-  MultilineTextHeaderCell,
-  BatchTrackingCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
 import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
@@ -29,17 +29,16 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
           <DataGridSelectViewProductBatch
             changeViewModeHandler={rowHandlers?.changeViewModeHandler}
             selectedViewMode={getProductViewMode()}
+            rootStyles={{ marginLeft: 15 }}
           />
         }
       />
     ),
     headerName: t(TranslationKey.Product),
-    width: 540,
-    renderCell: params => {
-      // const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
-
-      return <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
-    },
+    width: 384,
+    renderCell: params => (
+      <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
+    ),
     filterable: false,
     sortable: false,
 

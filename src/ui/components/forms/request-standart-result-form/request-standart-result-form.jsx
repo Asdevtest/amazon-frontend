@@ -1,18 +1,18 @@
 /* eslint-disable react/jsx-indent */
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import React from 'react'
-
 import Linkify from 'react-linkify-always-blank'
 
+import { Typography } from '@mui/material'
+
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-standart-result-form.style'
-import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposal }) => {
   const { classes: classNames } = useClassNames()

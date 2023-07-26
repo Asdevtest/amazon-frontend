@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 
 /**
  * The InlineObject40 model module.
@@ -21,13 +22,11 @@ import ApiClient from '../ApiClient';
 class InlineObject40 {
     /**
      * Constructs a new <code>InlineObject40</code>.
-     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject40
-     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(totalPriceChanged) { 
+    constructor() { 
         
-        InlineObject40.initialize(this, totalPriceChanged);
+        InlineObject40.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineObject40 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalPriceChanged) { 
-        obj['totalPriceChanged'] = totalPriceChanged;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +48,8 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('orderPayments')) {
+                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
             }
         }
         return obj;
@@ -61,10 +59,9 @@ class InlineObject40 {
 }
 
 /**
- * новое значение изменения итоговой цены.
- * @member {Number} totalPriceChanged
+ * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
  */
-InlineObject40.prototype['totalPriceChanged'] = undefined;
+InlineObject40.prototype['orderPayments'] = undefined;
 
 
 

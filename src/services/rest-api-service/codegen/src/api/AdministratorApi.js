@@ -17,6 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject from '../model/InlineObject';
 import InlineObject1 from '../model/InlineObject1';
+import InlineObject10 from '../model/InlineObject10';
 import InlineObject2 from '../model/InlineObject2';
 import InlineObject3 from '../model/InlineObject3';
 import InlineObject4 from '../model/InlineObject4';
@@ -813,7 +814,7 @@ export default class AdministratorApi {
      * ## Привязать/отвязать юзера к товару   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject9} opts.body 
+     * @param {module:model/InlineObject10} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsProductLinkOrUnlinkUserRolePatchWithHttpInfo(opts) {
@@ -846,7 +847,7 @@ export default class AdministratorApi {
      * ## Привязать/отвязать юзера к товару   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject9} opts.body 
+     * @param {module:model/InlineObject10} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsProductLinkOrUnlinkUserRolePatch(opts) {
@@ -1249,6 +1250,111 @@ export default class AdministratorApi {
      */
     apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts) {
       return this.apiV1AdminsSetTimeToDeadlinePendingOrderValuePatchWithHttpInfo(value, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Удалить массив тегов
+     * ## Удалить массив тегов   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AdminsTagsDeleteWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/admins/tags', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Удалить массив тегов
+     * ## Удалить массив тегов   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AdminsTagsDelete(opts) {
+      return this.apiV1AdminsTagsDeleteWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Редактирование тега
+     * ## Редактирование тега   
+     * @param {String} guid GUID тега в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject9} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AdminsTagsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsTagsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/admins/tags/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Редактирование тега
+     * ## Редактирование тега   
+     * @param {String} guid GUID тега в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject9} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AdminsTagsGuidPatch(guid, opts) {
+      return this.apiV1AdminsTagsGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

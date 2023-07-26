@@ -8,6 +8,7 @@ import {
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
 } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -15,8 +16,8 @@ import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class MyProposalsViewModel {
   history = undefined

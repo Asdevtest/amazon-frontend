@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 
 /**
  * The InlineObject39 model module.
@@ -21,13 +22,11 @@ import ApiClient from '../ApiClient';
 class InlineObject39 {
     /**
      * Constructs a new <code>InlineObject39</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject39
-     * @param buyerComment {String} Комментарии байера.
      */
-    constructor(buyerComment) { 
+    constructor() { 
         
-        InlineObject39.initialize(this, buyerComment);
+        InlineObject39.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineObject39 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +48,8 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('orderPayments')) {
+                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
             }
         }
         return obj;
@@ -61,10 +59,9 @@ class InlineObject39 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
  */
-InlineObject39.prototype['buyerComment'] = undefined;
+InlineObject39.prototype['orderPayments'] = undefined;
 
 
 

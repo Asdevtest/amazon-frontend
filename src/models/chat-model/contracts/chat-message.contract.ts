@@ -6,10 +6,10 @@ import { TWebsocketChatService } from '@services/websocket-chat-service'
 import {
   ChatMessageDataAddUsersToGroupChatContract,
   ChatMessageDataBloggerProposalResultEditedContract,
-  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
-  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataCreateNewBloggerProposalContract,
   ChatMessageDataCreateNewDesignerProposalContract,
+  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
+  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,

@@ -174,6 +174,7 @@ export class ClientInventoryViewModel {
   showProductLotDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
+  productCardModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -253,6 +254,7 @@ export class ClientInventoryViewModel {
     onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
     onClickInTransfer: productId => this.onClickInTransfer(productId),
     onClickOrderCell: productId => this.onClickOrderCell(productId),
+    onClickShowProduct: row => this.onClickShowProduct(row),
   }
 
   confirmModalSettings = {
@@ -345,7 +347,6 @@ export class ClientInventoryViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    console.log('model', model)
     runInAction(() => {
       this.columnVisibilityModel = model
     })
@@ -360,6 +361,20 @@ export class ClientInventoryViewModel {
     )
 
     win.focus()
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.isArchive
+        ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)
+        : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
+    } else {
+      this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
+
+      this.loadData()
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 
   onClickPandingOrder(id) {
@@ -433,9 +448,7 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   getCurrentData() {
@@ -620,9 +633,6 @@ export class ClientInventoryViewModel {
 
   async getShops() {
     try {
-      // Старый метод
-      // const result = await ShopModel.getMyShops()
-
       const result = await ShopModel.getMyShopNames()
 
       runInAction(() => {

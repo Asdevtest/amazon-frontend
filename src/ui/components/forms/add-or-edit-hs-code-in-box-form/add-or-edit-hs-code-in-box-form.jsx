@@ -1,8 +1,7 @@
-import { TableCell, TableRow, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

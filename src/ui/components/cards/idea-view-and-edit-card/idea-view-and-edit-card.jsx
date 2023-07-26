@@ -1,5 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import AddIcon from '@material-ui/icons/Add'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -7,15 +12,11 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import SaveIcon from '@mui/icons-material/Save'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Divider, Grid, Link, Typography, IconButton, Select, InputAdornment, MenuItem } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import AddIcon from '@material-ui/icons/Add'
-import { observer } from 'mobx-react'
+import { Divider, Grid, IconButton, InputAdornment, Link, MenuItem, Select, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { routsPathes } from '@constants/navigation/routs-pathes'
 import { ideaStatus, ideaStatusByCode, ideaStatusByKey, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,9 +25,9 @@ import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { roundSafely } from '@utils/calculation'
@@ -42,8 +43,6 @@ import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './idea-view-and-edit-card.style'
-import { useHistory } from 'react-router-dom'
-import { routsPathes } from '@constants/navigation/routs-pathes'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,

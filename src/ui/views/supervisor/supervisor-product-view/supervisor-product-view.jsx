@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -77,7 +76,7 @@ export const SupervisorProductView = observer(props => {
           viewModel.onTriggerOpenModal('showWarningModal')
         }}
       />
-      <ConfirmationModal
+      {/* <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
@@ -86,6 +85,21 @@ export const SupervisorProductView = observer(props => {
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={() => {
           viewModel.onSaveProductData()
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      /> */}
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => {
+          viewModel.confirmModalSettings.onClickOkBtn()
           viewModel.onTriggerOpenModal('showConfirmModal')
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}

@@ -1,7 +1,9 @@
-import { Link, Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import { FC } from 'react'
 
+import { Link, Typography } from '@mui/material'
+
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 // import {useState} from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,8 +12,6 @@ import { Button } from '@components/shared/buttons/button'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './check-request-by-type-exists.styles'
-import { cx } from '@emotion/css'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 
 interface RequestsDataInterface {
   humanFriendlyId: number

@@ -1,10 +1,11 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import { observer } from 'mobx-react'
 
-import { RequestProposalsDetailsCustomItem } from './request-proposals-details-custom-item'
+import { Typography } from '@mui/material'
+
 import { useClassNames } from './request-proposals-details-custom.style'
+
+import { RequestProposalsDetailsCustomItem } from './request-proposals-details-custom-item'
 
 export const RequestProposalsDetailsCustom = observer(({ requestProposals }) => {
   const { classes: classNames } = useClassNames()

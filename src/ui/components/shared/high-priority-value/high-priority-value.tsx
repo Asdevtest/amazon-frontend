@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
-
 import React, { FC } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { useClassNames } from './high-priority-value.style'
 

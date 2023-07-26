@@ -22,10 +22,11 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
+     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor() { 
+    constructor(priority) { 
         
-        InlineObject110.initialize(this);
+        InlineObject110.initialize(this, priority);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, priority) { 
+        obj['priority'] = priority;
     }
 
     /**
@@ -47,17 +49,11 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -67,28 +63,16 @@ class InlineObject110 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
- */
-InlineObject110.prototype['status'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject110.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject110.prototype['storekeeperComment'] = undefined;
-
-/**
- * Приоритет задачи
+ * Выставить приоритет задачи
  * @member {Number} priority
  */
 InlineObject110.prototype['priority'] = undefined;
+
+/**
+ * Reason of high priority
+ * @member {String} reason
+ */
+InlineObject110.prototype['reason'] = undefined;
 
 
 

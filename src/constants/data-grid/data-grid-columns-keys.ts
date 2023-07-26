@@ -4,6 +4,7 @@ export const columnnsKeys = {
     MY_ORDERS_STATUS: 'MY_ORDERS_STATUS',
     ORDERS_PRIORITY: 'ORDERS_PRIORITY',
     MY_PRODUCTS_STATUS: 'MY_PRODUCTS_STATUS',
+    TO_PAY: 'TO_PAY',
   },
   storekeeper: {},
   client: {

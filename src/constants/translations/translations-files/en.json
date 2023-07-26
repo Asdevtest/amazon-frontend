@@ -1982,6 +1982,7 @@
   "Unread messages": "Unread messages",
   "Uploaded by on listing": "Uploaded by on listing",
   "Partial payment": "Partial payment",
+  "Open in a new tab": "Open in a new tab",
   "Search companion": "Search companion",
   "Service representative": "Service representative",
   "Your message has been sent": "Your message has been sent",
@@ -2000,5 +2001,9 @@
   "Participants": "Participants",
   "Photo and Video": "Photo and Video",
   "Photo track numbers": "Photo track numbers",
-  "no photo track number": "no photo track number"
+  "no photo track number": "no photo track number",
+  "Archiving": "Archiving",
+  "To pay partial": "To pay partial",
+  "By date": "By date",
+  "On page": "On page"
 }

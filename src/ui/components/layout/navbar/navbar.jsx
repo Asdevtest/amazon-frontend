@@ -1,17 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
+
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { Drawer } from '@mui/material'
 
-import React, { useEffect, useRef, useState } from 'react'
-import { observer } from 'mobx-react'
 import { navbarConfig } from '@constants/navigation/navbar'
 
 import { SettingsModel } from '@models/settings-model'
-import { NavbarModel } from './navbar.model'
-import { useClassNames } from './navbar.style'
+
 import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
+
+import { useClassNames } from './navbar.style'
+
+import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
   ({ activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory }) => {

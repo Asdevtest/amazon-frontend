@@ -1,6 +1,7 @@
-import { Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React, { useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -91,7 +92,7 @@ export const CheckQuantityForm = ({
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button variant="text" className={classNames.closeButton} onClick={onClose}>
+        <Button variant="text" className={cx(classNames.closeButton, classNames.button)} onClick={onClose}>
           {t(TranslationKey.No)}
         </Button>
       </div>

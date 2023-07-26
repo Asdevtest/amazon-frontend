@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 
 /**
  * The InlineObject37 model module.
@@ -23,10 +22,12 @@ class InlineObject37 {
     /**
      * Constructs a new <code>InlineObject37</code>.
      * @alias module:model/InlineObject37
+     * @param userIds {Array.<String>} 
+     * @param title {String} Название группового чата
      */
-    constructor() { 
+    constructor(userIds, title) { 
         
-        InlineObject37.initialize(this);
+        InlineObject37.initialize(this, userIds, title);
     }
 
     /**
@@ -34,7 +35,9 @@ class InlineObject37 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userIds, title) { 
+        obj['userIds'] = userIds;
+        obj['title'] = title;
     }
 
     /**
@@ -48,8 +51,11 @@ class InlineObject37 {
         if (data) {
             obj = obj || new InlineObject37();
 
-            if (data.hasOwnProperty('orderPayments')) {
-                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
+            if (data.hasOwnProperty('userIds')) {
+                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -59,9 +65,15 @@ class InlineObject37 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
+ * @member {Array.<String>} userIds
  */
-InlineObject37.prototype['orderPayments'] = undefined;
+InlineObject37.prototype['userIds'] = undefined;
+
+/**
+ * Название группового чата
+ * @member {String} title
+ */
+InlineObject37.prototype['title'] = undefined;
 
 
 

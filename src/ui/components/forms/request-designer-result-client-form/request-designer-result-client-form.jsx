@@ -2,17 +2,18 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { nanoid } from 'nanoid'
+import React, { useEffect, useRef, useState } from 'react'
+
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Avatar, Checkbox, ClickAwayListener, Link, Menu, Tooltip, Typography } from '@mui/material'
 import Zoom from '@mui/material/Zoom'
 
-import React, { useEffect, useRef, useState } from 'react'
-
-import { nanoid } from 'nanoid'
-
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
@@ -26,7 +27,6 @@ import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './request-designer-result-client-form.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const Slot = ({
   item,

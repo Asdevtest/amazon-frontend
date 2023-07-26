@@ -16,6 +16,7 @@ import {
   PricePerUnitCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+
 import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 

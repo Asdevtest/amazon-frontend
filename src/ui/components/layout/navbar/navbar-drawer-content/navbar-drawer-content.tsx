@@ -1,25 +1,30 @@
-import React from 'react'
 import { cx } from '@emotion/css'
-import { SettingsModel } from '@models/settings-model'
-import { UiTheme } from '@constants/theme/themes'
+import { observer } from 'mobx-react'
+import React from 'react'
+
 import { List, Typography } from '@mui/material'
-import { NavbarButton } from '@components/layout/navbar/navbar-button'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
-import { NavbarCategory } from '@components/layout/navbar'
-import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
-import { checkIsAdmin } from '@utils/checks'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { Feedback } from '@components/shared/svg-icons'
+
 import { appVersion } from '@constants/app-version'
-import { Modal } from '@components/shared/modal'
-import { FeedBackModal } from '@components/modals/feedback-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
+
+import { NavbarCategory } from '@components/layout/navbar'
+import { NavbarButton } from '@components/layout/navbar/navbar-button'
+import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { useNavbarDrawerContentStyles } from '@components/layout/navbar/navbar-drawer-content/navbar-drawer-content.styles'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
-import { observer } from 'mobx-react'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { FeedBackModal } from '@components/modals/feedback-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
+import { Modal } from '@components/shared/modal'
+import { Feedback } from '@components/shared/svg-icons'
+
+import { checkIsAdmin } from '@utils/checks'
+import { t } from '@utils/translations'
 
 interface CurNavbarType {
   icon: React.ReactNode

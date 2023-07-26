@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { fromUnixTime } from 'date-fns'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
+import { useReactToPrint } from 'react-to-print'
+import { withStyles } from 'tss-react/mui'
+
 import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
@@ -24,46 +30,54 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { Fragment, useEffect, useRef, useState } from 'react'
-
-import { fromUnixTime } from 'date-fns'
-import { flushSync } from 'react-dom'
-import { useReactToPrint } from 'react-to-print'
-import { withStyles } from 'tss-react/mui'
-
 import { imageTypes } from '@constants/configs/image-types'
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-import { mapUserRoleEnumToKey, UserRole, UserRolePrettyMap } from '@constants/keys/user-roles'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { RequestStatus } from '@constants/requests/request-status'
-import { BoxStatus } from '@constants/statuses/box-status'
-import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
-import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { UiTheme } from '@constants/theme/themes'
 import {
   getConversion,
   getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { tableProductViewMode } from '@constants/keys/table-product-view'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { orderPriority } from '@constants/orders/order-priority'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { requestPriority } from '@constants/requests/request-priority'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
+import { TaskStatus, TaskStatusTranslate, mapTaskStatusEmumToKey } from '@constants/task/task-status'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon, SaveIcon } from '@components/shared/svg-icons'
+import {
+  BoxArrow,
+  ClockIcon,
+  CubeIcon,
+  EditIcon,
+  EqualIcon,
+  PlusIcon,
+  SaveIcon,
+  ShareLinkIcon,
+} from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
-import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 import {
   calcFinalWeightForBox,
@@ -97,12 +111,6 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-
-import { SettingsModel } from '@models/settings-model'
-import { tableProductViewMode } from '@constants/keys/table-product-view'
-import { requestPriority } from '@constants/requests/request-priority'
-import { orderPriority } from '@constants/orders/order-priority'
 
 export const UserCell = React.memo(
   withStyles(
@@ -660,11 +668,16 @@ export const ChangeInputCell = React.memo(
               ) : null}
             </InputAdornment>
           }
-          onChange={e =>
-            isInts
-              ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
-              : setValue(e.target.value)
-          }
+          onChange={e => {
+            if (isInts) {
+              setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+            } else {
+              setValue(e.target.value)
+            }
+          }}
+          onKeyDown={e => {
+            e.stopPropagation()
+          }}
           onBlur={() => setIsMyInputFocused(false)}
           onFocus={() => setIsMyInputFocused(true)}
         />
@@ -1569,25 +1582,22 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textAlignStart }) => (
-      <Tooltip title={text}>
-        <div
-          className={cx(classNames.multilineTextHeaderWrapper, {
-            [classNames.multilineTextHeaderWrapperWithComponent]: component,
-            [classNames.multilineTextAlignStartWrapper]: textAlignStart,
-          })}
-        >
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter }) => (
+      <div
+        className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
+      >
+        <Tooltip title={text}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
-          {component}
-          {withIcon || isShowIconOnHover || isFilterActive ? (
-            <FilterAltOutlinedIcon
-              className={cx(classNames.headerIcon, {
-                [classNames.headerIconBlue]: isFilterActive,
-              })}
-            />
-          ) : null}
-        </div>
-      </Tooltip>
+        </Tooltip>
+        {component}
+        {withIcon || isShowIconOnHover || isFilterActive ? (
+          <FilterAltOutlinedIcon
+            className={cx(classNames.headerIcon, {
+              [classNames.headerIconBlue]: isFilterActive,
+            })}
+          />
+        ) : null}
+      </div>
     ),
     styles,
   ),
@@ -2003,7 +2013,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           rowId={rowId}
           text={fourMonthesStock}
-          checkValue={value => value > 50}
+          checkValue={value => value >= 0}
           onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>
@@ -2173,17 +2183,15 @@ export const ToFixedWithDollarSignCell = React.memo(
 
 export const SuccessActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow, smallActionBtn }) => (
-      <div className={classNames.successActionBtnWrapper}>
-        <Button
-          success
-          tooltipInfoContent={isFirstRow && tooltipText}
-          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
-          onClick={onClickOkBtn}
-        >
-          {bTnText}
-        </Button>
-      </div>
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
+      <Button
+        success
+        tooltipInfoContent={isFirstRow && tooltipText}
+        className={classNames.actionBtn}
+        onClick={onClickOkBtn}
+      >
+        {bTnText}
+      </Button>
     ),
     styles,
   ),
@@ -2191,19 +2199,17 @@ export const SuccessActionBtnCell = React.memo(
 
 export const NormalActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow, smallActionBtn }) => (
-      <div className={classNames.normalActionBtnWrapper}>
-        <Button
-          disabled={disabled}
-          tooltipInfoContent={isFirstRow && tooltipText}
-          variant="contained"
-          color="primary"
-          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
-          onClick={onClickOkBtn}
-        >
-          {bTnText}
-        </Button>
-      </div>
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow }) => (
+      <Button
+        disabled={disabled}
+        tooltipInfoContent={isFirstRow && tooltipText}
+        variant="contained"
+        color="primary"
+        className={classNames.actionBtn}
+        onClick={onClickOkBtn}
+      >
+        {bTnText}
+      </Button>
     ),
     styles,
   ),
@@ -2658,64 +2664,51 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       return (
         <div className={classNames.editOrRemoveIconBtnsCell}>
           {!isSave && (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                disabled={disableActionBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => handlers && handlers.onClickEditBtn(row)}
-              >
-                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
-            </div>
+            <Button
+              tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers && handlers.onClickEditBtn(row)}
+            >
+              {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+            </Button>
           )}
 
           {isSave && (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                disabled={disableActionBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => handlers.onClickSaveBtn(row)}
-              >
-                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Save)}</Typography>
-            </div>
+            <Button
+              tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers.onClickSaveBtn(row)}
+            >
+              {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
+            </Button>
           )}
 
           {handlers?.onTriggerArchive && (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                success={isArchive}
-                // tooltipInfoContent={isFirstRow && tooltipFirstButton}
-                disabled={disableActionBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => handlers?.onTriggerArchive(row)}
-              >
-                <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{isArchive ? 'Reveal' : 'Hide'}</Typography>
-            </div>
+            <Button
+              success={isArchive}
+              // tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers?.onTriggerArchive(row)}
+            >
+              <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
+            </Button>
           )}
 
           {isArchive || isArchive === undefined ? (
-            <div className={classNames.editOrRemoveBtnWrapper}>
-              <Button
-                danger
-                tooltipInfoContent={isFirstRow && tooltipSecondButton}
-                disabled={disableActionBtn}
-                // className={classNames.rowCancelBtn}
-                className={classNames.removeOrEditBtn}
-                onClick={() => {
-                  handlers && handlers.onClickRemoveBtn(row)
-                }}
-              >
-                <DeleteOutlineOutlinedIcon />
-              </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography>
-            </div>
+            <Button
+              danger
+              tooltipInfoContent={isFirstRow && tooltipSecondButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => {
+                handlers && handlers.onClickRemoveBtn(row)
+              }}
+            >
+              <DeleteOutlineOutlinedIcon />
+            </Button>
           ) : null}
         </div>
       )
@@ -3042,6 +3035,27 @@ export const FormedCell = React.memo(
   ),
 )
 
+export const SelectRowCell = React.memo(
+  withStyles(
+    ({ classes: classNames, checkboxComponent, onClickShareIcon }) => (
+      <div className={classNames.selectRowCellWrapper}>
+        {checkboxComponent}
+        <Tooltip
+          arrow
+          title={t(TranslationKey['Open in a new tab'])}
+          placement="top"
+          classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
+        >
+          <div className={classNames.iconWrapper} onClick={onClickShareIcon}>
+            <ShareLinkIcon className={classNames.shareLinkIcon} />
+          </div>
+        </Tooltip>
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const ProductInfoExtended = React.memo(
   withStyles(
     ({ classes: classNames, box, boxesLength }) => (
@@ -3056,20 +3070,21 @@ export const ProductInfoExtended = React.memo(
               <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.orderImg} />
               <div className={classNames.batchProductInfoWrapper}>
                 <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
-                <div className={classNames.copyAsin}>
-                  <Typography className={classNames.orderText}>
+                <div className={classNames.boxInfoWrapper}>
+                  <Typography className={classNames.boxInfoText}>
                     <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
                     {item.asin}
                   </Typography>
                   {item.asin ? <CopyValue text={item.asin} /> : null}
-                  <Typography className={classNames.orderText}>
-                    {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                      <span className={classNames.needPay}>{`${t(
-                        TranslationKey['Extra payment required!'],
-                      )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                    )}
-                  </Typography>
                 </div>
+
+                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                  <Typography className={classNames.orderText}>
+                    <span className={classNames.needPay}>{`${t(
+                      TranslationKey['Extra payment required!'],
+                    )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                  </Typography>
+                )}
 
                 <div className={classNames.amountBoxesWrapper}>
                   <Typography className={classNames.amountBoxesText}>{`x ${item.amount}`}</Typography>
@@ -3096,34 +3111,42 @@ export const ProductInfoExtended = React.memo(
 export const ProductInfoAbbreviated = React.memo(
   withStyles(
     ({ classes: classNames, box, boxesLength }) => (
-      <div className={classNames.abbreviatedBatchProductsWrapper}>
+      <div
+        className={cx(classNames.abbreviatedBatchProductsWrapper, {
+          [classNames.abbreviatedWrapperDivider]: boxesLength > 1 && box.items.length > 1,
+        })}
+      >
         {/* {boxesLength > 1 ? <Typography className={classNames.amountBoxesText}>{`x${boxesLength}`}</Typography> : null} */}
 
         {box.items.map((item, itemIndex) => (
-          <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
-            <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
+          <>
+            <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
+              <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
 
-            <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
+              <div className={classNames.div}>
+                <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
 
-            {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+                {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+              </div>
 
-            <div className={classNames.copyAsin}>
-              <Typography className={classNames.orderText}>
-                <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                {item.asin}
-              </Typography>
-              {item.asin ? <CopyValue text={item.asin} /> : null}
-              <Typography className={classNames.orderText}>
-                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                  <span className={classNames.needPay}>{`${t(
-                    TranslationKey['Extra payment required!'],
-                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                )}
-              </Typography>
+              <div className={classNames.boxInfoWrapper}>
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                  {item.asin}
+                </Typography>
+                {item.asin ? <CopyValue text={item.asin} /> : null}
+              </div>
+
+              <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
             </div>
-
-            <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
-          </div>
+            {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+              <Typography className={classNames.orderText}>
+                <span className={classNames.needPay}>{`${t(
+                  TranslationKey['Extra payment required!'],
+                )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+              </Typography>
+            )}
+          </>
         ))}
 
         {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (

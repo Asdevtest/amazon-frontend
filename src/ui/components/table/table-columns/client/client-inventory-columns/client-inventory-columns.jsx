@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -19,6 +21,7 @@ import {
   OrderIdAndAmountCountCell,
   ProductAsinCell,
   RedFlagsCell,
+  SelectRowCell,
   ShortDateCell,
   TagsCell,
   ToFixedCell,
@@ -36,6 +39,17 @@ export const clientInventoryColumns = (
   getColumnMenuSettings,
   getOnHover,
 ) => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row)}
+      />
+    ),
+    width: 80,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -64,7 +78,6 @@ export const clientInventoryColumns = (
       )
     },
     width: 295,
-
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
@@ -99,7 +112,7 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 130,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -255,7 +268,7 @@ export const clientInventoryColumns = (
         onClickInStock={otherHandlers.onClickInStock}
       />
     ),
-    width: 155,
+    width: 145,
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
   },

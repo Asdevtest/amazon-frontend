@@ -22,11 +22,10 @@ class InlineObject62 {
     /**
      * Constructs a new <code>InlineObject62</code>.
      * @alias module:model/InlineObject62
-     * @param profileId {String} id профайла
      */
-    constructor(profileId) { 
+    constructor() { 
         
-        InlineObject62.initialize(this, profileId);
+        InlineObject62.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject62 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject62 {
         if (data) {
             obj = obj || new InlineObject62();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject62 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject62.prototype['profileId'] = undefined;
+InlineObject62.prototype['suppliersIds'] = undefined;
 
 
 

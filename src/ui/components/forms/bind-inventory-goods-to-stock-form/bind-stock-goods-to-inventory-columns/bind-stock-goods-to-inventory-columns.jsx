@@ -4,8 +4,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
-  renderFieldValueCell,
   TrashCell,
+  renderFieldValueCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

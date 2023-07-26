@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import isEqual from 'lodash.isequal'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import { Button, Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import isEqual from 'lodash.isequal'
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

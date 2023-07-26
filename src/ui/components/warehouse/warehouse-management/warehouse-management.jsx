@@ -1,8 +1,7 @@
-import { Box, Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect } from 'react'
 
-import { observer } from 'mobx-react'
+import { Box, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,8 +11,9 @@ import { ITab } from '@components/shared/i-tab/i-tab'
 
 import { t } from '@utils/translations'
 
-import { LogisticsTariffs } from './logistics-tariffs'
 import { useClassNames } from './warehouse-management.style'
+
+import { LogisticsTariffs } from './logistics-tariffs'
 import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 

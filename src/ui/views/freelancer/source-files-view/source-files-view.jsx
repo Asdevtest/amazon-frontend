@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode } from '@constants/table/table-view-modes'
@@ -97,6 +96,9 @@ export const SourceFilesViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

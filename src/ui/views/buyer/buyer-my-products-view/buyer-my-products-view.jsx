@@ -1,26 +1,27 @@
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { ProductStatus } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 import { styles } from './buyer-my-products-view.style'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+
+import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,
@@ -58,6 +59,7 @@ export const BuyerMyProductsViewRaw = props => {
         <div className={classNames.headerWrapper}>
           <SearchInput
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            inputClasses={classNames.searchInput}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
@@ -67,6 +69,7 @@ export const BuyerMyProductsViewRaw = props => {
             disableVirtualization
             pagination
             useResizeContainer
+            checkboxSelection
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -95,6 +98,10 @@ export const BuyerMyProductsViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+
               columnMenu: viewModel.columnMenuSettings,
               toolbar: {
                 resetFiltersBtnSettings: {
@@ -111,10 +118,20 @@ export const BuyerMyProductsViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
+
+        {viewModel.productCardModal && (
+          <ProductCardModal
+            role={viewModel.userInfo.role}
+            history={viewModel.history}
+            openModal={viewModel.productCardModal}
+            setOpenModal={() => viewModel.onClickProductModal()}
+            onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+          />
+        )}
       </MainContent>
     </React.Fragment>
   )

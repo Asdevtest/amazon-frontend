@@ -5,16 +5,33 @@ export const useClassNames = makeStyles()(() => ({
     gap: '5px',
     width: '100%',
     flexDirection: 'column',
-    height: '80vh',
+    height: '76vh',
+  },
+
+  modalWrapper: {
+    height: 605,
   },
 
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    padding: '10px',
+    gap: 20,
+    marginBottom: 10,
   },
 
-  buttonOffset: {
-    marginLeft: 20,
+  footerContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    borderTop: 'none !important',
+  },
+
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+
+  toolbarContainer: {
+    height: '52px',
   },
 }))

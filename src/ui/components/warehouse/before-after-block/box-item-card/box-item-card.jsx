@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Checkbox, Link, Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Checkbox, Link, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'

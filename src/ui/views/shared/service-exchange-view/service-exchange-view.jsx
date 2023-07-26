@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Box, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Box, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { tableViewMode } from '@constants/table/table-view-modes'
@@ -14,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { MainContent } from '@components/layout/main-content'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -22,9 +22,9 @@ import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ServiceExchangeViewModel } from './service-exchange-view.model'
 import { styles } from './service-exchange-view.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+
+import { ServiceExchangeViewModel } from './service-exchange-view.model'
 
 export const ServiceExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history: props.history }))

@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
-
 import { withStyles } from 'tss-react/mui'
+
+import { Typography } from '@mui/material'
 
 import { MainContent } from '@components/layout/main-content'
 

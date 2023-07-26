@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productIds** | **[String]** |  | [optional] 
+**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
 
 

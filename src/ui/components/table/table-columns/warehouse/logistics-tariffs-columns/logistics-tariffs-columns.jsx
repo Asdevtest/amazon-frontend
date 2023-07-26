@@ -3,15 +3,14 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  // EditOrRemoveBtnsCell,
+  EditOrRemoveIconBtnsCell,
+  MultilineTextAlignLeftCell,
+  MultilineTextCell, // EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
-  EditOrRemoveIconBtnsCell,
-  MultilineTextAlignLeftCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

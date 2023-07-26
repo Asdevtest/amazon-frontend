@@ -4,9 +4,9 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
   EditOrRemoveIconBtnsCell,
   MultilineTextAlignLeftCell,
+  MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'

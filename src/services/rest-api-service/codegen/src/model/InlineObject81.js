@@ -22,10 +22,12 @@ class InlineObject81 {
     /**
      * Constructs a new <code>InlineObject81</code>.
      * @alias module:model/InlineObject81
+     * @param parentProductId {String} Ключ родительского продукта
+     * @param childProductIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(parentProductId, childProductIds) { 
         
-        InlineObject81.initialize(this);
+        InlineObject81.initialize(this, parentProductId, childProductIds);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject81 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, parentProductId, childProductIds) { 
+        obj['parentProductId'] = parentProductId;
+        obj['childProductIds'] = childProductIds;
     }
 
     /**
@@ -47,8 +51,11 @@ class InlineObject81 {
         if (data) {
             obj = obj || new InlineObject81();
 
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
+            if (data.hasOwnProperty('childProductIds')) {
+                obj['childProductIds'] = ApiClient.convertToType(data['childProductIds'], ['String']);
             }
         }
         return obj;
@@ -58,10 +65,15 @@ class InlineObject81 {
 }
 
 /**
- * GUIDы магазинов, которые нужно добавить к продукту.
- * @member {Array.<String>} shopIds
+ * Ключ родительского продукта
+ * @member {String} parentProductId
  */
-InlineObject81.prototype['shopIds'] = undefined;
+InlineObject81.prototype['parentProductId'] = undefined;
+
+/**
+ * @member {Array.<String>} childProductIds
+ */
+InlineObject81.prototype['childProductIds'] = undefined;
 
 
 

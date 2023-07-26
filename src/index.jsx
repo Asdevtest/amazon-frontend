@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
-
 import React from 'react'
-
 // import {DndProvider} from 'react-dnd'
 // import {HTML5Backend} from 'react-dnd-html5-backend'
 import ReactDOM from 'react-dom/client'

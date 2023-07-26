@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject20 from './InlineObject20';
 
 /**
  * The InlineObject109 model module.
@@ -48,8 +47,17 @@ class InlineObject109 {
         if (data) {
             obj = obj || new InlineObject109();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject20]);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
         }
         return obj;
@@ -59,10 +67,28 @@ class InlineObject109 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject20>} additionalBoxes
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject109.prototype['additionalBoxes'] = undefined;
+InlineObject109.prototype['status'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject109.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject109.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineObject109.prototype['priority'] = undefined;
 
 
 

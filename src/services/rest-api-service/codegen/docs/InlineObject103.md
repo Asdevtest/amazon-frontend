@@ -4,19 +4,31 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**asin** | **String** | ASIN продукта | 
-**lamazon** | **String** | Ссылка на этот продукт на амазоне. | 
-**currentSupplierId** | **String** | GUID поставщика | [optional] 
 **category** | **String** | Категория | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
 **bsr** | **Number** |  | [optional] 
 **fba** | **Boolean** | Признак fba | [optional] 
-**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком | [optional] 
 **amazon** | **Number** |  | [optional] 
-**suppliersIds** | **[String]** | Массив поставщиков. | [optional] 
+**height** | **Number** |  | [optional] 
+**width** | **Number** |  | [optional] 
+**length** | **Number** |  | [optional] 
+**weight** | **Number** |  | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**status** | **Number** |  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком | [optional] 
 **icomment** | **String** | Комментарии к товару. | [optional] 
 **images** | **[String]** | Массив изображений. | [optional] 
-**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**amazonDescription** | **String** |  | [optional] 
+**amazonDetail** | **String** |  | [optional] 
+**amazonTitle** | **String** |  | [optional] 
+**material** | **String** | Материл продукта | [optional] 
+**productUsage** | **String** | Применение продукта | [optional] 
+**chinaTitle** | **String** | chinese title? | [optional] 
+**barCode** | **String** |  | [optional] 
+**minpurchase** | **Number** |  | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **niche** | **String** | Ниша | [optional] 
 **asins** | **String** | Асины | [optional] 
@@ -26,8 +38,7 @@ Name | Type | Description | Notes
 **avgBSR** | **String** | Средний BSR | [optional] 
 **avgPrice** | **String** | Средняя цена | [optional] 
 **avgReviews** | **String** | Средний отзывы | [optional] 
-**fourMonthesStock** | **Number** | Дополнительная инфа для дозакупок | [optional] 
-**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
+**redFlags** | [**[ApiV1ClientsProductsGuidRedFlags]**](ApiV1ClientsProductsGuidRedFlags.md) |  | [optional] 
 **tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 
