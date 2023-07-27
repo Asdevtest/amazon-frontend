@@ -21,6 +21,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { styles } from './warehouse-sent-batches-view.style'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
 
@@ -98,12 +99,19 @@ export const WarehouseSentBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
