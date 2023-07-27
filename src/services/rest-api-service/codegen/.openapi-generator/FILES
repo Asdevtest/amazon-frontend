@@ -868,3 +868,12 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/ApiV1IdeasByParentGuidChildProduct.spec.js
+test/model/InlineResponse20022AllFiles.spec.js
+test/model/InlineResponse20022AllImages.spec.js
+test/model/InlineResponse20045ChildProduct.spec.js
+test/model/InlineResponse20045ChildProductOrder.spec.js
+test/model/InlineResponse20045ParentProduct.spec.js
+test/model/InlineResponse20045RequestsOnCheck.spec.js
+test/model/InlineResponse20045Rows.spec.js
+test/model/InlineResponse20045Suppliers.spec.js
