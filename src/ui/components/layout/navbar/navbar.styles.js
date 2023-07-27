@@ -2,11 +2,17 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   navbar: {
+    gridArea: 'navbar',
+    display: 'grid',
+    gridTemplateRows: '60px 1fr',
     backgroundColor: theme.palette.background.general,
+
+    [theme.breakpoints.down(768)]: {
+      gridTemplateRows: '1fr',
+    },
   },
 
   logoWrapper: {
-    height: 60,
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -14,6 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       display: 'none',
+      justifyContent: 'center',
     },
   },
 

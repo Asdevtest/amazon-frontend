@@ -8,17 +8,90 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
+
     [theme.breakpoints.down(768)]: {
-      width: '100vw',
+      padding: 0,
     },
   },
+
+  opponentWrapper: {
+    display: 'none',
+
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 20,
+      background: theme.palette.background.general,
+      padding: '15px 30px',
+    },
+  },
+
+  arrowBackIconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    background: theme.palette.background.second,
+  },
+
+  arrowBackIcon: {
+    marginRight: 5,
+    color: theme.palette.primary.main,
+  },
+
+  opponent: {
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+    },
+  },
+
+  avatar: {
+    width: 40,
+    height: 40,
+  },
+
+  opponentName: {
+    maxWidth: 180,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 120,
+      fontSize: 18,
+      lineHeight: '25px',
+      fontWeight: 600,
+    },
+  },
+
+  isOnline: {
+    display: 'none',
+
+    [theme.breakpoints.down(768)]: {
+      display: 'block',
+      fontSize: 14,
+      lineHeight: '19px',
+      fontWeight: 600,
+      color: theme.palette.text.second,
+    },
+  },
+
   scrollViewWrapper: {
     width: '100%',
     flex: 1,
     minHeight: 278,
     maxHeight: 690,
     display: 'flex',
+
+    [theme.breakpoints.down(768)]: {
+      maxHeight: 550,
+    },
   },
+
   bottomPartWrapper: {
     backgroundColor: theme.palette.background.general,
     display: 'flex',
@@ -34,16 +107,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   endAdornment: {
     display: 'flex',
-
     alignItems: 'flex-end',
     height: '100%',
-
     gap: 10,
-
     alignSelf: 'flex-end',
-
     position: 'relative',
-
     width: 80,
   },
 
@@ -56,12 +124,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   input: {
     width: '100%',
-    // height: 40,
     borderRadius: 4,
-
     backgroundColor: theme.palette.input.second,
-
-    // padding: '5.5px 8px !important',
   },
 
   sendBtnTextWrapper: {
@@ -85,9 +149,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputFilled: {
-    // backgroundColor: theme.palette.background.general,
-
-    backgroundColor: theme.palette.input.second,
+    background: theme.palette.input.second,
   },
 
   inputIcon: {
@@ -97,6 +159,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     transition: '0.3s ease',
     cursor: 'pointer',
+
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -109,10 +172,6 @@ export const useClassNames = makeStyles()(theme => ({
   emojiIconPos: {
     top: -30,
     left: -5,
-    [theme.breakpoints.down(768)]: {
-      top: -30,
-      left: -5,
-    },
   },
 
   fileIconPos: {
@@ -136,8 +195,6 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: -10,
     left: 55,
-
-    // top: 14,
     height: 16,
     width: 16,
     backgroundColor: 'red',
@@ -169,27 +226,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'translate(-50%, 0%)',
     },
   },
-  opponentWrapper: {
-    display: 'none',
-    [theme.breakpoints.down(768)]: {
-      position: 'absolute',
-      top: 0,
-      display: 'flex',
-      alignItems: 'center',
-      backgroundColor: '#fafafa',
-      height: '50px',
-      padding: '0 20px',
-      zIndex: 990,
-      width: '100vw',
-    },
-  },
-  opponentSubWrapper: {
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: 10,
-    },
-  },
+
   sendBtnText: {
     [theme.breakpoints.down(768)]: {
       display: 'none',
@@ -238,21 +275,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-  },
-
-  avatarWrapper: {
-    width: 30,
-    height: 30,
-
-    marginRight: 10,
-  },
-
-  opponentName: {
-    maxWidth: 180,
-
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
 
   messageToReplyWrapper: {

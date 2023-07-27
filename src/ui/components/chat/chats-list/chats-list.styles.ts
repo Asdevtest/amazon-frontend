@@ -7,20 +7,23 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     border: `1px solid ${theme.palette.input.customBorder}`,
+
     [theme.breakpoints.down(768)]: {
-      borderRadius: '4px',
+      width: '100%',
+      border: 'none',
     },
   },
-  chatWrapper: {
-    width: '100%',
-    borderBottomWidth: '2px',
-    borderBottomColor: theme.palette.input.customBorder,
-    borderBottomStyle: 'solid',
 
-    borderTop: `1px solid ${theme.palette.input.customBorder}`,
+  chatWrapper: {
+    border: `1px solid ${theme.palette.input.customBorder}`,
+
+    [theme.breakpoints.down(768)]: {
+      border: 'none',
+    },
   },
+
   chatWrapperIsSelected: {
-    borderBottomColor: `${theme.palette.primary.main} !important`,
+    borderColor: `${theme.palette.primary.main} !important`,
   },
 
   indicator: {

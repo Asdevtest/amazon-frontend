@@ -50,7 +50,7 @@ export const MessagesViewRaw = props => {
   const isMobileResolution = window.innerWidth < 768
 
   return (
-    <React.Fragment>
+    <div className={classNames.wrapper}>
       <div
         className={cx(classNames.chatHeaderWrapper, { [classNames.hideChatHeaderWrapper]: viewModel.chatSelectedId })}
       >
@@ -145,28 +145,26 @@ export const MessagesViewRaw = props => {
         </div>
       </div>
 
-      <div className={classNames.chatWrapper}>
-        <MultipleChats
-          ref={chatRef}
-          toScrollMesId={viewModel.curFoundedMessage?._id}
-          searchPhrase={viewModel.mesSearchValue}
-          messagesFound={viewModel.messagesFound}
-          typingUsers={viewModel.typingUsers}
-          searchFilter={viewModel.nameSearchValue}
-          currentOpponent={currentOpponent}
-          chats={viewModel.simpleChats}
-          userId={viewModel.user._id}
-          chatSelectedId={viewModel.chatSelectedId}
-          updateData={viewModel.loadData}
-          onTypingMessage={viewModel.onTypingMessage}
-          onSubmitMessage={viewModel.onSubmitMessage}
-          onClickChat={viewModel.onClickChat}
-          onClickBackButton={viewModel.onClickBackButton}
-          onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
-          onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
-          onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
-        />
-      </div>
+      <MultipleChats
+        ref={chatRef}
+        toScrollMesId={viewModel.curFoundedMessage?._id}
+        searchPhrase={viewModel.mesSearchValue}
+        messagesFound={viewModel.messagesFound}
+        typingUsers={viewModel.typingUsers}
+        searchFilter={viewModel.nameSearchValue}
+        currentOpponent={currentOpponent}
+        chats={viewModel.simpleChats}
+        userId={viewModel.user._id}
+        chatSelectedId={viewModel.chatSelectedId}
+        updateData={viewModel.loadData}
+        onTypingMessage={viewModel.onTypingMessage}
+        onSubmitMessage={viewModel.onSubmitMessage}
+        onClickChat={viewModel.onClickChat}
+        onClickBackButton={viewModel.onClickBackButton}
+        onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
+        onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
+        onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
+      />
 
       {viewModel.showProgress && (
         <CircularProgressWithLabel title={/* t(TranslationKey['Creating a Chat']) +*/ '...'} />
@@ -215,7 +213,7 @@ export const MessagesViewRaw = props => {
           viewModel.onTriggerOpenModal('showWarningInfoModal')
         }}
       />
-    </React.Fragment>
+    </div>
   )
 }
 

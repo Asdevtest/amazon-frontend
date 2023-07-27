@@ -2,15 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   header: {
-    height: 60,
+    gridArea: 'header',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: theme.palette.background.general,
-
-    [theme.breakpoints.down(768)]: {
-      height: 52,
-    },
   },
 
   menuIconWrapper: {

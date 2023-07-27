@@ -4,8 +4,6 @@ import { useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { useClassNames } from './layout.styles'
 
 import { BreadCrumbsLine } from './bread-crumbs-line'
@@ -41,21 +39,6 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     })
   }, [location.pathname])
 
-  const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
-  const breadcrumbsAdditionalText = SettingsModel.lastCrumbAdditionalText
-
-  useEffect(() => {
-    if (location.pathname !== '/profile') {
-      SettingsModel.setBreadcrumbsForProfile(location.pathname)
-    }
-  }, [location.pathname])
-
-  useEffect(() => {
-    if (breadcrumbsAdditionalText !== undefined) {
-      localStorage.setItem('lastBreadcrumbsText', breadcrumbsAdditionalText)
-    }
-  }, [breadcrumbsAdditionalText])
-
   const [shortNavbar, setShortNavbar] = useState(false)
 
   useEffect(() => {
@@ -75,7 +58,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <div className={classNames.wrapper}>
+    <div className={cx(classNames.wrapper, { [classNames.wrapperShort]: shortNavbar })}>
       <Navbar
         isOpenModal={isOpenModal}
         shortNavbar={shortNavbar}
@@ -85,20 +68,13 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         onShowNavbar={handleShowNavbar}
       />
 
-      <div className={classNames.mainWrapper}>
-        <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
+      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
 
-        <main className={cx(classNames.main, { [classNames.mainShort]: shortNavbar })}>
-          <div className={classNames.breadCrumbsWrapper}>
-            <BreadCrumbsLine
-              lastCrumbAdditionalText={breadcrumbsAdditionalText}
-              savedLastCrumbAdditionalText={savedLastCrumbAdditionalText}
-            />
-          </div>
+      <main className={classNames.main}>
+        <BreadCrumbsLine />
 
-          <div className={classNames.content}>{children}</div>
-        </main>
-      </div>
+        <div className={classNames.content}>{children}</div>
+      </main>
     </div>
   )
 }

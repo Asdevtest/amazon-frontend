@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react'
+import { useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
@@ -25,12 +26,25 @@ const exclusionWords = [
   '/moderator',
 ]
 
-export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCrumbAdditionalText }) => {
+export const BreadCrumbsLine = observer(() => {
   const { classes: classNames } = useClassNames()
-
-  const history = useHistory()
-
   const location = useLocation()
+  const history = useHistory()
+  const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
+  const breadcrumbsAdditionalText = SettingsModel.lastCrumbAdditionalText
+
+  useEffect(() => {
+    if (location.pathname !== '/profile') {
+      SettingsModel.setBreadcrumbsForProfile(location.pathname)
+    }
+  }, [location.pathname])
+
+  useEffect(() => {
+    if (breadcrumbsAdditionalText !== undefined) {
+      localStorage.setItem('lastBreadcrumbsText', breadcrumbsAdditionalText)
+    }
+  }, [breadcrumbsAdditionalText])
+
   const pathnames = SettingsModel.breadcrumbsForProfile
     ? SettingsModel.breadcrumbsForProfile.split('/').filter(x => x)
     : []
@@ -51,39 +65,41 @@ export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCru
   }
 
   return (
-    <Breadcrumbs
-      aria-label="breadcrumb"
-      separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
-    >
-      {pathnames.length > 2 || location.pathname === '/profile'
-        ? pathnames.map((value, index) => {
-            const last = index === pathnames.length - 1
-            const isPreLast = index === pathnames.length - 2
+    <div className={classNames.breadCrumbsWrapper}>
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
+      >
+        {pathnames.length > 2 || location.pathname === '/profile'
+          ? pathnames.map((value, index) => {
+              const last = index === pathnames.length - 1
+              const isPreLast = index === pathnames.length - 2
 
-            const to =
-              location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
+              const to =
+                location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
 
-            if (exclusionWords.includes(to)) {
-              return null
-            }
+              if (exclusionWords.includes(to)) {
+                return null
+              }
 
-            return last ? (
-              <Typography key={to} className={classNames.lastCrumb}>
-                {t(getCrumbNameKey(to)) + `${lastCrumbAdditionalText ? lastCrumbAdditionalText : ''}`}
-              </Typography>
-            ) : (
-              // <LinkRouter key={to} underline="hover" color="primary" to={to} state={{data: 'HELLO'}}>
-              //   {t(getCrumbNameKey(to))}
-              // </LinkRouter>
+              return last ? (
+                <Typography key={to} className={classNames.lastCrumb}>
+                  {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
+                </Typography>
+              ) : (
+                // <LinkRouter key={to} underline="hover" color="primary" to={to} state={{data: 'HELLO'}}>
+                //   {t(getCrumbNameKey(to))}
+                // </LinkRouter>
 
-              <Typography key={to} className={classNames.сrumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
-                {getCrumbNameKey(to) === 'Order'
-                  ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
-                  : t(getCrumbNameKey(to))}
-              </Typography>
-            )
-          })
-        : null}
-    </Breadcrumbs>
+                <Typography key={to} className={classNames.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+                  {getCrumbNameKey(to) === 'Order'
+                    ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
+                    : t(getCrumbNameKey(to))}
+                </Typography>
+              )
+            })
+          : null}
+      </Breadcrumbs>
+    </div>
   )
 })

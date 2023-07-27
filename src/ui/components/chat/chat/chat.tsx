@@ -2,15 +2,12 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, KeyboardEvent, ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
-import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
+import { ClickAwayListener, InputAdornment, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
@@ -24,21 +21,18 @@ import { SettingsModel } from '@models/settings-model'
 import { ChatCurrentReplyMessage } from '@components/chat/chat/chat-current-reply-message'
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
-import { EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
+import { ArrowBackIcon, EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
-
-import { useClassNames } from './chat.style'
+import { useClassNames } from './chat.styles'
 
 import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
-import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -273,12 +267,20 @@ export const Chat: FC<Props> = observer(
     return (
       <div className={classNames.root}>
         <div className={classNames.opponentWrapper}>
-          <ArrowBackIosIcon color="primary" onClick={onClickBackButton} />
-          <div className={classNames.opponentSubWrapper}>
-            <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-            <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+          <div className={classNames.arrowBackIconWrapper}>
+            <ArrowBackIcon className={classNames.arrowBackIcon} onClick={onClickBackButton} />
+          </div>
+
+          <div className={classNames.opponent}>
+            <img src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatar} />
+
+            <div>
+              <p className={classNames.opponentName}>{currentOpponent?.name}</p>
+              <p className={classNames.isOnline}>online</p>
+            </div>
           </div>
         </div>
+
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList
             chatId={chat._id}

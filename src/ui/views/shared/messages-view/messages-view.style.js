@@ -1,4 +1,10 @@
 export const styles = theme => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '89vh',
+  },
+
   chatHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -127,16 +133,15 @@ export const styles = theme => ({
     marginLeft: 30,
   },
 
-  chatWrapper: {
-    width: '100%',
-    height: '778px',
-  },
-
   '@media (max-width: 768px)': {
+    wrapper: {
+      padding: '0 10px 10px',
+      height: '100%',
+    },
+
     chatHeaderWrapper: {
       gap: 10,
       marginBottom: 15,
-      padding: '0 10px',
     },
 
     leftSide: {
@@ -169,11 +174,6 @@ export const styles = theme => ({
       padding: 0,
       margin: 0,
       borderRadius: 7,
-    },
-
-    chatWrapper: {
-      height: '100%',
-      padding: '0 10px',
     },
   },
 })

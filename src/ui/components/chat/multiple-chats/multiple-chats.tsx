@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
-import React, { ReactElement, forwardRef } from 'react'
+import { ReactElement, forwardRef } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -18,7 +18,7 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './multiple-chats.style'
+import { useClassNames } from './multiple-chats.styles'
 
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
@@ -54,7 +54,6 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
   onSubmitMessage: (message: string, files: IFile[], chat: string, replyMessageId: string | null) => void
@@ -115,23 +114,22 @@ export const MultipleChats = observer(
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
 
       return (
-        <div ref={ref} className={classNames.root}>
-          {
-            <div
-              className={cx(classNames.chatsWrapper, {
-                [classNames.hideChatsWrapper]: !!isNotUndefined(chatSelectedId) && !!findChatByChatId,
-              })}
-            >
-              <ChatsList
-                userId={userId}
-                typingUsers={typingUsers}
-                isFreelanceOwner={isFreelanceOwner}
-                chats={filteredChats}
-                chatSelectedId={chatSelectedId}
-                onClickChat={onClickChat}
-              />
-            </div>
-          }
+        <div ref={ref} className={classNames.chatsWrapper}>
+          <div
+            className={cx(classNames.chats, {
+              [classNames.hideChats]: !!isNotUndefined(chatSelectedId) && !!findChatByChatId,
+            })}
+          >
+            <ChatsList
+              userId={userId}
+              typingUsers={typingUsers}
+              isFreelanceOwner={isFreelanceOwner}
+              chats={filteredChats}
+              chatSelectedId={chatSelectedId}
+              onClickChat={onClickChat}
+            />
+          </div>
+
           {SettingsModel.languageTag && window.innerWidth >= 768 && (
             <div className={classNames.chatWrapper}>
               {isNotUndefined(chatSelectedId) && findChatByChatId ? (

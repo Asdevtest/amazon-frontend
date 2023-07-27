@@ -3,19 +3,23 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     height: '100vh',
-    overflow: 'hidden',
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: '240px 1fr',
+    gridTemplateRows: '60px 1fr',
+    gridTemplateAreas: "'navbar header' 'navbar main'",
+
+    [theme.breakpoints.down(768)]: {
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: '52px',
+    },
   },
 
-  mainWrapper: {
-    flex: '1 1 auto',
-    minHeight: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+  wrapperShort: {
+    gridTemplateColumns: '75px 1fr',
   },
 
   main: {
-    width: 'calc(100vw - 240px)',
+    gridArea: 'main',
     overflowY: 'auto',
     background: theme.palette.background.second,
 
@@ -28,15 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  mainShort: {
-    width: 'calc(100vw - 75px)',
-  },
-
   content: {
     padding: 10,
-  },
-
-  breadCrumbsWrapper: {
-    padding: '10px 30px',
   },
 }))

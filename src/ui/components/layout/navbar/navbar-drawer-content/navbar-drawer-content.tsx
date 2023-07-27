@@ -78,7 +78,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
     const { classes: classNames } = useClassNames()
 
     return (
-      <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShort]: shortNavbar })}>
+      <div className={classNames.mainSubWrapper}>
         <List className={classNames.categoriesWrapper}>
           {curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar]
             .filter(el => !el.route?.includes('/messages'))
