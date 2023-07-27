@@ -20,6 +20,14 @@ export const styles = theme => ({
       borderLeft: `5px solid ${theme.palette.primary.main}`,
     },
     '&:hover': { backgroundColor: 'rgba(0,123,255,0.3)' },
+
+    [theme.breakpoints.down(768)]: {
+      height: 40,
+
+      '&::-webkit-scrollbar': {
+        width: 0,
+      },
+    },
   },
   selected: {
     color: `${theme.palette.primary.main} !important`,

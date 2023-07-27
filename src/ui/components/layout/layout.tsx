@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -74,20 +75,20 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <>
-      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
+    <div className={classNames.wrapper}>
+      <Navbar
+        isOpenModal={isOpenModal}
+        shortNavbar={shortNavbar}
+        activeCategory={currentPageInfo?.activeCategory}
+        activeSubCategory={currentPageInfo?.activeSubCategory}
+        onToggleModal={handleToggleModal}
+        onShowNavbar={handleShowNavbar}
+      />
 
       <div className={classNames.mainWrapper}>
-        <Navbar
-          isOpenModal={isOpenModal}
-          shortNavbar={shortNavbar}
-          activeCategory={currentPageInfo?.activeCategory}
-          activeSubCategory={currentPageInfo?.activeSubCategory}
-          onShowNavbar={handleShowNavbar}
-          onToggleModal={handleToggleModal}
-        />
+        <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
 
-        <main className={classNames.main}>
+        <main className={cx(classNames.main, { [classNames.mainShort]: shortNavbar })}>
           <div className={classNames.breadCrumbsWrapper}>
             <BreadCrumbsLine
               lastCrumbAdditionalText={breadcrumbsAdditionalText}
@@ -98,6 +99,6 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           <div className={classNames.content}>{children}</div>
         </main>
       </div>
-    </>
+    </div>
   )
 }

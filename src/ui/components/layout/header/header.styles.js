@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   header: {
     height: 60,
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: theme.palette.background.general,
 
@@ -12,49 +13,19 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  logoWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: 240,
+  menuIconWrapper: {
+    display: 'none',
 
     [theme.breakpoints.down(768)]: {
-      minWidth: 54,
+      display: 'block',
+      padding: '14px 15px',
     },
-  },
-
-  logoWrapperShort: {
-    minWidth: 75,
-
-    [theme.breakpoints.down(768)]: {
-      minWidth: 54,
-    },
-  },
-
-  logoIcon: {
-    width: '125px !important',
-    height: '42px !important',
-    color: theme.palette.text.general,
-    marginRight: 20,
-
-    [theme.breakpoints.down(768)]: {
-      display: 'none !important',
-    },
-  },
-
-  logoIconNotShow: {
-    display: 'none !important',
   },
 
   menuIcon: {
-    display: 'none !important',
-
-    [theme.breakpoints.down(768)]: {
-      display: 'block !important',
-      width: '24px !important',
-      height: '24px !important',
-      color: theme.palette.primary.main,
-    },
+    width: '24px !important',
+    height: '24px !important',
+    color: theme.palette.primary.main,
   },
 
   toolbar: {

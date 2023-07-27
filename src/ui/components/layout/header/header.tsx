@@ -30,14 +30,14 @@ import { SimpleMessagesNotification } from '@components/layout/notifications/sim
 import { Button } from '@components/shared/buttons/button'
 import { DialogModal } from '@components/shared/dialog-modal'
 import { LanguageSelector } from '@components/shared/selectors/language-selector'
-import { ExitIcon, HintsOff, HintsOn, LogoIcon, MenuIcon } from '@components/shared/svg-icons'
+import { ExitIcon, HintsOff, HintsOn, MenuIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './header.style'
+import { useClassNames } from './header.styles'
 
 import { HeaderModel } from './header.model'
 
@@ -47,7 +47,7 @@ interface Props {
   onToggleModal: VoidFunction
 }
 
-export const Header: FC<Props> = observer(({ shortNavbar, title, onToggleModal }) => {
+export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   const history = useHistory()
   const location = useLocation()
   const { classes: classNames } = useClassNames()
@@ -180,8 +180,7 @@ export const Header: FC<Props> = observer(({ shortNavbar, title, onToggleModal }
 
   return (
     <div className={classNames.header}>
-      <div className={cx(classNames.logoWrapper, { [classNames.logoWrapperShort]: shortNavbar })}>
-        <LogoIcon className={cx(classNames.logoIcon, { [classNames.logoIconNotShow]: shortNavbar })} />
+      <div className={classNames.menuIconWrapper}>
         <MenuIcon className={classNames.menuIcon} onClick={onToggleModal} />
       </div>
 

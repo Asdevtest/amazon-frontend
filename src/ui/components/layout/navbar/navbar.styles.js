@@ -1,15 +1,37 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
-    position: 'relative',
+  navbar: {
     backgroundColor: theme.palette.background.general,
   },
 
+  logoWrapper: {
+    height: 60,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 20,
+
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+
+  logoWrapperShort: {
+    justifyContent: 'center',
+  },
+
+  logoIcon: {
+    width: '125px !important',
+    height: '42px !important',
+    color: theme.palette.text.general,
+  },
+
+  logoIconNotShow: {
+    display: 'none !important',
+  },
+
   hideAndShowIconWrapper: {
-    position: 'absolute',
-    top: -50,
-    left: 200,
     width: 40,
     height: 40,
     background: theme.palette.background.general,
@@ -26,8 +48,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   hideAndShowIcon: {
-    left: 20,
-
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

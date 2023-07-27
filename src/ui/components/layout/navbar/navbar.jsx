@@ -11,13 +11,14 @@ import { SettingsModel } from '@models/settings-model'
 
 import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
 import { DrawerModal } from '@components/shared/drawer-modal'
+import { LogoIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './navbar.style'
+import { useClassNames } from './navbar.styles'
 
 import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
-  ({ shortNavbar, onShowNavbar, activeCategory, activeSubCategory, isOpenModal, onToggleModal }) => {
+  ({ shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal }) => {
     const { classes: classNames } = useClassNames()
 
     const viewModel = useRef(new NavbarModel())
@@ -41,7 +42,21 @@ export const Navbar = observer(
     }, [SettingsModel.languageTag])
 
     return (
-      <div className={classNames.mainWrapper}>
+      <div className={classNames.navbar}>
+        <div className={cx(classNames.logoWrapper, { [classNames.logoWrapperShort]: shortNavbar })}>
+          <LogoIcon className={cx(classNames.logoIcon, { [classNames.logoIconNotShow]: shortNavbar })} />
+          <div
+            className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
+            onClick={onShowNavbar}
+          >
+            {shortNavbar ? (
+              <ArrowForwardIosIcon className={classNames.arrowIcon} />
+            ) : (
+              <ArrowBackIosIcon className={classNames.arrowIcon} />
+            )}
+          </div>
+        </div>
+
         <DrawerModal position="left" open={isOpenModal} onClose={onToggleModal}>
           <NavbarDrawerContent
             shortNavbar={shortNavbar}
@@ -61,17 +76,6 @@ export const Navbar = observer(
             onToggleModal={onToggleModal}
           />
         </DrawerModal>
-
-        <div
-          className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
-          onClick={onShowNavbar}
-        >
-          {shortNavbar ? (
-            <ArrowForwardIosIcon className={classNames.arrowIcon} />
-          ) : (
-            <ArrowBackIosIcon className={classNames.arrowIcon} />
-          )}
-        </div>
       </div>
     )
   },

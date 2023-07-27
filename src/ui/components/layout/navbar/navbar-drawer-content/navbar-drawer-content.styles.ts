@@ -3,10 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   mainSubWrapper: {
     width: 240,
-    height: '100%',
+    height: 'calc(100vh - 60px)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+
+    [theme.breakpoints.down(768)]: {
+      height: '100%',
+    },
   },
 
   mainSubWrapperShort: {

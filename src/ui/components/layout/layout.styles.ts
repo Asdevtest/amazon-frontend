@@ -1,26 +1,35 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
-    height: 'calc(100vh - 60px)',
+  wrapper: {
+    height: '100vh',
+    overflow: 'hidden',
     display: 'flex',
+  },
 
-    [theme.breakpoints.down(768)]: {
-      height: 'calc(100vh - 52px)',
-    },
+  mainWrapper: {
+    flex: '1 1 auto',
+    minHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   main: {
-    width: '100%',
-    height: '100%',
+    width: 'calc(100vw - 240px)',
     overflowY: 'auto',
     background: theme.palette.background.second,
 
     [theme.breakpoints.down(768)]: {
+      width: '100vw',
+
       '&::-webkit-scrollbar': {
         width: 0,
       },
     },
+  },
+
+  mainShort: {
+    width: 'calc(100vw - 75px)',
   },
 
   content: {
