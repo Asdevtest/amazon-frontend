@@ -1,7 +1,18 @@
 export const styles = theme => ({
-  chatWrapper: {
-    width: '100%',
-    height: '778px',
+  chatHeaderWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  hideChatHeaderWrapper: {
+    display: 'none',
+  },
+
+  leftSide: {
+    display: 'flex',
+    alignItems: 'center',
   },
 
   searchInput: {
@@ -10,64 +21,22 @@ export const styles = theme => ({
     height: 36,
   },
 
-  searchResult: {
-    color: theme.palette.text.second,
-  },
-
-  searchResultWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-    flexWrap: 'wrap',
-  },
-
   chatSelectedWrapper: {
     display: 'flex',
     gap: 20,
     alignItems: 'center',
   },
 
-  chatHeaderWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  tooltipWrapper: {
+  selectedChatPersonalInfo: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    gap: 20,
   },
 
-  noticesTextActive: {
-    fontSize: 18,
-    lineHeight: '140%',
-    fontWeight: 400,
-    color: theme.palette.primary.main,
-  },
-  noticesTextNoActive: {
-    fontSize: 18,
-    lineHeight: '140%',
-    fontWeight: 400,
-    color: '#c4c4c4',
-  },
-
-  newDialogBtn: {
-    height: 40,
-    padding: '0 25px',
-    marginLeft: 30,
-  },
-
-  leftSide: {
+  opponentWrapper: {
     display: 'flex',
     alignItems: 'center',
-  },
-
-  rightSide: {
-    display: 'flex',
-    alignItems: 'center',
+    marginLeft: 20,
   },
 
   avatarWrapper: {
@@ -92,25 +61,6 @@ export const styles = theme => ({
     maxWidth: 200,
   },
 
-  usersCount: {
-    marginLeft: 15,
-    fontWeight: 400,
-    fontSize: 14,
-    color: theme.palette.text.second,
-  },
-
-  opponentWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: 20,
-  },
-
-  selectedChatPersonalInfo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 20,
-  },
-
   unMutedNotificationIcon: {
     color: '#AEAEAE',
     cursor: 'pointer',
@@ -127,42 +77,103 @@ export const styles = theme => ({
     },
   },
 
-  '@media (max-width: 768px)': {
-    noticesTextActive: {
-      display: 'none',
-    },
-    noticesTextNoActive: {
-      display: 'none',
-    },
-    chatHeaderWrapper: {
-      flexDirection: 'column',
-      gap: '15px',
-      marginBottom: 20,
+  usersCount: {
+    marginLeft: 15,
+    fontWeight: 400,
+    fontSize: 14,
+    color: theme.palette.text.second,
+  },
 
+  searchResultWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+    flexWrap: 'wrap',
+  },
+
+  searchResult: {
+    color: theme.palette.text.second,
+  },
+
+  rightSide: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  tooltipWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+
+  noticesTextActive: {
+    fontSize: 18,
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: theme.palette.primary.main,
+  },
+
+  noticesTextNoActive: {
+    fontSize: 18,
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: '#c4c4c4',
+  },
+
+  newDialogBtn: {
+    height: 40,
+    padding: '0 25px',
+    marginLeft: 30,
+  },
+
+  chatWrapper: {
+    width: '100%',
+    height: '778px',
+  },
+
+  '@media (max-width: 768px)': {
+    chatHeaderWrapper: {
+      gap: 10,
+      marginBottom: 15,
       padding: '0 10px',
-    },
-    searchInput: {
-      width: '100%',
     },
 
     leftSide: {
       width: '100%',
     },
-    rightSide: {
+
+    searchInput: {
       width: '100%',
-      justifyContent: 'space-between',
+      height: 40,
     },
-    hideChatHeaderWrapper: {
+
+    noticesTextActive: {
       display: 'none',
+    },
+
+    noticesTextNoActive: {
+      display: 'none',
+    },
+
+    rightSide: {
+      gap: 10,
+    },
+
+    tooltipWrapper: {
+      padding: 8,
+    },
+
+    newDialogBtn: {
+      width: 40,
+      padding: 0,
+      margin: 0,
+      borderRadius: 7,
     },
 
     chatWrapper: {
       height: '100%',
       padding: '0 10px',
-    },
-
-    newDialogBtn: {
-      width: '223px',
     },
   },
 })
