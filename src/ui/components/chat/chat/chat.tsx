@@ -21,7 +21,14 @@ import { SettingsModel } from '@models/settings-model'
 import { ChatCurrentReplyMessage } from '@components/chat/chat/chat-current-reply-message'
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
-import { ArrowBackIcon, EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
+import {
+  ArrowBackIcon,
+  EmojiIcon,
+  FileIcon,
+  HideArrowIcon,
+  SoundOffIcon,
+  SoundOnIcon,
+} from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
@@ -33,6 +40,7 @@ import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
+import { useMuteChat } from './use-mute-chat'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -111,6 +119,8 @@ export const Chat: FC<Props> = observer(
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
+    const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(chat._id)
+
     const isGroupChat = chat.type === chatsType.GROUP
 
     const [focused, setFocused] = useState(false)
@@ -170,13 +180,13 @@ export const Chat: FC<Props> = observer(
         updateData()
       }
 
-      if (startMessagesCount > 0) {
+      if (startMessagesCount > 0 && messagesWrapperRef.current) {
         const currentScrollPosition = toFixed(
-          messagesWrapperRef.current!.scrollTop + messagesWrapperRef.current!.clientHeight,
+          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
         )
-        const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
+        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
 
-        if (scrolledFromBottom > messagesWrapperRef.current!.clientHeight) {
+        if (scrolledFromBottom > messagesWrapperRef.current.clientHeight) {
           setUnreadMessages(messages.slice(startMessagesCount, messages.length).filter(el => el.user?._id !== userId))
         } else {
           setStartMessagesCount(messages.length)
@@ -272,12 +282,20 @@ export const Chat: FC<Props> = observer(
           </div>
 
           <div className={classNames.opponent}>
-            <img src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatar} />
+            <img src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatar} alt="avatar" />
 
             <div>
               <p className={classNames.opponentName}>{currentOpponent?.name}</p>
               <p className={classNames.isOnline}>online</p>
             </div>
+          </div>
+
+          <div className={classNames.soundIconWrapper}>
+            {isMuteCurrentChat ? (
+              <SoundOffIcon onClick={onToggleMuteCurrentChat} />
+            ) : (
+              <SoundOnIcon onClick={onToggleMuteCurrentChat} />
+            )}
           </div>
         </div>
 
@@ -297,7 +315,7 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          <div className={cx(classNames.hideAndShowIconWrapper)} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
+          <div className={classNames.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
             {isShowChatInfo ? (
               <HideArrowIcon className={cx(classNames.arrowIcon, classNames.hideArrow)} />
             ) : (
@@ -307,9 +325,7 @@ export const Chat: FC<Props> = observer(
 
           {isShowScrollToBottomBtn && (
             <div
-              className={cx(classNames.scrollToBottom, {
-                [classNames.scrollToBottomWithChatInfo]: isShowChatInfo,
-              })}
+              className={cx(classNames.scrollToBottom, isShowChatInfo && classNames.scrollToBottomRight)}
               onClick={onClickScrollToBottom}
             >
               <KeyboardArrowDownIcon />

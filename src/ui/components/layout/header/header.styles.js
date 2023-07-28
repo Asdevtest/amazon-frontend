@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'none',
 
     [theme.breakpoints.down(768)]: {
-      display: 'block',
+      display: 'flex',
       padding: '14px 15px',
     },
   },

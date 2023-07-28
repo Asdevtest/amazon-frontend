@@ -2,10 +2,9 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   chatsWrapper: {
+    height: '100%',
     display: 'flex',
     borderRadius: 4,
-    flex: '1 1 auto',
-    height: '100%',
     overflow: 'hidden',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
@@ -23,21 +22,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   chats: {
     width: 310,
-    height: '100%',
 
     [theme.breakpoints.down(768)]: {
       width: '100%',
-      height: '100%',
     },
   },
 
   chatWrapper: {
-    flex: 1,
-    display: 'flex',
-  },
-
-  noChatWrapper: {
-    width: '100%',
+    flex: '1 1 auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -58,7 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   noChatSubTitle: {
     fontSize: 18,
-
     color: theme.palette.text.general,
   },
 }))

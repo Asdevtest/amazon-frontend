@@ -92,7 +92,7 @@ export const useChatMessageControlsOverlayStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     width: '100%',
-    '&:nth-child(2)': {
+    '&:nth-of-type(2)': {
       borderBottom: `1px solid ${theme.palette.divider}`,
       paddingBottom: '7px',
     },

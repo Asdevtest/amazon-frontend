@@ -65,13 +65,14 @@ export const BreadCrumbsLine = observer(() => {
   }
 
   return (
-    <div className={classNames.breadCrumbsWrapper}>
-      <Breadcrumbs
-        aria-label="breadcrumb"
-        separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
-      >
-        {pathnames.length > 2 || location.pathname === '/profile'
-          ? pathnames.map((value, index) => {
+    <>
+      {pathnames.length > 2 || location.pathname === '/profile' ? (
+        <div className={classNames.breadCrumbsWrapper}>
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
+          >
+            {pathnames.map((value, index) => {
               const last = index === pathnames.length - 1
               const isPreLast = index === pathnames.length - 2
 
@@ -97,9 +98,10 @@ export const BreadCrumbsLine = observer(() => {
                     : t(getCrumbNameKey(to))}
                 </Typography>
               )
-            })
-          : null}
-      </Breadcrumbs>
-    </div>
+            })}
+          </Breadcrumbs>
+        </div>
+      ) : null}
+    </>
   )
 })

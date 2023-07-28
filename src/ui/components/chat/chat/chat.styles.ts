@@ -3,11 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
-    height: '100%',
-    paddingTop: 2,
     display: 'flex',
     flexDirection: 'column',
-    position: 'relative',
+    overflow: 'hidden',
+    paddingTop: 2,
 
     [theme.breakpoints.down(768)]: {
       padding: 0,
@@ -20,9 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       alignItems: 'center',
+
       gap: 20,
       background: theme.palette.background.general,
-      padding: '15px 30px',
+      padding: '15px 10px',
     },
   },
 
@@ -43,6 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   opponent: {
     [theme.breakpoints.down(768)]: {
+      width: '100%',
       display: 'flex',
       alignItems: 'center',
       gap: 10,
@@ -80,28 +81,85 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  scrollViewWrapper: {
-    width: '100%',
-    flex: 1,
-    minHeight: 278,
-    maxHeight: 690,
+  soundIconWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+  },
+
+  scrollViewWrapper: {
+    position: 'relative',
+    display: 'flex',
+    minHeight: 1,
 
     [theme.breakpoints.down(768)]: {
-      maxHeight: 550,
+      maxHeight: 'calc(100vh - 226px)',
+
+      '&::-webkit-scrollbar': {
+        width: 0,
+      },
     },
+  },
+
+  hideAndShowIconWrapper: {
+    position: 'absolute',
+    top: 20,
+    right: 30,
+    zIndex: 10,
+    width: 40,
+    height: 40,
+    border: '1px solid #E0E0E0',
+    backgroundColor: theme.palette.background.general,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+    cursor: 'pointer',
+
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+
+  scrollToBottom: {
+    border: '1px solid #E0E0E0',
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    zIndex: 10,
+    width: 40,
+    height: 40,
+    backgroundColor: theme.palette.background.general,
+    boxShadow: 'none',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  scrollToBottomRight: {
+    right: 380,
+  },
+
+  scrollToBottomBadge: {
+    padding: '1px 6px',
+    background: theme.palette.primary.main,
+    position: 'absolute',
+    top: -10,
+    right: -10,
+    borderRadius: 20,
+    color: 'white',
   },
 
   bottomPartWrapper: {
     backgroundColor: theme.palette.background.general,
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    padding: '20px 108px 20px 64px',
-    position: 'relative',
+    padding: '20px 50px',
+
     [theme.breakpoints.down(768)]: {
-      padding: '10px 40px 10px 10px',
-      width: '100vw',
+      padding: 10,
     },
   },
 
@@ -207,7 +265,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   emojisWrapper: {
-    zIndex: 999,
+    zIndex: 10,
     position: 'absolute',
     right: 65,
     bottom: 70,
@@ -218,7 +276,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      zIndex: 999,
+      zIndex: 10,
       position: 'absolute',
       left: 'calc(100% - 270px)',
       right: 0,
@@ -229,27 +287,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   sendBtnText: {
     [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
-  },
-
-  hideAndShowIconWrapper: {
-    position: 'absolute',
-    top: 20,
-    right: 30,
-    zIndex: 1200,
-    width: 40,
-    height: 40,
-    // backgroundColor: '#d1d1d1a8', // старый цвет
-    border: '1px solid #E0E0E0',
-    backgroundColor: theme.palette.background.general,
-    boxShadow: 'none',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '50%',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    [theme.breakpoints.down(900)]: {
       display: 'none',
     },
   },
@@ -310,35 +347,4 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   messageToReplySubWrapper: {},
-
-  scrollToBottom: {
-    border: '1px solid #E0E0E0',
-    position: 'absolute',
-    bottom: 146,
-    right: 30,
-    zIndex: 1200,
-    width: 40,
-    height: 40,
-    backgroundColor: theme.palette.background.general,
-    boxShadow: 'none',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  scrollToBottomWithChatInfo: {
-    right: 380,
-  },
-
-  scrollToBottomBadge: {
-    padding: '1px 6px',
-    background: theme.palette.primary.main,
-    position: 'absolute',
-    top: -10,
-    right: -10,
-    borderRadius: 20,
-    color: 'white',
-  },
 }))

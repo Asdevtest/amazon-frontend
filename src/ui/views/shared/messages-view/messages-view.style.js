@@ -135,7 +135,7 @@ export const styles = theme => ({
 
   '@media (max-width: 768px)': {
     wrapper: {
-      padding: '0 10px 10px',
+      padding: 10,
       height: '100%',
     },
 
