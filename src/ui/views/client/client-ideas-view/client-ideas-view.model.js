@@ -1,6 +1,7 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { IdeaModel } from '@models/ideas-model'
@@ -9,6 +10,7 @@ import { ShopModel } from '@models/shop-model'
 
 import {
   clientAddAsinIdeasColumns,
+  clientAllIdeasColumns,
   clientClosedIdeasColumns,
   clientCreateCardIdeasColumns,
   clientNewIdeasColumns,
@@ -24,7 +26,7 @@ import { objectToUrlQs } from '@utils/text'
 
 const settingsByUrl = {
   '/client/ideas/new': {
-    statuses: [5],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.NEW],
     queries: {
       withOrder: false,
       withRequests: true,
@@ -32,7 +34,7 @@ const settingsByUrl = {
     columnsModel: clientNewIdeasColumns,
   },
   '/client/ideas/on-checking': {
-    statuses: [10],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING],
     queries: {
       withOrder: false,
       withRequests: true,
@@ -40,7 +42,7 @@ const settingsByUrl = {
     columnsModel: clientOnCheckingIdeasColumns,
   },
   '/client/ideas/search-suppliers': {
-    statuses: [13, 14, 15],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS],
     queries: {
       withOrder: false,
       withRequests: false,
@@ -48,7 +50,7 @@ const settingsByUrl = {
     columnsModel: clientSearchSuppliersIdeasColumns,
   },
   '/client/ideas/create-card': {
-    statuses: [16],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD],
     queries: {
       withOrder: false,
       withRequests: false,
@@ -56,7 +58,7 @@ const settingsByUrl = {
     columnsModel: clientCreateCardIdeasColumns,
   },
   '/client/ideas/add-asin': {
-    statuses: [18],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN],
     queries: {
       withOrder: false,
       withRequests: false,
@@ -64,7 +66,7 @@ const settingsByUrl = {
     columnsModel: clientAddAsinIdeasColumns,
   },
   '/client/ideas/realized': {
-    statuses: [20],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.REALIZED],
     queries: {
       withOrder: true,
       withRequests: true,
@@ -72,7 +74,7 @@ const settingsByUrl = {
     columnsModel: clientRealizedIdeasColumns,
   },
   '/client/ideas/closed': {
-    statuses: [25, 30],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.CLOSED],
     queries: {
       withOrder: false,
       withRequests: false,
@@ -80,11 +82,12 @@ const settingsByUrl = {
     columnsModel: clientClosedIdeasColumns,
   },
   '/client/ideas/all': {
-    statuses: [5, 10, 13, 14, 15, 16, 18, 20, 25, 30],
+    statuses: ideaStatusGroups[ideaStatusGroupsNames.ALL],
     queries: {
       withOrder: true,
       withRequests: true,
     },
+    columnsModel: clientAllIdeasColumns,
   },
 }
 

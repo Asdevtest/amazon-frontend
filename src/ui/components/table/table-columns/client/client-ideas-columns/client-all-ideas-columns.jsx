@@ -1,39 +1,74 @@
 import React from 'react'
 
+import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaRequests,
+  AllIdeasActions,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
-  RealizedIdeaActions,
   ShortDateCell,
+  SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
 
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
+export const clientAllIdeasColumns = (rowHandlers, shops) => [
   {
-    field: 'parentProduct',
-    headerName: t(TranslationKey['Parent product']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
+    field: 'title',
+    headerName: t(TranslationKey['Idea title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-    renderCell: params => {
-      const product = params.value
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 190,
+    filterable: false,
+    sortable: false,
+  },
 
-      return (
-        <ProductAsinCell
-          image={product?.images?.slice()[0]}
-          amazonTitle={product?.amazonTitle}
-          asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
-        />
-      )
-    },
-    width: 265,
+  {
+    field: 'status',
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    headerName: t(TranslationKey.Status),
+
+    renderCell: params => (
+      <MultilineTextCell
+        text={ideaStatusTranslate(ideaStatusByCode[params.value])}
+        color={colorByIdeaStatus(ideaStatusByCode[params.value])}
+      />
+    ),
+    width: 160,
+    sortable: false,
+  },
+
+  {
+    field: 'ideaImage',
+    headerName: t(TranslationKey.Idea),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
+
+    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles[0]} />,
+    width: 120,
+    sortable: false,
+  },
+
+  {
+    field: 'comments',
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
+    headerName: t(TranslationKey['Client comment']),
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 250,
+    sortable: false,
+  },
+
+  {
+    field: 'buyerComment',
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    headerName: t(TranslationKey['Client comment']),
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 250,
     sortable: false,
   },
 
@@ -75,8 +110,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => <RealizedIdeaActions rowHandlers={rowHandlers} row={params.row} />,
-    width: 140,
+    renderCell: params => <AllIdeasActions row={params.row} rowHandlers={rowHandlers} />,
+    width: 300,
     sortable: false,
   },
 
@@ -161,39 +196,11 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'comments',
-    headerName: t(TranslationKey.Comment),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 240,
-    sortable: false,
-  },
-
-  {
     field: 'updatedAt',
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 140,
-  },
-
-  {
-    field: 'requestsOnCheck',
-    headerName: t(TranslationKey.Requests),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
-
-    renderCell: params => (
-      <IdeaRequests
-        withoutControls
-        row={params.row}
-        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row._id)}
-        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
-        onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
-      />
-    ),
-    width: 220,
-    sortable: false,
   },
 ]

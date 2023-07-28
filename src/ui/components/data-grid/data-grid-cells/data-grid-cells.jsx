@@ -48,6 +48,7 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
+import { ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { UiTheme } from '@constants/theme/themes'
@@ -55,6 +56,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -3130,10 +3132,33 @@ export const IdeaActions = React.memo(
 
 export const IdeaRequests = React.memo(
   withStyles(props => {
-    const { classes: styles, onClickCreateRequest, onClickLinkRequest, withoutControls } = props
+    const {
+      classes: styles,
+      onClickCreateRequest,
+      onClickLinkRequest,
+      onClickResultButton,
+      withoutControls,
+      row,
+    } = props
+    const [requests, setRequests] = useState([])
+
+    useEffect(() => {
+      setRequests([...(row?.requestsOnCheck || []), ...(row?.requestsOnFinished || [])])
+    }, [row?.requestsOnCheck, row?.requestsOnFinished])
 
     return (
       <div className={styles.ideaRequestsWrapper}>
+        {requests?.map((request, requestIndex) => (
+          <IdeaRequestCard
+            key={requestIndex}
+            requestType={request.typeTask}
+            requestId={request.humanFriendlyId}
+            requestStatus={request.status}
+            executor={request.executor}
+            proposals={request.proposals}
+            onClickResultButton={onClickResultButton}
+          />
+        ))}
         {!withoutControls && (
           <div className={styles.ideaRequestsControls}>
             <Button success onClick={onClickCreateRequest}>
@@ -3207,6 +3232,106 @@ export const IdeaProduct = React.memo(
           />
         )}
       </div>
+    )
+  }, styles),
+)
+
+export const CreateCardIdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, rowHandlers, row } = props
+
+    return (
+      <Button small success disabled={!row.childProduct} onClick={() => rowHandlers.onClickAccept(row._id)}>
+        {t(TranslationKey.Accept)}
+      </Button>
+    )
+  }, styles),
+)
+
+export const AddAsinIdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, rowHandlers, row } = props
+
+    return (
+      <Box display={'flex'} gap={'5px'}>
+        <Button success small onClick={() => rowHandlers.onClickAccept(row)}>
+          {t(TranslationKey.Accept)}
+        </Button>
+        <Button small onClick={() => rowHandlers.onClickParseProductData(row)}>
+          {t(TranslationKey['Parse product data'])}
+        </Button>
+      </Box>
+    )
+  }, styles),
+)
+
+export const RealizedIdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, rowHandlers, row } = props
+
+    return (
+      <Button small success onClick={() => rowHandlers.onClickToOrder(row)}>
+        {t(TranslationKey['To order'])}
+      </Button>
+    )
+  }, styles),
+)
+
+export const ClosedIdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, rowHandlers, row } = props
+
+    return (
+      <Box display="flex" gap="20px">
+        <Button small success onClick={() => rowHandlers.onClickRestore(row)}>
+          {t(TranslationKey.Restore)}
+        </Button>
+        <Button small danger onClick={() => rowHandlers.onClickClose(row)}>
+          {t(TranslationKey.Close)}
+        </Button>
+      </Box>
+    )
+  }, styles),
+)
+
+export const AllIdeasActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, row, rowHandlers } = props
+    const status = row.status
+
+    return (
+      <>
+        {ideaStatusGroups[ideaStatusGroupsNames.NEW].includes(status) && (
+          <IdeaActions
+            onClickToCheck={() => rowHandlers.onClickToCheck(row._id)}
+            onClickReject={() => rowHandlers.onClickReject(row._id)}
+          />
+        )}
+        {ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING].includes(status) && (
+          <OnCheckingIdeaActions
+            onClickAccept={() => rowHandlers.onClickAccept(row._id)}
+            onClickReject={() => rowHandlers.onClickReject(row._id)}
+          />
+        )}
+        {ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS].includes(status) && (
+          <OnCheckingIdeaActions
+            onClickAccept={() => rowHandlers.onClickAccept(row._id)}
+            onClickReject={() => rowHandlers.onClickReject(row._id)}
+          />
+        )}
+        {ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD].includes(status) && (
+          <CreateCardIdeaActions row={row} rowHandlers={rowHandlers} />
+        )}
+        {ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN].includes(status) && (
+          <AddAsinIdeaActions rowHandlers={rowHandlers} row={row} />
+        )}
+        {ideaStatusGroups[ideaStatusGroupsNames.REALIZED].includes(status) && (
+          <RealizedIdeaActions rowHandlers={rowHandlers} row={row} />
+        )}
+        {ideaStatusGroups[ideaStatusGroupsNames.CLOSED].includes(status) && (
+          <ClosedIdeaActions row={row} rowHandlers={rowHandlers} />
+        )}
+      </>
     )
   }, styles),
 )

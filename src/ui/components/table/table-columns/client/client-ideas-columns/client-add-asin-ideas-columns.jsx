@@ -5,6 +5,7 @@ import { Box } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  AddAsinIdeaActions,
   BarcodeCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -85,16 +86,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <Box display={'flex'} gap={'5px'}>
-        <Button success small onClick={() => rowHandlers.onClickAccept(params.row)}>
-          {t(TranslationKey.Accept)}
-        </Button>
-        <Button small onClick={() => rowHandlers.onClickParseProductData(params.row)}>
-          {t(TranslationKey['Parse product data'])}
-        </Button>
-      </Box>
-    ),
+    renderCell: params => <AddAsinIdeaActions rowHandlers={rowHandlers} row={params.row} />,
     width: 260,
     sortable: false,
   },
