@@ -1876,4 +1876,11 @@ export const styles = theme => ({
       fontSize: 14,
     },
   },
+
+  ideaRequestsWrapper: {
+    display: 'flex',
+    gap: 20,
+    alignItems: 'center',
+    padding: '16px 0',
+  },
 })

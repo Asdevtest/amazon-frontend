@@ -110,8 +110,10 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <IdeaRequests
+        row={params.row}
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row._id)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
+        onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
       />
     ),
     width: 220,

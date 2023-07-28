@@ -6,6 +6,7 @@ import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@const
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ClosedIdeaActions,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -150,16 +151,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <Box display="flex" gap="20px">
-        <Button small success onClick={() => rowHandlers.onClickRestore(params.row)}>
-          {t(TranslationKey.Restore)}
-        </Button>
-        <Button small danger onClick={() => rowHandlers.onClickClose(params.row)}>
-          {t(TranslationKey.Close)}
-        </Button>
-      </Box>
-    ),
+    renderCell: params => <ClosedIdeaActions row={params.row} rowHandlers={rowHandlers} />,
     width: 140,
   },
 ]
