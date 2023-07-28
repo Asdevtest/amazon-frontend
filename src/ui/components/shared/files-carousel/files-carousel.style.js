@@ -22,6 +22,11 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    img: {
+      width: '100%',
+    },
+
     '&:hover > :not(:last-child)': {
       opacity: '0.3',
     },

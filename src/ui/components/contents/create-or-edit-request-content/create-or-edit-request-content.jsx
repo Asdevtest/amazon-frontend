@@ -29,7 +29,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckRequestByTypeExist, CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
-
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value'
@@ -52,8 +52,6 @@ import { replaceCommaByDot, shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-request-content.style'
-
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',

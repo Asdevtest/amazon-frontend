@@ -20,13 +20,11 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
-
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'

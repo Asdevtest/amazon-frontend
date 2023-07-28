@@ -8,6 +8,7 @@ import {
   Feedback,
   FreeOrdersIcon,
   FreelanceIcon,
+  IdeasIcon,
   InventoryIcon,
   Message,
   MyBatchesIcon,
@@ -87,6 +88,26 @@ export const navbarConfig = () => ({
       route: '/client/inventory',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_INVENTORY,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
+    },
+
+    {
+      icon: IdeasIcon,
+      route: '/client/ideas',
+      title: t(TranslationKey.Ideas),
+      subtitles: [
+        { subtitle: t(TranslationKey['New ideas']), subRoute: '/client/ideas/new' },
+        { subtitle: t(TranslationKey['On checking']), subRoute: '/client/ideas/on-checking' },
+        { subtitle: t(TranslationKey['Search for suppliers']), subRoute: '/client/ideas/search-suppliers' },
+        { subtitle: t(TranslationKey['Create a product card']), subRoute: '/client/ideas/create-card' },
+        { subtitle: t(TranslationKey.Add) + ' ASIN', subRoute: '/client/ideas/add-asin' },
+        { subtitle: t(TranslationKey['Realized ideas']), subRoute: '/client/ideas/realized' },
+        { subtitle: t(TranslationKey['Rejected and closed']), subRoute: '/client/ideas/closed' },
+        { subtitle: t(TranslationKey.All), subRoute: '/client/ideas/all' },
+      ],
+      key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),

@@ -1,10 +1,12 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { FC } from 'react'
+
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
+
 import { useClassNames } from './progress-bar.styles'
 
-import { FC } from 'react'
-import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { progressBarSettings } from './progress-bar-settings'
-import { observer } from 'mobx-react'
 
 interface IdeaProgressBarProps {
   currentStatus: number

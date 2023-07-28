@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { useClassNames } from './source-product.styles'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+
+import { useClassNames } from './source-product.styles'
 
 interface SourceProductProps {
   title: string

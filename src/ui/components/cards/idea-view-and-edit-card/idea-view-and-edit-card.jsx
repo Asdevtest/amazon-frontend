@@ -2,38 +2,25 @@
 import { cx } from '@emotion/css'
 import AddIcon from '@material-ui/icons/Add'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
-import {
-  BoxArrow,
-  ClockIcon,
-  CubeIcon,
-  EditIcon,
-  EqualIcon,
-  PlusIcon,
-  SaveIcon,
-  ShareLinkIcon,
-} from '@components/shared/svg-icons'
+import { PlusIcon } from '@components/shared/svg-icons'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Link, Typography, IconButton, Divider, Grid, InputAdornment, MenuItem, Select } from '@mui/material'
+import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 
-import { routsPathes } from '@constants/navigation/routs-pathes'
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -53,11 +40,11 @@ import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './idea-view-and-edit-card.style'
+
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
 import { IdeaRequestCard } from './idea-request-card'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { RequestSwitherType } from '@constants/requests/request-type'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 

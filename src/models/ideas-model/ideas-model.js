@@ -6,6 +6,11 @@ class IdeaModelStatic {
     return response
   }
 
+  getIdeaList = async data => {
+    const response = await restApiService.ideaApi.apiV1IdeasPagMyGet(data)
+    return response
+  }
+
   getIdeaById = async id => {
     const response = await restApiService.ideaApi.apiV1IdeasGuidGet(id)
     return response

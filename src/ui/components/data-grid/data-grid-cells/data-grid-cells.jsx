@@ -229,10 +229,10 @@ export const AsinCell = React.memo(
 
 export const ProductAsinCell = React.memo(
   withStyles(
-    ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (
+    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage }) => (
       <div className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />
+          {!withoutImage && <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />}
 
           <div className={classNames.csCodeTypoWrapper}>
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
@@ -3111,4 +3111,102 @@ export const ProductInfoAbbreviated = React.memo(
     ),
     styles,
   ),
+)
+
+export const IdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickReject, onClickToCheck } = props
+
+    return (
+      <div className={styles.ideaActions}>
+        <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
+        <Button danger onClick={onClickReject}>
+          {t(TranslationKey.Reject)}
+        </Button>
+      </div>
+    )
+  }, styles),
+)
+
+export const IdeaRequests = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickCreateRequest, onClickLinkRequest, withoutControls } = props
+
+    return (
+      <div className={styles.ideaRequestsWrapper}>
+        {!withoutControls && (
+          <div className={styles.ideaRequestsControls}>
+            <Button success onClick={onClickCreateRequest}>
+              <PlusIcon /> {t(TranslationKey['Create a request'])}
+            </Button>
+            <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
+          </div>
+        )}
+      </div>
+    )
+  }, styles),
+)
+
+export const OnCheckingIdeaActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickAccept, onClickReject, withoutControls } = props
+
+    return (
+      <div className={styles.ideaActions}>
+        <Button success onClick={onClickAccept}>
+          {t(TranslationKey.Accept)}
+        </Button>
+        <Button danger onClick={onClickReject}>
+          {t(TranslationKey.Reject)}
+        </Button>
+      </div>
+    )
+  }, styles),
+)
+
+export const IdeaSupplier = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickAddSupplier, suppliers } = props
+
+    return (
+      <div className={styles.ideaSupplier}>
+        {!!suppliers.length && <Typography>{suppliers[0].name}</Typography>}
+        {!suppliers.length && (
+          <Button success className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
+            <PlusIcon /> {t(TranslationKey.Add)}
+          </Button>
+        )}
+      </div>
+    )
+  }, styles),
+)
+
+export const IdeaProduct = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickCreateCard, onClickSelectSupplier, rowData } = props
+
+    return (
+      <div>
+        {!rowData.childProduct && (
+          <Button success small onClick={() => onClickCreateCard(rowData._id)}>
+            {t(TranslationKey['Create a product card'])}
+          </Button>
+        )}
+        {!rowData.suppliers.length && (
+          <Button small onClick={() => onClickSelectSupplier(rowData._id)}>
+            {t(TranslationKey['Set supplier to card'])}
+          </Button>
+        )}
+
+        {rowData.suppliers.length && rowData.childProduct && (
+          <ProductAsinCell
+            withoutImage
+            amazonTitle={rowData.childProduct?.amazonTitle}
+            asin={rowData.childProduct?.asin}
+            skusByClient={rowData.childProduct?.skusByClient?.slice()[0]}
+          />
+        )}
+      </div>
+    )
+  }, styles),
 )

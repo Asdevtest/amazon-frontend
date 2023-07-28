@@ -39,16 +39,26 @@ export const ideaStatusTranslate = (status: ideaStatus) => {
       return t(TranslationKey.Verified)
     case ideaStatus.CLOSED:
       return t(TranslationKey.Closed)
+    case ideaStatus.SUPPLIER_FOUND:
+      return t(TranslationKey['Supplier found'])
+    case ideaStatus.SUPPLIER_SEARCH:
+      return t(TranslationKey['Supplier search'])
+    case ideaStatus.SUPPLIER_NOT_FOUND:
+      return t(TranslationKey['Supplier not found'])
+    case ideaStatus.REJECTED:
+      return t(TranslationKey.Rejected)
   }
 }
 
 export const colorByIdeaStatus = (status: ideaStatus) => {
-  if ([ideaStatus.ON_CHECK].includes(status)) {
+  if ([ideaStatus.ON_CHECK, ideaStatus.SUPPLIER_SEARCH].includes(status)) {
     return '#F3AF00'
-  } else if ([ideaStatus.VERIFIED].includes(status)) {
+  } else if ([ideaStatus.VERIFIED, ideaStatus.SUPPLIER_FOUND].includes(status)) {
     return '#00B746'
-  } else if ([ideaStatus.CLOSED].includes(status)) {
+  } else if ([ideaStatus.CLOSED, ideaStatus.SUPPLIER_NOT_FOUND].includes(status)) {
     return '#FF1616'
+  } else if ([ideaStatus.REJECTED].includes(status)) {
+    return '#0A6FE8'
   } else {
     return '#black'
   }

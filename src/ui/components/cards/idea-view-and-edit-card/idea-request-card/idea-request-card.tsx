@@ -1,12 +1,15 @@
 import { TranslationKey } from '@constants/translations/translation-key'
-import { useClassNames } from './idea-request-card.styles'
-import { t } from '@utils/translations'
+
 import { UserLink } from '@components/user/user-link'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import { FC } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { Button } from '@components/shared/buttons/button'
+
+import { t } from '@utils/translations'
+
+import { useClassNames } from './idea-request-card.styles'
 
 interface IdeaRequestCardProps {
   requestType: number
