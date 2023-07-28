@@ -3,6 +3,7 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  IdeaRequests,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -179,5 +180,21 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 140,
+  },
+
+  {
+    field: 'requestsOnCheck',
+    headerName: t(TranslationKey.Requests),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
+
+    renderCell: params => (
+      <IdeaRequests
+        withoutControls
+        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row._id)}
+        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
+      />
+    ),
+    width: 220,
+    sortable: false,
   },
 ]

@@ -12,7 +12,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
+import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -26,10 +30,6 @@ import { useClassNames } from './suppliers-and-ideas.style'
 import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
-import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { RequestResultModal } from '@components/modals/request-result-modal'
-import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 
 export const SuppliersAndIdeas = observer(({ productId, product }) => {
   const { classes: classNames } = useClassNames()

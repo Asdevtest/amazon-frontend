@@ -872,3 +872,6 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/ApiV1IdeasByParentGuidProposals.spec.js
+test/model/ApiV1IdeasByParentGuidRequestsOnCheck.spec.js
+test/model/UserInfoSchemaIdeas.spec.js

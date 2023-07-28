@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+import { ClassNamesArg } from '@emotion/react'
 import React, { FC, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
@@ -11,7 +12,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './modal.style'
-import { ClassNamesArg } from '@emotion/react'
 
 interface ModalProps {
   openModal: boolean

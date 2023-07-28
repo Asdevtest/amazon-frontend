@@ -10,6 +10,7 @@ import {
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
+import { showResultStatuses } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -27,7 +28,6 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './my-proposals-list-card.style'
-import { showResultStatuses } from '@constants/requests/request-status'
 
 export const MyProposalsListCard = ({
   item,

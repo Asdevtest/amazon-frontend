@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { GridCellParams } from '@mui/x-data-grid'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -7,7 +9,6 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { GridCellParams } from '@mui/x-data-grid'
 
 import { t } from '@utils/translations'
 

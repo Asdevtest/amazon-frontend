@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { ITab } from '@components/shared/i-tab/i-tab'
 
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
@@ -24,7 +25,6 @@ import { SuppliersAndIdeas } from '../suppliers-and-ideas'
 
 import { BottomCard } from './bottom-card'
 import { TopCard } from './top-card'
-import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',

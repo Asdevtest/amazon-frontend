@@ -1,11 +1,12 @@
-import { TranslationKey } from '@constants/translations/translation-key'
+import { FC } from 'react'
 
-import { UserLink } from '@components/user/user-link'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
-import { FC } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { Button } from '@components/shared/buttons/button'
+import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 

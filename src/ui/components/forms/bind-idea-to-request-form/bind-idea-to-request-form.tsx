@@ -1,11 +1,16 @@
 import { observer } from 'mobx-react'
-import { useClassNames } from './bind-idea-to-request-form.styles'
 import { FC, useState } from 'react'
-import { t } from '@utils/translations'
+
 import { TranslationKey } from '@constants/translations/translation-key'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
-import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-idea-to-request-columns'
+
 import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+
+import { t } from '@utils/translations'
+
+import { useClassNames } from './bind-idea-to-request-form.styles'
+
+import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-idea-to-request-columns'
 
 interface BindIdeaToRequestFormProps {
   requests: {

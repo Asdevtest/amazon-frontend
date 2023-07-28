@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react'
-import { useClassNames } from './radio-buttons.styles'
 import { FC } from 'react'
+
 import Radio from '@mui/material/Radio'
+
+import { useClassNames } from './radio-buttons.styles'
 
 interface IRadioBottonsSetting {
   label: string
