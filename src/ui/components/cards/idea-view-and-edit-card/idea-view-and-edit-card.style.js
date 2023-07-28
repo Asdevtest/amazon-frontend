@@ -411,4 +411,65 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
     justifyContent: 'flex-end',
   },
+
+  requestsWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '33px',
+    overflow: 'auto',
+    paddingBottom: '10px',
+
+    '&::-webkit-scrollbar': {
+      height: '9px',
+      padding: '2px 2px',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#DAE1E9',
+      borderRadius: '22px',
+    },
+
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
+  },
+
+  requestsBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
+  requestsControlWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+  },
+
+  requestsBlockTitle: {
+    fontSize: '18px',
+    fontWeight: 600,
+  },
+
+  requestsControlButtonsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  plusIcon: {
+    width: '14px !important',
+    height: '14px !important',
+  },
+
+  actionButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  statusText: {
+    fontSize: '14px',
+    fontWeight: 400,
+    color: theme.palette.other.succes,
+  },
 }))

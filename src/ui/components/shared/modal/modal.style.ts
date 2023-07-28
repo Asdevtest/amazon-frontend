@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(() => ({
   dialogContent: {
     position: 'relative',
     overflow: 'visible',
-    borderRadius: '4px',
+    borderRadius: '7px',
   },
 
   closeIcon: {

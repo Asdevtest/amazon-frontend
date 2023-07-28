@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20045Rows from './InlineResponse20045Rows';
+import ApiV1IdeasByParentGuidChildProduct from './ApiV1IdeasByParentGuidChildProduct';
+import ApiV1IdeasByParentGuidRequestsOnCheck from './ApiV1IdeasByParentGuidRequestsOnCheck';
 
 /**
  * The InlineResponse20045 model module.
@@ -48,11 +49,32 @@ class InlineResponse20045 {
         if (data) {
             obj = obj || new InlineResponse20045();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20045Rows]);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('childProduct')) {
+                obj['childProduct'] = ApiV1IdeasByParentGuidChildProduct.constructFromObject(data['childProduct']);
+            }
+            if (data.hasOwnProperty('requestsOnCheck')) {
+                obj['requestsOnCheck'] = ApiClient.convertToType(data['requestsOnCheck'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
+            }
+            if (data.hasOwnProperty('requestsOnFinished')) {
+                obj['requestsOnFinished'] = ApiClient.convertToType(data['requestsOnFinished'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -62,16 +84,54 @@ class InlineResponse20045 {
 }
 
 /**
- * Общее кол-во идей
- * @member {Number} count
+ * @member {String} _id
  */
-InlineResponse20045.prototype['count'] = undefined;
+InlineResponse20045.prototype['_id'] = undefined;
 
 /**
- * Список идей
- * @member {Array.<module:model/InlineResponse20045Rows>} rows
+ * Название идеи
+ * @member {String} title
  */
-InlineResponse20045.prototype['rows'] = undefined;
+InlineResponse20045.prototype['title'] = undefined;
+
+/**
+ * Статус идеи
+ * @member {Number} status
+ */
+InlineResponse20045.prototype['status'] = undefined;
+
+/**
+ * Медиа идеи
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineResponse20045.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasByParentGuidChildProduct} childProduct
+ */
+InlineResponse20045.prototype['childProduct'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnCheck
+ */
+InlineResponse20045.prototype['requestsOnCheck'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnFinished
+ */
+InlineResponse20045.prototype['requestsOnFinished'] = undefined;
+
+/**
+ * Комментарии к идее
+ * @member {String} comments
+ */
+InlineResponse20045.prototype['comments'] = undefined;
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineResponse20045.prototype['buyerComment'] = undefined;
 
 
 

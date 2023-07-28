@@ -45,6 +45,7 @@ class IdeaModelStatic {
     const response = await restApiService.ideaApi.apiV1IdeasGuidDelete(id)
     return response
   }
+
   addSuppliersToIdea = async (id, data) => {
     const response = await restApiService.ideaApi.apiV1IdeasAddSuppliersGuidPost(id, { body: data })
     return response
@@ -55,13 +56,48 @@ class IdeaModelStatic {
     return response
   }
 
+  checkIdea = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasOnCheckingGuidPatch(id)
+    return response
+  }
+
+  changeStatusToSupplierSearchIdea = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasSupplierSearchGuidPatch(id)
+    return response
+  }
+
+  changeStatusToSupplierFound = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasSupplierFoundGuidPatch(id)
+    return response
+  }
+
+  changeStatusToSupplierNotFound = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasSupplierNotFoundGuidPatch(id)
+    return response
+  }
+
+  changeStatusToProductCreating = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasProductCreatingGuidPatch(id)
+    return response
+  }
+
+  changeStatusToAddingAsin = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasAddingAsinGuidPatch(id)
+    return response
+  }
+
+  changeStatusToFinished = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasFinishedGuidPatch(id)
+    return response
+  }
+
   rejectIdea = async id => {
     const response = await restApiService.ideaApi.apiV1IdeasRejectedGuidPatch(id)
     return response
   }
 
-  checkIdea = async id => {
-    const response = await restApiService.ideaApi.apiV1IdeasOnCheckingGuidPatch(id)
+  reopenIdea = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasReopenGuidPatch(id)
     return response
   }
 }

@@ -45,7 +45,7 @@ import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { RequestStatus } from '@constants/requests/request-status'
+import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
@@ -1714,55 +1714,11 @@ export const TaskStatusCell = React.memo(
 
 export const RequestStatusCell = React.memo(
   withStyles(({ classes: classNames, status, isChat, styles }) => {
-    const colorByStatus = () => {
-      if ([RequestStatus.DRAFT].includes(status)) {
-        return '#006CFF'
-      } else if (
-        [
-          RequestStatus.CANCELED_BY_CREATOR,
-          RequestStatus.FORBID_NEW_PROPOSALS,
-          RequestStatus.CANCELED_BY_ADMIN,
-          RequestStatus.CANCELED_BY_SUPERVISOR,
-          RequestStatus.CANCELED_BY_EXECUTOR,
-          RequestStatus.OFFER_CONDITIONS_REJECTED,
-        ].includes(status)
-      ) {
-        return '#FF1616'
-      } else if (
-        [
-          RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
-          RequestStatus.IN_PROCESS,
-          RequestStatus.VERIFYING_BY_SUPERVISOR,
-          RequestStatus.ACCEPTED_BY_SUPERVISOR,
-          RequestStatus.ACCEPTED_BY_CLIENT,
-          RequestStatus.CORRECTED,
-          RequestStatus.OFFER_CONDITIONS_CORRECTED,
-        ].includes(status)
-      ) {
-        return '#00B746'
-      } else if (
-        [
-          RequestStatus.PUBLISHED,
-          RequestStatus.TO_CORRECT_BY_ADMIN,
-          RequestStatus.READY_TO_VERIFY,
-          RequestStatus.TO_CORRECT,
-        ].includes(status)
-      ) {
-        return '#F3AF00'
-      } else if ([RequestStatus.EXPIRED].includes(status)) {
-        return '#C4C4C4'
-      } else {
-        return 'black'
-      }
-    }
-
-    const colorStatus = colorByStatus()
-
     return (
       <div className={classNames.statusWrapper}>
         <Typography
           className={cx(classNames.statusText, { [classNames.statusTextChat]: isChat })}
-          style={{ ...styles, color: colorStatus }}
+          style={{ ...styles, color: colorByStatus(status) }}
         >
           {MyRequestStatusTranslate(status)}
         </Typography>
@@ -1772,7 +1728,7 @@ export const RequestStatusCell = React.memo(
 )
 
 export const MultilineRequestStatusCell = React.memo(
-  withStyles(({ classes: classNames, status, fontSize = '14px', languageTag }) => {
+  withStyles(({ classes: classNames, status, fontSize = '14px', leftAlign }) => {
     // const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
 
     // useEffect(() => {
@@ -1806,7 +1762,6 @@ export const MultilineRequestStatusCell = React.memo(
     return (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-          {/* {statusTranslate} */}
           {MyRequestStatusTranslate(status)}
         </Typography>
       </div>
