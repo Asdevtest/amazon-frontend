@@ -1,98 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  root: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
-    paddingTop: 2,
-
-    [theme.breakpoints.down(768)]: {
-      padding: 0,
-    },
-  },
-
-  opponentWrapper: {
-    display: 'none',
-
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      alignItems: 'center',
-
-      gap: 20,
-      background: theme.palette.background.general,
-      padding: '15px 10px',
-    },
-  },
-
-  arrowBackIconWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    background: theme.palette.background.second,
-  },
-
-  arrowBackIcon: {
-    marginRight: 5,
-    color: theme.palette.primary.main,
-  },
-
-  opponent: {
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      gap: 10,
-    },
-  },
-
-  avatar: {
-    width: 40,
-    height: 40,
-  },
-
-  opponentName: {
-    maxWidth: 180,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-
-    [theme.breakpoints.down(768)]: {
-      maxWidth: 120,
-      fontSize: 18,
-      lineHeight: '25px',
-      fontWeight: 600,
-    },
-  },
-
-  isOnline: {
-    display: 'none',
-
-    [theme.breakpoints.down(768)]: {
-      display: 'block',
-      fontSize: 14,
-      lineHeight: '19px',
-      fontWeight: 600,
-      color: theme.palette.text.second,
-    },
-  },
-
-  soundIconWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 40,
-    height: 40,
-  },
-
   scrollViewWrapper: {
     position: 'relative',
     display: 'flex',
-    minHeight: 1,
+    flex: '1 1 auto',
+    overflow: 'auto',
+    paddingTop: 4,
+    background: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
       maxHeight: 'calc(100vh - 226px)',
@@ -155,7 +70,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bottomPartWrapper: {
-    backgroundColor: theme.palette.background.general,
+    height: 80,
+    background: theme.palette.background.general,
     padding: '20px 50px',
 
     [theme.breakpoints.down(768)]: {

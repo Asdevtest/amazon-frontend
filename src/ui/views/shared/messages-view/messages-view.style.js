@@ -1,39 +1,52 @@
 export const styles = theme => ({
   wrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    height: '89vh',
-  },
-
-  chatHeaderWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  hideChatHeaderWrapper: {
-    display: 'none',
+    height: 'calc(100vh - 80px)',
+    overflow: 'hidden',
+    paddingTop: 10,
   },
 
   leftSide: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: 296,
-    height: 36,
+    width: 305,
+    height: 40,
   },
 
-  chatSelectedWrapper: {
+  rightSide: {
     display: 'flex',
-    gap: 20,
-    alignItems: 'center',
+    flexDirection: 'column',
+    flex: '1 1 auto',
   },
 
-  selectedChatPersonalInfo: {
+  header: {
+    height: 40,
+    marginBottom: 20,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  leftSideHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  arrowBackIconWrapper: {
+    display: 'none',
+  },
+
+  arrowBackIcon: {
+    display: 'none',
+  },
+
+  rersonalWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 20,
@@ -42,14 +55,15 @@ export const styles = theme => ({
   opponentWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 20,
+    gap: 15,
   },
 
-  avatarWrapper: {
+  avatar: {
     width: 40,
     height: 40,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
+
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',
@@ -57,73 +71,47 @@ export const styles = theme => ({
   },
 
   opponentName: {
-    marginLeft: 15,
-    fontWeight: 600,
+    maxWidth: 200,
     fontSize: 18,
+    fontWeight: 600,
     color: theme.palette.text.general,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    maxWidth: 200,
-  },
-
-  unMutedNotificationIcon: {
-    color: '#AEAEAE',
-    cursor: 'pointer',
-    '&:hover': {
-      color: '#656565',
-    },
-  },
-
-  mutedNotificationIcon: {
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-    '&:hover': {
-      color: '#0056B2',
-    },
   },
 
   usersCount: {
-    marginLeft: 15,
-    fontWeight: 400,
     fontSize: 14,
     color: theme.palette.text.second,
   },
 
-  searchResultWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-    flexWrap: 'wrap',
-  },
-
   searchResult: {
+    width: 140,
     color: theme.palette.text.second,
   },
 
-  rightSide: {
+  rightSideHeader: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 30,
   },
 
-  tooltipWrapper: {
+  noticesWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   noticesTextActive: {
-    fontSize: 18,
-    lineHeight: '140%',
-    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.primary.main,
   },
 
-  noticesTextNoActive: {
-    fontSize: 18,
-    lineHeight: '140%',
-    fontWeight: 400,
+  noticesTextNotActive: {
     color: '#c4c4c4',
   },
 
@@ -133,10 +121,43 @@ export const styles = theme => ({
     marginLeft: 30,
   },
 
+  noSelectedChatWrapper: {
+    flex: '1 1 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 20,
+    background: theme.palette.background.general,
+    borderRadius: '0 7px 7px 0',
+    boxShadow: theme.palette.boxShadow.paper,
+  },
+
+  noSelectedChatIcon: {
+    width: '100px !important',
+    height: '93px !important',
+    color: theme.palette.primary.main,
+  },
+
   '@media (max-width: 768px)': {
     wrapper: {
       padding: 10,
       height: '100%',
+    },
+
+    arrowBackIconWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 30,
+      height: 30,
+      borderRadius: '50%',
+      background: theme.palette.background.second,
+    },
+
+    arrowBackIcon: {
+      marginRight: 5,
+      color: theme.palette.primary.main,
     },
 
     chatHeaderWrapper: {

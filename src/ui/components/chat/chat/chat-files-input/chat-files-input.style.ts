@@ -1,10 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
-    overflow: 'auto',
-    height: '100%',
-    padding: '5px 20px',
+    height: 170,
+    padding: '10px 50px',
+    background: theme.palette.background.general,
   },
 }))

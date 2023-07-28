@@ -148,7 +148,6 @@ export const MultipleChats = observer(
                   onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                 }
                 onTypingMessage={onTypingMessage}
-                onClickBackButton={onClickBackButton}
                 onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
                 onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
                 onClickEditGroupChatInfo={onClickEditGroupChatInfo}

@@ -122,15 +122,15 @@ export const ChatsList: FC<Props> = observer(
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.IN_WORK}>
-              {chatListMapper(inWorkChats, userId, chatSelectedId, typingUsers, onClickChat)}
+              {chatListMapper(inWorkChats, userId, typingUsers, onClickChat)}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SOLVED}>
-              {chatListMapper(solvedChats, userId, chatSelectedId, typingUsers, onClickChat)}
+              {chatListMapper(solvedChats, userId, typingUsers, onClickChat)}
             </TabPanel>
           </>
         ) : (
-          chatListMapper(chats, userId, chatSelectedId, typingUsers, onClickChat)
+          chatListMapper(chats, userId, typingUsers, onClickChat)
         )}
       </div>
     )

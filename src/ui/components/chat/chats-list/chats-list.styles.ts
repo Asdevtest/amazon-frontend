@@ -2,16 +2,20 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 310,
+    width: 320,
     height: '100%',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    border: `1px solid ${theme.palette.input.customBorder}`,
+    overflow: 'auto',
+    borderRadius: '7px 0 0 7px',
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+
+    '&::-webkit-scrollbar': {
+      width: 15,
+    },
 
     [theme.breakpoints.down(768)]: {
       width: '100%',
       border: 'none',
-      maxHeight: 'calc(100vh - 142px)',
 
       '&::-webkit-scrollbar': {
         width: 0,
@@ -20,20 +24,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chatWrapper: {
-    border: `1px solid ${theme.palette.input.customBorder}`,
-
-    [theme.breakpoints.down(768)]: {
-      border: 'none',
-    },
-  },
-
-  chatWrapperIsSelected: {
-    borderColor: `${theme.palette.primary.main} !important`,
+    background: theme.palette.background.general,
   },
 
   indicator: {
     backgroundColor: theme.palette.primary.main,
   },
+
   row: {
     width: '100%',
     padding: '0 0px',

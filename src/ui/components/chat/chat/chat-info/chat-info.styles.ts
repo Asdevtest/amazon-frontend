@@ -44,7 +44,7 @@ export const useChatInfoStyles = makeStyles()(theme => ({
     gap: '5px',
 
     overflowY: 'auto',
-    maxHeight: 425,
+    maxHeight: 485,
 
     img: {
       borderRadius: 4,

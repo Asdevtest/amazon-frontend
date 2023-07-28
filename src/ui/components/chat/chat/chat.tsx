@@ -18,19 +18,10 @@ import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
-import { ChatCurrentReplyMessage } from '@components/chat/chat/chat-current-reply-message'
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
-import {
-  ArrowBackIcon,
-  EmojiIcon,
-  FileIcon,
-  HideArrowIcon,
-  SoundOffIcon,
-  SoundOnIcon,
-} from '@components/shared/svg-icons'
+import { EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
 
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -40,7 +31,6 @@ import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
-import { useMuteChat } from './use-mute-chat'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -75,7 +65,6 @@ interface Props {
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
-  onClickBackButton: () => void
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
@@ -95,7 +84,6 @@ export const Chat: FC<Props> = observer(
     renderAdditionalButtons,
     updateData,
     onTypingMessage,
-    onClickBackButton,
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
@@ -118,8 +106,6 @@ export const Chat: FC<Props> = observer(
 
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
-
-    const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(chat._id)
 
     const isGroupChat = chat.type === chatsType.GROUP
 
@@ -275,30 +261,7 @@ export const Chat: FC<Props> = observer(
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.opponentWrapper}>
-          <div className={classNames.arrowBackIconWrapper}>
-            <ArrowBackIcon className={classNames.arrowBackIcon} onClick={onClickBackButton} />
-          </div>
-
-          <div className={classNames.opponent}>
-            <img src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatar} alt="avatar" />
-
-            <div>
-              <p className={classNames.opponentName}>{currentOpponent?.name}</p>
-              <p className={classNames.isOnline}>online</p>
-            </div>
-          </div>
-
-          <div className={classNames.soundIconWrapper}>
-            {isMuteCurrentChat ? (
-              <SoundOffIcon onClick={onToggleMuteCurrentChat} />
-            ) : (
-              <SoundOnIcon onClick={onToggleMuteCurrentChat} />
-            )}
-          </div>
-        </div>
-
+      <>
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList
             chatId={chat._id}
@@ -306,6 +269,7 @@ export const Chat: FC<Props> = observer(
             isGroupChat={isGroupChat}
             userId={userId}
             messages={messages}
+            messageToReply={messageToReply}
             handlers={chatMessageHandlers}
             toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
@@ -348,17 +312,9 @@ export const Chat: FC<Props> = observer(
           )}
         </div>
 
-        {messageToReply && (
-          <ChatCurrentReplyMessage
-            message={messageToReply}
-            setMessageToReply={setMessageToReply}
-            setMessageToScroll={setMessageToScroll}
-          />
-        )}
+        {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
         <div className={classNames.bottomPartWrapper}>
-          {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
-
           {isShowEmojis ? (
             <ClickAwayListener
               mouseEvent="onMouseDown"
@@ -441,7 +397,7 @@ export const Chat: FC<Props> = observer(
 
           {renderAdditionalButtons ? renderAdditionalButtons({ message, files }, resetAllInputs) : undefined}
         </div>
-      </div>
+      </>
     )
   },
 )
