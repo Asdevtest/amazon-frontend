@@ -1861,4 +1861,20 @@ export const styles = theme => ({
       },
     },
   },
+
+  buttonWithIcon: {
+    height: 30,
+    display: 'flex',
+    gap: 5,
+
+    svg: {
+      width: 12,
+    },
+  },
+
+  ideaSupplier: {
+    p: {
+      fontSize: 14,
+    },
+  },
 })

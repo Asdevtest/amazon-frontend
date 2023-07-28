@@ -103,4 +103,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     cursor: 'pointer',
   },
+
+  small: {
+    height: '30px',
+  },
 }))

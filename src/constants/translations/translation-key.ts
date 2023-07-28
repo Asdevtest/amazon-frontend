@@ -2026,6 +2026,13 @@ export enum TranslationKey {
   'To check' = 'To check',
   'Idea title' = 'Idea title',
   'Link request' = 'Link request',
+  'Site' = 'Site',
+  'Set supplier to card' = 'Set supplier to card',
+  'Parse product data' = 'Parse product data',
+  'Card creating' = 'Card creating',
+  'Adding ASIN' = 'Adding ASIN',
+  'Verifying' = 'Verifying',
+  'Elapsed time' = 'Elapsed time',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',

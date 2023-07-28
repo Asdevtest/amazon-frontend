@@ -2027,5 +2027,12 @@
   "Status Updated": "Статус обновлен",
   "To check": "На проверку",
   "Idea title": "Название идеи",
-  "Link request": "Связать запрос"
+  "Link request": "Связать запрос",
+  "Site": "Сайт",
+  "Set supplier to card": "Установить поставщика на карточку",
+  "Parse product data": "Получить данные продукта",
+  "Card creating": "Создание карточки",
+  "Adding ASIN": "Добавление ASIN",
+  "Verifying": "Проверка",
+  "Elapsed time": "Прошедшее время"
 }

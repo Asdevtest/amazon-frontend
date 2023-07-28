@@ -7,21 +7,29 @@ import { IdeaModel } from '@models/ideas-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 
-import { clientIdeasColumns } from '@components/table/table-columns/client/client-ideas-columns'
+import {
+  clientAddAsinIdeasColumns,
+  clientClosedIdeasColumns,
+  clientCreateCardIdeasColumns,
+  clientNewIdeasColumns,
+  clientOnCheckingIdeasColumns,
+  clientRealizedIdeasColumns,
+  clientSearchSuppliersIdeasColumns,
+} from '@components/table/table-columns/client/client-ideas-columns'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
-const additionalFiltersByUrl = {
+const settingsByUrl = {
   '/client/ideas/new': {
     statuses: [5],
     queries: {
       withOrder: false,
       withRequests: true,
     },
+    columnsModel: clientNewIdeasColumns,
   },
   '/client/ideas/on-checking': {
     statuses: [10],
@@ -29,6 +37,7 @@ const additionalFiltersByUrl = {
       withOrder: false,
       withRequests: true,
     },
+    columnsModel: clientOnCheckingIdeasColumns,
   },
   '/client/ideas/search-suppliers': {
     statuses: [13, 14, 15],
@@ -36,6 +45,7 @@ const additionalFiltersByUrl = {
       withOrder: false,
       withRequests: false,
     },
+    columnsModel: clientSearchSuppliersIdeasColumns,
   },
   '/client/ideas/create-card': {
     statuses: [16],
@@ -43,6 +53,7 @@ const additionalFiltersByUrl = {
       withOrder: false,
       withRequests: false,
     },
+    columnsModel: clientCreateCardIdeasColumns,
   },
   '/client/ideas/add-asin': {
     statuses: [18],
@@ -50,6 +61,7 @@ const additionalFiltersByUrl = {
       withOrder: false,
       withRequests: false,
     },
+    columnsModel: clientAddAsinIdeasColumns,
   },
   '/client/ideas/realized': {
     statuses: [20],
@@ -57,6 +69,7 @@ const additionalFiltersByUrl = {
       withOrder: true,
       withRequests: true,
     },
+    columnsModel: clientRealizedIdeasColumns,
   },
   '/client/ideas/closed': {
     statuses: [25, 30],
@@ -64,6 +77,7 @@ const additionalFiltersByUrl = {
       withOrder: false,
       withRequests: false,
     },
+    columnsModel: clientClosedIdeasColumns,
   },
   '/client/ideas/all': {
     statuses: [5, 10, 13, 14, 15, 16, 18, 20, 25, 30],
@@ -88,7 +102,7 @@ export class ClientIdeasViewModel {
   ideaList = []
   currentData = []
   shopList = []
-
+  currentSettings = undefined
   // * Filtration
 
   currentSearchValue = ''
@@ -109,8 +123,20 @@ export class ClientIdeasViewModel {
     onClickReject: id => console.log(id),
     onClickCreateRequest: id => console.log(id),
     onClickLinkRequest: id => console.log(id),
+    onClickCreateCard: id => console.log(id),
+    onClickSelectSupplier: id => console.log(id),
+    onClickClose: idea => console.log(idea),
+    onClickRestore: idea => console.log(idea),
+    onClickAccept: idea => console.log(idea),
+    onClickParseProductData: idea => console.log(idea),
+
+    barCodeHandlers: {
+      onClickBarcode: product => console.log(product),
+      onDoubleClickBarcode: product => console.log(product),
+      onDeleteBarcode: product => console.log(product),
+    },
   }
-  columnsModel = clientIdeasColumns(this.rowHandlers, this.shopList)
+  columnsModel = clientNewIdeasColumns(this.rowHandlers, this.shopList)
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -128,6 +154,8 @@ export class ClientIdeasViewModel {
   constructor({ history }) {
     runInAction(() => {
       this.history = history
+      this.currentSettings = settingsByUrl[history.location.pathname]
+      this.handleUpdateColumnModel()
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -141,12 +169,16 @@ export class ClientIdeasViewModel {
     reaction(
       () => this.shopList,
       () => {
-        this.columnsModel = clientIdeasColumns(this.rowHandlers, this.shopList)
+        this.handleUpdateColumnModel()
       },
     )
   }
 
-  // * Table settings saving
+  // * Table settings handlers
+
+  handleUpdateColumnModel() {
+    this.columnsModel = this.currentSettings.columnsModel(this.rowHandlers, this.shopList)
+  }
 
   setDataGridState() {
     const requestState = {
@@ -210,21 +242,20 @@ export class ClientIdeasViewModel {
 
   onChangeSearchValue(value) {
     this.currentSearchValue = value
+    this.getIdeaList()
   }
 
   getFilters(exclusion) {
-    const additionalFilters = additionalFiltersByUrl[this.history.location.pathname]
-
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
         this.currentSearchValue,
         exclusion,
         filtersFields,
-        ['amazonTitle', 'humanFriendlyId', 'asin'],
+        ['asin', 'sku', 'title'],
         {
           status: {
-            $eq: additionalFilters.statuses.join(','),
+            $eq: this.currentSettings.statuses.join(','),
           },
         },
       ),
@@ -243,10 +274,8 @@ export class ClientIdeasViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
 
-      const additionalFilters = additionalFiltersByUrl[this.history.location.pathname]
-
       const response = await IdeaModel.getIdeaList({
-        ...additionalFilters.queries,
+        ...this.currentSettings.queries,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -254,7 +283,7 @@ export class ClientIdeasViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
-        filters: `status[$eq]=${additionalFilters.statuses.join(',')}`,
+        filters: this.getFilters(),
       })
 
       runInAction(() => {

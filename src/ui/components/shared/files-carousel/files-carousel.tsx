@@ -2,11 +2,12 @@
 
 /* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import { Link, Typography } from '@mui/material'
 
+import { imageTypes } from '@constants/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -14,6 +15,7 @@ import { SettingsModel } from '@models/settings-model'
 import { NoDocumentIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
@@ -24,6 +26,8 @@ import { CustomSlider } from '../custom-slider'
 
 interface FilesCarouselProps {
   files: Array<string | files>
+  withImages?: boolean
+  hideNames?: boolean
 }
 
 interface files {
@@ -36,7 +40,7 @@ interface files {
 export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { files } = props
+  const { files, hideNames, withImages } = props
 
   const [filesForRender, setFilesForRender] = useState(files)
 
@@ -44,13 +48,30 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
 
   const notEmptyFiles = filesForRender?.length
     ? filesForRender.filter(el =>
-        !isString(el) && el?.file?.name ? !checkIsImageLink(el?.file?.name) : !checkIsImageLink(el),
+        !isString(el) && el?.file?.name
+          ? withImages || !checkIsImageLink(el?.file?.name)
+          : withImages || !checkIsImageLink(el),
       )
     : []
 
   useEffect(() => {
     setFilesForRender(files)
   }, [SettingsModel.languageTag, files])
+
+  const getFileTypeIcon = (type: string) => {
+    switch (type) {
+      case 'doc':
+      case 'docx':
+        return 'doc.svg'
+      case 'pdf':
+        return 'pdf.svg'
+      case 'xlsx':
+      case 'xls':
+        return 'xlsx.svg'
+      default:
+        return 'default.svg'
+    }
+  }
 
   return filesForRender?.length ? (
     <div className={classNames.imagesCarouselWrapper}>
@@ -74,9 +95,23 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
                   className={classNames.documentWrapper}
                   target="__blank"
                 >
-                  <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
-                  <Typography className={classNames.documentTitle}>{shortenDocumentString(file)}</Typography>
-                  <span className={classNames.documentHover}>{!isString(file) ? file?.file?.name : file}</span>
+                  {/* <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />*/}
+                  <img
+                    src={
+                      imageTypes.includes((isString(file) ? file : file.data_url).split('.').at(-1)!)
+                        ? getAmazonImageUrl(file)
+                        : `/assets/icons/fileTypes/${getFileTypeIcon(
+                            (isString(file) ? file : file.data_url).split('.').at(-1)!,
+                          )}`
+                    }
+                    alt="Img"
+                  />
+                  {!hideNames && (
+                    <>
+                      <Typography className={classNames.documentTitle}>{shortenDocumentString(file)}</Typography>
+                      <span className={classNames.documentHover}>{!isString(file) ? file?.file?.name : file}</span>
+                    </>
+                  )}
                 </Link>
               ),
             )}

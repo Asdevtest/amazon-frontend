@@ -33,6 +33,7 @@ interface Props {
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
+  small?: boolean
   children?: ReactElement | string
 }
 
@@ -50,6 +51,7 @@ export const Button: FC<Props> = observer(
     className,
     disabled,
     btnWrapperStyle,
+    small,
     ...restProps
   }) => {
     const { classes: classNames } = useClassNames()
@@ -78,8 +80,9 @@ export const Button: FC<Props> = observer(
                 [classNames.success]: success,
                 [classNames.danger]: danger,
                 [classNames.border]: border,
-                // [classNames.disabled]: disabled,
                 [classNames.defaultButton]: !success && !danger && !variant,
+                // [classNames.disabled]: disabled,
+                [classNames.small]: small,
               },
               className,
             ),
