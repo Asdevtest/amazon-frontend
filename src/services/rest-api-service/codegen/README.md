@@ -477,6 +477,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGuidGet**](docs/UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
+*TestSwagger.UserApi* | [**apiV1UsersMastersGet**](docs/UserApi.md#apiV1UsersMastersGet) | **GET** /api/v1/users/masters | Получить список мастеров
 *TestSwagger.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 *TestSwagger.UserApi* | [**apiV1UsersMySubUsersGet**](docs/UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersPlatformSettingsGet**](docs/UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
@@ -544,6 +545,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1ClientsProductsVacRedFlags](docs/ApiV1ClientsProductsVacRedFlags.md)
  - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
  - [TestSwagger.ApiV1IdeasByParentGuidChildProduct](docs/ApiV1IdeasByParentGuidChildProduct.md)
+ - [TestSwagger.ApiV1IdeasByParentGuidProposals](docs/ApiV1IdeasByParentGuidProposals.md)
+ - [TestSwagger.ApiV1IdeasByParentGuidRequestsOnCheck](docs/ApiV1IdeasByParentGuidRequestsOnCheck.md)
  - [TestSwagger.ApiV1IdeasNotificationsCreatedBy](docs/ApiV1IdeasNotificationsCreatedBy.md)
  - [TestSwagger.ApiV1IdeasNotificationsIdea](docs/ApiV1IdeasNotificationsIdea.md)
  - [TestSwagger.ApiV1IdeasNotificationsProduct](docs/ApiV1IdeasNotificationsProduct.md)
@@ -738,8 +741,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20020Rows](docs/InlineResponse20020Rows.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
- - [TestSwagger.InlineResponse20022AllFiles](docs/InlineResponse20022AllFiles.md)
- - [TestSwagger.InlineResponse20022AllImages](docs/InlineResponse20022AllImages.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
@@ -747,6 +748,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
+ - [TestSwagger.InlineResponse20029AllFiles](docs/InlineResponse20029AllFiles.md)
+ - [TestSwagger.InlineResponse20029AllImages](docs/InlineResponse20029AllImages.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)
@@ -786,13 +789,12 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20043](docs/InlineResponse20043.md)
  - [TestSwagger.InlineResponse20044](docs/InlineResponse20044.md)
  - [TestSwagger.InlineResponse20045](docs/InlineResponse20045.md)
- - [TestSwagger.InlineResponse20045ChildProduct](docs/InlineResponse20045ChildProduct.md)
- - [TestSwagger.InlineResponse20045ChildProductOrder](docs/InlineResponse20045ChildProductOrder.md)
- - [TestSwagger.InlineResponse20045ParentProduct](docs/InlineResponse20045ParentProduct.md)
- - [TestSwagger.InlineResponse20045RequestsOnCheck](docs/InlineResponse20045RequestsOnCheck.md)
- - [TestSwagger.InlineResponse20045Rows](docs/InlineResponse20045Rows.md)
- - [TestSwagger.InlineResponse20045Suppliers](docs/InlineResponse20045Suppliers.md)
  - [TestSwagger.InlineResponse20046](docs/InlineResponse20046.md)
+ - [TestSwagger.InlineResponse20046ChildProduct](docs/InlineResponse20046ChildProduct.md)
+ - [TestSwagger.InlineResponse20046ChildProductOrder](docs/InlineResponse20046ChildProductOrder.md)
+ - [TestSwagger.InlineResponse20046ParentProduct](docs/InlineResponse20046ParentProduct.md)
+ - [TestSwagger.InlineResponse20046Rows](docs/InlineResponse20046Rows.md)
+ - [TestSwagger.InlineResponse20046Suppliers](docs/InlineResponse20046Suppliers.md)
  - [TestSwagger.InlineResponse20047](docs/InlineResponse20047.md)
  - [TestSwagger.InlineResponse20048](docs/InlineResponse20048.md)
  - [TestSwagger.InlineResponse20049](docs/InlineResponse20049.md)
@@ -883,6 +885,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.UserFullSchemaNote](docs/UserFullSchemaNote.md)
  - [TestSwagger.UserInfoSchema](docs/UserInfoSchema.md)
  - [TestSwagger.UserInfoSchemaFreelanceNotices](docs/UserInfoSchemaFreelanceNotices.md)
+ - [TestSwagger.UserInfoSchemaIdeas](docs/UserInfoSchemaIdeas.md)
  - [TestSwagger.UserInfoSchemaMasterUser](docs/UserInfoSchemaMasterUser.md)
  - [TestSwagger.UserInfoSchemaNeedConfirmPriceChange](docs/UserInfoSchemaNeedConfirmPriceChange.md)
  - [TestSwagger.UserInfoSchemaNeedUpdateTariff](docs/UserInfoSchemaNeedUpdateTariff.md)

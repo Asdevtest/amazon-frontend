@@ -24,6 +24,7 @@ import { SuppliersAndIdeas } from '../suppliers-and-ideas'
 
 import { BottomCard } from './bottom-card'
 import { TopCard } from './top-card'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
@@ -98,10 +99,13 @@ export const ProductWrapper = observer(
 
     const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
 
+    const [showModal, setShowModal] = useState(false)
+
     return (
       <>
         {SettingsModel.languageTag && (
           <div className={classNames.mainWrapper}>
+            <div onClick={() => setShowModal(true)}>CLICK</div>
             <Tabs
               variant={'fullWidth'}
               classes={{
@@ -211,6 +215,15 @@ export const ProductWrapper = observer(
             <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
+
+            {showModal && (
+              <IdeaCardsModal
+                openModal={showModal}
+                setOpenModal={() => setShowModal(false)}
+                productId={product._id}
+                product={product}
+              />
+            )}
           </div>
         )}
       </>

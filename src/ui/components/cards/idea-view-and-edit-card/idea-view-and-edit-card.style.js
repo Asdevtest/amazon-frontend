@@ -455,4 +455,21 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+
+  plusIcon: {
+    width: '14px !important',
+    height: '14px !important',
+  },
+
+  actionButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  statusText: {
+    fontSize: '14px',
+    fontWeight: 400,
+    color: theme.palette.other.succes,
+  },
 }))

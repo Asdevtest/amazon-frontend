@@ -5,6 +5,17 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import {
+  BoxArrow,
+  ClockIcon,
+  CubeIcon,
+  EditIcon,
+  EqualIcon,
+  PlusIcon,
+  SaveIcon,
+  ShareLinkIcon,
+} from '@components/shared/svg-icons'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -48,15 +59,17 @@ import { IdeaRequestCard } from './idea-request-card'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { RequestSwitherType } from '@constants/requests/request-type'
+import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 
-const allowOrderStatuses = [
-  `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
-  `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
-  `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-]
-
-const disabledOrderStatuses = [
-  /* `${ideaStatusByKey[ideaStatus.CLOSED]}` */
+const radioBottonsSettings = [
+  {
+    label: t(TranslationKey['Supplier found']),
+    value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
+  },
+  {
+    label: t(TranslationKey['Supplier not found']),
+    value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
+  },
 ]
 
 export const IdeaViewAndEditCard = observer(
@@ -75,12 +88,13 @@ export const IdeaViewAndEditCard = observer(
     onCreateProduct,
     onClickSupplierBtns,
     onClickSupplier,
-    onClickCheckButton,
     onClickCloseIdea,
     onClickAcceptButton,
     onClickRejectButton,
     onClickReoperButton,
     onClickResultButton,
+    onClickLinkRequestButton,
+    onClickCreateRequestButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -92,6 +106,8 @@ export const IdeaViewAndEditCard = observer(
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
     const [showRequestType, setShowRequestType] = useState(RequestSwitherType.REQUESTS_ON_CHECK)
     const [requestsToRender, setRequestsToRender] = useState([])
+
+    const isCurrentIdea = curIdea?._id === idea?._id
 
     useEffect(() => {
       if (showRequestType === RequestSwitherType.REQUESTS_ON_CHECK) {
@@ -185,13 +201,13 @@ export const IdeaViewAndEditCard = observer(
       if (!curIdea) {
         setFormFields(getShortIdea())
       } else {
-        if (curIdea._id === idea._id) {
+        if (isCurrentIdea) {
           setFormFields(getFullIdea())
         }
       }
     }, [curIdea, idea])
 
-    const handleChange = (event, newAlignment) => {
+    const handleChange = newAlignment => {
       setSizeSetting(newAlignment)
 
       if (newAlignment === sizesType.INCHES) {
@@ -248,21 +264,26 @@ export const IdeaViewAndEditCard = observer(
 
     const currentUserIsClient = checkIsClient(UserRoleCodeMap[curUser.role])
     const currentUserIsBuyer = checkIsBuyer(UserRoleCodeMap[curUser.role])
-
     const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
 
     const isNewIdea = formFields?.status === ideaStatusByKey[ideaStatus.NEW]
+    const isSupplierSearch = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]
+    const isSupplierFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]
+    const isSupplierNotFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+    const isCardCreating = formFields?.status === ideaStatusByKey[ideaStatus.CARD_CREATING]
+    const isRejected = formFields?.status === ideaStatusByKey[ideaStatus.REJECTED]
+
     const showRejectButton =
       isNewIdea ||
       formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK] ||
       formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH] ||
-      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] ||
-      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+      isSupplierFound ||
+      isSupplierNotFound
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
-    const disableAcceptButton =
-      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] ||
-      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+    const disableAcceptButton = isSupplierFound || isSupplierNotFound
+
+    console.log('curIdea', curIdea)
 
     return (
       <div className={classNames.root}>
@@ -324,12 +345,7 @@ export const IdeaViewAndEditCard = observer(
                       changeConditionHandler={condition => setShowRequestType(condition)}
                     />
 
-                    <Button
-                      // className={classNames.iconBtn}
-                      onClick={() => {}}
-                    >
-                      {t(TranslationKey['Link request'])}
-                    </Button>
+                    <Button onClick={onClickLinkRequestButton}>{t(TranslationKey['Link request'])}</Button>
                   </div>
                 </div>
 
@@ -342,6 +358,7 @@ export const IdeaViewAndEditCard = observer(
                         requestId={request.humanFriendlyId}
                         requestStatus={request.status}
                         executor={request.executor}
+                        proposals={request.proposals}
                         onClickResultButton={onClickResultButton}
                       />
                     ))}
@@ -517,20 +534,14 @@ export const IdeaViewAndEditCard = observer(
                     <div className={classNames.sizesSubWrapper}>
                       <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
-                      <ToggleBtnGroup
-                        exclusive
-                        size="small"
-                        color="primary"
-                        value={sizeSetting}
-                        onChange={handleChange}
-                      >
-                        <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                          {'In'}
-                        </ToggleBtn>
-                        <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                          {'Cm'}
-                        </ToggleBtn>
-                      </ToggleBtnGroup>
+                      <CustomSwitcher
+                        condition={sizeSetting}
+                        nameFirstArg={'In'}
+                        nameSecondArg={'Cm'}
+                        firstArgValue={sizesType.INCHES}
+                        secondArgValue={sizesType.CM}
+                        changeConditionHandler={condition => handleChange(condition)}
+                      />
                     </div>
 
                     <div className={classNames.sizesBottomWrapper}>
@@ -671,7 +682,6 @@ export const IdeaViewAndEditCard = observer(
               disabled={disabledSubmit}
               variant="contained"
               color="primary"
-              className={classNames.actionButton}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
@@ -699,87 +709,89 @@ export const IdeaViewAndEditCard = observer(
 
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
-                {checkIsClientOrBuyer && !isNewIdea && (
+                {currentUserIsBuyer && isSupplierSearch && (
+                  <RadioButtons
+                    radioBottonsSettings={radioBottonsSettings}
+                    currentValue={formFields?.status}
+                    onClickRadioButton={selectedStatus => onClickAcceptButton(formFields, selectedStatus)}
+                  />
+                )}
+
+                {(isSupplierFound || isSupplierNotFound) && (
+                  <p className={classNames.statusText}>
+                    {isSupplierFound ? t(TranslationKey['Supplier found']) : t(TranslationKey['Supplier not found'])}
+                  </p>
+                )}
+
+                {currentUserIsClient && isCurrentIdea && isCardCreating && (
                   <Button
-                    disabled={disableAcceptButton || currentUserIsBuyer}
+                    success
+                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     variant="contained"
                     color="primary"
-                    className={classNames.actionButton}
-                    onClick={() => onClickAcceptButton(formFields._id, formFields.status)}
+                    className={[classNames.actionButton]}
+                    onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
-                    {t(TranslationKey.Accept)}
+                    {t(TranslationKey['Create a product card'])}
                   </Button>
                 )}
 
-                {checkIsClientOrBuyer &&
-                  !checkIsBuyer(UserRoleCodeMap[curUser.role]) &&
-                  formFields?.status === ideaStatusByKey[ideaStatus.CARD_CREATING] && (
+                {currentUserIsClient && isCurrentIdea && (
+                  <Button
+                    success
+                    variant="contained"
+                    className={classNames.actionButton}
+                    onClick={onClickCreateRequestButton}
+                  >
+                    <PlusIcon className={classNames.plusIcon} />
+                    {t(TranslationKey['Create a request'])}
+                  </Button>
+                )}
+
+                {isCurrentIdea &&
+                  ((currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isCardCreating) ||
+                    (currentUserIsBuyer && isSupplierSearch)) && (
                     <Button
-                      success
-                      tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                      disabled={disableAcceptButton}
                       variant="contained"
                       color="primary"
-                      className={[classNames.actionButton]}
-                      onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
+                      onClick={() => onClickAcceptButton(formFields)}
                     >
-                      {t(TranslationKey['Create a product card'])}
+                      {t(TranslationKey.Accept)}
                     </Button>
                   )}
 
-                {checkIsClientOrBuyer && isNewIdea && (
+                {currentUserIsClient && isNewIdea && (
                   <Button
                     variant="contained"
-                    className={classNames.actionButton}
                     onClick={() => {
-                      onClickCheckButton(formFields._id)
+                      onClickAcceptButton(formFields)
                     }}
                   >
                     {t(TranslationKey.Check)}
                   </Button>
                 )}
 
-                {currentUserIsClient && formFields?.status === ideaStatusByKey[ideaStatus.REJECTED] && (
-                  <Button
-                    success
-                    variant="contained"
-                    className={classNames.actionButton}
-                    onClick={() => onClickReoperButton(formFields._id)}
-                  >
+                {currentUserIsClient && isRejected && (
+                  <Button success variant="contained" onClick={() => onClickReoperButton(formFields._id)}>
                     {t(TranslationKey.Restore)}
                   </Button>
                 )}
 
                 {checkIsClientOrBuyer && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classNames.actionButton}
-                    onClick={() => onEditIdea(formFields)}
-                  >
+                  <Button variant="contained" color="primary" onClick={() => onEditIdea(formFields)}>
                     {t(TranslationKey.Edit)}
                   </Button>
                 )}
 
-                {currentUserIsClient && formFields?.status === ideaStatusByKey[ideaStatus.REJECTED] && (
-                  <Button
-                    danger
-                    variant="contained"
-                    className={classNames.actionButton}
-                    onClick={() => {
-                      onClickCloseIdea(formFields._id)
-                    }}
-                  >
+                {currentUserIsClient && isRejected && (
+                  <Button danger variant="contained" onClick={() => onClickCloseIdea(formFields._id)}>
                     {t(TranslationKey.Close)}
                   </Button>
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button
-                    danger
-                    variant="contained"
-                    className={classNames.actionButton}
-                    onClick={() => onClickRejectButton(formFields._id)}
-                  >
+                  <Button danger variant="contained" onClick={() => onClickRejectButton(formFields._id)}>
                     {t(TranslationKey.Reject)}
                   </Button>
                 )}

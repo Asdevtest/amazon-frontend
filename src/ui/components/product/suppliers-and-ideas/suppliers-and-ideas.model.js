@@ -19,6 +19,8 @@ import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { RequestProposalModel } from '@models/request-proposal'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { RequestModel } from '@models/request-model'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 export class SuppliersAndIdeasModel {
   history = undefined
@@ -234,31 +236,34 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onSubmitCreateProduct() {
+  async onSubmitCreateProduct(data) {
     try {
       const createData = {
-        images: this.dataToCreateProduct.media,
-        amazonTitle: this.dataToCreateProduct.productName,
-        amazon: this.dataToCreateProduct.price || 0,
-        width: this.dataToCreateProduct.width || 0,
-        height: this.dataToCreateProduct.height || 0,
-        length: this.dataToCreateProduct.length || 0,
+        images: data.media,
+        amazonTitle: data.productName,
+        amazon: data.price || 0,
+        width: data.width || 0,
+        height: data.height || 0,
+        length: data.length || 0,
         asin: '',
-
-        lamazon: this.dataToCreateProduct.productLinks[0],
-        amazonDetail: this.dataToCreateProduct.criteria,
-        clientComment: this.dataToCreateProduct.comments,
+        parentProductId: data?.parentProduct?._id,
+        lamazon: data.productLinks[0],
+        amazonDetail: data.criteria,
+        clientComment: data.comments,
 
         ...(this.currentProduct.buyer?._id && { buyerId: this.currentProduct.buyer?._id }),
       }
 
       const result = await ClientModel.createProduct(createData)
 
-      const suppliersIds = this.dataToCreateProduct.suppliers?.map(el => el._id)
+      const suppliersIds = data.suppliers?.map(el => el._id)
 
       if (suppliersIds.length) {
         await ProductModel.addSuppliersToProduct(result.guid, suppliersIds)
       }
+
+      await this.editIdea(data._id, { childProductId: result.guid })
+      await this.onClickAcceptButton(data)
 
       this.successModalTitle = t(TranslationKey['Product added'])
 
@@ -274,29 +279,18 @@ export class SuppliersAndIdeasModel {
     this.confirmModalSettings = {
       isWarning: false,
       confirmMessage: t(TranslationKey['Are you sure you want to create a product?']),
-      onClickConfirm: () => this.onSubmitCreateProduct(),
+      onClickConfirm: () => this.onSubmitCreateProduct(data),
     }
-
-    this.dataToCreateProduct = data
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onClickCheckButton(ideaId) {
-    try {
-      await IdeaModel.checkIdea(ideaId)
-      this.loadData()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async onClickResultButton(requestTypeTask, proposalId) {
     try {
-      // const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
 
       runInAction(() => {
-        // this.currentProposal = result
+        this.currentProposal = result
       })
 
       if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
@@ -311,41 +305,78 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  // async getRequestsForProduct(productId) {
+  async onClickCreateRequestButton() {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request`, {
+      parentProduct: { _id: this.currentProduct?._id, asin: this.currentProduct?.asin },
+    })
+  }
 
-  // }
+  async onClickBindButton(requests) {
+    const methodBody =
+      this.curIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
+      this.curIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
+        ? { onCheckedIdeaId: this.curIdea._id }
+        : { onFinishedIdeaId: this.curIdea._id }
 
-  async onClickLinkRequest(productId) {
+    for (const request of requests) {
+      try {
+        await RequestModel.bindIdeaToRequest(request, methodBody)
+      } catch (error) {
+        console.error('error', error)
+      }
+    }
+
+    this.onTriggerOpenModal('showBindingModal')
+  }
+
+  async onClickLinkRequestButton() {
     try {
-      const result = await RequestModel.getRequestsByProductLight(productId)
-      this.requestsForProduct = result
-
+      const result = await RequestModel.getRequestsByProductLight(this.productId)
+      this.requestsForProduct = addIdDataConverter(result)
       this.onTriggerOpenModal('showBindingModal')
     } catch (error) {
       console.log('error', error)
     }
   }
 
-  async onClickAcceptButton(ideaId, status) {
+  async onClickAcceptButton(ideaData, chesenStatus) {
+    const { _id, status, variant } = ideaData
+
     switch (status) {
       case ideaStatusByKey[ideaStatus.NEW]:
-        await IdeaModel.changeStatusToSupplierSearchIdea(ideaId)
+        await IdeaModel.checkIdea(_id)
         break
 
       case ideaStatusByKey[ideaStatus.ON_CHECK]:
-        await IdeaModel.changeStatusToSupplierSearchIdea(ideaId)
+        await IdeaModel.changeStatusToSupplierSearchIdea(_id)
+        break
+
+      case ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]:
+        if (chesenStatus === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]) {
+          await IdeaModel.changeStatusToSupplierFound(_id)
+        } else {
+          await IdeaModel.changeStatusToSupplierNotFound(_id)
+        }
         break
 
       case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]:
-        await IdeaModel.changeStatusToProductCreating(ideaId)
+        if (variant) {
+          await IdeaModel.changeStatusToProductCreating(_id)
+        } else {
+          await IdeaModel.changeStatusToAddingAsin(_id)
+        }
         break
 
-      // case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] || ideaStatusByKey[ideaStatus.CARD_CREATING]:
-      //   await IdeaModel.changeStatusToAddingAsin(ideaId)
-      //   break
+      case ideaStatusByKey[ideaStatus.CARD_CREATING]:
+        await IdeaModel.changeStatusToAddingAsin(_id)
+        break
 
       case ideaStatusByKey[ideaStatus.ADDING_ASIN]:
-        await IdeaModel.changeStatusToFinished(ideaId)
+        await IdeaModel.changeStatusToFinished(_id)
+        break
+
+      default:
+        this.loadData()
         break
     }
   }

@@ -13,6 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
+import ApiV1AdminsGetProductsByStatusCreatedBy from '../model/ApiV1AdminsGetProductsByStatusCreatedBy';
 import BadRequestError from '../model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from '../model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from '../model/CheckIsUniqueNameOrEmailSchema';
@@ -776,6 +777,70 @@ export default class UserApi {
      */
     apiV1UsersLinkSubUserPatch(opts) {
       return this.apiV1UsersLinkSubUserPatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить список мастеров
+     * ## Получить список мастеров       role - Для клиента - 35 и 40, для админа - все       specs - Необязательный, может быть CSV       
+     * @param {Number} role Роль юзеров
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.specs Роль юзеров
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} and HTTP response
+     */
+    apiV1UsersMastersGetWithHttpInfo(role, guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'role' is set
+      if (role === undefined || role === null) {
+        throw new Error("Missing the required parameter 'role' when calling apiV1UsersMastersGet");
+      }
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1UsersMastersGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+        'role': role,
+        'specs': opts['specs']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [ApiV1AdminsGetProductsByStatusCreatedBy];
+      return this.apiClient.callApi(
+        '/api/v1/users/masters', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить список мастеров
+     * ## Получить список мастеров       role - Для клиента - 35 и 40, для админа - все       specs - Необязательный, может быть CSV       
+     * @param {Number} role Роль юзеров
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.specs Роль юзеров
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>}
+     */
+    apiV1UsersMastersGet(role, guid, opts) {
+      return this.apiV1UsersMastersGetWithHttpInfo(role, guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
