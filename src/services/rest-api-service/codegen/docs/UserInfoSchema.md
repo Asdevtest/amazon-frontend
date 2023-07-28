@@ -54,6 +54,7 @@ Name | Type | Description | Notes
 **paidByTheClient** | **Number** | Количество продуктов супервизора в 275, 75 статусах | [optional] 
 **productIsAppropriate** | **Number** | Количество продуктов супервизора в 15 статусе | [optional] 
 **buyerFoundSupplier** | **Number** | Количество продуктов супервизора в 240, 40 статусах | [optional] 
+**ideas** | [**UserInfoSchemaIdeas**](UserInfoSchemaIdeas.md) |  | [optional] 
 **freelanceNotices** | [**[UserInfoSchemaFreelanceNotices]**](UserInfoSchemaFreelanceNotices.md) |  | [optional] 
 
 

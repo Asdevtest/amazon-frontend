@@ -5,10 +5,19 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    padding: '30px',
+  },
+
+  title: {
+    fontSize: '18px',
+    fontWeight: 600,
   },
 
   tableWrapper: {
     height: '354px',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
   },
 }))

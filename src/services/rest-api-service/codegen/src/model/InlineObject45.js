@@ -22,10 +22,12 @@ class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
      * @alias module:model/InlineObject45
+     * @param userIds {Array.<String>} 
+     * @param title {String} Название группового чата
      */
-    constructor() { 
+    constructor(userIds, title) { 
         
-        InlineObject45.initialize(this);
+        InlineObject45.initialize(this, userIds, title);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userIds, title) { 
+        obj['userIds'] = userIds;
+        obj['title'] = title;
     }
 
     /**
@@ -47,8 +51,11 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('userIds')) {
+                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -58,10 +65,15 @@ class InlineObject45 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * @member {Array.<String>} userIds
  */
-InlineObject45.prototype['refundPrice'] = undefined;
+InlineObject45.prototype['userIds'] = undefined;
+
+/**
+ * Название группового чата
+ * @member {String} title
+ */
+InlineObject45.prototype['title'] = undefined;
 
 
 

@@ -29,7 +29,6 @@ import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 
 export const SuppliersAndIdeas = observer(({ productId, product }) => {
@@ -66,13 +65,16 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     showRequestStandartResultModal,
     showRequestBloggerResultModal,
     showBindingModal,
+    requestsForProduct,
+    onClickCreateRequestButton,
+    onClickBindButton,
+    onClickLinkRequestButton,
     onClickResultButton,
     onClickRejectButton,
     onClickReoperButton,
     onClickAcceptButton,
     onTriggerOpenModal,
     onClickCloseIdea,
-    onClickCheckButton,
     onCreateIdea,
     onClickCancelBtn,
     onClickSaveBtn,
@@ -128,7 +130,8 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
             onCreateProduct={onClickCreateProduct}
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}
-            onClickCheckButton={onClickCheckButton}
+            onClickCreateRequestButton={onClickCreateRequestButton}
+            onClickLinkRequestButton={onClickLinkRequestButton}
             onClickAcceptButton={onClickAcceptButton}
             onClickCloseIdea={onClickCloseIdea}
             onClickRejectButton={onClickRejectButton}
@@ -233,7 +236,7 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
       {showBindingModal && (
         /* currentProposal && */
         <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
-          <BindIdeaToRequestForm />
+          <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
         </Modal>
       )}
 

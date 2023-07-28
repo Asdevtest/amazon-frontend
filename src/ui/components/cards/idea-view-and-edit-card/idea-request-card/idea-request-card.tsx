@@ -12,18 +12,19 @@ interface IdeaRequestCardProps {
   requestType: number
   requestId: string
   requestStatus: string
+  proposals: Array<{ _id: string }>
   executor: {
     _id: string
     name: string
     rating: number
   }
-  onClickResultButton: (requestType: number) => void
+  onClickResultButton: (requestType: number, proposalId: string) => void
 }
 
 export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { requestType, requestId, requestStatus, executor, onClickResultButton } = props
+  const { requestType, requestId, requestStatus, executor, proposals, onClickResultButton } = props
 
   return (
     <div className={classNames.root}>
@@ -52,14 +53,18 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           <UserLink
             blackText
             withAvatar
-            name={executor.name}
-            userId={executor._id}
-            rating={executor.rating}
+            name={executor?.name}
+            userId={executor?._id}
+            rating={executor?.rating}
             ratingSize={'small'}
           />
         )}
 
-        <Button className={classNames.resultButton} onClick={() => onClickResultButton(requestType)}>
+        <Button
+          disabled={!proposals?.length}
+          className={classNames.resultButton}
+          onClick={() => onClickResultButton(requestType, proposals[0]?._id)}
+        >
           {t(TranslationKey['See result'])}
         </Button>
       </div>

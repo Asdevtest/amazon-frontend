@@ -1728,7 +1728,7 @@ export const RequestStatusCell = React.memo(
 )
 
 export const MultilineRequestStatusCell = React.memo(
-  withStyles(({ classes: classNames, status, fontSize = '14px', languageTag }) => {
+  withStyles(({ classes: classNames, status, fontSize = '14px', leftAlign }) => {
     // const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
 
     // useEffect(() => {
@@ -1762,7 +1762,6 @@ export const MultilineRequestStatusCell = React.memo(
     return (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-          {/* {statusTranslate} */}
           {MyRequestStatusTranslate(status)}
         </Typography>
       </div>

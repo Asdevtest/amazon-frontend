@@ -851,7 +851,6 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    padding: '0 10px',
   },
 
   renderFieldValueCellText: {
