@@ -11,6 +11,7 @@ import {
   IdeaSupplier,
   MultilineTextCell,
   MultilineTextHeaderCell,
+  OnCheckingIdeaActions,
   PhotoAndFilesCell,
   ProductAsinCell,
   ShortDateCell,
@@ -175,5 +176,29 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 160,
     sortable: false,
+  },
+
+  {
+    field: 'actions',
+    headerName: t(TranslationKey.Actions),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+
+    renderCell: params => (
+      <OnCheckingIdeaActions
+        onClickAccept={() => rowHandlers.onClickAccept(params.row._id)}
+        onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+      />
+    ),
+    width: 200,
+    sortable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey['Status Updated']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+
+    renderCell: params => <ShortDateCell value={params.value} />,
+    width: 140,
   },
 ]

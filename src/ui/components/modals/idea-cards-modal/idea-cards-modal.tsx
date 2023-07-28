@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react'
+import { FC } from 'react'
+
+import { SuppliersAndIdeas } from '@components/product/suppliers-and-ideas'
+import { Modal } from '@components/shared/modal'
 
 import { useClassNames } from './idea-cards-modal.styles'
-import { FC } from 'react'
-import { Modal } from '@components/shared/modal'
-import { SuppliersAndIdeas } from '@components/product/suppliers-and-ideas'
 
 interface IdeaCardsModalProps {
   productId: string

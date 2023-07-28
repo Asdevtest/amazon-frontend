@@ -4,8 +4,6 @@ import AddIcon from '@material-ui/icons/Add'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { PlusIcon } from '@components/shared/svg-icons'
-
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -15,16 +13,19 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-
+import { RequestSwitherType } from '@constants/requests/request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
+import { PlusIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { roundSafely } from '@utils/calculation'
@@ -41,12 +42,9 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './idea-view-and-edit-card.style'
 
+import { IdeaRequestCard } from './idea-request-card'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
-import { IdeaRequestCard } from './idea-request-card'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { RequestSwitherType } from '@constants/requests/request-type'
-import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 
 const radioBottonsSettings = [
   {
