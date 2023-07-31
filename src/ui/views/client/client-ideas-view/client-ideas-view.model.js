@@ -4,9 +4,13 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
+import { OrderModel } from '@models/order-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 import {
   clientAddAsinIdeasColumns,
@@ -21,6 +25,7 @@ import {
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -100,12 +105,25 @@ export class ClientIdeasViewModel {
   requestStatus = undefined
   error = undefined
 
+  // * Modals
+
+  showBarcodeOrHscodeModal = false
+  showSetBarcodeModal = false
+  productCardModal = false
+
   // * Data
 
   ideaList = []
   currentData = []
   shopList = []
   currentSettings = undefined
+  selectedProduct = undefined
+  currentBarcode = undefined
+  currentHscode = undefined
+  storekeepers = undefined
+  destinations = undefined
+  platformSettings = undefined
+
   // * Filtration
 
   currentSearchValue = ''
@@ -122,21 +140,26 @@ export class ClientIdeasViewModel {
 
   columnVisibilityModel = {}
   rowHandlers = {
-    onClickToCheck: id => console.log(id),
-    onClickReject: id => console.log(id),
+    onClickToCheck: id => this.handleStatusToCheck(id),
+    onClickReject: id => this.handleStatusToReject(id),
     onClickCreateRequest: id => console.log(id),
     onClickLinkRequest: id => console.log(id),
     onClickCreateCard: id => console.log(id),
     onClickSelectSupplier: id => console.log(id),
     onClickClose: idea => console.log(idea),
-    onClickRestore: idea => console.log(idea),
-    onClickAccept: idea => console.log(idea),
-    onClickParseProductData: idea => console.log(idea),
+    onClickRestore: id => this.handleRestore(id),
+    onClickAcceptOnCheckingStatus: id => this.handleStatusToSupplierSearch(id),
+    onClickAcceptOnSuppliersSearch: id => this.handleStatusToProductCreating(id),
+    onClickAcceptOnCreatingProduct: id => this.handleStatusToAddingAsin(id),
+    onClickAcceptOnAddingAsin: id => this.handleStatusToFinished(id),
+    onClickParseProductData: idea => this.onClickParseProductData(idea),
+    onClickToOrder: id => this.onClickToOrder(id),
 
     barCodeHandlers: {
-      onClickBarcode: product => console.log(product),
-      onDoubleClickBarcode: product => console.log(product),
-      onDeleteBarcode: product => console.log(product),
+      onClickBarcode: item => this.onClickBarcode(item),
+      onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
+      onDeleteBarcode: item => this.onDeleteBarcode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
     },
   }
   columnsModel = clientNewIdeasColumns(this.rowHandlers, this.shopList)
@@ -255,7 +278,15 @@ export class ClientIdeasViewModel {
         this.currentSearchValue,
         exclusion,
         filtersFields,
-        ['asin', 'sku', 'title'],
+        [
+          'parentProductSkusByClient',
+          'parentProductAmazonTitle',
+          'parentProductAsin',
+          'childProductAmazonTitle',
+          'childProductSkusByClient',
+          'childProductAsin',
+          'title',
+        ],
         {
           status: {
             $eq: this.currentSettings.statuses.join(','),
@@ -324,5 +355,141 @@ export class ClientIdeasViewModel {
 
       this.requestStatus = loadingStatuses.failed
     }
+  }
+
+  // * Idea handlers
+
+  async statusHandler(method, id) {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      await method(id)
+
+      await this.getIdeaList()
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      console.log(error)
+      this.error = error
+      this.requestStatus = loadingStatuses.failed
+    }
+  }
+
+  handleStatusToCheck(id) {
+    this.statusHandler(IdeaModel.setStatusToCheck, id)
+  }
+
+  handleStatusToReject(id) {
+    this.statusHandler(IdeaModel.setStatusToReject, id)
+  }
+
+  handleStatusToSupplierSearch(id) {
+    this.statusHandler(IdeaModel.setStatusToSupplierSearch, id)
+  }
+
+  handleStatusToProductCreating(id) {
+    this.statusHandler(IdeaModel.setStatusToProductCreating, id)
+  }
+
+  handleStatusToAddingAsin(id) {
+    this.statusHandler(IdeaModel.setStatusToAddingAsin, id)
+  }
+
+  handleStatusToFinished(id) {
+    this.statusHandler(IdeaModel.setStatusToFinished, id)
+  }
+
+  handleRestore(id) {
+    this.statusHandler(IdeaModel.restore, id)
+  }
+
+  //  * Barcode handlers
+
+  onClickBarcode(item) {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  onDoubleClickBarcode = item => {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  async onDeleteBarcode(product) {
+    try {
+      await ClientModel.updateProductBarCode(product._id, { barCode: null })
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  showBarcodeOrHscode(barcode, hscode) {
+    runInAction(() => {
+      // this.currentHscode = hscode
+      this.currentBarcode = barcode
+    })
+    this.onTriggerOpenModal('showBarcodeOrHscodeModal')
+  }
+
+  async onClickSaveBarcode(tmpBarCode) {
+    runInAction(() => {
+      this.uploadedFiles = []
+    })
+
+    if (tmpBarCode.length) {
+      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+    }
+
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+
+    this.loadData()
+
+    this.onTriggerOpenModal('showSetBarcodeModal')
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  // * Product handlers
+
+  onClickParseProductData(item) {
+    this.setSelectedProduct(item)
+    this.onClickProductModal()
+  }
+
+  setSelectedProduct(item) {
+    runInAction(() => {
+      this.selectedProduct = item
+    })
+  }
+
+  onClickProductModal() {
+    this.history.push(`/client/ideas/add-asin?product-id=${this.selectedProduct._id}`)
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
+  onClickShowProduct(row) {
+    const win = window.open(
+      `${window.location.origin}/client/inventory/product?product-id=${row.originalData._id}`,
+      '_blank',
+    )
+
+    win.focus()
+  }
+
+  // * Modal handlers
+
+  onTriggerOpenModal(modalState) {
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
+  }
+
+  // * Order handlers
+
+  onClickToOrder(id) {
+    this.history.push(`/client/my-orders/orders/order?orderId=${id}`)
   }
 }

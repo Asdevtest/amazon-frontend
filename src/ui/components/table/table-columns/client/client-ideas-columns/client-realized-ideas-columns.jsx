@@ -81,6 +81,16 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
+    field: 'orderedQuantity',
+    headerName: t(TranslationKey['Ordered quantity']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
+    width: 140,
+    sortable: false,
+  },
+
+  {
     field: 'intervalStatusNew',
     headerName: t(TranslationKey.New),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
@@ -167,6 +177,16 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 240,
+    sortable: false,
+  },
+
+  {
+    field: 'buyerComment',
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    headerName: t(TranslationKey['Client comment']),
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 250,
     sortable: false,
   },
 

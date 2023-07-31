@@ -12,6 +12,7 @@ import {
   SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
+import { checkIsImageLink } from '@utils/checks'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -47,7 +48,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles[0]} />,
+    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 120,
     sortable: false,
   },
@@ -112,6 +113,16 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <AllIdeasActions row={params.row} rowHandlers={rowHandlers} />,
     width: 300,
+    sortable: false,
+  },
+
+  {
+    field: 'orderedQuantity',
+    headerName: t(TranslationKey['Ordered quantity']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
+    width: 140,
     sortable: false,
   },
 

@@ -2,7 +2,13 @@ import React from 'react'
 
 import { Box } from '@mui/material'
 
-import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import {
+  colorByIdeaStatus,
+  ideaStatus,
+  ideaStatusByCode,
+  ideaStatusByKey,
+  ideaStatusTranslate,
+} from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -20,6 +26,7 @@ import {
 import { FilesCarousel } from '@components/shared/files-carousel'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 
+import { checkIsImageLink } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -62,7 +69,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles[0]} />,
+    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 120,
     sortable: false,
   },
@@ -104,7 +111,12 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + '$'} />,
     headerName: t(TranslationKey['Price with delivery']) + '$',
 
-    renderCell: params => <MultilineTextCell text={toFixed(params.row.suppliers?.[0]?.batchTotalCostInDollar, 2)} />,
+    renderCell: params => {
+      const supplier = params.row.suppliers?.[0]
+      const priceWithDelivery = supplier?.price + supplier?.batchDeliveryCostInDollar / supplier?.amount
+
+      return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
+    },
     width: 120,
     sortable: false,
   },
@@ -156,7 +168,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'buyerComment',
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-    headerName: t(TranslationKey['Client comment']),
+    headerName: t(TranslationKey['Buyer comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
@@ -185,7 +197,8 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <OnCheckingIdeaActions
-        onClickAccept={() => rowHandlers.onClickAccept(params.row._id)}
+        isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
+        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
@@ -198,7 +211,22 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => {
+      const getDate = status => {
+        switch (ideaStatusByCode[status]) {
+          case ideaStatus.SUPPLIER_SEARCH:
+            return params.row.dateStatusSupplierSearch
+          case ideaStatus.SUPPLIER_FOUND:
+            return params.row.dateStatusSupplierFound
+          case ideaStatus.SUPPLIER_NOT_FOUND:
+            return params.row.dateStatusSupplierNotFound
+          default:
+            return params.value
+        }
+      }
+
+      return <ShortDateCell value={getDate(params.row.status)} />
+    },
     width: 140,
   },
 ]

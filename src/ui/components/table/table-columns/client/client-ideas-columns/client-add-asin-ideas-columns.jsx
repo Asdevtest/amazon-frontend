@@ -76,7 +76,12 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => <BarcodeCell product={params.row} handlers={rowHandlers.barCodeHandlers} />,
+    renderCell: params => (
+      <BarcodeCell
+        product={params.row.childProduct || params.row.parentProduct}
+        handlers={rowHandlers.barCodeHandlers}
+      />
+    ),
     width: 100,
     sortable: false,
   },
@@ -92,7 +97,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'updatedAt',
+    field: 'dateStatusAddingAsin',
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
