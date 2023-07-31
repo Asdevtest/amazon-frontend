@@ -98,19 +98,67 @@ export const navbarConfig = () => ({
       route: '/client/ideas',
       title: t(TranslationKey.Ideas),
       subtitles: [
-        { subtitle: t(TranslationKey['New ideas']), subRoute: '/client/ideas/new' },
-        { subtitle: t(TranslationKey['On checking']), subRoute: '/client/ideas/on-checking' },
-        { subtitle: t(TranslationKey['Search for suppliers']), subRoute: '/client/ideas/search-suppliers' },
-        { subtitle: t(TranslationKey['Create a product card']), subRoute: '/client/ideas/create-card' },
-        { subtitle: t(TranslationKey.Add) + ' ASIN', subRoute: '/client/ideas/add-asin' },
-        { subtitle: t(TranslationKey['Realized ideas']), subRoute: '/client/ideas/realized' },
-        { subtitle: t(TranslationKey['Rejected and closed']), subRoute: '/client/ideas/closed' },
-        { subtitle: t(TranslationKey.All), subRoute: '/client/ideas/all' },
+        {
+          subtitle: t(TranslationKey['New ideas']),
+          subRoute: '/client/ideas/new',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['On checking']),
+          subRoute: '/client/ideas/on-checking',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Search for suppliers']),
+          subRoute: '/client/ideas/search-suppliers',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Create a product card']),
+          subRoute: '/client/ideas/create-card',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey.Add) + ' ASIN',
+          subRoute: '/client/ideas/add-asin',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Realized ideas']),
+          subRoute: '/client/ideas/realized',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Rejected and closed']),
+          subRoute: '/client/ideas/closed',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey.All),
+          subRoute: '/client/ideas/all',
+          checkHideBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
+        },
       ],
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
+        user?.permissions.some(item => Object.values(permissionsKeys.client.ideas).includes(item.key)),
     },
 
     {
