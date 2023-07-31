@@ -277,10 +277,12 @@ export const IdeaViewAndEditCard = observer(
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
 
+    console.log('formFields', formFields)
+
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
         <div className={classNames.headerWrapper}>
-          <IdeaProgressBar currentStatus={formFields?.status} />
+          <IdeaProgressBar showStatusDuration={isModalView} currentStatus={formFields?.status} ideaData={curIdea} />
 
           <div className={classNames.sourcesProductWraper}>
             {formFields.childProduct && (

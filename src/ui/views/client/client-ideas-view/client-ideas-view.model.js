@@ -301,6 +301,8 @@ export class ClientIdeasViewModel {
         this.rowCount = response.count
       })
 
+      console.log('this.ideaList', this.ideaList)
+
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       console.log(error)
@@ -338,9 +340,6 @@ export class ClientIdeasViewModel {
       this.requestStatus = loadingStatuses.isLoading
 
       const result = await ProductModel.getProductById(row?.parentProduct?._id)
-
-      console.log('row', row)
-      console.log('result', result)
       runInAction(() => {
         this.currentProduct = result
         this.currentIdeaId = row._id

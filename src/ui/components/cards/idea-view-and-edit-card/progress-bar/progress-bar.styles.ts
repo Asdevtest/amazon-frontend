@@ -26,6 +26,14 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
   },
 
+  settingItemDuration: {
+    color: theme.palette.text.general,
+    position: 'absolute',
+    bottom: '-5px',
+    left: '50%',
+    transform: 'translate(-50%, 100%)',
+  },
+
   lastActiveItem: {
     paddingRight: '34px',
     ':after': {

@@ -14,6 +14,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalRoot: {
     padding: 0,
+    display: 'flex',
+    gap: '40px',
   },
 
   cardWrapper: {
