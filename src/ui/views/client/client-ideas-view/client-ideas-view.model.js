@@ -278,7 +278,15 @@ export class ClientIdeasViewModel {
         this.currentSearchValue,
         exclusion,
         filtersFields,
-        ['asin', 'sku', 'title'],
+        [
+          'parentProductSkusByClient',
+          'parentProductAmazonTitle',
+          'parentProductAsin',
+          'childProductAmazonTitle',
+          'childProductSkusByClient',
+          'childProductAsin',
+          'title',
+        ],
         {
           status: {
             $eq: this.currentSettings.statuses.join(','),
