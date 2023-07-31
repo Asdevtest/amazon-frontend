@@ -956,12 +956,10 @@ export const EditOrderModal = observer(
                             setShowPhotosModal(!showPhotosModal)
                             setBigImagesOptions({
                               ...bigImagesOptions,
-
-                              images: [
-                                typeof trackNumber.files[index] === 'string'
-                                  ? trackNumber.files[index]
-                                  : trackNumber.files[index]?.data_url,
-                              ],
+                              imgIndex: index,
+                              images: trackNumber.files.map(el => {
+                                return el === 'string' ? el : el?.data_url
+                              }),
                             })
                           }}
                         />
