@@ -17,7 +17,7 @@ import { useClassNames } from './asin-or-sku-link.style'
 interface AsinOrSkuLinkProps {
   asin?: string
   sku?: string
-  withAttributeTitle?: boolean
+  withAttributeTitle?: 'asin' | 'sku'
   withCopyValue?: boolean
   textStyles?: string
   missingValueTextStyles?: string
@@ -31,7 +31,8 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
       <div className={classNames.root}>
         {withAttributeTitle && (
           <p className={cx(classNames.attributeTitle, missingValueTextStyles)}>
-            {(asin && t(TranslationKey.ASIN)) || (sku && t(TranslationKey.SKU))}
+            {(withAttributeTitle === 'asin' && `${t(TranslationKey.ASIN)}:`) ||
+              (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`)}
           </p>
         )}
 

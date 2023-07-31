@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status'
+import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {

@@ -2,17 +2,13 @@ import React from 'react'
 
 import { Box } from '@mui/material'
 
-import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaActions,
-  IdeaRequests,
   IdeaSupplier,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OnCheckingIdeaActions,
-  PhotoAndFilesCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
@@ -22,6 +18,7 @@ import { LinkWithCopy } from '@components/shared/link-with-copy'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 
 export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {

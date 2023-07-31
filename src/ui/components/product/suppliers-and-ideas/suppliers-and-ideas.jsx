@@ -31,10 +31,10 @@ import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-con
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
-export const SuppliersAndIdeas = observer(({ productId, product }) => {
+export const SuppliersAndIdeas = observer(({ productId, product, isModalView, currentIdeaId }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({ history, productId, product }))
+  const model = useRef(new SuppliersAndIdeasModel({ history, productId, product, isModalView, currentIdeaId }))
 
   useEffect(() => {
     model.current.loadData()
@@ -83,6 +83,7 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     onEditIdea,
     onClickCreateProduct,
     onClickSupplierButtons,
+    onClickOpenNewTab,
 
     onChangeSelectedSupplier,
     onTriggerAddOrEditSupplierModal,
@@ -91,17 +92,18 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <div className={classNames.btnsWrapper}>
-        {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+      {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
         !inCreate &&
-        !inEdit ? (
-          <Button success variant="contained" onClick={onCreateIdea}>
-            {t(TranslationKey['Add a product idea'])}{' '}
-          </Button>
-        ) : null}
-      </div>
+        !inEdit &&
+        !isModalView && (
+          <div className={classNames.btnsWrapper}>
+            <Button success variant="contained" onClick={onCreateIdea}>
+              {t(TranslationKey['Add a product idea'])}{' '}
+            </Button>
+          </div>
+        )}
 
-      {inCreate ? (
+      {inCreate && (
         <IdeaViewAndEditCard
           inCreate
           curUser={curUser}
@@ -113,44 +115,73 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
           onClickSupplierBtns={onClickSupplierButtons}
           onClickSupplier={onChangeSelectedSupplier}
         />
-      ) : null}
+      )}
 
-      {requestStatus === loadingStatuses.isLoading ? (
-        <CircularProgressWithLabel />
-      ) : SettingsModel.languageTag && ideasData.length ? (
-        ideasData.map(idea => (
-          <IdeaViewAndEditCard
-            key={idea._id}
-            curUser={curUser}
-            curIdea={curIdea}
-            inEdit={inEdit}
-            idea={idea}
-            currentProduct={currentProduct}
-            selectedSupplier={selectedSupplier}
-            onCreateProduct={onClickCreateProduct}
-            onClickSaveBtn={onClickSaveBtn}
-            onClickCancelBtn={onClickCancelBtn}
-            onClickCreateRequestButton={onClickCreateRequestButton}
-            onClickLinkRequestButton={onClickLinkRequestButton}
-            onClickAcceptButton={onClickAcceptButton}
-            onClickCloseIdea={onClickCloseIdea}
-            onClickRejectButton={onClickRejectButton}
-            onClickReoperButton={onClickReoperButton}
-            onClickResultButton={onClickResultButton}
-            onSetCurIdea={onSetCurIdea}
-            onEditIdea={onEditIdea}
-            onClickSupplierBtns={onClickSupplierButtons}
-            onClickSupplier={onChangeSelectedSupplier}
-            onClickSaveIcon={onClickSaveIcon}
-          />
-        ))
-      ) : (
-        <div className={classNames.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={classNames.emptyTableText}>
-            {t(TranslationKey['No ideas yet'])}
-          </Typography>
-        </div>
+      {!isModalView &&
+        (requestStatus === loadingStatuses.isLoading ? (
+          <CircularProgressWithLabel />
+        ) : SettingsModel.languageTag && ideasData.length ? (
+          ideasData.map(idea => (
+            <IdeaViewAndEditCard
+              key={idea._id}
+              curUser={curUser}
+              curIdea={curIdea}
+              inEdit={inEdit}
+              idea={idea}
+              currentProduct={currentProduct}
+              selectedSupplier={selectedSupplier}
+              onCreateProduct={onClickCreateProduct}
+              onClickSaveBtn={onClickSaveBtn}
+              onClickCancelBtn={onClickCancelBtn}
+              onClickCreateRequestButton={onClickCreateRequestButton}
+              onClickLinkRequestButton={onClickLinkRequestButton}
+              onClickAcceptButton={onClickAcceptButton}
+              onClickCloseIdea={onClickCloseIdea}
+              onClickRejectButton={onClickRejectButton}
+              onClickReoperButton={onClickReoperButton}
+              onClickResultButton={onClickResultButton}
+              onSetCurIdea={onSetCurIdea}
+              onEditIdea={onEditIdea}
+              onClickSupplierBtns={onClickSupplierButtons}
+              onClickSupplier={onChangeSelectedSupplier}
+              onClickSaveIcon={onClickSaveIcon}
+            />
+          ))
+        ) : (
+          <div className={classNames.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <Typography variant="h5" className={classNames.emptyTableText}>
+              {t(TranslationKey['No ideas yet'])}
+            </Typography>
+          </div>
+        ))}
+
+      {isModalView && (
+        <IdeaViewAndEditCard
+          isModalView
+          curUser={curUser}
+          curIdea={curIdea}
+          inEdit={inEdit}
+          idea={curIdea}
+          currentProduct={currentProduct}
+          selectedSupplier={selectedSupplier}
+          onCreateProduct={onClickCreateProduct}
+          onClickSaveBtn={onClickSaveBtn}
+          onClickCancelBtn={onClickCancelBtn}
+          onClickCreateRequestButton={onClickCreateRequestButton}
+          onClickLinkRequestButton={onClickLinkRequestButton}
+          onClickAcceptButton={onClickAcceptButton}
+          onClickCloseIdea={onClickCloseIdea}
+          onClickRejectButton={onClickRejectButton}
+          onClickReoperButton={onClickReoperButton}
+          onClickResultButton={onClickResultButton}
+          onSetCurIdea={onSetCurIdea}
+          onEditIdea={onEditIdea}
+          onClickSupplierBtns={onClickSupplierButtons}
+          onClickSupplier={onChangeSelectedSupplier}
+          onClickSaveIcon={onClickSaveIcon}
+          onClickOpenNewTab={onClickOpenNewTab}
+        />
       )}
 
       <Modal

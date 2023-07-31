@@ -283,10 +283,8 @@ export const ClientInventoryViewRaw = props => {
               }
               event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
             }}
-            onCellDoubleClick={params =>
-              !disableSelectionCells.includes(params.field) && viewModel.onClickShowProduct(params.row)
-            }
             onRowClick={params => viewModel.onClickProductModal(params.row)}
+            onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
           />
         </div>
       </MainContent>
@@ -309,7 +307,7 @@ export const ClientInventoryViewRaw = props => {
           history={viewModel.history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onClickProductModal()}
-          onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
 

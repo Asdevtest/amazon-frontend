@@ -4,6 +4,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 5,
   },

@@ -19,6 +19,7 @@ import {
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+import { ProductModel } from '@models/product-model'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -103,6 +104,7 @@ export class ClientIdeasViewModel {
   currentData = []
   shopList = []
   currentSettings = undefined
+
   // * Filtration
 
   currentSearchValue = ''
@@ -114,6 +116,14 @@ export class ClientIdeasViewModel {
   sortModel = []
   densityModel = 'compact'
   paginationModel = { page: 0, pageSize: 15 }
+
+  // * Modal data
+
+  currentProduct = undefined
+
+  // * Modal states
+
+  showIdeaModal = false
 
   // * Table settings
 
@@ -321,5 +331,33 @@ export class ClientIdeasViewModel {
 
       this.requestStatus = loadingStatuses.failed
     }
+  }
+
+  async getDataForIdeaModal(row) {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      const result = await ProductModel.getProductById(row?.parentProduct?._id)
+
+      console.log('row', row)
+      console.log('result', result)
+      runInAction(() => {
+        this.currentProduct = result
+        this.currentIdeaId = row._id
+      })
+
+      this.onTriggerOpenModal('showIdeaModal')
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      console.log('error', error)
+      this.requestStatus = loadingStatuses.failed
+    }
+  }
+
+  onTriggerOpenModal(modal) {
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }
