@@ -189,12 +189,13 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      zIndex: 10,
-      position: 'absolute',
-      left: 'calc(100% - 270px)',
-      right: 0,
-      bottom: 70,
-      transform: 'translate(-50%, 0%)',
+      right: 17,
+      bottom: 90,
+      transform: 'none',
+
+      'em-emoji-picker': {
+        width: 283,
+      },
     },
   },
 

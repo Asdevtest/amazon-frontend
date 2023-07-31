@@ -4,14 +4,16 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '15px 10px',
     display: 'flex',
+    flexDirection: 'column',
     gap: 10,
     maxWidth: 690,
     backgroundColor: theme.palette.background.chatMyMessage,
     borderRadius: 20,
 
     [theme.breakpoints.down(768)]: {
-      padding: '10px 5px 5px 10px',
+      padding: '10px 10px 5px 10px',
       borderRadius: 15,
+      gap: 5,
     },
   },
 
@@ -47,16 +49,13 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 3,
   },
 
-  filesMainWrapper: {
-    paddingBottom: 5,
-  },
+  filesMainWrapper: {},
 
   subWrapper: {
     flex: '1 1 auto',
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
-    marginBottom: 10,
   },
 
   messageText: {
@@ -67,15 +66,16 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     [theme.breakpoints.down(768)]: {
+      minWidth: 80,
       fontSize: 12,
-      maxWidth: 120,
+      maxWidth: 210,
       wordWrap: 'break-word',
     },
   },
 
   infoContainer: {
     display: 'flex',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     gap: 10,
 
     [theme.breakpoints.down(768)]: {

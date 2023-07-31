@@ -144,6 +144,8 @@ export const ChatMessagesList: FC<Props> = observer(
 
             const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
+            const isMobileResolution = window.innerWidth < 768
+
             return (
               <div
                 ref={
@@ -174,7 +176,7 @@ export const ChatMessagesList: FC<Props> = observer(
                       [classNames.messageWrapperisNotPersonal]: isNotPersonal,
                     })}
                   >
-                    {!isNextMessageSameAuthor && !isNotPersonal ? (
+                    {!isMobileResolution && !isNextMessageSameAuthor && !isNotPersonal ? (
                       <Link
                         target="_blank"
                         href={
