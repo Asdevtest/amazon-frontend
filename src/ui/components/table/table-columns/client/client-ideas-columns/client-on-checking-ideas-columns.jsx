@@ -13,6 +13,7 @@ import {
   SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
@@ -54,7 +55,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.value[0]} />,
+    renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsImageLink(el))} />,
     width: 120,
     sortable: false,
   },
@@ -85,7 +86,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'updatedAt',
+    field: 'dateStatusOnCheck',
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
@@ -100,7 +101,6 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <IdeaRequests
-        withoutControls
         row={params.row}
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row._id)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}

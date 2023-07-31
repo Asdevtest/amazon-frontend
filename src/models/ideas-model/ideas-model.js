@@ -100,6 +100,41 @@ class IdeaModelStatic {
     const response = await restApiService.ideaApi.apiV1IdeasReopenGuidPatch(id)
     return response
   }
+
+  setStatusToCheck = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasOnCheckingGuidPatch(id)
+    return response
+  }
+
+  setStatusToReject = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasRejectedGuidPatch(id)
+    return response
+  }
+
+  setStatusToSupplierSearch = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasSupplierSearchGuidPatch(id)
+    return response
+  }
+
+  setStatusToProductCreating = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasProductCreatingGuidPatch(id)
+    return response
+  }
+
+  setStatusToAddingAsin = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasAddingAsinGuidPatch(id)
+    return response
+  }
+
+  setStatusToFinished = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasFinishedGuidPatch(id)
+    return response
+  }
+
+  restore = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasReopenGuidPatch(id)
+    return response
+  }
 }
 
 export const IdeaModel = new IdeaModelStatic()

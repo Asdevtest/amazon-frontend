@@ -15,6 +15,7 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
@@ -56,7 +57,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles[0]} />,
+    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 120,
     sortable: false,
   },
@@ -108,7 +109,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'updatedAt',
+    field: 'dateStatusProductCreating',
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
