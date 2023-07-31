@@ -12,6 +12,12 @@ export const styles = theme => ({
     gap: 20,
   },
 
+  searchWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 305,
@@ -38,11 +44,13 @@ export const styles = theme => ({
     gap: 20,
   },
 
-  arrowBackIconWrapper: {
-    display: 'none',
+  infoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
   },
 
-  arrowBackIcon: {
+  arrowBackIconWrapper: {
     display: 'none',
   },
 
@@ -85,6 +93,12 @@ export const styles = theme => ({
     color: theme.palette.text.second,
   },
 
+  searchMessageContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
   searchResult: {
     width: 140,
     color: theme.palette.text.second,
@@ -118,7 +132,6 @@ export const styles = theme => ({
   newDialogBtn: {
     height: 40,
     padding: '0 25px',
-    marginLeft: 30,
   },
 
   noSelectedChatWrapper: {
@@ -142,7 +155,68 @@ export const styles = theme => ({
   '@media (max-width: 768px)': {
     wrapper: {
       padding: 10,
-      height: '100%',
+    },
+
+    leftSide: {
+      width: '100%',
+    },
+
+    searchInput: {
+      flex: '1 1 auto',
+      width: '100%',
+
+      '&>input': {
+        padding: 9,
+      },
+    },
+
+    rightSideHeader: {
+      gap: 10,
+      width: 'max-content',
+    },
+
+    noticesWrapper: {
+      padding: 8,
+    },
+
+    newDialogBtn: {
+      padding: 8,
+      borderRadius: 7,
+    },
+
+    rightSide: {
+      maxWidth: 767,
+    },
+
+    header: {
+      height: 'auto',
+      marginBottom: 0,
+    },
+
+    leftSideHeader: {
+      width: '100%',
+      flexDirection: 'column-reverse',
+    },
+
+    opponentWrapper: {
+      width: '100%',
+    },
+
+    rersonalWrapper: {
+      width: '100%',
+    },
+
+    infoContainer: {
+      padding: '15px 10px',
+      width: '100%',
+      justifyContent: 'space-between',
+      borderRadius: '7px 7px 0 0',
+      background: theme.palette.background.general,
+      boxShadow: theme.palette.boxShadow.paper,
+    },
+
+    searchMessageContainer: {
+      width: '100%',
     },
 
     arrowBackIconWrapper: {
@@ -152,49 +226,17 @@ export const styles = theme => ({
       width: 30,
       height: 30,
       borderRadius: '50%',
-      background: theme.palette.background.second,
+      background: theme.palette.background.general,
+      boxShadow: theme.palette.boxShadow.paper,
     },
 
     arrowBackIcon: {
-      marginRight: 5,
       color: theme.palette.primary.main,
+      marginRight: 5,
     },
 
-    chatHeaderWrapper: {
-      gap: 10,
-      marginBottom: 15,
-    },
-
-    leftSide: {
-      width: '100%',
-    },
-
-    searchInput: {
-      width: '100%',
-      height: 40,
-    },
-
-    noticesTextActive: {
+    mobileResolution: {
       display: 'none',
-    },
-
-    noticesTextNoActive: {
-      display: 'none',
-    },
-
-    rightSide: {
-      gap: 10,
-    },
-
-    tooltipWrapper: {
-      padding: 8,
-    },
-
-    newDialogBtn: {
-      width: 40,
-      padding: 0,
-      margin: 0,
-      borderRadius: 7,
     },
   },
 })

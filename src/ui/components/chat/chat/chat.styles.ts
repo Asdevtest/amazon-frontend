@@ -11,6 +11,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       maxHeight: 'calc(100vh - 226px)',
+      paddingTop: 0,
+      boxShadow: theme.palette.boxShadow.paper,
 
       '&::-webkit-scrollbar': {
         width: 0,
@@ -75,18 +77,11 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '20px 50px',
 
     [theme.breakpoints.down(768)]: {
+      height: 'auto',
       padding: 10,
+      boxShadow: theme.palette.boxShadow.paper,
+      borderRadius: '0 0 7px 7px',
     },
-  },
-
-  endAdornment: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    height: '100%',
-    gap: 10,
-    alignSelf: 'flex-end',
-    position: 'relative',
-    width: 80,
   },
 
   inputWrapper: {
@@ -100,6 +95,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     borderRadius: 4,
     backgroundColor: theme.palette.input.second,
+
+    [theme.breakpoints.down(480)]: {
+      '&>div': {
+        padding: 8.5,
+      },
+    },
   },
 
   sendBtnTextWrapper: {
@@ -115,6 +116,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   sendBtn: {
     height: 40,
+
     [theme.breakpoints.down(768)]: {
       width: 40,
       height: 40,
@@ -126,8 +128,13 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.input.second,
   },
 
+  icons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
   inputIcon: {
-    position: 'absolute',
     width: '38px !important',
     height: '38px !important',
     color: theme.palette.text.second,
@@ -137,25 +144,15 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
+
+    [theme.breakpoints.down(768)]: {
+      width: '24px !important',
+      height: '24px !important',
+    },
   },
 
   inputIconActive: {
     color: theme.palette.primary.main,
-  },
-
-  emojiIconPos: {
-    top: -30,
-    left: -5,
-  },
-
-  fileIconPos: {
-    top: -30,
-    left: 32,
-
-    [theme.breakpoints.down(768)]: {
-      top: -30,
-      left: 25,
-    },
   },
 
   filesIconWrapper: {
@@ -208,7 +205,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   arrowIcon: {
-    // marginLeft: 8,
     color: theme.palette.primary.main,
   },
 
@@ -237,9 +233,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     maxHeight: 300,
     display: 'flex',
-    // flexGrow: 1,
-    // alignItems: 'flex-end',
-
     cursor: 'pointer',
   },
 

@@ -9,13 +9,9 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
 
-    '&::-webkit-scrollbar': {
-      width: 15,
-    },
-
     [theme.breakpoints.down(768)]: {
       width: '100%',
-      border: 'none',
+      borderRadius: 7,
 
       '&::-webkit-scrollbar': {
         width: 0,

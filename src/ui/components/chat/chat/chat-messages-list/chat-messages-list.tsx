@@ -171,7 +171,6 @@ export const ChatMessagesList: FC<Props> = observer(
                   <div
                     className={cx(classNames.messageWrapper, {
                       [classNames.messageWrapperIsIncomming]: isIncomming,
-                      [classNames.messageWrapperIsLastMessage]: isLastMessage,
                       [classNames.messageWrapperisNotPersonal]: isNotPersonal,
                     })}
                   >
@@ -194,8 +193,7 @@ export const ChatMessagesList: FC<Props> = observer(
                     ) : null}
 
                     <div
-                      className={cx(classNames.messageInner, {
-                        [classNames.messageInnerIsIncomming]: isIncomming,
+                      className={cx({
                         [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                         [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                           isNextMessageSameAuthor && isIncomming,

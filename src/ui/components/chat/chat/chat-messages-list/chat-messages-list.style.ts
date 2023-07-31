@@ -12,6 +12,8 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.second,
 
     [theme.breakpoints.down(768)]: {
+      padding: 10,
+
       '&::-webkit-scrollbar': {
         width: 0,
       },
@@ -54,15 +56,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'end',
     flexDirection: 'row-reverse',
+    gap: 10,
   },
 
   messageWrapperIsIncomming: {
     flexDirection: 'row',
     alignItems: 'end',
-  },
-
-  messageWrapperIsLastMessage: {
-    marginBottom: 0,
+    gap: 10,
   },
 
   messageWrapperisNotPersonal: {
@@ -70,29 +70,13 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  messageInner: {
-    marginRight: '12px',
-    wordBreak: 'break-word',
-    whiteSpace: 'normal',
-    position: 'relative',
-  },
-
   messageInnerContentWrapper: {
     overflow: 'hidden',
   },
 
-  messageInnerIsIncomming: {
-    marginRight: 0,
-    marginLeft: '12px',
-  },
+  messageInnerIsNextMessageSameAuthor: {},
 
-  messageInnerIsNextMessageSameAuthor: {
-    marginRight: '44px',
-  },
-
-  messageInnerIsNextMessageSameAuthorIsInclomming: {
-    marginLeft: '44px',
-  },
+  messageInnerIsNextMessageSameAuthorIsInclomming: {},
 
   messageAvatarWrapper: {
     height: '32px',
@@ -117,6 +101,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   repleyWrapper: {
+    marginBottom: 5,
     display: 'flex',
     opacity: '0.7',
     transform: 'scale(0.97)',

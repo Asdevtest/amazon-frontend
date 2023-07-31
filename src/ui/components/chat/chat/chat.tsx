@@ -349,36 +349,28 @@ export const Chat: FC<Props> = observer(
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{ maxLength: 1000 }}
-              InputProps={
-                userContainedInChat ? (
-                  {
-                    endAdornment: (
-                      <InputAdornment position="end" classes={{ root: classNames.endAdornment }}>
-                        <div className={classNames.filesIconWrapper}>
-                          <EmojiIcon
-                            id="emoji-icon"
-                            className={cx(classNames.inputIcon, classNames.emojiIconPos, {
-                              [classNames.inputIconActive]: isShowEmojis,
-                            })}
-                            onClick={() => setIsShowEmojis(!isShowEmojis)}
-                          />
-                        </div>
-                        <div className={classNames.filesIconWrapper}>
-                          <FileIcon
-                            className={cx(classNames.inputIcon, classNames.fileIconPos, {
-                              [classNames.inputIconActive]: showFiles,
-                            })}
-                            onClick={() => setShowFiles(!showFiles)}
-                          />
-                          {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
-                        </div>
-                      </InputAdornment>
-                    ),
-                  }
-                ) : (
-                  <div />
-                )
-              }
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" className={classNames.icons}>
+                    <EmojiIcon
+                      id="emoji-icon"
+                      className={cx(classNames.inputIcon, {
+                        [classNames.inputIconActive]: isShowEmojis,
+                      })}
+                      onClick={() => setIsShowEmojis(!isShowEmojis)}
+                    />
+                    <div className={classNames.filesIconWrapper}>
+                      <FileIcon
+                        className={cx(classNames.inputIcon, {
+                          [classNames.inputIconActive]: showFiles,
+                        })}
+                        onClick={() => setShowFiles(!showFiles)}
+                      />
+                      {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
+                    </div>
+                  </InputAdornment>
+                ),
+              }}
               value={message}
               onFocus={onFocus}
               onBlur={onBlur}
