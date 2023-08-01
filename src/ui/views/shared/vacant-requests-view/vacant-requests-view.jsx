@@ -1,6 +1,7 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
+
 import { withStyles } from 'tss-react/mui'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -84,7 +85,7 @@ export const VacantRequestsViewRaw = props => {
   const pageSizeOptions = [15, 25, 50, 100]
 
   return (
-    <React.Fragment>
+    <>
       <MainContent>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.taskTypeWrapper}>
@@ -267,7 +268,7 @@ export const VacantRequestsViewRaw = props => {
           )
         )}
       </MainContent>
-    </React.Fragment>
+    </>
   )
 }
 

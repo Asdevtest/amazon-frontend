@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  Ayaya,
   BatchBoxesCell,
   BatchTrackingCell,
   MultilineTextCell,
@@ -17,16 +13,18 @@ import {
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const batchesViewColumns = (rowHandlers, getStatus) => [
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
   {
@@ -34,8 +32,9 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
     width: 150,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -46,10 +45,12 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 130,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'boxesCount',
+    field: 'amount',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
@@ -69,20 +70,23 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 80,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
-    field: 'tariff',
+    field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'batchTracking',
+    field: 'trackingNumber',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
     renderCell: params => (
@@ -98,6 +102,8 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 198,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.BATCHES_TRACKING,
   },
 
   {
@@ -107,6 +113,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeight} fix={2} />,
     type: 'number',
     width: 150,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -118,6 +125,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 150,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -129,10 +137,11 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 150,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'dates',
+    field: 'cls',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
     renderCell: params => (
@@ -145,6 +154,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     width: 350,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
   },
 
   {
@@ -154,5 +164,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

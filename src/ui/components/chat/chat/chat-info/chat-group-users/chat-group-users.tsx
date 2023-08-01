@@ -1,5 +1,3 @@
-import React from 'react'
-
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Avatar, Typography } from '@mui/material'
 
@@ -9,7 +7,7 @@ import { ChatContract } from '@models/chat-model/contracts'
 
 import { useChatGroupUsersStyles } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users.styles'
 import { Button } from '@components/shared/buttons/button'
-import { MemberPlus, Pencil } from '@components/shared/svg-icons'
+import { MemberPlus } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -23,7 +21,7 @@ interface ChatGroupUsersProps {
 }
 
 export const ChatGroupUsers = (props: ChatGroupUsersProps) => {
-  const { chat, userId, onRemoveUsersFromGroupChat, onClickEditGroupChatInfo, onClickAddUsersToGroupChat } = props
+  const { chat, userId, onRemoveUsersFromGroupChat, onClickAddUsersToGroupChat } = props
   const { classes: styles } = useChatGroupUsersStyles()
 
   return (

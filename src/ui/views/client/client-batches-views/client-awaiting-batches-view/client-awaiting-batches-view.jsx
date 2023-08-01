@@ -24,6 +24,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { styles } from './client-awaiting-batches-view.style'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
@@ -57,21 +58,20 @@ export const ClientAwaitingBatchesViewRaw = props => {
               {viewModel.storekeepersData
                 .slice()
                 .sort((a, b) => a.name?.localeCompare(b.name))
-                .map(storekeeper =>
-                  storekeeper.boxesCount !== 0 ? (
-                    <Button
-                      key={storekeeper._id}
-                      disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-                      className={cx(className.storekeeperButton, {
-                        [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-                      })}
-                      variant="text"
-                      onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-                    >
-                      {storekeeper.name}
-                    </Button>
-                  ) : null,
-                )}
+                .filter(el => el.boxesCount > 0)
+                .map(storekeeper => (
+                  <Button
+                    key={storekeeper._id}
+                    disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
+                    className={cx(className.storekeeperButton, {
+                      [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
+                    })}
+                    variant="text"
+                    onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
+                  >
+                    {storekeeper.name}
+                  </Button>
+                ))}
 
               <Button
                 disabled={!viewModel.currentStorekeeper?._id}
@@ -146,12 +146,19 @@ export const ClientAwaitingBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,

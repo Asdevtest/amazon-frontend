@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject65 model module.
@@ -47,38 +48,14 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
-            }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -88,70 +65,22 @@ class InlineObject65 {
 }
 
 /**
- * Название идеи
- * @member {String} title
+ * Название профиля
+ * @member {String} name
  */
-InlineObject65.prototype['title'] = undefined;
+InlineObject65.prototype['name'] = undefined;
 
 /**
- * Images URLs
- * @member {Array.<String>} media
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
  */
-InlineObject65.prototype['media'] = undefined;
+InlineObject65.prototype['os'] = 'mac';
 
 /**
- * Комментарий к идее
- * @member {String} comments
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
  */
-InlineObject65.prototype['comments'] = undefined;
-
-/**
- * Назавние продукта
- * @member {String} productName
- */
-InlineObject65.prototype['productName'] = undefined;
-
-/**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
- */
-InlineObject65.prototype['productLinks'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineObject65.prototype['criteria'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineObject65.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineObject65.prototype['price'] = undefined;
-
-/**
- * Ширина, см
- * @member {Number} width
- */
-InlineObject65.prototype['width'] = undefined;
-
-/**
- * Высота, см
- * @member {Number} height
- */
-InlineObject65.prototype['height'] = undefined;
-
-/**
- * Длина, см
- * @member {Number} length
- */
-InlineObject65.prototype['length'] = undefined;
+InlineObject65.prototype['navigator'] = undefined;
 
 
 
