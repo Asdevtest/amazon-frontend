@@ -3213,12 +3213,12 @@ export const IdeaProduct = React.memo(
     return (
       <div>
         {!rowData.childProduct && (
-          <Button success small onClick={() => onClickCreateCard(rowData._id)}>
+          <Button success small onClick={() => onClickCreateCard(rowData.originalData)}>
             {t(TranslationKey['Create a product card'])}
           </Button>
         )}
         {rowData.childProduct && !rowData.suppliers.length && (
-          <Button small onClick={() => onClickSelectSupplier(rowData._id)}>
+          <Button small onClick={() => onClickSelectSupplier(rowData)}>
             {t(TranslationKey['Set supplier to card'])}
           </Button>
         )}
@@ -3306,7 +3306,7 @@ export const ClosedIdeaActions = React.memo(
         <Button small success onClick={() => rowHandlers.onClickRestore(row._id)}>
           {t(TranslationKey.Restore)}
         </Button>
-        <Button small danger onClick={() => rowHandlers.onClickClose(row)}>
+        <Button small danger onClick={() => rowHandlers.onClickClose(row._id)}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

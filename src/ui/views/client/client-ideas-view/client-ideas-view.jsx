@@ -23,6 +23,9 @@ import { useClientIdeasViewStyles } from '@views/client/client-ideas-view/client
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
+import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
 
 export const ClientIdeasView = observer(props => {
   const [viewModel] = useState(() => new ClientIdeasViewModel({ history: props.history }))
@@ -73,7 +76,6 @@ export const ClientIdeasView = observer(props => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
@@ -137,6 +139,38 @@ export const ClientIdeasView = observer(props => {
           onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
         />
       )}
+
+      {viewModel.showBindingModal && (
+        <Modal
+          openModal={viewModel.showBindingModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBindingModal')}
+        >
+          <BindIdeaToRequestForm
+            requests={viewModel.requestsForProduct}
+            onClickBindButton={viewModel.onClickBindButton}
+          />
+        </Modal>
+      )}
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={viewModel.successModalTitle}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+      />
     </MainContent>
   )
 })

@@ -30,7 +30,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'parentProduct',
     headerName: t(TranslationKey['Parent product']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -51,7 +51,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -63,7 +63,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'linksToMediaFiles',
     headerName: t(TranslationKey.Idea),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsImageLink(el))} />,
     width: 120,
@@ -73,7 +73,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'comments',
     headerName: t(TranslationKey.Comment),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 240,
@@ -83,7 +83,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
       <IdeaActions
@@ -98,7 +98,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey['Status Updated']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 140,
@@ -107,13 +107,15 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'requestsOnCheck',
     headerName: t(TranslationKey.Requests),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
 
     renderCell: params => (
       <IdeaRequests
         row={params.row}
-        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row._id)}
-        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
+        onClickCreateRequest={() =>
+          rowHandlers.onClickCreateRequest(params.row.parentProduct._id, params.row.parentProduct.asin)
+        }
+        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.parentProduct._id, params.row.originalData)}
         onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
       />
     ),

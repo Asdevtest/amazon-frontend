@@ -1,15 +1,14 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
+import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { t } from '@utils/translations'
 
 import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
-import { OrderModel } from '@models/order-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import {
@@ -27,6 +26,12 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { objectToUrlQs } from '@utils/text'
 import { ProductModel } from '@models/product-model'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestModel } from '@models/request-model'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { createProductByClient } from '@constants/white-list'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -139,11 +144,23 @@ export class ClientIdeasViewModel {
 
   // * Modal data
 
+  selectedIdea = undefined
   currentProduct = undefined
+  requestsForProduct = []
 
   // * Modal states
 
+  confirmModalSettings = {
+    isWarning: false,
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+  successModalTitle = ''
+
   showIdeaModal = false
+  showBindingModal = false
+  showConfirmModal = false
+  showSuccessModal = false
 
   // * Table settings
 
@@ -151,11 +168,11 @@ export class ClientIdeasViewModel {
   rowHandlers = {
     onClickToCheck: id => this.handleStatusToCheck(id),
     onClickReject: id => this.handleStatusToReject(id),
-    onClickCreateRequest: id => console.log(id),
-    onClickLinkRequest: id => console.log(id),
-    onClickCreateCard: id => console.log(id),
-    onClickSelectSupplier: id => console.log(id),
-    onClickClose: idea => console.log(idea),
+    onClickCreateRequest: (productId, asin) => this.onClickCreateRequestButton(productId, asin),
+    onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
+    onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
+    onClickSelectSupplier: ideaData => this.getDataForIdeaModal(ideaData),
+    onClickClose: ideaId => this.onClickCloseIdea(ideaId),
     onClickRestore: id => this.handleRestore(id),
     onClickAcceptOnCheckingStatus: id => this.handleStatusToSupplierSearch(id),
     onClickAcceptOnSuppliersSearch: id => this.handleStatusToProductCreating(id),
@@ -184,6 +201,10 @@ export class ClientIdeasViewModel {
     filterRequestStatus: undefined,
 
     ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get curUser() {
+    return UserModel.userInfo
   }
 
   constructor({ history }) {
@@ -330,11 +351,9 @@ export class ClientIdeasViewModel {
       })
 
       runInAction(() => {
-        this.ideaList = response.rows || []
+        this.ideaList = addIdDataConverter(response.rows) || []
         this.rowCount = response.count
       })
-
-      console.log('this.ideaList', this.ideaList)
 
       this.requestStatus = loadingStatuses.success
     } catch (error) {
@@ -431,6 +450,16 @@ export class ClientIdeasViewModel {
     this.statusHandler(IdeaModel.restore, id)
   }
 
+  async onSubmitRemoveIdea(ideaId) {
+    try {
+      await IdeaModel.removeIdea(ideaId)
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //  * Barcode handlers
 
   onClickBarcode(item) {
@@ -508,6 +537,20 @@ export class ClientIdeasViewModel {
     win.focus()
   }
 
+  async editIdea(id, data, isForceUpdate) {
+    try {
+      await IdeaModel.editIdea(id, data)
+
+      if (!isForceUpdate) {
+        this.successModalTitle = t(TranslationKey['Idea edited'])
+
+        this.onTriggerOpenModal('showSuccessModal')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // * Modal handlers
 
   onTriggerOpenModal(modalState) {
@@ -516,9 +559,95 @@ export class ClientIdeasViewModel {
     })
   }
 
+  async onClickBindButton(requests) {
+    const methodBody =
+      this.selectedIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
+      this.selectedIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
+        ? { onCheckedIdeaId: this.selectedIdea._id }
+        : { onFinishedIdeaId: this.selectedIdea._id }
+
+    for (const request of requests) {
+      try {
+        await RequestModel.bindIdeaToRequest(request, methodBody)
+      } catch (error) {
+        console.error('error', error)
+      }
+    }
+
+    this.onTriggerOpenModal('showBindingModal')
+  }
+
+  async onSubmitCreateProduct(ideaData) {
+    try {
+      const createData = getObjectFilteredByKeyArrayWhiteList(
+        {
+          images: ideaData?.linksToMediaFiles,
+          amazonTitle: ideaData?.productName,
+          asin: ideaData?.parentProduct?.asin || '',
+          suppliersIds: ideaData?.suppliers?.map(el => el._id),
+          parentProductId: ideaData?.parentProduct?._id,
+          clientComment: ideaData?.comments,
+          lamazon: ideaData?.productLinks[0],
+        },
+        createProductByClient,
+      )
+
+      const result = await ClientModel.createProduct(createData)
+
+      await this.editIdea(ideaData._id, { childProductId: result.guid })
+
+      this.loadData()
+
+      this.successModalTitle = t(TranslationKey['Product added'])
+      this.onTriggerOpenModal('showSuccessModal')
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // * Order handlers
 
   onClickToOrder(id) {
     this.history.push(`/client/my-orders/orders/order?orderId=${id}`)
+  }
+
+  async onClickCreateRequestButton(productId, asin) {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request`, {
+      parentProduct: { _id: productId, asin },
+    })
+  }
+
+  async onClickLinkRequestButton(productId, idea) {
+    try {
+      const result = await RequestModel.getRequestsByProductLight(productId)
+      runInAction(() => {
+        this.requestsForProduct = addIdDataConverter(result)
+        this.selectedIdea = idea
+      })
+      this.onTriggerOpenModal('showBindingModal')
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  onClickCreateProduct(ideaData) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to create a product?']),
+      onClickConfirm: () => this.onSubmitCreateProduct(ideaData),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickCloseIdea(ideaId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to close this idea?']),
+      onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 }

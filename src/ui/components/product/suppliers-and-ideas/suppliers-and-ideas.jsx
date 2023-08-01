@@ -226,7 +226,7 @@ export const SuppliersAndIdeas = observer(({ productId, product, isModalView, cu
         }}
       />
 
-      {showRequestDesignerResultModal /*  && currentProposal */ && (
+      {showRequestDesignerResultModal && (
         <Modal
           openModal={showRequestDesignerResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
@@ -241,7 +241,6 @@ export const SuppliersAndIdeas = observer(({ productId, product, isModalView, cu
       )}
 
       {showRequestStandartResultModal && (
-        /* currentProposal && */
         <Modal
           openModal={showRequestStandartResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
@@ -255,7 +254,6 @@ export const SuppliersAndIdeas = observer(({ productId, product, isModalView, cu
       )}
 
       {showRequestBloggerResultModal && (
-        /* currentProposal && */
         <RequestResultModal
           // request={{ request: viewModel.currentRequest }}
           proposal={currentProposal}
@@ -265,7 +263,6 @@ export const SuppliersAndIdeas = observer(({ productId, product, isModalView, cu
       )}
 
       {showBindingModal && (
-        /* currentProposal && */
         <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
           <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
         </Modal>
