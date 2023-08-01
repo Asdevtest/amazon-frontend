@@ -2,10 +2,9 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    // minHeight: '373px',
     borderRadius: '4px',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
+    background: theme.palette.background.general,
     padding: '30px 20px ',
     width: 300,
     height: 500,
@@ -26,7 +25,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '20px',
-    // height: '50px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -96,7 +94,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   priceAmazonWrapper: {
     display: 'flex',
-    // flexWrap: 'nowrap',
     maxWidth: 150,
   },
 
@@ -113,7 +110,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    // color: '#656565',
   },
 
   accentText: {
@@ -163,5 +159,15 @@ export const useClassNames = makeStyles()(theme => ({
   priorityIcon: {
     width: 16,
     height: 18,
+  },
+
+  yellowBackground: {
+    background: `${theme.palette.background.yellowRow} !important`,
+    border: '2px solid #C69109',
+  },
+
+  redBackground: {
+    background: `${theme.palette.background.redRow} !important`,
+    border: '2px solid #D70D0D',
   },
 }))
