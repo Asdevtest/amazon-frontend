@@ -13,7 +13,7 @@ Method | HTTP request | Description
 [**apiV1IdeasGuidGet**](IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 [**apiV1IdeasNotificationsGet**](IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Получить нотификации идей
-[**apiV1IdeasOnCheckingGuidPatch**](IdeaApi.md#apiV1IdeasOnCheckingGuidPatch) | **PATCH** /api/v1/ideas/on_checking/{guid} | Изменить статус заявки на OnCheck(10)
+[**apiV1IdeasOnCheckGuidPatch**](IdeaApi.md#apiV1IdeasOnCheckGuidPatch) | **PATCH** /api/v1/ideas/on_check/{guid} | Изменить статус заявки на OnCheck(10)
 [**apiV1IdeasPagMyGet**](IdeaApi.md#apiV1IdeasPagMyGet) | **GET** /api/v1/ideas/pag/my | Список всех идей с пагинацией
 [**apiV1IdeasPost**](IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 [**apiV1IdeasProductCreatingGuidPatch**](IdeaApi.md#apiV1IdeasProductCreatingGuidPatch) | **PATCH** /api/v1/ideas/product_creating/{guid} | Изменить статус заявки на productCreating(16)
@@ -49,7 +49,7 @@ let apiInstance = new TestSwagger.IdeaApi();
 let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject62() // InlineObject62 | 
+  'body': new TestSwagger.InlineObject66() // InlineObject66 | 
 };
 apiInstance.apiV1IdeasAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject62**](InlineObject62.md)|  | [optional] 
+ **body** | [**InlineObject66**](InlineObject66.md)|  | [optional] 
 
 ### Return type
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasByParentGuidGet
 
-> [InlineResponse20044] apiV1IdeasByParentGuidGet(guid, opts)
+> [InlineResponse20045] apiV1IdeasByParentGuidGet(guid, opts)
 
 Получить идеи по родительскому продукту
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20044]**](InlineResponse20044.md)
+[**[InlineResponse20045]**](InlineResponse20045.md)
 
 ### Authorization
 
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGuidGet
 
-> InlineResponse20045Rows apiV1IdeasGuidGet(guid, opts)
+> InlineResponse20046Rows apiV1IdeasGuidGet(guid, opts)
 
 Получить идею по гуиду
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20045Rows**](InlineResponse20045Rows.md)
+[**InlineResponse20046Rows**](InlineResponse20046Rows.md)
 
 ### Authorization
 
@@ -433,7 +433,7 @@ let apiInstance = new TestSwagger.IdeaApi();
 let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
+  'body': new TestSwagger.InlineObject64() // InlineObject64 | 
 };
 apiInstance.apiV1IdeasGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
+ **body** | [**InlineObject64**](InlineObject64.md)|  | [optional] 
 
 ### Return type
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasNotificationsGet
 
-> [InlineResponse20046] apiV1IdeasNotificationsGet(opts)
+> [InlineResponse20047] apiV1IdeasNotificationsGet(opts)
 
 Получить нотификации идей
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20046]**](InlineResponse20046.md)
+[**[InlineResponse20047]**](InlineResponse20047.md)
 
 ### Authorization
 
@@ -520,9 +520,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1IdeasOnCheckingGuidPatch
+## apiV1IdeasOnCheckGuidPatch
 
-> String apiV1IdeasOnCheckingGuidPatch(guid, opts)
+> String apiV1IdeasOnCheckGuidPatch(guid, opts)
 
 Изменить статус заявки на OnCheck(10)
 
@@ -544,7 +544,7 @@ let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1IdeasOnCheckingGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1IdeasOnCheckGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -576,7 +576,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasPagMyGet
 
-> InlineResponse20045 apiV1IdeasPagMyGet(opts)
+> InlineResponse20046 apiV1IdeasPagMyGet(opts)
 
 Список всех идей с пагинацией
 
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20045**](InlineResponse20045.md)
+[**InlineResponse20046**](InlineResponse20046.md)
 
 ### Authorization
 
@@ -662,7 +662,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IdeaApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
+  'body': new TestSwagger.InlineObject65() // InlineObject65 | 
 };
 apiInstance.apiV1IdeasPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -678,7 +678,7 @@ apiInstance.apiV1IdeasPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
+ **body** | [**InlineObject65**](InlineObject65.md)|  | [optional] 
 
 ### Return type
 
@@ -825,7 +825,7 @@ let apiInstance = new TestSwagger.IdeaApi();
 let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject63() // InlineObject63 | 
+  'body': new TestSwagger.InlineObject67() // InlineObject67 | 
 };
 apiInstance.apiV1IdeasRemoveSupplierGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -842,7 +842,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject63**](InlineObject63.md)|  | [optional] 
+ **body** | [**InlineObject67**](InlineObject67.md)|  | [optional] 
 
 ### Return type
 

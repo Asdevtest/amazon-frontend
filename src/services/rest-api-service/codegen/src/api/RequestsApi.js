@@ -851,16 +851,22 @@ export default class RequestsApi {
     /**
      * #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
      * ## Связать заявку с идеей
+     * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1RequestsIdeasGuidPatchWithHttpInfo(opts) {
+    apiV1RequestsIdeasGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsIdeasGuidPatch");
+      }
 
       let pathParams = {
+        'guid': guid
       };
       let queryParams = {
       };
@@ -884,13 +890,14 @@ export default class RequestsApi {
     /**
      * #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
      * ## Связать заявку с идеей
+     * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1RequestsIdeasGuidPatch(opts) {
-      return this.apiV1RequestsIdeasGuidPatchWithHttpInfo(opts)
+    apiV1RequestsIdeasGuidPatch(guid, opts) {
+      return this.apiV1RequestsIdeasGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
