@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Typography } from '@mui/material'
+import { Avatar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,11 +27,10 @@ export const ChatInfoHeader = (props: ChatInfoHeaderProps) => {
 
   return (
     <div className={styles.chatHeader}>
-      <img
-        src={
-          (!isGroupChat && getUserAvatarSrc(currentOpponent?._id)) || chat?.info?.image || '/assets/img/no-photo.jpg'
-        }
-        alt=""
+      <Avatar
+        classes={{ root: styles.chatAvatar }}
+        variant="rounded"
+        src={!isGroupChat ? getUserAvatarSrc(currentOpponent?._id) : chat?.info?.image || '/assets/img/no-photo.jpg'}
       />
       <div className={styles.chatHeaderOverlay}>
         <Typography className={styles.chatTitle}>
