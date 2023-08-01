@@ -7,9 +7,12 @@ import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { useClassNames } from './progress-bar.styles'
 
 import { progressBarSettings } from './progress-bar-settings'
+import { minsToTime } from '@utils/text'
 
 interface IdeaProgressBarProps {
   currentStatus: number
+  ideaData?: any
+  showStatusDuration?: boolean
 }
 interface IProgressBarSettings {
   title: string
@@ -19,7 +22,7 @@ interface IProgressBarSettings {
 export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { currentStatus } = props
+  const { showStatusDuration, currentStatus, ideaData } = props
 
   const statusesToRender =
     currentStatus !== ideaStatusByKey[ideaStatus.REJECTED]
@@ -61,6 +64,25 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
           >
             {settingItem.title}
           </p>
+
+          {showStatusDuration && (
+            <>
+              {settingItem?.intervalName === 'intervalStatusSearchFoundNotFound' ? (
+                <p className={classNames.settingItemDuration}>
+                  {minsToTime(
+                    (Number(ideaData?.intervalStatusSupplierFound) +
+                      Number(ideaData?.intervalStatusSupplierNotFound) +
+                      Number(ideaData?.intervalStatusSupplierSearch)) /
+                      60,
+                  ) || ''}
+                </p>
+              ) : (
+                <p className={classNames.settingItemDuration}>
+                  {minsToTime(ideaData?.[settingItem?.intervalName] / 60) || ''}
+                </p>
+              )}
+            </>
+          )}
         </div>
       ))}
     </div>

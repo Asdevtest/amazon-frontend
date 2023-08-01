@@ -354,11 +354,8 @@ export class ClientInventoryViewModel {
     this.getProductsMy()
   }
 
-  onClickShowProduct(row) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${row.originalData._id}`,
-      '_blank',
-    )
+  onClickShowProduct(id) {
+    const win = window.open(`${window.location.origin}/client/inventory/product?product-id=${id}`, '_blank')
 
     win.focus()
   }

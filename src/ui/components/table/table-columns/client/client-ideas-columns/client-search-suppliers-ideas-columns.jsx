@@ -12,13 +12,10 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaActions,
-  IdeaRequests,
   IdeaSupplier,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OnCheckingIdeaActions,
-  PhotoAndFilesCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,

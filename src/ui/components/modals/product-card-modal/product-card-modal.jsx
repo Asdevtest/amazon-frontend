@@ -18,7 +18,6 @@ import { ProductStatusButtons } from '@components/product/product-wrapper/top-ca
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { ShareLinkIcon } from '@components/shared/svg-icons'
 
 import { BuyerProductViewModel } from '@views/buyer/buyer-product-view/buyer-product-view.model'
 import { ClientProductViewModel } from '@views/client/client-product-view/client-product-view.model'
@@ -31,6 +30,7 @@ import { useClassNames } from './product-card-modal.style'
 
 import { ConfirmationModal } from '../confirmation-modal'
 import { WarningInfoModal } from '../warning-info-modal'
+import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
 export const ProductCardModal = observer(props => {
   const { classes: classNames } = useClassNames()
@@ -39,7 +39,7 @@ export const ProductCardModal = observer(props => {
 
   const { search } = useLocation()
   const queries = new URLSearchParams(search)
-
+  const productId = queries.get('product-id')
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
       return () =>
@@ -150,16 +150,7 @@ export const ProductCardModal = observer(props => {
       </div>
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
         <div className={classNames.footerWrapper}>
-          <div
-            className={classNames.shareWrapper}
-            onClick={() => {
-              const productId = queries.get('product-id')
-              onClickOpenNewTab({ originalData: { _id: productId } })
-            }}
-          >
-            <ShareLinkIcon className={classNames.shareLinkIcon} />
-            <Typography className={classNames.shareLinkText}>{t(TranslationKey['Open in a new tab'])}</Typography>
-          </div>
+          <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(productId)} />
 
           {showActionBtns && (
             <ProductStatusButtons

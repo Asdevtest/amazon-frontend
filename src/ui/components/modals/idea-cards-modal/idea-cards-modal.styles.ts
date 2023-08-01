@@ -5,6 +5,9 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     width: '1640px',
-    height: '854px',
+  },
+
+  modalDialogContextClassName: {
+    padding: '40px 32px 40px 50px !important',
   },
 }))

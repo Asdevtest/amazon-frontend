@@ -21,13 +21,14 @@ import ApiClient from '../ApiClient';
 class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject56
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor(clientComment, priceForClient) { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject56.initialize(this, clientComment, priceForClient);
+        InlineObject56.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -35,9 +36,9 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -51,11 +52,11 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -65,15 +66,16 @@ class InlineObject56 {
 }
 
 /**
- * @member {String} clientComment
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject56.prototype['clientComment'] = undefined;
+InlineObject56.prototype['boxId'] = undefined;
 
 /**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
  */
-InlineObject56.prototype['priceForClient'] = undefined;
+InlineObject56.prototype['logicsTariffId'] = undefined;
 
 
 

@@ -8,7 +8,6 @@ import {
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,6 +24,7 @@ import {
 } from './calculation'
 import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 
 export const addIdDataConverter = data =>
   data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))

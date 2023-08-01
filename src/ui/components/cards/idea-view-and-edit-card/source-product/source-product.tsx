@@ -24,8 +24,8 @@ export const SourceProduct: FC<SourceProductProps> = props => {
         <img className={classNames.sourceProductImg} src={img} alt={img} />
 
         <div className={classNames.attributesProductWrapper}>
-          <AsinOrSkuLink withCopyValue asin={asin} />
-          <AsinOrSkuLink withCopyValue sku={sku} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={sku} />
         </div>
       </div>
     </div>

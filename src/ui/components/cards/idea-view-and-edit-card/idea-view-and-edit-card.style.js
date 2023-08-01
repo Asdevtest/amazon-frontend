@@ -11,16 +11,24 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 7,
     gap: '30px',
   },
+
+  modalRoot: {
+    padding: 0,
+    display: 'flex',
+    gap: '40px',
+  },
+
   cardWrapper: {
     width: '100%',
     height: '370px',
-    overflow: 'hidden',
     display: 'flex',
+    overflow: 'hidden',
     justifyContent: 'space-between',
   },
 
   fullCardWpapper: {
-    height: 'fit-content',
+    height: 'max-content',
+    overflow: 'unset',
   },
 
   cardBlockWrapper: {
@@ -135,7 +143,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   existedIdeaBtnsSubWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    alignItems: 'center',
     gap: '50px',
   },
 
@@ -471,5 +479,19 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.other.succes,
+  },
+
+  contentWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '40px',
+  },
+
+  modalContentWrapper: {
+    maxHeight: '616px',
+    overflowY: 'auto',
+    padding: '30px',
+
+    boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
   },
 }))

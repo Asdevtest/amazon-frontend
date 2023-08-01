@@ -14,7 +14,6 @@ import { IconButton, Link, Typography } from '@mui/material'
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestSwitherType } from '@constants/requests/request-type'
-import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TableSupplier } from '@components/product/table-supplier'
@@ -45,6 +44,8 @@ import { useClassNames } from './idea-view-and-edit-card.style'
 import { IdeaRequestCard } from './idea-request-card'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
+import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
 const radioBottonsSettings = [
   {
@@ -59,6 +60,7 @@ const radioBottonsSettings = [
 
 export const IdeaViewAndEditCard = observer(
   ({
+    isModalView,
     curUser,
     inEdit,
     inCreate,
@@ -80,12 +82,13 @@ export const IdeaViewAndEditCard = observer(
     onClickResultButton,
     onClickLinkRequestButton,
     onClickCreateRequestButton,
+    onClickOpenNewTab,
   }) => {
     const { classes: classNames } = useClassNames()
 
     const [linkLine, setLinkLine] = useState('')
     const [images, setImages] = useState([])
-    const [showFullCard, setShowFullCard] = useState(idea ? false : true)
+    const [showFullCard, setShowFullCard] = useState(false)
 
     const [formFields, setFormFields] = useState({})
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
@@ -109,6 +112,7 @@ export const IdeaViewAndEditCard = observer(
       comments: idea?.comments || '',
       buyerComment: idea?.buyerComment || '',
       childProduct: idea?.childProduct || undefined,
+      productLinks: idea?.productLinks || [],
     })
 
     const getFullIdea = () => ({
@@ -150,7 +154,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const setShowFullCardByCurIdea = async () => {
-      if (curIdea?._id === idea?._id) {
+      if (isCurrentIdea) {
         setShowFullCard(!showFullCard)
       } else {
         await onSetCurIdea(idea)
@@ -160,22 +164,20 @@ export const IdeaViewAndEditCard = observer(
 
     const onClickLinkBtn = () => {
       onChangeField('productLinks')({ target: { value: [...formFields.productLinks, linkLine] } })
-
       setLinkLine('')
     }
 
     const onRemoveLink = index => {
-      const newArr = formFields.productLinks.filter((el, i) => i !== index)
-
+      const newArr = formFields?.productLinks?.filter((el, i) => i !== index)
       onChangeField('productLinks')({ target: { value: [...newArr] } })
     }
 
     useEffect(() => {
-      if (curIdea?._id !== idea?._id && !inEdit) {
-        setShowFullCard(idea ? false : true)
-      } else if (curIdea?._id === idea?._id && inEdit) {
+      if (inCreate) {
         setShowFullCard(true)
-      } else if (curIdea?._id !== idea?._id && inEdit) {
+      } else if (isModalView) {
+        setShowFullCard(true)
+      } else if (!isCurrentIdea) {
         setShowFullCard(false)
       }
 
@@ -186,9 +188,7 @@ export const IdeaViewAndEditCard = observer(
       if (!curIdea) {
         setFormFields(getShortIdea())
       } else {
-        if (isCurrentIdea) {
-          setFormFields(getFullIdea())
-        }
+        isCurrentIdea && setFormFields(getFullIdea())
       }
     }, [curIdea, idea])
 
@@ -257,6 +257,10 @@ export const IdeaViewAndEditCard = observer(
     const isSupplierNotFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
     const isCardCreating = formFields?.status === ideaStatusByKey[ideaStatus.CARD_CREATING]
     const isRejected = formFields?.status === ideaStatusByKey[ideaStatus.REJECTED]
+    const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
+
+    const showAcceptButtonToClient =
+      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isCardCreating && !isVerified
 
     const showRejectButton =
       isNewIdea ||
@@ -265,15 +269,20 @@ export const IdeaViewAndEditCard = observer(
       isSupplierFound ||
       isSupplierNotFound
 
-    const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
-    const disableAcceptButton = isSupplierFound || isSupplierNotFound
+    const showCreateRequestButton =
+      formFields?.status === ideaStatusByKey[ideaStatus.NEW] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK] ||
+      formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
 
-    console.log('curIdea', curIdea)
+    const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
+    const disableAcceptButton = isSupplierNotFound
+
+    console.log('formFields', formFields)
 
     return (
-      <div className={classNames.root}>
+      <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
         <div className={classNames.headerWrapper}>
-          <IdeaProgressBar currentStatus={formFields?.status} />
+          <IdeaProgressBar showStatusDuration={isModalView} currentStatus={formFields?.status} ideaData={curIdea} />
 
           <div className={classNames.sourcesProductWraper}>
             {formFields.childProduct && (
@@ -295,402 +304,412 @@ export const IdeaViewAndEditCard = observer(
           </div>
         </div>
 
-        <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
-          <div className={classNames.mediaBlock}>
-            {!inCreate && (
-              <div className={classNames.photoCarouselWrapper}>
-                <PhotoCarousel files={formFields?.media} />
-              </div>
-            )}
-
-            {!disableFields && (
-              <UploadFilesInput
-                fullWidth
-                withoutDragAndDropTitle
-                dragAndDropBtnHeight={59}
-                images={images}
-                setImages={setImages}
-                maxNumber={50}
-              />
-            )}
-
-            {showFullCard && (
-              <div className={classNames.requestsBlockWrapper}>
-                <div className={classNames.requestsControlWrapper}>
-                  <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
-
-                  <div className={classNames.requestsControlButtonsWrapper}>
-                    <CustomSwitcher
-                      bigSwitch
-                      condition={showRequestType}
-                      nameFirstArg={t(TranslationKey['On check'])}
-                      nameSecondArg={t(TranslationKey.Realized)}
-                      firstArgValue={RequestSwitherType.REQUESTS_ON_CHECK}
-                      secondArgValue={RequestSwitherType.REQUESTS_ON_FINISHED}
-                      changeConditionHandler={condition => setShowRequestType(condition)}
-                    />
-
-                    <Button onClick={onClickLinkRequestButton}>{t(TranslationKey['Link request'])}</Button>
-                  </div>
+        <div className={cx(classNames.contentWrapper, { [classNames.modalContentWrapper]: isModalView })}>
+          <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
+            <div className={classNames.mediaBlock}>
+              {!inCreate && (
+                <div className={classNames.photoCarouselWrapper}>
+                  <PhotoCarousel files={formFields?.media} />
                 </div>
+              )}
 
-                {(!!formFields.requestsOnCheck?.length || !!formFields.requestsOnFinished?.length) && (
-                  <div className={classNames.requestsWrapper}>
-                    {requestsToRender?.map((request, requestIndex) => (
-                      <IdeaRequestCard
-                        key={requestIndex}
-                        requestType={request.typeTask}
-                        requestId={request.humanFriendlyId}
-                        requestStatus={request.status}
-                        executor={request.executor}
-                        proposals={request.proposals}
-                        onClickResultButton={onClickResultButton}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+              {!disableFields && (
+                <UploadFilesInput
+                  fullWidth
+                  withoutDragAndDropTitle
+                  dragAndDropBtnHeight={59}
+                  images={images}
+                  setImages={setImages}
+                  maxNumber={50}
+                />
+              )}
 
-          <div className={classNames.commentsWrapper}>
-            <Field
-              multiline
-              disabled={disableFields || checkIsBuyer(UserRoleCodeMap[curUser.role])}
-              className={classNames.сlientСomment}
-              containerClasses={classNames.noMarginContainer}
-              labelClasses={classNames.spanLabel}
-              inputProps={{ maxLength: 255 }}
-              sx={{
-                '.MuiInputBase-inputMultiline': {
-                  height: '100% !important',
-                  width: '100% !important',
-                },
-              }}
-              label={t(TranslationKey['Client commentary'])}
-              value={formFields.comments}
-              onChange={onChangeField('comments')}
-            />
+              {showFullCard && (
+                <div className={classNames.requestsBlockWrapper}>
+                  <div className={classNames.requestsControlWrapper}>
+                    <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
 
-            <Field
-              multiline
-              disabled={disableFields || checkIsClient(UserRoleCodeMap[curUser.role])}
-              label={t(TranslationKey['Buyer comments'])}
-              labelClasses={classNames.spanLabel}
-              className={classNames.buyerComment}
-              containerClasses={classNames.noMarginContainer}
-              inputProps={{ maxLength: 255 }}
-              sx={{
-                '.MuiInputBase-inputMultiline': {
-                  height: '100% !important',
-                  width: '100% !important',
-                },
-              }}
-              value={formFields.buyerComment}
-              onChange={onChangeField('buyerComment')}
-            />
-          </div>
-        </div>
-
-        {showFullCard && (
-          <>
-            <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
-              <Typography className={classNames.supplierSearchTitle}>
-                {t(TranslationKey['Supplier search options'])}
-              </Typography>
-
-              <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
-                <div className={classNames.nameAndInfoProductWrapper}>
-                  <Field
-                    disabled={disableFields}
-                    label={t(TranslationKey['Product name'])}
-                    inputProps={{ maxLength: 130 }}
-                    value={formFields.productName}
-                    labelClasses={classNames.spanLabel}
-                    containerClasses={classNames.noMarginContainer}
-                    className={classNames.oneLineField}
-                    onChange={onChangeField('productName')}
-                  />
-
-                  <Field
-                    multiline
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    className={classNames.criterionsField}
-                    containerClasses={classNames.noMarginContainer}
-                    inputProps={{ maxLength: 250 }}
-                    sx={{
-                      '.MuiInputBase-inputMultiline': {
-                        height: '100% !important',
-                        width: '100% !important',
-                      },
-                    }}
-                    label={t(TranslationKey['Important criteria'])}
-                    value={formFields.criteria}
-                    onChange={onChangeField('criteria')}
-                  />
-                </div>
-
-                <div className={classNames.linksAndDimensionsWrapper}>
-                  <Field
-                    labelClasses={classNames.spanLabel}
-                    label={t(TranslationKey.Links)}
-                    containerClasses={classNames.noMarginContainer}
-                    className={classNames.oneLineField}
-                    inputComponent={
-                      <div className={classNames.linksWrapper}>
-                        {(inEdit || inCreate) && (
-                          <div className={classNames.inputWrapper}>
-                            <Input
-                              disabled={disableFields}
-                              placeholder={t(TranslationKey['Link to the product'])}
-                              inputProps={{ maxLength: 510 }}
-                              value={linkLine}
-                              className={classNames.input}
-                              onChange={e => setLinkLine(e.target.value)}
-                            />
-                            <Button
-                              disableElevation
-                              disabled={!linkLine || disableFields}
-                              className={classNames.defaultBtn}
-                              variant="contained"
-                              color="primary"
-                              onClick={onClickLinkBtn}
-                            >
-                              {t(TranslationKey.Add)}
-                            </Button>
-                          </div>
-                        )}
-                        <div className={classNames.linksSubWrapper}>
-                          {formFields?.productLinks?.length ? (
-                            formFields?.productLinks?.map((el, index) => (
-                              <div key={index} className={classNames.linkWrapper}>
-                                <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                                  <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
-                                </Link>
-
-                                <div className={classNames.linksBtnsWrapper}>
-                                  <CopyValue text={el} />
-                                  {!disableFields && (
-                                    <IconButton
-                                      className={classNames.deleteBtnWrapper}
-                                      onClick={() => onRemoveLink(index)}
-                                    >
-                                      <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-                                    </IconButton>
-                                  )}
-                                </div>
-                              </div>
-                            ))
-                          ) : (
-                            <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
-                          )}
-                        </div>
-                      </div>
-                    }
-                  />
-
-                  <div className={classNames.shortFieldsSubWrapper}>
-                    <Field
-                      disabled={disableFields}
-                      inputProps={{ maxLength: 6 }}
-                      labelClasses={classNames.spanLabel}
-                      inputClasses={classNames.shortInput}
-                      className={classNames.oneLineField}
-                      containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
-                      label={t(TranslationKey.Quantity)}
-                      value={formFields.quantity}
-                      onChange={onChangeField('quantity')}
-                    />
-                    <Field
-                      disabled={disableFields}
-                      inputProps={{ maxLength: 6 }}
-                      labelClasses={classNames.spanLabel}
-                      inputClasses={classNames.shortInput}
-                      containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
-                      label={t(TranslationKey['Desired purchase price']) + ', $'}
-                      value={formFields.price}
-                      className={classNames.oneLineField}
-                      onChange={onChangeField('price')}
-                    />
-                  </div>
-
-                  <div className={classNames.sizesWrapper}>
-                    <div className={classNames.sizesSubWrapper}>
-                      <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
-
+                    <div className={classNames.requestsControlButtonsWrapper}>
                       <CustomSwitcher
-                        condition={sizeSetting}
-                        nameFirstArg={'In'}
-                        nameSecondArg={'Cm'}
-                        firstArgValue={sizesType.INCHES}
-                        secondArgValue={sizesType.CM}
-                        changeConditionHandler={condition => handleChange(condition)}
+                        bigSwitch
+                        condition={showRequestType}
+                        nameFirstArg={t(TranslationKey['On check'])}
+                        nameSecondArg={t(TranslationKey.Realized)}
+                        firstArgValue={RequestSwitherType.REQUESTS_ON_CHECK}
+                        secondArgValue={RequestSwitherType.REQUESTS_ON_FINISHED}
+                        changeConditionHandler={condition => setShowRequestType(condition)}
                       />
-                    </div>
 
-                    <div className={classNames.sizesBottomWrapper}>
-                      <Field
-                        disabled={disableFields}
-                        inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.sizesInput}
-                        className={classNames.oneLineField}
-                        containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                        label={t(TranslationKey.Width)}
-                        value={formFields.width}
-                        onChange={onChangeField('width')}
-                      />
-                      <Field
-                        disabled={disableFields}
-                        inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.sizesInput}
-                        className={classNames.oneLineField}
-                        containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                        label={t(TranslationKey.Height)}
-                        value={formFields.height}
-                        onChange={onChangeField('height')}
-                      />
-                      <Field
-                        disabled={disableFields}
-                        inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.sizesInput}
-                        className={classNames.oneLineField}
-                        containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                        label={t(TranslationKey.Length)}
-                        value={formFields.length}
-                        onChange={onChangeField('length')}
-                      />
+                      <Button disabled={!showCreateRequestButton} onClick={onClickLinkRequestButton}>
+                        {t(TranslationKey['Link request'])}
+                      </Button>
                     </div>
                   </div>
+
+                  {(!!formFields.requestsOnCheck?.length || !!formFields.requestsOnFinished?.length) && (
+                    <div className={classNames.requestsWrapper}>
+                      {requestsToRender?.map((request, requestIndex) => (
+                        <IdeaRequestCard
+                          key={requestIndex}
+                          requestType={request.typeTask}
+                          requestId={request.humanFriendlyId}
+                          requestStatus={request.status}
+                          executor={request.executor}
+                          proposals={request.proposals}
+                          onClickResultButton={onClickResultButton}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
             </div>
 
-            <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
+            <div className={classNames.commentsWrapper}>
               <Field
-                labelClasses={classNames.spanLabel}
-                label={t(TranslationKey.Suppliers)}
+                multiline
+                disabled={disableFields || checkIsBuyer(UserRoleCodeMap[curUser.role])}
+                className={classNames.сlientСomment}
                 containerClasses={classNames.noMarginContainer}
-                inputComponent={
-                  <>
-                    {checkIsClientOrBuyer && (inEdit || inCreate) ? (
-                      <div className={classNames.supplierActionsWrapper}>
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            className={classNames.iconBtn}
-                            onClick={() =>
-                              onClickSupplierBtns('add', () =>
-                                onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
-                              )
-                            }
-                          >
-                            <AddIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Add supplier'])}
-                          </Typography>
+                labelClasses={classNames.spanLabel}
+                inputProps={{ maxLength: 255 }}
+                sx={{
+                  '.MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
+                label={t(TranslationKey['Client commentary'])}
+                value={formFields.comments}
+                onChange={onChangeField('comments')}
+              />
+
+              <Field
+                multiline
+                disabled={disableFields || checkIsClient(UserRoleCodeMap[curUser.role])}
+                label={t(TranslationKey['Buyer comments'])}
+                labelClasses={classNames.spanLabel}
+                className={classNames.buyerComment}
+                containerClasses={classNames.noMarginContainer}
+                inputProps={{ maxLength: 255 }}
+                sx={{
+                  '.MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
+                value={formFields.buyerComment}
+                onChange={onChangeField('buyerComment')}
+              />
+            </div>
+          </div>
+
+          {showFullCard && (
+            <>
+              <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
+                <Typography className={classNames.supplierSearchTitle}>
+                  {t(TranslationKey['Supplier search options'])}
+                </Typography>
+
+                <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
+                  <div className={classNames.nameAndInfoProductWrapper}>
+                    <Field
+                      disabled={disableFields}
+                      label={t(TranslationKey['Product name'])}
+                      inputProps={{ maxLength: 130 }}
+                      value={formFields.productName}
+                      labelClasses={classNames.spanLabel}
+                      containerClasses={classNames.noMarginContainer}
+                      className={classNames.oneLineField}
+                      onChange={onChangeField('productName')}
+                    />
+
+                    <Field
+                      multiline
+                      disabled={disableFields}
+                      labelClasses={classNames.spanLabel}
+                      className={classNames.criterionsField}
+                      containerClasses={classNames.noMarginContainer}
+                      inputProps={{ maxLength: 250 }}
+                      sx={{
+                        '.MuiInputBase-inputMultiline': {
+                          height: '100% !important',
+                          width: '100% !important',
+                        },
+                      }}
+                      label={t(TranslationKey['Important criteria'])}
+                      value={formFields.criteria}
+                      onChange={onChangeField('criteria')}
+                    />
+                  </div>
+
+                  <div className={classNames.linksAndDimensionsWrapper}>
+                    <Field
+                      labelClasses={classNames.spanLabel}
+                      label={t(TranslationKey.Links)}
+                      containerClasses={classNames.noMarginContainer}
+                      className={classNames.oneLineField}
+                      inputComponent={
+                        <div className={classNames.linksWrapper}>
+                          {(inEdit || inCreate) && (
+                            <div className={classNames.inputWrapper}>
+                              <Input
+                                disabled={disableFields}
+                                placeholder={t(TranslationKey['Link to the product'])}
+                                inputProps={{ maxLength: 510 }}
+                                value={linkLine}
+                                className={classNames.input}
+                                onChange={e => setLinkLine(e.target.value)}
+                              />
+                              <Button
+                                disableElevation
+                                disabled={!linkLine || disableFields}
+                                className={classNames.defaultBtn}
+                                variant="contained"
+                                color="primary"
+                                onClick={onClickLinkBtn}
+                              >
+                                {t(TranslationKey.Add)}
+                              </Button>
+                            </div>
+                          )}
+                          <div className={classNames.linksSubWrapper}>
+                            {formFields?.productLinks?.length ? (
+                              formFields?.productLinks?.map((el, index) => (
+                                <div key={index} className={classNames.linkWrapper}>
+                                  <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
+                                    <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                                  </Link>
+
+                                  <div className={classNames.linksBtnsWrapper}>
+                                    <CopyValue text={el} />
+                                    {!disableFields && (
+                                      <IconButton
+                                        className={classNames.deleteBtnWrapper}
+                                        onClick={() => onRemoveLink(index)}
+                                      >
+                                        <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+                                      </IconButton>
+                                    )}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
+                            )}
+                          </div>
                         </div>
-                        {selectedSupplier && (
-                          <>
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                                className={classNames.iconBtn}
-                                onClick={() =>
-                                  onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
-                                }
-                              >
-                                <EditOutlinedIcon />
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Edit a supplier'])}
-                              </Typography>
-                            </div>
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
-                                onClick={() =>
-                                  onClickSupplierBtns('delete', () =>
-                                    onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                                  )
-                                }
-                              >
-                                <DeleteOutlineOutlinedIcon />
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Delete supplier'])}
-                              </Typography>
-                            </div>
-                          </>
-                        )}
+                      }
+                    />
+
+                    <div className={classNames.shortFieldsSubWrapper}>
+                      <Field
+                        disabled={disableFields}
+                        inputProps={{ maxLength: 6 }}
+                        labelClasses={classNames.spanLabel}
+                        inputClasses={classNames.shortInput}
+                        className={classNames.oneLineField}
+                        containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                        label={t(TranslationKey.Quantity)}
+                        value={formFields.quantity}
+                        onChange={onChangeField('quantity')}
+                      />
+                      <Field
+                        disabled={disableFields}
+                        inputProps={{ maxLength: 6 }}
+                        labelClasses={classNames.spanLabel}
+                        inputClasses={classNames.shortInput}
+                        containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                        label={t(TranslationKey['Desired purchase price']) + ', $'}
+                        value={formFields.price}
+                        className={classNames.oneLineField}
+                        onChange={onChangeField('price')}
+                      />
+                    </div>
+
+                    <div className={classNames.sizesWrapper}>
+                      <div className={classNames.sizesSubWrapper}>
+                        <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
+
+                        <CustomSwitcher
+                          condition={sizeSetting}
+                          nameFirstArg={'In'}
+                          nameSecondArg={'Cm'}
+                          firstArgValue={sizesType.INCHES}
+                          secondArgValue={sizesType.CM}
+                          changeConditionHandler={condition => handleChange(condition)}
+                        />
                       </div>
-                    ) : (
-                      <>
-                        {(checkIsClientOrBuyer || checkIsSupervisor(UserRoleCodeMap[curUser.role])) && (
+
+                      <div className={classNames.sizesBottomWrapper}>
+                        <Field
+                          disabled={disableFields}
+                          inputProps={{ maxLength: 6 }}
+                          labelClasses={classNames.spanLabel}
+                          inputClasses={classNames.sizesInput}
+                          className={classNames.oneLineField}
+                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                          label={t(TranslationKey.Width)}
+                          value={formFields.width}
+                          onChange={onChangeField('width')}
+                        />
+                        <Field
+                          disabled={disableFields}
+                          inputProps={{ maxLength: 6 }}
+                          labelClasses={classNames.spanLabel}
+                          inputClasses={classNames.sizesInput}
+                          className={classNames.oneLineField}
+                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                          label={t(TranslationKey.Height)}
+                          value={formFields.height}
+                          onChange={onChangeField('height')}
+                        />
+                        <Field
+                          disabled={disableFields}
+                          inputProps={{ maxLength: 6 }}
+                          labelClasses={classNames.spanLabel}
+                          inputClasses={classNames.sizesInput}
+                          className={classNames.oneLineField}
+                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                          label={t(TranslationKey.Length)}
+                          value={formFields.length}
+                          onChange={onChangeField('length')}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
+                <Field
+                  labelClasses={classNames.spanLabel}
+                  label={t(TranslationKey.Suppliers)}
+                  containerClasses={classNames.noMarginContainer}
+                  inputComponent={
+                    <>
+                      {checkIsClientOrBuyer && (inEdit || inCreate) ? (
+                        <div className={classNames.supplierActionsWrapper}>
                           <div className={classNames.supplierButtonWrapper}>
                             <Button
-                              disabled={!selectedSupplier}
-                              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                               className={classNames.iconBtn}
-                              onClick={() => onClickSupplierBtns('view')}
+                              onClick={() =>
+                                onClickSupplierBtns('add', () =>
+                                  onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
+                                )
+                              }
                             >
-                              <VisibilityOutlinedIcon />
+                              <AddIcon />
                             </Button>
                             <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Open the parameters supplier'])}
+                              {t(TranslationKey['Add supplier'])}
                             </Typography>
                           </div>
-                        )}
-                      </>
-                    )}
-                  </>
-                }
-              />
+                          {selectedSupplier && (
+                            <>
+                              <div className={classNames.supplierButtonWrapper}>
+                                <Button
+                                  tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                                  className={classNames.iconBtn}
+                                  onClick={() =>
+                                    onClickSupplierBtns('edit', () =>
+                                      onClickSaveBtn(calculateFieldsToSubmit(), [], true),
+                                    )
+                                  }
+                                >
+                                  <EditOutlinedIcon />
+                                </Button>
+                                <Typography className={classNames.supplierButtonText}>
+                                  {t(TranslationKey['Edit a supplier'])}
+                                </Typography>
+                              </div>
+                              <div className={classNames.supplierButtonWrapper}>
+                                <Button
+                                  tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                                  className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                  onClick={() =>
+                                    onClickSupplierBtns('delete', () =>
+                                      onClickSaveBtn(calculateFieldsToSubmit(), [], true),
+                                    )
+                                  }
+                                >
+                                  <DeleteOutlineOutlinedIcon />
+                                </Button>
+                                <Typography className={classNames.supplierButtonText}>
+                                  {t(TranslationKey['Delete supplier'])}
+                                </Typography>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      ) : (
+                        <>
+                          {(checkIsClientOrBuyer || checkIsSupervisor(UserRoleCodeMap[curUser.role])) && (
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                disabled={!selectedSupplier}
+                                tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                                className={classNames.iconBtn}
+                                onClick={() => onClickSupplierBtns('view')}
+                              >
+                                <VisibilityOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Open the parameters supplier'])}
+                              </Typography>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </>
+                  }
+                />
 
-              <TableSupplier
-                product={formFields}
-                selectedSupplier={selectedSupplier}
-                onClickSupplier={onClickSupplier}
-              />
+                <TableSupplier
+                  product={formFields}
+                  selectedSupplier={selectedSupplier}
+                  onClickSupplier={onClickSupplier}
+                />
+              </div>
+            </>
+          )}
+
+          {/* {(inCreate || !disableFields) && (
+            <div className={classNames.addOrEditBtnsWrapper}>
+              <Button
+                success
+                disabled={disabledSubmit}
+                variant="contained"
+                color="primary"
+                onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
+              >
+                {t(TranslationKey.Save)}
+              </Button>
+
+              <Button
+                variant="text"
+                className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
+                onClick={() => onClickCancelBtn()}
+              >
+                {t(TranslationKey.Close)}
+              </Button>
             </div>
-          </>
-        )}
+          )} */}
+        </div>
 
-        {(inCreate || !disableFields) && (
-          <div className={classNames.addOrEditBtnsWrapper}>
-            <Button
-              success
-              disabled={disabledSubmit}
-              variant="contained"
-              color="primary"
-              onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
-            >
-              {t(TranslationKey.Save)}
-            </Button>
-
-            <Button
-              variant="text"
-              className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
-              onClick={() => onClickCancelBtn()}
-            >
-              {t(TranslationKey.Close)}
-            </Button>
-          </div>
-        )}
-
-        {!!idea && disableFields && (
+        {!!idea && disableFields ? (
           <div className={classNames.existedIdeaBtnsWrapper}>
-            <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-              <Typography className={classNames.tablePanelViewText}>
-                {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
+            {!isModalView ? (
+              <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
+                <Typography className={classNames.tablePanelViewText}>
+                  {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                </Typography>
 
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
-            </div>
+                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              </div>
+            ) : (
+              <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(currentProduct._id)} />
+            )}
 
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
@@ -721,7 +740,7 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {currentUserIsClient && isCurrentIdea && (
+                {currentUserIsClient && showCreateRequestButton && (
                   <Button
                     success
                     variant="contained"
@@ -733,18 +752,16 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {isCurrentIdea &&
-                  ((currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isCardCreating) ||
-                    (currentUserIsBuyer && isSupplierSearch)) && (
-                    <Button
-                      disabled={disableAcceptButton}
-                      variant="contained"
-                      color="primary"
-                      onClick={() => onClickAcceptButton(formFields)}
-                    >
-                      {t(TranslationKey.Accept)}
-                    </Button>
-                  )}
+                {(showAcceptButtonToClient || (currentUserIsBuyer && isSupplierSearch)) && (
+                  <Button
+                    disabled={disableAcceptButton}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => onClickAcceptButton(formFields)}
+                  >
+                    {t(TranslationKey.Accept)}
+                  </Button>
+                )}
 
                 {currentUserIsClient && isNewIdea && (
                   <Button
@@ -753,7 +770,7 @@ export const IdeaViewAndEditCard = observer(
                       onClickAcceptButton(formFields)
                     }}
                   >
-                    {t(TranslationKey.Check)}
+                    {t(TranslationKey['To check'])}
                   </Button>
                 )}
 
@@ -782,6 +799,26 @@ export const IdeaViewAndEditCard = observer(
                 )}
               </div>
             )}
+          </div>
+        ) : (
+          <div className={classNames.addOrEditBtnsWrapper}>
+            <Button
+              success
+              disabled={disabledSubmit}
+              variant="contained"
+              color="primary"
+              onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
+            >
+              {t(TranslationKey.Save)}
+            </Button>
+
+            <Button
+              variant="text"
+              className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
+              onClick={() => onClickCancelBtn()}
+            >
+              {t(TranslationKey.Close)}
+            </Button>
           </div>
         )}
       </div>

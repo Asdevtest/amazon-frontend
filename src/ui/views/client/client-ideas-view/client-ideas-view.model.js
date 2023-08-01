@@ -25,6 +25,7 @@ import {
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+import { ProductModel } from '@models/product-model'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
@@ -135,6 +136,14 @@ export class ClientIdeasViewModel {
   sortModel = []
   densityModel = 'compact'
   paginationModel = { page: 0, pageSize: 15 }
+
+  // * Modal data
+
+  currentProduct = undefined
+
+  // * Modal states
+
+  showIdeaModal = false
 
   // * Table settings
 
@@ -325,6 +334,8 @@ export class ClientIdeasViewModel {
         this.rowCount = response.count
       })
 
+      console.log('this.ideaList', this.ideaList)
+
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       console.log(error)
@@ -357,6 +368,24 @@ export class ClientIdeasViewModel {
     }
   }
 
+  async getDataForIdeaModal(row) {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      const result = await ProductModel.getProductById(row?.parentProduct?._id)
+      runInAction(() => {
+        this.currentProduct = result
+        this.currentIdeaId = row._id
+      })
+
+      this.onTriggerOpenModal('showIdeaModal')
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      console.log('error', error)
+      this.requestStatus = loadingStatuses.failed
+    }
+  }
   // * Idea handlers
 
   async statusHandler(method, id) {

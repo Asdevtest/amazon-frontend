@@ -22,6 +22,7 @@ import { useClientIdeasViewStyles } from '@views/client/client-ideas-view/client
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 
 export const ClientIdeasView = observer(props => {
   const [viewModel] = useState(() => new ClientIdeasViewModel({ history: props.history }))
@@ -93,9 +94,19 @@ export const ClientIdeasView = observer(props => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
         />
       </div>
 
+      {viewModel.showIdeaModal && (
+        <IdeaCardsModal
+          openModal={viewModel.showIdeaModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+          productId={viewModel.currentProduct?._id}
+          product={viewModel.currentProduct}
+          currentIdeaId={viewModel.currentIdeaId}
+        />
+      )}
       <Modal
         openModal={viewModel.showBarcodeOrHscodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBarcodeOrHscodeModal')}

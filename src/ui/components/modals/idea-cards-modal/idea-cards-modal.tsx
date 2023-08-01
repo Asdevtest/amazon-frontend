@@ -8,6 +8,7 @@ import { useClassNames } from './idea-cards-modal.styles'
 
 interface IdeaCardsModalProps {
   productId: string
+  currentIdeaId: string
   product: any
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
@@ -16,12 +17,16 @@ interface IdeaCardsModalProps {
 export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { openModal, setOpenModal, productId, product } = props
+  const { openModal, setOpenModal, productId, product, currentIdeaId } = props
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal
+      dialogContextClassName={classNames.modalDialogContextClassName}
+      openModal={openModal}
+      setOpenModal={setOpenModal}
+    >
       <div className={classNames.root}>
-        <SuppliersAndIdeas productId={productId} product={product} />
+        <SuppliersAndIdeas isModalView productId={productId} product={product} currentIdeaId={currentIdeaId} />
       </div>
     </Modal>
   )

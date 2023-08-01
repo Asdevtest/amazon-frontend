@@ -3,10 +3,9 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
-import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { IdeaPatch, creatSupplier, patchSuppliers } from '@constants/white-list'
+import { IdeaCreate, IdeaPatch, creatSupplier, patchSuppliers, createProductByClient } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
@@ -17,15 +16,18 @@ import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 
 export class SuppliersAndIdeasModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  currentIdeaId = undefined
 
   curIdea = undefined
   currentProduct = undefined
@@ -74,10 +76,12 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
-  constructor({ history, productId, product }) {
+  constructor({ history, productId, product, isModalView, currentIdeaId }) {
     this.history = history
     this.productId = productId
     this.currentProduct = product
+    this.isModalView = isModalView
+    this.currentIdeaId = currentIdeaId
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -86,12 +90,22 @@ export class SuppliersAndIdeasModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await this.getIdeas()
+      if (this.isModalView && this.currentIdeaId) {
+        await this.getIdea(this.currentIdeaId)
+      } else {
+        await this.getIdeas()
+      }
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  async onClickOpenNewTab(id) {
+    const win = window.open(`${window.location.origin}/client/inventory/product?product-id=${id}`, '_blank')
+
+    win.focus()
   }
 
   async getIdeas() {
@@ -101,7 +115,7 @@ export class SuppliersAndIdeasModel {
       const result = await IdeaModel.getIdeas(this.productId)
 
       runInAction(() => {
-        this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
+        this.ideasData = result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -172,7 +186,7 @@ export class SuppliersAndIdeasModel {
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
-    this.curIdea = undefined
+    // this.curIdea = undefined
     this.selectedSupplier = undefined
   }
 
@@ -184,20 +198,23 @@ export class SuppliersAndIdeasModel {
         await onSubmitPostImages.call(this, { images: files, type: 'readyFiles' })
       }
 
-      const submitData = getObjectFilteredByKeyArrayWhiteList(
-        {
-          ...formFields,
-          media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media,
-          price: formFields.price || 0,
-          quantity: Math.floor(formFields.quantity) || 0,
-        },
-        IdeaPatch,
-      )
+      const submitData = {
+        ...formFields,
+        media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media,
+        price: formFields.price || 0,
+        quantity: Math.floor(formFields.quantity) || 0,
+      }
 
       if (this.inEdit) {
-        await this.editIdea(formFields._id, submitData, isForceUpdate)
+        await this.editIdea(formFields._id, getObjectFilteredByKeyArrayWhiteList(submitData, IdeaPatch), isForceUpdate)
       } else {
-        const createdIdeaId = await this.createIdea({ ...submitData, productId: this.productId }, isForceUpdate)
+        const createdIdeaId = await this.createIdea(
+          getObjectFilteredByKeyArrayWhiteList(
+            { ...submitData, productId: this.productId, parentProductId: this.productId },
+            IdeaCreate,
+          ),
+          isForceUpdate,
+        )
 
         const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
 
@@ -238,35 +255,31 @@ export class SuppliersAndIdeasModel {
 
   async onSubmitCreateProduct(data) {
     try {
-      const createData = {
-        images: data.media,
-        amazonTitle: data.productName,
-        amazon: data.price || 0,
-        width: data.width || 0,
-        height: data.height || 0,
-        length: data.length || 0,
-        asin: '',
-        parentProductId: data?.parentProduct?._id,
-        lamazon: data.productLinks[0],
-        amazonDetail: data.criteria,
-        clientComment: data.comments,
-
-        ...(this.currentProduct.buyer?._id && { buyerId: this.currentProduct.buyer?._id }),
-      }
+      const createData = getObjectFilteredByKeyArrayWhiteList(
+        {
+          images: data.media,
+          amazonTitle: data.productName,
+          amazon: data.price || 0,
+          width: data.width || 0,
+          height: data.height || 0,
+          length: data.length || 0,
+          asin: data?.parentProduct?.asin || '',
+          parentProductId: data?.parentProduct?._id,
+          amazonDetail: data.criteria,
+          lamazon: data.productLinks[0],
+          clientComment: data.comments,
+          suppliersIds: data.suppliers?.map(el => el._id),
+          ...(this.currentProduct.buyer?._id && { buyerId: this.currentProduct.buyer?._id }),
+        },
+        createProductByClient,
+      )
 
       const result = await ClientModel.createProduct(createData)
-
-      const suppliersIds = data.suppliers?.map(el => el._id)
-
-      if (suppliersIds.length) {
-        await ProductModel.addSuppliersToProduct(result.guid, suppliersIds)
-      }
 
       await this.editIdea(data._id, { childProductId: result.guid })
       await this.onClickAcceptButton(data)
 
       this.successModalTitle = t(TranslationKey['Product added'])
-
       this.onTriggerOpenModal('showSuccessModal')
 
       this.onTriggerOpenModal('showConfirmModal')
@@ -345,10 +358,12 @@ export class SuppliersAndIdeasModel {
     switch (status) {
       case ideaStatusByKey[ideaStatus.NEW]:
         await IdeaModel.checkIdea(_id)
+        this.loadData()
         break
 
       case ideaStatusByKey[ideaStatus.ON_CHECK]:
         await IdeaModel.changeStatusToSupplierSearchIdea(_id)
+        this.loadData()
         break
 
       case ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]:
@@ -357,6 +372,7 @@ export class SuppliersAndIdeasModel {
         } else {
           await IdeaModel.changeStatusToSupplierNotFound(_id)
         }
+        this.loadData()
         break
 
       case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]:
@@ -365,17 +381,16 @@ export class SuppliersAndIdeasModel {
         } else {
           await IdeaModel.changeStatusToAddingAsin(_id)
         }
+        this.loadData()
         break
 
       case ideaStatusByKey[ideaStatus.CARD_CREATING]:
         await IdeaModel.changeStatusToAddingAsin(_id)
+        this.loadData()
         break
 
       case ideaStatusByKey[ideaStatus.ADDING_ASIN]:
         await IdeaModel.changeStatusToFinished(_id)
-        break
-
-      default:
         this.loadData()
         break
     }
