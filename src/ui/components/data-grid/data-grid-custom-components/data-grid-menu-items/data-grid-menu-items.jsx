@@ -981,6 +981,8 @@ export const NormalFieldMenuItem = React.memo(
         }
       }, [nameSearchValue])
 
+      console.log(filterData)
+
       return (
         <div
           className={cx({
@@ -1015,20 +1017,19 @@ export const NormalFieldMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender.map(
-                      (el, index) =>
-                        el && (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>
-                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                            </div>
+                    {itemsForRender.map((el, index) =>
+                      el ? (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={choosenItems.some(item => item === el)}
+                            onClick={() => onClickItem(el)}
+                          />
+                          <div className={classNames.shopName}>
+                            {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
                           </div>
-                        ),
+                        </div>
+                      ) : null,
                     )}
                   </>
                 ) : (

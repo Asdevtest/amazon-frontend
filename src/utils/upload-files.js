@@ -1,9 +1,9 @@
+import { Errors } from '@constants/errors'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { OtherModel } from '@models/other-model'
 
 import { getFileNameFromUrl } from './get-file-name-from-url'
-import { Errors } from '@constants/errors'
 
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',')
