@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -17,7 +18,6 @@ import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-
 
 import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   {

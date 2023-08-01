@@ -1,5 +1,3 @@
-
-
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
