@@ -2004,7 +2004,6 @@ export enum TranslationKey {
   'Photo and Video' = 'Photo and Video',
   'Photo track numbers' = 'Photo track numbers',
   'no photo track number' = 'no photo track number',
-  'Archiving' = 'Archiving',
   'To pay partial' = 'To pay partial',
   'By date' = 'By date',
   'On page' = 'On page',

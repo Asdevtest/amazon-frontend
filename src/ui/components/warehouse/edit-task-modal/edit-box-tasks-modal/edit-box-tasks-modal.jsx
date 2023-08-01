@@ -23,7 +23,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting, weightConversion }) => {
+const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) => {
   const { classes: classNames } = useClassNames()
 
   return (
