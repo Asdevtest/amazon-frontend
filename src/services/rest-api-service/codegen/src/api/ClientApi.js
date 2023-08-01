@@ -32,14 +32,14 @@ import InlineObject56 from '../model/InlineObject56';
 import InlineObject57 from '../model/InlineObject57';
 import InlineObject58 from '../model/InlineObject58';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse20030 from '../model/InlineResponse20030';
-import InlineResponse20031 from '../model/InlineResponse20031';
-import InlineResponse20032 from '../model/InlineResponse20032';
-import InlineResponse20033 from '../model/InlineResponse20033';
-import InlineResponse20034 from '../model/InlineResponse20034';
-import InlineResponse20035 from '../model/InlineResponse20035';
 import InlineResponse20036 from '../model/InlineResponse20036';
+import InlineResponse20037 from '../model/InlineResponse20037';
+import InlineResponse20038 from '../model/InlineResponse20038';
+import InlineResponse20039 from '../model/InlineResponse20039';
 import InlineResponse2004 from '../model/InlineResponse2004';
+import InlineResponse20040 from '../model/InlineResponse20040';
+import InlineResponse20041 from '../model/InlineResponse20041';
+import InlineResponse20042 from '../model/InlineResponse20042';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InlineResponse2017 from '../model/InlineResponse2017';
@@ -907,7 +907,7 @@ export default class ClientApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20034} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20040} and HTTP response
      */
     apiV1ClientsPagOrdersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -932,7 +932,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20034;
+      let returnType = InlineResponse20040;
       return this.apiClient.callApi(
         '/api/v1/clients/pag/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -951,7 +951,7 @@ export default class ClientApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20034}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20040}
      */
     apiV1ClientsPagOrdersGet(opts) {
       return this.apiV1ClientsPagOrdersGetWithHttpInfo(opts)
@@ -1016,7 +1016,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject54} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20036} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20042} and HTTP response
      */
     apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -1035,7 +1035,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20036;
+      let returnType = InlineResponse20042;
       return this.apiClient.callApi(
         '/api/v1/clients/products/get_price_for_client', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1049,7 +1049,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject54} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20036}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20042}
      */
     apiV1ClientsProductsGetPriceForClientPost(opts) {
       return this.apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts)
@@ -1233,7 +1233,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20036} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20042} and HTTP response
      */
     apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -1257,7 +1257,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20036;
+      let returnType = InlineResponse20042;
       return this.apiClient.callApi(
         '/api/v1/clients/products/{guid}/get_price_for_client', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1271,7 +1271,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20036}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20042}
      */
     apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts) {
       return this.apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts)
@@ -1397,8 +1397,9 @@ export default class ClientApi {
      * # Получить облегченный список товаров
      * ## Получить облегченный список товаров(archive = false)
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.ideaParent Существуют ли идеи с этим продуктом, как парентом
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20031>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20037>} and HTTP response
      */
     apiV1ClientsProductsLightGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1407,6 +1408,7 @@ export default class ClientApi {
       let pathParams = {
       };
       let queryParams = {
+        'ideaParent': opts['ideaParent']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -1417,7 +1419,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20031];
+      let returnType = [InlineResponse20037];
       return this.apiClient.callApi(
         '/api/v1/clients/products/light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1429,8 +1431,9 @@ export default class ClientApi {
      * # Получить облегченный список товаров
      * ## Получить облегченный список товаров(archive = false)
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.ideaParent Существуют ли идеи с этим продуктом, как парентом
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20031>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20037>}
      */
     apiV1ClientsProductsLightGet(opts) {
       return this.apiV1ClientsProductsLightGetWithHttpInfo(opts)
@@ -1447,7 +1450,7 @@ export default class ClientApi {
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20033>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20039>} and HTTP response
      */
     apiV1ClientsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1468,7 +1471,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20033];
+      let returnType = [InlineResponse20039];
       return this.apiClient.callApi(
         '/api/v1/clients/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1483,7 +1486,7 @@ export default class ClientApi {
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20033>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20039>}
      */
     apiV1ClientsProductsMyGet(opts) {
       return this.apiV1ClientsProductsMyGetWithHttpInfo(opts)
@@ -1505,7 +1508,7 @@ export default class ClientApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20032} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20038} and HTTP response
      */
     apiV1ClientsProductsMyWithPagGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1531,7 +1534,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20032;
+      let returnType = InlineResponse20038;
       return this.apiClient.callApi(
         '/api/v1/clients/products/my_with_pag', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1551,7 +1554,7 @@ export default class ClientApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20032}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20038}
      */
     apiV1ClientsProductsMyWithPagGet(opts) {
       return this.apiV1ClientsProductsMyWithPagGetWithHttpInfo(opts)
@@ -1615,7 +1618,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20030>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20036>} and HTTP response
      */
     apiV1ClientsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1634,7 +1637,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20030];
+      let returnType = [InlineResponse20036];
       return this.apiClient.callApi(
         '/api/v1/clients/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1647,7 +1650,7 @@ export default class ClientApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110(скрыты данные о поставщике, байере, супервайзере, создателе и skusByClient)  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20030>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20036>}
      */
     apiV1ClientsProductsVacGet(opts) {
       return this.apiV1ClientsProductsVacGetWithHttpInfo(opts)
@@ -1671,7 +1674,7 @@ export default class ClientApi {
      * @param {String} opts.priority Приоритет задачи
      * @param {String} opts.status Статус задачи
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20035} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20041} and HTTP response
      */
     apiV1ClientsTasksByBoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1699,7 +1702,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20035;
+      let returnType = InlineResponse20041;
       return this.apiClient.callApi(
         '/api/v1/clients/tasks/by_boxes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1721,7 +1724,7 @@ export default class ClientApi {
      * @param {String} opts.priority Приоритет задачи
      * @param {String} opts.status Статус задачи
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20035}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20041}
      */
     apiV1ClientsTasksByBoxesGet(opts) {
       return this.apiV1ClientsTasksByBoxesGetWithHttpInfo(opts)

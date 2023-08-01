@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import UserInfoSchemaFreelanceNotices from './UserInfoSchemaFreelanceNotices';
+import UserInfoSchemaIdeas from './UserInfoSchemaIdeas';
 import UserInfoSchemaMasterUser from './UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
@@ -204,6 +205,9 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('buyerFoundSupplier')) {
                 obj['buyerFoundSupplier'] = ApiClient.convertToType(data['buyerFoundSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('ideas')) {
+                obj['ideas'] = UserInfoSchemaIdeas.constructFromObject(data['ideas']);
             }
             if (data.hasOwnProperty('freelanceNotices')) {
                 obj['freelanceNotices'] = ApiClient.convertToType(data['freelanceNotices'], [UserInfoSchemaFreelanceNotices]);
@@ -508,6 +512,11 @@ UserInfoSchema.prototype['productIsAppropriate'] = undefined;
  * @member {Number} buyerFoundSupplier
  */
 UserInfoSchema.prototype['buyerFoundSupplier'] = undefined;
+
+/**
+ * @member {module:model/UserInfoSchemaIdeas} ideas
+ */
+UserInfoSchema.prototype['ideas'] = undefined;
 
 /**
  * @member {Array.<module:model/UserInfoSchemaFreelanceNotices>} freelanceNotices

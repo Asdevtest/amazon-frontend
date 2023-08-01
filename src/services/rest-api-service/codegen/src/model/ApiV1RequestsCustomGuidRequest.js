@@ -96,6 +96,9 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('announcementId')) {
                 obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
+            if (data.hasOwnProperty('executorId')) {
+                obj['executorId'] = ApiClient.convertToType(data['executorId'], 'String');
+            }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [ApiV1RequestsCustomRequestLinksToMediaFiles]);
             }
@@ -201,6 +204,12 @@ ApiV1RequestsCustomGuidRequest.prototype['cashBackInPercent'] = undefined;
  * @member {String} announcementId
  */
 ApiV1RequestsCustomGuidRequest.prototype['announcementId'] = undefined;
+
+/**
+ * Гуид исполнителя
+ * @member {String} executorId
+ */
+ApiV1RequestsCustomGuidRequest.prototype['executorId'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1RequestsCustomRequestLinksToMediaFiles>} linksToMediaFiles
