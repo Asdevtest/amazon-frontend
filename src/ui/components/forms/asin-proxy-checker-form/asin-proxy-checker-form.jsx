@@ -182,17 +182,16 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={classNames.buttonsWrapper}>
-        <div>
-          <Button
-            disabled={error}
-            variant="contained"
-            className={classNames.buttonPreview}
-            onClick={() => onClickPreviewButton()}
-          >
-            <VisibilityIcon className={classNames.icon} />
-          </Button>
-        </div>
-        <div>
+        <Button
+          disabled={error}
+          variant="contained"
+          className={classNames.button}
+          onClick={() => onClickPreviewButton()}
+        >
+          <VisibilityIcon className={classNames.icon} />
+        </Button>
+
+        <div className={classNames.actionsButtonsContainer}>
           <Button
             success
             disabled={
@@ -202,7 +201,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
               error
             }
             variant="contained"
-            className={classNames.buttonOk}
+            className={classNames.button}
             onClick={() => {
               if (checkIsAdmin(userRole)) {
                 onSubmit(prev => [...new Set([...prev, ...asinsAndReasonsData])])
