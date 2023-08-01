@@ -76,8 +76,8 @@ export const ClientSentBatchesViewRaw = props => {
                 t(TranslationKey['Relocate from archive'])
               ) : (
                 <>
+                  {t(TranslationKey['Move to archive'])}
                   {<ArchiveIcon />}
-                  {t(TranslationKey.Archiving)}
                 </>
               )}
             </Button>

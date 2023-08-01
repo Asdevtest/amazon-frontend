@@ -36,6 +36,10 @@ export const styles = theme => ({
     color: '#fff',
     boxShadow: 'none',
 
+    '&:hover, &:active': {
+      boxShadow: 'none',
+    },
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },

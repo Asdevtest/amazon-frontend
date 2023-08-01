@@ -820,7 +820,9 @@ export const EditBoxStorekeeperForm = observer(
                           setShowSetBarcodeModal(!showSetBarcodeModal)
                         }}
                       >
-                        {boxFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                        {boxFields.tmpTrackNumberFile[0]
+                          ? t(TranslationKey['File added'])
+                          : t(TranslationKey['Photo track numbers'])}
                       </Button>
                     </div>
 
@@ -860,7 +862,7 @@ export const EditBoxStorekeeperForm = observer(
                           ))}
                         </CustomSlider>
                       ) : (
-                        <Typography>{'no photo track number...'}</Typography>
+                        <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                       )}
                     </div>
                   </div>

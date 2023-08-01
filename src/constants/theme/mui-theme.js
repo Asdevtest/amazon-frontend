@@ -267,13 +267,18 @@ export const lightTheme = createTheme({
       disabledDangerBackground: '#FEB9B9',
     },
 
+    orderStatus: {
+      red: '#FF1616',
+    },
+
     background: {
       general: '#fff',
       second: '#F8F8F8',
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
-
+      yellowRow: '#FFFDF3',
+      redRow: '#FFF3F3',
       searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
       red: '#FFC7C7',
@@ -722,6 +727,10 @@ export const darkTheme = createTheme({
         disabled: 'rgba(255, 255, 255, 0.3)',
       },
 
+      orderStatus: {
+        red: '#DD2121',
+      },
+
       background: {
         general: '#2B2B34',
         second: '#21212B',
@@ -730,7 +739,8 @@ export const darkTheme = createTheme({
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
         darkBlue: '#4CA1DE',
-
+        yellowRow: '#2F2C23',
+        redRow: '#2F2329',
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
         green: '#001A15',

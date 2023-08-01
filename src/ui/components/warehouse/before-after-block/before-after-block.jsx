@@ -635,7 +635,7 @@ const Box = observer(
                         </CustomSlider>
                       ) : (
                         <Typography className={classNames.trackNumberNoPhotoText}>
-                          {'no photo track number...'}
+                          {`${t(TranslationKey['no photo track number'])}...`}
                         </Typography>
                       )}
                     </div>
@@ -732,7 +732,7 @@ const Box = observer(
                       </CustomSlider>
                     ) : (
                       <Typography className={classNames.trackNumberNoPhotoText}>
-                        {'no photo track number...'}
+                        {`${t(TranslationKey['no photo track number'])}...`}
                       </Typography>
                     )}
                   </div>
