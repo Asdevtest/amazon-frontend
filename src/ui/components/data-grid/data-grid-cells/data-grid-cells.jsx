@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { fromUnixTime } from 'date-fns'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
@@ -2990,25 +2989,31 @@ export const RedFlagsCell = React.memo(
   ),
 )
 export const TagsCell = React.memo(
-  withStyles(
-    ({ classes: classNames, tags }) => (
-      <div className={classNames.tags}>
-        <MultilineTextHeaderCell
-          text={
-            <>
-              {tags?.map((el, index) => (
-                <p key={el._id} className={classNames.tagItem}>
-                  #{el.title}
-                  {index !== tags.length - 1 && ', '}
-                </p>
-              ))}
-            </>
-          }
-        />
+  withStyles(({ classes: classNames, tags }) => {
+    const tagsText = (
+      <div>
+        {tags?.map((el, index) => (
+          <p key={el._id}>
+            #{el.title}
+            {index !== tags.length - 1 ? ',' : ''}
+          </p>
+        ))}
       </div>
-    ),
-    styles,
-  ),
+    )
+
+    return (
+      <Tooltip title={tagsText}>
+        <div className={classNames.tags}>
+          {tags?.map((el, index) => (
+            <p key={el._id} className={classNames.tagItem}>
+              #{el.title}
+              {index !== tags.length - 1 && ', '}
+            </p>
+          ))}
+        </div>
+      </Tooltip>
+    )
+  }, styles),
 )
 
 export const OrderIdAndAmountCountCell = React.memo(
