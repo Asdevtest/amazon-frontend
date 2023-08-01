@@ -83,7 +83,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 124,
+    width: 120,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
@@ -97,7 +97,7 @@ export const FreelancerVacantRequestColumns = handlers => [
       <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
     type: 'number',
-    width: 96,
+    width: 95,
     sortable: false,
 
     columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
@@ -109,7 +109,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <AsinCell asin={params.row.asin} />,
-    width: 128,
+    width: 145,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -133,7 +133,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => (
       <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
-    width: 91,
+    width: 100,
   },
 
   {

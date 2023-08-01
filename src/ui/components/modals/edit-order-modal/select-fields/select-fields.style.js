@@ -224,7 +224,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     padding: '0 25px',
     whiteSpace: 'nowrap',
-    color: '#fff !important',
+    color: '#fff',
   },
   checkboxWithButton: {
     display: 'flex',

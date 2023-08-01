@@ -2,14 +2,12 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, KeyboardEvent, ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
 import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -30,15 +28,12 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
-
 import { useClassNames } from './chat.style'
 
 import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
-import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 
 export interface RenderAdditionalButtonsParams {
   message: string

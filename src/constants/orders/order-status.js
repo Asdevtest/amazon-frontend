@@ -4,6 +4,8 @@ import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { TranslationKey } from '../translations/translation-key'
+import { SettingsModel } from '@models/settings-model'
+import { UiTheme } from '@constants/theme/themes'
 
 export const OrderStatus = {
   FORMED: 'FORMED',
@@ -202,7 +204,6 @@ export const orderColorByStatus = status => {
       OrderStatus.PENDING,
       OrderStatus.AT_PROCESS,
       OrderStatus.PARTIALLY_PAID,
-      OrderStatus.READY_TO_PROCESS,
       OrderStatus.TRACK_NUMBER_ISSUED,
     ].includes(status)
   ) {
@@ -216,9 +217,11 @@ export const orderColorByStatus = status => {
       OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
     ].includes(status)
   ) {
-    return '#FF1616'
-  } else if ([OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT].includes(status)) {
-    return '#0A6FE8'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'
+  } else if (
+    [OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT, OrderStatusByKey.READY_TO_PROCESS].includes(status)
+  ) {
+    return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
   } else {
     return '#black'
   }

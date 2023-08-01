@@ -26,6 +26,8 @@ import {
   RedFlagsCellMenuItem,
   ToPayCellMenuItem,
   YesNoCellMenuItem,
+  BatchShippingDateCellMenuItem,
+  BatchTrackingCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -295,6 +297,22 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
+  if (currentColumn.columnKey === columnnsKeys.shared.BATCHES_PRODUCTS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <ProductMenuItem
+          withoutSku
+          data={props}
+          filterRequestStatus={filterRequestStatus}
+          onClose={hideMenu}
+          onClickFilterBtn={onClickFilterBtn}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
@@ -330,6 +348,38 @@ export const DataGridCustomColumnMenuComponent = props => {
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <FromToDateMenuItem
           data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.BATCHES_SHIPPING_DATE].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <BatchShippingDateCellMenuItem
+          data={props}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.BATCHES_TRACKING].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <BatchTrackingCellMenuItem
+          data={props}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}

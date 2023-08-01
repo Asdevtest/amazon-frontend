@@ -267,6 +267,10 @@ export const lightTheme = createTheme({
       disabledDangerBackground: '#FEB9B9',
     },
 
+    orderStatus: {
+      red: '#FF1616',
+    },
+
     background: {
       general: '#fff',
       second: '#F8F8F8',
@@ -720,6 +724,10 @@ export const darkTheme = createTheme({
       action: {
         active: '#fff',
         disabled: 'rgba(255, 255, 255, 0.3)',
+      },
+
+      orderStatus: {
+        red: '#DD2121',
       },
 
       background: {
