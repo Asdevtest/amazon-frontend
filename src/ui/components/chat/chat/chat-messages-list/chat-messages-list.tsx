@@ -38,6 +38,7 @@ interface Props {
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
   chatId?: string
+  isShowChatInfo?: boolean
   messageToReply?: null | ChatMessageContract
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
@@ -56,6 +57,7 @@ export const ChatMessagesList: FC<Props> = observer(
     isGroupChat,
     messageToScroll,
     messageToReply,
+    isShowChatInfo,
     setMessageToScroll,
     setMessageToReply,
     messagesWrapperRef,
@@ -118,7 +120,10 @@ export const ChatMessagesList: FC<Props> = observer(
     }
 
     return (
-      <div ref={messagesWrapperRef} className={classNames.messagesWrapper}>
+      <div
+        ref={messagesWrapperRef}
+        className={cx(classNames.messagesWrapper, { [classNames.messagesWrapperNone]: isShowChatInfo })}
+      >
         {SettingsModel.languageTag &&
           messages?.map((messageItem: ChatMessageContract, index: number) => {
             const isIncomming = userId !== messageItem.user?._id

@@ -6,13 +6,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flex: '1 1 auto',
     overflow: 'auto',
-    paddingTop: 4,
+    padding: '4px 4px 0 0',
     background: theme.palette.background.general,
+    borderRadius: '0 7px 0 0',
 
     [theme.breakpoints.down(768)]: {
       maxHeight: 'calc(100vh - 226px)',
-      paddingTop: 0,
+      padding: 0,
       boxShadow: theme.palette.boxShadow.paper,
+      borderRadius: 0,
 
       '&::-webkit-scrollbar': {
         width: 0,
@@ -36,7 +38,8 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
 
     [theme.breakpoints.down(768)]: {
-      display: 'none',
+      top: 20,
+      right: 10,
     },
   },
 
@@ -55,6 +58,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+
+    [theme.breakpoints.down(768)]: {
+      bottom: 20,
+      right: 10,
+    },
   },
 
   scrollToBottomRight: {
@@ -75,6 +83,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 80,
     background: theme.palette.background.general,
     padding: '20px 50px',
+    borderRadius: '0 0 7px 0',
 
     [theme.breakpoints.down(768)]: {
       height: 'auto',

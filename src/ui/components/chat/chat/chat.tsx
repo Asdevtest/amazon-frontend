@@ -60,7 +60,6 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
@@ -269,6 +268,7 @@ export const Chat: FC<Props> = observer(
             isGroupChat={isGroupChat}
             userId={userId}
             messages={messages}
+            isShowChatInfo={isShowChatInfo}
             messageToReply={messageToReply}
             handlers={chatMessageHandlers}
             toScrollMesId={toScrollMesId}

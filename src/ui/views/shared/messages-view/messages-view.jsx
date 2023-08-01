@@ -78,6 +78,11 @@ export const MessagesViewRaw = props => {
 
   const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId)
 
+  const totalUnreadMessages = filteredChats.reduce(
+    (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
+    0,
+  )
+
   return (
     <>
       {SettingsModel.languageTag && (
@@ -135,6 +140,7 @@ export const MessagesViewRaw = props => {
                   <div className={classNames.infoContainer}>
                     <div className={classNames.arrowBackIconWrapper}>
                       <ArrowBackIcon className={classNames.arrowBackIcon} onClick={viewModel.onClickBackButton} />
+                      {totalUnreadMessages && <span className={classNames.badge}>{totalUnreadMessages}</span>}
                     </div>
 
                     {currentChat?.type === chatsType.DEFAULT ? (

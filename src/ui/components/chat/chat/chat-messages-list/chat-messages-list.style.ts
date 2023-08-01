@@ -20,6 +20,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  messagesWrapperNone: {
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+
   message: {},
 
   unReadMessage: {
@@ -74,9 +80,21 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
   },
 
-  messageInnerIsNextMessageSameAuthor: {},
+  messageInnerIsNextMessageSameAuthor: {
+    marginRight: 42,
 
-  messageInnerIsNextMessageSameAuthorIsInclomming: {},
+    [theme.breakpoints.down(768)]: {
+      marginRight: 0,
+    },
+  },
+
+  messageInnerIsNextMessageSameAuthorIsInclomming: {
+    marginLeft: 42,
+
+    [theme.breakpoints.down(768)]: {
+      marginLeft: 0,
+    },
+  },
 
   messageAvatarWrapper: {
     height: '32px',
@@ -112,5 +130,9 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '8px 10px 16px',
     borderRight: `7px solid ${theme.palette.input.customBorder}`,
     backgroundColor: '#E0E0E0',
+
+    [theme.breakpoints.down(768)]: {
+      margin: 5,
+    },
   },
 }))

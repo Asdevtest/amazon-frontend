@@ -47,10 +47,11 @@ export const styles = theme => ({
   infoContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 25,
   },
 
   arrowBackIconWrapper: {
+    position: 'relative',
     display: 'none',
   },
 
@@ -86,6 +87,11 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+      fontSize: 14,
+    },
   },
 
   usersCount: {
@@ -97,6 +103,10 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 20,
+
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+    },
   },
 
   searchResult: {
@@ -200,6 +210,8 @@ export const styles = theme => ({
 
     opponentWrapper: {
       width: '100%',
+      alignItems: 'flex-start',
+      gap: 10,
     },
 
     rersonalWrapper: {
@@ -233,6 +245,20 @@ export const styles = theme => ({
     arrowBackIcon: {
       color: theme.palette.primary.main,
       marginRight: 5,
+    },
+
+    badge: {
+      position: 'absolute',
+      left: 23,
+      width: 20,
+      height: 20,
+      borderRadius: '50%',
+      color: '#fff',
+      background: theme.palette.primary.main,
+      fontSize: 11,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
 
     mobileResolution: {

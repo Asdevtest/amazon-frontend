@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    padding: '15px 10px',
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -49,7 +49,11 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 3,
   },
 
-  filesMainWrapper: {},
+  filesMainWrapper: {
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 240,
+    },
+  },
 
   subWrapper: {
     flex: '1 1 auto',
@@ -59,7 +63,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   messageText: {
-    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
     fontSize: 18,
     lineHeight: '140%',
     color: theme.palette.text.general,
@@ -69,7 +73,6 @@ export const useClassNames = makeStyles()(theme => ({
       minWidth: 80,
       fontSize: 12,
       maxWidth: 210,
-      wordWrap: 'break-word',
     },
   },
 

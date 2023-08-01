@@ -80,6 +80,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
+    wordWrap: 'break-word',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

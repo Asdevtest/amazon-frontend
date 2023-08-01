@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   feedBackButton: {
     width: '100%',
-    height: 43,
+    height: 42,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
