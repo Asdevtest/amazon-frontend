@@ -3,6 +3,8 @@ import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 import {
+  BatchShippingDateCellMenuItem,
+  BatchTrackingCellMenuItem,
   BoxestatusMenuItem,
   ClientOrderAllStatusesMenuItem,
   CreatedByMenuItem,
@@ -26,8 +28,6 @@ import {
   RedFlagsCellMenuItem,
   ToPayCellMenuItem,
   YesNoCellMenuItem,
-  BatchShippingDateCellMenuItem,
-  BatchTrackingCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
