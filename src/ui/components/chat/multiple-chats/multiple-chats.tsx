@@ -83,7 +83,6 @@ export const MultipleChats = observer(
         renderAdditionalButtons,
         onTypingMessage,
         currentOpponent,
-        onClickBackButton,
         onClickAddUsersToGroupChat,
         onRemoveUsersFromGroupChat,
         onClickEditGroupChatInfo,

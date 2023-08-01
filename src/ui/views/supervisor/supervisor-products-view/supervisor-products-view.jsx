@@ -157,7 +157,7 @@ export const SupervisorProductsViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,

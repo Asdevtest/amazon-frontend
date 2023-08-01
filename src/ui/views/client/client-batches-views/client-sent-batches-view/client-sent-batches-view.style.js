@@ -51,16 +51,14 @@ export const styles = theme => ({
     color: theme.palette.text.general,
   },
   archiveAddBtn: {
-    width: 172,
+    width: 230,
     display: 'flex',
     gap: 10,
     border: '1px solid #D70D0D',
     color: '#D70D0D',
-    transition: 'all 0.3s ease-in-out',
 
     '&:hover': {
       border: '1px solid #D70D0D',
-      opacity: 0.6,
     },
 
     '&:disabled': {

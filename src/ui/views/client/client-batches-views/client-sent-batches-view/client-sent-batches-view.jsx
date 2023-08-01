@@ -8,6 +8,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -23,7 +24,6 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { styles } from './client-sent-batches-view.style'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
 
@@ -75,8 +75,8 @@ export const ClientSentBatchesViewRaw = props => {
                 t(TranslationKey['Relocate from archive'])
               ) : (
                 <>
+                  {t(TranslationKey['Move to archive'])}
                   {<ArchiveIcon />}
-                  {t(TranslationKey.Archiving)}
                 </>
               )}
             </Button>

@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  Ayaya,
   BatchBoxesCell,
   BatchTrackingCell,
   MultilineTextCell,
@@ -17,7 +17,6 @@ import {
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const batchesViewColumns = (rowHandlers, getStatus) => [
   {
@@ -36,7 +35,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
     width: 150,
     columnKey: columnnsKeys.shared.STRING,
   },

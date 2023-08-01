@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { cx } from '@emotion/css'

@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'

@@ -1,14 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  modalTitle: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  modalFieldsWrapper: {
-    display: 'flex',
-    gap: '30px',
-  },
   modalMessageWrapper: {
     width: '596px',
     minHeight: '168px',
@@ -18,11 +10,31 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
   },
 
+  modalTitle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
   modalMessageTitle: {
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
     color: theme.palette.text.general,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  modalFieldsWrapper: {
+    display: 'flex',
+    gap: '30px',
+  },
+
+  heightFieldAuto: {
+    height: 'auto',
+    width: '100%',
+    padding: 0,
   },
 
   commentLabelText: {
@@ -32,31 +44,20 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  heightFieldAuto: {
-    height: 'auto',
-    width: '100%',
-
-    padding: 0,
+  commentContainer: {
+    margin: 0,
   },
 
-  standartText: {
-    color: theme.palette.text.general,
-  },
-
-  buttonOk: {
-    padding: '8px 36px',
-    marginRight: '10px',
-  },
-
-  buttonCancel: {
-    padding: '8px 36px',
-    backgroundColor: theme.palette.background.general,
-    color: theme.palette.text.general,
-  },
-
-  buttonsWrapper: {
+  tableSearchWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  tableSearchTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: theme.palette.text.general,
   },
 
   searchInput: {
@@ -64,23 +65,25 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     height: 36,
   },
-  tableSearchWrapper: {
+
+  buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '12px',
-  },
-  tableSearchTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
-  commentContainer: {
-    margin: 0,
   },
 
-  buttonPreview: {
-    padding: '8px 36px',
+  button: {
+    padding: '10px 25px',
+  },
+
+  actionsButtonsContainer: {
+    display: 'flex',
+    gap: 30,
+  },
+
+  buttonCancel: {
+    padding: '10px 25px',
+    color: theme.palette.text.general,
+    background: theme.palette.background.general,
   },
 
   error: {

@@ -80,13 +80,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bottomPartWrapper: {
-    height: 80,
+    height: 'auto',
     background: theme.palette.background.general,
     padding: '20px 50px',
     borderRadius: '0 0 7px 0',
 
     [theme.breakpoints.down(768)]: {
-      height: 'auto',
       padding: 10,
       boxShadow: theme.palette.boxShadow.paper,
       borderRadius: '0 0 7px 7px',

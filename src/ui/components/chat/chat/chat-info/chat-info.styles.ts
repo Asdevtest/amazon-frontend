@@ -5,12 +5,11 @@ export const useChatInfoStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    flex: 0.5,
-    minWidth: 350,
+    flex: 1,
+    minWidth: 366,
 
     [theme.breakpoints.down(768)]: {
       minWidth: 280,
-      flex: 1,
     },
   },
   tabs: {
@@ -60,7 +59,7 @@ export const useChatInfoStyles = makeStyles()(theme => ({
     gap: '5px',
 
     overflowY: 'auto',
-    maxHeight: 485,
+    maxHeight: 470,
 
     img: {
       borderRadius: 4,
@@ -91,7 +90,7 @@ export const useChatInfoStyles = makeStyles()(theme => ({
   files: {
     padding: '0 10px',
     overflowY: 'auto',
-    maxHeight: 425,
+    maxHeight: 470,
 
     [theme.breakpoints.down(768)]: {
       maxHeight: 335,

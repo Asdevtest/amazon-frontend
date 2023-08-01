@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
+    display: 'flex',
     width: '100%',
     height: 170,
     padding: '10px 50px',

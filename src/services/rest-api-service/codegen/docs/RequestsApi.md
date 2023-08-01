@@ -812,7 +812,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsIdeasGuidPatch
 
-> String apiV1RequestsIdeasGuidPatch(opts)
+> String apiV1RequestsIdeasGuidPatch(guid, opts)
 
 #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
 
@@ -830,11 +830,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.RequestsApi();
+let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject101() // InlineObject101 | 
 };
-apiInstance.apiV1RequestsIdeasGuidPatch(opts).then((data) => {
+apiInstance.apiV1RequestsIdeasGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -847,6 +848,7 @@ apiInstance.apiV1RequestsIdeasGuidPatch(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject101**](InlineObject101.md)|  | [optional] 
 

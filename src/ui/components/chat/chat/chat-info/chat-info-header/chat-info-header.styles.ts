@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useChatInfoHeaderStyles = makeStyles()(theme => ({
+export const useChatInfoHeaderStyles = makeStyles()(() => ({
   chatHeader: {
     position: 'relative',
     maxHeight: 178,
@@ -11,6 +11,13 @@ export const useChatInfoHeaderStyles = makeStyles()(theme => ({
       objectFit: 'contain',
     },
   },
+
+  chatAvatar: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+  },
+
   chatHeaderOverlay: {
     position: 'absolute',
     maxHeight: '100%',

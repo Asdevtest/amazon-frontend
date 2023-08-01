@@ -67,6 +67,15 @@ export const productInTransferColumns = handlers => [
   },
 
   {
+    field: 'storekeeper',
+    headerName: t(TranslationKey.Storekeeper),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value.name} />,
+    width: 180,
+  },
+
+  {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
