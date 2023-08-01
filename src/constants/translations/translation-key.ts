@@ -2007,6 +2007,7 @@ export enum TranslationKey {
   'To pay partial' = 'To pay partial',
   'By date' = 'By date',
   'On page' = 'On page',
+  'An error occurred while loading the image from the link. Please replace the image' = 'An error occurred while loading the image from the link. Please replace the image',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

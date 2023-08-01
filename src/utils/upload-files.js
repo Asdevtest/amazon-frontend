@@ -3,6 +3,7 @@ import { BACKEND_API_URL } from '@constants/keys/env'
 import { OtherModel } from '@models/other-model'
 
 import { getFileNameFromUrl } from './get-file-name-from-url'
+import { Errors } from '@constants/errors'
 
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',')
@@ -43,7 +44,7 @@ const uploadFileByUrl = async image => {
     return BACKEND_API_URL + '/uploads/' + result.fileName
   } catch (error) {
     console.log(error)
-    return image
+    throw new Error(Errors.INVALID_IMAGE)
   }
 }
 

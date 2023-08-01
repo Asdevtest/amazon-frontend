@@ -2008,5 +2008,6 @@
   "no photo track number": "нет фото трек номера",
   "To pay partial": "Для частичной оплаты",
   "By date": "По дате",
-  "On page": "На странице"
+  "On page": "На странице",
+  "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение"
 }
