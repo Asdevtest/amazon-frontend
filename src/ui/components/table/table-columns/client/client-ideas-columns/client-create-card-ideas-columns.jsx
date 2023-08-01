@@ -3,6 +3,7 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  CreateCardIdeaActions,
   IdeaActions,
   IdeaProduct,
   IdeaRequests,
@@ -14,6 +15,7 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
@@ -55,7 +57,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles[0]} />,
+    renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 120,
     sortable: false,
   },
@@ -101,22 +103,13 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     headerName: t(TranslationKey.Action),
 
-    renderCell: params => (
-      <Button
-        small
-        success
-        disabled={!params.row.childProduct}
-        onClick={() => rowHandlers.onClickAccept(params.row._id)}
-      >
-        {t(TranslationKey.Accept)}
-      </Button>
-    ),
+    renderCell: params => <CreateCardIdeaActions row={params.row} rowHandlers={rowHandlers} />,
     width: 110,
     sortable: false,
   },
 
   {
-    field: 'updatedAt',
+    field: 'dateStatusProductCreating',
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 

@@ -6,6 +6,7 @@ import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@const
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ClosedIdeaActions,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -14,6 +15,7 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
+import { checkIsImageLink } from '@utils/checks'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -56,7 +58,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.value[0]} />,
+    renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsImageLink(el))} />,
     width: 120,
     sortable: false,
   },
@@ -150,16 +152,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <Box display="flex" gap="20px">
-        <Button small success onClick={() => rowHandlers.onClickRestore(params.row)}>
-          {t(TranslationKey.Restore)}
-        </Button>
-        <Button small danger onClick={() => rowHandlers.onClickClose(params.row)}>
-          {t(TranslationKey.Close)}
-        </Button>
-      </Box>
-    ),
+    renderCell: params => <ClosedIdeaActions row={params.row} rowHandlers={rowHandlers} />,
     width: 140,
   },
 ]

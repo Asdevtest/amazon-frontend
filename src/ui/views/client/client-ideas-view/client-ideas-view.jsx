@@ -8,8 +8,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
@@ -38,9 +42,13 @@ export const ClientIdeasView = observer(props => {
           onSubmit={viewModel.onChangeSearchValue}
         />
 
-        <Button success className={styles.createRequest}>
-          <PlusIcon /> {t(TranslationKey['Create a request'])}
-        </Button>
+        <div>
+          {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
+            <Button success className={styles.createRequest}>
+              <PlusIcon /> {t(TranslationKey['Create idea'])}
+            </Button>
+          )}
+        </div>
       </div>
 
       <div className={styles.datagridWrapper}>
@@ -97,6 +105,36 @@ export const ClientIdeasView = observer(props => {
           productId={viewModel.currentProduct?._id}
           product={viewModel.currentProduct}
           currentIdeaId={viewModel.currentIdeaId}
+        />
+      )}
+      <Modal
+        openModal={viewModel.showBarcodeOrHscodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBarcodeOrHscodeModal')}
+      >
+        <ShowBarOrHscodeModal
+          barcode={viewModel.currentBarcode}
+          hscode={viewModel.currentHscode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showBarcodeOrHscodeModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showSetBarcodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+      >
+        <SetBarcodeModal
+          item={viewModel.selectedProduct}
+          onClickSaveBarcode={viewModel.onClickSaveBarcode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+        />
+      </Modal>
+
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
         />
       )}
     </MainContent>

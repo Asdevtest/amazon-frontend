@@ -7,6 +7,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
+  RealizedIdeaActions,
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
@@ -74,11 +75,17 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: () => (
-      <Button small success>
-        {t(TranslationKey['To order'])}
-      </Button>
-    ),
+    renderCell: params => <RealizedIdeaActions rowHandlers={rowHandlers} row={params.row} />,
+    width: 140,
+    sortable: false,
+  },
+
+  {
+    field: 'orderedQuantity',
+    headerName: t(TranslationKey['Ordered quantity']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 140,
     sortable: false,
   },
@@ -174,6 +181,16 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
+    field: 'buyerComment',
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    headerName: t(TranslationKey['Client comment']),
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 250,
+    sortable: false,
+  },
+
+  {
     field: 'updatedAt',
     headerName: t(TranslationKey['Status Updated']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
@@ -190,8 +207,10 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaRequests
         withoutControls
+        row={params.row}
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row._id)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
+        onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
       />
     ),
     width: 220,

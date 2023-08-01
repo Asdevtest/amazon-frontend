@@ -2037,16 +2037,6 @@ export enum TranslationKey {
   'Realized' = 'Realized',
   'See result' = 'See result',
   'Link requests' = 'Link requests',
-  // <p>t(TranslationKey.Close)</p> ПРИМЕР
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Create idea' = 'Create idea',
+  'Ordered quantity' = 'Ordered quantity',
 }
