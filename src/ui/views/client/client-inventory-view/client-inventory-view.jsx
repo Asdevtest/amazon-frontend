@@ -45,6 +45,8 @@ import { t } from '@utils/translations'
 import { styles } from './client-inventory-view.style'
 
 import { ClientInventoryViewModel } from './client-inventory-view.model'
+import { ProductLaunchForm } from '@components/forms/product-launch-form'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(
@@ -126,9 +128,10 @@ export const ClientInventoryViewRaw = props => {
 
               <Button
                 success
+                disabled={viewModel.selectedRowIds.length > 1}
                 variant="contained"
                 className={classNames.actionButtonWithPlus}
-                onClick={viewModel.onClickOrderBtn}
+                onClick={viewModel.onClickProductLaunch}
               >
                 <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
                 {t(TranslationKey['Product launch'])}
@@ -278,9 +281,7 @@ export const ClientInventoryViewRaw = props => {
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onColumnHeaderEnter={params => {
-              viewModel.onHoverColumnField(params.field)
-            }}
+            onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
@@ -311,6 +312,28 @@ export const ClientInventoryViewRaw = props => {
           onSubmit={viewModel.onSubmitCreateProduct}
         />
       </Modal>
+
+      <Modal
+        noPadding
+        openModal={viewModel.showProductLaunch}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+      >
+        <ProductLaunchForm
+          selectedProductToLaunch={viewModel.selectedProductToLaunch}
+          productsToLaunch={viewModel.productsToLaunch}
+          onClickVariationRadioButton={viewModel.onClickVariationRadioButton}
+          onClickNextButton={viewModel.onClickNextButton}
+          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+        />
+      </Modal>
+
+      {viewModel.showIdeaModal && (
+        <IdeaCardsModal
+          isCreate
+          openModal={viewModel.showIdeaModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+        />
+      )}
 
       {viewModel.productCardModal && (
         <ProductCardModal

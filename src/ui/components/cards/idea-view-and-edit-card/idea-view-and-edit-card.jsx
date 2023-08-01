@@ -13,7 +13,7 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { RequestSwitherType } from '@constants/requests/request-type'
+import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TableSupplier } from '@components/product/table-supplier'
@@ -277,12 +277,14 @@ export const IdeaViewAndEditCard = observer(
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
 
-    console.log('formFields', formFields)
-
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
         <div className={classNames.headerWrapper}>
-          <IdeaProgressBar showStatusDuration={isModalView} currentStatus={formFields?.status} ideaData={curIdea} />
+          <IdeaProgressBar
+            showStatusDuration={isModalView && curIdea}
+            currentStatus={formFields?.status}
+            ideaData={curIdea}
+          />
 
           <div className={classNames.sourcesProductWraper}>
             {formFields.childProduct && (

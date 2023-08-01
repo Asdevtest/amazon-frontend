@@ -16,6 +16,7 @@ import { useClassNames } from './modal.style'
 interface ModalProps {
   openModal: boolean
   isWarning?: boolean
+  noPadding?: boolean
   missClickModalOn?: boolean
   children: React.ReactNode
   dialogContextClassName?: ClassNamesArg
@@ -25,7 +26,7 @@ interface ModalProps {
 export const Modal: FC<ModalProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn } = props
+  const { openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn, noPadding } = props
 
   const [showMissclickModal, setShowMissclickModal] = useState(false)
 
@@ -60,7 +61,7 @@ export const Modal: FC<ModalProps> = props => {
       <DialogContent
         className={cx(
           classNames.dialogPadding,
-          { [classNames.warningDialogPadding]: isWarning },
+          { [classNames.warningDialogPadding]: isWarning, [classNames.noPadding]: noPadding },
           dialogContextClassName,
         )}
       >

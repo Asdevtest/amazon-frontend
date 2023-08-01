@@ -2040,4 +2040,6 @@ export enum TranslationKey {
   'Create idea' = 'Create idea',
   'Ordered quantity' = 'Ordered quantity',
   'Product launch' = 'Product launch',
+  'Create or select product' = 'Create or select product',
+  'Variation' = 'Variation',
 }

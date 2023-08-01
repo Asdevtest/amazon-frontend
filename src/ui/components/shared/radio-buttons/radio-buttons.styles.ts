@@ -7,6 +7,12 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '45px',
   },
 
+  verticalRoot: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+  },
+
   buttonWrapper: {
     display: 'flex',
     alignItems: 'center',

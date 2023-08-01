@@ -4,26 +4,28 @@ import { FC } from 'react'
 import Radio from '@mui/material/Radio'
 
 import { useClassNames } from './radio-buttons.styles'
+import { cx } from '@emotion/css'
 
 interface IRadioBottonsSetting {
   label: string
-  value: string | number
+  value: string | number | boolean
 }
 
 interface RadioButtonsProps {
   radioBottonsSettings: Array<IRadioBottonsSetting>
-  currentValue?: string
+  currentValue?: string | number | boolean
+  verticalDirection?: boolean
   disabled?: boolean
-  onClickRadioButton: (value: string | number) => void
+  onClickRadioButton: (value: string | number | boolean) => void
 }
 
 export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { currentValue, radioBottonsSettings, disabled, onClickRadioButton } = props
+  const { currentValue, radioBottonsSettings, disabled, verticalDirection, onClickRadioButton } = props
 
   return (
-    <div className={classNames.root}>
+    <div className={cx(classNames.root, { [classNames.verticalRoot]: verticalDirection })}>
       {!!radioBottonsSettings.length &&
         radioBottonsSettings.map((setting, settingIndex: number) => (
           <div key={settingIndex} className={classNames.buttonWrapper}>

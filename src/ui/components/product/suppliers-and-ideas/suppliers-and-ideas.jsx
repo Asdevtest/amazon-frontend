@@ -31,10 +31,12 @@ import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-con
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
-export const SuppliersAndIdeas = observer(({ productId, product, isModalView, currentIdeaId }) => {
+export const SuppliersAndIdeas = observer(({ productId, product, isModalView, currentIdeaId, isCreate }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({ history, productId, product, isModalView, currentIdeaId }))
+  const model = useRef(
+    new SuppliersAndIdeasModel({ history, productId, product, isModalView, currentIdeaId, isCreate }),
+  )
 
   useEffect(() => {
     model.current.loadData()
@@ -106,6 +108,7 @@ export const SuppliersAndIdeas = observer(({ productId, product, isModalView, cu
       {inCreate && (
         <IdeaViewAndEditCard
           inCreate
+          isModalView={isModalView}
           curUser={curUser}
           curIdea={curIdea}
           selectedSupplier={selectedSupplier}
@@ -156,7 +159,7 @@ export const SuppliersAndIdeas = observer(({ productId, product, isModalView, cu
           </div>
         ))}
 
-      {isModalView && (
+      {isModalView && curIdea && (
         <IdeaViewAndEditCard
           isModalView
           curUser={curUser}

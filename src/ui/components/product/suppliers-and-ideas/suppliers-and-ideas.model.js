@@ -76,12 +76,16 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
-  constructor({ history, productId, product, isModalView, currentIdeaId }) {
+  constructor({ history, productId, product, isModalView, currentIdeaId, isCreate }) {
     this.history = history
     this.productId = productId
     this.currentProduct = product
     this.isModalView = isModalView
     this.currentIdeaId = currentIdeaId
+
+    if (isCreate) {
+      this.onCreateIdea()
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
