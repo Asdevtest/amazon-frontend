@@ -2039,4 +2039,5 @@ export enum TranslationKey {
   'Link requests' = 'Link requests',
   'Create idea' = 'Create idea',
   'Ordered quantity' = 'Ordered quantity',
+  'Product launch' = 'Product launch',
 }

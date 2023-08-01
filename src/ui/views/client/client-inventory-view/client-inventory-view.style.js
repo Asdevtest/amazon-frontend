@@ -80,11 +80,8 @@ export const styles = theme => ({
   },
 
   icon: {
-    position: 'absolute',
-    top: '11px',
-    right: '25px',
-    width: 15,
-    height: 15,
+    width: 16,
+    height: 16,
   },
 
   simpleBtnsWrapper: {
@@ -192,5 +189,12 @@ export const styles = theme => ({
       left: 0,
       marginRight: '-48px',
     },
+  },
+
+  actionButtonWithPlus: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '9px',
   },
 })

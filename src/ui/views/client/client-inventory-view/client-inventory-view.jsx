@@ -99,11 +99,11 @@ export const ClientInventoryViewRaw = props => {
                 success
                 tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
                 btnWrapperStyle={classNames.btnWrapperStyle}
-                className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
+                className={classNames.actionButtonWithPlus}
                 onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
               >
-                {t(TranslationKey['Add product'])}
                 <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                {t(TranslationKey['Add product'])}
               </Button>
             </div>
           ) : (
@@ -122,6 +122,16 @@ export const ClientInventoryViewRaw = props => {
                 onClick={viewModel.onClickOrderBtn}
               >
                 {t(TranslationKey['To order'])}
+              </Button>
+
+              <Button
+                success
+                variant="contained"
+                className={classNames.actionButtonWithPlus}
+                onClick={viewModel.onClickOrderBtn}
+              >
+                <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                {t(TranslationKey['Product launch'])}
               </Button>
 
               <Button
@@ -175,11 +185,11 @@ export const ClientInventoryViewRaw = props => {
 
                 <Button
                   success
-                  className={classNames.rightAddingBtn}
+                  className={classNames.actionButtonWithPlus}
                   onClick={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
                 >
-                  {t(TranslationKey['Add a supplier list'])}
                   <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                  {t(TranslationKey['Add a supplier list'])}
                 </Button>
               </>
             )}
