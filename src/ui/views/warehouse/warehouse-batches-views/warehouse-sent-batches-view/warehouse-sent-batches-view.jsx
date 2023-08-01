@@ -7,6 +7,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
@@ -22,7 +23,6 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { styles } from './warehouse-sent-batches-view.style'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
 

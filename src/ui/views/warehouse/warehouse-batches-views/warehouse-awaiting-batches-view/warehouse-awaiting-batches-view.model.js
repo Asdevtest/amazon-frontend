@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
+import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -16,11 +17,10 @@ import { UserModel } from '@models/user-model'
 import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { GeneralModel } from '@models/general-model'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 
 const filtersFields = [
   'asin',
