@@ -11,7 +11,6 @@ import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 export class AdminSettingsPaymentMethodsModel {
-  history = undefined
   requestStatus = undefined
 
   infoModalText = undefined
@@ -23,14 +22,15 @@ export class AdminSettingsPaymentMethodsModel {
     onClickSuccess: () => {},
   }
 
-  method = { title: '', iconImage: '' }
   paymentMethods = []
+  method = { title: '', iconImage: '' }
   isValidUrl = false
   currentImageName = undefined
 
-  constructor({ history }) {
-    this.history = history
+  isEdit = false
+  editPaymentMethodId = undefined
 
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -88,6 +88,28 @@ export class AdminSettingsPaymentMethodsModel {
     }
   }
 
+  async editPaymentMethod(id, paymentMethod) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await SupplierModel.editSuppliersPaymentMethod(id, paymentMethod)
+
+      this.infoModalText = t(TranslationKey['Payment method successfully saved'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.infoModalText = t(TranslationKey['Payment method is not saved'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
   async onRemovePaymentMethod(id) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -114,6 +136,18 @@ export class AdminSettingsPaymentMethodsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
+  onClickEditPaymentMethod(id) {
+    this.isEdit = true
+    this.editPaymentMethodId = id
+
+    const findPaymentMethod = this.paymentMethods.find(method => method._id === id)
+
+    if (findPaymentMethod) {
+      this.method = { title: findPaymentMethod.title, iconImage: findPaymentMethod.iconImage }
+      this.currentImageName = findPaymentMethod.title
+    }
+  }
+
   async onSubmitPaymentMethod() {
     const result =
       typeof this.method.iconImage === 'string'
@@ -122,9 +156,11 @@ export class AdminSettingsPaymentMethodsModel {
 
     this.method.iconImage = result
 
-    this.createPaymentMethod(this.method)
+    this.isEdit ? this.editPaymentMethod(this.editPaymentMethodId, this.method) : this.createPaymentMethod(this.method)
 
     this.method = { title: '', iconImage: '' }
+    this.isEdit = false
+    this.editPaymentMethodId = undefined
   }
 
   onChangeTitle(event) {

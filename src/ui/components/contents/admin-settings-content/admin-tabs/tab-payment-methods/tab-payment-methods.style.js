@@ -155,7 +155,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  iconDelete: {
+  iconRoot: {
     padding: 3,
 
     '&:hover': {
@@ -163,7 +163,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  deleteIcon: {
+  iconAction: {
     cursor: 'pointer',
     transition: '0.3s ease',
 

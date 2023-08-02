@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
-      transform: 'scale(1.2)',
+      transform: 'scale(1.1)',
     },
     color: theme.palette.primary.main,
   },

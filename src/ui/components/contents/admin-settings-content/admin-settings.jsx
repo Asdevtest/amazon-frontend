@@ -3,7 +3,6 @@ import { Tabs, Tab } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,8 +29,8 @@ import {
 
 export const AdminSettings = observer(() => {
   const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const [viewModel] = useState(() => new AdminSettingsModel({ history }))
+
+  const [viewModel] = useState(() => new AdminSettingsModel())
 
   useEffect(() => {
     viewModel.loadData()

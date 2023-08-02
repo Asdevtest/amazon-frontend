@@ -12,8 +12,7 @@ import { t } from '@utils/translations'
 import { fieldsWithoutCharsAfterDote, startValueFields } from './admin-settings.constants'
 
 export class AdminSettingsModel {
-  history = undefined
-  requestStatus = ''
+  requestStatus = undefined
 
   serverProxy = []
   get user() {
@@ -31,9 +30,7 @@ export class AdminSettingsModel {
 
   isFormFieldsChanged = false
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 

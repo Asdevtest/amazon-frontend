@@ -14,8 +14,7 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 export class AdminSettingsDestinationsModel {
-  history = undefined
-  requestStatus = ''
+  requestStatus = undefined
 
   destinations = []
 
@@ -41,9 +40,7 @@ export class AdminSettingsDestinationsModel {
 
   columnsModel = destinationsColumns(this.rowHandlers)
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 

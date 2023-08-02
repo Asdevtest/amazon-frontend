@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerContainer: {
     position: 'absolute',
-    top: 20,
+    top: 5,
     right: 5,
     borderTop: 'none !important',
   },
@@ -47,8 +47,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   toolbarContainer: {
-    padding: '20px 20px 15px',
-    height: 79,
+    padding: '10px 15px',
+    height: 64,
   },
 
   columnHeaderTitleContainer: {

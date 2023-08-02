@@ -1,13 +1,13 @@
 import { cx } from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { IconButton, Typography } from '@mui/material'
 
 import { useState, useEffect } from 'react'
 
 import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,8 +27,8 @@ import { useClassNames } from './tab-payment-methods.style'
 
 export const TabPaymentMethods = observer(() => {
   const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const [viewModel] = useState(() => new AdminSettingsPaymentMethodsModel({ history }))
+
+  const [viewModel] = useState(() => new AdminSettingsPaymentMethodsModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -106,13 +106,24 @@ export const TabPaymentMethods = observer(() => {
                   </div>
 
                   <div className={classNames.iconsWrapper}>
-                    <CopyValue text={method} />
+                    <IconButton size="small">
+                      <CopyValue text={method} />
+                    </IconButton>
+
                     <IconButton
                       size="small"
-                      classes={{ root: classNames.iconDelete }}
+                      classes={{ root: classNames.iconRoot }}
+                      onClick={() => viewModel.onClickEditPaymentMethod(method._id)}
+                    >
+                      <EditOutlinedIcon className={classNames.iconAction} />
+                    </IconButton>
+
+                    <IconButton
+                      size="small"
+                      classes={{ root: classNames.iconRoot }}
                       onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
                     >
-                      <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
+                      <DeleteOutlineOutlinedIcon className={classNames.iconAction} />
                     </IconButton>
                   </div>
                 </div>

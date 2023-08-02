@@ -3,7 +3,6 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,8 +22,8 @@ import { useClassNames } from './tab-destinations.style'
 
 export const TabDestinations = observer(() => {
   const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const [viewModel] = useState(() => new AdminSettingsDestinationsModel({ history }))
+
+  const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
 
   useEffect(() => {
     viewModel.loadData()

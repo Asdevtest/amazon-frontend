@@ -14,11 +14,9 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 export class AdminSettingsTagsModel {
-  history = undefined
-
   tags = []
 
-  requestStatus = ''
+  requestStatus = undefined
   nameSearchValue = ''
 
   showConfirmModal = false
@@ -44,9 +42,7 @@ export class AdminSettingsTagsModel {
 
   columnsModel = tagsColumns(this.rowHandlers)
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
