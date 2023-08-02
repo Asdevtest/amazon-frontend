@@ -26,6 +26,12 @@ import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { ProductLaunchForm } from '@components/forms/product-launch-form'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const ClientIdeasView = observer(props => {
   const [viewModel] = useState(() => new ClientIdeasViewModel({ history: props.history }))
@@ -47,7 +53,7 @@ export const ClientIdeasView = observer(props => {
 
         <div>
           {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-            <Button success className={styles.createRequest}>
+            <Button success className={styles.createRequest} onClick={viewModel.onClickProductLaunch}>
               <PlusIcon /> {t(TranslationKey['Create idea'])}
             </Button>
           )}
@@ -100,15 +106,33 @@ export const ClientIdeasView = observer(props => {
         />
       </div>
 
+      <Modal
+        noPadding
+        openModal={viewModel.showProductLaunch}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+      >
+        <ProductLaunchForm
+          productsToLaunch={viewModel.productsToLaunch}
+          onClickVariationRadioButton={viewModel.onClickVariationRadioButton}
+          onClickNextButton={viewModel.onClickNextButton}
+          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+        />
+      </Modal>
+
       {viewModel.showIdeaModal && (
         <IdeaCardsModal
+          isCreate={viewModel.isIdeaCreate}
           openModal={viewModel.showIdeaModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showIdeaModal')
+            viewModel.loadData()
+          }}
           productId={viewModel.currentProduct?._id}
           product={viewModel.currentProduct}
           currentIdeaId={viewModel.currentIdeaId}
         />
       )}
+
       <Modal
         openModal={viewModel.showBarcodeOrHscodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBarcodeOrHscodeModal')}
@@ -171,6 +195,65 @@ export const ClientIdeasView = observer(props => {
         successBtnText={t(TranslationKey.Ok)}
         onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
+
+      {viewModel.showRequestDesignerResultModal && (
+        <Modal
+          openModal={viewModel.showRequestDesignerResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+        >
+          <RequestDesignerResultClientForm
+            userInfo={viewModel.curUser}
+            // request={{ request: viewModel.currentRequest }}
+            proposal={viewModel.currentProposal}
+            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showRequestStandartResultModal && (
+        <Modal
+          openModal={viewModel.showRequestStandartResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+        >
+          <RequestStandartResultForm
+            // request={{ request: viewModel.currentRequest }}
+            proposal={viewModel.currentProposal}
+            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showRequestBloggerResultModal && (
+        <RequestResultModal
+          // request={{ request: viewModel.currentRequest }}
+          proposal={viewModel.currentProposal}
+          openModal={viewModel.showRequestBloggerResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}
+        />
+      )}
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showOrderModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+      >
+        <OrderProductModal
+          platformSettings={viewModel.platformSettings}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          selectedProductsData={[viewModel.currentProduct]}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+          onSubmit={viewModel.onConfirmSubmitOrderProductModal}
+        />
+
+        {viewModel.alertShieldSettings.alertShieldMessage && (
+          <AlertShield
+            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+          />
+        )}
+      </Modal>
     </MainContent>
   )
 })
