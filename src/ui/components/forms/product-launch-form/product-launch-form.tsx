@@ -87,7 +87,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         chosenItemNoHover
         disabled={!selectedRadioValue}
         data={productsToLaunch}
-        width={'100%'}
+        width={255}
         searchOnlyFields={['asin', 'skusByClient']}
         customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
         customSearchInput={classNames.searchSelectCustomSearchInput}

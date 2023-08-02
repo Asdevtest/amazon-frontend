@@ -5,6 +5,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+    justifyContent: 'space-between',
+    height: '100%',
   },
 
   categoryTitle: {
@@ -31,6 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   resultButton: {
+    height: '30px',
     width: '100%',
   },
 }))

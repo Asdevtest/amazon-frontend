@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
+    width: '395px',
     padding: '40px 70px',
     display: 'flex',
     flexDirection: 'column',
@@ -24,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchSelectCustomSubMainWrapper: {
     padding: '10px 0 !important',
-    width: '205px !important',
+    width: '255px !important',
   },
 
   searchSelectCustomItemsWrapper: {

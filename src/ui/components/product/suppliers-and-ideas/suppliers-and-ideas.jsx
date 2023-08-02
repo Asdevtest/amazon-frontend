@@ -134,6 +134,7 @@ export const SuppliersAndIdeas = observer(
             isModalView={isModalView}
             curUser={curUser}
             curIdea={curIdea}
+            currentProduct={currentProduct}
             selectedSupplier={selectedSupplier}
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}

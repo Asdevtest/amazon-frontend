@@ -1,22 +1,7 @@
-import { keyframes } from '@emotion/react'
-
-const ani = keyframes`
-  0% {
-    transform: translateY(-150%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1
-  }
-`
-
 export const styles = theme => ({
   addProductBtnsWrapper: {
-    width: '100%',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
 
   btnsWrapper: {
@@ -86,7 +71,8 @@ export const styles = theme => ({
 
   simpleBtnsWrapper: {
     display: 'flex',
-    gap: '30px',
+    justifyContent: 'space-between',
+    gap: '20px',
     paddingRight: '5px',
   },
 
@@ -96,7 +82,7 @@ export const styles = theme => ({
 
   topHeaderBtnsWrapper: {
     display: 'flex',
-    width: '100%',
+    flexDirection: 'column',
     justifyContent: 'space-between',
   },
 
@@ -151,17 +137,6 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
-  acceptMessageWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: '50%',
-    padding: '10px',
-    marginTop: '63px',
-    zIndex: 999,
-    opacity: 0,
-    transform: 'translateY(-150%)',
-    animation: `${ani} 1s forwards`,
-  },
 
   ideaRowGreen: {
     '&:before': {
@@ -196,5 +171,11 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     gap: '9px',
+    minWidth: '180px !important',
+  },
+
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 })
