@@ -22,7 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   sourceProductTitle: {
     whiteSpace: 'pre-wrap',
-    width: 'fit-content',
+    width: 'min-content',
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.text.second,

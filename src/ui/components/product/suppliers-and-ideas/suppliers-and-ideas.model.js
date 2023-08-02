@@ -314,7 +314,17 @@ export class SuppliersAndIdeasModel {
       const result = await ClientModel.createProduct(createData)
 
       await this.editIdea(data._id, { childProductId: result.guid })
-      await this.onClickAcceptButton(data)
+
+      if (createData.suppliersIds?.length) {
+        await ClientModel.updateProduct(result.guid, {
+          currentSupplierId: createData.suppliersIds[0],
+        })
+      }
+
+      // await this.onClickAcceptButton(data)
+
+      console.log('createData', createData)
+      console.log('currentProduct', this.currentProduct)
 
       this.successModalSettings = {
         modalTitle: t(TranslationKey['Product added']),
