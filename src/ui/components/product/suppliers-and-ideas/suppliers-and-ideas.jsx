@@ -16,8 +16,11 @@ import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-fo
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -30,9 +33,6 @@ import { useClassNames } from './suppliers-and-ideas.style'
 import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
-import { OrderProductModal } from '@components/modals/order-product-modal'
-import { AlertShield } from '@components/shared/alert-shield'
-import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler }) => {

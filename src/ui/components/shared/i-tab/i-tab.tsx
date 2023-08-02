@@ -1,13 +1,11 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Tab } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
 import { TabClasses } from '@mui/material/Tab/tabClasses'
-
-import { useEffect, useState, FC, ReactElement } from 'react'
-
-import { observer } from 'mobx-react'
+import Tooltip from '@mui/material/Tooltip'
 
 import { SettingsModel } from '@models/settings-model'
 

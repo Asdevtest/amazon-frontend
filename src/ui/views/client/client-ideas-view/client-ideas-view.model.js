@@ -2,6 +2,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,8 +12,10 @@ import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import {
@@ -28,13 +31,10 @@ import {
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { getObjectFilteredByKeyArrayWhiteList, getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { RequestProposalModel } from '@models/request-proposal'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
-import { StorekeeperModel } from '@models/storekeeper-model'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 

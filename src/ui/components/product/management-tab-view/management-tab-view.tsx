@@ -1,6 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { FC, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,8 +10,9 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
-import { ManagementTabViewModel } from './management-tab-view.model'
 import { useClassNames } from './management-tab-view.style'
+
+import { ManagementTabViewModel } from './management-tab-view.model'
 import { MemberSelect } from './member-select'
 
 export const ManagementTabView: FC = observer(() => {

@@ -1,4 +1,4 @@
-import { PropsWithChildren, FC, memo } from 'react'
+import { FC, PropsWithChildren, memo } from 'react'
 
 interface Props extends PropsWithChildren {
   value: number | string

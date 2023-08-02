@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import { Select, MenuItem } from '@mui/material'
-import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
+import { FC, memo } from 'react'
 
-import { memo, FC } from 'react'
+import { MenuItem, Select } from '@mui/material'
+import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
 import { SaveIcon } from '@components/shared/svg-icons'
 

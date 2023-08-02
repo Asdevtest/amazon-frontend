@@ -8,13 +8,19 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { ProductLaunchForm } from '@components/forms/product-launch-form'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -26,12 +32,6 @@ import { useClientIdeasViewStyles } from '@views/client/client-ideas-view/client
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
-import { ProductLaunchForm } from '@components/forms/product-launch-form'
-import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { RequestResultModal } from '@components/modals/request-result-modal'
-import { OrderProductModal } from '@components/modals/order-product-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 
 export const ClientIdeasView = observer(props => {
   const [viewModel] = useState(() => new ClientIdeasViewModel({ history: props.history }))

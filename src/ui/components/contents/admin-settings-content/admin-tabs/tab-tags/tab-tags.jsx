@@ -1,8 +1,7 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
+import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,8 +17,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminSettingsTagsModel } from './tab-tags.model'
 import { useClassNames } from './tab-tags.style'
+
+import { AdminSettingsTagsModel } from './tab-tags.model'
 
 export const TabTags = observer(() => {
   const { classes: classNames } = useClassNames()

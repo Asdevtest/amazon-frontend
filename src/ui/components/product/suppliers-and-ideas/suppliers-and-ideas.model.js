@@ -13,6 +13,7 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -21,7 +22,6 @@ import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWit
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { StorekeeperModel } from '@models/storekeeper-model'
 
 export class SuppliersAndIdeasModel {
   history = undefined

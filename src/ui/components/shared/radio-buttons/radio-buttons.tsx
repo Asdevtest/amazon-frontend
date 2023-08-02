@@ -1,10 +1,10 @@
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
 import Radio from '@mui/material/Radio'
 
 import { useClassNames } from './radio-buttons.styles'
-import { cx } from '@emotion/css'
 
 interface IRadioBottonsSetting {
   label: string

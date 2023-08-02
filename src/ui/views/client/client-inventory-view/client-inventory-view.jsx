@@ -16,11 +16,13 @@ import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-suppli
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
+import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { MainContent } from '@components/layout/main-content'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
@@ -45,8 +47,6 @@ import { t } from '@utils/translations'
 import { styles } from './client-inventory-view.style'
 
 import { ClientInventoryViewModel } from './client-inventory-view.model'
-import { ProductLaunchForm } from '@components/forms/product-launch-form'
-import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(
