@@ -330,8 +330,13 @@ export const ClientInventoryViewRaw = props => {
       {viewModel.showIdeaModal && (
         <IdeaCardsModal
           isCreate
+          product={viewModel.selectedProductToLaunch}
+          productId={viewModel.selectedProductToLaunch?._id}
           openModal={viewModel.showIdeaModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showIdeaModal')
+            viewModel.loadData()
+          }}
         />
       )}
 

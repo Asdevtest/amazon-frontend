@@ -19,7 +19,7 @@ interface IProductsLaunch {
 interface ProductLaunchFormProps {
   selectedProductToLaunch: any
   productsToLaunch: Array<IProductsLaunch>
-  onClickNextButton: () => void
+  onClickNextButton: (product: any) => void
   onClickVariationRadioButton: () => void
   onClickCancelButton: () => void
 }
@@ -38,9 +38,9 @@ const radioBottonsSettings = [
 export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
   const { classes: classNames } = useClassNames()
   const {
-    onClickNextButton,
-    selectedProductToLaunch,
     productsToLaunch,
+    selectedProductToLaunch,
+    onClickNextButton,
     onClickVariationRadioButton,
     onClickCancelButton,
   } = props
@@ -97,18 +97,11 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
           (selectedProduct?.asin === '' && t(TranslationKey.Missing)) ||
           t(TranslationKey['Parent product'])
         }
-        onClickSelect={(el: IProductsLaunch) => {
-          setSelectedProduct(el)
-        }}
+        onClickSelect={(el: IProductsLaunch) => setSelectedProduct(el)}
       />
 
       <div className={classNames.buttonsWrapper}>
-        <Button
-          success
-          variant="contained"
-          // className={classNames.openArchiveBtn}
-          onClick={onClickNextButton}
-        >
+        <Button success variant="contained" onClick={() => onClickNextButton(selectedProduct)}>
           {t(TranslationKey.Next)}
         </Button>
 

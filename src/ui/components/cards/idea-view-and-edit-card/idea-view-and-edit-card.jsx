@@ -83,6 +83,7 @@ export const IdeaViewAndEditCard = observer(
     onClickLinkRequestButton,
     onClickCreateRequestButton,
     onClickOpenNewTab,
+    onClickToOrder,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -173,9 +174,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     useEffect(() => {
-      if (inCreate) {
-        setShowFullCard(true)
-      } else if (isModalView) {
+      if (inCreate || isModalView) {
         setShowFullCard(true)
       } else if (!isCurrentIdea) {
         setShowFullCard(false)
@@ -675,28 +674,6 @@ export const IdeaViewAndEditCard = observer(
               </div>
             </>
           )}
-
-          {/* {(inCreate || !disableFields) && (
-            <div className={classNames.addOrEditBtnsWrapper}>
-              <Button
-                success
-                disabled={disabledSubmit}
-                variant="contained"
-                color="primary"
-                onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
-              >
-                {t(TranslationKey.Save)}
-              </Button>
-
-              <Button
-                variant="text"
-                className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
-                onClick={() => onClickCancelBtn()}
-              >
-                {t(TranslationKey.Close)}
-              </Button>
-            </div>
-          )} */}
         </div>
 
         {!!idea && disableFields ? (
@@ -762,6 +739,12 @@ export const IdeaViewAndEditCard = observer(
                     onClick={() => onClickAcceptButton(formFields)}
                   >
                     {t(TranslationKey.Accept)}
+                  </Button>
+                )}
+
+                {currentUserIsClient && isVerified && (
+                  <Button success variant="contained" onClick={onClickToOrder}>
+                    {t(TranslationKey['To order'])}
                   </Button>
                 )}
 

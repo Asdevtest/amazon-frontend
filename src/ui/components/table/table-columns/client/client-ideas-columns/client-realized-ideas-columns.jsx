@@ -10,7 +10,6 @@ import {
   RealizedIdeaActions,
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
 
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -212,7 +211,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
           rowHandlers.onClickCreateRequest(params.row.parentProduct._id, params.row.parentProduct.asin)
         }
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
-        onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
+        onClickResultButton={rowHandlers.onClickResultButton}
       />
     ),
     width: 220,

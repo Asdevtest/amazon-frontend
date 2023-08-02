@@ -588,10 +588,9 @@ export class ClientInventoryViewModel {
   async onClickProductLaunch() {
     try {
       const result = this.currentData?.find(product => product?.originalData?._id === this.selectedRowIds?.[0])
-      this.selectedProductToLaunch = result
+      runInAction(() => (this.selectedProductToLaunch = result))
 
       this.onTriggerOpenModal('showProductLaunch')
-      this.product
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -600,7 +599,10 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onClickNextButton() {
+  async onClickNextButton(chosenProduct) {
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct))
+    this.onTriggerOpenModal('showProductLaunch')
+
     this.onTriggerOpenModal('showIdeaModal')
   }
 

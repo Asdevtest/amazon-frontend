@@ -33,6 +33,7 @@ export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
           productId={productId}
           product={product}
           currentIdeaId={currentIdeaId}
+          closeModalHandler={setOpenModal}
         />
       </div>
     </Modal>
