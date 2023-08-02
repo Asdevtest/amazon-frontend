@@ -1,10 +1,9 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
-import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,8 +19,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { LogisticsTariffsModel } from './logistics-tariffs.model'
 import { useClassNames } from './logistics-tariffs.style'
+
+import { LogisticsTariffsModel } from './logistics-tariffs.model'
 
 export const LogisticsTariffs = observer(() => {
   const { classes: classNames } = useClassNames()
@@ -132,6 +132,9 @@ export const LogisticsTariffs = observer(() => {
           columnMenuIcon: FilterAltOutlinedIcon,
         }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           toolbar: {
             columsBtnSettings: {
               columnsModel,

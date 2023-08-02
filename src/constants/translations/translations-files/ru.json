@@ -1561,7 +1561,7 @@
   "Purchasing a product card": "Покупка карточки товара",
   "Feedback": "Обратная связь",
   "Any suggestions?": "Есть предложения?",
-  "Tell us how we can improve our platform": "Расскажите нам как мы можем улучшить нашу платформу",
+  "Tell us how we can improve our platform": "Расскажите нам, как мы можем улучшить нашу платформу",
   "Reply": "Ответить",
   "files": "файлов",
   "New task": "Новая задача",
@@ -1986,6 +1986,7 @@
   "Unread messages": "Непрочитанных сообщений",
   "Uploaded by on listing": "Выгружено на листинг",
   "Partial payment": "Частичная оплата",
+  "Open in a new tab": "Открыть в новой вкладке",
   "Search companion": "Поиск собеседника",
   "Service representative": "Представитель услуг",
   "Adding a payment method": "Добавление способа оплаты",
@@ -2024,9 +2025,14 @@
   "Are you sure you want to delete the red flag?": "Вы уверены, что хотите удалить красный флаг?",
   "Participants": "Участников",
   "Photo and Video": "Фото и Видео",
+  "Archiving": "Архивировать",
   "Photo track numbers": "Фото трек номеров",
   "no photo track number": "нет фото трек номера",
   "Edit tag": "Изменить тег",
   "Edit drop off location": "Изменить место выгрузки",
-  "The members are saved!": "Участники успешно сохранены!"
+  "The members are saved!": "Участники успешно сохранены!",
+  "To pay partial": "Для частичной оплаты",
+  "By date": "По дате",
+  "On page": "На странице",
+  "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение"
 }

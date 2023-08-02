@@ -1,15 +1,14 @@
 import { cx } from '@emotion/css'
-import DeleteIcon from '@mui/icons-material/Delete'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
@@ -20,12 +19,14 @@ import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
 import { styles } from './client-sent-batches-view.style'
+
+import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
 
 export const ClientSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history: props.history }))
@@ -76,7 +77,7 @@ export const ClientSentBatchesViewRaw = props => {
               ) : (
                 <>
                   {t(TranslationKey['Move to archive'])}
-                  <DeleteIcon className={className.archiveIcon} />
+                  {<ArchiveIcon />}
                 </>
               )}
             </Button>
@@ -87,21 +88,20 @@ export const ClientSentBatchesViewRaw = props => {
           {viewModel.storekeepersData
             .slice()
             .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(storekeeper =>
-              storekeeper.boxesCount !== 0 ? (
-                <Button
-                  key={storekeeper._id}
-                  disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-                  className={cx(className.storekeeperButton, {
-                    [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-                >
-                  {storekeeper.name}
-                </Button>
-              ) : null,
-            )}
+            .filter(el => el.boxesCount > 0)
+            .map(storekeeper => (
+              <Button
+                key={storekeeper._id}
+                disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
+                className={cx(className.storekeeperButton, {
+                  [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
+                })}
+                variant="text"
+                onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
+              >
+                {storekeeper.name}
+              </Button>
+            ))}
 
           <Button
             disabled={!viewModel.currentStorekeeper?._id}
@@ -142,9 +142,19 @@ export const ClientSentBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,

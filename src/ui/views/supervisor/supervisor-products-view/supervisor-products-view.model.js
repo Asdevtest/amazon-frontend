@@ -1,17 +1,52 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { UserModel } from '@models/user-model'
 
 import { supervisorProductsViewColumns } from '@components/table/table-columns/supervisor/supervisor-products-columns'
 
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+const filtersFields = [
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'strategyStatus',
+  'amountInOrders',
+  'inTransfer',
+  'stockUSA',
+  'boxAmounts',
+  'sumStock',
+  'amazon',
+  'createdAt',
+  'updatedAt',
+  'profit',
+  'fbafee',
+  'status',
+  'reservedSum',
+  'sentToFbaSum',
+  'fbaFbmStockSum',
+  'ideasOnCheck',
+  'stockCost',
+  'purchaseQuantity',
+  'ideasClosed',
+  'ideasVerified',
+  'tags',
+  'redFlags',
+
+  'createdBy',
+  'buyer',
+  'bsr',
+]
 
 export class SupervisorProductsViewModel {
   history = undefined
@@ -21,6 +56,7 @@ export class SupervisorProductsViewModel {
   nameSearchValue = ''
 
   currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
+  currentStatusGroup = ProductStatusGroups.allProducts
 
   currentData = []
 
@@ -31,11 +67,63 @@ export class SupervisorProductsViewModel {
   startFilterModel = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = supervisorProductsViewColumns()
   showAsinCheckerModal = false
-
   paginationModel = { page: 0, pageSize: 15 }
+
+  rowCount = 0
   columnVisibilityModel = {}
+
+  productCardModal = false
+
+  rowHandlers = {
+    onClickShowProduct: row => this.onClickTableRow(row),
+  }
+
+  columnsModel = supervisorProductsViewColumns(this.rowHandlers)
+
+  orderedYesNoFilterData = {
+    yes: true,
+    no: true,
+    handleFilters: (yes, no) => this.onHandleOrderedFilter(yes, no),
+  }
+
+  onHandleOrderedFilter = (yes, no) => {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        orderedYesNoFilterData: {
+          ...this.columnMenuSettings.orderedYesNoFilterData,
+          yes,
+          no,
+        },
+      }
+      this.getProductsMy()
+    })
+  }
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getProductsMy()
+      this.getDataGridState()
+    },
+
+    orderedYesNoFilterData: this.orderedYesNoFilterData,
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
 
   constructor({ history, location }) {
     runInAction(() => {
@@ -58,13 +146,18 @@ export class SupervisorProductsViewModel {
         this.currentData = this.getCurrentData()
       },
     )
+  }
 
-    reaction(
-      () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
+  onHoverColumnField(field) {
+    this.onHover = field
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
   }
 
   onChangeFilterModel(model) {
@@ -73,6 +166,7 @@ export class SupervisorProductsViewModel {
     })
 
     this.setDataGridState()
+    this.getProductsMy()
   }
 
   onChangePaginationModelChange(model) {
@@ -81,12 +175,14 @@ export class SupervisorProductsViewModel {
     })
 
     this.setDataGridState()
+    this.getProductsMy()
   }
 
   onColumnVisibilityModelChange(model) {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+    this.getProductsMy()
     this.setDataGridState()
   }
 
@@ -127,97 +223,17 @@ export class SupervisorProductsViewModel {
     })
   }
 
-  onClickStatusFilterButton(status) {
+  onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.currentFilterStatus = status
-      this.productsMy = this.getFilteredProductsByStatus(status)
+      this.nameSearchValue = searchValue
     })
+
+    this.getProductsMy()
   }
 
-  getProductsCountByStatus(status) {
-    return this.getFilteredProductsByStatus(status).length
-  }
-
-  getFilteredProductsByStatus(status) {
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.DEFAULT])) {
-      return this.baseProducts
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT])) {
-      return this.baseProducts.filter(
-        product => Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.SUPPLIER_FOUND])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
-          Number(product.status) ===
-            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) ||
-          Number(product.status) ===
-            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) ===
-            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]) ||
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]) ||
-          Number(product.status) ===
-            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])) {
-      return this.baseProducts.filter(
-        product =>
-          Number(product.status) === Number(ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]),
-      )
-    }
-
-    if (Number(status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT])) {
-      return this.baseProducts.filter(
-        product => Number(product.status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]),
-      )
-    }
+  onClickStatusFilterButton(status) {
+    this.currentStatusGroup = status
+    this.getProductsMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -232,6 +248,7 @@ export class SupervisorProductsViewModel {
     })
 
     this.setDataGridState()
+    this.getProductsMy()
   }
 
   onSelectionModel(model) {
@@ -257,17 +274,14 @@ export class SupervisorProductsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getProductsMy()
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
-  async getProductsMy() {
+  async getProductsMy2() {
     try {
       const result = await SupervisorModel.getProductsMy()
 
@@ -288,6 +302,43 @@ export class SupervisorProductsViewModel {
     }
   }
 
+  async getProductsMy() {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    try {
+      const ordered =
+        this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
+          ? null
+          : this.columnMenuSettings.orderedYesNoFilterData.yes
+
+      const result = await SupervisorModel.getProductsMyPag({
+        filters: this.getFilter() + `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
+
+        statusGroup: this.currentStatusGroup,
+
+        limit: this.paginationModel.pageSize,
+
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
+
+      runInAction(() => {
+        this.productsMy = supervisorProductsDataConverter(result.rows)
+        this.rowCount = result.count
+      })
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      if (error.body && error.body.message) {
+        runInAction(() => {
+          this.error = error.body.message
+        })
+      }
+    }
+  }
+
   onClickTableRow(row) {
     const win = window.open(
       `${window.location.origin}/supervisor/products/product?product-id=${row.originalData._id}`,
@@ -297,9 +348,206 @@ export class SupervisorProductsViewModel {
     win.focus()
   }
 
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  getFilter(exclusion) {
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' &&
+      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+        .join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+
+    const strategyStatusFilter =
+      exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
+
+    const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
+
+    const createdByFilter =
+      exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.map(el => el._id).join(',')
+
+    const buyerFilter =
+      exclusion !== 'buyer' && this.columnMenuSettings.buyer.currentFilterData.map(el => el._id).join(',')
+
+    const bsrFilter = exclusion !== 'bsr' && this.columnMenuSettings.bsr.currentFilterData.join(',')
+
+    const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
+
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+
+    const tagsFilter =
+      exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
+
+    const redFlagsFilter =
+      exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
+
+    const filter = objectToUrlQs({
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+      ],
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
+
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
+
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+
+      ...(strategyStatusFilter && {
+        strategyStatus: { $eq: strategyStatusFilter },
+      }),
+
+      ...(amazonFilter && {
+        amazon: { $eq: amazonFilter },
+      }),
+
+      ...(createdByFilter && {
+        createdById: { $eq: createdByFilter },
+      }),
+
+      ...(buyerFilter && {
+        buyerId: { $eq: buyerFilter },
+      }),
+
+      ...(bsrFilter && {
+        bsr: { $eq: bsrFilter },
+      }),
+
+      ...(fbafeeFilter && {
+        fbafee: { $eq: fbafeeFilter },
+      }),
+
+      ...(statusFilter && {
+        status: { $eq: statusFilter },
+      }),
+
+      ...(tagsFilter && {
+        tags: { $eq: tagsFilter },
+      }),
+
+      ...(redFlagsFilter && {
+        redFlags: { $eq: redFlagsFilter },
+      }),
+    })
+
+    return filter
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getProductsMy()
+    this.getDataGridState()
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      const ordered =
+        this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
+          ? null
+          : this.columnMenuSettings.orderedYesNoFilterData.yes
+
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'products'),
+        column,
+
+        `supervisors/products/pag/my?filters=${this.getFilter(column)}&statusGroup=${this.currentStatusGroup}` +
+          `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.history.push(`/supervisor/products?product-id=${row.originalData._id}`)
+    } else {
+      this.history.push(`/supervisor/products`)
+
+      this.loadData()
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 }

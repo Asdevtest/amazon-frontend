@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Link, Radio, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import {
   getConversion,
@@ -16,11 +15,15 @@ import {
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { BigPlusIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
@@ -30,10 +33,6 @@ import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed } from
 import { t } from '@utils/translations'
 
 import { useClassNames } from './grouping-boxes-form.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Input } from '@components/shared/input'
-import { BigPlusIcon } from '@components/shared/svg-icons'
-import { BoxStatus } from '@constants/statuses/box-status'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()

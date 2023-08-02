@@ -266,12 +266,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   red: {
-    color: 'red !important',
+    color: `${theme.palette.orderStatus.red} !important`,
   },
 
   green: {
     color: `${theme.palette.text.green} !important`,
   },
+
+  blue: {
+    color: `${theme.palette.primary.main} !important`,
+  },
+
   priorityWrapper: {
     width: 210,
   },
@@ -324,6 +329,11 @@ export const useClassNames = makeStyles()(theme => ({
 
     cursor: 'pointer',
   },
+
+  supplierCheckboxWrapperDisabled: {
+    cursor: 'unset',
+  },
+
   checkboxTitle: {
     fontWeight: 400,
     fontSize: 14,

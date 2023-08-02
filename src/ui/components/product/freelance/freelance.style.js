@@ -6,6 +6,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
   },
 
+  modalWrapper: {
+    height: 600,
+  },
+
   taskTypeWrapper: {
     display: 'flex',
   },

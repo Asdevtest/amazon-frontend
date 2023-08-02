@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+
 import Avatar from '@mui/material/Avatar'
-import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
+import Typography from '@mui/material/Typography'
 
-import React from 'react'
-
+import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByRequestStatus } from '@constants/requests/request-status'
 import {
@@ -28,14 +27,20 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-list-card.style'
-import { requestPriority } from '@constants/requests/request-priority'
-import { getBorderForDeadline } from '@utils/deadline-border'
 
 export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
+  const getCardClassName = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return classNames.redBackground
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return classNames.yellowBackground
+    }
+  }
+
   return (
-    <div className={classNames.cardWrapper} style={getBorderForDeadline(item.timeoutAt)}>
+    <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
       <div className={classNames.cardTitleBlockWrapper}>
         <div className={classNames.cardTitleBlockHeaderWrapper}>
           <div className={classNames.userInfoWrapper}>

@@ -1,8 +1,7 @@
-import { Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,9 +12,10 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './user-info-and-edit.style'
+
 import { UserBalance } from './user-balance'
 import { UserEdit } from './user-edit'
-import { useClassNames } from './user-info-and-edit.style'
 
 export const UserInfoAndEdit = observer(({ user }) => {
   const { classes: classNames } = useClassNames()

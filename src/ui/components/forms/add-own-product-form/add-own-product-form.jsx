@@ -1,9 +1,8 @@
-import { Typography, IconButton, Grid, Checkbox } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
+import { Checkbox, Grid, IconButton, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **priceAmazon** | **Number** | Цена на амазоне | [optional] 
 **cashBackInPercent** | **Number** | Возврат средств с покупки в процентах | [optional] 
 **announcementId** | **String** | Гуид анонса | [optional] 
+**executorId** | **String** | Гуид исполнителя | [optional] 
 **linksToMediaFiles** | [**[ApiV1RequestsCustomRequestLinksToMediaFiles]**](ApiV1RequestsCustomRequestLinksToMediaFiles.md) |  | [optional] 
 
 

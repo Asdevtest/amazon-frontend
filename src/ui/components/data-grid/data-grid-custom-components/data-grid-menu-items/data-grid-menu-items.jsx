@@ -1,4 +1,9 @@
 /* eslint-disable no-unused-vars */
+import { cx } from '@emotion/css'
+import { compareDesc, isAfter, parseISO } from 'date-fns'
+import React, { useCallback, useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import {
   CircularProgress,
   Divider,
@@ -10,20 +15,18 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useCallback, useEffect, useState } from 'react'
-
-import { compareDesc, isAfter, parseISO } from 'date-fns'
-import { withStyles } from 'tss-react/mui'
-
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
@@ -34,9 +37,6 @@ import { getStatusByColumnKeyAndStatusKey, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
-import { cx } from '@emotion/css'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { Checkbox } from '@components/shared/checkbox'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -309,54 +309,46 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
 )
 
 export const OrderStatusMenuItem = React.memo(
-  withStyles(
-    ({ classes: classNames, orderStatusData }) => (
+  withStyles(({ classes: classNames, orderStatusData }) => {
+    const { isCheckedStatusByFilter, onCheckboxChange } = orderStatusData
+
+    const checkboxes = [
+      {
+        name: chosenStatusesByFilter.ALL,
+        label: t(TranslationKey.All),
+        checked: isCheckedStatusByFilter.ALL,
+      },
+      {
+        name: chosenStatusesByFilter.AT_PROCESS,
+        label: t(TranslationKey['At process']),
+        checked: isCheckedStatusByFilter.AT_PROCESS,
+      },
+      {
+        name: chosenStatusesByFilter.CANCELED,
+        label: t(TranslationKey.Canceled),
+        checked: isCheckedStatusByFilter.CANCELED,
+      },
+      {
+        name: chosenStatusesByFilter.COMPLETED,
+        label: t(TranslationKey.Completed),
+        checked: isCheckedStatusByFilter.COMPLETED,
+      },
+    ]
+
+    return (
       <div className={classNames.isFormedWrapper}>
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.All)}</Typography>
+        {checkboxes.map(item => (
+          <div key={item.name} className={classNames.isFormedSubWrapper}>
+            <Typography>{item.label}</Typography>
 
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.ALL}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.ALL)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['At process'])}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.AT_PROCESS}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.AT_PROCESS)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Canceled)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.CANCELED}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.CANCELED)}
-          />
-        </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Completed)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.COMPLETED}
-            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.COMPLETED)}
-          />
-        </div>
+            <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
+          </div>
+        ))}
 
         <Divider />
       </div>
-    ),
-    styles,
-  ),
+    )
+  }, styles),
 )
 
 export const MyRequestsStatusMenuItem = React.memo(
@@ -765,9 +757,9 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj =>
-            (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
-          )
+          const filter = filterData?.filter(obj => {
+            return obj && (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase())
+          })
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -994,7 +986,10 @@ export const NormalFieldMenuItem = React.memo(
           className={cx({
             [classNames.universalFilterWrapper]: !asBlock,
             [classNames.shopsDataWrapperBlocked]: asBlock,
-            [classNames.fullName]: columnKey === columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+            [classNames.fullName]: [
+              columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+              columnnsKeys.client.INVENTORY_STATUS,
+            ].includes(columnKey),
           })}
         >
           <div className={classNames.universalFilterSearchInputWrapper}>
@@ -1020,18 +1015,21 @@ export const NormalFieldMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender.map((el, index) => (
-                      <div key={index} className={classNames.shop}>
-                        <Checkbox
-                          color="primary"
-                          checked={choosenItems.some(item => item === el)}
-                          onClick={() => onClickItem(el)}
-                        />
-                        <div className={classNames.shopName}>
-                          {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                        </div>
-                      </div>
-                    ))}
+                    {itemsForRender.map(
+                      (el, index) =>
+                        el && (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={choosenItems.some(item => item === el)}
+                              onClick={() => onClickItem(el)}
+                            />
+                            <div className={classNames.shopName}>
+                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
+                            </div>
+                          </div>
+                        ),
+                    )}
                   </>
                 ) : (
                   <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -1243,12 +1241,13 @@ export const ProductMenuItem = React.memo(
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickAccept,
+      withoutSku,
     } = props
 
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle.currentFilterData.length
         ? 'amazonTitle'
-        : data.skusByClient.currentFilterData.length
+        : !withoutSku && data.skusByClient.currentFilterData.length
         ? 'skusByClient'
         : 'asin',
     )
@@ -1307,19 +1306,29 @@ export const ProductMenuItem = React.memo(
         <div>
           <FormControl className={classNames.formControl}>
             <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-            <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+            <RadioGroup
+              row
+              className={cx({
+                [classNames.radioGroup]: !withoutSku,
+                [classNames.radioGroupTwoItems]: withoutSku,
+              })}
+              value={currentOption}
+              onChange={handleCategory}
+            >
               <FormControlLabel
                 className={classNames.radioOption}
                 value="asin"
                 control={<Radio className={classNames.radioControl} />}
                 label={t(TranslationKey.ASIN)}
               />
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="skusByClient"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.SKU)}
-              />
+              {!withoutSku && (
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="skusByClient"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.SKU)}
+                />
+              )}
               <FormControlLabel
                 className={classNames.radioOption}
                 value="amazonTitle"
@@ -1698,6 +1707,7 @@ export const FromToDateMenuItem = React.memo(
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
+      headerControls,
     }) => {
       const [fromDate, setFromDate] = useState(null)
       const [toDate, setToDate] = useState(null)
@@ -1751,6 +1761,7 @@ export const FromToDateMenuItem = React.memo(
       return (
         <div className={classNames.shopsDataWrapper}>
           <div className={classNames.fromToDatesWrapper}>
+            {headerControls && <div>{headerControls()}</div>}
             <div className={classNames.fromToDatesSubWrapper}>
               <Typography className={classNames.fromToText}>{t(TranslationKey.From)}</Typography>
               <NewDatePicker className={classNames.dateInput} value={fromDate} onChange={setFromDate} />
@@ -1847,6 +1858,7 @@ export const NumberFieldMenuItem = React.memo(
 
       onClickAccept,
       onClickFilterBtn,
+      asBlock = false,
     }) => {
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
@@ -1907,20 +1919,25 @@ export const NumberFieldMenuItem = React.memo(
           'purchaseQuantity',
           'sentToFbaSum',
           'reservedSum',
+          'bsr',
           'fbaFbmStockSum',
           'reservedSum',
           'sentToFbaSum',
           'sumStock',
           'humanFriendlyId',
+          'ideasVerified',
+          'ideasClosed',
+          'ideasOnCheck',
           'ideasOnCheck',
           'ideasClosed',
           'ideasVerified',
+          'fbaamount',
         ]
         return whiteList.includes(field)
       }, [field])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.numInputsWrapper}>
             <Input
               className={classNames.numInput}
@@ -2304,4 +2321,327 @@ export const OnListingCellMenuItem = React.memo(
       </div>
     )
   }, styles),
+)
+
+export const YesNoCellMenuItem = React.memo(
+  withStyles(({ classes: classNames, data, onClose, field }) => {
+    const filterData = data[`${field}YesNoFilterData`]
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.yes}
+                onClick={() => {
+                  if (filterData.yes) {
+                    filterData.handleFilters(false, true)
+                  } else {
+                    filterData.handleFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.Yes)}</Typography>
+            </div>
+
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.no}
+                onClick={() => {
+                  if (filterData.no) {
+                    filterData.handleFilters(true, false)
+                  } else {
+                    filterData.handleFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.No)}</Typography>
+            </div>
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
+const batchShippingDateTabs = [
+  {
+    label: t(TranslationKey['CLS (batch closing date)']),
+    value: 'cls',
+  },
+  {
+    label: t(TranslationKey['ETD (date of shipment)']),
+    value: 'etd',
+  },
+  {
+    label: t(TranslationKey['ETA (arrival date)']),
+    value: 'eta',
+  },
+]
+
+export const BatchShippingDateCellMenuItem = React.memo(
+  withStyles(props => {
+    const {
+      classes: classNames,
+      data,
+      field,
+      filterRequestStatus,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClose,
+    } = props
+    const [currentTab, setCurrentTab] = useState(field)
+
+    useEffect(() => {
+      onClickFilterBtn(currentTab)
+    }, [currentTab])
+
+    return (
+      <FromToDateMenuItem
+        data={data[currentTab]}
+        field={currentTab}
+        filterRequestStatus={filterRequestStatus}
+        headerControls={() => (
+          <FormControl className={classNames.formControl}>
+            <RadioGroup
+              row
+              className={cx(classNames.radioGroup, classNames.formedRadioGroup)}
+              value={currentTab}
+              onChange={(event, value) => setCurrentTab(value)}
+            >
+              {batchShippingDateTabs.map((el, index) => (
+                <FormControlLabel
+                  key={index}
+                  className={classNames.radioOption}
+                  value={el.value}
+                  control={<Radio className={classNames.radioControl} />}
+                  label={el.label}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        )}
+        onClose={onClose}
+        onClickFilterBtn={onClickFilterBtn}
+        onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+        onClickAccept={onClickAccept}
+      />
+    )
+  }, styles),
+)
+
+const batchTrackingTabs = [
+  {
+    label: t(TranslationKey['Track number']),
+    value: 'trackingNumber',
+  },
+  {
+    label: t(TranslationKey['Arrival date']),
+    value: 'arrivalDate',
+  },
+]
+
+export const BatchTrackingCellMenuItem = React.memo(
+  withStyles(props => {
+    const {
+      classes: classNames,
+      data,
+      field,
+      filterRequestStatus,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClose,
+    } = props
+    const [currentTab, setCurrentTab] = useState(field)
+
+    useEffect(() => {
+      onClickFilterBtn(currentTab)
+    }, [currentTab])
+
+    console.log(currentTab === batchShippingDateTabs[0].value)
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div>
+          <FormControl className={classNames.formControl}>
+            <RadioGroup
+              row
+              className={cx(classNames.radioGroupTwoItems)}
+              value={currentTab}
+              onChange={event => setCurrentTab(event.target.value)}
+            >
+              {batchTrackingTabs.map((el, index) => (
+                <FormControlLabel
+                  key={index}
+                  className={classNames.radioOption}
+                  value={el.value}
+                  control={<Radio className={classNames.radioControl} />}
+                  label={el.label}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </div>
+
+        {currentTab === batchTrackingTabs[0].value && (
+          <NormalFieldMenuItem
+            data={data[currentTab]}
+            field={currentTab}
+            filterRequestStatus={filterRequestStatus}
+            columnKey={currentTab}
+            onClickFilterBtn={onClickFilterBtn}
+            onClose={onClose}
+            onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+            onClickAccept={onClickAccept}
+          />
+        )}
+
+        {currentTab === batchTrackingTabs[1].value && (
+          <FromToDateMenuItem
+            data={data[currentTab]}
+            field={currentTab}
+            filterRequestStatus={filterRequestStatus}
+            onClickFilterBtn={onClickFilterBtn}
+            onClose={onClose}
+            onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+            onClickAccept={onClickAccept}
+          />
+        )}
+      </div>
+    )
+  }, styles),
+)
+
+export const NumberWithTabsMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: styles,
+      onClose,
+      data,
+      filterRequestStatus,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+      tabs,
+    }) => {
+      const [activeTab, setActiveTab] = useState(tabs[0].value)
+
+      useEffect(() => {
+        onClickFilterBtn(activeTab)
+      }, [activeTab])
+
+      return (
+        <div className={styles.shopsDataWrapper}>
+          <div>
+            <FormControl className={styles.formControl}>
+              <RadioGroup
+                row
+                className={styles.radioGroup}
+                value={activeTab}
+                onChange={event => setActiveTab(event.target.value)}
+              >
+                {tabs.map((el, index) => (
+                  <FormControlLabel
+                    key={index}
+                    className={styles.radioOption}
+                    value={el.value}
+                    control={<Radio className={styles.radioControl} />}
+                    label={el.label}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <NumberFieldMenuItem
+            asBlock
+            data={data[activeTab]}
+            field={activeTab}
+            filterRequestStatus={filterRequestStatus}
+            onClickFilterBtn={onClickFilterBtn}
+            onClose={onClose}
+            onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+            onClickAccept={onClickAccept}
+          />
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+const toPayCellTabs = [
+  {
+    value: 'priceInYuan',
+    label: t(TranslationKey['To pay']),
+  },
+  {
+    value: 'partialPaymentAmountRmb',
+    label: t(TranslationKey['To pay partial']),
+  },
+]
+
+export const ToPayCellMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: styles,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      const isShowTabs = ['/buyer/partially-paid-orders', '/buyer/all-orders'].includes(window.location.pathname)
+
+      return (
+        <>
+          {isShowTabs && (
+            <NumberWithTabsMenuItem
+              data={data}
+              filterRequestStatus={filterRequestStatus}
+              tabs={toPayCellTabs}
+              onClickFilterBtn={onClickFilterBtn}
+              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+              onClickAccept={() => {
+                onClickAccept()
+              }}
+              onClose={onClose}
+            />
+          )}
+
+          {!isShowTabs && (
+            <NumberFieldMenuItem
+              data={data[field]}
+              field={field}
+              filterRequestStatus={filterRequestStatus}
+              onClickFilterBtn={onClickFilterBtn}
+              onClose={onClose}
+              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+              onClickAccept={onClickAccept}
+            />
+          )}
+        </>
+      )
+    },
+    styles,
+  ),
 )

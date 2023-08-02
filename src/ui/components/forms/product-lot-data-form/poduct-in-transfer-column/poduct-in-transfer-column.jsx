@@ -3,12 +3,12 @@ import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  WarehouseTariffDatesCell,
-  MultilineTextCell,
-  NormalActionBtnCell,
   BoxesAndQuantity,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
   StringListCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
@@ -64,6 +64,15 @@ export const productInTransferColumns = handlers => [
 
     renderCell: params => <BoxesAndQuantity boxesData={params?.row} />,
     width: 154,
+  },
+
+  {
+    field: 'storekeeper',
+    headerName: t(TranslationKey.Storekeeper),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value.name} />,
+    width: 180,
   },
 
   {

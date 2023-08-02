@@ -52,17 +52,22 @@ export const styles = theme => ({
   },
   archiveAddBtn: {
     width: 230,
-    border: '1px solid #FF1616',
-    color: '#FF1616',
+    display: 'flex',
+    gap: 10,
+    border: '1px solid #D70D0D',
+    color: '#D70D0D',
 
     '&:hover': {
-      border: '1px solid #FF1616',
-      opacity: 0.6,
+      border: '1px solid #D70D0D',
     },
 
     '&:disabled': {
-      color: '#FEB9B9',
       borderColor: '#FEB9B9',
+      color: '#FEB9B9',
+    },
+
+    '&.Mui-disabled': {
+      background: 'none',
     },
   },
   simpleBtnsWrapper: {

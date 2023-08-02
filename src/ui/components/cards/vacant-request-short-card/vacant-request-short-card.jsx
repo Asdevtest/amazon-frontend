@@ -1,10 +1,10 @@
 import { cx } from '@emotion/css'
+
 import Avatar from '@mui/material/Avatar'
-import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
+import Typography from '@mui/material/Typography'
 
-import React from 'react'
-
+import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByRequestStatus } from '@constants/requests/request-status'
 import {
@@ -20,21 +20,27 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
-import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
+import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-short-card.style'
-import { requestPriority } from '@constants/requests/request-priority'
-import { getBorderForDeadline } from '@utils/deadline-border'
 
 export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
+  const getCardClassName = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return classNames.redBackground
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return classNames.yellowBackground
+    }
+  }
+
   return (
-    <div className={classNames.cardWrapper} style={getBorderForDeadline(item.timeoutAt)}>
+    <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
       <div className={classNames.cardHeader}>
         <div className={classNames.userInfoWrapper}>
           <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />

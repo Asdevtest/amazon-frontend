@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,8 +17,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseTariffModel } from './warehouse-tariffs.model'
 import { useClassNames } from './warehouse-tariffs.style'
+
+import { WarehouseTariffModel } from './warehouse-tariffs.model'
 
 export const WarehouseTariffs = observer(() => {
   const { classes: classNames } = useClassNames()
@@ -87,6 +87,9 @@ export const WarehouseTariffs = observer(() => {
           columnMenuIcon: FilterAltOutlinedIcon,
         }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           toolbar: {
             columsBtnSettings: {
               columnsModel,

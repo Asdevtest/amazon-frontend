@@ -1,10 +1,9 @@
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { IconButton, Typography } from '@mui/material'
-
-import { useEffect, useState } from 'react'
-
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,8 +18,9 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { fieldNameObject } from '../../admin-settings.constants'
 import { useClassNames } from './tab-main.style'
+
+import { fieldNameObject } from '../../admin-settings.constants'
 
 export const TabMain = observer(
   ({
@@ -106,13 +106,10 @@ export const TabMain = observer(
 
                       <div className={classNames.iconsWrapper}>
                         <CopyValue text={proxy} />
-                        <IconButton
-                          size="small"
-                          classes={{ root: classNames.iconDelete }}
+                        <DeleteOutlineOutlinedIcon
+                          className={classNames.deleteProxy}
                           onClick={() => handleDeleteProxy(proxy)}
-                        >
-                          <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} />
-                        </IconButton>
+                        />
                       </div>
                     </div>
                   ))}

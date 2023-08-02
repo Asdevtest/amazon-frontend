@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material'
-
 import React from 'react'
-
 import { useHistory } from 'react-router-dom'
+
+import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'

@@ -1,9 +1,11 @@
-import { FC, memo } from 'react'
-import { useNavbarButtonStyles } from '@components/layout/navbar/navbar-button/navbar-button.styles'
 import { cx } from '@emotion/css'
-import { IconButton } from '@mui/material'
 import MenuIcon from '@material-ui/icons/Menu'
+import { FC, memo } from 'react'
+
 import CloseIcon from '@mui/icons-material/Close'
+import { IconButton } from '@mui/material'
+
+import { useNavbarButtonStyles } from '@components/layout/navbar/navbar-button/navbar-button.styles'
 
 interface NavbarButtonProps {
   shortNavbar: boolean

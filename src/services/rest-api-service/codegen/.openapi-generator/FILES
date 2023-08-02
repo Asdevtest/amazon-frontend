@@ -58,6 +58,9 @@ docs/ApiV1BuyersProductsGuidTags.md
 docs/ApiV1ClientsProductsGuidRedFlags.md
 docs/ApiV1ClientsProductsVacRedFlags.md
 docs/ApiV1GologinProfileNavigator.md
+docs/ApiV1IdeasByParentGuidChildProduct.md
+docs/ApiV1IdeasByParentGuidProposals.md
+docs/ApiV1IdeasByParentGuidRequestsOnCheck.md
 docs/ApiV1IdeasNotificationsCreatedBy.md
 docs/ApiV1IdeasNotificationsIdea.md
 docs/ApiV1IdeasNotificationsProduct.md
@@ -313,7 +316,6 @@ docs/InlineResponse20046.md
 docs/InlineResponse20046ChildProduct.md
 docs/InlineResponse20046ChildProductOrder.md
 docs/InlineResponse20046ParentProduct.md
-docs/InlineResponse20046RequestsOnCheck.md
 docs/InlineResponse20046Rows.md
 docs/InlineResponse20046Suppliers.md
 docs/InlineResponse20047.md
@@ -420,6 +422,7 @@ docs/UserFullSchema.md
 docs/UserFullSchemaNote.md
 docs/UserInfoSchema.md
 docs/UserInfoSchemaFreelanceNotices.md
+docs/UserInfoSchemaIdeas.md
 docs/UserInfoSchemaMasterUser.md
 docs/UserInfoSchemaNeedConfirmPriceChange.md
 docs/UserInfoSchemaNeedUpdateTariff.md
@@ -515,6 +518,9 @@ src/model/ApiV1BuyersProductsGuidTags.js
 src/model/ApiV1ClientsProductsGuidRedFlags.js
 src/model/ApiV1ClientsProductsVacRedFlags.js
 src/model/ApiV1GologinProfileNavigator.js
+src/model/ApiV1IdeasByParentGuidChildProduct.js
+src/model/ApiV1IdeasByParentGuidProposals.js
+src/model/ApiV1IdeasByParentGuidRequestsOnCheck.js
 src/model/ApiV1IdeasNotificationsCreatedBy.js
 src/model/ApiV1IdeasNotificationsIdea.js
 src/model/ApiV1IdeasNotificationsProduct.js
@@ -761,7 +767,6 @@ src/model/InlineResponse20046.js
 src/model/InlineResponse20046ChildProduct.js
 src/model/InlineResponse20046ChildProductOrder.js
 src/model/InlineResponse20046ParentProduct.js
-src/model/InlineResponse20046RequestsOnCheck.js
 src/model/InlineResponse20046Rows.js
 src/model/InlineResponse20046Suppliers.js
 src/model/InlineResponse20047.js
@@ -854,6 +859,7 @@ src/model/UserFullSchema.js
 src/model/UserFullSchemaNote.js
 src/model/UserInfoSchema.js
 src/model/UserInfoSchemaFreelanceNotices.js
+src/model/UserInfoSchemaIdeas.js
 src/model/UserInfoSchemaMasterUser.js
 src/model/UserInfoSchemaNeedConfirmPriceChange.js
 src/model/UserInfoSchemaNeedUpdateTariff.js

@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
+import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
 
+import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import {
@@ -21,6 +21,7 @@ import { RestoreRequestModal } from '@components/requests-and-request-proposals/
 import { AsinLink } from '@components/shared/asin-link'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
@@ -31,7 +32,6 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './owner-general-request-info.style'
-import { Text } from '@components/shared/text'
 
 export const OwnerGeneralRequestInfo = ({
   request,
@@ -50,8 +50,6 @@ export const OwnerGeneralRequestInfo = ({
 
   const now = new Date()
 
-  const isDraft = request?.request?.status === RequestStatus.DRAFT
-
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
@@ -61,7 +59,17 @@ export const OwnerGeneralRequestInfo = ({
   return (
     <div className={classNames.root}>
       <div className={cx(classNames.requestInformationWrapper, classNames.firstBlock)}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
+        <div className={classNames.priorityWrapper}>
+          <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
+
+          {Number(request?.request?.priority) === requestPriority.urgentPriority && (
+            <div className={classNames.prioritySubWrapper}>
+              <Typography className={classNames.sectionTitle}>{t(TranslationKey['Urgent request'])}</Typography>
+
+              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            </div>
+          )}
+        </div>
 
         <Paper className={classNames.requestInformationCardWrapper}>
           <div className={classNames.requestInformation}>
@@ -204,6 +212,7 @@ export const OwnerGeneralRequestInfo = ({
                         fontSize: 14,
                         lineHeight: '19px',
                         textAlign: 'left',
+                        whiteSpace: 'pre-wrap',
                       }}
                     />
                   }

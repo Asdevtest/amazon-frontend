@@ -1,13 +1,12 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { IconButton, Typography } from '@mui/material'
-
-import { useState, useEffect } from 'react'
-
-import { observer } from 'mobx-react'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,8 +21,9 @@ import { UploadIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
 import { useClassNames } from './tab-red-flags.style'
+
+import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
 
 export const TabRedFlags = observer(() => {
   const { classes: classNames } = useClassNames()
@@ -106,25 +106,17 @@ export const TabRedFlags = observer(() => {
                   </div>
 
                   <div className={classNames.iconsWrapper}>
-                    <IconButton size="small">
-                      <CopyValue text={flag.title} />
-                    </IconButton>
+                    <CopyValue text={flag.title} />
 
-                    <IconButton
-                      size="small"
-                      classes={{ root: classNames.iconRoot }}
+                    <EditOutlinedIcon
+                      className={classNames.iconAction}
                       onClick={() => viewModel.onClickEditRedFlag(flag._id)}
-                    >
-                      <EditOutlinedIcon className={classNames.iconAction} />
-                    </IconButton>
+                    />
 
-                    <IconButton
-                      size="small"
-                      classes={{ root: classNames.iconRoot }}
+                    <DeleteOutlineOutlinedIcon
+                      className={classNames.iconAction}
                       onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
-                    >
-                      <DeleteOutlineOutlinedIcon className={classNames.iconAction} />
-                    </IconButton>
+                    />
                   </div>
                 </div>
               ))}

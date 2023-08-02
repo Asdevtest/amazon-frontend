@@ -1,8 +1,7 @@
-import { Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Tabs } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,13 +14,15 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './product-wrapper.style'
+
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
 import { ManagementTabView } from '../management-tab-view'
 import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
+
 import { BottomCard } from './bottom-card'
-import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
 
 const tabsValues = {
@@ -59,6 +60,7 @@ export const ProductWrapper = observer(
     shops,
     productBase,
     userRole,
+    modal,
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
@@ -67,6 +69,7 @@ export const ProductWrapper = observer(
     onChangeField,
     actionStatus,
     handleProductActionButtons,
+    setCurrentTab,
     onClickParseProductData,
     onChangeImagesForLoad,
     acceptMessage,
@@ -97,6 +100,7 @@ export const ProductWrapper = observer(
               value={tabIndex}
               onChange={(e, value) => {
                 setTabIndex(value)
+                setCurrentTab && setCurrentTab(value)
               }}
             >
               <ITab
@@ -164,8 +168,9 @@ export const ProductWrapper = observer(
               )}
             </Tabs>
 
-            <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
+                modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}
                 showProgress={showProgress}
@@ -200,23 +205,27 @@ export const ProductWrapper = observer(
               )}
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.ORDERS}>
+              <Orders
+                modal={modal}
+                productId={product._id}
+                showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS}
+              />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations productId={product._id} />
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
+              <Integrations modal={modal} productId={product._id} />
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
         <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
       </TabPanel> */}
 
-            <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
-              <Freelance productId={product._id} />
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
+              <Freelance modal={modal} productId={product._id} />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
 

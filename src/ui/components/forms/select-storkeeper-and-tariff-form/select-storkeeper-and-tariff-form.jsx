@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import { Tabs } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,8 +16,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
 import { useClassNames } from './select-storkeeper-and-tariff-form.style'
+
+import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
 import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
 import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
 import { WeightBasedTariffFormColumns } from './weight-based-tariff-form-columns'

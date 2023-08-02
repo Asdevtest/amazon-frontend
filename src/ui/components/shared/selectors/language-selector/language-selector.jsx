@@ -1,9 +1,9 @@
 // ГОТОВЫЙ ВАРИАНТ С МОДАЛКОЙ, КОГДА ЯЗЫКОВ БУДЕТ БОЛЬШЕ
+import React, { useState } from 'react'
+
 import { Typography } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-
-import React, { useState } from 'react'
 
 import { languageOptions } from '@constants/translations/language-options'
 

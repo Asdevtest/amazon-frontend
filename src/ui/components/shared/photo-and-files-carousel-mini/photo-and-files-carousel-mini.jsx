@@ -1,21 +1,22 @@
 import { cx } from '@emotion/css'
+import { useState } from 'react'
+
 import InboxIcon from '@mui/icons-material/Inbox'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { Avatar, Link, Typography } from '@mui/material'
-import { CustomSlider } from '@components/shared/custom-slider'
-
-import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { CustomSlider } from '@components/shared/custom-slider'
+
 import { checkIsImageLink } from '@utils/checks'
+import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
-import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 
 import { useClassNames } from './photo-and-files-carousel-mini.styles'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const PhotoAndFilesCarouselMini = ({
   files,

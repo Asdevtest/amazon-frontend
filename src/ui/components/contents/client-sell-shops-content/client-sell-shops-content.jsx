@@ -1,8 +1,7 @@
-import { Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,8 +12,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { ClientSellShopsAds } from './client-sell-shops-ads'
 import { useClassNames } from './client-sell-shops-content.style'
+
+import { ClientSellShopsAds } from './client-sell-shops-ads'
 import { ClientSellShopsDeals } from './client-sell-shops-deals'
 
 export const ClientSellShopsContent = observer(() => {

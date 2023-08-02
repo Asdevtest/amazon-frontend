@@ -177,7 +177,7 @@ export const styles = theme => ({
     width: '100%',
     height: 'auto',
     whiteSpace: 'pre-wrap',
-    overflow: 'hidden',
+    overflow: 'auto',
     paddingLeft: 5,
 
     '&::placeholder': {
@@ -207,9 +207,11 @@ export const styles = theme => ({
   },
 
   order: {
+    width: '100%',
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
+    padding: '10px 0',
   },
 
   orderImg: {
@@ -235,7 +237,7 @@ export const styles = theme => ({
   },
   orderText: {
     fontSize: 13,
-    maxWidth: 250,
+    maxWidth: 165,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -505,6 +507,7 @@ export const styles = theme => ({
 
   withScrollBatchBoxesWrapper: {
     justifyContent: 'center',
+    gap: 15,
     maxHeight: 'unset',
     overflow: 'unset',
   },
@@ -529,19 +532,23 @@ export const styles = theme => ({
   },
 
   batchProductInfoWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
 
   amountBoxesWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     gap: 20,
   },
 
   amountBoxesText: {
+    width: 34,
     fontSize: 14,
     fontWeight: 400,
+    whiteSpace: 'nowrap',
     color: theme.palette.primary.main,
   },
 
@@ -554,7 +561,7 @@ export const styles = theme => ({
 
   batchProductTitle: {
     whiteSpace: 'nowrap',
-    maxWidth: '360px',
+    maxWidth: 225,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -562,6 +569,7 @@ export const styles = theme => ({
   needPay: {
     color: 'red',
     fontWeight: 'bold',
+    width: 'fit-content',
   },
 
   alertText: {
@@ -621,9 +629,7 @@ export const styles = theme => ({
   },
 
   multilineTextWrapper: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
+    width: '100%',
     padding: '5px 0',
     overflow: 'hidden',
   },
@@ -633,6 +639,7 @@ export const styles = theme => ({
   },
 
   multilineText: {
+    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -692,14 +699,10 @@ export const styles = theme => ({
   },
 
   statusMultilineText: {
-    width: '100%',
-    maxHeight: '100%',
-    textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
   },
 
   multilineTextAlignLeftHeaderWrapper: {
@@ -793,12 +796,8 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
-  multilineTextAlignStartWrapper: {
-    justifyContent: 'start',
-  },
-
-  multilineTextHeaderWrapperWithComponent: {
-    justifyContent: 'space-between',
+  multilineTextHeaderCenter: {
+    justifyContent: 'center',
   },
 
   boxesAndQuantityWrapper: {
@@ -910,9 +909,24 @@ export const styles = theme => ({
   },
 
   copyAsin: {
+    width: '100%',
     display: 'flex',
     gap: 5,
     alignItems: 'center',
+  },
+
+  boxInfoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 158,
+  },
+
+  boxInfoText: {
+    fontSize: 13,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 
   flexDirectionColumn: {
@@ -945,7 +959,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    gap: '40px',
+    gap: 20,
   },
 
   addPermissionBtn: {
@@ -955,7 +969,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '20px',
   },
 
   userAvatar: {
@@ -1038,12 +1051,6 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
-  normalActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -1055,30 +1062,13 @@ export const styles = theme => ({
   },
 
   actionBtn: {
-    display: 'flex',
-    width: 136,
     height: 30,
-    padding: '0 12px',
+    padding: '0 15px',
 
     [theme.breakpoints.down(1282)]: {
-      width: 128,
-      fontWeight: 400,
       fontSize: 13,
       lineHeight: 18,
     },
-  },
-
-  smallActionBtn: {
-    display: 'flex',
-    height: 30,
-    width: 120,
-    padding: '0 15px',
-  },
-
-  successActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   copyImgButton: {
@@ -1128,22 +1118,21 @@ export const styles = theme => ({
   },
 
   removeOrEditBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
+    padding: 0,
+    height: 30,
+    width: 30,
+
+    '> svg': {
+      width: 18,
+      height: 18,
+    },
   },
 
   editOrRemoveIconBtnsCell: {
     display: 'flex',
     alignItems: 'center',
-    gap: 15,
+    gap: 20,
     padding: '15px 0',
-  },
-
-  editOrRemoveBtnWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    flexDirection: 'column',
   },
 
   editOrRemoveBtnText: {
@@ -1218,7 +1207,7 @@ export const styles = theme => ({
     // right: -5,
     // right: -7,
     right: -15,
-    top: 15,
+    top: 20,
 
     overflow: 'visible',
   },
@@ -1342,7 +1331,6 @@ export const styles = theme => ({
   iconWrapper: {
     display: 'flex',
     gap: 5,
-    paddingLeft: 5,
   },
   destinationAndTariffWrapper: {
     width: '100%',
@@ -1553,6 +1541,7 @@ export const styles = theme => ({
   ChangeInputCommentCellWrapper: {
     display: 'flex',
     width: '100%',
+    padding: '20px 10px',
   },
 
   menuItem: {
@@ -1645,8 +1634,7 @@ export const styles = theme => ({
     padding: '10px 0',
     display: 'flex',
     flexWrap: 'wrap',
-    height: '100%',
-    gap: 12,
+    gap: 10,
 
     p: {
       padding: 0,
@@ -1668,6 +1656,7 @@ export const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    lineHeight: '16px',
   },
 
   batchTrackingWrapper: {
@@ -1774,6 +1763,35 @@ export const styles = theme => ({
     gap: 7,
   },
 
+  selectRowCellWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+  },
+
+  shareLinkIconWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+  },
+
+  shareLinkIcon: {
+    // color: theme.palette.primary.main,
+    color: '#0056B2',
+    width: '21px !important',
+    height: '21px !important',
+    cursor: 'pointer',
+  },
+
+  tooltip: {
+    backgroundColor: '#0056B2',
+  },
+
+  arrow: {
+    color: '#0056B2',
+  },
+
   abbreviatedBatchProductsWrapper: {
     width: '100%',
 
@@ -1791,19 +1809,27 @@ export const styles = theme => ({
   abbreviatedTitle: {
     fontSize: 14,
     fontWeight: 400,
-
     whiteSpace: 'nowrap',
+    // width: 250,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
-    flex: 1,
   },
 
   abbreviatedBatchProductInfoWrapper: {
     width: '100%',
-
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+  },
+
+  abbreviatedWrapperDivider: {
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRight: 'none',
+    borderLeft: 'none',
+  },
+
+  div: {
+    display: 'flex',
+    width: 104,
   },
 })

@@ -124,7 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 14,
+    gap: 13,
   },
 
   paymentMethodWrapper: {
@@ -152,18 +152,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   iconsWrapper: {
     display: 'flex',
-    gap: 5,
-  },
-
-  iconRoot: {
-    padding: 3,
-
-    '&:hover': {
-      background: 'none',
-    },
+    gap: 6,
   },
 
   iconAction: {
+    margin: 2,
+    color: theme.palette.text.general,
     cursor: 'pointer',
     transition: '0.3s ease',
 

@@ -1,18 +1,19 @@
+import React, { FC, useState } from 'react'
+
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined'
 import { Typography } from '@mui/material'
-
-import React, { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageRemovePatchInfoGroupChatContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './chat-message-patch-info-group-chat.style'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 interface Props {
   message: ChatMessageContract<ChatMessageRemovePatchInfoGroupChatContract>

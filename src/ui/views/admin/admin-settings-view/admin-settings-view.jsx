@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { observer } from 'mobx-react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,8 +10,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { AdminSettingsViewModel } from './admin-settings-view.model'
 import { styles } from './admin-settings-view.style'
+
+import { AdminSettingsViewModel } from './admin-settings-view.model'
 
 export const AdminSettingsViewRaw = props => {
   const [viewModel] = useState(

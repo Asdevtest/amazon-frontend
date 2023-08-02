@@ -1,17 +1,16 @@
 import { cx } from '@emotion/css'
-import { Divider, Typography, Checkbox } from '@mui/material'
-
-import { useState } from 'react'
-
 import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
+import { useState } from 'react'
+
+import { Checkbox, Divider, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import {
-  getOrderStatusOptionByCode,
   OrderStatus,
   OrderStatusByKey,
   OrderStatusTranslate,
+  getOrderStatusOptionByCode,
 } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -119,6 +118,7 @@ const BlockOfNewBox = ({
             onChange={setFormField('amount', orderBoxIndex)}
           />
           <Field
+            inputProps={{ maxLength: 7 }}
             error={
               currentSupplier.multiplicity &&
               currentSupplier.boxProperties?.amountInBox &&

@@ -1,9 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { getResearcherDashboardCardConfig } from '@constants/navigation/dashboard-configs'
@@ -19,8 +18,9 @@ import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 import { styles } from './researcher-dashboard-view.style'
+
+import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 
 export const ResearcherDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history: props.history }))

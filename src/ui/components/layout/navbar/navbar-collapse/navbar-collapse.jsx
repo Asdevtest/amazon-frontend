@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { Link } from 'react-router-dom'
 
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 
@@ -14,8 +13,9 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import { NavbarSubCategory } from '../navbar-sub-category'
 import { useClassNames } from './navbar-collapse.style'
+
+import { NavbarSubCategory } from '../navbar-sub-category'
 
 export const NavbarCollapse = ({
   activeCategory,

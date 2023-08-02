@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Chip, Tooltip } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Chip, Tooltip } from '@mui/material'
 
 import { SettingsModel } from '@models/settings-model'
 

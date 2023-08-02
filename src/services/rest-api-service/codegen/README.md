@@ -291,13 +291,14 @@ Class | Method | HTTP request | Description
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStopPost**](docs/GoLoginApi.md#apiV1GologinProfileStopPost) | **POST** /api/v1/gologin/profile/stop | # Остановить профайл пользователя.
 *TestSwagger.IdeaApi* | [**apiV1IdeasAddSuppliersGuidPost**](docs/IdeaApi.md#apiV1IdeasAddSuppliersGuidPost) | **POST** /api/v1/ideas/add_suppliers/{guid} | Добавить поставщиков к идее
 *TestSwagger.IdeaApi* | [**apiV1IdeasAddingAsinGuidPatch**](docs/IdeaApi.md#apiV1IdeasAddingAsinGuidPatch) | **PATCH** /api/v1/ideas/adding_asin/{guid} | Изменить статус заявки на addingAsin(18)
+*TestSwagger.IdeaApi* | [**apiV1IdeasByParentGuidGet**](docs/IdeaApi.md#apiV1IdeasByParentGuidGet) | **GET** /api/v1/ideas/by_parent/{guid} | Получить идеи по родительскому продукту
+*TestSwagger.IdeaApi* | [**apiV1IdeasClosedGuidPatch**](docs/IdeaApi.md#apiV1IdeasClosedGuidPatch) | **PATCH** /api/v1/ideas/closed/{guid} | Изменить статус заявки на closed(30)
 *TestSwagger.IdeaApi* | [**apiV1IdeasFinishedGuidPatch**](docs/IdeaApi.md#apiV1IdeasFinishedGuidPatch) | **PATCH** /api/v1/ideas/finished/{guid} | Изменить статус заявки на finished(20)
-*TestSwagger.IdeaApi* | [**apiV1IdeasGet**](docs/IdeaApi.md#apiV1IdeasGet) | **GET** /api/v1/ideas/ | Список всех идей
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidDelete**](docs/IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidGet**](docs/IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidPatch**](docs/IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasNotificationsGet**](docs/IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Получить нотификации идей
-*TestSwagger.IdeaApi* | [**apiV1IdeasOnCheckingGuidPatch**](docs/IdeaApi.md#apiV1IdeasOnCheckingGuidPatch) | **PATCH** /api/v1/ideas/on_checking/{guid} | Изменить статус заявки на OnCheck(10)
+*TestSwagger.IdeaApi* | [**apiV1IdeasOnCheckGuidPatch**](docs/IdeaApi.md#apiV1IdeasOnCheckGuidPatch) | **PATCH** /api/v1/ideas/on_check/{guid} | Изменить статус заявки на OnCheck(10)
 *TestSwagger.IdeaApi* | [**apiV1IdeasPagMyGet**](docs/IdeaApi.md#apiV1IdeasPagMyGet) | **GET** /api/v1/ideas/pag/my | Список всех идей с пагинацией
 *TestSwagger.IdeaApi* | [**apiV1IdeasPost**](docs/IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasProductCreatingGuidPatch**](docs/IdeaApi.md#apiV1IdeasProductCreatingGuidPatch) | **PATCH** /api/v1/ideas/product_creating/{guid} | Изменить статус заявки на productCreating(16)
@@ -476,6 +477,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGuidGet**](docs/UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
+*TestSwagger.UserApi* | [**apiV1UsersMastersGet**](docs/UserApi.md#apiV1UsersMastersGet) | **GET** /api/v1/users/masters | Получить список мастеров
 *TestSwagger.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 *TestSwagger.UserApi* | [**apiV1UsersMySubUsersGet**](docs/UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersPlatformSettingsGet**](docs/UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
@@ -542,6 +544,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1ClientsProductsGuidRedFlags](docs/ApiV1ClientsProductsGuidRedFlags.md)
  - [TestSwagger.ApiV1ClientsProductsVacRedFlags](docs/ApiV1ClientsProductsVacRedFlags.md)
  - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
+ - [TestSwagger.ApiV1IdeasByParentGuidChildProduct](docs/ApiV1IdeasByParentGuidChildProduct.md)
+ - [TestSwagger.ApiV1IdeasByParentGuidProposals](docs/ApiV1IdeasByParentGuidProposals.md)
+ - [TestSwagger.ApiV1IdeasByParentGuidRequestsOnCheck](docs/ApiV1IdeasByParentGuidRequestsOnCheck.md)
  - [TestSwagger.ApiV1IdeasNotificationsCreatedBy](docs/ApiV1IdeasNotificationsCreatedBy.md)
  - [TestSwagger.ApiV1IdeasNotificationsIdea](docs/ApiV1IdeasNotificationsIdea.md)
  - [TestSwagger.ApiV1IdeasNotificationsProduct](docs/ApiV1IdeasNotificationsProduct.md)
@@ -788,7 +793,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20046ChildProduct](docs/InlineResponse20046ChildProduct.md)
  - [TestSwagger.InlineResponse20046ChildProductOrder](docs/InlineResponse20046ChildProductOrder.md)
  - [TestSwagger.InlineResponse20046ParentProduct](docs/InlineResponse20046ParentProduct.md)
- - [TestSwagger.InlineResponse20046RequestsOnCheck](docs/InlineResponse20046RequestsOnCheck.md)
  - [TestSwagger.InlineResponse20046Rows](docs/InlineResponse20046Rows.md)
  - [TestSwagger.InlineResponse20046Suppliers](docs/InlineResponse20046Suppliers.md)
  - [TestSwagger.InlineResponse20047](docs/InlineResponse20047.md)
@@ -881,6 +885,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.UserFullSchemaNote](docs/UserFullSchemaNote.md)
  - [TestSwagger.UserInfoSchema](docs/UserInfoSchema.md)
  - [TestSwagger.UserInfoSchemaFreelanceNotices](docs/UserInfoSchemaFreelanceNotices.md)
+ - [TestSwagger.UserInfoSchemaIdeas](docs/UserInfoSchemaIdeas.md)
  - [TestSwagger.UserInfoSchemaMasterUser](docs/UserInfoSchemaMasterUser.md)
  - [TestSwagger.UserInfoSchemaNeedConfirmPriceChange](docs/UserInfoSchemaNeedConfirmPriceChange.md)
  - [TestSwagger.UserInfoSchemaNeedUpdateTariff](docs/UserInfoSchemaNeedUpdateTariff.md)

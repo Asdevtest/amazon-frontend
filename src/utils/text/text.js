@@ -4,17 +4,17 @@ import QueryString from 'qs'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
 
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -168,8 +168,24 @@ export const getTableByColumn = (column, hint) => {
       'clientComment',
       'buyerComment',
       'partiallyPaid',
+      'boxesCount',
+      'etd',
+      'eta',
+      'cls',
+      'trackingNumber',
+      'arrivalDate',
+      'deliveryTotalPrice',
+      'partialPaymentAmountRmb',
     ].includes(column)
   ) {
+    if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+      return 'batches'
+    }
+
+    if (['totalPrice'].includes(column) && hint === 'batches') {
+      return 'orders'
+    }
+
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
@@ -206,6 +222,7 @@ export const getTableByColumn = (column, hint) => {
       'bsr',
       'fbaamount',
       'client',
+      'buyer',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -213,13 +230,15 @@ export const getTableByColumn = (column, hint) => {
     // } else {
     return 'products'
     // }
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
+  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy'].includes(column)) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
+    } else if (hint === 'batches') {
+      return 'batches'
     } else {
       return 'requests'
     }
@@ -229,7 +248,7 @@ export const getTableByColumn = (column, hint) => {
       'typeTask',
       'price',
       'timeoutAt',
-      'createdBy',
+      // 'createdBy',
       'subUsers',
       'priority',
       'priceAmazon',
@@ -240,10 +259,15 @@ export const getTableByColumn = (column, hint) => {
     if (hint === 'orders') {
       return 'orders'
     }
+    if (hint === 'batches') {
+      return 'batches'
+    }
 
     return 'requests'
   } else if (['productionTerm'].includes(column)) {
     return 'suppliers'
+  } else if (['finalWeight'].includes(column)) {
+    return 'batches'
   }
 }
 

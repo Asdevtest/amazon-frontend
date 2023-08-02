@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography, Paper, Avatar, Rating } from '@mui/material'
+
+import { Avatar, Paper, Rating, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './my-services.style'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 
 export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn }) => {
   const { classes: classNames } = useClassNames()
@@ -92,7 +93,7 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
 
         <div className={classNames.buttonsWrapper}>
           <Button danger className={classNames.deleteButton} onClick={onClickCloseAnnouncementBtn}>
-            {t(TranslationKey['Close the announcement'])}
+            {t(TranslationKey['Delete ad'])}
           </Button>
 
           <Button className={classNames.editButton} onClick={onClickEditBtn}>

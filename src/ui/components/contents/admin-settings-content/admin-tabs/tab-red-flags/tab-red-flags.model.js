@@ -72,7 +72,9 @@ export class AdminSettingsRedFlagsModel {
 
       await AdministratorModel.createRedFlag(redFlag)
 
-      this.infoModalText = t(TranslationKey['Red flag successfully saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Red flag successfully saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -80,7 +82,9 @@ export class AdminSettingsRedFlagsModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['Red flag is not saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Red flag is not saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -94,7 +98,9 @@ export class AdminSettingsRedFlagsModel {
 
       await AdministratorModel.editRedFlag(id, redFlag)
 
-      this.infoModalText = t(TranslationKey['Red flag successfully saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Red flag successfully saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -102,7 +108,9 @@ export class AdminSettingsRedFlagsModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['Red flag is not saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Red flag is not saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -154,11 +162,15 @@ export class AdminSettingsRedFlagsModel {
         ? await uploadFileByUrl(this.flag.iconImage)
         : await onPostImage(this.flag.iconImage)
 
-    this.flag.iconImage = result
+    runInAction(() => {
+      this.flag.iconImage = result
+    })
 
     this.isEdit ? this.onEditRedFlag(this.editRedFlagId, this.flag) : this.onCreateRedFlag(this.flag)
 
-    this.flag = { title: '', iconImage: '' }
+    runInAction(() => {
+      this.flag = { title: '', iconImage: '' }
+    })
     this.isEdit = false
     this.editRedFlagId = undefined
   }
@@ -171,7 +183,11 @@ export class AdminSettingsRedFlagsModel {
     this.currentImageName = this.flag.title
     this.flag.iconImage = event.target.value
 
-    this.isValidUrl = await checkIsImageUrlValid(event.target.value)
+    const isValidImageUrl = await checkIsImageUrlValid(event.target.value)
+
+    runInAction(() => {
+      this.isValidUrl = isValidImageUrl
+    })
   }
 
   onRemoveImg() {
@@ -186,7 +202,11 @@ export class AdminSettingsRedFlagsModel {
       this.currentImageName = file.name
 
       reader.onload = async e => {
-        this.isValidUrl = await checkIsImageUrlValid(e.target.result)
+        const isValidImageUrl = await checkIsImageUrlValid(e.target.result)
+
+        runInAction(() => {
+          this.isValidUrl = isValidImageUrl
+        })
         this.flag.iconImage = {
           data_url: e.target.result,
           file,

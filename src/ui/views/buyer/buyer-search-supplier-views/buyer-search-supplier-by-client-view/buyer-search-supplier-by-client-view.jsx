@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { Component, useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { Component, useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,8 +17,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 import { styles } from './buyer-search-supplier-by-client-view.style'
+
+import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 
 export const BuyerSearchSupplierByClientViewRaw = props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history: props.history }))
@@ -61,6 +61,9 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

@@ -2,8 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   copyImg: {
-    width: '18px !important',
-    height: '18px !important',
+    width: '23px !important',
+    height: '23px !important',
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {

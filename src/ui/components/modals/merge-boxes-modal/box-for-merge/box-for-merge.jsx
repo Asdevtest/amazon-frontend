@@ -1,8 +1,8 @@
+import { useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Link, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,7 +11,7 @@ import { Field } from '@components/shared/field/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-for-merge.style'

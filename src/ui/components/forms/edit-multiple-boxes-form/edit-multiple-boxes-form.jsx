@@ -1,19 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
 
-import { toFixed, trimBarcode } from '@utils/text'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
@@ -28,11 +27,10 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { BoxStatus } from '@constants/statuses/box-status'
 
 const Box = ({
   userInfo,

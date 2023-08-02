@@ -1,31 +1,31 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { BoxArrow } from '@components/shared/svg-icons'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './edit-task-modal.style'
+
 import { BeforeAfterBlock } from '../before-after-block'
 import { ReceiveBoxModal } from '../receive-box-modal'
-import { useClassNames } from './edit-task-modal.style'
 
 export const EditTaskModal = observer(
   ({

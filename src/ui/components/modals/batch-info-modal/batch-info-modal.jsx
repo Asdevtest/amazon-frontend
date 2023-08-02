@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
 import {
   BatchWeightCalculationMethodTranslateKey,
   getBatchWeightCalculationMethodForBox,
@@ -18,12 +18,17 @@ import { OtherModel } from '@models/other-model'
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
 import { SearchInput } from '@components/shared/search-input'
+import { DownloadIcon } from '@components/shared/svg-icons'
+
+import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 import {
   calcPriceForBox,
@@ -36,12 +41,9 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
-import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
-import { DownloadIcon } from '@components/shared/svg-icons'
-import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+
+import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
   ({
@@ -87,8 +89,6 @@ export const BatchInfoModal = observer(
       })) || []
 
     const [dataToRender, setDataToRender] = useState(sourceBoxes)
-
-    const [receivedFiles, setReceivedFiles] = useState(null)
 
     const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
       sourceBoxes,
@@ -367,8 +367,6 @@ export const BatchInfoModal = observer(
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               classes={{
-                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 row: classNames.row,
                 toolbarContainer: classNames.toolbarContainer,
                 // virtualScroller: classNames.virtualScroller,
@@ -392,6 +390,9 @@ export const BatchInfoModal = observer(
                 // ),
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: batchInfoModalColumn(

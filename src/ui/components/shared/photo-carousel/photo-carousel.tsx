@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { FC, useState } from 'react'
+
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { Avatar, Typography } from '@mui/material'
 
-import { FC, useState } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-carousel.style'
+
 import { CustomSlider } from '../custom-slider'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 interface FilesInterface {
   file: { name: Array<string> }

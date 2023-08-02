@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,8 +16,9 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 
 import { t } from '@utils/translations'
 
-import { UserBalanceModel } from './user-balance.model'
 import { useClassNames } from './user-balance.style'
+
+import { UserBalanceModel } from './user-balance.model'
 
 export const UserBalance = observer(({ userId }) => {
   const { classes: classNames } = useClassNames()
@@ -96,6 +96,9 @@ export const UserBalance = observer(({ userId }) => {
             columnMenuIcon: FilterAltOutlinedIcon,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: model.current.columnsModel,

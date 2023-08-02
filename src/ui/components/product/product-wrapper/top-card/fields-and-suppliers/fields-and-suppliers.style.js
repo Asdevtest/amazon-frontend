@@ -55,6 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonParseAmazon: {
+    whiteSpace: 'nowrap',
     width: '100%',
   },
   productFieldBox: {
@@ -63,9 +64,9 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 30,
   },
   productCheckboxBox: {
-    paddingTop: 5,
     alignItems: 'center',
     display: 'flex',
+    gap: 10,
   },
 
   nativeSelect: {
@@ -91,10 +92,32 @@ export const useClassNames = makeStyles()(theme => ({
   productCheckboxBoxesWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    gap: 15,
   },
+
   productCheckboxBoxWrapper: {
     display: 'flex',
-    gap: '20px',
+    alignItems: 'center',
+    gap: 30,
+  },
+
+  radioLabel: {
+    fontSize: '16px',
+    lineHeight: '22px',
+    color: theme.palette.text.general,
+  },
+
+  radioRoot: {
+    padding: 0,
+
+    '& > span > svg': {
+      width: 18,
+      height: 18,
+    },
+
+    '& > span > svg:first-of-type': {
+      color: theme.palette.text.general,
+    },
   },
 
   rightBlockWrapper: {
@@ -137,10 +160,6 @@ export const useClassNames = makeStyles()(theme => ({
   linkOnEdit: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     color: theme.palette.primary.main,
-  },
-
-  disabledOption: {
-    color: 'rgba(0, 0, 0, 0.2)',
   },
 
   shopsWrapper: {

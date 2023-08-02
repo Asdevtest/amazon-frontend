@@ -1,9 +1,9 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,17 +20,17 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { OrdersModel } from './orders.model'
 import { useClassNames } from './orders.style'
 
-export const Orders = observer(({ productId, showAtProcessOrders }) => {
+import { OrdersModel } from './orders.model'
+
+export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
 
   const {
     orderStatusData,
-
     platformSettings,
     storekeepers,
     destinations,
@@ -51,6 +51,10 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
+    isSomeFilterOn,
+    onColumnVisibilityModelChange,
+    columnVisibilityModel,
+    onClickResetFilters,
   } = model.current
 
   useEffect(() => {
@@ -58,7 +62,7 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
   }, [])
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       <MemoDataGrid
         pagination
         useResizeContainer
@@ -80,16 +84,19 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
           columnMenu: DataGridCustomColumnMenuComponent,
         }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           columnMenu: { orderStatusData },
           toolbar: {
             resetFiltersBtnSettings: {
-              onClickResetFilters: model.current.onClickResetFilters,
-              isSomeFilterOn: model.current.isSomeFilterOn,
+              onClickResetFilters,
+              isSomeFilterOn,
             },
             columsBtnSettings: {
               columnsModel,
-              columnVisibilityModel: model.current.columnVisibilityModel,
-              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              columnVisibilityModel,
+              onColumnVisibilityModelChange,
             },
           },
         }}

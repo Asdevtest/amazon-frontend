@@ -31,7 +31,6 @@ export class AdminOrderViewModel {
     runInAction(() => {
       this.history = history
       this.orderId = history.location.search.slice(1)
-      SettingsModel.changeLastCrumbAdditionalText(` № ${this.orderId}`)
     })
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -63,6 +62,8 @@ export class AdminOrderViewModel {
       const result = await ClientModel.getOrderById(this.orderId)
 
       runInAction(() => {
+        SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
+
         this.order = result
       })
     } catch (error) {

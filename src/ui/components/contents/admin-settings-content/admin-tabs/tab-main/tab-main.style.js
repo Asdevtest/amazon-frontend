@@ -79,15 +79,9 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  iconDelete: {
-    padding: 1,
-
-    '&:hover': {
-      background: 'none',
-    },
-  },
-
   deleteProxy: {
+    margin: 2,
+    color: theme.palette.text.general,
     cursor: 'pointer',
     transition: '0.3s ease',
 

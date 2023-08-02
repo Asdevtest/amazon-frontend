@@ -1,21 +1,20 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
-  mapTaskOperationTypeKeyToEnum,
   TaskOperationType,
+  mapTaskOperationTypeKeyToEnum,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
 import {
-  mapTaskPriorityStatusEnum,
   TaskPriorityStatus,
+  mapTaskPriorityStatusEnum,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -34,8 +33,9 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
 import { styles } from './warehouse-my-tasks-view.style'
+
+import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
 
 export const WarehouseMyTasksViewRaw = props => {
   const [viewModel] = useState(
@@ -169,6 +169,9 @@ export const WarehouseMyTasksViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

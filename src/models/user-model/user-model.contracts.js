@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsEmail } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 
 import { InlineResponse2007, InlineResponse2011 } from '@services/rest-api-service/codegen/src'
 

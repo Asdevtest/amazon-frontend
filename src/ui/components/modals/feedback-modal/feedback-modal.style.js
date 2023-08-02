@@ -49,15 +49,20 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
   },
 
-  inputIcon: {
+  fileIcon: {
     position: 'absolute',
-    bottom: '24px',
-    right: '10px',
+    bottom: 25,
+    right: 5,
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
+
     '&:hover': {
       transform: 'scale(1.1)',
     },
+  },
+
+  fileIconActive: {
+    color: theme.palette.primary.main,
   },
 
   '@media (max-width: 768px)': {

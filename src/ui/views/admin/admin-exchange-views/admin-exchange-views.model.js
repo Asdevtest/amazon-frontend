@@ -95,7 +95,7 @@ export class AdminExchangeViewModel {
   onClickTableRow(product) {
     this.history.push({
       pathname: '/admin/exchange/product',
-      search: product.originalData._id,
+      search: `productId=${product.originalData._id}`,
     })
   }
 

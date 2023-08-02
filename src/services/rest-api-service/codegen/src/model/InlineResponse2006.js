@@ -71,6 +71,9 @@ class InlineResponse2006 {
             if (data.hasOwnProperty('currentSupplierId')) {
                 obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
             }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
@@ -323,6 +326,12 @@ InlineResponse2006.prototype['currentSupplier'] = undefined;
  * @member {String} currentSupplierId
  */
 InlineResponse2006.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineResponse2006.prototype['parentProductId'] = undefined;
 
 /**
  * Категория

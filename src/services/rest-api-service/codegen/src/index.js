@@ -67,6 +67,9 @@ import ApiV1BuyersProductsGuidTags from './model/ApiV1BuyersProductsGuidTags';
 import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRedFlags';
 import ApiV1ClientsProductsVacRedFlags from './model/ApiV1ClientsProductsVacRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
+import ApiV1IdeasByParentGuidChildProduct from './model/ApiV1IdeasByParentGuidChildProduct';
+import ApiV1IdeasByParentGuidProposals from './model/ApiV1IdeasByParentGuidProposals';
+import ApiV1IdeasByParentGuidRequestsOnCheck from './model/ApiV1IdeasByParentGuidRequestsOnCheck';
 import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
 import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
 import ApiV1IdeasNotificationsProduct from './model/ApiV1IdeasNotificationsProduct';
@@ -313,7 +316,6 @@ import InlineResponse20046 from './model/InlineResponse20046';
 import InlineResponse20046ChildProduct from './model/InlineResponse20046ChildProduct';
 import InlineResponse20046ChildProductOrder from './model/InlineResponse20046ChildProductOrder';
 import InlineResponse20046ParentProduct from './model/InlineResponse20046ParentProduct';
-import InlineResponse20046RequestsOnCheck from './model/InlineResponse20046RequestsOnCheck';
 import InlineResponse20046Rows from './model/InlineResponse20046Rows';
 import InlineResponse20046Suppliers from './model/InlineResponse20046Suppliers';
 import InlineResponse20047 from './model/InlineResponse20047';
@@ -406,6 +408,7 @@ import UserFullSchema from './model/UserFullSchema';
 import UserFullSchemaNote from './model/UserFullSchemaNote';
 import UserInfoSchema from './model/UserInfoSchema';
 import UserInfoSchemaFreelanceNotices from './model/UserInfoSchemaFreelanceNotices';
+import UserInfoSchemaIdeas from './model/UserInfoSchemaIdeas';
 import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
@@ -806,6 +809,24 @@ export {
      * @property {module:model/ApiV1GologinProfileNavigator}
      */
     ApiV1GologinProfileNavigator,
+
+    /**
+     * The ApiV1IdeasByParentGuidChildProduct model constructor.
+     * @property {module:model/ApiV1IdeasByParentGuidChildProduct}
+     */
+    ApiV1IdeasByParentGuidChildProduct,
+
+    /**
+     * The ApiV1IdeasByParentGuidProposals model constructor.
+     * @property {module:model/ApiV1IdeasByParentGuidProposals}
+     */
+    ApiV1IdeasByParentGuidProposals,
+
+    /**
+     * The ApiV1IdeasByParentGuidRequestsOnCheck model constructor.
+     * @property {module:model/ApiV1IdeasByParentGuidRequestsOnCheck}
+     */
+    ApiV1IdeasByParentGuidRequestsOnCheck,
 
     /**
      * The ApiV1IdeasNotificationsCreatedBy model constructor.
@@ -2284,12 +2305,6 @@ export {
     InlineResponse20046ParentProduct,
 
     /**
-     * The InlineResponse20046RequestsOnCheck model constructor.
-     * @property {module:model/InlineResponse20046RequestsOnCheck}
-     */
-    InlineResponse20046RequestsOnCheck,
-
-    /**
      * The InlineResponse20046Rows model constructor.
      * @property {module:model/InlineResponse20046Rows}
      */
@@ -2840,6 +2855,12 @@ export {
      * @property {module:model/UserInfoSchemaFreelanceNotices}
      */
     UserInfoSchemaFreelanceNotices,
+
+    /**
+     * The UserInfoSchemaIdeas model constructor.
+     * @property {module:model/UserInfoSchemaIdeas}
+     */
+    UserInfoSchemaIdeas,
 
     /**
      * The UserInfoSchemaMasterUser model constructor.

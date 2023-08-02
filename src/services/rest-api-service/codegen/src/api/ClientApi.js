@@ -1397,6 +1397,7 @@ export default class ClientApi {
      * # Получить облегченный список товаров
      * ## Получить облегченный список товаров(archive = false)
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isChild Существуют ли у продукта родитель
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20031>} and HTTP response
      */
@@ -1407,6 +1408,7 @@ export default class ClientApi {
       let pathParams = {
       };
       let queryParams = {
+        'isChild': opts['isChild']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -1429,6 +1431,7 @@ export default class ClientApi {
      * # Получить облегченный список товаров
      * ## Получить облегченный список товаров(archive = false)
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isChild Существуют ли у продукта родитель
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20031>}
      */

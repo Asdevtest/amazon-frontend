@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react'
-
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +13,6 @@ import {
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, getOnHover) => [
   {

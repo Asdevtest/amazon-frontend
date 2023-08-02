@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -14,14 +13,19 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -37,9 +41,6 @@ import {
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const BoxViewForm = observer(
   ({
@@ -393,7 +394,9 @@ export const BoxViewForm = observer(
                       className={classNames.trackNumberPhotoBtn}
                       onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                     >
-                      {formFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                      {formFields.tmpTrackNumberFile[0]
+                        ? t(TranslationKey['File added'])
+                        : t(TranslationKey['Photo track numbers'])}
                     </Button>
                   </div>
 
@@ -433,7 +436,7 @@ export const BoxViewForm = observer(
                         ))}
                       </CustomSlider>
                     ) : (
-                      <Typography>{'no photo track number...'}</Typography>
+                      <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                     )}
                   </div>
                 </div>
@@ -554,7 +557,7 @@ const Content = React.memo(
                 value={item.product.hsCode}
                 placeholder={t(TranslationKey['Not available'])}
                 inputComponent={
-                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id, true)}>
                     {t(TranslationKey['HS code'])}
                   </Button>
                 }
@@ -563,13 +566,13 @@ const Content = React.memo(
 
               <div className={classNames.priorityWrapper}>
                 <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
-                {item.order.priority === '40' ? (
+                {item.order.priority === orderPriority.urgentPriority ? (
                   <div className={classNames.rushOrderWrapper}>
                     <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
                     <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
                   </div>
                 ) : null}
-                {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
+                {item.order.priority !== orderPriority.urgentPriority && !item.order.expressChinaDelivery ? (
                   <div className={classNames.rushOrderWrapper}>
                     <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
                   </div>

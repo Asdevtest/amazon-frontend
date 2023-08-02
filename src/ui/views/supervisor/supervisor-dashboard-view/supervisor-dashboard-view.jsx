@@ -1,9 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getSupervisorDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,8 +16,9 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { SupervisorDashboardViewModel } from './supervisor-dashboard-view.model'
 import { styles } from './supervisor-dashboard-view.style'
+
+import { SupervisorDashboardViewModel } from './supervisor-dashboard-view.model'
 
 export const SupervisorDashboardViewRaw = props => {
   const [viewModel] = useState(() => new SupervisorDashboardViewModel({ history: props.history }))

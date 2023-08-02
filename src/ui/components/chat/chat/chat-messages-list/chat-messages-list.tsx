@@ -1,24 +1,26 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
+
 import { Avatar, Link, Typography } from '@mui/material'
 
-import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
-
-import { observer } from 'mobx-react'
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
+import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay'
+
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed } from '@utils/text'
 
 import { useClassNames } from './chat-messages-list.style'
+
+import { ChatMessageByType } from './chat-message-by-type'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
 import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages/chat-message-proposal-status-changed'
 import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/chat-message-request-proposal-result-edited'
-import { ChatMessageByType } from './chat-message-by-type'
-import { toFixed } from '@utils/text'
-import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay'
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &
@@ -33,6 +35,7 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
+  chatId?: string
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
@@ -52,9 +55,11 @@ export const ChatMessagesList: FC<Props> = observer(
     setMessageToScroll,
     setMessageToReply,
     messagesWrapperRef,
+    chatId,
   }) => {
     const { classes: classNames } = useClassNames()
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
+    const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
     const [choosenMessageState, setChoosenMessageState] = useState<{
       message: ChatMessageContract | null
@@ -78,27 +83,17 @@ export const ChatMessagesList: FC<Props> = observer(
       const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
 
       if (scrolledFromBottom < messagesWrapperRef.current!.clientHeight || messagesWrapperRef.current!.scrollTop < 20) {
-        const unreadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
-
-        if (unreadMessages?.length) {
-          setMessageToScroll(unreadMessages[0])
-        } else {
-          messagesWrapperRef.current?.scrollTo({
-            left: 0,
-            top: messagesWrapperRef.current.scrollHeight,
-            behavior: 'smooth',
-          })
-        }
+        chatBottomRef.current?.scrollIntoView({})
       }
-    }, [messages])
+    }, [messages?.length])
+
+    useEffect(() => {
+      chatBottomRef.current?.scrollIntoView({})
+    }, [chatId])
 
     useEffect(() => {
       scrollToMessage()
-    }, [messageToScroll])
-
-    useEffect(() => {
-      scrollToMessage()
-    }, [toScrollMesId])
+    }, [toScrollMesId, messageToScroll])
 
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
@@ -239,6 +234,7 @@ export const ChatMessagesList: FC<Props> = observer(
                 </div>
               )
             })}
+          <div ref={chatBottomRef} />
         </div>
       </div>
     )

@@ -1,12 +1,17 @@
-import { useChatInfoHeaderStyles } from '@components/chat/chat/chat-info/chat-info-header/chat-info-header.styles'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import { Typography } from '@mui/material'
-import { t } from '@utils/translations'
+import React from 'react'
+
+import { Avatar, Typography } from '@mui/material'
+
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import { ChatContract } from '@models/chat-model/contracts'
+
+import { useChatInfoHeaderStyles } from '@components/chat/chat/chat-info/chat-info-header/chat-info-header.styles'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { Pencil } from '@components/shared/svg-icons'
-import React from 'react'
+
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
 interface ChatInfoHeaderProps {
   chat: ChatContract
@@ -22,11 +27,10 @@ export const ChatInfoHeader = (props: ChatInfoHeaderProps) => {
 
   return (
     <div className={styles.chatHeader}>
-      <img
-        src={
-          (!isGroupChat && getUserAvatarSrc(currentOpponent?._id)) || chat?.info?.image || '/assets/img/no-photo.jpg'
-        }
-        alt=""
+      <Avatar
+        classes={{ root: styles.chatAvatar }}
+        variant="rounded"
+        src={!isGroupChat ? getUserAvatarSrc(currentOpponent?._id) : chat?.info?.image || '/assets/img/no-photo.jpg'}
       />
       <div className={styles.chatHeaderOverlay}>
         <Typography className={styles.chatTitle}>

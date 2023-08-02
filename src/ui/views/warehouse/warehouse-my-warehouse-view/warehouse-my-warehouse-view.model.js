@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -22,7 +23,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { Errors } from '@constants/errors'
 
 const updateBoxWhiteList = [
   'shippingLabel',
@@ -577,6 +578,20 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.error = error
       })
+
+      if (error.message === Errors.INVALID_IMAGE) {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(
+              TranslationKey['An error occurred while loading the image from the link. Please replace the image'],
+            ),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+        return
+      }
 
       if (!isMultipleEdit) {
         this.loadData()

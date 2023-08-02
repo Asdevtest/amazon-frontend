@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useRef } from 'react'
 
-import { observer } from 'mobx-react'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { Tabs } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,8 +22,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
 import { useClassNames } from './supervisor-settings-content.style'
+
+import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
 
 const tabsValues = {
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',
@@ -142,6 +142,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -210,6 +213,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -278,6 +284,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -346,6 +355,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,

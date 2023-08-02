@@ -1,8 +1,7 @@
-import { Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,8 +12,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { GoodsDaysReport } from './goods-days-report'
 import { useClassNames } from './shops-integrations.style'
+
+import { GoodsDaysReport } from './goods-days-report'
 import { ShopsView } from './shops-view'
 import { StockReport } from './stock-report/stock-report'
 

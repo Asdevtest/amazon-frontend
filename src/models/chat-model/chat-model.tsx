@@ -16,9 +16,9 @@ import {
   ChatMessageType,
   OnReadMessageResponse,
   OnTypingMessageResponse,
-  patchInfoGroupChatParams,
   RemoveUsersFromGroupChatParams,
   TypingMessageRequestParams,
+  patchInfoGroupChatParams,
 } from '@services/websocket-chat-service/interfaces'
 
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
@@ -61,6 +61,10 @@ class ChatModelStatic {
 
   get noticeOfSimpleChats() {
     return SettingsModel.noticeOfSimpleChats
+  }
+
+  get mutedChats() {
+    return SettingsModel.mutedChats
   }
 
   constructor() {
@@ -327,7 +331,7 @@ class ChatModelStatic {
     if (findSimpleChatIndexById !== -1) {
       // console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
-      if (this.noticeOfSimpleChats && message.user?._id !== this.userId) {
+      if (this.noticeOfSimpleChats && message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
         noticeSound.play()
 
         // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})

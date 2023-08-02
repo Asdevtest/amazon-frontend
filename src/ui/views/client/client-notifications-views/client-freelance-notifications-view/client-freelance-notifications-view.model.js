@@ -1,11 +1,15 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
-import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns/client-freelance-notifications-columns'
-import { SettingsModel } from '@models/settings-model'
+
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { restApiService } from '@services/rest-api-service/rest-api-service'
-import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
+import { restApiService } from '@services/rest-api-service/rest-api-service'
+
+import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns/client-freelance-notifications-columns'
 
 export class ClientFreelanceNotificationsViewModel {
   history = undefined
@@ -27,9 +31,12 @@ export class ClientFreelanceNotificationsViewModel {
   columnsModel = clientFreelanceNotificationsColumns(this.rowHandlers)
   columnVisibilityModel = {}
 
+  paginationModel = { page: 0, pageSize: 15 }
+
   constructor({ history }) {
     runInAction(() => {
       this.history = history
+      this.getDataGridState()
     })
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -72,7 +79,7 @@ export class ClientFreelanceNotificationsViewModel {
     runInAction(() => {
       if (state) {
         this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.filterModel = toJS(state.filterModel)
         this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }

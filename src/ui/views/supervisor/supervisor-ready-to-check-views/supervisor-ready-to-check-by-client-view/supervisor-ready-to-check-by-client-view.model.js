@@ -1,7 +1,9 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
 
 import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
@@ -30,17 +32,46 @@ export class SupervisorReadyToCheckByClientViewModel {
 
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
+  paginationModel = { page: 0, pageSize: 15 }
+
   constructor({ history }) {
     runInAction(() => {
       this.history = history
+      this.getDataGridState()
     })
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS]
+
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   onColumnVisibilityModelChange(model) {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -154,5 +185,21 @@ export class SupervisorReadyToCheckByClientViewModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onChangeFilterModel(model) {
+    runInAction(() => {
+      this.filterModel = model
+    })
+
+    this.setDataGridState()
   }
 }

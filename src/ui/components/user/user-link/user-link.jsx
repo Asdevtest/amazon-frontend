@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Link, Typography, Avatar, Tooltip } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Avatar, Link, Tooltip, Typography } from '@mui/material'
 
 import { UserModel } from '@models/user-model'
 

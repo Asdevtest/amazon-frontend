@@ -3,9 +3,9 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  MultilineTextCell,
   EditOrRemoveIconBtnsCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -70,7 +70,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 150,
+    width: 130,
     renderCell: params => <EditOrRemoveIconBtnsCell isShowButtonText={false} handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,

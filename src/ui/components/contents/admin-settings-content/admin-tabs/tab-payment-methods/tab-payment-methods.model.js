@@ -72,7 +72,9 @@ export class AdminSettingsPaymentMethodsModel {
 
       await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
 
-      this.infoModalText = t(TranslationKey['Payment method successfully saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Payment method successfully saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -80,7 +82,9 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['Payment method is not saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Payment method is not saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -94,7 +98,9 @@ export class AdminSettingsPaymentMethodsModel {
 
       await SupplierModel.editSuppliersPaymentMethod(id, paymentMethod)
 
-      this.infoModalText = t(TranslationKey['Payment method successfully saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Payment method successfully saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -102,7 +108,9 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['Payment method is not saved'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Payment method is not saved'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -154,11 +162,15 @@ export class AdminSettingsPaymentMethodsModel {
         ? await uploadFileByUrl(this.method.iconImage)
         : await onPostImage(this.method.iconImage)
 
-    this.method.iconImage = result
+    runInAction(() => {
+      this.method.iconImage = result
+    })
 
     this.isEdit ? this.editPaymentMethod(this.editPaymentMethodId, this.method) : this.createPaymentMethod(this.method)
 
-    this.method = { title: '', iconImage: '' }
+    runInAction(() => {
+      this.method = { title: '', iconImage: '' }
+    })
     this.isEdit = false
     this.editPaymentMethodId = undefined
   }
@@ -168,9 +180,14 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   async onChangeIconImage(event) {
+    this.currentImageName = this.method.title
     this.method.iconImage = event.target.value
 
-    this.isValidUrl = await checkIsImageUrlValid(event.target.value)
+    const isValidImageUrl = await checkIsImageUrlValid(event.target.value)
+
+    runInAction(() => {
+      this.isValidUrl = isValidImageUrl
+    })
   }
 
   onRemoveImg() {
@@ -185,7 +202,11 @@ export class AdminSettingsPaymentMethodsModel {
       this.currentImageName = file.name
 
       reader.onload = async e => {
-        this.isValidUrl = await checkIsImageUrlValid(e.target.result)
+        const isValidImageUrl = await checkIsImageUrlValid(e.target.result)
+
+        runInAction(() => {
+          this.isValidUrl = isValidImageUrl
+        })
         this.method.iconImage = {
           data_url: e.target.result,
           file,

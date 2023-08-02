@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,6 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { ClientProductViewModel } from './client-product-view.model'
-import { useLocation } from 'react-router-dom'
 
 export const ClientProductView = observer(props => {
   const { search } = useLocation()

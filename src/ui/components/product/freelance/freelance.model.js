@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
 import {
@@ -9,17 +10,16 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import { RequestProposalModel } from '@models/request-proposal'
+import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
-import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 const filtersFields = [
   'humanFriendlyId',

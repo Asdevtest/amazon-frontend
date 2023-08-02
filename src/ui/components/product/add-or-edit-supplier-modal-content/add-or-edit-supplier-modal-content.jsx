@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { React, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -12,13 +11,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -26,8 +27,6 @@ import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-supplier-modal-content.style'
-import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const AddOrEditSupplierModalContent = observer(
   ({

@@ -4,22 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID идеи | [optional] 
+**_id** | **String** |  | [optional] 
 **title** | **String** | Название идеи | [optional] 
 **status** | **Number** | Статус идеи | [optional] 
-**media** | **[Object]** | Image URL | [optional] 
-**comments** | **String** | Комментарий к идее | [optional] 
-**productName** | **String** | Назавние продукта | [optional] 
-**productLinks** | **[Object]** | Ссылка на продукт, если есть | [optional] 
-**criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
-**quantity** | **Number** | Количество товаров | [optional] 
-**price** | **Number** | Желаемая цена | [optional] 
-**width** | **Number** | Ширина, см | [optional] 
-**height** | **Number** | Высота, см | [optional] 
-**length** | **Number** | Длина, см | [optional] 
-**createdAt** | **Date** | Дата создания | [optional] 
-**updatedAt** | **Date** | Дата последнего обновления | [optional] 
-**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) | Массив поставщиков. | [optional] 
-**productId** | **String** | Product ID | [optional] 
+**linksToMediaFiles** | **[String]** | Медиа идеи | [optional] 
+**childProduct** | [**ApiV1IdeasByParentGuidChildProduct**](ApiV1IdeasByParentGuidChildProduct.md) |  | [optional] 
+**requestsOnCheck** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
+**requestsOnFinished** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
+**comments** | **String** | Комментарии к идее | [optional] 
+**buyerComment** | **String** | Комментарий байера | [optional] 
 
 

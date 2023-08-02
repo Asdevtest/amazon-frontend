@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Box, Checkbox, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -22,8 +21,9 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ShopsViewModel } from './shops-view.model'
 import { styles } from './shops-view.style'
+
+import { ShopsViewModel } from './shops-view.model'
 
 export const ShopsViewRaw = props => {
   const [viewModel] = useState(
@@ -103,13 +103,15 @@ export const ShopsViewRaw = props => {
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
-          // rowHeight={100}
-          getRowHeight={() => 'auto'}
+          getRowHeight={() => 90}
           slots={{
             toolbar: DataGridCustomToolbar,
             columnMenuIcon: FilterAltOutlinedIcon,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,

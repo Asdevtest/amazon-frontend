@@ -1,4 +1,6 @@
 import { cx } from '@emotion/css'
+import { useState } from 'react'
+
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
@@ -6,23 +8,22 @@ import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import { Avatar, Link, Typography } from '@mui/material'
 
-import { useState } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
+import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { checkAndMakeAbsoluteUrl, shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-and-files-carousel.styles'
-import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
+
 import { CustomSlider } from '../custom-slider'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const PhotoAndFilesCarousel = props => {
   const { classes: classNames } = useClassNames()
@@ -167,7 +168,7 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={cx(classNames.imagesWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
+            <div className={classNames.imagesWrapper}>
               {notEmptyPhotos?.length ? (
                 <CustomSlider>
                   {(isEditable

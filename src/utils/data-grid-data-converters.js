@@ -1,4 +1,6 @@
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import {
   ProductStatus,
   ProductStatusByCode,
@@ -7,7 +9,6 @@ import {
 } from '@constants/product/product-status'
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,7 +25,6 @@ import {
 } from './calculation'
 import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
-import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const addIdDataConverter = data =>
   data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
@@ -239,6 +239,8 @@ export const buyerVacantOrdersDataConverter = data =>
     client: item.product.client?.name,
     needsResearch: item.needsResearch,
     deadline: item.deadline,
+    productionTerm: item?.orderSupplier?.productionTerm,
+    totalPrice: item?.totalPrice,
   }))
 
 export const clientProductsDataConverter = data =>

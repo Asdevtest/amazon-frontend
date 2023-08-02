@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
-
 import { History } from 'history'
 import { makeAutoObservable, runInAction } from 'mobx'
+
+import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,6 +14,7 @@ import { t } from '@utils/translations'
 
 import { IHistory } from '../../../../types/history'
 import { IProduct } from '../../../../types/product'
+
 import { roles } from './management-tab-view-constants'
 import { DataIdsType, MemberType, Members } from './management-tab-view.types'
 

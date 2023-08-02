@@ -1984,6 +1984,7 @@ export enum TranslationKey {
   'Uploaded by on listing' = 'Uploaded by on listing',
   'Partial payment' = 'Partial payment',
   'Unread messages' = 'Unread messages',
+  'Open in a new tab' = 'Open in a new tab',
   'Search companion' = 'Search companion',
   'Service representative' = 'Service representative',
   'Adding a payment method' = 'Adding a payment method',
@@ -2027,5 +2028,11 @@ export enum TranslationKey {
   'Edit tag' = 'Edit tag',
   'Edit drop off location' = 'Edit drop off location',
   'The members are saved!' = 'The members are saved!',
+  'To pay partial' = 'To pay partial',
+  'By date' = 'By date',
+  'On page' = 'On page',
+  'An error occurred while loading the image from the link. Please replace the image' = 'An error occurred while loading the image from the link. Please replace the image',
+  // '' = '',
+  // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import React, { FC, useContext } from 'react'
-
 import Linkify from 'react-linkify-always-blank'
+
+import { Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'

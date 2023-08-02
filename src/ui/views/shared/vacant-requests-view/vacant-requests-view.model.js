@@ -1,22 +1,21 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType, RequestType } from '@constants/requests/request-type'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { tableViewMode, tableSortMode } from '@constants/table/table-view-modes'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
+import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
+import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { GeneralModel } from '@models/general-model'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { RequestSubType } from '@constants/requests/request-type'
 
 const filtersFields = [
   'humanFriendlyId',

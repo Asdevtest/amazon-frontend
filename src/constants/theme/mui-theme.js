@@ -79,44 +79,43 @@ export const lightTheme = createTheme({
         },
 
         columnHeaderDraggableContainer: {
-          flexDirection: 'row !important',
           position: 'relative',
           paddingRight: 20,
+          flexDirection: 'row !important',
         },
+
         columnHeaderTitleContainer: {
-          display: 'flex  !important',
-          alignItems: 'center  !important',
-          flexDirection: 'row  !important',
-          justifyContent: 'space-between  !important',
-          overflow: 'visible',
+          flexDirection: 'row !important',
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
         },
+
         menuIconButton: {
           zIndex: 1000,
           position: 'absolute !important',
           right: -7,
-
           // visibility: 'visible !important',
-
           width: '18px !important',
           height: '18px !important',
 
           '.MuiSvgIcon-root': {
-            // display: 'none',
             width: 14,
             height: 14,
           },
         },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
-
-        //
       },
     },
 
@@ -268,13 +267,18 @@ export const lightTheme = createTheme({
       disabledDangerBackground: '#FEB9B9',
     },
 
+    orderStatus: {
+      red: '#FF1616',
+    },
+
     background: {
       general: '#fff',
       second: '#F8F8F8',
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
-
+      yellowRow: '#FFFDF3',
+      redRow: '#FFF3F3',
       searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
       red: '#FFC7C7',
@@ -392,64 +396,52 @@ export const darkTheme = createTheme({
           color: '#fff',
         },
 
-        menuIconButton: {
-          color: '#fff',
-
-          // Убрать
-          zIndex: 1000,
-          position: 'absolute !important',
-          right: -7,
-
-          // visibility: 'visible !important',
-
-          width: '18px !important',
-          height: '18px !important',
-
-          '.MuiSvgIcon-root': {
-            // display: 'none',
-            width: 14,
-            height: 14,
-          },
-        },
-
         sortIcon: {
-          // color: 'rgba(255, 255, 255, 1)',
           color: '#fff !important',
-          // color: 'red',
-
-          // '& > disabled': {
-          //   color: 'red',
-          // },
-
-          // Убрать
           width: 14,
           height: 14,
         },
 
         cell: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
-          // border: 'none',
         },
 
-        // Убрать
         columnHeaderDraggableContainer: {
           flexDirection: 'row !important',
           position: 'relative',
-          paddingRight: 20,
         },
+
         columnHeaderTitleContainer: {
-          display: 'flex !important',
-          alignItems: 'center !important',
           flexDirection: 'row !important',
-          justifyContent: 'space-between !important',
-          overflow: 'visible',
+          paddingRight: 20,
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
         },
+
+        menuIconButton: {
+          color: '#fff',
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          // visibility: 'visible !important',
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            width: 14,
+            height: 14,
+          },
+        },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
@@ -735,6 +727,10 @@ export const darkTheme = createTheme({
         disabled: 'rgba(255, 255, 255, 0.3)',
       },
 
+      orderStatus: {
+        red: '#DD2121',
+      },
+
       background: {
         general: '#2B2B34',
         second: '#21212B',
@@ -743,7 +739,8 @@ export const darkTheme = createTheme({
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
         darkBlue: '#4CA1DE',
-
+        yellowRow: '#2F2C23',
+        redRow: '#2F2329',
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
         green: '#001A15',

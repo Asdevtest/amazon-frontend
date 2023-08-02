@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import React, { FC, useContext } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,8 +20,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { LabelValuePairBlock } from '../label-value-pair-block'
 import { useClassNames } from './chat-message-proposal-status-changed.style'
+
+import { LabelValuePairBlock } from '../label-value-pair-block'
 
 export interface ChatMessageRequestProposalStatusChangedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void

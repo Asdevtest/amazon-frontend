@@ -6,8 +6,8 @@ import {
   DashboardIcon,
   ExchangeIcon,
   Feedback,
-  FreelanceIcon,
   FreeOrdersIcon,
+  FreelanceIcon,
   InventoryIcon,
   Message,
   MyBatchesIcon,
@@ -17,11 +17,11 @@ import {
   MyProductsIcon,
   MyUsersIcon,
   MyWarehouseIcon,
+  NewTasksIcon,
   SearchIcon,
   SettingsIcon,
   ShopsIcon,
   TasksIcon,
-  NewTasksIcon,
   TradingShops,
   UsersPermissionsIcon,
 } from '@components/shared/svg-icons'
@@ -31,6 +31,7 @@ import { t } from '@utils/translations'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
+
 import { navBarActiveCategory, navBarActiveSubCategory } from './navbar-active-category'
 
 export const navbarConfig = () => ({

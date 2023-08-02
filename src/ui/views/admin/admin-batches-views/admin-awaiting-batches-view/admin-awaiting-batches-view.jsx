@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,8 +16,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminAwaitingBatchesViewModel } from './admin-awaiting-batches-view.model'
 import { styles } from './admin-awaiting-batches-view.style'
+
+import { AdminAwaitingBatchesViewModel } from './admin-awaiting-batches-view.model'
 
 export const AdminAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new AdminAwaitingBatchesViewModel({ history: props.history }))
@@ -61,6 +61,9 @@ export const AdminAwaitingBatchesViewRaw = props => {
             columnMenuIcon: FilterAltOutlinedIcon,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
@@ -76,15 +79,15 @@ export const AdminAwaitingBatchesViewRaw = props => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
         />
       </MainContent>
 
       <BatchInfoModal
+        batch={viewModel.curBatch}
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
       />
     </React.Fragment>
   )

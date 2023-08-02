@@ -1,10 +1,10 @@
 import { cx } from '@emotion/css'
-import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
-import MuiListItem from '@mui/material/ListItem'
-
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'tss-react/mui'
+
+import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
+import MuiListItem from '@mui/material/ListItem'
 
 import { Button } from '@components/shared/buttons/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
