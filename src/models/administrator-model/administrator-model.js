@@ -186,6 +186,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsTagsGuidPatch(id, { body: data })
     return response
   }
+
+  editRedFlag = async (id, data) => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsGuidPatch(id, { body: data })
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

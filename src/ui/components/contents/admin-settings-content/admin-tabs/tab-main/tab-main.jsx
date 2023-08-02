@@ -8,6 +8,8 @@ import { observer } from 'mobx-react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -58,85 +60,87 @@ export const TabMain = observer(
       disabledSubmitProxy
 
     return (
-      <>
-        <div className={classNames.wrapper}>
-          <div className={classNames.textFileds}>
-            <Field
-              label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
-              value={formFields.yuanToDollarRate}
-              error={formFields.yuanToDollarRate === ''}
-              onChange={e => onChangeField(fieldNameObject.yuanToDollarRate, e)}
-            />
+      SettingsModel.languageTag && (
+        <>
+          <div className={classNames.wrapper}>
+            <div className={classNames.textFileds}>
+              <Field
+                label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
+                labelClasses={classNames.label}
+                classes={{ root: classNames.textField }}
+                value={formFields.yuanToDollarRate}
+                error={formFields.yuanToDollarRate === ''}
+                onChange={e => onChangeField(fieldNameObject.yuanToDollarRate, e)}
+              />
 
-            <Field
-              label={t(TranslationKey['Divider for calculating volume weight'])}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
-              value={formFields.volumeWeightCoefficient}
-              error={formFields.volumeWeightCoefficient === ''}
-              onChange={e => onChangeField(fieldNameObject.volumeWeightCoefficient, e)}
-            />
+              <Field
+                label={t(TranslationKey['Divider for calculating volume weight'])}
+                labelClasses={classNames.label}
+                classes={{ root: classNames.textField }}
+                value={formFields.volumeWeightCoefficient}
+                error={formFields.volumeWeightCoefficient === ''}
+                onChange={e => onChangeField(fieldNameObject.volumeWeightCoefficient, e)}
+              />
 
-            <Field
-              disabled
-              label={t(TranslationKey['Link for financial transactions'])}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
-            />
-          </div>
+              <Field
+                disabled
+                label={t(TranslationKey['Link for financial transactions'])}
+                labelClasses={classNames.label}
+                classes={{ root: classNames.textField }}
+              />
+            </div>
 
-          <div className={classNames.proxyContent}>
-            <div className={classNames.proxyAdd}>
-              <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-              <Button className={classNames.buttonAdd} onClick={onClickToggleProxyModal}>
-                {t(TranslationKey['Add proxy'])}
+            <div className={classNames.proxyContent}>
+              <div className={classNames.proxyAdd}>
+                <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
+                <Button className={classNames.buttonAdd} onClick={onClickToggleProxyModal}>
+                  {t(TranslationKey['Add proxy'])}
+                </Button>
+              </div>
+
+              <div className={classNames.proxyList}>
+                {updatedProxy?.length !== 0 &&
+                  updatedProxy?.map((proxy, index) => (
+                    <div key={index} className={classNames.proxyWrapper}>
+                      <Typography className={classNames.proxy}>{proxy}</Typography>
+
+                      <div className={classNames.iconsWrapper}>
+                        <CopyValue text={proxy} />
+                        <IconButton
+                          size="small"
+                          classes={{ root: classNames.iconDelete }}
+                          onClick={() => handleDeleteProxy(proxy)}
+                        >
+                          <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} />
+                        </IconButton>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+
+              <Button
+                disabled={disabledSubmitFields}
+                className={classNames.buttonSave}
+                onClick={() => onSubmit(updatedProxy)}
+              >
+                {t(TranslationKey.Save)}
               </Button>
             </div>
-
-            <div className={classNames.proxyList}>
-              {updatedProxy?.length !== 0 &&
-                updatedProxy?.map((proxy, index) => (
-                  <div key={index} className={classNames.proxyWrapper}>
-                    <Typography className={classNames.proxy}>{proxy}</Typography>
-
-                    <div className={classNames.iconsWrapper}>
-                      <CopyValue text={proxy} />
-                      <IconButton
-                        size="small"
-                        classes={{ root: classNames.iconDelete }}
-                        onClick={() => handleDeleteProxy(proxy)}
-                      >
-                        <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} />
-                      </IconButton>
-                    </div>
-                  </div>
-                ))}
-            </div>
-
-            <Button
-              disabled={disabledSubmitFields}
-              className={classNames.buttonSave}
-              onClick={() => onSubmit(updatedProxy)}
-            >
-              {t(TranslationKey.Save)}
-            </Button>
           </div>
-        </div>
 
-        <Modal openModal={showAsinCheckerModal} setOpenModal={onClickToggleProxyModal}>
-          <AsinProxyCheckerForm user={user} onSubmit={setUpdatedProxy} onClose={onClickToggleProxyModal} />
-        </Modal>
+          <Modal openModal={showAsinCheckerModal} setOpenModal={onClickToggleProxyModal}>
+            <AsinProxyCheckerForm user={user} onSubmit={setUpdatedProxy} onClose={onClickToggleProxyModal} />
+          </Modal>
 
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={onClickToggleInfoModal}
-          title={infoModalText}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={onClickToggleInfoModal}
-        />
-      </>
+          <WarningInfoModal
+            openModal={showInfoModal}
+            setOpenModal={onClickToggleInfoModal}
+            title={infoModalText}
+            btnText={t(TranslationKey.Close)}
+            onClickBtn={onClickToggleInfoModal}
+          />
+        </>
+      )
     )
   },
 )

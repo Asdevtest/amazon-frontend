@@ -11,7 +11,6 @@ import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 export class AdminSettingsRedFlagsModel {
-  history = undefined
   requestStatus = undefined
 
   infoModalText = undefined
@@ -23,14 +22,15 @@ export class AdminSettingsRedFlagsModel {
     onClickSuccess: () => {},
   }
 
-  flag = { title: '', iconImage: '' }
   redFlags = []
+  flag = { title: '', iconImage: '' }
   isValidUrl = false
   currentImageName = undefined
 
-  constructor({ history }) {
-    this.history = history
+  isEdit = false
+  editRedFlagId = undefined
 
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -88,6 +88,28 @@ export class AdminSettingsRedFlagsModel {
     }
   }
 
+  async onEditRedFlag(id, redFlag) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await AdministratorModel.editRedFlag(id, redFlag)
+
+      this.infoModalText = t(TranslationKey['Red flag successfully saved'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.infoModalText = t(TranslationKey['Red flag is not saved'])
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
   async onRemoveRedFlag(id) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -114,6 +136,18 @@ export class AdminSettingsRedFlagsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
+  onClickEditRedFlag(id) {
+    this.isEdit = true
+    this.editRedFlagId = id
+
+    const findRedFlag = this.redFlags.find(flag => flag._id === id)
+
+    if (findRedFlag) {
+      this.flag = { title: findRedFlag.title, iconImage: findRedFlag.iconImage }
+      this.currentImageName = findRedFlag.title
+    }
+  }
+
   async onSubmitRedFlag() {
     const result =
       typeof this.flag.iconImage === 'string'
@@ -122,9 +156,11 @@ export class AdminSettingsRedFlagsModel {
 
     this.flag.iconImage = result
 
-    this.onCreateRedFlag(this.flag)
+    this.isEdit ? this.onEditRedFlag(this.editRedFlagId, this.flag) : this.onCreateRedFlag(this.flag)
 
     this.flag = { title: '', iconImage: '' }
+    this.isEdit = false
+    this.editRedFlagId = undefined
   }
 
   onChangeTitle(event) {

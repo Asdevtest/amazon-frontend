@@ -1,13 +1,13 @@
 import { cx } from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { IconButton, Typography } from '@mui/material'
 
 import { useState, useEffect } from 'react'
 
 import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,6 +16,7 @@ import { SettingsModel } from '@models/settings-model'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
@@ -26,8 +27,8 @@ import { useClassNames } from './tab-red-flags.style'
 
 export const TabRedFlags = observer(() => {
   const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const [viewModel] = useState(() => new AdminSettingsRedFlagsModel({ history }))
+
+  const [viewModel] = useState(() => new AdminSettingsRedFlagsModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -43,11 +44,11 @@ export const TabRedFlags = observer(() => {
     <>
       {SettingsModel.languageTag && (
         <div className={classNames.wrapper}>
-          <p className={classNames.title}>{t(TranslationKey['Adding red flags'])}</p>
+          <p className={classNames.title}>{t(TranslationKey['Adding a red flag'])}</p>
 
           <div className={classNames.container}>
             <Field
-              label={t(TranslationKey['Add red flag icon']) + '*'}
+              label={t(TranslationKey['Add a red flag icon']) + '*'}
               labelClasses={classNames.label}
               classes={{ root: classNames.textField }}
               value={viewModel.flag.iconImage?.data_url ?? viewModel.flag.iconImage}
@@ -86,7 +87,7 @@ export const TabRedFlags = observer(() => {
 
           <div className={classNames.container}>
             <Field
-              label={t(TranslationKey['Name of the red flag']) + '*'}
+              label={t(TranslationKey['Red flag name']) + '*'}
               labelClasses={classNames.label}
               classes={{ root: classNames.textField }}
               value={viewModel.flag.title}
@@ -104,13 +105,27 @@ export const TabRedFlags = observer(() => {
                     <Typography className={classNames.redFlag}>{flag.title}</Typography>
                   </div>
 
-                  <IconButton
-                    size="small"
-                    classes={{ root: classNames.iconDelete }}
-                    onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
-                  >
-                    <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
-                  </IconButton>
+                  <div className={classNames.iconsWrapper}>
+                    <IconButton size="small">
+                      <CopyValue text={flag.title} />
+                    </IconButton>
+
+                    <IconButton
+                      size="small"
+                      classes={{ root: classNames.iconRoot }}
+                      onClick={() => viewModel.onClickEditRedFlag(flag._id)}
+                    >
+                      <EditOutlinedIcon className={classNames.iconAction} />
+                    </IconButton>
+
+                    <IconButton
+                      size="small"
+                      classes={{ root: classNames.iconRoot }}
+                      onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
+                    >
+                      <DeleteOutlineOutlinedIcon className={classNames.iconAction} />
+                    </IconButton>
+                  </div>
                 </div>
               ))}
           </div>

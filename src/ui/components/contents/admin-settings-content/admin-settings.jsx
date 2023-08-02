@@ -37,8 +37,8 @@ export const AdminSettings = observer(() => {
   }, [])
 
   return (
-    <>
-      {SettingsModel.languageTag && (
+    SettingsModel.languageTag && (
+      <>
         <Tabs
           value={viewModel.tabIndex}
           variant="scrollable"
@@ -53,79 +53,79 @@ export const AdminSettings = observer(() => {
             <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
           ))}
         </Tabs>
-      )}
 
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.main}>
-        <div className={classNames.contentWrapper}>
-          <TabMain
-            user={viewModel.user}
-            serverProxy={viewModel.serverProxy}
-            showAsinCheckerModal={viewModel.showAsinCheckerModal}
-            showInfoModal={viewModel.showInfoModal}
-            infoModalText={viewModel.infoModalText}
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
-            onClickToggleInfoModal={viewModel.onClickToggleInfoModal}
-            onSubmit={viewModel.onSubmitMain}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.freelance}>
-        <div className={classNames.contentWrapper}>
-          <TabFreelance
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.supplierSearch}>
-        <div className={classNames.contentWrapper}>
-          <TabSearchSupplier
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.orders}>
-        <div className={classNames.contentWrapper}>
-          <TabOrders
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.destinations}>
-        <TabDestinations />
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.redFlags}>
-        <div className={classNames.contentWrapper}>
-          <TabRedFlags />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.paymentMethods}>
-        <div className={classNames.contentWrapper}>
-          <TabPaymentMethods />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.tags}>
-        <TabTags />
-      </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.main}>
+          <div className={classNames.contentWrapper}>
+            <TabMain
+              user={viewModel.user}
+              serverProxy={viewModel.serverProxy}
+              showAsinCheckerModal={viewModel.showAsinCheckerModal}
+              showInfoModal={viewModel.showInfoModal}
+              infoModalText={viewModel.infoModalText}
+              formFields={viewModel.formFields}
+              isFormFieldsChanged={viewModel.isFormFieldsChanged}
+              onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
+              onClickToggleInfoModal={viewModel.onClickToggleInfoModal}
+              onSubmit={viewModel.onSubmitMain}
+              onChangeField={viewModel.onChangeField}
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.freelance}>
+          <div className={classNames.contentWrapper}>
+            <TabFreelance
+              formFields={viewModel.formFields}
+              isFormFieldsChanged={viewModel.isFormFieldsChanged}
+              onSubmit={viewModel.onCreateAdminSettings}
+              onChangeField={viewModel.onChangeField}
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.supplierSearch}>
+          <div className={classNames.contentWrapper}>
+            <TabSearchSupplier
+              formFields={viewModel.formFields}
+              isFormFieldsChanged={viewModel.isFormFieldsChanged}
+              onSubmit={viewModel.onCreateAdminSettings}
+              onChangeField={viewModel.onChangeField}
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.orders}>
+          <div className={classNames.contentWrapper}>
+            <TabOrders
+              formFields={viewModel.formFields}
+              isFormFieldsChanged={viewModel.isFormFieldsChanged}
+              onSubmit={viewModel.onCreateAdminSettings}
+              onChangeField={viewModel.onChangeField}
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.destinations}>
+          <TabDestinations />
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.redFlags}>
+          <div className={classNames.contentWrapper}>
+            <TabRedFlags />
+          </div>
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.paymentMethods}>
+          <div className={classNames.contentWrapper}>
+            <TabPaymentMethods />
+          </div>
+        </TabPanel>
+        <TabPanel value={viewModel.tabIndex} index={tabIndexes.tags}>
+          <TabTags />
+        </TabPanel>
 
-      <WarningInfoModal
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Close)}
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickToggleInfoModal}
-        onClickBtn={viewModel.onClickToggleInfoModal}
-      />
-    </>
+        <WarningInfoModal
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Close)}
+          openModal={viewModel.showInfoModal}
+          setOpenModal={viewModel.onClickToggleInfoModal}
+          onClickBtn={viewModel.onClickToggleInfoModal}
+        />
+      </>
+    )
   )
 })

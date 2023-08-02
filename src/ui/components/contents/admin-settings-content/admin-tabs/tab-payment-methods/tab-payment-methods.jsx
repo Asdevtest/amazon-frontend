@@ -107,7 +107,7 @@ export const TabPaymentMethods = observer(() => {
 
                   <div className={classNames.iconsWrapper}>
                     <IconButton size="small">
-                      <CopyValue text={method} />
+                      <CopyValue text={method.title} />
                     </IconButton>
 
                     <IconButton
