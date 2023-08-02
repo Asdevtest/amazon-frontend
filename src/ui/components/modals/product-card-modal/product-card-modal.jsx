@@ -18,7 +18,7 @@ import { ProductStatusButtons } from '@components/product/product-wrapper/top-ca
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { ShareLinkIcon } from '@components/shared/svg-icons'
+import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
 import { BuyerProductViewModel } from '@views/buyer/buyer-product-view/buyer-product-view.model'
 import { ClientProductViewModel } from '@views/client/client-product-view/client-product-view.model'
@@ -39,7 +39,7 @@ export const ProductCardModal = observer(props => {
 
   const { search } = useLocation()
   const queries = new URLSearchParams(search)
-
+  const productId = queries.get('product-id')
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
       return () =>
@@ -115,8 +115,6 @@ export const ProductCardModal = observer(props => {
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]] &&
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]](viewModel?.productBase?.status)
 
-  console.log('viewModel?.product', viewModel?.product)
-
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.root}>
@@ -152,16 +150,7 @@ export const ProductCardModal = observer(props => {
       </div>
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
         <div className={classNames.footerWrapper}>
-          <div
-            className={classNames.shareWrapper}
-            onClick={() => {
-              const productId = queries.get('product-id')
-              onClickOpenNewTab({ originalData: { _id: productId } })
-            }}
-          >
-            <ShareLinkIcon className={classNames.shareLinkIcon} />
-            <Typography className={classNames.shareLinkText}>{t(TranslationKey['Open in a new tab'])}</Typography>
-          </div>
+          <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(productId)} />
 
           {showActionBtns && (
             <ProductStatusButtons

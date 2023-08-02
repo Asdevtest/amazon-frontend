@@ -279,13 +279,15 @@ import InlineResponse2002Permissions from './model/InlineResponse2002Permissions
 import InlineResponse2002SubUsers from './model/InlineResponse2002SubUsers';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse20030 from './model/InlineResponse20030';
+import InlineResponse20030Rows from './model/InlineResponse20030Rows';
 import InlineResponse20031 from './model/InlineResponse20031';
 import InlineResponse20032 from './model/InlineResponse20032';
-import InlineResponse20032Rows from './model/InlineResponse20032Rows';
 import InlineResponse20033 from './model/InlineResponse20033';
 import InlineResponse20034 from './model/InlineResponse20034';
 import InlineResponse20035 from './model/InlineResponse20035';
 import InlineResponse20036 from './model/InlineResponse20036';
+import InlineResponse20036AllFiles from './model/InlineResponse20036AllFiles';
+import InlineResponse20036AllImages from './model/InlineResponse20036AllImages';
 import InlineResponse20037 from './model/InlineResponse20037';
 import InlineResponse20037Batch from './model/InlineResponse20037Batch';
 import InlineResponse20037Boxes from './model/InlineResponse20037Boxes';
@@ -2083,6 +2085,12 @@ export {
     InlineResponse20030,
 
     /**
+     * The InlineResponse20030Rows model constructor.
+     * @property {module:model/InlineResponse20030Rows}
+     */
+    InlineResponse20030Rows,
+
+    /**
      * The InlineResponse20031 model constructor.
      * @property {module:model/InlineResponse20031}
      */
@@ -2093,12 +2101,6 @@ export {
      * @property {module:model/InlineResponse20032}
      */
     InlineResponse20032,
-
-    /**
-     * The InlineResponse20032Rows model constructor.
-     * @property {module:model/InlineResponse20032Rows}
-     */
-    InlineResponse20032Rows,
 
     /**
      * The InlineResponse20033 model constructor.
@@ -2123,6 +2125,18 @@ export {
      * @property {module:model/InlineResponse20036}
      */
     InlineResponse20036,
+
+    /**
+     * The InlineResponse20036AllFiles model constructor.
+     * @property {module:model/InlineResponse20036AllFiles}
+     */
+    InlineResponse20036AllFiles,
+
+    /**
+     * The InlineResponse20036AllImages model constructor.
+     * @property {module:model/InlineResponse20036AllImages}
+     */
+    InlineResponse20036AllImages,
 
     /**
      * The InlineResponse20037 model constructor.

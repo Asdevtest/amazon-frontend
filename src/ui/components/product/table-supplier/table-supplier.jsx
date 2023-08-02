@@ -60,8 +60,8 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
         <Table>
           {SettingsModel.languageTag && renderHeader()}
           <TableBody>
-            {product.suppliers.length ? (
-              (product.currentSupplier && product.suppliers.find(el => product.currentSupplier._id === el._id)
+            {!!product?.suppliers?.length &&
+              (product?.currentSupplier && product?.suppliers?.find(el => product.currentSupplier._id === el._id)
                 ? [
                     product.suppliers.find(el => product.currentSupplier._id === el._id),
                     ...product.suppliers.filter(el => product.currentSupplier._id !== el._id),
@@ -171,14 +171,7 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
                     </Typography>
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell align="center" colSpan={8}>
-                  {t(TranslationKey['No suppliers'])}
-                </TableCell>
-              </TableRow>
-            )}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

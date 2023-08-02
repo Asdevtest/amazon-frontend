@@ -7,7 +7,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import { useClassNames } from './copy-value.style'
 
 interface CopyValueProps {
-  text: string
+  text: string | undefined
   disabled?: boolean
 }
 
@@ -31,7 +31,7 @@ export const CopyValue: FC<CopyValueProps> = ({ text, disabled }) => {
           className={cx(classNames.copyImg, { [classNames.disabledIcon]: disabled })}
           onClick={e => {
             e.stopPropagation()
-            !disabled && handleCopyValue(text)
+            !disabled && !!text && handleCopyValue(text)
           }}
         />
       )}

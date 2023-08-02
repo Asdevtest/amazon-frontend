@@ -172,6 +172,16 @@ class RequestModelStatic {
     })
     return response
   }
+
+  getRequestsByProductLight = async id => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(id)
+    return response
+  }
+
+  bindIdeaToRequest = async (id, data) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsIdeasGuidPatch(id, { body: data })
+    return response
+  }
 }
 
 export const RequestModel = new RequestModelStatic()

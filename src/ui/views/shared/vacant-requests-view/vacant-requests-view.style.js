@@ -158,7 +158,7 @@ export const styles = theme => ({
     },
 
     ':after': {
-      background: '#D70D0D',
+      background: theme.palette.other.rejected,
     },
   },
 

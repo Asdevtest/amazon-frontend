@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(() => ({
   dialogContent: {
     position: 'relative',
     overflow: 'visible',
-    borderRadius: '4px',
+    borderRadius: '7px',
   },
 
   closeIcon: {
@@ -34,6 +34,11 @@ export const useClassNames = makeStyles()(() => ({
       transform: 'scale(1.2)',
     },
   },
+
+  noPadding: {
+    padding: 0,
+  },
+
   '@media (max-width: 768px)': {
     dialogPadding: {
       padding: '30px 10px',

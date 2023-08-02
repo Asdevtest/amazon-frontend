@@ -12,12 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusBoxAmounts from './ApiV1AdminsGetProductsByStatusBoxAmounts';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
-import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
-import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
-import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
+import InlineResponse2004 from './InlineResponse2004';
 
 /**
  * The InlineResponse20033 model module.
@@ -27,6 +22,7 @@ import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
 class InlineResponse20033 {
     /**
      * Constructs a new <code>InlineResponse20033</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20033
      */
     constructor() { 
@@ -53,8 +49,8 @@ class InlineResponse20033 {
         if (data) {
             obj = obj || new InlineResponse20033();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
@@ -301,14 +297,14 @@ class InlineResponse20033 {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} _id
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20033.prototype['_id'] = undefined;
+InlineResponse20033.prototype['count'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse2004>} rows
  */
 InlineResponse20033.prototype['asin'] = undefined;
 

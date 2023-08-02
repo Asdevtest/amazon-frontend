@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
+    gap: 30,
     width: '100%',
     background: theme.palette.background.general,
   },

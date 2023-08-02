@@ -1,5 +1,6 @@
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { ClassNamesArg } from '@emotion/react'
+import React, { FC, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { Dialog, DialogContent } from '@mui/material'
@@ -12,8 +13,20 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './modal.style'
 
-export const Modal = ({ openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn }) => {
+interface ModalProps {
+  openModal: boolean
+  isWarning?: boolean
+  noPadding?: boolean
+  missClickModalOn?: boolean
+  children: React.ReactNode
+  dialogContextClassName?: ClassNamesArg
+  setOpenModal: (openModal?: boolean) => void
+}
+
+export const Modal: FC<ModalProps> = props => {
   const { classes: classNames } = useClassNames()
+
+  const { openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn, noPadding } = props
 
   const [showMissclickModal, setShowMissclickModal] = useState(false)
 
@@ -22,9 +35,11 @@ export const Modal = ({ openModal, isWarning, setOpenModal, dialogContextClassNa
       setShowMissclickModal(false)
     }
     if (window.getSelection) {
-      window.getSelection().removeAllRanges()
+      const selection = window.getSelection()
+      selection?.removeAllRanges()
     } else {
-      document.selection.empty()
+      const selection = document.getSelection()
+      selection?.removeAllRanges()
     }
   }, [openModal])
 
@@ -36,10 +51,9 @@ export const Modal = ({ openModal, isWarning, setOpenModal, dialogContextClassNa
       }}
       open={openModal}
       scroll={'body'}
-      onClose={
-        event =>
-          (event.detail !== 0 || event.code === 'Escape') &&
-          (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false)) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
+      onClose={(event: React.MouseEvent<HTMLElement, MouseEvent>) =>
+        (event.detail !== 0 || event.button === 27) &&
+        (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false))
       }
     >
       <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />
@@ -47,7 +61,7 @@ export const Modal = ({ openModal, isWarning, setOpenModal, dialogContextClassNa
       <DialogContent
         className={cx(
           classNames.dialogPadding,
-          { [classNames.warningDialogPadding]: isWarning },
+          { [classNames.warningDialogPadding]: isWarning, [classNames.noPadding]: noPadding },
           dialogContextClassName,
         )}
       >
