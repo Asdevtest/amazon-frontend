@@ -4,10 +4,11 @@ import { FC } from 'react'
 
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 
+import { minsToTime } from '@utils/text'
+
 import { useClassNames } from './progress-bar.styles'
 
 import { progressBarSettings } from './progress-bar-settings'
-import { minsToTime } from '@utils/text'
 
 interface IdeaProgressBarProps {
   currentStatus: number

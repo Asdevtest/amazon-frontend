@@ -138,6 +138,44 @@ export const NavbarCollapse = ({
       case '/buyer/all-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.allOrders}</div>}</ListItemIcon>
 
+      case '/client/ideas/new':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.new}</div>}</ListItemIcon>
+
+      case '/client/ideas/on-checking':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.onCheck}</div>}</ListItemIcon>
+
+      case '/client/ideas/search-suppliers':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.supplierSearch}</div>}</ListItemIcon>
+
+      case '/client/ideas/create-card':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.productCreating}</div>}</ListItemIcon>
+
+      case '/client/ideas/add-asin':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.addingAsin}</div>}</ListItemIcon>
+
+      case '/client/ideas/realized':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.finished}</div>}</ListItemIcon>
+
+      case '/client/ideas/closed':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.rejectedOrClosed}</div>}</ListItemIcon>
+
+      case '/client/ideas/all':
+        return (
+          <ListItemIcon>
+            {
+              <div className={classNames.badge}>
+                {userInfo.ideas.new +
+                  userInfo.ideas.onCheck +
+                  userInfo.ideas.supplierSearch +
+                  userInfo.ideas.productCreating +
+                  userInfo.ideas.addingAsin +
+                  userInfo.ideas.finished +
+                  userInfo.ideas.rejectedOrClosed}
+              </div>
+            }
+          </ListItemIcon>
+        )
+
       default:
         return null
     }

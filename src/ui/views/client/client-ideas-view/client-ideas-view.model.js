@@ -1,12 +1,16 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { t } from '@utils/translations'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { createProductByClient } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { IdeaModel } from '@models/ideas-model'
+import { ProductModel } from '@models/product-model'
+import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
@@ -22,16 +26,12 @@ import {
   clientSearchSuppliersIdeasColumns,
 } from '@components/table/table-columns/client/client-ideas-columns'
 
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { objectToUrlQs } from '@utils/text'
-import { ProductModel } from '@models/product-model'
-import { onSubmitPostImages } from '@utils/upload-files'
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestModel } from '@models/request-model'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { createProductByClient } from '@constants/white-list'
-import { TranslationKey } from '@constants/translations/translation-key'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
