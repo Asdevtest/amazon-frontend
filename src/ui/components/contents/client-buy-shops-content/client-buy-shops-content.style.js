@@ -8,8 +8,4 @@ export const useClassNames = makeStyles()(() => ({
   indicator: {
     backgroundColor: '#1da1f2',
   },
-
-  tabPanel: {
-    paddingTop: 20,
-  },
 }))

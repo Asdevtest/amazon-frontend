@@ -1,6 +1,6 @@
 export const styles = theme => ({
   datagridWrapper: {
-    height: 'calc(100vh - 155px)',
+    height: 'calc(100vh - 160px)',
   },
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',

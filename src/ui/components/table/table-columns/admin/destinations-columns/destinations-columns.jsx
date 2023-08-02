@@ -16,7 +16,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 195,
+    width: 240,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -25,7 +25,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Country),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Country)} />,
 
-    width: 140,
+    width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -43,7 +43,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.City),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.City)} />,
 
-    width: 190,
+    width: 140,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -52,7 +52,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.State),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.State)} />,
 
-    width: 170,
+    width: 150,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -70,9 +70,10 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 150,
-    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row} />,
+    width: 130,
+    renderCell: params => <EditOrRemoveIconBtnsCell isShowButtonText={false} handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,
+    align: 'center',
   },
 ]

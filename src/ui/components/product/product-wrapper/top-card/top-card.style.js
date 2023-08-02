@@ -53,7 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainCardWrapper: {
     padding: '16px',
     marginBottom: '24px',
-    backgroundColor: theme.palette.background.second,
+    backgroundColor: theme.palette.background.general,
   },
   parseButtonsWrapper: {
     minWidth: 250,

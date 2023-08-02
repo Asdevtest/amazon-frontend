@@ -1109,7 +1109,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsRedFlagsGuidPatch
 
-> String apiV1AdminsRedFlagsGuidPatch(opts)
+> String apiV1AdminsRedFlagsGuidPatch(guid, opts)
 
 #  Изменить красный флаг
 
@@ -1127,11 +1127,12 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.AdministratorApi();
+let guid = null; // String | GUID красного флага в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject8() // InlineObject8 | 
 };
-apiInstance.apiV1AdminsRedFlagsGuidPatch(opts).then((data) => {
+apiInstance.apiV1AdminsRedFlagsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1144,6 +1145,7 @@ apiInstance.apiV1AdminsRedFlagsGuidPatch(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID красного флага в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
 

@@ -14,12 +14,12 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineResponse20030 from '../model/InlineResponse20030';
-import InlineResponse20031 from '../model/InlineResponse20031';
-import InlineResponse20032 from '../model/InlineResponse20032';
-import InlineResponse20033 from '../model/InlineResponse20033';
-import InlineResponse20034 from '../model/InlineResponse20034';
-import InlineResponse20035 from '../model/InlineResponse20035';
+import InlineResponse20037 from '../model/InlineResponse20037';
+import InlineResponse20038 from '../model/InlineResponse20038';
+import InlineResponse20039 from '../model/InlineResponse20039';
+import InlineResponse20040 from '../model/InlineResponse20040';
+import InlineResponse20041 from '../model/InlineResponse20041';
+import InlineResponse20042 from '../model/InlineResponse20042';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -48,7 +48,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20031} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20038} and HTTP response
      */
     apiV1DashboardBuyerCountsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -67,7 +67,7 @@ export default class DashboardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20031;
+      let returnType = InlineResponse20038;
       return this.apiClient.callApi(
         '/api/v1/dashboard/buyer/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -80,7 +80,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20031}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20038}
      */
     apiV1DashboardBuyerCountsGet(opts) {
       return this.apiV1DashboardBuyerCountsGetWithHttpInfo(opts)
@@ -95,7 +95,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20030} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20037} and HTTP response
      */
     apiV1DashboardClientCountsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -114,7 +114,7 @@ export default class DashboardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20030;
+      let returnType = InlineResponse20037;
       return this.apiClient.callApi(
         '/api/v1/dashboard/client/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -127,7 +127,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20030}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20037}
      */
     apiV1DashboardClientCountsGet(opts) {
       return this.apiV1DashboardClientCountsGetWithHttpInfo(opts)
@@ -142,7 +142,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20034} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20041} and HTTP response
      */
     apiV1DashboardFreelancerCountsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -161,7 +161,7 @@ export default class DashboardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20034;
+      let returnType = InlineResponse20041;
       return this.apiClient.callApi(
         '/api/v1/dashboard/freelancer/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -174,7 +174,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20034}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20041}
      */
     apiV1DashboardFreelancerCountsGet(opts) {
       return this.apiV1DashboardFreelancerCountsGetWithHttpInfo(opts)
@@ -189,7 +189,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20033} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20040} and HTTP response
      */
     apiV1DashboardResearcherCountsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -208,7 +208,7 @@ export default class DashboardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20033;
+      let returnType = InlineResponse20040;
       return this.apiClient.callApi(
         '/api/v1/dashboard/researcher/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -221,7 +221,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20033}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20040}
      */
     apiV1DashboardResearcherCountsGet(opts) {
       return this.apiV1DashboardResearcherCountsGetWithHttpInfo(opts)
@@ -236,7 +236,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20032} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20039} and HTTP response
      */
     apiV1DashboardStorekeeperCountsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -255,7 +255,7 @@ export default class DashboardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20032;
+      let returnType = InlineResponse20039;
       return this.apiClient.callApi(
         '/api/v1/dashboard/storekeeper/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -268,7 +268,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20032}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20039}
      */
     apiV1DashboardStorekeeperCountsGet(opts) {
       return this.apiV1DashboardStorekeeperCountsGetWithHttpInfo(opts)
@@ -283,7 +283,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20035} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20042} and HTTP response
      */
     apiV1DashboardSupervisorCountsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -302,7 +302,7 @@ export default class DashboardApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20035;
+      let returnType = InlineResponse20042;
       return this.apiClient.callApi(
         '/api/v1/dashboard/supervisor/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -315,7 +315,7 @@ export default class DashboardApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20035}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20042}
      */
     apiV1DashboardSupervisorCountsGet(opts) {
       return this.apiV1DashboardSupervisorCountsGetWithHttpInfo(opts)

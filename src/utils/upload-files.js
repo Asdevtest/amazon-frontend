@@ -18,7 +18,7 @@ export const dataURLtoFile = (dataurl, filename) => {
   return new File([u8arr], filename, { type: mime })
 }
 
-const onPostImage = async imageData => {
+export const onPostImage = async imageData => {
   const formData = new FormData()
 
   const fileWithoutSpaces = new File([imageData.file], imageData.file?.name.replace(/ /g, ''), {
@@ -37,7 +37,7 @@ const onPostImage = async imageData => {
   }
 }
 
-const uploadFileByUrl = async image => {
+export const uploadFileByUrl = async image => {
   try {
     const result = await OtherModel.uploadFileByUrl(image)
 

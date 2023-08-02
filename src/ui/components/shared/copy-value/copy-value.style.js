@@ -2,12 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   copyImg: {
-    width: '24px !important',
-    height: '24px !important',
+    width: '23px !important',
+    height: '23px !important',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
-      transform: 'scale(1.2)',
+      transform: 'scale(1.1)',
     },
     color: theme.palette.primary.main,
   },

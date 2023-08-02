@@ -2672,6 +2672,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       isFirstRow,
       isArchive,
       isSave,
+      isShowButtonText = true,
     }) => {
       return (
         <div className={classNames.editOrRemoveIconBtnsCell}>
