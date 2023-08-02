@@ -1,10 +1,13 @@
 import { observer } from 'mobx-react'
-import { ShareLinkIcon } from '@components/shared/svg-icons'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { useClassNames } from './open-in-new-tab.styles'
-
 import { FC } from 'react'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ShareLinkIcon } from '@components/shared/svg-icons'
+
+import { t } from '@utils/translations'
+
+import { useClassNames } from './open-in-new-tab.styles'
 
 interface OpenInNewTabProps {
   onClickOpenNewTab: () => void
