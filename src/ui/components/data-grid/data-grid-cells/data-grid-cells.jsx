@@ -3156,7 +3156,7 @@ export const IdeaRequests = React.memo(
             requestStatus={request.status}
             executor={request.executor}
             proposals={request.proposals}
-            onClickResultButton={onClickResultButton}
+            onClickResultButton={() => onClickResultButton(request.typeTask, request?.proposals[0]?._id)}
           />
         ))}
         {!withoutControls && (

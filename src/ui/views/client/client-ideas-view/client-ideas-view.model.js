@@ -28,10 +28,13 @@ import {
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList, getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { RequestProposalModel } from '@models/request-proposal'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { StorekeeperModel } from '@models/storekeeper-model'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -117,6 +120,18 @@ export class ClientIdeasViewModel {
   showSetBarcodeModal = false
   productCardModal = false
 
+  showIdeaModal = false
+  showBindingModal = false
+  showConfirmModal = false
+  showSuccessModal = false
+  showProductLaunch = false
+  showRequestDesignerResultModal = false
+  showRequestBloggerResultModal = false
+  showRequestStandartResultModal = false
+  showOrderModal = false
+
+  uploadedFiles = []
+
   // * Data
 
   ideaList = []
@@ -129,6 +144,8 @@ export class ClientIdeasViewModel {
   storekeepers = undefined
   destinations = undefined
   platformSettings = undefined
+
+  ordersDataStateToSubmit = undefined
 
   // * Filtration
 
@@ -147,6 +164,8 @@ export class ClientIdeasViewModel {
   selectedIdea = undefined
   currentProduct = undefined
   requestsForProduct = []
+  productsToLaunch = []
+  currentProposal = undefined
 
   // * Modal states
 
@@ -156,11 +175,12 @@ export class ClientIdeasViewModel {
     onClickConfirm: () => {},
   }
   successModalTitle = ''
+  isIdeaCreate = false
 
-  showIdeaModal = false
-  showBindingModal = false
-  showConfirmModal = false
-  showSuccessModal = false
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   // * Table settings
 
@@ -170,6 +190,7 @@ export class ClientIdeasViewModel {
     onClickReject: id => this.handleStatusToReject(id),
     onClickCreateRequest: (productId, asin) => this.onClickCreateRequestButton(productId, asin),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
+    onClickResultButton: (requestTypeTask, proposalId) => this.onClickResultButton(requestTypeTask, proposalId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
     onClickSelectSupplier: ideaData => this.getDataForIdeaModal(ideaData),
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
@@ -391,6 +412,8 @@ export class ClientIdeasViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
 
+      this.isIdeaCreate = false
+
       const result = await ProductModel.getProductById(row?.parentProduct?._id)
       runInAction(() => {
         this.currentProduct = result
@@ -405,6 +428,17 @@ export class ClientIdeasViewModel {
       this.requestStatus = loadingStatuses.failed
     }
   }
+
+  async onClickVariationRadioButton() {
+    try {
+      const result = await ClientModel.getProductPermissionsData({ ideaParent: true })
+      this.productsToLaunch = result
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   // * Idea handlers
 
   async statusHandler(method, id) {
@@ -609,8 +643,31 @@ export class ClientIdeasViewModel {
 
   // * Order handlers
 
-  onClickToOrder(id) {
-    this.history.push(`/client/my-orders/orders/order?orderId=${id}`)
+  async onClickToOrder(id) {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+      const [storekeepers, destinations, platformSettings] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
+
+      runInAction(() => {
+        this.storekeepers = storekeepers
+        this.destinations = destinations
+        this.platformSettings = platformSettings
+      })
+
+      const result = await ProductModel.getProductById(id)
+      runInAction(() => {
+        this.currentProduct = result
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      this.requestStatus = loadingStatuses.failed
+    }
   }
 
   async onClickCreateRequestButton(productId, asin) {
@@ -649,5 +706,150 @@ export class ClientIdeasViewModel {
       onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
     }
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onClickProductLaunch() {
+    try {
+      this.isIdeaCreate = true
+      this.onTriggerOpenModal('showProductLaunch')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickNextButton(chosenProduct) {
+    runInAction(() => (this.currentProduct = chosenProduct))
+    this.onTriggerOpenModal('showProductLaunch')
+    this.onTriggerOpenModal('showIdeaModal')
+  }
+
+  async onClickResultButton(requestTypeTask, proposalId) {
+    try {
+      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+
+      runInAction(() => {
+        this.currentProposal = result
+      })
+
+      if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
+        this.onTriggerOpenModal('showRequestDesignerResultModal')
+      } else if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.BLOGGER) {
+        this.onTriggerOpenModal('showRequestBloggerResultModal')
+      } else {
+        this.onTriggerOpenModal('showRequestStandartResultModal')
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
+    runInAction(() => {
+      this.ordersDataStateToSubmit = ordersDataState
+
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+          ? t(TranslationKey['Pending order will be created'])
+          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+        onClickConfirm: () => this.onSubmitOrderProductModal(),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitOrderProductModal() {
+    try {
+      this.setActionStatus(loadingStatuses.isLoading)
+      runInAction(() => {
+        this.error = undefined
+      })
+      this.onTriggerOpenModal('showOrderModal')
+
+      for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
+        const orderObject = this.ordersDataStateToSubmit[i]
+
+        runInAction(() => {
+          this.uploadedFiles = []
+        })
+
+        if (orderObject.tmpBarCode.length) {
+          await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
+
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
+        } else if (!orderObject.barCode) {
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
+        }
+
+        await this.createOrder(orderObject)
+      }
+
+      if (!this.error) {
+        runInAction(() => {
+          this.alertShieldSettings = {
+            showAlertShield: true,
+            alertShieldMessage: t(TranslationKey['The order has been created']),
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              ...this.alertShieldSettings,
+              showAlertShield: false,
+            }
+            setTimeout(() => {
+              this.alertShieldSettings = {
+                showAlertShield: false,
+                alertShieldMessage: '',
+              }
+            }, 1000)
+          }, 3000)
+        })
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+      this.loadData()
+      this.setActionStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setActionStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async createOrder(orderObject) {
+    try {
+      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+        'barCode',
+        'tmpBarCode',
+        'tmpIsPendingOrder',
+        '_id',
+      ])
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(requestData)
+      } else {
+        await ClientModel.createOrder(requestData)
+      }
+    } catch (error) {
+      console.log(error)
+
+      runInAction(() => {
+        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
+        this.error = error
+      })
+      this.onTriggerOpenModal('showInfoModal')
+    }
+  }
+
+  setActionStatus(actionStatus) {
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 }

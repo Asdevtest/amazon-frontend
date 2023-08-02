@@ -148,6 +148,9 @@ export class ClientInventoryViewModel {
 
   nameSearchValue = ''
 
+  productsToLaunch = []
+  selectedProductToLaunch = undefined
+
   selectedRowId = undefined
   yuanToDollarRate = undefined
   platformSettings = undefined
@@ -175,6 +178,8 @@ export class ClientInventoryViewModel {
   showGetFilesModal = false
   showEditHSCodeModal = false
   productCardModal = false
+  showProductLaunch = false
+  showIdeaModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -570,6 +575,37 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async onClickVariationRadioButton() {
+    try {
+      const result = await ClientModel.getProductPermissionsData({ ideaParent: true })
+      this.productsToLaunch = result
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async onClickProductLaunch() {
+    try {
+      const result = this.currentData?.find(product => product?.originalData?._id === this.selectedRowIds?.[0])
+      runInAction(() => (this.selectedProductToLaunch = result))
+
+      this.onTriggerOpenModal('showProductLaunch')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickNextButton(chosenProduct) {
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct))
+    this.onTriggerOpenModal('showProductLaunch')
+
+    this.onTriggerOpenModal('showIdeaModal')
+  }
+
   async onClickOrderBtn() {
     try {
       runInAction(() => {
@@ -659,56 +695,6 @@ export class ClientInventoryViewModel {
       console.log(error)
     }
   }
-
-  // onClickShopBtn(shop) {
-  //   runInAction(() => {
-  //     if (shop) {
-  //       if (shop === 'ALL') {
-  //         this.currentShops = []
-  //       } else {
-  //         if (this.currentShops.some(item => item === shop)) {
-  //           this.currentShops = this.currentShops.filter(item => item !== shop)
-  //         } else {
-  //           this.currentShops.push(shop)
-  //         }
-  //       }
-  //     }
-  //   })
-
-  //   const noProductBaseUpdate = true
-  //   this.getProductsMy(noProductBaseUpdate)
-
-  //   runInAction(() => {
-  //     this.withoutProduct = false
-  //     this.withProduct = false
-  //   })
-  // }
-
-  // async onClickWithoutProductsShopBtn() {
-  //   runInAction(() => {
-  //     this.currentShops = []
-  //     this.withoutProduct = true
-  //     this.withProduct = false
-  //   })
-
-  //   await this.getProductsMy()
-  //   runInAction(() => {
-  //     this.productsMy = this.productsMy.filter(product => !product.originalData.shopIds?.length)
-  //   })
-  // }
-
-  // async onClickWithProductsShopBtn() {
-  //   runInAction(() => {
-  //     this.currentShops = []
-  //     this.withoutProduct = false
-  //     this.withProduct = true
-  //   })
-
-  //   await this.getProductsMy()
-  //   runInAction(() => {
-  //     this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
-  //   })
-  // }
 
   onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
     runInAction(() => {

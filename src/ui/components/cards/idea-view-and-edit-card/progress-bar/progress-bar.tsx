@@ -3,12 +3,17 @@ import { observer } from 'mobx-react'
 import { FC } from 'react'
 
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
+import { Tooltip } from '@mui/material'
 
 import { minsToTime } from '@utils/text'
 
 import { useClassNames } from './progress-bar.styles'
 
 import { progressBarSettings } from './progress-bar-settings'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
 
 interface IdeaProgressBarProps {
   currentStatus: number
@@ -58,31 +63,36 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
             [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
           })}
         >
-          <p
-            className={cx(classNames.settingItemTitle, {
-              [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
-            })}
-          >
-            {settingItem.title}
-          </p>
-
-          {showStatusDuration && (
-            <>
-              {settingItem?.intervalName === 'intervalStatusSearchFoundNotFound' ? (
-                <p className={classNames.settingItemDuration}>
-                  {minsToTime(
-                    (Number(ideaData?.intervalStatusSupplierFound) +
-                      Number(ideaData?.intervalStatusSupplierNotFound) +
-                      Number(ideaData?.intervalStatusSupplierSearch)) /
-                      60,
-                  ) || ''}
-                </p>
-              ) : (
-                <p className={classNames.settingItemDuration}>
-                  {minsToTime(ideaData?.[settingItem?.intervalName] / 60) || ''}
-                </p>
-              )}
-            </>
+          {showStatusDuration ? (
+            <Tooltip
+              // classes={{ tooltip: classNames.settingItemDuration }}
+              title={
+                settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
+                  ? minsToTime(
+                      (Number(ideaData?.intervalStatusSupplierFound) +
+                        Number(ideaData?.intervalStatusSupplierNotFound) +
+                        Number(ideaData?.intervalStatusSupplierSearch)) /
+                        60,
+                    ) || t(TranslationKey.Missing)
+                  : minsToTime(ideaData?.[settingItem?.intervalName] / 60) || t(TranslationKey.Missing)
+              }
+            >
+              <p
+                className={cx(classNames.settingItemTitle, {
+                  [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
+                })}
+              >
+                {settingItem?.title}
+              </p>
+            </Tooltip>
+          ) : (
+            <p
+              className={cx(classNames.settingItemTitle, {
+                [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
+              })}
+            >
+              {settingItem?.title}
+            </p>
           )}
         </div>
       ))}

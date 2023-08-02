@@ -1882,5 +1882,6 @@ export const styles = theme => ({
     gap: 20,
     alignItems: 'center',
     padding: '16px 0',
+    height: '100%',
   },
 })

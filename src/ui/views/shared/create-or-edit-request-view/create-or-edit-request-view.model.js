@@ -56,7 +56,6 @@ export class CreateOrEditRequestViewModel {
       this.history = history
 
       if (location.state) {
-        console.log('location.state', location.state)
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
         if (location.state.parentProduct) {
