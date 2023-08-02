@@ -1,3 +1,5 @@
+import { color } from '@mui/system'
+
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -1631,8 +1633,7 @@ export const styles = theme => ({
     padding: '10px 0',
     display: 'flex',
     flexWrap: 'wrap',
-    height: '100%',
-    gap: 12,
+    gap: 10,
 
     p: {
       padding: 0,

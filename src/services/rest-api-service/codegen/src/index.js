@@ -271,6 +271,8 @@ import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
 import InlineResponse20028 from './model/InlineResponse20028';
 import InlineResponse20029 from './model/InlineResponse20029';
+import InlineResponse20029AllFiles from './model/InlineResponse20029AllFiles';
+import InlineResponse20029AllImages from './model/InlineResponse20029AllImages';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -2033,6 +2035,18 @@ export {
      * @property {module:model/InlineResponse20029}
      */
     InlineResponse20029,
+
+    /**
+     * The InlineResponse20029AllFiles model constructor.
+     * @property {module:model/InlineResponse20029AllFiles}
+     */
+    InlineResponse20029AllFiles,
+
+    /**
+     * The InlineResponse20029AllImages model constructor.
+     * @property {module:model/InlineResponse20029AllImages}
+     */
+    InlineResponse20029AllImages,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.

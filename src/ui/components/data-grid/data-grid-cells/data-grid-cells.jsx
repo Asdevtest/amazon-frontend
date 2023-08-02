@@ -51,6 +51,7 @@ import { BoxStatus } from '@constants/statuses/box-status'
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusEmumToKey } from '@constants/task/task-status'
+import { MAX_LENGTH_TITLE } from '@constants/text'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -1396,52 +1397,63 @@ export const MultilineTextCell = React.memo(
       oneLines,
       illuminationCell,
       customTextStyles,
-    }) => (
-      <>
-        {withTooltip || tooltipText ? (
-          <Tooltip title={tooltipText || text}>
+    }) => {
+      const isValidTextLength = text?.length <= MAX_LENGTH_TITLE
+      const textForRender = isValidTextLength ? text : getShortenStringIfLongerThanCount(text, MAX_LENGTH_TITLE)
+
+      return (
+        <>
+          {(withTooltip || tooltipText) && !isValidTextLength ? (
+            <Tooltip title={tooltipText || text}>
+              <div
+                className={cx(classNames.multilineTextWrapper, {
+                  [classNames.illuminationCell]: illuminationCell && textForRender,
+                })}
+              >
+                <Typography
+                  className={cx(
+                    classNames.multilineText,
+                    { [classNames.multilineLeftAlignText]: leftAlign },
+                    { [classNames.multilineLink]: onClickText && textForRender },
+                    { [classNames.threeMultilineText]: threeLines },
+                    { [classNames.oneMultilineText]: oneLines },
+                  )}
+                  style={otherStyles || customTextStyles || (color && { color })}
+                  onClick={onClickText && onClickText}
+                >
+                  {checkIsString(textForRender) && !withLineBreaks
+                    ? textForRender.replace(/\n/g, ' ')
+                    : textForRender || noTextText || '-'}
+                </Typography>
+              </div>
+            </Tooltip>
+          ) : (
             <div
               className={cx(classNames.multilineTextWrapper, {
-                [classNames.illuminationCell]: illuminationCell && text,
+                [classNames.illuminationCell]: illuminationCell && textForRender,
               })}
             >
               <Typography
                 className={cx(
                   classNames.multilineText,
                   { [classNames.multilineLeftAlignText]: leftAlign },
-                  { [classNames.multilineLink]: onClickText && text },
+                  { [classNames.multilineLink]: onClickText && textForRender },
                   { [classNames.threeMultilineText]: threeLines },
                   { [classNames.oneMultilineText]: oneLines },
+                  { [classNames.fulfilled]: customTextStyles },
                 )}
                 style={otherStyles || customTextStyles || (color && { color })}
                 onClick={onClickText && onClickText}
               >
-                {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+                {checkIsString(textForRender) && !withLineBreaks
+                  ? textForRender.replace(/\n/g, ' ')
+                  : textForRender || noTextText || '-'}
               </Typography>
             </div>
-          </Tooltip>
-        ) : (
-          <div
-            className={cx(classNames.multilineTextWrapper, { [classNames.illuminationCell]: illuminationCell && text })}
-          >
-            <Typography
-              className={cx(
-                classNames.multilineText,
-                { [classNames.multilineLeftAlignText]: leftAlign },
-                { [classNames.multilineLink]: onClickText && text },
-                { [classNames.threeMultilineText]: threeLines },
-                { [classNames.oneMultilineText]: oneLines },
-                { [classNames.fulfilled]: customTextStyles },
-              )}
-              style={otherStyles || customTextStyles || (color && { color })}
-              onClick={onClickText && onClickText}
-            >
-              {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
-            </Typography>
-          </div>
-        )}
-      </>
-    ),
+          )}
+        </>
+      )
+    },
     styles,
   ),
 )
@@ -2617,6 +2629,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       isFirstRow,
       isArchive,
       isSave,
+      isShowButtonText = true,
     }) => {
       return (
         <div className={classNames.editOrRemoveIconBtnsCell}>

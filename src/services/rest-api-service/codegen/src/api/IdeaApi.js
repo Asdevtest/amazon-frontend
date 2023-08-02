@@ -545,12 +545,12 @@ export default class IdeaApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1IdeasOnCheckingGuidPatchWithHttpInfo(guid, opts) {
+    apiV1IdeasOnCheckGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasOnCheckingGuidPatch");
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasOnCheckGuidPatch");
       }
 
       let pathParams = {
@@ -569,7 +569,7 @@ export default class IdeaApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/ideas/on_checking/{guid}', 'PATCH',
+        '/api/v1/ideas/on_check/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -583,8 +583,8 @@ export default class IdeaApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1IdeasOnCheckingGuidPatch(guid, opts) {
-      return this.apiV1IdeasOnCheckingGuidPatchWithHttpInfo(guid, opts)
+    apiV1IdeasOnCheckGuidPatch(guid, opts) {
+      return this.apiV1IdeasOnCheckGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

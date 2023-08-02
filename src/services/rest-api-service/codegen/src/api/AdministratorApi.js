@@ -1058,16 +1058,22 @@ export default class AdministratorApi {
     /**
      * #  Изменить красный флаг
      * ## Изменить красный флаг   
+     * @param {String} guid GUID красного флага в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject8} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1AdminsRedFlagsGuidPatchWithHttpInfo(opts) {
+    apiV1AdminsRedFlagsGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsRedFlagsGuidPatch");
+      }
 
       let pathParams = {
+        'guid': guid
       };
       let queryParams = {
       };
@@ -1091,13 +1097,14 @@ export default class AdministratorApi {
     /**
      * #  Изменить красный флаг
      * ## Изменить красный флаг   
+     * @param {String} guid GUID красного флага в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject8} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1AdminsRedFlagsGuidPatch(opts) {
-      return this.apiV1AdminsRedFlagsGuidPatchWithHttpInfo(opts)
+    apiV1AdminsRedFlagsGuidPatch(guid, opts) {
+      return this.apiV1AdminsRedFlagsGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

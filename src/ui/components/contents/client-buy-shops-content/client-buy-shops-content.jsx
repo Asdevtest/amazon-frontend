@@ -7,7 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
@@ -16,20 +17,6 @@ import { useClassNames } from './client-buy-shops-content.style'
 import { ClientBuyShopsAds } from './client-buy-shops-ads'
 import { ClientBuyShopsDeals } from './client-buy-shops-deals'
 
-const TabPanel = ({ children, value, index, ...other }) => {
-  const { classes: classNames } = useClassNames()
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <div className={classNames.tabPanel}>{children}</div>}
-    </div>
-  )
-}
 export const ClientBuyShopsContent = observer(() => {
   const { classes: classNames } = useClassNames()
 

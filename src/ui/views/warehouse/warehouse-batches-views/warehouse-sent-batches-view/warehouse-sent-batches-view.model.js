@@ -13,10 +13,10 @@ import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 
 const filtersFields = [
   'asin',

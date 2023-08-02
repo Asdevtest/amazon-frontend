@@ -90,7 +90,11 @@ const statusColorGroups = {
     OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
     OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
   ],
-  blue: [OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT], OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]],
+  blue: [
+    OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
+    OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+    OrderStatusByKey[OrderStatus.READY_TO_PROCESS],
+  ],
 }
 
 export const EditOrderModal = observer(
@@ -956,12 +960,10 @@ export const EditOrderModal = observer(
                             setShowPhotosModal(!showPhotosModal)
                             setBigImagesOptions({
                               ...bigImagesOptions,
-
-                              images: [
-                                typeof trackNumber.files[index] === 'string'
-                                  ? trackNumber.files[index]
-                                  : trackNumber.files[index]?.data_url,
-                              ],
+                              imgIndex: index,
+                              images: trackNumber.files.map(el => {
+                                return el === 'string' ? el : el?.data_url
+                              }),
                             })
                           }}
                         />

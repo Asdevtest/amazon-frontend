@@ -1441,6 +1441,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
+  'isChild': true, // Boolean | Существуют ли у продукта родитель
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1ClientsProductsLightGet(opts).then((data) => {
@@ -1456,6 +1457,7 @@ apiInstance.apiV1ClientsProductsLightGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **isChild** | **Boolean**| Существуют ли у продукта родитель | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

@@ -394,7 +394,9 @@ export const BoxViewForm = observer(
                       className={classNames.trackNumberPhotoBtn}
                       onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                     >
-                      {formFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                      {formFields.tmpTrackNumberFile[0]
+                        ? t(TranslationKey['File added'])
+                        : t(TranslationKey['Photo track numbers'])}
                     </Button>
                   </div>
 
@@ -434,7 +436,7 @@ export const BoxViewForm = observer(
                         ))}
                       </CustomSlider>
                     ) : (
-                      <Typography>{'no photo track number...'}</Typography>
+                      <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                     )}
                   </div>
                 </div>

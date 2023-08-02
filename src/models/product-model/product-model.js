@@ -60,13 +60,8 @@ class ProductModelStatic {
     return response
   }
 
-  getProductRedFlags = async id => {
-    const response = await restApiService.product.apiV1ProductsRedFlagsGet(id)
-    return response
-  }
-
-  getProductRedFlagss = async id => {
-    const response = await restApiService.product.red(id)
+  getProductRedFlags = async () => {
+    const response = await restApiService.product.apiV1ProductsRedFlagsGet()
     return response
   }
 }

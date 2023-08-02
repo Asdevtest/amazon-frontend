@@ -13,7 +13,7 @@ Method | HTTP request | Description
 [**apiV1IdeasGuidGet**](IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 [**apiV1IdeasNotificationsGet**](IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Получить нотификации идей
-[**apiV1IdeasOnCheckingGuidPatch**](IdeaApi.md#apiV1IdeasOnCheckingGuidPatch) | **PATCH** /api/v1/ideas/on_checking/{guid} | Изменить статус заявки на OnCheck(10)
+[**apiV1IdeasOnCheckGuidPatch**](IdeaApi.md#apiV1IdeasOnCheckGuidPatch) | **PATCH** /api/v1/ideas/on_check/{guid} | Изменить статус заявки на OnCheck(10)
 [**apiV1IdeasPagMyGet**](IdeaApi.md#apiV1IdeasPagMyGet) | **GET** /api/v1/ideas/pag/my | Список всех идей с пагинацией
 [**apiV1IdeasPost**](IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 [**apiV1IdeasProductCreatingGuidPatch**](IdeaApi.md#apiV1IdeasProductCreatingGuidPatch) | **PATCH** /api/v1/ideas/product_creating/{guid} | Изменить статус заявки на productCreating(16)
@@ -520,9 +520,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1IdeasOnCheckingGuidPatch
+## apiV1IdeasOnCheckGuidPatch
 
-> String apiV1IdeasOnCheckingGuidPatch(guid, opts)
+> String apiV1IdeasOnCheckGuidPatch(guid, opts)
 
 Изменить статус заявки на OnCheck(10)
 
@@ -544,7 +544,7 @@ let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1IdeasOnCheckingGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1IdeasOnCheckGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

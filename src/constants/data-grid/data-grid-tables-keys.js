@@ -7,6 +7,7 @@ export const DataGridTablesKeys = {
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
+  ADMIN_TAGS: 'adminTagsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
   ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',

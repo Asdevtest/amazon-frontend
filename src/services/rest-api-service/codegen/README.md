@@ -298,7 +298,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidGet**](docs/IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidPatch**](docs/IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasNotificationsGet**](docs/IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Получить нотификации идей
-*TestSwagger.IdeaApi* | [**apiV1IdeasOnCheckingGuidPatch**](docs/IdeaApi.md#apiV1IdeasOnCheckingGuidPatch) | **PATCH** /api/v1/ideas/on_checking/{guid} | Изменить статус заявки на OnCheck(10)
+*TestSwagger.IdeaApi* | [**apiV1IdeasOnCheckGuidPatch**](docs/IdeaApi.md#apiV1IdeasOnCheckGuidPatch) | **PATCH** /api/v1/ideas/on_check/{guid} | Изменить статус заявки на OnCheck(10)
 *TestSwagger.IdeaApi* | [**apiV1IdeasPagMyGet**](docs/IdeaApi.md#apiV1IdeasPagMyGet) | **GET** /api/v1/ideas/pag/my | Список всех идей с пагинацией
 *TestSwagger.IdeaApi* | [**apiV1IdeasPost**](docs/IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasProductCreatingGuidPatch**](docs/IdeaApi.md#apiV1IdeasProductCreatingGuidPatch) | **PATCH** /api/v1/ideas/product_creating/{guid} | Изменить статус заявки на productCreating(16)
@@ -748,6 +748,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
+ - [TestSwagger.InlineResponse20029AllFiles](docs/InlineResponse20029AllFiles.md)
+ - [TestSwagger.InlineResponse20029AllImages](docs/InlineResponse20029AllImages.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)

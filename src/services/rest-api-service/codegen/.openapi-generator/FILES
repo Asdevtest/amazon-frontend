@@ -271,6 +271,8 @@ docs/InlineResponse20026.md
 docs/InlineResponse20027.md
 docs/InlineResponse20028.md
 docs/InlineResponse20029.md
+docs/InlineResponse20029AllFiles.md
+docs/InlineResponse20029AllImages.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
@@ -722,6 +724,8 @@ src/model/InlineResponse20026.js
 src/model/InlineResponse20027.js
 src/model/InlineResponse20028.js
 src/model/InlineResponse20029.js
+src/model/InlineResponse20029AllFiles.js
+src/model/InlineResponse20029AllImages.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js

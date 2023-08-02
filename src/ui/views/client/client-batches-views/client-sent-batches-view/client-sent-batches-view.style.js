@@ -51,7 +51,7 @@ export const styles = theme => ({
     color: theme.palette.text.general,
   },
   archiveAddBtn: {
-    width: 172,
+    width: 230,
     display: 'flex',
     gap: 10,
     border: `1px solid ${theme.palette.other.rejected}`,

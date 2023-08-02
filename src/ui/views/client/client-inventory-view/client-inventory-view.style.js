@@ -13,7 +13,7 @@ export const styles = theme => ({
   },
 
   archiveAddBtn: {
-    width: 172,
+    width: 230,
     display: 'flex',
     gap: 10,
     border: `1px solid ${theme.palette.other.rejected}`,
@@ -41,7 +41,7 @@ export const styles = theme => ({
   },
 
   openArchiveBtn: {
-    width: 172,
+    width: 230,
     color: theme.palette.primary.main,
   },
 

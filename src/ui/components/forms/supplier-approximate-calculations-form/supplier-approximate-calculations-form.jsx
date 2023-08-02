@@ -1,17 +1,17 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
-import { Box, Tabs, Typography } from '@mui/material'
+import { Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import {
   supplierApproximateCalculationsDataConverter,
@@ -23,18 +23,6 @@ import { useClassNames } from './supplier-approximate-calculations-form.style'
 
 import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
 import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 const tabsValues = {
   WITHOUT_WEIGHT_LOGISTICS_TARIFF: 'WITHOUT_WEIGHT_LOGISTICS_TARIFF',
