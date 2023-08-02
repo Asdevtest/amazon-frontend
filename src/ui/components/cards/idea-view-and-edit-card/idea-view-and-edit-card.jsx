@@ -13,7 +13,7 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { RequestSwitherType } from '@constants/requests/request-type'
+import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
