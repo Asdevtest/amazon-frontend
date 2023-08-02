@@ -68,6 +68,7 @@ export const Button: FC<Props> = observer(
         {/* @ts-ignore */}
         <StyledButton
           disableElevation
+          title={children}
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}

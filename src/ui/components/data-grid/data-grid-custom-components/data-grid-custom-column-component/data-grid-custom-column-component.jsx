@@ -45,11 +45,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     ...other
   } = props
 
-  // console.log('UPDATE')
-
-  // console.log('currentColumn', currentColumn)
-  // console.log('props', props)
-
   // const renderStandartItems = () => ( // стандартные
   //   <div>
   //     <GridColumnMenuSortItem column={currentColumn} onClick={hideMenu} />
