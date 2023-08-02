@@ -144,7 +144,7 @@ export class AdminSettingsPaymentMethodsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickEditPaymentMethod(id) {
+  async onClickEditPaymentMethod(id) {
     this.isEdit = true
     this.editPaymentMethodId = id
 
@@ -153,6 +153,12 @@ export class AdminSettingsPaymentMethodsModel {
     if (findPaymentMethod) {
       this.method = { title: findPaymentMethod.title, iconImage: findPaymentMethod.iconImage }
       this.currentImageName = findPaymentMethod.title
+
+      const isValidImageUrl = await checkIsImageUrlValid(findPaymentMethod.iconImage)
+
+      runInAction(() => {
+        this.isValidUrl = isValidImageUrl
+      })
     }
   }
 

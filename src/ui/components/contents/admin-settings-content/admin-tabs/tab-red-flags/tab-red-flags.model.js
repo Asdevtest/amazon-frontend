@@ -144,7 +144,7 @@ export class AdminSettingsRedFlagsModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickEditRedFlag(id) {
+  async onClickEditRedFlag(id) {
     this.isEdit = true
     this.editRedFlagId = id
 
@@ -153,6 +153,12 @@ export class AdminSettingsRedFlagsModel {
     if (findRedFlag) {
       this.flag = { title: findRedFlag.title, iconImage: findRedFlag.iconImage }
       this.currentImageName = findRedFlag.title
+
+      const isValidImageUrl = await checkIsImageUrlValid(findRedFlag.iconImage)
+
+      runInAction(() => {
+        this.isValidUrl = isValidImageUrl
+      })
     }
   }
 
