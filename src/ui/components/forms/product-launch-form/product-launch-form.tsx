@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
-import { useClassNames } from './product-launch-form.styles'
+import { FC, useEffect, useState } from 'react'
 import { t } from '@utils/translations'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { RadioButtons } from '@components/shared/radio-buttons'
-import { FC, useEffect, useState } from 'react'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Button } from '@components/shared/buttons/button'
+import { useClassNames } from './product-launch-form.styles'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { RadioButtons } from '@components/shared/radio-buttons'
 
 interface IProductsLaunch {
   amazonTitle: string

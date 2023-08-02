@@ -1,17 +1,12 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
-
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
-import { Tooltip } from '@mui/material'
-
-import { minsToTime } from '@utils/text'
-
-import { useClassNames } from './progress-bar.styles'
-
-import { progressBarSettings } from './progress-bar-settings'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+import { minsToTime } from '@utils/text'
+import { useClassNames } from './progress-bar.styles'
+import { progressBarSettings } from './progress-bar-settings'
+import Tooltip from '@mui/material/Tooltip'
 
 import { t } from '@utils/translations'
 
