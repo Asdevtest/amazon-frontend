@@ -112,7 +112,7 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 130,
+    width: 140,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
