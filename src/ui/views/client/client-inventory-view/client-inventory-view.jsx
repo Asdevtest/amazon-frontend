@@ -318,6 +318,7 @@ export const ClientInventoryViewRaw = props => {
 
       <Modal
         noPadding
+        dialogContextClassName={classNames.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >

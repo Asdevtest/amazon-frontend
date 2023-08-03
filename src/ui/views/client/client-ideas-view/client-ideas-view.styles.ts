@@ -47,4 +47,8 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
       width: 12,
     },
   },
+
+  modalDialogContext: {
+    padding: 0,
+  },
 }))

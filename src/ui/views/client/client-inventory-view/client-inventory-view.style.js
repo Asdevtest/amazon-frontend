@@ -178,4 +178,8 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+
+  modalDialogContext: {
+    padding: 0,
+  },
 })
