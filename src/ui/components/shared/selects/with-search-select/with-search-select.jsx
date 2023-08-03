@@ -55,6 +55,7 @@ const WithSearchSelectRaw = observer(
     changeColorById,
     getRowValue,
     onClickSubmitBtn,
+    isWithoutItemsTooltip,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -233,11 +234,17 @@ const WithSearchSelectRaw = observer(
                               {checkbox && (
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
-                              <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
+                              {!isWithoutItemsTooltip ? (
+                                <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
+                                  <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
+                                    {getRowValue ? getRowValue(el) : el[fieldName]}
+                                  </Typography>
+                                </Tooltip>
+                              ) : (
                                 <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
-                              </Tooltip>
+                              )}
                             </React.Fragment>
                           ))}
 
