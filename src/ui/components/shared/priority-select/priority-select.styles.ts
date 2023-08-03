@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const usePrioritySelectStyles = makeStyles()(theme => ({
+export const usePrioritySelectStyles = makeStyles()(() => ({
   nativeSelect: {
     width: 150,
     '& > div': {
@@ -12,17 +12,17 @@ export const usePrioritySelectStyles = makeStyles()(theme => ({
 
   colorYellow: {
     color: '#F3AF00 !important',
-    '-webkit-text-fill-color': 'inherit !important',
+    WebkitTextFillColor: 'inherit !important',
   },
 
   colorRed: {
     color: '#FF1616 !important',
-    '-webkit-text-fill-color': 'inherit !important',
+    WebkitTextFillColor: 'inherit !important',
   },
 
   colorGreen: {
     color: '#00B746 !important',
-    '-webkit-text-fill-color': 'inherit !important',
+    WebkitTextFillColor: 'inherit !important',
   },
 
   menuItem: {

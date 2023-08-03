@@ -226,7 +226,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   disabled: {
-    '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
+    WebkitTextFillColor: `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
     width: '160px !important',

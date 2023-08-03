@@ -173,7 +173,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   researchLabel: {
-    // width: 100,
     color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
@@ -238,7 +237,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputError: {
     '.Mui-disabled': {
-      '-webkit-text-fill-color': 'red !important',
+      WebkitTextFillColor: 'red !important',
     },
   },
 
