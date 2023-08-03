@@ -34,10 +34,6 @@ export const useChatGroupUsersStyles = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       maxHeight: 335,
-
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
     },
   },
 

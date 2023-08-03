@@ -15,10 +15,6 @@ export const useClassNames = makeStyles()(theme => ({
       padding: 0,
       boxShadow: theme.palette.boxShadow.paper,
       borderRadius: 0,
-
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
     },
   },
 

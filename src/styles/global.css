@@ -29,6 +29,12 @@
   border: none;
 }
 
+@media (max-width: 767px) {
+  *::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -139,14 +145,4 @@ button::-moz-focus-inner {
 
 label {
   cursor: pointer;
-}
-
-#root {
-  height: 100vh;
-}
-
-.App {
-  height: 100%;
-  width: 100%;
-  display: flex;
 }

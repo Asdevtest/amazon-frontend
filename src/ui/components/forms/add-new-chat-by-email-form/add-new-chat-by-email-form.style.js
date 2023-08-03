@@ -1,29 +1,60 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  button: {
-    width: '122px',
-    height: '40px',
-  },
+  mainWrapper: {
+    width: 600,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
 
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: 600,
-
-    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
-      fontSize: 16,
+      width: 'auto',
+      minHeight: '100%',
+      justifyContent: 'space-between',
+      gap: 20,
     },
   },
-  cancelButton: {
+
+  title: {
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: '25px',
     color: theme.palette.text.general,
+  },
+
+  label: {
+    marginBottom: 5,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  option: {
+    padding: 0,
   },
 
   customBtnNameWrapper: {
-    display: 'flex !important',
+    display: 'flex',
     alignItems: 'center',
-    gap: 10,
-    marginLeft: 10,
+    gap: 15,
+    padding: '10px 15px',
+  },
+
+  selectContainer: {
+    margin: '0 !important',
+    flex: '1 1 auto',
+  },
+
+  button: {
+    width: 120,
+
+    [theme.breakpoints.down(768)]: {
+      width: 90,
+    },
+  },
+
+  cancelButton: {
+    color: theme.palette.text.general,
   },
 
   isFocusedOption: {
@@ -42,22 +73,5 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'flex',
       justifyContent: 'space-between',
     },
-  },
-  mainWrapper: {
-    width: '460px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '20px',
-    },
-  },
-  labelField: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
   },
 }))

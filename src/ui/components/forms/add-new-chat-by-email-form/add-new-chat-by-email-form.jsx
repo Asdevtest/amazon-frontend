@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-import { css, cx } from '@emotion/css'
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { components } from 'react-select'
 
-import { Avatar, Typography } from '@mui/material'
+import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -42,7 +41,7 @@ export const AddNewChatByEmailForm = observer(({ closeModal, onSubmit, usersData
   const Option = ({ innerRef, isFocused, ...props }) => (
     <div
       ref={innerRef}
-      className={cx(css(props.getStyles && props.getStyles('option', props)), classNames.customBtnNameWrapper, {
+      className={cx(classNames.customBtnNameWrapper, {
         option: true,
         [classNames.isFocusedOption]: isFocused,
       })}
@@ -69,17 +68,19 @@ export const AddNewChatByEmailForm = observer(({ closeModal, onSubmit, usersData
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Create a new dialog'])}</Typography>
+      <p className={classNames.title}>{t(TranslationKey['Create a new dialog'])}</p>
 
       <Field
         label={t(TranslationKey['Choose your speaker']) + '*'}
-        labelClasses={classNames.labelField}
+        labelClasses={classNames.label}
+        containerClasses={classNames.selectContainer}
         inputComponent={
           <CustomReactSelect
             hideDropdownIndicator
             menuIsOpen
             isMulti
             closeMenuOnSelect={false}
+            classes={{ option: classNames.option }}
             value={formFields.chosenUsers}
             options={usersData}
             components={{ Option, MultiValueContainer }}
@@ -94,17 +95,20 @@ export const AddNewChatByEmailForm = observer(({ closeModal, onSubmit, usersData
         <>
           <Field
             label={t(TranslationKey['Name of group chat']) + '*'}
-            labelClasses={classNames.labelField}
+            labelClasses={classNames.label}
+            containerClasses={classNames.selectContainer}
             value={formFields.title}
             onChange={onChangeField('title')}
           />
 
           <Field
             label={t(TranslationKey['Add a chat cover'])}
-            labelClasses={classNames.labelField}
+            labelClasses={classNames.label}
+            containerClasses={classNames.selectContainer}
             inputComponent={
               <UploadFilesInput
                 withoutTitle
+                fullWidth
                 images={formFields.images}
                 setImages={onChangeField('images')}
                 maxNumber={1}

@@ -73,10 +73,6 @@ export const useChatInfoStyles = makeStyles()(theme => ({
       gridTemplateColumns: 'repeat(2, 1fr)',
       maxHeight: 335,
 
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
-
       img: {
         height: '120px',
       },
@@ -94,10 +90,6 @@ export const useChatInfoStyles = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       maxHeight: 335,
-
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
     },
   },
 }))
