@@ -133,6 +133,15 @@ export const lightTheme = createTheme({
     },
 
     MuiInputBase: {
+      defaultProps: {
+        sx: {
+          '& .MuiInputBase-inputMultiline': {
+            height: '100% !important',
+            width: '100% !important',
+          },
+        },
+      },
+
       styleOverrides: {
         root: {
           color: '#001029',
@@ -141,14 +150,6 @@ export const lightTheme = createTheme({
 
           border: '1px solid #E0E0E0',
         },
-
-        // input: {
-        //   color: '#001029',
-        // },
-
-        // disabled: {
-        //   color: '#001029',
-        // },
       },
     },
 
@@ -532,11 +533,15 @@ export const darkTheme = createTheme({
     MuiInputBase: {
       //
       defaultProps: {
-        // добавлен весь объект defaultProps, удалить если нужно вернуться к прошлому виду
         sx: {
           '& .MuiInputBase-input.Mui-disabled': {
-            backgroundColor: '#36363F',
-            WebkitTextFillColor: '#fff',
+            backgroundColor: '#36363F !important',
+            WebkitTextFillColor: '#fff !important',
+          },
+
+          '& .MuiInputBase-inputMultiline': {
+            height: '100% !important',
+            width: '100% !important',
           },
         },
       },
@@ -736,7 +741,7 @@ export const darkTheme = createTheme({
       background: {
         general: '#2B2B34',
         second: '#21212B',
-
+        // third: '#21212B',
         searchSelectHover: '#25252D',
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
