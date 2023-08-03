@@ -102,7 +102,7 @@ class IdeaModelStatic {
   }
 
   setStatusToCheck = async id => {
-    const response = await restApiService.ideaApi.apiV1IdeasOnCheckingGuidPatch(id)
+    const response = await restApiService.ideaApi.apiV1IdeasOnCheckGuidPatch(id)
     return response
   }
 
@@ -128,6 +128,11 @@ class IdeaModelStatic {
 
   setStatusToFinished = async id => {
     const response = await restApiService.ideaApi.apiV1IdeasFinishedGuidPatch(id)
+    return response
+  }
+
+  setStatusToClosed = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasClosedGuidPatch(id)
     return response
   }
 

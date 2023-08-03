@@ -32,7 +32,9 @@ export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props
         checked={itemsForRender.length === choosenItems.length}
         onClick={() => selectAllItemsHandler(itemsForRender)}
       />
-      <div className={classNames.title}>{t(TranslationKey.All)}</div>
+      <div title={t(TranslationKey.All)} className={classNames.title}>
+        {t(TranslationKey.All)}
+      </div>
     </div>
   )
 }

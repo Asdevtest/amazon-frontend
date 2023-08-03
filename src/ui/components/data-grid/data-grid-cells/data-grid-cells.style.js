@@ -1,5 +1,3 @@
-import { color } from '@mui/system'
-
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -78,7 +76,7 @@ export const styles = theme => ({
     lineHeight: '18px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    maxWidth: '215px',
+    maxWidth: '165px',
     // maxWidth: '100%',
 
     overflow: 'hidden',
@@ -503,6 +501,23 @@ export const styles = theme => ({
     padding: '5px',
     maxHeight: 240,
     overflow: 'auto',
+
+    '&::-webkit-scrollbar': {
+      width: 10,
+      height: 10,
+    },
+    '&::-webkit-scrollbar-button': {
+      background: '#fff',
+      height: 5,
+    },
+    '::-webkit-scrollbar-thumb': {
+      borderRadius: 10,
+      background: '#C4C4C4',
+      border: 'none',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: '#fff',
+    },
   },
 
   withScrollBatchBoxesWrapper: {
@@ -1642,6 +1657,8 @@ export const styles = theme => ({
   },
 
   tags: {
+    alignSelf: 'flex-start',
+
     p: {
       padding: 0,
       margin: 0,

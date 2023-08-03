@@ -72,12 +72,14 @@ export const IsFormedMenuItem = React.memo(
                 onChange={handleCategory}
               >
                 <FormControlLabel
+                  title={t(TranslationKey.Formed)}
                   className={classNames.radioOption}
                   value="first"
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey.Formed)}
                 />
                 <FormControlLabel
+                  title={t(TranslationKey.Responsible)}
                   className={classNames.radioOption}
                   value="second"
                   control={<Radio className={classNames.radioControl} />}
@@ -105,7 +107,7 @@ export const IsFormedMenuItem = React.memo(
                     }
                   />
 
-                  <Typography>{t(TranslationKey.Formed)}</Typography>
+                  <Typography title={t(TranslationKey.Formed)}>{t(TranslationKey.Formed)}</Typography>
                 </div>
 
                 <div className={classNames.shop}>
@@ -123,7 +125,7 @@ export const IsFormedMenuItem = React.memo(
                     }
                   />
 
-                  <Typography>{t(TranslationKey['Not formed'])}</Typography>
+                  <Typography tile={t(TranslationKey['Not formed'])}>{t(TranslationKey['Not formed'])}</Typography>
                 </div>
               </div>
             </div>
@@ -186,12 +188,14 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
               {/* <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel> */}
               <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
                 <FormControlLabel
+                  title={t(TranslationKey.Repurchase)}
                   className={classNames.radioOption}
                   value="first"
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey.Repurchase)}
                 />
                 <FormControlLabel
+                  title={t(TranslationKey['Quantity of repurchase'])}
                   className={classNames.radioOption}
                   value="second"
                   control={<Radio className={classNames.radioControl} />}
@@ -204,7 +208,9 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
           {currentOption === 'first' && (
             <div className={classNames.isFormedWrapper}>
               <div className={classNames.isFormedSubWrapper}>
-                <Typography>{t(TranslationKey['Not need refills'])}</Typography>
+                <Typography title={t(TranslationKey['Not need refills'])}>
+                  {t(TranslationKey['Not need refills'])}
+                </Typography>
 
                 <Checkbox
                   color="primary"
@@ -220,7 +226,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
               </div>
 
               <div className={classNames.isFormedSubWrapper}>
-                <Typography>{t(TranslationKey['Need refills'])}</Typography>
+                <Typography title={t(TranslationKey['Need refills'])}>{t(TranslationKey['Need refills'])}</Typography>
 
                 <Checkbox
                   color="primary"
@@ -262,7 +268,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
     ({ classes: classNames, isHaveBarCodeFilterData }) => (
       <div className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['Got barcode'])}</Typography>
+          <Typography title={t(TranslationKey['Got barcode'])}>{t(TranslationKey['Got barcode'])}</Typography>
 
           <Checkbox
             color="primary"
@@ -282,7 +288,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
         </div>
 
         <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['No barcode'])}</Typography>
+          <Typography title={t(TranslationKey['No barcode'])}>{t(TranslationKey['No barcode'])}</Typography>
 
           <Checkbox
             color="primary"
@@ -339,7 +345,7 @@ export const OrderStatusMenuItem = React.memo(
       <div className={classNames.isFormedWrapper}>
         {checkboxes.map(item => (
           <div key={item.name} className={classNames.isFormedSubWrapper}>
-            <Typography>{item.label}</Typography>
+            <Typography title={item.label}>{item.label}</Typography>
 
             <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
           </div>
@@ -406,21 +412,24 @@ export const MyRequestsStatusMenuItem = React.memo(
                     itemsForRender={itemsForRender}
                     setChoosenItems={setChoosenItems}
                   />
-                  {itemsForRender.map((el, index) => (
-                    <div key={index} className={classNames.shop}>
-                      <Checkbox
-                        color="primary"
-                        checked={choosenItems.some(item => item === el)}
-                        onClick={() => onClickItem(el)}
-                      />
-                      <div className={classNames.shopName}>
-                        {MyRequestStatusTranslate(el) || t(TranslationKey.Empty)}
+                  {itemsForRender.map((el, index) => {
+                    const value = MyRequestStatusTranslate(el) || t(TranslationKey.Empty)
+                    const valueChecked = choosenItems.some(item => item === el)
+
+                    return (
+                      <div key={index} className={classNames.shop}>
+                        <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                        <div title={value} className={classNames.shopName}>
+                          {value}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </>
               ) : (
-                <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                  {t(TranslationKey['No options'])}
+                </Typography>
               )}
             </>
           </div>
@@ -502,24 +511,30 @@ export const FreelanceRequestType = React.memo(
                     itemsForRender={itemsForRender}
                     setChoosenItems={setChoosenItems}
                   />
-                  {itemsForRender.map(
-                    (el, index) =>
+                  {itemsForRender.map((el, index) => {
+                    const value = freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)
+                    const valueChecked = choosenItems.some(item => item === el)
+
+                    return (
                       freelanceRequestType.DEFAULT !== el && (
                         <div key={index} className={classNames.shop}>
                           <Checkbox
                             color="primary"
-                            checked={choosenItems.some(item => item === el)}
+                            checked={valueChecked}
                             onClick={() => onClickItem(freelanceRequestType[el])}
                           />
-                          <div className={classNames.shopName}>
-                            {freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)}
+                          <div title={value} className={classNames.shopName}>
+                            {value}
                           </div>
                         </div>
-                      ),
-                  )}
+                      )
+                    )
+                  })}
                 </>
               ) : (
-                <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                  {t(TranslationKey['No options'])}
+                </Typography>
               )}
             </>
           </div>
@@ -555,12 +570,16 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
         <div className={classNames.orderStatusDataBody}>
           <div className={classNames.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
             <Checkbox color="primary" checked={!chosenStatus?.length} />
-            <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
+            <div title={t(TranslationKey.All)} className={classNames.orderStatusName}>
+              {t(TranslationKey.All)}
+            </div>
           </div>
           {orderStatusDataBase.map((item, itemIndex) => (
             <div key={itemIndex} className={classNames.orderStatus} onClick={() => onClickOrderStatusData(item)}>
               <Checkbox color="primary" checked={chosenStatus?.some(status => status === item)} />
-              <div className={classNames.orderStatusName}>{OrderStatusTranslate(item)}</div>
+              <div title={OrderStatusTranslate(item)} className={classNames.orderStatusName}>
+                {OrderStatusTranslate(item)}
+              </div>
             </div>
           ))}
         </div>
@@ -650,19 +669,24 @@ export const CreatedByMenuItem = React.memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender.map(obj => (
-                        <div key={obj?._id} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={choosenItems.some(item => item?._id === obj?._id)}
-                            onClick={() => onClickItem(obj)}
-                          />
-                          <div className={classNames.shopName}>{(obj && obj?.name) || t(TranslationKey.Empty)}</div>
-                        </div>
-                      ))}
+                      {itemsForRender.map(obj => {
+                        const value = (obj && obj?.name) || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems.some(item => item?._id === obj?._id)
+
+                        return (
+                          <div key={obj?._id} className={classNames.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                            <div title={value} className={classNames.shopName}>
+                              {value}
+                            </div>
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
                   )}
                 </>
               )}
@@ -798,28 +822,30 @@ export const ObJectFieldMenuItem = React.memo(
                         //     Number(choosenItems?.some(item => item._id === b._id)) -
                         //     Number(choosenItems?.some(item => item._id === a._id)),
                         // )
-                        .map(
-                          obj =>
+                        .map(obj => {
+                          const value = obj.title || obj.name || t(TranslationKey.Empty)
+                          const valueChecked = choosenItems.some(item => item._id === obj._id)
+
+                          return (
                             obj && (
                               <div key={obj._id} className={classNames.shop}>
-                                <Checkbox
-                                  color="primary"
-                                  checked={choosenItems.some(item => item._id === obj._id)}
-                                  onClick={() => onClickItem(obj)}
-                                />
+                                <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
                                 {rowContent ? (
                                   rowContent(obj)
                                 ) : (
-                                  <div className={classNames.shopName}>
-                                    {obj.title || obj.name || t(TranslationKey.Empty)}
+                                  <div title={value} className={classNames.shopName}>
+                                    {value}
                                   </div>
                                 )}
                               </div>
-                            ),
-                        )}
+                            )
+                          )
+                        })}
                     </>
                   ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
                   )}
                 </>
               )}
@@ -895,7 +921,9 @@ export const BoxestatusMenuItem = React.memo(
           ].map(item => (
             <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
               <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-              <div className={classNames.orderStatusName}>{t(boxStatusTranslateKey(item))}</div>
+              <div title={t(boxStatusTranslateKey(item))} className={classNames.orderStatusName}>
+                {t(boxStatusTranslateKey(item))}
+              </div>
             </div>
           ))}
         </div>
@@ -981,6 +1009,8 @@ export const NormalFieldMenuItem = React.memo(
         }
       }, [nameSearchValue])
 
+      console.log(filterData)
+
       return (
         <div
           className={cx({
@@ -1015,24 +1045,26 @@ export const NormalFieldMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender.map(
-                      (el, index) =>
-                        el && (
+                    {itemsForRender.map((el, index) => {
+                      const value = getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)
+                      const valueChecked = choosenItems.some(item => item === el)
+
+                      return (
+                        !!el && (
                           <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>
-                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={classNames.shopName}>
+                              {value}
                             </div>
                           </div>
-                        ),
-                    )}
+                        )
+                      )
+                    })}
                   </>
                 ) : (
-                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    {t(TranslationKey['No options'])}
+                  </Typography>
                 )}
               </>
             )}
@@ -1078,8 +1110,6 @@ export const PriorityMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      console.log('columnKey', columnKey)
-
       const isOrder = ['MY_ORDERS_PRIORITY', 'ORDERS_PRIORITY'].includes(columnKey)
       const urgentPriority = isOrder ? [40] : [30]
       const withoutPriority = isOrder ? [30] : [10, 20]
@@ -1100,6 +1130,8 @@ export const PriorityMenuItem = React.memo(
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
+      const shopName = isOrder ? 'Urgent' : 'Urgent request'
+
       return (
         <div className={classNames.shopsDataWrapper}>
           <div className={classNames.shopsWrapper}>
@@ -1110,8 +1142,8 @@ export const PriorityMenuItem = React.memo(
                   checked={choosenItems.some(item => urgentPriority.includes(Number(item)))}
                   onClick={() => onClickItem(urgentPriority)}
                 />
-                <div className={classNames.shopName}>
-                  {t(TranslationKey[`${isOrder ? 'Urgent' : 'Urgent request'}`])} <img src="/assets/icons/fire.svg" />
+                <div title={shopName} className={classNames.shopName}>
+                  {t(TranslationKey[`${shopName}`])} <img src="/assets/icons/fire.svg" />
                 </div>
               </div>
 
@@ -1123,7 +1155,9 @@ export const PriorityMenuItem = React.memo(
                     onClickItem(withoutPriority)
                   }}
                 />
-                <div className={classNames.shopName}>{t(TranslationKey['Without Priority'])}</div>
+                <div title={'Without Priority'} className={classNames.shopName}>
+                  {t(TranslationKey['Without Priority'])}
+                </div>
               </div>
             </div>
           </div>
@@ -1194,7 +1228,9 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
                   checked={choosenItems.some(item => item === true)}
                   onClick={() => onClickItem(true)}
                 />
-                <div className={classNames.shopName}>{t(TranslationKey.Yes)}</div>
+                <div title={t(TranslationKey.Yes)} className={classNames.shopName}>
+                  {t(TranslationKey.Yes)}
+                </div>
               </div>
 
               <div className={classNames.shop}>
@@ -1203,7 +1239,9 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
                   checked={choosenItems.some(item => item === false)}
                   onClick={() => onClickItem(false)}
                 />
-                <div className={classNames.shopName}>{t(TranslationKey.No)}</div>
+                <div title={t(TranslationKey.No)} className={classNames.shopName}>
+                  {t(TranslationKey.No)}
+                </div>
               </div>
             </div>
           </div>
@@ -1305,7 +1343,9 @@ export const ProductMenuItem = React.memo(
       <div className={classNames.shopsDataWrapper}>
         <div>
           <FormControl className={classNames.formControl}>
-            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+            <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
+              {t(TranslationKey['Search by']) + ':'}
+            </FormLabel>
             <RadioGroup
               row
               className={cx({
@@ -1316,6 +1356,7 @@ export const ProductMenuItem = React.memo(
               onChange={handleCategory}
             >
               <FormControlLabel
+                title={t(TranslationKey.ASIN)}
                 className={classNames.radioOption}
                 value="asin"
                 control={<Radio className={classNames.radioControl} />}
@@ -1323,6 +1364,7 @@ export const ProductMenuItem = React.memo(
               />
               {!withoutSku && (
                 <FormControlLabel
+                  title={t(TranslationKey.SKU)}
                   className={classNames.radioOption}
                   value="skusByClient"
                   control={<Radio className={classNames.radioControl} />}
@@ -1330,6 +1372,7 @@ export const ProductMenuItem = React.memo(
                 />
               )}
               <FormControlLabel
+                title={t(TranslationKey.Title)}
                 className={classNames.radioOption}
                 value="amazonTitle"
                 control={<Radio className={classNames.radioControl} />}
@@ -1362,19 +1405,24 @@ export const ProductMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender?.map((el, index) => (
-                      <div key={index} className={classNames.shop}>
-                        <Checkbox
-                          color="primary"
-                          checked={choosenItems?.some(item => item === el)}
-                          onClick={() => onClickItem(el)}
-                        />
-                        <div className={classNames.shopName}>{el || t(TranslationKey.Empty)}</div>
-                      </div>
-                    ))}
+                    {itemsForRender?.map((el, index) => {
+                      const value = el || t(TranslationKey.Empty)
+                      const valueChecked = choosenItems?.some(item => item === el)
+
+                      return (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                          <div title={value} className={classNames.shopName}>
+                            {value}
+                          </div>
+                        </div>
+                      )
+                    })}
                   </>
                 ) : (
-                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    {t(TranslationKey['No options'])}
+                  </Typography>
                 )}
               </>
             )}
@@ -1466,12 +1514,14 @@ export const OrderOrItemMenuItem = React.memo(
                 onChange={e => setCurrentOption(e.target.value)}
               >
                 <FormControlLabel
+                  title={t(TranslationKey['№Order'])}
                   className={classNames.radioOption}
                   value="id"
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey['№Order'])}
                 />
                 <FormControlLabel
+                  title={'№Item'}
                   className={classNames.radioOption}
                   value="item"
                   control={<Radio className={classNames.radioControl} />}
@@ -1511,19 +1561,24 @@ export const OrderOrItemMenuItem = React.memo(
                         //     Number(choosenItems?.some(item => item === b)) -
                         //     Number(choosenItems?.some(item => item === a)),
                         // )
-                        .map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems?.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>{el || t(TranslationKey.Empty)}</div>
-                          </div>
-                        ))}
+                        .map((el, index) => {
+                          const value = el || t(TranslationKey.Empty)
+                          const valueChecked = choosenItems?.some(item => item === el)
+
+                          return (
+                            <div key={index} className={classNames.shop}>
+                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                              <div title={value} className={classNames.shopName}>
+                                {value}
+                              </div>
+                            </div>
+                          )
+                        })}
                     </>
                   ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
                   )}
                 </>
               )}
@@ -1624,15 +1679,19 @@ export const DestinationMenuItem = React.memo(
       <div className={classNames.shopsDataWrapper}>
         <div>
           <FormControl className={classNames.formControl}>
-            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+            <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
+              {t(TranslationKey['Search by']) + ':'}
+            </FormLabel>
             <RadioGroup row className={classNames.radioGroupTwoItems} value={currentOption} onChange={handleCategory}>
               <FormControlLabel
+                title={t(TranslationKey.Destination)}
                 className={classNames.radioOption}
                 value="destination"
                 control={<Radio className={classNames.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
+                title={t(TranslationKey.Tariff)}
                 className={classNames.radioOption}
                 value="logicsTariff"
                 control={<Radio className={classNames.radioControl} />}
@@ -1665,19 +1724,24 @@ export const DestinationMenuItem = React.memo(
                       itemsForRender={itemsForRender}
                       setChoosenItems={setChoosenItems}
                     />
-                    {itemsForRender.map(obj => (
-                      <div key={obj?._id} className={classNames.shop}>
-                        <Checkbox
-                          color="primary"
-                          checked={choosenItems.some(item => item?._id === obj?._id)}
-                          onClick={() => onClickItem(obj)}
-                        />
-                        <div className={classNames.shopName}>{obj?.name || t(TranslationKey.Empty)}</div>
-                      </div>
-                    ))}
+                    {itemsForRender.map(obj => {
+                      const value = obj?.name || t(TranslationKey.Empty)
+                      const valueChecked = choosenItems.some(item => item?._id === obj?._id)
+
+                      return (
+                        <div key={obj?._id} className={classNames.shop}>
+                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                          <div title={value} className={classNames.shopName}>
+                            {value}
+                          </div>
+                        </div>
+                      )
+                    })}
                   </>
                 ) : (
-                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    {t(TranslationKey['No options'])}
+                  </Typography>
                 )}
               </>
             )}
@@ -1763,11 +1827,15 @@ export const FromToDateMenuItem = React.memo(
           <div className={classNames.fromToDatesWrapper}>
             {headerControls && <div>{headerControls()}</div>}
             <div className={classNames.fromToDatesSubWrapper}>
-              <Typography className={classNames.fromToText}>{t(TranslationKey.From)}</Typography>
+              <Typography title={t(TranslationKey.From)} className={classNames.fromToText}>
+                {t(TranslationKey.From)}
+              </Typography>
               <NewDatePicker className={classNames.dateInput} value={fromDate} onChange={setFromDate} />
             </div>
             <div className={classNames.fromToDatesSubWrapper}>
-              <Typography className={classNames.fromToText}>{t(TranslationKey.To)}</Typography>
+              <Typography title={t(TranslationKey.To)} className={classNames.fromToText}>
+                {t(TranslationKey.To)}
+              </Typography>
 
               <NewDatePicker className={classNames.dateInput} value={toDate} onChange={setToDate} />
             </div>
@@ -1803,21 +1871,23 @@ export const FromToDateMenuItem = React.memo(
                         //     Number(choosenItems?.some(item => item === b)) -
                         //       Number(choosenItems?.some(item => item === a)) || compareDesc(parseISO(a), parseISO(b)),
                         // )
-                        ?.map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems?.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>
-                              {formatNormDateTime(el) || t(TranslationKey.Empty)}
+                        ?.map((el, index) => {
+                          const value = formatNormDateTime(el) || t(TranslationKey.Empty)
+                          const valueChecked = choosenItems?.some(item => item === el)
+                          return (
+                            <div key={index} className={classNames.shop}>
+                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                              <div title={value} className={classNames.shopName}>
+                                {value}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          )
+                        })}
                     </>
                   ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
                   )}
                 </>
               )}
@@ -1940,6 +2010,7 @@ export const NumberFieldMenuItem = React.memo(
         <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.numInputsWrapper}>
             <Input
+              title={t(TranslationKey.From)}
               className={classNames.numInput}
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.From)}
@@ -1947,6 +2018,7 @@ export const NumberFieldMenuItem = React.memo(
               onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
             />
             <Input
+              title={t(TranslationKey.To)}
               className={classNames.numInput}
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
@@ -1985,19 +2057,24 @@ export const NumberFieldMenuItem = React.memo(
                         //     Number(choosenItems?.some(item => item === b)) -
                         //       Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
                         // )
-                        ?.map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems?.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>{isNotFixedValue ? el : toFixed(el, 2) || 0}</div>
-                          </div>
-                        ))}
+                        ?.map((el, index) => {
+                          const value = isNotFixedValue ? el : toFixed(el, 2) || 0
+                          const valueChecked = choosenItems?.some(item => item === el)
+
+                          return (
+                            <div key={index} className={classNames.shop}>
+                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                              <div title={value} className={classNames.shopName}>
+                                {value}
+                              </div>
+                            </div>
+                          )
+                        })}
                     </>
                   ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
                   )}
                 </>
               )}
@@ -2110,7 +2187,9 @@ export const InStockMenuItem = React.memo(
         <div className={classNames.shopsDataWrapper}>
           <div>
             <FormControl className={classNames.formControl}>
-              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+              <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
+                {t(TranslationKey['Search by']) + ':'}
+              </FormLabel>
               <RadioGroup
                 row
                 className={classNames.radioGroupTwoItems}
@@ -2135,6 +2214,7 @@ export const InStockMenuItem = React.memo(
 
           <div className={classNames.numInputsWrapper}>
             <Input
+              title={t(TranslationKey.From)}
               className={classNames.numInput}
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.From)}
@@ -2142,6 +2222,7 @@ export const InStockMenuItem = React.memo(
               onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
             />
             <Input
+              title={t(TranslationKey.To)}
               className={classNames.numInput}
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
@@ -2181,21 +2262,24 @@ export const InStockMenuItem = React.memo(
                         //   Number(choosenItems?.some(item => item._id === a._id)) ||
                         // Number(b.amountInBoxes) - Number(a.amountInBoxes),
                         // )
-                        ?.map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems?.some(item => item._id === el._id)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>
-                              {el.amountInBoxes /* || t(TranslationKey.Empty) */}
+                        ?.map((el, index) => {
+                          const value = el.amountInBoxes /* || t(TranslationKey.Empty) */
+                          const valueChecked = choosenItems?.some(item => item._id === el._id)
+
+                          return (
+                            <div key={index} className={classNames.shop}>
+                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                              <div title={el.amountInBoxes} className={classNames.shopName}>
+                                {value}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          )
+                        })}
                     </>
                   ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
                   )}
                 </>
               )}
@@ -2245,7 +2329,9 @@ export const RedFlagsCellMenuItem = React.memo(
         rowContent={obj => (
           <div className={classNames.redFlagsCell}>
             <img src={`/assets/icons/redflags/${obj.title}.svg`} alt={obj.title} />
-            <div className={classNames.shopName}>{obj.title || t(TranslationKey.Empty)}</div>
+            <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
+              {obj.title || t(TranslationKey.Empty)}
+            </div>
           </div>
         )}
         onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
@@ -2288,7 +2374,7 @@ export const OnListingCellMenuItem = React.memo(
                 }}
               />
 
-              <Typography>{t(TranslationKey.Yes)}</Typography>
+              <Typography title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</Typography>
             </div>
 
             <div className={classNames.shop}>
@@ -2304,7 +2390,7 @@ export const OnListingCellMenuItem = React.memo(
                 }}
               />
 
-              <Typography>{t(TranslationKey.No)}</Typography>
+              <Typography title={t(TranslationKey.No)}>{t(TranslationKey.No)}</Typography>
             </div>
           </div>
         </div>
@@ -2344,7 +2430,7 @@ export const YesNoCellMenuItem = React.memo(
                 }}
               />
 
-              <Typography>{t(TranslationKey.Yes)}</Typography>
+              <Typography title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</Typography>
             </div>
 
             <div className={classNames.shop}>
@@ -2360,7 +2446,7 @@ export const YesNoCellMenuItem = React.memo(
                 }}
               />
 
-              <Typography>{t(TranslationKey.No)}</Typography>
+              <Typography title={t(TranslationKey.No)}>{t(TranslationKey.No)}</Typography>
             </div>
           </div>
         </div>
@@ -2428,6 +2514,7 @@ export const BatchShippingDateCellMenuItem = React.memo(
               {batchShippingDateTabs.map((el, index) => (
                 <FormControlLabel
                   key={index}
+                  title={el.label}
                   className={classNames.radioOption}
                   value={el.value}
                   control={<Radio className={classNames.radioControl} />}
@@ -2475,8 +2562,6 @@ export const BatchTrackingCellMenuItem = React.memo(
       onClickFilterBtn(currentTab)
     }, [currentTab])
 
-    console.log(currentTab === batchShippingDateTabs[0].value)
-
     return (
       <div className={classNames.shopsDataWrapper}>
         <div>
@@ -2490,6 +2575,7 @@ export const BatchTrackingCellMenuItem = React.memo(
               {batchTrackingTabs.map((el, index) => (
                 <FormControlLabel
                   key={index}
+                  title={el.label}
                   className={classNames.radioOption}
                   value={el.value}
                   control={<Radio className={classNames.radioControl} />}
@@ -2560,6 +2646,7 @@ export const NumberWithTabsMenuItem = React.memo(
                 {tabs.map((el, index) => (
                   <FormControlLabel
                     key={index}
+                    title={el.label}
                     className={styles.radioOption}
                     value={el.value}
                     control={<Radio className={styles.radioControl} />}

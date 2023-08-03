@@ -89,7 +89,7 @@ export const ProductWrapper = observer(
     return (
       <>
         {SettingsModel.languageTag && (
-          <>
+          <div className={classNames.mainWrapper}>
             <Tabs
               variant={'fullWidth'}
               classes={{
@@ -232,7 +232,7 @@ export const ProductWrapper = observer(
             <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
               <ManagementTabView product={product} />
             </TabPanel>
-          </>
+          </div>
         )}
       </>
     )

@@ -74,6 +74,7 @@ export const SearchInput: FC<Props> = ({
       disabled={disabled}
       className={cx(classNames.input, !!inputClasses && inputClasses)}
       value={onSubmit ? internalValue : value}
+      title={placeholder}
       placeholder={placeholder}
       classes={{ input: classNames.inputClass }}
       endAdornment={

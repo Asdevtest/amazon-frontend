@@ -130,6 +130,7 @@ export const MyProposalsViewRaw = props => {
 
             <div className={classNames.proposalSelect}>
               <WithSearchSelect
+                isWithoutItemsTooltip
                 checkbox
                 notCloseOneClick
                 width={350}

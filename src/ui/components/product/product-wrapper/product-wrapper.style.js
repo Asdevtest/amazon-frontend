@@ -1,6 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  mainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
   rootTabs: {
     minHeight: 0,
   },

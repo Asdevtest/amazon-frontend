@@ -62,7 +62,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   settingItemActiveTitle: {
-    color: '#fff',
+    color: '#fff !important',
   },
 
   finalStatus: {

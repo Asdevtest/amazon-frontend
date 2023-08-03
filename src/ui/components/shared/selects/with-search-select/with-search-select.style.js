@@ -54,7 +54,7 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     height: 36,
     marginBottom: 10,
-    borderBottom: '1px solid #E0E0E0',
+    // borderBottom: '1px solid #E0E0E0',
     padding: '0 17px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
