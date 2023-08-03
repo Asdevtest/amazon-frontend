@@ -102,7 +102,7 @@ class IdeaModelStatic {
   }
 
   setStatusToCheck = async id => {
-    const response = await restApiService.ideaApi.apiV1IdeasOnCheckingGuidPatch(id)
+    const response = await restApiService.ideaApi.apiV1IdeasOnCheckGuidPatch(id)
     return response
   }
 
