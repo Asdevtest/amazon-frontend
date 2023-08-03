@@ -11,7 +11,6 @@ import { adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-con
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
@@ -32,7 +31,7 @@ export const AdminExchangeViewsRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Grid container spacing={2} className={classNames.filterBtnWrapper}>
           {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
             <Grid key={index} item>
@@ -92,7 +91,7 @@ export const AdminExchangeViewsRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

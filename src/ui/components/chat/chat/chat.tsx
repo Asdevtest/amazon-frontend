@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { cx } from '@emotion/css'
@@ -5,10 +6,9 @@ import { observer } from 'mobx-react'
 import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
+import { ClickAwayListener, InputAdornment, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
@@ -19,16 +19,14 @@ import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
-import { ChatCurrentReplyMessage } from '@components/chat/chat/chat-current-reply-message'
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
 import { EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
 
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './chat.style'
+import { useClassNames } from './chat.styles'
 
 import { CurrentOpponent, IFile } from '../multiple-chats'
 
@@ -63,12 +61,10 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
-  onClickBackButton: () => void
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
@@ -88,7 +84,6 @@ export const Chat: FC<Props> = observer(
     renderAdditionalButtons,
     updateData,
     onTypingMessage,
-    onClickBackButton,
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
@@ -171,13 +166,13 @@ export const Chat: FC<Props> = observer(
         updateData()
       }
 
-      if (startMessagesCount > 0) {
+      if (startMessagesCount > 0 && messagesWrapperRef.current) {
         const currentScrollPosition = toFixed(
-          messagesWrapperRef.current!.scrollTop + messagesWrapperRef.current!.clientHeight,
+          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
         )
-        const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
+        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
 
-        if (scrolledFromBottom > messagesWrapperRef.current!.clientHeight) {
+        if (scrolledFromBottom > messagesWrapperRef.current.clientHeight) {
           setUnreadMessages(messages.slice(startMessagesCount, messages.length).filter(el => el.user?._id !== userId))
         } else {
           setStartMessagesCount(messages.length)
@@ -266,14 +261,7 @@ export const Chat: FC<Props> = observer(
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.opponentWrapper}>
-          <ArrowBackIosIcon color="primary" onClick={onClickBackButton} />
-          <div className={classNames.opponentSubWrapper}>
-            <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-            <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-          </div>
-        </div>
+      <>
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList
             chatId={chat._id}
@@ -281,6 +269,8 @@ export const Chat: FC<Props> = observer(
             isGroupChat={isGroupChat}
             userId={userId}
             messages={messages}
+            isShowChatInfo={isShowChatInfo}
+            messageToReply={messageToReply}
             handlers={chatMessageHandlers}
             toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
@@ -290,7 +280,7 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          <div className={cx(classNames.hideAndShowIconWrapper)} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
+          <div className={classNames.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
             {isShowChatInfo ? (
               <HideArrowIcon className={cx(classNames.arrowIcon, classNames.hideArrow)} />
             ) : (
@@ -300,9 +290,7 @@ export const Chat: FC<Props> = observer(
 
           {isShowScrollToBottomBtn && (
             <div
-              className={cx(classNames.scrollToBottom, {
-                [classNames.scrollToBottomWithChatInfo]: isShowChatInfo,
-              })}
+              className={cx(classNames.scrollToBottom, isShowChatInfo && classNames.scrollToBottomRight)}
               onClick={onClickScrollToBottom}
             >
               <KeyboardArrowDownIcon />
@@ -325,17 +313,9 @@ export const Chat: FC<Props> = observer(
           )}
         </div>
 
-        {messageToReply && (
-          <ChatCurrentReplyMessage
-            message={messageToReply}
-            setMessageToReply={setMessageToReply}
-            setMessageToScroll={setMessageToScroll}
-          />
-        )}
+        {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
         <div className={classNames.bottomPartWrapper}>
-          {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
-
           {isShowEmojis ? (
             <ClickAwayListener
               mouseEvent="onMouseDown"
@@ -370,36 +350,28 @@ export const Chat: FC<Props> = observer(
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{ maxLength: 1000 }}
-              InputProps={
-                userContainedInChat ? (
-                  {
-                    endAdornment: (
-                      <InputAdornment position="end" classes={{ root: classNames.endAdornment }}>
-                        <div className={classNames.filesIconWrapper}>
-                          <EmojiIcon
-                            id="emoji-icon"
-                            className={cx(classNames.inputIcon, classNames.emojiIconPos, {
-                              [classNames.inputIconActive]: isShowEmojis,
-                            })}
-                            onClick={() => setIsShowEmojis(!isShowEmojis)}
-                          />
-                        </div>
-                        <div className={classNames.filesIconWrapper}>
-                          <FileIcon
-                            className={cx(classNames.inputIcon, classNames.fileIconPos, {
-                              [classNames.inputIconActive]: showFiles,
-                            })}
-                            onClick={() => setShowFiles(!showFiles)}
-                          />
-                          {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
-                        </div>
-                      </InputAdornment>
-                    ),
-                  }
-                ) : (
-                  <div />
-                )
-              }
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" className={classNames.icons}>
+                    <EmojiIcon
+                      id="emoji-icon"
+                      className={cx(classNames.inputIcon, {
+                        [classNames.inputIconActive]: isShowEmojis,
+                      })}
+                      onClick={() => setIsShowEmojis(!isShowEmojis)}
+                    />
+                    <div className={classNames.filesIconWrapper}>
+                      <FileIcon
+                        className={cx(classNames.inputIcon, {
+                          [classNames.inputIconActive]: showFiles,
+                        })}
+                        onClick={() => setShowFiles(!showFiles)}
+                      />
+                      {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
+                    </div>
+                  </InputAdornment>
+                ),
+              }}
               value={message}
               onFocus={onFocus}
               onBlur={onBlur}
@@ -418,7 +390,7 @@ export const Chat: FC<Props> = observer(
 
           {renderAdditionalButtons ? renderAdditionalButtons({ message, files }, resetAllInputs) : undefined}
         </div>
-      </div>
+      </>
     )
   },
 )

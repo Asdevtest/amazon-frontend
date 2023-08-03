@@ -7,7 +7,7 @@ import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-export class AppbarModel {
+export class HeaderModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -50,10 +50,6 @@ export class AppbarModel {
 
   get simpleMessageCrmItemId() {
     return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
-  }
-
-  get breadcrumbsAdditionalText() {
-    return SettingsModel.lastCrumbAdditionalText
   }
 
   constructor({ history }) {

@@ -12,7 +12,6 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 // import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import { MainContent } from '@components/layout/main-content'
 import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'
@@ -39,7 +38,7 @@ export const ClientDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classes.userInfoWrapper}>
           <div className={classes.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classes.cardImg} />
@@ -87,7 +86,7 @@ export const ClientDashboardViewRaw = props => {
           onClickViewMore={viewModel.onClickInfoCardViewMode}
           onClickAddProduct={viewModel.onClickAddProduct}
         />
-      </MainContent>
+      </div>
       <UserMoneyTransferModal
         openModal={viewModel.showTransferModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}

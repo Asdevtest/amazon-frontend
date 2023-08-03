@@ -1,59 +1,33 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useNavbarDrawerContentStyles = makeStyles()(theme => ({
-  reverseMainSubWrapper: {
-    justifyContent: 'flex-end',
-  },
-
+export const useClassNames = makeStyles()(theme => ({
   mainSubWrapper: {
-    backgroundColor: theme.palette.background.general,
-    height: '100vh',
-    flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-  },
+    justifyContent: 'space-between',
 
-  logoWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: theme.spacing(7),
-    flexShrink: 0,
-    width: '240px',
-
-    backgroundColor: 'inherit',
-
-    [theme.breakpoints.down(1282)]: {
-      display: 'none',
+    [theme.breakpoints.down(768)]: {
+      height: '100%',
     },
   },
 
-  logo: {
-    marginTop: '15px',
-    height: '100%',
-    transform: 'scale(1.2)',
-  },
-
   categoriesWrapper: {
-    backgroundColor: theme.palette.background.general,
-    height: '100%',
-    overflow: 'auto',
     padding: 0,
   },
 
   bottomCategories: {
-    justifySelf: 'flex-end',
     marginBottom: 15,
   },
 
   feedBackButton: {
     width: '100%',
-    height: 43,
+    height: 42,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 15px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
+
     '&:hover': {
       backgroundColor: 'rgba(0,123,255,0.3)',
       opacity: 0.7,
@@ -61,29 +35,18 @@ export const useNavbarDrawerContentStyles = makeStyles()(theme => ({
   },
 
   shortFeedBackButton: {
-    padding: 0,
-    margin: '0 auto',
-    width: '80%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      backgroundColor: 'rgba(0,123,255,0.3)',
-      opacity: 0.7,
-    },
+    padding: '0 10px',
+    justifyContent: 'flex-start',
   },
 
   feedBackText: {
     fontSize: 13,
     lineHeight: '140%',
-    color: theme.palette.text.general,
   },
 
   feedbackIcon: {
     width: '46px !important',
     height: '40px !important',
-    // color: `${theme.palette.text.general} !important`,
     color: theme.palette.text.general,
   },
 
@@ -91,7 +54,6 @@ export const useNavbarDrawerContentStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     marginLeft: 15,
     display: 'inline-block',
-
     cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
@@ -100,7 +62,6 @@ export const useNavbarDrawerContentStyles = makeStyles()(theme => ({
   },
 
   smallAppVersion: {
-    fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
     marginLeft: 8,

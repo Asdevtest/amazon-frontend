@@ -134,8 +134,6 @@ class ChatModelStatic {
       return
     }
     try {
-      // console.log('getSimpleChats')
-
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
@@ -143,8 +141,6 @@ class ChatModelStatic {
           messages: chat.messages,
         }))
       })
-
-      console.log('getSimpleChatsResult', getSimpleChatsResult)
     } catch (error) {
       console.warn(error)
     }
@@ -178,8 +174,6 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-
-    // console.log('***SEND_MESSAGE', params)
 
     if (params.files?.length) {
       for (let i = 0; i < params.files.length; i++) {
@@ -228,7 +222,6 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-    // console.log('***TYPING_MESSAGE!!!')
     await this.websocketChatService.typingMessage(params)
     // return plainToInstance(ChatMessageContract, sendMessageResult)
   }
@@ -278,14 +271,10 @@ class ChatModelStatic {
   }
 
   private onNewOrderDeadlineNotification(notification: object[]) {
-    // console.log('notification', notification)
-
     SettingsModel.setSnackNotifications({ key: snackNoticeKey.ORDER_DEADLINE, notice: notification })
   }
 
   private onUserIdea(notification: object[]) {
-    // console.log('notification', notification)
-
     SettingsModel.setSnackNotifications({ key: snackNoticeKey.IDEAS, notice: notification })
   }
 
@@ -299,8 +288,6 @@ class ChatModelStatic {
 
   private onNewMessage(newMessage: ChatMessageContract) {
     if (newMessage.type === ChatMessageType.SYSTEM) {
-      // console.log('SYS')
-
       this.getSimpleChats()
     }
 
@@ -308,8 +295,6 @@ class ChatModelStatic {
       ChatMessageContract,
       newMessage,
     )
-
-    // console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
@@ -329,8 +314,6 @@ class ChatModelStatic {
     }
 
     if (findSimpleChatIndexById !== -1) {
-      // console.log('***NEW_MESSAGE_IS_COME!!!', message)
-
       if (this.noticeOfSimpleChats && message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
         noticeSound.play()
 
@@ -365,8 +348,6 @@ class ChatModelStatic {
   }
 
   private onReadMessage(response: OnReadMessageResponse) {
-    // console.log('***MY_MESSAGE_IS_READ_!!!')
-
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
     if (findChatIndexById !== -1) {
@@ -393,8 +374,6 @@ class ChatModelStatic {
   }
 
   private onTypingMessage(response: OnTypingMessageResponse) {
-    // console.log('***ON_TYPING_MESSAGE!!!')
-
     runInAction(() => {
       this.typingUsers = [...this.typingUsers, response]
     })
@@ -411,7 +390,6 @@ class ChatModelStatic {
   }
 
   private onNewChat(newChat: ChatContract) {
-    // console.log('***ON_NEW_CHAT!!!')
     this.getSimpleChats()
 
     const chat = plainToInstance<ChatContract, unknown>(ChatContract, newChat)

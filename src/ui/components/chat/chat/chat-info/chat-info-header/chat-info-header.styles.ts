@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useChatInfoHeaderStyles = makeStyles()(theme => ({
+export const useChatInfoHeaderStyles = makeStyles()(() => ({
   chatHeader: {
     position: 'relative',
     maxHeight: 178,

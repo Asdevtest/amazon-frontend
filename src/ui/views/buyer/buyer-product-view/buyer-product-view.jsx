@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -31,7 +30,7 @@ export const BuyerProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.product ? (
           <ProductWrapper
             showTab={viewModel.showTab}
@@ -49,7 +48,7 @@ export const BuyerProductView = observer(props => {
             onClickHsCode={viewModel.onClickHsCode}
           />
         ) : undefined}
-      </MainContent>
+      </div>
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
         openModal={viewModel.showAddOrEditSupplierModal}

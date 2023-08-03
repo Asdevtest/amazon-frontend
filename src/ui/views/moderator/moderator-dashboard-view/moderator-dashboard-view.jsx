@@ -6,7 +6,6 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -21,7 +20,7 @@ export const ModeratorDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
 
         {viewModel.userInfo.masterUser && (
@@ -35,7 +34,7 @@ export const ModeratorDashboardViewRaw = props => {
             />
           </div>
         )}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

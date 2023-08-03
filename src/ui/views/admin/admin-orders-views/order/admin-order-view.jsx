@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
-import { MainContent } from '@components/layout/main-content'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
@@ -41,7 +40,7 @@ export const AdminOrderViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backButtonWrapper}>
           <Button className={classNames.backButton} onClick={goBack}>
             {t(TranslationKey.Back)}
@@ -59,7 +58,7 @@ export const AdminOrderViewRaw = props => {
             onTriggerAddOrEditSupplierModal={viewModel.onTriggerAddOrEditSupplierModal}
           />
         ) : null}
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}>
         <AddOrEditSupplierModalContent

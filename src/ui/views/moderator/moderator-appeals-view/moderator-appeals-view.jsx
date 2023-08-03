@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { AppealsListCard } from '@components/cards/appeals-list-card/appeals-list-card'
-import { MainContent } from '@components/layout/main-content'
 
 import { styles } from './moderator-appeals-view.style'
 
@@ -15,9 +14,9 @@ export const ModeratorAppealsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <AppealsListCard onClickViewMore={viewModel.onClickViewMore} />
-      </MainContent>
+      </div>
 
       {/* <ConfirmationModal
           openModal={showConfirmModal}

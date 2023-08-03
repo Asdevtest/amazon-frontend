@@ -11,7 +11,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
-import { MainContent } from '@components/layout/main-content'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsResearcher } from '@utils/checks'
@@ -37,7 +36,7 @@ export const ResearcherDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
@@ -69,7 +68,7 @@ export const ResearcherDashboardViewRaw = props => {
             onClickViewMore={viewModel.onClickInfoCardViewMode}
           />
         ))}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }
