@@ -1,24 +1,30 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  breadCrumbsWrapper: {
+    padding: '10px 30px',
+  },
+
   lastCrumb: {
     color: theme.palette.text.general,
     fontSize: 16,
+
     [theme.breakpoints.down(768)]: {
-      fontSize: '14px !important',
+      fontSize: 14,
     },
   },
 
-  сrumb: {
+  crumb: {
     color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
 
     '&:hover': {
       textDecoration: 'underline',
     },
+
     [theme.breakpoints.down(768)]: {
-      fontSize: '14px !important',
+      fontSize: 14,
     },
   },
 }))

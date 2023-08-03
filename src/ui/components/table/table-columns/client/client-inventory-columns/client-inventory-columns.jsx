@@ -44,7 +44,7 @@ export const clientInventoryColumns = (
     renderCell: params => (
       <SelectRowCell
         checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-        onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row)}
+        onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?.originalData?._id)}
       />
     ),
     width: 80,
@@ -112,7 +112,7 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 130,
+    width: 140,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },

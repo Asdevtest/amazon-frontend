@@ -1,15 +1,12 @@
 import { cx } from '@emotion/css'
 import he from 'he'
 import { observer } from 'mobx-react'
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
 
-import { Typography } from '@mui/material'
-
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-// import {Button} from '@components/buttons/button'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { ImagesTile } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
 import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
@@ -48,7 +45,7 @@ interface FindChunksProps {
   textToHighlight: string
 }
 
-const findChunks = ({ /* autoEscape, caseSensitive, sanitize, */ searchWords, textToHighlight }: FindChunksProps) => {
+const findChunks = ({ searchWords, textToHighlight }: FindChunksProps) => {
   const chunks: Chunk[] = []
   const textLow = textToHighlight.toLowerCase()
   const sep = /[\s]+/
@@ -99,14 +96,6 @@ export const ChatMessageBasicText: FC<Props> = observer(
       setAnotherFiles(message.files.filter(url => !imagesRegex.test(url)))
     }, [message])
 
-    // console.log('message', message)
-
-    // console.log('photoFiles', photoFiles)
-
-    // console.log('anotherFiles', anotherFiles)
-
-    // console.log('message.text', message.text, he.decode(message.text))
-
     return (
       <div
         className={cx(
@@ -117,10 +106,6 @@ export const ChatMessageBasicText: FC<Props> = observer(
         )}
       >
         <div className={classNames.subWrapper}>
-          {/* <Typography paragraph className={classNames.messageText}> // КОНТРОЛЬНЫЙ ТЕКСТ
-              {message.text}
-            </Typography> */}
-
           {showName ? (
             <UserLink
               name={message.user?.name}
@@ -128,14 +113,14 @@ export const ChatMessageBasicText: FC<Props> = observer(
               blackText={undefined}
               withAvatar={undefined}
               maxNameWidth={undefined}
-              customStyles={{ marginBottom: 10 }}
+              customStyles={undefined}
               customClassNames={undefined}
             />
           ) : null}
 
           {!!photoFiles.length && !anotherFiles.length ? (
             <div className={classNames.filesMainWrapper}>
-              <ImagesTile images={photoFiles} /* controls={(imageIndex, image) => <Button>Download</Button>}  */ />
+              <ImagesTile images={photoFiles} />
             </div>
           ) : undefined}
 
@@ -147,14 +132,12 @@ export const ChatMessageBasicText: FC<Props> = observer(
               textToHighlight={he.decode(message.text)}
               className={classNames.messageText}
               findChunks={findChunks}
-              highlightTag={({ children /* , highlightIndex*/ }: HighlightTag) => (
+              highlightTag={({ children }: HighlightTag) => (
                 <Linkify>
                   <span
-                    className={cx(
-                      /* classNames.highlightText, */ {
-                        [classNames.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
-                      },
-                    )}
+                    className={cx({
+                      [classNames.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                    })}
                   >
                     {children}
                   </span>
@@ -169,17 +152,15 @@ export const ChatMessageBasicText: FC<Props> = observer(
           ) : undefined}
         </div>
 
-        <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
+        <div className={classNames.infoContainer}>
+          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
 
-        {!isIncomming ? (
-          <div className={classNames.readIconsWrapper}>
-            {unReadMessage ? (
-              <NoReadIcon className={classNames.noReadIcon} />
-            ) : (
-              <IsReadIcon className={classNames.isReadIcon} />
-            )}
-          </div>
-        ) : null}
+          {!isIncomming && unReadMessage ? (
+            <NoReadIcon className={cx(classNames.icon, classNames.noReadIcon)} />
+          ) : (
+            <IsReadIcon className={cx(classNames.icon, classNames.isReadIcon)} />
+          )}
+        </div>
       </div>
     )
   },

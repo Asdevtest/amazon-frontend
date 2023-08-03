@@ -1009,6 +1009,8 @@ export const NormalFieldMenuItem = React.memo(
         }
       }, [nameSearchValue])
 
+      console.log(filterData)
+
       return (
         <div
           className={cx({
@@ -1048,7 +1050,7 @@ export const NormalFieldMenuItem = React.memo(
                       const valueChecked = choosenItems.some(item => item === el)
 
                       return (
-                        el && (
+                        !!el && (
                           <div key={index} className={classNames.shop}>
                             <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
                             <div title={value} className={classNames.shopName}>

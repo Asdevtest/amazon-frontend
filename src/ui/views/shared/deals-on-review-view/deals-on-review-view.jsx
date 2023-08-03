@@ -10,7 +10,6 @@ import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
-import { MainContent } from '@components/layout/main-content'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -39,7 +38,7 @@ export const DealsOnReviewViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
             <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
@@ -74,7 +73,7 @@ export const DealsOnReviewViewRaw = props => {
             </div>
           )}
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

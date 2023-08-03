@@ -22,6 +22,7 @@ export const styles = createStyles(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
+    marginBottom: 10,
     width: '290px',
     height: '40px',
     [theme.breakpoints.down(768)]: {

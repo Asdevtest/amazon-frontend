@@ -35,8 +35,8 @@ export const styles = theme => ({
   },
 
   dataGridWrapper: {
-    marginTop: '20px',
-    height: 'calc(100vh - 280px)',
+    marginTop: '10px',
+    height: '70vh',
   },
 
   selectStatusFilterButton: {

@@ -1,80 +1,78 @@
 export const styles = theme => ({
-  chatWrapper: {
-    width: '100%',
-    height: '778px',
-  },
-
-  searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: 296,
-    height: 36,
-  },
-
-  searchResult: {
-    color: theme.palette.text.second,
-  },
-
-  searchResultWrapper: {
+  wrapper: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-    flexWrap: 'wrap',
-  },
-
-  chatSelectedWrapper: {
-    display: 'flex',
-    gap: 20,
-    alignItems: 'center',
-  },
-
-  chatHeaderWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  tooltipWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-  },
-
-  noticesTextActive: {
-    fontSize: 18,
-    lineHeight: '140%',
-    fontWeight: 400,
-    color: theme.palette.primary.main,
-  },
-  noticesTextNoActive: {
-    fontSize: 18,
-    lineHeight: '140%',
-    fontWeight: 400,
-    color: '#c4c4c4',
-  },
-
-  newDialogBtn: {
-    height: 40,
-    padding: '0 25px',
-    marginLeft: 30,
+    height: 'calc(100vh - 80px)',
+    overflow: 'hidden',
+    paddingTop: 10,
   },
 
   leftSide: {
     display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  searchWrapper: {
+    display: 'flex',
     alignItems: 'center',
+    gap: 10,
+  },
+
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    width: 305,
+    height: 40,
   },
 
   rightSide: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    flex: '1 1 auto',
   },
 
-  avatarWrapper: {
+  header: {
+    height: 40,
+    marginBottom: 20,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  leftSideHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  infoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 25,
+  },
+
+  arrowBackIconWrapper: {
+    position: 'relative',
+    display: 'none',
+  },
+
+  rersonalWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  opponentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 15,
+  },
+
+  avatar: {
     width: 40,
     height: 40,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
+
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',
@@ -82,87 +80,189 @@ export const styles = theme => ({
   },
 
   opponentName: {
-    marginLeft: 15,
-    fontWeight: 600,
+    maxWidth: 200,
     fontSize: 18,
+    fontWeight: 600,
     color: theme.palette.text.general,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    maxWidth: 200,
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+      fontSize: 14,
+    },
   },
 
   usersCount: {
-    marginLeft: 15,
-    fontWeight: 400,
     fontSize: 14,
     color: theme.palette.text.second,
   },
 
-  opponentWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: 20,
-  },
-
-  selectedChatPersonalInfo: {
+  searchMessageContainer: {
     display: 'flex',
     alignItems: 'center',
     gap: 20,
-  },
 
-  unMutedNotificationIcon: {
-    color: '#AEAEAE',
-    cursor: 'pointer',
-    '&:hover': {
-      color: '#656565',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
     },
   },
 
-  mutedNotificationIcon: {
+  searchResult: {
+    width: 140,
+    color: theme.palette.text.second,
+  },
+
+  rightSideHeader: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 30,
+  },
+
+  noticesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    cursor: 'pointer',
+  },
+
+  noticesTextActive: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.primary.main,
-    cursor: 'pointer',
-    '&:hover': {
-      color: '#0056B2',
-    },
+  },
+
+  noticesTextNotActive: {
+    color: '#c4c4c4',
+  },
+
+  newDialogBtn: {
+    height: 40,
+    padding: '0 25px',
+  },
+
+  noSelectedChatWrapper: {
+    flex: '1 1 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 20,
+    background: theme.palette.background.general,
+    borderRadius: '0 7px 7px 0',
+    boxShadow: theme.palette.boxShadow.paper,
+  },
+
+  noSelectedChatIcon: {
+    width: '100px !important',
+    height: '93px !important',
+    color: theme.palette.primary.main,
   },
 
   '@media (max-width: 768px)': {
-    noticesTextActive: {
-      display: 'none',
-    },
-    noticesTextNoActive: {
-      display: 'none',
-    },
-    chatHeaderWrapper: {
-      flexDirection: 'column',
-      gap: '15px',
-      marginBottom: 20,
-
-      padding: '0 10px',
-    },
-    searchInput: {
-      width: '100%',
+    wrapper: {
+      padding: 10,
     },
 
     leftSide: {
       width: '100%',
     },
-    rightSide: {
+
+    searchInput: {
+      flex: '1 1 auto',
       width: '100%',
-      justifyContent: 'space-between',
-    },
-    hideChatHeaderWrapper: {
-      display: 'none',
+
+      '&>input': {
+        padding: 9,
+      },
     },
 
-    chatWrapper: {
-      height: '100%',
-      padding: '0 10px',
+    rightSideHeader: {
+      gap: 10,
+      width: 'max-content',
+    },
+
+    noticesWrapper: {
+      padding: 8,
     },
 
     newDialogBtn: {
-      width: '223px',
+      padding: 8,
+      borderRadius: 7,
+    },
+
+    rightSide: {
+      maxWidth: 767,
+    },
+
+    header: {
+      height: 'auto',
+      marginBottom: 0,
+    },
+
+    leftSideHeader: {
+      width: '100%',
+      flexDirection: 'column-reverse',
+    },
+
+    opponentWrapper: {
+      width: '100%',
+      alignItems: 'flex-start',
+      gap: 10,
+    },
+
+    rersonalWrapper: {
+      width: '100%',
+    },
+
+    infoContainer: {
+      padding: '15px 10px',
+      width: '100%',
+      justifyContent: 'space-between',
+      borderRadius: '7px 7px 0 0',
+      background: theme.palette.background.general,
+      boxShadow: theme.palette.boxShadow.paper,
+    },
+
+    searchMessageContainer: {
+      width: '100%',
+    },
+
+    arrowBackIconWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 30,
+      height: 30,
+      borderRadius: '50%',
+      background: theme.palette.background.general,
+      boxShadow: theme.palette.boxShadow.paper,
+    },
+
+    arrowBackIcon: {
+      color: theme.palette.primary.main,
+      marginRight: 5,
+    },
+
+    badge: {
+      position: 'absolute',
+      left: 23,
+      width: 20,
+      height: 20,
+      borderRadius: '50%',
+      color: '#fff',
+      background: theme.palette.primary.main,
+      fontSize: 11,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    mobileResolution: {
+      display: 'none',
     },
   },
 })

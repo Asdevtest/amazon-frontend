@@ -1,0 +1,8 @@
+export { TabDestinations } from './tab-destinations/tab-destinations'
+export { TabFreelance } from './tab-freelance/tab-freelance'
+export { TabMain } from './tab-main/tab-main'
+export { TabOrders } from './tab-orders/tab-orders'
+export { TabSearchSupplier } from './tab-search-supplier/tab-search-supplier'
+export { TabPaymentMethods } from './tab-payment-methods/tab-payment-methods'
+export { TabTags } from './tab-tags/tab-tags'
+export { TabRedFlags } from './tab-red-flags/tab-red-flags'

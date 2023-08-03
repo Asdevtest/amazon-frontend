@@ -4,8 +4,7 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AdminSettingsContent } from '@components/contents/admin-settings-content/admin-settings-content'
-import { MainContent } from '@components/layout/main-content'
+import { AdminSettings } from '@components/contents/admin-settings-content'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
@@ -24,17 +23,13 @@ export const AdminSettingsViewRaw = props => {
   const { classes: classNames } = props
 
   return (
-    <>
-      <MainContent>
-        <div className={classNames.mainWrapper}>
-          <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
-            {t(TranslationKey['Technical work and notices'])}
-          </Button>
+    <div className={classNames.mainWrapper}>
+      <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
+        {t(TranslationKey['Technical work and notices'])}
+      </Button>
 
-          <AdminSettingsContent />
-        </div>
-      </MainContent>
-    </>
+      <AdminSettings />
+    </div>
   )
 }
 

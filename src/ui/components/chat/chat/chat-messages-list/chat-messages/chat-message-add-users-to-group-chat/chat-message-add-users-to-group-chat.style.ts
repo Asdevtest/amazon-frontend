@@ -1,22 +1,34 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 5,
+
+    [theme.breakpoints.down(768)]: {
+      padding: '0 5px',
+    },
   },
 
   groupText: {
-    marginLeft: 5,
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+    },
   },
 
   groupTitle: {
     fontWeight: 600,
-    margin: '0 5px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
     maxWidth: 200,
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+      fontSize: 14,
+      wordWrap: 'break-word',
+    },
   },
 
   usersWrapper: {
@@ -24,5 +36,9 @@ export const useClassNames = makeStyles()(() => ({
     gap: 5,
     maxWidth: 350,
     flexWrap: 'wrap',
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 100,
+    },
   },
 }))

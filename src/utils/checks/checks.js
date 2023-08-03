@@ -97,3 +97,17 @@ export const checkIsStringFilesSame = (str1, str2) => {
 export const isStringInArray = (str, arr) => arr.includes(str)
 
 export const checkDateByDeadline = date => (date !== null ? date < new Date() : false)
+
+export const checkIsImageUrlValid = async selectedImageUrl =>
+  new Promise(resolve => {
+    const img = new Image()
+    img.src = selectedImageUrl
+
+    img.onload = () => {
+      resolve(true)
+    }
+
+    img.onerror = () => {
+      resolve(false)
+    }
+  })

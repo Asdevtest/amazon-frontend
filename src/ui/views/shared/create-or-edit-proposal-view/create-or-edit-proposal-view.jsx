@@ -6,7 +6,6 @@ import { withStyles } from 'tss-react/mui'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CreateOrEditProposalContent } from '@components/contents/create-or-edit-proposal-content'
-import { MainContent } from '@components/layout/main-content'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
@@ -28,7 +27,7 @@ export const CreateOrEditProposalViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {/* <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
                   {t(TranslationKey.Back)}
@@ -44,7 +43,7 @@ export const CreateOrEditProposalViewRaw = props => {
           onCreateSubmit={viewModel.onSubmitCreateProposal}
           onEditSubmit={viewModel.onSubmitEditProposal}
         />
-      </MainContent>
+      </div>
 
       <TwoVerticalChoicesModal
         openModal={viewModel.showResultModal}

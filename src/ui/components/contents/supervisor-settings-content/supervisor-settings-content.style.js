@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   dataGridWrapper: {
     marginTop: '30px',
-    height: '73vh',
+    height: '72vh',
   },
   row: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

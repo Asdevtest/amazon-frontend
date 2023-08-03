@@ -1,5 +1,5 @@
+import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { checkIsAdmin } from '@utils/checks'
-// import {CopyValue} from '@components/copy-value/copy-value'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './table-asin-and-reason.style'
@@ -21,24 +20,24 @@ export const TableAsinAndReason = observer(({ userRole, data, onClickRemoveCell 
     checkIsAdmin(userRole) ? (
       <TableHead className={classNames.tableHeader}>
         <TableRow>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>{'№'}</TableCell>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>{'№'}</TableCell>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>
             {t(TranslationKey.Proxy)}
           </TableCell>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>{''}</TableCell>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>{''}</TableCell>
         </TableRow>
       </TableHead>
     ) : (
       <TableHead className={classNames.tableHeader}>
         <TableRow>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>{''}</TableCell>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>{''}</TableCell>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>
             {t(TranslationKey.ASIN)}
           </TableCell>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>
             {t(TranslationKey.Reason)}
           </TableCell>
-          <TableCell className={[classNames.tableCellPadding, classNames.alignLeftHeader]}>{''}</TableCell>
+          <TableCell className={cx(classNames.tableCellPadding, classNames.alignLeftHeader)}>{''}</TableCell>
         </TableRow>
       </TableHead>
     )
@@ -48,21 +47,21 @@ export const TableAsinAndReason = observer(({ userRole, data, onClickRemoveCell 
       <Table>
         {SettingsModel.languageTag && renderHeader()}
 
-        <TableBody className={{ root: classNames.tableBody }}>
+        <TableBody>
           {data.length &&
             data.map((item, index) => (
               <TableRow key={`${item.asin}_${index}`} className={classNames.row}>
-                <TableCell className={[classNames.alignLeft, classNames.indexCell]}>{index + 1}</TableCell>
+                <TableCell className={cx(classNames.alignLeft, classNames.indexCell)}>{index + 1}</TableCell>
                 {checkIsAdmin(userRole) ? (
-                  <TableCell className={[classNames.alignLeft, classNames.nameCell]}>{item}</TableCell>
+                  <TableCell className={cx(classNames.alignLeft, classNames.nameCell)}>{item}</TableCell>
                 ) : (
-                  <TableCell className={[classNames.alignLeft, classNames.nameCell]}>{item.asin}</TableCell>
+                  <TableCell className={cx(classNames.alignLeft, classNames.nameCell)}>{item.asin}</TableCell>
                 )}
 
                 {!checkIsAdmin(userRole) && (
-                  <TableCell className={[classNames.alignLeft, classNames.nameCell]}>{item.reason}</TableCell>
+                  <TableCell className={cx(classNames.alignLeft, classNames.nameCell)}>{item.reason}</TableCell>
                 )}
-                <TableCell className={[classNames.clearCell]}>
+                <TableCell className={cx(classNames.clearCell)}>
                   {checkIsAdmin(userRole) ? (
                     <ClearIcon classes={{ root: classNames.icon }} onClick={() => onClickRemoveCell(item)} />
                   ) : (

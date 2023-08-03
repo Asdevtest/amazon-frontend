@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
@@ -30,7 +29,7 @@ export const AdminWarehouseTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <MemoDataGrid
           pagination
           useResizeContainer
@@ -73,7 +72,7 @@ export const AdminWarehouseTasksViewRaw = props => {
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-      </MainContent>
+      </div>
       <Modal
         openModal={viewModel.showTaskInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}

@@ -58,6 +58,15 @@ export class CreateOrEditRequestViewModel {
       if (location.state) {
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
+        if (location.state.parentProduct) {
+          this.requestToEdit = {
+            ...this.requestToEdit,
+            request: {
+              productId: location.state.parentProduct._id,
+              asin: location.state.parentProduct.asin,
+            },
+          }
+        }
       }
     })
 

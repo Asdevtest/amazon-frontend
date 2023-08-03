@@ -7,6 +7,7 @@ export const DataGridTablesKeys = {
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
+  ADMIN_TAGS: 'adminTagsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
   ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',
@@ -90,6 +91,8 @@ export const DataGridTablesKeys = {
   CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
   CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
+
+  CLIENT_IDEAS: 'clientIdeasDataGridState',
 
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',

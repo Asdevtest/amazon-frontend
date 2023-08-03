@@ -151,6 +151,46 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch()
     return response
   }
+
+  removePaymentMethod = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsPaymentMethodGuidDelete(id)
+    return response
+  }
+
+  getUsersByRole = async role => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersByRoleGet(role)
+    return response
+  }
+
+  bindOrUnbindUserToProduct = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsProductLinkOrUnlinkUserRolePatch({ body: data })
+    return response
+  }
+
+  removeRedFlag = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsGuidDelete(id)
+    return response
+  }
+
+  createRedFlag = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsPost({ body: data })
+    return response
+  }
+
+  removeTags = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsTagsDelete({ body: data })
+    return response
+  }
+
+  editTag = async (id, data) => {
+    const response = await restApiService.administratorApi.apiV1AdminsTagsGuidPatch(id, { body: data })
+    return response
+  }
+
+  editRedFlag = async (id, data) => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsGuidPatch(id, { body: data })
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

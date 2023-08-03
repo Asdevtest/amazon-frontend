@@ -1,3 +1,5 @@
+import { color } from '@mui/system'
+
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -851,7 +853,6 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    padding: '0 10px',
   },
 
   renderFieldValueCellText: {
@@ -1641,6 +1642,8 @@ export const styles = theme => ({
   },
 
   tags: {
+    alignSelf: 'flex-start',
+
     p: {
       padding: 0,
       margin: 0,
@@ -1829,5 +1832,59 @@ export const styles = theme => ({
   div: {
     display: 'flex',
     width: 104,
+  },
+
+  ideaActions: {
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    button: {
+      height: 30,
+    },
+  },
+
+  ideaRequestsControls: {
+    display: 'flex',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+
+    button: {
+      height: 30,
+      display: 'flex',
+      gap: 5,
+      minWidth: '155px !important',
+
+      svg: {
+        width: 12,
+      },
+    },
+  },
+
+  buttonWithIcon: {
+    height: 30,
+    display: 'flex',
+    gap: 5,
+
+    svg: {
+      width: 12,
+    },
+  },
+
+  ideaSupplier: {
+    p: {
+      fontSize: 14,
+    },
+  },
+
+  ideaRequestsWrapper: {
+    display: 'flex',
+    gap: 20,
+    alignItems: 'center',
+    padding: '16px 0',
+    height: '100%',
   },
 })

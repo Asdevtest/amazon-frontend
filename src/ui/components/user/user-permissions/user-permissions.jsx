@@ -1,13 +1,14 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
@@ -15,18 +16,6 @@ import { useClassNames } from './user-permissions.style'
 
 import { GroupPermissions } from './group-permissions'
 import { SinglePermissions } from './single-permissions'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 export const UserPermissions = observer(() => {
   const { classes: classNames } = useClassNames()

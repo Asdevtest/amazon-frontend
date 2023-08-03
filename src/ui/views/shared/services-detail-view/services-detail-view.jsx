@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyServicesInfo } from '@components/my-services/my-services-info'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -38,7 +37,7 @@ export const ServiceDetailsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <MyServicesInfo
           announcementData={viewModel.announcementData}
           onClickEditBtn={viewModel.onClickEditBtn}
@@ -96,7 +95,7 @@ export const ServiceDetailsViewRaw = props => {
             // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}

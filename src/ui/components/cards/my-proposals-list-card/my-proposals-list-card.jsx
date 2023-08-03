@@ -10,6 +10,7 @@ import {
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
+import { showResultStatuses } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -17,7 +18,7 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { UserLink } from '@components/user/user-link'
@@ -52,20 +53,6 @@ export const MyProposalsListCard = ({
     RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
     RequestProposalStatus.EXPIRED,
-  ]
-
-  const showDesignerResultBtnStatuses = [
-    RequestProposalStatus.READY_TO_VERIFY,
-    RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
-    RequestProposalStatus.TO_CORRECT,
-    RequestProposalStatus.CORRECTED,
-
-    RequestProposalStatus.ACCEPTED_BY_CLIENT,
-    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
-    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-
-    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
-    RequestProposalStatus.PROPOSAL_EDITED,
   ]
 
   return (
@@ -115,7 +102,7 @@ export const MyProposalsListCard = ({
 
               <div className={classNames.blockInfoCell}>
                 <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
-                <AsinLink asin={item.asin} />
+                <AsinOrSkuLink asin={item.asin} />
               </div>
 
               <div className={classNames.blockInfoCell}>
@@ -170,7 +157,7 @@ export const MyProposalsListCard = ({
                     </Button>
                     <div className={classNames.editAndOpenButtonWrapper}>
                       <Button
-                        disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
+                        disabled={!showResultStatuses.includes(proposal.status)}
                         className={classNames.button}
                         variant="contained"
                         onClick={() => onClickResultBtn(item, proposal._id)}

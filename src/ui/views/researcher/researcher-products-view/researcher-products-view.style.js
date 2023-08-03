@@ -1,17 +1,17 @@
 export const styles = theme => ({
   card: {
     padding: '16px 20px',
-    marginBottom: '42px',
+    marginBottom: '20px',
 
     backgroundColor: theme.palette.background.general,
   },
   formWrapper: {
-    marginTop: '32px',
+    marginTop: '10px',
   },
   tableWrapper: {
-    marginTop: '32px',
+    marginTop: '10px',
     width: '100%',
-    height: '45vh',
+    height: '46vh',
   },
 
   row: {

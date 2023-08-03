@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DealDetailsCard } from '@components/cards/deal-details-card'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
-import { MainContent } from '@components/layout/main-content'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
@@ -28,7 +27,7 @@ export const DealsOnReviewDetailsView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <DealDetailsCard
           request={viewModel.request}
           requestProposals={viewModel.requestProposals}
@@ -37,7 +36,7 @@ export const DealsOnReviewDetailsView = observer(props => {
           onClickRejectDealModal={viewModel.onClickRejectDealModal}
           onClickReworkDealModal={viewModel.onClickReworkDealModal}
         />
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showConfirmModal}

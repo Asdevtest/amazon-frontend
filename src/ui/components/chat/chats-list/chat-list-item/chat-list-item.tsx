@@ -21,17 +21,16 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { useClassNames } from './chat-list-item.style'
+import { useClassNames } from './chat-list-item.styles'
 
 interface Props {
   chat: ChatContract
   userId: string
-  isSelected: boolean
-  onClick: VoidFunction
+  onClick: (chat: ChatContract) => void
   typingUsers?: OnTypingMessageResponse[]
 }
 
-export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onClick, typingUsers }) => {
+export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers }) => {
   const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -109,7 +108,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
     )
 
   return (
-    <div className={cx(classNames.root, { [classNames.rootIsSelected]: isSelected })} onClick={onClick}>
+    <div className={classNames.root} onClick={() => onClick(chat)}>
       <Avatar
         src={
           isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
@@ -118,6 +117,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
         }
         className={classNames.avatarWrapper}
       />
+
       <div className={classNames.rightSide}>
         <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>
