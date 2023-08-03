@@ -31,7 +31,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'parentProduct',
     headerName: t(TranslationKey['Parent product']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -52,7 +52,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -64,7 +64,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'ideaImage',
     headerName: t(TranslationKey.Idea),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 120,
@@ -74,9 +74,11 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'suppliers',
     headerName: t(TranslationKey.Supplier),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
-    renderCell: params => <IdeaSupplier suppliers={params.value} />,
+    renderCell: params => (
+      <IdeaSupplier suppliers={params.value} onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)} />
+    ),
     width: 150,
     sortable: false,
   },
@@ -84,7 +86,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'link',
     headerName: t(TranslationKey.Link),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
     renderCell: params => {
       const suppliers = params.row.suppliers
@@ -105,7 +107,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'priceWithDelivery',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + '$'} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + '$'} />,
     headerName: t(TranslationKey['Price with delivery']) + '$',
 
     renderCell: params => {
@@ -120,7 +122,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'minBatch',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Minimum batch'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Minimum batch'])} />,
     headerName: t(TranslationKey['Minimum batch']),
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
@@ -130,7 +132,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'productionTime',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
     headerName: t(TranslationKey['Production time, days']),
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
@@ -140,7 +142,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'linksToMediaFiles',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     headerName: t(TranslationKey.Files),
 
     renderCell: params => (
@@ -154,7 +156,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'comments',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
@@ -164,7 +166,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'buyerComment',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
     headerName: t(TranslationKey['Buyer comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
@@ -174,7 +176,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'status',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     headerName: t(TranslationKey.Status),
 
     renderCell: params => (
@@ -190,7 +192,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
       <OnCheckingIdeaActions
@@ -206,7 +208,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey['Status Updated']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => {
       const getDate = status => {

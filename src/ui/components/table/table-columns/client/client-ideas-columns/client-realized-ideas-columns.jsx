@@ -212,6 +212,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
         }
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
         onClickResultButton={rowHandlers.onClickResultButton}
+        onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
     width: 220,

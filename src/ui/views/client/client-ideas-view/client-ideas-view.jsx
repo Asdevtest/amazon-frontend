@@ -20,6 +20,7 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -246,14 +247,30 @@ export const ClientIdeasView = observer(props => {
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
         />
-
-        {viewModel.alertShieldSettings.alertShieldMessage && (
-          <AlertShield
-            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-          />
-        )}
       </Modal>
+
+      <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}>
+        <AddOrEditSupplierModalContent
+          paymentMethods={viewModel.paymentMethods}
+          product={viewModel.currentProduct}
+          storekeepersData={viewModel.storekeepers}
+          requestStatus={viewModel.requestStatus}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </MainContent>
   )
 })
