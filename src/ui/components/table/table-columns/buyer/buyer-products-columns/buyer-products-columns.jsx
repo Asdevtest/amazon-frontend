@@ -50,7 +50,7 @@ export const buyerProductsViewColumns = handlers => [
         />
       )
     },
-    width: 350,
+    width: 320,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -77,7 +77,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 140,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
