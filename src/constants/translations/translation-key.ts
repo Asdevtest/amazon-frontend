@@ -2066,7 +2066,7 @@ export enum TranslationKey {
   'Create or select product' = 'Create or select product',
   'Variation' = 'Variation',
   'An error occurred while loading the image from the link. Please replace the image' = 'An error occurred while loading the image from the link. Please replace the image',
-  // '' = '',
+  'sec' = 'sec',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
