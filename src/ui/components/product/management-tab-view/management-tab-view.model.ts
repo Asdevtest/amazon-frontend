@@ -84,20 +84,20 @@ export class ManagementTabViewModel {
         this.supervisors = supervisors
         this.researchers = researchers
         this.buyers = buyers
-      })
 
-      this.client = this.findMemberByIdOrPickDefailtMember(this.clients, this.product?.client?._id, this.client)
-      this.buyer = this.findMemberByIdOrPickDefailtMember(this.buyers, this.product?.buyer?._id, this.buyer)
-      this.supervisor = this.findMemberByIdOrPickDefailtMember(
-        this.supervisors,
-        this.product?.checkedBy?._id,
-        this.supervisor,
-      )
-      this.researcher = this.findMemberByIdOrPickDefailtMember(
-        this.researchers,
-        this.product?.createdBy?._id,
-        this.researcher,
-      )
+        this.client = this.findMemberByIdOrPickDefailtMember(this.clients, this.product?.client?._id, this.client)
+        this.buyer = this.findMemberByIdOrPickDefailtMember(this.buyers, this.product?.buyer?._id, this.buyer)
+        this.supervisor = this.findMemberByIdOrPickDefailtMember(
+          this.supervisors,
+          this.product?.checkedBy?._id,
+          this.supervisor,
+        )
+        this.researcher = this.findMemberByIdOrPickDefailtMember(
+          this.researchers,
+          this.product?.createdBy?._id,
+          this.researcher,
+        )
+      })
 
       this.updateDataIdsAndDisabledFlags()
 
@@ -115,14 +115,15 @@ export class ManagementTabViewModel {
 
       runInAction(() => {
         this.product = result
-      })
 
-      const currentProductStatus = Number(this.product?.status)
-      // this.isEmptyStore = this.product?.shopIds?.length === 0 // empty store check
-      this.isEditableClient = currentProductStatus === 200 || currentProductStatus === 275
-      this.isEditableBuyer = currentProductStatus <= 200 || currentProductStatus === 275
-      this.isEditableSupervisor = true
-      this.isEditableResearcher = currentProductStatus < 200
+        const currentProductStatus = Number(this.product?.status)
+
+        // this.isEmptyStore = this.product?.shopIds?.length === 0 // empty store check
+        this.isEditableClient = currentProductStatus === 200 || currentProductStatus === 275
+        this.isEditableBuyer = currentProductStatus <= 200 || currentProductStatus === 275
+        this.isEditableSupervisor = true
+        this.isEditableResearcher = currentProductStatus < 200
+      })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -142,13 +143,17 @@ export class ManagementTabViewModel {
 
       this.updateDataIdsAndDisabledFlags()
 
-      this.infoModalText = t(TranslationKey['The members are saved!'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The members are saved!'])
+      })
 
       this.onTriggerOpenModal()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error: any) {
-      this.infoModalText = `${error.body.message}!`
+      runInAction(() => {
+        this.infoModalText = `${error.body.message}!`
+      })
 
       this.onTriggerOpenModal()
 
