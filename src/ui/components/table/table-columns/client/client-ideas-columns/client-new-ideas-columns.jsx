@@ -117,6 +117,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
         }
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.parentProduct._id, params.row.originalData)}
         onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
+        onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
     width: 220,
