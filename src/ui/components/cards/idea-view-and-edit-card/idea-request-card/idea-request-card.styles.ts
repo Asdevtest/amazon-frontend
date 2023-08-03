@@ -40,4 +40,8 @@ export const useClassNames = makeStyles()(theme => ({
   linkStyles: {
     color: theme.palette.primary.main,
   },
+
+  draftStatus: {
+    color: `${theme.palette.primary.main} !important`,
+  },
 }))

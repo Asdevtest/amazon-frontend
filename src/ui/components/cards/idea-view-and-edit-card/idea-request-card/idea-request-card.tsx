@@ -2,7 +2,7 @@ import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { colorByStatus } from '@constants/requests/request-status'
+import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -51,7 +51,10 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
 
         <p className={classNames.categoryTitle}>
           {`${t(TranslationKey.Status)}: `}
-          <span className={classNames.categoryText} style={{ color: colorByStatus(requestStatus) }}>
+          <span
+            className={cx(classNames.categoryText, { [classNames.draftStatus]: requestStatus === RequestStatus.DRAFT })}
+            style={{ color: colorByStatus(requestStatus) }}
+          >
             {MyRequestStatusTranslate(requestStatus)}
           </span>
         </p>
