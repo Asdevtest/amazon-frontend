@@ -13,10 +13,6 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       padding: 10,
-
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
     },
   },
 

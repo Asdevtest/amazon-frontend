@@ -22,10 +22,6 @@ export const styles = theme => ({
 
     [theme.breakpoints.down(768)]: {
       height: 40,
-
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
     },
   },
   selected: {
