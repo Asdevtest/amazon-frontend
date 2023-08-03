@@ -210,35 +210,6 @@ export const AddOrEditSupplierModalContent = observer(
                     makeMainSupplier,
                     editPhotosOfSupplier,
                   })
-                  // setTmpSupplier({
-                  //   amount: '',
-                  //   comment: '',
-                  //   link: '',
-                  //   lotcost: '',
-                  //   minlot: '',
-                  //   name: '',
-                  //   price: '',
-                  //   images: [],
-
-                  //   paymentMethods: [],
-
-                  //   priceInYuan: '',
-                  //   batchDeliveryCostInDollar: 0,
-                  //   batchDeliveryCostInYuan: 0,
-                  //   batchTotalCostInDollar: '',
-                  //   batchTotalCostInYuan: '',
-
-                  //   boxProperties: {
-                  //     amountInBox: '',
-                  //     boxLengthCm: '',
-                  //     boxWidthCm: '',
-                  //     boxHeightCm: '',
-                  //     boxWeighGrossKg: '',
-                  //   },
-                  // })
-
-                  // setPhotosOfSupplier(() => [])
-                  // setMakeMainSupplier(false)
                   onTriggerShowModal()
                 }}
               >
@@ -289,34 +260,6 @@ export const AddOrEditSupplierModalContent = observer(
         )
       }
     }
-
-    // const onChangePaymentMethod = event => {
-    //   if (Array.isArray(event)) {
-    //     if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [],
-    //       })
-    //     } else {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [...event],
-    //       })
-    //     }
-    //   } else {
-    //     if (tmpSupplier?.paymentMethods?.some(item => item?._id === event?._id)) {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: tmpSupplier?.paymentMethods?.filter(item => item?._id !== event?._id),
-    //       })
-    //     } else {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [...tmpSupplier.paymentMethods, event],
-    //       })
-    //     }
-    //   }
-    // }
 
     const onChangePaymentMethod = event => {
       const selectedValues = event

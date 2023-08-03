@@ -34,6 +34,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   resultButton: {
     height: '30px',
-    width: '100%',
+    whiteSpace: 'nowrap',
+  },
+
+  linkStyles: {
+    color: theme.palette.primary.main,
   },
 }))

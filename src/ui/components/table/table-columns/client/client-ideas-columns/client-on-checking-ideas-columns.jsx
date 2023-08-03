@@ -106,6 +106,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
         }
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
         onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
+        onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
     width: 220,

@@ -323,9 +323,6 @@ export class SuppliersAndIdeasModel {
 
       // await this.onClickAcceptButton(data)
 
-      console.log('createData', createData)
-      console.log('currentProduct', this.currentProduct)
-
       this.successModalSettings = {
         modalTitle: t(TranslationKey['Product added']),
         onClickSuccessBtn: () => this.onTriggerOpenModal('showSuccessModal'),
@@ -793,5 +790,11 @@ export class SuppliersAndIdeasModel {
     runInAction(() => {
       this.actionStatus = actionStatus
     })
+  }
+
+  onClickRequestId(id) {
+    this.history.push(
+      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+    )
   }
 }
