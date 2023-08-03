@@ -253,7 +253,7 @@ export const OrderStatusText = ({ className, status, isClient }) => {
     ) {
       return '#FF1616'
     } else if ([OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT].includes(status)) {
-      return '#0A6FE8'
+      return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
     } else {
       return '#black'
     }
