@@ -168,7 +168,7 @@ export const ProductWrapper = observer(
               )}
             </Tabs>
 
-            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
                 modal={modal}
                 user={user}
@@ -205,7 +205,7 @@ export const ProductWrapper = observer(
               )}
             </TabPanel>
 
-            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.ORDERS}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.ORDERS}>
               <Orders
                 modal={modal}
                 productId={product._id}
@@ -213,7 +213,7 @@ export const ProductWrapper = observer(
               />
             </TabPanel>
 
-            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
               <Integrations modal={modal} productId={product._id} />
             </TabPanel>
 
@@ -221,11 +221,11 @@ export const ProductWrapper = observer(
         <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
       </TabPanel> */}
 
-            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
               <Freelance modal={modal} productId={product._id} />
             </TabPanel>
 
-            <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
 

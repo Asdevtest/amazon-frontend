@@ -19,7 +19,6 @@ import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-for
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
@@ -127,7 +126,7 @@ export const ClientInStockBoxesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div ref={topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
           <div className={classNames.boxesFiltersWrapper}>
             {viewModel.storekeepersData
@@ -302,7 +301,7 @@ export const ClientInStockBoxesViewRaw = props => {
             }
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn

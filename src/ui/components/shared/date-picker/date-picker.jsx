@@ -21,8 +21,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 import { UiTheme } from '@constants/theme/themes'
 import { LanguageKey } from '@constants/translations/language-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { t } from '@utils/translations'
 
 import { useClassNames } from './date-picker.style'
 
@@ -197,11 +200,14 @@ export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) 
             },
           }}
           inputProps={{
+            title: placeholder,
             placeholder,
             className: cx(classNames.root, { [classNames.error]: error }),
           }}
           value={value ? value : null}
-          renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
+          renderInput={params => (
+            <TextField {...params} title={t(TranslationKey.Date)} helperText={null} variant="standard" size="small" />
+          )}
           onChange={newValue => {
             onChange(newValue)
           }}

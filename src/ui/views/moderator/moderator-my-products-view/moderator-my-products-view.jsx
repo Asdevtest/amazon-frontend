@@ -4,8 +4,6 @@ import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
 
-import { MainContent } from '@components/layout/main-content'
-
 import { styles } from './moderator-my-products-view.style'
 
 export const ModeratorMyProductsViewRaw = props => {
@@ -14,7 +12,7 @@ export const ModeratorMyProductsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
         {/* <MemoDataGrid
                 pagination
@@ -52,7 +50,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 onRowDoubleClick={e => onClickTableRow(e.row)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               /> */}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

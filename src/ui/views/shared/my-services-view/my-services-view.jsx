@@ -17,7 +17,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { MainContent } from '@components/layout/main-content'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
@@ -52,7 +51,7 @@ export const MyServicesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.toggleBtnAndtaskTypeWrapper}>
             <div className={classNames.tablePanelViewWrapper}>
@@ -149,7 +148,7 @@ export const MyServicesViewRaw = props => {
             </Typography>
           </div>
         )}
-      </MainContent>
+      </div>
 
       <ImageModal
         showPreviews

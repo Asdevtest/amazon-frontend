@@ -108,6 +108,7 @@ export const SuppliersAndIdeas = observer(
       onClickCreateProduct,
       onClickSupplierButtons,
       onClickOpenNewTab,
+      onClickRequestId,
 
       onChangeSelectedSupplier,
       onTriggerAddOrEditSupplierModal,
@@ -173,6 +174,7 @@ export const SuppliersAndIdeas = observer(
                 onClickSupplier={onChangeSelectedSupplier}
                 onClickSaveIcon={onClickSaveIcon}
                 onClickToOrder={onClickToOrder}
+                onClickRequestId={onClickRequestId}
               />
             ))
           ) : (
@@ -185,32 +187,39 @@ export const SuppliersAndIdeas = observer(
           ))}
 
         {isModalView && curIdea && (
-          <IdeaViewAndEditCard
-            isModalView
-            curUser={curUser}
-            curIdea={curIdea}
-            inEdit={inEdit}
-            idea={curIdea}
-            currentProduct={currentProduct}
-            selectedSupplier={selectedSupplier}
-            onCreateProduct={onClickCreateProduct}
-            onClickSaveBtn={onClickSaveBtn}
-            onClickCancelBtn={onClickCancelBtn}
-            onClickCreateRequestButton={onClickCreateRequestButton}
-            onClickLinkRequestButton={onClickLinkRequestButton}
-            onClickAcceptButton={onClickAcceptButton}
-            onClickCloseIdea={onClickCloseIdea}
-            onClickRejectButton={onClickRejectButton}
-            onClickReoperButton={onClickReoperButton}
-            onClickResultButton={onClickResultButton}
-            onSetCurIdea={onSetCurIdea}
-            onEditIdea={onEditIdea}
-            onClickSupplierBtns={onClickSupplierButtons}
-            onClickSupplier={onChangeSelectedSupplier}
-            onClickSaveIcon={onClickSaveIcon}
-            onClickOpenNewTab={onClickOpenNewTab}
-            onClickToOrder={onClickToOrder}
-          />
+          <>
+            {requestStatus === loadingStatuses.isLoading ? (
+              <CircularProgressWithLabel />
+            ) : (
+              <IdeaViewAndEditCard
+                isModalView
+                curUser={curUser}
+                curIdea={curIdea}
+                inEdit={inEdit}
+                idea={curIdea}
+                currentProduct={currentProduct}
+                selectedSupplier={selectedSupplier}
+                onCreateProduct={onClickCreateProduct}
+                onClickSaveBtn={onClickSaveBtn}
+                onClickCancelBtn={onClickCancelBtn}
+                onClickCreateRequestButton={onClickCreateRequestButton}
+                onClickLinkRequestButton={onClickLinkRequestButton}
+                onClickAcceptButton={onClickAcceptButton}
+                onClickCloseIdea={onClickCloseIdea}
+                onClickRejectButton={onClickRejectButton}
+                onClickReoperButton={onClickReoperButton}
+                onClickResultButton={onClickResultButton}
+                onSetCurIdea={onSetCurIdea}
+                onEditIdea={onEditIdea}
+                onClickSupplierBtns={onClickSupplierButtons}
+                onClickSupplier={onChangeSelectedSupplier}
+                onClickSaveIcon={onClickSaveIcon}
+                onClickOpenNewTab={onClickOpenNewTab}
+                onClickToOrder={onClickToOrder}
+                onClickRequestId={onClickRequestId}
+              />
+            )}
+          </>
         )}
 
         <Modal

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DealDetailsCard } from '@components/cards/deal-details-card'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
 import { t } from '@utils/translations'
@@ -26,7 +25,7 @@ export const VacantDealsDetailsView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <DealDetailsCard
           dealsOnReview
           proposalId={viewModel.curProposalId}
@@ -34,7 +33,7 @@ export const VacantDealsDetailsView = observer(props => {
           requester={viewModel.requester}
           onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
         />
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}

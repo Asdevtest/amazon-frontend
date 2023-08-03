@@ -1657,6 +1657,8 @@ export const styles = theme => ({
   },
 
   tags: {
+    alignSelf: 'flex-start',
+
     p: {
       padding: 0,
       margin: 0,

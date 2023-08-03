@@ -16,7 +16,6 @@ import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constan
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -40,7 +39,7 @@ export const WarehouseCompletedTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <div className={classNames.boxesFiltersWrapper}>
             <Button
@@ -171,7 +170,7 @@ export const WarehouseCompletedTasksViewRaw = props => {
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
         </div>
-      </MainContent>
+      </div>
       <Modal
         openModal={viewModel.showTaskInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}

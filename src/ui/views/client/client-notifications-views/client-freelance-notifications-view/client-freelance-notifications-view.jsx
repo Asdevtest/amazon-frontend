@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { ClientFreelanceNotificationsViewModel } from '@views/client/client-notifications-views/client-freelance-notifications-view/client-freelance-notifications-view.model'
@@ -28,7 +27,7 @@ export const ClientFreelanceNotificationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tableWrapper}>
           <MemoDataGrid
             pagination
@@ -78,7 +77,7 @@ export const ClientFreelanceNotificationsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

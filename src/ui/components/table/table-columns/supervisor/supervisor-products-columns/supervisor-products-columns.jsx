@@ -74,7 +74,7 @@ export const supervisorProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 130,
+    width: 140,
     align: 'center',
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,

@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
@@ -28,7 +27,7 @@ export const CreateOrEditRequestView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent ref={mainContentRef}>
+      <div ref={mainContentRef}>
         <CreateOrEditRequestContent
           mainContentRef={mainContentRef}
           choosenAnnouncements={viewModel.choosenAnnouncements}
@@ -46,7 +45,7 @@ export const CreateOrEditRequestView = observer(props => {
           onClickChoosePerformer={viewModel.onClickChoosePerformer}
           onClickThumbnail={viewModel.onClickThumbnail}
         />
-      </MainContent>
+      </div>
 
       <ImageModal
         showPreviews

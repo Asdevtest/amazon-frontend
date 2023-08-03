@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, ReactElement, useEffect, useMemo } from 'react'
+import React, { FC, useEffect, useMemo } from 'react'
 
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,15 +17,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './chats-list.style'
+import { useClassNames } from './chats-list.styles'
 
-import { ChatListItem } from './chat-list-item'
-
-interface TabPanelProps {
-  children: ReactElement
-  value?: string
-  index?: string
-}
+import { chatListMapper } from './chats-list-mapper'
 
 const tabsValues = {
   IN_WORK: 'IN_WORK',
@@ -72,7 +65,7 @@ export const ChatsList: FC<Props> = observer(
     return (
       <div className={classNames.root}>
         {isFreelanceOwner ? (
-          <React.Fragment>
+          <>
             <Tabs
               variant={'fullWidth'}
               classes={{
@@ -105,72 +98,15 @@ export const ChatsList: FC<Props> = observer(
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.IN_WORK}>
-              <>
-                {inWorkChats.map((chat: ChatContract) => {
-                  const isSelected = chatSelectedId === chat._id
-
-                  return (
-                    <div
-                      key={`chat_${chat._id}`}
-                      className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
-                    >
-                      <ChatListItem
-                        typingUsers={typingUsers}
-                        userId={userId}
-                        chat={chat}
-                        isSelected={isSelected}
-                        onClick={() => onClickChat(chat)}
-                      />
-                    </div>
-                  )
-                })}
-              </>
+              {chatListMapper(inWorkChats, userId, typingUsers, onClickChat)}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SOLVED}>
-              <>
-                {solvedChats.map((chat: ChatContract) => {
-                  const isSelected = chatSelectedId === chat._id
-
-                  return (
-                    <div
-                      key={`chat_${chat._id}`}
-                      className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
-                    >
-                      <ChatListItem
-                        typingUsers={typingUsers}
-                        userId={userId}
-                        chat={chat}
-                        isSelected={isSelected}
-                        onClick={() => onClickChat(chat)}
-                      />
-                    </div>
-                  )
-                })}
-              </>
+              {chatListMapper(solvedChats, userId, typingUsers, onClickChat)}
             </TabPanel>
-          </React.Fragment>
+          </>
         ) : (
-          <div className={classNames.root}>
-            {chats.map((chat: ChatContract) => {
-              const isSelected = chatSelectedId === chat._id
-
-              return (
-                <div
-                  key={`chat_${chat._id}`}
-                  className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
-                >
-                  <ChatListItem
-                    typingUsers={typingUsers}
-                    userId={userId}
-                    chat={chat}
-                    isSelected={isSelected}
-                    onClick={() => onClickChat(chat)}
-                  />
-                </div>
-              )
-            })}
-          </div>
+          chatListMapper(chats, userId, typingUsers, onClickChat)
         )}
       </div>
     )

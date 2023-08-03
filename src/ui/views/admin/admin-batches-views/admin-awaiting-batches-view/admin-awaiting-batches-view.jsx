@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -30,7 +29,7 @@ export const AdminAwaitingBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.topHeaderBtnsWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -81,7 +80,7 @@ export const AdminAwaitingBatchesViewRaw = props => {
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
         />
-      </MainContent>
+      </div>
 
       <BatchInfoModal
         batch={viewModel.curBatch}

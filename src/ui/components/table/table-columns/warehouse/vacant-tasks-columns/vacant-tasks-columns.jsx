@@ -29,7 +29,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
     ),
-    width: window.innerWidth < 1282 ? 150 : 190,
+    width: window.innerWidth < 1282 ? 150 : 165,
     filterable: false,
     sortable: false,
   },
@@ -54,7 +54,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Comment)} />,
 
-    width: 271,
+    width: 280,
 
     renderCell: params => (
       <ChangeInputCommentCell
@@ -73,7 +73,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
 
-    width: 180,
+    width: 130,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
@@ -82,8 +82,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Description)} />,
 
-    // width: window.innerWidth < 1282 ? 338 : 850,
-    width: 290,
+    width: 330,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -96,7 +95,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
-    width: window.innerWidth < 1282 ? 101 : 135,
+    width: window.innerWidth < 1282 ? 101 : 140,
     sortable: false,
   },
 
@@ -108,9 +107,8 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
-    width: window.innerWidth < 1282 ? 85 : 119,
+    width: window.innerWidth < 1282 ? 85 : 140,
     sortable: false,
-    align: 'center',
   },
 
   {
@@ -121,7 +119,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     align: 'center',
     type: 'number',
-    width: window.innerWidth < 1282 ? 75 : 134,
+    width: window.innerWidth < 1282 ? 75 : 130,
     sortable: false,
   },
 
@@ -131,7 +129,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <CheckboxCell checked={params.value} />,
-    width: 160,
+    width: 100,
     type: 'boolean',
   },
 
@@ -141,7 +139,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    width: window.innerWidth < 1282 ? 54 : 160,
+    width: window.innerWidth < 1282 ? 54 : 100,
     sortable: false,
   },
 

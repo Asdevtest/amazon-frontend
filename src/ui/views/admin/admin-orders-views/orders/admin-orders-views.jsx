@@ -11,7 +11,6 @@ import { adminOrdersBtnsConfig } from '@constants/table/tables-filter-btns-confi
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -33,7 +32,7 @@ export const AdminOrdersViewsRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.topHeaderBtnsWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -104,7 +103,7 @@ export const AdminOrdersViewsRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

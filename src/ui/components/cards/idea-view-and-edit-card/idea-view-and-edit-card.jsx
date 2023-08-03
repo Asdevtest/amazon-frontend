@@ -84,6 +84,7 @@ export const IdeaViewAndEditCard = observer(
     onClickCreateRequestButton,
     onClickOpenNewTab,
     onClickToOrder,
+    onClickRequestId,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -259,7 +260,7 @@ export const IdeaViewAndEditCard = observer(
     const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isCardCreating && !isVerified
+      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && isCardCreating && !isVerified
 
     const showRejectButton =
       isNewIdea ||
@@ -357,6 +358,7 @@ export const IdeaViewAndEditCard = observer(
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
+                          onClickRequestId={() => onClickRequestId(request._id)}
                           onClickResultButton={onClickResultButton}
                         />
                       ))}

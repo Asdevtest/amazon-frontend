@@ -13,10 +13,7 @@ const ani = keyframes`
 
 export const styles = theme => ({
   tableWrapper: {
-    height: 'calc(100vh - 250px)',
-    [theme.breakpoints.down(1282)]: {
-      height: 'calc(100vh - 250px)',
-    },
+    height: '72vh',
   },
   root: {
     border: '0 !important',

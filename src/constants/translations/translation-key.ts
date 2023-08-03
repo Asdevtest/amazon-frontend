@@ -1526,7 +1526,7 @@ export enum TranslationKey {
   'Add a list of ASIN' = 'Add a list of ASIN',
   'Choose chat' = 'Choose chat',
   'Try selecting a dialogue or Find a concrete speaker' = 'Try selecting a dialogue or Find a concrete speaker',
-  'New Dialogue' = 'New Dialogue',
+  'New Dialog' = 'New Dialog',
   'Write a message' = 'Write a message',
   'Deadline date cannot be earlier than the current date' = 'Deadline date cannot be earlier than the current date',
   'Add a list of reasons' = 'Add a list of reasons',

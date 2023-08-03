@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -22,13 +23,14 @@ interface IdeaRequestCardProps {
     name: string
     rating: number
   }
+  onClickRequestId: () => void
   onClickResultButton: (requestType: number, proposalId: string) => void
 }
 
 export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { requestType, requestId, requestStatus, executor, proposals, onClickResultButton } = props
+  const { requestType, requestId, requestStatus, executor, proposals, onClickRequestId, onClickResultButton } = props
 
   return (
     <div className={classNames.root}>
@@ -41,7 +43,10 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
         </p>
 
         <p className={classNames.categoryTitle}>
-          {`${t(TranslationKey.ID)}:`} <span className={classNames.categoryText}>{requestId}</span>
+          {`${t(TranslationKey.ID)}:`}{' '}
+          <button className={cx(classNames.categoryText, classNames.linkStyles)} onClick={onClickRequestId}>
+            {requestId}
+          </button>
         </p>
 
         <p className={classNames.categoryTitle}>

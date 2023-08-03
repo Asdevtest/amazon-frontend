@@ -7,23 +7,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-start',
     gap: 12,
     padding: '15px 10px',
-    borderLeft: '2px solid transparent',
     cursor: 'pointer',
-  },
-
-  rootIsSelected: {
-    borderLeftColor: theme.palette.primary.main,
   },
 
   avatarWrapper: {
     height: 49,
     width: 49,
-  },
-
-  miniAvatar: {
-    height: 15,
-    width: 15,
-    marginRight: 5,
   },
 
   rightSide: {
@@ -47,6 +36,11 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      maxWidth: 115,
+    },
   },
 
   messageDate: {
@@ -67,6 +61,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 5,
     maxWidth: 180,
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+    },
   },
 
   nickName: {
@@ -82,6 +80,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
+    wordWrap: 'break-word',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

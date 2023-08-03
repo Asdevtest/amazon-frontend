@@ -24,6 +24,6 @@ export const styles = theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: 'calc(100vh - 150px)',
+    height: '82vh',
   },
 })

@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -32,7 +31,7 @@ export const AdminUsersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <SearchInput
           inputClasses={classNames.searchInput}
           value={viewModel.nameSearchValue}
@@ -84,7 +83,7 @@ export const AdminUsersViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
       <Modal
         openModal={viewModel.showEditUserModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditUserModal')}

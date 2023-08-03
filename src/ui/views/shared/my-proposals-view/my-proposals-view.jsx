@@ -26,7 +26,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MyProposalsListCard } from '@components/cards/my-proposals-list-card'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -85,7 +84,7 @@ export const MyProposalsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.taskTypeWrapper}>
             {Object.keys({
@@ -131,6 +130,7 @@ export const MyProposalsViewRaw = props => {
 
             <div className={classNames.proposalSelect}>
               <WithSearchSelect
+                isWithoutItemsTooltip
                 checkbox
                 notCloseOneClick
                 width={350}
@@ -205,7 +205,7 @@ export const MyProposalsViewRaw = props => {
             </Typography>
           </div>
         )}
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         isWarning
