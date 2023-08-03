@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -10,7 +9,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 !important',
   },
   selectIsNotEmpty: {
-    // padding: '10px 73px 10px 15px !important',
     padding: '0 73px 0 15px !important',
   },
 
@@ -90,7 +88,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   generalText: {
     '&.Mui-disabled': {
-      '-webkit-text-fill-color': `${theme.palette.primary.main} !important`,
+      WebkitTextFillColor: `${theme.palette.primary.main} !important`,
     },
   },
 

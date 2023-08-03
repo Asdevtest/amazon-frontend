@@ -59,6 +59,7 @@ export const RightSideComments = observer(
       <div className={classNames.rightBoxCommentsWrapper}>
         <div className={classNames.rightBoxComments}>
           <Typography className={classNames.title}>{t(TranslationKey.Comments)}</Typography>
+
           <Field
             multiline
             disabled={!checkIsResearcher(curUserRole) || !showActionBtns}

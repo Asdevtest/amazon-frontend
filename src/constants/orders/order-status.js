@@ -221,7 +221,7 @@ export const orderColorByStatus = status => {
   ) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'
   } else if (
-    [OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT, OrderStatusByKey.READY_TO_PROCESS].includes(status)
+    [OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT, OrderStatus.READY_TO_PROCESS].includes(status)
   ) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
   } else {
@@ -237,7 +237,6 @@ export const OrderStatusText = ({ className, status, isClient }) => {
         OrderStatus.PENDING,
         OrderStatus.AT_PROCESS,
         OrderStatus.PARTIALLY_PAID,
-        OrderStatus.READY_TO_PROCESS,
         OrderStatus.TRACK_NUMBER_ISSUED,
       ].includes(status)
     ) {
@@ -252,8 +251,10 @@ export const OrderStatusText = ({ className, status, isClient }) => {
       ].includes(status)
     ) {
       return '#FF1616'
-    } else if ([OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT].includes(status)) {
-      return '#0A6FE8'
+    } else if (
+      [OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT, OrderStatus.READY_TO_PROCESS].includes(status)
+    ) {
+      return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
     } else {
       return '#black'
     }

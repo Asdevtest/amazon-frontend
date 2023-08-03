@@ -14,7 +14,6 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
@@ -52,7 +51,7 @@ export const WarehouseVacantTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <TaskPrioritySelector
             currentPriority={viewModel.curTaskPriority}
@@ -183,7 +182,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showTaskInfoModal}

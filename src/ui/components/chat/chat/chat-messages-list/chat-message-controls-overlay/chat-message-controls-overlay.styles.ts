@@ -11,8 +11,13 @@ export const useChatMessageControlsOverlayStyles = makeStyles()(theme => ({
     left: 0,
     background: 'rgba(0,0,0, .1)',
     borderRadius: '20px',
-    margin: '0 44px',
+    margin: '0 42px',
     justifyContent: 'flex-end',
+
+    [theme.breakpoints.down(768)]: {
+      margin: 0,
+      borderRadius: 15,
+    },
   },
 
   showOverlay: {
@@ -27,7 +32,8 @@ export const useChatMessageControlsOverlayStyles = makeStyles()(theme => ({
     height: 'fit-content',
     pointerEvents: 'all',
     borderRadius: '8px',
-    zIndex: 1499,
+    zIndex: 15,
+
     button: {
       all: 'unset',
       cursor: 'pointer',
@@ -92,7 +98,7 @@ export const useChatMessageControlsOverlayStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     width: '100%',
-    '&:nth-child(2)': {
+    '&:nth-of-type(2)': {
       borderBottom: `1px solid ${theme.palette.divider}`,
       paddingBottom: '7px',
     },

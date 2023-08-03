@@ -10,7 +10,6 @@ import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
@@ -40,7 +39,7 @@ export const VacantDealsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
             <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
@@ -75,7 +74,7 @@ export const VacantDealsViewRaw = props => {
             </div>
           )}
         </div>
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}

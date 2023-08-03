@@ -1,8 +1,7 @@
 export const styles = theme => ({
   control: {
     background: theme.palette.background.general,
-    maxWidth: 500,
-    maxHeight: 150,
+    width: '100%',
     overflow: 'auto',
     padding: 3,
   },
@@ -25,9 +24,14 @@ export const styles = theme => ({
     transition: '.3s ease',
     overflowX: 'hidden',
     overflowY: 'auto',
+
+    [theme.breakpoints.down(768)]: {
+      maxHeight: 300,
+    },
   },
 
   option: {
+    padding: 0,
     color: theme.palette.primary.main,
     cursor: 'pointer',
   },

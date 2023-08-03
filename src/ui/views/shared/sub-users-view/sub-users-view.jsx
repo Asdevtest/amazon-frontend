@@ -12,7 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -38,7 +37,7 @@ export const SubUsersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.subUserHeader}>
           <div />
 
@@ -106,7 +105,7 @@ export const SubUsersViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
       <Modal
         openModal={viewModel.showAddSubUserModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}

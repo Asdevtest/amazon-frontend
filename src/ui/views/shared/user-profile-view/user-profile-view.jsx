@@ -13,7 +13,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -39,7 +38,7 @@ export const UserProfileViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         <UserProfile
           user={viewModel.user}
           timer={'14 минут'}
@@ -113,7 +112,7 @@ export const UserProfileViewRaw = props => {
             />
           </>
         ) : null}
-      </MainContent>
+      </div>
       <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
         <ContentModal
           setOpenModal={viewModel.onTriggerShowTabModal}

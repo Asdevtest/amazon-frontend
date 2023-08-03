@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ResearcherAddProductForm } from '@components/forms/reasearcher-add-product-form'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
@@ -37,7 +36,7 @@ export const ResearcherProductsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.card}>
           <div className={classNames.formWrapper}>
             <ResearcherAddProductForm
@@ -97,7 +96,7 @@ export const ResearcherProductsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         isWarning={viewModel.warningInfoModalSettings.isWarning}

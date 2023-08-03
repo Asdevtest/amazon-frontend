@@ -11,7 +11,6 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { UserLink } from '@components/user/user-link'
@@ -39,7 +38,7 @@ export const WarehouseDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
@@ -121,7 +120,7 @@ export const WarehouseDashboardViewRaw = props => {
             onEditSubmit={viewModel.onSubmitChangeDestination}
           />
         </Modal>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

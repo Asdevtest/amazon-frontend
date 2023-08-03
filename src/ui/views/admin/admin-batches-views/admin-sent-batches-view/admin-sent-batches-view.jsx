@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -31,7 +30,7 @@ export const AdminSentBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.topHeaderBtnsWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -82,7 +81,7 @@ export const AdminSentBatchesViewRaw = props => {
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
         />
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         isWarning={viewModel.isWarning}

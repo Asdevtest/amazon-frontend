@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -58,7 +57,7 @@ export const RequestDetailCustomViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backBtnWrapper}>
           <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
             {t(TranslationKey.Back)}
@@ -152,7 +151,7 @@ export const RequestDetailCustomViewRaw = props => {
             </ChatRequestAndRequestProposalContext.Provider>
           </div>
         ) : null}
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         isWarning={viewModel.warningInfoModalSettings.isWarning}

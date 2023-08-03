@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
@@ -11,7 +11,6 @@ import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-fo
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -43,7 +42,7 @@ export const ClientIdeasView = observer(props => {
   }, [])
 
   return (
-    <MainContent>
+    <div>
       <div className={styles.controls}>
         <div />
         <SearchInput
@@ -108,7 +107,7 @@ export const ClientIdeasView = observer(props => {
       </div>
 
       <Modal
-        noPadding
+        dialogContextClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
@@ -271,6 +270,6 @@ export const ClientIdeasView = observer(props => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
-    </MainContent>
+    </div>
   )
 })

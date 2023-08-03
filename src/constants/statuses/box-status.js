@@ -52,7 +52,7 @@ export const colorByBoxStatus = status => {
     return {
       background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
       '-webkit-background-clip': 'text',
-      '-webkit-text-fill-color': 'transparent',
+      WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
       textFillColor: 'transparent',
     }

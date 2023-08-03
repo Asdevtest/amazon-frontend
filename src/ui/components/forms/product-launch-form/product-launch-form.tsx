@@ -105,7 +105,12 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
       />
 
       <div className={classNames.buttonsWrapper}>
-        <Button success variant="contained" onClick={() => onClickNextButton(selectedProduct)}>
+        <Button
+          success
+          disabled={selectedRadioValue && !selectedProduct}
+          variant="contained"
+          onClick={() => onClickNextButton(selectedProduct)}
+        >
           {t(TranslationKey.Next)}
         </Button>
 

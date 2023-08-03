@@ -1529,7 +1529,7 @@
   "Add a list of ASIN": "添加ASIN列表",
   "Choose chat": "选择对话",
   "Try selecting a dialogue or Find a concrete speaker": "选择对话或查找具体对方",
-  "New Dialogue": "新对话",
+  "New Dialog": "新对话",
   "Write a message": "写条信息",
   "Deadline date cannot be earlier than the current date": "截止日期不能早于当前日期",
   "Add a list of reasons": "添加原因列表",
@@ -2066,6 +2066,7 @@
   "Product launch": "Product launch",
   "Create or select product": "Create or select product",
   "Variation": "Variation",
+  "sec": "sec.",
   "An error occurred while loading the image from the link. Please replace the image": "An error occurred while loading the image from the link. Please replace the image",
   "Min batch": "Min. batch",
   "Order date": "Order date"

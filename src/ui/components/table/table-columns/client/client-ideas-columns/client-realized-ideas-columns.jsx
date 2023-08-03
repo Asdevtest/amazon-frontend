@@ -104,7 +104,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.New),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 91,
     sortable: false,
   },
@@ -114,7 +122,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['On checking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 91,
     sortable: false,
   },
@@ -124,7 +140,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Supplier search']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 110,
     sortable: false,
   },
@@ -134,7 +158,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Supplier found']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 91,
     sortable: false,
   },
@@ -144,7 +176,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Card creating']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Card creating'])} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 91,
     sortable: false,
   },
@@ -154,7 +194,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Adding ASIN']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Adding ASIN'])} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 91,
     sortable: false,
   },
@@ -164,7 +212,15 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Verifying),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
 
-    renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={
+          params.value >= 60
+            ? minsToTime(params.value / 60)
+            : params.value && params.value + ' ' + t(TranslationKey.sec)
+        }
+      />
+    ),
     width: 91,
     sortable: false,
   },

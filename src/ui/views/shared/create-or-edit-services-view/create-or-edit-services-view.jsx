@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { CreateOrEditServiceContent } from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
-import { MainContent } from '@components/layout/main-content'
 
 import { styles } from './create-or-edit-services-view.style'
 
@@ -26,7 +25,7 @@ export const CreateOrEditServicesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.root}>
           <CreateOrEditServiceContent
             pathname={viewModel.pathname}
@@ -37,7 +36,7 @@ export const CreateOrEditServicesViewRaw = props => {
             onClickBackBtn={viewModel.onClickBackBtn}
           />
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

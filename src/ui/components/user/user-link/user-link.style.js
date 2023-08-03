@@ -8,7 +8,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
-
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

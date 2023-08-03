@@ -7,7 +7,6 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
@@ -22,7 +21,7 @@ export const WarehouseTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div>
           <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Tasks'])}</Typography>
 
@@ -71,7 +70,7 @@ export const WarehouseTasksViewRaw = props => {
             </Button>
           </div>
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

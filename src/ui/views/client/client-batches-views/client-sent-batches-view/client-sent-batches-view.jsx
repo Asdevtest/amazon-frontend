@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -38,7 +37,7 @@ export const ClientSentBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={className.btnsWrapper}>
           <Button
             // tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
@@ -173,7 +172,7 @@ export const ClientSentBatchesViewRaw = props => {
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <BatchInfoModal
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}

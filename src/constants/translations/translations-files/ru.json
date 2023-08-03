@@ -1529,7 +1529,7 @@
   "Add a list of ASIN": "Добавьте список ASIN",
   "Choose chat": "Выберите чат",
   "Try selecting a dialogue or Find a concrete speaker": "Попробуйте выбрать диалог или Найти конкретного собеседника",
-  "New Dialogue": "Новый диалог",
+  "New Dialog": "Новый диалог",
   "Write a message": "Написать сообщение",
   "Deadline date cannot be earlier than the current date": "Крайняя дата не может быть раньше текущей даты",
   "Add a list of reasons": "Добавьте список причин",
@@ -2068,6 +2068,7 @@
   "Product launch": "Запуск продукта",
   "Create or select product": "Создать или выбрать продукт",
   "Variation": "Вариация",
+  "sec": "сек.",
   "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение",
   "Min batch": "Мин. партия",
   "Order date": "Дата заказа"

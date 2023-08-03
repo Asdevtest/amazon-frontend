@@ -12,7 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { MainContent } from '@components/layout/main-content'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
@@ -36,7 +35,7 @@ export const ServiceExchangeViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.toggleBtnAndtaskTypeWrapper}>
             <div className={classNames.tablePanelViewWrapper}>
@@ -129,7 +128,7 @@ export const ServiceExchangeViewRaw = props => {
             </Typography>
           </div>
         )}
-      </MainContent>
+      </div>
 
       <ImageModal
         imageList={viewModel.bigImagesOptions.images}

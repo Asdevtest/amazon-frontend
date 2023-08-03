@@ -447,7 +447,7 @@ export class SuppliersAndIdeasModel {
   async onSubmitRejectOrRemoveIdea(ideaId, close) {
     try {
       if (close) {
-        await IdeaModel.removeIdea(ideaId)
+        await IdeaModel.setStatusToClosed(ideaId)
       } else {
         await IdeaModel.rejectIdea(ideaId)
       }

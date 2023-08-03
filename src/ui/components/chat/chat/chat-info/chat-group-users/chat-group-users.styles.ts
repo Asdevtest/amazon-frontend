@@ -18,22 +18,23 @@ export const useChatGroupUsersStyles = makeStyles()(theme => ({
 
   addMemberBtnWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    gap: 5,
   },
 
   addMemberBtnText: {
     color: '#fff',
-    marginRight: 5,
   },
 
   membersWrapper: {
-    marginTop: 30,
+    padding: 10,
+    overflowY: 'auto',
+    maxHeight: 470,
     width: '100%',
-    height: '100%',
-    maxHeight: 380,
 
-    padding: '0 15px',
-
-    overflow: 'auto',
+    [theme.breakpoints.down(768)]: {
+      maxHeight: 335,
+    },
   },
 
   avatarWrapper: {
@@ -58,10 +59,14 @@ export const useChatGroupUsersStyles = makeStyles()(theme => ({
 
   opponentName: {
     maxWidth: 180,
-
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+      fontSize: 14,
+    },
   },
 
   ownerSign: {

@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -36,11 +34,7 @@ export const SearchResult = observer(
 
     return (
       <div className={classNames.searchResultWrapper}>
-        <Typography className={classNames.searchResult}>{t(TranslationKey['Search results']) + ':'}</Typography>
-
-        <Typography className={classNames.searchResultNum}>{`${curFoundedMessageIndex + 1} ${t(
-          TranslationKey['out of'],
-        )} ${messagesFound.length}`}</Typography>
+        <p className={classNames.searchResult}>{t(TranslationKey['Search results']) + ': ' + messagesFound.length}</p>
 
         <div className={classNames.dropUpOrDownWrapper}>
           <ArrowDropUpIcon

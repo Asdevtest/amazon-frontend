@@ -22,27 +22,6 @@
   src: local('Manrope'), url('./fonts/Manrope-Bold.ttf') format('ttf');
 }
 
-body {
-  margin: 0;
-  background-color: rgba(245, 246, 248, 1);
-  /* background-color: black; */
-
-  font-family: 'Manrope', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#root {
-  height: 100vh;
-}
-
-.App {
-  height: 100%;
-  width: 100%;
-  display: flex;
-}
-
 /* Reset and base styles  */
 * {
   padding: 0px;
@@ -50,10 +29,31 @@ body {
   border: none;
 }
 
+@media (max-width: 767px) {
+  *::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  font-family: 'Manrope', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Links */
@@ -97,6 +97,7 @@ ul li {
 
 img {
   vertical-align: top;
+  max-width: 100%;
 }
 
 /* img,
@@ -104,10 +105,6 @@ svg {
   max-width: 100%;
   height: auto;
 } */
-
-address {
-  font-style: normal;
-}
 
 /* Form */
 
@@ -148,8 +145,4 @@ button::-moz-focus-inner {
 
 label {
   cursor: pointer;
-}
-
-legend {
-  display: block;
 }

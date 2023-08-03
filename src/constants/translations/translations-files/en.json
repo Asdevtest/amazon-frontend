@@ -1525,7 +1525,7 @@
   "Add a list of ASIN": "Add a list of ASIN",
   "Choose chat": "Choose chat",
   "Try selecting a dialogue or Find a concrete speaker": "Try selecting a dialogue or Find a concrete speaker",
-  "New Dialogue": "New Dialogue",
+  "New Dialog": "New Dialog",
   "Write a message": "Write a message",
   "Deadline date cannot be earlier than the current date": "Deadline date cannot be earlier than the current date",
   "Add a list of reasons": "Add a list of reasons",
@@ -2063,6 +2063,7 @@
   "Product launch": "Product launch",
   "Create or select product": "Create or select product",
   "Variation": "Variation",
+  "sec": "sec.",
   "An error occurred while loading the image from the link. Please replace the image": "An error occurred while loading the image from the link. Please replace the image",
   "Min batch": "Min. batch",
   "Order date": "Order date"
