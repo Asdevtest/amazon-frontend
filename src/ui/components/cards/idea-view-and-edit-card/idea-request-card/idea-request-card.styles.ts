@@ -33,6 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   resultButton: {
+    width: '100%',
     height: '30px',
     whiteSpace: 'nowrap',
   },

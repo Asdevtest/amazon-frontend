@@ -131,6 +131,11 @@ class IdeaModelStatic {
     return response
   }
 
+  setStatusToClosed = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasClosedGuidPatch(id)
+    return response
+  }
+
   restore = async id => {
     const response = await restApiService.ideaApi.apiV1IdeasReopenGuidPatch(id)
     return response

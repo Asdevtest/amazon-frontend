@@ -547,7 +547,7 @@ export class ClientIdeasViewModel {
 
   async onSubmitRemoveIdea(ideaId) {
     try {
-      await IdeaModel.removeIdea(ideaId)
+      await IdeaModel.setStatusToClosed(ideaId)
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
