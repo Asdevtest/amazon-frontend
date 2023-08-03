@@ -18,23 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  shareWrapper: {
-    display: 'flex',
-    gap: 10,
-
-    cursor: 'pointer',
-  },
-
-  shareLinkIcon: {
-    color: theme.palette.primary.main,
-    width: '21px !important',
-    height: '21px !important',
-  },
-
-  shareLinkText: {
-    color: theme.palette.primary.main,
-  },
-
   buttonsWrapper: {
     display: 'flex',
     gap: 10,

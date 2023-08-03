@@ -8,7 +8,7 @@ import {
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'

@@ -1,4 +1,5 @@
 export * from './object'
+export { cloneDeep } from './clone-deep'
 
 // export {
 //   getObjectKeys,

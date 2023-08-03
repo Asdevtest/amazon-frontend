@@ -243,6 +243,7 @@ export const useClassNames = makeStyles()(theme => ({
   userNameAndBalanceWrapper: {
     marginRight: 10,
     textAlign: 'right',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

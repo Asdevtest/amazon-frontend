@@ -39,7 +39,6 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
           blackText={undefined}
           withAvatar={undefined}
           maxNameWidth={undefined}
-          customStyles={undefined}
           customClassNames={undefined}
         />
 

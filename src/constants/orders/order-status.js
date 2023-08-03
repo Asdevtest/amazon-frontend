@@ -1,11 +1,13 @@
+import { UiTheme } from '@constants/theme/themes'
+
+import { SettingsModel } from '@models/settings-model'
+
 import { Text } from '@components/shared/text'
 
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { TranslationKey } from '../translations/translation-key'
-import { SettingsModel } from '@models/settings-model'
-import { UiTheme } from '@constants/theme/themes'
 
 export const OrderStatus = {
   FORMED: 'FORMED',

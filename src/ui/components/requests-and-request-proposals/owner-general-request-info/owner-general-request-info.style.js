@@ -303,7 +303,7 @@ export const useClassNames = makeStyles()(theme => ({
   doneIcon: {
     width: '19px !important',
     height: '19px !important',
-    color: '#0B903E',
+    color: theme.palette.other.succes,
   },
 
   confirmationWrapper: {

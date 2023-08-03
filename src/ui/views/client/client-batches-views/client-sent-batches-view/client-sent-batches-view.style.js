@@ -54,11 +54,13 @@ export const styles = theme => ({
     width: 230,
     display: 'flex',
     gap: 10,
-    border: '1px solid #D70D0D',
-    color: '#D70D0D',
+    border: `1px solid ${theme.palette.other.rejected}`,
+    color: theme.palette.other.rejected,
+    transition: 'all 0.3s ease-in-out',
 
     '&:hover': {
-      border: '1px solid #D70D0D',
+      border: `1px solid ${theme.palette.other.rejected}`,
+      opacity: 0.6,
     },
 
     '&:disabled': {

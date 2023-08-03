@@ -56,7 +56,6 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = p
           blackText={undefined}
           withAvatar={undefined}
           maxNameWidth={undefined}
-          customStyles={undefined}
           customClassNames={undefined}
         />
 

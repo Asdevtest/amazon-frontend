@@ -59,4 +59,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'min-content',
     width: 'min-content',
   },
+
+  userInfoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
 }))

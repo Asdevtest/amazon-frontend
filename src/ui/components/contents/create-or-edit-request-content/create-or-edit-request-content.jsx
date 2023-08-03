@@ -27,9 +27,9 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
+import { CheckRequestByTypeExist, CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value'
@@ -164,39 +164,41 @@ export const CreateOrEditRequestContent = ({
 
   const getSourceFormFields = currentFields => ({
     request: {
-      title: requestToEdit?.request.title || '',
-      maxAmountOfProposals: requestToEdit?.request.maxAmountOfProposals || '',
-      price: requestToEdit?.request.price || '',
-      timeoutAt: requestToEdit?.request.timeoutAt || null,
-      direction: requestToEdit?.request.direction || 'IN',
-      timeLimitInMinutes: requestToEdit?.request.timeLimitInMinutes || 60,
-      roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 35],
-      needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
+      title: requestToEdit?.request?.title || '',
+      maxAmountOfProposals: requestToEdit?.request?.maxAmountOfProposals || '',
+      price: requestToEdit?.request?.price || '',
+      timeoutAt: requestToEdit?.request?.timeoutAt || null,
+      direction: requestToEdit?.request?.direction || 'IN',
+      timeLimitInMinutes: requestToEdit?.request?.timeLimitInMinutes || 60,
+      roles: requestToEdit?.request?.roles?.length ? requestToEdit?.request?.roles : [10, 35],
+      needCheckBySupervisor: requestToEdit?.request?.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
-        requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
+        requestToEdit?.request?.restrictMoreThanOneProposalFromOneAssignee || false,
       typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
-      asin: requestToEdit?.request.asin || undefined,
-      priceAmazon: requestToEdit?.request.priceAmazon || 0,
-      cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
+      asin: requestToEdit?.request?.asin || undefined,
+      priceAmazon: requestToEdit?.request?.priceAmazon || 0,
+      cashBackInPercent: requestToEdit?.request?.cashBackInPercent || 0,
       announcementId: requestToEdit?.request?.announcementId || undefined,
       productId: requestToEdit?.request?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
-      priority: requestToEdit?.request.priority || 20,
+      priority: requestToEdit?.request?.priority || 20,
 
       discountedPrice: requestToEdit
         ? toFixed(
-            calcNumberMinusPercent(requestToEdit?.request.priceAmazon, requestToEdit?.request.cashBackInPercent),
+            calcNumberMinusPercent(requestToEdit?.request?.priceAmazon, requestToEdit?.request?.cashBackInPercent),
             2,
           )
         : 0,
     },
     details: {
-      conditions: requestToEdit?.details.conditions || '',
-      linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
+      conditions: requestToEdit?.details?.conditions || '',
+      linksToMediaFiles: requestToEdit?.details?.linksToMediaFiles || [],
     },
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  console.log('formFields', formFields)
 
   const [requestIds, setRequestIds] = useState([])
 
@@ -915,11 +917,11 @@ export const CreateOrEditRequestContent = ({
                             labelClasses={cx(classNames.spanLabel, classNames.fitContentContainer)}
                             containerClasses={cx(classNames.asinContainerStapTwo)}
                             inputComponent={
-                              <AsinLink
+                              <AsinOrSkuLink
                                 withCopyValue
                                 asin={formFields.request.asin}
-                                linkSpanClass={classNames.copyAsinlinkSpan}
-                                missingSpanClass={classNames.copyAsinlinkSpan}
+                                textStyles={classNames.copyAsinlinkSpan}
+                                missingValueTextStyles={classNames.copyAsinlinkSpan}
                               />
                             }
                           />

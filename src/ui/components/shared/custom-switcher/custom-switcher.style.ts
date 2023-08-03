@@ -5,7 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     padding: 2,
-    borderRadius: 4,
+    borderRadius: 7,
     backgroundColor: theme.palette.input.customDisabled,
     height: 28,
   },
@@ -19,7 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     padding: '0 4px',
     height: 24,
-    borderRadius: 4,
     color: theme.palette.text.general,
     background: 'none',
     minWidth: '24px !important',
@@ -32,5 +31,14 @@ export const useClassNames = makeStyles()(theme => ({
   activeOption: {
     background: theme.palette.primary.main,
     color: '#fff',
+  },
+
+  bigSwitcherWrapper: {
+    height: '40px',
+  },
+
+  bigSwitcherOption: {
+    padding: '0 15px',
+    height: '40px',
   },
 }))

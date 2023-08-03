@@ -13,7 +13,8 @@ import Zoom from '@mui/material/Zoom'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
@@ -27,18 +28,6 @@ const tabsValues = {
 }
 
 const PRODUCTS_WITHOUT_SHOPS_ID = 'PRODUCTS_WITHOUT_SHOPS_ID'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 export const AddOrEditUserPermissionsForm = observer(
   ({

@@ -28,7 +28,6 @@ export const ChatMessageRemoveUsersFromGroupChat: FC<Props> = ({ message }) => {
         blackText={undefined}
         withAvatar={undefined}
         maxNameWidth={undefined}
-        customStyles={undefined}
         customClassNames={undefined}
       />
 
@@ -45,7 +44,6 @@ export const ChatMessageRemoveUsersFromGroupChat: FC<Props> = ({ message }) => {
             blackText={undefined}
             withAvatar={undefined}
             maxNameWidth={undefined}
-            customStyles={undefined}
             customClassNames={undefined}
           />
         ))}

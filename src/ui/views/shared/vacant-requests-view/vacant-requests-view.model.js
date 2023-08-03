@@ -1,6 +1,7 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType } from '@constants/requests/request-type'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
@@ -15,7 +16,6 @@ import { FreelancerVacantRequestColumns } from '@components/table/table-columns/
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
-import { RequestSubType } from '@constants/requests/request-type'
 
 const filtersFields = [
   'humanFriendlyId',

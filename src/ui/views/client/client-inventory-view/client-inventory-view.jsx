@@ -16,10 +16,12 @@ import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-suppli
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
+import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
@@ -72,140 +74,154 @@ export const ClientInventoryViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <div className={classNames.shopsFiltersWrapper}>
-            <SearchInput
-              key={'client_inventory_search_input'}
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-              onSubmit={viewModel.onSearchSubmit}
-            />
-          </div>
-
-          {!viewModel.isArchive ? (
-            <div className={classNames.simpleBtnsWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-                variant="outlined"
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={classNames.openArchiveBtn}
-                onClick={viewModel.onTriggerArchive}
-              >
-                {t(TranslationKey['Open archive'])}
-              </Button>
-
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
-                onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
-              >
-                {t(TranslationKey['Add product'])}
-                <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
-              </Button>
+        <div className={classNames.headerWrapper}>
+          <div className={classNames.addProductBtnsWrapper}>
+            <div className={classNames.shopsFiltersWrapper}>
+              <SearchInput
+                key={'client_inventory_search_input'}
+                inputClasses={classNames.searchInput}
+                placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                onSubmit={viewModel.onSearchSubmit}
+              />
             </div>
-          ) : (
-            <div />
-          )}
-        </div>
 
-        <div className={classNames.addProductBtnsWrapper}>
-          {!viewModel.isArchive && (
-            <div className={classNames.btnsWrapper}>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['To order selected products'])}
-                variant="contained"
-                disabled={viewModel.selectedRowIds.length === 0}
-                onClick={viewModel.onClickOrderBtn}
-              >
-                {t(TranslationKey['To order'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(
-                  TranslationKey['Bind the selected product from the inventory to an item from the store'],
-                )}
-                disabled={viewModel.selectedRowIds.length !== 1}
-                className={cx(classNames.buttonOffset)}
-                onClick={viewModel.onClickBindInventoryGoodsToStockBtn}
-              >
-                {t(TranslationKey['Bind an product from Amazon'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
-                disabled={!viewModel.selectedRowIds.length}
-                className={cx(classNames.buttonOffset)}
-                onClick={viewModel.onClickAddSupplierBtn}
-              >
-                {t(TranslationKey['Supplier search'])}
-              </Button>
-
-              <Button disabled={!viewModel.selectedRowIds.length} onClick={viewModel.onClickParseProductsBtn}>
-                {'Parse all'}
-              </Button>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Product batches data'])}
-                disabled={viewModel.selectedRowIds.length !== 1}
-                onClick={viewModel.onClickProductLotDataBtn}
-              >
-                {t(TranslationKey['Product batches data'])}
-              </Button>
-            </div>
-          )}
-
-          <div className={classNames.simpleBtnsWrapper}>
             {!viewModel.isArchive && (
-              <>
+              <div className={classNames.btnsWrapper}>
                 <Button
-                  tooltipInfoContent={t(
-                    TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                  )}
-                  disabled={!viewModel.selectedRowIds.length}
-                  variant="outlined"
-                  className={classNames.archiveAddBtn}
-                  onClick={viewModel.onClickTriggerArchOrResetProducts}
+                  success
+                  tooltipInfoContent={t(TranslationKey['To order selected products'])}
+                  variant="contained"
+                  disabled={viewModel.selectedRowIds.length === 0}
+                  onClick={viewModel.onClickOrderBtn}
                 >
-                  {t(TranslationKey['Move to archive'])}
-                  {<ArchiveIcon />}
+                  {t(TranslationKey['To order'])}
                 </Button>
 
                 <Button
                   success
-                  className={classNames.rightAddingBtn}
-                  onClick={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
-                >
-                  {t(TranslationKey['Add a supplier list'])}
-                  <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
-                </Button>
-              </>
-            )}
-
-            {viewModel.isArchive ? (
-              <>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-                  disabled={!viewModel.selectedRowIds.length}
+                  disabled={viewModel.selectedRowIds.length > 1}
                   variant="contained"
-                  onClick={viewModel.onClickTriggerArchOrResetProducts}
+                  className={classNames.actionButtonWithPlus}
+                  onClick={viewModel.onClickProductLaunch}
                 >
-                  {t(TranslationKey['Return to inventory'])}
+                  <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                  {t(TranslationKey['Product launch'])}
                 </Button>
 
                 <Button
-                  tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
+                  tooltipInfoContent={t(
+                    TranslationKey['Bind the selected product from the inventory to an item from the store'],
+                  )}
+                  disabled={viewModel.selectedRowIds.length !== 1}
+                  className={cx(classNames.buttonOffset)}
+                  onClick={viewModel.onClickBindInventoryGoodsToStockBtn}
+                >
+                  {t(TranslationKey['Bind an product from Amazon'])}
+                </Button>
+
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
+                  disabled={!viewModel.selectedRowIds.length}
+                  className={cx(classNames.buttonOffset)}
+                  onClick={viewModel.onClickAddSupplierBtn}
+                >
+                  {t(TranslationKey['Supplier search'])}
+                </Button>
+
+                <Button disabled={!viewModel.selectedRowIds.length} onClick={viewModel.onClickParseProductsBtn}>
+                  {'Parse all'}
+                </Button>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Product batches data'])}
+                  disabled={viewModel.selectedRowIds.length !== 1}
+                  onClick={viewModel.onClickProductLotDataBtn}
+                >
+                  {t(TranslationKey['Product batches data'])}
+                </Button>
+              </div>
+            )}
+          </div>
+
+          <div className={classNames.topHeaderBtnsWrapper}>
+            {!viewModel.isArchive ? (
+              <div className={classNames.simpleBtnsWrapper}>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
                   variant="outlined"
+                  btnWrapperStyle={classNames.btnWrapperStyle}
                   className={classNames.openArchiveBtn}
                   onClick={viewModel.onTriggerArchive}
                 >
-                  {t(TranslationKey['Open inventory'])}
+                  {t(TranslationKey['Open archive'])}
                 </Button>
-              </>
-            ) : null}
+
+                <Button
+                  success
+                  tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+                  btnWrapperStyle={classNames.btnWrapperStyle}
+                  className={classNames.actionButtonWithPlus}
+                  onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
+                >
+                  <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                  {t(TranslationKey['Add product'])}
+                </Button>
+              </div>
+            ) : (
+              <div />
+            )}
+
+            <div className={classNames.simpleBtnsWrapper}>
+              {!viewModel.isArchive && (
+                <>
+                  <Button
+                    tooltipInfoContent={t(
+                      TranslationKey['Delete the selected product (the product is moved to the archive)'],
+                    )}
+                    disabled={!viewModel.selectedRowIds.length}
+                    variant="outlined"
+                    className={classNames.archiveAddBtn}
+                    onClick={viewModel.onClickTriggerArchOrResetProducts}
+                  >
+                    {<ArchiveIcon />}
+                    {t(TranslationKey.Archiving)}
+                  </Button>
+
+                  <Button
+                    success
+                    className={classNames.actionButtonWithPlus}
+                    onClick={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
+                  >
+                    <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                    {t(TranslationKey['Add a supplier list'])}
+                  </Button>
+                </>
+              )}
+
+              {viewModel.isArchive ? (
+                <>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
+                    disabled={!viewModel.selectedRowIds.length}
+                    variant="contained"
+                    onClick={viewModel.onClickTriggerArchOrResetProducts}
+                  >
+                    {t(TranslationKey['Return to inventory'])}
+                  </Button>
+
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
+                    variant="outlined"
+                    className={classNames.openArchiveBtn}
+                    onClick={viewModel.onTriggerArchive}
+                  >
+                    {t(TranslationKey['Open inventory'])}
+                  </Button>
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
+
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             pagination
@@ -267,9 +283,7 @@ export const ClientInventoryViewRaw = props => {
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onColumnHeaderEnter={params => {
-              viewModel.onHoverColumnField(params.field)
-            }}
+            onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
@@ -282,10 +296,8 @@ export const ClientInventoryViewRaw = props => {
               }
               event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
             }}
-            onCellDoubleClick={params =>
-              !disableSelectionCells.includes(params.field) && viewModel.onClickShowProduct(params.row)
-            }
             onRowClick={params => viewModel.onClickProductModal(params.row)}
+            onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
           />
         </div>
       </div>
@@ -303,12 +315,39 @@ export const ClientInventoryViewRaw = props => {
         />
       </Modal>
 
+      <Modal
+        noPadding
+        openModal={viewModel.showProductLaunch}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+      >
+        <ProductLaunchForm
+          selectedProductToLaunch={viewModel.selectedProductToLaunch}
+          productsToLaunch={viewModel.productsToLaunch}
+          onClickVariationRadioButton={viewModel.onClickVariationRadioButton}
+          onClickNextButton={viewModel.onClickNextButton}
+          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+        />
+      </Modal>
+
+      {viewModel.showIdeaModal && (
+        <IdeaCardsModal
+          isCreate
+          product={viewModel.selectedProductToLaunch}
+          productId={viewModel.selectedProductToLaunch?._id}
+          openModal={viewModel.showIdeaModal}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showIdeaModal')
+            viewModel.loadData()
+          }}
+        />
+      )}
+
       {viewModel.productCardModal && (
         <ProductCardModal
           history={viewModel.history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onClickProductModal()}
-          onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
 
