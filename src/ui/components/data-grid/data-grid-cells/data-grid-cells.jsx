@@ -3155,6 +3155,7 @@ export const IdeaRequests = React.memo(
       onClickCreateRequest,
       onClickLinkRequest,
       onClickResultButton,
+      onClickRequestId,
       withoutControls,
       row,
     } = props
@@ -3174,6 +3175,7 @@ export const IdeaRequests = React.memo(
             requestStatus={request.status}
             executor={request.executor}
             proposals={request.proposals}
+            onClickRequestId={() => onClickRequestId(request._id)}
             onClickResultButton={() => onClickResultButton(request.typeTask, request?.proposals[0]?._id)}
           />
         ))}
