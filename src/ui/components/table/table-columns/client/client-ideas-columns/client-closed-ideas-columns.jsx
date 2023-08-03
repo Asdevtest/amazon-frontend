@@ -3,7 +3,10 @@ import React from 'react'
 import { Box } from '@mui/material'
 
 import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
+import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
 
 import {
   ClosedIdeaActions,
@@ -44,7 +47,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: params => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -59,7 +62,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsImageLink(el))} />,
-    width: 120,
+    width: 96,
     sortable: false,
   },
 
@@ -90,11 +93,12 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <MultilineTextCell
+        leftAlign
         text={ideaStatusTranslate(ideaStatusByCode[params.value])}
         color={colorByIdeaStatus(ideaStatusByCode[params.value])}
       />
     ),
-    width: 160,
+    width: 100,
     sortable: false,
   },
 
@@ -104,7 +108,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -114,7 +118,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -124,17 +128,27 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 110,
     sortable: false,
   },
 
   {
     field: 'intervalsSum',
     headerName: t(TranslationKey['Elapsed time']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Elapsed time'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'}
+        text={t(TranslationKey['Elapsed time'])}
+      />
+    ),
 
-    renderCell: params => <MultilineTextCell color="#0B903E" text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    renderCell: params => (
+      <MultilineTextCell
+        color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'}
+        text={minsToTime(params.value / 60, 2)}
+      />
+    ),
+    width: 91,
     sortable: false,
   },
 
@@ -144,7 +158,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 140,
+    width: 91,
   },
 
   {

@@ -52,7 +52,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -67,7 +67,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
-    width: 120,
+    width: 96,
     sortable: false,
   },
 
@@ -79,7 +79,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaSupplier suppliers={params.value} onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)} />
     ),
-    width: 150,
+    width: 176,
     sortable: false,
   },
 
@@ -116,17 +116,17 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
       return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
     },
-    width: 120,
+    width: 95,
     sortable: false,
   },
 
   {
     field: 'minBatch',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Minimum batch'])} />,
-    headerName: t(TranslationKey['Minimum batch']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min batch'])} />,
+    headerName: t(TranslationKey['Min batch']),
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
-    width: 120,
+    width: 78,
     sortable: false,
   },
 
@@ -136,7 +136,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Production time, days']),
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
-    width: 120,
+    width: 115,
     sortable: false,
   },
 
@@ -145,12 +145,15 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     headerName: t(TranslationKey.Files),
 
-    renderCell: params => (
-      <Box py="20px">
-        <FilesCarousel withImages hideNames files={params.row.linksToMediaFiles} />
-      </Box>
-    ),
-    width: 140,
+    renderCell: params =>
+      params.row.linksToMediaFiles.length ? (
+        <Box py="20px">
+          <FilesCarousel withImages hideNames files={params.row.linksToMediaFiles} />
+        </Box>
+      ) : (
+        <MultilineTextCell text="-" />
+      ),
+    width: 120,
     sortable: false,
   },
 
@@ -201,7 +204,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
-    width: 200,
+    width: 220,
     sortable: false,
   },
 
@@ -226,6 +229,6 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
       return <ShortDateCell value={getDate(params.row.status)} />
     },
-    width: 140,
+    width: 91,
   },
 ]

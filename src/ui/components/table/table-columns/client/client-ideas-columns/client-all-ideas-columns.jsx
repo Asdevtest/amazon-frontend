@@ -35,11 +35,33 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <MultilineTextCell
+        leftAlign
         text={ideaStatusTranslate(ideaStatusByCode[params.value])}
         color={colorByIdeaStatus(ideaStatusByCode[params.value])}
       />
     ),
-    width: 160,
+    width: 84,
+    sortable: false,
+  },
+
+  {
+    field: 'parentProduct',
+    headerName: t(TranslationKey['Parent product']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
+
+    renderCell: params => {
+      const product = params.value
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
+    width: 265,
     sortable: false,
   },
 
@@ -49,7 +71,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
-    width: 120,
+    width: 96,
     sortable: false,
   },
 
@@ -66,7 +88,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'buyerComment',
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-    headerName: t(TranslationKey['Client comment']),
+    headerName: t(TranslationKey['Buyer comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
@@ -76,7 +98,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: params => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -122,7 +144,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
-    width: 140,
+    width: 110,
     sortable: false,
   },
 
@@ -132,7 +154,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -142,7 +164,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -152,7 +174,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 110,
     sortable: false,
   },
 
@@ -162,7 +184,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -172,7 +194,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Card creating'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -182,7 +204,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Adding ASIN'])} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -192,17 +214,17 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
 
     renderCell: params => <MultilineTextCell text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
   {
     field: 'intervalsSum',
     headerName: t(TranslationKey['Elapsed time']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Elapsed time'])} />,
+    renderHeader: params => <MultilineTextHeaderCell color="#0B903E" text={t(TranslationKey['Elapsed time'])} />,
 
     renderCell: params => <MultilineTextCell color="#0B903E" text={minsToTime(params.value / 60, 2)} />,
-    width: 140,
+    width: 91,
     sortable: false,
   },
 
@@ -212,6 +234,6 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 140,
+    width: 91,
   },
 ]

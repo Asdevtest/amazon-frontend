@@ -1601,12 +1601,14 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
       <div
         className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
       >
         <Tooltip title={text}>
-          <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+          <Typography className={classNames.multilineHeaderText} style={color && { color }}>
+            {text}
+          </Typography>
         </Tooltip>
         {component}
         {withIcon || isShowIconOnHover || isFilterActive ? (
@@ -3233,12 +3235,17 @@ export const IdeaProduct = React.memo(
     return (
       <div>
         {!rowData.childProduct && (
-          <Button success small onClick={() => onClickCreateCard(rowData.originalData)}>
+          <Button
+            success
+            small
+            className={styles.ideaProductActionButton}
+            onClick={() => onClickCreateCard(rowData.originalData)}
+          >
             {t(TranslationKey['Create a product card'])}
           </Button>
         )}
         {rowData.childProduct && !rowData.suppliers.length && (
-          <Button small onClick={() => onClickSelectSupplier(rowData)}>
+          <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
             {t(TranslationKey['Set supplier to card'])}
           </Button>
         )}

@@ -41,7 +41,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: params => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -82,7 +82,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
         handlers={rowHandlers.barCodeHandlers}
       />
     ),
-    width: 100,
+    width: 113,
     sortable: false,
   },
 
@@ -92,7 +92,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => <AddAsinIdeaActions rowHandlers={rowHandlers} row={params.row} />,
-    width: 260,
+    width: 110,
     sortable: false,
   },
 
@@ -102,6 +102,6 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 140,
+    width: 91,
   },
 ]

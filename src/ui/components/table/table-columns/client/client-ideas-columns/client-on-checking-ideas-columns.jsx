@@ -40,7 +40,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -55,7 +55,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsImageLink(el))} />,
-    width: 120,
+    width: 96,
     sortable: false,
   },
 
@@ -64,8 +64,18 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 240,
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 251,
+    sortable: false,
+  },
+
+  {
+    field: 'buyerComment',
+    headerName: t(TranslationKey['Buyer comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 251,
     sortable: false,
   },
 
@@ -80,7 +90,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
-    width: 200,
+    width: 230,
     sortable: false,
   },
 
@@ -90,7 +100,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 140,
+    width: 91,
   },
 
   {
