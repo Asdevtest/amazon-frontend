@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -31,7 +30,7 @@ export const BuyerFreeOrdersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.btnsWrapper}>
           <Button
             color="primary"
@@ -88,7 +87,7 @@ export const BuyerFreeOrdersViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
-      </MainContent>
+      </div>
 
       <TwoVerticalChoicesModal
         tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}

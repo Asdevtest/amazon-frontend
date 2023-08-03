@@ -24,6 +24,6 @@ export const styles = theme => ({
     display: 'flex',
   },
   dataGridWrapper: {
-    height: '84vh',
+    height: '82vh',
   },
 })

@@ -2,12 +2,13 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useChatCurrentReplyMessageStyles = makeStyles()(theme => ({
   body: {
-    borderLeft: `1px solid ${theme.palette.primary.main}`,
+    borderLeft: `2px solid ${theme.palette.primary.main}`,
     display: 'flex',
-    gap: '85px',
+    gap: 85,
+    alignItems: 'center',
     justifyContent: 'space-between',
-    margin: '10px',
-    padding: '0 50px 0 10px',
+    padding: '5px 0',
+    marginTop: 15,
     width: '100%',
   },
 
@@ -16,6 +17,7 @@ export const useChatCurrentReplyMessageStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
+    paddingLeft: 20,
   },
 
   fileList: {

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -16,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   paymentMethodsLabel: {
     fontWeight: 600,
     fontSize: 14,
-    lineHeight: '19pх',
+    lineHeight: '19px',
 
     whiteSpace: 'nowrap',
 
@@ -92,7 +91,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   generalText: {
     '&.Mui-disabled': {
-      '-webkit-text-fill-color': `${theme.palette.primary.main} !important`,
+      WebkitTextFillColor: `${theme.palette.primary.main} !important`,
     },
   },
 

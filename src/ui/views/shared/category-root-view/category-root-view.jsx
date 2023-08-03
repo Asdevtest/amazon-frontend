@@ -6,7 +6,6 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 
 import { CategoryRootViewModel } from '@views/shared/category-root-view/category-root-view.model'
@@ -23,27 +22,25 @@ export const CategoryRootView = observer(props => {
   }, [viewModel.language])
 
   return (
-    <MainContent>
-      <div>
-        <Typography className={styles.title}>{t(TranslationKey['Choose a section'])}</Typography>
+    <div>
+      <Typography className={styles.title}>{t(TranslationKey['Choose a section'])}</Typography>
 
-        <div className={styles.btnsWrapper}>
-          {viewModel.subRoutes?.map((el, index) => (
-            <Button
-              key={index}
-              className={styles.button}
-              color="primary"
-              variant="outlined"
-              onClick={() => viewModel.onClickCategory(el.subRoute)}
-            >
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{el.subtitle}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
-          ))}
-        </div>
+      <div className={styles.btnsWrapper}>
+        {viewModel.subRoutes?.map((el, index) => (
+          <Button
+            key={index}
+            className={styles.button}
+            color="primary"
+            variant="outlined"
+            onClick={() => viewModel.onClickCategory(el.subRoute)}
+          >
+            <div className={styles.btnTextWrapper}>
+              <Typography className={styles.btnText}>{el.subtitle}</Typography>
+              <ArrowRightAltIcon color="primary" />
+            </div>
+          </Button>
+        ))}
       </div>
-    </MainContent>
+    </div>
   )
 })

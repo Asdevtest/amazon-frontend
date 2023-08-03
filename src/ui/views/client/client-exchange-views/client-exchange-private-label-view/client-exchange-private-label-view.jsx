@@ -6,7 +6,6 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { PrivateLabelCard } from '@components/private-label-card'
@@ -39,7 +38,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.mb5}>
           <div className={classNames.cardsWrapper}>
             {viewModel.productsVacant.length > 0 ? (
@@ -49,7 +48,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
             )}
           </div>
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showConfirmPayModal}

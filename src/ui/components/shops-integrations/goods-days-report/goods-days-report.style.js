@@ -16,7 +16,7 @@ export const styles = theme => ({
   },
 
   dataGridWrapper: {
-    height: '77vh',
+    height: '72vh',
     overflow: 'auto',
   },
   root: {

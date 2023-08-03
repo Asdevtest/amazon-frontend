@@ -70,7 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     background: theme.palette.background.greenGradient,
     '-webkit-background-clip': 'text',
-    '-webkit-text-fill-color': 'transparent',
+    WebkitTextFillColor: 'transparent',
   },
 
   standartText: {

@@ -101,7 +101,9 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
                 checked={!columnVisibilityModel || !isSomeItemChecked}
                 onClick={onClickAllItemBtn}
               />
-              <div className={classNames.shopName}>{t(TranslationKey.All)}</div>
+              <div title={t(TranslationKey.All)} className={classNames.shopName}>
+                {t(TranslationKey.All)}
+              </div>
             </div>
 
             {itemsForRender.map((el, index) => (
@@ -113,7 +115,9 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
                   }
                   onClick={() => onClickItem(el.field)}
                 />
-                <div className={classNames.shopName}>{el.headerName}</div>
+                <div title={el.headerName} className={classNames.shopName}>
+                  {el.headerName}
+                </div>
               </div>
             ))}
           </div>

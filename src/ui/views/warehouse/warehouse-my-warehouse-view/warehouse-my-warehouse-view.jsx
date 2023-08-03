@@ -20,7 +20,6 @@ import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-f
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
-import { MainContent } from '@components/layout/main-content'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
@@ -86,7 +85,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
 
@@ -167,7 +166,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
             }
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showBoxViewModal}

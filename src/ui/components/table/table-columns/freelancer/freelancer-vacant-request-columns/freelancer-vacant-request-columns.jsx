@@ -184,12 +184,12 @@ export const FreelancerVacantRequestColumns = handlers => [
             ? {
                 background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
                 '-webkit-background-clip': 'text',
-                '-webkit-text-fill-color': 'transparent',
+                WebkitTextFillColor: 'transparent',
               }
             : {
                 background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
                 '-webkit-background-clip': 'text',
-                '-webkit-text-fill-color': 'transparent',
+                WebkitTextFillColor: 'transparent',
               }
         }
         text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}

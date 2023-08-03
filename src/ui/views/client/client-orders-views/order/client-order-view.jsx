@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -58,7 +57,7 @@ export const ClientOrderViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backButtonWrapper}>
           <Button className={classNames.backButton} onClick={goBack}>
             {t(TranslationKey.Back)}
@@ -85,7 +84,7 @@ export const ClientOrderViewRaw = props => {
             onClickHsCode={viewModel.onClickHsCode}
           />
         ) : null}
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn

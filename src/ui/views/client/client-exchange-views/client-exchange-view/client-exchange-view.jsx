@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
@@ -35,7 +34,7 @@ export const ClientExchangeViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <MemoDataGrid
           pagination
           useResizeContainer
@@ -78,7 +77,7 @@ export const ClientExchangeViewRaw = props => {
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal

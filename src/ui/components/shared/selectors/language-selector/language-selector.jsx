@@ -13,7 +13,7 @@ import { setI18nConfig } from '@utils/translations'
 
 import { useClassNames } from './language-selector.style'
 
-export const LanguageSelector = () => {
+export const LanguageSelector = ({ className }) => {
   const { classes: classNames } = useClassNames()
 
   const [anchorEl, setAnchorEl] = useState(false)
@@ -28,11 +28,8 @@ export const LanguageSelector = () => {
 
   return (
     <div>
-      {/* <Typography className={classNames.title} onClick={handleClick}>{`${t(TranslationKey.language)} (${
-        SettingsModel.languageTag
-      })`}</Typography> */}
       <div className={classNames.languageTagWrapper} onClick={handleClick}>
-        <img src={`/assets/icons/${SettingsModel.languageTag}.svg`} />
+        <img src={`/assets/icons/${SettingsModel.languageTag}.svg`} className={className} />
 
         <Typography className={classNames.title}>{`${SettingsModel.languageTag.replace(/(^)[a-z]/g, x =>
           x.toUpperCase(),
