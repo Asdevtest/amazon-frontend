@@ -76,7 +76,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <OnCheckingIdeaActions
-        onClickAccept={() => rowHandlers.onClickAccept(params.row._id)}
+        onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(params.row._id)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
