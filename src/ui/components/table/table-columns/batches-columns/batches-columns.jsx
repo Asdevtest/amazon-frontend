@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,7 +20,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    width: 550,
+    width: 540,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
@@ -102,7 +99,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
         rowHandlers={rowHandlers}
       />
     ),
-    width: 198,
+    width: 210,
     filterable: false,
     sortable: false,
 
