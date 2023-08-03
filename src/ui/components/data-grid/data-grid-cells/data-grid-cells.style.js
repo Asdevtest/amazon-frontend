@@ -78,7 +78,7 @@ export const styles = theme => ({
     lineHeight: '18px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    maxWidth: '215px',
+    maxWidth: '165px',
     // maxWidth: '100%',
 
     overflow: 'hidden',
