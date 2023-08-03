@@ -76,7 +76,7 @@ export class AdminProductViewModel {
 
     runInAction(() => {
       this.history = history
-      this.productId = url.searchParams.get('productId')
+      this.productId = url.searchParams.get('product-id')
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
