@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Box } from '@mui/material'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
   colorByIdeaStatus,
   ideaStatus,
@@ -50,7 +51,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -59,6 +60,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -69,6 +71,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 96,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -81,6 +84,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 176,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -103,6 +107,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     },
     width: 100,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -118,16 +123,18 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     },
     width: 95,
     sortable: false,
+    filterable: false,
   },
 
   {
-    field: 'minBatch',
+    field: 'minlot',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min batch'])} />,
     headerName: t(TranslationKey['Min batch']),
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
     width: 78,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -138,6 +145,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
     width: 115,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -155,6 +163,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
       ),
     width: 120,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -165,6 +174,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -175,6 +185,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -190,6 +201,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 160,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -206,6 +218,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 220,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -230,5 +243,6 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
       return <ShortDateCell value={getDate(params.row.status)} />
     },
     width: 91,
+    filterable: false,
   },
 ]

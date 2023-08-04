@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -38,7 +39,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -47,6 +48,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -57,6 +59,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsImageLink(el))} />,
     width: 96,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -67,6 +70,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 251,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -77,6 +81,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 251,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -92,6 +97,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 230,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -101,6 +107,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -121,5 +128,6 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 990,
     sortable: false,
+    filterable: false,
   },
 ]

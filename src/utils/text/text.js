@@ -213,6 +213,14 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
+    if (['buyerComment'].includes(column) && hint === 'ideas') {
+      return 'ideas'
+    }
+
+    if (['amount'].includes(column) && hint === 'ideas') {
+      return 'products'
+    }
+
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
@@ -266,6 +274,8 @@ export const getTableByColumn = (column, hint) => {
       return 'products'
     } else if (hint === 'batches') {
       return 'batches'
+    } else if (hint === 'ideas') {
+      return 'ideas'
     } else {
       return 'requests'
     }
@@ -289,12 +299,29 @@ export const getTableByColumn = (column, hint) => {
     if (hint === 'batches') {
       return 'batches'
     }
+    if (hint === 'ideas') {
+      return 'ideas'
+    }
 
     return 'requests'
-  } else if (['productionTerm'].includes(column)) {
+  } else if (['productionTerm', 'minlot'].includes(column)) {
     return 'suppliers'
   } else if (['finalWeight'].includes(column)) {
     return 'batches'
+  } else if (
+    [
+      'comments',
+      'dateStatusOnCheck',
+      'minBatch',
+      'dateStatusProductCreating',
+      'dateStatusProductCreating',
+      'dateStatusAddingAsin',
+      'intervalStatusNew',
+      'intervalStatusOnCheck',
+      'intervalStatusSupplierSearch',
+    ].includes(column)
+  ) {
+    return 'ideas'
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -25,15 +26,17 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     width: 198,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
-    field: 'parentProduct',
+    field: 'parentProductAsin',
     headerName: t(TranslationKey['Parent product']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
 
     renderCell: params => {
-      const product = params.value
+      const product = params.row.parentProduct
 
       return (
         <ProductAsinCell
@@ -46,10 +49,12 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -58,6 +63,8 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -68,6 +75,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsImageLink(el))} />,
     width: 96,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -78,6 +86,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 251,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -88,6 +97,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 251,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -103,6 +113,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 270,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -112,6 +123,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {

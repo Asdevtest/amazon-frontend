@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -38,7 +39,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -47,6 +48,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -57,6 +59,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
     width: 96,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -83,16 +86,18 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
     field: 'buyerComment',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-    headerName: t(TranslationKey['Client comment']),
+    headerName: t(TranslationKey['Buyer comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -103,6 +108,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <CreateCardIdeaActions row={params.row} rowHandlers={rowHandlers} />,
     width: 110,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -112,5 +118,6 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]
