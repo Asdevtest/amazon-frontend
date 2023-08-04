@@ -20,7 +20,7 @@ interface IdeaProgressBarProps {
   showStatusDuration?: boolean
 }
 interface IProgressBarSettings {
-  title: string
+  title: () => string
   statuses: Array<ideaStatus>
 }
 
@@ -51,50 +51,44 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
 
   return (
     <div className={classNames.root}>
-      {statusesToRender.map((settingItem, settingItemIndex) => (
-        <div
-          key={settingItemIndex}
-          className={cx(classNames.settingItem, {
-            [classNames.activeItem]: checkIsActiveBarSetting(settingItem),
-            [classNames.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
-            [classNames.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
-            [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
-            [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
-          })}
-        >
-          {showStatusDuration ? (
-            <Tooltip
-              // classes={{ tooltip: classNames.settingItemDuration }}
-              title={
-                settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
-                  ? minsToTime(
-                      (Number(ideaData?.intervalStatusSupplierFound) +
-                        Number(ideaData?.intervalStatusSupplierNotFound) +
-                        Number(ideaData?.intervalStatusSupplierSearch)) /
-                        60,
-                    ) || t(TranslationKey.Missing)
-                  : minsToTime(ideaData?.[settingItem?.intervalName] / 60) || t(TranslationKey.Missing)
-              }
-            >
-              <p
-                className={cx(classNames.settingItemTitle, {
-                  [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
-                })}
-              >
-                {settingItem?.title}
-              </p>
-            </Tooltip>
-          ) : (
-            <p
-              className={cx(classNames.settingItemTitle, {
-                [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
-              })}
-            >
-              {settingItem?.title}
-            </p>
-          )}
-        </div>
-      ))}
+      {statusesToRender.map((settingItem, settingItemIndex) => {
+        const textContent = (
+          <p
+            className={cx(classNames.settingItemTitle, {
+              [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
+            })}
+          >
+            {settingItem?.title()}
+          </p>
+        )
+
+        const tooltipContent =
+          showStatusDuration &&
+          (settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
+            ? Number(ideaData?.intervalStatusSupplierFound) +
+              Number(ideaData?.intervalStatusSupplierNotFound) +
+              Number(ideaData?.intervalStatusSupplierSearch)
+            : ideaData?.[settingItem?.intervalName]) / 60
+
+        console.log('settingItem?.intervalName', settingItem?.intervalName)
+        console.log('tooltipContent', tooltipContent)
+        console.log('minsToTime(tooltipContent)', minsToTime(tooltipContent))
+
+        return (
+          <div
+            key={settingItemIndex}
+            className={cx(classNames.settingItem, {
+              [classNames.activeItem]: checkIsActiveBarSetting(settingItem),
+              [classNames.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
+              [classNames.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
+              [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
+              [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
+            })}
+          >
+            {tooltipContent ? <Tooltip title={minsToTime(tooltipContent)}>{textContent}</Tooltip> : <>{textContent}</>}
+          </div>
+        )
+      })}
     </div>
   )
 })
