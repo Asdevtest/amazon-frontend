@@ -3249,12 +3249,12 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
-    crumbNameKey: t(TranslationKey['Create a product card']),
+    crumbNameKey: t(TranslationKey['Creating a product card']),
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: 3,
-      title: () => t(TranslationKey['Create a product card']),
+      title: () => t(TranslationKey['Creating a product card']),
     },
   },
 
@@ -3263,12 +3263,12 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
-    crumbNameKey: t(TranslationKey.Add) + ' ASIN',
+    crumbNameKey: t(TranslationKey['Adding ASIN']),
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: 4,
-      title: () => t(TranslationKey.Add) + ' ASIN',
+      title: () => t(TranslationKey['Adding ASIN']),
     },
   },
 

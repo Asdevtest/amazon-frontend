@@ -425,10 +425,7 @@ export class ClientIdeasViewModel {
       this.requestStatus = loadingStatuses.isLoading
 
       this.isIdeaCreate = false
-
-      const result = await ProductModel.getProductById(row?.parentProduct?._id)
       runInAction(() => {
-        this.currentProduct = result
         this.currentIdeaId = row._id
       })
 
@@ -518,31 +515,87 @@ export class ClientIdeasViewModel {
   }
 
   handleStatusToCheck(id) {
-    this.statusHandler(IdeaModel.setStatusToCheck, id)
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.setStatusToCheck, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   handleStatusToReject(id) {
-    this.statusHandler(IdeaModel.setStatusToReject, id)
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to dismiss the idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.setStatusToReject, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   handleStatusToSupplierSearch(id) {
-    this.statusHandler(IdeaModel.setStatusToSupplierSearch, id)
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.setStatusToSupplierSearch, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   handleStatusToProductCreating(id) {
-    this.statusHandler(IdeaModel.setStatusToProductCreating, id)
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.setStatusToProductCreating, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   handleStatusToAddingAsin(id) {
-    this.statusHandler(IdeaModel.setStatusToAddingAsin, id)
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.setStatusToAddingAsin, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   handleStatusToFinished(id) {
-    this.statusHandler(IdeaModel.setStatusToFinished, id)
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.setStatusToFinished, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   handleRestore(id) {
-    this.statusHandler(IdeaModel.restore, id)
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to restore the idea']),
+      onClickConfirm: () => {
+        this.statusHandler(IdeaModel.restore, id)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitRemoveIdea(ideaId) {

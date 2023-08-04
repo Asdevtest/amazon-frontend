@@ -73,7 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rejectedStatus: {
-    backgroundColor: theme.palette.other.rejected,
+    backgroundColor: `${theme.palette.other.rejected} !important`,
     ':after': {
       borderColor: `transparent ${theme.palette.other.rejected}`,
     },

@@ -3338,10 +3338,20 @@ export const ClosedIdeaActions = React.memo(
 
     return (
       <Box display="flex" gap="20px">
-        <Button small success onClick={() => rowHandlers.onClickRestore(row._id)}>
+        <Button
+          small
+          success
+          disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
+          onClick={() => rowHandlers.onClickRestore(row._id)}
+        >
           {t(TranslationKey.Restore)}
         </Button>
-        <Button small danger onClick={() => rowHandlers.onClickClose(row._id)}>
+        <Button
+          small
+          danger
+          disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
+          onClick={() => rowHandlers.onClickClose(row._id)}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </Box>

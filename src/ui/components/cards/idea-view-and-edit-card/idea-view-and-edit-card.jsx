@@ -295,12 +295,12 @@ export const IdeaViewAndEditCard = observer(
                 sku={formFields.childProduct?.skusByClient?.[0]}
               />
             )}
-            {currentProduct && (
+            {(currentProduct || formFields.parentProduct) && (
               <SourceProduct
                 title={t(TranslationKey['Parent product'])}
-                img={currentProduct.images?.[0]}
-                asin={currentProduct.asin}
-                sku={currentProduct.skusByClient?.[0]}
+                img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
+                asin={formFields.parentProduct?.asin || currentProduct?.asin}
+                sku={formFields.parentProduct?.skusByClient?.[0] || currentProduct?.skusByClient?.[0]}
               />
             )}
           </div>
@@ -677,7 +677,11 @@ export const IdeaViewAndEditCard = observer(
                 {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
               </div>
             ) : (
-              <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(currentProduct._id)} />
+              <OpenInNewTab
+                onClickOpenNewTab={() =>
+                  onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
+                }
+              />
             )}
 
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
@@ -750,6 +754,12 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isRejected && (
+                  <Button danger variant="contained" onClick={() => onClickCloseIdea(formFields._id)}>
+                    {t(TranslationKey.Close)}
+                  </Button>
+                )}
+
+                {currentUserIsClient && isRejected && (
                   <Button success variant="contained" onClick={() => onClickReoperButton(formFields._id)}>
                     {t(TranslationKey.Restore)}
                   </Button>
@@ -758,12 +768,6 @@ export const IdeaViewAndEditCard = observer(
                 {checkIsClientOrBuyer && (
                   <Button variant="contained" color="primary" onClick={() => onEditIdea(formFields)}>
                     {t(TranslationKey.Edit)}
-                  </Button>
-                )}
-
-                {currentUserIsClient && isRejected && (
-                  <Button danger variant="contained" onClick={() => onClickCloseIdea(formFields._id)}>
-                    {t(TranslationKey.Close)}
                   </Button>
                 )}
 
