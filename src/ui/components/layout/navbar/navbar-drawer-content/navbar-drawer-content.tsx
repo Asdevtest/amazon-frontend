@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { FC } from 'react'
@@ -22,7 +21,11 @@ import { Feedback } from '@components/shared/svg-icons'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { IUser } from '@typings/user'
+
 import { useClassNames } from './navbar-drawer-content.styles'
+
+import { getCategoryBadge } from './navbar-drawer-content.helper'
 
 interface Subtitles {
   subtitle: string
@@ -30,7 +33,7 @@ interface Subtitles {
   key: string
 }
 
-interface CurNavbarType {
+export interface CurNavbarType {
   icon: React.ReactNode
   title: string
   route: string
@@ -45,7 +48,7 @@ interface Props {
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
-  userInfo: any
+  userInfo: IUser
   activeCategory: string
   viewModel: NavbarModel
   onClickVersion: NavbarModel['onClickVersion']
@@ -91,21 +94,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     shortNavbar={shortNavbar}
                     userInfo={userInfo}
                     category={category}
-                    badge={
-                      (category.route?.includes('/client/notifications') &&
-                        userInfo.needConfirmPriceChange?.boxes +
-                          userInfo.needConfirmPriceChange?.orders +
-                          userInfo.needUpdateTariff?.boxes +
-                          userInfo.updatesOnIdeas +
-                          userInfo.freelanceNotices.length) ||
-                      (category.route?.includes('/freelancer/notifications') && userInfo.freelanceNotices.length) ||
-                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas) ||
-                      (category.route?.includes('/client/my-orders/orders') && userInfo.allOrders) ||
-                      (category.route?.includes('/warehouse/tasks') &&
-                        userInfo.tasksAtProcessAll + userInfo.tasksNewAll) ||
-                      (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||
-                      (category.route?.includes('/buyer/pending-orders') && userInfo.pendingOrders)
-                    }
+                    badge={getCategoryBadge(category, userInfo)}
                     onToggleModal={onToggleModal}
                   />
 

@@ -4,6 +4,8 @@ import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { Avatar, Link, Typography } from '@mui/material'
 
+import { isMobileResolution } from '@constants/configs/sizes-settings'
+
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
@@ -148,8 +150,6 @@ export const ChatMessagesList: FC<Props> = observer(
             )
 
             const isDisabledControls = messageItem.type !== ChatMessageType.USER
-
-            const isMobileResolution = window.innerWidth < 768
 
             return (
               <div

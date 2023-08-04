@@ -8,7 +8,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import { ClickAwayListener, InputAdornment, Typography } from '@mui/material'
+import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
@@ -21,7 +21,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
-import { EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
+import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -382,8 +382,8 @@ export const Chat: FC<Props> = observer(
 
             <Button disabled={disabledSubmit} className={classNames.sendBtn} onClick={() => onSubmitMessageInternal()}>
               <div className={classNames.sendBtnTextWrapper}>
-                <Typography className={classNames.sendBtnText}>{t(TranslationKey.Send)}</Typography>
-                <img src="/assets/icons/send.svg" className={classNames.sendBtnIcon} />
+                <p className={classNames.sendBtnText}>{t(TranslationKey.Send)}</p>
+                <SendIcon className={classNames.sendBtnIcon} />
               </div>
             </Button>
           </div>

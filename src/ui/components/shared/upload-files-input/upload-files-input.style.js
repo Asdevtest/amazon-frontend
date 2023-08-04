@@ -8,12 +8,20 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '10px',
     paddingBottom: 3, // пробуеум фиксить поломку верстки при решении таски на прием
+
+    [theme.breakpoints.down(768)]: {
+      paddingBottom: 0,
+    },
   },
   mainSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     // maxWidth: 'max-content'
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: '100%',
+    },
   },
 
   controlsWrapper: {
@@ -44,6 +52,11 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.02)',
     },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      height: 80,
+    },
   },
 
   minimizedDragAndDropBtn: {
@@ -71,7 +84,7 @@ export const useClassNames = makeStyles()(theme => ({
     top: 0,
     left: 0,
     opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   actionBtnsWrapper: {
@@ -79,6 +92,10 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '250px',
     display: 'flex',
     justifyContent: 'space-between',
+
+    [theme.breakpoints.down(768)]: {
+      gap: 5,
+    },
   },
 
   showImagesBtn: {
@@ -96,12 +113,16 @@ export const useClassNames = makeStyles()(theme => ({
       cursor: 'auto',
       borderColor: theme.palette.text.second,
     },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      padding: 10,
+    },
   },
 
   imagesCount: {
     fontSize: '12px',
     textAlign: 'center',
-
     color: theme.palette.text.second,
   },
 
@@ -126,6 +147,11 @@ export const useClassNames = makeStyles()(theme => ({
       cursor: 'auto',
       borderColor: theme.palette.text.second,
     },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      padding: 10,
+    },
   },
 
   dragingOnDropBtn: {
@@ -137,6 +163,14 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 auto',
     maxHeight: 300,
     overflowY: 'auto',
+
+    [theme.breakpoints.down(768)]: {
+      gap: 10,
+
+      '& > div': {
+        padding: '0 !important',
+      },
+    },
   },
 
   image: {

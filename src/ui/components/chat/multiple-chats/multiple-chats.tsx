@@ -2,6 +2,7 @@ import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
 
+import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -108,7 +109,6 @@ export const MultipleChats = observer(
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
       const isChatSelectedAndFound = isNotUndefined(chatSelectedId) && findChatByChatId
-      const isMobileResolution = window.innerWidth < 768
 
       return (
         <div ref={ref} className={classNames.wrapper}>

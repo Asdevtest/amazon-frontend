@@ -12,8 +12,8 @@ import { ProductModel } from '@models/product-model'
 
 import { t } from '@utils/translations'
 
-import { IHistory } from '../../../../types/history'
-import { IProduct } from '../../../../types/product'
+import { IHistory } from '@typings/history'
+import { IProduct } from '@typings/product'
 
 import { roles } from './management-tab-view-constants'
 import { DataIdsType, MemberType, Members } from './management-tab-view.types'
