@@ -5,6 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    overflow: 'auto',
 
     [theme.breakpoints.down(768)]: {
       height: '100%',

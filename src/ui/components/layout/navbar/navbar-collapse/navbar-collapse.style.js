@@ -59,7 +59,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 20,
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
 
-    padding: '1px 6px',
+    padding: '1px 4px',
 
     fontSize: '12px',
 

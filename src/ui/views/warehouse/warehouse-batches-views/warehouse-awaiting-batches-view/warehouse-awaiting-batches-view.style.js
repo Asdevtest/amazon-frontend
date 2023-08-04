@@ -3,15 +3,12 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: '15px 0',
+
     paddingRight: '5px',
     [theme.breakpoints.down(768)]: {
-      display: 'flex',
       flexDirection: 'column-reverse',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      margin: '15px 0',
       gap: 15,
+
       '& > :nth-of-type(1)': {
         order: 0,
       },
@@ -121,8 +118,8 @@ export const styles = theme => ({
     },
   },
   datagridWrapper: {
-    marginTop: '10px',
-    height: '78vh',
+    marginTop: '20px',
+    height: '80vh',
   },
 
   searchInput: {

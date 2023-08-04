@@ -4,12 +4,6 @@ import { SupervisorSettingsContent } from '@components/contents/supervisor-setti
 
 import { styles } from './supervisor-settings-view.style'
 
-export const SupervisorSettingsViewRaw = () => (
-  <>
-    <div>
-      <SupervisorSettingsContent />
-    </div>
-  </>
-)
+export const SupervisorSettingsViewRaw = () => <SupervisorSettingsContent />
 
 export const SupervisorSettingsView = withStyles(SupervisorSettingsViewRaw, styles)

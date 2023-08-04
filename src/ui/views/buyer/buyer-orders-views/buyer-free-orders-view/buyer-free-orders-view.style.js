@@ -20,7 +20,7 @@ export const styles = theme => ({
   },
 
   btnsWrapper: {
-    margin: '0 0 15px 0',
+    marginBottom: 20,
     display: 'flex',
   },
   dataGridWrapper: {

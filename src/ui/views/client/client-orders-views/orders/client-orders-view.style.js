@@ -38,14 +38,13 @@ export const styles = theme => ({
   },
 
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
   datagridWrapper: {
-    height: '78vh',
+    height: '79vh',
   },
   root: {
     border: '0 !important',

@@ -10,7 +10,6 @@ export const styles = theme => ({
     },
   },
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'center',

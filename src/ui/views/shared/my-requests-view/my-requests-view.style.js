@@ -43,7 +43,7 @@ export const styles = theme => ({
   },
 
   datagridWrapper: {
-    height: '74vh',
+    height: '72vh',
   },
   footerContainer: {
     position: 'absolute',

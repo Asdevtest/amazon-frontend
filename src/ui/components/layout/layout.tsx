@@ -57,18 +57,31 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     setIsOpenModal(!isOpenModal)
   }
 
+  const [isHovering, setIsHovering] = useState(false)
+  const handleMouseOver = () => setIsHovering(true)
+  const handleMouseOut = () => setIsHovering(false)
+
   return (
     <div className={cx(classNames.wrapper, { [classNames.wrapperShort]: shortNavbar })}>
       <Navbar
         isOpenModal={isOpenModal}
+        isHovering={isHovering}
         shortNavbar={shortNavbar}
         activeCategory={currentPageInfo?.activeCategory}
         activeSubCategory={currentPageInfo?.activeSubCategory}
         onToggleModal={handleToggleModal}
         onShowNavbar={handleShowNavbar}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
       />
 
-      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
+      <Header
+        shortNavbar={shortNavbar}
+        title={currentPageInfo.title}
+        onToggleModal={handleToggleModal}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      />
 
       <main className={classNames.main}>
         <BreadCrumbsLine />

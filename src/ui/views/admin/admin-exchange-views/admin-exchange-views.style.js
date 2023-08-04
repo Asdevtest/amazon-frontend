@@ -5,7 +5,7 @@ export const styles = theme => ({
   },
 
   filterBtnWrapper: {
-    marginBottom: '10px',
+    marginBottom: 20,
   },
 
   filterBtn: {
@@ -48,6 +48,6 @@ export const styles = theme => ({
     height: '52px',
   },
   datagridWrapper: {
-    height: '76vh',
+    height: '74vh',
   },
 })
