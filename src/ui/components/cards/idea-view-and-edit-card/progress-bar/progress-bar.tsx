@@ -5,7 +5,6 @@ import { FC } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -69,10 +68,6 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
               Number(ideaData?.intervalStatusSupplierNotFound) +
               Number(ideaData?.intervalStatusSupplierSearch)
             : ideaData?.[settingItem?.intervalName]) / 60
-
-        console.log('settingItem?.intervalName', settingItem?.intervalName)
-        console.log('tooltipContent', tooltipContent)
-        console.log('minsToTime(tooltipContent)', minsToTime(tooltipContent))
 
         return (
           <div
