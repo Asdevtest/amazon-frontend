@@ -42,23 +42,19 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  // console.log('message', message)
-
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
 
         <div className={classNames.mainSubWrapper}>
           <div className={classNames.massageHeaderWrapper}>
-            <Typography className={classNames.headerText}>{t(TranslationKey.Request)}</Typography>
+            <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
             {!!message.humanFriendlyId && (
               <div className={classNames.idWrapper}>
-                <Typography className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</Typography>
-                <Typography className={classNames.idText}>{message.humanFriendlyId}</Typography>
+                <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
+                <p className={classNames.idText}>{message.humanFriendlyId}</p>
               </div>
             )}
           </div>
@@ -138,7 +134,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
             </div>
           </div>
 
-          <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
+          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesCarousel
             notToShowEmpty
@@ -156,6 +152,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
         </div>
 
         <Divider orientation="vertical" className={classNames.divider} />
+
         <div className={classNames.mainSubWrapper}>
           <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
 

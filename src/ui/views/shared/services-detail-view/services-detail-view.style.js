@@ -4,7 +4,7 @@ export const styles = theme => ({
   },
 
   dataGridWrapper: {
-    marginTop: 30,
+    marginTop: 20,
     height: '55vh',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
   },

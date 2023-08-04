@@ -65,43 +65,41 @@ export const BreadCrumbsLine = observer(() => {
   }
 
   return (
-    <>
+    <div className={classNames.breadCrumbsWrapper}>
       {pathnames.length > 2 || location.pathname === '/profile' ? (
-        <div className={classNames.breadCrumbsWrapper}>
-          <Breadcrumbs
-            aria-label="breadcrumb"
-            separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
-          >
-            {pathnames.map((value, index) => {
-              const last = index === pathnames.length - 1
-              const isPreLast = index === pathnames.length - 2
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
+        >
+          {pathnames.map((value, index) => {
+            const last = index === pathnames.length - 1
+            const isPreLast = index === pathnames.length - 2
 
-              const to =
-                location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
+            const to =
+              location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
 
-              if (exclusionWords.includes(to)) {
-                return null
-              }
+            if (exclusionWords.includes(to)) {
+              return null
+            }
 
-              return last ? (
-                <Typography key={to} className={classNames.lastCrumb}>
-                  {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
-                </Typography>
-              ) : (
-                // <LinkRouter key={to} underline="hover" color="primary" to={to} state={{data: 'HELLO'}}>
-                //   {t(getCrumbNameKey(to))}
-                // </LinkRouter>
+            return last ? (
+              <Typography key={to} className={classNames.lastCrumb}>
+                {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
+              </Typography>
+            ) : (
+              // <LinkRouter key={to} underline="hover" color="primary" to={to} state={{data: 'HELLO'}}>
+              //   {t(getCrumbNameKey(to))}
+              // </LinkRouter>
 
-                <Typography key={to} className={classNames.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
-                  {getCrumbNameKey(to) === 'Order'
-                    ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
-                    : t(getCrumbNameKey(to))}
-                </Typography>
-              )
-            })}
-          </Breadcrumbs>
-        </div>
+              <Typography key={to} className={classNames.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+                {getCrumbNameKey(to) === 'Order'
+                  ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
+                  : t(getCrumbNameKey(to))}
+              </Typography>
+            )
+          })}
+        </Breadcrumbs>
       ) : null}
-    </>
+    </div>
   )
 })

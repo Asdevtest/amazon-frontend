@@ -19,7 +19,7 @@ export const styles = () => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 0',
+    marginTop: 20,
   },
 
   backBtn: {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { fromUnixTime } from 'date-fns'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
@@ -1734,8 +1735,8 @@ export const TaskStatusCell = React.memo(
 )
 
 export const RequestStatusCell = React.memo(
-  withStyles(({ classes: classNames, status, isChat, styles }) => {
-    return (
+  withStyles(
+    ({ classes: classNames, status, isChat, styles }) => (
       <div className={classNames.statusWrapper}>
         <Typography
           className={cx(classNames.statusText, { [classNames.statusTextChat]: isChat })}
@@ -1744,8 +1745,9 @@ export const RequestStatusCell = React.memo(
           {MyRequestStatusTranslate(status)}
         </Typography>
       </div>
-    )
-  }, styles),
+    ),
+    styles,
+  ),
 )
 
 export const MultilineRequestStatusCell = React.memo(

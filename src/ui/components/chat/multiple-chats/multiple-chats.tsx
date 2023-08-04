@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
@@ -7,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { SettingsModel } from '@models/settings-model'
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
@@ -109,16 +107,12 @@ export const MultipleChats = observer(
         })
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
-
+      const isChatSelectedAndFound = isNotUndefined(chatSelectedId) && findChatByChatId
       const isMobileResolution = window.innerWidth < 768
 
       return (
-        <div ref={ref} className={classNames.chatsWrapper}>
-          <div
-            className={cx(classNames.chats, {
-              [classNames.hideChats]: isMobileResolution && !!isNotUndefined(chatSelectedId) && !!findChatByChatId,
-            })}
-          >
+        <div ref={ref} className={classNames.wrapper}>
+          <div className={classNames.leftSide}>
             <ChatsList
               userId={userId}
               typingUsers={typingUsers}
@@ -129,8 +123,8 @@ export const MultipleChats = observer(
             />
           </div>
 
-          <div className={classNames.chatWrapper}>
-            {SettingsModel.languageTag && isNotUndefined(chatSelectedId) && findChatByChatId ? (
+          <div className={classNames.rightSide}>
+            {isChatSelectedAndFound ? (
               <Chat
                 userId={userId}
                 chat={findChatByChatId}

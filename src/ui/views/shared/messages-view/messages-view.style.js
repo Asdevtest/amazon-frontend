@@ -1,9 +1,9 @@
 export const styles = theme => ({
   wrapper: {
     display: 'flex',
-    height: 'calc(100vh - 80px)',
+    height: 'calc(100vh - 100px)',
     overflow: 'hidden',
-    paddingTop: 10,
+    marginTop: -10,
   },
 
   leftSide: {

@@ -35,7 +35,7 @@ export const styles = theme => ({
   },
 
   dataGridWrapper: {
-    marginTop: '10px',
+    marginTop: '20px',
     height: '70vh',
   },
 

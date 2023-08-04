@@ -2,8 +2,8 @@
 
 export const styles = theme => ({
   dataGridWrapper: {
-    marginTop: 30,
-    height: '78vh',
+    marginTop: 20,
+    height: '80vh',
   },
 
   row: {

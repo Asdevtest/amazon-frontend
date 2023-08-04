@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 5,
 
     // overflow: 'hidden',
-    '& :first-child': {
+    '& :first-of-type': {
       borderTopLeftRadius: '7px',
       borderBottomLeftRadius: '7px',
     },

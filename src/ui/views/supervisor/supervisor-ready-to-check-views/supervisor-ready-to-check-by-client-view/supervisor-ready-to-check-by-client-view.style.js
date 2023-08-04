@@ -1,6 +1,6 @@
 export const styles = theme => ({
   btnsWrapper: {
-    margin: '0 0 15px 0',
+    marginBottom: 20,
     display: 'flex',
   },
   root: {
@@ -23,7 +23,7 @@ export const styles = theme => ({
     height: '52px',
   },
   datagridWrapper: {
-    marginTop: '10px',
-    height: '82vh',
+    marginTop: '20px',
+    height: '81vh',
   },
 })

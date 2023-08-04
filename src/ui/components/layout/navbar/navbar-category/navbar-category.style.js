@@ -63,16 +63,15 @@ export const styles = theme => ({
 
   bigBadge: {
     width: 'fit-content',
-    padding: '1px 6px',
+    padding: '2px 4px',
     background: theme.palette.primary.main,
-    borderRadius: '22px',
+    borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: '#fff',
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '14px',
+    fontSize: '12px',
+    lineHeight: '12px',
   },
 
   redBadge: {

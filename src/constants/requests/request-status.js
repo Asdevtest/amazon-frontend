@@ -1,3 +1,7 @@
+import { UiTheme } from '@constants/theme/themes'
+
+import { SettingsModel } from '@models/settings-model'
+
 import { RequestProposalStatus } from './request-proposal-status'
 
 export const RequestStatus = {
@@ -31,7 +35,7 @@ export const RequestStatus = {
 
 export const colorByRequestStatus = status => {
   if ([RequestStatus.DRAFT].includes(status)) {
-    return '#006CFF'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
   } else if (
     [RequestStatus.CANCELED_BY_CREATOR, RequestStatus.FORBID_NEW_PROPOSALS, RequestStatus.CANCELED_BY_ADMIN].includes(
       status,
@@ -51,7 +55,7 @@ export const colorByRequestStatus = status => {
 
 export const colorByStatus = status => {
   if ([RequestStatus.DRAFT].includes(status)) {
-    return '#006CFF'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
   } else if (
     [
       RequestStatus.CANCELED_BY_CREATOR,
