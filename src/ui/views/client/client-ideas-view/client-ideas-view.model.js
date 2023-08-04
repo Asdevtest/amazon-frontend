@@ -425,10 +425,7 @@ export class ClientIdeasViewModel {
       this.requestStatus = loadingStatuses.isLoading
 
       this.isIdeaCreate = false
-
-      const result = await ProductModel.getProductById(row?.parentProduct?._id)
       runInAction(() => {
-        this.currentProduct = result
         this.currentIdeaId = row._id
       })
 

@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
+import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
 
 /**
  * The InlineResponse20013 model module.
@@ -52,23 +52,29 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            }
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('amountInBatch')) {
-                obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -78,44 +84,52 @@ class InlineResponse20013 {
 }
 
 /**
- * GUID партии.
+ * GUID в базе данных
  * @member {String} _id
  */
 InlineResponse20013.prototype['_id'] = undefined;
 
 /**
- * Человекочитаемый id партии.
- * @member {Number} humanFriendlyId
+ * @member {String} type
  */
-InlineResponse20013.prototype['humanFriendlyId'] = undefined;
+InlineResponse20013.prototype['type'] = undefined;
 
 /**
- * Название партии
+ * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
+ */
+InlineResponse20013.prototype['requests'] = undefined;
+
+/**
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineResponse20013.prototype['linksToMediaFiles'] = undefined;
+
+/**
  * @member {String} title
  */
 InlineResponse20013.prototype['title'] = undefined;
 
 /**
- * Заархивирована ли партия
- * @member {Boolean} archive
+ * @member {String} description
  */
-InlineResponse20013.prototype['archive'] = undefined;
+InlineResponse20013.prototype['description'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
-InlineResponse20013.prototype['boxes'] = undefined;
+InlineResponse20013.prototype['createdBy'] = undefined;
 
 /**
- * Общее кол-во продуктов
- * @member {Number} amountInBatch
+ * Дата создания.
+ * @member {Date} createdAt
  */
-InlineResponse20013.prototype['amountInBatch'] = undefined;
+InlineResponse20013.prototype['createdAt'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ * Дата обновления.
+ * @member {Date} updatedAt
  */
-InlineResponse20013.prototype['storekeeper'] = undefined;
+InlineResponse20013.prototype['updatedAt'] = undefined;
 
 
 

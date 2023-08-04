@@ -126,8 +126,11 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickOpenNewTab(id) {
-    const win = window.open(`${window.location.origin}/client/inventory/product?product-id=${id}`, '_blank')
+  async onClickOpenNewTab(productId, ideaId) {
+    const win = window.open(
+      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=ideas&IdeaId=${ideaId}`,
+      '_blank',
+    )
 
     win.focus()
   }
