@@ -34,8 +34,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   logoIconShort: {
-    width: '68px !important',
-    height: '60px !important',
+    width: '50px !important',
+    height: '50px !important',
     color: theme.palette.text.general,
 
     'path:first-of-type': {

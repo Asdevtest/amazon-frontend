@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { WarehouseManagement } from '@components/warehouse/warehouse-management'
 
@@ -18,11 +18,5 @@ export const WarehouseManagementView = observer(props => {
     viewModel.loadData()
   }, [])
 
-  return (
-    <React.Fragment>
-      <div>
-        <WarehouseManagement />
-      </div>
-    </React.Fragment>
-  )
+  return <WarehouseManagement />
 })
