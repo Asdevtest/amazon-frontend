@@ -175,7 +175,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     useEffect(() => {
-      if (inCreate || isModalView) {
+      if (inCreate || isModalView || inEdit) {
         setShowFullCard(true)
       } else if (!isCurrentIdea) {
         setShowFullCard(false)
