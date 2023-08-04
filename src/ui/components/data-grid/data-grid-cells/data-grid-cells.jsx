@@ -108,6 +108,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import {
   checkAndMakeAbsoluteUrl,
   getShortenStringIfLongerThanCount,
+  secondsToTime,
   shortAsin,
   shortSku,
   toFixed,
@@ -1600,12 +1601,14 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
       <div
         className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
       >
         <Tooltip title={text}>
-          <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+          <Typography className={classNames.multilineHeaderText} style={color && { color }}>
+            {text}
+          </Typography>
         </Tooltip>
         {component}
         {withIcon || isShowIconOnHover || isFilterActive ? (
@@ -3238,12 +3241,17 @@ export const IdeaProduct = React.memo(
     return (
       <div>
         {!rowData.childProduct && (
-          <Button success small onClick={() => onClickCreateCard(rowData.originalData)}>
+          <Button
+            success
+            small
+            className={styles.ideaProductActionButton}
+            onClick={() => onClickCreateCard(rowData.originalData)}
+          >
             {t(TranslationKey['Create a product card'])}
           </Button>
         )}
         {rowData.childProduct && !rowData.suppliers.length && (
-          <Button small onClick={() => onClickSelectSupplier(rowData)}>
+          <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
             {t(TranslationKey['Set supplier to card'])}
           </Button>
         )}
@@ -3378,6 +3386,37 @@ export const AllIdeasActions = React.memo(
           <ClosedIdeaActions row={row} rowHandlers={rowHandlers} />
         )}
       </>
+    )
+  }, styles),
+)
+
+export const TimeFromSeconds = React.memo(
+  withStyles(props => {
+    const { classes: styles, seconds, color } = props
+    const time = secondsToTime(seconds)
+
+    return seconds >= 60 ? (
+      <div className={styles.secondsTimeWrapper} style={color && { color }}>
+        {time.days > 0 && (
+          <Typography>
+            {time.days} {t(TranslationKey.days)}
+          </Typography>
+        )}
+
+        {time.hours > 0 && (
+          <Typography>
+            {time.hours} {t(TranslationKey.hour)}
+          </Typography>
+        )}
+
+        {time.minutes > 0 && (
+          <Typography>
+            {time.minutes} {t(TranslationKey.minute)}
+          </Typography>
+        )}
+      </div>
+    ) : (
+      <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : 0} />
     )
   }, styles),
 )

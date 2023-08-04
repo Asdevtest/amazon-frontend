@@ -2067,6 +2067,8 @@
   "Product launch": "Запуск продукта",
   "Create or select product": "Создать или выбрать продукт",
   "Variation": "Вариация",
+  "sec": "сек.",
   "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение",
-  "sec": "сек."
+  "Min batch": "Мин. партия",
+  "Order date": "Дата заказа"
 }

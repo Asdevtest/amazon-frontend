@@ -40,7 +40,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'shop',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
@@ -55,7 +55,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
     renderCell: params => <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsImageLink(el))} />,
-    width: 120,
+    width: 96,
     sortable: false,
   },
 
@@ -71,7 +71,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
         onClickSelectSupplier={rowHandlers.onClickSelectSupplier}
       />
     ),
-    width: 250,
+    width: 290,
     sortable: false,
   },
 
@@ -111,6 +111,6 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 140,
+    width: 91,
   },
 ]

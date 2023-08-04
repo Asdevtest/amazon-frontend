@@ -1,3 +1,7 @@
+import { UiTheme } from '@constants/theme/themes'
+
+import { SettingsModel } from '@models/settings-model'
+
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
@@ -97,9 +101,9 @@ export const colorByIdeaStatus = (status: ideaStatus) => {
   } else if ([ideaStatus.VERIFIED, ideaStatus.SUPPLIER_FOUND, ideaStatus.CARD_CREATING].includes(status)) {
     return '#00B746'
   } else if ([ideaStatus.CLOSED, ideaStatus.SUPPLIER_NOT_FOUND].includes(status)) {
-    return '#FF1616'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'
   } else if ([ideaStatus.REJECTED].includes(status)) {
-    return '#0A6FE8'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
   } else {
     return '#black'
   }

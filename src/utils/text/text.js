@@ -83,6 +83,29 @@ export const minsToTime = mins => {
   }
 }
 
+export const secondsToTime = secs => {
+  if (secs >= 60) {
+    const days = Math.floor(secs / 86400)
+    const hours = Math.floor((secs % 86400) / 3600)
+    const minutes = Math.floor((secs % 3600) / 60)
+    const seconds = Math.floor(secs % 60)
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds,
+    }
+  } else {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: secs,
+    }
+  }
+}
+
 export const getFullTariffTextForBoxOrOrder = box => {
   if (!box || (!box.destination && !box.logicsTariff)) {
     return t(TranslationKey['Not available'])
