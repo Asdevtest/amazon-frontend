@@ -2,9 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
     gap: 30,
     width: '100%',
-    background: theme.palette.background.general,
   },
 
   btnsWrapper: {

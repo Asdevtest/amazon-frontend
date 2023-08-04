@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 5,
 
     // overflow: 'hidden',
-    '& :first-child': {
+    '& :first-of-type': {
       borderTopLeftRadius: '7px',
       borderBottomLeftRadius: '7px',
     },
@@ -73,7 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rejectedStatus: {
-    backgroundColor: theme.palette.other.rejected,
+    backgroundColor: `${theme.palette.other.rejected} !important`,
     ':after': {
       borderColor: `transparent ${theme.palette.other.rejected}`,
     },

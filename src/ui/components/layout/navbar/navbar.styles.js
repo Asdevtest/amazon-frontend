@@ -13,32 +13,41 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   logoWrapper: {
+    position: 'relative',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 20,
 
     [theme.breakpoints.down(768)]: {
       display: 'none',
-      justifyContent: 'center',
     },
-  },
-
-  logoWrapperShort: {
-    justifyContent: 'center',
   },
 
   logoIcon: {
     width: '125px !important',
     height: '42px !important',
     color: theme.palette.text.general,
+
+    'path:first-of-type': {
+      fill: theme.palette.primary.main,
+    },
   },
 
-  logoIconNotShow: {
-    display: 'none !important',
+  logoIconShort: {
+    width: '50px !important',
+    height: '50px !important',
+    color: theme.palette.text.general,
+
+    'path:first-of-type': {
+      fill: theme.palette.primary.main,
+    },
   },
 
   hideAndShowIconWrapper: {
+    position: 'absolute',
+    zIndex: 100,
+    top: 40,
+    right: -20,
     width: 40,
     height: 40,
     background: theme.palette.background.general,
@@ -48,6 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     borderRadius: '50%',
     cursor: 'pointer',
+    transition: '0.3s ease-out',
 
     [theme.breakpoints.down(768)]: {
       display: 'none',
@@ -61,7 +71,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   arrowIcon: {
-    marginLeft: 8,
+    height: '20px !important',
+    marginLeft: 6,
     color: theme.palette.primary.main,
   },
 }))

@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
     fontSize: '18px',
     fontWeight: 600,
+    whiteSpace: 'nowrap',
   },
 
   buttonsWrapper: {

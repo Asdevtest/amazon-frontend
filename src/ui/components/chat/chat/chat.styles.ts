@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   scrollViewWrapper: {
     position: 'relative',
+    width: '100%',
     display: 'flex',
     flex: '1 1 auto',
     overflow: 'auto',
@@ -76,6 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bottomPartWrapper: {
+    width: '100%',
     height: 'auto',
     background: theme.palette.background.general,
     padding: '20px 50px',

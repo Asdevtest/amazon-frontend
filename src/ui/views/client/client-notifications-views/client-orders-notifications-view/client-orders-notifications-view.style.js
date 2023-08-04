@@ -1,8 +1,7 @@
 export const styles = theme => ({
   tableWrapper: {
-    marginTop: '10px',
     width: '100%',
-    height: '85vh',
+    height: '86vh',
   },
 
   row: {

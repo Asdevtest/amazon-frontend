@@ -2,7 +2,7 @@ export const styles = theme => ({
   buttonBox: {
     textAlign: 'left',
     marginRight: '0',
-    padding: '16px 0',
+    marginTop: 10,
     display: 'flex',
     gap: 30,
   },
@@ -12,8 +12,8 @@ export const styles = theme => ({
   },
 
   datagridWrapper: {
-    marginTop: '10px',
-    height: '72vh',
+    marginTop: '20px',
+    height: '74vh',
   },
   root: {
     border: '0 !important',

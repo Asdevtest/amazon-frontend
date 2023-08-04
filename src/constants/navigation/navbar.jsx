@@ -120,14 +120,14 @@ export const navbarConfig = () => ({
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT),
         },
         {
-          subtitle: t(TranslationKey['Create a product card']),
+          subtitle: t(TranslationKey['Creating a product card']),
           subRoute: '/client/ideas/create-card',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT),
         },
         {
-          subtitle: t(TranslationKey.Add) + ' ASIN',
+          subtitle: t(TranslationKey['Adding ASIN']),
           subRoute: '/client/ideas/add-asin',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||

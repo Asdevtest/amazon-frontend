@@ -45,9 +45,11 @@ interface Props {
   shortNavbar: boolean
   title: string
   onToggleModal: VoidFunction
+  onMouseOver: VoidFunction
+  onMouseOut: VoidFunction
 }
 
-export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
+export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, onMouseOut }) => {
   const history = useHistory()
   const location = useLocation()
   const { classes: classNames } = useClassNames()
@@ -179,7 +181,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   }, [])
 
   return (
-    <div className={classNames.header}>
+    <div className={classNames.header} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
       <div className={classNames.menuIconWrapper}>
         <MenuIcon className={classNames.menuIcon} onClick={onToggleModal} />
       </div>

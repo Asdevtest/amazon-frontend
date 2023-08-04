@@ -107,6 +107,8 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       <NoReadIcon className={classNames.noReadIcon} />
     )
 
+  console.log(lastMessage)
+
   return (
     <div className={classNames.root} onClick={() => onClick(chat)}>
       <Avatar
@@ -145,7 +147,9 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             ) : (
               <div className={classNames.lastMessageSubWrapper}>
                 {isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${t(TranslationKey.You)}:`}</p>}
-                {!isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${lastMessage.user?.name}:`}</p>}
+                {!isCurrentUser && isGroupChat && (
+                  <p className={classNames.nickName}>{lastMessage.user && `${lastMessage.user?.name}:`}</p>
+                )}
 
                 <p
                   className={cx(classNames.lastMessageText, {

@@ -51,6 +51,9 @@ class InlineObject81 {
         if (data) {
             obj = obj || new InlineObject81();
 
+            if (data.hasOwnProperty('deletePermissions')) {
+                obj['deletePermissions'] = ApiClient.convertToType(data['deletePermissions'], 'Boolean');
+            }
             if (data.hasOwnProperty('parentProductId')) {
                 obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
             }
@@ -63,6 +66,13 @@ class InlineObject81 {
 
 
 }
+
+/**
+ * Удалять ли пермишны(только, если parentProductId - null
+ * @member {Boolean} deletePermissions
+ * @default false
+ */
+InlineObject81.prototype['deletePermissions'] = false;
 
 /**
  * Ключ родительского продукта

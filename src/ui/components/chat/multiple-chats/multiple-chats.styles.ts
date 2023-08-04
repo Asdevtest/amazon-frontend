@@ -1,39 +1,22 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  chatsWrapper: {
-    height: '100%',
+  wrapper: {
     display: 'flex',
-    borderRadius: 4,
+    height: '100%',
     overflow: 'hidden',
-    boxShadow: theme.palette.boxShadow.paper,
-    background: theme.palette.background.general,
-
-    [theme.breakpoints.down(768)]: {
-      borderRadius: 7,
-    },
   },
 
-  hideChats: {
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
-  },
-
-  chats: {
-    width: 310,
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  chatWrapper: {
-    flex: '1 1 auto',
+  leftSide: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    gap: 20,
+  },
+
+  rightSide: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 auto',
   },
 
   noSelectedChatIcon: {

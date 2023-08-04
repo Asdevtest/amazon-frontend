@@ -136,8 +136,6 @@ export const ClientIdeasView = observer(props => {
             viewModel.onTriggerOpenModal('showIdeaModal')
             viewModel.loadData()
           }}
-          productId={viewModel.currentProduct?._id}
-          product={viewModel.currentProduct}
           currentIdeaId={viewModel.currentIdeaId}
         />
       )}
