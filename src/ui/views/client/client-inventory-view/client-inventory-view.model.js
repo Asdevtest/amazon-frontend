@@ -577,7 +577,7 @@ export class ClientInventoryViewModel {
 
   async onClickVariationRadioButton() {
     try {
-      const result = await ClientModel.getProductPermissionsData({ ideaParent: true })
+      const result = await ClientModel.getProductPermissionsData({ isChild: false })
       this.productsToLaunch = result
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -587,7 +587,9 @@ export class ClientInventoryViewModel {
 
   async onClickProductLaunch() {
     try {
-      const result = this.currentData?.find(product => product?.originalData?._id === this.selectedRowIds?.[0])
+      const result = this.currentData?.find(
+        product => product?.originalData?._id === this.selectedRowIds?.[0] && !product?.originalData?.parentProductId,
+      )
       runInAction(() => (this.selectedProductToLaunch = result))
 
       this.onTriggerOpenModal('showProductLaunch')

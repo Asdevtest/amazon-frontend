@@ -22,10 +22,11 @@ class InlineObject12 {
     /**
      * Constructs a new <code>InlineObject12</code>.
      * @alias module:model/InlineObject12
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject12.initialize(this);
+        InlineObject12.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject12 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,17 +49,20 @@ class InlineObject12 {
         if (data) {
             obj = obj || new InlineObject12();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
         }
         return obj;
@@ -67,24 +72,33 @@ class InlineObject12 {
 }
 
 /**
- * @member {Number} type
- */
-InlineObject12.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject12.prototype['linksToMediaFiles'] = undefined;
-
-/**
+ * Название партии
  * @member {String} title
  */
 InlineObject12.prototype['title'] = undefined;
 
 /**
- * @member {String} description
+ * @member {Array.<String>} boxesIds
  */
-InlineObject12.prototype['description'] = undefined;
+InlineObject12.prototype['boxesIds'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject12.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject12.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineObject12.prototype['actualShippingCost'] = undefined;
 
 
 

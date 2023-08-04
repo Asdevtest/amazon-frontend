@@ -4,6 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**type** | **Number** |  | [optional] 
+**linksToMediaFiles** | **[String]** |  | [optional] 
+**title** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
 
 

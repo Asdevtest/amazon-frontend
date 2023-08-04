@@ -30,11 +30,11 @@ interface ProductLaunchFormProps {
 
 const radioBottonsSettings = [
   {
-    label: t(TranslationKey['New product']),
+    label: () => t(TranslationKey['New product']),
     value: false,
   },
   {
-    label: t(TranslationKey.Variation),
+    label: () => t(TranslationKey.Variation),
     value: true,
   },
 ]
@@ -56,6 +56,8 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
     if (selectedValue) {
       setSelectedRadioValue(selectedValue)
       onClickVariationRadioButton()
+    } else {
+      setSelectedProduct(undefined)
     }
     setSelectedRadioValue(selectedValue)
   }
