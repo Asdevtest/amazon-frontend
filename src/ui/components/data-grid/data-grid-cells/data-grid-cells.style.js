@@ -1905,9 +1905,24 @@ export const styles = theme => ({
     alignItems: 'center',
     padding: '16px 0',
     height: '100%',
+    width: '990px',
+    overflowY: 'auto',
   },
 
   ideaProductActionButton: {
     minWidth: '260px !important',
+  },
+
+  secondsTimeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+
+    p: {
+      fontSize: 14,
+      fontWeight: 400,
+    },
   },
 })

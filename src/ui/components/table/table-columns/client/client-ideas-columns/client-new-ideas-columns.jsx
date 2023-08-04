@@ -130,7 +130,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
-    width: 220,
+    width: 990,
     sortable: false,
   },
 ]

@@ -108,6 +108,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import {
   checkAndMakeAbsoluteUrl,
   getShortenStringIfLongerThanCount,
+  secondsToTime,
   shortAsin,
   shortSku,
   toFixed,
@@ -3385,6 +3386,37 @@ export const AllIdeasActions = React.memo(
           <ClosedIdeaActions row={row} rowHandlers={rowHandlers} />
         )}
       </>
+    )
+  }, styles),
+)
+
+export const TimeFromSeconds = React.memo(
+  withStyles(props => {
+    const { classes: styles, seconds, color } = props
+    const time = secondsToTime(seconds)
+
+    return seconds >= 60 ? (
+      <div className={styles.secondsTimeWrapper} style={color && { color }}>
+        {time.days > 0 && (
+          <Typography>
+            {time.days} {t(TranslationKey.days)}
+          </Typography>
+        )}
+
+        {time.hours > 0 && (
+          <Typography>
+            {time.hours} {t(TranslationKey.hour)}
+          </Typography>
+        )}
+
+        {time.minutes > 0 && (
+          <Typography>
+            {time.minutes} {t(TranslationKey.minute)}
+          </Typography>
+        )}
+      </div>
+    ) : (
+      <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : 0} />
     )
   }, styles),
 )

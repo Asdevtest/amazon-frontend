@@ -15,6 +15,7 @@ import {
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
+  TimeFromSeconds,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
@@ -107,15 +108,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.New),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={
-          params.value >= 60
-            ? minsToTime(params.value / 60)
-            : params.value && params.value + ' ' + t(TranslationKey.sec)
-        }
-      />
-    ),
+    renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
   },
@@ -125,15 +118,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['On checking']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={
-          params.value >= 60
-            ? minsToTime(params.value / 60)
-            : params.value && params.value + ' ' + t(TranslationKey.sec)
-        }
-      />
-    ),
+    renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
   },
@@ -143,15 +128,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Supplier search']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={
-          params.value >= 60
-            ? minsToTime(params.value / 60)
-            : params.value && params.value + ' ' + t(TranslationKey.sec)
-        }
-      />
-    ),
+    renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
     sortable: false,
   },
@@ -167,11 +144,9 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     ),
 
     renderCell: params => (
-      <MultilineTextCell
-        color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'}
-        text={minsToTime(params.value / 60, 2)}
-      />
+      <TimeFromSeconds color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'} seconds={params.value} />
     ),
+
     width: 91,
     sortable: false,
   },
@@ -191,6 +166,6 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => <ClosedIdeaActions row={params.row} rowHandlers={rowHandlers} />,
-    width: 140,
+    width: 280,
   },
 ]
