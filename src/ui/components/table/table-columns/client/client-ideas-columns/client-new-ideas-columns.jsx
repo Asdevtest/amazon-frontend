@@ -126,7 +126,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
           rowHandlers.onClickCreateRequest(params.row.parentProduct._id, params.row.parentProduct.asin)
         }
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.parentProduct._id, params.row.originalData)}
-        onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
+        onClickResultButton={rowHandlers.onClickResultButton}
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),

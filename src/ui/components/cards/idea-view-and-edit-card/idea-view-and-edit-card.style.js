@@ -252,7 +252,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sizesContainer: {
-    width: '110px',
+    width: '110px !important',
   },
 
   sizesInput: {
@@ -411,7 +411,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mediumSizeContainer: {
-    width: 350,
+    width: '350px !important',
   },
 
   sourcesProductWraper: {

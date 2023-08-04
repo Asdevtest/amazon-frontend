@@ -175,7 +175,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     useEffect(() => {
-      if (inCreate || isModalView) {
+      if (inCreate || isModalView || inEdit) {
         setShowFullCard(true)
       } else if (!isCurrentIdea) {
         setShowFullCard(false)
@@ -290,17 +290,17 @@ export const IdeaViewAndEditCard = observer(
             {formFields.childProduct && (
               <SourceProduct
                 title={t(TranslationKey['Child product'])}
-                img={formFields.childProduct?.images[0]}
+                img={formFields.childProduct?.images?.[0]}
                 asin={formFields.childProduct?.asin}
-                sku={formFields.childProduct?.skusByClient[0]}
+                sku={formFields.childProduct?.skusByClient?.[0]}
               />
             )}
             {currentProduct && (
               <SourceProduct
                 title={t(TranslationKey['Parent product'])}
-                img={currentProduct.images[0]}
+                img={currentProduct.images?.[0]}
                 asin={currentProduct.asin}
-                sku={currentProduct.skusByClient[0]}
+                sku={currentProduct.skusByClient?.[0]}
               />
             )}
           </div>
