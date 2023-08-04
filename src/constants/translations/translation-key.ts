@@ -2033,7 +2033,7 @@ export enum TranslationKey {
   'On page' = 'On page',
   'Client commentary' = 'Client commentary',
   'Buyer comments' = 'Buyer comments',
-  'New Ideas' = 'New Ideas',
+  'New ideas' = 'New ideas',
   'On checking' = 'On checking',
   'Search for suppliers' = 'Search for suppliers',
   'Add ASIN' = 'Add ASIN',
@@ -2042,7 +2042,6 @@ export enum TranslationKey {
   'Parent product' = 'Parent product',
   'Child product' = 'Child product',
   'Ideas' = 'Ideas',
-  'New ideas' = 'New ideas',
   'Rejected and closed' = 'Rejected and closed',
   'Choose a section' = 'Choose a section',
   'Status Updated' = 'Status Updated',
@@ -2067,6 +2066,10 @@ export enum TranslationKey {
   'Variation' = 'Variation',
   'An error occurred while loading the image from the link. Please replace the image' = 'An error occurred while loading the image from the link. Please replace the image',
   'sec' = 'sec',
+  'Min batch' = 'Min batch',
+  'Order date' = 'Order date',
+  'Archiving' = 'Archiving',
+  // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

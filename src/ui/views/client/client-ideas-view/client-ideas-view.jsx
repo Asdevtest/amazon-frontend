@@ -46,8 +46,9 @@ export const ClientIdeasView = observer(props => {
       <div className={styles.controls}>
         <div />
         <SearchInput
+          inputClasses={styles.searchInput}
           value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
           onSubmit={viewModel.onChangeSearchValue}
         />
 

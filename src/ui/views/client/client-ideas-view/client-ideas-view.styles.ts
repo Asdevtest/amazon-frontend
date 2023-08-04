@@ -1,6 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClientIdeasViewStyles = makeStyles()(theme => ({
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    width: '320px',
+  },
+
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',

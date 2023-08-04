@@ -73,9 +73,36 @@ export const minsToTime = mins => {
           ? hours + ' ' + t(TranslationKey.hour)
           : (hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
-    } ${Math.floor(lastMins) === 0 ? '' : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'}`
+    } ${
+      Math.floor(lastMins) === 0
+        ? lastMins * 60 + ' ' + t(TranslationKey.sec)
+        : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
+    }`
   } else {
     return null
+  }
+}
+
+export const secondsToTime = secs => {
+  if (secs >= 60) {
+    const days = Math.floor(secs / 86400)
+    const hours = Math.floor((secs % 86400) / 3600)
+    const minutes = Math.floor((secs % 3600) / 60)
+    const seconds = Math.floor(secs % 60)
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds,
+    }
+  } else {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: secs,
+    }
   }
 }
 

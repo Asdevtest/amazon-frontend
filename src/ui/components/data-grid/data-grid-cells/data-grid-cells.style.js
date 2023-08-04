@@ -1,10 +1,13 @@
 export const styles = theme => ({
   img: {
-    height: '64px',
-    width: '64px',
+    maxHeight: '58px',
+    height: 'fit-content',
+    width: '58px',
     marginRight: '16px',
     objectFit: 'contain',
     objectPosition: 'center',
+    borderRadius: '4px',
+    border: `1px solid #E0E0E0`,
   },
   productCellImg: {
     height: '43px',
@@ -66,6 +69,7 @@ export const styles = theme => ({
   },
   asinCellContainer: {
     display: 'inline-flex',
+    alignItems: 'center',
     width: '100%',
   },
   csCodeTypoWrapper: {
@@ -1901,5 +1905,24 @@ export const styles = theme => ({
     alignItems: 'center',
     padding: '16px 0',
     height: '100%',
+    width: '990px',
+    overflowY: 'auto',
+  },
+
+  ideaProductActionButton: {
+    minWidth: '260px !important',
+  },
+
+  secondsTimeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+
+    p: {
+      fontSize: 14,
+      fontWeight: 400,
+    },
   },
 })

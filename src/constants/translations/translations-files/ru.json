@@ -2036,7 +2036,7 @@
   "On page": "На странице",
   "Client commentary": "Комментарий клиента",
   "Buyer comments": "Комментарии Байера",
-  "New Ideas": "Новые идеи",
+  "New ideas": "Новые идеи",
   "On checking": "На проверке",
   "Search for suppliers": "Поиск поставщика",
   "Add ASIN": "Добавить ASIN",
@@ -2045,7 +2045,6 @@
   "Parent product": "Родительский продукт",
   "Child product": "Дочерний продукт",
   "Ideas": "Идеи",
-  "New ideas": "Новые идеи",
   "Rejected and closed": "Отклоненные и закрытые",
   "Choose a section": "Выберите раздел",
   "Status Updated": "Статус обновлен",
@@ -2068,6 +2067,8 @@
   "Product launch": "Запуск продукта",
   "Create or select product": "Создать или выбрать продукт",
   "Variation": "Вариация",
+  "sec": "сек.",
   "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение",
-  "sec": "сек."
+  "Min batch": "Мин. партия",
+  "Order date": "Дата заказа"
 }
