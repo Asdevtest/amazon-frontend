@@ -2069,7 +2069,7 @@ export enum TranslationKey {
   'Min batch' = 'Min batch',
   'Order date' = 'Order date',
   'Archiving' = 'Archiving',
-  // '' = '',
+  'Creating a product card' = 'Creating a product card',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
