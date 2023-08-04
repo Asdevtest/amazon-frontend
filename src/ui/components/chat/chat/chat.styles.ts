@@ -102,9 +102,17 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     backgroundColor: theme.palette.input.second,
 
-    [theme.breakpoints.down(480)]: {
-      '&>div': {
+    [theme.breakpoints.down(768)]: {
+      '& > div': {
         padding: 8.5,
+
+        '& > textarea': {
+          fontSize: 12,
+        },
+
+        '& > textarea::placeholder': {
+          fontSize: 12,
+        },
       },
     },
   },
@@ -116,8 +124,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sendBtnIcon: {
-    width: 22,
-    height: 17.5,
+    width: '22px !important',
+    height: '18px !important',
   },
 
   sendBtn: {
@@ -195,12 +203,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      right: 17,
-      bottom: 90,
+      right: 20,
+      bottom: 100,
       transform: 'none',
 
       'em-emoji-picker': {
-        width: 283,
+        width: 280,
       },
     },
   },

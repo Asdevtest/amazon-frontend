@@ -26,8 +26,8 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
-import { DestinationType, DestinationVariationType } from '../../../../types/destination'
-import { LogisticTariffInterface } from '../../../../types/logistics-tariff'
+import { DestinationType, DestinationVariationType } from '../../../../typings/destination'
+import { LogisticTariffInterface } from '../../../../typings/logistics-tariff'
 
 interface FormFields {
   tariffType: number

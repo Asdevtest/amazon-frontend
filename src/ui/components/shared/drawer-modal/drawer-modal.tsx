@@ -2,6 +2,8 @@ import { FC, PropsWithChildren } from 'react'
 
 import Drawer from '@mui/material/Drawer'
 
+import { isMobileResolution } from '@constants/configs/sizes-settings'
+
 type PositionType = 'left' | 'top' | 'right' | 'bottom' | undefined
 
 interface Props extends PropsWithChildren {
@@ -10,18 +12,14 @@ interface Props extends PropsWithChildren {
   onClose: VoidFunction
 }
 
-export const DrawerModal: FC<Props> = ({ position, open, onClose, children }) => {
-  const isMobileResolution = window.innerWidth < 768
-
-  return (
-    <>
-      {isMobileResolution ? (
-        <Drawer anchor={position} open={open} onClose={onClose}>
-          {children}
-        </Drawer>
-      ) : (
-        children
-      )}
-    </>
-  )
-}
+export const DrawerModal: FC<Props> = ({ position, open, onClose, children }) => (
+  <>
+    {isMobileResolution ? (
+      <Drawer anchor={position} open={open} onClose={onClose}>
+        {children}
+      </Drawer>
+    ) : (
+      children
+    )}
+  </>
+)

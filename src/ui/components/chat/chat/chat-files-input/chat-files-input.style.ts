@@ -10,13 +10,14 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       padding: 10,
+      height: 'auto',
 
-      '& > div > div > div:nth-of-type(1)': {
-        maxWidth: '100%',
+      '& > div ': {
+        width: '100%',
       },
 
-      '& > div > div > div:nth-of-type(2)': {
-        display: 'none',
+      '& > div > div ': {
+        flexDirection: 'column',
       },
     },
   },
