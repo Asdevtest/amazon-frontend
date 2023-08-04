@@ -2,6 +2,7 @@ import React from 'react'
 
 import { GridCellParams } from '@mui/x-data-grid'
 
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -39,9 +40,14 @@ export const bindIdeaToRequestColumns = () => [
 
   {
     field: 'typeTask',
-    headerName: t(TranslationKey['Task type']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Task type'])} />,
-    width: 90,
-    renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.value} />,
+    headerName: t(TranslationKey['Request type']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
+    width: 110,
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell
+        leftAlign
+        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value as number])}
+      />
+    ),
   },
 ]

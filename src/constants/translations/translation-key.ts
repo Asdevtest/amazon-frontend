@@ -2067,6 +2067,7 @@ export enum TranslationKey {
   'Variation' = 'Variation',
   'An error occurred while loading the image from the link. Please replace the image' = 'An error occurred while loading the image from the link. Please replace the image',
   'sec' = 'sec',
+  'Archiving' = 'Archiving',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
