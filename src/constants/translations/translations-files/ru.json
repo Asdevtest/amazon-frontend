@@ -2071,5 +2071,8 @@
   "An error occurred while loading the image from the link. Please replace the image": "При загрузке изображения по ссылке произошла ошибке. Пожалуйста, замените изображение",
   "Min batch": "Мин. партия",
   "Order date": "Дата заказа",
-  "Creating a product card": "Создание карточки товара"
+  "Creating a product card": "Создание карточки товара",
+  "Are you sure you want to change the status of an idea": "Вы уверены, что хотите изменить статус идеи?",
+  "Are you sure you want to dismiss the idea": "Вы уверены, что хотите отклонить эту идею?",
+  "Are you sure you want to restore the idea": "Вы уверены, что хотите восстановить эту идею?"
 }

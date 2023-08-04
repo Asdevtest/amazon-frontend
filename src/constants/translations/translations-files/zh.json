@@ -2070,5 +2070,8 @@
   "Min batch": "Min. batch",
   "Order date": "Order date",
   "Archiving": "Archiving",
-  "Creating a product card": "Creating a product card"
+  "Creating a product card": "Creating a product card",
+  "Are you sure you want to change the status of an idea": "Are you sure you want to change the status of an idea?",
+  "Are you sure you want to dismiss the idea": "Are you sure you want to dismiss the idea?",
+  "Are you sure you want to restore the idea": "Are you sure you want to restore the idea?"
 }
