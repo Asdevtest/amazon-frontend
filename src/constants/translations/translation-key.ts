@@ -2069,6 +2069,9 @@ export enum TranslationKey {
   'Min batch' = 'Min batch',
   'Order date' = 'Order date',
   'Archiving' = 'Archiving',
+  'Are you sure you want to change the status of an idea' = 'Are you sure you want to change the status of an idea',
+  'Are you sure you want to dismiss the idea' = 'Are you sure you want to dismiss the idea',
+  'Are you sure you want to restore the idea' = 'Are you sure you want to restore the idea',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
