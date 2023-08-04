@@ -3,14 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
-    width: 1200,
+    padding: 30,
+    maxWidth: 1200,
     margin: '0 auto',
-    // border: '1px solid #4CAF50',
-    borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
+    borderRadius: 7,
   },
 
   headerText: {
@@ -25,7 +21,6 @@ export const useClassNames = makeStyles()(theme => ({
   timeText: {
     color: theme.palette.text.second,
     fontSize: 14,
-    fontWeight: 400,
     lineHeight: '16px',
     position: 'absolute',
     top: 0,
@@ -52,9 +47,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   actionButton: {
-    // flex: 1,
-    // display: 'flex',
-
     padding: '0 15px',
   },
 
@@ -77,11 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
   },
 
-  mainSubWrapper: {
-    minWidth: 250,
-    maxWidth: '50%',
-    // width: 'max-content',
-  },
+  mainSubWrapper: {},
 
   divider: {
     height: 'auto',
@@ -134,7 +122,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   infosProposalWrapper: {
     display: 'flex',
-    // flexWrap: 'wrap',
+    flexWrap: 'wrap',
     gap: 20,
 
     minHeight: 120,
