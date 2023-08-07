@@ -6,8 +6,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: 1640,
-    height: 740,
+    height: 730,
     overflowY: 'auto',
+  },
+
+  clippedRoot: {
+    height: '660px',
   },
 
   footerWrapper: {
