@@ -1991,7 +1991,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           rowId={rowId}
           text={fourMonthesStock}
-          checkValue={value => value >= 0}
+          checkValue={value => value === 0 || value > 49}
           onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>
