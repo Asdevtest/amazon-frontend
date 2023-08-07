@@ -319,6 +319,11 @@ export const getTableByColumn = (column, hint) => {
       'intervalStatusNew',
       'intervalStatusOnCheck',
       'intervalStatusSupplierSearch',
+      'intervalStatusSupplierFound',
+      'intervalStatusProductCreating',
+      'intervalStatusAddingAsin',
+      'intervalStatusFinished',
+      'intervalsSum',
     ].includes(column)
   ) {
     return 'ideas'

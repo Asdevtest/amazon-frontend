@@ -146,6 +146,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -156,6 +157,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -166,6 +168,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -176,6 +179,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -186,6 +190,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -196,6 +201,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -206,6 +212,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -215,6 +222,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -235,5 +243,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 220,
     sortable: false,
+    filterable: false,
   },
 ]

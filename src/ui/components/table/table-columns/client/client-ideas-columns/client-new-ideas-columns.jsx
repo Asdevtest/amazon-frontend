@@ -50,7 +50,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     width: 265,
     sortable: false,
 
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {

@@ -145,7 +145,8 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
     width: 115,
     sortable: false,
-    columnKey: columnnsKeys.shared.QUANTITY,
+    filterable: false,
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

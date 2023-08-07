@@ -1275,12 +1275,23 @@ export const ProductMenuItem = React.memo(
       classes: classNames,
       onClose,
       data,
+      field,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickAccept,
       withoutSku,
     } = props
+
+    const getCurrentField = option => {
+      if (field.includes('parent')) {
+        return 'parentProduct' + option.charAt(0).toUpperCase() + option.slice(1)
+      } else if (field.includes('child')) {
+        return 'childProduct' + option.charAt(0).toUpperCase() + option.slice(1)
+      } else {
+        return option
+      }
+    }
 
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle.currentFilterData.length
@@ -1289,7 +1300,8 @@ export const ProductMenuItem = React.memo(
         ? 'skusByClient'
         : 'asin',
     )
-    const { filterData, currentFilterData } = data[currentOption]
+    const { filterData } = data[currentOption]
+    const { currentFilterData } = data[getCurrentField(currentOption)]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1329,13 +1341,13 @@ export const ProductMenuItem = React.memo(
     }
 
     const handleCategory = e => {
-      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      onChangeFullFieldMenuItem(choosenItems, getCurrentField(currentOption))
       setCurrentOption(e.target.value)
     }
 
     const applyFilters = e => {
       onClose(e)
-      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      onChangeFullFieldMenuItem(choosenItems, getCurrentField(currentOption))
       onClickAccept()
     }
 

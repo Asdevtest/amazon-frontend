@@ -132,6 +132,16 @@ const filtersFields = [
   'amount',
   'intervalStatusNew',
   'intervalStatusOnCheck',
+  'intervalStatusSupplierSearch',
+  'intervalStatusSupplierFound',
+  'intervalStatusProductCreating',
+  'intervalStatusAddingAsin',
+  'intervalStatusFinished',
+  'intervalsSum',
+  'updatedAt',
+  'amazonTitle',
+  'asin',
+  'skusByClient',
 ]
 
 export class ClientIdeasViewModel {

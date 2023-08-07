@@ -282,6 +282,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ProductMenuItem
+          field={currentColumn.field}
           data={props}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
