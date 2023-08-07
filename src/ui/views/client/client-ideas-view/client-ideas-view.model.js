@@ -717,6 +717,7 @@ export class ClientIdeasViewModel {
   }
 
   async onClickBindButton(requests) {
+    this.setActionStatus(loadingStatuses.isLoading)
     const methodBody =
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
@@ -730,6 +731,10 @@ export class ClientIdeasViewModel {
         console.error('error', error)
       }
     }
+
+    this.loadData()
+
+    this.setRequestStatus(loadingStatuses.success)
 
     this.onTriggerOpenModal('showBindingModal')
   }
@@ -866,6 +871,8 @@ export class ClientIdeasViewModel {
 
   async onClickLinkRequestButton(productId, idea) {
     try {
+      this.setActionStatus(loadingStatuses.isLoading)
+
       const result = await RequestModel.getRequestsByProductLight(productId)
       runInAction(() => {
         this.requestsForProduct = addIdDataConverter(result)
