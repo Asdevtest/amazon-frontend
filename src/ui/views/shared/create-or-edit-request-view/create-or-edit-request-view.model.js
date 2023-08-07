@@ -23,6 +23,7 @@ export class CreateOrEditRequestViewModel {
   platformSettingsData = null
 
   requestToEdit = undefined
+  createRequestForIdeaData = undefined
 
   uploadedFiles = []
 
@@ -52,21 +53,18 @@ export class CreateOrEditRequestViewModel {
   }
 
   constructor({ history, location }) {
+    const url = new URL(window.location.href)
     runInAction(() => {
       this.history = history
+
+      this.createRequestForIdeaData = {
+        productId: url.searchParams.get('parentProduct'),
+        asin: url.searchParams.get('asin'),
+      }
 
       if (location.state) {
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
-        if (location.state.parentProduct) {
-          this.requestToEdit = {
-            ...this.requestToEdit,
-            request: {
-              productId: location.state.parentProduct._id,
-              asin: location.state.parentProduct.asin,
-            },
-          }
-        }
       }
     })
 

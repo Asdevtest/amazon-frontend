@@ -371,9 +371,14 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickCreateRequestButton() {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request`, {
-      parentProduct: { _id: this.currentProduct?._id, asin: this.currentProduct?.asin },
-    })
+    const win = window.open(
+      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+        this.currentProduct?._id
+      }&asin=${this.currentProduct?.asin}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   async onClickBindButton(requests) {
