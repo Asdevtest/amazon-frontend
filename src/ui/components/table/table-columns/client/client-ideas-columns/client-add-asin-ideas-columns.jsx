@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Box } from '@mui/material'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -36,10 +37,11 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -48,12 +50,13 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
     field: 'childProduct',
-    headerName: t(TranslationKey.Product),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    headerName: t(TranslationKey['Child product']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -69,6 +72,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -84,6 +88,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 113,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -94,6 +99,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <AddAsinIdeaActions rowHandlers={rowHandlers} row={params.row} />,
     width: 110,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -103,5 +109,6 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

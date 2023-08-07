@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -35,10 +36,11 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -47,12 +49,13 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
     field: 'childProduct',
-    headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    headerName: t(TranslationKey['Child product']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -68,6 +71,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -78,16 +82,18 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <RealizedIdeaActions rowHandlers={rowHandlers} row={params.row} />,
     width: 140,
     sortable: false,
+    filterable: false,
   },
 
   {
-    field: 'orderedQuantity',
+    field: 'amount',
     headerName: t(TranslationKey['Ordered quantity']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
     sortable: false,
+    filterable: false,
   },
 
   {
@@ -98,6 +104,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
     width: 110,
     sortable: false,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -108,6 +115,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -118,6 +126,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -128,6 +137,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -138,6 +148,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -148,6 +159,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -158,6 +170,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -168,6 +181,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -178,6 +192,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
     width: 91,
     sortable: false,
+    columnKey: columnnsKeys.shared.SECONDS,
   },
 
   {
@@ -188,6 +203,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -198,6 +214,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 250,
     sortable: false,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -207,6 +224,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -225,7 +243,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
-    width: 990,
+    width: 220,
     sortable: false,
+    filterable: false,
   },
 ]
