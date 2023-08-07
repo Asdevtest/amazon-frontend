@@ -42,6 +42,7 @@ export class SuppliersAndIdeasModel {
   ideaIdToRemove = undefined
 
   selectedSupplier = undefined
+  supplierData = undefined
 
   dataToCreateProduct = undefined
 
@@ -500,6 +501,7 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.showAddOrEditSupplierModal) {
         this.selectedSupplier = undefined
+        this.supplierData = undefined
       } else {
         const result = await UserModel.getPlatformSettings()
 
@@ -608,7 +610,6 @@ export class SuppliersAndIdeasModel {
       }
 
       this.loadData()
-
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {

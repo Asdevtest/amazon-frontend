@@ -186,10 +186,10 @@ export const IdeaViewAndEditCard = observer(
     }, [curIdea?._id, inEdit])
 
     useEffect(() => {
-      if (!curIdea) {
+      if (!isCurrentIdea) {
         setFormFields(getShortIdea())
       } else {
-        isCurrentIdea && setFormFields(getFullIdea())
+        setFormFields(getFullIdea())
       }
     }, [curIdea, idea])
 
@@ -277,9 +277,6 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
-
-    console.log('formFields', formFields)
-    console.log('curIdea', curIdea)
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
