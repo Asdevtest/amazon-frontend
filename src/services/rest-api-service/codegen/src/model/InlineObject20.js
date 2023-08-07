@@ -22,10 +22,12 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor() { 
+    constructor(batchIds, archive) { 
         
-        InlineObject20.initialize(this);
+        InlineObject20.initialize(this, batchIds, archive);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -47,17 +51,11 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -67,24 +65,15 @@ class InlineObject20 {
 }
 
 /**
- * @member {Number} type
+ * @member {Array.<String>} batchIds
  */
-InlineObject20.prototype['type'] = undefined;
+InlineObject20.prototype['batchIds'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * Заархивирована ли партия
+ * @member {Boolean} archive
  */
-InlineObject20.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineObject20.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject20.prototype['description'] = undefined;
+InlineObject20.prototype['archive'] = undefined;
 
 
 

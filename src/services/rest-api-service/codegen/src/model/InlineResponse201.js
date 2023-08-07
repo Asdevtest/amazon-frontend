@@ -58,6 +58,7 @@ class InlineResponse201 {
 }
 
 /**
+ * Гуид созданного анонса
  * @member {String} guid
  */
 InlineResponse201.prototype['guid'] = undefined;

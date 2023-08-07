@@ -115,6 +115,7 @@ export const IdeaViewAndEditCard = observer(
       buyerComment: idea?.buyerComment || '',
       childProduct: idea?.childProduct || undefined,
       productLinks: idea?.productLinks || [],
+      criteria: idea?.criteria || '',
     })
 
     const getFullIdea = () => ({
@@ -175,7 +176,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     useEffect(() => {
-      if (inCreate || isModalView || inEdit) {
+      if (isCurrentIdea && (inCreate || isModalView || inEdit)) {
         setShowFullCard(true)
       } else if (!isCurrentIdea) {
         setShowFullCard(false)
@@ -185,10 +186,10 @@ export const IdeaViewAndEditCard = observer(
     }, [curIdea?._id, inEdit])
 
     useEffect(() => {
-      if (!curIdea) {
+      if (!isCurrentIdea) {
         setFormFields(getShortIdea())
       } else {
-        isCurrentIdea && setFormFields(getFullIdea())
+        setFormFields(getFullIdea())
       }
     }, [curIdea, idea])
 
@@ -422,12 +423,6 @@ export const IdeaViewAndEditCard = observer(
                       className={classNames.criterionsField}
                       containerClasses={classNames.noMarginContainer}
                       inputProps={{ maxLength: 250 }}
-                      sx={{
-                        '.MuiInputBase-inputMultiline': {
-                          height: '100% !important',
-                          width: '100% !important',
-                        },
-                      }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
                       onChange={onChangeField('criteria')}
