@@ -268,7 +268,7 @@ export class SuppliersAndIdeasModel {
       } else {
         this.inCreate = false
         this.inEdit = false
-        this.curIdea = undefined
+        // this.curIdea = undefined
       }
 
       this.loadData()
