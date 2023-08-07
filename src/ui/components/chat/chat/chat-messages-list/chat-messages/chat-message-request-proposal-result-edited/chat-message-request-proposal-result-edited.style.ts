@@ -26,10 +26,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     textTransform: 'uppercase',
   },
-  timeWrapper: {
-    marginLeft: '20px',
-  },
+
   timeText: {
+    marginLeft: '20px',
     color: theme.palette.text.second,
     fontSize: 14,
     fontWeight: 400,

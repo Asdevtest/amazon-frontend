@@ -23,8 +23,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
   },
-  timeWrapper: { width: '50px' },
   timeText: {
+    width: '50px',
     color: theme.palette.text.second,
     fontSize: 14,
     lineHeight: '16px',

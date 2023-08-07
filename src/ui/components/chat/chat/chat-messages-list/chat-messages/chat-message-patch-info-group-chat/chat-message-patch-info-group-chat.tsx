@@ -1,7 +1,6 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined'
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -42,25 +41,25 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
           customClassNames={undefined}
         />
 
-        <Typography className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</Typography>
+        <p className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</p>
       </div>
 
       <div>
         {titleIsChanged ? (
           <div className={classNames.changeTitleWrapper}>
-            <Typography className={classNames.groupText}>{t(TranslationKey.Title)}</Typography>
+            <p className={classNames.groupText}>{t(TranslationKey.Title)}</p>
 
-            <Typography className={classNames.groupTitle}>{`"${message.data.prevData?.title}"`}</Typography>
+            <p className={classNames.groupTitle}>{`"${message.data.prevData?.title}"`}</p>
 
             <ArrowRightAltOutlinedIcon className={classNames.changeIcon} />
 
-            <Typography className={classNames.groupTitle}>{`"${message.data.updatedData?.title}"`}</Typography>
+            <p className={classNames.groupTitle}>{`"${message.data.updatedData?.title}"`}</p>
           </div>
         ) : null}
 
         {imageIsChanged ? (
           <div className={classNames.changeTitleWrapper}>
-            <Typography className={classNames.groupText}>{t(TranslationKey.Image)}</Typography>
+            <p className={classNames.groupText}>{t(TranslationKey.Image)}</p>
 
             <img
               className={classNames.groupImage}

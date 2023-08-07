@@ -37,10 +37,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.general,
   },
-  reasonWrapper: {
-    marginTop: '10px',
-  },
+
   reasonText: {
+    marginTop: '10px',
     color: theme.palette.text.general,
   },
 
@@ -51,10 +50,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  timeWrapper: {
-    marginLeft: '20px',
-  },
   timeText: {
+    marginLeft: '20px',
     color: theme.palette.text.second,
     fontSize: 14,
     fontWeight: 400,

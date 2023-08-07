@@ -1,18 +1,14 @@
 import { cx } from '@emotion/css'
-import React, {
-  FC,
-  /* , useContext */
-} from 'react'
+import { FC } from 'react'
 import Linkify from 'react-linkify-always-blank'
 
-import { Avatar, Typography } from '@mui/material'
+import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataDesignerProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-// import {UserModel} from '@models/user-model'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
@@ -21,7 +17,6 @@ import { formatDateOnlyTime } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-// import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 import { useClassNames } from './chat-message-designer-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalDesignerResultEditedHandlers {
@@ -47,20 +42,16 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
 
   // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  // console.log('message.data', message.data)
-
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
 
-        <Typography className={classNames.headerText}>{t(TranslationKey.Result).toUpperCase()}</Typography>
+        <p className={classNames.headerText}>{t(TranslationKey.Result).toUpperCase()}</p>
 
         <div className={classNames.infosWrapper}>
           <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.proposal?.details?.result}</Typography>
+            <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
             {/* <Typography className={classNames.descriptionText}>
               {chatRequestAndRequestProposal?.requestProposal?.details.result}
             </Typography> */}
@@ -77,9 +68,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
 
                     {index === 3 && message.data.proposal.media.length > 4 && (
                       <div className={classNames.moreImagesWrapper}>
-                        <Typography className={classNames.moreImagesText}>
-                          {`${message.data.proposal.media.length - 4}`}
-                        </Typography>
+                        <p className={classNames.moreImagesText}>{`${message.data.proposal.media.length - 4}`}</p>
                       </div>
                     )}
 
@@ -109,9 +98,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
             label={t(TranslationKey['Time to check'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {minsToTime(1440)}
-              </Typography>
+              <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>{minsToTime(1440)}</p>
             }
           />
           <Field
@@ -119,9 +106,9 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
             label={t(TranslationKey['Number of illustrations'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
+              <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
                 {message.data.proposal.media?.length}
-              </Typography>
+              </p>
             }
           />
           <Field
@@ -129,11 +116,11 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
             label={'ASIN'}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
+              <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
                 <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${message.data.request.asin}`}>
                   <span className={classNames.linkSpan}>{message.data.request.asin}</span>
                 </a>
-              </Typography>
+              </p>
             }
           />
         </div>
