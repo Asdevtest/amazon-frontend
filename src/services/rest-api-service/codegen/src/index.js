@@ -316,6 +316,7 @@ import InlineResponse20046 from './model/InlineResponse20046';
 import InlineResponse20046ChildProduct from './model/InlineResponse20046ChildProduct';
 import InlineResponse20046ChildProductOrder from './model/InlineResponse20046ChildProductOrder';
 import InlineResponse20046ParentProduct from './model/InlineResponse20046ParentProduct';
+import InlineResponse20046PriceVariations from './model/InlineResponse20046PriceVariations';
 import InlineResponse20046Rows from './model/InlineResponse20046Rows';
 import InlineResponse20046Suppliers from './model/InlineResponse20046Suppliers';
 import InlineResponse20047 from './model/InlineResponse20047';
@@ -2303,6 +2304,12 @@ export {
      * @property {module:model/InlineResponse20046ParentProduct}
      */
     InlineResponse20046ParentProduct,
+
+    /**
+     * The InlineResponse20046PriceVariations model constructor.
+     * @property {module:model/InlineResponse20046PriceVariations}
+     */
+    InlineResponse20046PriceVariations,
 
     /**
      * The InlineResponse20046Rows model constructor.
