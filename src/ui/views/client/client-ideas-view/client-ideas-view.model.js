@@ -860,9 +860,14 @@ export class ClientIdeasViewModel {
   }
 
   async onClickCreateRequestButton(productId, asin) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request`, {
-      parentProduct: { _id: productId, asin },
-    })
+    const win = window.open(
+      `/${
+        UserRoleCodeMapForRoutes[this.curUser.role]
+      }/freelance/my-requests/create-request?parentProduct=${productId}&asin=${asin}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   async onClickLinkRequestButton(productId, idea) {

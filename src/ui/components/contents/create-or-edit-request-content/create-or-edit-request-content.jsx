@@ -69,6 +69,7 @@ export const CreateOrEditRequestContent = ({
   progressValue,
   mainContentRef,
   checkRequestByTypeExists,
+  createRequestForIdeaData,
   onClickExistingRequest,
   onClickChoosePerformer,
   onClickThumbnail,
@@ -76,6 +77,8 @@ export const CreateOrEditRequestContent = ({
   onEditSubmit,
 }) => {
   const { classes: classNames } = useClassNames()
+
+  console.log('createRequestForIdeaData', createRequestForIdeaData)
 
   const mainContentRefElement = mainContentRef.current
 
@@ -175,11 +178,11 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request?.restrictMoreThanOneProposalFromOneAssignee || false,
       typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
-      asin: requestToEdit?.request?.asin || undefined,
+      asin: requestToEdit?.request?.asin || createRequestForIdeaData?.asin || undefined,
       priceAmazon: requestToEdit?.request?.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request?.cashBackInPercent || 0,
       announcementId: requestToEdit?.request?.announcementId || undefined,
-      productId: requestToEdit?.request?.productId || undefined,
+      productId: requestToEdit?.request?.productId || createRequestForIdeaData?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
       priority: requestToEdit?.request?.priority || 20,
 
