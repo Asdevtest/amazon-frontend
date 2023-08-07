@@ -76,6 +76,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 0,
   },
 
+  labelWithMargin: {
+    marginBottom: '10px',
+  },
+
   photoCarouselWrapper: {
     display: 'flex',
     alignItems: 'center',

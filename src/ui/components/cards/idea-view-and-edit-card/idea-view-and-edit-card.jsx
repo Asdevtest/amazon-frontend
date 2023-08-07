@@ -569,7 +569,7 @@ export const IdeaViewAndEditCard = observer(
 
               <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
                 <Field
-                  labelClasses={classNames.spanLabel}
+                  labelClasses={cx(classNames.spanLabel, classNames.labelWithMargin)}
                   label={t(TranslationKey.Suppliers)}
                   containerClasses={classNames.noMarginContainer}
                   inputComponent={
