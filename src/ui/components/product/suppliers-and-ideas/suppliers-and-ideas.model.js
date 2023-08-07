@@ -42,6 +42,7 @@ export class SuppliersAndIdeasModel {
   ideaIdToRemove = undefined
 
   selectedSupplier = undefined
+  supplierData = undefined
 
   dataToCreateProduct = undefined
 
@@ -217,7 +218,7 @@ export class SuppliersAndIdeasModel {
   }
 
   onEditIdea(idea) {
-    this.curIdea = idea
+    this.getIdea(idea?._id)
     this.inEdit = true
     this.selectedSupplier = undefined
   }
@@ -500,8 +501,14 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.showAddOrEditSupplierModal) {
         this.selectedSupplier = undefined
+        this.supplierData = undefined
       } else {
         const result = await UserModel.getPlatformSettings()
+
+        if (this.selectedSupplier?._id) {
+          const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
+          this.supplierData = supplier
+        }
 
         this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
@@ -603,7 +610,6 @@ export class SuppliersAndIdeasModel {
       }
 
       this.loadData()
-
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {

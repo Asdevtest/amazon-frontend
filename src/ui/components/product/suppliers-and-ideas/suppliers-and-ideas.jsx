@@ -87,6 +87,7 @@ export const SuppliersAndIdeas = observer(
       showSetBarcodeModal,
       selectedProduct,
       alertShieldSettings,
+      supplierData,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
@@ -234,7 +235,7 @@ export const SuppliersAndIdeas = observer(
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={selectedSupplier}
+            supplier={supplierData || selectedSupplier}
             showProgress={showProgress}
             progressValue={progressValue}
             onClickSaveBtn={onClickSaveSupplierBtn}

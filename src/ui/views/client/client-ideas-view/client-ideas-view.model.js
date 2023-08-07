@@ -526,8 +526,11 @@ export class ClientIdeasViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
 
+      console.log('row', row)
+
       this.isIdeaCreate = false
       runInAction(() => {
+        this.productId = row?.originalData?.parentProduct?._id
         this.currentIdeaId = row._id
       })
 

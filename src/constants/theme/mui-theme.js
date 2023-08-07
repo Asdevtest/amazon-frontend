@@ -538,14 +538,10 @@ export const darkTheme = createTheme({
             backgroundColor: '#36363F !important',
             WebkitTextFillColor: '#fff !important',
           },
-        },
 
-        defaultProps: {
-          sx: {
-            '& .MuiInputBase-inputMultiline': {
-              height: '100% !important',
-              width: '100% !important',
-            },
+          '& .MuiInputBase-inputMultiline': {
+            height: '100% !important',
+            width: '100% !important',
           },
         },
       },
@@ -745,7 +741,7 @@ export const darkTheme = createTheme({
       background: {
         general: '#2B2B34',
         second: '#21212B',
-        // third: '#21212B',
+        third: '#25252D',
         searchSelectHover: '#25252D',
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
