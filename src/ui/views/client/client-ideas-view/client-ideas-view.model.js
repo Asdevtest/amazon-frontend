@@ -424,8 +424,6 @@ export class ClientIdeasViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
 
-      console.log('row', row)
-
       this.isIdeaCreate = false
       runInAction(() => {
         this.productId = row?.originalData?.parentProduct?._id
@@ -612,9 +610,12 @@ export class ClientIdeasViewModel {
   }
 
   onClickRequestId(id) {
-    this.history.push(
+    const win = window.open(
       `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      '_blank',
     )
+
+    win.focus()
   }
 
   //  * Barcode handlers

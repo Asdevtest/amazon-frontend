@@ -802,8 +802,11 @@ export class SuppliersAndIdeasModel {
   }
 
   onClickRequestId(id) {
-    this.history.push(
+    const win = window.open(
       `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      '_blank',
     )
+
+    win.focus()
   }
 }
