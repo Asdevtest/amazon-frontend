@@ -1,7 +1,5 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import Linkify from 'react-linkify-always-blank'
-
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,12 +28,9 @@ export const ChatMessageRequest: FC<Props> = ({ message }) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
-        <div>
-          <Typography className={classNames.headerText}>{message.data?.title}</Typography>
-        </div>
-        <div className={classNames.timeWrapper}>
-          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
-        </div>
+        <p className={classNames.headerText}>{message.data?.title}</p>
+
+        <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
       </div>
       <div className={classNames.mainInfoWrapper}>
         <div className={classNames.descriptionWrapper}>

@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 import Linkify from 'react-linkify-always-blank'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -44,12 +44,12 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
 
-        <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
+        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
 
         <Linkify>
-          <Typography className={classNames.descriptionText}>{message.data.proposal.details.result}</Typography>
+          <p className={classNames.descriptionText}>{message.data.proposal.details.result}</p>
         </Linkify>
 
         <div className={classNames.infosWrapper}>
@@ -83,9 +83,9 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
               label={'Amazon order ID'}
               inputComponent={
                 <div className={cx(classNames.infoItemWrapper, classNames.amazonOrder)}>
-                  <Typography className={cx(classNames.infoItemText, classNames.amazonOrderText)}>
+                  <p className={cx(classNames.infoItemText, classNames.amazonOrderText)}>
                     {message.data.proposal.details.amazonOrderId || t(TranslationKey.Missing)}
-                  </Typography>
+                  </p>
 
                   {message.data.proposal.details.amazonOrderId && (
                     <CopyValue text={message.data.proposal.details.amazonOrderId} />
@@ -100,7 +100,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
               label={t(TranslationKey['Time to check'])}
               inputComponent={
                 <div className={cx(classNames.infoItemWrapper, classNames.timeInfoItemWrapper)}>
-                  <Typography className={classNames.infoItemText}>{'24 ч 00 м'}</Typography>
+                  <p className={classNames.infoItemText}>{'24 ч 00 м'}</p>
                 </div>
               }
             />
@@ -130,7 +130,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                     </div>
                   ) : (
                     <div className={cx(classNames.infoLinksItemWrapper, classNames.linkInfoItemList)}>
-                      <Typography className={classNames.infoItemText}>{t(TranslationKey.Missing)}</Typography>
+                      <p className={classNames.infoItemText}>{t(TranslationKey.Missing)}</p>
                     </div>
                   )}
                 </>

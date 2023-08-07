@@ -1,6 +1,4 @@
-import React, { FC } from 'react'
-
-import { Typography } from '@mui/material'
+import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -31,9 +29,9 @@ export const ChatMessageAddUsersToGroupChat: FC<Props> = ({ message }) => {
         customClassNames={undefined}
       />
 
-      <Typography className={classNames.groupText}>{t(TranslationKey['added to the group chat'])}</Typography>
+      <p className={classNames.groupText}>{t(TranslationKey['added to the group chat'])}</p>
 
-      <Typography className={classNames.groupTitle}>{`${message.data?.title} :`}</Typography>
+      <p className={classNames.groupTitle}>{`${message.data?.title} :`}</p>
 
       <div className={classNames.usersWrapper}>
         {message.data.users.map((el: { _id: string; name: string }, index: number) => (

@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 import Linkify from 'react-linkify-always-blank'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -42,23 +42,19 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  // console.log('message', message)
-
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
 
         <div className={classNames.mainSubWrapper}>
           <div className={classNames.massageHeaderWrapper}>
-            <Typography className={classNames.headerText}>{t(TranslationKey.Request)}</Typography>
+            <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
             {!!message.humanFriendlyId && (
               <div className={classNames.idWrapper}>
-                <Typography className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</Typography>
-                <Typography className={classNames.idText}>{message.humanFriendlyId}</Typography>
+                <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
+                <p className={classNames.idText}>{message.humanFriendlyId}</p>
               </div>
             )}
           </div>
@@ -90,17 +86,13 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
             <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Request price'])}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {toFixedWithDollarSign(message.data.request?.price, 2)}
-                  </Typography>
-                }
+                value={<p className={classNames.accentText}>{toFixedWithDollarSign(message.data.request?.price, 2)}</p>}
                 bgColor="green"
               />
             </div>
           </div>
 
-          <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
+          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesCarousel
             notToShowEmpty
@@ -119,28 +111,24 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
         <Divider orientation="vertical" className={classNames.divider} />
         <div className={classNames.mainSubWrapper}>
-          <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
+          <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
 
           <div className={classNames.paragraphWrapper}>
             <Linkify>
-              <Typography className={classNames.descriptionText}>{message.data.proposal?.comment}</Typography>
+              <p className={classNames.descriptionText}>{message.data.proposal?.comment}</p>
             </Linkify>
           </div>
           <div className={classNames.infosProposalWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Time to complete'])}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {minsToTime(message.data.proposal?.execution_time)}
-                  </Typography>
-                }
+                value={<p className={classNames.accentText}>{minsToTime(message.data.proposal?.execution_time)}</p>}
                 bgColor="green"
               />
             </div>
           </div>
 
-          <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
+          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesCarousel
             notToShowEmpty

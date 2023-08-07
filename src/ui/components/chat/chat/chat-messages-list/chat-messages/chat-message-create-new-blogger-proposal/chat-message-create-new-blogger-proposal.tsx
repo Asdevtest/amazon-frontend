@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 import Linkify from 'react-linkify-always-blank'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -86,11 +86,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
             <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Request price'])}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {toFixedWithDollarSign(message.data.request.price, 2)}
-                  </Typography>
-                }
+                value={<p className={classNames.accentText}>{toFixedWithDollarSign(message.data.request.price, 2)}</p>}
                 bgColor="green"
               />
             </div>
@@ -100,18 +96,15 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
                 label={t(TranslationKey['Product price'])}
                 value={
                   <div className={classNames.priceAmazonWrapper}>
-                    <Typography className={classNames.cashBackPrice}>
+                    <p className={classNames.cashBackPrice}>
                       {`$ ${toFixed(
                         message.data.request.priceAmazon -
                           (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
                         2,
                       )}`}
-                    </Typography>
+                    </p>
 
-                    <Typography className={classNames.redText}>{`$ ${toFixed(
-                      message.data.request.priceAmazon,
-                      2,
-                    )}`}</Typography>
+                    <p className={classNames.redText}>{`$ ${toFixed(message.data.request.priceAmazon, 2)}`}</p>
                   </div>
                 }
                 bgColor="green"
@@ -122,12 +115,12 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
               <LabelValuePairBlock
                 label={'CashBack'}
                 value={
-                  <Typography className={classNames.accentText}>
+                  <p className={classNames.accentText}>
                     {`$ ${toFixed(
                       (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
                       2,
                     )}`}
-                  </Typography>
+                  </p>
                 }
                 bgColor="green"
               />
@@ -154,11 +147,11 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
         <Divider orientation="vertical" className={classNames.divider} />
 
         <div className={classNames.mainSubWrapper}>
-          <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
+          <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
 
           <div className={classNames.paragraphWrapper}>
             <Linkify>
-              <Typography className={classNames.descriptionText}>{message.data.proposal.comment}</Typography>
+              <p className={classNames.descriptionText}>{message.data.proposal.comment}</p>
             </Linkify>
           </div>
 
@@ -166,11 +159,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey.Time)}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {minsToTime(message.data.proposal.execution_time)}
-                  </Typography>
-                }
+                value={<p className={classNames.accentText}>{minsToTime(message.data.proposal.execution_time)}</p>}
                 bgColor="green"
               />
             </div>
@@ -180,16 +169,16 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
                 label={t(TranslationKey['Request price'])}
                 labelClasses={classNames.blackText}
                 value={
-                  <Typography className={cx(classNames.accentText, classNames.blackText)}>
+                  <p className={cx(classNames.accentText, classNames.blackText)}>
                     {toFixedWithDollarSign(message.data.proposal.price, 2)}
-                  </Typography>
+                  </p>
                 }
                 bgColor="yellow"
               />
             </div>
           </div>
 
-          <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
+          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesCarousel
             notToShowEmpty
