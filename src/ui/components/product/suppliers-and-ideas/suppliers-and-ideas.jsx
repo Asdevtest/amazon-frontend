@@ -146,6 +146,42 @@ export const SuppliersAndIdeas = observer(
           />
         )}
 
+        {isModalView && curIdea && (
+          <>
+            {requestStatus === loadingStatuses.isLoading ? (
+              <CircularProgressWithLabel />
+            ) : (
+              <IdeaViewAndEditCard
+                isModalView
+                curUser={curUser}
+                curIdea={curIdea}
+                inEdit={inEdit}
+                idea={curIdea}
+                currentProduct={currentProduct}
+                selectedSupplier={selectedSupplier}
+                onCreateProduct={onClickCreateProduct}
+                onClickSaveBtn={onClickSaveBtn}
+                onClickCancelBtn={onClickCancelBtn}
+                onClickCreateRequestButton={onClickCreateRequestButton}
+                onClickLinkRequestButton={onClickLinkRequestButton}
+                onClickAcceptButton={onClickAcceptButton}
+                onClickCloseIdea={onClickCloseIdea}
+                onClickRejectButton={onClickRejectButton}
+                onClickReoperButton={onClickReoperButton}
+                onClickResultButton={onClickResultButton}
+                onSetCurIdea={onSetCurIdea}
+                onEditIdea={onEditIdea}
+                onClickSupplierBtns={onClickSupplierButtons}
+                onClickSupplier={onChangeSelectedSupplier}
+                onClickSaveIcon={onClickSaveIcon}
+                onClickOpenNewTab={onClickOpenNewTab}
+                onClickToOrder={onClickToOrder}
+                onClickRequestId={onClickRequestId}
+              />
+            )}
+          </>
+        )}
+
         {!isModalView &&
           (requestStatus === loadingStatuses.isLoading ? (
             <CircularProgressWithLabel />
@@ -186,42 +222,6 @@ export const SuppliersAndIdeas = observer(
               </Typography>
             </div>
           ))}
-
-        {isModalView && curIdea && (
-          <>
-            {requestStatus === loadingStatuses.isLoading ? (
-              <CircularProgressWithLabel />
-            ) : (
-              <IdeaViewAndEditCard
-                isModalView
-                curUser={curUser}
-                curIdea={curIdea}
-                inEdit={inEdit}
-                idea={curIdea}
-                currentProduct={currentProduct}
-                selectedSupplier={selectedSupplier}
-                onCreateProduct={onClickCreateProduct}
-                onClickSaveBtn={onClickSaveBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickCreateRequestButton={onClickCreateRequestButton}
-                onClickLinkRequestButton={onClickLinkRequestButton}
-                onClickAcceptButton={onClickAcceptButton}
-                onClickCloseIdea={onClickCloseIdea}
-                onClickRejectButton={onClickRejectButton}
-                onClickReoperButton={onClickReoperButton}
-                onClickResultButton={onClickResultButton}
-                onSetCurIdea={onSetCurIdea}
-                onEditIdea={onEditIdea}
-                onClickSupplierBtns={onClickSupplierButtons}
-                onClickSupplier={onChangeSelectedSupplier}
-                onClickSaveIcon={onClickSaveIcon}
-                onClickOpenNewTab={onClickOpenNewTab}
-                onClickToOrder={onClickToOrder}
-                onClickRequestId={onClickRequestId}
-              />
-            )}
-          </>
-        )}
 
         <Modal
           missClickModalOn={!supplierModalReadOnly}

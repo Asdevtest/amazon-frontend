@@ -323,7 +323,7 @@ export const IdeaViewAndEditCard = observer(
                   dragAndDropBtnHeight={59}
                   images={images}
                   setImages={setImages}
-                  maxNumber={50}
+                  maxNumber={50 - formFields?.media?.length}
                 />
               )}
 
