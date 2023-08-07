@@ -39,6 +39,14 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
     }
   }
 
+  const getDeadlineColor = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return classNames.redColor
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return classNames.yellowColor
+    }
+  }
+
   return (
     <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
       <div className={classNames.cardHeader}>
@@ -102,9 +110,10 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey.Time)}
               inputComponent={
-                <Typography className={classNames.accentText}>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(
-                  TranslationKey.hour,
-                )} `}</Typography>
+                <Typography className={cx(classNames.accentText, getDeadlineColor(item.timeoutAt))}>{`${toFixed(
+                  item.timeLimitInMinutes / 60,
+                  2,
+                )} ${t(TranslationKey.hour)} `}</Typography>
               }
             />
 
