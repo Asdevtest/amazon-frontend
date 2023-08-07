@@ -3,6 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   breadCrumbsWrapper: {
     padding: '10px 30px',
+
+    [theme.breakpoints.down(768)]: {
+      padding: 5,
+    },
   },
 
   lastCrumb: {

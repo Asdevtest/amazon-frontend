@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Box, Tabs, Typography } from '@mui/material'
+import { Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,6 +14,7 @@ import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
@@ -54,18 +55,6 @@ const tab = {
 }
 
 const videoRegexp = /\.(mp4|avi|mov)$/
-
-const TabPanel = ({ children, value, index, ...other }: React.PropsWithChildren<{ value: string; index: string }>) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={'10px'}>{children}</Box>}
-  </div>
-)
 
 export const ChatInfo = (props: ChatInfoProps) => {
   const {
@@ -123,7 +112,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
       <Tabs
         classes={{
           root: styles.tabs,
-          indicator: styles.tabBtn,
+          indicator: styles.indicator,
         }}
         value={currentTab}
         onChange={(e, value) => setCurrentTab(value)}
@@ -153,7 +142,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
         />
       </Tabs>
 
-      <TabPanel value={currentTab} index={tab.groupChatUsers}>
+      <TabPanel value={currentTab} className={styles.tabPanel} index={tab.groupChatUsers}>
         <ChatGroupUsers
           chat={chat}
           userId={userId}
@@ -163,7 +152,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
         />
       </TabPanel>
 
-      <TabPanel value={currentTab} index={tab.media}>
+      <TabPanel value={currentTab} className={styles.tabPanel} index={tab.media}>
         {!!images?.length && (
           <div className={styles.imageList}>
             {images?.map((el, index) => (
@@ -187,8 +176,8 @@ export const ChatInfo = (props: ChatInfoProps) => {
         {isFilesLoading && <Typography className={styles.noData}>{t(TranslationKey['Loading data'])}...</Typography>}
       </TabPanel>
 
-      <TabPanel value={currentTab} index={tab.files}>
-        <div className={styles.files}>{!!files?.length && <ChatMessageFiles files={files?.map(el => el.file)} />}</div>
+      <TabPanel value={currentTab} className={styles.tabPanel} index={tab.files}>
+        <div>{!!files?.length && <ChatMessageFiles files={files?.map(el => el.file)} />}</div>
 
         {!files?.length && !isFilesLoading && (
           <Typography className={styles.noData}>{t(TranslationKey['No files'])}</Typography>
