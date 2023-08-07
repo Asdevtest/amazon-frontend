@@ -6,7 +6,6 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.third,
     borderRadius: 5,
 
-    // overflow: 'hidden',
     '& :first-of-type': {
       borderTopLeftRadius: '7px',
       borderBottomLeftRadius: '7px',
@@ -66,16 +65,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   finalStatus: {
-    backgroundColor: theme.palette.other.succes,
+    backgroundColor: `${theme.palette.other.succes} !important`,
     ':after': {
-      borderColor: `transparent ${theme.palette.other.succes}`,
+      borderColor: `transparent ${theme.palette.other.succes} !important`,
     },
   },
 
   rejectedStatus: {
     backgroundColor: `${theme.palette.other.rejected} !important`,
     ':after': {
-      borderColor: `transparent ${theme.palette.other.rejected}`,
+      borderColor: `transparent ${theme.palette.other.rejected} !important`,
     },
   },
 }))
