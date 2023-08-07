@@ -1014,6 +1014,8 @@ export class ClientIdeasViewModel {
   async onClickProductLaunch() {
     try {
       this.isIdeaCreate = true
+      this.productId = undefined
+      this.currentIdeaId = undefined
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
       console.log(error)

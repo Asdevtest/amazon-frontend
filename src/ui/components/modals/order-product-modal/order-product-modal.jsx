@@ -88,7 +88,7 @@ export const OrderProductModal = ({
       ? reorderOrdersData.map(reorderOrder => ({
           amount: reorderOrder.amount,
           clientComment: '',
-          barCode: reorderOrder.product.barCode || '',
+          barCode: reorderOrder?.product?.barCode || '',
           productId: reorderOrder.product._id,
           images: [],
           tmpBarCode: [],
@@ -114,7 +114,7 @@ export const OrderProductModal = ({
       : selectedProductsData.map(product => ({
           amount: 1,
           clientComment: '',
-          barCode: product.barCode || '',
+          barCode: product?.barCode || '',
           productId: product._id,
           images: [],
           deadline: null,

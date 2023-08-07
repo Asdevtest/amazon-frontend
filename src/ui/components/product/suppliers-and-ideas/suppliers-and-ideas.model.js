@@ -36,6 +36,8 @@ export class SuppliersAndIdeasModel {
   requestTypeTask = undefined
   requestsForProduct = []
 
+  productId = undefined
+
   inCreate = false
   inEdit = false
   ideasData = []
@@ -226,8 +228,11 @@ export class SuppliersAndIdeasModel {
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
-    // this.curIdea = undefined
     this.selectedSupplier = undefined
+
+    if (this.isModalView) {
+      this.closeModalHandler()
+    }
   }
 
   async onClickSaveBtn(formFields, files, isForceUpdate) {
@@ -656,11 +661,18 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
+      if (!this.currentProduct) {
+        const result = await ProductModel.getProductById(this.productId)
+        this.currentProduct = result
+      }
+
       runInAction(() => {
         this.storekeepers = storekeepers
         this.destinations = destinations
         this.platformSettings = platformSettings
       })
+
+      console.log('currentProduct', this.currentProduct)
 
       this.onTriggerOpenModal('showOrderModal')
       this.requestStatus = loadingStatuses.success
