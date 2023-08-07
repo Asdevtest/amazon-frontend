@@ -117,7 +117,9 @@ export const ProductCardModal = observer(props => {
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.root}>
+      <div
+        className={cx(classNames.root, { [classNames.clippedRoot]: viewModel?.product && currentTab === 'MAIN_INFO' })}
+      >
         {viewModel?.product && (
           <ProductWrapper
             modal
