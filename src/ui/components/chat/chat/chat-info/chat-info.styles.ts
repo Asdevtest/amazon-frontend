@@ -16,11 +16,6 @@ export const useChatInfoStyles = makeStyles()(theme => ({
   tabs: {
     height: 34,
     minHeight: 34,
-
-    [theme.breakpoints.down(768)]: {
-      height: 29,
-      minHeight: 29,
-    },
   },
 
   indicator: {
@@ -51,7 +46,7 @@ export const useChatInfoStyles = makeStyles()(theme => ({
       gridTemplateColumns: 'repeat(2, 1fr)',
 
       img: {
-        height: 80,
+        height: 90,
       },
     },
   },

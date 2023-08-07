@@ -17,7 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 5,
 
     [theme.breakpoints.down(768)]: {
-      minHeight: 19,
+      fontSize: 12,
     },
   },
 

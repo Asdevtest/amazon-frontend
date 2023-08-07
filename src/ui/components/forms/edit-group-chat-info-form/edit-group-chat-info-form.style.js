@@ -2,72 +2,83 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '640px',
-
+    width: 576,
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
+
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      height: '100%',
+      justifyContent: 'space-between',
+      gap: 10,
+    },
   },
 
-  mainTitle: {
+  title: {
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: '25px',
     color: theme.palette.text.general,
-    marginBottom: 20,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
   },
 
-  labelField: {
-    fontSize: '14px',
+  label: {
+    marginBottom: 5,
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+    },
   },
 
   mainWrapper: {
     width: '100%',
     display: 'flex',
-    padding: '0 0 20px ',
+    justifyContent: 'space-between',
+    gap: 20,
+
+    '& > div:first-of-type': {
+      width: '100%',
+
+      '& > div': {
+        width: '100% !important',
+      },
+    },
+
+    [theme.breakpoints.down(768)]: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      gap: 15,
+    },
   },
 
-  avatarWrapper: {
-    width: '100%',
-    minHeight: 310,
-    maxHeight: 500,
-    display: 'flex',
-    overflow: 'auto',
-  },
-
-  imgWrapper: {
-    marginLeft: '70px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-
-  img: {
-    width: '208px',
-    height: '208px',
-    border: `1px solid ${theme.palette.primary.main}`,
+  avatar: {
+    width: 180,
+    height: 180,
     borderRadius: '50%',
-    backgroundColor: theme.palette.background.disabled,
+
+    [theme.breakpoints.down(768)]: {
+      width: 160,
+      height: 160,
+    },
   },
 
-  btnsWrapper: {
-    display: 'flex',
-    margin: '30px 20px 10px 0',
-    justifyContent: 'flex-end',
-  },
-
-  cancelBtn: {
-    marginLeft: '30px',
-    color: theme.palette.text.general,
-  },
+  textsWrapper: {},
 
   standartText: {
     color: theme.palette.text.general,
-  },
 
-  labelStyle: {
-    width: '100%',
-    backgroundColor: theme.palette.background.second,
-    textAlign: 'center',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+    },
   },
 
   successText: {
@@ -76,22 +87,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   spanText: {
     color: theme.palette.primary.main,
-    fontWeight: '500',
   },
 
-  textsWrapper: {
-    alignSelf: 'center',
+  btnsWrapper: {
+    display: 'flex',
+    gap: 30,
+    justifyContent: 'flex-end',
+
+    [theme.breakpoints.down(768)]: {
+      justifyContent: 'space-between',
+    },
   },
 
-  title: {
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.second,
-  },
-
-  avatarImage: {
-    objectFit: 'contain',
-    height: 200,
+  cancelBtn: {
+    color: theme.palette.text.general,
   },
 }))
