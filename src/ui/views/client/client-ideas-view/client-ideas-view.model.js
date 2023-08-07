@@ -890,7 +890,10 @@ export class ClientIdeasViewModel {
   onClickCloseIdea(ideaId) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to close this idea?']),
+      confirmMessage:
+        t(TranslationKey['Are you sure you want to close this idea?']) +
+        '\n' +
+        t(TranslationKey['Once confirmed, the idea will be irretrievably lost/deleted']),
       onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
     }
     this.onTriggerOpenModal('showConfirmModal')

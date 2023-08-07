@@ -77,6 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalMessage: {
+    whiteSpace: 'pre-wrap',
     textAlign: 'center',
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
