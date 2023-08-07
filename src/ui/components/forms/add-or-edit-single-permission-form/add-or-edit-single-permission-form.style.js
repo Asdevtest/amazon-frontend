@@ -42,19 +42,19 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'auto',
     display: 'flex',
     alignItems: 'center',
+    gap: 20,
   },
 
   httpMethodSelect: {
-    height: '65px',
-    width: '95px',
+    height: 65,
+    width: 115,
   },
 
   urlInput: {
     overflowY: 'auto',
     whiteSpace: 'wrap',
-    height: '65px',
-    marginRight: '20px',
-    width: '450px',
+    height: 65,
+    width: 430,
   },
 
   buttonsWrapper: {
