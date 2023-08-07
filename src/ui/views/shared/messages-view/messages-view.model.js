@@ -65,6 +65,10 @@ export class MessagesViewModel {
     return SettingsModel.mutedChats
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({ history, location }) {
     runInAction(() => {
       this.history = history
