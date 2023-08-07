@@ -49,11 +49,11 @@ import { SourceProduct } from './source-product'
 
 const radioBottonsSettings = [
   {
-    label: t(TranslationKey['Supplier found']),
+    label: () => t(TranslationKey['Supplier found']),
     value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
   },
   {
-    label: t(TranslationKey['Supplier not found']),
+    label: () => t(TranslationKey['Supplier not found']),
     value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
   },
 ]
@@ -379,6 +379,12 @@ export const IdeaViewAndEditCard = observer(
                 inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['Client commentary'])}
                 value={formFields.comments}
+                sx={{
+                  '& .MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
                 onChange={onChangeField('comments')}
               />
 
@@ -391,6 +397,12 @@ export const IdeaViewAndEditCard = observer(
                 containerClasses={classNames.noMarginContainer}
                 inputProps={{ maxLength: 255 }}
                 value={formFields.buyerComment}
+                sx={{
+                  '& .MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
                 onChange={onChangeField('buyerComment')}
               />
             </div>
@@ -425,6 +437,12 @@ export const IdeaViewAndEditCard = observer(
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
+                      sx={{
+                        '& .MuiInputBase-inputMultiline': {
+                          height: '100% !important',
+                          width: '100% !important',
+                        },
+                      }}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
@@ -720,7 +738,7 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {(showAcceptButtonToClient || (currentUserIsBuyer && isSupplierSearch)) && (
+                {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
                     disabled={disableAcceptButton}
                     variant="contained"
