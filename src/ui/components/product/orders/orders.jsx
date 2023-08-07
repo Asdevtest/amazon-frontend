@@ -20,9 +20,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './orders.style'
-
 import { OrdersModel } from './orders.model'
+import { useClassNames } from './orders.style'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const { classes: classNames } = useClassNames()

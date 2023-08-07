@@ -12,9 +12,8 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './client-buy-shops-content.style'
-
 import { ClientBuyShopsAds } from './client-buy-shops-ads'
+import { useClassNames } from './client-buy-shops-content.style'
 import { ClientBuyShopsDeals } from './client-buy-shops-deals'
 
 export const ClientBuyShopsContent = observer(() => {

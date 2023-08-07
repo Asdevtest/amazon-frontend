@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import AddIcon from '@material-ui/icons/Add'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
+import AddIcon from '@material-ui/icons/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -41,19 +41,18 @@ import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './idea-view-and-edit-card.style'
-
 import { IdeaRequestCard } from './idea-request-card'
+import { useClassNames } from './idea-view-and-edit-card.style'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
 
 const radioBottonsSettings = [
   {
-    label: t(TranslationKey['Supplier found']),
+    label: () => t(TranslationKey['Supplier found']),
     value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
   },
   {
-    label: t(TranslationKey['Supplier not found']),
+    label: () => t(TranslationKey['Supplier not found']),
     value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
   },
 ]
@@ -323,7 +322,7 @@ export const IdeaViewAndEditCard = observer(
                   dragAndDropBtnHeight={59}
                   images={images}
                   setImages={setImages}
-                  maxNumber={50}
+                  maxNumber={50 - formFields?.media?.length}
                 />
               )}
 
@@ -379,6 +378,12 @@ export const IdeaViewAndEditCard = observer(
                 inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['Client commentary'])}
                 value={formFields.comments}
+                sx={{
+                  '& .MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
                 onChange={onChangeField('comments')}
               />
 
@@ -391,6 +396,12 @@ export const IdeaViewAndEditCard = observer(
                 containerClasses={classNames.noMarginContainer}
                 inputProps={{ maxLength: 255 }}
                 value={formFields.buyerComment}
+                sx={{
+                  '& .MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
                 onChange={onChangeField('buyerComment')}
               />
             </div>
@@ -425,6 +436,12 @@ export const IdeaViewAndEditCard = observer(
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
+                      sx={{
+                        '& .MuiInputBase-inputMultiline': {
+                          height: '100% !important',
+                          width: '100% !important',
+                        },
+                      }}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
@@ -569,7 +586,7 @@ export const IdeaViewAndEditCard = observer(
 
               <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
                 <Field
-                  labelClasses={classNames.spanLabel}
+                  labelClasses={cx(classNames.spanLabel, classNames.labelWithMargin)}
                   label={t(TranslationKey.Suppliers)}
                   containerClasses={classNames.noMarginContainer}
                   inputComponent={
@@ -720,7 +737,7 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {(showAcceptButtonToClient || (currentUserIsBuyer && isSupplierSearch)) && (
+                {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
                     disabled={disableAcceptButton}
                     variant="contained"

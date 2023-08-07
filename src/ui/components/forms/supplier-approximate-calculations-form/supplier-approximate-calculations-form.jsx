@@ -19,9 +19,8 @@ import {
 } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './supplier-approximate-calculations-form.style'
-
 import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
+import { useClassNames } from './supplier-approximate-calculations-form.style'
 import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
 
 const tabsValues = {

@@ -12,9 +12,8 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './move-box-to-batch-form.style'
-
 import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
+import { useClassNames } from './move-box-to-batch-form.style'
 
 export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, box, onSubmitCreateBatch }) => {
   const { classes: classNames } = useClassNames()

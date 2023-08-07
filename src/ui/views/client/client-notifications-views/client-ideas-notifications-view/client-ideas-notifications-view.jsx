@@ -14,9 +14,8 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-ideas-notifications-view.style'
-
 import { ClientIdeasNotificationsViewModel } from './client-ideas-notifications-view.model'
+import { styles } from './client-ideas-notifications-view.style'
 
 export const ClientIdeasNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientIdeasNotificationsViewModel({ history: props.history }))

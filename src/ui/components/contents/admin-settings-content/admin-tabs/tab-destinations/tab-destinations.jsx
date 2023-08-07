@@ -16,9 +16,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-destinations.style'
-
 import { AdminSettingsDestinationsModel } from './tab-destinations.model'
+import { useClassNames } from './tab-destinations.style'
 
 export const TabDestinations = observer(() => {
   const { classes: classNames } = useClassNames()

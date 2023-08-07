@@ -20,9 +20,9 @@ import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './files-carousel.style'
-
 import { CustomSlider } from '../custom-slider'
+
+import { useClassNames } from './files-carousel.style'
 
 interface FilesCarouselProps {
   files: Array<string | files>

@@ -15,9 +15,8 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { styles } from './vacant-deals-view.style'
-
 import { VacantDealsViewModel } from './vacant-deals-view.model'
+import { styles } from './vacant-deals-view.style'
 
 export const VacantDealsViewRaw = props => {
   const [viewModel] = useState(() => new VacantDealsViewModel({ history: props.history }))

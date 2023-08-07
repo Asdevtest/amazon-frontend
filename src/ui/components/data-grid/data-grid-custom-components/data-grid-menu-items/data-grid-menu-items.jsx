@@ -33,7 +33,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
-import { getStatusByColumnKeyAndStatusKey, toFixed } from '@utils/text'
+import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
@@ -1275,12 +1275,23 @@ export const ProductMenuItem = React.memo(
       classes: classNames,
       onClose,
       data,
+      field,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickAccept,
       withoutSku,
     } = props
+
+    const getCurrentField = option => {
+      if (field.includes('parent')) {
+        return 'parentProduct' + option.charAt(0).toUpperCase() + option.slice(1)
+      } else if (field.includes('child')) {
+        return 'childProduct' + option.charAt(0).toUpperCase() + option.slice(1)
+      } else {
+        return option
+      }
+    }
 
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle.currentFilterData.length
@@ -1289,13 +1300,14 @@ export const ProductMenuItem = React.memo(
         ? 'skusByClient'
         : 'asin',
     )
-    const { filterData, currentFilterData } = data[currentOption]
+    // const { filterData } = data[currentOption]
+    const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(currentOption)
+      onClickFilterBtn(getCurrentField(currentOption))
     }, [currentOption])
 
     useEffect(() => {
@@ -1329,13 +1341,13 @@ export const ProductMenuItem = React.memo(
     }
 
     const handleCategory = e => {
-      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      onChangeFullFieldMenuItem(choosenItems, getCurrentField(currentOption))
       setCurrentOption(e.target.value)
     }
 
     const applyFilters = e => {
       onClose(e)
-      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      onChangeFullFieldMenuItem(choosenItems, getCurrentField(currentOption))
       onClickAccept()
     }
 
@@ -2731,4 +2743,105 @@ export const ToPayCellMenuItem = React.memo(
     },
     styles,
   ),
+)
+
+export const SecondsCellMenuItem = React.memo(
+  withStyles((props, context) => {
+    const {
+      classes: styles,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onChangeFullFieldMenuItem,
+
+      onClickAccept,
+      onClickFilterBtn,
+    } = props
+
+    const { filterData, currentFilterData } = data
+
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+
+    useEffect(() => {
+      onClickFilterBtn(field)
+    }, [])
+
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    useEffect(() => {
+      setItemsForRender(
+        filterData
+          .filter(el => el || el === 0 || el === '0')
+          .sort(
+            (a, b) =>
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
+              Number(b) - Number(a),
+          ),
+      )
+    }, [filterData])
+
+    const onClickItem = str => {
+      if (choosenItems.some(item => item === str)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== str))
+      } else {
+        setChoosenItems([...choosenItems, str])
+      }
+    }
+
+    return (
+      <div className={styles.shopsDataWrapper}>
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
+            {filterRequestStatus === loadingStatuses.isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {itemsForRender.length ? (
+                  <>
+                    <DataGridSelectAllFilters
+                      choosenItems={choosenItems}
+                      itemsForRender={itemsForRender}
+                      setChoosenItems={setChoosenItems}
+                    />
+                    {itemsForRender?.map((el, index) => (
+                      <div key={index} className={styles.shop}>
+                        <Checkbox
+                          color="primary"
+                          checked={choosenItems?.some(item => item === el)}
+                          onClick={() => onClickItem(el)}
+                        />
+                        <div className={styles.shopName}>{minsToTime(el / 60)}</div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography className={styles.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+        <div className={styles.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onChangeFullFieldMenuItem(choosenItems, field)
+              onClickAccept()
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
 )

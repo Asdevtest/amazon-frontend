@@ -17,9 +17,8 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './services-detail-view.style'
-
 import { ServiceDetailsViewModel } from './services-detail-view.model'
+import { styles } from './services-detail-view.style'
 
 export const ServiceDetailsViewRaw = props => {
   const [viewModel] = useState(

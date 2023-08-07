@@ -18,9 +18,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-boxes-notifications-view.style'
-
 import { ClientBoxesNotificationsViewModel } from './client-boxes-notifications-view.model'
+import { styles } from './client-boxes-notifications-view.style'
 
 export const ClientBoxesNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientBoxesNotificationsViewModel({ history: props.history }))

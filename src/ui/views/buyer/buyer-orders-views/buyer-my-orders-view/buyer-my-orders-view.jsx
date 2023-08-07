@@ -29,9 +29,8 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-my-orders-view.style'
-
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
+import { styles } from './buyer-my-orders-view.style'
 
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],

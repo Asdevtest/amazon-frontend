@@ -19,9 +19,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-exchange-view.style'
-
 import { ClientExchangeViewModel } from './client-exchange-view.model'
+import { styles } from './client-exchange-view.style'
 
 export const ClientExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))

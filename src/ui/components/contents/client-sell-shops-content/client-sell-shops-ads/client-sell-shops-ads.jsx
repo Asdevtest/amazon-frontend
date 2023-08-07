@@ -22,9 +22,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './client-sell-shops-ads.style'
-
 import { ClientSellShopsAdsModel } from './client-sell-shops-ads.model'
+import { useClassNames } from './client-sell-shops-ads.style'
 
 export const ClientSellShopsAds = observer(() => {
   const { classes: classNames } = useClassNames()

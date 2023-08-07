@@ -2,6 +2,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { BatchStatus } from '@constants/statuses/batch-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -9,6 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, createProductByClient, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
 import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
@@ -34,7 +36,7 @@ import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { objectToUrlQs } from '@utils/text'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -109,7 +111,38 @@ const settingsByUrl = {
 
 // * Список полей для фильтраций
 
-const filtersFields = []
+const filtersFields = [
+  'parentProductSkusByClient',
+  'parentProductAmazonTitle',
+  'parentProductAsin',
+  'childProductAmazonTitle',
+  'childProductSkusByClient',
+  'childProductAsin',
+  'title',
+  'shopIds',
+  'comments',
+  'createdAt',
+  'dateStatusOnCheck',
+  'suppliers',
+  'minlot',
+  'productionTerm',
+  'dateStatusProductCreating',
+  'buyerComment',
+  'dateStatusAddingAsin',
+  'amount',
+  'intervalStatusNew',
+  'intervalStatusOnCheck',
+  'intervalStatusSupplierSearch',
+  'intervalStatusSupplierFound',
+  'intervalStatusProductCreating',
+  'intervalStatusAddingAsin',
+  'intervalStatusFinished',
+  'intervalsSum',
+  'updatedAt',
+  'amazonTitle',
+  'asin',
+  'skusByClient',
+]
 
 export class ClientIdeasViewModel {
   history = undefined
@@ -227,7 +260,7 @@ export class ClientIdeasViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
-      this.getBatchesPagMy()
+      this.getIdeaList()
       this.getDataGridState()
     },
 
@@ -295,6 +328,10 @@ export class ClientIdeasViewModel {
 
   // * Filtration handlers
 
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
@@ -357,6 +394,71 @@ export class ClientIdeasViewModel {
         },
       ),
     )
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        ...dataGridFiltersInitializer(filtersFields),
+      }
+    })
+
+    this.getIdeaList()
+    this.getDataGridState()
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      console.log(123)
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'ideas'),
+        column,
+
+        `ideas/pag/my?filters=${this.getFilters(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
   }
 
   // * Data getters
@@ -423,8 +525,6 @@ export class ClientIdeasViewModel {
   async getDataForIdeaModal(row) {
     try {
       this.requestStatus = loadingStatuses.isLoading
-
-      console.log('row', row)
 
       this.isIdeaCreate = false
       runInAction(() => {
@@ -612,9 +712,12 @@ export class ClientIdeasViewModel {
   }
 
   onClickRequestId(id) {
-    this.history.push(
+    const win = window.open(
       `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      '_blank',
     )
+
+    win.focus()
   }
 
   //  * Barcode handlers
@@ -717,6 +820,7 @@ export class ClientIdeasViewModel {
   }
 
   async onClickBindButton(requests) {
+    this.setActionStatus(loadingStatuses.isLoading)
     const methodBody =
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
@@ -730,6 +834,10 @@ export class ClientIdeasViewModel {
         console.error('error', error)
       }
     }
+
+    this.loadData()
+
+    this.setRequestStatus(loadingStatuses.success)
 
     this.onTriggerOpenModal('showBindingModal')
   }
@@ -859,13 +967,20 @@ export class ClientIdeasViewModel {
   }
 
   async onClickCreateRequestButton(productId, asin) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request`, {
-      parentProduct: { _id: productId, asin },
-    })
+    const win = window.open(
+      `/${
+        UserRoleCodeMapForRoutes[this.curUser.role]
+      }/freelance/my-requests/create-request?parentProduct=${productId}&asin=${asin}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   async onClickLinkRequestButton(productId, idea) {
     try {
+      this.setActionStatus(loadingStatuses.isLoading)
+
       const result = await RequestModel.getRequestsByProductLight(productId)
       runInAction(() => {
         this.requestsForProduct = addIdDataConverter(result)
@@ -890,7 +1005,10 @@ export class ClientIdeasViewModel {
   onClickCloseIdea(ideaId) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to close this idea?']),
+      confirmMessage:
+        t(TranslationKey['Are you sure you want to close this idea?']) +
+        '\n' +
+        t(TranslationKey['Once confirmed, the idea will be irretrievably lost/deleted']),
       onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -899,6 +1017,8 @@ export class ClientIdeasViewModel {
   async onClickProductLaunch() {
     try {
       this.isIdeaCreate = true
+      this.productId = undefined
+      this.currentIdeaId = undefined
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
       console.log(error)

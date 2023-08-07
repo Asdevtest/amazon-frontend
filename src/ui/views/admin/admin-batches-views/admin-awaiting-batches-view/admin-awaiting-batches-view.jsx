@@ -15,9 +15,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-awaiting-batches-view.style'
-
 import { AdminAwaitingBatchesViewModel } from './admin-awaiting-batches-view.model'
+import { styles } from './admin-awaiting-batches-view.style'
 
 export const AdminAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new AdminAwaitingBatchesViewModel({ history: props.history }))

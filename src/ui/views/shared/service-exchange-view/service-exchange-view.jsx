@@ -21,9 +21,8 @@ import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { styles } from './service-exchange-view.style'
-
 import { ServiceExchangeViewModel } from './service-exchange-view.model'
+import { styles } from './service-exchange-view.style'
 
 export const ServiceExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history: props.history }))

@@ -16,11 +16,10 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 
-import { useClassNames } from './chat-messages-list.style'
-
 import { ChatCurrentReplyMessage } from '../chat-current-reply-message'
 
 import { ChatMessageByType } from './chat-message-by-type'
+import { useClassNames } from './chat-messages-list.style'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
 import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages/chat-message-proposal-status-changed'

@@ -11,9 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { styles } from './client-batches-view.style'
-
 import { ClientBatchesViewModel } from './client-batches-view.model'
+import { styles } from './client-batches-view.style'
 
 export const ClientBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientBatchesViewModel({ history: props.history }))

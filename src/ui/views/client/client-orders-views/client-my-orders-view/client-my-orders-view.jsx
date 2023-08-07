@@ -11,9 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { styles } from './client-my-orders-view.style'
-
 import { ClientMyOrdersViewModel } from './client-my-orders-view.model'
+import { styles } from './client-my-orders-view.style'
 
 export const ClientMyOrdersViewRaw = props => {
   const [viewModel] = useState(() => new ClientMyOrdersViewModel({ history: props.history }))

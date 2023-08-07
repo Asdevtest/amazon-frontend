@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
-    width: '700px',
+    width: '100%',
   },
 
   modalTitle: {
@@ -20,8 +20,8 @@ export const useClassNames = makeStyles()(theme => ({
   saveBox: {
     display: 'flex',
     gap: 20,
-    justifyContent: 'end',
-    marginTop: '40px',
+    justifyContent: 'space-between',
+    marginTop: '30px',
   },
   saveBtn: {
     width: '123px',

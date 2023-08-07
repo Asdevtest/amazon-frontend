@@ -10,11 +10,11 @@ import {
   useGridRootProps,
 } from '@mui/x-data-grid'
 
-import { useClassNames } from './data-grid-custom-toolbar.style'
-
 import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
 import { DataGridCustomFilterButton } from '../data-grid-custom-filter-button'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
+
+import { useClassNames } from './data-grid-custom-toolbar.style'
 
 export const DataGridCustomToolbar = React.forwardRef((props, ref) => {
   const { classes: classNames } = useClassNames()

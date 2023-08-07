@@ -11,7 +11,6 @@ import { SettingsModel } from '@models/settings-model'
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { useClassNames } from './button.style'
-
 import { StyledButton } from './styled-button'
 
 enum tooltipPositions {
@@ -82,7 +81,7 @@ export const Button: FC<Props> = observer(
                 [classNames.danger]: danger,
                 [classNames.border]: border,
                 [classNames.defaultButton]: !success && !danger && !variant,
-                // [classNames.disabled]: disabled,
+                [classNames.disabled]: disabled,
                 [classNames.small]: small,
               },
               className,

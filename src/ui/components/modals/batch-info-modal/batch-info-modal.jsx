@@ -41,9 +41,8 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './batch-info-modal.style'
-
 import { batchInfoModalColumn } from './batch-info-modal-column'
+import { useClassNames } from './batch-info-modal.style'
 
 export const BatchInfoModal = observer(
   ({

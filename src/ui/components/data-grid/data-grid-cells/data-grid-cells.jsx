@@ -102,6 +102,7 @@ import {
   formatNormDateTime,
   formatNormDateTimeWithParseISO,
   formatShortDateTime,
+  getDistanceBetweenDatesInSeconds,
 } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -854,12 +855,21 @@ export const NormDateWithoutTimeCell = React.memo(
 )
 
 export const ShortDateCell = React.memo(
-  withStyles(
-    ({ classes: classNames, value }) => (
-      <Typography className={classNames.shortDateCellTypo}>{!value ? '-' : formatShortDateTime(value)}</Typography>
-    ),
-    styles,
-  ),
+  withStyles(({ classes: classNames, value }) => {
+    const getDeadlineColor = timeoutAt => {
+      if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+        return classNames.redColor
+      } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+        return classNames.yellowColor
+      }
+    }
+
+    return (
+      <Typography className={cx(classNames.shortDateCellTypo, getDeadlineColor(value))}>
+        {!value ? '-' : formatShortDateTime(value)}
+      </Typography>
+    )
+  }, styles),
 )
 
 export const NormDateFromUnixCell = React.memo(
@@ -1991,7 +2001,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           rowId={rowId}
           text={fourMonthesStock}
-          checkValue={value => value >= 0}
+          checkValue={value => value === 0 || value > 49}
           onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>

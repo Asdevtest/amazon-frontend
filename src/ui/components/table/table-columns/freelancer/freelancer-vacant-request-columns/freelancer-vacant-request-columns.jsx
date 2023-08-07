@@ -120,7 +120,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 87,
-    // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -183,12 +182,12 @@ export const FreelancerVacantRequestColumns = handlers => [
           params.value
             ? {
                 background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-                '-webkit-background-clip': 'text',
+                WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }
             : {
                 background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-                '-webkit-background-clip': 'text',
+                WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }
         }

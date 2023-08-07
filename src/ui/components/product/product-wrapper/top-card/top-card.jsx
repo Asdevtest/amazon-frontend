@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
+import AddIcon from '@material-ui/icons/Add'
+import AcceptIcon from '@material-ui/icons/Check'
+import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -30,12 +30,11 @@ import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSu
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './top-card.style'
-
 import { TableSupplier } from '../../table-supplier'
 
 import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
+import { useClassNames } from './top-card.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],

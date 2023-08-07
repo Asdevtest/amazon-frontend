@@ -1,7 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { FC, useContext } from 'react'
-
-import { Typography } from '@mui/material'
+import { FC, useContext } from 'react'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,9 +18,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { useClassNames } from './chat-message-proposal-status-changed.style'
-
 import { LabelValuePairBlock } from '../label-value-pair-block'
+
+import { useClassNames } from './chat-message-proposal-status-changed.style'
 
 export interface ChatMessageRequestProposalStatusChangedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -61,19 +59,12 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
         return (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.headerAndTimeWrapper}>
-              <div>
-                <p className={classNames.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
-              </div>
+              <p className={classNames.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
 
-              <div className={classNames.timeWrapper}>
-                <Typography className={classNames.timeText}>
-                  {formatDateTimeHourAndMinutes(message.createdAt)}
-                </Typography>
-              </div>
+              <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
             </div>
-            <div className={classNames.reasonWrapper}>
-              <p className={classNames.reasonText}>{message?.data?.reason}</p>
-            </div>
+
+            <p className={classNames.reasonText}>{message?.data?.reason}</p>
 
             {message.data?.linksToMediaFiles?.length > 0 && (
               <PhotoAndFilesCarousel
@@ -194,13 +185,11 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
 
   return (
     <div className={classNames.root}>
-      <div>
-        <p className={classNames.statusTextDesciption}>
-          {`${t(TranslationKey['New proposal status'])}:`}
-          <span className={classNames.statusText}>
-            <RequestStatusCell isChat status={message.data.status} />
-          </span>
-        </p>
+      <div className={classNames.statusTextDesciption}>
+        {`${t(TranslationKey['New proposal status'])}:`}
+        <span className={classNames.statusText}>
+          <RequestStatusCell isChat status={message.data.status} />
+        </span>
       </div>
       {renderDetails()}
     </div>

@@ -18,9 +18,8 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-user-permissions-form.style'
-
 import { AccessToProductForm } from './access-to-product-form'
+import { useClassNames } from './add-or-edit-user-permissions-form.style'
 
 const tabsValues = {
   ASSIGN_PERMISSIONS: 'ASSIGN_PERMISSIONS',

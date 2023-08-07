@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import React from 'react'
 
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Grid, Typography } from '@mui/material'

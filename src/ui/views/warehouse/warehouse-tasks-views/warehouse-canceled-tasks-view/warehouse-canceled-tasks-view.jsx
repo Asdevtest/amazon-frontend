@@ -25,9 +25,8 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-canceled-tasks-view.style'
-
 import { WarehouseCanceledTasksViewModel } from './warehouse-canceled-tasks-view.model'
+import { styles } from './warehouse-canceled-tasks-view.style'
 
 export const WarehouseCanceledTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseCanceledTasksViewModel({ history: props.history }))

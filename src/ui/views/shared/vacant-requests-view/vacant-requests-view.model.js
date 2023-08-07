@@ -178,8 +178,11 @@ export class VacantRequestsViewModel {
 
   async getUserInfo() {
     const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
+
+    runInAction(() => {
+      this.userInfo = result
+      this.userRole = UserRoleCodeMap[result.role]
+    })
   }
 
   async loadData() {

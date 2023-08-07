@@ -194,4 +194,12 @@ export const useClassNames = makeStyles()(theme => ({
     background: `${theme.palette.background.redRow} !important`,
     border: '2px solid #D70D0D',
   },
+
+  yellowColor: {
+    color: `#C69109`,
+  },
+
+  redColor: {
+    color: `#D70D0D`,
+  },
 }))

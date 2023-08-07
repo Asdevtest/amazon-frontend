@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '40px',
-    padding: '0 20px',
+    padding: '0 17px',
     position: 'relative',
   },
 
@@ -58,6 +58,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 600,
     color: theme.palette.primary.main,
+    whiteSpace: 'nowrap',
   },
 
   settingItemActiveTitle: {

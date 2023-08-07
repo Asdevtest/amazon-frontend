@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, Divider, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'

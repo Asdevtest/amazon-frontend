@@ -7,9 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './before-after-info-task-block.style'
-
 import { BeforeAfterBox } from './before-after-box'
+import { useClassNames } from './before-after-info-task-block.style'
 
 export const BeforeAfterInfoTaskBlock = observer(({ beforeBoxes, afterBoxes, taskType, volumeWeightCoefficient }) => {
   const { classes: classNames } = useClassNames()

@@ -17,9 +17,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './single-permissions.style'
-
 import { SinglePermissionsModel } from './single-permissions.model'
+import { useClassNames } from './single-permissions.style'
 
 export const SinglePermissions = observer(() => {
   const { classes: classNames } = useClassNames()
