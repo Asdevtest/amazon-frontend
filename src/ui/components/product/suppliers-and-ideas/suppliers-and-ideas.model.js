@@ -226,8 +226,11 @@ export class SuppliersAndIdeasModel {
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
-    // this.curIdea = undefined
     this.selectedSupplier = undefined
+
+    if (this.isModalView) {
+      this.closeModalHandler()
+    }
   }
 
   async onClickSaveBtn(formFields, files, isForceUpdate) {
