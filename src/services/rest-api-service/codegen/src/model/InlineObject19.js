@@ -22,10 +22,11 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor() { 
+    constructor(attachedDocuments) { 
         
-        InlineObject19.initialize(this);
+        InlineObject19.initialize(this, attachedDocuments);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -47,17 +49,8 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -67,24 +60,9 @@ class InlineObject19 {
 }
 
 /**
- * @member {Number} type
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject19.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject19.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineObject19.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject19.prototype['description'] = undefined;
+InlineObject19.prototype['attachedDocuments'] = undefined;
 
 
 

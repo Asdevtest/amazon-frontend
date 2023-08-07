@@ -538,14 +538,10 @@ export const darkTheme = createTheme({
             backgroundColor: '#36363F !important',
             WebkitTextFillColor: '#fff !important',
           },
-        },
 
-        defaultProps: {
-          sx: {
-            '& .MuiInputBase-inputMultiline': {
-              height: '100% !important',
-              width: '100% !important',
-            },
+          '& .MuiInputBase-inputMultiline': {
+            height: '100% !important',
+            width: '100% !important',
           },
         },
       },

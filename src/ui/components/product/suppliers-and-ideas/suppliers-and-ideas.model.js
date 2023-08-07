@@ -217,7 +217,7 @@ export class SuppliersAndIdeasModel {
   }
 
   onEditIdea(idea) {
-    this.curIdea = idea
+    this.getIdea(idea?._id)
     this.inEdit = true
     this.selectedSupplier = undefined
   }
@@ -502,6 +502,11 @@ export class SuppliersAndIdeasModel {
         this.selectedSupplier = undefined
       } else {
         const result = await UserModel.getPlatformSettings()
+
+        if (this.selectedSupplier?._id) {
+          const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
+          this.supplierData = supplier
+        }
 
         this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

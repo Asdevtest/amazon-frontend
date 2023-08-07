@@ -793,6 +793,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20046ChildProduct](docs/InlineResponse20046ChildProduct.md)
  - [TestSwagger.InlineResponse20046ChildProductOrder](docs/InlineResponse20046ChildProductOrder.md)
  - [TestSwagger.InlineResponse20046ParentProduct](docs/InlineResponse20046ParentProduct.md)
+ - [TestSwagger.InlineResponse20046PriceVariations](docs/InlineResponse20046PriceVariations.md)
  - [TestSwagger.InlineResponse20046Rows](docs/InlineResponse20046Rows.md)
  - [TestSwagger.InlineResponse20046Suppliers](docs/InlineResponse20046Suppliers.md)
  - [TestSwagger.InlineResponse20047](docs/InlineResponse20047.md)
