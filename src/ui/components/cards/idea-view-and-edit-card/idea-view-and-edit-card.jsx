@@ -49,11 +49,11 @@ import { SourceProduct } from './source-product'
 
 const radioBottonsSettings = [
   {
-    label: t(TranslationKey['Supplier found']),
+    label: () => t(TranslationKey['Supplier found']),
     value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
   },
   {
-    label: t(TranslationKey['Supplier not found']),
+    label: () => t(TranslationKey['Supplier not found']),
     value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
   },
 ]
@@ -720,7 +720,7 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {(showAcceptButtonToClient || (currentUserIsBuyer && isSupplierSearch)) && (
+                {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
                     disabled={disableAcceptButton}
                     variant="contained"
