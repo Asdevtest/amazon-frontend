@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
-    width: '700px',
+    width: '100%',
   },
   modalTitle: {
     color: theme.palette.text.general,
@@ -25,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '16px',
     display: 'flex',
     gap: '10px',
-    justifyContent: 'end',
+    justifyContent: 'space-between',
   },
   actionButton: {
     width: '179px',
