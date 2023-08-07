@@ -379,6 +379,12 @@ export const IdeaViewAndEditCard = observer(
                 inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['Client commentary'])}
                 value={formFields.comments}
+                sx={{
+                  '& .MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
                 onChange={onChangeField('comments')}
               />
 
@@ -391,6 +397,12 @@ export const IdeaViewAndEditCard = observer(
                 containerClasses={classNames.noMarginContainer}
                 inputProps={{ maxLength: 255 }}
                 value={formFields.buyerComment}
+                sx={{
+                  '& .MuiInputBase-inputMultiline': {
+                    height: '100% !important',
+                    width: '100% !important',
+                  },
+                }}
                 onChange={onChangeField('buyerComment')}
               />
             </div>
@@ -425,6 +437,12 @@ export const IdeaViewAndEditCard = observer(
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
+                      sx={{
+                        '& .MuiInputBase-inputMultiline': {
+                          height: '100% !important',
+                          width: '100% !important',
+                        },
+                      }}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
