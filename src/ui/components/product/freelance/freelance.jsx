@@ -22,9 +22,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './freelance.style'
-
 import { FreelanceModel } from './freelance.model'
+import { useClassNames } from './freelance.style'
 
 export const Freelance = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()

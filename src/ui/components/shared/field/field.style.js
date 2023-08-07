@@ -4,6 +4,10 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     marginBottom: '20px',
     width: '100%',
+
+    [theme.breakpoints.down(768)]: {
+      marginBottom: 0,
+    },
   },
   rootOneLine: {
     display: 'flex',

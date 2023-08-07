@@ -11,7 +11,6 @@ import { SettingsModel } from '@models/settings-model'
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { useClassNames } from './button.style'
-
 import { StyledButton } from './styled-button'
 
 enum tooltipPositions {

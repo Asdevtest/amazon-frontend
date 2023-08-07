@@ -22,9 +22,8 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './another-user-profile-view.style'
-
 import { AnotherProfileViewModel } from './another-user-profile-view.model'
+import { styles } from './another-user-profile-view.style'
 
 export const AnotherUserProfileViewRaw = props => {
   const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))

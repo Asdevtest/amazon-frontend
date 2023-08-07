@@ -2,9 +2,8 @@ import { ChatContract } from '@models/chat-model/contracts'
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import { useClassNames } from './chats-list.styles'
-
 import { ChatListItem } from './chat-list-item'
+import { useClassNames } from './chats-list.styles'
 
 export const chatListMapper = (
   chats: ChatContract[],

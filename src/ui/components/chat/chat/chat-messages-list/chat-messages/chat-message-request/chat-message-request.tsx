@@ -14,9 +14,9 @@ import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-ti
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './chat-message-request.style'
-
 import { LabelValuePairBlock } from '../label-value-pair-block'
+
+import { useClassNames } from './chat-message-request.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreatedNewProposalRequestDescriptionContract>

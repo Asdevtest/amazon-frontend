@@ -15,9 +15,8 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './supervisor-dashboard-view.style'
-
 import { SupervisorDashboardViewModel } from './supervisor-dashboard-view.model'
+import { styles } from './supervisor-dashboard-view.style'
 
 export const SupervisorDashboardViewRaw = props => {
   const [viewModel] = useState(() => new SupervisorDashboardViewModel({ history: props.history }))

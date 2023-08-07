@@ -16,9 +16,8 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-dashboard-view.style'
-
 import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
+import { styles } from './buyer-dashboard-view.style'
 
 export const BuyerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))

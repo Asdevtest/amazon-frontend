@@ -19,9 +19,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-boxes-tariffs-notifications-view.style'
-
 import { ClientBoxesTariffsNotificationsViewModel } from './client-boxes-tariffs-notifications-view.model'
+import { styles } from './client-boxes-tariffs-notifications-view.style'
 
 export const ClientBoxesTariffsNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel({ history: props.history }))

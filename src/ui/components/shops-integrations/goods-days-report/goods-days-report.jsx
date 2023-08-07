@@ -17,9 +17,8 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './goods-days-report.style'
-
 import { GoodsDaysReportModel } from './goods-days-report.model'
+import { styles } from './goods-days-report.style'
 
 export const GoodsDaysReportRaw = props => {
   const [viewModel] = useState(() => new GoodsDaysReportModel({ history: props.history, curShop: props.curShop }))

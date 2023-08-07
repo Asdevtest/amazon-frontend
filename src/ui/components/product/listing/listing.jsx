@@ -19,9 +19,8 @@ import { UserBalanceHistory } from '@components/user/user-balance-history'
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './listing.style'
-
 import { ListingModel } from './listing.model'
+import { useClassNames } from './listing.style'
 
 export const Listing = observer(({ productId, onClickBack }) => {
   const { classes: classNames } = useClassNames()

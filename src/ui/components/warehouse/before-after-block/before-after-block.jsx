@@ -39,10 +39,9 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './before-after-block.style'
-
 import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
 
+import { useClassNames } from './before-after-block.style'
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
 

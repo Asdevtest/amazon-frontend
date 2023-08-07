@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
+import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, Grid, IconButton, Link, NativeSelect, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'

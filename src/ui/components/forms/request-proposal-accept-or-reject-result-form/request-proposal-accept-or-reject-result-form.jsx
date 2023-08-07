@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import { Rating } from '@material-ui/lab'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
+import { Rating } from '@material-ui/lab'
 import { Typography } from '@mui/material'
 
 import { Button } from '@components/shared/buttons/button'

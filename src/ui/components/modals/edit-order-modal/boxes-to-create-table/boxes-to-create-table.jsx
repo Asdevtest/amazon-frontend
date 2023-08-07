@@ -1,6 +1,6 @@
-import DeleteIcon from '@material-ui/icons/Delete'
 import React, { useState } from 'react'
 
+import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { Checkbox, TableCell, TableRow, Typography } from '@mui/material'
 

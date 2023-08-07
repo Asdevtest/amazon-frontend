@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Avatar from 'react-avatar-edit'
 
-import { Avatar as AvatarMui, Typography } from '@mui/material'
+import { Avatar as AvatarMui } from '@mui/material'
 
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -66,71 +66,60 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h4" className={classNames.mainTitle}>
-        {t(TranslationKey['Change group chat info'])}
-      </Typography>
+      <p className={classNames.title}>{t(TranslationKey['Change group chat info'])}</p>
 
       <Field
         label={t(TranslationKey['Name of group chat']) + '*'}
-        labelClasses={classNames.labelField}
+        labelClasses={classNames.label}
         value={state.title}
         onChange={e => setState({ ...state, title: e.target.value })}
       />
 
       <Field
         label={t(TranslationKey.Image)}
-        labelClasses={classNames.labelField}
+        labelClasses={classNames.label}
         inputComponent={
           <div className={classNames.mainWrapper}>
-            <div className={classNames.avatarWrapper}>
-              <Avatar
-                exportAsSquare
-                width={320}
-                height={210}
-                imageWidth={320}
-                // imageHeight={210}
-                labelStyle={{
-                  width: '100%',
-                  backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
-                  textAlign: 'center',
-                  transition: '0.3s ease',
-                  cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-                  color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
-                }}
-                borderStyle={{
-                  border: ' 3px dashed rgba(0,123, 255, .7)',
-                  transition: '0.3s ease',
-                  cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-                  borderRadius: '10px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-                // className={classNames.avatarImage}
-                // src={state.preview}
-                onCrop={onCrop}
-                onClose={onClose}
-                onBeforeFileLoad={onBeforeFileLoad}
-              />
-            </div>
-            <div className={classNames.imgWrapper}>
-              <AvatarMui className={classNames.img} src={state.preview} />
-            </div>
+            <Avatar
+              exportAsSquare
+              height={180}
+              labelStyle={{
+                width: '100%',
+                backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
+                textAlign: 'center',
+                transition: '0.3s ease',
+                cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+                color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
+              }}
+              borderStyle={{
+                border: ' 3px dashed rgba(0,123, 255, .7)',
+                transition: '0.3s ease',
+                cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+                borderRadius: '10px',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+              onCrop={onCrop}
+              onClose={onClose}
+              onBeforeFileLoad={onBeforeFileLoad}
+            />
+            <AvatarMui className={classNames.avatar} src={state.preview} />
           </div>
         }
       />
 
       <div className={classNames.textsWrapper}>
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
+        <p className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
           {t(TranslationKey['The image size should not exceed'])}{' '}
           {<span className={classNames.spanText}>{'15 mb.'}</span>}
-        </Typography>
+        </p>
 
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
+        <p className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
           {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
           {')'}
-        </Typography>
+        </p>
       </div>
 
       <div className={classNames.btnsWrapper}>

@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import React, { useState } from 'react'
 
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import { Divider, Typography } from '@mui/material'
@@ -18,9 +18,8 @@ import { formatDateMonthYear, sortObjectsArrayByFiledDate } from '@utils/date-ti
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './second-step.style'
-
 import { ChartsForm } from './charts-form/charts-form'
+import { useClassNames } from './second-step.style'
 
 export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onChangeStatisticsField }) => {
   const { classes: classNames } = useClassNames()

@@ -11,9 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { styles } from './client-notifications-view.style'
-
 import { ClientNotificationsViewModel } from './client-notifications-view.model'
+import { styles } from './client-notifications-view.style'
 
 export const ClientNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientNotificationsViewModel({ history: props.history }))

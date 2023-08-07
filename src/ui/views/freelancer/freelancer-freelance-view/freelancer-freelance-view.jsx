@@ -11,9 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { styles } from './freelancer-freelance-view.style'
-
 import { FreelancerFreelanceViewModel } from './freelancer-freelance-view.model'
+import { styles } from './freelancer-freelance-view.style'
 
 export const FreelancerFreelanceViewRaw = props => {
   const [viewModel] = useState(() => new FreelancerFreelanceViewModel({ history: props.history }))

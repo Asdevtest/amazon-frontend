@@ -1,10 +1,10 @@
 import { cx } from '@emotion/css'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
@@ -37,9 +37,8 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './header.styles'
-
 import { HeaderModel } from './header.model'
+import { useClassNames } from './header.styles'
 
 interface Props {
   shortNavbar: boolean

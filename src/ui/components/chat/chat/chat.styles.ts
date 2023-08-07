@@ -204,7 +204,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       right: 20,
-      bottom: 100,
+      bottom: 80,
       transform: 'none',
 
       'em-emoji-picker': {

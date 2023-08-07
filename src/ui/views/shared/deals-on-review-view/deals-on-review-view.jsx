@@ -14,9 +14,8 @@ import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { styles } from './deals-on-review-view.style'
-
 import { DealsOnReviewModel } from './deals-on-review-view.model'
+import { styles } from './deals-on-review-view.style'
 
 export const DealsOnReviewViewRaw = props => {
   const [viewModel] = useState(() => new DealsOnReviewModel({ history: props.history }))

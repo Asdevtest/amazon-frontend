@@ -13,9 +13,8 @@ import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-con
 import { DrawerModal } from '@components/shared/drawer-modal'
 import { LogoIcon, ShortLogoIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './navbar.styles'
-
 import { NavbarModel } from './navbar.model'
+import { useClassNames } from './navbar.styles'
 
 export const Navbar = observer(
   ({

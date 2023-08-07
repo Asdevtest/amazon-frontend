@@ -17,9 +17,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './group-permissions.style'
-
 import { GroupPermissionsModel } from './group-permissions.model'
+import { useClassNames } from './group-permissions.style'
 
 export const GroupPermissions = observer(() => {
   const { classes: classNames } = useClassNames()

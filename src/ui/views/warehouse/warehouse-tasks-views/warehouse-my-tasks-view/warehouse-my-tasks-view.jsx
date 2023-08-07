@@ -32,9 +32,8 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-my-tasks-view.style'
-
 import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
+import { styles } from './warehouse-my-tasks-view.style'
 
 export const WarehouseMyTasksViewRaw = props => {
   const [viewModel] = useState(

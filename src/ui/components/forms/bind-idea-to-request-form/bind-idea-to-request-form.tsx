@@ -8,9 +8,8 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './bind-idea-to-request-form.styles'
-
 import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-idea-to-request-columns'
+import { useClassNames } from './bind-idea-to-request-form.styles'
 
 interface BindIdeaToRequestFormProps {
   requests: {

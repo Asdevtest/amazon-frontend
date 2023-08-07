@@ -24,9 +24,9 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './access-to-product-form.style'
-
 import { sourceColumns } from '../access-to-products-columns'
+
+import { useClassNames } from './access-to-product-form.style'
 
 const accessProductSettings = {
   ALL_PRODUCTS: 'ALL_PRODUCTS',

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import AddIcon from '@material-ui/icons/Add'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
+import AddIcon from '@material-ui/icons/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -41,9 +41,8 @@ import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './idea-view-and-edit-card.style'
-
 import { IdeaRequestCard } from './idea-request-card'
+import { useClassNames } from './idea-view-and-edit-card.style'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
 

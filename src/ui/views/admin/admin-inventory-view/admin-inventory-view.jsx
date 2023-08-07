@@ -14,9 +14,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-inventory-view.style'
-
 import { AdminInventoryViewModel } from './admin-inventory-view.model'
+import { styles } from './admin-inventory-view.style'
 
 export const AdminInventoryViewRaw = props => {
   const [viewModel] = useState(() => new AdminInventoryViewModel({ history: props.history }))

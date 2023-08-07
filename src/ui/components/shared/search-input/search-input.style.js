@@ -19,7 +19,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputClass: {
-    paddingLeft: '15px !important',
+    [theme.breakpoints.down(768)]: {
+      '&::placeholder': {
+        fontSize: 14,
+      },
+    },
   },
 
   icon: {

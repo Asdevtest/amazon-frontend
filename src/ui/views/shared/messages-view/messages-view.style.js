@@ -4,6 +4,10 @@ export const styles = theme => ({
     height: 'calc(100vh - 100px)',
     overflow: 'hidden',
     marginTop: -10,
+
+    [theme.breakpoints.down(768)]: {
+      height: 'calc(100vh - 72px)',
+    },
   },
 
   leftSide: {

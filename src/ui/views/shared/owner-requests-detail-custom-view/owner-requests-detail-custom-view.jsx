@@ -24,11 +24,10 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { styles } from './owner-requests-detail-custom-view.style'
-
 import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
 
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
+import { styles } from './owner-requests-detail-custom-view.style'
 
 export const OwnerRequestDetailCustomViewRaw = props => {
   const chatRef = useRef()

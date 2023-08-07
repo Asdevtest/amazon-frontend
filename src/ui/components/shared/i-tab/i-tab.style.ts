@@ -13,6 +13,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     textTransform: 'none',
     color: theme.palette.text.general,
+    minHeight: 34,
+    padding: 5,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+    },
   },
 
   icon: {

@@ -22,9 +22,8 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './supervisor-settings-content.style'
-
 import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
+import { useClassNames } from './supervisor-settings-content.style'
 
 const tabsValues = {
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',

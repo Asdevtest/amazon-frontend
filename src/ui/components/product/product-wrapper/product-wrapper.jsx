@@ -14,8 +14,6 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-wrapper.style'
-
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
 import { ManagementTabView } from '../management-tab-view'
@@ -23,6 +21,7 @@ import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
 
 import { BottomCard } from './bottom-card'
+import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
 
 const tabsValues = {

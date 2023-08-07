@@ -17,9 +17,8 @@ import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './researcher-dashboard-view.style'
-
 import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
+import { styles } from './researcher-dashboard-view.style'
 
 export const ResearcherDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history: props.history }))

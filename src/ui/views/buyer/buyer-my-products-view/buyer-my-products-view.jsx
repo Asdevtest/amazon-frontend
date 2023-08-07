@@ -18,9 +18,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-my-products-view.style'
-
 import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
+import { styles } from './buyer-my-products-view.style'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,

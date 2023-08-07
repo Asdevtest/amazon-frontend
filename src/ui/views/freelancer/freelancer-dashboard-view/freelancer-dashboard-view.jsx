@@ -15,9 +15,8 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './freelancer-dashboard-view.style'
-
 import { FreelancerDashboardViewModel } from './freelacer-dashboard-view.model'
+import { styles } from './freelancer-dashboard-view.style'
 
 export const FreelancerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new FreelancerDashboardViewModel({ history: props.history }))

@@ -19,9 +19,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './logistics-tariffs.style'
-
 import { LogisticsTariffsModel } from './logistics-tariffs.model'
+import { useClassNames } from './logistics-tariffs.style'
 
 export const LogisticsTariffs = observer(() => {
   const { classes: classNames } = useClassNames()
