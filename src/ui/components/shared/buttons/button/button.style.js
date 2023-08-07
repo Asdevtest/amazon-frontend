@@ -18,6 +18,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  disabled: {
+    cursor: 'unset !important',
+  },
+
   success: {
     backgroundColor: '#009a07 !important',
     '&:hover': {
@@ -102,7 +106,6 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    cursor: 'pointer',
   },
 
   small: {
