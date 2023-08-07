@@ -36,6 +36,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -53,8 +54,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'childProduct',
-    headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    headerName: t(TranslationKey['Child product']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -70,6 +71,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -91,7 +93,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
     sortable: false,
-    columnKey: columnnsKeys.shared.STRING,
+    filterable: false,
   },
 
   {

@@ -37,6 +37,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -54,8 +55,8 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'childProduct',
-    headerName: t(TranslationKey.Product),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    headerName: t(TranslationKey['Child product']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -71,6 +72,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {

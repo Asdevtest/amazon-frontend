@@ -48,6 +48,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -138,7 +139,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'productionTime',
+    field: 'productionTerm',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
     headerName: t(TranslationKey['Production time, days']),
 
@@ -146,7 +147,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 115,
     sortable: false,
     filterable: false,
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

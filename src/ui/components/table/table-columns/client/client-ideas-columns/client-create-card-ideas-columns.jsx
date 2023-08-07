@@ -36,6 +36,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     },
     width: 265,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -63,9 +64,9 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'product',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    headerName: t(TranslationKey.Product),
+    field: 'childProduct',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
+    headerName: t(TranslationKey['Child product']),
 
     renderCell: params => (
       <IdeaProduct
@@ -76,6 +77,7 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 290,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {

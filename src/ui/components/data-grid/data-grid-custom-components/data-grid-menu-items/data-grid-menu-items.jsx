@@ -1300,14 +1300,14 @@ export const ProductMenuItem = React.memo(
         ? 'skusByClient'
         : 'asin',
     )
-    const { filterData } = data[currentOption]
-    const { currentFilterData } = data[getCurrentField(currentOption)]
+    // const { filterData } = data[currentOption]
+    const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(currentOption)
+      onClickFilterBtn(getCurrentField(currentOption))
     }, [currentOption])
 
     useEffect(() => {
