@@ -135,10 +135,7 @@ export const lightTheme = createTheme({
     MuiInputBase: {
       defaultProps: {
         sx: {
-          '& .MuiInputBase-inputMultiline': {
-            height: '100% !important',
-            width: '100% !important',
-          },
+          '& .MuiInputBase-inputMultiline': {},
         },
       },
 
@@ -539,10 +536,7 @@ export const darkTheme = createTheme({
             WebkitTextFillColor: '#fff !important',
           },
 
-          '& .MuiInputBase-inputMultiline': {
-            height: '100% !important',
-            width: '100% !important',
-          },
+          '& .MuiInputBase-inputMultiline': {},
         },
       },
       //

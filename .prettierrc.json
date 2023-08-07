@@ -9,7 +9,7 @@
   "arrowParens": "avoid",
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
-    "^@mui/(.*)$",
+    "^(@mui|@material-ui)/(.*)$",
     "^@constants/(.*)$",
     "^@models(.*)$",
     "^@services/(.*)$",
@@ -19,8 +19,7 @@
     "^@utils/(.*)$",
     "^@contexts/(.*)$",
     "^@typings/(.*)$",
-    "(.style)$",
-    "(.styles)$",
+    "(.style | .styles)$",
     "^../(.*)",
     "^./(.*)"
   ],
