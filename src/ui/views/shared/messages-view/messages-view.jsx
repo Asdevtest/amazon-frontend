@@ -167,15 +167,23 @@ export const MessagesView = observer(props => {
                       )}
                     </>
                   ) : (
-                    <div className={classNames.opponentWrapper}>
-                      <Avatar src={currentChat?.info.image} className={classNames.avatar} />
-                      <div>
-                        <p className={classNames.opponentName}>{currentChat?.info.title}</p>
-                        <p className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
-                          TranslationKey.Members,
-                        ).toLocaleLowerCase()}`}</p>
+                    <>
+                      <div className={classNames.opponentWrapper}>
+                        <Avatar src={currentChat?.info.image} className={classNames.avatar} />
+                        <div>
+                          <p className={classNames.opponentName}>{currentChat?.info.title}</p>
+                          <p className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
+                            TranslationKey.Members,
+                          ).toLocaleLowerCase()}`}</p>
+                        </div>
                       </div>
-                    </div>
+
+                      {isMuteCurrentChat ? (
+                        <SoundOffIcon onClick={onToggleMuteCurrentChat} />
+                      ) : (
+                        <SoundOnIcon onClick={onToggleMuteCurrentChat} />
+                      )}
+                    </>
                   )}
                 </div>
 

@@ -158,6 +158,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 15,
 
+    [theme.breakpoints.down(1024)]: {
+      gap: 0,
+    },
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       alignItems: 'flex-start',
@@ -192,7 +196,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       display: 'block',
-      maxWidth: 160,
+      maxWidth: 115,
       fontSize: 14,
     },
   },
@@ -200,6 +204,14 @@ export const useClassNames = makeStyles()(theme => ({
   usersCount: {
     fontSize: 14,
     color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1024)]: {
+      display: 'none',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      display: 'block',
+    },
   },
 
   searchMessageContainer: {

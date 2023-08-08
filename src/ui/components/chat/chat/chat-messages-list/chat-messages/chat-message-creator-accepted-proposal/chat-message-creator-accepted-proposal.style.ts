@@ -5,9 +5,6 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: '#CCE2FF',
     padding: '15px 14px',
     borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
   },
   headerWrapper: {
     display: 'flex',
