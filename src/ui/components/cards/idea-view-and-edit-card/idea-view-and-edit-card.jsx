@@ -252,6 +252,7 @@ export const IdeaViewAndEditCard = observer(
     const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
 
     const isNewIdea = formFields?.status === ideaStatusByKey[ideaStatus.NEW]
+    const isOnCheck = formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK]
     const isSupplierSearch = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]
     const isSupplierFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]
     const isSupplierNotFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
@@ -260,7 +261,7 @@ export const IdeaViewAndEditCard = observer(
     const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && isCardCreating && !isVerified
+      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified
 
     const showRejectButton =
       isNewIdea ||
