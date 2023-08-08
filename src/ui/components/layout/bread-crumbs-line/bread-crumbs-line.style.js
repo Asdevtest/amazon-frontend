@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   breadCrumbsWrapper: {
     padding: '10px 30px',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       padding: 5,
     },
   },
@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontSize: 16,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
     },
   },
@@ -27,7 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
       textDecoration: 'underline',
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
     },
   },

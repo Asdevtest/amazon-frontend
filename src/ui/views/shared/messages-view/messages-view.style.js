@@ -4,10 +4,6 @@ export const styles = theme => ({
     height: 'calc(100vh - 100px)',
     overflow: 'hidden',
     marginTop: -10,
-
-    [theme.breakpoints.down(768)]: {
-      height: 'calc(100vh - 72px)',
-    },
   },
 
   leftSide: {
@@ -91,11 +87,6 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-
-    [theme.breakpoints.down(768)]: {
-      maxWidth: 160,
-      fontSize: 14,
-    },
   },
 
   usersCount: {
@@ -107,10 +98,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 20,
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-    },
   },
 
   searchResult: {
@@ -169,6 +156,7 @@ export const styles = theme => ({
   '@media (max-width: 768px)': {
     wrapper: {
       padding: 10,
+      height: 'calc(100vh - 72px)',
     },
 
     leftSide: {
@@ -182,6 +170,11 @@ export const styles = theme => ({
       '&>input': {
         padding: 9,
       },
+    },
+
+    opponentName: {
+      maxWidth: 160,
+      fontSize: 14,
     },
 
     rightSideHeader: {
@@ -233,6 +226,7 @@ export const styles = theme => ({
 
     searchMessageContainer: {
       width: '100%',
+      flexDirection: 'column',
     },
 
     arrowBackIconWrapper: {

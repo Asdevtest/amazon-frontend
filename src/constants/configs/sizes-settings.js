@@ -26,4 +26,4 @@ export const getConversion = (unitsOptions, coefficient, divider = 1) =>
 export const getWeightSizesType = sizeSetting =>
   sizeSetting === unitsOfChangeOptions.US ? t(TranslationKey.lb) : t(TranslationKey.kg)
 
-export const isMobileResolution = window.innerWidth < 768
+export const isMobileResolution = window.innerWidth < 1024

@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     gridTemplateRows: '60px 1fr',
     backgroundColor: theme.palette.background.general,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       gridTemplateRows: '1fr',
     },
   },
@@ -18,7 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },
@@ -59,13 +59,13 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
     transition: '0.3s ease-out',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },
 
   hideAndShowIcon: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },

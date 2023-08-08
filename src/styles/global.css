@@ -29,7 +29,7 @@
   border: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   *::-webkit-scrollbar {
     width: 0;
   }
