@@ -570,7 +570,6 @@ export const EditOrderModal = observer(
           </div>
 
           <div className={classNames.orderStatusWrapper}>
-            {/* <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography> */}
             <Field
               tooltipInfoContent={t(TranslationKey['Current order status'])}
               value={order.storekeeper?.name}
@@ -592,10 +591,18 @@ export const EditOrderModal = observer(
                   value={orderFields.status}
                   classes={{
                     select: cx({
-                      [classNames.orange]: statusColorGroups.orange.includes(orderFields.status),
-                      [classNames.green]: statusColorGroups.green.includes(orderFields.status),
-                      [classNames.red]: statusColorGroups.red.includes(orderFields.status),
-                      [classNames.blue]: statusColorGroups.blue.includes(orderFields.status),
+                      [classNames.orange]: statusColorGroups.orange.includes(
+                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                      ),
+                      [classNames.green]: statusColorGroups.green.includes(
+                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                      ),
+                      [classNames.red]: statusColorGroups.red.includes(
+                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                      ),
+                      [classNames.blue]: statusColorGroups.blue.includes(
+                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                      ),
                     }),
                   }}
                   input={
@@ -604,10 +611,18 @@ export const EditOrderModal = observer(
                         <InputAdornment position="start">
                           <FiberManualRecordRoundedIcon
                             className={cx({
-                              [classNames.orange]: statusColorGroups.orange.includes(orderFields.status),
-                              [classNames.green]: statusColorGroups.green.includes(orderFields.status),
-                              [classNames.red]: statusColorGroups.red.includes(orderFields.status),
-                              [classNames.blue]: statusColorGroups.blue.includes(orderFields.status),
+                              [classNames.orange]: statusColorGroups.orange.includes(
+                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                              ),
+                              [classNames.green]: statusColorGroups.green.includes(
+                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                              ),
+                              [classNames.red]: statusColorGroups.red.includes(
+                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                              ),
+                              [classNames.blue]: statusColorGroups.blue.includes(
+                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                              ),
                             })}
                           />
                         </InputAdornment>
@@ -636,15 +651,13 @@ export const EditOrderModal = observer(
                     <MenuItem
                       key={statusIndex}
                       value={statusCode}
-                      className={cx(
-                        cx(classNames.stantartSelect, {
-                          [classNames.orange]: statusColorGroups.orange.includes(Number(statusCode)),
-                          [classNames.green]: statusColorGroups.green.includes(Number(statusCode)),
-                          [classNames.red]: statusColorGroups.red.includes(Number(statusCode)),
-                          [classNames.blue]: statusColorGroups.blue.includes(Number(statusCode)),
-                          [classNames.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
-                        }),
-                      )}
+                      className={cx(classNames.stantartSelect, {
+                        [classNames.orange]: statusColorGroups.orange.includes(Number(statusCode)),
+                        [classNames.green]: statusColorGroups.green.includes(Number(statusCode)),
+                        [classNames.red]: statusColorGroups.red.includes(Number(statusCode)),
+                        [classNames.blue]: statusColorGroups.blue.includes(Number(statusCode)),
+                        [classNames.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
+                      })}
                       disabled={
                         buyerOrderModalDisabledOrderStatuses.includes(statusCode) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
@@ -1050,7 +1063,12 @@ export const EditOrderModal = observer(
               setPaymentMethodsModal(!paymentMethodsModal)
             }
           }}
-          onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
+          onClickCancelBtn={() => {
+            if (confirmModalMode === confirmModalModes.STATUS) {
+              setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
+            }
+            setShowConfirmModal(!showConfirmModal)
+          }}
         />
 
         <WarningInfoModal

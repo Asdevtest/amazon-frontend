@@ -266,18 +266,22 @@ export const useClassNames = makeStyles()(theme => ({
 
   orange: {
     color: '#F3AF00 !important',
+    '-webkit-text-fill-color': '#F3AF00 !important',
   },
 
   red: {
     color: `${theme.palette.orderStatus.red} !important`,
+    '-webkit-text-fill-color': `${theme.palette.orderStatus.red} !important`,
   },
 
   green: {
     color: `${theme.palette.text.green} !important`,
+    '-webkit-text-fill-color': `${theme.palette.text.green} !important`,
   },
 
   blue: {
     color: `${theme.palette.primary.main} !important`,
+    '-webkit-text-fill-color': `${theme.palette.primary.main} !important`,
   },
 
   priorityWrapper: {
