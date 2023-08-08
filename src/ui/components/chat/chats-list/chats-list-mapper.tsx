@@ -10,6 +10,7 @@ export const chatListMapper = (
   userId: string,
   typingUsers: OnTypingMessageResponse[] | undefined,
   onClickChat: (chat: ChatContract) => void,
+  mutedChats?: string[],
 ) => {
   const { classes: classNames } = useClassNames()
 
@@ -17,7 +18,13 @@ export const chatListMapper = (
     <>
       {chats.map((chat: ChatContract) => (
         <div key={`chat_${chat._id}`} className={classNames.chatWrapper}>
-          <ChatListItem typingUsers={typingUsers} userId={userId} chat={chat} onClick={onClickChat} />
+          <ChatListItem
+            typingUsers={typingUsers}
+            userId={userId}
+            chat={chat}
+            isMutedChat={mutedChats?.includes(chat._id)}
+            onClick={onClickChat}
+          />
         </div>
       ))}
     </>

@@ -115,4 +115,20 @@ export const useClassNames = makeStyles()(theme => ({
     height: '18px !important',
     color: theme.palette.text.second,
   },
+
+  badgeWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  soundOffIcon: {
+    width: '18px !important',
+    height: '18px !important',
+    color: '#AEAEAE',
+    // '&:hover': {
+    //   cursor: 'pointer',
+    //   color: theme.palette.text.second,
+    // },
+  },
 }))

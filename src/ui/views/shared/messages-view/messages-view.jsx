@@ -12,6 +12,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Chat } from '@components/chat/chat'
+import { СhatSoundNotification } from '@components/chat/chat-sound-notification'
 import { useMuteChat } from '@components/chat/chat/use-mute-chat'
 import { ChatsList } from '@components/chat/chats-list'
 import { SearchResult } from '@components/chat/search-result'
@@ -72,7 +73,7 @@ export const MessagesViewRaw = props => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
 
-  const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId)
+  const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId, viewModel.mutedChats)
 
   const totalUnreadMessages = filteredChats.reduce(
     (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
@@ -124,6 +125,7 @@ export const MessagesViewRaw = props => {
             typingUsers={viewModel.typingUsers}
             chats={filteredChats}
             chatSelectedId={viewModel.chatSelectedId}
+            mutedChats={viewModel.mutedChats}
             onClickChat={viewModel.onClickChat}
           />
         </div>
@@ -157,22 +159,28 @@ export const MessagesViewRaw = props => {
                         </Link>
                       </div>
 
-                      {isMuteCurrentChat ? (
-                        <SoundOffIcon onClick={onToggleMuteCurrentChat} />
-                      ) : (
-                        <SoundOnIcon onClick={onToggleMuteCurrentChat} />
-                      )}
+                      <СhatSoundNotification
+                        isMuteCurrentChat={isMuteCurrentChat}
+                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                      />
                     </>
                   ) : (
-                    <div className={classNames.opponentWrapper}>
-                      <Avatar src={currentChat?.info.image} className={classNames.avatar} />
-                      <div>
-                        <p className={classNames.opponentName}>{currentChat?.info.title}</p>
-                        <p className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
-                          TranslationKey.Members,
-                        ).toLocaleLowerCase()}`}</p>
+                    <>
+                      <div className={classNames.opponentWrapper}>
+                        <Avatar src={currentChat?.info.image} className={classNames.avatar} />
+                        <div>
+                          <p className={classNames.opponentName}>{currentChat?.info.title}</p>
+                          <p className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
+                            TranslationKey.Members,
+                          ).toLocaleLowerCase()}`}</p>
+                        </div>
                       </div>
-                    </div>
+
+                      <СhatSoundNotification
+                        isMuteCurrentChat={isMuteCurrentChat}
+                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                      />
+                    </>
                   )}
                 </div>
 

@@ -13,7 +13,7 @@ import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
+import { IsReadIcon, NoReadIcon, SoundOffIcon } from '@components/shared/svg-icons'
 
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -28,9 +28,10 @@ interface Props {
   userId: string
   onClick: (chat: ChatContract) => void
   typingUsers?: OnTypingMessageResponse[]
+  isMutedChat?: boolean
 }
 
-export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers }) => {
+export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat }) => {
   const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -159,11 +160,15 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
               </div>
             )}
 
-            {unReadMessages.length > 0 ? (
-              <span className={classNames.badge}>{unReadMessages.length}</span>
-            ) : isCurrentUser ? (
-              readingTick
-            ) : null}
+            <div className={classNames.badgeWrapper}>
+              {isMutedChat && <SoundOffIcon className={classNames.soundOffIcon} />}
+
+              {unReadMessages.length > 0 ? (
+                <span className={classNames.badge}>{unReadMessages.length}</span>
+              ) : isCurrentUser ? (
+                readingTick
+              ) : null}
+            </div>
           </div>
         )}
       </div>
