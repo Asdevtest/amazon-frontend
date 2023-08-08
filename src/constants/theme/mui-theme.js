@@ -281,6 +281,7 @@ export const lightTheme = createTheme({
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
+      activeChat: '#E7F1FF',
     },
 
     linearGradient: {
@@ -744,6 +745,7 @@ export const darkTheme = createTheme({
 
         default: '#121212',
         disabledDangerBtn: '#4F2026',
+        activeChat: '#384C68',
       },
 
       linearGradient: {

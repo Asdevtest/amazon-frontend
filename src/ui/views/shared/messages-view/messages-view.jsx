@@ -2,7 +2,6 @@ import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { Avatar, Link } from '@mui/material'
 
@@ -30,10 +29,10 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { MessagesViewModel } from './messages-view.model'
-import { styles } from './messages-view.style'
+import { useClassNames } from './messages-view.style'
 
-export const MessagesViewRaw = props => {
-  const { classes: classNames } = props
+export const MessagesView = observer(props => {
+  const { classes: classNames } = useClassNames()
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
 
   useEffect(() => {
@@ -82,7 +81,11 @@ export const MessagesViewRaw = props => {
   return (
     viewModel.languageTag && (
       <div className={classNames.wrapper}>
-        <div className={cx(classNames.leftSide, { [classNames.mobileResolution]: isChatSelectedAndFound })}>
+        <div
+          className={cx(classNames.leftSide, {
+            [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+          })}
+        >
           <div className={classNames.searchWrapper}>
             <SearchInput
               inputClasses={classNames.searchInput}
@@ -303,6 +306,4 @@ export const MessagesViewRaw = props => {
       </div>
     )
   )
-}
-
-export const MessagesView = withStyles(observer(MessagesViewRaw), styles)
+})

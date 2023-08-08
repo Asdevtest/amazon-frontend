@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import Dialog from '@mui/material/Dialog'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
+import { isTabletResolution } from '@constants/configs/sizes-settings'
 
 interface Props extends PropsWithChildren {
   open: boolean
@@ -11,7 +11,7 @@ interface Props extends PropsWithChildren {
 
 export const DialogModal: FC<Props> = ({ open, onClose, children }) => (
   <>
-    {isMobileResolution ? (
+    {isTabletResolution ? (
       <Dialog open={open} onClose={onClose}>
         {children}
       </Dialog>
