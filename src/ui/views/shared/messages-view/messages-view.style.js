@@ -36,6 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(1024)]: {
       width: 220,
+      flex: '1 1 auto',
 
       '& > input': {
         padding: 9,
@@ -43,7 +44,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      flex: '1 1 auto',
       width: '100%',
     },
   },

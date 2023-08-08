@@ -115,7 +115,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             ? chat.info?.image
             : getUserAvatarSrc(oponentUser?._id)
         }
-        className={classNames.avatarWrapper}
+        className={classNames.avatar}
       />
 
       <div className={classNames.rightSide}>

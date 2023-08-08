@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRight: `1px solid ${theme.palette.background.second}`,
 
     [theme.breakpoints.down(1024)]: {
-      width: 280,
+      width: 220,
     },
 
     [theme.breakpoints.down(768)]: {
