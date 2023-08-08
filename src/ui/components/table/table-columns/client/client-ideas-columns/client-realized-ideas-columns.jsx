@@ -104,7 +104,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
     width: 110,
     sortable: false,
-    columnKey: columnnsKeys.shared.DATE,
+    filterable: false,
   },
 
   {
