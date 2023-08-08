@@ -136,9 +136,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#001029',
-
           overflow: 'hidden',
-
           border: '1px solid #E0E0E0',
         },
       },
@@ -522,21 +520,17 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
-      //
-      defaultprops: {
-        sx: {
-          '& .MuiInputBase-input.Mui-disabled': {
-            backgroundColor: '#36363F !important',
-            WebkitTextFillColor: '#fff !important',
-          },
-        },
-      },
-      //
       styleOverrides: {
         root: {
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
+        },
+        input: {
+          '&.Mui-disabled': {
+            backgroundColor: '#36363F !important',
+            WebkitTextFillColor: '#fff !important',
+          },
         },
       },
     },
