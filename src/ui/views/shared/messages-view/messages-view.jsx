@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { Avatar, Link } from '@mui/material'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
+import { isMobileResolution, isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -181,11 +181,12 @@ export const MessagesView = observer(props => {
 
                 <div className={classNames.searchMessageContainer}>
                   <SearchInput
-                    inputClasses={classNames.searchInput}
+                    inputClasses={cx(classNames.searchInput, {
+                      [classNames.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
+                    })}
                     placeholder={t(TranslationKey['Message Search'])}
                     value={viewModel.mesSearchValue}
                     onChange={viewModel.onChangeMesSearchValue}
-                    onKeyPress={e => console.log('e', e)}
                   />
 
                   {viewModel.messagesFound.length ? (
@@ -202,7 +203,7 @@ export const MessagesView = observer(props => {
               </div>
             )}
 
-            {!isMobileResolution && (
+            {!isMobileResolution && !isChatSelectedAndFound && (
               <div className={classNames.rightSideHeader}>
                 <div className={classNames.noticesWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
                   <p

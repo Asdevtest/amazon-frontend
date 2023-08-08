@@ -2,7 +2,7 @@ import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
-import { Avatar, Link, Typography } from '@mui/material'
+import { Avatar, Link } from '@mui/material'
 
 import { isMobileResolution } from '@constants/configs/sizes-settings'
 
@@ -167,9 +167,7 @@ export const ChatMessagesList: FC<Props> = observer(
                 formatDateWithoutTime(messages[index - 1].createdAt) !==
                   formatDateWithoutTime(messageItem.createdAt) ? (
                   <div className={classNames.timeTextWrapper}>
-                    <Typography className={classNames.timeText}>
-                      {formatDateWithoutTime(messageItem.createdAt)}
-                    </Typography>
+                    <p className={classNames.timeText}>{formatDateWithoutTime(messageItem.createdAt)}</p>
                   </div>
                 ) : null}
 

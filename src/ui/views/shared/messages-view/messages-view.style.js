@@ -48,10 +48,24 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  searchInputShort: {
+    [theme.breakpoints.down(1024)]: {
+      width: 102,
+    },
+
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
+  },
+
   rightSide: {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 auto',
+
+    [theme.breakpoints.down(1024)]: {
+      maxWidth: 1023,
+    },
 
     [theme.breakpoints.down(768)]: {
       maxWidth: 767,
@@ -75,9 +89,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 20,
+    width: '100%',
+
+    [theme.breakpoints.down(1024)]: {
+      justifyContent: 'space-between',
+    },
 
     [theme.breakpoints.down(768)]: {
-      width: '100%',
       flexDirection: 'column-reverse',
     },
   },
@@ -86,6 +104,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 25,
+
+    [theme.breakpoints.down(1024)]: {
+      gap: 20,
+      paddingLeft: 20,
+    },
 
     [theme.breakpoints.down(768)]: {
       padding: '15px 10px',
@@ -163,7 +186,12 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
 
+    [theme.breakpoints.down(1024)]: {
+      display: 'none',
+    },
+
     [theme.breakpoints.down(768)]: {
+      display: 'block',
       maxWidth: 160,
       fontSize: 14,
     },
@@ -243,7 +271,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
     background: theme.palette.background.general,
     borderRadius: '0 7px 7px 0',
-    boxShadow: theme.palette.boxShadow.paper,
   },
 
   noSelectedChatIcon: {
