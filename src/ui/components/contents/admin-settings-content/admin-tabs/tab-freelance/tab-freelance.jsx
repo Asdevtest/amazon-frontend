@@ -5,9 +5,9 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-freelance.style'
-
 import { fieldNameObject } from '../../admin-settings.constants'
+
+import { useClassNames } from './tab-freelance.style'
 
 export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()

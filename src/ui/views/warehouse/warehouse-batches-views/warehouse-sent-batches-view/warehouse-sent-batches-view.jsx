@@ -21,9 +21,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-sent-batches-view.style'
-
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
+import { styles } from './warehouse-sent-batches-view.style'
 
 export const WarehouseSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({ history: props.history }))

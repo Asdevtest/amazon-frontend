@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import React from 'react'
 
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'

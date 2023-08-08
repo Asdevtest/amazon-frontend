@@ -16,9 +16,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-sent-batches-view.style'
-
 import { AdminSentBatchesViewModel } from './admin-sent-batches-view.model'
+import { styles } from './admin-sent-batches-view.style'
 
 export const AdminSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new AdminSentBatchesViewModel({ history: props.history }))

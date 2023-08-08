@@ -9,9 +9,8 @@ import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './progress-bar.styles'
-
 import { progressBarSettings } from './progress-bar-settings'
+import { useClassNames } from './progress-bar.styles'
 
 interface IdeaProgressBarProps {
   currentStatus: number

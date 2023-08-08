@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
+import AddIcon from '@material-ui/icons/Add'
+import AcceptIcon from '@material-ui/icons/Check'
+import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -59,9 +59,8 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-order-modal.style'
-
 import { BoxesToCreateTable } from './boxes-to-create-table'
+import { useClassNames } from './edit-order-modal.style'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'

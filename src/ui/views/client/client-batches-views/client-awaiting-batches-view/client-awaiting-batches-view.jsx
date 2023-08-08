@@ -23,9 +23,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-awaiting-batches-view.style'
-
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
+import { styles } from './client-awaiting-batches-view.style'
 
 export const ClientAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history: props.history }))

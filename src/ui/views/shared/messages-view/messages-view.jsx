@@ -29,9 +29,8 @@ import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './messages-view.style'
-
 import { MessagesViewModel } from './messages-view.model'
+import { styles } from './messages-view.style'
 
 export const MessagesViewRaw = props => {
   const { classes: classNames } = props

@@ -3,10 +3,9 @@ import React from 'react'
 
 import { Paper } from '@mui/material'
 
-import { useClassNames } from './top-card.style'
-
 import { BusinessInfo } from './business-info'
 import { ShopInfo } from './shop-info'
+import { useClassNames } from './top-card.style'
 
 export const TopCard = observer(({ userInfo, data, onClickEditBtn }) => {
   const { classes: classNames } = useClassNames()

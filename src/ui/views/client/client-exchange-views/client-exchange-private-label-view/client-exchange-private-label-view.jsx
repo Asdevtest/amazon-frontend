@@ -14,9 +14,8 @@ import { Modal } from '@components/shared/modal'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { styles } from './client-exchange-private-label-view.style'
-
 import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-label-view.model'
+import { styles } from './client-exchange-private-label-view.style'
 
 export const ClientExchangePrivateLabelViewRaw = props => {
   const [viewModel] = useState(() => new ClientExchangePrivateLabelViewModel({ history: props.history }))

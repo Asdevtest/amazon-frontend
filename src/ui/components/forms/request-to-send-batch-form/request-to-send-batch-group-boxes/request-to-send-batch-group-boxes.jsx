@@ -14,9 +14,9 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-to-send-batch-group-boxes.style'
-
 import { RequestToSendBatchBox } from '../request-to-send-batch-box'
+
+import { useClassNames } from './request-to-send-batch-group-boxes.style'
 
 export const RequestToSendBatchesGroupBoxes = ({
   userInfo,

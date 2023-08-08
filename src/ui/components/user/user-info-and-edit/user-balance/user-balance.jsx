@@ -16,9 +16,8 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './user-balance.style'
-
 import { UserBalanceModel } from './user-balance.model'
+import { useClassNames } from './user-balance.style'
 
 export const UserBalance = observer(({ userId }) => {
   const { classes: classNames } = useClassNames()

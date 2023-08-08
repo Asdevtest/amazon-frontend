@@ -13,9 +13,8 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { styles } from './admin-order-view.style'
-
 import { AdminOrderViewModel } from './admin-order-view.model'
+import { styles } from './admin-order-view.style'
 
 export const AdminOrderViewRaw = props => {
   const [viewModel] = useState(

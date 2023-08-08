@@ -16,9 +16,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-feedback-view.style'
-
 import { AdminFeedbackViewModel } from './admin-feedback-view.model'
+import { styles } from './admin-feedback-view.style'
 
 export const AdminFeedbackViewRaw = props => {
   const [viewModel] = useState(() => new AdminFeedbackViewModel({ history: props.history }))

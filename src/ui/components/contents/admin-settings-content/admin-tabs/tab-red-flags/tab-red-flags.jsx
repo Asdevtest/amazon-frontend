@@ -21,9 +21,8 @@ import { UploadIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-red-flags.style'
-
 import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
+import { useClassNames } from './tab-red-flags.style'
 
 export const TabRedFlags = observer(() => {
   const { classes: classNames } = useClassNames()

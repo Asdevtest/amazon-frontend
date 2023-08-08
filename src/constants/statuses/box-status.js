@@ -51,7 +51,7 @@ export const colorByBoxStatus = status => {
   if ([BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.IN_BATCH_ON_THE_WAY].includes(status)) {
     return {
       background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-      '-webkit-background-clip': 'text',
+      WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
       textFillColor: 'transparent',

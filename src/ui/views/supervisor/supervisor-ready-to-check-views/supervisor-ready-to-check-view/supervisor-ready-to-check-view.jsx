@@ -15,9 +15,8 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './supervisor-ready-to-check-view.style'
-
 import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
+import { styles } from './supervisor-ready-to-check-view.style'
 
 export const SupervisorReadyToCheckViewRaw = props => {
   const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel({ history: props.history }))

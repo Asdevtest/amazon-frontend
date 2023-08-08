@@ -23,9 +23,8 @@ import { ArchiveIcon } from '@components/shared/svg-icons'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-sent-batches-view.style'
-
 import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
+import { styles } from './client-sent-batches-view.style'
 
 export const ClientSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history: props.history }))

@@ -19,9 +19,8 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { styles } from './client-order-view.style'
-
 import { ClientOrderViewModel } from './client-order-view.model'
+import { styles } from './client-order-view.style'
 
 export const ClientOrderViewRaw = props => {
   const { search } = useLocation()

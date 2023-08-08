@@ -1,7 +1,7 @@
-import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
+import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Input, MenuItem, Select, Tooltip, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
@@ -17,9 +17,9 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-group-permission-form.style'
-
 import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
+
+import { useClassNames } from './add-or-edit-group-permission-form.style'
 
 export const AddOrEditGroupPermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions }) => {

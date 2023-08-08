@@ -17,9 +17,8 @@ import { AdminContentModal } from '@components/user/users-views/sub-users-view/a
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-users-view.style'
-
 import { AdminUsersViewModel } from './admin-users-view.model'
+import { styles } from './admin-users-view.style'
 
 export const AdminUsersViewRaw = props => {
   const [viewModel] = useState(() => new AdminUsersViewModel({ history: props.history }))

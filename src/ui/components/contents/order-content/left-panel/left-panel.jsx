@@ -12,7 +12,6 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './left-panel.style'
-
 import { ProductParameters } from './product-parameters'
 
 export const LeftPanel = ({

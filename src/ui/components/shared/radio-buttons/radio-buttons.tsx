@@ -35,7 +35,7 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
               checked={setting.value === currentValue}
               onChange={() => onClickRadioButton(setting.value)}
             />
-            <p>{setting.label()}</p>
+            <p>{setting?.label()}</p>
           </div>
         ))}
     </div>

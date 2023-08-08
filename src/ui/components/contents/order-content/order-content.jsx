@@ -26,11 +26,10 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-content.style'
-
 import { DeliveryParameters } from './delivery-parameters'
 import { ExtraOrderInfo } from './extra-order-info'
 import { LeftPanel } from './left-panel'
+import { useClassNames } from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 

@@ -158,12 +158,12 @@ export const supervisorProductsViewColumns = handlers => [
           params.value
             ? {
                 background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-                '-webkit-background-clip': 'text',
+                WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }
             : {
                 background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-                '-webkit-background-clip': 'text',
+                WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }
         }

@@ -1,8 +1,6 @@
 import { cx } from '@emotion/css'
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 import Linkify from 'react-linkify-always-blank'
-
-import { Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,9 +18,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { useClassNames } from './chat-message-proposal.style'
-
 import { LabelValuePairBlock } from '../label-value-pair-block'
+
+import { useClassNames } from './chat-message-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
@@ -43,18 +41,14 @@ export const ChatMessageProposal: FC<Props> = ({ message, handlers }) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
-        <div>
-          <Typography className={classNames.headerText}>{message.data.title}</Typography>
-        </div>
-        <div className={classNames.timeWrapper}>
-          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
-        </div>
+        <p className={classNames.headerText}>{message.data.title}</p>
+        <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
       </div>
       <div className={classNames.mainWrapper}>
         <div className={classNames.mainInfoWrapper}>
           <div className={classNames.descriptionWrapper}>
             <Linkify>
-              <Typography className={classNames.descriptionText}>{message.data.comment}</Typography>
+              <p className={classNames.descriptionText}>{message.data.comment}</p>
             </Linkify>
           </div>
 

@@ -107,8 +107,6 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       <NoReadIcon className={classNames.noReadIcon} />
     )
 
-  console.log(lastMessage)
-
   return (
     <div className={classNames.root} onClick={() => onClick(chat)}>
       <Avatar

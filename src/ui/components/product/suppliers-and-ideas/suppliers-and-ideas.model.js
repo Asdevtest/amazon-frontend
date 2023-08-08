@@ -36,6 +36,8 @@ export class SuppliersAndIdeasModel {
   requestTypeTask = undefined
   requestsForProduct = []
 
+  productId = undefined
+
   inCreate = false
   inEdit = false
   ideasData = []
@@ -226,8 +228,11 @@ export class SuppliersAndIdeasModel {
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
-    // this.curIdea = undefined
     this.selectedSupplier = undefined
+
+    if (this.isModalView) {
+      this.closeModalHandler()
+    }
   }
 
   async onClickSaveBtn(formFields, files, isForceUpdate) {
@@ -268,7 +273,7 @@ export class SuppliersAndIdeasModel {
       } else {
         this.inCreate = false
         this.inEdit = false
-        this.curIdea = undefined
+        // this.curIdea = undefined
       }
 
       this.loadData()
@@ -371,9 +376,14 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickCreateRequestButton() {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request`, {
-      parentProduct: { _id: this.currentProduct?._id, asin: this.currentProduct?.asin },
-    })
+    const win = window.open(
+      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+        this.currentProduct?._id
+      }&asin=${this.currentProduct?.asin}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   async onClickBindButton(requests) {
@@ -465,7 +475,10 @@ export class SuppliersAndIdeasModel {
   onClickCloseIdea(ideaId) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to close this idea?']),
+      confirmMessage:
+        t(TranslationKey['Are you sure you want to close this idea?']) +
+        '\n' +
+        t(TranslationKey['Once confirmed, the idea will be irretrievably lost/deleted']),
       onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId, true),
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -651,11 +664,18 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
+      if (!this.currentProduct) {
+        const result = await ProductModel.getProductById(this.productId)
+        this.currentProduct = result
+      }
+
       runInAction(() => {
         this.storekeepers = storekeepers
         this.destinations = destinations
         this.platformSettings = platformSettings
       })
+
+      console.log('currentProduct', this.currentProduct)
 
       this.onTriggerOpenModal('showOrderModal')
       this.requestStatus = loadingStatuses.success
@@ -802,8 +822,11 @@ export class SuppliersAndIdeasModel {
   }
 
   onClickRequestId(id) {
-    this.history.push(
+    const win = window.open(
       `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      '_blank',
     )
+
+    win.focus()
   }
 }

@@ -23,9 +23,8 @@ import {
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
-import { useClassNames } from './right-side-comments.style'
-
 import { ProductStatusButtons } from './product-status-buttons'
+import { useClassNames } from './right-side-comments.style'
 
 const withoutStatus = true
 

@@ -23,9 +23,8 @@ import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './sub-users-view.style'
-
 import { SubUsersViewModel } from './sub-users-view.model'
+import { styles } from './sub-users-view.style'
 
 export const SubUsersViewRaw = props => {
   const [viewModel] = useState(() => new SubUsersViewModel({ history: props.history }))

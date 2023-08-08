@@ -28,11 +28,10 @@ import { Modal } from '@components/shared/modal'
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './suppliers-and-ideas.style'
-
 import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
+import { useClassNames } from './suppliers-and-ideas.style'
 
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler }) => {
@@ -146,6 +145,42 @@ export const SuppliersAndIdeas = observer(
           />
         )}
 
+        {isModalView && curIdea && (
+          <>
+            {requestStatus === loadingStatuses.isLoading ? (
+              <CircularProgressWithLabel />
+            ) : (
+              <IdeaViewAndEditCard
+                isModalView
+                curUser={curUser}
+                curIdea={curIdea}
+                inEdit={inEdit}
+                idea={curIdea}
+                currentProduct={currentProduct}
+                selectedSupplier={selectedSupplier}
+                onCreateProduct={onClickCreateProduct}
+                onClickSaveBtn={onClickSaveBtn}
+                onClickCancelBtn={onClickCancelBtn}
+                onClickCreateRequestButton={onClickCreateRequestButton}
+                onClickLinkRequestButton={onClickLinkRequestButton}
+                onClickAcceptButton={onClickAcceptButton}
+                onClickCloseIdea={onClickCloseIdea}
+                onClickRejectButton={onClickRejectButton}
+                onClickReoperButton={onClickReoperButton}
+                onClickResultButton={onClickResultButton}
+                onSetCurIdea={onSetCurIdea}
+                onEditIdea={onEditIdea}
+                onClickSupplierBtns={onClickSupplierButtons}
+                onClickSupplier={onChangeSelectedSupplier}
+                onClickSaveIcon={onClickSaveIcon}
+                onClickOpenNewTab={onClickOpenNewTab}
+                onClickToOrder={onClickToOrder}
+                onClickRequestId={onClickRequestId}
+              />
+            )}
+          </>
+        )}
+
         {!isModalView &&
           (requestStatus === loadingStatuses.isLoading ? (
             <CircularProgressWithLabel />
@@ -186,42 +221,6 @@ export const SuppliersAndIdeas = observer(
               </Typography>
             </div>
           ))}
-
-        {isModalView && curIdea && (
-          <>
-            {requestStatus === loadingStatuses.isLoading ? (
-              <CircularProgressWithLabel />
-            ) : (
-              <IdeaViewAndEditCard
-                isModalView
-                curUser={curUser}
-                curIdea={curIdea}
-                inEdit={inEdit}
-                idea={curIdea}
-                currentProduct={currentProduct}
-                selectedSupplier={selectedSupplier}
-                onCreateProduct={onClickCreateProduct}
-                onClickSaveBtn={onClickSaveBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickCreateRequestButton={onClickCreateRequestButton}
-                onClickLinkRequestButton={onClickLinkRequestButton}
-                onClickAcceptButton={onClickAcceptButton}
-                onClickCloseIdea={onClickCloseIdea}
-                onClickRejectButton={onClickRejectButton}
-                onClickReoperButton={onClickReoperButton}
-                onClickResultButton={onClickResultButton}
-                onSetCurIdea={onSetCurIdea}
-                onEditIdea={onEditIdea}
-                onClickSupplierBtns={onClickSupplierButtons}
-                onClickSupplier={onChangeSelectedSupplier}
-                onClickSaveIcon={onClickSaveIcon}
-                onClickOpenNewTab={onClickOpenNewTab}
-                onClickToOrder={onClickToOrder}
-                onClickRequestId={onClickRequestId}
-              />
-            )}
-          </>
-        )}
 
         <Modal
           missClickModalOn={!supplierModalReadOnly}

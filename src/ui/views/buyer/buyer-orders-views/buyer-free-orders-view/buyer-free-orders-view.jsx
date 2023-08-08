@@ -16,9 +16,8 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-free-orders-view.style'
-
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
+import { styles } from './buyer-free-orders-view.style'
 
 export const BuyerFreeOrdersViewRaw = props => {
   const [viewModel] = useState(() => new BuyerFreeOrdersViewModel({ history: props.history }))

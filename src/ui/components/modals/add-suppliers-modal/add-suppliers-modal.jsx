@@ -18,7 +18,6 @@ import { t } from '@utils/translations'
 // import {checkIsPositiveNum} from '@utils/checks'
 // import {t} from '@utils/translations'
 import { useClassNames } from './add-suppliers-modal.style'
-
 import Template from './template.xlsx'
 
 export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, progressValue }) => {

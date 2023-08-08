@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Typography } from '@mui/material'

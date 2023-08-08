@@ -16,9 +16,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-warehouse-boxes-view.style'
-
 import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
+import { styles } from './admin-warehouse-boxes-view.style'
 
 export const AdminWarehouseBoxesViewRaw = props => {
   const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel({ history: props.history }))

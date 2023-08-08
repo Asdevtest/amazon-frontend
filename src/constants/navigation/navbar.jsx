@@ -101,56 +101,56 @@ export const navbarConfig = () => ({
         {
           subtitle: t(TranslationKey['New ideas']),
           subRoute: '/client/ideas/new',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['On checking']),
           subRoute: '/client/ideas/on-checking',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Search for suppliers']),
           subRoute: '/client/ideas/search-suppliers',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Creating a product card']),
           subRoute: '/client/ideas/create-card',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Adding ASIN']),
           subRoute: '/client/ideas/add-asin',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Realized ideas']),
           subRoute: '/client/ideas/realized',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Rejected and closed']),
           subRoute: '/client/ideas/closed',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT),
         },
         {
           subtitle: t(TranslationKey.All),
           subRoute: '/client/ideas/all',
-          checkHideBlock: user =>
+          checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
         },

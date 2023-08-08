@@ -11,9 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-tasks-view.style'
-
 import { WarehouseTasksViewModel } from './warehouse-tasks-view.model'
+import { styles } from './warehouse-tasks-view.style'
 
 export const WarehouseTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseTasksViewModel({ history: props.history }))

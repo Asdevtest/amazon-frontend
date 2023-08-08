@@ -1925,4 +1925,12 @@ export const styles = theme => ({
       fontWeight: 400,
     },
   },
+
+  yellowColor: {
+    color: `#C69109`,
+  },
+
+  redColor: {
+    color: `#D70D0D`,
+  },
 })
