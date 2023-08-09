@@ -3068,7 +3068,7 @@ export const ProductInfoExtended = React.memo(
                 <div className={classNames.boxInfoWrapper}>
                   <Typography className={classNames.boxInfoText}>
                     <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                    {item.asin}
+                    <span  className={classNames.orderTextSpanAsin}>{item.asin}</span>
                   </Typography>
                   {item.asin ? <CopyValue text={item.asin} /> : null}
                 </div>

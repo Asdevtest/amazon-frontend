@@ -851,6 +851,7 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.primary.main,
   },
 
   headerText: {
@@ -945,6 +946,10 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+  },
+
+  orderTextSpanAsin: {
+    color: theme.palette.primary.main,
   },
 
   flexDirectionColumn: {
