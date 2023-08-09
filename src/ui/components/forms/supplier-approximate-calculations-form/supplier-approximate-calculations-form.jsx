@@ -21,7 +21,7 @@ import { t } from '@utils/translations'
 
 import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
 import { useClassNames } from './supplier-approximate-calculations-form.style'
-import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
+import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns/supplier-weight-based-approximate-calculations-form-columns.jsx'
 
 const tabsValues = {
   WITHOUT_WEIGHT_LOGISTICS_TARIFF: 'WITHOUT_WEIGHT_LOGISTICS_TARIFF',
