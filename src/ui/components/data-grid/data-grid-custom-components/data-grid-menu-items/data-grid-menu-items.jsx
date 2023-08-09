@@ -1661,7 +1661,7 @@ export const DestinationMenuItem = React.memo(
 
     useEffect(() => {
       if (nameSearchValue) {
-        const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+        const filter = filterData?.filter(obj => obj && obj?.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
         setItemsForRender(filter)
       } else {
         setItemsForRender(filterData)
