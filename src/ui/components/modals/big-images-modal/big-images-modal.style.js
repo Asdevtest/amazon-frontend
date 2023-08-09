@@ -12,6 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     maxWidth: 720,
     width: '100vh',
+    margin: 'auto',
   },
 
   body: {
@@ -31,7 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingBottom: '60px',
+    // paddingBottom: '60px',
     gap: '20px',
   },
 

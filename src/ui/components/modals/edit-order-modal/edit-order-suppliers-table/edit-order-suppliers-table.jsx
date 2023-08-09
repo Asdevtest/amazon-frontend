@@ -135,7 +135,7 @@ export const EditOrderSuppliersTable = observer(
                       {supplier?.priceVariations?.map((el, index) => (
                         <div key={index}>
                           {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
-                          {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
+                          {toFixedWithDollarSign(el?.price / platformSettings?.yuanToDollarRate, 2)}{' '}
                           {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
                         </div>
                       ))}

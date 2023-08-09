@@ -387,6 +387,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
+  linkSpan: { color: theme.palette.primary.main },
+
   cancelButton: {
     color: theme.palette.text.general,
   },

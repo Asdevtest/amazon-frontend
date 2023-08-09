@@ -260,8 +260,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   image: {
-    width: 120,
-    height: '70px',
+    width: 60,
+    height: 70,
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -465,45 +465,66 @@ export const useClassNames = makeStyles()(theme => ({
   receiveBoxWrapper: {
     width: '690px',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    flexDirection: 'column',
 
-    [theme.breakpoints.down(1282)]: {
-      alignItems: 'center',
-    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
-      marginBottom: '50px',
+      padding: '50px 0',
+      marginBottom: 20,
     },
   },
 
-  receiveBox: {
+  boxImageContainer: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    gap: 15,
+    marginBottom: 90,
+
+    [theme.breakpoints.down(768)]: {
+      gap: 10,
+      marginBottom: 40,
+    },
   },
 
-  buttonWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '20px',
+  bigBoxSvg: {
+    width: 220,
+    height: 230,
+
+    [theme.breakpoints.down(768)]: {
+      width: 145,
+      height: 152,
+    },
   },
-  button: {
-    width: '183px',
-    height: '40px',
+
+  boxArrowSvg: {
+    width: '74px !important',
+    height: '74px !important',
+    color: theme.palette.primary.main,
+
+    [theme.breakpoints.down(768)]: {
+      width: '49px !important',
+      height: '49px !important',
+    },
   },
 
   receiveBoxTitle: {
-    fontSize: '18px',
+    marginBottom: 20,
+    fontSize: 18,
     lineHeight: '140%',
-    fontWeight: 400,
     color: theme.palette.text.general,
-    marginTop: 40,
+
     [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      marginTop: '40px',
+      marginBottom: 30,
+      fontSize: 14,
+      lineHeight: 19,
     },
+  },
+
+  button: {
+    width: 183,
+    height: 40,
   },
 
   incomingBtnWrapper: {
@@ -545,14 +566,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
-    },
-  },
-  imageBox: {
-    [theme.breakpoints.down(1282)]: {
-      width: 200,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '180px',
     },
   },
 

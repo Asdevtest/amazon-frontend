@@ -2,15 +2,19 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useNavbarButtonStyles = makeStyles()(theme => ({
   iconButtonWrapper: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
+    display: 'none',
+
+    [theme.breakpoints.down(1282)]: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
   },
 
   iconButtonWrapperLeft: {
-    paddingLeft: '7%',
+    paddingLeft: 16,
     justifyContent: 'flex-start',
   },
 

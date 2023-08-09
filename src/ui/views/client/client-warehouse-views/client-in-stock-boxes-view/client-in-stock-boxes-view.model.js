@@ -348,11 +348,11 @@ export class ClientInStockBoxesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE_BOXES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE_BOXES]
 
     runInAction(() => {
       if (state) {
@@ -1620,8 +1620,6 @@ export class ClientInStockBoxesViewModel {
   async onClickCurrentTariffsBtn() {
     await this.getStorekeepers()
     await ClientModel.getDestinations()
-
-    console.log('this.destinations', this.destinations)
 
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
   }

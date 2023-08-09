@@ -39,6 +39,7 @@ class ChatModelStatic {
   public simpleChats: ChatContract[] = []
 
   public loadedFiles: string[] = []
+  public loadedImages: string[] = []
 
   public typingUsers: OnTypingMessageResponse[] = []
 
@@ -157,7 +158,13 @@ class ChatModelStatic {
 
     try {
       const fileName: string = await OtherModel.postImage(formData)
-      this.loadedFiles.push(BACKEND_API_URL + '/uploads/' + fileName)
+      const fileUrl = BACKEND_API_URL + '/uploads/' + fileName
+
+      if (fileData.type.startsWith('image')) {
+        this.loadedImages.push(fileUrl)
+      } else {
+        this.loadedFiles.push(fileUrl)
+      }
     } catch (error) {
       console.log('error', error)
     }
@@ -178,8 +185,9 @@ class ChatModelStatic {
       }
     }
 
-    const paramsWithLoadedFiles = { ...params, files: this.loadedFiles }
+    const paramsWithLoadedFiles = { ...params, files: this.loadedFiles, images: this.loadedImages }
 
+    this.loadedImages = []
     this.loadedFiles = []
 
     await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)

@@ -111,6 +111,9 @@ class ApiV1RequestProposalsCustomByRequestIdGuidProposal {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('approvedByMaster')) {
+                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -237,6 +240,11 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['updatedAt'] = unde
  * @member {String} title
  */
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['title'] = undefined;
+
+/**
+ * @member {Boolean} approvedByMaster
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['approvedByMaster'] = undefined;
 
 /**
  * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy} createdBy

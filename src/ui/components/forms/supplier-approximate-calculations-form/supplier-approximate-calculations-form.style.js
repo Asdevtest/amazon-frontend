@@ -46,4 +46,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     marginBottom: 20,
   },
+
+  tabsRoot: {
+    fontSize: 14,
+    fontWeight: 600,
+    width: '100%',
+  },
+
+  indicator: {
+    backgroundColor: '#1da1f2',
+  },
 }))

@@ -9,6 +9,14 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.second,
     scrollBehavior: 'smooth',
   },
+  messagesWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+    padding: '20px 12px',
+  },
   messageWrapper: {
     width: '100%',
     display: 'flex',

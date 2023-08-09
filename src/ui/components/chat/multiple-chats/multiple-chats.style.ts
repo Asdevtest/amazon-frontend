@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chatsWrapper: {
-    width: '296px',
+    width: 310,
     height: '100%',
     [theme.breakpoints.down(768)]: {
       width: '100%',

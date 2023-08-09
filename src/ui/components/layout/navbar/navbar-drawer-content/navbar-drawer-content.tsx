@@ -19,6 +19,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { useNavbarDrawerContentStyles } from '@components/layout/navbar/navbar-drawer-content/navbar-drawer-content.styles'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
 import { observer } from 'mobx-react'
+import { AlertShield } from '@components/shared/alert-shield'
 
 interface CurNavbarType {
   icon: React.ReactNode
@@ -39,6 +40,7 @@ interface NavbarDrawerContentProps {
   setShowOverlayNavBar: (arg: boolean) => void
   showOverlayNavBar: boolean
   confirmModalSettings: NavbarModel['confirmModalSettings']
+  alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
   userInfo: any
   activeCategory: string
@@ -62,6 +64,7 @@ export const NavbarDrawerContent = observer((props: NavbarDrawerContentProps) =>
     showOverlayNavBar,
     setShowOverlayNavBar,
     confirmModalSettings,
+    alertShieldSettings,
     curNavbar,
     userInfo,
     activeCategory,
@@ -119,6 +122,7 @@ export const NavbarDrawerContent = observer((props: NavbarDrawerContentProps) =>
                         userInfo.needUpdateTariff?.boxes +
                         userInfo.updatesOnIdeas +
                         userInfo.freelanceNotices.length) ||
+                    (category.route?.includes('/freelancer/notifications') && userInfo.freelanceNotices.length) ||
                     (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas) ||
                     (category.route?.includes('/client/my-orders/orders') && userInfo.allOrders) ||
                     (category.route?.includes('/warehouse/tasks') &&
@@ -228,6 +232,11 @@ export const NavbarDrawerContent = observer((props: NavbarDrawerContentProps) =>
         cancelBtnText={t(TranslationKey.Cancel)}
         onClickSuccessBtn={confirmModalSettings.onClickConfirm}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <AlertShield
+        showAcceptMessage={alertShieldSettings.showAlertShield}
+        acceptMessage={alertShieldSettings.alertShieldMessage}
       />
     </div>
   )

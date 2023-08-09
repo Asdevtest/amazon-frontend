@@ -311,7 +311,13 @@ export class LogisticsTariffsModel {
           },
           yuanToDollarRate: data.yuanToDollarRate,
         },
-        destinationVariations: data.destinationVariations,
+        destinationVariations: data.destinationVariations.map(destinationVariation => ({
+          destinationId: destinationVariation?.destination?._id,
+          minWeight: destinationVariation?.minWeight,
+          maxWeight: destinationVariation?.maxWeight,
+          pricePerKgRmb: destinationVariation?.pricePerKgRmb,
+          pricePerKgUsd: destinationVariation?.pricePerKgUsd,
+        })),
       })
 
       this.loadData()
@@ -345,7 +351,14 @@ export class LogisticsTariffsModel {
           },
           yuanToDollarRate: data.yuanToDollarRate,
         },
-        destinationVariations: data.destinationVariations,
+        destinationVariations: data.destinationVariations.map(destinationVariation => ({
+          _id: destinationVariation._id,
+          destinationId: destinationVariation?.destination?._id,
+          minWeight: destinationVariation?.minWeight,
+          maxWeight: destinationVariation?.maxWeight,
+          pricePerKgRmb: destinationVariation?.pricePerKgRmb,
+          pricePerKgUsd: destinationVariation?.pricePerKgUsd,
+        })),
       })
 
       this.loadData()
@@ -400,9 +413,7 @@ export class LogisticsTariffsModel {
 
   async removeTariff() {
     try {
-      // await StorekeeperModel.removeLogisticTariff(this.tariffIdToRemove)
-      console.log('this.tariffIdToRemove', this.tariffIdToRemove)
-
+      await StorekeeperModel.removeLogisticTariff(this.tariffIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()

@@ -27,7 +27,7 @@
   "rules": {
     // React
     "react/forbid-prop-types": "error",
-    "react/no-multi-comp": ["error", {"ignoreStateless": true}],
+    "react/no-multi-comp": ["error", { "ignoreStateless": true }],
     "react/no-set-state": "off",
     "react/no-string-refs": "error",
     "react/prefer-es6-class": "error",
@@ -82,7 +82,7 @@
 
     // JSX
     "react/jsx-boolean-value": "error",
-    "react/jsx-curly-spacing": ["error", {"when": "never", "children": true}],
+    "react/jsx-curly-spacing": ["error", { "when": "never", "children": true }],
     "react/jsx-equals-spacing": "error",
     "react/jsx-handler-names": "off",
     "react/jsx-indent": ["error", 2],
@@ -103,7 +103,7 @@
       }
     ],
     "react/jsx-first-prop-new-line": [2, "multiline"],
-    "react/jsx-max-props-per-line": [2, {"maximum": 1, "when": "multiline"}],
+    "react/jsx-max-props-per-line": [2, { "maximum": 1, "when": "multiline" }],
     "react/jsx-indent-props": [2, 2],
     "react/jsx-closing-bracket-location": [2, "tag-aligned"],
 
@@ -187,7 +187,7 @@
 
     // "react-hooks/exhaustive-deps": "error"
 
-     "no-unused-vars": "warn"
+    "no-unused-vars": "warn"
   },
   "overrides": [
     {
@@ -210,7 +210,7 @@
       },
       "plugins": ["@typescript-eslint"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": ["warn", {"argsIgnorePattern": ",^_", "varsIgnorePattern": "^_"}],
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": ",^_", "varsIgnorePattern": "^_" }],
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/prefer-optional-chain": ["error"],
         "@typescript-eslint/no-empty-interface": "off",
@@ -218,7 +218,7 @@
         "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/unbound-method": "off",
         "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/restrict-template-expressions": ["off", {"allowAny": true}],
+        "@typescript-eslint/restrict-template-expressions": ["off", { "allowAny": true }],
         "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/no-unsafe-return": "off",
@@ -236,16 +236,16 @@
     },
     "propWrapperFunctions": [
       "forbidExtraProps",
-      {"property": "freeze", "object": "Object"},
-      {"property": "myFavoriteWrapper"}
+      { "property": "freeze", "object": "Object" },
+      { "property": "myFavoriteWrapper" }
     ],
     "componentWrapperFunctions": [
       "observer",
-      {"property": "styled"},
-      {"property": "observer", "object": "Mobx"},
-      {"property": "observer", "object": "<pragma>"}
+      { "property": "styled" },
+      { "property": "observer", "object": "Mobx" },
+      { "property": "observer", "object": "<pragma>" }
     ],
-    "linkComponents": ["Hyperlink", {"name": "Link", "linkAttribute": "to"}],
+    "linkComponents": ["Hyperlink", { "name": "Link", "linkAttribute": "to" }],
     "import/resolver": {
       "node": {
         "paths": ["src", "node_modules"],
@@ -262,7 +262,8 @@
           ["@views", "./src/ui/views"],
           ["@utils", "./src/utils"],
           ["@typings", "./src/typings"],
-          ["@contexts", "./src/contexts"]
+          ["@contexts", "./src/contexts"],
+          ["@types", "./src/types"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
       }

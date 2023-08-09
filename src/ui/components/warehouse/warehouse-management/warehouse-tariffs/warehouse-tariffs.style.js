@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '10px',
     width: '100%',
     flexDirection: 'column',
-    minHeight: '82vh',
+    height: '82.5vh',
   },
 
   placeAddBtnWrapper: {
