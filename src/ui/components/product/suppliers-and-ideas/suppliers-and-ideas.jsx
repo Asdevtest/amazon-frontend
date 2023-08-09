@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useRef } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
@@ -36,6 +36,12 @@ import { useClassNames } from './suppliers-and-ideas.style'
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler }) => {
     const { classes: classNames } = useClassNames()
+
+    const { search } = useLocation()
+    const queries = new URLSearchParams(search)
+    const selectedIdeaId = queries.get('ideaId')
+    const ideaRef = useRef(null)
+
     const history = useHistory()
     const model = useRef(
       new SuppliersAndIdeasModel({
@@ -116,6 +122,12 @@ export const SuppliersAndIdeas = observer(
       onConfirmSubmitOrderProductModal,
     } = model.current
 
+    useEffect(() => {
+      if (selectedIdeaId) {
+        ideaRef?.current?.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, [selectedIdeaId, ideasData])
+
     return (
       <div className={classNames.mainWrapper}>
         {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
@@ -124,7 +136,7 @@ export const SuppliersAndIdeas = observer(
           !isModalView && (
             <div className={classNames.btnsWrapper}>
               <Button success variant="contained" onClick={onCreateIdea}>
-                {t(TranslationKey['Add a product idea'])}{' '}
+                {t(TranslationKey['Add a product idea'])}
               </Button>
             </div>
           )}
@@ -186,32 +198,34 @@ export const SuppliersAndIdeas = observer(
             <CircularProgressWithLabel />
           ) : SettingsModel.languageTag && ideasData.length ? (
             ideasData.map(idea => (
-              <IdeaViewAndEditCard
-                key={idea._id}
-                curUser={curUser}
-                curIdea={curIdea}
-                inEdit={inEdit}
-                idea={idea}
-                currentProduct={currentProduct}
-                selectedSupplier={selectedSupplier}
-                onCreateProduct={onClickCreateProduct}
-                onClickSaveBtn={onClickSaveBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickCreateRequestButton={onClickCreateRequestButton}
-                onClickLinkRequestButton={onClickLinkRequestButton}
-                onClickAcceptButton={onClickAcceptButton}
-                onClickCloseIdea={onClickCloseIdea}
-                onClickRejectButton={onClickRejectButton}
-                onClickReoperButton={onClickReoperButton}
-                onClickResultButton={onClickResultButton}
-                onSetCurIdea={onSetCurIdea}
-                onEditIdea={onEditIdea}
-                onClickSupplierBtns={onClickSupplierButtons}
-                onClickSupplier={onChangeSelectedSupplier}
-                onClickSaveIcon={onClickSaveIcon}
-                onClickToOrder={onClickToOrder}
-                onClickRequestId={onClickRequestId}
-              />
+              <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
+                <IdeaViewAndEditCard
+                  curUser={curUser}
+                  curIdea={curIdea}
+                  inEdit={inEdit}
+                  idea={idea}
+                  currentProduct={currentProduct}
+                  selectedSupplier={selectedSupplier}
+                  selectedIdea={selectedIdeaId}
+                  onCreateProduct={onClickCreateProduct}
+                  onClickSaveBtn={onClickSaveBtn}
+                  onClickCancelBtn={onClickCancelBtn}
+                  onClickCreateRequestButton={onClickCreateRequestButton}
+                  onClickLinkRequestButton={onClickLinkRequestButton}
+                  onClickAcceptButton={onClickAcceptButton}
+                  onClickCloseIdea={onClickCloseIdea}
+                  onClickRejectButton={onClickRejectButton}
+                  onClickReoperButton={onClickReoperButton}
+                  onClickResultButton={onClickResultButton}
+                  onSetCurIdea={onSetCurIdea}
+                  onEditIdea={onEditIdea}
+                  onClickSupplierBtns={onClickSupplierButtons}
+                  onClickSupplier={onChangeSelectedSupplier}
+                  onClickSaveIcon={onClickSaveIcon}
+                  onClickToOrder={onClickToOrder}
+                  onClickRequestId={onClickRequestId}
+                />
+              </div>
             ))
           ) : (
             <div className={classNames.emptyTableWrapper}>

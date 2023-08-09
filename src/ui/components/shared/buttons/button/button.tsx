@@ -34,10 +34,12 @@ interface Props {
   btnWrapperStyle?: string
   small?: boolean
   children?: ReactElement | string
+  defaultButtonTooltip?: string
 }
 
 export const Button: FC<Props> = observer(
   ({
+    defaultButtonTooltip,
     tooltipAttentionContent,
     tooltipInfoContent,
     tooltipPosition,
@@ -69,7 +71,7 @@ export const Button: FC<Props> = observer(
         {/* @ts-ignore */}
         <StyledButton
           disableElevation
-          title={children}
+          title={defaultButtonTooltip || ''}
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}
