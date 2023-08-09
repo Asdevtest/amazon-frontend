@@ -1211,45 +1211,42 @@ export const WarehouseDestinationAndTariffCell = React.memo(
 
       return (
         <div className={classNames.destinationAndTariffWrapper}>
-          <div className={classNames.destination}>
-            <WithSearchSelect
-              disabled={disabled}
-              width={160}
-              selectedItemName={
-                destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
-              }
-              data={
-                boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                  ? destinations
-                      // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-                      // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
-                      .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
-                  : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-              }
-              searchFields={['name']}
-              favourites={destinationsFavourites}
-              onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              onClickNotChosen={() =>
-                onSelectDestination(boxesMy?._id, {
-                  destinationId: null,
-                })
-              }
-              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
-            />
-          </div>
-          <div className={classNames.tatiff}>
-            <Button
-              disableElevation
-              disabled={disabled}
-              variant={boxesMy?.storekeeper?._id && 'text'}
-              className={classNames.storekeeperBtn}
-              onClick={e => {
-                e.stopPropagation()
-                onClickSetTariff(boxesMy)
-                setShowSelectionStorekeeperAndTariffModal()
-              }}
-            >
-              {/* {boxesMy?.storekeeper?._id
+          <WithSearchSelect
+            disabled={disabled}
+            width={160}
+            selectedItemName={
+              destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
+            }
+            data={
+              boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                ? destinations
+                    // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+                    // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
+                    .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
+                : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+            }
+            searchFields={['name']}
+            favourites={destinationsFavourites}
+            onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+            onClickNotChosen={() =>
+              onSelectDestination(boxesMy?._id, {
+                destinationId: null,
+              })
+            }
+            onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
+          />
+          <Button
+            disableElevation
+            disabled={disabled}
+            variant={boxesMy?.storekeeper?._id && 'text'}
+            className={classNames.storekeeperBtn}
+            onClick={e => {
+              e.stopPropagation()
+              onClickSetTariff(boxesMy)
+              setShowSelectionStorekeeperAndTariffModal()
+            }}
+          >
+            {/* {boxesMy?.storekeeper?._id
                 ? `${
                     storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name ||
                     t(TranslationKey['Not available'])
@@ -1262,15 +1259,14 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                             : 'none'
                         }`
                 : t(TranslationKey.Select)} */}
-              {boxesMy?.storekeeper?._id
-                ? `${
-                    boxesMy?.storekeeper?._id
-                      ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                      : 'none'
-                  }`
-                : t(TranslationKey.Select)}
-            </Button>
-          </div>
+            {boxesMy?.storekeeper?._id
+              ? `${
+                  boxesMy?.storekeeper?._id
+                    ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
+                    : 'none'
+                }`
+              : t(TranslationKey.Select)}
+          </Button>
         </div>
       )
     },
