@@ -131,7 +131,7 @@ export class SuppliersAndIdeasModel {
 
   async onClickOpenNewTab(productId, ideaId) {
     const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=ideas&IdeaId=${ideaId}`,
+      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
       '_blank',
     )
 

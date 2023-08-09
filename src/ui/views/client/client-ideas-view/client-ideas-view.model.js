@@ -50,6 +50,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientNewIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
   },
   '/client/ideas/on-checking': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING],
@@ -58,6 +59,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientOnCheckingIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_ON_CHECKING_IDEAS,
   },
   '/client/ideas/search-suppliers': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS],
@@ -66,6 +68,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientSearchSuppliersIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS,
   },
   '/client/ideas/create-card': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD],
@@ -74,6 +77,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientCreateCardIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_CREATE_CARD_IDEAS,
   },
   '/client/ideas/add-asin': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN],
@@ -82,6 +86,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientAddAsinIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_ADD_ASIN_IDEAS,
   },
   '/client/ideas/realized': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.REALIZED],
@@ -90,6 +95,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientRealizedIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_REALIZED_IDEAS,
   },
   '/client/ideas/closed': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.CLOSED],
@@ -98,6 +104,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientClosedIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_CLOSED_IDEAS,
   },
   '/client/ideas/all': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.ALL],
@@ -106,6 +113,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientAllIdeasColumns,
+    dataGridKey: DataGridTablesKeys.CLIENT_ALL_IDEAS,
   },
 }
 
@@ -310,11 +318,11 @@ export class ClientIdeasViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_IDEAS)
+    SettingsModel.setDataGridState(requestState, this.currentSettings.dataGridKey)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_IDEAS]
+    const state = SettingsModel.dataGridState[this.currentSettings.dataGridKey]
 
     runInAction(() => {
       if (state) {

@@ -92,7 +92,14 @@ export const DataGridTablesKeys = {
   CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
   CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
 
-  CLIENT_IDEAS: 'clientIdeasDataGridState',
+  CLIENT_NEW_IDEAS: 'clientNewIdeasDataGridState',
+  CLIENT_ON_CHECKING_IDEAS: 'clientOnCheckingIdeasDataGridState',
+  CLIENT_SEARCH_SUPPLIERS_IDEAS: 'clientSearchSuppliersIdeasDataGridState',
+  CLIENT_CREATE_CARD_IDEAS: 'clientCreateCardIdeasDataGridState',
+  CLIENT_ADD_ASIN_IDEAS: 'clientAddAsinIdeasDataGridState',
+  CLIENT_REALIZED_IDEAS: 'clientRealizedIdeasDataGridState',
+  CLIENT_CLOSED_IDEAS: 'clientClosedIdeasDataGridState',
+  CLIENT_ALL_IDEAS: 'clientAllIdeasDataGridState',
 
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',

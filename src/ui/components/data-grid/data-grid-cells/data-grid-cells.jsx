@@ -3252,7 +3252,7 @@ export const IdeaProduct = React.memo(
 
     return (
       <div>
-        {!rowData.childProduct && (
+        {!rowData.childProduct && rowData.variation && (
           <Button
             success
             small
@@ -3262,11 +3262,12 @@ export const IdeaProduct = React.memo(
             {t(TranslationKey['Create a product card'])}
           </Button>
         )}
-        {rowData.childProduct && !rowData.suppliers.length && (
-          <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
-            {t(TranslationKey['Set supplier to card'])}
-          </Button>
-        )}
+        {(rowData.childProduct && !rowData.suppliers.length) ||
+          (!rowData.variation && (
+            <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
+              {t(TranslationKey['Set supplier to card'])}
+            </Button>
+          ))}
 
         {!!rowData.suppliers.length && !!rowData.childProduct && (
           <ProductAsinCell
@@ -3289,7 +3290,7 @@ export const CreateCardIdeaActions = React.memo(
       <Button
         small
         success
-        disabled={!row.childProduct}
+        disabled={!row.childProduct && row.variation}
         onClick={() => rowHandlers.onClickAcceptOnCreatingProduct(row._id)}
       >
         {t(TranslationKey.Accept)}
