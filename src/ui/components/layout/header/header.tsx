@@ -188,7 +188,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
       <div className={classNames.toolbar}>
         <div className={classNames.titleWrapper}>
           <Typography key={SettingsModel.languageTag} className={classNames.title}>
-            {title}
+            {t(TranslationKey[`${title as TranslationKey}`])}
           </Typography>
 
           <div className={classNames.tooltipWrapper} onClick={onTriggerShowHints}>
