@@ -103,10 +103,9 @@ export const useClassNames = makeStyles()(theme => ({
   infoContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: 25,
+    gap: 20,
 
     [theme.breakpoints.down(1024)]: {
-      gap: 20,
       paddingLeft: 20,
     },
 

@@ -12,7 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Chat } from '@components/chat/chat'
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
-import { useMuteChat } from '@components/chat/chat/use-mute-chat'
 import { ChatsList } from '@components/chat/chats-list'
 import { SearchResult } from '@components/chat/search-result'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
@@ -23,7 +22,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { ArrowBackIcon, NewDialogIcon, NoSelectedChat, SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
+import { ArrowBackIcon, NewDialogIcon, NoSelectedChat } from '@components/shared/svg-icons'
 
 import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -72,8 +71,6 @@ export const MessagesView = observer(props => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
 
-  const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId, viewModel.mutedChats)
-
   const totalUnreadMessages = filteredChats.reduce(
     (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
     0,
@@ -97,19 +94,23 @@ export const MessagesView = observer(props => {
 
             {isMobileResolution && (
               <div className={classNames.rightSideHeader}>
-                <div className={classNames.noticesWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
+                <div className={classNames.noticesWrapper}>
                   <p
                     className={cx(classNames.noticesTextActive, {
-                      [classNames.noticesTextNotActive]: !viewModel.noticeOfSimpleChats,
+                      [classNames.noticesTextNotActive]: viewModel.isMuteChats,
                       [classNames.mobileResolution]: isMobileResolution,
                     })}
+                    onClick={viewModel.onToggleMuteAllChats}
                   >
-                    {viewModel.noticeOfSimpleChats
-                      ? t(TranslationKey['Notices included'])
-                      : t(TranslationKey['Notices are off'])}
+                    {viewModel.isMuteChats
+                      ? t(TranslationKey['Notices are off'])
+                      : t(TranslationKey['Notices included'])}
                   </p>
 
-                  {viewModel.noticeOfSimpleChats ? <SoundOnIcon /> : <SoundOffIcon />}
+                  <ChatSoundNotification
+                    isMuteChat={viewModel.isMuteChats}
+                    onToggleMuteChat={viewModel.onToggleMuteAllChats}
+                  />
                 </div>
 
                 <Button
@@ -163,8 +164,8 @@ export const MessagesView = observer(props => {
                       </div>
 
                       <ChatSoundNotification
-                        isMuteCurrentChat={isMuteCurrentChat}
-                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                        isMuteChat={viewModel.isMuteChat}
+                        onToggleMuteChat={viewModel.onToggleMuteCurrentChat}
                       />
                     </>
                   ) : (
@@ -180,8 +181,8 @@ export const MessagesView = observer(props => {
                       </div>
 
                       <ChatSoundNotification
-                        isMuteCurrentChat={isMuteCurrentChat}
-                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                        isMuteChat={viewModel.isMuteChat}
+                        onToggleMuteChat={viewModel.onToggleMuteCurrentChat}
                       />
                     </>
                   )}
@@ -213,18 +214,22 @@ export const MessagesView = observer(props => {
 
             {!isMobileResolution && !isChatSelectedAndFound && (
               <div className={classNames.rightSideHeader}>
-                <div className={classNames.noticesWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
+                <div className={classNames.noticesWrapper}>
                   <p
                     className={cx(classNames.noticesTextActive, {
-                      [classNames.noticesTextNotActive]: !viewModel.noticeOfSimpleChats,
+                      [classNames.noticesTextNotActive]: viewModel.isMuteChats,
                     })}
+                    onClick={viewModel.onToggleMuteAllChats}
                   >
-                    {viewModel.noticeOfSimpleChats
-                      ? t(TranslationKey['Notices included'])
-                      : t(TranslationKey['Notices are off'])}
+                    {viewModel.isMuteChats
+                      ? t(TranslationKey['Notices are off'])
+                      : t(TranslationKey['Notices included'])}
                   </p>
 
-                  {viewModel.noticeOfSimpleChats ? <SoundOnIcon /> : <SoundOffIcon />}
+                  <ChatSoundNotification
+                    isMuteChat={viewModel.isMuteChats}
+                    onToggleMuteChat={() => viewModel.onToggleMuteAllChats()}
+                  />
                 </div>
 
                 <Button

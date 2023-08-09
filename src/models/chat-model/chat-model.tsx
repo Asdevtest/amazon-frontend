@@ -59,10 +59,6 @@ class ChatModelStatic {
     )
   }
 
-  get noticeOfSimpleChats() {
-    return SettingsModel.noticeOfSimpleChats
-  }
-
   get mutedChats() {
     return SettingsModel.mutedChats
   }
@@ -314,7 +310,7 @@ class ChatModelStatic {
     }
 
     if (findSimpleChatIndexById !== -1) {
-      if (this.noticeOfSimpleChats && message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
+      if (message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
         noticeSound.play()
 
         // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
