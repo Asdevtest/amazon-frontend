@@ -1,1 +1,1 @@
-export * from './supplier-approximate-calculations-form-columns'
+export { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'

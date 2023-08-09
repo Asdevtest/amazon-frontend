@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -65,6 +65,7 @@ export const IdeaViewAndEditCard = observer(
     inCreate,
     idea,
     curIdea,
+    selectedIdea,
     selectedSupplier,
     currentProduct,
     onClickCancelBtn,
@@ -87,6 +88,8 @@ export const IdeaViewAndEditCard = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
+    const linkListRef = useRef(null)
+
     const [linkLine, setLinkLine] = useState('')
     const [images, setImages] = useState([])
     const [showFullCard, setShowFullCard] = useState(false)
@@ -105,6 +108,12 @@ export const IdeaViewAndEditCard = observer(
         setRequestsToRender(formFields.requestsOnFinished)
       }
     }, [showRequestType, formFields.requestsOnCheck, formFields.requestsOnFinished])
+
+    useEffect(() => {
+      if (formFields?.productLinks?.length > 2 && linkListRef?.current) {
+        linkListRef.current.scrollTo(0, linkListRef.current.scrollHeight)
+      }
+    }, [formFields.productLinks])
 
     const getShortIdea = () => ({
       _id: idea?._id,
@@ -192,6 +201,12 @@ export const IdeaViewAndEditCard = observer(
       }
     }, [curIdea, idea])
 
+    useEffect(() => {
+      if (selectedIdea === idea?._id) {
+        setShowFullCardByCurIdea()
+      }
+    }, [])
+
     const handleChange = newAlignment => {
       setSizeSetting(newAlignment)
 
@@ -252,6 +267,7 @@ export const IdeaViewAndEditCard = observer(
     const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
 
     const isNewIdea = formFields?.status === ideaStatusByKey[ideaStatus.NEW]
+    const isOnCheck = formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK]
     const isSupplierSearch = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]
     const isSupplierFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]
     const isSupplierNotFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
@@ -260,7 +276,7 @@ export const IdeaViewAndEditCard = observer(
     const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && isCardCreating && !isVerified
+      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified
 
     const showRejectButton =
       isNewIdea ||
@@ -476,7 +492,7 @@ export const IdeaViewAndEditCard = observer(
                               </Button>
                             </div>
                           )}
-                          <div className={classNames.linksSubWrapper}>
+                          <div ref={linkListRef} className={classNames.linksSubWrapper}>
                             {formFields?.productLinks?.length ? (
                               formFields?.productLinks?.map((el, index) => (
                                 <div key={index} className={classNames.linkWrapper}>

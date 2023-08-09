@@ -11,6 +11,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Chat } from '@components/chat/chat'
+import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { useMuteChat } from '@components/chat/chat/use-mute-chat'
 import { ChatsList } from '@components/chat/chats-list'
 import { SearchResult } from '@components/chat/search-result'
@@ -71,7 +72,7 @@ export const MessagesView = observer(props => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
 
-  const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId)
+  const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId, viewModel.mutedChats)
 
   const totalUnreadMessages = filteredChats.reduce(
     (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
@@ -127,6 +128,7 @@ export const MessagesView = observer(props => {
             typingUsers={viewModel.typingUsers}
             chats={filteredChats}
             chatSelectedId={viewModel.chatSelectedId}
+            mutedChats={viewModel.mutedChats}
             onClickChat={viewModel.onClickChat}
           />
         </div>
@@ -160,11 +162,10 @@ export const MessagesView = observer(props => {
                         </Link>
                       </div>
 
-                      {isMuteCurrentChat ? (
-                        <SoundOffIcon onClick={onToggleMuteCurrentChat} />
-                      ) : (
-                        <SoundOnIcon onClick={onToggleMuteCurrentChat} />
-                      )}
+                      <ChatSoundNotification
+                        isMuteCurrentChat={isMuteCurrentChat}
+                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                      />
                     </>
                   ) : (
                     <>
@@ -178,11 +179,10 @@ export const MessagesView = observer(props => {
                         </div>
                       </div>
 
-                      {isMuteCurrentChat ? (
-                        <SoundOffIcon onClick={onToggleMuteCurrentChat} />
-                      ) : (
-                        <SoundOnIcon onClick={onToggleMuteCurrentChat} />
-                      )}
+                      <ChatSoundNotification
+                        isMuteCurrentChat={isMuteCurrentChat}
+                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                      />
                     </>
                   )}
                 </div>

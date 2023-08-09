@@ -32,10 +32,11 @@ interface Props {
   chatSelectedId?: string
   typingUsers?: OnTypingMessageResponse[]
   onClickChat: (chat: ChatContract) => void
+  mutedChats?: string[]
 }
 
 export const ChatsList: FC<Props> = observer(
-  ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner }) => {
+  ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner, mutedChats }) => {
     const { classes: classNames } = useClassNames()
 
     const solvedChats = isFreelanceOwner
@@ -97,15 +98,15 @@ export const ChatsList: FC<Props> = observer(
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.IN_WORK}>
-              {chatListMapper(inWorkChats, userId, typingUsers, chatSelectedId, onClickChat)}
+              {chatListMapper(inWorkChats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SOLVED}>
-              {chatListMapper(solvedChats, userId, typingUsers, chatSelectedId, onClickChat)}
+              {chatListMapper(solvedChats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)}
             </TabPanel>
           </>
         ) : (
-          chatListMapper(chats, userId, typingUsers, chatSelectedId, onClickChat)
+          chatListMapper(chats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)
         )}
       </div>
     )
