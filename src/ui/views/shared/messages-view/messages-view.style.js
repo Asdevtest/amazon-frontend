@@ -227,6 +227,10 @@ export const useClassNames = makeStyles()(theme => ({
   searchResult: {
     width: 140,
     color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1024)]: {
+      fontSize: 12,
+    },
   },
 
   rightSideHeader: {

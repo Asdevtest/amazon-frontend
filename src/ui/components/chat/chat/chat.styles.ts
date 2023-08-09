@@ -135,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   sendBtn: {
     height: 40,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       width: 40,
       height: 40,
       borderRadius: '50%',
@@ -223,7 +223,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sendBtnText: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },

@@ -90,15 +90,15 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: 165,
 
     [theme.breakpoints.down(1024)]: {
-      maxWidth: 130,
+      maxWidth: 100,
     },
 
     [theme.breakpoints.down(768)]: {
-      maxWidth: 210,
+      maxWidth: 180,
     },
 
     [theme.breakpoints.down(360)]: {
-      maxWidth: 175,
+      maxWidth: 145,
     },
   },
 
