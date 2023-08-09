@@ -142,6 +142,7 @@ const filtersFields = [
   'amazonTitle',
   'asin',
   'skusByClient',
+  'status',
 ]
 
 export class ClientIdeasViewModel {
@@ -372,6 +373,8 @@ export class ClientIdeasViewModel {
   }
 
   getFilters(exclusion) {
+    const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
+
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
@@ -388,9 +391,11 @@ export class ClientIdeasViewModel {
           'title',
         ],
         {
-          status: {
-            $eq: this.currentSettings.statuses.join(','),
-          },
+          ...(!statusFilterData.length && {
+            status: {
+              $eq: this.currentSettings.statuses.join(','),
+            },
+          }),
         },
       ),
     )

@@ -1,7 +1,6 @@
 export const styles = theme => ({
   img: {
-    maxHeight: '58px',
-    height: 'fit-content',
+    height: '58px',
     width: '58px',
     marginRight: '16px',
     objectFit: 'contain',
