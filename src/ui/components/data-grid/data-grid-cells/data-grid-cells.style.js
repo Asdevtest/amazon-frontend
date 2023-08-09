@@ -848,10 +848,10 @@ export const styles = theme => ({
 
   adaptText: {
     fontSize: 14,
+    fontWeight: 400,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.primary.main,
   },
 
   headerText: {
