@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalRoot: {
-    padding: 0,
+    padding: '0 !important',
     display: 'flex',
     gap: '40px',
   },

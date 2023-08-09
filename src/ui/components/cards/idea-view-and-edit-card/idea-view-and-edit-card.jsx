@@ -65,6 +65,7 @@ export const IdeaViewAndEditCard = observer(
     inCreate,
     idea,
     curIdea,
+    selectedIdea,
     selectedSupplier,
     currentProduct,
     onClickCancelBtn,
@@ -199,6 +200,12 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getFullIdea())
       }
     }, [curIdea, idea])
+
+    useEffect(() => {
+      if (selectedIdea === idea?._id) {
+        setShowFullCardByCurIdea()
+      }
+    }, [])
 
     const handleChange = newAlignment => {
       setSizeSetting(newAlignment)
