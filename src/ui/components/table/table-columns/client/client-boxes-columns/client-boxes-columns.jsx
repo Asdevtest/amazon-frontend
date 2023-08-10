@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
@@ -265,6 +262,7 @@ export const clientBoxesViewColumns = (
     width: 215,
     filterable: false,
     sortable: false,
+    align: 'center',
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
   },
 

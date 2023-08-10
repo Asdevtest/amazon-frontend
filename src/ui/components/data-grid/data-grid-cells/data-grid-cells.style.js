@@ -1355,22 +1355,17 @@ export const styles = theme => ({
     gap: 5,
   },
   destinationAndTariffWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-    padding: '10px 0',
+    padding: '20px 0',
   },
   storekeeperBtn: {
     height: 'auto',
-    width: '100%',
+    width: 160,
+    marginTop: 10,
     whiteSpace: 'normal',
     color: theme.palette.text.general,
+    background: theme.palette.primary.main,
   },
-  destination: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+
   cursorPointer: {
     cursor: 'pointer',
   },
