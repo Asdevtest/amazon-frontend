@@ -78,8 +78,6 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  console.log('createRequestForIdeaData', createRequestForIdeaData)
-
   const mainContentRefElement = mainContentRef.current
 
   const componentRef = useRef(null)
