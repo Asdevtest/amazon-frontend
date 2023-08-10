@@ -212,6 +212,7 @@ export class ClientIdeasViewModel {
   currentProduct = undefined
   requestsForProduct = []
   productsToLaunch = []
+  productId = undefined
   currentProposal = undefined
 
   paymentMethods = []
@@ -1041,7 +1042,10 @@ export class ClientIdeasViewModel {
   }
 
   async onClickNextButton(chosenProduct) {
-    runInAction(() => (this.currentProduct = chosenProduct))
+    runInAction(() => {
+      this.currentProduct = chosenProduct
+      this.productId = chosenProduct?._id
+    })
     this.onTriggerOpenModal('showProductLaunch')
     this.onTriggerOpenModal('showIdeaModal')
   }
