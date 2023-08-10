@@ -143,7 +143,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 96,
+    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -163,7 +164,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Adding ASIN'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 106,
+    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -183,7 +185,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell color="#0B903E" text={t(TranslationKey['Elapsed time'])} />,
 
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
-    width: 91,
+    width: 106,
+    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
