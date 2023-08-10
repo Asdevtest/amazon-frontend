@@ -96,8 +96,8 @@ export const exchangeSupplierNotFoundedColumns = () => [
 
   {
     field: 'buyer',
-    headerName: t(TranslationKey.Price),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
+    headerName: t(TranslationKey.Buyer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 200,
