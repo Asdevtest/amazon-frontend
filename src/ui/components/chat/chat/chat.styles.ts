@@ -67,12 +67,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   scrollToBottomBadge: {
-    padding: '1px 6px',
+    fontSize: 13,
+    width: 25,
+    height: 25,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     background: theme.palette.primary.main,
     position: 'absolute',
     top: -10,
     right: -10,
-    borderRadius: 20,
+    borderRadius: '50%',
     color: 'white',
   },
 
