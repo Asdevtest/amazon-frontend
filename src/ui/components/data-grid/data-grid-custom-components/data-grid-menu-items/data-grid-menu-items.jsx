@@ -1284,9 +1284,9 @@ export const ProductMenuItem = React.memo(
     } = props
 
     const getCurrentField = option => {
-      if (field.includes('parent')) {
+      if (field && field.includes('parent')) {
         return 'parentProduct' + option.charAt(0).toUpperCase() + option.slice(1)
-      } else if (field.includes('child')) {
+      } else if (field && field.includes('child')) {
         return 'childProduct' + option.charAt(0).toUpperCase() + option.slice(1)
       } else {
         return option
