@@ -434,7 +434,7 @@ export const IdeaViewAndEditCard = observer(
                   <div className={classNames.nameAndInfoProductWrapper}>
                     <Field
                       disabled={disableFields}
-                      label={t(TranslationKey['Product name'])}
+                      label={`${t(TranslationKey['Product name'])}*`}
                       inputProps={{ maxLength: 130 }}
                       value={formFields.productName}
                       labelClasses={classNames.spanLabel}
