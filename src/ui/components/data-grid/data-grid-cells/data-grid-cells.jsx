@@ -860,18 +860,16 @@ export const NormDateWithoutTimeCell = React.memo(
 
 export const ShortDateCell = React.memo(
   withStyles(({ classes: classNames, value }) => {
-    const getDeadlineColor = timeoutAt => {
+    /* const getDeadlineColor = timeoutAt => {
       if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
         return classNames.redColor
       } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
         return classNames.yellowColor
       }
-    }
+    } */
 
     return (
-      <Typography className={cx(classNames.shortDateCellTypo, getDeadlineColor(value))}>
-        {!value ? '-' : formatShortDateTime(value)}
-      </Typography>
+      <Typography className={cx(classNames.shortDateCellTypo)}>{!value ? '-' : formatShortDateTime(value)}</Typography>
     )
   }, styles),
 )
