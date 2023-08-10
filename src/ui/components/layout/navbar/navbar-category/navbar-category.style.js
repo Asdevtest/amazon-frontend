@@ -20,7 +20,7 @@ export const styles = theme => ({
     },
     '&:hover': { backgroundColor: 'rgba(0,123,255,0.3)' },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       height: 40,
     },
   },

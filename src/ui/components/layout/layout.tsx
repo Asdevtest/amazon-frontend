@@ -41,7 +41,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const [shortNavbar, setShortNavbar] = useState(false)
 
   useEffect(() => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       setShortNavbar(false)
     }
   }, [])

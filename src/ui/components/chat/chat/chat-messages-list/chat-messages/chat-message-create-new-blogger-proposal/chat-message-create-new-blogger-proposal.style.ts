@@ -4,9 +4,13 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
     padding: 30,
-    maxWidth: 1200,
+    maxWidth: 550,
     margin: '0 auto',
     borderRadius: 7,
+
+    [theme.breakpoints.down(1280)]: {
+      maxWidth: 390,
+    },
   },
 
   headerText: {

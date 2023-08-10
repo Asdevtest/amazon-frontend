@@ -42,11 +42,19 @@ export const useChatInfoStyles = makeStyles()(theme => ({
       objectFit: 'cover',
     },
 
+    [theme.breakpoints.down(1024)]: {
+      gridTemplateColumns: 'repeat(4, 1fr)',
+
+      img: {
+        height: 97,
+      },
+    },
+
     [theme.breakpoints.down(768)]: {
       gridTemplateColumns: 'repeat(2, 1fr)',
 
       img: {
-        height: 90,
+        height: 100,
       },
     },
   },
