@@ -279,6 +279,7 @@ export const lightTheme = createTheme({
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
+      activeChat: '#E7F1FF',
     },
 
     linearGradient: {
@@ -292,7 +293,7 @@ export const lightTheme = createTheme({
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
 
-      paper: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+      paper: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
 
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
@@ -738,6 +739,7 @@ export const darkTheme = createTheme({
 
         default: '#121212',
         disabledDangerBtn: '#4F2026',
+        activeChat: '#384C68',
       },
 
       linearGradient: {

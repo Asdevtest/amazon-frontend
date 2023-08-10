@@ -25,7 +25,7 @@ import { FilesCarousel } from '@components/shared/files-carousel'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 
 import { checkIsImageLink } from '@utils/checks'
-import { toFixed } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
@@ -101,7 +101,11 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
       }
 
       return suppliers[0].link ? (
-        <LinkWithCopy url={suppliers[0].link} valueToCopy={suppliers[0].link} title={t(TranslationKey.Site)} />
+        <LinkWithCopy
+          url={checkAndMakeAbsoluteUrl(suppliers[0].link)}
+          valueToCopy={suppliers[0].link}
+          title={t(TranslationKey.Site)}
+        />
       ) : (
         <MultilineTextCell text={t(TranslationKey['Link not available'])} />
       )
@@ -146,7 +150,6 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
     width: 115,
     sortable: false,
-    filterable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -203,7 +206,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 160,
     sortable: false,
-    filterable: false,
+    columnKey: columnnsKeys.client.IDEAS_STATUS,
   },
 
   {

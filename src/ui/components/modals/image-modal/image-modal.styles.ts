@@ -4,6 +4,11 @@ export const useImageModalStyles = makeStyles()(theme => ({
   modalContainer: {
     maxHeight: '70vh',
     padding: 40,
+
+    [theme.breakpoints.down(768)]: {
+      maxHeight: '100vh',
+      padding: 20,
+    },
   },
 
   wrapper: {
@@ -12,6 +17,13 @@ export const useImageModalStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 42,
+
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column-reverse',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 20,
+    },
   },
 
   imagesList: {
@@ -21,6 +33,16 @@ export const useImageModalStyles = makeStyles()(theme => ({
     paddingRight: 20,
     gap: 25,
     maxHeight: 'calc(70vh - 80px)',
+
+    [theme.breakpoints.down(768)]: {
+      maxHeight: '273px',
+      overflow: 'auto',
+      paddingRight: 0,
+      gap: 10,
+      justifyContent: 'center',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
   },
 
   imagesListItem: {
@@ -34,13 +56,18 @@ export const useImageModalStyles = makeStyles()(theme => ({
     width: '100%',
 
     img: {
-      width: '75px',
-      height: '75px',
+      width: 74,
+      height: 74,
       borderRadius: '4px',
     },
 
     p: {
       overflowWrap: 'anywhere',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      width: 'max-content',
+      padding: 5,
     },
   },
 
@@ -73,6 +100,10 @@ export const useImageModalStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 30,
+
+    [theme.breakpoints.down(768)]: {
+      gap: 10,
+    },
   },
 
   title: {},
@@ -81,6 +112,10 @@ export const useImageModalStyles = makeStyles()(theme => ({
     maxWidth: 720,
     width: '100vh',
     height: '100%',
+
+    [theme.breakpoints.down(768)]: {
+      width: '37vh',
+    },
   },
 
   sliderItem: {
@@ -124,6 +159,13 @@ export const useImageModalStyles = makeStyles()(theme => ({
     button: {
       width: 40,
       height: 40,
+    },
+
+    [theme.breakpoints.down(768)]: {
+      justifyContent: 'space-between',
+      padding: '0 17px',
+      marginTop: 0,
+      marginRight: 0,
     },
   },
 

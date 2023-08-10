@@ -10,6 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.paper,
     borderRight: `1px solid ${theme.palette.background.second}`,
 
+    [theme.breakpoints.down(1024)]: {
+      width: 220,
+    },
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       borderRadius: 7,
@@ -20,13 +24,17 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.background.general,
   },
 
+  activeChat: {
+    background: theme.palette.background.activeChat,
+  },
+
   indicator: {
     backgroundColor: theme.palette.primary.main,
   },
 
   row: {
     width: '100%',
-    padding: '0 0px',
+    padding: 0,
     margin: '0 auto',
     minHeight: `40px`,
   },

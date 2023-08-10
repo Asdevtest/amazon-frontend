@@ -77,7 +77,8 @@ export const ideaStatusTranslate = (status: ideaStatus) => {
     case ideaStatus.ON_CHECK:
       return t(TranslationKey['On check'])
     case ideaStatus.VERIFIED:
-      return t(TranslationKey.Verified)
+    case ideaStatus.REALIZED:
+      return t(TranslationKey.Realized)
     case ideaStatus.CLOSED:
       return t(TranslationKey.Closed)
     case ideaStatus.SUPPLIER_FOUND:

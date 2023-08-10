@@ -6,9 +6,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    maxWidth: 690,
+    maxWidth: 550,
     backgroundColor: theme.palette.background.chatMyMessage,
     borderRadius: 20,
+
+    [theme.breakpoints.down(1280)]: {
+      maxWidth: 390,
+    },
 
     [theme.breakpoints.down(768)]: {
       padding: '10px 10px 5px 10px',

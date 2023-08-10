@@ -2,18 +2,16 @@ import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { Avatar, Link } from '@mui/material'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
+import { isMobileResolution, isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Chat } from '@components/chat/chat'
-import { СhatSoundNotification } from '@components/chat/chat-sound-notification'
-import { useMuteChat } from '@components/chat/chat/use-mute-chat'
+import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { ChatsList } from '@components/chat/chats-list'
 import { SearchResult } from '@components/chat/search-result'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
@@ -24,17 +22,17 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { ArrowBackIcon, NewDialogIcon, NoSelectedChat, SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
+import { ArrowBackIcon, NewDialogIcon, NoSelectedChat } from '@components/shared/svg-icons'
 
 import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { MessagesViewModel } from './messages-view.model'
-import { styles } from './messages-view.style'
+import { useClassNames } from './messages-view.style'
 
-export const MessagesViewRaw = props => {
-  const { classes: classNames } = props
+export const MessagesView = observer(props => {
+  const { classes: classNames } = useClassNames()
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
 
   useEffect(() => {
@@ -73,8 +71,6 @@ export const MessagesViewRaw = props => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
 
-  const { isMuteCurrentChat, onToggleMuteCurrentChat } = useMuteChat(viewModel.chatSelectedId, viewModel.mutedChats)
-
   const totalUnreadMessages = filteredChats.reduce(
     (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
     0,
@@ -83,7 +79,11 @@ export const MessagesViewRaw = props => {
   return (
     viewModel.languageTag && (
       <div className={classNames.wrapper}>
-        <div className={cx(classNames.leftSide, { [classNames.mobileResolution]: isChatSelectedAndFound })}>
+        <div
+          className={cx(classNames.leftSide, {
+            [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+          })}
+        >
           <div className={classNames.searchWrapper}>
             <SearchInput
               inputClasses={classNames.searchInput}
@@ -94,19 +94,23 @@ export const MessagesViewRaw = props => {
 
             {isMobileResolution && (
               <div className={classNames.rightSideHeader}>
-                <div className={classNames.noticesWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
+                <div className={classNames.noticesWrapper}>
                   <p
                     className={cx(classNames.noticesTextActive, {
-                      [classNames.noticesTextNotActive]: !viewModel.noticeOfSimpleChats,
+                      [classNames.noticesTextNotActive]: viewModel.isMuteChats,
                       [classNames.mobileResolution]: isMobileResolution,
                     })}
+                    onClick={viewModel.onToggleMuteAllChats}
                   >
-                    {viewModel.noticeOfSimpleChats
-                      ? t(TranslationKey['Notices included'])
-                      : t(TranslationKey['Notices are off'])}
+                    {viewModel.isMuteChats
+                      ? t(TranslationKey['Notices are off'])
+                      : t(TranslationKey['Notices included'])}
                   </p>
 
-                  {viewModel.noticeOfSimpleChats ? <SoundOnIcon /> : <SoundOffIcon />}
+                  <ChatSoundNotification
+                    isMuteChat={viewModel.isMuteChats}
+                    onToggleMuteChat={viewModel.onToggleMuteAllChats}
+                  />
                 </div>
 
                 <Button
@@ -159,9 +163,9 @@ export const MessagesViewRaw = props => {
                         </Link>
                       </div>
 
-                      <СhatSoundNotification
-                        isMuteCurrentChat={isMuteCurrentChat}
-                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                      <ChatSoundNotification
+                        isMuteChat={viewModel.isMuteChat}
+                        onToggleMuteChat={viewModel.onToggleMuteCurrentChat}
                       />
                     </>
                   ) : (
@@ -176,9 +180,9 @@ export const MessagesViewRaw = props => {
                         </div>
                       </div>
 
-                      <СhatSoundNotification
-                        isMuteCurrentChat={isMuteCurrentChat}
-                        onToggleMuteCurrentChat={onToggleMuteCurrentChat}
+                      <ChatSoundNotification
+                        isMuteChat={viewModel.isMuteChat}
+                        onToggleMuteChat={viewModel.onToggleMuteCurrentChat}
                       />
                     </>
                   )}
@@ -186,11 +190,12 @@ export const MessagesViewRaw = props => {
 
                 <div className={classNames.searchMessageContainer}>
                   <SearchInput
-                    inputClasses={classNames.searchInput}
+                    inputClasses={cx(classNames.searchInput, {
+                      [classNames.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
+                    })}
                     placeholder={t(TranslationKey['Message Search'])}
                     value={viewModel.mesSearchValue}
                     onChange={viewModel.onChangeMesSearchValue}
-                    onKeyPress={e => console.log('e', e)}
                   />
 
                   {viewModel.messagesFound.length ? (
@@ -207,20 +212,24 @@ export const MessagesViewRaw = props => {
               </div>
             )}
 
-            {!isMobileResolution && (
+            {!isMobileResolution && !isChatSelectedAndFound && (
               <div className={classNames.rightSideHeader}>
-                <div className={classNames.noticesWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
+                <div className={classNames.noticesWrapper}>
                   <p
                     className={cx(classNames.noticesTextActive, {
-                      [classNames.noticesTextNotActive]: !viewModel.noticeOfSimpleChats,
+                      [classNames.noticesTextNotActive]: viewModel.isMuteChats,
                     })}
+                    onClick={viewModel.onToggleMuteAllChats}
                   >
-                    {viewModel.noticeOfSimpleChats
-                      ? t(TranslationKey['Notices included'])
-                      : t(TranslationKey['Notices are off'])}
+                    {viewModel.isMuteChats
+                      ? t(TranslationKey['Notices are off'])
+                      : t(TranslationKey['Notices included'])}
                   </p>
 
-                  {viewModel.noticeOfSimpleChats ? <SoundOnIcon /> : <SoundOffIcon />}
+                  <ChatSoundNotification
+                    isMuteChat={viewModel.isMuteChats}
+                    onToggleMuteChat={() => viewModel.onToggleMuteAllChats()}
+                  />
                 </div>
 
                 <Button
@@ -311,6 +320,4 @@ export const MessagesViewRaw = props => {
       </div>
     )
   )
-}
-
-export const MessagesView = withStyles(observer(MessagesViewRaw), styles)
+})

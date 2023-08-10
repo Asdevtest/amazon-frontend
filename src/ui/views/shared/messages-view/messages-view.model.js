@@ -57,8 +57,12 @@ export class MessagesViewModel {
     return ChatModel.typingUsers || []
   }
 
-  get noticeOfSimpleChats() {
-    return SettingsModel.noticeOfSimpleChats
+  get isMuteChat() {
+    return SettingsModel.isMuteChat
+  }
+
+  get isMuteChats() {
+    return SettingsModel.isMuteChats
   }
 
   get mutedChats() {
@@ -143,6 +147,15 @@ export class MessagesViewModel {
       },
     )
   }
+
+  onToggleMuteCurrentChat() {
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+  }
+
+  onToggleMuteAllChats() {
+    SettingsModel.onToggleMuteAllChats(this.simpleChats)
+  }
+
   onChangeCurFoundedMessage(index) {
     runInAction(() => {
       this.curFoundedMessage = this.messagesFound[index]
@@ -278,10 +291,6 @@ export class MessagesViewModel {
 
   onTypingMessage(chatId) {
     ChatModel.typingMessage({ chatId })
-  }
-
-  onTriggerNoticeOfSimpleChats() {
-    SettingsModel.onTriggerNoticeOfSimpleChats()
   }
 
   muteChatHandler(chatId) {

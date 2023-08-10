@@ -356,86 +356,46 @@ export const AsinCopyCell = React.memo(
 )
 
 export const StringListCell = React.memo(
-  withStyles(({ classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem, onClickCell }) => {
-    const [menuAnchor, setMenuAnchor] = useState(null)
-    const handleClick = event => {
-      setMenuAnchor(event.currentTarget)
-    }
-    const handleClose = () => {
-      setMenuAnchor(null)
-    }
-    const items = Array.isArray(sourceString) ? sourceString : sourceString?.split(', ')
-
-    const [itemsForRender, setItemsForRender] = useState(items || [])
-    const [nameSearchValue, setNameSearchValue] = useState('')
-
-    useEffect(() => {
-      if (nameSearchValue) {
-        const filter = items?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
-        setItemsForRender(filter)
-      } else {
-        setItemsForRender(items)
+  withStyles(
+    ({ classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem, onClickCell, asin }) => {
+      const [menuAnchor, setMenuAnchor] = useState(null)
+      const handleClick = event => {
+        setMenuAnchor(event.currentTarget)
       }
-    }, [nameSearchValue])
+      const handleClose = () => {
+        setMenuAnchor(null)
+      }
+      const items = Array.isArray(sourceString) ? sourceString : sourceString?.split(', ')
 
-    return (
-      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)} /* onClick={onClickCell} */>
-        <div onClick={onClickCell && onClickCell}>
-          {!!items?.length &&
-            items
-              ?.slice(0, maxItemsDisplay)
-              ?.filter(el => el)
-              ?.map((item, i) => (
-                <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                  <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                    {
-                      <span
-                        className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                          [classNames.bluelinkText]: onClickCell,
-                        })}
-                      >
-                        {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                      </span>
-                    }
-                  </Typography>
-                  {withCopy && <CopyValue text={item} />}
-                </div>
-              ))}
-        </div>
+      const [itemsForRender, setItemsForRender] = useState(items || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-        {items?.length > maxItemsDisplay ? (
-          <Button variant="text" className={cx(classNames.mainFilterBtn)} onClick={handleClick}>
-            <div className={cx(classNames.mainFilterBtnInsert)}>
-              <MoreHorizOutlinedIcon color="primary" />
-            </div>
-          </Button>
-        ) : null}
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = items?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(items)
+        }
+      }, [nameSearchValue])
 
-        <Menu
-          keepMounted
-          anchorEl={menuAnchor}
-          autoFocus={false}
-          open={Boolean(menuAnchor)}
-          // classes={{paper: classNames.menu, list: classNames.list}}
-          onClose={handleClose}
-        >
-          <div className={classNames.stringListMenuWrapper}>
-            <div className={classNames.searchInputWrapper}>
-              <SearchInput
-                inputClasses={classNames.searchInput}
-                placeholder={t(TranslationKey.Search)}
-                onChange={e => {
-                  setNameSearchValue(e.target.value)
-                }}
-              />
-            </div>
-            <div className={classNames.shopsWrapper}>
-              <div className={classNames.shopsBody}>
-                {itemsForRender?.map((item, i) => (
+      return (
+        <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)} /* onClick={onClickCell} */>
+          <div onClick={onClickCell && onClickCell}>
+            {!!items?.length &&
+              items
+                ?.slice(0, maxItemsDisplay)
+                ?.filter(el => el)
+                ?.map((item, i) => (
                   <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Typography className={classNames.typoCell}>
+                    <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
                       {
-                        <span className={classNames.multilineHeaderText}>
+                        <span
+                          className={cx(classNames.multilineHeaderText, classNames.adaptText, {
+                            [classNames.bluelinkText]: onClickCell,
+                            [classNames.orderTextSpanAsin]: asin,
+                          })}
+                        >
                           {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
                         </span>
                       }
@@ -443,13 +403,57 @@ export const StringListCell = React.memo(
                     {withCopy && <CopyValue text={item} />}
                   </div>
                 ))}
+          </div>
+
+          {items?.length > maxItemsDisplay ? (
+            <Button variant="text" className={cx(classNames.mainFilterBtn)} onClick={handleClick}>
+              <div className={cx(classNames.mainFilterBtnInsert)}>
+                <MoreHorizOutlinedIcon color="primary" />
+              </div>
+            </Button>
+          ) : null}
+
+          <Menu
+            keepMounted
+            anchorEl={menuAnchor}
+            autoFocus={false}
+            open={Boolean(menuAnchor)}
+            // classes={{paper: classNames.menu, list: classNames.list}}
+            onClose={handleClose}
+          >
+            <div className={classNames.stringListMenuWrapper}>
+              <div className={classNames.searchInputWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey.Search)}
+                  onChange={e => {
+                    setNameSearchValue(e.target.value)
+                  }}
+                />
+              </div>
+              <div className={classNames.shopsWrapper}>
+                <div className={classNames.shopsBody}>
+                  {itemsForRender?.map((item, i) => (
+                    <div key={i} className={classNames.multilineTextHeaderWrapper}>
+                      <Typography className={classNames.typoCell}>
+                        {
+                          <span className={classNames.multilineHeaderText}>
+                            {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                          </span>
+                        }
+                      </Typography>
+                      {withCopy && <CopyValue text={item} />}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </Menu>
-      </div>
-    )
-  }, styles),
+          </Menu>
+        </div>
+      )
+    },
+    styles,
+  ),
 )
 
 export const ProductCell = React.memo(
@@ -616,7 +620,7 @@ export const HsCodeCell = React.memo(
 
 export const ChangeInputCell = React.memo(
   withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue }) => {
-    const sourceValue = text ? text : ''
+    const sourceValue = text !== null ? text : ''
 
     const [value, setValue] = useState(sourceValue)
     const defaultValue = sourceValue
@@ -1211,45 +1215,42 @@ export const WarehouseDestinationAndTariffCell = React.memo(
 
       return (
         <div className={classNames.destinationAndTariffWrapper}>
-          <div className={classNames.destination}>
-            <WithSearchSelect
-              disabled={disabled}
-              width={160}
-              selectedItemName={
-                destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
-              }
-              data={
-                boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                  ? destinations
-                      // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-                      // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
-                      .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
-                  : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-              }
-              searchFields={['name']}
-              favourites={destinationsFavourites}
-              onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              onClickNotChosen={() =>
-                onSelectDestination(boxesMy?._id, {
-                  destinationId: null,
-                })
-              }
-              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
-            />
-          </div>
-          <div className={classNames.tatiff}>
-            <Button
-              disableElevation
-              disabled={disabled}
-              variant={boxesMy?.storekeeper?._id && 'text'}
-              className={classNames.storekeeperBtn}
-              onClick={e => {
-                e.stopPropagation()
-                onClickSetTariff(boxesMy)
-                setShowSelectionStorekeeperAndTariffModal()
-              }}
-            >
-              {/* {boxesMy?.storekeeper?._id
+          <WithSearchSelect
+            disabled={disabled}
+            width={160}
+            selectedItemName={
+              destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
+            }
+            data={
+              boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                ? destinations
+                    // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+                    // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
+                    .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
+                : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+            }
+            searchFields={['name']}
+            favourites={destinationsFavourites}
+            onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+            onClickNotChosen={() =>
+              onSelectDestination(boxesMy?._id, {
+                destinationId: null,
+              })
+            }
+            onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
+          />
+          <Button
+            disableElevation
+            disabled={disabled}
+            variant={boxesMy?.storekeeper?._id && 'text'}
+            className={classNames.storekeeperBtn}
+            onClick={e => {
+              e.stopPropagation()
+              onClickSetTariff(boxesMy)
+              setShowSelectionStorekeeperAndTariffModal()
+            }}
+          >
+            {/* {boxesMy?.storekeeper?._id
                 ? `${
                     storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name ||
                     t(TranslationKey['Not available'])
@@ -1262,15 +1263,14 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                             : 'none'
                         }`
                 : t(TranslationKey.Select)} */}
-              {boxesMy?.storekeeper?._id
-                ? `${
-                    boxesMy?.storekeeper?._id
-                      ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                      : 'none'
-                  }`
-                : t(TranslationKey.Select)}
-            </Button>
-          </div>
+            {boxesMy?.storekeeper?._id
+              ? `${
+                  boxesMy?.storekeeper?._id
+                    ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
+                    : 'none'
+                }`
+              : t(TranslationKey.Select)}
+          </Button>
         </div>
       )
     },
@@ -3068,7 +3068,7 @@ export const ProductInfoExtended = React.memo(
                 <div className={classNames.boxInfoWrapper}>
                   <Typography className={classNames.boxInfoText}>
                     <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                    {item.asin}
+                    <span className={classNames.orderTextSpanAsin}>{item.asin}</span>
                   </Typography>
                   {item.asin ? <CopyValue text={item.asin} /> : null}
                 </div>

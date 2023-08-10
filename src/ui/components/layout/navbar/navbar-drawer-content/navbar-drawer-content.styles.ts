@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       height: '100%',
     },
   },
@@ -62,7 +62,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.01)',
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
       lineHeight: '19px',
     },

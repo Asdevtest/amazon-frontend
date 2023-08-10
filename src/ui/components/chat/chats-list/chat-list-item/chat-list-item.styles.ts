@@ -8,11 +8,31 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 12,
     padding: '15px 10px',
     cursor: 'pointer',
+
+    [theme.breakpoints.down(1024)]: {
+      alignItems: 'center',
+      padding: 10,
+      gap: 10,
+    },
+
+    [theme.breakpoints.down(768)]: {
+      alignItems: 'flex-start',
+    },
   },
 
-  avatarWrapper: {
+  avatar: {
     height: 49,
     width: 49,
+
+    [theme.breakpoints.down(1024)]: {
+      height: 30,
+      width: 30,
+    },
+
+    [theme.breakpoints.down(768)]: {
+      height: 43,
+      width: 43,
+    },
   },
 
   rightSide: {
@@ -27,7 +47,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   titleText: {
-    margin: 0,
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
@@ -37,14 +56,22 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
-      maxWidth: 115,
+      lineHeight: '19px',
+      maxWidth: 95,
+    },
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+    },
+
+    [theme.breakpoints.down(360)]: {
+      maxWidth: 140,
     },
   },
 
   messageDate: {
-    margin: 0,
     fontSize: 12,
     color: theme.palette.text.second,
   },
@@ -60,10 +87,18 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
-    maxWidth: 180,
+    maxWidth: 165,
+
+    [theme.breakpoints.down(1024)]: {
+      maxWidth: 100,
+    },
 
     [theme.breakpoints.down(768)]: {
-      maxWidth: 160,
+      maxWidth: 180,
+    },
+
+    [theme.breakpoints.down(360)]: {
+      maxWidth: 145,
     },
   },
 
@@ -98,7 +133,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // color: theme.palette.text.second,
     color: '#fff',
     fontSize: 12,
     lineHeight: '14px',

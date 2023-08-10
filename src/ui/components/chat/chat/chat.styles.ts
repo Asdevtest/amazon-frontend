@@ -63,7 +63,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   scrollToBottomRight: {
-    right: 380,
+    right: 400,
   },
 
   scrollToBottomBadge: {
@@ -82,6 +82,10 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.background.general,
     padding: '20px 50px',
     borderRadius: '0 0 7px 0',
+
+    [theme.breakpoints.down(1024)]: {
+      padding: '20px 30px',
+    },
 
     [theme.breakpoints.down(768)]: {
       padding: 10,
@@ -131,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   sendBtn: {
     height: 40,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       width: 40,
       height: 40,
       borderRadius: '50%',
@@ -159,7 +163,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.1)',
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       width: '24px !important',
       height: '24px !important',
     },
@@ -202,6 +206,11 @@ export const useClassNames = makeStyles()(theme => ({
       '--rgb-accent': theme.palette.primary.mainRgb,
     },
 
+    [theme.breakpoints.down(1024)]: {
+      right: 45,
+      bottom: 90,
+    },
+
     [theme.breakpoints.down(768)]: {
       right: 20,
       bottom: 80,
@@ -214,7 +223,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sendBtnText: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },
@@ -271,4 +280,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   messageToReplySubWrapper: {},
+
+  hideElement: {
+    display: 'none',
+  },
 }))

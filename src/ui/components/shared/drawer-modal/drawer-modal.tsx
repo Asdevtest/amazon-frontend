@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import Drawer from '@mui/material/Drawer'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
+import { isTabletResolution } from '@constants/configs/sizes-settings'
 
 type PositionType = 'left' | 'top' | 'right' | 'bottom' | undefined
 
@@ -14,7 +14,7 @@ interface Props extends PropsWithChildren {
 
 export const DrawerModal: FC<Props> = ({ position, open, onClose, children }) => (
   <>
-    {isMobileResolution ? (
+    {isTabletResolution ? (
       <Drawer anchor={position} open={open} onClose={onClose}>
         {children}
       </Drawer>

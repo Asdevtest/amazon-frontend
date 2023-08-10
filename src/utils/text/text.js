@@ -9,6 +9,7 @@ import { ProductStatusByCode, productStatusTranslateKey } from '@constants/produ
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
@@ -70,12 +71,12 @@ export const minsToTime = mins => {
     return `${days >= 1 ? Math.floor(days) + ' ' + t(TranslationKey.days) : ''} ${
       hours >= 1
         ? hours <= 23
-          ? hours + ' ' + t(TranslationKey.hour)
-          : (hours % 24) + ' ' + t(TranslationKey.hour)
+          ? Math.floor(hours) + ' ' + t(TranslationKey.hour)
+          : Math.floor(hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
     } ${
       Math.floor(lastMins) === 0
-        ? lastMins * 60 + ' ' + t(TranslationKey.sec)
+        ? Math.floor(lastMins * 60) + ' ' + t(TranslationKey.sec)
         : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
     }`
   } else {
@@ -350,6 +351,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
+    case columnnsKeys.client.IDEAS_STATUS:
+      return ideaStatusTranslate(ideaStatusByCode[status])
     default:
       return status
   }

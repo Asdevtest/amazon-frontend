@@ -2,12 +2,16 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '869px',
+    width: 550,
     padding: '10px 0',
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
+
+    [theme.breakpoints.down(1280)]: {
+      width: 390,
+    },
   },
   statusTextDesciption: {
     color: 'grey',

@@ -26,11 +26,11 @@ const tabsValues = {
 }
 
 interface Props {
+  userId: string
   isFreelanceOwner: boolean
   chats: ChatContract[]
   chatSelectedId?: string
   typingUsers?: OnTypingMessageResponse[]
-  userId: string
   onClickChat: (chat: ChatContract) => void
   mutedChats?: string[]
 }
@@ -98,15 +98,15 @@ export const ChatsList: FC<Props> = observer(
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.IN_WORK}>
-              {chatListMapper(inWorkChats, userId, typingUsers, onClickChat, mutedChats)}
+              {chatListMapper(inWorkChats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SOLVED}>
-              {chatListMapper(solvedChats, userId, typingUsers, onClickChat, mutedChats)}
+              {chatListMapper(solvedChats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)}
             </TabPanel>
           </>
         ) : (
-          chatListMapper(chats, userId, typingUsers, onClickChat, mutedChats)
+          chatListMapper(chats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)
         )}
       </div>
     )
