@@ -76,7 +76,7 @@ export class AdminProductViewModel {
 
     runInAction(() => {
       this.history = history
-      this.productId = url.searchParams.get('product-id')
+      this.productId = url.searchParams.get('productId')
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -125,9 +125,7 @@ export class AdminProductViewModel {
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        runInAction(() => {
-          this.product = result
-        })
+        this.product = result
 
         updateProductAutoCalculatedFields.call(this)
       })
