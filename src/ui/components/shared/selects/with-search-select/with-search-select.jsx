@@ -13,6 +13,7 @@ import { Button, Checkbox, ClickAwayListener, Popover, Tooltip, Typography } fro
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -41,6 +42,7 @@ const WithSearchSelectRaw = observer(
     currentShops,
     searchOnlyFields,
     asinSelect,
+    masterUserSelect,
     fieldNameStyles,
     buttonStyles,
     customItemsWrapper,
@@ -269,6 +271,8 @@ const WithSearchSelectRaw = observer(
                           )}
 
                           {asinSelect && <SelectProductAsinCellWithourTitle preventDefault product={el} />}
+
+                          {masterUserSelect && <MasterUserItem id={el?._id} name={el?.name} rating={el?.rating} />}
 
                           {favourites ? (
                             <StarOutlinedIcon

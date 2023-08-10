@@ -957,3 +957,28 @@ export const SendIcon = props => (
     <path d="M6.375 18.0625V31.0293L12.3888 25.7699L10.9862 24.1676L8.5 26.3415V18.0625H6.375Z" />
   </SvgIcon>
 )
+
+export const RatingStarIcon = props => (
+  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M6.3 9.5567L2.40639 11.4016L3.15 7.49409L0 4.7268L4.35319 4.1567L6.3 0.601562L8.24681 4.1567L12.6 4.7268L9.45 7.49409L10.1936 11.4016L6.3 9.5567Z"
+      fill="url(#paint0_linear_13300_372589)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_13300_372589"
+        x1="6.3"
+        y1="0.601562"
+        x2="6.3"
+        y2="11.4016"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#F5CF00" />
+        <stop offset="1" stop-color="#F5C106" />
+        <stop offset="1" stop-color="#F2CC00" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)

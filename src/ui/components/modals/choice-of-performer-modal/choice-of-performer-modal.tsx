@@ -7,67 +7,59 @@ import { Box, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
+import { IMasterUser, IService } from '@typings/master-user'
+
+import { AnnouncementCard } from './announcement-card'
 import { useClassNames } from './choice-of-performer-modal.style'
 
-interface Requests {
-  createdBy: CreatedBy
-  humanFriendlyId: number
-  price: number
-  status: string
-  timeoutAt: string
-  title: string
-  updatedAt: string
-  _id: string
-}
-
-interface CreatedBy {
-  name: string
-  _id: string
-}
-
-interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
-}
-interface Service {
-  createdBy: CreatedBy
-  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
-  requests: Array<Requests>
-  type: number
-  description: string
-  title: string
-  updatedAt: string
-  _id: string
-}
-
 export interface ChoiceOfPerformerModalProps {
-  announcements: Array<Service>
+  announcements: Array<IService>
+  masterUsersData: Array<IMasterUser>
+  chosenExecutor: IMasterUser
+  chosenAnnouncement: IService
   onClickThumbnail: () => void
-  onClickChooseBtn: (announcement: Service) => void
+  onClickSelectButton: (selectedService?: IService, chosenExecutor?: IMasterUser) => void
   onClickResetPerformerBtn: () => void
   onClickCloseBtn: () => void
 }
 
 export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => {
-  const { announcements, onClickThumbnail, onClickChooseBtn, onClickResetPerformerBtn, onClickCloseBtn } = props
+  const {
+    announcements,
+    masterUsersData,
+    chosenExecutor,
+    chosenAnnouncement,
+    onClickThumbnail,
+    onClickSelectButton,
+    onClickResetPerformerBtn,
+    onClickCloseBtn,
+  } = props
   const { classes: classNames } = useClassNames()
 
   const [dataToRender, setDataToRender] = useState(announcements)
-
   const [nameSearchValue, setNameSearchValue] = useState('')
+  const [selectedExecutor, setSelectedExecutor] = useState<IMasterUser | undefined>(chosenExecutor)
+  const [selectedService, setSelectedService] = useState<IService | undefined>(chosenAnnouncement)
 
-  const chooseAndClose = (announcement: Service) => {
-    onClickChooseBtn(announcement)
-    onClickCloseBtn()
+  const selectCardHandler = (value: IService) => {
+    setSelectedService(prev => (prev?._id === value?._id ? undefined : value))
   }
+
   useEffect(() => {
-    setDataToRender(announcements)
-  }, [announcements])
+    if (selectedExecutor) {
+      setDataToRender(announcements.filter(announcement => announcement.createdBy._id === selectedExecutor?._id))
+    } else {
+      setDataToRender(announcements)
+    }
+  }, [announcements, selectedExecutor])
 
   useEffect(() => {
     if (nameSearchValue) {
@@ -90,6 +82,46 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         <Typography variant="h5" className={classNames.title}>
           {t(TranslationKey['Choice of Performer'])}
         </Typography>
+
+        <Field
+          label={t(TranslationKey.Performer)}
+          labelClasses={classNames.label}
+          containerClasses={classNames.executorContainer}
+          inputComponent={
+            // @ts-ignore
+            <WithSearchSelect
+              darkIcon
+              grayBorder
+              masterUserSelect
+              blackSelectedItem
+              chosenItemNoHover
+              width={372}
+              data={masterUsersData}
+              searchOnlyFields={['name']}
+              customSubMainWrapper={classNames.customSubMainWrapper}
+              customSearchInput={classNames.customSearchInput}
+              selectedItemName={
+                selectedExecutor ? (
+                  <MasterUserItem
+                    id={selectedExecutor?._id}
+                    name={selectedExecutor?.name}
+                    rating={selectedExecutor?.rating}
+                  />
+                ) : (
+                  t(TranslationKey['Choose an executor'])
+                )
+              }
+              onClickSelect={(el: IMasterUser) => {
+                setSelectedExecutor(el)
+                setSelectedService(undefined)
+              }}
+              onClickNotChosen={() => {
+                setSelectedExecutor(undefined)
+                setSelectedService(undefined)
+              }}
+            />
+          }
+        />
 
         <SearchInput
           inputClasses={classNames.searchInput}
@@ -115,16 +147,28 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
         >
           {dataToRender.map((service, serviceKey) => (
-            // @ts-ignore
-            <ServiceExchangeCard
+            <AnnouncementCard
               key={serviceKey}
-              choose
-              service={service}
+              announcementData={service}
+              selectedCard={selectedService}
               onClickThumbnail={onClickThumbnail}
-              onClickButton={chooseAndClose}
+              onClickSelectCard={selectCardHandler}
             />
           ))}
         </Box>
+      </div>
+
+      <div className={classNames.footerWrapper}>
+        <Button
+          success
+          disabled={!selectedService && !selectedExecutor}
+          onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
+        >
+          {t(TranslationKey.Select)}
+        </Button>
+        <Button variant="text" className={classNames.cancelButton} onClick={onClickCloseBtn}>
+          {t(TranslationKey.Close)}
+        </Button>
       </div>
     </div>
   )

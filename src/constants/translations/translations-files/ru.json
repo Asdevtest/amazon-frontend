@@ -2075,5 +2075,8 @@
   "Are you sure you want to change the status of an idea": "Вы уверены, что хотите изменить статус идеи?",
   "Are you sure you want to dismiss the idea": "Вы уверены, что хотите отклонить эту идею?",
   "Are you sure you want to restore the idea": "Вы уверены, что хотите восстановить эту идею?",
-  "Once confirmed, the idea will be irretrievably lost/deleted": "После подтверждения идея будут безвозвратно утеряна/удалена"
+  "Once confirmed, the idea will be irretrievably lost/deleted": "После подтверждения идея будут безвозвратно утеряна/удалена",
+  "Choose an executor": "Выберите исполнителя",
+  "Select announcement": "Выбрать объявление",
+  "Change announcement": "Изменить объявление"
 }

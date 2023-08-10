@@ -192,6 +192,12 @@ class UserModelStatic {
 
     return response
   }
+
+  async getMasterUsers(role, id, specs) {
+    const response = await restApiService.userApi.apiV1UsersMastersGet(role, id, specs)
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()

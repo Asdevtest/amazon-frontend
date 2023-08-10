@@ -260,6 +260,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
   },
 
+  labelWithoutMargin: {
+    marginBottom: 0,
+  },
+
   dateAndTimeWrapper: {
     width: '100%',
     display: 'flex',
@@ -432,6 +436,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '185px !important',
   },
 
+  executorContainer: {
+    width: '372px !important',
+  },
+
   requestTypeField: {
     width: '100%',
     height: 40,
@@ -475,7 +483,7 @@ export const useClassNames = makeStyles()(theme => ({
   performerWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: '5px',
   },
   performerAndButtonSubWrapper: {
     display: 'flex',
@@ -501,10 +509,6 @@ export const useClassNames = makeStyles()(theme => ({
   cardImg: {
     width: 28,
     height: 28,
-  },
-  nameWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
   },
   performerDescriptionText: {
     maxHeight: 76,
@@ -563,15 +567,20 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#FB1D5B',
   },
 
+  customSubMainWrapperAsin: {
+    padding: '10px 10px !important',
+    width: '200px !important',
+  },
+
   customSubMainWrapper: {
-    padding: '10px 0 !important',
-    width: '185px !important',
+    padding: '10px 10px !important',
+    width: '371px !important',
   },
 
   customSearchInput: {
-    marginLeft: 5,
+    margin: 0,
 
-    width: 158,
+    width: '100%',
     height: 30,
     marginBottom: 20,
   },
@@ -597,5 +606,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   copyAsinlinkSpan: {
     fontSize: 16,
+  },
+
+  buttonWithMargin: {
+    marginTop: 21,
   },
 }))

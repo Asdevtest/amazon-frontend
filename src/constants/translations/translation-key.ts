@@ -2074,6 +2074,9 @@ export enum TranslationKey {
   'Are you sure you want to dismiss the idea' = 'Are you sure you want to dismiss the idea',
   'Are you sure you want to restore the idea' = 'Are you sure you want to restore the idea',
   'Once confirmed, the idea will be irretrievably lost/deleted' = 'Once confirmed, the idea will be irretrievably lost/deleted',
+  'Choose an executor' = 'Choose an executor',
+  'Select announcement' = 'Select announcement',
+  'Change announcement' = 'Change announcement',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

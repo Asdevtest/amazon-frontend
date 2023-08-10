@@ -36,6 +36,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
+import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
@@ -61,6 +62,7 @@ const stepVariant = {
 export const CreateOrEditRequestContent = ({
   announcements,
   permissionsData,
+  masterUsersData,
   choosenAnnouncements,
   requestToEdit,
   history,
@@ -70,6 +72,7 @@ export const CreateOrEditRequestContent = ({
   mainContentRef,
   checkRequestByTypeExists,
   createRequestForIdeaData,
+  getMasterUsersData,
   onClickExistingRequest,
   onClickChoosePerformer,
   onClickThumbnail,
@@ -77,8 +80,6 @@ export const CreateOrEditRequestContent = ({
   onEditSubmit,
 }) => {
   const { classes: classNames } = useClassNames()
-
-  console.log('createRequestForIdeaData', createRequestForIdeaData)
 
   const mainContentRefElement = mainContentRef.current
 
@@ -88,11 +89,14 @@ export const CreateOrEditRequestContent = ({
   const [showScrollDown, setShowScrollDown] = useState(false)
   const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
+  const [announcementsData, setAnnouncementsData] = useState(announcements)
+
+  const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
+  const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || undefined)
+
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [announcementsData, setAnnouncementsData] = useState(announcements)
 
   const [clearСonditionsText, setСonditionsClearText] = useState('')
 
@@ -185,6 +189,7 @@ export const CreateOrEditRequestContent = ({
       productId: requestToEdit?.request?.productId || createRequestForIdeaData?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
       priority: requestToEdit?.request?.priority || 20,
+      executorId: requestToEdit?.request?.executor?._id || '',
 
       discountedPrice: requestToEdit
         ? toFixed(
@@ -201,11 +206,7 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('formFields', formFields)
-
   const [requestIds, setRequestIds] = useState([])
-
-  const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
 
   useEffect(() => {
     setFormFields(getSourceFormFields())
@@ -225,6 +226,12 @@ export const CreateOrEditRequestContent = ({
     }
     setFormFields(getSourceFormFields())
   }, [choosenAnnouncements, announcementsData, requestToEdit])
+
+  useEffect(() => {
+    if (formFields.request.typeTask) {
+      getMasterUsersData(formFields.request.typeTask)
+    }
+  }, [formFields.request.typeTask])
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -277,14 +284,21 @@ export const CreateOrEditRequestContent = ({
         newFormFields.request.needCheckBySupervisor = false
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
+        newFormFields.request.executorId = ''
         setAnnouncement('')
+        setChosenExecutor(undefined)
+
         newFormFields[section][fieldName] = event.target.value
+        // getMasterUsersData(event.target.value)
 
         if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
           newFormFields.request.discountedPrice = 0
           newFormFields.request.cashBackInPercent = 0
           newFormFields.request.priceAmazon = 0
         }
+      } else if (['executorId'].includes(fieldName)) {
+        setChosenExecutor(event)
+        newFormFields[section][fieldName] = event?._id
       } else if (['productId'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
       } else if (['asin'].includes(fieldName)) {
@@ -417,7 +431,7 @@ export const CreateOrEditRequestContent = ({
                         data={permissionsData}
                         width={185}
                         searchOnlyFields={['asin', 'skusByClient']}
-                        customSubMainWrapper={classNames.customSubMainWrapper}
+                        customSubMainWrapper={classNames.customSubMainWrapperAsin}
                         customSearchInput={classNames.customSearchInput}
                         selectedItemName={
                           formFields?.request?.asin ||
@@ -525,13 +539,6 @@ export const CreateOrEditRequestContent = ({
                     maxHeight={160}
                     addFilesButtonTitle={t(TranslationKey['Add file'])}
                   />
-                  {/* {formFields.details.linksToMediaFiles?.length ? (
-                    <PhotoAndFilesCarousel
-                      small
-                      files={formFields.details.linksToMediaFiles.map(el => el.fileLink)}
-                      width="400px"
-                    />
-                  ) : null} */}
                 </div>
 
                 <div className={classNames.descriptionFieldWrapper}>
@@ -541,14 +548,6 @@ export const CreateOrEditRequestContent = ({
                     textToCheck={setСonditionsClearText}
                     changeConditions={onChangeField('details')('conditions')}
                   />
-
-                  {/* <span
-                    className={cx(classNames.charactersHints, {
-                      [classNames.error]: formFields.details.conditions.length > 1000,
-                    })}
-                  >{`${formFields.details.conditions.length} ${t(TranslationKey.of)} 1000 ${t(
-                    TranslationKey.characters,
-                  )}`}</span> */}
                 </div>
               </div>
 
@@ -600,51 +599,6 @@ export const CreateOrEditRequestContent = ({
                       }
                     />
                   </div>
-
-                  {/* <div className={classNames.checkboxesWrapper}> */}
-                  {/* <div
-                      className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperLeft)}
-                      onClick={e => {
-                        onChangeField('request')('maxAmountOfProposals')({...e, target: {value: ''}})
-                      }}
-                    >
-                      <div className={classNames.checkboxSubWrapper}>
-                        <Checkbox color="primary" classes={{root: classNames.checkbox}} />
-                      </div>
-                      <Text
-                        className={classNames.checkboxText}
-                        tooltipInfoContent={t(TranslationKey['Limit the number of proposals'])}
-                      >
-                        {t(TranslationKey['Limit the number of proposals'])}
-                      </Text>
-                    </div> */}
-
-                  {/* {`${formFields?.request?.typeTask}` !==
-                      `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                      `${formFields?.request?.typeTask}` !==
-                        `${freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]}` && (
-                        <div
-                          className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperRight)}
-                          onClick={onChangeField('request')('needCheckBySupervisor')}
-                        >
-                          <div className={classNames.checkboxSubWrapper}>
-                            <Checkbox
-                              color="primary"
-                              checked={formFields.request.needCheckBySupervisor}
-                              classes={{root: classNames.checkbox}}
-                            />
-                          </div>
-                          <Text
-                            className={classNames.checkboxText}
-                            tooltipInfoContent={t(
-                              TranslationKey['Add a service for checking the result of proposals by a supervisor'],
-                            )}
-                          >
-                            {t(TranslationKey['Need a supervisor check'])}
-                          </Text>
-                        </div>
-                      )} */}
-                  {/* </div> */}
 
                   <div className={classNames.priceAndAmountWrapper}>
                     <Field
@@ -715,49 +669,6 @@ export const CreateOrEditRequestContent = ({
                   <div
                     className={cx(classNames.checkboxAndButtonWrapper, classNames.checkboxAndButtonWrapperMarginTop)}
                   >
-                    <div className={classNames.performerAndButtonWrapper}>
-                      <div className={classNames.performerAndButtonSubWrapper}>
-                        {announcement?._id && (
-                          <div className={classNames.performerWrapper}>
-                            <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-                            <div className={classNames.userInfo}>
-                              <Avatar
-                                src={getUserAvatarSrc(announcement?.createdBy?._id)}
-                                className={classNames.cardImg}
-                              />
-
-                              <div className={classNames.nameWrapper}>
-                                <UserLink
-                                  blackText
-                                  name={announcement?.createdBy?.name}
-                                  userId={announcement?.createdBy?._id}
-                                />
-                                <Rating disabled value={5} size="small" classes={classNames.rating} />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        <Button
-                          disabled={!formFields?.request?.typeTask}
-                          variant={'contained'}
-                          className={classNames.changePerformerBtn}
-                          onClick={async () => {
-                            await onClickChoosePerformer(formFields.request.typeTask)
-                            setOpenModal(true)
-                          }}
-                        >
-                          {announcement
-                            ? t(TranslationKey['Change performer'])
-                            : t(TranslationKey['Select a Performer'])}
-                        </Button>
-                      </div>
-                      {announcement?.title && (
-                        <div className={classNames.performerDescriptionWrapper}>
-                          <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
-                        </div>
-                      )}
-                    </div>
-
                     <div className={cx(classNames.checkboxProposalWrapper)}>
                       <div
                         className={classNames.checkboxWrapper}
@@ -770,84 +681,95 @@ export const CreateOrEditRequestContent = ({
                         }}
                       >
                         <Checkbox color="primary" checked={formFields.request.priority === 30} />
-                        <Text
-                          className={classNames.priorityText}
-                          tooltipPosition={'corner'} /* tooltipInfoContent={t(TranslationKey['Set urgent priority'])} */
-                        >
+                        <Text className={classNames.priorityText} tooltipPosition={'corner'}>
                           {t(TranslationKey['Set urgent priority'])}
                           <img src="/assets/icons/fire.svg" />
                         </Text>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* {requestToEdit ? (
-                  <div className={classNames.footerWrapper}>
-                    <div className={classNames.footerRightWrapper}>
-                      <div className={classNames.buttonsWrapper}>
-                        <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
-                          {t(TranslationKey.Cancel)}
-                        </Button>
 
-                        <Button
-                          success
-                          disabled={disableSubmit}
-                          className={classNames.successBtn}
-                          onClick={() => onEditSubmit(formFields, images)}
-                        >
-                          {t(TranslationKey.Edit)}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={classNames.footerWrapper}>
-                    <div className={classNames.footerRightWrapper}>
-                      <div className={classNames.buttonsWrapper}>
-                        <Button
-                          tooltipInfoContent={
-                            curStep === stepVariant.STEP_TWO
-                              ? t(TranslationKey['Back to Step 1'])
-                              : t(TranslationKey['Cancel request creation'])
-                          }
-                          variant={'text'}
-                          className={classNames.backBtn}
-                          onClick={onClickBackBtn}
-                        >
-                          {curStep === stepVariant.STEP_TWO
-                            ? t(TranslationKey['Back to editing'])
-                            : t(TranslationKey.Cancel)}
-                        </Button>
-
-                        <Button
-                          success
-                          tooltipInfoContent={
-                            curStep === stepVariant.STEP_TWO
-                              ? t(TranslationKey['Creates a completed request'])
-                              : t(TranslationKey['Go to Step 2'])
-                          }
-                          disabled={disableSubmit}
-                          className={classNames.successBtn}
-                          onClick={onSuccessSubmit}
-                        >
-                          {curStep === stepVariant.STEP_TWO ? (
-                            t(TranslationKey['Create a request'])
-                          ) : (
-                            <div className={classNames.successBtnTextWrapper}>
-                              <Typography>{t(TranslationKey.Next)}</Typography>
-                              <img
-                                src="/assets/icons/right-arrow.svg"
-                                className={cx(classNames.successBtnArrow, {
-                                  [classNames.disablesBtnArrow]: disableSubmit,
-                                })}
+                  <div
+                    className={cx(classNames.checkboxAndButtonWrapper, classNames.checkboxAndButtonWrapperMarginTop)}
+                  >
+                    <Field
+                      label={t(TranslationKey.Performer)}
+                      labelClasses={classNames.spanLabelSmall}
+                      containerClasses={classNames.executorContainer}
+                      className={classNames.nameField}
+                      inputComponent={
+                        <WithSearchSelect
+                          darkIcon
+                          grayBorder
+                          masterUserSelect
+                          blackSelectedItem
+                          chosenItemNoHover
+                          width={372}
+                          disabled={!formFields?.request?.typeTask}
+                          data={masterUsersData}
+                          searchOnlyFields={['name']}
+                          customSubMainWrapper={classNames.customSubMainWrapper}
+                          customSearchInput={classNames.customSearchInput}
+                          selectedItemName={
+                            chosenExecutor ? (
+                              <MasterUserItem
+                                id={chosenExecutor?._id}
+                                name={chosenExecutor?.name}
+                                rating={chosenExecutor?.rating}
                               />
-                            </div>
-                          )}
+                            ) : (
+                              t(TranslationKey['Choose an executor'])
+                            )
+                          }
+                          onClickSelect={el => {
+                            onChangeField('request')('executorId')(el)
+                          }}
+                          onClickNotChosen={() => {
+                            onChangeField('request')('executorId')(undefined)
+                          }}
+                        />
+                      }
+                    />
+
+                    <div className={classNames.performerAndButtonWrapper}>
+                      <div className={classNames.performerAndButtonSubWrapper}>
+                        {announcement?._id && (
+                          <div className={classNames.performerWrapper}>
+                            <Typography className={cx(classNames.spanLabelSmall, classNames.labelWithoutMargin)}>
+                              {t(TranslationKey.Performer)}
+                            </Typography>
+
+                            <MasterUserItem
+                              id={announcement?.createdBy?._id}
+                              name={announcement?.createdBy?.name}
+                              rating={announcement?.rating}
+                            />
+                          </div>
+                        )}
+                        <Button
+                          disabled={!formFields?.request?.typeTask}
+                          variant={'contained'}
+                          className={cx(classNames.changePerformerBtn, {
+                            [classNames.buttonWithMargin]: !announcement?._id,
+                          })}
+                          onClick={async () => {
+                            await onClickChoosePerformer(formFields.request.typeTask)
+                            setOpenModal(true)
+                          }}
+                        >
+                          {announcement?._id
+                            ? t(TranslationKey['Change announcement'])
+                            : t(TranslationKey['Select announcement'])}
                         </Button>
                       </div>
+                      {announcement?.title && (
+                        <div className={classNames.performerDescriptionWrapper}>
+                          <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
+                        </div>
+                      )}
                     </div>
                   </div>
-                )} */}
+                </div>
               </div>
             </div>
           )}
@@ -1120,50 +1042,6 @@ export const CreateOrEditRequestContent = ({
                   </div>
                 </div>
               </div>
-              {/* <div className={classNames.footerWrapper}>
-                <div className={classNames.footerRightWrapper}>
-                  <div className={classNames.buttonsWrapper}>
-                    <Button
-                      tooltipInfoContent={
-                        curStep === stepVariant.STEP_TWO
-                          ? t(TranslationKey['Back to Step 1'])
-                          : t(TranslationKey['Cancel request creation'])
-                      }
-                      variant={'text'}
-                      className={classNames.backBtn}
-                      onClick={onClickBackBtn}
-                    >
-                      {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
-                    </Button>
-
-                    <Button
-                      success
-                      tooltipInfoContent={
-                        curStep === stepVariant.STEP_TWO
-                          ? t(TranslationKey['Creates a completed request'])
-                          : t(TranslationKey['Go to Step 2'])
-                      }
-                      disabled={disableSubmit}
-                      className={classNames.successBtn}
-                      onClick={onSuccessSubmit}
-                    >
-                      {curStep === stepVariant.STEP_TWO ? (
-                        t(TranslationKey['Create a request'])
-                      ) : (
-                        <div className={classNames.successBtnTextWrapper}>
-                          <Typography>{t(TranslationKey.Next)}</Typography>
-                          <img
-                            src="/assets/icons/right-arrow.svg"
-                            className={cx(classNames.successBtnArrow, {
-                              [classNames.disablesBtnArrow]: disableSubmit,
-                            })}
-                          />
-                        </div>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div> */}
             </div>
           )}
         </div>
@@ -1312,10 +1190,24 @@ export const CreateOrEditRequestContent = ({
       <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
         <ChoiceOfPerformerModal
           announcements={announcementsData}
+          masterUsersData={masterUsersData}
+          chosenExecutor={chosenExecutor}
+          chosenAnnouncement={announcement}
           onClickThumbnail={onClickThumbnail}
-          onClickChooseBtn={setAnnouncement}
-          onClickResetPerformerBtn={() => setAnnouncement('')}
-          onClickCloseBtn={() => setOpenModal(!openModal)}
+          onClickSelectButton={(selectenService, chosenExecutor) => {
+            if (selectenService) {
+              setAnnouncement(selectenService)
+              onChangeField('request')('executorId')(selectenService?.createdBy)
+            } else {
+              onChangeField('request')('executorId')(chosenExecutor)
+            }
+            setOpenModal(false)
+          }}
+          onClickResetPerformerBtn={() => {
+            setAnnouncement(undefined)
+            onChangeField('request')('executorId')(undefined)
+          }}
+          onClickCloseBtn={() => setOpenModal(false)}
         />
       </Modal>
 
