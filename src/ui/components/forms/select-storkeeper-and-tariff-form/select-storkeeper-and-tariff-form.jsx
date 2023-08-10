@@ -54,8 +54,6 @@ export const SelectStorekeeperAndTariffForm = observer(
         : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
     )
 
-    console.log('storekeepers', storekeepers)
-
     const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
     const [destinationId, setDestinationId] = useState(currentDestinationId)
 
