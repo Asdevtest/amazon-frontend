@@ -406,7 +406,7 @@ export const IdeaViewAndEditCard = observer(
               <Field
                 multiline
                 disabled={disableFields || checkIsClient(UserRoleCodeMap[curUser.role])}
-                label={t(TranslationKey['Buyer comments'])}
+                label={t(TranslationKey['Buyer commentary'])}
                 labelClasses={classNames.spanLabel}
                 className={classNames.buyerComment}
                 containerClasses={classNames.noMarginContainer}
