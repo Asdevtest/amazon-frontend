@@ -620,7 +620,7 @@ export const HsCodeCell = React.memo(
 
 export const ChangeInputCell = React.memo(
   withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue }) => {
-    const sourceValue = text ? text : ''
+    const sourceValue = text !== null ? text : ''
 
     const [value, setValue] = useState(sourceValue)
     const defaultValue = sourceValue
