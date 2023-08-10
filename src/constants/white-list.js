@@ -67,7 +67,6 @@ export const IdeaCreate = [
   'width',
   'height',
   'length',
-  'productId',
   'parentProductId',
 ]
 
