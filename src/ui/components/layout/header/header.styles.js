@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
   menuIconWrapper: {
     display: 'none',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'flex',
       padding: '14px 15px',
     },
@@ -30,7 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     paddingLeft: 30,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       paddingLeft: 0,
     },
   },
@@ -41,7 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 20,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       justifyContent: 'space-between',
     },
   },
@@ -51,7 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '25px',
     color: theme.palette.text.second,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       width: 90,
       fontSize: 12,
     },
@@ -82,7 +82,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 16,
     color: theme.palette.primary.main,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },
@@ -91,7 +91,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 16,
     color: '#c4c4c4',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },
@@ -100,7 +100,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     marginRight: 15,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'none',
     },
   },
@@ -110,7 +110,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginRight: 20,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'none',
     },
   },
@@ -120,7 +120,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 10,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       flexDirection: 'column',
       alignItems: 'flex-start',
     },
@@ -144,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderBottom: `5px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       background: 'none',
       borderBottom: 0,
       paddingLeft: 5,
@@ -158,7 +158,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 500,
     borderRadius: '4px',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       color: theme.palette.text.general,
       fontSize: '14px',
       lineHeight: '19px',
@@ -172,7 +172,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'block',
     color: theme.palette.primary.main,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none !important',
     },
   },
@@ -220,13 +220,13 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
     padding: '0 20px',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       padding: '0 15px 0 0',
     },
   },
 
   avatar: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       width: '32px',
       height: '32px',
     },
@@ -244,7 +244,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: 10,
     textAlign: 'right',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'none',
     },
   },
@@ -260,7 +260,7 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '15px 0 0 55px',
     cursor: 'pointer',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       margin: '15px 0 0 10px',
     },
   },
@@ -280,7 +280,7 @@ export const useClassNames = makeStyles()(theme => ({
       background: theme.palette.background.second,
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       fontSize: 16,
     },
   },
@@ -296,7 +296,7 @@ export const useClassNames = makeStyles()(theme => ({
   menuClientInfoWrapper: {
     display: 'none',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'flex',
       justifyContent: 'center',
       padding: '10px 20px',
@@ -307,7 +307,7 @@ export const useClassNames = makeStyles()(theme => ({
   menuClientInfo: {
     display: 'none',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'flex',
       flexDirection: 'column',
     },
@@ -316,7 +316,7 @@ export const useClassNames = makeStyles()(theme => ({
   menuClientInfoText: {
     display: 'none',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'block',
       fontSize: '14px',
       lineHeight: '19px',
@@ -327,7 +327,7 @@ export const useClassNames = makeStyles()(theme => ({
   mobileAllowedRolesWrapper: {
     display: 'none',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
@@ -338,7 +338,7 @@ export const useClassNames = makeStyles()(theme => ({
   mobileUserRoleTitle: {
     display: 'none',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'block',
       fontSize: '14px',
       lineHeight: '19px',
@@ -348,7 +348,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   indicator: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'block',
       width: 2,
       height: 19,
@@ -357,7 +357,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   userRoleWrapper: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1600)]: {
       display: 'flex',
       alignItems: 'center',
     },

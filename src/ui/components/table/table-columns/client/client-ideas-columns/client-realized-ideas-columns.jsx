@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +11,6 @@ import {
   TimeFromSeconds,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
@@ -88,7 +85,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'amount',
     headerName: t(TranslationKey['Ordered quantity']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
@@ -99,7 +96,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'orderedDate',
     headerName: t(TranslationKey['Order date']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
 
     renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
     width: 110,
@@ -203,7 +200,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'buyerComment',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,

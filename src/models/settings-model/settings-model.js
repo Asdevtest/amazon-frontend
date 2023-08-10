@@ -36,7 +36,6 @@ class SettingsModelStatic {
   breadcrumbsForProfile = null
   showHints = true
 
-  noticeOfSimpleChats = true
   mutedChats = []
 
   lastCrumbAdditionalText = ''
@@ -54,6 +53,9 @@ class SettingsModelStatic {
   }
 
   constructor() {
+    this.isMuteChat = this.loadValue('isMuteChat') || false
+    this.isMuteChats = this.loadValue('isMuteChats') || false
+
     makeAutoObservable(this, undefined, { autoBind: true })
     makePersistable(this, { name: stateModelName, properties: persistProperties })
       .then(({ isHydrated }) => {
@@ -73,6 +75,44 @@ class SettingsModelStatic {
 
       this.setIntervalCheckAppVersion(),
     )
+  }
+
+  loadValue(key) {
+    const value = localStorage.getItem(key)
+
+    return value !== null ? JSON.parse(value) : null
+  }
+
+  saveValue(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  onToggleMuteCurrentChat(chatId) {
+    this.setMutedChat(chatId)
+    this.isMuteChat = !this.isMuteChat
+    this.saveValue('isMuteChat', this.isMuteChat)
+  }
+
+  onToggleMuteAllChats(allChats) {
+    this.setMutedChats(allChats)
+    this.isMuteChats = !this.isMuteChats
+    this.saveValue('isMuteChats', this.isMuteChats)
+  }
+
+  setMutedChat(chatId) {
+    if (this.mutedChats.includes(chatId)) {
+      this.mutedChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+    } else {
+      this.mutedChats.push(chatId)
+    }
+  }
+
+  setMutedChats(allGhats) {
+    if (this.isMuteChats) {
+      this.mutedChats.length = 0
+    } else {
+      this.mutedChats = [...allGhats.map(chat => chat._id)]
+    }
   }
 
   async checkAppVersion() {
@@ -137,18 +177,6 @@ class SettingsModelStatic {
 
   onTriggerShowHints() {
     this.showHints = !this.showHints
-  }
-
-  onTriggerNoticeOfSimpleChats() {
-    this.noticeOfSimpleChats = !this.noticeOfSimpleChats
-  }
-
-  setMutedChat(chatId) {
-    if (this.mutedChats.includes(chatId)) {
-      this.mutedChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
-    } else {
-      this.mutedChats.push(chatId)
-    }
   }
 
   setDataGridState(state, tableKey) {

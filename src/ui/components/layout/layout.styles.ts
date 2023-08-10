@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     gridTemplateRows: '60px 1fr',
     gridTemplateAreas: "'navbar header' 'navbar main'",
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       gridTemplateColumns: '1fr',
       gridTemplateRows: '52px',
     },
@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     background: theme.palette.background.second,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       width: '100vw',
     },
   },

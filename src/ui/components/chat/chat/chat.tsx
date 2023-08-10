@@ -11,6 +11,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
+import { isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -289,7 +290,10 @@ export const Chat: FC<Props> = observer(
 
           {isShowScrollToBottomBtn && (
             <div
-              className={cx(classNames.scrollToBottom, isShowChatInfo && classNames.scrollToBottomRight)}
+              className={cx(classNames.scrollToBottom, {
+                [classNames.scrollToBottomRight]: isShowChatInfo,
+                [classNames.hideElement]: isShowChatInfo && isTabletResolution,
+              })}
               onClick={onClickScrollToBottom}
             >
               <KeyboardArrowDownIcon />
