@@ -49,6 +49,6 @@ export const useClassNames = makeStyles()(theme => ({
   submit: {
     height: '100%',
     padding: '9px 20px 8px 20px',
-    borderRadius: 2,
+    borderRadius: 4,
   },
 }))
