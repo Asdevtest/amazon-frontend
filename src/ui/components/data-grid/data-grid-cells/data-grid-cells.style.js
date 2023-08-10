@@ -1,7 +1,6 @@
 export const styles = theme => ({
   img: {
-    maxHeight: '58px',
-    height: 'fit-content',
+    height: '58px',
     width: '58px',
     marginRight: '16px',
     objectFit: 'contain',
@@ -848,6 +847,7 @@ export const styles = theme => ({
 
   adaptText: {
     fontSize: 14,
+    fontWeight: 400,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -945,6 +945,10 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+  },
+
+  orderTextSpanAsin: {
+    color: theme.palette.primary.main,
   },
 
   flexDirectionColumn: {

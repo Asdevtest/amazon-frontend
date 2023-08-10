@@ -114,7 +114,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -125,7 +124,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -136,7 +134,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -158,7 +155,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -180,7 +176,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -243,7 +238,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
-    width: 220,
+    width: 990,
     sortable: false,
     filterable: false,
   },
