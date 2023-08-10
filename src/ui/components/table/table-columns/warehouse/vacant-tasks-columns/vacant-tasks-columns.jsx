@@ -93,7 +93,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={'ASIN'} />,
 
     renderCell: params => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+      <StringListCell asin withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
     width: window.innerWidth < 1282 ? 101 : 140,
     sortable: false,
