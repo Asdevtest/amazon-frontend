@@ -249,7 +249,7 @@ export class ClientIdeasViewModel {
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
     onClickRestore: id => this.handleRestore(id),
     onClickAcceptOnCheckingStatus: id => this.handleStatusToSupplierSearch(id),
-    onClickAcceptOnSuppliersSearch: id => this.handleStatusToProductCreating(id),
+    onClickAcceptOnSuppliersSearch: (id, ideaData) => this.handleStatusToProductCreating(id, ideaData),
     onClickAcceptOnCreatingProduct: id => this.handleStatusToAddingAsin(id),
     onClickAcceptOnAddingAsin: id => this.handleStatusToFinished(id),
     onClickParseProductData: idea => this.onClickParseProductData(idea),
@@ -666,12 +666,15 @@ export class ClientIdeasViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToProductCreating(id) {
+  handleStatusToProductCreating(id, ideaData) {
     this.confirmModalSettings = {
       isWarning: false,
       confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
       onClickConfirm: () => {
-        this.statusHandler(IdeaModel.setStatusToProductCreating, id)
+        this.statusHandler(
+          ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
+          id,
+        )
         this.onTriggerOpenModal('showConfirmModal')
       },
     }

@@ -217,7 +217,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <OnCheckingIdeaActions
         isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
-        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id)}
+        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row.originalData)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),

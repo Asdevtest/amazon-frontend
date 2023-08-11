@@ -124,6 +124,7 @@ export const IdeaViewAndEditCard = observer(
       childProduct: idea?.childProduct || undefined,
       productLinks: idea?.productLinks || [],
       criteria: idea?.criteria || '',
+      variation: idea?.variation || '',
     })
 
     const getFullIdea = () => ({

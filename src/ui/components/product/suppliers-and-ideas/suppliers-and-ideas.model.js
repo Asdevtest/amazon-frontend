@@ -412,7 +412,7 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickAcceptButton(ideaData, chesenStatus) {
-    const { _id, status, variant } = ideaData
+    const { _id, status, variation } = ideaData
 
     switch (status) {
       case ideaStatusByKey[ideaStatus.NEW]:
@@ -435,7 +435,7 @@ export class SuppliersAndIdeasModel {
         break
 
       case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]:
-        if (variant) {
+        if (variation) {
           await IdeaModel.changeStatusToProductCreating(_id)
         } else {
           await IdeaModel.changeStatusToAddingAsin(_id)
