@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
 
@@ -22,7 +21,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
@@ -66,11 +64,11 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             <div className={classNames.asinWrapper}>
               <Typography className={classNames.idText}>{t(TranslationKey.ASIN) + ':'}</Typography>
               <AsinOrSkuLink
+                withCopyValue
                 asin={requestProposals[0]?.request?.asin}
                 textStyles={classNames.linkSpan}
                 missingValueTextStyles={classNames.idText}
               />
-              <CopyValue text={requestProposals[0]?.request?.asin} />
             </div>
             <div className={classNames.idWrapper}>
               <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
