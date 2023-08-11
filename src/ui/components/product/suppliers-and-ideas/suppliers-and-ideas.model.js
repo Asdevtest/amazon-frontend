@@ -411,8 +411,8 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickAcceptButton(ideaData, chesenStatus) {
-    const { _id, status, variant } = ideaData
+  async changeIdeaStatus(ideaData, chesenStatus) {
+    const { _id, status, variation } = ideaData
 
     switch (status) {
       case ideaStatusByKey[ideaStatus.NEW]:
@@ -435,7 +435,7 @@ export class SuppliersAndIdeasModel {
         break
 
       case ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]:
-        if (variant) {
+        if (variation) {
           await IdeaModel.changeStatusToProductCreating(_id)
         } else {
           await IdeaModel.changeStatusToAddingAsin(_id)
@@ -453,6 +453,18 @@ export class SuppliersAndIdeasModel {
         this.loadData()
         break
     }
+  }
+
+  async onClickAcceptButton(ideaData, chesenStatus) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.changeIdeaStatus(ideaData, chesenStatus)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitRejectOrRemoveIdea(ideaId, close) {
