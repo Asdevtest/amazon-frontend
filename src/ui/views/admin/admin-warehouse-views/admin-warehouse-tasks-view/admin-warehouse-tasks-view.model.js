@@ -12,7 +12,6 @@ import { adminTasksViewColumns } from '@components/table/table-columns/admin/tas
 
 import { adminTasksDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class AdminWarehouseTasksViewModel {
   history = undefined
@@ -47,8 +46,11 @@ export class AdminWarehouseTasksViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       this.getDataGridState()
+
       await this.getTasks()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -70,6 +72,8 @@ export class AdminWarehouseTasksViewModel {
     })
 
     this.setDataGridState()
+
+    this.getTasks()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -77,16 +81,17 @@ export class AdminWarehouseTasksViewModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+
+    this.getTasks()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_TASKS)
   }
@@ -94,19 +99,19 @@ export class AdminWarehouseTasksViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TASKS]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel)
+        this.rowsPerPage = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
 
-        this.densityModel = state.density.value
         this.columnsModel = adminTasksViewColumns(this.rowHandlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
-      })
-    }
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
@@ -121,6 +126,8 @@ export class AdminWarehouseTasksViewModel {
     })
 
     this.setDataGridState()
+
+    this.getTasks()
   }
 
   onSelectionModel(model) {

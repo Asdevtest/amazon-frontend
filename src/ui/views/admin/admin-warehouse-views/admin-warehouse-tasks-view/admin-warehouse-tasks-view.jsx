@@ -63,7 +63,6 @@ export const AdminWarehouseTasksViewRaw = props => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}

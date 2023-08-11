@@ -54,6 +54,11 @@ export const navbarConfig = () => ({
       route: '/client/freelance/my-requests',
       subtitles: [
         {
+          subtitle: t(TranslationKey['Service exchange']),
+          subRoute: '/client/freelance/service-exchange',
+          key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
+        },
+        {
           subtitle: t(TranslationKey['My requests']),
           subRoute: '/client/freelance/my-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
@@ -69,12 +74,6 @@ export const navbarConfig = () => ({
         //   subRoute: '/client/freelance/my-proposals',
         //   key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
         // },
-        //
-        {
-          subtitle: t(TranslationKey['Service exchange']),
-          subRoute: '/client/freelance/service-exchange',
-          key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
-        },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
