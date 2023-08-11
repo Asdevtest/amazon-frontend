@@ -228,6 +228,7 @@ export const useClassNames = makeStyles()(theme => ({
   asinWrapper: {
     display: 'flex',
     gap: 5,
+    alignItems: 'flex-start',
   },
   idText: {
     fontSize: 18,

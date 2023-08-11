@@ -6,17 +6,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
   },
 
-  imageWrapper: {
-    width: '100%',
-    height: '100%',
-  },
-
   documentWrapper: {
     position: 'relative',
     width: '100%',
-
     color: theme.palette.text.general,
-
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -41,6 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   documentTitle: {
+    marginTop: 5,
     fontSize: '12px',
     textAlign: 'center',
   },
@@ -96,6 +90,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   fileTypeIcon: {
+    width: '64px !important',
+    height: '64px !important',
     color: theme.palette.primary.main,
   },
 }))

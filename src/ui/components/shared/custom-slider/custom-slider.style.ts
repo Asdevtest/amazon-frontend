@@ -3,13 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainContainer: {
-    width: '100%',
     height: '100%',
   },
 
   window: {
-    width: '100%',
-
     overflow: 'hidden',
     height: '100%',
   },
@@ -71,6 +68,7 @@ export const useClassNames = makeStyles()(theme => ({
   headerCarouselDocumentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     height: '100%',
   },
 

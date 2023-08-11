@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
     padding: 30,
-    maxWidth: 550,
+    maxWidth: 900,
     margin: '0 auto',
     borderRadius: 7,
 
