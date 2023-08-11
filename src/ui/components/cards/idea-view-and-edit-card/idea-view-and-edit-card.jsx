@@ -77,6 +77,7 @@ export const IdeaViewAndEditCard = observer(
     onClickSupplier,
     onClickCloseIdea,
     onClickAcceptButton,
+
     onClickRejectButton,
     onClickReoperButton,
     onClickResultButton,
@@ -98,6 +99,7 @@ export const IdeaViewAndEditCard = observer(
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
     const [showRequestType, setShowRequestType] = useState(RequestSwitherType.REQUESTS_ON_CHECK)
     const [requestsToRender, setRequestsToRender] = useState([])
+    const [supplierFound, setSupplierFound] = useState(undefined)
 
     const isCurrentIdea = curIdea?._id === idea?._id
 
@@ -716,11 +718,24 @@ export const IdeaViewAndEditCard = observer(
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
                 {currentUserIsBuyer && isSupplierSearch && (
-                  <RadioButtons
-                    radioBottonsSettings={radioBottonsSettings}
-                    currentValue={formFields?.status}
-                    onClickRadioButton={selectedStatus => onClickAcceptButton(formFields, selectedStatus)}
-                  />
+                  <div className={classNames.supplierFoundWrapper}>
+                    <RadioButtons
+                      radioBottonsSettings={radioBottonsSettings}
+                      currentValue={supplierFound}
+                      onClickRadioButton={selectedStatus => setSupplierFound(selectedStatus)}
+                    />
+
+                    <Button
+                      success
+                      disabled={!supplierFound}
+                      variant="contained"
+                      color="primary"
+                      className={classNames.actionButton}
+                      onClick={() => onClickAcceptButton(formFields, supplierFound)}
+                    >
+                      {t(TranslationKey.Save)}
+                    </Button>
+                  </div>
                 )}
 
                 {(isSupplierFound || isSupplierNotFound) && (

@@ -499,4 +499,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
   },
+
+  supplierFoundWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '50px',
+  },
 }))
