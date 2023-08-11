@@ -16,25 +16,21 @@ import { ClientProductViewModel } from './client-product-view.model'
 
 export const ClientProductView = observer(props => {
   const { search } = useLocation()
+
+  const queries = new URLSearchParams(search)
+  const productId = queries.get('product-id')
+
   const [viewModel] = useState(
     () =>
       new ClientProductViewModel({
         history: props.history,
+        productId,
       }),
   )
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
-
-  useEffect(() => {
-    const queries = new URLSearchParams(search)
-    const productId = queries.get('product-id')
-
-    if (productId) {
-      viewModel.updateProductId(productId)
-    }
-  }, [search])
 
   return (
     <React.Fragment>
@@ -48,6 +44,9 @@ export const ClientProductView = observer(props => {
             showProgress={viewModel.showProgress}
             progressValue={viewModel.progressValue}
             product={viewModel.getCurrentData()}
+            productVariations={viewModel.productVariations}
+            navigateToProduct={viewModel.navigateToProduct}
+            unbindProductHandler={viewModel.unbindProductHandler}
             shops={viewModel.shopsData}
             acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
             showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}

@@ -5,7 +5,7 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { useClassNames } from './source-product.styles'
 
 interface SourceProductProps {
-  title: string
+  title?: string
   img: string
   asin: string
   sku: string
@@ -18,7 +18,7 @@ export const SourceProduct: FC<SourceProductProps> = props => {
 
   return (
     <div className={classNames.root}>
-      <p className={classNames.sourceProductTitle}>{`${title}:`}</p>
+      {title && <p className={classNames.sourceProductTitle}>{`${title}:`}</p>}
 
       <div className={classNames.sourceProductWrapper}>
         <img className={classNames.sourceProductImg} src={img} alt={img} />

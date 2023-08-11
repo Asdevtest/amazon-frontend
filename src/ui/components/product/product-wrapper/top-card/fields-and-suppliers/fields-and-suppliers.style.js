@@ -295,4 +295,42 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 !important',
     margin: '0 !important',
   },
+
+  interconnectedProductsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  interconnectedProductsBodyWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    maxHeight: '205px',
+    overflowY: 'auto',
+    paddingRight: '10px',
+  },
+
+  interconnectedProductsHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  plusIcon: {
+    width: '11px !important',
+    height: '11px !important',
+    color: '#FFFFFF',
+  },
+
+  plusButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    width: 21,
+    minWidth: 'unset !important',
+    height: 21,
+    padding: 0,
+  },
 }))

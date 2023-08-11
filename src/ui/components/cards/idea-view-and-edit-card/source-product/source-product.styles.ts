@@ -18,6 +18,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     width: '40px',
     objectFit: 'contain',
+    borderRadius: '4px',
+    border: '1px solid #E0E0E0',
   },
 
   sourceProductTitle: {

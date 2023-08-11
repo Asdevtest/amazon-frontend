@@ -2,6 +2,7 @@ import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import AddIcon from '@mui/icons-material/Add'
 import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
 
 import { UserRole } from '@constants/keys/user-roles'
@@ -21,6 +22,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
@@ -45,6 +47,9 @@ export const FieldsAndSuppliers = observer(
     curUserRole,
     onChangeField,
     product,
+    productVariations,
+    navigateToProduct,
+    unbindProductHandler,
     productBase,
     formFieldsValidationErrors,
     shops,
@@ -452,6 +457,50 @@ export const FieldsAndSuppliers = observer(
               </div>
             ) : null}
           </div>
+
+          <div className={classNames.interconnectedProductsWrapper}>
+            <div className={classNames.interconnectedProductsHeader}>
+              <p className={classNames.subUsersTitle}>
+                {product?.parentProductId ? t(TranslationKey['Interconnected products']) : t(TranslationKey.Variations)}
+              </p>
+
+              {!product?.parentProductId && (
+                <Button className={classNames.plusButton} onClick={() => {}}>
+                  <AddIcon className={classNames.plusIcon} />
+                </Button>
+              )}
+            </div>
+            <div className={classNames.interconnectedProductsBodyWrapper}>
+              {product?.parentProductId && (
+                <InterconnectedProducts
+                  isParent
+                  showRemoveButton
+                  variationProduct={{
+                    _id: productVariations?._id,
+                    asin: productVariations?.asin,
+                    skusByClient: productVariations?.skusByClient,
+                    images: productVariations?.images,
+                    shopIds: productVariations?.shopIds,
+                    amazonTitle: productVariations?.amazonTitle,
+                  }}
+                  navigateToProduct={navigateToProduct}
+                  unbindProductHandler={unbindProductHandler}
+                  productId={product?._id}
+                />
+              )}
+
+              {productVariations?.childProducts?.map((variationProduct, variationProductIndex) => (
+                <InterconnectedProducts
+                  key={variationProductIndex}
+                  showRemoveButton={!product?.parentProductId}
+                  productId={product?._id}
+                  variationProduct={variationProduct}
+                  navigateToProduct={navigateToProduct}
+                  unbindProductHandler={unbindProductHandler}
+                />
+              ))}
+            </div>
+          </div>
         </Box>
 
         {checkIsBuyer(curUserRole) ? (
@@ -468,48 +517,6 @@ export const FieldsAndSuppliers = observer(
         ) : null}
         {checkIsClient(curUserRole) ? (
           <div className={classNames.shopsWrapper}>
-            {/* <Field
-              label={t(TranslationKey.Shop)}
-              containerClasses={classNames.allowedRoleContainer}
-              inputComponent={
-                <div className={classNames.shopsFieldWrapper}>
-                  <Select
-                    displayEmpty
-                    disabled={
-                      !(
-                        shops.length ||
-                        (checkIsClient(curUserRole) &&
-                          product.isCreatedByClient &&
-                          clientToEditStatuses.includes(productBase.status) &&
-                          checkIsClient(curUserRole) &&
-                          !product.archive)
-                      )
-                    }
-                    value={product.shopIds[0] || null}
-                    input={<Input className={classNames.nativeSelect} />}
-                    className={classNames.nativeSelect}
-                    onChange={onChangeShop}
-                  >
-                    <MenuItem value={null} className={classNames.strategyOption}>
-                      <em>{t(TranslationKey['not selected'])}</em>
-                    </MenuItem>
-                    {shops.map((shop, index) => (
-                      <MenuItem key={index} value={shop._id} className={classNames.shopOption}>
-                        <Tooltip title={shop.name}>
-                          <div className={classNames.menuItemWrapper}>
-                            <ListItemText
-                              primary={getShortenStringIfLongerThanCount(shop.name, 17)}
-                              className={classNames.shopName}
-                            />
-                          </div>
-                        </Tooltip>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </div>
-              }
-            /> */}
-
             <Field
               label={t(TranslationKey.Shop)}
               labelClasses={classNames.spanLabelSmall}

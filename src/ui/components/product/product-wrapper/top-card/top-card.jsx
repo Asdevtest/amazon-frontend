@@ -56,6 +56,9 @@ export const TopCard = observer(
     onChangeField,
     actionStatus,
     product,
+    productVariations,
+    navigateToProduct,
+    unbindProductHandler,
     shops,
     modal,
 
@@ -269,38 +272,12 @@ export const TopCard = observer(
                 !product.archive &&
                 showActionBtns ? (
                   <div className={classNames.actionsWrapper}>
-                    {/* <Box className={classNames.parseButtonsWrapper}>
-                      <React.Fragment>
-                        <Button
-                          tooltipInfoContent={t(
-                            TranslationKey[
-                              'Fills the card with the necessary information from the Amazon page by ASIN'
-                            ],
-                          )}
-                          className={classNames.buttonParseAmazon}
-                          onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
-                        >
-                          {'Parse Amazon'}
-                        </Button>
-                        <Button
-                          tooltipInfoContent={t(
-                            TranslationKey['Fills the card with the necessary information from Seller Central by ASIN'],
-                          )}
-                          className={classNames.buttonParseAmazon}
-                          onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
-                        >
-                          {'Parse Seller central'}
-                        </Button>
-                      </React.Fragment>
-                    </Box> */}
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
-                          // maxNumber={50 - product.images?.length < 0 ? 0 : 50 - product.images?.length}
-                          // acceptType={['jpg', 'gif', 'png', 'jpeg', 'pdf']}
                           maxNumber={50}
                         />
                       </div>
@@ -325,6 +302,9 @@ export const TopCard = observer(
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 curUserRole={curUserRole}
                 product={product}
+                productVariations={productVariations}
+                navigateToProduct={navigateToProduct}
+                unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
                 selectedSupplier={selectedSupplier}
