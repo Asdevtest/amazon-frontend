@@ -56,6 +56,9 @@ export const ProductWrapper = observer(
     progressValue,
     alertFailedText,
     product,
+    productVariations,
+    navigateToProduct,
+    unbindProductHandler,
     shops,
     productBase,
     userRole,
@@ -177,6 +180,9 @@ export const ProductWrapper = observer(
                 alertFailedText={alertFailedText}
                 curUserRole={curUserRole}
                 product={product}
+                productVariations={productVariations}
+                navigateToProduct={navigateToProduct}
+                unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
                 selectedSupplier={selectedSupplier}

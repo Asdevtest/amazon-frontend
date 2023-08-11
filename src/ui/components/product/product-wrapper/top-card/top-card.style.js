@@ -177,4 +177,22 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 30,
   },
+
+  variationWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  variationText: {
+    fontSize: '16px',
+    fontWeight: 600,
+    color: theme.palette.text.second,
+  },
+
+  variationIcon: {
+    width: '24px !important',
+    height: '24px !important',
+    color: theme.palette.text.second,
+  },
 }))

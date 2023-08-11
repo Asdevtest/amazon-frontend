@@ -111,6 +111,7 @@ export class ClientProductViewModel {
   product = undefined
   productBase = undefined
   productId = undefined
+  productVariations = undefined
 
   storekeepersData = []
   shopsData = []
@@ -166,11 +167,12 @@ export class ClientProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history, setOpenModal }) {
+  constructor({ history, setOpenModal, productId }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
       this.history = history
+      this.productId = productId
 
       if (setOpenModal) {
         this.setOpenModal = setOpenModal
@@ -208,10 +210,53 @@ export class ClientProductViewModel {
 
   async loadData() {
     try {
+      await this.getProductById()
       await this.getShops()
+      await this.getProductsVariations()
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async getProductsVariations() {
+    if (this.product) {
+      try {
+        this.setRequestStatus(loadingStatuses.isLoading)
+
+        const result = await ProductModel.getProductsVariationsByGuid(
+          this.product?.parentProductId || this.product?._id,
+        )
+
+        runInAction(() => {
+          this.productVariations = result
+        })
+
+        console.log('result', result)
+
+        this.setRequestStatus(loadingStatuses.success)
+      } catch (error) {
+        console.log('error', error)
+        this.setRequestStatus(loadingStatuses.failed)
+      }
+    }
+  }
+
+  async unbindProductHandler(childProductIds) {
+    try {
+      await ProductModel.unbindProducts({
+        parentProductId: null,
+        childProductIds: [childProductIds],
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/client/inventory/product?product-id=${id}`, '_blank')
+    win.focus()
   }
 
   updateImagesForLoad(images) {
