@@ -26,14 +26,14 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
         destinationVariations={params?.row?.destinationVariations}
         costDeliveryToChina={params?.row?.costDeliveryToChina}
         destinationData={destinationData}
-        destinationVariationWidth={130}
+        destinationVariationWidth={150}
         weightWrapperWidth={180}
-        chinaCostWrapperWidth={99}
-        usaCostWrapperWidth={98}
+        chinaCostWrapperWidth={90}
+        usaCostWrapperWidth={90}
         roiWrapperWidth={100}
       />
     ),
-    width: 150,
+    width: 180,
     filterable: false,
     sortable: false,
     colSpan: 5,
@@ -57,7 +57,7 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
     renderHeader: () => (
       <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
     ),
-    width: 119,
+    width: 110,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -67,7 +67,7 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
     field: 'costDeliveryToUsa',
     headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
-    width: 118,
+    width: 110,
     filterable: false,
     sortable: false,
     hideable: false,
