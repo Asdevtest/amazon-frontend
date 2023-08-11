@@ -3,7 +3,7 @@ import { cx } from '@emotion/css'
 import React, { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
-import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -26,7 +26,6 @@ import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
@@ -71,7 +70,7 @@ export const OwnerGeneralRequestInfo = ({
           )}
         </div>
 
-        <Paper className={classNames.requestInformationCardWrapper}>
+        <div className={classNames.requestInformationCardWrapper}>
           <div className={classNames.requestInformation}>
             <div className={classNames.requestInformationCardInfoTitles}>
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey['Request information'])}</Typography>
@@ -123,7 +122,7 @@ export const OwnerGeneralRequestInfo = ({
               </Typography>
             </div>
           </div>
-        </Paper>
+        </div>
       </div>
 
       {request?.request && (
@@ -149,7 +148,7 @@ export const OwnerGeneralRequestInfo = ({
             )}
           </div>
 
-          <Paper className={classNames.requestInfoWrapper}>
+          <div className={classNames.requestInfoWrapper}>
             <div className={classNames.blockInfoWrapper}>
               <div className={classNames.blockInfoCell}>
                 <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
@@ -242,7 +241,7 @@ export const OwnerGeneralRequestInfo = ({
                 </Typography>
               </div>
             </div>
-          </Paper>
+          </div>
         </div>
       )}
 
@@ -250,7 +249,7 @@ export const OwnerGeneralRequestInfo = ({
         <div className={cx(classNames.requestInformationWrapper, classNames.thirdBlock)}>
           <Typography className={classNames.sectionTitle}>{t(TranslationKey.Announcement)}</Typography>
 
-          <Paper className={classNames.announcementWrapper}>
+          <div className={classNames.announcementWrapper}>
             <div className={classNames.announcementInfoSection}>
               <Typography className={classNames.sectionTitle}>{t(TranslationKey['Announcement name'])}</Typography>
 
@@ -269,7 +268,7 @@ export const OwnerGeneralRequestInfo = ({
                 maxNameWidth={150}
               />
             </div>
-          </Paper>
+          </div>
         </div>
       ) : (
         <div className={classNames.thirdBlock} />

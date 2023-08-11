@@ -235,6 +235,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: 7,
+    background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
     padding: 20,
   },
@@ -290,6 +291,7 @@ export const useClassNames = makeStyles()(theme => ({
   requestInfoWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    background: theme.palette.background.general,
     borderRadius: 7,
     padding: 20,
     height: 171,
@@ -321,6 +323,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     borderRadius: 7,
     boxShadow: theme.palette.boxShadow.paper,
+    background: theme.palette.background.general,
     padding: 20,
     gap: 20,
   },

@@ -32,6 +32,7 @@ export const CreateOrEditRequestView = observer(props => {
           mainContentRef={mainContentRef}
           choosenAnnouncements={viewModel.choosenAnnouncements}
           permissionsData={viewModel.permissionsData}
+          masterUsersData={viewModel.masterUsersData}
           announcements={viewModel.announcements}
           platformSettingsData={viewModel.platformSettingsData}
           progressValue={viewModel.progressValue}
@@ -40,6 +41,7 @@ export const CreateOrEditRequestView = observer(props => {
           history={props.history}
           checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
           createRequestForIdeaData={viewModel.createRequestForIdeaData}
+          getMasterUsersData={viewModel.getMasterUsersData}
           onClickExistingRequest={viewModel.onClickExistingRequest}
           onCreateSubmit={viewModel.onSubmitCreateRequest}
           onEditSubmit={viewModel.onSubmitEditRequest}

@@ -19,6 +19,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
+import { IService } from '@typings/master-user'
+
 import { useClassNames } from './service-exchange-card.style'
 
 interface onClickThumbnailArguments {
@@ -26,44 +28,17 @@ interface onClickThumbnailArguments {
   imgIndex: number
 }
 
-interface Requests {
-  createdBy: CreatedBy
-  humanFriendlyId: number
-  price: number
-  status: string
-  timeoutAt: string
-  title: string
-  updatedAt: string
-  _id: string
-}
-
-interface CreatedBy {
-  name: string
-  _id: string
-}
-
 interface linksToMediaFilesInterface {
   file: { name: Array<string> }
 }
 
-interface Service {
-  createdBy: CreatedBy
-  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
-  requests: Array<Requests>
-  type: number
-  description: string
-  title: string
-  updatedAt: string
-  _id: string
-}
-
 interface ServiceExchangeCardProps {
-  service: Service
+  service: IService
   choose?: boolean
   order?: boolean
   pathname?: string
   onClickThumbnail?: (images: onClickThumbnailArguments) => void
-  onClickButton?: (service: Service) => void
+  onClickButton?: (service: IService) => void
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
@@ -86,7 +61,6 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
       </div>
 
       <div className={classNames.cardCarouselWrapper}>
-        {/* @ts-ignore */}
         <CustomSlider>
           {imagesForRender.map((imageHash, index) => (
             <img
@@ -122,7 +96,6 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
             <div className={classNames.userInfo}>
               <Avatar src={getUserAvatarSrc(service.createdBy._id)} className={classNames.cardImg} />
               <div>
-                {/* @ts-ignore */}
                 <UserLink
                   blackText
                   name={service?.createdBy?.name}

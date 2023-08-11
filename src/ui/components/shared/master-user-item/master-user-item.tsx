@@ -3,7 +3,8 @@ import { FC } from 'react'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
-// import { RatingStarIcon } from '../svg-icons'
+import { RatingStarIcon } from '../svg-icons'
+
 import { useClassNames } from './master-user-item.styles'
 
 interface MasterUserItemProps {
@@ -19,13 +20,13 @@ export const MasterUserItem: FC<MasterUserItemProps> = observer(props => {
 
   return (
     <div className={classNames.root}>
-      <img src={getUserAvatarSrc(id)} alt="" className={classNames.userAvatar} />
+      <img src={getUserAvatarSrc(id)} alt={getUserAvatarSrc(id)} className={classNames.userAvatar} />
 
       <p className={classNames.userName}>{name}</p>
 
       <div className={classNames.ratingWrapper}>
         <p className={classNames.rating}>{rating}</p>
-        {/* <RatingStarIcon /> */}
+        <RatingStarIcon className={classNames.ratingIcon} />
       </div>
     </div>
   )
