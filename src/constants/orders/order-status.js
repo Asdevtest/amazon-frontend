@@ -117,6 +117,7 @@ export const buyerOrderModalDisabledOrderStatuses = [
 export const buyerOrderModalSubmitDisabledOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
   `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
   `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 ]
 

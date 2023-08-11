@@ -451,7 +451,7 @@ export const SelectFields = ({
 
           <Field
             multiline
-            disabled={disableSubmit}
+            disabled
             minRows={4}
             maxRows={4}
             inputProps={{ maxLength: 500 }}
