@@ -244,6 +244,11 @@ export const styles = theme => ({
     overflow: 'hidden',
   },
 
+  asinText: {
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
   orderTextSpan: {
     color: 'rgb(189, 194, 209)',
   },
@@ -919,9 +924,9 @@ export const styles = theme => ({
 
   boxInfoWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
     width: 158,
+    gap: 5,
   },
 
   boxInfoText: {

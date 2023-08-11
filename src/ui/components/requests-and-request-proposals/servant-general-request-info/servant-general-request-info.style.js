@@ -235,10 +235,15 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
   linkSpan: {
-    fontSize: 18,
+    fontSize: '18px !important',
     fontWeight: 400,
     lineHeight: '140%',
     color: theme.palette.primary.main,
+  },
+
+  idTitleWrapper: {
+    display: 'flex',
+    gap: 5,
   },
   idTextDark: {
     color: theme.palette.text.general,

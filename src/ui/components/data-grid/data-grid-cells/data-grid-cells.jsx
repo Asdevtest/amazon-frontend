@@ -64,6 +64,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
@@ -3057,11 +3058,8 @@ export const ProductInfoExtended = React.memo(
               <div className={classNames.batchProductInfoWrapper}>
                 <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
                 <div className={classNames.boxInfoWrapper}>
-                  <Typography className={classNames.boxInfoText}>
-                    <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                    <span className={classNames.orderTextSpanAsin}>{item.asin}</span>
-                  </Typography>
-                  {item.asin ? <CopyValue text={item.asin} /> : null}
+                  <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
+                  <AsinOrSkuLink withCopyValue asin={item.asin} />
                 </div>
 
                 {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
@@ -3116,11 +3114,8 @@ export const ProductInfoAbbreviated = React.memo(
               </div>
 
               <div className={classNames.boxInfoWrapper}>
-                <Typography className={classNames.orderText}>
-                  <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                  {item.asin}
-                </Typography>
-                {item.asin ? <CopyValue text={item.asin} /> : null}
+                <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
+                <AsinOrSkuLink withCopyValue asin={item.asin} />
               </div>
 
               <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>

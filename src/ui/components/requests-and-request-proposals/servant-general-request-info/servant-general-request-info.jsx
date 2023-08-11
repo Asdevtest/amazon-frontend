@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
 
@@ -65,6 +64,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             <div className={classNames.asinWrapper}>
               <Typography className={classNames.idText}>{t(TranslationKey.ASIN) + ':'}</Typography>
               <AsinOrSkuLink
+                withCopyValue
                 asin={requestProposals[0]?.request?.asin}
                 textStyles={classNames.linkSpan}
                 missingValueTextStyles={classNames.idText}

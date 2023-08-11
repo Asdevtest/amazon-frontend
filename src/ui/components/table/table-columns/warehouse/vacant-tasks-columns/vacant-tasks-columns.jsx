@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -12,6 +11,7 @@ import {
   TaskPriorityCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -92,9 +92,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={'ASIN'} />,
 
-    renderCell: params => (
-      <StringListCell asin withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
-    ),
+    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
     width: window.innerWidth < 1282 ? 101 : 140,
     sortable: false,
   },
@@ -150,6 +148,5 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
     width: window.innerWidth < 1282 ? 95 : 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    // type: 'date',
   },
 ]
