@@ -2032,7 +2032,7 @@ export enum TranslationKey {
   'By date' = 'By date',
   'On page' = 'On page',
   'Client commentary' = 'Client commentary',
-  'Buyer comments' = 'Buyer comments',
+  'Buyer commentary' = 'Buyer commentary',
   'New ideas' = 'New ideas',
   'On checking' = 'On checking',
   'Search for suppliers' = 'Search for suppliers',
