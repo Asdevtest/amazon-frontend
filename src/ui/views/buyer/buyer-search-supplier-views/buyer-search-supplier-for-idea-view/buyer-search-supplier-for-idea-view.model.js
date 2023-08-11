@@ -26,6 +26,7 @@ export class BuyerSearchSupplierForIdeaModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
+  paginationModel = { page: 0, pageSize: 15 }
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
   columnVisibilityModel = {}
 
@@ -49,6 +50,12 @@ export class BuyerSearchSupplierForIdeaModel {
   onColumnVisibilityModelChange(model) {
     runInAction(() => {
       this.columnVisibilityModel = model
+    })
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
     })
   }
 

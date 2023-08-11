@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +11,6 @@ import {
   TimeFromSeconds,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
@@ -88,7 +85,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'amount',
     headerName: t(TranslationKey['Ordered quantity']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
@@ -99,7 +96,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'orderedDate',
     headerName: t(TranslationKey['Order date']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
 
     renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
     width: 110,
@@ -114,7 +111,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -125,7 +121,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -136,7 +131,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -146,7 +140,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 96,
     sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
@@ -158,7 +152,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -168,7 +161,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Adding ASIN'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 106,
     sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
@@ -180,7 +173,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -190,7 +182,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell color="#0B903E" text={t(TranslationKey['Elapsed time'])} />,
 
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
-    width: 91,
+    width: 106,
     sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
@@ -208,7 +200,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'buyerComment',
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
@@ -243,7 +235,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),
-    width: 220,
+    width: 990,
     sortable: false,
     filterable: false,
   },

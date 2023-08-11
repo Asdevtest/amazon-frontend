@@ -1284,9 +1284,9 @@ export const ProductMenuItem = React.memo(
     } = props
 
     const getCurrentField = option => {
-      if (field.includes('parent')) {
+      if (field && field.includes('parent')) {
         return 'parentProduct' + option.charAt(0).toUpperCase() + option.slice(1)
-      } else if (field.includes('child')) {
+      } else if (field && field.includes('child')) {
         return 'childProduct' + option.charAt(0).toUpperCase() + option.slice(1)
       } else {
         return option
@@ -1661,7 +1661,7 @@ export const DestinationMenuItem = React.memo(
 
     useEffect(() => {
       if (nameSearchValue) {
-        const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+        const filter = filterData?.filter(obj => obj && obj?.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
         setItemsForRender(filter)
       } else {
         setItemsForRender(filterData)

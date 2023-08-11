@@ -3,13 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
-    width: '869px',
+    padding: 30,
+    width: 550,
     margin: '0 auto',
     border: '1px solid #4CAF50',
     borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
+
+    [theme.breakpoints.down(1280)]: {
+      width: 390,
     },
   },
   headerAndTimeWrapper: {

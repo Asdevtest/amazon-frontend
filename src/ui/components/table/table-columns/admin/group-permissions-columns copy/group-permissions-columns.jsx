@@ -56,7 +56,7 @@ export const adminGroupPermissionsColumns = handlers => [
     width: 180,
     renderCell: params => {
       const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
+      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
 
       return (
         <EditOrRemoveIconBtnsCell

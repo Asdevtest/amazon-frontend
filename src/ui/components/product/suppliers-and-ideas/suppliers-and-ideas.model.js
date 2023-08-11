@@ -255,10 +255,7 @@ export class SuppliersAndIdeasModel {
         await this.editIdea(formFields._id, getObjectFilteredByKeyArrayWhiteList(submitData, IdeaPatch), isForceUpdate)
       } else {
         const createdIdeaId = await this.createIdea(
-          getObjectFilteredByKeyArrayWhiteList(
-            { ...submitData, productId: this.productId, parentProductId: this.productId },
-            IdeaCreate,
-          ),
+          getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
           isForceUpdate,
         )
 

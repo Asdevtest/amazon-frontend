@@ -27,6 +27,7 @@ export class AdminInventoryViewModel {
 
   selectedProduct = undefined
 
+  paginationModel = { page: 0, pageSize: 15 }
   sortModel = []
   filterModel = { items: [] }
   curPage = 0

@@ -169,6 +169,10 @@ export const CreateOrEditRequestContent = ({
     setAnnouncementsData(announcements)
   }, [announcements])
 
+  useEffect(() => {
+    setChosenExecutor(requestToEdit?.request?.executor)
+  }, [requestToEdit?.request?.executor])
+
   const getSourceFormFields = currentFields => ({
     request: {
       title: requestToEdit?.request?.title || '',

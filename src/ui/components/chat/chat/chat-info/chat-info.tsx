@@ -190,7 +190,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
         showPreviews
         isOpenModal={isImageModalOpen}
         handleOpenModal={() => setIsImageModalOpen(prevState => !prevState)}
-        imageList={images?.map(el => el.file) || []}
+        imageList={images?.map(el => el.file.replace('.preview.webp', '')) || []}
         currentImageIndex={currentImageIndex}
         handleCurrentImageIndex={index => setCurrentImageIndex(index)}
       />

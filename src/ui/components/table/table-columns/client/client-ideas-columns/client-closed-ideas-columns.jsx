@@ -18,10 +18,8 @@ import {
   SmallRowImageCell,
   TimeFromSeconds,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
 
 import { checkIsImageLink } from '@utils/checks'
-import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientClosedIdeasColumns = (rowHandlers, shops) => [
@@ -107,7 +105,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
-    filterable: false,
+    columnKey: columnnsKeys.client.IDEAS_STATUS,
   },
 
   {
@@ -117,7 +115,6 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -128,7 +125,6 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -139,7 +135,6 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -158,7 +153,6 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     ),
 
     width: 91,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 

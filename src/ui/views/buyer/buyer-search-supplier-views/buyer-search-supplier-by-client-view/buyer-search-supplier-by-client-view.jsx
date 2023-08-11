@@ -71,6 +71,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
               },
             }}
             localeText={getLocalizationByLanguageTag()}
+            paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={100}
@@ -78,6 +79,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
           />
         </div>
       </div>

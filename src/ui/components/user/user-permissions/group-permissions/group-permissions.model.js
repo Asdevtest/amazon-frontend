@@ -246,12 +246,15 @@ export class GroupPermissionsModel {
   }
 
   onClickEditBtn(row) {
-    this.addOrEditGroupPermissionSettings = {
-      permission: row,
-      isEdit: true,
-      onSubmit: (data, newSinglePermissions, permissionId) =>
-        this.onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId),
-    }
+    runInAction(() => {
+      this.addOrEditGroupPermissionSettings = {
+        permission: row,
+        isEdit: true,
+        onSubmit: (data, newSinglePermissions, permissionId) =>
+          this.onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId),
+      }
+    })
+
     this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
   }
 

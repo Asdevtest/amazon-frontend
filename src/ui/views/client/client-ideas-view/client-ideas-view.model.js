@@ -2,7 +2,6 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { BatchStatus } from '@constants/statuses/batch-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -150,6 +149,7 @@ const filtersFields = [
   'amazonTitle',
   'asin',
   'skusByClient',
+  'status',
 ]
 
 export class ClientIdeasViewModel {
@@ -212,6 +212,7 @@ export class ClientIdeasViewModel {
   currentProduct = undefined
   requestsForProduct = []
   productsToLaunch = []
+  productId = undefined
   currentProposal = undefined
 
   paymentMethods = []
@@ -380,6 +381,8 @@ export class ClientIdeasViewModel {
   }
 
   getFilters(exclusion) {
+    const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
+
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
@@ -396,9 +399,11 @@ export class ClientIdeasViewModel {
           'title',
         ],
         {
-          status: {
-            $eq: this.currentSettings.statuses.join(','),
-          },
+          ...(!statusFilterData.length && {
+            status: {
+              $eq: this.currentSettings.statuses.join(','),
+            },
+          }),
         },
       ),
     )
@@ -1037,7 +1042,10 @@ export class ClientIdeasViewModel {
   }
 
   async onClickNextButton(chosenProduct) {
-    runInAction(() => (this.currentProduct = chosenProduct))
+    runInAction(() => {
+      this.currentProduct = chosenProduct
+      this.productId = chosenProduct?._id
+    })
     this.onTriggerOpenModal('showProductLaunch')
     this.onTriggerOpenModal('showIdeaModal')
   }

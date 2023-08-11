@@ -11,13 +11,13 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 20,
     backgroundColor: theme.palette.background.second,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       padding: 10,
     },
   },
 
   messagesWrapperNone: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },

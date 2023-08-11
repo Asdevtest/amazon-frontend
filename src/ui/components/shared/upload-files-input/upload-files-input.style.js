@@ -53,7 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.02)',
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
       height: 80,
     },
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       gap: 5,
     },
   },
@@ -114,7 +114,7 @@ export const useClassNames = makeStyles()(theme => ({
       borderColor: theme.palette.text.second,
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
       padding: 10,
     },
@@ -148,7 +148,7 @@ export const useClassNames = makeStyles()(theme => ({
       borderColor: theme.palette.text.second,
     },
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       fontSize: 14,
       padding: 10,
     },
@@ -164,7 +164,7 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 300,
     overflowY: 'auto',
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1024)]: {
       gap: 10,
 
       '& > div': {

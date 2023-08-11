@@ -10,7 +10,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import { Avatar, Divider, Typography } from '@mui/material'
+import { Avatar, Divider } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
@@ -187,9 +187,9 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
 
       <div className={classNames.toolbar}>
         <div className={classNames.titleWrapper}>
-          <Typography key={SettingsModel.languageTag} className={classNames.title}>
-            {title}
-          </Typography>
+          <p key={SettingsModel.languageTag} className={classNames.title}>
+            {t(TranslationKey[`${title as TranslationKey}`])}
+          </p>
 
           <div className={classNames.tooltipWrapper} onClick={onTriggerShowHints}>
             {showHints ? (
@@ -202,14 +202,14 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
               <HintsOff className={classNames.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
             )}
             {showHints ? (
-              <Typography className={classNames.hintsTextActive}>{t(TranslationKey['Hints included'])}</Typography>
+              <p className={classNames.hintsTextActive}>{t(TranslationKey['Hints included'])}</p>
             ) : (
-              <Typography className={classNames.hintsTextNoActive}>{t(TranslationKey['Hints are off'])}</Typography>
+              <p className={classNames.hintsTextNoActive}>{t(TranslationKey['Hints are off'])}</p>
             )}
           </div>
         </div>
 
-        <Typography className={classNames.userRoleTitle}>{t(TranslationKey['your role:'])}</Typography>
+        <p className={classNames.userRoleTitle}>{t(TranslationKey['your role:'])}</p>
 
         <div className={classNames.allowedRolesMainWrapper}>
           {allowedRolesWithoutCandidate?.length > 1 ? (
@@ -228,9 +228,9 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
               ))}
             </div>
           ) : (
-            <Typography className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
+            <p className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
               {(UserRoleCodeMap as { [key: number]: string })[role]}
-            </Typography>
+            </p>
           )}
         </div>
 
@@ -242,6 +242,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
           ) : (
             <NotificationsOffIcon className={classNames.notificationIcon} onClick={handleNotifications} />
           )}
+
           <LanguageSelector className={classNames.languageSelector} />
 
           {SettingsModel.uiTheme === UiTheme.light ? (
@@ -263,11 +264,11 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
 
           <div className={classNames.userNameAndBalanceWrapper}>
             <Tooltip title={userName}>
-              <Typography className={classNames.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</Typography>
+              <p className={classNames.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
             </Tooltip>
 
             {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-              <Typography className={classNames.balance}>{toFixedWithDollarSign(balance, 2)}</Typography>
+              <p className={classNames.balance}>{toFixedWithDollarSign(balance, 2)}</p>
             )}
           </div>
           <ArrowDropDownIcon className={classNames.hideOnModile} />
@@ -286,42 +287,40 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
         >
           <MenuItem className={classNames.menuClientInfoWrapper}>
             <div className={classNames.menuClientInfo}>
-              <Typography className={classNames.menuClientInfoText}>
-                {getShortenStringIfLongerThanCount(userName, 10)}
-              </Typography>
+              <p className={classNames.menuClientInfoText}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
 
               {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-                <Typography className={classNames.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</Typography>
+                <p className={classNames.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</p>
               )}
             </div>
 
             <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
           </MenuItem>
           <MenuItem className={classNames.mobileAllowedRolesWrapper}>
-            <Typography className={classNames.mobileUserRoleTitle}>{t(TranslationKey['your role:'])}</Typography>
+            <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['your role:'])}</p>
             {allowedRolesWithoutCandidate?.length > 1 ? (
               <div className={classNames.allowedRolesWrapper}>
                 {allowedRolesWithoutCandidate?.map((roleCode: number) => (
                   <div key={roleCode} className={classNames.userRoleWrapper}>
                     {roleCode === role ? <span className={classNames.indicator}></span> : null}
 
-                    <Typography
+                    <p
                       className={cx(classNames.userRole, {
                         [classNames.currentAllowedRolesItem]: roleCode === role,
                       })}
                       onClick={() => onChangeUserInfo(roleCode)}
                     >
                       {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
-                    </Typography>
+                    </p>
                   </div>
                 ))}
               </div>
             ) : (
               <div className={classNames.userRoleWrapper}>
                 <span className={classNames.indicator}></span>
-                <Typography className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
+                <p className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
                   {(UserRoleCodeMap as { [key: number]: string })[role]}
-                </Typography>
+                </p>
               </div>
             )}
           </MenuItem>

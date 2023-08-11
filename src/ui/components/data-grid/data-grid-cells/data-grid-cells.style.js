@@ -1,7 +1,6 @@
 export const styles = theme => ({
   img: {
-    maxHeight: '58px',
-    height: 'fit-content',
+    height: '58px',
     width: '58px',
     marginRight: '16px',
     objectFit: 'contain',
@@ -505,23 +504,6 @@ export const styles = theme => ({
     padding: '5px',
     maxHeight: 240,
     overflow: 'auto',
-
-    '&::-webkit-scrollbar': {
-      width: 10,
-      height: 10,
-    },
-    '&::-webkit-scrollbar-button': {
-      background: '#fff',
-      height: 5,
-    },
-    '::-webkit-scrollbar-thumb': {
-      borderRadius: 10,
-      background: '#C4C4C4',
-      border: 'none',
-    },
-    '&::-webkit-scrollbar-track': {
-      background: '#fff',
-    },
   },
 
   withScrollBatchBoxesWrapper: {
@@ -848,6 +830,7 @@ export const styles = theme => ({
 
   adaptText: {
     fontSize: 14,
+    fontWeight: 400,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -945,6 +928,10 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+  },
+
+  orderTextSpanAsin: {
+    color: theme.palette.primary.main,
   },
 
   flexDirectionColumn: {
@@ -1351,22 +1338,17 @@ export const styles = theme => ({
     gap: 5,
   },
   destinationAndTariffWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-    padding: '10px 0',
+    padding: '20px 0',
   },
   storekeeperBtn: {
     height: 'auto',
-    width: '100%',
+    width: 160,
+    marginTop: 10,
     whiteSpace: 'normal',
     color: theme.palette.text.general,
+    background: theme.palette.primary.main,
   },
-  destination: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+
   cursorPointer: {
     cursor: 'pointer',
   },

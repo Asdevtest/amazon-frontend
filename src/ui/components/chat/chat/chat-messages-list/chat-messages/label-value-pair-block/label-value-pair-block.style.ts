@@ -11,8 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
   },
   rootGreen: {
-    // backgroundColor: '#D9FAE5',
-
     backgroundColor: theme.palette.background.green,
   },
 

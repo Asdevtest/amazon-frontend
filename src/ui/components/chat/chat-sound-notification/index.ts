@@ -1,1 +1,1 @@
-export { СhatSoundNotification } from './chat-sound-notification'
+export { ChatSoundNotification } from './chat-sound-notification'
