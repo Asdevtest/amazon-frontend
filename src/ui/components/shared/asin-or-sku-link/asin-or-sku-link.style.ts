@@ -19,8 +19,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   valueText: {
     fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 18,
+    lineHeight: '25px',
   },
 
   asinValueText: {

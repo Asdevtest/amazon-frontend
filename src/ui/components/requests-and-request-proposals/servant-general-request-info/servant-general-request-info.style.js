@@ -240,6 +240,11 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.primary.main,
   },
+
+  idTitleWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
   idTextDark: {
     color: theme.palette.text.general,
     fontWeight: 600,
