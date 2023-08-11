@@ -1,16 +1,10 @@
 import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  /* TablePagination, */
-  Typography,
-} from '@mui/material'
+import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -54,7 +48,7 @@ export const AddOrEditBatchForm = observer(
     userRole,
     boxesData,
     onClose,
-    /* volumeWeightCoefficient,*/ onSubmit,
+    onSubmit,
     batchToEdit,
     sourceBox,
     showProgress,
@@ -79,8 +73,6 @@ export const AddOrEditBatchForm = observer(
     const [nameSearchValueChosenBoxes, setNameSearchValueChosenBoxes] = useState('')
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
-
-    // const [isActualGreaterTheVolume, setIsActualGreaterTheVolume] = useState(false)
 
     const [batchFields, setBatchFields] = useState({
       title: batchToEdit?.originalData.title || '',
@@ -248,14 +240,7 @@ export const AddOrEditBatchForm = observer(
           ]),
         )
       }
-    }, [
-      chosenBoxes,
-      chosenBoxesBase,
-      nameSearchValueBoxesToAddData,
-      batchFields.volumeWeightDivide,
-      batchFields.calculationMethod,
-      // isActualGreaterTheVolume,
-    ])
+    }, [chosenBoxesBase, nameSearchValueBoxesToAddData, batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
     useEffect(() => {
       if (nameSearchValueChosenBoxes && !batchToEdit) {
@@ -278,7 +263,7 @@ export const AddOrEditBatchForm = observer(
           ),
         ),
       ])
-    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod, chosenBoxes])
+    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
     // useEffect(() => {
     //   setIsActualGreaterTheVolume(
@@ -503,11 +488,15 @@ export const AddOrEditBatchForm = observer(
               pagination
               checkboxSelection
               keepNonExistentRowsSelected
-              columnVisibilityModel={viewModel.columnVisibilityModel}
               initialState={{
                 sorting: {
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
                 },
+              }}
+              classes={{
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
               }}
               localeText={getLocalizationByLanguageTag()}
               pageSizeOptions={[50, 100]}
@@ -531,6 +520,7 @@ export const AddOrEditBatchForm = observer(
                 border: `1px solid  #EBEBEB !important`,
                 boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
@@ -613,6 +603,11 @@ export const AddOrEditBatchForm = observer(
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
+              classes={{
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
               sx={{
                 boxShadow: '0px 2px 10px 2px #EBEBEB',
                 border: `1px solid  #EBEBEB !important`,
@@ -632,9 +627,6 @@ export const AddOrEditBatchForm = observer(
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
                 },
-              }}
-              classes={{
-                root: classNames.rootDataGrid,
               }}
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns(isClient)}
