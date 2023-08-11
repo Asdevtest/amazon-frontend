@@ -411,7 +411,7 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickAcceptButton(ideaData, chesenStatus) {
+  async changeIdeaStatus(ideaData, chesenStatus) {
     const { _id, status, variation } = ideaData
 
     switch (status) {
@@ -453,6 +453,18 @@ export class SuppliersAndIdeasModel {
         this.loadData()
         break
     }
+  }
+
+  async onClickAcceptButton(ideaData, chesenStatus) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onClickConfirm: () => {
+        this.changeIdeaStatus(ideaData, chesenStatus)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitRejectOrRemoveIdea(ideaId, close) {
