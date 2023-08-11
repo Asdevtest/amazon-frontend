@@ -646,6 +646,7 @@ export const styles = theme => ({
     overflow: 'hidden',
     fontSize: '14px',
     lineHeight: '16px',
+    wordWrap: 'break-word',
   },
 
   threeMultilineText: {
