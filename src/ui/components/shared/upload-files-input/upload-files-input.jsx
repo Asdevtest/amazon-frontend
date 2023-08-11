@@ -254,8 +254,8 @@ export const UploadFilesInput = observer(props => {
                     </button>
                     <Typography className={classNames.imagesCount}>
                       {
-                        <span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${
-                          maxNumber - ((filesLength && filesLength) || 0)
+                        <span className={classNames.imagesCountSpan}>{`${images?.length ?? 0}/${
+                          maxNumber - ((filesLength && filesLength) ?? 0)
                         }`}</span>
                       }
                       {` ${t(TranslationKey.files)}`}
