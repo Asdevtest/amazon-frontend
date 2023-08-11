@@ -969,6 +969,30 @@ export const VariationIcon = props => (
     <rect x="14" y="16" width="5" height="4" />
   </SvgIcon>
 )
+export const RatingStarIcon = props => (
+  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M6.3 9.5567L2.40639 11.4016L3.15 7.49409L0 4.7268L4.35319 4.1567L6.3 0.601562L8.24681 4.1567L12.6 4.7268L9.45 7.49409L10.1936 11.4016L6.3 9.5567Z"
+      fill="url(#paint0_linear_13300_372589)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_13300_372589"
+        x1="6.3"
+        y1="0.601562"
+        x2="6.3"
+        y2="11.4016"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#F5CF00" />
+        <stop offset="1" stop-color="#F5C106" />
+        <stop offset="1" stop-color="#F2CC00" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)
 export const DefaultFileTypeIcon = props => (
   <SvgIcon {...props} width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 0C8.67392 0 7.40215 0.526784 6.46447 1.46447C5.52678 2.40215 5 3.67392 5 5V35C5 36.3261 5.52678 37.5979 6.46447 38.5355C7.40215 39.4732 8.67392 40 10 40H30C31.3261 40 32.5979 39.4732 33.5355 38.5355C34.4732 37.5979 35 36.3261 35 35V5C35 3.67392 34.4732 2.40215 33.5355 1.46447C32.5979 0.526784 31.3261 0 30 0L10 0ZM10 2.5H30C30.663 2.5 31.2989 2.76339 31.7678 3.23223C32.2366 3.70107 32.5 4.33696 32.5 5V35C32.5 35.663 32.2366 36.2989 31.7678 36.7678C31.2989 37.2366 30.663 37.5 30 37.5H10C9.33696 37.5 8.70107 37.2366 8.23223 36.7678C7.76339 36.2989 7.5 35.663 7.5 35V5C7.5 4.33696 7.76339 3.70107 8.23223 3.23223C8.70107 2.76339 9.33696 2.5 10 2.5Z" />

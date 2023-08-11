@@ -2076,6 +2076,9 @@ export enum TranslationKey {
   'Once confirmed, the idea will be irretrievably lost/deleted' = 'Once confirmed, the idea will be irretrievably lost/deleted',
   'Interconnected products' = 'Interconnected products',
   'Variations' = 'Variations',
+  'Choose an executor' = 'Choose an executor',
+  'Select announcement' = 'Select announcement',
+  'Change announcement' = 'Change announcement',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

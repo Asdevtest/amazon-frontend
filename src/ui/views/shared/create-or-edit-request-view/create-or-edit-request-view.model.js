@@ -28,10 +28,11 @@ export class CreateOrEditRequestViewModel {
   uploadedFiles = []
 
   permissionsData = []
+  masterUsersData = []
 
   announcementId = undefined
   announcements = []
-  choosenAnnouncements = []
+  choosenAnnouncements = {}
 
   bigImagesOptions = {}
 
@@ -99,6 +100,17 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
+  async getMasterUsersData(specsType) {
+    try {
+      this.masterUsersData = await UserModel.getMasterUsers(35, '', { specs: specsType })
+    } catch (error) {
+      runInAction(() => {
+        this.error = error
+      })
+      console.log(error)
+    }
+  }
+
   async toPublishRequest(requestId, totalCost) {
     try {
       await RequestModel.toPublishRequest(requestId, { totalCost })
@@ -146,7 +158,6 @@ export class CreateOrEditRequestViewModel {
         ),
         details: {
           ...data.details,
-          // linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
         },
       }
 

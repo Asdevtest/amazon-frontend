@@ -265,6 +265,7 @@ export const lightTheme = createTheme({
       general: '#fff',
       second: '#F8F8F8',
       third: '#f4f4f4',
+      fourth: '#E7F1FF',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
       yellowRow: '#FFFDF3',
@@ -465,7 +466,6 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
-          // background: 'red',
         },
       },
     },
@@ -723,6 +723,7 @@ export const darkTheme = createTheme({
         general: '#2B2B34',
         second: '#21212B',
         third: '#25252D',
+        fourth: '#0A6FE8',
         searchSelectHover: '#25252D',
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',

@@ -16,13 +16,14 @@ interface RadioButtonsProps {
   currentValue?: string | number | boolean
   verticalDirection?: boolean
   disabled?: boolean
+  withoutLable?: boolean
   onClickRadioButton: (value: string | number | boolean) => void
 }
 
 export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { currentValue, radioBottonsSettings, disabled, verticalDirection, onClickRadioButton } = props
+  const { currentValue, radioBottonsSettings, disabled, verticalDirection, withoutLable, onClickRadioButton } = props
 
   return (
     <div className={cx(classNames.root, { [classNames.verticalRoot]: verticalDirection })}>
@@ -33,9 +34,9 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
               disabled={disabled}
               classes={{ root: classNames.radioRoot }}
               checked={setting.value === currentValue}
-              onChange={() => onClickRadioButton(setting.value)}
+              onClick={() => onClickRadioButton(setting.value)}
             />
-            <p>{setting?.label()}</p>
+            {!withoutLable && <p>{setting?.label()}</p>}
           </div>
         ))}
     </div>

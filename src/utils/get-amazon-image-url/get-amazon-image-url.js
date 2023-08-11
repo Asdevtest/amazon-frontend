@@ -8,7 +8,11 @@ import { BACKEND_API_URL } from '@constants/keys/env'
 export const getAmazonImageUrl = (str, big) => {
   if (str) {
     if (str.includes(BACKEND_API_URL)) {
-      return big ? str : str + '.preview.webp'
+      if (str.includes('.preview.webp')) {
+        return str
+      } else {
+        return big ? str : str + '.preview.webp'
+      }
     } else if (str.includes('http')) {
       return str
     } else if (str.includes('base64')) {
