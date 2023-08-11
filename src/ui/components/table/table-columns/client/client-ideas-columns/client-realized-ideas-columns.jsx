@@ -151,7 +151,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Card creating'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 110,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -172,7 +172,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 110,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
