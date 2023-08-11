@@ -151,7 +151,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
-            announcementId: announcement?._id || '',
+            announcementId: announcement?._id || null,
             linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
           },
           ['discountedPrice'],
@@ -218,7 +218,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
-            announcementId: announcement?._id ? announcement?._id : '',
+            announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
               ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
             ],
