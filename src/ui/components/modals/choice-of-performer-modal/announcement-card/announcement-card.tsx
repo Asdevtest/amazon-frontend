@@ -45,7 +45,13 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
   ]
 
   return (
-    <div className={cx(classNames.root, { [classNames.selectedCard]: selectedCard?._id === announcementData?._id })}>
+    <div
+      className={cx(classNames.root, { [classNames.selectedCard]: selectedCard?._id === announcementData?._id })}
+      onClick={e => {
+        e.stopPropagation()
+        onClickSelectCard(announcementData)
+      }}
+    >
       <div className={classNames.header}>
         <div className={classNames.titleWrapper}>
           <p className={classNames.title}>{announcementData?.title}</p>
@@ -67,7 +73,8 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
               alt=""
               className={classNames.carouselImage}
               src={getAmazonImageUrl(imageHash, true)}
-              onClick={() => {
+              onClick={e => {
+                e.stopPropagation()
                 onClickThumbnail({
                   images: imagesForRender,
                   imgIndex: index,

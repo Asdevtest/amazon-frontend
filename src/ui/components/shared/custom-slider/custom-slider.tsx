@@ -75,7 +75,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     }
   }, [slideCount])
 
-  const handleLeftArrowClick = () => {
+  const handleLeftArrowClick = (e: any) => {
+    e.stopPropagation()
     setOffset(currentOffset => {
       const newOffset = currentOffset + RIGHT_BLOCK_WIDTH
       return Math.min(newOffset, 0)
@@ -86,7 +87,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     }
   }
 
-  const handleRightArrowClick = () => {
+  const handleRightArrowClick = (e: any) => {
+    e.stopPropagation()
     setOffset(currentOffset => {
       const newOffset = currentOffset - RIGHT_BLOCK_WIDTH
       const maxOffset = -(RIGHT_BLOCK_WIDTH * (clides.length - 1))
