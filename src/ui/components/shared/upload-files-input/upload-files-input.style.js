@@ -288,6 +288,13 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     width: '172px',
     color: '#fff',
+    fontSize: 16,
+    lineHeight: '22px',
+
+    [theme.breakpoints.down(1024)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   errorText: {
