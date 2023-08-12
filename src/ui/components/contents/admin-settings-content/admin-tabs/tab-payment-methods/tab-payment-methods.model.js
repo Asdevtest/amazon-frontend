@@ -212,11 +212,11 @@ export class AdminSettingsPaymentMethodsModel {
 
         runInAction(() => {
           this.isValidUrl = isValidImageUrl
+          this.method.iconImage = {
+            data_url: e.target.result,
+            file,
+          }
         })
-        this.method.iconImage = {
-          data_url: e.target.result,
-          file,
-        }
       }
 
       event.target.value = ''

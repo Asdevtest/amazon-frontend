@@ -667,7 +667,7 @@
   "Time to find a supplier, h": "Время на поиск поставщика, ч",
   "Divider for calculating volume weight": "Делитель для расчета объемного веса",
   "The settings are saved.": "Настройки сохранены.",
-  "The settings are not saved!": "Настройки не сохранены!",
+  "The settings are not saved.": "Настройки не сохранены.",
   "Proposal": "Предложение",
   "Request processed": "Запрос обработан",
   "Fields not filled in": "Не заполнены поля",
@@ -2080,5 +2080,7 @@
   "Variations": "Вариации",
   "Choose an executor": "Выберите исполнителя",
   "Select announcement": "Выбрать объявление",
-  "Change announcement": "Изменить объявление"
+  "Change announcement": "Изменить объявление",
+  "The proxy servers are saved.": "Прокси сервера сохранены.",
+  "The proxy servers are not saved.": "Прокси сервера не сохранены."
 }

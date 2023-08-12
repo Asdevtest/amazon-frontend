@@ -32,7 +32,8 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
     }
   }
 
-  const isExistsTag = tags.find(tag => tag.title === formField.title)
+  const isExistsTag = !!tags.find(tag => tag.title === formField.title)
+
   const disabledButton = formField.title.length === 0 || isExistsTag
 
   return (

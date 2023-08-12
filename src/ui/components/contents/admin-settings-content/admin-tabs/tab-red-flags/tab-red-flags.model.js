@@ -212,11 +212,11 @@ export class AdminSettingsRedFlagsModel {
 
         runInAction(() => {
           this.isValidUrl = isValidImageUrl
+          this.flag.iconImage = {
+            data_url: e.target.result,
+            file,
+          }
         })
-        this.flag.iconImage = {
-          data_url: e.target.result,
-          file,
-        }
       }
 
       event.target.value = ''

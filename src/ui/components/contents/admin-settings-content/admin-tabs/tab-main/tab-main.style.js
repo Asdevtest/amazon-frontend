@@ -53,12 +53,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   proxyList: {
     width: '100%',
-    height: 160,
-    margin: '10px 0',
+    height: 168,
+    margin: '10px 0 20px',
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 8,
   },
 
   proxyWrapper: {

@@ -667,7 +667,7 @@
   "Time to find a supplier, h": "Время на 搜索 供货方期限, 小时",
   "Divider for calculating volume weight": "用计算体积重量的除数",
   "The settings are saved.": "设置保存了.",
-  "The settings are not saved!": "设置没保存了!",
+  "The settings are not saved.": "设置没保存了.",
   "Proposal": "建议",
   "Request processed": "请求已成功处理",
   "Fields not filled in": "字段填写不当",
@@ -2079,5 +2079,7 @@
   "Variations": "Variations",
   "Choose an executor": "Choose an executor",
   "Select announcement": "Select announcement",
-  "Change announcement": "Change announcement"
+  "Change announcement": "Change announcement",
+  "The proxy servers are saved.": "The proxy servers are saved.",
+  "The proxy servers are not saved.": "The proxy servers are not saved."
 }
