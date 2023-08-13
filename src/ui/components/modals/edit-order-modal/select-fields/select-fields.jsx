@@ -80,6 +80,8 @@ export const SelectFields = ({
 
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
+  const countIncomingImage = order.images?.length ?? 0
+
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
       <Grid item>
@@ -756,7 +758,7 @@ export const SelectFields = ({
                   fullWidth
                   images={photosToLoad}
                   setImages={setPhotosToLoad}
-                  maxNumber={50 - Number(order.images?.length)}
+                  maxNumber={50 - countIncomingImage}
                 />
               </div>
             )
