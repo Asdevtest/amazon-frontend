@@ -152,7 +152,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   userRole: {
-    color: 'rgba(0, 0, 0, 0.54)',
+    color: theme.palette.primary.main,
     fontSize: 16,
     padding: '6px 16px',
     fontWeight: 500,
