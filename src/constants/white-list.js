@@ -41,6 +41,8 @@ export const creatSupplier = [
 ]
 
 export const IdeaPatch = [
+  'buyerComment',
+  'childProductId',
   'title',
   'media',
   'comments',
