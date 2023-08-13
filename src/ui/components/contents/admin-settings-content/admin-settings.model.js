@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -29,6 +30,7 @@ export class AdminSettingsModel {
   tabIndex = 0
 
   isFormFieldsChanged = false
+  isProxyServersChanged = false
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -75,17 +77,23 @@ export class AdminSettingsModel {
 
       await AdministratorModel.setSettings(this.formFields)
 
-      this.infoModalText = t(TranslationKey['The settings are saved.'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The settings are saved.'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.loadData()
+      this.getAdminSettings()
 
-      this.isFormFieldsChanged = false
+      runInAction(() => {
+        this.isFormFieldsChanged = false
+      })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.infoModalText = t(TranslationKey['The settings are not saved!'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The settings are not saved.'])
+      })
 
       this.onTriggerOpenModal('showInfoModal')
 
@@ -108,24 +116,16 @@ export class AdminSettingsModel {
       [fieldName]: event.target.value,
     }
 
-    this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
+    runInAction(() => {
+      this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
+    })
   }
 
   onChangeTab(_, selectedTab) {
     this.tabIndex = selectedTab
-  }
 
-  async onCreateProxy(proxy) {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      await AdministratorModel.createProxy(proxy)
-
-      this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+    if (this.isFormFieldsChanged) {
+      this.onCreateAdminSettings()
     }
   }
 
@@ -145,9 +145,44 @@ export class AdminSettingsModel {
     }
   }
 
+  async onCreateProxy(proxy) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await AdministratorModel.createProxy(proxy)
+
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The proxy servers are saved.'])
+      })
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.getServerProxy()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The proxy servers are not saved.'])
+      })
+
+      this.onTriggerOpenModal('showInfoModal')
+
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  isEqualServerProxy(updatedServerProxy) {
+    this.isProxyServersChanged = !isEqual(this.serverProxy, updatedServerProxy)
+  }
+
   onSubmitMain(proxy) {
-    this.onCreateProxy(proxy)
-    this.onCreateAdminSettings()
+    if (this.isFormFieldsChanged) {
+      this.onCreateAdminSettings()
+    }
+
+    if (this.isProxyServersChanged) {
+      this.onCreateProxy(proxy)
+    }
   }
 
   onClickToggleInfoModal() {

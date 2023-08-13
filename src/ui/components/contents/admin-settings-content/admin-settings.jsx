@@ -63,6 +63,7 @@ export const AdminSettings = observer(() => {
               infoModalText={viewModel.infoModalText}
               formFields={viewModel.formFields}
               isFormFieldsChanged={viewModel.isFormFieldsChanged}
+              isEqualServerProxy={viewModel.isEqualServerProxy}
               onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
               onClickToggleInfoModal={viewModel.onClickToggleInfoModal}
               onSubmit={viewModel.onSubmitMain}

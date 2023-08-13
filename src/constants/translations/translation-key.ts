@@ -670,7 +670,7 @@ export enum TranslationKey {
   'Time to find a supplier, h' = 'Time to find a supplier, h',
   'Divider for calculating volume weight' = 'Divider for calculating volume weight',
   'The settings are saved.' = 'The settings are saved.',
-  'The settings are not saved!' = 'The settings are not saved!',
+  'The settings are not saved.' = 'The settings are not saved.',
   'Proposal' = 'Proposal',
   'Request processed' = 'Request processed',
   'Fields not filled in' = 'Fields not filled in',
@@ -2079,6 +2079,7 @@ export enum TranslationKey {
   'Choose an executor' = 'Choose an executor',
   'Select announcement' = 'Select announcement',
   'Change announcement' = 'Change announcement',
-  // '' = '',
+  'The proxy servers are saved.' = 'The proxy servers are saved.',
+  'The proxy servers are not saved.' = 'The proxy servers are not saved.',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

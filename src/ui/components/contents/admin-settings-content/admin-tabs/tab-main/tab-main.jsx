@@ -31,6 +31,7 @@ export const TabMain = observer(
     infoModalText,
     formFields,
     isFormFieldsChanged,
+    isEqualServerProxy,
     onClickToggleProxyModal,
     onClickToggleInfoModal,
     onChangeField,
@@ -51,6 +52,10 @@ export const TabMain = observer(
 
       setUpdatedProxy(result)
     }
+
+    useEffect(() => {
+      isEqualServerProxy(updatedProxy)
+    }, [updatedProxy])
 
     const disabledSubmitProxy = isEqual(serverProxy, updatedProxy)
     const disabledSubmitFields =
