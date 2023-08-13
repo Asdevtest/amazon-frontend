@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -14,8 +14,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientIdeasNotificationsViewModel } from './client-ideas-notifications-view.model'
 import { styles } from './client-ideas-notifications-view.style'
+
+import { ClientIdeasNotificationsViewModel } from './client-ideas-notifications-view.model'
 
 export const ClientIdeasNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientIdeasNotificationsViewModel({ history: props.history }))
@@ -26,61 +27,60 @@ export const ClientIdeasNotificationsViewRaw = props => {
   }, [])
 
   return (
-    <React.Fragment>
-      <div>
-        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
-          {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-        </Button>
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            pagination
-            useResizeContainer
-            disableVirtualization
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
-            // getRowHeight={() => 'auto'}
-            rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+    <>
+      <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+        {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+      </Button>
+
+      <div className={classNames.tableWrapper}>
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          disableVirtualization
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          // getRowHeight={() => 'auto'}
+          rowHeight={120}
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </div>
-    </React.Fragment>
+    </>
   )
 }
 
