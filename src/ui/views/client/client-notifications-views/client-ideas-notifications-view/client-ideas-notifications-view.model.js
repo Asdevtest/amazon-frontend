@@ -48,7 +48,10 @@ export class ClientIdeasNotificationsViewModel {
 
   async handleArchive() {
     await this.getIdeas(!this.isArchived)
-    this.isArchived = !this.isArchived
+
+    runInAction(() => {
+      this.isArchived = !this.isArchived
+    })
   }
 
   onChangeFilterModel(model) {
