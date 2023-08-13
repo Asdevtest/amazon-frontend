@@ -23,6 +23,8 @@ export const AuthFormWrapper = ({ onClickRedirect, redirect, title, children }) 
     SettingsModel.setUiTheme(theme)
   }
 
+  const checkAppVersion = () => SettingsModel.checkAppVersion()
+
   useEffect(() => {
     setConfig({ ...config, show: false })
   }, []) // при разлогине скидывает счетчик уведомлений в иконке во вкладке браузера
@@ -55,7 +57,9 @@ export const AuthFormWrapper = ({ onClickRedirect, redirect, title, children }) 
         {children}
       </div>
 
-      <Typography className={classNames.version}>{appVersion}</Typography>
+      <Typography className={classNames.version} onClick={checkAppVersion}>
+        {appVersion}
+      </Typography>
     </div>
   )
 }

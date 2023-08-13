@@ -72,6 +72,8 @@ export const useClassNames = makeStyles()(theme => ({
     justifySelf: 'flex-end',
     transform: 'translate(150%, 0)',
     color: theme.palette.primary.main,
+    cursor: 'pointer',
+
     [theme.breakpoints.down(768)]: { transform: 'none' },
   },
   selectorsWrapper: {
