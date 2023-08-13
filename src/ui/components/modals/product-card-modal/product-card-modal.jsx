@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-
-import Typography from '@mui/material/Typography'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -70,8 +67,9 @@ export const ProductCardModal = observer(props => {
     viewModel?.loadData()
   }, [])
 
+  // проблема в этом useEffect
   useEffect(() => {
-    const productId = queries.get('product-id')
+    const productId = queries.get('product-id') // repeat 39 str
 
     viewModel?.clearProduct()
     viewModel?.clearReadyImages()
