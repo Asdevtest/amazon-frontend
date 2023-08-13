@@ -3158,6 +3158,7 @@ export const IdeaRequests = React.memo(
   withStyles(props => {
     const {
       classes: styles,
+      onFinishedOnly,
       onClickCreateRequest,
       onClickLinkRequest,
       onClickResultButton,
@@ -3168,7 +3169,11 @@ export const IdeaRequests = React.memo(
     const [requests, setRequests] = useState([])
 
     useEffect(() => {
-      setRequests([...(row?.requestsOnCheck || []), ...(row?.requestsOnFinished || [])])
+      if (onFinishedOnly) {
+        setRequests([...(row?.requestsOnFinished || [])])
+      } else {
+        setRequests([...(row?.requestsOnCheck || []), ...(row?.requestsOnFinished || [])])
+      }
     }, [row?.requestsOnCheck, row?.requestsOnFinished])
 
     return (
