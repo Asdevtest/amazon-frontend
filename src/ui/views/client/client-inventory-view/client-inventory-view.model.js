@@ -754,8 +754,6 @@ export class ClientInventoryViewModel {
           ? ''
           : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
@@ -973,9 +971,6 @@ export class ClientInventoryViewModel {
         redFlags: { $eq: redFlagsFilter },
       }),
     })
-
-    // console.log(newFilter, 'newFilter')
-    console.log(filter, 'filter')
 
     return filter
   }
