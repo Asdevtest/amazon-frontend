@@ -66,59 +66,57 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
     <>
       {filesForRender?.length ? (
         <div className={classNames.imagesCarouselWrapper}>
-          <div className={classNames.imageWrapper}>
-            {notEmptyFiles?.length ? (
-              <CustomSlider>
-                {notEmptyFiles.map((file, index) => {
-                  const fileExtension = (isString(file) ? file : file.data_url).split('.').slice(-1)[0]
-                  const isImageType = imageTypes.includes(fileExtension)
+          {notEmptyFiles?.length ? (
+            <CustomSlider>
+              {notEmptyFiles.map((file, index) => {
+                const fileExtension = (isString(file) ? file : file.data_url).split('.').slice(-1)[0]
+                const isImageType = imageTypes.includes(fileExtension)
 
-                  return !isString(file) && file?.data_url ? (
-                    <div key={index} className={classNames.documentWrapper} onClick={() => openPdfFile(file.data_url)}>
-                      <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
-                      <p className={classNames.documentTitle}>{shortenDocumentString(file?.file?.name)}</p>
-                      <span className={classNames.documentHover}>{file?.file?.name}</span>
-                    </div>
-                  ) : (
-                    <div key={index} className={classNames.documentWrapper}>
-                      {isImageType ? (
-                        <img
-                          src={getAmazonImageUrl(file)}
-                          alt="picture"
-                          onClick={() => {
-                            setCurrentImageIndex(index)
-                            setIsImageModalOpen(true)
-                          }}
-                        />
-                      ) : (
-                        <Link
-                          href={isString(file) ? file : undefined}
-                          className={classNames.documentWrapper}
-                          target="__blank"
-                        >
-                          <FileIcon fileExtension={fileExtension} />
-                        </Link>
-                      )}
+                return !isString(file) && file?.data_url ? (
+                  <div key={index} className={classNames.documentWrapper} onClick={() => openPdfFile(file.data_url)}>
+                    <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
+                    <p className={classNames.documentTitle}>{shortenDocumentString(file?.file?.name)}</p>
+                    <span className={classNames.documentHover}>{file?.file?.name}</span>
+                  </div>
+                ) : (
+                  <div key={index} className={classNames.documentWrapper}>
+                    {isImageType ? (
+                      <img
+                        src={getAmazonImageUrl(file)}
+                        alt="picture"
+                        onClick={() => {
+                          setCurrentImageIndex(index)
+                          setIsImageModalOpen(true)
+                        }}
+                      />
+                    ) : (
+                      <Link
+                        href={isString(file) ? file : undefined}
+                        className={classNames.documentWrapper}
+                        target="__blank"
+                      >
+                        <FileIcon fileExtension={fileExtension} />
+                      </Link>
+                    )}
 
-                      {!hideNames && (
-                        <>
-                          <p className={classNames.documentTitle}>{shortenDocumentString(file)}</p>
-                          <span className={classNames.documentHover}>{!isString(file) ? file?.file?.name : file}</span>
-                        </>
-                      )}
-                    </div>
-                  )
-                })}
-              </CustomSlider>
-            ) : (
-              <div className={classNames.emptyProposalsIconWrapper}>
-                <div className={classNames.emptyProposalsIcon}>
-                  <NoDocumentIcon className={classNames.noDocumentIcon} />
-                </div>
-                <p className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</p>
+                    {!hideNames && (
+                      <>
+                        <p className={classNames.documentTitle}>{shortenDocumentString(file)}</p>
+                        <span className={classNames.documentHover}>{!isString(file) ? file?.file?.name : file}</span>
+                      </>
+                    )}
+                  </div>
+                )
+              })}
+            </CustomSlider>
+          ) : (
+            <div className={classNames.emptyProposalsIconWrapper}>
+              <div className={classNames.emptyProposalsIcon}>
+                <NoDocumentIcon className={classNames.noDocumentIcon} />
               </div>
-            )}
-          </div>
+              <p className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</p>
+            </div>
+          )}
         </div>
       ) : (
         <div className={classNames.emptyIconWrapper}>
