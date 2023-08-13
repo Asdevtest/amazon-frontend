@@ -615,10 +615,17 @@ export class ClientIdeasViewModel {
 
   // * Idea handlers
 
-  async statusHandler(method, id) {
+  async statusHandler(method, id, addSupliersToParentProductData) {
     try {
       this.requestStatus = loadingStatuses.isLoading
       await method(id)
+
+      if (addSupliersToParentProductData) {
+        ProductModel.addSuppliersToProduct(
+          addSupliersToParentProductData?.parentProduct?._id,
+          addSupliersToParentProductData?.suppliers?.map(supplier => supplier._id),
+        )
+      }
 
       await this.getIdeaList()
 
@@ -674,6 +681,7 @@ export class ClientIdeasViewModel {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
+          ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
       },

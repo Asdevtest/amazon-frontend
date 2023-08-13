@@ -439,6 +439,12 @@ export class SuppliersAndIdeasModel {
           await IdeaModel.changeStatusToProductCreating(_id)
         } else {
           await IdeaModel.changeStatusToAddingAsin(_id)
+          if (this.productId) {
+            ProductModel.addSuppliersToProduct(
+              this.productId,
+              ideaData?.suppliers?.map(supplier => supplier._id),
+            )
+          }
         }
         this.loadData()
         break
