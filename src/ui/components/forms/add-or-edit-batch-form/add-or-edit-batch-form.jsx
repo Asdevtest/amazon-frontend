@@ -40,8 +40,9 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 import { useClassNames } from './add-or-edit-batch-form.style'
+
+import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(
   ({

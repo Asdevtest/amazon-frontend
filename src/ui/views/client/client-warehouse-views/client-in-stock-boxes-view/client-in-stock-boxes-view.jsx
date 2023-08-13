@@ -37,8 +37,9 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 import { styles } from './client-in-stock-boxes-view.style'
+
+import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
 export const ClientInStockBoxesViewRaw = props => {
   const topHeaderBtnsWrapperRef = useRef()

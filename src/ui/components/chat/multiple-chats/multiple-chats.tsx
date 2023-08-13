@@ -15,11 +15,11 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './multiple-chats.styles'
+
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
 import { ChatsList } from '../chats-list'
-
-import { useClassNames } from './multiple-chats.styles'
 
 export interface IFile {
   data_url: string

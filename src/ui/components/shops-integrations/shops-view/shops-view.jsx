@@ -21,8 +21,9 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ShopsViewModel } from './shops-view.model'
 import { styles } from './shops-view.style'
+
+import { ShopsViewModel } from './shops-view.model'
 
 export const ShopsViewRaw = props => {
   const [viewModel] = useState(

@@ -43,9 +43,9 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
-
 import { useClassNames } from './edit-box-storekeeper-form.style'
+
+import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField, showCheckbox }) => {
   const { classes: classNames } = useClassNames()

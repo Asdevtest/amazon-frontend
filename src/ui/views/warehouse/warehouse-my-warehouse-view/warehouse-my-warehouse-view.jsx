@@ -34,8 +34,9 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 import { styles } from './warehouse-my-warehouse-view.style'
+
+import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
 export const WarehouseMyWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))

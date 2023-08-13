@@ -17,8 +17,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminExchangeViewModel } from './admin-exchange-views.model'
 import { styles } from './admin-exchange-views.style'
+
+import { AdminExchangeViewModel } from './admin-exchange-views.model'
 
 export const AdminExchangeViewsRaw = props => {
   const [viewModel] = useState(() => new AdminExchangeViewModel({ history: props.history }))

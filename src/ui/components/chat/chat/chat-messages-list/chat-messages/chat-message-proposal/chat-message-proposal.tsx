@@ -18,9 +18,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { LabelValuePairBlock } from '../label-value-pair-block'
-
 import { useClassNames } from './chat-message-proposal.style'
+
+import { LabelValuePairBlock } from '../label-value-pair-block'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void

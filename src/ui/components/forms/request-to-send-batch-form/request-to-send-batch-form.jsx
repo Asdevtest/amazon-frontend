@@ -12,6 +12,7 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-to-send-batch-form.style'
+
 import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-boxes'
 
 export const RequestToSendBatchForm = observer(

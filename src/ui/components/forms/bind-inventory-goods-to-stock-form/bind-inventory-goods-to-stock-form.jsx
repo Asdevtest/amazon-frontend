@@ -15,6 +15,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './bind-inventory-goods-to-stock-form.style'
+
 import { chosenGoodsColumns, sourceColumns } from './bind-stock-goods-to-inventory-columns'
 
 const chipConfigSettings = {

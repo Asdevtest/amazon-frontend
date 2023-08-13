@@ -21,8 +21,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { IntegrationsModel } from './integrations.model'
 import { useClassNames } from './integrations.style'
+
+import { IntegrationsModel } from './integrations.model'
 
 export const Integrations = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()

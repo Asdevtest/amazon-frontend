@@ -15,8 +15,9 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 import { styles } from './admin-warehouse-tasks-view.style'
+
+import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 
 export const AdminWarehouseTasksViewRaw = props => {
   const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history: props.history }))

@@ -18,8 +18,9 @@ import { formatDateMonthYear, sortObjectsArrayByFiledDate } from '@utils/date-ti
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ChartsForm } from './charts-form/charts-form'
 import { useClassNames } from './second-step.style'
+
+import { ChartsForm } from './charts-form/charts-form'
 
 export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onChangeStatisticsField }) => {
   const { classes: classNames } = useClassNames()

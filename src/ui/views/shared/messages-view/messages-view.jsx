@@ -28,8 +28,9 @@ import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { MessagesViewModel } from './messages-view.model'
 import { useClassNames } from './messages-view.style'
+
+import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesView = observer(props => {
   const { classes: classNames } = useClassNames()

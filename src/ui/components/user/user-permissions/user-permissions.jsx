@@ -12,9 +12,10 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './user-permissions.style'
+
 import { GroupPermissions } from './group-permissions'
 import { SinglePermissions } from './single-permissions'
-import { useClassNames } from './user-permissions.style'
 
 export const UserPermissions = observer(() => {
   const { classes: classNames } = useClassNames()

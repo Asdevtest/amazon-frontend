@@ -21,8 +21,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientReadyBoxesViewModel } from './client-ready-boxes-view.model'
 import { styles } from './client-ready-boxes-view.style'
+
+import { ClientReadyBoxesViewModel } from './client-ready-boxes-view.model'
 
 export const ClientReadyBoxesViewRaw = props => {
   const [viewModel] = useState(() => new ClientReadyBoxesViewModel({ history: props.history }))

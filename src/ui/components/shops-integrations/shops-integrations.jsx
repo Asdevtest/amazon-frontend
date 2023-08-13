@@ -12,8 +12,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { GoodsDaysReport } from './goods-days-report'
 import { useClassNames } from './shops-integrations.style'
+
+import { GoodsDaysReport } from './goods-days-report'
 import { ShopsView } from './shops-view'
 import { StockReport } from './stock-report/stock-report'
 

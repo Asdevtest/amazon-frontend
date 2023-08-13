@@ -11,8 +11,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { SupervisorFreelanceViewModel } from './supervisor-freelance-view.model'
 import { styles } from './supervisor-freelance-view.style'
+
+import { SupervisorFreelanceViewModel } from './supervisor-freelance-view.model'
 
 export const SupervisorFreelanceViewRaw = props => {
   const [viewModel] = useState(() => new SupervisorFreelanceViewModel({ history: props.history }))

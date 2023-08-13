@@ -11,8 +11,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ClientProductExchangeViewModel } from './client-product-exchange-view.model'
 import { styles } from './client-product-exchange-view.style'
+
+import { ClientProductExchangeViewModel } from './client-product-exchange-view.model'
 
 export const ClientProductExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ClientProductExchangeViewModel({ history: this.props.history }))

@@ -13,9 +13,9 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import { NavbarSubCategory } from '../navbar-sub-category'
-
 import { useClassNames } from './navbar-collapse.style'
+
+import { NavbarSubCategory } from '../navbar-sub-category'
 
 export const NavbarCollapse = ({
   activeCategory,

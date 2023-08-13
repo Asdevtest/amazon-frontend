@@ -5,9 +5,10 @@ import { SettingsModel } from '@models/settings-model'
 
 import { formatDateMonthYearWithoutFormatISO } from '@utils/date-time'
 
+import { useClassNames } from './shop-wrapper.style'
+
 import { BarChartsCard } from './bar-charts-card/bar-charts-card'
 import { BottomCard } from './bottom-card'
-import { useClassNames } from './shop-wrapper.style'
 import { TopCard } from './top-card'
 
 export const ShopWrapper = observer(({ userInfo, shopInfo, onClickEditBtn }) => {

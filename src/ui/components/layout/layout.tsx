@@ -4,9 +4,10 @@ import { useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
+import { useClassNames } from './layout.styles'
+
 import { BreadCrumbsLine } from './bread-crumbs-line'
 import { Header } from './header'
-import { useClassNames } from './layout.styles'
 import { Navbar } from './navbar'
 
 interface CurrentPageInfo {

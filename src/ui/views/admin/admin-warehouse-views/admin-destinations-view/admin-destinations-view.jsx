@@ -17,8 +17,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 import { styles } from './admin-destinations-view.style'
+
+import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 
 export const AdminDestinationsViewRaw = props => {
   const [viewModel] = useState(

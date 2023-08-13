@@ -13,8 +13,9 @@ import { OnOffSelector } from '@components/shared/selectors/on-off-selector'
 
 import { t } from '@utils/translations'
 
-import { AdminTechnicalViewModel } from './admin-technical-view.model'
 import { styles } from './admin-technical-view.style'
+
+import { AdminTechnicalViewModel } from './admin-technical-view.model'
 
 export const AdminTechnicalViewRaw = props => {
   const [viewModel] = useState(

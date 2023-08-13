@@ -4,8 +4,9 @@ import React from 'react'
 import { Pagination } from '@material-ui/lab'
 import { Table as MuiTable, Paper, TableBody, TableContainer, TableHead, Toolbar, Typography } from '@mui/material'
 
-import { TableToolbar } from './table-toolbar'
 import { useClassNames } from './table.style'
+
+import { TableToolbar } from './table-toolbar'
 
 export const Table = observer(
   ({

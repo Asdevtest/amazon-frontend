@@ -13,8 +13,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 import { styles } from './services-detail-custom-view.style'
+
+import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 
 export const ServicesDetailCustomViewRaw = props => {
   const [viewModel] = useState(

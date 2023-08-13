@@ -14,8 +14,9 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { chosenGoodsColumns, inventoryColumns } from './bind-stock-goods-to-inventory-columns'
 import { useClassNames } from './bind-stock-goods-to-inventory-form.style'
+
+import { chosenGoodsColumns, inventoryColumns } from './bind-stock-goods-to-inventory-columns'
 
 const chipConfigSettings = {
   RECOMMENDED: 'RECOMMENDED',

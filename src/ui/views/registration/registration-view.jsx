@@ -13,8 +13,9 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { t } from '@utils/translations'
 import { disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail } from '@utils/validation'
 
-import { RegistrationViewModel } from './registration-view.model'
 import { styles } from './registration-view.style'
+
+import { RegistrationViewModel } from './registration-view.model'
 
 export const RegistrationViewRaw = props => {
   const { classes: classNames } = props

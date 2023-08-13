@@ -12,8 +12,9 @@ import { PhotoCarousel } from '@components/shared/photo-carousel'
 
 import { t } from '@utils/translations'
 
-import { BeforeAfterInfoTaskBlock } from './before-after-info-task-block'
 import { useClassNames } from './task-info-modal.style'
+
+import { BeforeAfterInfoTaskBlock } from './before-after-info-task-block'
 
 export const TaskInfoModal = observer(({ openModal, setOpenModal, task, volumeWeightCoefficient }) => {
   const { classes: classNames } = useClassNames()

@@ -18,9 +18,9 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { fieldNameObject } from '../../admin-settings.constants'
-
 import { useClassNames } from './tab-main.style'
+
+import { fieldNameObject } from '../../admin-settings.constants'
 
 export const TabMain = observer(
   ({

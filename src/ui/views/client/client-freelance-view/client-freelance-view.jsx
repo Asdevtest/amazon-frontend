@@ -10,8 +10,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ClientFreelanceViewModel } from './client-freelance-view.model'
 import { styles } from './client-freelance-view.style'
+
+import { ClientFreelanceViewModel } from './client-freelance-view.model'
 
 export const ClientFreelanceViewRaw = props => {
   const [viewModel] = useState(() => new ClientFreelanceViewModel({ history: props.history }))

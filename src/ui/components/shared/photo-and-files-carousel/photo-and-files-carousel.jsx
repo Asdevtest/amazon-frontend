@@ -21,9 +21,9 @@ import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { checkAndMakeAbsoluteUrl, shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { CustomSlider } from '../custom-slider'
-
 import { useClassNames } from './photo-and-files-carousel.styles'
+
+import { CustomSlider } from '../custom-slider'
 
 export const PhotoAndFilesCarousel = props => {
   const { classes: classNames } = useClassNames()

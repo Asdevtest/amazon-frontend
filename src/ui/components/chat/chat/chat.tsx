@@ -27,11 +27,12 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './chat.styles'
+
 import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
-import { useClassNames } from './chat.styles'
 
 export interface RenderAdditionalButtonsParams {
   message: string

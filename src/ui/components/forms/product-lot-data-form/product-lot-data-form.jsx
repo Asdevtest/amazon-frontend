@@ -21,9 +21,10 @@ import { shortAsin } from '@utils/text'
 // import {Button} from '@components/buttons/button'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './product-lot-data-form.style'
+
 import { productInTransferColumns } from './poduct-in-transfer-column'
 import { productLotDataFormColumns } from './product-lot-data-form-column'
-import { useClassNames } from './product-lot-data-form.style'
 
 export const ProductLotDataForm = observer(
   ({ product, batchesData, isTransfer, userInfo, onClickToggleArchiveProductLotData }) => {

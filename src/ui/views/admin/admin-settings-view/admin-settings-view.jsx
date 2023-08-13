@@ -9,8 +9,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { AdminSettingsViewModel } from './admin-settings-view.model'
 import { styles } from './admin-settings-view.style'
+
+import { AdminSettingsViewModel } from './admin-settings-view.model'
 
 export const AdminSettingsViewRaw = props => {
   const [viewModel] = useState(

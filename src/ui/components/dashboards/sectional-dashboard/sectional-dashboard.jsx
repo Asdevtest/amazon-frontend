@@ -2,9 +2,9 @@ import React from 'react'
 
 import { Grid, Typography } from '@mui/material'
 
-import { DashboardInfoCard } from '../dashboard-info-card'
-
 import { useClassNames } from './sectional-dashboard.style'
+
+import { DashboardInfoCard } from '../dashboard-info-card'
 
 export const SectionalDashboard = ({ config, valuesData, onClickViewMore }) => {
   const { classes: classNames } = useClassNames()

@@ -3,8 +3,9 @@ import { observer } from 'mobx-react'
 
 import { Typography } from '@mui/material'
 
-import { RequestProposalsDetailsCustomItem } from './request-proposals-details-custom-item'
 import { useClassNames } from './request-proposals-details-custom.style'
+
+import { RequestProposalsDetailsCustomItem } from './request-proposals-details-custom-item'
 
 export const RequestProposalsDetailsCustom = observer(({ requestProposals }) => {
   const { classes: classNames } = useClassNames()

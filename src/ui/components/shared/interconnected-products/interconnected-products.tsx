@@ -4,10 +4,10 @@ import { FC } from 'react'
 
 import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-product'
 
+import { useClassNames } from './interconnected-products.styles'
+
 import { Button } from '../buttons/button'
 import { MinusIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
-
-import { useClassNames } from './interconnected-products.styles'
 
 interface InterconnectedProductsProps {
   isParent?: boolean

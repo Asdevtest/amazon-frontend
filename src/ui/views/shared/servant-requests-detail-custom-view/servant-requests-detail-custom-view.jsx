@@ -22,8 +22,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 import { styles } from './servant-requests-detail-custom-view.style'
+
+import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 
 const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
