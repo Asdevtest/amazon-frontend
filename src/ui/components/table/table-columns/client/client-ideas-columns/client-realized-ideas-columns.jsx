@@ -227,6 +227,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaRequests
         row={params.row}
+        onFinishedOnly
         onClickCreateRequest={() =>
           rowHandlers.onClickCreateRequest(params.row.parentProduct._id, params.row.parentProduct.asin)
         }
