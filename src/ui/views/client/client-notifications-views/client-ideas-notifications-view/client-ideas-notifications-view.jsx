@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -27,60 +27,62 @@ export const ClientIdeasNotificationsViewRaw = props => {
   }, [])
 
   return (
-    <>
-      <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
-        {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-      </Button>
+    <React.Fragment>
+      <div>
+        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+          {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+        </Button>
 
-      <div className={classNames.tableWrapper}>
-        <MemoDataGrid
-          pagination
-          useResizeContainer
-          disableVirtualization
-          localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.getCurrentData()}
-          // getRowHeight={() => 'auto'}
-          rowHeight={120}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            disableVirtualization
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            // getRowHeight={() => 'auto'}
+            rowHeight={120}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
               },
-            },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-        />
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 
