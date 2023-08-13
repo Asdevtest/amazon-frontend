@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-indent */
 import { cx } from '@emotion/css'
-import React from 'react'
 import Linkify from 'react-linkify-always-blank'
 
 import { Typography } from '@mui/material'

@@ -1,17 +1,12 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
-    // padding: '40px 30px',
-    width: '869px',
+    minWidth: 300,
+    maxWidth: 869,
     margin: '0 auto',
-    // border: '1px solid #4CAF50',
     borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
   },
   headerAndTimeWrapper: {
     flexDirection: 'row',
@@ -49,7 +44,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   resultWrapper: {
     width: '100%',
-    marginTop: 25,
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
@@ -61,7 +55,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '140%',
     color: theme.palette.text.general,
-    // whiteSpace: 'pre',
     maxHeight: 150,
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
@@ -100,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'end',
-    marginTop: '48px',
+    marginTop: 30,
   },
 
   actionBtnWrapperStyleNotFirst: {
