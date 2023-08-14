@@ -13,12 +13,12 @@
 
 
 import ApiClient from "../ApiClient";
+import ApiV1BatchesProduct from '../model/ApiV1BatchesProduct';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject102 from '../model/InlineObject102';
 import InlineObject103 from '../model/InlineObject103';
-import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20064 from '../model/InlineResponse20064';
+import InlineResponse20062 from '../model/InlineResponse20062';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -50,7 +50,7 @@ export default class ResearcherApi {
      * @param {String} strategy Стратегия АСИНА для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20064} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20062} and HTTP response
      */
     apiV1ResearchersCheckProductsAsinStrategyGetWithHttpInfo(asin, strategy, opts) {
       opts = opts || {};
@@ -79,7 +79,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20064;
+      let returnType = InlineResponse20062;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{asin}/{strategy}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -94,7 +94,7 @@ export default class ResearcherApi {
      * @param {String} strategy Стратегия АСИНА для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20064}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20062}
      */
     apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts) {
       return this.apiV1ResearchersCheckProductsAsinStrategyGetWithHttpInfo(asin, strategy, opts)
@@ -109,7 +109,7 @@ export default class ResearcherApi {
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesProduct>} and HTTP response
      */
     apiV1ResearchersProductsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -128,7 +128,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse200];
+      let returnType = [ApiV1BatchesProduct];
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -141,7 +141,7 @@ export default class ResearcherApi {
      * Получить список товаров созданных данным пользователем.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesProduct>}
      */
     apiV1ResearchersProductsGet(opts) {
       return this.apiV1ResearchersProductsGetWithHttpInfo(opts)
@@ -211,7 +211,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID запрашиваемого ресурса.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1BatchesProduct} and HTTP response
      */
     apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -235,7 +235,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse200;
+      let returnType = ApiV1BatchesProduct;
       return this.apiClient.callApi(
         '/api/v1/researchers/products/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -249,7 +249,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID запрашиваемого ресурса.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1BatchesProduct}
      */
     apiV1ResearchersProductsGuidGet(guid, opts) {
       return this.apiV1ResearchersProductsGuidGetWithHttpInfo(guid, opts)

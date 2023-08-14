@@ -10,6 +10,6 @@ Name | Type | Description | Notes
 **skusByClient** | **[String]** |  | [optional] 
 **barCode** | **String** | Штрихкод продукта | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**client** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**client** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 
 

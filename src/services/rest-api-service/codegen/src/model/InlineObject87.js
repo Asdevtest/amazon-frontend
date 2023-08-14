@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject87 model module.
@@ -48,20 +47,20 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -71,32 +70,34 @@ class InlineObject87 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject87.prototype['rating'] = undefined;
+InlineObject87.prototype['commentByClient'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineObject87.prototype['reason'] = undefined;
+InlineObject87.prototype['commentByPerformer'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineObject87.prototype['linksToMediaFiles'] = undefined;
+InlineObject87.prototype['fileLink'] = undefined;
 
 /**
- * @member {Number} timeLimitInMinutes
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
  */
-InlineObject87.prototype['timeLimitInMinutes'] = undefined;
+InlineObject87.prototype['proposalId'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
+ * Комментарий к файлу
+ * @member {String} requestId
  */
-InlineObject87.prototype['media'] = undefined;
+InlineObject87.prototype['requestId'] = undefined;
 
 
 

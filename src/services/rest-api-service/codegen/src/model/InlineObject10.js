@@ -22,11 +22,10 @@ class InlineObject10 {
     /**
      * Constructs a new <code>InlineObject10</code>.
      * @alias module:model/InlineObject10
-     * @param productId {String} ГУид продукта
      */
-    constructor(productId) { 
+    constructor() { 
         
-        InlineObject10.initialize(this, productId);
+        InlineObject10.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject10 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId) { 
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject10 {
 }
 
 /**
- * ГУид продукта
- * @member {String} productId
+ * Админ может менять статус с 70 на 100 и обратно
+ * @member {Number} status
  */
-InlineObject10.prototype['productId'] = undefined;
+InlineObject10.prototype['status'] = undefined;
 
 
 

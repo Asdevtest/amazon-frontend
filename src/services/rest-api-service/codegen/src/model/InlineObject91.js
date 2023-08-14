@@ -22,11 +22,11 @@ class InlineObject91 {
     /**
      * Constructs a new <code>InlineObject91</code>.
      * @alias module:model/InlineObject91
-     * @param action {module:model/InlineObject91.ActionEnum} 
+     * @param approvedByMaster {Boolean} 
      */
-    constructor(action) { 
+    constructor(approvedByMaster) { 
         
-        InlineObject91.initialize(this, action);
+        InlineObject91.initialize(this, approvedByMaster);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject91 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj, approvedByMaster) { 
+        obj['approvedByMaster'] = approvedByMaster;
     }
 
     /**
@@ -49,11 +49,8 @@ class InlineObject91 {
         if (data) {
             obj = obj || new InlineObject91();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('approvedByMaster')) {
+                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
             }
         }
         return obj;
@@ -63,39 +60,12 @@ class InlineObject91 {
 }
 
 /**
- * @member {module:model/InlineObject91.ActionEnum} action
+ * @member {Boolean} approvedByMaster
  */
-InlineObject91.prototype['action'] = undefined;
-
-/**
- * Причина смены статуса.
- * @member {String} reason
- */
-InlineObject91.prototype['reason'] = undefined;
+InlineObject91.prototype['approvedByMaster'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject91['ActionEnum'] = {
-
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
-
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
 
 
 

@@ -877,6 +877,7 @@ export class ClientIdeasViewModel {
           parentProductId: ideaData?.parentProduct?._id,
           clientComment: ideaData?.comments,
           lamazon: ideaData?.productLinks[0],
+          buyerId: ideaData?.parentProduct?.buyerId,
         },
         createProductByClient,
       )

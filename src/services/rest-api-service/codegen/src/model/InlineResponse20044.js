@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20044Rows from './InlineResponse20044Rows';
 
 /**
  * The InlineResponse20044 model module.
@@ -47,8 +48,11 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            }
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20044Rows]);
             }
         }
         return obj;
@@ -58,10 +62,16 @@ class InlineResponse20044 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * Общее кол-во идей
+ * @member {Number} count
  */
-InlineResponse20044.prototype['profileId'] = undefined;
+InlineResponse20044.prototype['count'] = undefined;
+
+/**
+ * Список идей
+ * @member {Array.<module:model/InlineResponse20044Rows>} rows
+ */
+InlineResponse20044.prototype['rows'] = undefined;
 
 
 

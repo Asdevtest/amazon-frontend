@@ -12,6 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20036Finances from './InlineResponse20036Finances';
+import InlineResponse20036Orders from './InlineResponse20036Orders';
+import InlineResponse20036PendingOrders from './InlineResponse20036PendingOrders';
+import InlineResponse20036Products from './InlineResponse20036Products';
 
 /**
  * The InlineResponse20036 model module.
@@ -21,7 +25,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20036 {
     /**
      * Constructs a new <code>InlineResponse20036</code>.
-     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20036
      */
     constructor() { 
@@ -48,8 +51,17 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20036Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20036Orders.constructFromObject(data['orders']);
+            }
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20036PendingOrders.constructFromObject(data['pendingOrders']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20036Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -59,9 +71,24 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {Number} priceForClient
+ * @member {module:model/InlineResponse20036Products} products
  */
-InlineResponse20036.prototype['priceForClient'] = undefined;
+InlineResponse20036.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20036Orders} orders
+ */
+InlineResponse20036.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20036PendingOrders} pendingOrders
+ */
+InlineResponse20036.prototype['pendingOrders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20036Finances} finances
+ */
+InlineResponse20036.prototype['finances'] = undefined;
 
 
 

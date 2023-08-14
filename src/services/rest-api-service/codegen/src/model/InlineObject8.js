@@ -22,10 +22,11 @@ class InlineObject8 {
     /**
      * Constructs a new <code>InlineObject8</code>.
      * @alias module:model/InlineObject8
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor() { 
+    constructor(attachedDocuments) { 
         
-        InlineObject8.initialize(this);
+        InlineObject8.initialize(this, attachedDocuments);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject8 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -47,11 +49,8 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('iconImage')) {
-                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -61,15 +60,9 @@ class InlineObject8 {
 }
 
 /**
- * Название красного флага
- * @member {String} title
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject8.prototype['title'] = undefined;
-
-/**
- * @member {String} iconImage
- */
-InlineObject8.prototype['iconImage'] = undefined;
+InlineObject8.prototype['attachedDocuments'] = undefined;
 
 
 

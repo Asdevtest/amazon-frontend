@@ -47,20 +47,14 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -70,34 +64,22 @@ class InlineObject97 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject97.prototype['execution_time'] = undefined;
+InlineObject97.prototype['rating'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject97.prototype['price'] = undefined;
+InlineObject97.prototype['review'] = undefined;
 
 /**
- * Комментарий к предложению.
- * @member {String} comment
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
  */
-InlineObject97.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject97.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject97.prototype['title'] = undefined;
+InlineObject97.prototype['sourceFile'] = undefined;
 
 
 

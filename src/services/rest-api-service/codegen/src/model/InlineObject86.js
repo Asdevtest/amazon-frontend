@@ -47,14 +47,8 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -64,22 +58,10 @@ class InlineObject86 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
- */
-InlineObject86.prototype['rating'] = undefined;
-
-/**
- * Комментарий причин изменения статуса.
+ * Причины закрытия приема предложений.
  * @member {String} reason
  */
 InlineObject86.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject86.prototype['linksToMediaFiles'] = undefined;
 
 
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**approvedByMaster** | **Boolean** |  | 
+**requestIds** | **[String]** |  | 
+**uploadedToListing** | **Boolean** |  | 
 
 
