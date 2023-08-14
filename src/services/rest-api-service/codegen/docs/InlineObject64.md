@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**buyerComment** | **String** | Комментарий байера | [optional] 
 **childProductId** | **String** | Гуид дочернего компонента | [optional] 
 **title** | **String** | Название идеи | [optional] 
 **media** | **[String]** | Images URLs | [optional] 

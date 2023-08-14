@@ -47,6 +47,9 @@ class InlineObject64 {
         if (data) {
             obj = obj || new InlineObject64();
 
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
             if (data.hasOwnProperty('childProductId')) {
                 obj['childProductId'] = ApiClient.convertToType(data['childProductId'], 'String');
             }
@@ -89,6 +92,12 @@ class InlineObject64 {
 
 
 }
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineObject64.prototype['buyerComment'] = undefined;
 
 /**
  * Гуид дочернего компонента

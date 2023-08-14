@@ -480,6 +480,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersMastersGet**](docs/UserApi.md#apiV1UsersMastersGet) | **GET** /api/v1/users/masters | Получить список мастеров
 *TestSwagger.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 *TestSwagger.UserApi* | [**apiV1UsersMySubUsersGet**](docs/UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
+*TestSwagger.UserApi* | [**apiV1UsersNotificationsArchivePatch**](docs/UserApi.md#apiV1UsersNotificationsArchivePatch) | **PATCH** /api/v1/users/notifications/archive | Архивировать нотификации пользователя.
+*TestSwagger.UserApi* | [**apiV1UsersNotificationsPagMyGet**](docs/UserApi.md#apiV1UsersNotificationsPagMyGet) | **GET** /api/v1/users/notifications/pag/my | Получить нотификации пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersPlatformSettingsGet**](docs/UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
 *TestSwagger.UserApi* | [**apiV1UsersPost**](docs/UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 *TestSwagger.UserApi* | [**apiV1UsersSignInPost**](docs/UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
@@ -834,13 +836,15 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20073](docs/InlineResponse20073.md)
  - [TestSwagger.InlineResponse20074](docs/InlineResponse20074.md)
  - [TestSwagger.InlineResponse20075](docs/InlineResponse20075.md)
+ - [TestSwagger.InlineResponse20075Rows](docs/InlineResponse20075Rows.md)
  - [TestSwagger.InlineResponse20076](docs/InlineResponse20076.md)
  - [TestSwagger.InlineResponse20077](docs/InlineResponse20077.md)
  - [TestSwagger.InlineResponse20078](docs/InlineResponse20078.md)
  - [TestSwagger.InlineResponse20079](docs/InlineResponse20079.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse20080](docs/InlineResponse20080.md)
- - [TestSwagger.InlineResponse20080Details](docs/InlineResponse20080Details.md)
+ - [TestSwagger.InlineResponse20081](docs/InlineResponse20081.md)
+ - [TestSwagger.InlineResponse20081Details](docs/InlineResponse20081Details.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)

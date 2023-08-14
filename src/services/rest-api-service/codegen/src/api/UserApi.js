@@ -28,6 +28,7 @@ import InlineObject129 from '../model/InlineObject129';
 import InlineResponse20075 from '../model/InlineResponse20075';
 import InlineResponse20076 from '../model/InlineResponse20076';
 import InlineResponse20077 from '../model/InlineResponse20077';
+import InlineResponse20078 from '../model/InlineResponse20078';
 import InlineResponse20112 from '../model/InlineResponse20112';
 import InternalServerError from '../model/InternalServerError';
 import LinkSubuserInputSchema from '../model/LinkSubuserInputSchema';
@@ -213,7 +214,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20076>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20077>} and HTTP response
      */
     apiV1UsersContactsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -232,7 +233,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20076];
+      let returnType = [InlineResponse20077];
       return this.apiClient.callApi(
         '/api/v1/users/contacts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -245,7 +246,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20076>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20077>}
      */
     apiV1UsersContactsGet(opts) {
       return this.apiV1UsersContactsGetWithHttpInfo(opts)
@@ -372,7 +373,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20077>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20078>} and HTTP response
      */
     apiV1UsersFeedbackGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -397,7 +398,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20077];
+      let returnType = [InlineResponse20078];
       return this.apiClient.callApi(
         '/api/v1/users/feedback/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -412,7 +413,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20077>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20078>}
      */
     apiV1UsersFeedbackGuidGet(guid, opts) {
       return this.apiV1UsersFeedbackGuidGetWithHttpInfo(guid, opts)
@@ -540,7 +541,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20077>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20078>} and HTTP response
      */
     apiV1UsersFeedbackMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -560,7 +561,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20077];
+      let returnType = [InlineResponse20078];
       return this.apiClient.callApi(
         '/api/v1/users/feedback/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -574,7 +575,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20077>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20078>}
      */
     apiV1UsersFeedbackMyGet(opts) {
       return this.apiV1UsersFeedbackMyGetWithHttpInfo(opts)
@@ -944,11 +945,125 @@ export default class UserApi {
 
 
     /**
+     * Архивировать нотификации пользователя.
+     * ## Архивировать нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersNotificationsArchivePatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/notifications/archive', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Архивировать нотификации пользователя.
+     * ## Архивировать нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersNotificationsArchivePatch(opts) {
+      return this.apiV1UsersNotificationsArchivePatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить нотификации пользователя.
+     * ## Получить нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирована ли нотификация
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20075} and HTTP response
+     */
+    apiV1UsersNotificationsPagMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'archive': opts['archive'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType'],
+        'storekeeperId': opts['storekeeperId']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20075;
+      return this.apiClient.callApi(
+        '/api/v1/users/notifications/pag/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить нотификации пользователя.
+     * ## Получить нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирована ли нотификация
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20075}
+     */
+    apiV1UsersNotificationsPagMyGet(opts) {
+      return this.apiV1UsersNotificationsPagMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Выдача настроек сервера.
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20075} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20076} and HTTP response
      */
     apiV1UsersPlatformSettingsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -967,7 +1082,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20075;
+      let returnType = InlineResponse20076;
       return this.apiClient.callApi(
         '/api/v1/users/platform_settings', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -980,7 +1095,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20075}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20076}
      */
     apiV1UsersPlatformSettingsGet(opts) {
       return this.apiV1UsersPlatformSettingsGetWithHttpInfo(opts)

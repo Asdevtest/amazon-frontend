@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersOrdersMyPaymentMethod from './ApiV1BuyersOrdersMyPaymentMethod';
 
 /**
  * The ApiV1BuyersOrdersMyOrderSupplier model module.
@@ -50,6 +51,9 @@ class ApiV1BuyersOrdersMyOrderSupplier {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('paymentMethods')) {
+                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1BuyersOrdersMyPaymentMethod]);
+            }
             if (data.hasOwnProperty('productionTerm')) {
                 obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
             }
@@ -65,6 +69,11 @@ class ApiV1BuyersOrdersMyOrderSupplier {
  * @member {String} _id
  */
 ApiV1BuyersOrdersMyOrderSupplier.prototype['_id'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BuyersOrdersMyPaymentMethod>} paymentMethods
+ */
+ApiV1BuyersOrdersMyOrderSupplier.prototype['paymentMethods'] = undefined;
 
 /**
  * Срок изготовления
