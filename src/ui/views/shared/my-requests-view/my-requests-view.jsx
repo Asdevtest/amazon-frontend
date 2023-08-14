@@ -49,12 +49,12 @@ export const MyRequestsViewRaw = props => {
 
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && viewModel.isRequestsAtWork) {
-      return classNames.redBorder
+      return [classNames.deadlineBorder, classNames.redBorder]
     } else if (
       getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 172800 &&
       viewModel.isRequestsAtWork
     ) {
-      return classNames.yellowBorder
+      return [classNames.deadlineBorder, classNames.yellowBorder]
     }
   }
 

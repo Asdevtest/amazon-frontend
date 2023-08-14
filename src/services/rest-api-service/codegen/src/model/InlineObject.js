@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject {
     /**
      * Constructs a new <code>InlineObject</code>.
+     * Схема подтверждения итоговой цены, deliveryTotalPriceChanged
      * @alias module:model/InlineObject
+     * @param boxId {String} GUID коробки, который планируем изменить
      */
-    constructor() { 
+    constructor(boxId) { 
         
-        InlineObject.initialize(this);
+        InlineObject.initialize(this, boxId);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxId) { 
+        obj['boxId'] = boxId;
     }
 
     /**
@@ -50,9 +53,6 @@ class InlineObject {
             if (data.hasOwnProperty('boxId')) {
                 obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
-            }
         }
         return obj;
     }
@@ -61,16 +61,10 @@ class InlineObject {
 }
 
 /**
- * Гуид коробки
+ * GUID коробки, который планируем изменить
  * @member {String} boxId
  */
 InlineObject.prototype['boxId'] = undefined;
-
-/**
- * Значение prepId
- * @member {String} prepId
- */
-InlineObject.prototype['prepId'] = undefined;
 
 
 

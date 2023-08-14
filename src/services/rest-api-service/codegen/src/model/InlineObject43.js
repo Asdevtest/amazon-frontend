@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject43 model module.
@@ -21,14 +22,13 @@ import ApiClient from '../ApiClient';
 class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
+     * Коробка
      * @alias module:model/InlineObject43
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject43.OperationTypeEnum} Тип операции
+     * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor(items) { 
         
-        InlineObject43.initialize(this, taskId, boxes, operationType);
+        InlineObject43.initialize(this, items);
     }
 
     /**
@@ -36,10 +36,8 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj, items) { 
+        obj['items'] = items;
     }
 
     /**
@@ -53,35 +51,80 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            if (data.hasOwnProperty('lengthCmSupplier')) {
+                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
+            }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
+            if (data.hasOwnProperty('widthCmSupplier')) {
+                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmSupplier')) {
+                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgSupplier')) {
+                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
         }
         return obj;
@@ -91,138 +134,156 @@ class InlineObject43 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Сколько таких же коробок в одной коробке
+ * @member {Number} amount
  */
-InlineObject43.prototype['taskId'] = undefined;
+InlineObject43.prototype['amount'] = undefined;
 
 /**
- * @member {Array.<String>} boxesBefore
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isDraft
  */
-InlineObject43.prototype['boxesBefore'] = undefined;
+InlineObject43.prototype['isDraft'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} lengthCmSupplier
  */
-InlineObject43.prototype['boxes'] = undefined;
+InlineObject43.prototype['lengthCmSupplier'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineObject43.OperationTypeEnum} operationType
+ * Текст трек номера
+ * @member {String} trackNumberText
  */
-InlineObject43.prototype['operationType'] = undefined;
+InlineObject43.prototype['trackNumberText'] = undefined;
 
 /**
- * Комментарий клиента.
+ * @member {Array.<String>} trackNumberFile
+ */
+InlineObject43.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject43.prototype['upsTrackNumber'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} widthCmSupplier
+ */
+InlineObject43.prototype['widthCmSupplier'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} heightCmSupplier
+ */
+InlineObject43.prototype['heightCmSupplier'] = undefined;
+
+/**
+ * Общий вес кг коробки который назвал поставщик.
+ * @member {Number} weighGrossKgSupplier
+ */
+InlineObject43.prototype['weighGrossKgSupplier'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} lengthCmWarehouse
+ */
+InlineObject43.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} widthCmWarehouse
+ */
+InlineObject43.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject43.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject43.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject43.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Комментарии к коробке
  * @member {String} clientComment
- * @default ''
  */
-InlineObject43.prototype['clientComment'] = '';
+InlineObject43.prototype['clientComment'] = undefined;
 
 /**
- * Комментарий баера
- * @member {String} buyerComment
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject43.prototype['buyerComment'] = undefined;
+InlineObject43.prototype['referenceId'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject43.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
+ * Комментарии к коробке
  * @member {String} storekeeperComment
  */
 InlineObject43.prototype['storekeeperComment'] = undefined;
 
 /**
- * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
- * @member {module:model/InlineObject43.PriorityEnum} priority
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
  */
-InlineObject43.prototype['priority'] = undefined;
+InlineObject43.prototype['fbaShipment'] = undefined;
 
 /**
- * Причина приоритета
- * @member {String} reason
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject43.prototype['reason'] = undefined;
-
-
-
-
+InlineObject43.prototype['fbaNumber'] = undefined;
 
 /**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
  */
-InlineObject43['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
-
+InlineObject43.prototype['items'] = undefined;
 
 /**
- * Allowed values for the <code>priority</code> property.
- * @enum {String}
- * @readonly
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject43['PriorityEnum'] = {
+InlineObject43.prototype['images'] = undefined;
 
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
+/**
+ * destination GUID 
+ * @member {String} destinationId
+ */
+InlineObject43.prototype['destinationId'] = undefined;
 
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject43.prototype['logicsTariffId'] = undefined;
 
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineObject43.prototype['variationTariffId'] = undefined;
 
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40",
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject43.prototype['prepId'] = undefined;
 
-    /**
-     * value: "50"
-     * @const
-     */
-    "50": "50"
-};
+
+
 
 
 

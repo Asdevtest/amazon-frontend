@@ -484,7 +484,7 @@ export class ClientIdeasViewModel {
 
   async getIdeaList() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       const response = await IdeaModel.getIdeaList({
         ...this.currentSettings.queries,
@@ -503,12 +503,12 @@ export class ClientIdeasViewModel {
         this.rowCount = response.count
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.error = error
 
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -518,7 +518,7 @@ export class ClientIdeasViewModel {
 
   async getShopList() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       const response = await ShopModel.getMyShopNames()
 
@@ -526,18 +526,18 @@ export class ClientIdeasViewModel {
         this.shopList = response
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.error = error
 
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async getDataForIdeaModal(row) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       this.isIdeaCreate = false
       runInAction(() => {
@@ -547,10 +547,10 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showIdeaModal')
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log('error', error)
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -583,7 +583,7 @@ export class ClientIdeasViewModel {
   async onTriggerAddOrEditSupplierModal(row) {
     try {
       if (!this.showAddOrEditSupplierModal) {
-        this.requestStatus = loadingStatuses.isLoading
+        this.setRequestStatus(loadingStatuses.isLoading)
 
         const product = await ProductModel.getProductById(row?.parentProduct?._id)
 
@@ -601,7 +601,7 @@ export class ClientIdeasViewModel {
           this.volumeWeightCoefficient = result.volumeWeightCoefficient
         })
 
-        this.requestStatus = loadingStatuses.success
+        this.setRequestStatus(loadingStatuses.success)
       }
 
       runInAction(() => {
@@ -609,7 +609,7 @@ export class ClientIdeasViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -617,7 +617,7 @@ export class ClientIdeasViewModel {
 
   async statusHandler(method, id, addSupliersToParentProductData) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       await method(id)
 
       if (addSupliersToParentProductData) {
@@ -629,11 +629,11 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.error = error
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -965,7 +965,7 @@ export class ClientIdeasViewModel {
 
   async onClickToOrder(id) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       const [storekeepers, destinations, platformSettings] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
@@ -984,9 +984,9 @@ export class ClientIdeasViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

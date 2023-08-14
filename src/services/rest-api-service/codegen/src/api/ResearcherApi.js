@@ -19,7 +19,7 @@ import InlineObject102 from '../model/InlineObject102';
 import InlineObject103 from '../model/InlineObject103';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20064 from '../model/InlineResponse20064';
-import InlineResponse2017 from '../model/InlineResponse2017';
+import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -321,7 +321,7 @@ export default class ResearcherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject102} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -340,7 +340,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2017;
+      let returnType = InlineResponse2014;
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -354,7 +354,7 @@ export default class ResearcherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject102} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1ResearchersProductsPost(opts) {
       return this.apiV1ResearchersProductsPostWithHttpInfo(opts)

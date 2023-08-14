@@ -22,12 +22,10 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
      */
-    constructor(boxIds, newAmounts) { 
+    constructor() { 
         
-        InlineObject34.initialize(this, boxIds, newAmounts);
+        InlineObject34.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,47 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
         }
         return obj;
@@ -65,17 +97,129 @@ class InlineObject34 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * GUID storekeeper-a
+ * @member {String} storekeeperId
  */
-InlineObject34.prototype['boxIds'] = undefined;
+InlineObject34.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {Array.<Number>} newAmounts
+ * GUID баера
+ * @member {String} buyerId
  */
-InlineObject34.prototype['newAmounts'] = undefined;
+InlineObject34.prototype['buyerId'] = undefined;
+
+/**
+ * @member {String} item
+ */
+InlineObject34.prototype['item'] = undefined;
+
+/**
+ * GUID тарифа доставки
+ * @member {String} logicsTariffId
+ */
+InlineObject34.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject34.PriorityEnum} priority
+ */
+InlineObject34.prototype['priority'] = undefined;
+
+/**
+ * GUID пункта назначения.
+ * @member {String} destinationId
+ */
+InlineObject34.prototype['destinationId'] = undefined;
+
+/**
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
+ */
+InlineObject34.prototype['amount'] = undefined;
+
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineObject34.prototype['deliveryCostToTheWarehouse'] = undefined;
+
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineObject34.prototype['clientComment'] = undefined;
+
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject34.prototype['images'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject34.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineObject34.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineObject34.prototype['deadline'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject34.prototype['totalPrice'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject34['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 

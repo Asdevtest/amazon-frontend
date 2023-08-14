@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject25
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor() { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject25.initialize(this);
+        InlineObject25.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -47,8 +50,8 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -58,10 +61,10 @@ class InlineObject25 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject25.prototype['guid'] = undefined;
+InlineObject25.prototype['totalPriceChanged'] = undefined;
 
 
 

@@ -22,12 +22,12 @@ class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @param boxIds {Array.<String>} 
+     * @param newAmounts {Array.<Number>} 
      */
-    constructor(clientComment, priceForClient) { 
+    constructor(boxIds, newAmounts) { 
         
-        InlineObject56.initialize(this, clientComment, priceForClient);
+        InlineObject56.initialize(this, boxIds, newAmounts);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj, boxIds, newAmounts) { 
+        obj['boxIds'] = boxIds;
+        obj['newAmounts'] = newAmounts;
     }
 
     /**
@@ -51,11 +51,11 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('boxIds')) {
+                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('newAmounts')) {
+                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
             }
         }
         return obj;
@@ -65,15 +65,14 @@ class InlineObject56 {
 }
 
 /**
- * @member {String} clientComment
+ * @member {Array.<String>} boxIds
  */
-InlineObject56.prototype['clientComment'] = undefined;
+InlineObject56.prototype['boxIds'] = undefined;
 
 /**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
+ * @member {Array.<Number>} newAmounts
  */
-InlineObject56.prototype['priceForClient'] = undefined;
+InlineObject56.prototype['newAmounts'] = undefined;
 
 
 

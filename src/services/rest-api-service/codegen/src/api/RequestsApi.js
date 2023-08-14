@@ -35,7 +35,7 @@ import InlineResponse20080 from '../model/InlineResponse20080';
 import InlineResponse20081 from '../model/InlineResponse20081';
 import InlineResponse20112 from '../model/InlineResponse20112';
 import InlineResponse20113 from '../model/InlineResponse20113';
-import InlineResponse2017 from '../model/InlineResponse2017';
+import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -337,7 +337,7 @@ export default class RequestsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject131} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1RequestsCustomPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -356,7 +356,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2017;
+      let returnType = InlineResponse2014;
       return this.apiClient.callApi(
         '/api/v1/requests/custom/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -370,7 +370,7 @@ export default class RequestsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject131} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1RequestsCustomPost(opts) {
       return this.apiV1RequestsCustomPostWithHttpInfo(opts)

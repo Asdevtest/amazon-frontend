@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shippingLabel** | **String** | shippingLabel | 
+**isFormed** | **Boolean** | Сформирована ли коробка | 
 
 
