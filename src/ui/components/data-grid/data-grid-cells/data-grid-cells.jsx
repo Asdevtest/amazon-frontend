@@ -3100,35 +3100,41 @@ export const ProductInfoAbbreviated = React.memo(
           [classNames.abbreviatedWrapperDivider]: boxesLength > 1 && box.items.length > 1,
         })}
       >
-        {/* {boxesLength > 1 ? <Typography className={classNames.amountBoxesText}>{`x${boxesLength}`}</Typography> : null} */}
+        <div className={cx(classNames.abbreviatedBatchProductsSubWrapper)}>
+          {boxesLength > 1 && <Typography className={classNames.amountBoxesText}>{`x${boxesLength}`}</Typography>}
 
-        {box.items.map((item, itemIndex) => (
-          <>
-            <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
-              <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
+          <div className={classNames.abbreviatedBatchProductInfoMainWrapper}>
+            {box.items.map((item, itemIndex) => (
+              <>
+                <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
+                  <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
 
-              <div className={classNames.div}>
-                <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
+                  <div className={classNames.div}>
+                    <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
 
-                {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
-              </div>
+                    {box.amount > 1 && (
+                      <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>
+                    )}
+                  </div>
 
-              <div className={classNames.boxInfoWrapper}>
-                <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
-                <AsinOrSkuLink withCopyValue asin={item.asin} />
-              </div>
+                  <div className={classNames.boxInfoWrapper}>
+                    <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
+                    <AsinOrSkuLink withCopyValue asin={item.asin} />
+                  </div>
 
-              <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
-            </div>
-            {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-              <Typography className={classNames.orderText}>
-                <span className={classNames.needPay}>{`${t(
-                  TranslationKey['Extra payment required!'],
-                )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-              </Typography>
-            )}
-          </>
-        ))}
+                  <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
+                </div>
+                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                  <Typography className={classNames.orderText}>
+                    <span className={classNames.needPay}>{`${t(
+                      TranslationKey['Extra payment required!'],
+                    )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                  </Typography>
+                )}
+              </>
+            ))}
+          </div>
+        </div>
 
         {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
           <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>

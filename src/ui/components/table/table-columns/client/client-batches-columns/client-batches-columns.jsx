@@ -32,7 +32,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
       />
     ),
     headerName: t(TranslationKey.Product),
-    width: 384,
+    width: 420,
     renderCell: params => (
       <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
     ),
