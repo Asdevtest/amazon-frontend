@@ -58,7 +58,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           <RadioButtons
             currentValue={selectedCard?._id}
             radioBottonsSettings={radioBottonsSettings}
-            onClickRadioButton={() => onClickSelectCard(announcementData)}
+            onClickRadioButton={e => onClickSelectCard(announcementData)}
           />
         </div>
 
