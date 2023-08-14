@@ -64,7 +64,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             <AsinOrSkuLink
               withCopyValue
               withAttributeTitle="asin"
-              asin={requestProposals[0]?.request?.asin}
+              asin={request?.request.product.asin}
               textStyles={classNames.linkSpan}
               missingValueTextStyles={classNames.linkSpan}
             />
@@ -226,6 +226,14 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         <div className={classNames.requestInfoWrapper}>
           <div className={classNames.titleAndIdWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
+
+            <AsinOrSkuLink
+              withCopyValue
+              withAttributeTitle="asin"
+              asin={request?.request.product.asin}
+              textStyles={classNames.linkSpan}
+              missingValueTextStyles={classNames.linkSpan}
+            />
 
             <div className={classNames.idTitleWrapper}>
               <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>

@@ -4,7 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** |  | [optional] 
-**rows** | [**[InlineResponse20061Rows]**](InlineResponse20061Rows.md) | Массив заявок. | [optional] 
+**_id** | **String** | Гуид медиа | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
+**proposal** | [**ApiV1RequestProposalsFreelanceSourcesProposal**](ApiV1RequestProposalsFreelanceSourcesProposal.md) |  | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | [optional] 
+**productId** | **String** | гуид продукта | [optional] 
+**createdBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата создания. | [optional] 
 
 

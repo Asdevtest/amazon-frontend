@@ -22,11 +22,12 @@ class InlineObject9 {
     /**
      * Constructs a new <code>InlineObject9</code>.
      * @alias module:model/InlineObject9
-     * @param title {String} 
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor(title) { 
+    constructor(batchIds, archive) { 
         
-        InlineObject9.initialize(this, title);
+        InlineObject9.initialize(this, batchIds, archive);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject9 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject9 {
         if (data) {
             obj = obj || new InlineObject9();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -60,9 +65,15 @@ class InlineObject9 {
 }
 
 /**
- * @member {String} title
+ * @member {Array.<String>} batchIds
  */
-InlineObject9.prototype['title'] = undefined;
+InlineObject9.prototype['batchIds'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineObject9.prototype['archive'] = undefined;
 
 
 

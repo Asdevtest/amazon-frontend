@@ -22,11 +22,11 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
-     * @param boxesIds {Array.<String>} 
+     * @param name {String} Название склада.
      */
-    constructor(boxesIds) { 
+    constructor(name) { 
         
-        InlineObject16.initialize(this, boxesIds);
+        InlineObject16.initialize(this, name);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,8 +49,26 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -60,9 +78,46 @@ class InlineObject16 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * Название склада.
+ * @member {String} name
  */
-InlineObject16.prototype['boxesIds'] = undefined;
+InlineObject16.prototype['name'] = undefined;
+
+/**
+ * Страна.
+ * @member {String} country
+ */
+InlineObject16.prototype['country'] = undefined;
+
+/**
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
+ */
+InlineObject16.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+InlineObject16.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject16.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject16.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject16.prototype['fontColor'] = undefined;
 
 
 

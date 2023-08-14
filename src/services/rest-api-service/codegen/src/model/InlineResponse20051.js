@@ -47,11 +47,11 @@ class InlineResponse20051 {
         if (data) {
             obj = obj || new InlineResponse20051();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -61,16 +61,14 @@ class InlineResponse20051 {
 }
 
 /**
- * GUID заказа
- * @member {String} _id
+ * @member {String} userId
  */
-InlineResponse20051.prototype['_id'] = undefined;
+InlineResponse20051.prototype['userId'] = undefined;
 
 /**
- * id заказа
- * @member {Number} id
+ * @member {String} productId
  */
-InlineResponse20051.prototype['id'] = undefined;
+InlineResponse20051.prototype['productId'] = undefined;
 
 
 

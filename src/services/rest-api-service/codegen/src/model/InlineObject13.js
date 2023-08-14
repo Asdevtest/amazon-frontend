@@ -21,12 +21,22 @@ import ApiClient from '../ApiClient';
 class InlineObject13 {
     /**
      * Constructs a new <code>InlineObject13</code>.
+     * Схема динамических настроек.
      * @alias module:model/InlineObject13
-     * @param boxesIds {Array.<String>} 
+     * @param yuanToDollarRate {Number} Курс юаня к доллару.
+     * @param costOfFindingSupplier {Number} Цена за поиск поставщика, оплата байеру, в долларах.
+     * @param deadlineForFindingSupplier {Number} Дедлайна на поиск поставщика., в часах.
+     * @param requestMinAmountPriceOfProposal {Number} Минимальная цена за предложение к заявке, в долларах.
+     * @param requestPlatformMarginInPercent {Number} Процент с каждого предложения, маржа платформы, в процентах.
+     * @param requestSupervisorFeeInPercent {Number} Процент с каждого предложения для супервайзера, в процентах.
+     * @param requestTimeLimitInHourForCancelingProposalsByClient {Number} Время после которого будет автоматом принято предложение клиентом, в часах.
+     * @param requestTimeLimitInHourForCheckingProposalBySuper {Number} Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
+     * @param tech_pause {Number} Работает ли сервер
+     * @param timeToDeadlinePendingOrder {Number} Интервал в часах для уведомлений по поводу дедлайнов ордеров
      */
-    constructor(boxesIds) { 
+    constructor(yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper, tech_pause, timeToDeadlinePendingOrder) { 
         
-        InlineObject13.initialize(this, boxesIds);
+        InlineObject13.initialize(this, yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper, tech_pause, timeToDeadlinePendingOrder);
     }
 
     /**
@@ -34,8 +44,17 @@ class InlineObject13 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper, tech_pause, timeToDeadlinePendingOrder) { 
+        obj['yuanToDollarRate'] = yuanToDollarRate;
+        obj['costOfFindingSupplier'] = costOfFindingSupplier;
+        obj['deadlineForFindingSupplier'] = deadlineForFindingSupplier;
+        obj['requestMinAmountPriceOfProposal'] = requestMinAmountPriceOfProposal;
+        obj['requestPlatformMarginInPercent'] = requestPlatformMarginInPercent;
+        obj['requestSupervisorFeeInPercent'] = requestSupervisorFeeInPercent;
+        obj['requestTimeLimitInHourForCancelingProposalsByClient'] = requestTimeLimitInHourForCancelingProposalsByClient;
+        obj['requestTimeLimitInHourForCheckingProposalBySuper'] = requestTimeLimitInHourForCheckingProposalBySuper;
+        obj['tech_pause'] = tech_pause;
+        obj['timeToDeadlinePendingOrder'] = timeToDeadlinePendingOrder;
     }
 
     /**
@@ -49,8 +68,44 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            }
+            if (data.hasOwnProperty('costOfFindingSupplier')) {
+                obj['costOfFindingSupplier'] = ApiClient.convertToType(data['costOfFindingSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('costOfCheckingProduct')) {
+                obj['costOfCheckingProduct'] = ApiClient.convertToType(data['costOfCheckingProduct'], 'Number');
+            }
+            if (data.hasOwnProperty('deadlineForFindingSupplier')) {
+                obj['deadlineForFindingSupplier'] = ApiClient.convertToType(data['deadlineForFindingSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
+                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
+            }
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('requestTimeLimitInHourForCancelingProposalsByClient')) {
+                obj['requestTimeLimitInHourForCancelingProposalsByClient'] = ApiClient.convertToType(data['requestTimeLimitInHourForCancelingProposalsByClient'], 'Number');
+            }
+            if (data.hasOwnProperty('requestTimeLimitInHourForCheckingProposalBySuper')) {
+                obj['requestTimeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['requestTimeLimitInHourForCheckingProposalBySuper'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
+            }
+            if (data.hasOwnProperty('tech_pause')) {
+                obj['tech_pause'] = ApiClient.convertToType(data['tech_pause'], 'Number');
+            }
+            if (data.hasOwnProperty('timeToDeadlinePendingOrder')) {
+                obj['timeToDeadlinePendingOrder'] = ApiClient.convertToType(data['timeToDeadlinePendingOrder'], 'Number');
+            }
+            if (data.hasOwnProperty('orderAmountLimit')) {
+                obj['orderAmountLimit'] = ApiClient.convertToType(data['orderAmountLimit'], 'Number');
             }
         }
         return obj;
@@ -60,9 +115,82 @@ class InlineObject13 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineObject13.prototype['boxesIds'] = undefined;
+InlineObject13.prototype['yuanToDollarRate'] = undefined;
+
+/**
+ * Цена за поиск поставщика, оплата байеру, в долларах.
+ * @member {Number} costOfFindingSupplier
+ */
+InlineObject13.prototype['costOfFindingSupplier'] = undefined;
+
+/**
+ * Цена за поиск поставщика, оплата ресерчера, в долларах.
+ * @member {Number} costOfCheckingProduct
+ */
+InlineObject13.prototype['costOfCheckingProduct'] = undefined;
+
+/**
+ * Дедлайна на поиск поставщика., в часах.
+ * @member {Number} deadlineForFindingSupplier
+ */
+InlineObject13.prototype['deadlineForFindingSupplier'] = undefined;
+
+/**
+ * Минимальная цена за предложение к заявке, в долларах.
+ * @member {Number} requestMinAmountPriceOfProposal
+ */
+InlineObject13.prototype['requestMinAmountPriceOfProposal'] = undefined;
+
+/**
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
+ */
+InlineObject13.prototype['requestPlatformMarginInPercent'] = undefined;
+
+/**
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
+ */
+InlineObject13.prototype['requestSupervisorFeeInPercent'] = undefined;
+
+/**
+ * Время после которого будет автоматом принято предложение клиентом, в часах.
+ * @member {Number} requestTimeLimitInHourForCancelingProposalsByClient
+ */
+InlineObject13.prototype['requestTimeLimitInHourForCancelingProposalsByClient'] = undefined;
+
+/**
+ * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
+ * @member {Number} requestTimeLimitInHourForCheckingProposalBySuper
+ */
+InlineObject13.prototype['requestTimeLimitInHourForCheckingProposalBySuper'] = undefined;
+
+/**
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
+ */
+InlineObject13.prototype['volumeWeightCoefficient'] = undefined;
+
+/**
+ * Работает ли сервер
+ * @member {Number} tech_pause
+ */
+InlineObject13.prototype['tech_pause'] = undefined;
+
+/**
+ * Интервал в часах для уведомлений по поводу дедлайнов ордеров
+ * @member {Number} timeToDeadlinePendingOrder
+ */
+InlineObject13.prototype['timeToDeadlinePendingOrder'] = undefined;
+
+/**
+ * Лимит на кол-во в ордере
+ * @member {Number} orderAmountLimit
+ */
+InlineObject13.prototype['orderAmountLimit'] = undefined;
 
 
 

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2002AllowedUrls from './InlineResponse2002AllowedUrls';
+import InlineResponse2005AllowedUrls from './InlineResponse2005AllowedUrls';
 
 /**
  * The PermissionGroupGetDtoSchemaPermissions model module.
@@ -28,7 +28,7 @@ class PermissionGroupGetDtoSchemaPermissions {
      * @param key {String} Permission ключ
      * @param title {String} Простое название.
      * @param description {String} Описание permission
-     * @param allowedUrls {Array.<module:model/InlineResponse2002AllowedUrls>} Массив доступных url.
+     * @param allowedUrls {Array.<module:model/InlineResponse2005AllowedUrls>} Массив доступных url.
      * @param role {Number} Роль для которого данный permission
      * @param createdById {String} GUID любого, кто последний создал permission.
      * @param createdAt {Date} Дата создания
@@ -80,7 +80,7 @@ class PermissionGroupGetDtoSchemaPermissions {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('allowedUrls')) {
-                obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [InlineResponse2002AllowedUrls]);
+                obj['allowedUrls'] = ApiClient.convertToType(data['allowedUrls'], [InlineResponse2005AllowedUrls]);
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
@@ -133,7 +133,7 @@ PermissionGroupGetDtoSchemaPermissions.prototype['description'] = undefined;
 
 /**
  * Массив доступных url.
- * @member {Array.<module:model/InlineResponse2002AllowedUrls>} allowedUrls
+ * @member {Array.<module:model/InlineResponse2005AllowedUrls>} allowedUrls
  */
 PermissionGroupGetDtoSchemaPermissions.prototype['allowedUrls'] = undefined;
 

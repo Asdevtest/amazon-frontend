@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id созданного профайла | [optional] 
+**count** | **Number** | Общее кол-во идей | [optional] 
+**rows** | [**[InlineResponse20044Rows]**](InlineResponse20044Rows.md) | Список идей | [optional] 
 
 

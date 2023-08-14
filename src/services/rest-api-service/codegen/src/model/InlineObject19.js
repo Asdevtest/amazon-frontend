@@ -22,11 +22,11 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
-     * @param attachedDocuments {Array.<String>} 
+     * @param title {String} 
      */
-    constructor(attachedDocuments) { 
+    constructor(title) { 
         
-        InlineObject19.initialize(this, attachedDocuments);
+        InlineObject19.initialize(this, title);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attachedDocuments) { 
-        obj['attachedDocuments'] = attachedDocuments;
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -60,9 +60,9 @@ class InlineObject19 {
 }
 
 /**
- * @member {Array.<String>} attachedDocuments
+ * @member {String} title
  */
-InlineObject19.prototype['attachedDocuments'] = undefined;
+InlineObject19.prototype['title'] = undefined;
 
 
 

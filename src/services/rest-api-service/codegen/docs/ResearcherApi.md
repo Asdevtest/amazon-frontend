@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsAsinStrategyGet
 
-> InlineResponse20064 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
+> InlineResponse20062 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20064**](InlineResponse20064.md)
+[**InlineResponse20062**](InlineResponse20062.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGet
 
-> [InlineResponse200] apiV1ResearchersProductsGet(opts)
+> [ApiV1BatchesProduct] apiV1ResearchersProductsGet(opts)
 
 Получить список товаров созданных данным пользователем.
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+[**[ApiV1BatchesProduct]**](ApiV1BatchesProduct.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGuidGet
 
-> InlineResponse200 apiV1ResearchersProductsGuidGet(guid, opts)
+> ApiV1BatchesProduct apiV1ResearchersProductsGuidGet(guid, opts)
 
 Получить товар по GUID.
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**ApiV1BatchesProduct**](ApiV1BatchesProduct.md)
 
 ### Authorization
 
