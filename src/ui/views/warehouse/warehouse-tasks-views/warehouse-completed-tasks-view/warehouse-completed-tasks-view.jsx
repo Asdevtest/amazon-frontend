@@ -25,8 +25,9 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseCompletedViewModel } from './warehouse-completed-tasks-view.model'
 import { styles } from './warehouse-completed-tasks-view.style'
+
+import { WarehouseCompletedViewModel } from './warehouse-completed-tasks-view.model'
 
 export const WarehouseCompletedTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseCompletedViewModel({ history: props.history }))

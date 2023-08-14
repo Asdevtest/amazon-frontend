@@ -25,8 +25,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 import { styles } from './supervisor-products-view.style'
+
+import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
 const attentionStatuses = [
   ProductStatus.BUYER_FOUND_SUPPLIER,

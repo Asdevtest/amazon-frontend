@@ -6,14 +6,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+// import {TranslationKey} from '@constants/translations/translation-key'
+// import {t} from '@utils/translations'
+import { useClassNames } from './dashboard-widgets-card.style'
+
 import { DashboardListOfAnyCard } from '../dashboard-list-of-any-card'
 import { DashboardOneLineCardsList } from '../dashboard-one-line-cards-list'
 import { DashboardSingleCard } from '../dashboard-single-card'
 import { DashboardSingleCardWithButton } from '../dashboard-single-card-with-button'
-
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {t} from '@utils/translations'
-import { useClassNames } from './dashboard-widgets-card.style'
 
 export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewMore, onClickAddProduct }) => {
   const { classes: classNames } = useClassNames()

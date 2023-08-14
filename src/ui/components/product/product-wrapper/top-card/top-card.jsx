@@ -31,11 +31,12 @@ import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSu
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './top-card.style'
+
 import { TableSupplier } from '../../table-supplier'
 
 import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
-import { useClassNames } from './top-card.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],

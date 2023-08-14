@@ -24,8 +24,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 import { styles } from './warehouse-awaiting-batches-view.style'
+
+import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 
 export const WarehouseAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))

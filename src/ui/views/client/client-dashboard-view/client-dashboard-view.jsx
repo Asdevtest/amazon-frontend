@@ -19,8 +19,9 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ClientDashboardViewModel } from './client-dashboard-view.model'
 import { styles } from './client-dashboard-view.style'
+
+import { ClientDashboardViewModel } from './client-dashboard-view.model'
 
 export const ClientDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ClientDashboardViewModel({ history: props.history }))

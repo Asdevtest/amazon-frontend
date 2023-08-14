@@ -11,8 +11,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { AdminWarehouseViewModel } from './admin-warehouse-view.model'
 import { styles } from './admin-warehouse-view.style'
+
+import { AdminWarehouseViewModel } from './admin-warehouse-view.model'
 
 export const AdminWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new AdminWarehouseViewModel({ history: props.history }))

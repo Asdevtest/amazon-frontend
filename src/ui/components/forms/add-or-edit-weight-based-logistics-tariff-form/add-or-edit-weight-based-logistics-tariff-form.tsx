@@ -24,10 +24,10 @@ import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterD
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
+
 import { DestinationType, DestinationVariationType } from '../../../../typings/destination'
 import { LogisticTariffInterface } from '../../../../typings/logistics-tariff'
-
-import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
 interface FormFields {
   tariffType: number

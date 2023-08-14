@@ -20,10 +20,11 @@ import { t } from '@utils/translations'
 
 import { isString, isStringArray } from '@typings/type-guards'
 
+import { useClassNames } from './files-carousel.style'
+
 import { CustomSlider } from '../custom-slider'
 
 import { FileIcon } from './file-icon'
-import { useClassNames } from './files-carousel.style'
 
 interface File {
   name: string

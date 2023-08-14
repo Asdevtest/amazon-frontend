@@ -16,8 +16,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 import { styles } from './buyer-search-supplier-by-client-view.style'
+
+import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 
 export const BuyerSearchSupplierByClientViewRaw = props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history: props.history }))

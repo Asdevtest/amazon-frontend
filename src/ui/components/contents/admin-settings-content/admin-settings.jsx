@@ -12,9 +12,10 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './admin-settings.style'
+
 import { tabIndexes, tabLabels } from './admin-settings.constants'
 import { AdminSettingsModel } from './admin-settings.model'
-import { useClassNames } from './admin-settings.style'
 import {
   TabDestinations,
   TabFreelance,

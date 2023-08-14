@@ -133,7 +133,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesWrapper: {
-    width: '50%',
+    width: '100%',
     height: '100%',
   },
 

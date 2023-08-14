@@ -12,8 +12,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { LogisticsTariffs } from './logistics-tariffs'
 import { useClassNames } from './warehouse-management.style'
+
+import { LogisticsTariffs } from './logistics-tariffs'
 import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 

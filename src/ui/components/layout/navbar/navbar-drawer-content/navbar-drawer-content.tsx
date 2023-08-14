@@ -23,8 +23,9 @@ import { t } from '@utils/translations'
 
 import { IUser } from '@typings/user'
 
-import { getCategoryBadge } from './navbar-drawer-content.helper'
 import { useClassNames } from './navbar-drawer-content.styles'
+
+import { getCategoryBadge } from './navbar-drawer-content.helper'
 
 interface Subtitles {
   subtitle: string

@@ -17,8 +17,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { chatListMapper } from './chats-list-mapper'
 import { useClassNames } from './chats-list.styles'
+
+import { chatListMapper } from './chats-list-mapper'
 
 const tabsValues = {
   IN_WORK: 'IN_WORK',

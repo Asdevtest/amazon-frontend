@@ -11,8 +11,9 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
-import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 import { styles } from './create-or-edit-proposal-view.style'
+
+import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
 export const CreateOrEditProposalViewRaw = props => {
   const [viewModel] = useState(

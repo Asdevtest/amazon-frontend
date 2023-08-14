@@ -5,8 +5,9 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { fieldNameObject } from '../../admin-settings.constants'
 import { useClassNames } from '../../admin-settings.style'
+
+import { fieldNameObject } from '../../admin-settings.constants'
 
 export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()

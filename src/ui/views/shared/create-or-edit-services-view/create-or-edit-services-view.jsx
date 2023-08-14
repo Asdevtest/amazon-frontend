@@ -5,8 +5,9 @@ import { withStyles } from 'tss-react/mui'
 
 import { CreateOrEditServiceContent } from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
 
-import { CreateOrEditServicesViewModel } from './create-or-edit-services-view.model'
 import { styles } from './create-or-edit-services-view.style'
+
+import { CreateOrEditServicesViewModel } from './create-or-edit-services-view.model'
 
 export const CreateOrEditServicesViewRaw = props => {
   const [viewModel] = useState(

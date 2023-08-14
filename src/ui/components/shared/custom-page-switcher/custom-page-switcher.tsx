@@ -14,10 +14,10 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './custom-page-switcher.styles'
+
 import { PaginationModel } from '../../../../typings/pagination-model'
 import { Field } from '../field'
-
-import { useClassNames } from './custom-page-switcher.styles'
 
 interface CustomPageSwitcherProps {
   paginationModel: PaginationModel

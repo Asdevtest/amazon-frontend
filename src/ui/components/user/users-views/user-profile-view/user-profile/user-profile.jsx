@@ -18,10 +18,11 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './user-profile.style'
+
 import { FeedbackCard } from './feedback-card'
 import { Info } from './info'
 import { Tested } from './tested'
-import { useClassNames } from './user-profile.style'
 
 export const UserProfile = observer(
   ({

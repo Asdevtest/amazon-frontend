@@ -43,8 +43,9 @@ import { ArchiveIcon } from '@components/shared/svg-icons'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { styles } from './client-inventory-view.style'
+
+import { ClientInventoryViewModel } from './client-inventory-view.model'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(

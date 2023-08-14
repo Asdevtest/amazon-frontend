@@ -32,10 +32,11 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './merge-boxes-modal.style'
+
 import { SetShippingLabelModal } from '../set-shipping-label-modal'
 
 import { BoxForMerge } from './box-for-merge'
-import { useClassNames } from './merge-boxes-modal.style'
 
 export const MergeBoxesModal = ({
   showCheckbox,

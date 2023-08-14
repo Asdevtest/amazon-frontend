@@ -13,6 +13,7 @@ import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm,
 import { t } from '@utils/translations'
 
 import { useClassNames } from './before-after-box.style'
+
 import { TaskInfoBoxItemCard } from './task-info-box-item-card'
 
 export const BeforeAfterBox = ({ box, isCurrentBox, taskType, volumeWeightCoefficient }) => {

@@ -18,8 +18,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 import { styles } from './admin-orders-views.style'
+
+import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 
 export const AdminOrdersViewsRaw = props => {
   const [viewModel] = useState(() => new AdminOrdersAllViewModel({ history: props.history }))

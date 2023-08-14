@@ -10,8 +10,9 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { ModeratorDashboardViewModel } from './moderator-dashboard-view.model'
 import { styles } from './moderator-dashboard-view.style'
+
+import { ModeratorDashboardViewModel } from './moderator-dashboard-view.model'
 
 export const ModeratorDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ModeratorDashboardViewModel({ history: props.history }))

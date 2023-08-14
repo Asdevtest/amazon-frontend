@@ -241,7 +241,7 @@ export class ClientIdeasViewModel {
   rowHandlers = {
     onClickToCheck: id => this.handleStatusToCheck(id),
     onClickReject: id => this.handleStatusToReject(id),
-    onClickCreateRequest: (productId, asin) => this.onClickCreateRequestButton(productId, asin),
+    onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
     onClickResultButton: (requestTypeTask, proposalId) => this.onClickResultButton(requestTypeTask, proposalId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
@@ -615,10 +615,17 @@ export class ClientIdeasViewModel {
 
   // * Idea handlers
 
-  async statusHandler(method, id) {
+  async statusHandler(method, id, addSupliersToParentProductData) {
     try {
       this.requestStatus = loadingStatuses.isLoading
       await method(id)
+
+      if (addSupliersToParentProductData) {
+        ProductModel.addSuppliersToProduct(
+          addSupliersToParentProductData?.parentProduct?._id,
+          addSupliersToParentProductData?.suppliers?.map(supplier => supplier._id),
+        )
+      }
 
       await this.getIdeaList()
 
@@ -674,6 +681,7 @@ export class ClientIdeasViewModel {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
+          ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
       },
@@ -982,11 +990,13 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onClickCreateRequestButton(productId, asin) {
+  async onClickCreateRequestButton(ideaData) {
+    const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
+
     const win = window.open(
-      `/${
-        UserRoleCodeMapForRoutes[this.curUser.role]
-      }/freelance/my-requests/create-request?parentProduct=${productId}&asin=${asin}`,
+      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+        isCreateByChildProduct ? ideaData?.childProduct?._id : ideaData?.parentProduct?._id
+      }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : ideaData?.parentProduct?.asin}`,
       '_blank',
     )
 

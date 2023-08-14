@@ -17,8 +17,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
 import { useClassNames } from './client-buy-shops-deals.style'
+
+import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
 
 export const ClientBuyShopsDeals = observer(() => {
   const { classes: classNames } = useClassNames()

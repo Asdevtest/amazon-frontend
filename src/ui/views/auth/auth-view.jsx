@@ -14,8 +14,9 @@ import { AuthForm } from '@components/forms/auth-form'
 
 import { t } from '@utils/translations'
 
-import { AuthViewModel } from './auth-view.model'
 import { styles } from './auth-view.style'
+
+import { AuthViewModel } from './auth-view.model'
 
 export const AuthViewRaw = props => {
   const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))

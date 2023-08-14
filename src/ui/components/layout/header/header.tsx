@@ -37,8 +37,9 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { HeaderModel } from './header.model'
 import { useClassNames } from './header.styles'
+
+import { HeaderModel } from './header.model'
 
 interface Props {
   shortNavbar: boolean

@@ -357,13 +357,15 @@ import InlineResponse20072 from './model/InlineResponse20072';
 import InlineResponse20073 from './model/InlineResponse20073';
 import InlineResponse20074 from './model/InlineResponse20074';
 import InlineResponse20075 from './model/InlineResponse20075';
+import InlineResponse20075Rows from './model/InlineResponse20075Rows';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
 import InlineResponse20078 from './model/InlineResponse20078';
 import InlineResponse20079 from './model/InlineResponse20079';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse20080 from './model/InlineResponse20080';
-import InlineResponse20080Details from './model/InlineResponse20080Details';
+import InlineResponse20081 from './model/InlineResponse20081';
+import InlineResponse20081Details from './model/InlineResponse20081Details';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
@@ -2552,6 +2554,12 @@ export {
     InlineResponse20075,
 
     /**
+     * The InlineResponse20075Rows model constructor.
+     * @property {module:model/InlineResponse20075Rows}
+     */
+    InlineResponse20075Rows,
+
+    /**
      * The InlineResponse20076 model constructor.
      * @property {module:model/InlineResponse20076}
      */
@@ -2588,10 +2596,16 @@ export {
     InlineResponse20080,
 
     /**
-     * The InlineResponse20080Details model constructor.
-     * @property {module:model/InlineResponse20080Details}
+     * The InlineResponse20081 model constructor.
+     * @property {module:model/InlineResponse20081}
      */
-    InlineResponse20080Details,
+    InlineResponse20081,
+
+    /**
+     * The InlineResponse20081Details model constructor.
+     * @property {module:model/InlineResponse20081Details}
+     */
+    InlineResponse20081Details,
 
     /**
      * The InlineResponse2009 model constructor.

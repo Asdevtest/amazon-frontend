@@ -10,8 +10,9 @@ import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices
 
 import { t } from '@utils/translations'
 
-import { UserEditModel } from './user-edit.model'
 import { useClassNames } from './user-edit.style'
+
+import { UserEditModel } from './user-edit.model'
 
 export const UserEdit = observer(({ user }) => {
   const { classes: classNames } = useClassNames()

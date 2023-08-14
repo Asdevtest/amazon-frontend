@@ -22,10 +22,10 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './edit-task-modal.style'
+
 import { BeforeAfterBlock } from '../before-after-block'
 import { ReceiveBoxModal } from '../receive-box-modal'
-
-import { useClassNames } from './edit-task-modal.style'
 
 export const EditTaskModal = observer(
   ({

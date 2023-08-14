@@ -59,8 +59,9 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { BoxesToCreateTable } from './boxes-to-create-table'
 import { useClassNames } from './edit-order-modal.style'
+
+import { BoxesToCreateTable } from './boxes-to-create-table'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'

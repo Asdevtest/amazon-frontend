@@ -41,8 +41,9 @@ import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IdeaRequestCard } from './idea-request-card'
 import { useClassNames } from './idea-view-and-edit-card.style'
+
+import { IdeaRequestCard } from './idea-request-card'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
 
@@ -762,7 +763,7 @@ export const IdeaViewAndEditCard = observer(
                     success
                     variant="contained"
                     className={classNames.actionButton}
-                    onClick={onClickCreateRequestButton}
+                    onClick={() => onClickCreateRequestButton(formFields)}
                   >
                     <PlusIcon className={classNames.plusIcon} />
                     {t(TranslationKey['Create a request'])}

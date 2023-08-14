@@ -11,8 +11,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { BuyerNotificationsViewModel } from './buyer-notifications-view.model'
 import { styles } from './buyer-notifications-view.style'
+
+import { BuyerNotificationsViewModel } from './buyer-notifications-view.model'
 
 export const BuyerNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new BuyerNotificationsViewModel({ history: props.history }))

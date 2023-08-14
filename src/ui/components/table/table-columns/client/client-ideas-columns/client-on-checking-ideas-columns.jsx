@@ -119,9 +119,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaRequests
         row={params.row}
-        onClickCreateRequest={() =>
-          rowHandlers.onClickCreateRequest(params.row.parentProduct._id, params.row.parentProduct.asin)
-        }
+        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
         onClickResultButton={() => rowHandlers.onClickResultButton(params.row._id)}
         onClickRequestId={rowHandlers.onClickRequestId}

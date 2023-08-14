@@ -28,9 +28,9 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ImageEditForm } from '../image-edit-form'
-
 import { useClassNames } from './request-designer-result-form.style'
+
+import { ImageEditForm } from '../image-edit-form'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)

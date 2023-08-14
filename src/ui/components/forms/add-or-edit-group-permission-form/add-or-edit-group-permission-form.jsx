@@ -17,9 +17,9 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
-
 import { useClassNames } from './add-or-edit-group-permission-form.style'
+
+import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
 
 export const AddOrEditGroupPermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions }) => {

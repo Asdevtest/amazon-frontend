@@ -345,7 +345,11 @@ export const CreateOrEditRequestContent = ({
 
   const onClickBackBtn = () => {
     if (curStep === stepVariant.STEP_ONE) {
-      history.goBack()
+      if (createRequestForIdeaData?.productId) {
+        history.push('/client/ideas/new')
+      } else {
+        history.goBack()
+      }
     } else {
       if (isDeadlineError) {
         setDeadlineError(!deadlineError)

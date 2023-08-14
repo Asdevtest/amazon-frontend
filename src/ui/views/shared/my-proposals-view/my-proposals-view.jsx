@@ -42,8 +42,9 @@ import {
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { MyProposalsViewModel } from './my-proposals-view.model'
 import { styles } from './my-proposals-view.style'
+
+import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsViewRaw = props => {
   const [viewModel] = useState(

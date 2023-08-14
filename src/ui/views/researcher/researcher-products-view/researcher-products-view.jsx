@@ -16,8 +16,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ResearcherProductsViewModel } from './researcher-products-view.model'
 import { styles } from './researcher-products-view.style'
+
+import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
 export const ResearcherProductsViewRaw = props => {
   const [viewModel] = useState(

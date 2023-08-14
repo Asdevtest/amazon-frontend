@@ -19,7 +19,7 @@
     "^@utils/(.*)$",
     "^@contexts/(.*)$",
     "^@typings/(.*)$",
-    "(.style | .styles)$",
+    "(.style|.styles)$",
     "^../(.*)",
     "^./(.*)"
   ],

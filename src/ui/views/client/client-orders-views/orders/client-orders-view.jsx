@@ -23,8 +23,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientOrdersViewModel } from './client-orders-view.model'
 import { styles } from './client-orders-view.style'
+
+import { ClientOrdersViewModel } from './client-orders-view.model'
 
 export const ClientOrdersViewRaw = props => {
   const [viewModel] = useState(

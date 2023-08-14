@@ -24,10 +24,10 @@ import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './product-card-modal.style'
+
 import { ConfirmationModal } from '../confirmation-modal'
 import { WarningInfoModal } from '../warning-info-modal'
-
-import { useClassNames } from './product-card-modal.style'
 
 export const ProductCardModal = observer(props => {
   const { classes: classNames } = useClassNames()

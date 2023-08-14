@@ -21,8 +21,9 @@ import { UploadIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 import { useClassNames } from './tab-payment-methods.style'
+
+import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 
 export const TabPaymentMethods = observer(() => {
   const { classes: classNames } = useClassNames()

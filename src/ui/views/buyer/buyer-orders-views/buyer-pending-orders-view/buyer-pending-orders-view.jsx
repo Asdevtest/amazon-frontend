@@ -22,8 +22,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 import { styles } from './buyer-pending-orders-view.style'
+
+import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
 export const BuyerPendingOrdersViewRaw = props => {
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history: props.history, location: props.location }))

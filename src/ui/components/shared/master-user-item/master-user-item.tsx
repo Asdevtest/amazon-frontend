@@ -3,9 +3,9 @@ import { FC } from 'react'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
-import { RatingStarIcon } from '../svg-icons'
-
 import { useClassNames } from './master-user-item.styles'
+
+import { RatingStarIcon } from '../svg-icons'
 
 interface MasterUserItemProps {
   id: string

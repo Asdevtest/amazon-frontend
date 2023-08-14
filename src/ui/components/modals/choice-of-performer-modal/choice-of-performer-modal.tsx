@@ -17,8 +17,9 @@ import { t } from '@utils/translations'
 
 import { IMasterUser, IService } from '@typings/master-user'
 
-import { AnnouncementCard } from './announcement-card'
 import { useClassNames } from './choice-of-performer-modal.style'
+
+import { AnnouncementCard } from './announcement-card'
 
 export interface ChoiceOfPerformerModalProps {
   announcements: Array<IService>

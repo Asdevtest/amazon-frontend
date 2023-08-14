@@ -17,8 +17,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminSettingsTagsModel } from './tab-tags.model'
 import { useClassNames } from './tab-tags.style'
+
+import { AdminSettingsTagsModel } from './tab-tags.model'
 
 export const TabTags = observer(() => {
   const { classes: classNames } = useClassNames()

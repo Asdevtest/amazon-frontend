@@ -13,8 +13,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { FinancesViewModel } from './finances-view.model'
 import { styles } from './finances-view.style'
+
+import { FinancesViewModel } from './finances-view.model'
 
 export const FinancesViewRaw = props => {
   const [viewModel] = useState(() => new FinancesViewModel({ history: props.history, location: props.location }))

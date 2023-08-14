@@ -42,9 +42,9 @@ import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculatio
 import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
-
 import { useClassNames } from './edit-box-form.style'
+
+import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()

@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './active-orders.style'
+
 import { ExchangeProductItem } from './exchange-product-item'
 
 export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handlerClickButtonPrivateLabel }) => {

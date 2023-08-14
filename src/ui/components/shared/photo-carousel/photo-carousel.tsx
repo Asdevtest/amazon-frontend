@@ -12,9 +12,9 @@ import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { CustomSlider } from '../custom-slider'
-
 import { useClassNames } from './photo-carousel.style'
+
+import { CustomSlider } from '../custom-slider'
 
 interface FilesInterface {
   file: { name: Array<string> }

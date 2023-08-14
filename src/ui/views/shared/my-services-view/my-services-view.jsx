@@ -29,8 +29,9 @@ import { checkIsFreelancer } from '@utils/checks'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { MyServicesViewModel } from './my-services-view.model'
 import { styles } from './my-services-view.style'
+
+import { MyServicesViewModel } from './my-services-view.model'
 
 export const MyServicesViewRaw = props => {
   const [viewModel] = useState(() => new MyServicesViewModel({ history: props.history, location: props.location }))

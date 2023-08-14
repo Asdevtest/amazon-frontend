@@ -11,8 +11,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { UsersViewModel } from './users-view.model'
 import { styles } from './users-view.style'
+
+import { UsersViewModel } from './users-view.model'
 
 export const UsersViewRaw = props => {
   const [viewModel] = useState(() => new UsersViewModel({ history: props.history }))

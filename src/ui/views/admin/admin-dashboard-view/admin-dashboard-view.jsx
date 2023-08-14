@@ -14,8 +14,9 @@ import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { AdminDashboardViewModel } from './admin-dashboard-view.model'
 import { styles } from './admin-dashboard-view.style'
+
+import { AdminDashboardViewModel } from './admin-dashboard-view.model'
 
 export const AdminDashboardViewRaw = props => {
   const [viewModel] = useState(() => new AdminDashboardViewModel({ history: props.history }))
