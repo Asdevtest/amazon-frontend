@@ -39,6 +39,7 @@ export class SuppliersAndIdeasModel {
   productId = undefined
 
   inCreate = false
+  isCreateModal = false
   inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
