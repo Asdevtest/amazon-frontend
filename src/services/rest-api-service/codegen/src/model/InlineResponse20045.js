@@ -61,6 +61,9 @@ class InlineResponse20045 {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
+            if (data.hasOwnProperty('variation')) {
+                obj['variation'] = ApiClient.convertToType(data['variation'], 'Boolean');
+            }
             if (data.hasOwnProperty('childProduct')) {
                 obj['childProduct'] = ApiV1IdeasByParentGuidChildProduct.constructFromObject(data['childProduct']);
             }
@@ -105,6 +108,12 @@ InlineResponse20045.prototype['status'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineResponse20045.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Является ли продукт идеи вариацией существующего
+ * @member {Boolean} variation
+ */
+InlineResponse20045.prototype['variation'] = undefined;
 
 /**
  * @member {module:model/ApiV1IdeasByParentGuidChildProduct} childProduct

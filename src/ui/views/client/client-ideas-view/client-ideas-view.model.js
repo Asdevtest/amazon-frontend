@@ -126,7 +126,9 @@ const filtersFields = [
   'childProductSkusByClient',
   'childProductAsin',
   'title',
-  'shopIds',
+  // 'shopIds',
+  'childProductShopIds',
+  'parentProductShopIds',
   'comments',
   'createdAt',
   'dateStatusOnCheck',
@@ -437,7 +439,6 @@ export class ClientIdeasViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
-      console.log(123)
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'ideas'),
         column,

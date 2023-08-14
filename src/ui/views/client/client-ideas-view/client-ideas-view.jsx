@@ -94,7 +94,6 @@ export const ClientIdeasView = observer(props => {
           }}
           slotProps={{
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
