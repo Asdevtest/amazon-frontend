@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
@@ -38,19 +37,24 @@ export const AccessToProductForm = React.memo(
     const { classes: classNames } = useClassNames()
 
     const [curProdutsData, setCurProdutsData] = useState(sourceData || null)
-
     const [searchInputValue, setSearchInputValue] = useState('')
-
     const [selectedAccess, setSelectedAccess] = useState(accessProductSettings.NEED_SELECT)
-
-    const [chosenGoods, setChosenGoods] = useState(shop?.tmpProductsIds || [])
-
+    const [chosenGoods, setChosenGoods] = useState([])
+    const [selectionModel, setSelectionModel] = useState([])
     const [chooseAllCheck, setChooseAllCheck] = useState(shop.tmpProductsIds.length === sourceData.length)
 
     const allProductsIds = sourceData?.map(product => product._id)
 
     const handleChangeRadio = value => {
       setSelectedAccess(value)
+
+      if (value === accessProductSettings.NEED_SELECT) {
+        setSelectionModel(chosenGoods)
+      }
+
+      if (value === accessProductSettings.ALL_PRODUCTS) {
+        setSelectionModel(allProductsIds)
+      }
     }
 
     useEffect(() => {
@@ -83,11 +87,8 @@ export const AccessToProductForm = React.memo(
 
         setChooseAllCheck(true)
       } else {
-        setChosenGoods(shop?.tmpProductsIds || [])
-        // setShopDataToRender(shops.map(item => (item._id === traiding-shop._id ? {...item, tmpProductsIds: []} : item)))
         setChooseAllCheck(false)
       }
-      // setChosenGoods(traiding-shop?.tmpProductsIds || [])
     }, [selectedAccess])
 
     useEffect(() => {
@@ -96,22 +97,28 @@ export const AccessToProductForm = React.memo(
       } else {
         setChooseAllCheck(false)
       }
-
-      setChosenGoods(shop?.tmpProductsIds)
     }, [shop?.tmpProductsIds.length])
 
     const onClickChooseAllCheck = e => {
       e.stopPropagation()
+
       if (chooseAllCheck) {
         setSelectedAccess(accessProductSettings.NEED_SELECT)
-        setChosenGoods([])
+        setSelectionModel([])
         setChooseAllCheck(false)
       } else {
-        // setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
-
-        setChosenGoods(allProductsIds)
+        setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
+        setSelectionModel(allProductsIds)
         setChooseAllCheck(true)
       }
+    }
+
+    const handleSelectionModel = model => {
+      if (selectedAccess === accessProductSettings.NEED_SELECT) {
+        setChosenGoods(model)
+      }
+
+      setSelectionModel(model)
     }
 
     return (
@@ -199,9 +206,10 @@ export const AccessToProductForm = React.memo(
                   <MemoDataGrid
                     disableVirtualization
                     hideFooter
-                    disableRowSelectionOnClick
                     keepNonExistentRowsSelected
-                    checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                    isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                     rows={toJS(
                       curProdutsData
                         .slice()
@@ -209,8 +217,8 @@ export const AccessToProductForm = React.memo(
                     )}
                     columns={sourceColumns()}
                     rowHeight={65}
-                    // rowSelectionModel={chosenGoods}
-                    onRowSelectionModelChange={setChosenGoods}
+                    rowSelectionModel={selectionModel}
+                    onRowSelectionModelChange={model => handleSelectionModel(model)}
                   />
                 </div>
               ) : null}
