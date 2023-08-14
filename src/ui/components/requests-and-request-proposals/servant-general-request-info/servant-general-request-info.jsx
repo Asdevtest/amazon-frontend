@@ -61,15 +61,13 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
 
         {requestProposals.length === 0 ? null : (
           <div className={classNames.asinAndIdWrapper}>
-            <div className={classNames.asinWrapper}>
-              <Typography className={classNames.idText}>{t(TranslationKey.ASIN) + ':'}</Typography>
-              <AsinOrSkuLink
-                withCopyValue
-                asin={requestProposals[0]?.request?.asin}
-                textStyles={classNames.linkSpan}
-                missingValueTextStyles={classNames.idText}
-              />
-            </div>
+            <AsinOrSkuLink
+              withCopyValue
+              withAttributeTitle="asin"
+              asin={requestProposals[0]?.request?.asin}
+              textStyles={classNames.linkSpan}
+              missingValueTextStyles={classNames.linkSpan}
+            />
             <div className={classNames.idWrapper}>
               <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
               <Typography className={cx(classNames.idText, classNames.idTextDark)}>
