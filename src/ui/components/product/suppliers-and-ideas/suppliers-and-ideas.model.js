@@ -60,6 +60,8 @@ export class SuppliersAndIdeasModel {
   showProgress = false
   paymentMethods = []
 
+  isCreate = false
+
   showConfirmModal = false
   showSuccessModal = false
   showAddOrEditSupplierModal = false
@@ -105,6 +107,7 @@ export class SuppliersAndIdeasModel {
     this.isModalView = isModalView
     this.currentIdeaId = currentIdeaId
     this.closeModalHandler = closeModalHandler
+    this.isCreateModal = isCreate
 
     if (isCreate) {
       this.onCreateIdea()
@@ -117,10 +120,12 @@ export class SuppliersAndIdeasModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      if (this.isModalView && this.currentIdeaId) {
-        await this.getIdea(this.currentIdeaId)
-      } else {
-        await this.getIdeas()
+      if (!this.isCreateModal) {
+        if (this.isModalView && this.currentIdeaId) {
+          await this.getIdea(this.currentIdeaId)
+        } else {
+          await this.getIdeas()
+        }
       }
 
       this.setRequestStatus(loadingStatuses.success)
