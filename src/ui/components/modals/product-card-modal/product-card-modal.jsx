@@ -1,7 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -34,9 +33,6 @@ export const ProductCardModal = observer(props => {
 
   const { openModal, setOpenModal, history, onClickOpenNewTab, role } = props
 
-  const { search } = useLocation()
-  const queries = new URLSearchParams(search)
-  const productId = queries.get('product-id')
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
       return () =>
@@ -66,18 +62,6 @@ export const ProductCardModal = observer(props => {
   useEffect(() => {
     viewModel?.loadData()
   }, [])
-
-  // проблема в этом useEffect
-  useEffect(() => {
-    const productId = queries.get('product-id') // repeat 39 str
-
-    viewModel?.clearProduct()
-    viewModel?.clearReadyImages()
-
-    if (productId) {
-      viewModel?.updateProductId(productId)
-    }
-  }, [search])
 
   const clientToEditStatuses = [
     ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -150,7 +134,7 @@ export const ProductCardModal = observer(props => {
       </div>
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
         <div className={classNames.footerWrapper}>
-          <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(productId)} />
+          <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(viewModel.productId)} />
 
           {showActionBtns && (
             <ProductStatusButtons
