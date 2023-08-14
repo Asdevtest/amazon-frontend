@@ -372,11 +372,13 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickCreateRequestButton() {
+  async onClickCreateRequestButton(ideaData) {
+    const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
+
     const win = window.open(
       `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
-        this.currentProduct?._id
-      }&asin=${this.currentProduct?.asin}`,
+        isCreateByChildProduct ? ideaData?.childProduct?._id : this.currentProduct?._id
+      }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : this.currentProduct?.asin}`,
       '_blank',
     )
 
