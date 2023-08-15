@@ -41,7 +41,12 @@ export const AuthViewRaw = props => {
       <AuthFormWrapper
         redirect={t(TranslationKey['Create account'])}
         title={t(TranslationKey['Sign in'])}
+        showConfirmModal={viewModel.showConfirmModal}
+        confirmModalSettings={viewModel.confirmModalSettings}
         onClickRedirect={onClickRedirect}
+        onClickThemeIcon={viewModel.onClickThemeIcon}
+        onToggleModal={viewModel.onToggleModal}
+        onClickVersion={viewModel.onClickVersion}
       >
         <AuthForm
           formFields={{
