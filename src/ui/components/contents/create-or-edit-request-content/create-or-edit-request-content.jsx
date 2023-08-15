@@ -346,7 +346,7 @@ export const CreateOrEditRequestContent = ({
   const onClickBackBtn = () => {
     if (curStep === stepVariant.STEP_ONE) {
       if (createRequestForIdeaData?.productId) {
-        history.push('/client/ideas/new')
+        history.push('/client/freelance/my-requests')
       } else {
         history.goBack()
       }
