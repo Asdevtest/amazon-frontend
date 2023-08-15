@@ -257,8 +257,9 @@ export class SuppliersAndIdeasModel {
         quantity: Math.floor(formFields.quantity) || 0,
       }
 
-      if (this.inEdit) {
+      if (this.inEdit || formFields?._id) {
         await this.editIdea(formFields._id, getObjectFilteredByKeyArrayWhiteList(submitData, IdeaPatch), isForceUpdate)
+        this.curIdea = await IdeaModel.getIdeaById(formFields?._id)
       } else {
         const createdIdeaId = await this.createIdea(
           getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
@@ -266,7 +267,6 @@ export class SuppliersAndIdeasModel {
         )
 
         const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
-
         this.curIdea = createdIdea
       }
 
@@ -279,7 +279,7 @@ export class SuppliersAndIdeasModel {
         // this.curIdea = undefined
       }
 
-      this.loadData()
+      // this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -625,8 +625,9 @@ export class SuppliersAndIdeasModel {
         images: supplier.images.concat(this.readyImages),
       }
 
-      if (this.forceUpdateCallBack) {
+      if (this.forceUpdateCallBack && this.inCreate) {
         await this.forceUpdateCallBack()
+        this.inCreate = undefined
       }
 
       if (supplier._id) {
@@ -645,7 +646,10 @@ export class SuppliersAndIdeasModel {
         await IdeaModel.addSuppliersToIdea(this.curIdea._id, { suppliersIds: [createSupplierResult.guid] })
       }
 
-      this.loadData()
+      if (this.curIdea?._id) {
+        this.getIdea(this.curIdea?._id)
+      }
+
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
