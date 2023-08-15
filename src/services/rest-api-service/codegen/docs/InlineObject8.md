@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**title** | **String** | Название красного флага | [optional] 
+**iconImage** | **String** |  | [optional] 
 
 

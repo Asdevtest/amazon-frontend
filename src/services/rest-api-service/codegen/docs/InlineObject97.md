@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rating** | **Number** | Поставить оценку юзеру | [optional] 
-**review** | **String** | Отзыв о работе | [optional] 
-**sourceFile** | **String** | Файл для записи в FreelanceSource по этому пропоузалу | [optional] 
+**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
+**price** | **Number** | Цена предложения. | [optional] 
+**comment** | **String** | Комментарий к предложению. | [optional] 
+**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
+**title** | **String** | Название предложения | [optional] 
 
 

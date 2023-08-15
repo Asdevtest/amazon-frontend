@@ -22,11 +22,11 @@ class InlineObject15 {
     /**
      * Constructs a new <code>InlineObject15</code>.
      * @alias module:model/InlineObject15
-     * @param name {String} Название склада.
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(name) { 
+    constructor(boxesIds) { 
         
-        InlineObject15.initialize(this, name);
+        InlineObject15.initialize(this, boxesIds);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject15 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -49,26 +49,8 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -78,46 +60,9 @@ class InlineObject15 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * @member {Array.<String>} boxesIds
  */
-InlineObject15.prototype['name'] = undefined;
-
-/**
- * Страна.
- * @member {String} country
- */
-InlineObject15.prototype['country'] = undefined;
-
-/**
- * Индекс. 5 цифр.
- * @member {String} zipCode
- */
-InlineObject15.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject15.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject15.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject15.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject15.prototype['fontColor'] = undefined;
+InlineObject15.prototype['boxesIds'] = undefined;
 
 
 

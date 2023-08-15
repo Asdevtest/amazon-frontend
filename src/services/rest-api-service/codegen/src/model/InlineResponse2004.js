@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
-import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
+import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
+import ApiV1AdminsTasksLightStorekeeper from './ApiV1AdminsTasksLightStorekeeper';
 
 /**
  * The InlineResponse2004 model module.
@@ -52,23 +52,35 @@ class InlineResponse2004 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
             }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('amountInBatch')) {
-                obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
+            if (data.hasOwnProperty('isBarCodeAttached')) {
+                obj['isBarCodeAttached'] = ApiClient.convertToType(data['isBarCodeAttached'], 'Boolean');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksLightBoxes]);
             }
         }
         return obj;
@@ -78,44 +90,69 @@ class InlineResponse2004 {
 }
 
 /**
- * GUID партии.
+ * GUID элемента
  * @member {String} _id
  */
 InlineResponse2004.prototype['_id'] = undefined;
 
 /**
- * Человекочитаемый id партии.
- * @member {Number} humanFriendlyId
+ * Дата создания.
+ * @member {Number} createdAt
  */
-InlineResponse2004.prototype['humanFriendlyId'] = undefined;
+InlineResponse2004.prototype['createdAt'] = undefined;
 
 /**
- * Название партии
- * @member {String} title
+ * Дата обновления.
+ * @member {Number} updatedAt
  */
-InlineResponse2004.prototype['title'] = undefined;
+InlineResponse2004.prototype['updatedAt'] = undefined;
 
 /**
- * Заархивирована ли партия
- * @member {Boolean} archive
+ * Тип операции
+ * @member {String} operationType
  */
-InlineResponse2004.prototype['archive'] = undefined;
+InlineResponse2004.prototype['operationType'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
+ */
+InlineResponse2004.prototype['status'] = undefined;
+
+/**
+ * Проклеены ли все баркоды в задаче
+ * @member {Boolean} isBarCodeAttached
+ */
+InlineResponse2004.prototype['isBarCodeAttached'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineResponse2004.prototype['priority'] = undefined;
+
+/**
+ * reason of priority
+ * @member {String} reason
+ */
+InlineResponse2004.prototype['reason'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
+ */
+InlineResponse2004.prototype['storekeeper'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxes
  */
 InlineResponse2004.prototype['boxes'] = undefined;
 
 /**
- * Общее кол-во продуктов
- * @member {Number} amountInBatch
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxesBefore
  */
-InlineResponse2004.prototype['amountInBatch'] = undefined;
-
-/**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} storekeeper
- */
-InlineResponse2004.prototype['storekeeper'] = undefined;
+InlineResponse2004.prototype['boxesBefore'] = undefined;
 
 
 

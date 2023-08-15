@@ -22,10 +22,11 @@ class InlineObject94 {
     /**
      * Constructs a new <code>InlineObject94</code>.
      * @alias module:model/InlineObject94
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor() { 
+    constructor(totalCost) { 
         
-        InlineObject94.initialize(this);
+        InlineObject94.initialize(this, totalCost);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject94 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -47,14 +49,8 @@ class InlineObject94 {
         if (data) {
             obj = obj || new InlineObject94();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -64,22 +60,10 @@ class InlineObject94 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject94.prototype['rating'] = undefined;
-
-/**
- * Комментарий причин изменения статуса.
- * @member {String} reason
- */
-InlineObject94.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject94.prototype['linksToMediaFiles'] = undefined;
+InlineObject94.prototype['totalCost'] = undefined;
 
 
 

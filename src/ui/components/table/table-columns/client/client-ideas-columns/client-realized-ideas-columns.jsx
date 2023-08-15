@@ -37,7 +37,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shopIds',
+    field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -46,7 +46,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.IDEA_SHOPS,
   },
 
   {
@@ -89,7 +89,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
-    sortable: false,
     filterable: false,
   },
 
@@ -100,7 +99,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
     width: 110,
-    sortable: false,
     filterable: false,
   },
 
@@ -141,7 +139,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -162,7 +159,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -183,7 +179,6 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
     width: 105,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 

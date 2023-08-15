@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **eta** | **Date** | Ожидаема дата прибытия. | [optional] 
 **minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
 **archive** | **Boolean** | Заархивирован ли тариф | [optional] 
-**conditionsByRegion** | [**ApiV1BatchesOrderLogicsTariffConditionsByRegion**](ApiV1BatchesOrderLogicsTariffConditionsByRegion.md) |  | [optional] 
+**conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | [optional] 
 **destinationVariations** | [**[ApiV1StorekeepersTariffLogisticsDestinationVariations]**](ApiV1StorekeepersTariffLogisticsDestinationVariations.md) |  | [optional] 
 
 

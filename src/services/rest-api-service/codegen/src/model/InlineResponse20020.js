@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20020Rows from './InlineResponse20020Rows';
 
 /**
  * The InlineResponse20020 model module.
@@ -47,20 +48,11 @@ class InlineResponse20020 {
         if (data) {
             obj = obj || new InlineResponse20020();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20020Rows]);
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('skusByClient')) {
-                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
         }
         return obj;
@@ -70,33 +62,14 @@ class InlineResponse20020 {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} _id
+ * @member {Array.<module:model/InlineResponse20020Rows>} rows
  */
-InlineResponse20020.prototype['_id'] = undefined;
+InlineResponse20020.prototype['rows'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * @member {Number} count
  */
-InlineResponse20020.prototype['asin'] = undefined;
-
-/**
- * @member {Array.<String>} skusByClient
- */
-InlineResponse20020.prototype['skusByClient'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse20020.prototype['images'] = undefined;
-
-/**
- * Заголовок на товар с сайта амазон.
- * @member {String} amazonTitle
- */
-InlineResponse20020.prototype['amazonTitle'] = undefined;
+InlineResponse20020.prototype['count'] = undefined;
 
 
 

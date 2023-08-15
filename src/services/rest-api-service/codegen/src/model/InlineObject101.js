@@ -47,11 +47,11 @@ class InlineObject101 {
         if (data) {
             obj = obj || new InlineObject101();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('onCheckedIdeaId')) {
+                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('onFinishedIdeaId')) {
+                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
             }
         }
         return obj;
@@ -61,16 +61,18 @@ class InlineObject101 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Гуид идеи в статусе onChecked(10)
+ * @member {String} onCheckedIdeaId
+ * @default 'null'
  */
-InlineObject101.prototype['sourceFile'] = undefined;
+InlineObject101.prototype['onCheckedIdeaId'] = 'null';
 
 /**
- * Комментарий к файлу
- * @member {String} comments
+ * Гуид идеи в статусе finished(20)
+ * @member {String} onFinishedIdeaId
+ * @default 'null'
  */
-InlineObject101.prototype['comments'] = undefined;
+InlineObject101.prototype['onFinishedIdeaId'] = 'null';
 
 
 

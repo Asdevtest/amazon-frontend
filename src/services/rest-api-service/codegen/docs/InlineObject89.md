@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**onCheckedIdeaId** | **String** | Гуид идеи в статусе onChecked(10) | [optional] [default to &#39;null&#39;]
-**onFinishedIdeaId** | **String** | Гуид идеи в статусе finished(20) | [optional] [default to &#39;null&#39;]
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource по этому пропоузалу | [optional] 
 
 
