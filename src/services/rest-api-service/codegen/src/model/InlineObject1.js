@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject1 {
     /**
      * Constructs a new <code>InlineObject1</code>.
-     * Схема подтверждения итоговой цены, deliveryTotalPriceChanged
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject1
      * @param boxId {String} GUID коробки, который планируем изменить
      */

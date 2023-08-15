@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse2017 apiV1ResearchersProductsPost(opts)
+> InlineResponse2014 apiV1ResearchersProductsPost(opts)
 
 # Добавить новый продукт.
 
@@ -327,7 +327,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2017**](InlineResponse2017.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

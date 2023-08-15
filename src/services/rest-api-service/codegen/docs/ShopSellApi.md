@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopSellPost
 
-> InlineResponse2017 apiV1ShopSellPost(opts)
+> InlineResponse2014 apiV1ShopSellPost(opts)
 
 # Добавить на продажу новый магазин.
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2017**](InlineResponse2017.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 

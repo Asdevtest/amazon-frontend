@@ -32,8 +32,7 @@ export const styles = theme => ({
   },
 
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
 
     // '.MuiTypography-root': {
@@ -83,18 +82,11 @@ export const styles = theme => ({
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
-    zIndex: -1,
-  },
-  yellowBorder: {
-    background: theme.palette.boxShadow.yellow,
-  },
-  redBorder: {
-    background: theme.palette.boxShadow.red,
+    zIndex: 100,
   },
 
   switchButtonWrapper: {
     display: 'flex',
-
     marginBottom: 20,
   },
 
@@ -125,6 +117,45 @@ export const styles = theme => ({
       height: 1,
       width: '100%',
       background: theme.palette.primary.main,
+    },
+  },
+
+  deadlineBorder: {
+    position: 'relative',
+
+    '&:after': {
+      content: '" "',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+
+      width: 5,
+      height: '98%',
+    },
+  },
+
+  yellowBorder: {
+    background: theme.palette.background.yellowRow,
+
+    ':hover': {
+      background: theme.palette.background.yellowRow,
+    },
+
+    ':after': {
+      background: '#C69109',
+    },
+  },
+
+  redBorder: {
+    background: theme.palette.background.redRow,
+
+    ':hover': {
+      background: theme.palette.background.redRow,
+    },
+
+    ':after': {
+      background: theme.palette.other.rejected,
     },
   },
 })
