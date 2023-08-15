@@ -224,7 +224,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
         row={params.row}
         onFinishedOnly
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
-        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row._id)}
+        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}
         onClickResultButton={rowHandlers.onClickResultButton}
         onClickRequestId={rowHandlers.onClickRequestId}
       />

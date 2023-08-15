@@ -123,7 +123,7 @@ export const ClientIdeasView = observer(props => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
+          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row?.originalData)}
         />
       </div>
 
