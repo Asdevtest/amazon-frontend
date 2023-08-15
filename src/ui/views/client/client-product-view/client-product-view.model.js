@@ -190,6 +190,14 @@ export class ClientProductViewModel {
           this.product = this.product ? { ...this.product } : undefined
         }),
     )
+
+    reaction(
+      () => this.productId,
+      () =>
+        runInAction(() => {
+          this.loadData()
+        }),
+    )
   }
 
   async updateProductId(productId) {

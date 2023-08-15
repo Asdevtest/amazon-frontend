@@ -200,6 +200,14 @@ export class SupervisorProductViewModel {
           this.product = this.product ? { ...this.product } : undefined
         }),
     )
+
+    reaction(
+      () => this.productId,
+      () =>
+        runInAction(() => {
+          this.loadData()
+        }),
+    )
   }
 
   async loadData() {
