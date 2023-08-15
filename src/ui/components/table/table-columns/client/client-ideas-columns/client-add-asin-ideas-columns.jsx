@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   AddAsinIdeaActions,
   BarcodeCell,
+  IdeaRequests,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -107,5 +108,23 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
     columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'requestsOnCheck',
+    headerName: t(TranslationKey.Requests),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
+
+    renderCell: params => (
+      <IdeaRequests
+        row={params.row}
+        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
+        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.parentProduct._id, params.row.originalData)}
+        onClickResultButton={rowHandlers.onClickResultButton}
+        onClickRequestId={rowHandlers.onClickRequestId}
+      />
+    ),
+    width: 690,
+    sortable: false,
   },
 ]
