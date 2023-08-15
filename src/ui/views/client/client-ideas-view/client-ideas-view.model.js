@@ -544,8 +544,6 @@ export class ClientIdeasViewModel {
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
       const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
 
-      console.log(idea, currentProductId)
-
       this.isIdeaCreate = false
 
       runInAction(() => {
