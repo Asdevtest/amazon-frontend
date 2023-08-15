@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -12,13 +11,13 @@ export const useClassNames = makeStyles()(theme => ({
   normalizeLink: {
     textDecoration: 'none',
     transition: '.3s ease',
+
     '&:hover': {
       opacity: '.7',
     },
   },
 
   valueText: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
   },
@@ -32,15 +31,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   attributeTitle: {
-    fontWeight: 400,
     fontSize: 14,
     color: theme.palette.text.second,
   },
 
   missingValueText: {
-    fontWeight: 400,
     fontSize: 14,
-    lineHeight: '22px',
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 }))

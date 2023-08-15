@@ -225,11 +225,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
   },
-  asinWrapper: {
-    display: 'flex',
-    gap: 5,
-    alignItems: 'flex-start',
-  },
+
   idText: {
     fontSize: 18,
     lineHeight: '140%',
@@ -237,9 +233,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   linkSpan: {
     fontSize: '18px !important',
-    fontWeight: 400,
-    lineHeight: '140%',
-    color: theme.palette.primary.main,
+    lineHeight: '25px',
   },
 
   idTitleWrapper: {
@@ -252,7 +246,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   titleAndIdWrapper: {
     display: 'flex',
-    gap: 60,
+    gap: 30,
   },
 
   confirmationToWorkText: {
