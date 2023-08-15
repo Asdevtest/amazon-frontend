@@ -1,22 +1,22 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ImageUploading from 'react-images-uploading-alex76457-version'
 
 import AddIcon from '@material-ui/icons/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { Avatar, Box, Button, Grid, InputAdornment, Typography } from '@mui/material'
+import { Avatar, Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
-// import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './upload-files-input.style'
@@ -207,7 +207,6 @@ export const UploadFilesInput = observer(props => {
                             tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
                             disabled={linkInput === '' || images?.length >= maxNumber}
                             className={classNames.loadBtn}
-                            variant="contained"
                             onClick={() => onClickLoadBtn()}
                           >
                             {t(TranslationKey.Load)}
