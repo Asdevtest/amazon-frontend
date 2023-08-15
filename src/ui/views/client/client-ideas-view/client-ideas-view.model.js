@@ -536,14 +536,19 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async getDataForIdeaModal(row) {
+  async getDataForIdeaModal(idea) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      const isChildProcuct =
+        idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
+      const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
+
       this.isIdeaCreate = false
+
       runInAction(() => {
-        this.productId = row?.originalData?.parentProduct?._id
-        this.currentIdeaId = row._id
+        this.productId = currentProductId
+        this.currentIdeaId = idea._id
       })
 
       this.onTriggerOpenModal('showIdeaModal')
@@ -1005,18 +1010,28 @@ export class ClientIdeasViewModel {
     win.focus()
   }
 
-  async onClickLinkRequestButton(productId, idea) {
+  async onClickLinkRequestButton(idea) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      const result = await RequestModel.getRequestsByProductLight(productId)
+      const isChildProcuct =
+        idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
+      const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
+
+      const result = await RequestModel.getRequestsByProductLight(currentProductId)
+
       runInAction(() => {
         this.requestsForProduct = addIdDataConverter(result)
         this.selectedIdea = idea
       })
+
       this.onTriggerOpenModal('showBindingModal')
+
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log('error', error)
+
+      this.setActionStatus(loadingStatuses.failed)
     }
   }
 

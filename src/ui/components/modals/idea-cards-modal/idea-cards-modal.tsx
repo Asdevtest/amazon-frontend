@@ -4,11 +4,13 @@ import { FC } from 'react'
 import { SuppliersAndIdeas } from '@components/product/suppliers-and-ideas'
 import { Modal } from '@components/shared/modal'
 
+import { IProduct } from '@typings/product'
+
 import { useClassNames } from './idea-cards-modal.styles'
 
 interface IdeaCardsModalProps {
   productId?: string
-  product?: any
+  product?: IProduct
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
   currentIdeaId?: string
