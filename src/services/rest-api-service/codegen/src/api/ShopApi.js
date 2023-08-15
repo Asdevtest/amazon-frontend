@@ -19,7 +19,7 @@ import InlineObject106 from '../model/InlineObject106';
 import InlineObject107 from '../model/InlineObject107';
 import InlineResponse20067 from '../model/InlineResponse20067';
 import InlineResponse20068 from '../model/InlineResponse20068';
-import InlineResponse2014 from '../model/InlineResponse2014';
+import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -253,7 +253,7 @@ export default class ShopApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject106} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1ShopsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -272,7 +272,7 @@ export default class ShopApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2017;
       return this.apiClient.callApi(
         '/api/v1/shops/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -286,7 +286,7 @@ export default class ShopApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject106} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1ShopsPost(opts) {
       return this.apiV1ShopsPostWithHttpInfo(opts)

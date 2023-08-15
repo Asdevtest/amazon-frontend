@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rows** | [**[InlineResponse20036Rows]**](InlineResponse20036Rows.md) |  | [optional] 
-**count** | **Number** |  | [optional] 
+**priceForClient** | **Number** |  | [optional] 
 
 

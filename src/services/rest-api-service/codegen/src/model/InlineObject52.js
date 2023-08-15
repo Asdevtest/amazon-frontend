@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject43 from './InlineObject43';
 
 /**
  * The InlineObject52 model module.
@@ -48,11 +47,8 @@ class InlineObject52 {
         if (data) {
             obj = obj || new InlineObject52();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
-            }
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject43]);
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
         }
         return obj;
@@ -62,16 +58,9 @@ class InlineObject52 {
 }
 
 /**
- * GUID для которой подтверждаем действие.
- * @member {String} guid
+ * @member {String} clientComment
  */
-InlineObject52.prototype['guid'] = undefined;
-
-/**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject43>} additionalBoxes
- */
-InlineObject52.prototype['additionalBoxes'] = undefined;
+InlineObject52.prototype['clientComment'] = undefined;
 
 
 

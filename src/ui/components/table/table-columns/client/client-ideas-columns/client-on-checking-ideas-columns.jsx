@@ -40,7 +40,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shopIds',
+    field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -49,7 +49,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.IDEA_SHOPS,
   },
 
   {

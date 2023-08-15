@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 
 /**
  * The InlineObject38 model module.
@@ -22,11 +23,10 @@ class InlineObject38 {
     /**
      * Constructs a new <code>InlineObject38</code>.
      * @alias module:model/InlineObject38
-     * @param productIds {Array.<String>} 
      */
-    constructor(productIds) { 
+    constructor() { 
         
-        InlineObject38.initialize(this, productIds);
+        InlineObject38.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject38 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productIds) { 
-        obj['productIds'] = productIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +48,8 @@ class InlineObject38 {
         if (data) {
             obj = obj || new InlineObject38();
 
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('orderPayments')) {
+                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
             }
         }
         return obj;
@@ -60,9 +59,9 @@ class InlineObject38 {
 }
 
 /**
- * @member {Array.<String>} productIds
+ * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
  */
-InlineObject38.prototype['productIds'] = undefined;
+InlineObject38.prototype['orderPayments'] = undefined;
 
 
 

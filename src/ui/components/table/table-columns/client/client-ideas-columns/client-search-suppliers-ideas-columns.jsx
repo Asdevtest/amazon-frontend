@@ -52,7 +52,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shopIds',
+    field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -61,7 +61,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.IDEA_SHOPS,
   },
 
   {
@@ -127,7 +127,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
       return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
     },
     width: 95,
-    sortable: false,
+    type: 'number',
     filterable: false,
   },
 
@@ -138,7 +138,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
     width: 78,
-    sortable: false,
+    type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -149,7 +149,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
     width: 115,
-    sortable: false,
+    type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -205,7 +205,6 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
       />
     ),
     width: 160,
-    sortable: false,
     columnKey: columnnsKeys.client.IDEAS_STATUS,
   },
 

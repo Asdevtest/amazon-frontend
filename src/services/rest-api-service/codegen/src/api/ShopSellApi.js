@@ -19,7 +19,7 @@ import InlineObject104 from '../model/InlineObject104';
 import InlineObject105 from '../model/InlineObject105';
 import InlineResponse20065 from '../model/InlineResponse20065';
 import InlineResponse20066 from '../model/InlineResponse20066';
-import InlineResponse2014 from '../model/InlineResponse2014';
+import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 
 /**
@@ -202,7 +202,7 @@ export default class ShopSellApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject104} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1ShopSellPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -221,7 +221,7 @@ export default class ShopSellApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2017;
       return this.apiClient.callApi(
         '/api/v1/shop_sell/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -234,7 +234,7 @@ export default class ShopSellApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject104} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1ShopSellPost(opts) {
       return this.apiV1ShopSellPostWithHttpInfo(opts)

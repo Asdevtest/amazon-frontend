@@ -265,6 +265,8 @@ export const getTableByColumn = (column, hint) => {
       'fbaamount',
       'client',
       'buyer',
+      'childProductShopIds',
+      'parentProductShopIds',
     ].includes(column)
   ) {
     // if (hint === 'requests') {

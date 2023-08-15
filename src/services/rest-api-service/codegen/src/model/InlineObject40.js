@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject40 {
     /**
      * Constructs a new <code>InlineObject40</code>.
+     * Схема комментарии байера.
      * @alias module:model/InlineObject40
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @param buyerComment {String} Комментарии байера.
      */
-    constructor(clientComment, priceForClient) { 
+    constructor(buyerComment) { 
         
-        InlineObject40.initialize(this, clientComment, priceForClient);
+        InlineObject40.initialize(this, buyerComment);
     }
 
     /**
@@ -35,9 +35,8 @@ class InlineObject40 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj, buyerComment) { 
+        obj['buyerComment'] = buyerComment;
     }
 
     /**
@@ -51,11 +50,8 @@ class InlineObject40 {
         if (data) {
             obj = obj || new InlineObject40();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -65,15 +61,10 @@ class InlineObject40 {
 }
 
 /**
- * @member {String} clientComment
+ * Комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject40.prototype['clientComment'] = undefined;
-
-/**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
- */
-InlineObject40.prototype['priceForClient'] = undefined;
+InlineObject40.prototype['buyerComment'] = undefined;
 
 
 

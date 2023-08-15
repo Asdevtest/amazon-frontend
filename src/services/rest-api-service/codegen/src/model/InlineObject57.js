@@ -21,11 +21,14 @@ import ApiClient from '../ApiClient';
 class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject57
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor() { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject57.initialize(this);
+        InlineObject57.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -47,29 +52,11 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
-            }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -79,49 +66,16 @@ class InlineObject57 {
 }
 
 /**
- * @member {String} clientComment
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject57.prototype['clientComment'] = undefined;
+InlineObject57.prototype['boxId'] = undefined;
 
 /**
- * @member {String} storekeeperComment
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
  */
-InlineObject57.prototype['storekeeperComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject57.prototype['referenceId'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject57.prototype['fbaNumber'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject57.prototype['upsTrackNumber'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject57.prototype['trackNumberText'] = undefined;
-
-/**
- * @member {Array.<String>} trackNumberFile
- */
-InlineObject57.prototype['trackNumberFile'] = undefined;
-
-/**
- * Значение информационного ключа
- * @member {String} prepId
- */
-InlineObject57.prototype['prepId'] = undefined;
+InlineObject57.prototype['logicsTariffId'] = undefined;
 
 
 

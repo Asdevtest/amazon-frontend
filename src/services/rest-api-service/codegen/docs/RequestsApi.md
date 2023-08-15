@@ -302,7 +302,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomPost
 
-> InlineResponse2014 apiV1RequestsCustomPost(opts)
+> InlineResponse2017 apiV1RequestsCustomPost(opts)
 
 # Создать универсальную заявку.
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 

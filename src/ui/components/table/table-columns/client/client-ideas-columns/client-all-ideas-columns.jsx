@@ -40,8 +40,6 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
       />
     ),
     width: 130,
-    sortable: false,
-    // filterable: false,
     columnKey: columnnsKeys.client.IDEAS_STATUS,
   },
 
@@ -101,7 +99,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shopIds',
+    field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -110,7 +108,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.IDEA_SHOPS,
   },
 
   {
@@ -153,7 +151,6 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
-    sortable: false,
     filterable: false,
   },
 
@@ -215,7 +212,6 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 106,
-    sortable: false,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 

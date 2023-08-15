@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersDestinationPost
 
-> InlineResponse2014 apiV1StorekeepersDestinationPost(opts)
+> InlineResponse2017 apiV1StorekeepersDestinationPost(opts)
 
 # Создать/обновить дестинейшн
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -659,7 +659,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTariffLogisticsPost
 
-> InlineResponse2014 apiV1StorekeepersTariffLogisticsPost(opts)
+> InlineResponse2017 apiV1StorekeepersTariffLogisticsPost(opts)
 
 # Создать тарифами доставки.
 
@@ -699,7 +699,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -875,7 +875,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTariffWarehousesPost
 
-> InlineResponse2014 apiV1StorekeepersTariffWarehousesPost(opts)
+> InlineResponse2017 apiV1StorekeepersTariffWarehousesPost(opts)
 
 # Создать тариф услуг склада.
 
@@ -915,7 +915,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -1391,7 +1391,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20020] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20027] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1431,7 +1431,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20020]**](InlineResponse20020.md)
+[**[InlineResponse20027]**](InlineResponse20027.md)
 
 ### Authorization
 
@@ -1663,7 +1663,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20020] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20027] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1701,7 +1701,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20020]**](InlineResponse20020.md)
+[**[InlineResponse20027]**](InlineResponse20027.md)
 
 ### Authorization
 

@@ -22,10 +22,11 @@ class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
      * @alias module:model/InlineObject55
+     * @param productIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(productIds) { 
         
-        InlineObject55.initialize(this);
+        InlineObject55.initialize(this, productIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject55 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -47,20 +49,8 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -70,30 +60,9 @@ class InlineObject55 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * @member {Array.<String>} productIds
  */
-InlineObject55.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} widthCmWarehouse
- */
-InlineObject55.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} heightCmWarehouse
- */
-InlineObject55.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject55.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject55.prototype['images'] = undefined;
+InlineObject55.prototype['productIds'] = undefined;
 
 
 

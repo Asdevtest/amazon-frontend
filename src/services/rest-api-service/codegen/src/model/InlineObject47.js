@@ -47,8 +47,8 @@ class InlineObject47 {
         if (data) {
             obj = obj || new InlineObject47();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject47 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject47.prototype['guid'] = undefined;
+InlineObject47.prototype['guids'] = undefined;
 
 
 

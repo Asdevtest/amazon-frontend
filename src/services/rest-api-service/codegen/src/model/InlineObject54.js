@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject54 model module.
@@ -23,11 +22,11 @@ class InlineObject54 {
     /**
      * Constructs a new <code>InlineObject54</code>.
      * @alias module:model/InlineObject54
-     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
+     * @param productIds {Array.<String>} 
      */
-    constructor(itemsBarCodeChanges) { 
+    constructor(productIds) { 
         
-        InlineObject54.initialize(this, itemsBarCodeChanges);
+        InlineObject54.initialize(this, productIds);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject54 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, itemsBarCodeChanges) { 
-        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -50,8 +49,8 @@ class InlineObject54 {
         if (data) {
             obj = obj || new InlineObject54();
 
-            if (data.hasOwnProperty('itemsBarCodeChanges')) {
-                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -61,9 +60,9 @@ class InlineObject54 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
+ * @member {Array.<String>} productIds
  */
-InlineObject54.prototype['itemsBarCodeChanges'] = undefined;
+InlineObject54.prototype['productIds'] = undefined;
 
 
 

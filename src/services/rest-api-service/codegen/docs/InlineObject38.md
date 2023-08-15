@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productIds** | **[String]** |  | 
+**orderPayments** | [**[ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]**](ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md) |  | [optional] 
 
 

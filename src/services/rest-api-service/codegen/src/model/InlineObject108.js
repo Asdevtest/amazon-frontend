@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject43 from './InlineObject43';
+import InlineObject21 from './InlineObject21';
 
 /**
  * The InlineObject108 model module.
@@ -49,7 +49,7 @@ class InlineObject108 {
             obj = obj || new InlineObject108();
 
             if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject43]);
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject21]);
             }
         }
         return obj;
@@ -60,7 +60,7 @@ class InlineObject108 {
 
 /**
  * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject43>} additionalBoxes
+ * @member {Array.<module:model/InlineObject21>} additionalBoxes
  */
 InlineObject108.prototype['additionalBoxes'] = undefined;
 

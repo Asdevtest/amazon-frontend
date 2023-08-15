@@ -12,6 +12,7 @@ import {
   FreelanceRequestType,
   FreelancerToWorkConfirmationMenuItem,
   FromToDateMenuItem,
+  IdeaShopsFieldMenuItem,
   InStockMenuItem,
   IsFormedMenuItem,
   IsHaveBarCodeFilterMenuItem,
@@ -205,6 +206,25 @@ export const DataGridCustomColumnMenuComponent = props => {
             currentColumn.columnKey,
           )}
           data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.client.IDEA_SHOPS].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <IdeaShopsFieldMenuItem
+          addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
+            currentColumn.columnKey,
+          )}
+          data={props}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}

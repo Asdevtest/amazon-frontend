@@ -21,12 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject58
-     * @param isFormed {Boolean} Сформирована ли коробка
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor(isFormed) { 
+    constructor(shippingLabel) { 
         
-        InlineObject58.initialize(this, isFormed);
+        InlineObject58.initialize(this, shippingLabel);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isFormed) { 
-        obj['isFormed'] = isFormed;
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -49,8 +50,8 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('isFormed')) {
-                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -60,10 +61,10 @@ class InlineObject58 {
 }
 
 /**
- * Сформирована ли коробка
- * @member {Boolean} isFormed
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject58.prototype['isFormed'] = undefined;
+InlineObject58.prototype['shippingLabel'] = undefined;
 
 
 

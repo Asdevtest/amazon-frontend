@@ -21,14 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
-     * Схема подтверждения возрата коробок на склад
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject41
-     * @param boxId {String} GUID коробки, который планируем изменить
-     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(boxId, logicsTariffId) { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject41.initialize(this, boxId, logicsTariffId);
+        InlineObject41.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -36,9 +35,8 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxId, logicsTariffId) { 
-        obj['boxId'] = boxId;
-        obj['logicsTariffId'] = logicsTariffId;
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -52,11 +50,8 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -66,16 +61,10 @@ class InlineObject41 {
 }
 
 /**
- * GUID коробки, который планируем изменить
- * @member {String} boxId
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject41.prototype['boxId'] = undefined;
-
-/**
- * GUID тарифа, на которую планируем изменить
- * @member {String} logicsTariffId
- */
-InlineObject41.prototype['logicsTariffId'] = undefined;
+InlineObject41.prototype['totalPriceChanged'] = undefined;
 
 
 

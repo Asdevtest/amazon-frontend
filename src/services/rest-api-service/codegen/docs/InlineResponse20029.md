@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priceForClient** | **Number** |  | [optional] 
+**allImages** | [**[InlineResponse20029AllImages]**](InlineResponse20029AllImages.md) |  | [optional] 
+**allFiles** | [**[InlineResponse20029AllFiles]**](InlineResponse20029AllFiles.md) |  | [optional] 
 
 
