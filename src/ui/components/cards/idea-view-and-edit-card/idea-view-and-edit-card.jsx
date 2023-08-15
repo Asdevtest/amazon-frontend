@@ -763,7 +763,7 @@ export const IdeaViewAndEditCard = observer(
                     success
                     variant="contained"
                     className={classNames.actionButton}
-                    onClick={onClickCreateRequestButton}
+                    onClick={() => onClickCreateRequestButton(formFields)}
                   >
                     <PlusIcon className={classNames.plusIcon} />
                     {t(TranslationKey['Create a request'])}

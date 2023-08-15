@@ -815,32 +815,25 @@ export const ObJectFieldMenuItem = React.memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item._id === b._id)) -
-                        //     Number(choosenItems?.some(item => item._id === a._id)),
-                        // )
-                        .map(obj => {
-                          const value = obj.title || obj.name || t(TranslationKey.Empty)
-                          const valueChecked = choosenItems.some(item => item._id === obj._id)
+                      {itemsForRender.map(obj => {
+                        const value = obj.title || obj.name || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems.some(item => item._id === obj._id)
 
-                          return (
-                            obj && (
-                              <div key={obj._id} className={classNames.shop}>
-                                <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
-                                {rowContent ? (
-                                  rowContent(obj)
-                                ) : (
-                                  <div title={value} className={classNames.shopName}>
-                                    {value}
-                                  </div>
-                                )}
-                              </div>
-                            )
+                        return (
+                          obj && (
+                            <div key={obj._id} className={classNames.shop}>
+                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                              {rowContent ? (
+                                rowContent(obj)
+                              ) : (
+                                <div title={value} className={classNames.shopName}>
+                                  {value}
+                                </div>
+                              )}
+                            </div>
                           )
-                        })}
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
@@ -857,6 +850,170 @@ export const ObJectFieldMenuItem = React.memo(
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
+
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+export const IdeaShopsFieldMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      addNullObj,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+      rowContent,
+      asBlock,
+    }) => {
+      const [filterData, setFilterData] = useState([])
+      const [currentFilterData, setCurrentFilterData] = useState([])
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
+
+      const getData = section => field.reduce((acc, item) => [...acc, ...data[item][section]], [])
+
+      const onClickItem = obj => {
+        if (choosenItems.some(item => item._id === obj._id)) {
+          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        } else {
+          setChoosenItems([...choosenItems, obj])
+        }
+      }
+      // НУжно переделать
+      useEffect(() => {
+        setFilterData(getData('filterData'))
+      }, [data?.childProductShopIds?.filterData?.length, data?.parentProductShopIds?.filterData?.length])
+      // НУжно переделать
+      useEffect(() => {
+        setCurrentFilterData(getData('currentFilterData'))
+      }, [data?.childProductShopIds?.currentFilterData?.length, data?.parentProductShopIds?.currentFilterData?.length])
+
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
+
+      useEffect(() => {
+        for (const item of field) {
+          onClickFilterBtn(`${item}`)
+        }
+      }, [])
+
+      useEffect(() => {
+        setItemsForRender(
+          [...filterData, ...[addNullObj && { name: t(TranslationKey['Without stores']), _id: 'null' }]]
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                Number(b._id === 'null') - Number(a._id === 'null') ||
+                Number(choosenItems?.some(item => item._id === b._id)) -
+                  Number(choosenItems?.some(item => item._id === a._id)),
+            ),
+        )
+      }, [filterData])
+
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(obj => {
+            return obj && (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase())
+          })
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
+                      {itemsForRender.map(obj => {
+                        const value = obj.title || obj.name || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems.some(item => item._id === obj._id)
+
+                        return (
+                          obj && (
+                            <div key={obj._id} className={classNames.shop}>
+                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                              {rowContent ? (
+                                rowContent(obj)
+                              ) : (
+                                <div title={value} className={classNames.shopName}>
+                                  {value}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        )
+                      })}
+                    </>
+                  ) : (
+                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                      {t(TranslationKey['No options'])}
+                    </Typography>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+
+                // НУжно переделать
+                const parentShops = choosenItems.filter(item =>
+                  data?.parentProductShopIds?.filterData?.some(obj => obj?._id === item?._id),
+                )
+                const childShops = choosenItems.filter(item =>
+                  data?.childProductShopIds?.filterData?.some(obj => obj?._id === item?._id),
+                )
+
+                if (parentShops?.length) {
+                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopIds')
+                }
+                if (childShops?.length) {
+                  onChangeFullFieldMenuItem(childShops, 'childProductShopIds')
+                }
 
                 onClickAccept()
               }}

@@ -22,11 +22,12 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
-     * @param productId {String} ГУид продукта
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor(productId) { 
+    constructor(batchIds, archive) { 
         
-        InlineObject20.initialize(this, productId);
+        InlineObject20.initialize(this, batchIds, archive);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId) { 
-        obj['productId'] = productId;
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -60,10 +65,15 @@ class InlineObject20 {
 }
 
 /**
- * ГУид продукта
- * @member {String} productId
+ * @member {Array.<String>} batchIds
  */
-InlineObject20.prototype['productId'] = undefined;
+InlineObject20.prototype['batchIds'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineObject20.prototype['archive'] = undefined;
 
 
 

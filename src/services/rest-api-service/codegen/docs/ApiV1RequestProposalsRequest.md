@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**createdBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **title** | **String** | Простое название | [optional] 
 **detailsCustom** | [**ApiV1RequestProposalsRequestDetailsCustom**](ApiV1RequestProposalsRequestDetailsCustom.md) |  | [optional] 
 

@@ -4,15 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** |  | [optional] 
-**title** | **String** | Название идеи | [optional] 
-**status** | **Number** | Статус идеи | [optional] 
-**linksToMediaFiles** | **[String]** | Медиа идеи | [optional] 
-**variation** | **Boolean** | Является ли продукт идеи вариацией существующего | [optional] 
-**childProduct** | [**ApiV1IdeasByParentGuidChildProduct**](ApiV1IdeasByParentGuidChildProduct.md) |  | [optional] 
-**requestsOnCheck** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
-**requestsOnFinished** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
-**comments** | **String** | Комментарии к идее | [optional] 
-**buyerComment** | **String** | Комментарий байера | [optional] 
+**_id** | **String** | Гуид тега | [optional] 
+**title** | **String** | Тег | [optional] 
+**productCount** | **Number** | Кол-во продуктов, которые используют этот тег | [optional] 
 
 

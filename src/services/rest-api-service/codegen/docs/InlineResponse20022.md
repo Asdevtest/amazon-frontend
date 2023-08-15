@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
-**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
-**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
 
 

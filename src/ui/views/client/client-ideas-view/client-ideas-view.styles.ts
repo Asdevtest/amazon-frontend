@@ -12,8 +12,7 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
   },
 
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
   },
 
@@ -55,5 +54,44 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
 
   modalDialogContext: {
     padding: 0,
+  },
+
+  deadlineBorder: {
+    position: 'relative',
+
+    '&:after': {
+      content: '" "',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+
+      width: 5,
+      height: '98%',
+    },
+  },
+
+  yellowBorder: {
+    background: theme.palette.background.yellowRow,
+
+    ':hover': {
+      background: theme.palette.background.yellowRow,
+    },
+
+    ':after': {
+      background: '#C69109',
+    },
+  },
+
+  redBorder: {
+    background: theme.palette.background.redRow,
+
+    ':hover': {
+      background: theme.palette.background.redRow,
+    },
+
+    ':after': {
+      background: theme.palette.other.rejected,
+    },
   },
 }))

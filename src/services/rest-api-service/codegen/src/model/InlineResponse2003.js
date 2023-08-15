@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 
 /**
  * The InlineResponse2003 model module.
@@ -47,23 +48,35 @@ class InlineResponse2003 {
         if (data) {
             obj = obj || new InlineResponse2003();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('cubicMeters')) {
-                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('deliveryCost')) {
-                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('subUser')) {
+                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
             }
-            if (data.hasOwnProperty('deliveryRate')) {
-                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
+            if (data.hasOwnProperty('entityId')) {
+                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
+            }
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            }
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -73,43 +86,145 @@ class InlineResponse2003 {
 }
 
 /**
- * The unique identifier of the box.
- * @member {String} guid
+ * GUID платежа
+ * @member {String} _id
  */
-InlineResponse2003.prototype['guid'] = undefined;
+InlineResponse2003.prototype['_id'] = undefined;
 
 /**
- * Объем в м ^ 3
- * @member {Number} cubicMeters
+ * Дата создания.
+ * @member {Date} createdAt
  */
-InlineResponse2003.prototype['cubicMeters'] = undefined;
+InlineResponse2003.prototype['createdAt'] = undefined;
 
 /**
- * The delivery cost of the box.
- * @member {Number} deliveryCost
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
  */
-InlineResponse2003.prototype['deliveryCost'] = undefined;
+InlineResponse2003.prototype['createdBy'] = undefined;
 
 /**
- * The volume weight of the box in kg.
- * @member {Number} volumeWeightKgWarehouse
+ * Роль пользователя на момент инициации платежа.
+ * @member {Number} role
  */
-InlineResponse2003.prototype['volumeWeightKgWarehouse'] = undefined;
+InlineResponse2003.prototype['role'] = undefined;
 
 /**
- * The weight of the box in kg.
- * @member {Number} weightFinalAccountingKgWarehouse
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
  */
-InlineResponse2003.prototype['weightFinalAccountingKgWarehouse'] = undefined;
+InlineResponse2003.prototype['subUser'] = undefined;
 
 /**
- * The delivery rate of the box. $/kg
- * @member {Number} deliveryRate
+ * GUID товара или услуги.
+ * @member {String} entityId
  */
-InlineResponse2003.prototype['deliveryRate'] = undefined;
+InlineResponse2003.prototype['entityId'] = undefined;
+
+/**
+ * Тип платежа
+ * @member {module:model/InlineResponse2003.PaymentTypeEnum} paymentType
+ */
+InlineResponse2003.prototype['paymentType'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ */
+InlineResponse2003.prototype['recipient'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2003.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineResponse2003.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2003['PaymentTypeEnum'] = {
+
+    /**
+     * value: "PRODUCT"
+     * @const
+     */
+    "PRODUCT": "PRODUCT",
+
+    /**
+     * value: "ORDER"
+     * @const
+     */
+    "ORDER": "ORDER",
+
+    /**
+     * value: "BOX"
+     * @const
+     */
+    "BOX": "BOX",
+
+    /**
+     * value: "BATCH"
+     * @const
+     */
+    "BATCH": "BATCH",
+
+    /**
+     * value: "USER"
+     * @const
+     */
+    "USER": "USER",
+
+    /**
+     * value: "REQUEST-CUSTOM"
+     * @const
+     */
+    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+
+    /**
+     * value: "REQUEST-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+
+    /**
+     * value: "REQUEST-PROPOSAL-CUSTOM"
+     * @const
+     */
+    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
+
+    /**
+     * value: "OTHER"
+     * @const
+     */
+    "OTHER": "OTHER"
+};
 
 
 

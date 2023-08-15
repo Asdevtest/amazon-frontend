@@ -4,6 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**approvedByMaster** | **Boolean** |  | 
+**action** | **String** |  | 
+**reason** | **String** | Причина смены статуса. | [optional] 
+
+
+
+## Enum: ActionEnum
+
+
+* `LINK` (value: `"LINK"`)
+
+* `UNLINK` (value: `"UNLINK"`)
+
+
 
 

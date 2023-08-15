@@ -47,11 +47,14 @@ class InlineObject89 {
         if (data) {
             obj = obj || new InlineObject89();
 
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -61,18 +64,22 @@ class InlineObject89 {
 }
 
 /**
- * Гуид идеи в статусе onChecked(10)
- * @member {String} onCheckedIdeaId
- * @default 'null'
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject89.prototype['onCheckedIdeaId'] = 'null';
+InlineObject89.prototype['rating'] = undefined;
 
 /**
- * Гуид идеи в статусе finished(20)
- * @member {String} onFinishedIdeaId
- * @default 'null'
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject89.prototype['onFinishedIdeaId'] = 'null';
+InlineObject89.prototype['review'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
+ */
+InlineObject89.prototype['sourceFile'] = undefined;
 
 
 

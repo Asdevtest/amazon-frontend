@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20058 model module.
@@ -50,17 +52,29 @@ class InlineResponse20058 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('proposal')) {
+                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
             }
             if (data.hasOwnProperty('typeTask')) {
                 obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -70,34 +84,56 @@ class InlineResponse20058 {
 }
 
 /**
- * GUID заявки
+ * Гуид медиа
  * @member {String} _id
  */
 InlineResponse20058.prototype['_id'] = undefined;
 
 /**
- * Номер заявки
- * @member {Number} humanFriendlyId
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineResponse20058.prototype['humanFriendlyId'] = undefined;
+InlineResponse20058.prototype['sourceFile'] = undefined;
 
 /**
- * Тип задачи заявки
+ * Комментарий к файлу
+ * @member {String} comments
+ */
+InlineResponse20058.prototype['comments'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
+ */
+InlineResponse20058.prototype['proposal'] = undefined;
+
+/**
+ * Код специализации фрилансера
  * @member {Number} typeTask
  */
 InlineResponse20058.prototype['typeTask'] = undefined;
 
 /**
- * Название заявки
- * @member {String} title
+ * гуид продукта
+ * @member {String} productId
  */
-InlineResponse20058.prototype['title'] = undefined;
+InlineResponse20058.prototype['productId'] = undefined;
 
 /**
- * Статус заявки
- * @member {String} status
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
-InlineResponse20058.prototype['status'] = undefined;
+InlineResponse20058.prototype['createdBy'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20058.prototype['createdAt'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+InlineResponse20058.prototype['updatedAt'] = undefined;
 
 
 

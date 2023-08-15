@@ -126,7 +126,9 @@ const filtersFields = [
   'childProductSkusByClient',
   'childProductAsin',
   'title',
-  'shopIds',
+  // 'shopIds',
+  'childProductShopIds',
+  'parentProductShopIds',
   'comments',
   'createdAt',
   'dateStatusOnCheck',
@@ -241,7 +243,7 @@ export class ClientIdeasViewModel {
   rowHandlers = {
     onClickToCheck: id => this.handleStatusToCheck(id),
     onClickReject: id => this.handleStatusToReject(id),
-    onClickCreateRequest: (productId, asin) => this.onClickCreateRequestButton(productId, asin),
+    onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
     onClickResultButton: (requestTypeTask, proposalId) => this.onClickResultButton(requestTypeTask, proposalId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
@@ -437,7 +439,6 @@ export class ClientIdeasViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
-      console.log(123)
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'ideas'),
         column,
@@ -484,7 +485,7 @@ export class ClientIdeasViewModel {
 
   async getIdeaList() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       const response = await IdeaModel.getIdeaList({
         ...this.currentSettings.queries,
@@ -503,12 +504,12 @@ export class ClientIdeasViewModel {
         this.rowCount = response.count
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.error = error
 
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -518,7 +519,7 @@ export class ClientIdeasViewModel {
 
   async getShopList() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       const response = await ShopModel.getMyShopNames()
 
@@ -526,18 +527,18 @@ export class ClientIdeasViewModel {
         this.shopList = response
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.error = error
 
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async getDataForIdeaModal(row) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       this.isIdeaCreate = false
       runInAction(() => {
@@ -547,10 +548,10 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showIdeaModal')
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log('error', error)
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -583,7 +584,7 @@ export class ClientIdeasViewModel {
   async onTriggerAddOrEditSupplierModal(row) {
     try {
       if (!this.showAddOrEditSupplierModal) {
-        this.requestStatus = loadingStatuses.isLoading
+        this.setRequestStatus(loadingStatuses.isLoading)
 
         const product = await ProductModel.getProductById(row?.parentProduct?._id)
 
@@ -601,7 +602,7 @@ export class ClientIdeasViewModel {
           this.volumeWeightCoefficient = result.volumeWeightCoefficient
         })
 
-        this.requestStatus = loadingStatuses.success
+        this.setRequestStatus(loadingStatuses.success)
       }
 
       runInAction(() => {
@@ -609,7 +610,7 @@ export class ClientIdeasViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -617,7 +618,7 @@ export class ClientIdeasViewModel {
 
   async statusHandler(method, id, addSupliersToParentProductData) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       await method(id)
 
       if (addSupliersToParentProductData) {
@@ -629,11 +630,11 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.error = error
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -966,7 +967,7 @@ export class ClientIdeasViewModel {
 
   async onClickToOrder(id) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.setRequestStatus(loadingStatuses.isLoading)
       const [storekeepers, destinations, platformSettings] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
@@ -985,17 +986,19 @@ export class ClientIdeasViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
-      this.requestStatus = loadingStatuses.success
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
-  async onClickCreateRequestButton(productId, asin) {
+  async onClickCreateRequestButton(ideaData) {
+    const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
+
     const win = window.open(
-      `/${
-        UserRoleCodeMapForRoutes[this.curUser.role]
-      }/freelance/my-requests/create-request?parentProduct=${productId}&asin=${asin}`,
+      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+        isCreateByChildProduct ? ideaData?.childProduct?._id : ideaData?.parentProduct?._id
+      }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : ideaData?.parentProduct?.asin}`,
       '_blank',
     )
 

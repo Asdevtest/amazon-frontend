@@ -62,7 +62,7 @@ let apiInstance = new TestSwagger.AdministratorApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject16() // InlineObject16 | 
+  'body': new TestSwagger.InlineObject6() // InlineObject6 | 
 };
 apiInstance.apiV1AdminsDestinationEditGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
+ **body** | [**InlineObject6**](InlineObject6.md)|  | [optional] 
 
 ### Return type
 
@@ -171,7 +171,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject15() // InlineObject15 | 
+  'body': new TestSwagger.InlineObject5() // InlineObject5 | 
 };
 apiInstance.apiV1AdminsDestinationPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -187,7 +187,7 @@ apiInstance.apiV1AdminsDestinationPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
+ **body** | [**InlineObject5**](InlineObject5.md)|  | [optional] 
 
 ### Return type
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsFeedbackGet
 
-> [InlineResponse20010] apiV1AdminsFeedbackGet(opts)
+> [InlineResponse2007] apiV1AdminsFeedbackGet(opts)
 
 #  Получить список отзывов/репортов
 
@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetCheckingProductsGet
 
-> [ApiV1BatchesProduct] apiV1AdminsGetCheckingProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetCheckingProductsGet(opts)
 
 # Получить список товаров, которые находятся на проверке. 
 
@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesProduct]**](ApiV1BatchesProduct.md)
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetPaidProductsGet
 
-> [ApiV1BatchesProduct] apiV1AdminsGetPaidProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetPaidProductsGet(opts)
 
 # Получить список оплаченных товаров.
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesProduct]**](ApiV1BatchesProduct.md)
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetProductsByStatusGet
 
-> [ApiV1BatchesProduct] apiV1AdminsGetProductsByStatusGet(opts)
+> [InlineResponse200] apiV1AdminsGetProductsByStatusGet(opts)
 
 # Получить список продуктов с фильтром по статусу.
 
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesProduct]**](ApiV1BatchesProduct.md)
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsGetWaitingProductsGet
 
-> [ApiV1BatchesProduct] apiV1AdminsGetWaitingProductsGet(opts)
+> [InlineResponse200] apiV1AdminsGetWaitingProductsGet(opts)
 
 # Получить список товаров, которые ожидают проверку. 
 
@@ -505,7 +505,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesProduct]**](ApiV1BatchesProduct.md)
+[**[InlineResponse200]**](InlineResponse200.md)
 
 ### Authorization
 
@@ -539,7 +539,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject11() // InlineObject11 | 
+  'body': new TestSwagger.InlineObject1() // InlineObject1 | 
 };
 apiInstance.apiV1AdminsMakePaymentPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -555,7 +555,7 @@ apiInstance.apiV1AdminsMakePaymentPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
+ **body** | [**InlineObject1**](InlineObject1.md)|  | [optional] 
 
 ### Return type
 
@@ -593,7 +593,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
+  'body': new TestSwagger.InlineObject4() // InlineObject4 | 
 };
 apiInstance.apiV1AdminsMakePaymentsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -609,7 +609,7 @@ apiInstance.apiV1AdminsMakePaymentsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
+ **body** | [**InlineObject4**](InlineObject4.md)|  | [optional] 
 
 ### Return type
 
@@ -627,7 +627,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsOrdersGet
 
-> [ApiV1BatchesOrder] apiV1AdminsOrdersGet(opts)
+> [InlineResponse2001] apiV1AdminsOrdersGet(opts)
 
 # Получить список заказов.
 
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesOrder]**](ApiV1BatchesOrder.md)
+[**[InlineResponse2001]**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -702,7 +702,7 @@ let apiInstance = new TestSwagger.AdministratorApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject10() // InlineObject10 | 
+  'body': new TestSwagger.InlineObject() // InlineObject | 
 };
 apiInstance.apiV1AdminsPatchProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -719,7 +719,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
+ **body** | [**InlineObject**](InlineObject.md)|  | [optional] 
 
 ### Return type
 
@@ -791,7 +791,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsPaymentsGet
 
-> [InlineResponse2006] apiV1AdminsPaymentsGet(opts)
+> [InlineResponse2003] apiV1AdminsPaymentsGet(opts)
 
 # Получить все оплаты, которые были начислены всем ролям.
 
@@ -829,7 +829,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -863,7 +863,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
+  'body': new TestSwagger.InlineObject10() // InlineObject10 | 
 };
 apiInstance.apiV1AdminsProductLinkOrUnlinkUserRolePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -879,7 +879,7 @@ apiInstance.apiV1AdminsProductLinkOrUnlinkUserRolePatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+ **body** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
 
 ### Return type
 
@@ -897,7 +897,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsVacGet
 
-> [InlineResponse2009] apiV1AdminsProductsVacGet(opts)
+> [InlineResponse2006] apiV1AdminsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2009]**](InlineResponse2009.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -1130,7 +1130,7 @@ let apiInstance = new TestSwagger.AdministratorApi();
 let guid = null; // String | GUID красного флага в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
+  'body': new TestSwagger.InlineObject8() // InlineObject8 | 
 };
 apiInstance.apiV1AdminsRedFlagsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1147,7 +1147,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID красного флага в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
+ **body** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
 
 ### Return type
 
@@ -1185,7 +1185,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
+  'body': new TestSwagger.InlineObject7() // InlineObject7 | 
 };
 apiInstance.apiV1AdminsRedFlagsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1201,7 +1201,7 @@ apiInstance.apiV1AdminsRedFlagsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
+ **body** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
 
 ### Return type
 
@@ -1239,7 +1239,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject13() // InlineObject13 | 
+  'body': new TestSwagger.InlineObject3() // InlineObject3 | 
 };
 apiInstance.apiV1AdminsSetSettingPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1255,7 +1255,7 @@ apiInstance.apiV1AdminsSetSettingPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
+ **body** | [**InlineObject3**](InlineObject3.md)|  | [optional] 
 
 ### Return type
 
@@ -1273,7 +1273,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch
 
-> InlineResponse2008 apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts)
+> InlineResponse2005 apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts)
 
 # Изменить интервал нотификаций касательно дедлайна ордера
 
@@ -1313,7 +1313,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -1402,7 +1402,7 @@ let apiInstance = new TestSwagger.AdministratorApi();
 let guid = null; // String | GUID тега в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
+  'body': new TestSwagger.InlineObject9() // InlineObject9 | 
 };
 apiInstance.apiV1AdminsTagsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1419,7 +1419,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тега в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
+ **body** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
 
 ### Return type
 
@@ -1437,7 +1437,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsTasksLightGet
 
-> [InlineResponse2007] apiV1AdminsTasksLightGet(opts)
+> [InlineResponse2004] apiV1AdminsTasksLightGet(opts)
 
 #  Облегченная версия. Получить задачи.
 
@@ -1477,7 +1477,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -1491,7 +1491,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsToggleServerPatch
 
-> InlineResponse2008 apiV1AdminsToggleServerPatch(opts)
+> InlineResponse2005 apiV1AdminsToggleServerPatch(opts)
 
 # Включить/выключить сервер
 
@@ -1529,7 +1529,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -1543,7 +1543,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersByRoleGet
 
-> [InlineResponse20011] apiV1AdminsUsersByRoleGet(role, opts)
+> [InlineResponse2008] apiV1AdminsUsersByRoleGet(role, opts)
 
 #  Получить пользователей по роли
 
@@ -1583,7 +1583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20011]**](InlineResponse20011.md)
+[**[InlineResponse2008]**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -1649,7 +1649,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidGet
 
-> InlineResponse2005 apiV1AdminsUsersGuidGet(guid, opts)
+> InlineResponse2002 apiV1AdminsUsersGuidGet(guid, opts)
 
 Получить пользователя по GUID.
 
@@ -1689,7 +1689,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -1724,7 +1724,7 @@ let apiInstance = new TestSwagger.AdministratorApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject12() // InlineObject12 | 
+  'body': new TestSwagger.InlineObject2() // InlineObject2 | 
 };
 apiInstance.apiV1AdminsUsersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1741,7 +1741,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
+ **body** | [**InlineObject2**](InlineObject2.md)|  | [optional] 
 
 ### Return type
 

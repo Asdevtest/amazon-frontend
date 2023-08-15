@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { Box } from '@mui/material'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +11,6 @@ import {
   ProductAsinCell,
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
@@ -21,7 +18,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'parentProduct',
     headerName: t(TranslationKey['Parent product']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -41,22 +38,22 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shopIds',
+    field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
       <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
     ),
     width: 100,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.IDEA_SHOPS,
   },
 
   {
     field: 'childProduct',
     headerName: t(TranslationKey['Child product']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Child product'])} />,
 
     renderCell: params => {
       const product = params.value
@@ -78,7 +75,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'barcode',
     headerName: t(TranslationKey.BarCode),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => (
       <BarcodeCell
@@ -94,7 +91,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => <AddAsinIdeaActions rowHandlers={rowHandlers} row={params.row} />,
     width: 110,
@@ -105,7 +102,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   {
     field: 'dateStatusAddingAsin',
     headerName: t(TranslationKey['Status Updated']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,

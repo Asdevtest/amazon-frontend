@@ -36,6 +36,8 @@ export const columnnsKeys = {
     IDEAS_STATUS: 'IDEAS_STATUS',
 
     FREELANCER_REQUEST_LISTING: 'FREELANCER_REQUEST_LISTING',
+
+    IDEA_SHOPS: 'IDEA_SHOPS',
   },
   researcher: {},
   freelancer: {

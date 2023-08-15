@@ -47,56 +47,17 @@ class InlineObject12 {
         if (data) {
             obj = obj || new InlineObject12();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isUserPreprocessingCenterUSA')) {
-                obj['isUserPreprocessingCenterUSA'] = ApiClient.convertToType(data['isUserPreprocessingCenterUSA'], 'Boolean');
-            }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
-            }
-            if (data.hasOwnProperty('balance')) {
-                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
-            }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
-            }
-            if (data.hasOwnProperty('overdraft')) {
-                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], ['String']);
-            }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], ['String']);
-            }
-            if (data.hasOwnProperty('allowedRoles')) {
-                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
-            }
-            if (data.hasOwnProperty('allowedStrategies')) {
-                obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
-            }
-            if (data.hasOwnProperty('canByMasterUser')) {
-                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
-            }
-            if (data.hasOwnProperty('hideSuppliers')) {
-                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
-            }
-            if (data.hasOwnProperty('allowedSpec')) {
-                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
         }
         return obj;
@@ -106,106 +67,24 @@ class InlineObject12 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * @member {Number} type
  */
-InlineObject12.prototype['name'] = undefined;
+InlineObject12.prototype['type'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject12.prototype['email'] = undefined;
+InlineObject12.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
- * @member {Number} role
+ * @member {String} title
  */
-InlineObject12.prototype['role'] = undefined;
+InlineObject12.prototype['title'] = undefined;
 
 /**
- * Флаг fba.
- * @member {Boolean} fba
+ * @member {String} description
  */
-InlineObject12.prototype['fba'] = undefined;
-
-/**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
- */
-InlineObject12.prototype['active'] = undefined;
-
-/**
- * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
- * @member {Boolean} isUserPreprocessingCenterUSA
- */
-InlineObject12.prototype['isUserPreprocessingCenterUSA'] = undefined;
-
-/**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
- */
-InlineObject12.prototype['rate'] = undefined;
-
-/**
- * Текущий баланс пользователя.
- * @member {Number} balance
- */
-InlineObject12.prototype['balance'] = undefined;
-
-/**
- * Замороженная при оплате ордера сумма.
- * @member {Number} balanceFreeze
- */
-InlineObject12.prototype['balanceFreeze'] = undefined;
-
-/**
- * Сумма на которую может уходить в минус пользователь.
- * @member {Number} overdraft
- */
-InlineObject12.prototype['overdraft'] = undefined;
-
-/**
- * Массив permission-ов.
- * @member {Array.<String>} permissions
- */
-InlineObject12.prototype['permissions'] = undefined;
-
-/**
- * Массив групп permission-ов.
- * @member {Array.<String>} permissionGroups
- */
-InlineObject12.prototype['permissionGroups'] = undefined;
-
-/**
- * Массив массив ролей.
- * @member {Array.<Number>} allowedRoles
- */
-InlineObject12.prototype['allowedRoles'] = undefined;
-
-/**
- * Массив доступных стратегий.
- * @member {Array.<Number>} allowedStrategies
- */
-InlineObject12.prototype['allowedStrategies'] = undefined;
-
-/**
- * Может ли данный пользователь быть мастер юзером.
- * @member {Boolean} canByMasterUser
- */
-InlineObject12.prototype['canByMasterUser'] = undefined;
-
-/**
- * Скрывать поставщиков от пользователя.
- * @member {Boolean} hideSuppliers
- */
-InlineObject12.prototype['hideSuppliers'] = undefined;
-
-/**
- * Массив доступных специализаций фрилансера.
- * @member {Array.<Number>} allowedSpec
- */
-InlineObject12.prototype['allowedSpec'] = undefined;
+InlineObject12.prototype['description'] = undefined;
 
 
 

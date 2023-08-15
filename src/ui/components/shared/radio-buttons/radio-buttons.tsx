@@ -34,7 +34,10 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
               disabled={disabled}
               classes={{ root: classNames.radioRoot }}
               checked={setting.value === currentValue}
-              onClick={() => onClickRadioButton(setting.value)}
+              onClick={e => {
+                e.stopPropagation()
+                onClickRadioButton(setting.value)
+              }}
             />
             {!withoutLable && <p>{setting?.label()}</p>}
           </div>

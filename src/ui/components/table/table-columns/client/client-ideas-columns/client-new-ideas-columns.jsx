@@ -25,7 +25,6 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 198,
     filterable: false,
-    sortable: false,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -54,7 +53,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: 'shopIds',
+    field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -63,8 +62,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     ),
     width: 100,
     sortable: false,
-
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.IDEA_SHOPS,
   },
 
   {
@@ -134,9 +132,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaRequests
         row={params.row}
-        onClickCreateRequest={() =>
-          rowHandlers.onClickCreateRequest(params.row.parentProduct._id, params.row.parentProduct.asin)
-        }
+        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.parentProduct._id, params.row.originalData)}
         onClickResultButton={rowHandlers.onClickResultButton}
         onClickRequestId={rowHandlers.onClickRequestId}

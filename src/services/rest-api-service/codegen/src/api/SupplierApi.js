@@ -13,13 +13,13 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1BatchesProductSuppliers from '../model/ApiV1BatchesProductSuppliers';
+import ApiV1AdminsGetProductsByStatusSuppliers from '../model/ApiV1AdminsGetProductsByStatusSuppliers';
 import BadRequestError from '../model/BadRequestError';
 import InlineObject120 from '../model/InlineObject120';
 import InlineObject121 from '../model/InlineObject121';
 import InlineObject122 from '../model/InlineObject122';
 import InlineObject123 from '../model/InlineObject123';
-import InlineResponse20072 from '../model/InlineResponse20072';
+import InlineResponse20074 from '../model/InlineResponse20074';
 import InlineResponse20114 from '../model/InlineResponse20114';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -49,7 +49,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesProductSuppliers>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} and HTTP response
      */
     apiV1SuppliersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -68,7 +68,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1BatchesProductSuppliers];
+      let returnType = [ApiV1AdminsGetProductsByStatusSuppliers];
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -81,7 +81,7 @@ export default class SupplierApi {
      * ## Получить список поставщиков.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesProductSuppliers>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>}
      */
     apiV1SuppliersGet(opts) {
       return this.apiV1SuppliersGetWithHttpInfo(opts)
@@ -151,7 +151,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1BatchesProductSuppliers} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1AdminsGetProductsByStatusSuppliers} and HTTP response
      */
     apiV1SuppliersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -175,7 +175,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiV1BatchesProductSuppliers;
+      let returnType = ApiV1AdminsGetProductsByStatusSuppliers;
       return this.apiClient.callApi(
         '/api/v1/suppliers/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -189,7 +189,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1BatchesProductSuppliers}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1AdminsGetProductsByStatusSuppliers}
      */
     apiV1SuppliersGuidGet(guid, opts) {
       return this.apiV1SuppliersGuidGetWithHttpInfo(guid, opts)
@@ -260,7 +260,7 @@ export default class SupplierApi {
      * ##  Получить все доступные методы оплаты для поставщика
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20072>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20074>} and HTTP response
      */
     apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -279,7 +279,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20072];
+      let returnType = [InlineResponse20074];
       return this.apiClient.callApi(
         '/api/v1/suppliers/payment_methods', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -292,7 +292,7 @@ export default class SupplierApi {
      * ##  Получить все доступные методы оплаты для поставщика
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20072>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20074>}
      */
     apiV1SuppliersPaymentMethodsGet(opts) {
       return this.apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts)
