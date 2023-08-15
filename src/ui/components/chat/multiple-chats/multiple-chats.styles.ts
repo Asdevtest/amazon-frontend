@@ -35,4 +35,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     color: theme.palette.text.general,
   },
+
+  noSelectedChatWrapper: {
+    flex: '1 1 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 20,
+    background: theme.palette.background.general,
+    borderRadius: '0 7px 7px 0',
+  },
 }))

@@ -146,13 +146,13 @@ export const MultipleChats = observer(
                 onClickEditGroupChatInfo={onClickEditGroupChatInfo}
               />
             ) : !isMobileResolution ? (
-              <>
+              <div className={classNames.noSelectedChatWrapper}>
                 <NoSelectedChat className={classNames.noSelectedChatIcon} />
                 <p className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
                 <p className={classNames.noChatSubTitle}>
                   {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
                 </p>
-              </>
+              </div>
             ) : null}
           </div>
         </div>
