@@ -146,6 +146,24 @@ class SettingsModelStatic {
     }
   }
 
+  resetLocalStorageAndCach() {
+    localStorage.clear()
+
+    // Очистка кэша
+    if (window.caches && window.caches.delete) {
+      caches.keys().then(names => {
+        for (const name of names) {
+          caches.delete(name)
+        }
+      })
+    } else {
+      // Для старых версий Edge используем следующий способ очистки кэша
+      window.location.reload(true)
+    }
+
+    window.location.reload()
+  }
+
   changeLastCrumbAdditionalText(text) {
     this.lastCrumbAdditionalText = text
   }
