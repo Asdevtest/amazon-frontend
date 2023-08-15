@@ -18,6 +18,7 @@ import { ProductStatus, ProductStatusByKey } from '@constants/product/product-st
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BindProductForm } from '@components/forms/bind-product-form'
 import { ImageEditForm } from '@components/forms/image-edit-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -74,7 +75,12 @@ export const TopCard = observer(
     onChangeImagesForLoad,
     acceptMessage,
     showAcceptMessage,
+    showBindProductModal,
+    productsToBind,
+    onTriggerOpenModal,
+    onClickGetProductsToBind,
     onClickHsCode,
+    onClickNextButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -309,6 +315,7 @@ export const TopCard = observer(
                 shops={shops}
                 productBase={productBase}
                 selectedSupplier={selectedSupplier}
+                onTriggerOpenModal={onTriggerOpenModal}
                 onChangeField={onChangeField}
                 onClickSupplierBtns={onClickSupplierBtns}
                 onClickSupplier={onClickSupplier}
@@ -547,6 +554,21 @@ export const TopCard = observer(
             onSave={onClickEditImageSubmit}
           />
         </Modal>
+
+        {showBindProductModal && (
+          <Modal
+            noPadding
+            openModal={showBindProductModal}
+            setOpenModal={() => onTriggerOpenModal('showBindProductModal')}
+          >
+            <BindProductForm
+              productsToBind={productsToBind}
+              onClickGetProductsToBind={onClickGetProductsToBind}
+              onClickNextButton={onClickNextButton}
+              onClickCancelButton={() => onTriggerOpenModal('showBindProductModal')}
+            />
+          </Modal>
+        )}
 
         {/* <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
           <CustomImageGallery images={bigImagesOptions.images} imgIndex={bigImagesOptions.imgIndex} />

@@ -299,6 +299,7 @@ export const useClassNames = makeStyles()(theme => ({
   interconnectedProductsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    minWidth: '300px',
     gap: '10px',
   },
 

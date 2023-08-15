@@ -22,6 +22,11 @@ export const useClassNames = makeStyles()(theme => ({
     '& > span > svg': {
       width: 20,
       height: 20,
+    },
+  },
+
+  radioActive: {
+    '& > span > svg': {
       color: theme.palette.primary.main,
     },
   },

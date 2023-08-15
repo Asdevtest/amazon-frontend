@@ -1938,4 +1938,10 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+
+  selectedProductWrapper: {
+    display: 'flex',
+    gap: '5px',
+    alignItems: 'center',
+  },
 })

@@ -53,6 +53,7 @@ export const FieldsAndSuppliers = observer(
     productBase,
     formFieldsValidationErrors,
     shops,
+    onTriggerOpenModal,
     onClickHsCode,
     onClickParseProductData,
   }) => {
@@ -465,7 +466,7 @@ export const FieldsAndSuppliers = observer(
               </p>
 
               {!product?.parentProductId && (
-                <Button className={classNames.plusButton} onClick={() => {}}>
+                <Button className={classNames.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
                   <AddIcon className={classNames.plusIcon} />
                 </Button>
               )}

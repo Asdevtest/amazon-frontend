@@ -77,7 +77,12 @@ export const ProductWrapper = observer(
     onChangeImagesForLoad,
     acceptMessage,
     showAcceptMessage,
+    showBindProductModal,
+    productsToBind,
+    onTriggerOpenModal,
+    onClickGetProductsToBind,
     onClickHsCode,
+    onClickNextButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -190,8 +195,13 @@ export const ProductWrapper = observer(
                 actionStatus={actionStatus}
                 acceptMessage={acceptMessage}
                 showAcceptMessage={showAcceptMessage}
+                showBindProductModal={showBindProductModal}
+                productsToBind={productsToBind}
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
+                onClickNextButton={onClickNextButton}
+                onTriggerOpenModal={onTriggerOpenModal}
+                onClickGetProductsToBind={onClickGetProductsToBind}
                 onChangeField={onChangeField}
                 onClickSetProductStatusBtn={onClickSetProductStatusBtn}
                 onClickSupplierBtns={handleSupplierButtons}
