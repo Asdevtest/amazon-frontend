@@ -396,7 +396,7 @@ export const IdeaViewAndEditCard = observer(
                 containerClasses={classNames.noMarginContainer}
                 labelClasses={classNames.spanLabel}
                 inputProps={{ maxLength: 255 }}
-                label={t(TranslationKey['Client commentary'])}
+                label={t(TranslationKey['Client comments'])}
                 value={formFields.comments}
                 sx={{
                   '& .MuiInputBase-inputMultiline': {
@@ -410,7 +410,7 @@ export const IdeaViewAndEditCard = observer(
               <Field
                 multiline
                 disabled={disableFields || checkIsClient(UserRoleCodeMap[curUser.role])}
-                label={t(TranslationKey['Buyer commentary'])}
+                label={t(TranslationKey['Buyer comments'])}
                 labelClasses={classNames.spanLabel}
                 className={classNames.buyerComment}
                 containerClasses={classNames.noMarginContainer}
