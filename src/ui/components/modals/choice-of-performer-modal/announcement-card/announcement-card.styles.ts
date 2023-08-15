@@ -92,5 +92,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 600,
     color: `${theme.palette.text.general} !important`,
+    width: '100px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }))
