@@ -50,12 +50,17 @@ export const ClientProductView = observer(props => {
             shops={viewModel.shopsData}
             acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
             showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+            showBindProductModal={viewModel.showBindProductModal}
+            productsToBind={viewModel.productsToBind}
             actionStatus={viewModel.actionStatus}
             productBase={viewModel.productBase}
             selectedSupplier={viewModel.selectedSupplier}
             handleSupplierButtons={viewModel.onClickSupplierButtons}
             handleProductActionButtons={viewModel.handleProductActionButtons}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            onClickNextButton={viewModel.bindUnbindProducts}
+            onClickGetProductsToBind={viewModel.onClickGetProductsToBind}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onClickSupplier={viewModel.onChangeSelectedSupplier}
             onChangeField={viewModel.onChangeProductFields}
             onChangeImagesForLoad={viewModel.onChangeImagesForLoad}

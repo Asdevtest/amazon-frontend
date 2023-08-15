@@ -150,3 +150,17 @@ export interface ITag {
   title: string
   _id: string
 }
+
+export interface IproductsToBind {
+  amazonTitle: string
+  asin: string
+  images: Array<string>
+  shopIds: Array<string>
+  skusByClient: Array<string>
+  _id: string
+}
+
+export enum ProductVariation {
+  PARENT = 'PARENT',
+  CHILD = 'CHILD',
+}

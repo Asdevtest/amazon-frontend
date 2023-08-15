@@ -286,48 +286,67 @@ export const ProductAsinCell = React.memo(
 
 export const SelectProductAsinCellWithourTitle = React.memo(
   withStyles(
-    ({ classes: classNames, product, preventDefault }) => (
-      <div className={classNames.asinCellMainWrapper}>
-        <img alt="" className={cx(classNames.imgMini)} src={getAmazonImageUrl(product?.images?.slice()[0])} />
+    ({
+      classes: classNames,
+      product,
+      preventDefault,
+      checkboxDisabled,
+      checkboxChecked,
+      withCheckbox,
+      onClickCheckbox,
+    }) => (
+      <div className={classNames.selectedProductWrapper}>
+        {withCheckbox && (
+          <Checkbox
+            disabled={checkboxDisabled}
+            checked={checkboxChecked}
+            onClick={e => {
+              e.stopPropagation()
+              !!onClickCheckbox && onClickCheckbox()
+            }}
+          />
+        )}
 
-        <div className={classNames.asinAndSkuWrapper}>
-          <div className={classNames.attributeWrapper}>
-            <Typography className={classNames.asinAndSkuTitle}>
-              {t(TranslationKey.ASIN) + ': '}
+        <div className={classNames.asinCellMainWrapper}>
+          <img alt="" className={cx(classNames.imgMini)} src={getAmazonImageUrl(product?.images?.slice()[0])} />
 
-              {product?.asin ? (
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://www.amazon.com/dp/${product.asin}`}
-                  className={classNames.normalizeLink}
-                  onClick={event => {
-                    if (preventDefault) {
-                      event.preventDefault()
-                    }
-                  }}
-                >
-                  <span className={classNames.attributeLink}>{shortAsin(product.asin)}</span>
-                </a>
-              ) : (
-                <span className={classNames.attributeMissing}>{t(TranslationKey.Missing)}</span>
-              )}
-            </Typography>
-            {/* {product.asin ? <CopyValue text={product.asin} /> : null} */}
-          </div>
+          <div className={classNames.asinAndSkuWrapper}>
+            <div className={classNames.attributeWrapper}>
+              <Typography className={classNames.asinAndSkuTitle}>
+                {t(TranslationKey.ASIN) + ': '}
 
-          <div className={classNames.attributeWrapper}>
-            <Typography className={classNames.asinAndSkuTitle}>
-              {t(TranslationKey.SKU) + ': '}
+                {product?.asin ? (
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://www.amazon.com/dp/${product.asin}`}
+                    className={classNames.normalizeLink}
+                    onClick={event => {
+                      if (preventDefault) {
+                        event.preventDefault()
+                      }
+                    }}
+                  >
+                    <span className={classNames.attributeLink}>{shortAsin(product.asin)}</span>
+                  </a>
+                ) : (
+                  <span className={classNames.attributeMissing}>{t(TranslationKey.Missing)}</span>
+                )}
+              </Typography>
+              {/* {product.asin ? <CopyValue text={product.asin} /> : null} */}
+            </div>
 
-              {product.skusByClient?.slice()[0] ? (
-                <span className={classNames.attributeLink}>{shortSku(product.skusByClient?.slice()[0])}</span>
-              ) : (
-                <span className={classNames.attributeMissing}>{t(TranslationKey.Missing)}</span>
-              )}
-            </Typography>
+            <div className={classNames.attributeWrapper}>
+              <Typography className={classNames.asinAndSkuTitle}>
+                {t(TranslationKey.SKU) + ': '}
 
-            {/* {product.skusByClient?.slice()[0] ? <CopyValue text={product.skusByClient?.slice()[0]} /> : null} */}
+                {product.skusByClient?.slice()[0] ? (
+                  <span className={classNames.attributeLink}>{shortSku(product.skusByClient?.slice()[0])}</span>
+                ) : (
+                  <span className={classNames.attributeMissing}>{t(TranslationKey.Missing)}</span>
+                )}
+              </Typography>
+            </div>
           </div>
         </div>
       </div>

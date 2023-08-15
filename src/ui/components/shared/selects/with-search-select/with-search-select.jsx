@@ -42,6 +42,7 @@ const WithSearchSelectRaw = observer(
     currentShops,
     searchOnlyFields,
     asinSelect,
+    selectedAsins,
     masterUserSelect,
     fieldNameStyles,
     buttonStyles,
@@ -270,7 +271,15 @@ const WithSearchSelectRaw = observer(
                             </>
                           )}
 
-                          {asinSelect && <SelectProductAsinCellWithourTitle preventDefault product={el} />}
+                          {asinSelect && (
+                            <SelectProductAsinCellWithourTitle
+                              preventDefault
+                              product={el}
+                              withCheckbox={checkbox}
+                              checkboxChecked={selectedAsins?.some(asin => asin?._id === el?._id)}
+                              onClickCheckbox={() => onClickSelect(el)}
+                            />
+                          )}
 
                           {masterUserSelect && <MasterUserItem id={el?._id} name={el?.name} rating={el?.rating} />}
 

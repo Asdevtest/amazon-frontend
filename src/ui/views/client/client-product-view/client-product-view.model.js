@@ -30,6 +30,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { ProductVariation } from '@typings/product'
+
 const formFieldsDefault = {
   checkednotes: '',
   amazon: 0,
@@ -112,6 +114,7 @@ export class ClientProductViewModel {
   productBase = undefined
   productId = undefined
   productVariations = undefined
+  productsToBind = undefined
 
   storekeepersData = []
   shopsData = []
@@ -129,6 +132,7 @@ export class ClientProductViewModel {
   showWarningModal = false
   showConfirmModal = false
   showAddOrEditSupplierModal = false
+  showBindProductModal = false
 
   supplierModalReadOnly = false
 
@@ -226,6 +230,45 @@ export class ClientProductViewModel {
     }
   }
 
+  async onClickGetProductsToBind(option) {
+    try {
+      const result = await ClientModel.getProductPermissionsData(
+        option === ProductVariation.PARENT ? { isChild: false } : { isChild: false, isParent: false },
+      )
+      runInAction(() => {
+        this.productsToBind = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async bindUnbindProducts(option, products) {
+    try {
+      if (option === ProductVariation.CHILD) {
+        await ProductModel.unbindProducts({
+          parentProductId: this.product?._id,
+          childProductIds: products?.map(product => product?._id),
+        })
+      } else {
+        await ProductModel.unbindProducts({
+          parentProductId: products?.[0]?._id,
+          childProductIds: [this.product?._id],
+        })
+      }
+
+      console.log('option', option)
+      console.log('products', products)
+
+      this.loadData()
+      this.onTriggerOpenModal('showBindProductModal')
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
   async getProductsVariations() {
     if (this.product) {
       try {
@@ -238,8 +281,6 @@ export class ClientProductViewModel {
         runInAction(() => {
           this.productVariations = result
         })
-
-        console.log('result', result)
 
         this.setRequestStatus(loadingStatuses.success)
       } catch (error) {

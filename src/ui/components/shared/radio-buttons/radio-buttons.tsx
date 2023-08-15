@@ -32,11 +32,13 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
           <div key={settingIndex} className={classNames.buttonWrapper}>
             <Radio
               disabled={disabled}
-              classes={{ root: classNames.radioRoot }}
+              classes={{ root: cx(classNames.radioRoot, { [classNames.radioActive]: setting.value === currentValue }) }}
               checked={setting.value === currentValue}
               onClick={e => {
-                e.stopPropagation()
-                onClickRadioButton(setting.value)
+                if (setting.value !== currentValue) {
+                  e.stopPropagation()
+                  onClickRadioButton(setting.value)
+                }
               }}
             />
             {!withoutLable && <p>{setting?.label()}</p>}
