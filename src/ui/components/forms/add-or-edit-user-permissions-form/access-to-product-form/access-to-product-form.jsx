@@ -39,8 +39,8 @@ export const AccessToProductForm = React.memo(
     const [curProdutsData, setCurProdutsData] = useState(sourceData || null)
     const [searchInputValue, setSearchInputValue] = useState('')
     const [selectedAccess, setSelectedAccess] = useState(accessProductSettings.NEED_SELECT)
-    const [chosenGoods, setChosenGoods] = useState([])
-    const [selectionModel, setSelectionModel] = useState([])
+    const [chosenGoods, setChosenGoods] = useState(shop?.tmpProductsIds || [])
+    const [selectionModel, setSelectionModel] = useState(shop?.tmpProductsIds || [])
     const [chooseAllCheck, setChooseAllCheck] = useState(shop.tmpProductsIds.length === sourceData.length)
 
     const allProductsIds = sourceData?.map(product => product._id)
@@ -72,24 +72,23 @@ export const AccessToProductForm = React.memo(
     }, [searchInputValue])
 
     useEffect(() => {
+      let newDataToRender = [...shops]
+
       if (selectedAccess === accessProductSettings.NEED_SELECT) {
-        setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? { ...item, tmpProductsIds: chosenGoods } : item)),
+        newDataToRender = newDataToRender.map(item =>
+          item._id === shop._id ? { ...item, tmpProductsIds: chosenGoods } : item,
         )
-      }
-    }, [chosenGoods])
-
-    useEffect(() => {
-      if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
-        setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? { ...item, tmpProductsIds: allProductsIds } : item)),
+      } else if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
+        newDataToRender = newDataToRender.map(item =>
+          item._id === shop._id ? { ...item, tmpProductsIds: allProductsIds } : item,
         )
-
         setChooseAllCheck(true)
       } else {
         setChooseAllCheck(false)
       }
-    }, [selectedAccess])
+
+      setShopDataToRender(newDataToRender)
+    }, [selectedAccess, chosenGoods])
 
     useEffect(() => {
       if (shop.tmpProductsIds.length && shop.tmpProductsIds.length === sourceData.length) {
