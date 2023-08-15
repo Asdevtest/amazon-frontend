@@ -1921,4 +1921,22 @@ export const styles = theme => ({
   redColor: {
     color: `#D70D0D`,
   },
+
+  abbreviatedBatchProductInfoMainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  abbreviatedBatchProductsSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  abbreviatedBatchProductsWrapperEnd: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
 })
