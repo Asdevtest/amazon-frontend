@@ -1785,19 +1785,18 @@ export const styles = theme => ({
   },
 
   shareLinkIcon: {
-    // color: theme.palette.primary.main,
-    color: '#0056B2',
+    color: theme.palette.primary.main,
     width: '21px !important',
     height: '21px !important',
     cursor: 'pointer',
   },
 
   tooltip: {
-    backgroundColor: '#0056B2',
+    background: theme.palette.primary.main,
   },
 
   arrow: {
-    color: '#0056B2',
+    color: theme.palette.primary.main,
   },
 
   abbreviatedBatchProductsWrapper: {
