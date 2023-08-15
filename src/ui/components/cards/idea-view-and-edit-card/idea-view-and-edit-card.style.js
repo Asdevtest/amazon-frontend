@@ -332,15 +332,11 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
   iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
+    maxHeight: 40,
+    maxWidth: 40,
     color: '#fff',
     backgroundColor: theme.palette.primary.main,
-    borderRadius: '4px',
-
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
+    borderRadius: 4,
   },
   iconBtnRemove: {
     backgroundColor: 'rgba(224, 32, 32, 1)',
