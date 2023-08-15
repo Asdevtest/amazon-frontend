@@ -102,6 +102,8 @@ export const IdeaViewAndEditCard = observer(
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
 
+    console.log('formFields', formFields)
+
     const isCurrentIdea = curIdea?._id === idea?._id
 
     useEffect(() => {
