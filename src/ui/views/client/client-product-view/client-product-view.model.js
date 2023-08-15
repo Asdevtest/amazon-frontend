@@ -167,12 +167,12 @@ export class ClientProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history, setOpenModal, productId }) {
+  constructor({ history, setOpenModal }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
       this.history = history
-      this.productId = productId
+      this.productId = url.searchParams.get('product-id')
 
       if (setOpenModal) {
         this.setOpenModal = setOpenModal
