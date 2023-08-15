@@ -35,9 +35,6 @@ export const styles = theme => ({
     height: 40,
     color: '#fff',
     boxShadow: 'none',
-    fontSize: 18,
-    lineHeight: '25px',
-    fontWeight: 400,
 
     '&:hover, &:active': {
       boxShadow: 'none',
