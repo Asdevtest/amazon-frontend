@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 900,
+    width: 1074,
     padding: '10px 0',
     justifyContent: 'center',
     alignItems: 'center',

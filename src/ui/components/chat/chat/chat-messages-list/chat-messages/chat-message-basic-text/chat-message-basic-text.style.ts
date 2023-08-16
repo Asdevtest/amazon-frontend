@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    maxWidth: 900,
+    maxWidth: 1074,
     backgroundColor: theme.palette.background.chatMyMessage,
     borderRadius: 20,
 
