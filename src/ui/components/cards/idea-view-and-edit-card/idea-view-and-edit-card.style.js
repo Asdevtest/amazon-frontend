@@ -270,14 +270,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   defaultBtn: {
     marginLeft: '10px',
-    borderRadius: '4px',
     height: '40px',
     width: '100px',
   },
 
   input: {
     height: '40px',
-    borderRadius: '4px',
+    borderRadius: '7px',
     width: 'calc(100% - 110px)',
   },
 
