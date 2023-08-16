@@ -39,6 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: '5px',
   },
 
   removeButton: {

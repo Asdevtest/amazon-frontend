@@ -198,7 +198,7 @@ export const SupervisorProductsViewRaw = props => {
             history={viewModel.history}
             openModal={viewModel.productCardModal}
             setOpenModal={() => viewModel.onClickProductModal()}
-            onClickOpenNewTab={row => viewModel.onClickTableRow(row)}
+            onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
           />
         )}
       </div>

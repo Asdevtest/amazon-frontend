@@ -57,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   input: {
     height: '32px',
-    borderRadius: '4px',
+    borderRadius: '7px',
     width: 'calc(100% - 181px)',
   },
 

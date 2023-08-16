@@ -16,6 +16,7 @@ import {
   TaskDescriptionCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -78,9 +79,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
-    ),
+    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
     width: window.innerWidth < 1282 ? 101 : 160,
     sortable: false,
   },

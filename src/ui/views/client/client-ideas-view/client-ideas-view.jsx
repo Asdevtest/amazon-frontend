@@ -32,7 +32,6 @@ import { PlusIcon } from '@components/shared/svg-icons'
 import { ClientIdeasViewModel } from '@views/client/client-ideas-view/client-ideas-view.model'
 import { useClientIdeasViewStyles } from '@views/client/client-ideas-view/client-ideas-view.styles'
 
-import { getSortedArrayByStatusDescending } from '@utils/array'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
@@ -43,8 +42,6 @@ export const ClientIdeasView = observer(props => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
-
-  const dataSortByStatusDescending = getSortedArrayByStatusDescending(viewModel.currentData)
 
   const getRowClassName = params => {
     if (params.row.status === ideaStatusByKey.SUPPLIER_NOT_FOUND) {
@@ -94,7 +91,7 @@ export const ClientIdeasView = observer(props => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
-          rows={dataSortByStatusDescending}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}

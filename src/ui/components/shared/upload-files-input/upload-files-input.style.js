@@ -36,13 +36,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   dragAndDropBtn: {
+    fontSize: 16,
+    lineHeight: '21px',
     minWidth: '250px',
     width: '100%',
     height: '100px',
     border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '10px',
+    cursor: 'pointer',
+    borderRadius: '7px',
 
     color: theme.palette.text.general,
     backgroundColor: theme.palette.background.second,
@@ -55,6 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(1024)]: {
       fontSize: 14,
+      lineHeight: '19px',
       height: 80,
     },
   },
@@ -66,6 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 7,
     gap: 20,
     minWidth: 'unset',
     height: 40,
@@ -80,7 +84,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    borderRadius: '10px',
+    borderRadius: '7px',
     top: 0,
     left: 0,
     opacity: 0,
@@ -98,28 +102,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  showImagesBtn: {
-    padding: '11px 14px 10px',
-    transition: '0.3s ease',
-    border: `1px solid ${theme.palette.primary.main}`,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '4px',
-    color: theme.palette.text.second,
-    background: 'none',
-    '&:hover': {
-      opacity: '0.7',
-    },
-    '&:disabled': {
-      cursor: 'auto',
-      borderColor: theme.palette.text.second,
-    },
-
-    [theme.breakpoints.down(1024)]: {
-      fontSize: 14,
-      padding: 10,
-    },
-  },
-
   imagesCount: {
     fontSize: '12px',
     textAlign: 'center',
@@ -132,19 +114,19 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  removeAllBtn: {
-    padding: '11px 14px 10px',
-    transition: '0.3s ease',
-    border: `1px solid ${theme.palette.primary.main}`,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '4px',
-    color: theme.palette.text.second,
+  buttonSecondary: {
     background: 'none',
+    color: theme.palette.text.second,
+    border: `1px solid ${theme.palette.primary.main}`,
+
     '&:hover': {
       opacity: '0.7',
+      background: 'none',
     },
+
     '&:disabled': {
       cursor: 'auto',
+      background: 'none',
       borderColor: theme.palette.text.second,
     },
 
@@ -178,7 +160,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 55,
     objectFit: 'contain',
     objectPosition: 'center',
-    borderRadius: 4,
+    borderRadius: 7,
   },
 
   tooltipImg: {
@@ -227,7 +209,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageListItem: {
     overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
-    borderRadius: '10px',
+    borderRadius: '7px',
     background: theme.palette.background.second,
     display: 'flex',
     flexDirection: 'column',
@@ -237,7 +219,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageLinkListItem: {
     overflow: 'hidden',
-    borderRadius: '10px',
+    borderRadius: '7px',
     padding: '3px',
     display: 'flex',
     alignItems: 'center',
@@ -268,7 +250,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   loadImageInput: {
     height: '40px',
-    borderRadius: '8px',
+    borderRadius: '7px',
     width: 'calc(100% - 182px)',
 
     border: `1px solid #424250`,
