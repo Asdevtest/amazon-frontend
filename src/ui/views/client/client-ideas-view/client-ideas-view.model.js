@@ -378,7 +378,7 @@ export class ClientIdeasViewModel {
     this.getIdeaList()
   }
 
-  onChangedefaultSortingModel(sortModel) {
+  onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
