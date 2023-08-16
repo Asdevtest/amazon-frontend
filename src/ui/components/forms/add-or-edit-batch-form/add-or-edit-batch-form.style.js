@@ -33,8 +33,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
 
     position: 'absolute',
-    top: 5,
-    right: 370,
+    top: 4,
+    right: 390,
     zIndex: 100,
 
     borderTop: 'none !important',
@@ -49,10 +49,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterText: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
   boxCounterCount: {
+    fontSize: 14,
+    lineHeight: '19px',
     fontWeight: 600,
     marginLeft: 5,
   },
