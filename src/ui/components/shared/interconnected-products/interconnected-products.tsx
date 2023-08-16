@@ -4,6 +4,8 @@ import { FC } from 'react'
 
 import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-product'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 import { useClassNames } from './interconnected-products.styles'
 
 import { Button } from '../buttons/button'
@@ -36,7 +38,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       <VariationIcon className={cx(classNames.variationIcon, { [classNames.parentVariationIcon]: isParent })} />
 
       <div className={classNames.sourceProductWrapper}>
-        <SourceProduct img={images?.[0] || ''} asin={asin || ''} sku={skusByClient?.[0] || ''} />
+        <SourceProduct img={getAmazonImageUrl(images?.[0])} asin={asin || ''} sku={skusByClient?.[0] || ''} />
       </div>
 
       <div className={classNames.buttonsWrapper}>
