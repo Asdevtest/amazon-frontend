@@ -26,11 +26,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
-    borderRadius: '4px',
-
-    '&:hover': {},
+    maxHeight: 40,
+    maxWidth: 40,
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: 4,
   },
 
   InfoWrapper: {
