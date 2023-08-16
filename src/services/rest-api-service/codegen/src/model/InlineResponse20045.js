@@ -79,6 +79,12 @@ class InlineResponse20045 {
             if (data.hasOwnProperty('buyerComment')) {
                 obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
         }
         return obj;
     }
@@ -141,6 +147,18 @@ InlineResponse20045.prototype['comments'] = undefined;
  * @member {String} buyerComment
  */
 InlineResponse20045.prototype['buyerComment'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20045.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20045.prototype['updatedAt'] = undefined;
 
 
 

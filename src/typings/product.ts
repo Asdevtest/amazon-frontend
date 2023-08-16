@@ -151,7 +151,7 @@ export interface ITag {
   _id: string
 }
 
-export interface IproductsToBind {
+export interface IProductVariation {
   amazonTitle: string
   asin: string
   images: Array<string>

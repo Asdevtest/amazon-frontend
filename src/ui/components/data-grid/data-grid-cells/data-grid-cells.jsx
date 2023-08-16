@@ -84,6 +84,7 @@ import {
   PlusIcon,
   SaveIcon,
   ShareLinkIcon,
+  VariationProductIcon,
 } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
@@ -3043,19 +3044,35 @@ export const FormedCell = React.memo(
 
 export const SelectRowCell = React.memo(
   withStyles(
-    ({ classes: classNames, checkboxComponent, onClickShareIcon }) => (
+    ({ classes: classNames, checkboxComponent, showVariationButton, onClickShareIcon, onClickVariationButton }) => (
       <div className={classNames.selectRowCellWrapper}>
         {checkboxComponent}
-        <Tooltip
-          arrow
-          title={t(TranslationKey['Open in a new tab'])}
-          placement="top"
-          classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
-        >
-          <div className={classNames.iconWrapper} onClick={onClickShareIcon}>
-            <ShareLinkIcon className={classNames.shareLinkIcon} />
-          </div>
-        </Tooltip>
+
+        <div className={classNames.buttonsWrapper}>
+          <Tooltip
+            arrow
+            title={t(TranslationKey['Open in a new tab'])}
+            placement="top"
+            classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
+          >
+            <div className={classNames.iconWrapper} onClick={onClickShareIcon}>
+              <ShareLinkIcon className={classNames.shareLinkIcon} />
+            </div>
+          </Tooltip>
+
+          {showVariationButton && (
+            <Tooltip
+              arrow
+              title={t(TranslationKey['Product variations'])}
+              placement="top"
+              classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
+            >
+              <div className={classNames.iconWrapper} onClick={onClickVariationButton}>
+                <VariationProductIcon className={classNames.shareLinkIcon} />
+              </div>
+            </Tooltip>
+          )}
+        </div>
       </div>
     ),
     styles,

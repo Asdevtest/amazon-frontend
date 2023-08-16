@@ -1776,6 +1776,14 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
+    gap: '10px',
+  },
+
+  buttonsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    gap: '20px',
   },
 
   shareLinkIconWrapper: {

@@ -18,6 +18,7 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { GetFilesForm } from '@components/forms/get-files-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
+import { ProductVariationsForm } from '@components/forms/product-variations-form'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -569,6 +570,19 @@ export const ClientInventoryViewRaw = props => {
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
+
+      {viewModel.showProductVariationsForm && (
+        <Modal
+          noPadding
+          openModal={viewModel.showProductVariationsForm}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
+        >
+          <ProductVariationsForm
+            product={viewModel.productVariations}
+            onClickShowProduct={viewModel.onClickShowProduct}
+          />
+        </Modal>
+      )}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
