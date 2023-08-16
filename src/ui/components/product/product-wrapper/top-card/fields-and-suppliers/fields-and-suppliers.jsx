@@ -25,16 +25,7 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import {
-  BoxArrow,
-  ClockIcon,
-  CubeIcon,
-  EditIcon,
-  EqualIcon,
-  PlusIcon,
-  SaveIcon,
-  ShareLinkIcon,
-} from '@components/shared/svg-icons'
+import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
