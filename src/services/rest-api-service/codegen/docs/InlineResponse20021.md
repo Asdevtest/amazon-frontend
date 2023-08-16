@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**hasChildren** | **Boolean** | Имеет ли дочерние продукты данный продукт (по parentProductId) | [optional] 
 **checkednotes** | **String** |  | [optional] 
 **bsr** | **Number** |  | [optional] 
 **amazon** | **Number** |  | [optional] 
