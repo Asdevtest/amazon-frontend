@@ -49,6 +49,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientNewIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
   },
   '/client/ideas/on-checking': {
@@ -58,6 +59,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientOnCheckingIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_ON_CHECKING_IDEAS,
   },
   '/client/ideas/search-suppliers': {
@@ -67,6 +69,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientSearchSuppliersIdeasColumns,
+    defaultSortingModel: 'status',
     dataGridKey: DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS,
   },
   '/client/ideas/create-card': {
@@ -76,6 +79,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientCreateCardIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_CREATE_CARD_IDEAS,
   },
   '/client/ideas/add-asin': {
@@ -85,6 +89,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientAddAsinIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_ADD_ASIN_IDEAS,
   },
   '/client/ideas/realized': {
@@ -94,6 +99,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientRealizedIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_REALIZED_IDEAS,
   },
   '/client/ideas/closed': {
@@ -103,6 +109,7 @@ const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientClosedIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_CLOSED_IDEAS,
   },
   '/client/ideas/all': {
@@ -112,6 +119,7 @@ const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientAllIdeasColumns,
+    defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_ALL_IDEAS,
   },
 }
@@ -291,6 +299,8 @@ export class ClientIdeasViewModel {
       this.handleUpdateColumnModel()
     })
 
+    this.isSearchForSuppliers = this.currentSettings.dataGridKey === DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -368,7 +378,7 @@ export class ClientIdeasViewModel {
     this.getIdeaList()
   }
 
-  onChangeSortingModel(sortModel) {
+  onChangedefaultSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
@@ -493,7 +503,7 @@ export class ClientIdeasViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length ? this.sortModel[0].field : this.currentSettings.defaultSortingModel,
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
         filters: this.getFilters(),
