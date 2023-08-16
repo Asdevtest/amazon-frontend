@@ -86,7 +86,7 @@ const settingsByUrl = {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN],
     queries: {
       withOrder: false,
-      withRequests: false,
+      withRequests: true,
     },
     columnsModel: clientAddAsinIdeasColumns,
     defaultSortingModel: 'updatedAt',
