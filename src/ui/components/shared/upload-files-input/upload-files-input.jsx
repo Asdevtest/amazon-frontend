@@ -244,13 +244,13 @@ export const UploadFilesInput = observer(props => {
 
                 {!isNotShowActionsBtns && (
                   <div className={classNames.actionBtnsWrapper}>
-                    <button
+                    <Button
                       disabled={images?.length === 0}
-                      className={classNames.showImagesBtn}
+                      className={classNames.buttonSecondary}
                       onClick={() => setShowImages(!showImages)}
                     >
                       {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
-                    </button>
+                    </Button>
                     <Typography className={classNames.imagesCount}>
                       {
                         <span className={classNames.imagesCountSpan}>{`${images?.length ?? 0}/${
@@ -259,13 +259,13 @@ export const UploadFilesInput = observer(props => {
                       }
                       {` ${t(TranslationKey.files)}`}
                     </Typography>
-                    <button
+                    <Button
                       disabled={images?.length === 0}
-                      className={classNames.removeAllBtn}
+                      className={classNames.buttonSecondary}
                       onClick={onImageRemoveAll}
                     >
                       {t(TranslationKey['Remove all'])}
-                    </button>
+                    </Button>
                   </div>
                 )}
               </Box>
