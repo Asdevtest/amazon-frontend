@@ -581,6 +581,12 @@ export class BuyerMyProductsViewModel {
     this.onTriggerOpenModal('productCardModal')
   }
 
+  onClickShowProduct(id) {
+    const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
+
+    win.focus()
+  }
+
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
