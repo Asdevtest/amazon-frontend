@@ -10,7 +10,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { IproductsToBind, ProductVariation } from '@typings/product'
+import { IProductVariation, ProductVariation } from '@typings/product'
 
 import { useClassNames } from './bind-product-form.styles'
 
@@ -28,9 +28,9 @@ const radioBottonsSettings = [
 ]
 
 interface BindProductFormProps {
-  productsToBind: Array<IproductsToBind>
+  productsToBind: Array<IProductVariation>
   onClickGetProductsToBind: (options: string) => void
-  onClickNextButton: (option?: string, products?: Array<IproductsToBind>) => void
+  onClickNextButton: (option?: string, products?: Array<IProductVariation>) => void
   onClickCancelButton: () => void
 }
 
@@ -39,7 +39,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
   const { productsToBind, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
 
-  const [selectedProducts, setSelectedProducts] = useState<Array<IproductsToBind>>([])
+  const [selectedProducts, setSelectedProducts] = useState<Array<IProductVariation>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
 
   const chooseRadioButtonSettingHandler = (value: string | number | boolean) => {
@@ -50,11 +50,11 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     }
   }
 
-  const onClickDeleteButton = (product: IproductsToBind) => {
+  const onClickDeleteButton = (product: IProductVariation) => {
     setSelectedProducts(prev => prev.filter(el => el._id !== product._id))
   }
 
-  const selectProductHandler = (selectedProduct: IproductsToBind) => {
+  const selectProductHandler = (selectedProduct: IProductVariation) => {
     setSelectedProducts(prev => {
       if (prev.some(product => product._id === selectedProduct._id)) {
         return prev.filter(product => product._id !== selectedProduct._id)
@@ -96,7 +96,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           customSearchInput={classNames.searchSelectCustomSearchInput}
           customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
           selectedItemName={t(TranslationKey['Select products'])}
-          onClickSelect={(product: IproductsToBind) => {
+          onClickSelect={(product: IProductVariation) => {
             if (selectedRadioValue === ProductVariation.PARENT) {
               setSelectedProducts([product])
             } else {
@@ -107,7 +107,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
         <div className={classNames.selectedVariationsWrapper}>
           {!!selectedProducts.length &&
-            selectedProducts.map((product: IproductsToBind, productIndex: number) => (
+            selectedProducts.map((product: IProductVariation, productIndex: number) => (
               <SelectedProduct key={productIndex} product={product} onClickDeleteButton={onClickDeleteButton} />
             ))}
         </div>

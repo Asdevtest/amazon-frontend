@@ -149,6 +149,7 @@ export class ClientInventoryViewModel {
   nameSearchValue = ''
 
   productsToLaunch = []
+  productVariations = []
   selectedProductToLaunch = undefined
 
   selectedRowId = undefined
@@ -180,6 +181,7 @@ export class ClientInventoryViewModel {
   productCardModal = false
   showProductLaunch = false
   showIdeaModal = false
+  showProductVariationsForm = false
 
   successModalText = ''
   confirmMessage = ''
@@ -260,6 +262,7 @@ export class ClientInventoryViewModel {
     onClickInTransfer: productId => this.onClickInTransfer(productId),
     onClickOrderCell: productId => this.onClickOrderCell(productId),
     onClickShowProduct: row => this.onClickShowProduct(row),
+    onClickVariationButton: id => this.onClickVariationButton(id),
   }
 
   confirmModalSettings = {
@@ -432,6 +435,24 @@ export class ClientInventoryViewModel {
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
+  }
+
+  async onClickVariationButton(id) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await ProductModel.getProductsVariationsByGuid(id)
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.onTriggerOpenModal('showProductVariationsForm')
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   setRequestStatus(requestStatus) {

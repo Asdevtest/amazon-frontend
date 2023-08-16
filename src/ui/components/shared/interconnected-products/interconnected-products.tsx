@@ -12,7 +12,7 @@ import { MinusIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
 interface InterconnectedProductsProps {
   isParent?: boolean
   showRemoveButton?: boolean
-  productId: string
+  productId?: string
   variationProduct: {
     _id: string
     asin: string
@@ -22,7 +22,7 @@ interface InterconnectedProductsProps {
     amazonTitle: string
   }
   navigateToProduct: (id: string) => void
-  unbindProductHandler: (childProductIds: string) => void
+  unbindProductHandler?: (childProductIds: string) => void
 }
 
 export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(props => {
@@ -48,7 +48,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
           <Button
             danger
             className={cx(classNames.button, classNames.removeButton)}
-            onClick={() => unbindProductHandler(isParent ? productId : _id)}
+            onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >
             <MinusIcon className={cx(classNames.icon, classNames.removeIcon)} />
           </Button>
