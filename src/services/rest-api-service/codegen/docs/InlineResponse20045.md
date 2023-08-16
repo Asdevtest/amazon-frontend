@@ -14,5 +14,7 @@ Name | Type | Description | Notes
 **requestsOnFinished** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
 **comments** | **String** | Комментарии к идее | [optional] 
 **buyerComment** | **String** | Комментарий байера | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата обновления. | [optional] 
 
 

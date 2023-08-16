@@ -61,6 +61,9 @@ class InlineResponse20021 {
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
+            if (data.hasOwnProperty('hasChildren')) {
+                obj['hasChildren'] = ApiClient.convertToType(data['hasChildren'], 'Boolean');
+            }
             if (data.hasOwnProperty('checkednotes')) {
                 obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
@@ -150,6 +153,12 @@ InlineResponse20021.prototype['skusByClient'] = undefined;
  * @member {Number} strategyStatus
  */
 InlineResponse20021.prototype['strategyStatus'] = undefined;
+
+/**
+ * Имеет ли дочерние продукты данный продукт (по parentProductId)
+ * @member {Boolean} hasChildren
+ */
+InlineResponse20021.prototype['hasChildren'] = undefined;
 
 /**
  * 
