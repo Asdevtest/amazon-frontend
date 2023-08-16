@@ -2,6 +2,8 @@ import { FC } from 'react'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 import { useClassNames } from './source-product.styles'
 
 interface SourceProductProps {
@@ -21,7 +23,7 @@ export const SourceProduct: FC<SourceProductProps> = props => {
       {title && <p className={classNames.sourceProductTitle}>{`${title}:`}</p>}
 
       <div className={classNames.sourceProductWrapper}>
-        <img className={classNames.sourceProductImg} src={img} alt={img} />
+        <img className={classNames.sourceProductImg} src={getAmazonImageUrl(img)} alt={''} />
 
         <div className={classNames.attributesProductWrapper}>
           <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
