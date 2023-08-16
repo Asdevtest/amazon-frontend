@@ -2085,5 +2085,6 @@ export enum TranslationKey {
   'Add variations' = 'Add variations',
   'Select products' = 'Select products',
   'Select product' = 'Select product',
+  'Add product linkage' = 'Add product linkage',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

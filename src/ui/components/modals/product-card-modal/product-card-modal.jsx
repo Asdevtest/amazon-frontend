@@ -122,12 +122,20 @@ export const ProductCardModal = observer(props => {
             acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
             showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
             actionStatus={viewModel.actionStatus}
+            productVariations={viewModel.productVariations}
+            navigateToProduct={viewModel.navigateToProduct}
+            unbindProductHandler={viewModel.unbindProductHandler}
+            showBindProductModal={viewModel.showBindProductModal}
+            productsToBind={viewModel.productsToBind}
             onClickSupplier={viewModel?.onChangeSelectedSupplier}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
             onClickParseProductData={viewModel?.onClickParseProductData}
             onClickSetProductStatusBtn={viewModel?.onClickSetProductStatusBtn}
             onClickHsCode={viewModel?.onClickHsCode}
+            onClickNextButton={viewModel.bindUnbindProducts}
+            onClickGetProductsToBind={viewModel.onClickGetProductsToBind}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
           />
         )}
         {viewModel?.requestStatus === loadingStatuses.isLoading && <CircularProgressWithLabel />}

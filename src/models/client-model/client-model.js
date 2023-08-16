@@ -258,7 +258,7 @@ class ClientModelStatic {
   }
 
   getProductPermissionsData = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsLightGet({ body: data })
+    const response = await restApiService.clientApi.apiV1ClientsProductsLightGet(data)
     return response
   }
 

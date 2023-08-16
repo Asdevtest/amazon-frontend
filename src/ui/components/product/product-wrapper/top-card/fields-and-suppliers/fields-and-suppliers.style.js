@@ -316,11 +316,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingRight: '9px',
   },
 
   plusIcon: {
-    width: '11px !important',
-    height: '11px !important',
+    width: '15px !important',
+    height: '15px !important',
     color: '#FFFFFF',
   },
 
@@ -329,9 +330,16 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    width: 21,
+    width: 24,
+    height: 24,
     minWidth: 'unset !important',
-    height: 21,
     padding: 0,
+    borderRadius: '5px',
+  },
+
+  bindProductButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '9px',
   },
 }))
