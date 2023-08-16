@@ -192,4 +192,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '24px !important',
     color: theme.palette.text.second,
   },
+
+  parentVariation: {
+    color: theme.palette.primary.main,
+  },
 }))

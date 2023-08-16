@@ -25,6 +25,16 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import {
+  BoxArrow,
+  ClockIcon,
+  CubeIcon,
+  EditIcon,
+  EqualIcon,
+  PlusIcon,
+  SaveIcon,
+  ShareLinkIcon,
+} from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -459,49 +469,58 @@ export const FieldsAndSuppliers = observer(
             ) : null}
           </div>
 
-          <div className={classNames.interconnectedProductsWrapper}>
-            <div className={classNames.interconnectedProductsHeader}>
-              <p className={classNames.subUsersTitle}>
-                {product?.parentProductId ? t(TranslationKey['Interconnected products']) : t(TranslationKey.Variations)}
-              </p>
+          {product?.parentProductId || productVariations?.childProducts?.length ? (
+            <div className={classNames.interconnectedProductsWrapper}>
+              <div className={classNames.interconnectedProductsHeader}>
+                <p className={classNames.subUsersTitle}>
+                  {product?.parentProductId
+                    ? t(TranslationKey['Interconnected products'])
+                    : t(TranslationKey.Variations)}
+                </p>
 
-              {!product?.parentProductId && (
-                <Button className={classNames.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
-                  <AddIcon className={classNames.plusIcon} />
-                </Button>
-              )}
-            </div>
-            <div className={classNames.interconnectedProductsBodyWrapper}>
-              {product?.parentProductId && (
-                <InterconnectedProducts
-                  isParent
-                  showRemoveButton
-                  variationProduct={{
-                    _id: productVariations?._id,
-                    asin: productVariations?.asin,
-                    skusByClient: productVariations?.skusByClient,
-                    images: productVariations?.images,
-                    shopIds: productVariations?.shopIds,
-                    amazonTitle: productVariations?.amazonTitle,
-                  }}
-                  navigateToProduct={navigateToProduct}
-                  unbindProductHandler={unbindProductHandler}
-                  productId={product?._id}
-                />
-              )}
+                {!product?.parentProductId && (
+                  <Button className={classNames.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+                    <AddIcon className={classNames.plusIcon} />
+                  </Button>
+                )}
+              </div>
+              <div className={classNames.interconnectedProductsBodyWrapper}>
+                {product?.parentProductId && (
+                  <InterconnectedProducts
+                    isParent
+                    showRemoveButton
+                    variationProduct={{
+                      _id: productVariations?._id,
+                      asin: productVariations?.asin,
+                      skusByClient: productVariations?.skusByClient,
+                      images: productVariations?.images,
+                      shopIds: productVariations?.shopIds,
+                      amazonTitle: productVariations?.amazonTitle,
+                    }}
+                    navigateToProduct={navigateToProduct}
+                    unbindProductHandler={unbindProductHandler}
+                    productId={product?._id}
+                  />
+                )}
 
-              {productVariations?.childProducts?.map((variationProduct, variationProductIndex) => (
-                <InterconnectedProducts
-                  key={variationProductIndex}
-                  showRemoveButton={!product?.parentProductId}
-                  productId={product?._id}
-                  variationProduct={variationProduct}
-                  navigateToProduct={navigateToProduct}
-                  unbindProductHandler={unbindProductHandler}
-                />
-              ))}
+                {productVariations?.childProducts?.map((variationProduct, variationProductIndex) => (
+                  <InterconnectedProducts
+                    key={variationProductIndex}
+                    showRemoveButton={!product?.parentProductId}
+                    productId={product?._id}
+                    variationProduct={variationProduct}
+                    navigateToProduct={navigateToProduct}
+                    unbindProductHandler={unbindProductHandler}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <Button className={classNames.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+              <PlusIcon className={classNames.plusIcon} />
+              {t(TranslationKey['Add product linkage'])}
+            </Button>
+          )}
         </Box>
 
         {checkIsBuyer(curUserRole) ? (

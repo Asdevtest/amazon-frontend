@@ -227,17 +227,21 @@ export const TopCard = observer(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
+    const isChildProduct = product.parentProductId
+
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
           <div className={classNames.topPartCardWrapper}>
             <div className={classNames.mainCard}>
-              {product.parentProductId && (
-                <div className={classNames.variationWrapper}>
-                  <VariationIcon className={classNames.variationIcon} />
-                  <p className={classNames.variationText}>{t(TranslationKey['Child product'])}</p>
-                </div>
-              )}
+              <div className={classNames.variationWrapper}>
+                <VariationIcon
+                  className={cx(classNames.variationIcon, { [classNames.parentVariation]: !isChildProduct })}
+                />
+                <p className={cx(classNames.variationText, { [classNames.parentVariation]: !isChildProduct })}>
+                  {isChildProduct ? t(TranslationKey['Child product']) : t(TranslationKey['Parent product'])}
+                </p>
+              </div>
               <div className={classNames.card}>
                 <Box>
                   {product.images && product.images.length ? (
