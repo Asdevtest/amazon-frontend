@@ -480,27 +480,20 @@ export const useClassNames = makeStyles()(theme => ({
     width: 190,
   },
 
-  performerWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '5px',
-  },
   performerAndButtonSubWrapper: {
     display: 'flex',
 
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
+
   performerAndButtonWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'space-between',
-    justifyContent: 'flex-end',
-
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     width: 378,
-
-    gap: 20,
   },
+
   userInfo: {
     display: 'flex',
     alignItems: 'center',
@@ -515,6 +508,7 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    wordWrap: 'break-word',
 
     display: '-webkit-box',
     WebkitLineClamp: 3,
@@ -608,7 +602,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 16,
   },
 
-  buttonWithMargin: {
-    marginTop: 21,
+  executorWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }))

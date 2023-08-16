@@ -706,76 +706,89 @@ export const CreateOrEditRequestContent = ({
                       containerClasses={classNames.executorContainer}
                       className={classNames.nameField}
                       inputComponent={
-                        <WithSearchSelect
-                          darkIcon
-                          grayBorder
-                          masterUserSelect
-                          blackSelectedItem
-                          chosenItemNoHover
-                          width={372}
-                          disabled={!formFields?.request?.typeTask}
-                          data={masterUsersData}
-                          searchOnlyFields={['name']}
-                          customSubMainWrapper={classNames.customSubMainWrapper}
-                          customSearchInput={classNames.customSearchInput}
-                          selectedItemName={
-                            chosenExecutor ? (
-                              <MasterUserItem
-                                id={chosenExecutor?._id}
-                                name={chosenExecutor?.name}
-                                rating={chosenExecutor?.rating}
-                              />
-                            ) : (
-                              t(TranslationKey['Choose an executor'])
-                            )
-                          }
-                          onClickSelect={el => {
-                            onChangeField('request')('executorId')(el)
-                          }}
-                          onClickNotChosen={() => {
-                            onChangeField('request')('executorId')(undefined)
-                          }}
-                        />
+                        announcement?._id ? (
+                          <div className={classNames.executorWrapper}>
+                            <MasterUserItem
+                              id={chosenExecutor?._id}
+                              name={chosenExecutor?.name}
+                              rating={chosenExecutor?.rating}
+                            />
+
+                            <Button
+                              disabled={!formFields?.request?.typeTask}
+                              variant={'contained'}
+                              className={classNames.changePerformerBtn}
+                              onClick={async () => {
+                                await onClickChoosePerformer(formFields.request.typeTask)
+                                setOpenModal(true)
+                              }}
+                            >
+                              {t(TranslationKey['Change announcement'])}
+                            </Button>
+                          </div>
+                        ) : (
+                          <WithSearchSelect
+                            darkIcon
+                            grayBorder
+                            masterUserSelect
+                            blackSelectedItem
+                            chosenItemNoHover
+                            width={372}
+                            disabled={!formFields?.request?.typeTask}
+                            data={masterUsersData}
+                            searchOnlyFields={['name']}
+                            customSubMainWrapper={classNames.customSubMainWrapper}
+                            customSearchInput={classNames.customSearchInput}
+                            selectedItemName={
+                              chosenExecutor ? (
+                                <MasterUserItem
+                                  id={chosenExecutor?._id}
+                                  name={chosenExecutor?.name}
+                                  rating={chosenExecutor?.rating}
+                                />
+                              ) : (
+                                t(TranslationKey['Choose an executor'])
+                              )
+                            }
+                            onClickSelect={el => {
+                              onChangeField('request')('executorId')(el)
+                              setAnnouncement(undefined)
+                            }}
+                            onClickNotChosen={() => {
+                              onChangeField('request')('executorId')(undefined)
+                              setAnnouncement(undefined)
+                            }}
+                          />
+                        )
                       }
                     />
 
-                    <div className={classNames.performerAndButtonWrapper}>
-                      <div className={classNames.performerAndButtonSubWrapper}>
-                        {announcement?._id && (
-                          <div className={classNames.performerWrapper}>
-                            <Typography className={cx(classNames.spanLabelSmall, classNames.labelWithoutMargin)}>
-                              {t(TranslationKey.Performer)}
-                            </Typography>
+                    <Field
+                      containerClasses={classNames.executorContainer}
+                      label={`${t(TranslationKey.Announcement)}`}
+                      labelClasses={classNames.spanLabelSmall}
+                      inputComponent={
+                        <div className={classNames.performerAndButtonWrapper}>
+                          {announcement?.title && (
+                            <p className={classNames.performerDescriptionText}>{announcement?.title}</p>
+                          )}
 
-                            <MasterUserItem
-                              id={announcement?.createdBy?._id}
-                              name={announcement?.createdBy?.name}
-                              rating={announcement?.rating}
-                            />
-                          </div>
-                        )}
-                        <Button
-                          disabled={!formFields?.request?.typeTask}
-                          variant={'contained'}
-                          className={cx(classNames.changePerformerBtn, {
-                            [classNames.buttonWithMargin]: !announcement?._id,
-                          })}
-                          onClick={async () => {
-                            await onClickChoosePerformer(formFields.request.typeTask)
-                            setOpenModal(true)
-                          }}
-                        >
-                          {announcement?._id
-                            ? t(TranslationKey['Change announcement'])
-                            : t(TranslationKey['Select announcement'])}
-                        </Button>
-                      </div>
-                      {announcement?.title && (
-                        <div className={classNames.performerDescriptionWrapper}>
-                          <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
+                          {!announcement?._id && (
+                            <Button
+                              disabled={!formFields?.request?.typeTask}
+                              variant={'contained'}
+                              className={classNames.changePerformerBtn}
+                              onClick={async () => {
+                                await onClickChoosePerformer(formFields.request.typeTask)
+                                setOpenModal(true)
+                              }}
+                            >
+                              {t(TranslationKey['Select announcement'])}
+                            </Button>
+                          )}
                         </div>
-                      )}
-                    </div>
+                      }
+                    />
                   </div>
                 </div>
               </div>
@@ -980,7 +993,7 @@ export const CreateOrEditRequestContent = ({
                         </div>
                       </div>
                       <div className={classNames.infoTextWrapper}>
-                        {announcement?._id && (
+                        {announcement?._id ? (
                           <div className={classNames.performerWrapperStepTwo}>
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
@@ -1003,7 +1016,17 @@ export const CreateOrEditRequestContent = ({
                               {announcement?.description}
                             </Typography>
                           </div>
-                        )}
+                        ) : chosenExecutor ? (
+                          <div className={classNames.performerWrapperStepTwo}>
+                            <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+
+                            <MasterUserItem
+                              id={chosenExecutor?._id}
+                              name={chosenExecutor?.name}
+                              rating={chosenExecutor?.rating}
+                            />
+                          </div>
+                        ) : null}
 
                         {formFields.request.needCheckBySupervisor && (
                           <div className={classNames.selectedCheckbox}>
@@ -1208,6 +1231,7 @@ export const CreateOrEditRequestContent = ({
               onChangeField('request')('executorId')(selectenService?.createdBy)
             } else {
               onChangeField('request')('executorId')(chosenExecutor)
+              setAnnouncement(undefined)
             }
             setOpenModal(false)
           }}
