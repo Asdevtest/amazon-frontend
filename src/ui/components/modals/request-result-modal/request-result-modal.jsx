@@ -80,7 +80,7 @@ export const RequestResultModal = ({
   return (
     <Modal missClickModalOn={missClickModalOn} openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMainWrapper}>
-        <Typography className={cx(classNames.modalTitle)}>{t(TranslationKey['Result of the request'])}</Typography>
+        <p className={classNames.modalTitle}>{t(TranslationKey['Result of the request'])}</p>
 
         {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
           <Field
@@ -89,7 +89,6 @@ export const RequestResultModal = ({
             labelClasses={classNames.label}
             label={'Amazon order ID*'}
             className={classNames.input}
-            containerClasses={classNames.numberInputField}
             value={formFields.amazonOrderId}
             onChange={onChangeField('amazonOrderId')}
           />
@@ -99,7 +98,6 @@ export const RequestResultModal = ({
           <Field
             labelClasses={classNames.label}
             label={t(TranslationKey['Link to publication']) + '*'}
-            // containerClasses={classNames.input}
             inputComponent={
               <div className={classNames.linksWrapper}>
                 {!proposal && (
@@ -126,16 +124,17 @@ export const RequestResultModal = ({
                   <div className={classNames.linksSubWrapper}>
                     {formFields?.publicationLinks.map((el, index) => (
                       <div key={index} className={classNames.linkWrapper}>
-                        <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                          <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                        <Link target="_blank" href={el} className={classNames.linkText}>
+                          {`${index + 1}. ${el}`}
                         </Link>
 
                         <div className={classNames.linksBtnsWrapper}>
                           <CopyValue text={el} />
                           {!disableFields && !proposal && (
-                            <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                              <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-                            </IconButton>
+                            <DeleteOutlineOutlinedIcon
+                              className={classNames.deleteBtn}
+                              onClick={() => onRemoveLink(index)}
+                            />
                           )}
                         </div>
                       </div>
@@ -188,7 +187,7 @@ export const RequestResultModal = ({
               success
               disableElevation
               disabled={disabledBtn}
-              className={cx(classNames.button)}
+              className={classNames.button}
               onClick={() => {
                 onClickSendAsResult({
                   message: formFields.result,
