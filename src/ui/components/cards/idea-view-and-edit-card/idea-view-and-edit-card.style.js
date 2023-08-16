@@ -338,7 +338,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
   },
   iconBtnRemove: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
+    background: 'rgba(224, 32, 32, 1)',
+
+    '&:hover': {
+      background: '#8C0000',
+    },
   },
   supplierButtonText: {
     maxWidth: '98px',
