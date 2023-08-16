@@ -46,7 +46,7 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = observer(pr
 
       <div className={classNames.buttonWrapper}>
         <Button disabled={!selectedRequests.length} onClick={() => onClickBindButton(selectedRequests)}>
-          {t(TranslationKey['Link requests'])}
+          {t(TranslationKey['Link request'])}
         </Button>
       </div>
     </div>
