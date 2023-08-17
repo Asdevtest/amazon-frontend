@@ -36,7 +36,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     {
       label: () => t(TranslationKey['Add parent']),
       value: ProductVariation.PARENT,
-      disabled: !sourceProduct?.parentProductId && !!sourceProduct?.hasChildren,
+      disabled: !sourceProduct?.parentProductId && sourceProduct?.hasChildren,
     },
     {
       label: () => t(TranslationKey['Add variations']),
