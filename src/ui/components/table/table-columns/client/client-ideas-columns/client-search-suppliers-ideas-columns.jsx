@@ -1,7 +1,3 @@
-import React from 'react'
-
-import { Box } from '@mui/material'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
   colorByIdeaStatus,
@@ -21,8 +17,8 @@ import {
   ShortDateCell,
   SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { FilesCarousel } from '@components/shared/files-carousel'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { checkIsImageLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -158,15 +154,11 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     headerName: t(TranslationKey.Files),
 
-    renderCell: params =>
-      params.row.linksToMediaFiles.length ? (
-        <Box py="20px">
-          <FilesCarousel withImages hideNames files={params.row.linksToMediaFiles} />
-        </Box>
-      ) : (
-        <MultilineTextCell text="-" />
-      ),
-    width: 120,
+    renderCell: params => (
+      <PhotoAndFilesCarousel small isHideCounter files={params.row.originalData?.suppliers[0]?.images} />
+    ),
+    width: 330,
+    align: 'center',
     sortable: false,
     filterable: false,
   },
