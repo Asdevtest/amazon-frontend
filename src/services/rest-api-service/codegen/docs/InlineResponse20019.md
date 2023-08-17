@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rows** | [**[InlineResponse20019Rows]**](InlineResponse20019Rows.md) |  | [optional] 
-**count** | **Number** |  | [optional] 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
 
 

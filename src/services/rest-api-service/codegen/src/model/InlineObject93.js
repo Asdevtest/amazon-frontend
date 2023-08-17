@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject93 {
     /**
      * Constructs a new <code>InlineObject93</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject93
      */
     constructor() { 
@@ -47,11 +48,14 @@ class InlineObject93 {
         if (data) {
             obj = obj || new InlineObject93();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -61,16 +65,22 @@ class InlineObject93 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject93.prototype['sourceFile'] = undefined;
+InlineObject93.prototype['name'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comments
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject93.prototype['comments'] = undefined;
+InlineObject93.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject93.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

@@ -22,11 +22,12 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
-     * @param priority {Number} Выставить приоритет задачи
+     * @param userId {String} Гуид саба
+     * @param comment {String} Заметка о сабе написаная мастером
      */
-    constructor(priority) { 
+    constructor(userId, comment) { 
         
-        InlineObject110.initialize(this, priority);
+        InlineObject110.initialize(this, userId, comment);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj, userId, comment) { 
+        obj['userId'] = userId;
+        obj['comment'] = comment;
     }
 
     /**
@@ -49,11 +51,11 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -63,16 +65,16 @@ class InlineObject110 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * Гуид саба
+ * @member {String} userId
  */
-InlineObject110.prototype['priority'] = undefined;
+InlineObject110.prototype['userId'] = undefined;
 
 /**
- * Reason of high priority
- * @member {String} reason
+ * Заметка о сабе написаная мастером
+ * @member {String} comment
  */
-InlineObject110.prototype['reason'] = undefined;
+InlineObject110.prototype['comment'] = undefined;
 
 
 

@@ -49,6 +49,27 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
@@ -58,6 +79,48 @@ class InlineObject16 {
 
 
 }
+
+/**
+ * Штрихкод продукта
+ * @member {String} barCode
+ */
+InlineObject16.prototype['barCode'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject16.prototype['logicsTariffId'] = undefined;
+
+/**
+ * GUID сотрудника склада
+ * @member {String} storekeeperId
+ */
+InlineObject16.prototype['storekeeperId'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineObject16.prototype['shippingLabel'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject16.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject16.prototype['fbaNumber'] = undefined;
+
+/**
+ * Гуид модели destination
+ * @member {String} destinationId
+ */
+InlineObject16.prototype['destinationId'] = undefined;
 
 /**
  * @member {Array.<String>} boxesIds

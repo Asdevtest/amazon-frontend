@@ -21,14 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
-     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject57
-     * @param boxId {String} GUID коробки, который планируем изменить
-     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor(boxId, logicsTariffId) { 
+    constructor(attachedDocuments) { 
         
-        InlineObject57.initialize(this, boxId, logicsTariffId);
+        InlineObject57.initialize(this, attachedDocuments);
     }
 
     /**
@@ -36,9 +34,8 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxId, logicsTariffId) { 
-        obj['boxId'] = boxId;
-        obj['logicsTariffId'] = logicsTariffId;
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -52,11 +49,8 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -66,16 +60,9 @@ class InlineObject57 {
 }
 
 /**
- * GUID коробки, который планируем изменить
- * @member {String} boxId
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject57.prototype['boxId'] = undefined;
-
-/**
- * GUID тарифа, на которую планируем изменить
- * @member {String} logicsTariffId
- */
-InlineObject57.prototype['logicsTariffId'] = undefined;
+InlineObject57.prototype['attachedDocuments'] = undefined;
 
 
 

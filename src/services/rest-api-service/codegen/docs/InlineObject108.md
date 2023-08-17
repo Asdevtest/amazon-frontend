@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject21]**](InlineObject21.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**title** | **String** |  | 
+**iconImage** | **String** |  | [optional] 
 
 

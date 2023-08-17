@@ -5,6 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse2004]**](InlineResponse2004.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**rows** | [**[InlineResponse20034]**](InlineResponse20034.md) | Массив батчей c пагинацией(заданная страничка). | [optional] 
 
 

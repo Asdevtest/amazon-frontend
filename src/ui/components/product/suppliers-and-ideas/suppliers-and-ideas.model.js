@@ -411,7 +411,7 @@ export class SuppliersAndIdeasModel {
 
   async onClickLinkRequestButton() {
     try {
-      const result = await RequestModel.getRequestsByProductLight(this.productId)
+      const result = await RequestModel.getRequestsByProductLight(this.productId, { status: 'DRAFT, PUBLISHED' })
       this.requestsForProduct = addIdDataConverter(result)
       this.onTriggerOpenModal('showBindingModal')
     } catch (error) {

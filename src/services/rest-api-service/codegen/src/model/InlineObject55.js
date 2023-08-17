@@ -22,11 +22,10 @@ class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
      * @alias module:model/InlineObject55
-     * @param productIds {Array.<String>} 
      */
-    constructor(productIds) { 
+    constructor() { 
         
-        InlineObject55.initialize(this, productIds);
+        InlineObject55.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject55 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productIds) { 
-        obj['productIds'] = productIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,20 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('trackingNumber')) {
+                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
         }
         return obj;
@@ -60,9 +70,34 @@ class InlineObject55 {
 }
 
 /**
- * @member {Array.<String>} productIds
+ * Название партии
+ * @member {String} title
  */
-InlineObject55.prototype['productIds'] = undefined;
+InlineObject55.prototype['title'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject55.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject55.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Трек номер партии
+ * @member {String} trackingNumber
+ */
+InlineObject55.prototype['trackingNumber'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineObject55.prototype['actualShippingCost'] = undefined;
 
 
 

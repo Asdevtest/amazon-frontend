@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**batchIds** | **[String]** |  | 
-**archive** | **Boolean** | Заархивирована ли партия | 
+**guid** | **String** | GUID коробки, которую делим | [optional] 
+**newBoxesParams** | [**[ApiV1BoxesSplitNewBoxesParams]**](ApiV1BoxesSplitNewBoxesParams.md) |  | [optional] 
 
 

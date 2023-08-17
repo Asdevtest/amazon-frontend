@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priority** | **Number** | Выставить приоритет задачи | 
-**reason** | **String** | Reason of high priority | [optional] 
+**userId** | **String** | Гуид саба | 
+**comment** | **String** | Заметка о сабе написаная мастером | 
 
 

@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject50 {
     /**
      * Constructs a new <code>InlineObject50</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject50
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor() { 
+    constructor(shippingLabel) { 
         
-        InlineObject50.initialize(this);
+        InlineObject50.initialize(this, shippingLabel);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject50 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -47,47 +50,8 @@ class InlineObject50 {
         if (data) {
             obj = obj || new InlineObject50();
 
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('expressChinaDelivery')) {
-                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
-            }
-            if (data.hasOwnProperty('needsResearch')) {
-                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
-            }
-            if (data.hasOwnProperty('deadline')) {
-                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -97,129 +61,13 @@ class InlineObject50 {
 }
 
 /**
- * GUID storekeeper-a
- * @member {String} storekeeperId
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject50.prototype['storekeeperId'] = undefined;
-
-/**
- * GUID баера
- * @member {String} buyerId
- */
-InlineObject50.prototype['buyerId'] = undefined;
-
-/**
- * @member {String} item
- */
-InlineObject50.prototype['item'] = undefined;
-
-/**
- * GUID тарифа доставки
- * @member {String} logicsTariffId
- */
-InlineObject50.prototype['logicsTariffId'] = undefined;
-
-/**
- * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
- * @member {module:model/InlineObject50.PriorityEnum} priority
- */
-InlineObject50.prototype['priority'] = undefined;
-
-/**
- * GUID пункта назначения.
- * @member {String} destinationId
- */
-InlineObject50.prototype['destinationId'] = undefined;
-
-/**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
- */
-InlineObject50.prototype['amount'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject50.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject50.prototype['clientComment'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject50.prototype['images'] = undefined;
-
-/**
- * Флаг , обозначающий оплату за экспресс доставку по китаю
- * @member {Boolean} expressChinaDelivery
- */
-InlineObject50.prototype['expressChinaDelivery'] = undefined;
-
-/**
- * Нуждается ли заказ в повторном поиске поставщика
- * @member {Boolean} needsResearch
- */
-InlineObject50.prototype['needsResearch'] = undefined;
-
-/**
- * Дедлайн выкупа заказа
- * @member {Date} deadline
- */
-InlineObject50.prototype['deadline'] = undefined;
-
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
- */
-InlineObject50.prototype['totalPrice'] = undefined;
+InlineObject50.prototype['shippingLabel'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>priority</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject50['PriorityEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40",
-
-    /**
-     * value: "50"
-     * @const
-     */
-    "50": "50"
-};
 
 
 

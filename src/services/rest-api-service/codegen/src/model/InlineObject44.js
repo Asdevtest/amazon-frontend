@@ -47,8 +47,8 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
         }
         return obj;
@@ -58,10 +58,9 @@ class InlineObject44 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * @member {String} clientComment
  */
-InlineObject44.prototype['refundPrice'] = undefined;
+InlineObject44.prototype['clientComment'] = undefined;
 
 
 

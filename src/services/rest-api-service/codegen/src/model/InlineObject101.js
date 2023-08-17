@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject101 model module.
@@ -47,11 +49,35 @@ class InlineObject101 {
         if (data) {
             obj = obj || new InlineObject101();
 
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
+            }
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
+            }
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
+            }
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
             }
         }
         return obj;
@@ -61,18 +87,62 @@ class InlineObject101 {
 }
 
 /**
- * Гуид идеи в статусе onChecked(10)
- * @member {String} onCheckedIdeaId
- * @default 'null'
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject101.prototype['onCheckedIdeaId'] = 'null';
+InlineObject101.prototype['name'] = undefined;
 
 /**
- * Гуид идеи в статусе finished(20)
- * @member {String} onFinishedIdeaId
- * @default 'null'
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject101.prototype['onFinishedIdeaId'] = 'null';
+InlineObject101.prototype['description'] = undefined;
+
+/**
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
+ */
+InlineObject101.prototype['deliveryTimeInDay'] = undefined;
+
+/**
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
+ */
+InlineObject101.prototype['cls'] = undefined;
+
+/**
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
+ */
+InlineObject101.prototype['etd'] = undefined;
+
+/**
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
+ */
+InlineObject101.prototype['eta'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject101.prototype['minWeightInKg'] = undefined;
+
+/**
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
+ */
+InlineObject101.prototype['archive'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject101.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
+ */
+InlineObject101.prototype['destinationVariations'] = undefined;
 
 
 

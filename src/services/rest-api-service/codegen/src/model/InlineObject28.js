@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject28 model module.
@@ -23,10 +22,11 @@ class InlineObject28 {
     /**
      * Constructs a new <code>InlineObject28</code>.
      * @alias module:model/InlineObject28
+     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor() { 
+    constructor(isFormed) { 
         
-        InlineObject28.initialize(this);
+        InlineObject28.initialize(this, isFormed);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject28 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, isFormed) { 
+        obj['isFormed'] = isFormed;
     }
 
     /**
@@ -48,11 +49,8 @@ class InlineObject28 {
         if (data) {
             obj = obj || new InlineObject28();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
-            }
-            if (data.hasOwnProperty('newBoxesParams')) {
-                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
             }
         }
         return obj;
@@ -62,15 +60,10 @@ class InlineObject28 {
 }
 
 /**
- * GUID коробки, которую делим
- * @member {String} guid
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
  */
-InlineObject28.prototype['guid'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
- */
-InlineObject28.prototype['newBoxesParams'] = undefined;
+InlineObject28.prototype['isFormed'] = undefined;
 
 
 

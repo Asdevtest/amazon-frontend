@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20012 from './InlineResponse20012';
+import InlineResponse20017Group from './InlineResponse20017Group';
 
 /**
  * The InlineResponse20017Rows model module.
@@ -22,11 +24,10 @@ class InlineResponse20017Rows {
     /**
      * Constructs a new <code>InlineResponse20017Rows</code>.
      * @alias module:model/InlineResponse20017Rows
-     * @param productId {String} GUID продукта в базе данных
      */
-    constructor(productId) { 
+    constructor() { 
         
-        InlineResponse20017Rows.initialize(this, productId);
+        InlineResponse20017Rows.initialize(this);
     }
 
     /**
@@ -34,8 +35,7 @@ class InlineResponse20017Rows {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId) { 
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,17 +49,11 @@ class InlineResponse20017Rows {
         if (data) {
             obj = obj || new InlineResponse20017Rows();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('group')) {
+                obj['group'] = InlineResponse20017Group.constructFromObject(data['group']);
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('orderId')) {
-                obj['orderId'] = ApiClient.convertToType(data['orderId'], 'String');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [InlineResponse20012]);
             }
         }
         return obj;
@@ -69,28 +63,14 @@ class InlineResponse20017Rows {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} productId
+ * @member {module:model/InlineResponse20017Group} group
  */
-InlineResponse20017Rows.prototype['productId'] = undefined;
+InlineResponse20017Rows.prototype['group'] = undefined;
 
 /**
- * GUID тарифа доставки
- * @member {String} logicsTariffId
+ * @member {Array.<module:model/InlineResponse20012>} boxes
  */
-InlineResponse20017Rows.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID заказа в БД
- * @member {String} orderId
- */
-InlineResponse20017Rows.prototype['orderId'] = undefined;
-
-/**
- * Кол-во продукта
- * @member {Number} amount
- */
-InlineResponse20017Rows.prototype['amount'] = undefined;
+InlineResponse20017Rows.prototype['boxes'] = undefined;
 
 
 

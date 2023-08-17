@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject21 from './InlineObject21';
 
 /**
  * The InlineObject108 model module.
@@ -23,10 +22,11 @@ class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
      * @alias module:model/InlineObject108
+     * @param title {String} 
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject108.initialize(this);
+        InlineObject108.initialize(this, title);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject108 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -48,8 +49,11 @@ class InlineObject108 {
         if (data) {
             obj = obj || new InlineObject108();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject21]);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('iconImage')) {
+                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
             }
         }
         return obj;
@@ -59,10 +63,14 @@ class InlineObject108 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject21>} additionalBoxes
+ * @member {String} title
  */
-InlineObject108.prototype['additionalBoxes'] = undefined;
+InlineObject108.prototype['title'] = undefined;
+
+/**
+ * @member {String} iconImage
+ */
+InlineObject108.prototype['iconImage'] = undefined;
 
 
 

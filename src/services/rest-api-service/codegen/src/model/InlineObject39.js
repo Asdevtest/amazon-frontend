@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 
 /**
  * The InlineObject39 model module.
@@ -48,8 +47,8 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('orderPayments')) {
-                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -59,9 +58,10 @@ class InlineObject39 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject39.prototype['orderPayments'] = undefined;
+InlineObject39.prototype['guids'] = undefined;
 
 
 

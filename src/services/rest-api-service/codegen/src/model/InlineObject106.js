@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
+import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
+import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 
 /**
  * The InlineObject106 model module.
@@ -21,15 +24,19 @@ import ApiClient from '../ApiClient';
 class InlineObject106 {
     /**
      * Constructs a new <code>InlineObject106</code>.
-     * Схема магазина.
+     * Новый поставщик.
      * @alias module:model/InlineObject106
-     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена за еденицу, dollar
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param comment {String} Комментарий
+     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    constructor(name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         
-        InlineObject106.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
+        InlineObject106.initialize(this, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar);
     }
 
     /**
@@ -37,10 +44,14 @@ class InlineObject106 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    static initialize(obj, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         obj['name'] = name;
-        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
-        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['comment'] = comment;
+        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
     }
 
     /**
@@ -57,11 +68,56 @@ class InlineObject106 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('multiplicity')) {
+                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
+            }
+            if (data.hasOwnProperty('paymentMethods')) {
+                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1SuppliersPaymentMethods]);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
+            }
+            if (data.hasOwnProperty('priceVariations')) {
+                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [ApiV1SuppliersPriceVariations]);
             }
         }
         return obj;
@@ -71,22 +127,108 @@ class InlineObject106 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * Название поставщика.
  * @member {String} name
  */
 InlineObject106.prototype['name'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject106.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject106.prototype['link'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Цена за еденицу, dollar
+ * @member {Number} price
  */
-InlineObject106.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject106.prototype['price'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject106.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject106.prototype['minlot'] = undefined;
+
+/**
+ * Имеет ли обязательный делитель на кол-во в заказе поставщик
+ * @member {Boolean} multiplicity
+ */
+InlineObject106.prototype['multiplicity'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1SuppliersPaymentMethods>} paymentMethods
+ */
+InlineObject106.prototype['paymentMethods'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject106.prototype['images'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject106.prototype['comment'] = undefined;
+
+/**
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
+ */
+InlineObject106.prototype['yuanRate'] = undefined;
+
+/**
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
+ */
+InlineObject106.prototype['priceInYuan'] = undefined;
+
+/**
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
+ */
+InlineObject106.prototype['batchDeliveryCostInDollar'] = undefined;
+
+/**
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
+ */
+InlineObject106.prototype['batchDeliveryCostInYuan'] = undefined;
+
+/**
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
+ */
+InlineObject106.prototype['batchTotalCostInDollar'] = undefined;
+
+/**
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
+ */
+InlineObject106.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Number} productionTerm
+ */
+InlineObject106.prototype['productionTerm'] = undefined;
+
+/**
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ */
+InlineObject106.prototype['boxProperties'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1SuppliersPriceVariations>} priceVariations
+ */
+InlineObject106.prototype['priceVariations'] = undefined;
 
 
 

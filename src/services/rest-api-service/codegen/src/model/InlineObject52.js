@@ -22,10 +22,11 @@ class InlineObject52 {
     /**
      * Constructs a new <code>InlineObject52</code>.
      * @alias module:model/InlineObject52
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject52.initialize(this);
+        InlineObject52.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject52 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,8 +49,20 @@ class InlineObject52 {
         if (data) {
             obj = obj || new InlineObject52();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
         }
         return obj;
@@ -58,9 +72,33 @@ class InlineObject52 {
 }
 
 /**
- * @member {String} clientComment
+ * Название партии
+ * @member {String} title
  */
-InlineObject52.prototype['clientComment'] = undefined;
+InlineObject52.prototype['title'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesIds
+ */
+InlineObject52.prototype['boxesIds'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject52.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject52.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineObject52.prototype['actualShippingCost'] = undefined;
 
 
 

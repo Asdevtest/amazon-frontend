@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | Гуид созданного исходника | [optional] 
+**guid** | **String** | guid обновленного объекта | [optional] 
 
 

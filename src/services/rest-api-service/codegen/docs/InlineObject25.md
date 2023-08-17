@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
+**lengthCmWarehouse** | **Number** |  | [optional] 
+**widthCmWarehouse** | **Number** |  | [optional] 
+**heightCmWarehouse** | **Number** |  | [optional] 
+**weighGrossKgWarehouse** | **Number** |  | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

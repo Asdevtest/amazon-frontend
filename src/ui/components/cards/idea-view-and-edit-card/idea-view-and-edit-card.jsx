@@ -47,17 +47,6 @@ import { IdeaRequestCard } from './idea-request-card'
 import { IdeaProgressBar } from './progress-bar'
 import { SourceProduct } from './source-product'
 
-const radioBottonsSettings = [
-  {
-    label: () => t(TranslationKey['Supplier found']),
-    value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
-  },
-  {
-    label: () => t(TranslationKey['Supplier not found']),
-    value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
-  },
-]
-
 export const IdeaViewAndEditCard = observer(
   ({
     isModalView,
@@ -103,6 +92,17 @@ export const IdeaViewAndEditCard = observer(
     const [supplierFound, setSupplierFound] = useState(undefined)
 
     const isCurrentIdea = curIdea?._id === idea?._id
+
+    const radioBottonsSettings = [
+      {
+        label: () => t(TranslationKey['Supplier found']),
+        value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
+      },
+      {
+        label: () => t(TranslationKey['Supplier not found']),
+        value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
+      },
+    ]
 
     useEffect(() => {
       if (showRequestType === RequestSwitherType.REQUESTS_ON_CHECK) {

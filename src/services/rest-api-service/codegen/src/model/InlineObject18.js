@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject18 model module.
@@ -22,11 +23,12 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param boxesIds {Array.<String>} 
+     * @param guids {Array.<String>} Массив коробок.
+     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor(boxesIds) { 
+    constructor(guids, boxBody) { 
         
-        InlineObject18.initialize(this, boxesIds);
+        InlineObject18.initialize(this, guids, boxBody);
     }
 
     /**
@@ -34,8 +36,9 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, guids, boxBody) { 
+        obj['guids'] = guids;
+        obj['boxBody'] = boxBody;
     }
 
     /**
@@ -49,8 +52,11 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            }
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
             }
         }
         return obj;
@@ -60,9 +66,15 @@ class InlineObject18 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * Массив коробок.
+ * @member {Array.<String>} guids
  */
-InlineObject18.prototype['boxesIds'] = undefined;
+InlineObject18.prototype['guids'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ */
+InlineObject18.prototype['boxBody'] = undefined;
 
 
 

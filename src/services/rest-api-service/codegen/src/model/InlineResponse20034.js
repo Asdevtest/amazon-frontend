@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2001 from './InlineResponse2001';
+import ApiV1BatchesStorekeeper from './ApiV1BatchesStorekeeper';
+import InlineResponse20010 from './InlineResponse20010';
 
 /**
  * The InlineResponse20034 model module.
@@ -22,7 +23,6 @@ import InlineResponse2001 from './InlineResponse2001';
 class InlineResponse20034 {
     /**
      * Constructs a new <code>InlineResponse20034</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20034
      */
     constructor() { 
@@ -49,11 +49,71 @@ class InlineResponse20034 {
         if (data) {
             obj = obj || new InlineResponse20034();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('shipId')) {
+                obj['shipId'] = ApiClient.convertToType(data['shipId'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('calculatedShippingCost')) {
+                obj['calculatedShippingCost'] = ApiClient.convertToType(data['calculatedShippingCost'], 'Number');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            }
+            if (data.hasOwnProperty('trackingNumber')) {
+                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            }
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
+            }
+            if (data.hasOwnProperty('finalWeightAsOneBox')) {
+                obj['finalWeightAsOneBox'] = ApiClient.convertToType(data['finalWeightAsOneBox'], 'Number');
+            }
+            if (data.hasOwnProperty('finalWeightSumEachBoxAmount')) {
+                obj['finalWeightSumEachBoxAmount'] = ApiClient.convertToType(data['finalWeightSumEachBoxAmount'], 'Number');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [InlineResponse20010]);
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('finalWeight')) {
+                obj['finalWeight'] = ApiClient.convertToType(data['finalWeight'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1BatchesStorekeeper.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('lastModifiedBy')) {
+                obj['lastModifiedBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['lastModifiedBy']);
+            }
+            if (data.hasOwnProperty('arrivalDate')) {
+                obj['arrivalDate'] = ApiClient.convertToType(data['arrivalDate'], 'Date');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -63,16 +123,132 @@ class InlineResponse20034 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * GUID партии.
+ * @member {String} _id
  */
-InlineResponse20034.prototype['count'] = undefined;
+InlineResponse20034.prototype['_id'] = undefined;
 
 /**
- * Массив заказов c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse2001>} rows
+ * Человекочитаемый id партии.
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20034.prototype['rows'] = undefined;
+InlineResponse20034.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Статус партии.
+ * @member {String} status
+ */
+InlineResponse20034.prototype['status'] = undefined;
+
+/**
+ * id корабля.
+ * @member {String} shipId
+ */
+InlineResponse20034.prototype['shipId'] = undefined;
+
+/**
+ * Название партии
+ * @member {String} title
+ */
+InlineResponse20034.prototype['title'] = undefined;
+
+/**
+ * Стоимость доставки при расчете из коробок
+ * @member {Number} calculatedShippingCost
+ */
+InlineResponse20034.prototype['calculatedShippingCost'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineResponse20034.prototype['actualShippingCost'] = undefined;
+
+/**
+ * Трек номер партии
+ * @member {String} trackingNumber
+ */
+InlineResponse20034.prototype['trackingNumber'] = undefined;
+
+/**
+ * Массив ссылок на файлов документации к партии.
+ * @member {Array.<String>} attachedDocuments
+ */
+InlineResponse20034.prototype['attachedDocuments'] = undefined;
+
+/**
+ * Финальный вес партии, если считать все коробки как одну большую коробу.
+ * @member {Number} finalWeightAsOneBox
+ */
+InlineResponse20034.prototype['finalWeightAsOneBox'] = undefined;
+
+/**
+ * Финальный вес партии, если сложить все веса коробок по отдельности.
+ * @member {Number} finalWeightSumEachBoxAmount
+ */
+InlineResponse20034.prototype['finalWeightSumEachBoxAmount'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineResponse20034.prototype['archive'] = undefined;
+
+/**
+ * Массив id коробок.
+ * @member {Array.<module:model/InlineResponse20010>} boxes
+ */
+InlineResponse20034.prototype['boxes'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineResponse20034.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineResponse20034.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Масса партии
+ * @member {Number} finalWeight
+ */
+InlineResponse20034.prototype['finalWeight'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BatchesStorekeeper} storekeeper
+ */
+InlineResponse20034.prototype['storekeeper'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BatchesStorekeeper} createdBy
+ */
+InlineResponse20034.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BatchesStorekeeper} lastModifiedBy
+ */
+InlineResponse20034.prototype['lastModifiedBy'] = undefined;
+
+/**
+ * @member {Date} arrivalDate
+ */
+InlineResponse20034.prototype['arrivalDate'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20034.prototype['createdAt'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+InlineResponse20034.prototype['updatedAt'] = undefined;
 
 
 

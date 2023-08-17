@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20012 from './InlineResponse20012';
 
 /**
  * The InlineResponse20014 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -47,11 +49,11 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20012]);
             }
         }
         return obj;
@@ -61,16 +63,16 @@ class InlineResponse20014 {
 }
 
 /**
- * Кол-во продукта в айтеме в коробке
- * @member {Number} amount
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20014.prototype['amount'] = undefined;
+InlineResponse20014.prototype['count'] = undefined;
 
 /**
- * Номер заказа
- * @member {Number} id
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20012>} rows
  */
-InlineResponse20014.prototype['id'] = undefined;
+InlineResponse20014.prototype['rows'] = undefined;
 
 
 
