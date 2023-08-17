@@ -170,7 +170,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 105,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -190,8 +190,8 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 96,
-    sortable: false,
+    width: 120,
+
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -201,7 +201,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Card creating'])} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 100,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -221,7 +221,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
-    width: 91,
+    width: 105,
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -232,8 +232,8 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
 
-    width: 106,
-    sortable: false,
+    width: 120,
+
     columnKey: columnnsKeys.shared.SECONDS,
   },
 
@@ -243,7 +243,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 91,
+    width: 100,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]
