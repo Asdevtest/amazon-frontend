@@ -20,6 +20,7 @@ interface CustomSliderProps {
   index?: number
   onChangeIndex?: (index: number) => void
   isHideCounter?: boolean
+  isModal?: boolean
 }
 
 export const CustomSlider: FC<CustomSliderProps> = props => {
@@ -32,6 +33,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     arrowSize,
     children,
     isHideCounter,
+    isModal = false,
   } = props
   const { classes: classNames } = useClassNames()
   const [clides, setClides] = useState<ReactNode[]>([])
@@ -104,7 +106,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     <div className={classNames.mainContainer}>
       {view === 'simple' && !!children?.length && (
         <div className={classNames.headerCarouselDocumentsWrapper}>
-          <div className={classNames.buttonDocumentsWrapper}>
+          <div className={cx(classNames.buttonDocumentsWrapper, { [classNames.modal]: isModal })}>
             {alignButtons === 'center' && (
               <ArrowLeftIcon
                 style={{

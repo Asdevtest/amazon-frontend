@@ -121,6 +121,7 @@ export const ImageModal = (props: ImageModalProps) => {
           <div className={styles.slider}>
             {!!props.imageList?.length && (
               <CustomSlider
+                isModal
                 isHideCounter
                 index={props.currentImageIndex}
                 arrowSize="60px"
