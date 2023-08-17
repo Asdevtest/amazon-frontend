@@ -477,6 +477,22 @@ export const StringListCell = React.memo(
   ),
 )
 
+export const PaymentMethodsCell = React.memo(
+  withStyles(
+    ({ classes: classNames, paymentMethods }) => (
+      <div className={classNames.paymentMethods}>
+        {paymentMethods.map(({ paymentMethod }) => (
+          <div key={paymentMethod.title} className={classNames.paymentMethod}>
+            <img src={paymentMethod.iconImage} alt={paymentMethod.title} className={classNames.paymentMethodIcon} />
+            <p className={classNames.paymentMethodTitle}>{paymentMethod.title}</p>
+          </div>
+        ))}
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const ProductCell = React.memo(
   withStyles(
     ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (

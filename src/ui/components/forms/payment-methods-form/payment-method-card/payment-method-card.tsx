@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,6 +19,7 @@ type FieldName = 'paymentDetails' | 'paymentImages' | 'paymentMethod' | 'isCheck
 interface PaymentMethod {
   _id: string
   title: string
+  iconImage: string
 }
 
 interface Payments {
@@ -53,6 +52,10 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
         'paymentMethod' in payment && 'title' in payment.paymentMethod && payment?.paymentMethod?.title
           ? payment?.paymentMethod?.title
           : '',
+      iconImage:
+        'paymentMethod' in payment && 'iconImage' in payment.paymentMethod && payment?.paymentMethod?.iconImage
+          ? payment?.paymentMethod?.iconImage
+          : '',
     },
     photosForLoad: 'photosForLoad' in payment ? payment.photosForLoad : [],
   }
@@ -73,6 +76,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
           newPaymentsFieldsState.paymentMethod = {
             _id: '',
             title: '',
+            iconImage: '',
           }
         } else {
           newPaymentsFieldsState.paymentMethod = {
@@ -87,6 +91,12 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
                 ? payment?.paymentMethod?.title
                 : 'title' in payment
                 ? payment.title
+                : '',
+            iconImage:
+              'paymentMethod' in payment && payment?.paymentMethod?.iconImage
+                ? payment?.paymentMethod?.iconImage
+                : 'title' in payment
+                ? payment.iconImage
                 : '',
           }
         }
@@ -108,14 +118,31 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
           checked={!!paymentsFields?.paymentMethod?._id} // @ts-ignore
           onClick={setFielData('isCheckedPayment')}
         />
-        <Typography className={classNames.paymentMethodTitle}>
+        <img
+          src={
+            'paymentMethod' in payment && payment?.paymentMethod?.iconImage
+              ? payment?.paymentMethod?.iconImage
+              : 'iconImage' in payment
+              ? payment.iconImage
+              : ''
+          }
+          alt={
+            'paymentMethod' in payment && payment?.paymentMethod?.title
+              ? payment?.paymentMethod?.title
+              : 'title' in payment
+              ? payment.title
+              : ''
+          }
+          className={classNames.paymentMethodIcon}
+        />
+        <p className={classNames.paymentMethodTitle}>
           {/* {payment?.paymentMethod?.title || payment?.title} */}
           {'paymentMethod' in payment && payment?.paymentMethod?.title
             ? payment?.paymentMethod?.title
             : 'title' in payment
             ? payment.title
             : ''}
-        </Typography>
+        </p>
       </div>
 
       <div
