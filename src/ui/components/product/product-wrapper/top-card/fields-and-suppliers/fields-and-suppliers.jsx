@@ -462,7 +462,13 @@ export const FieldsAndSuppliers = observer(
 
           {product?.parentProductId || productVariations?.childProducts?.length ? (
             <div className={classNames.interconnectedProductsWrapper}>
-              <div className={classNames.interconnectedProductsHeader}>
+              <div
+                className={cx(classNames.interconnectedProductsHeader, {
+                  [classNames.interconnectedProductsHeaderPadding]:
+                    (product?.parentProductId && productVariations?.childProducts?.length >= 4) ||
+                    (!product?.parentProductId && productVariations?.childProducts?.length >= 5),
+                })}
+              >
                 <p className={classNames.subUsersTitle}>
                   {product?.parentProductId
                     ? t(TranslationKey['Interconnected products'])

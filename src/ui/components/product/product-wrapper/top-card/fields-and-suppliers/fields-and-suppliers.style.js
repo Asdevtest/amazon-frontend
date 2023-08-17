@@ -309,14 +309,18 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '10px',
     maxHeight: '205px',
     overflowY: 'auto',
-    paddingRight: '10px',
+    paddingRight: '15px',
   },
 
   interconnectedProductsHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingRight: '9px',
+    paddingRight: '15px',
+  },
+
+  interconnectedProductsHeaderPadding: {
+    paddingRight: '30px',
   },
 
   plusIcon: {
