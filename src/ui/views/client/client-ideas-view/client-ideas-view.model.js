@@ -559,6 +559,7 @@ export class ClientIdeasViewModel {
       runInAction(() => {
         this.productId = currentProductId
         this.currentIdeaId = idea._id
+        this.currentProduct = idea?.parentProduct
       })
 
       this.onTriggerOpenModal('showIdeaModal')

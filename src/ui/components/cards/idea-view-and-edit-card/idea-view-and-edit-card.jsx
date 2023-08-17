@@ -346,7 +346,7 @@ export const IdeaViewAndEditCard = observer(
                 />
               )}
 
-              {showFullCard && (
+              {showFullCard && currentUserIsClient && (
                 <div className={classNames.requestsBlockWrapper}>
                   <div className={classNames.requestsControlWrapper}>
                     <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
@@ -409,7 +409,7 @@ export const IdeaViewAndEditCard = observer(
 
               <Field
                 multiline
-                disabled={disableFields || checkIsClient(UserRoleCodeMap[curUser.role])}
+                disabled={disableFields || currentUserIsClient}
                 label={t(TranslationKey['Buyer comments'])}
                 labelClasses={classNames.spanLabel}
                 className={classNames.buyerComment}
