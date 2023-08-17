@@ -36,7 +36,7 @@ export const PhotoAndFilesCarousel = props => {
     withoutPhotos,
     whithoutFiles,
     imagesTitles = [],
-
+    isHideCounter = false,
     imagesForLoad,
     onChangeImagesForLoad,
     isEditable,
@@ -170,7 +170,7 @@ export const PhotoAndFilesCarousel = props => {
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
             <div className={classNames.imagesWrapper}>
               {notEmptyPhotos?.length ? (
-                <CustomSlider>
+                <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable
                     ? imagesForLoad.filter(el => checkIsImageLink(el?.file?.name || el))
                     : notEmptyPhotos
@@ -207,7 +207,7 @@ export const PhotoAndFilesCarousel = props => {
                 <div className={classNames.emptyIconWrapper}>
                   <div className={classNames.emptyWrapper}>
                     <div className={classNames.emptyIcon}>
-                      <NoPhotoIcon className={classNames.noPhotoIcon} />
+                      <NoPhotoIcon className={cx(classNames.noPhotoIcon, { [classNames.noIconSmall]: small })} />
                     </div>
 
                     <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
@@ -224,7 +224,7 @@ export const PhotoAndFilesCarousel = props => {
           {((notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty) && (
             <div className={cx(classNames.documentsWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
               {notEmptyFiles?.length ? (
-                <CustomSlider>
+                <CustomSlider isHideCounter={isHideCounter}>
                   {notEmptyFiles.map((file, index) =>
                     file?.data_url ? (
                       <div
@@ -258,9 +258,9 @@ export const PhotoAndFilesCarousel = props => {
                 <div className={classNames.emptyIconWrapper}>
                   <div className={classNames.emptyWrapper}>
                     <div className={classNames.emptyIcon}>
-                      <NoDocumentIcon className={classNames.noDocumentIcon} />
+                      <NoDocumentIcon className={cx(classNames.noDocumentIcon, { [classNames.noIconSmall]: small })} />
                     </div>
-                    <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
+                    <Typography className={classNames.noPhotoText}>{t(TranslationKey['No files'])}</Typography>
                   </div>
                 </div>
               )}
@@ -294,9 +294,9 @@ export const PhotoAndFilesCarousel = props => {
     <div className={classNames.emptyIconWrapper}>
       <div className={classNames.emptyWrapper}>
         <div className={classNames.emptyIcon}>
-          <NoDocumentIcon className={classNames.noDocumentIcon} />
+          <NoDocumentIcon className={cx(classNames.noDocumentIcon, { [classNames.noIconSmall]: small })} />
         </div>
-        <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
+        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No files'])}</Typography>
       </div>
     </div>
   )
