@@ -217,16 +217,16 @@ export const IdeaViewAndEditCard = observer(
       if (newAlignment === sizesType.INCHES) {
         setFormFields({
           ...formFields,
-          width: toFixed(formFields.width / inchesCoefficient, 4),
-          height: toFixed(formFields.height / inchesCoefficient, 4),
-          length: toFixed(formFields.length / inchesCoefficient, 4),
+          width: toFixed(formFields.width / inchesCoefficient, 2) || '',
+          height: toFixed(formFields.height / inchesCoefficient, 2) || '',
+          length: toFixed(formFields.length / inchesCoefficient, 2) || '',
         })
       } else {
         setFormFields({
           ...formFields,
-          width: toFixed(roundSafely(formFields.width * inchesCoefficient), 2),
-          height: toFixed(roundSafely(formFields.height * inchesCoefficient), 2),
-          length: toFixed(roundSafely(formFields.length * inchesCoefficient), 2),
+          width: toFixed(roundSafely(formFields.width * inchesCoefficient), 2) || '',
+          height: toFixed(roundSafely(formFields.height * inchesCoefficient), 2) || '',
+          length: toFixed(roundSafely(formFields.length * inchesCoefficient), 2) || '',
         })
       }
     }
