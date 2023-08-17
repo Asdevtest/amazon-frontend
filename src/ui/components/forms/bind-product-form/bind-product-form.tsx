@@ -66,8 +66,6 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     })
   }
 
-  console.log('sourceProduct', sourceProduct)
-
   return (
     <div className={classNames.root}>
       <p className={classNames.title}>{t(TranslationKey['Select product'])}</p>

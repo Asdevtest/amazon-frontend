@@ -284,10 +284,8 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxAndButtonWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    gap: '30px',
     alignItems: 'flex-start',
-    // gap: '30px',
-    // alignItems: 'center',
   },
 
   checkboxAndButtonWrapperMarginTop: {
@@ -295,7 +293,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   checkboxProposalWrapper: {
-    width: '375px !important',
+    width: '100% !important',
   },
   checkboxesWrapper: {
     width: '100%',
@@ -437,7 +435,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   executorContainer: {
-    width: '372px !important',
+    width: '100% !important',
   },
 
   requestTypeField: {
@@ -460,12 +458,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  dateAndTimeContainerleft: {
-    width: '377px !important',
+  dateAndTimeContainer: {
+    width: '100p% !important',
   },
-  dateAndTimeContainerRight: {
-    width: '378px !important',
-  },
+
   dateField: {
     width: '100%',
   },
@@ -477,7 +473,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   changePerformerBtn: {
-    width: 190,
+    // width: 190,
+    whiteSpace: 'nowrap',
   },
 
   performerAndButtonSubWrapper: {
@@ -491,7 +488,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    width: 378,
+    width: '100% !important',
   },
 
   userInfo: {

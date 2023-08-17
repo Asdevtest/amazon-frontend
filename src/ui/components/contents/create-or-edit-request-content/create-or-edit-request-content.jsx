@@ -563,7 +563,7 @@ export const CreateOrEditRequestContent = ({
                 <div>
                   <div className={classNames.dateAndTimeWrapper}>
                     <Field
-                      containerClasses={cx(classNames.dateAndTimeContainerleft)}
+                      containerClasses={cx(classNames.dateAndTimeContainer)}
                       tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                       label={`${t(TranslationKey['When do you want results?'])}*`}
                       labelClasses={classNames.spanLabelSmall}
@@ -587,7 +587,7 @@ export const CreateOrEditRequestContent = ({
                       }
                     />
                     <Field
-                      containerClasses={classNames.dateAndTimeContainerRight}
+                      containerClasses={classNames.dateAndTimeContainer}
                       tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                       label={`${t(TranslationKey['What time do you want the result?'])}*`}
                       labelClasses={classNames.spanLabelSmall}
