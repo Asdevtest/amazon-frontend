@@ -865,7 +865,7 @@ export const CreateOrEditRequestContent = ({
                             inputComponent={
                               <AsinOrSkuLink
                                 withCopyValue
-                                asin={formFields.request.asin}
+                                asin={formFields?.request?.asin}
                                 textStyles={classNames.copyAsinlinkSpan}
                                 missingValueTextStyles={classNames.copyAsinlinkSpan}
                               />
@@ -1250,7 +1250,7 @@ export const CreateOrEditRequestContent = ({
       >
         <CheckRequestByTypeExists
           requestsData={requestIds}
-          asin={formFields.request.asin}
+          asin={formFields?.request?.asin}
           type={formFields.request.typeTask}
           onClickRequest={onClickExistingRequest}
           onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
