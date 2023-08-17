@@ -74,12 +74,12 @@ export const AuthFormWrapper = ({
       <ConfirmationModal
         openModal={showConfirmModal}
         setOpenModal={onToggleModal}
-        isWarning={confirmModalSettings.isWarning}
-        title={confirmModalSettings.confirmTitle}
-        message={confirmModalSettings.confirmMessage}
+        isWarning={confirmModalSettings?.isWarning}
+        title={confirmModalSettings?.confirmTitle}
+        message={confirmModalSettings?.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
         onClickCancelBtn={onToggleModal}
       />
     </>

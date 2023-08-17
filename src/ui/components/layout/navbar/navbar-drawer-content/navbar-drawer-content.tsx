@@ -176,7 +176,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          isWarning={confirmModalSettings.isWarning}
+          isWarning={confirmModalSettings?.isWarning}
           title={confirmModalSettings.confirmTitle}
           message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}

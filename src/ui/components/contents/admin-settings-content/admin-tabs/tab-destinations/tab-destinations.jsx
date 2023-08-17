@@ -83,7 +83,7 @@ export const TabDestinations = observer(() => {
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={viewModel.onClickToggleConfirmModal}
         title={t(TranslationKey.Attention)}
