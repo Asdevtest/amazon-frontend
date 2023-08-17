@@ -276,23 +276,16 @@ export const IdeaViewAndEditCard = observer(
     const isSupplierFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]
     const isSupplierNotFound = formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
     const isCardCreating = formFields?.status === ideaStatusByKey[ideaStatus.CARD_CREATING]
+    const isAddingAsin = formFields?.status === ideaStatusByKey[ideaStatus.ADDING_ASIN]
     const isRejected = formFields?.status === ideaStatusByKey[ideaStatus.REJECTED]
     const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
 
     const showAcceptButtonToClient =
       currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified
 
-    const showRejectButton =
-      isNewIdea ||
-      formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK] ||
-      formFields?.status === ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH] ||
-      isSupplierFound ||
-      isSupplierNotFound
+    const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
-    const showCreateRequestButton =
-      formFields?.status === ideaStatusByKey[ideaStatus.NEW] ||
-      formFields?.status === ideaStatusByKey[ideaStatus.ON_CHECK] ||
-      formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
+    const showCreateRequestButton = isNewIdea || isOnCheck || isVerified || isAddingAsin
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
