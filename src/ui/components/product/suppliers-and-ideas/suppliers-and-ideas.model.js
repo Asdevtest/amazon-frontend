@@ -312,7 +312,7 @@ export class SuppliersAndIdeasModel {
           width: data.width || 0,
           height: data.height || 0,
           length: data.length || 0,
-          asin: data?.parentProduct?.asin || '',
+          asin: '',
           parentProductId: data?.parentProduct?._id,
           amazonDetail: data.criteria,
           lamazon: data.productLinks[0],
