@@ -9,6 +9,7 @@ import { useClassNames } from './radio-buttons.styles'
 interface IRadioBottonsSetting {
   label: () => string
   value: string | number | boolean
+  disabled?: boolean
 }
 
 interface RadioButtonsProps {
@@ -31,7 +32,7 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
         radioBottonsSettings.map((setting, settingIndex: number) => (
           <div key={settingIndex} className={classNames.buttonWrapper}>
             <Radio
-              disabled={disabled}
+              disabled={disabled || setting?.disabled}
               classes={{ root: cx(classNames.radioRoot, { [classNames.radioActive]: setting.value === currentValue }) }}
               checked={setting.value === currentValue}
               onClick={e => {

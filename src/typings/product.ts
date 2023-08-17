@@ -74,6 +74,8 @@ export interface IProduct {
   weight: number
   width: number
   _id: string
+  parentProductId: string
+  hasChildren: boolean
 }
 
 export interface IBoxAmount {

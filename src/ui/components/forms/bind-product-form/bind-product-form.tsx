@@ -10,24 +10,14 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { IProductVariation, ProductVariation } from '@typings/product'
+import { IProduct, IProductVariation, ProductVariation } from '@typings/product'
 
 import { useClassNames } from './bind-product-form.styles'
 
 import { SelectedProduct } from './selected-product/selected-product'
 
-const radioBottonsSettings = [
-  {
-    label: () => t(TranslationKey['Add parent']),
-    value: ProductVariation.PARENT,
-  },
-  {
-    label: () => t(TranslationKey['Add variations']),
-    value: ProductVariation.CHILD,
-  },
-]
-
 interface BindProductFormProps {
+  sourceProduct: IProduct
   productsToBind: Array<IProductVariation>
   onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: Array<IProductVariation>) => void
@@ -37,10 +27,22 @@ interface BindProductFormProps {
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { productsToBind, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
+  const { sourceProduct, productsToBind, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProductVariation>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
+
+  const radioBottonsSettings = [
+    {
+      label: () => t(TranslationKey['Add parent']),
+      value: ProductVariation.PARENT,
+      disabled: !sourceProduct?.parentProductId && !!sourceProduct?.hasChildren,
+    },
+    {
+      label: () => t(TranslationKey['Add variations']),
+      value: ProductVariation.CHILD,
+    },
+  ]
 
   const chooseRadioButtonSettingHandler = (value: string | number | boolean) => {
     if (typeof value === 'string') {
@@ -63,6 +65,8 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       }
     })
   }
+
+  console.log('sourceProduct', sourceProduct)
 
   return (
     <div className={classNames.root}>

@@ -566,6 +566,7 @@ export const TopCard = observer(
             setOpenModal={() => onTriggerOpenModal('showBindProductModal')}
           >
             <BindProductForm
+              sourceProduct={product}
               productsToBind={productsToBind}
               onClickGetProductsToBind={onClickGetProductsToBind}
               onClickNextButton={onClickNextButton}
