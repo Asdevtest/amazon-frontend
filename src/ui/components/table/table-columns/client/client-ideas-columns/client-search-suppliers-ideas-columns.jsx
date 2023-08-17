@@ -48,6 +48,38 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
+    field: 'status',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    headerName: t(TranslationKey.Status),
+
+    renderCell: params => (
+      <MultilineTextCell
+        text={ideaStatusTranslate(ideaStatusByCode[params.value])}
+        color={colorByIdeaStatus(ideaStatusByCode[params.value])}
+      />
+    ),
+    width: 160,
+    columnKey: columnnsKeys.client.IDEAS_STATUS,
+  },
+
+  {
+    field: 'actions',
+    headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+
+    renderCell: params => (
+      <OnCheckingIdeaActions
+        isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
+        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row.originalData)}
+        onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+      />
+    ),
+    width: 220,
+    sortable: false,
+    filterable: false,
+  },
+
+  {
     field: ['parentProductShopIds', 'childProductShopIds'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
@@ -113,7 +145,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'priceWithDelivery',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + '$'} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + ', $'} />,
     headerName: t(TranslationKey['Price with delivery']) + '$',
 
     renderCell: params => {
@@ -122,7 +154,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
 
       return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
     },
-    width: 95,
+    width: 120,
     type: 'number',
     filterable: false,
   },
@@ -133,7 +165,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Min batch']),
 
     renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
-    width: 78,
+    width: 80,
     type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -183,38 +215,6 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
-    field: 'status',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    headerName: t(TranslationKey.Status),
-
-    renderCell: params => (
-      <MultilineTextCell
-        text={ideaStatusTranslate(ideaStatusByCode[params.value])}
-        color={colorByIdeaStatus(ideaStatusByCode[params.value])}
-      />
-    ),
-    width: 160,
-    columnKey: columnnsKeys.client.IDEAS_STATUS,
-  },
-
-  {
-    field: 'actions',
-    headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
-    renderCell: params => (
-      <OnCheckingIdeaActions
-        isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
-        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row.originalData)}
-        onClickReject={() => rowHandlers.onClickReject(params.row._id)}
-      />
-    ),
-    width: 220,
-    sortable: false,
-    filterable: false,
   },
 
   {
