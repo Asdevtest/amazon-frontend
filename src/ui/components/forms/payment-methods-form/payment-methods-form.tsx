@@ -16,6 +16,7 @@ import { PaymentMethodCard } from './payment-method-card'
 interface PaymentMethod {
   _id: string
   title: string
+  iconImage: string
 }
 
 interface Payments {

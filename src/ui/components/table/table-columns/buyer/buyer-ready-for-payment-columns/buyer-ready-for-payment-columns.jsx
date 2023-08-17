@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Checkbox } from '@mui/material'
 
@@ -16,9 +13,9 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
+  PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
-  StringListCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
@@ -62,7 +59,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
       renderCell: params => <OrderCell product={params.row.originalData.product} />,
       sortable: false,
-      width: 400,
+      width: 320,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
@@ -76,7 +73,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           text={<Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />}
         />
       ),
-      width: 100,
+      width: 120,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
@@ -129,18 +126,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
         />
       ),
-      renderCell: params => {
-        return (
-          <StringListCell
-            sourceString={params?.row?.originalData?.payments?.map(method => method?.paymentMethod?.title)}
-            maxItemsDisplay={3}
-            maxLettersInItem={15}
-            onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params?.row?.originalData)}
-          />
-        )
-      },
-      width: 178,
-      align: 'center',
+      renderCell: params => <PaymentMethodsCell paymentMethods={params.row.originalData.payments} />,
+      width: 180,
       sortable: false,
 
       columnKey: columnnsKeys.shared.PAYMENTS,
@@ -164,7 +151,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         />
       ),
       type: 'number',
-      width: 90,
+      width: 115,
 
       columnKey: columnnsKeys.buyer.TO_PAY,
     },
