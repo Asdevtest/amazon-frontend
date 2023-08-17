@@ -25,13 +25,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.error.dark,
   },
   buttonWrapper: {
-    textAlign: 'right',
-    '& > button': {
-      marginRight: '20px',
-    },
-    '& > button:last-child': {
-      marginRight: '0px',
-    },
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 50,
   },
   modalContainer: {
     minWidth: '460px',
