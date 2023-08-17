@@ -15,6 +15,18 @@ import { t } from '@utils/translations'
 
 export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   {
+    field: 'title',
+    headerName: t(TranslationKey['Idea title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 198,
+    filterable: false,
+
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
     field: 'parentProduct',
     headerName: t(TranslationKey['Parent product']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
