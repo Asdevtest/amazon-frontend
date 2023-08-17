@@ -20,12 +20,12 @@ export const progressBarSettings = [
     intervalName: 'intervalStatusSearchFoundNotFound',
   },
   {
-    title: () => t(TranslationKey['Create a product card']),
+    title: () => t(TranslationKey['Creating a product card']),
     statuses: [ideaStatus.CARD_CREATING],
     intervalName: 'intervalStatusProductCreating',
   },
   {
-    title: () => t(TranslationKey['Add ASIN']),
+    title: () => t(TranslationKey['Adding ASIN']),
     statuses: [ideaStatus.ADDING_ASIN],
     intervalName: 'intervalStatusAddingAsin',
   },
