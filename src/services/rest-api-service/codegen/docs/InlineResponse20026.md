@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20025]**](InlineResponse20025.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**allImages** | [**[InlineResponse20026AllImages]**](InlineResponse20026AllImages.md) |  | [optional] 
+**allFiles** | [**[InlineResponse20026AllFiles]**](InlineResponse20026AllFiles.md) |  | [optional] 
 
 

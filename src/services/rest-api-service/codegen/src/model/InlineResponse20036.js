@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20036 {
     /**
      * Constructs a new <code>InlineResponse20036</code>.
-     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20036
      */
     constructor() { 
@@ -48,8 +47,23 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            }
+            if (data.hasOwnProperty('cubicMeters')) {
+                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCost')) {
+                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
+                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryRate')) {
+                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
             }
         }
         return obj;
@@ -59,9 +73,40 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {Number} priceForClient
+ * The unique identifier of the box.
+ * @member {String} guid
  */
-InlineResponse20036.prototype['priceForClient'] = undefined;
+InlineResponse20036.prototype['guid'] = undefined;
+
+/**
+ * Объем в м ^ 3
+ * @member {Number} cubicMeters
+ */
+InlineResponse20036.prototype['cubicMeters'] = undefined;
+
+/**
+ * The delivery cost of the box.
+ * @member {Number} deliveryCost
+ */
+InlineResponse20036.prototype['deliveryCost'] = undefined;
+
+/**
+ * The volume weight of the box in kg.
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineResponse20036.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * The weight of the box in kg.
+ * @member {Number} weightFinalAccountingKgWarehouse
+ */
+InlineResponse20036.prototype['weightFinalAccountingKgWarehouse'] = undefined;
+
+/**
+ * The delivery rate of the box. $/kg
+ * @member {Number} deliveryRate
+ */
+InlineResponse20036.prototype['deliveryRate'] = undefined;
 
 
 

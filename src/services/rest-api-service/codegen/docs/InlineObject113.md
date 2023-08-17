@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperComment** | **String** |  | 
+**hash** | **String** | Токен, который юзер получает через почту | 
+**password** | **String** | Новый пароль | [optional] 
 
 

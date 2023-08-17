@@ -22,11 +22,11 @@ class InlineObject54 {
     /**
      * Constructs a new <code>InlineObject54</code>.
      * @alias module:model/InlineObject54
-     * @param productIds {Array.<String>} 
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(productIds) { 
+    constructor(boxesIds) { 
         
-        InlineObject54.initialize(this, productIds);
+        InlineObject54.initialize(this, boxesIds);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject54 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productIds) { 
-        obj['productIds'] = productIds;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject54 {
         if (data) {
             obj = obj || new InlineObject54();
 
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -60,9 +60,9 @@ class InlineObject54 {
 }
 
 /**
- * @member {Array.<String>} productIds
+ * @member {Array.<String>} boxesIds
  */
-InlineObject54.prototype['productIds'] = undefined;
+InlineObject54.prototype['boxesIds'] = undefined;
 
 
 

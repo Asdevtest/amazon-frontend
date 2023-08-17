@@ -22,12 +22,11 @@ class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(clientComment, priceForClient) { 
+    constructor(boxesIds) { 
         
-        InlineObject56.initialize(this, clientComment, priceForClient);
+        InlineObject56.initialize(this, boxesIds);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -65,15 +60,9 @@ class InlineObject56 {
 }
 
 /**
- * @member {String} clientComment
+ * @member {Array.<String>} boxesIds
  */
-InlineObject56.prototype['clientComment'] = undefined;
-
-/**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
- */
-InlineObject56.prototype['priceForClient'] = undefined;
+InlineObject56.prototype['boxesIds'] = undefined;
 
 
 

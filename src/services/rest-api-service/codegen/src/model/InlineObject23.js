@@ -47,44 +47,32 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
             if (data.hasOwnProperty('variationTariffId')) {
                 obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -94,81 +82,53 @@ class InlineObject23 {
 }
 
 /**
- * GUID пункта назначения коробки
- * @member {String} destinationId
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject23.prototype['destinationId'] = undefined;
+InlineObject23.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * GUID тарифа к сторкипера
- * @member {String} logicsTariffId
+ * @member {Number} widthCmWarehouse
  */
-InlineObject23.prototype['logicsTariffId'] = undefined;
+InlineObject23.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
+ * @member {Number} heightCmWarehouse
  */
-InlineObject23.prototype['fbaShipment'] = undefined;
+InlineObject23.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject23.prototype['fbaNumber'] = undefined;
+InlineObject23.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Комментарии к коробке
- * @member {String} clientComment
+ * @member {Number} volumeWeightKgWarehouse
  */
-InlineObject23.prototype['clientComment'] = undefined;
+InlineObject23.prototype['volumeWeightKgWarehouse'] = undefined;
 
 /**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject23.prototype['referenceId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject23.prototype['trackNumberText'] = undefined;
-
-/**
- * @member {Array.<String>} trackNumberFile
- */
-InlineObject23.prototype['trackNumberFile'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject23.prototype['upsTrackNumber'] = undefined;
-
-/**
- * shippingLabel коробки
- * @member {String} shippingLabel
- */
-InlineObject23.prototype['shippingLabel'] = undefined;
-
-/**
- * shippingLabel проклеен сторкипером
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
  * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
 InlineObject23.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
- * Значение информационного ключа
- * @member {String} prepId
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
  */
-InlineObject23.prototype['prepId'] = undefined;
+InlineObject23.prototype['storekeeperComment'] = undefined;
 
 /**
  * Гуид вариации
  * @member {String} variationTariffId
  */
 InlineObject23.prototype['variationTariffId'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject23.prototype['images'] = undefined;
 
 
 

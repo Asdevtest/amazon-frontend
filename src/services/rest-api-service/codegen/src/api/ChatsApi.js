@@ -14,9 +14,9 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject45 from '../model/InlineObject45';
-import InlineResponse20028 from '../model/InlineResponse20028';
-import InlineResponse20029 from '../model/InlineResponse20029';
+import InlineObject37 from '../model/InlineObject37';
+import InlineResponse20025 from '../model/InlineResponse20025';
+import InlineResponse20026 from '../model/InlineResponse20026';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -45,7 +45,7 @@ export default class ChatsApi {
      * Метод создает групповой чат не привязаный к другим инстансам   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject45} opts.body 
+     * @param {module:model/InlineObject37} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ChatsGroupPostWithHttpInfo(opts) {
@@ -78,7 +78,7 @@ export default class ChatsApi {
      * Метод создает групповой чат не привязаный к другим инстансам   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject45} opts.body 
+     * @param {module:model/InlineObject37} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ChatsGroupPost(opts) {
@@ -149,7 +149,7 @@ export default class ChatsApi {
      * @param {String} guid GUID чата в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20026} and HTTP response
      */
     apiV1ChatsMediaGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -173,7 +173,7 @@ export default class ChatsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20029;
+      let returnType = InlineResponse20026;
       return this.apiClient.callApi(
         '/api/v1/chats/media/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -187,7 +187,7 @@ export default class ChatsApi {
      * @param {String} guid GUID чата в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20026}
      */
     apiV1ChatsMediaGuidGet(guid, opts) {
       return this.apiV1ChatsMediaGuidGetWithHttpInfo(guid, opts)
@@ -202,7 +202,7 @@ export default class ChatsApi {
      * Получить все имена юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20028>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20025>} and HTTP response
      */
     apiV1ChatsNamesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -221,7 +221,7 @@ export default class ChatsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20028];
+      let returnType = [InlineResponse20025];
       return this.apiClient.callApi(
         '/api/v1/chats/names', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -234,7 +234,7 @@ export default class ChatsApi {
      * Получить все имена юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20028>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20025>}
      */
     apiV1ChatsNamesGet(opts) {
       return this.apiV1ChatsNamesGetWithHttpInfo(opts)

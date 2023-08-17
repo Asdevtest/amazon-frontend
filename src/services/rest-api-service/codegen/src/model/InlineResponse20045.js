@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasByParentGuidChildProduct from './ApiV1IdeasByParentGuidChildProduct';
-import ApiV1IdeasByParentGuidRequestsOnCheck from './ApiV1IdeasByParentGuidRequestsOnCheck';
 
 /**
  * The InlineResponse20045 model module.
@@ -49,41 +47,8 @@ class InlineResponse20045 {
         if (data) {
             obj = obj || new InlineResponse20045();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('variation')) {
-                obj['variation'] = ApiClient.convertToType(data['variation'], 'Boolean');
-            }
-            if (data.hasOwnProperty('childProduct')) {
-                obj['childProduct'] = ApiV1IdeasByParentGuidChildProduct.constructFromObject(data['childProduct']);
-            }
-            if (data.hasOwnProperty('requestsOnCheck')) {
-                obj['requestsOnCheck'] = ApiClient.convertToType(data['requestsOnCheck'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
-            }
-            if (data.hasOwnProperty('requestsOnFinished')) {
-                obj['requestsOnFinished'] = ApiClient.convertToType(data['requestsOnFinished'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -93,72 +58,10 @@ class InlineResponse20045 {
 }
 
 /**
- * @member {String} _id
+ * id созданного профайла
+ * @member {String} profileId
  */
-InlineResponse20045.prototype['_id'] = undefined;
-
-/**
- * Название идеи
- * @member {String} title
- */
-InlineResponse20045.prototype['title'] = undefined;
-
-/**
- * Статус идеи
- * @member {Number} status
- */
-InlineResponse20045.prototype['status'] = undefined;
-
-/**
- * Медиа идеи
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineResponse20045.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Является ли продукт идеи вариацией существующего
- * @member {Boolean} variation
- */
-InlineResponse20045.prototype['variation'] = undefined;
-
-/**
- * @member {module:model/ApiV1IdeasByParentGuidChildProduct} childProduct
- */
-InlineResponse20045.prototype['childProduct'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnCheck
- */
-InlineResponse20045.prototype['requestsOnCheck'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnFinished
- */
-InlineResponse20045.prototype['requestsOnFinished'] = undefined;
-
-/**
- * Комментарии к идее
- * @member {String} comments
- */
-InlineResponse20045.prototype['comments'] = undefined;
-
-/**
- * Комментарий байера
- * @member {String} buyerComment
- */
-InlineResponse20045.prototype['buyerComment'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20045.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updatedAt
- */
-InlineResponse20045.prototype['updatedAt'] = undefined;
+InlineResponse20045.prototype['profileId'] = undefined;
 
 
 

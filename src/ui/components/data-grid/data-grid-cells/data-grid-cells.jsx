@@ -3311,14 +3311,13 @@ export const IdeaProduct = React.memo(
             {t(TranslationKey['Create a product card'])}
           </Button>
         )}
-        {(rowData.childProduct && !rowData.suppliers.length) ||
-          (!rowData.variation && (
-            <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
-              {t(TranslationKey['Set supplier to card'])}
-            </Button>
-          ))}
+        {/* {((rowData.childProduct && !rowData.suppliers.length) || !rowData.variation) && (
+          <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
+            {t(TranslationKey['Set supplier to card'])}
+          </Button>
+        )} */}
 
-        {!!rowData.suppliers.length && !!rowData.childProduct && (
+        {!!rowData.childProduct && (
           <ProductAsinCell
             withoutImage
             amazonTitle={rowData.childProduct?.amazonTitle}

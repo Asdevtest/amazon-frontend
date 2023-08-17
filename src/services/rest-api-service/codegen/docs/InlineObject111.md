@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
+**oldPassword** | **String** | Старый ароль | 
+**newPassword** | **String** | Новый пароль | 
 
 

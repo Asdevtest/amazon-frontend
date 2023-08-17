@@ -71,6 +71,12 @@ class InlineResponse20029Rows {
             if (data.hasOwnProperty('currentSupplierId')) {
                 obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
             }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
+            if (data.hasOwnProperty('hasChildren')) {
+                obj['hasChildren'] = ApiClient.convertToType(data['hasChildren'], 'Boolean');
+            }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
@@ -203,24 +209,6 @@ class InlineResponse20029Rows {
             if (data.hasOwnProperty('buyerRate')) {
                 obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
             }
-            if (data.hasOwnProperty('listingName')) {
-                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
-            }
-            if (data.hasOwnProperty('listingBulletPoints')) {
-                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
-            }
-            if (data.hasOwnProperty('listingProductDetails')) {
-                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
-            }
-            if (data.hasOwnProperty('listingSearchTerms')) {
-                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
-            }
-            if (data.hasOwnProperty('listingSubjectMatters')) {
-                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
-            }
-            if (data.hasOwnProperty('listingImages')) {
-                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
-            }
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
@@ -229,6 +217,9 @@ class InlineResponse20029Rows {
             }
             if (data.hasOwnProperty('amountInOrders')) {
                 obj['amountInOrders'] = ApiClient.convertToType(data['amountInOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('amountInPendingOrders')) {
+                obj['amountInPendingOrders'] = ApiClient.convertToType(data['amountInPendingOrders'], 'Number');
             }
             if (data.hasOwnProperty('boxAmounts')) {
                 obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1AdminsGetProductsByStatusBoxAmounts]);
@@ -278,8 +269,14 @@ class InlineResponse20029Rows {
             if (data.hasOwnProperty('fbaFbmStockSum')) {
                 obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
             }
-            if (data.hasOwnProperty('ideaCount')) {
-                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasFinished')) {
+                obj['ideasFinished'] = ApiClient.convertToType(data['ideasFinished'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
             }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
@@ -304,6 +301,9 @@ class InlineResponse20029Rows {
             }
             if (data.hasOwnProperty('purchaseQuantity')) {
                 obj['purchaseQuantity'] = ApiClient.convertToType(data['purchaseQuantity'], 'Number');
+            }
+            if (data.hasOwnProperty('stockCost')) {
+                obj['stockCost'] = ApiClient.convertToType(data['stockCost'], 'Number');
             }
         }
         return obj;
@@ -344,6 +344,18 @@ InlineResponse20029Rows.prototype['currentSupplier'] = undefined;
  * @member {String} currentSupplierId
  */
 InlineResponse20029Rows.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineResponse20029Rows.prototype['parentProductId'] = undefined;
+
+/**
+ * Имеет ли дочерние продукты данный продукт (по parentProductId)
+ * @member {Boolean} hasChildren
+ */
+InlineResponse20029Rows.prototype['hasChildren'] = undefined;
 
 /**
  * Категория
@@ -605,42 +617,6 @@ InlineResponse20029Rows.prototype['paidAt'] = undefined;
 InlineResponse20029Rows.prototype['buyerRate'] = undefined;
 
 /**
- * 
- * @member {String} listingName
- */
-InlineResponse20029Rows.prototype['listingName'] = undefined;
-
-/**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
- */
-InlineResponse20029Rows.prototype['listingBulletPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingProductDetails
- */
-InlineResponse20029Rows.prototype['listingProductDetails'] = undefined;
-
-/**
- * 
- * @member {String} listingSearchTerms
- */
-InlineResponse20029Rows.prototype['listingSearchTerms'] = undefined;
-
-/**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
- */
-InlineResponse20029Rows.prototype['listingSubjectMatters'] = undefined;
-
-/**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
- */
-InlineResponse20029Rows.prototype['listingImages'] = undefined;
-
-/**
  * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
  * @member {Number} strategyStatus
  */
@@ -657,6 +633,12 @@ InlineResponse20029Rows.prototype['needCheckBySupervisor'] = undefined;
  * @member {Number} amountInOrders
  */
 InlineResponse20029Rows.prototype['amountInOrders'] = undefined;
+
+/**
+ * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
+ * @member {Number} amountInPendingOrders
+ */
+InlineResponse20029Rows.prototype['amountInPendingOrders'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusBoxAmounts>} boxAmounts
@@ -750,9 +732,19 @@ InlineResponse20029Rows.prototype['sentToFbaSum'] = undefined;
 InlineResponse20029Rows.prototype['fbaFbmStockSum'] = undefined;
 
 /**
- * @member {Number} ideaCount
+ * @member {Number} ideasOnCheck
  */
-InlineResponse20029Rows.prototype['ideaCount'] = undefined;
+InlineResponse20029Rows.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasFinished
+ */
+InlineResponse20029Rows.prototype['ideasFinished'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse20029Rows.prototype['ideasClosed'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
@@ -796,6 +788,12 @@ InlineResponse20029Rows.prototype['sumStock'] = undefined;
  * @member {Number} purchaseQuantity
  */
 InlineResponse20029Rows.prototype['purchaseQuantity'] = undefined;
+
+/**
+ * (amount/batchTotalCostInDollar) * sumStock
+ * @member {Number} stockCost
+ */
+InlineResponse20029Rows.prototype['stockCost'] = undefined;
 
 
 
