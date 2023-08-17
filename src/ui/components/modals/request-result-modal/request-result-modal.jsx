@@ -120,7 +120,7 @@ export const RequestResultModal = ({
                     </Button>
                   </div>
                 )}
-                {formFields?.publicationLinks?.length ? (
+                {!!formFields?.publicationLinks?.length && (
                   <div className={classNames.linksSubWrapper}>
                     {formFields?.publicationLinks.map((el, index) => (
                       <div key={index} className={classNames.linkWrapper}>
@@ -140,7 +140,7 @@ export const RequestResultModal = ({
                       </div>
                     ))}
                   </div>
-                ) : null}
+                )}
               </div>
             }
           />

@@ -187,9 +187,6 @@ export const RequestDesignerResultClientForm = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  // console.log('request', request)
-  // console.log('userInfo', userInfo)
-
   const isNotClient =
     userInfo._id !== request?.request?.createdBy?._id && userInfo.masterUser?._id !== request?.request?.createdBy?._id
 
@@ -272,18 +269,12 @@ export const RequestDesignerResultClientForm = ({
 
   const onClickAllDownload = () => {
     imagesForDownload.forEach(el =>
-      // downloadFileByLink(typeof el.image === 'string' ? el.image : el.image.data_url, el.comment),
-
       typeof el.image === 'string' ? downloadFileByLink(el.image) : downloadFile(el.image.file),
     )
   }
 
   const sourceFormFields = {
-    // price: proposalToEdit?.price || request?.request.price,
     execution_time: '',
-    // comment: proposalToEdit?.comment || '',
-    // linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
-    // title: proposalToEdit?.title || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -293,21 +284,9 @@ export const RequestDesignerResultClientForm = ({
     if (['execution_time'].includes(fieldName)) {
       newFormFields[fieldName] = Number(event) || ''
     }
-    // else if (
-    //   ['price'].includes(fieldName) &&
-    //   !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
-    // ) {
-    //   return
-    // } else if (['title'].includes(fieldName)) {
-    //   newFormFields[fieldName] = event.target.value.replace(/\n/g, '')
-    // } else {
-    //   newFormFields[fieldName] = event.target.value
-    // }
 
     setFormFields(newFormFields)
   }
-
-  // const disableSubmit = imagesData.every(el => !el.image)
 
   return (
     <div className={classNames.modalMainWrapper}>
@@ -395,121 +374,6 @@ export const RequestDesignerResultClientForm = ({
             onChangeImageFileds={onChangeImageFileds}
             onClickCommentBtn={onClickCommentBtn}
           />
-          // <div key={item._id} className={classNames.imageObjWrapper}>
-          //   <div className={classNames.imageObjSubWrapper}>
-          //     <Checkbox
-          //       color="primary"
-          //       checked={imagesForDownload.some(el => el._id === item._id)}
-          //       onClick={() => onClickAddDownload(item)}
-          //     />
-
-          //     <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>
-          //       {index + 1}
-          //     </Typography>
-
-          //     <Typography className={cx(classNames.imageObjTitle /* , classNames.textMargin */)}>
-          //       {getShortenStringIfLongerThanCount(item.comment, 20)}
-          //     </Typography>
-          //   </div>
-          //   <div
-          //     className={cx(
-          //       classNames.imageWrapper,
-
-          //       {[classNames.isHaveImage]: !!item.image},
-          //       {[classNames.mainImageWrapper]: index === 0},
-          //     )}
-          //   >
-          //     {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-
-          //     <div className={classNames.imageListItem}>
-          //       <Avatar
-          //         className={classNames.image}
-          //         classes={{img: classNames.image}}
-          //         src={
-          //           typeof item.image === 'string'
-          //             ? checkIsImageLink(item.image)
-          //               ? item.image
-          //               : '/assets/icons/file.png'
-          //             : item.image?.file.type.includes('image')
-          //             ? item.image?.data_url
-          //             : '/assets/icons/file.png'
-          //         }
-          //         alt={''}
-          //         variant="square"
-          //         onClick={() => {
-          //           if (checkIsImageLink(item.image?.file?.name || item.image)) {
-          //             setCurImageId(item._id)
-          //             setShowImageModal(!showImageModal)
-          //           } else {
-          //             window.open(item.image?.data_url || item.image, '__blank')
-          //           }
-          //         }}
-          //       />
-          //     </div>
-          //   </div>
-
-          //   {!item.isEditCommentOpen && !noShowActions && (
-          //     <Button className={cx(classNames.commentBtn)} onClick={() => onClickCommentBtn(item._id)}>
-          //       {t(TranslationKey.Comment)}
-          //       <img
-          //         src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
-          //         className={classNames.commentIcon}
-          //       />
-          //     </Button>
-          //   )}
-
-          //   {item.isEditCommentOpen && !noShowActions && (
-          //     <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => onClickCommentBtn(item._id)}>
-          //       <div className={cx(classNames.commentBtnWrapper)}>
-          //         <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
-          //           <Typography>{t(TranslationKey.Comment)}</Typography>
-
-          //           <ArrowDropUpIcon />
-          //         </div>
-
-          //         {/* <Input
-          //           multiline
-          //           inputProps={{maxLength: 500}}
-          //           minRows={5}
-          //           maxRows={10}
-          //           variant="filled"
-          //           className={classNames.imageObjInput}
-          //           classes={{input: classNames.subImageObjInput}}
-          //           value={item.commentByClient}
-          //           onChange={onChangeImageFileds('commentByClient', item._id)}
-          //         /> */}
-
-          //         <Menu
-          //           opnen
-          //           keepMounted
-          //           // anchorEl={menuAnchor}
-          //           anchorEl={el => (ref?.current = el)}
-          //           autoFocus={false}
-          //           // classes={{paper: classNames.menu, list: classNames.list}}
-          //           // onClose={handleClose}
-          //         >
-          //           <Input
-          //             multiline
-          //             inputProps={{maxLength: 500}}
-          //             minRows={5}
-          //             maxRows={10}
-          //             variant="filled"
-          //             className={classNames.imageObjInput}
-          //             classes={{input: classNames.subImageObjInput}}
-          //             value={item.commentByClient}
-          //             onChange={onChangeImageFileds('commentByClient', item._id)}
-          //           />
-          //         </Menu>
-          //       </div>
-          //     </ClickAwayListener>
-          //   )}
-
-          //   {/* <div className={classNames.imageObjSubWrapper}>
-          //     <Typography className={cx(classNames.clientComment )}>
-          //       {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
-          //     </Typography>
-          //   </div> */}
-          // </div>
         ))}
       </div>
 
@@ -543,15 +407,6 @@ export const RequestDesignerResultClientForm = ({
             />
           </>
         )}
-
-        {/* <Field
-          labelClasses={classNames.fieldLabel}
-          inputClasses={classNames.linkInput}
-          label={t(TranslationKey['Link to sources']) + ':'}
-          containerClasses={classNames.containerField}
-          value={sourceLink}
-          onChange={e => setSourceLink(e.target.value)}
-        /> */}
 
         <div className={classNames.downloadsWrapper}>
           <div className={classNames.downloadsCheckWrapper} onClick={onClickAllAddDownload}>

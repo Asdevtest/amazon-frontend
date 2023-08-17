@@ -220,8 +220,9 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
         >
           <RequestDesignerResultClientForm
+            onlyRead
             userInfo={viewModel.curUser}
-            // request={{ request: viewModel.currentRequest }}
+            request={{ request: viewModel.currentRequest }}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           />
@@ -234,7 +235,7 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
         >
           <RequestStandartResultForm
-            // request={{ request: viewModel.currentRequest }}
+            request={{ request: viewModel.currentRequest }}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
           />
@@ -243,7 +244,7 @@ export const ClientIdeasView = observer(props => {
 
       {viewModel.showRequestBloggerResultModal && (
         <RequestResultModal
-          // request={{ request: viewModel.currentRequest }}
+          request={{ request: viewModel.currentRequest }}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestBloggerResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}
