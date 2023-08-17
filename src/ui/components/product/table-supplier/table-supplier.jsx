@@ -21,17 +21,17 @@ import { t } from '@utils/translations'
 import { useClassNames } from './table-supplier.style'
 
 const tableHeaders = [
-  t(TranslationKey.Name),
-  t(TranslationKey.Link),
-  t(TranslationKey['Price with delivery']),
-  t(TranslationKey['Minimum batch']),
-  t(TranslationKey['Batch price']),
-  t(TranslationKey['Production time']),
-  t(TranslationKey['Price variations']),
-  t(TranslationKey.Comment),
-  t(TranslationKey.Files),
-  t(TranslationKey['Created by']),
-  t(TranslationKey.Updated),
+  () => t(TranslationKey.Name),
+  () => t(TranslationKey.Link),
+  () => t(TranslationKey['Price with delivery']),
+  () => t(TranslationKey['Minimum batch']),
+  () => t(TranslationKey['Batch price']),
+  () => t(TranslationKey['Production time']),
+  () => t(TranslationKey['Price variations']),
+  () => t(TranslationKey.Comment),
+  () => t(TranslationKey.Files),
+  () => t(TranslationKey['Created by']),
+  () => t(TranslationKey.Updated),
 ]
 
 export const TableSupplier = observer(({ isClient, product, productBaseData, selectedSupplier, onClickSupplier }) => {
@@ -46,8 +46,8 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
     <TableHead className={classNames.tableHead}>
       <TableRow>
         {tableHeaders.map(title => (
-          <TableCell key={title} align="center">
-            {title}
+          <TableCell key={title()} align="center">
+            {title()}
           </TableCell>
         ))}
       </TableRow>
