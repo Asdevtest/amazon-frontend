@@ -189,7 +189,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <PhotoAndFilesCarousel small isHideCounter files={params.row.originalData?.suppliers[0]?.images} />
     ),
-    width: 330,
+    width: 300,
     align: 'center',
     sortable: false,
     filterable: false,

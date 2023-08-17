@@ -63,7 +63,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '100%',
-    maxWidth: 300,
+    maxWidth: 135,
+  },
+
+  modal: {
+    maxWidth: '100%',
   },
 
   headerCarouselDocumentsWrapper: {
