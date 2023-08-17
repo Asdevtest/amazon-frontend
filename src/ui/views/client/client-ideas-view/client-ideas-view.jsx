@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -220,8 +221,9 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
         >
           <RequestDesignerResultClientForm
+            onlyRead
             userInfo={viewModel.curUser}
-            // request={{ request: viewModel.currentRequest }}
+            request={{ request: viewModel.currentRequest }}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           />
@@ -234,7 +236,7 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
         >
           <RequestStandartResultForm
-            // request={{ request: viewModel.currentRequest }}
+            request={{ request: viewModel.currentRequest }}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
           />
@@ -243,7 +245,7 @@ export const ClientIdeasView = observer(props => {
 
       {viewModel.showRequestBloggerResultModal && (
         <RequestResultModal
-          // request={{ request: viewModel.currentRequest }}
+          request={{ request: viewModel.currentRequest }}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestBloggerResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}

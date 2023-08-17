@@ -3229,7 +3229,7 @@ export const IdeaRequests = React.memo(
             executor={request.executor}
             proposals={request.proposals}
             onClickRequestId={() => onClickRequestId(request._id)}
-            onClickResultButton={() => onClickResultButton(request.typeTask, request?.proposals?.[0]?._id)}
+            onClickResultButton={() => onClickResultButton(request, request?.proposals?.[0]?._id)}
           />
         ))}
         {!withoutControls && (

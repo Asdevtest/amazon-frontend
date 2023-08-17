@@ -224,6 +224,7 @@ export class ClientIdeasViewModel {
   productsToLaunch = []
   productId = undefined
   currentProposal = undefined
+  currentRequest = undefined
 
   paymentMethods = []
 
@@ -253,7 +254,7 @@ export class ClientIdeasViewModel {
     onClickReject: id => this.handleStatusToReject(id),
     onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
-    onClickResultButton: (requestTypeTask, proposalId) => this.onClickResultButton(requestTypeTask, proposalId),
+    onClickResultButton: (request, proposalId) => this.onClickResultButton(request, proposalId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
     onClickSelectSupplier: ideaData => this.onTriggerAddOrEditSupplierModal(ideaData),
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
@@ -1090,17 +1091,18 @@ export class ClientIdeasViewModel {
     this.onTriggerOpenModal('showIdeaModal')
   }
 
-  async onClickResultButton(requestTypeTask, proposalId) {
+  async onClickResultButton(request, proposalId) {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
 
       runInAction(() => {
         this.currentProposal = result
+        this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
+      if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.BLOGGER) {
+      } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')
