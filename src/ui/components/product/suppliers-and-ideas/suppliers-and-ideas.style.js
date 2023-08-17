@@ -4,13 +4,14 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 30,
+    gap: 20,
     height: '100%',
     width: '100%',
   },
 
   btnsWrapper: {
-    marginBottom: 10,
+    marginTop: 10,
+    padding: '0 50px',
     display: 'flex',
     justifyContent: 'flex-end',
   },
