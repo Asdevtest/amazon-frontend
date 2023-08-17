@@ -888,7 +888,7 @@ export class ClientIdeasViewModel {
         {
           images: ideaData?.linksToMediaFiles,
           amazonTitle: ideaData?.productName,
-          asin: ideaData?.parentProduct?.asin || '',
+          asin: '',
           suppliersIds: ideaData?.suppliers?.map(el => el._id),
           parentProductId: ideaData?.parentProduct?._id,
           clientComment: ideaData?.comments,
