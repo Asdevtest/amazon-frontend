@@ -2,7 +2,17 @@ import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import {
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -147,7 +157,9 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
                   </TableCell>
 
                   <TableCell align="center" className={classNames.commentCell}>
-                    {supplier.comment}
+                    <Tooltip title={supplier.comment} classes={{ tooltip: classNames.tooltip }}>
+                      <div className={classNames.commentWrapper}>{supplier.comment}</div>
+                    </Tooltip>
                   </TableCell>
 
                   <TableCell
