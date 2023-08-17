@@ -125,6 +125,21 @@ export const useClassNames = makeStyles()(theme => ({
     width: 200,
   },
 
+  commentWrapper: {
+    display: '-webkit-box',
+    '-webkit-line-clamp': '3',
+    '-webkit-box-orient': 'vertical',
+    alignItems: 'center',
+    height: '60px !important',
+    wordBreak: 'break-word',
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+  },
+
+  tooltip: {
+    maxWidth: '650px',
+  },
+
   filesWrapper: {
     height: 150,
     width: 300,
