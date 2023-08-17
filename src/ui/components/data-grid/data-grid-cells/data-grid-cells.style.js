@@ -1904,8 +1904,13 @@ export const styles = theme => ({
     overflowY: 'auto',
   },
 
+  ideaWrapper: {
+    padding: '10px 0 ',
+    width: '100%',
+  },
+
   ideaProductActionButton: {
-    minWidth: '260px !important',
+    width: '100%',
   },
 
   secondsTimeWrapper: {
