@@ -100,7 +100,7 @@ export const ServiceDetailsViewRaw = props => {
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         title={viewModel.confirmModalSettings.confirmTitle}
         message={viewModel.confirmModalSettings.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}

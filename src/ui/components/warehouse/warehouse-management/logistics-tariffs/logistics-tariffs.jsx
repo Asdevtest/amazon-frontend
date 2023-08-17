@@ -176,7 +176,7 @@ export const LogisticsTariffs = observer(() => {
         />
       </Modal>
       <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
+        isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}

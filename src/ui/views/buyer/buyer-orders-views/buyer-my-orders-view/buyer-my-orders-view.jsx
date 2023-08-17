@@ -218,7 +218,7 @@ export const BuyerMyOrdersViewRaw = props => {
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={viewModel.confirmModalSettings.title}
