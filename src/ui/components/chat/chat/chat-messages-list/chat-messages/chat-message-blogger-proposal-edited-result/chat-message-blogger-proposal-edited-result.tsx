@@ -64,7 +64,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                   small
                   // files={message.data.proposal.details.linksToMediaFiles}
                   files={chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)}
-                  width="340px"
+                  width="500px"
                   withoutPhotos={undefined}
                   whithoutFiles={undefined}
                   imagesForLoad={undefined}

@@ -75,7 +75,6 @@ export const useClassNames = makeStyles()(theme => ({
   numberOfFiles: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },
@@ -259,7 +258,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },
