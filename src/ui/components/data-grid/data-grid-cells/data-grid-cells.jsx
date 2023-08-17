@@ -3300,7 +3300,7 @@ export const IdeaProduct = React.memo(
     const { classes: styles, onClickCreateCard, onClickSelectSupplier, rowData } = props
 
     return (
-      <div>
+      <div className={styles.ideaWrapper}>
         {!rowData.childProduct && rowData.variation && (
           <Button
             success
