@@ -743,6 +743,7 @@ export const IdeaViewAndEditCard = observer(
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     variant="contained"
                     color="primary"
+                    disabled={idea.childProduct}
                     className={[classNames.actionButton]}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
