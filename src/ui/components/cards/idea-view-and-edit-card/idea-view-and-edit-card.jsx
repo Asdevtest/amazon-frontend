@@ -637,7 +637,7 @@ export const IdeaViewAndEditCard = observer(
                           {t(TranslationKey['Add supplier'])}
                         </Typography>
                       </div>
-                      {selectedSupplier && (
+                      {selectedSupplier && currentUserIsBuyer && (
                         <>
                           <div className={classNames.supplierButtonWrapper}>
                             <Button

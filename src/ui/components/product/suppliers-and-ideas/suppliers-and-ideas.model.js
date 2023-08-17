@@ -540,12 +540,10 @@ export class SuppliersAndIdeasModel {
         this.supplierData = undefined
       } else {
         const result = await UserModel.getPlatformSettings()
-
         if (this.selectedSupplier?._id) {
           const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
           this.supplierData = supplier
         }
-
         this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       }
@@ -672,7 +670,7 @@ export class SuppliersAndIdeasModel {
       if (this.forceUpdateCallBack) {
         await this.forceUpdateCallBack()
       }
-
+      this.selectedSupplier = undefined
       this.loadData()
     } catch (error) {
       console.log(error)

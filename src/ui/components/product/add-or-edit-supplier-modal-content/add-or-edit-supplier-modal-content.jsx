@@ -122,8 +122,6 @@ export const AddOrEditSupplierModalContent = observer(
         batchTotalCostInDollar:
           +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
 
-        // lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
-
         boxProperties: {
           ...tmpSupplier.boxProperties,
           boxLengthCm:
