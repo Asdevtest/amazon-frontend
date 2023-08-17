@@ -3356,7 +3356,7 @@ export const AddAsinIdeaActions = React.memo(
         <Button
           success
           small
-          disabled={!row.childProduct?.barCode || !row.parentProduct?.barCode}
+          disabled={!row.childProduct?.barCode && !row.parentProduct?.barCode}
           onClick={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
         >
           {t(TranslationKey.Accept)}

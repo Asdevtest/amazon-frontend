@@ -90,7 +90,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <BarcodeCell
-        product={params.row.childProduct || params.row.parentProduct}
+        product={params.row.parentProduct || params.row.childProduct}
         handlers={rowHandlers.barCodeHandlers}
       />
     ),
