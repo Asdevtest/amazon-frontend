@@ -264,7 +264,7 @@ export const IdeaViewAndEditCard = observer(
       return res
     }
 
-    const disabledSubmit = objectDeepCompare(formFields, getFullIdea()) && !images.length
+    const disabledSubmit = (objectDeepCompare(formFields, getFullIdea()) && !images.length) || !formFields.productName
 
     const currentUserIsClient = checkIsClient(UserRoleCodeMap[curUser.role])
     const currentUserIsBuyer = checkIsBuyer(UserRoleCodeMap[curUser.role])
@@ -630,6 +630,7 @@ export const IdeaViewAndEditCard = observer(
 
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
+                          disabled={!formFields.productName}
                           className={classNames.iconBtn}
                           onClick={() =>
                             onClickSupplierBtns('add', () =>
