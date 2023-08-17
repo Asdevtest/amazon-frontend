@@ -488,7 +488,7 @@ export const AddOrEditBatchForm = observer(
             <MemoDataGrid
               pagination
               checkboxSelection
-              keepNonExistentRowsSelected
+              hideFooterSelectedRowCount
               initialState={{
                 sorting: {
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
@@ -600,7 +600,7 @@ export const AddOrEditBatchForm = observer(
             <MemoDataGrid
               pagination
               checkboxSelection
-              // keepNonExistentRowsSelected
+              hideFooterSelectedRowCount
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
