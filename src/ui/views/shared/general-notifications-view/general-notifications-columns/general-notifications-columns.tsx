@@ -24,24 +24,24 @@ export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
     // columnKey: columnnsKeys.shared.STRING,
   },
 
-  {
-    field: 'product',
-    headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+  // {
+  //   field: 'product',
+  //   headerName: t(TranslationKey.Product),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: (params: GridCellParams) => {
-      return (
-        <ProductAsinCell
-          image={params?.value?.images?.slice()[0]}
-          amazonTitle={params?.value?.amazonTitle}
-          asin={params?.value?.asin}
-          skusByClient={params?.value?.skusByClient?.slice()[0]}
-        />
-      )
-    },
-    width: 300,
-    // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-  },
+  //   renderCell: (params: GridCellParams) => {
+  //     return (
+  //       <ProductAsinCell
+  //         image={params?.value?.images?.slice()[0]}
+  //         amazonTitle={params?.value?.amazonTitle}
+  //         asin={params?.value?.asin}
+  //         skusByClient={params?.value?.skusByClient?.slice()[0]}
+  //       />
+  //     )
+  //   },
+  //   width: 300,
+  //   // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+  // },
 
   {
     field: 'message',
