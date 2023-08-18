@@ -320,7 +320,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   interconnectedProductsHeaderPadding: {
-    paddingRight: '30px',
+    paddingRight: '31px',
   },
 
   plusIcon: {

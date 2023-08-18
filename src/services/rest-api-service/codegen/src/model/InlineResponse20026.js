@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20026Rows from './InlineResponse20026Rows';
+import InlineResponse20025 from './InlineResponse20025';
 
 /**
  * The InlineResponse20026 model module.
@@ -22,6 +22,7 @@ import InlineResponse20026Rows from './InlineResponse20026Rows';
 class InlineResponse20026 {
     /**
      * Constructs a new <code>InlineResponse20026</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20026
      */
     constructor() { 
@@ -48,11 +49,11 @@ class InlineResponse20026 {
         if (data) {
             obj = obj || new InlineResponse20026();
 
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20026Rows]);
-            }
             if (data.hasOwnProperty('count')) {
                 obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            }
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20025]);
             }
         }
         return obj;
@@ -62,14 +63,16 @@ class InlineResponse20026 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20026Rows>} rows
- */
-InlineResponse20026.prototype['rows'] = undefined;
-
-/**
+ * Всего кол-во записей в результате запроса
  * @member {Number} count
  */
 InlineResponse20026.prototype['count'] = undefined;
+
+/**
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20025>} rows
+ */
+InlineResponse20026.prototype['rows'] = undefined;
 
 
 
