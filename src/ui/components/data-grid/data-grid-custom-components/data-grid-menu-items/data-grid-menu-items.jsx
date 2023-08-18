@@ -62,7 +62,7 @@ export const IsFormedMenuItem = React.memo(
       }
 
       return (
-        <div className={classNames.isFormedWrapper}>
+        <div title="" className={classNames.isFormedWrapper}>
           <div>
             <FormControl className={classNames.formControl}>
               <RadioGroup
@@ -182,7 +182,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
       // }, [currentOption])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div>
             <FormControl className={classNames.formControl}>
               {/* <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel> */}
@@ -266,7 +266,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
 export const IsHaveBarCodeFilterMenuItem = React.memo(
   withStyles(
     ({ classes: classNames, isHaveBarCodeFilterData }) => (
-      <div className={classNames.isFormedWrapper}>
+      <div title="" className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
           <Typography title={t(TranslationKey['Got barcode'])}>{t(TranslationKey['Got barcode'])}</Typography>
 
@@ -342,7 +342,7 @@ export const OrderStatusMenuItem = React.memo(
     ]
 
     return (
-      <div className={classNames.isFormedWrapper}>
+      <div title="" className={classNames.isFormedWrapper}>
         {checkboxes.map(item => (
           <div key={item.name} className={classNames.isFormedSubWrapper}>
             <Typography title={item.label}>{item.label}</Typography>
@@ -391,7 +391,7 @@ export const MyRequestsStatusMenuItem = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div className={classNames.searchInputWrapper}>
           <SearchInput
             key={'client_warehouse_search_input'}
@@ -490,7 +490,7 @@ export const FreelanceRequestType = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div className={classNames.searchInputWrapper}>
           <SearchInput
             key={'client_warehouse_search_input'}
@@ -566,7 +566,7 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
     const { orderStatusDataBase, chosenStatus, onClickOrderStatusData } = orderStatusData
 
     return (
-      <div className={classNames.orderStatusDataWrapper}>
+      <div title="" className={classNames.orderStatusDataWrapper}>
         <div className={classNames.orderStatusDataBody}>
           <div className={classNames.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
             <Checkbox color="primary" checked={!chosenStatus?.length} />
@@ -645,7 +645,7 @@ export const CreatedByMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
@@ -791,7 +791,10 @@ export const ObJectFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
+        <div
+          title=""
+          className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}
+        >
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
@@ -941,7 +944,10 @@ export const IdeaShopsFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
+        <div
+          title=""
+          className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}
+        >
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
@@ -1062,7 +1068,7 @@ export const BoxestatusMenuItem = React.memo(
     }, [currentFilterData])
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div className={classNames.orderStatusDataBody}>
           <div className={classNames.orderStatus} onClick={() => onClickItem('ALL')}>
             <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
@@ -1170,6 +1176,7 @@ export const NormalFieldMenuItem = React.memo(
 
       return (
         <div
+          title=""
           className={cx({
             [classNames.universalFilterWrapper]: !asBlock,
             [classNames.shopsDataWrapperBlocked]: asBlock,
@@ -1290,7 +1297,7 @@ export const PriorityMenuItem = React.memo(
       const shopName = isOrder ? 'Urgent' : 'Urgent request'
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
               <div className={classNames.shop}>
@@ -1376,7 +1383,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
       }, [currentFilterData])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
               <div className={classNames.shop}>
@@ -1509,7 +1516,7 @@ export const ProductMenuItem = React.memo(
     }
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div>
           <FormControl className={classNames.formControl}>
             <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
@@ -1672,7 +1679,7 @@ export const OrderOrItemMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div>
             <FormControl className={classNames.formControl}>
               <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
@@ -1845,7 +1852,7 @@ export const DestinationMenuItem = React.memo(
     }
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div>
           <FormControl className={classNames.formControl}>
             <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
@@ -1992,7 +1999,7 @@ export const FromToDateMenuItem = React.memo(
       }, [nameSearchValue, fromDate, toDate])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div className={classNames.fromToDatesWrapper}>
             {headerControls && <div>{headerControls()}</div>}
             <div className={classNames.fromToDatesSubWrapper}>
@@ -2176,7 +2183,10 @@ export const NumberFieldMenuItem = React.memo(
       }, [field])
 
       return (
-        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
+        <div
+          title=""
+          className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}
+        >
           <div className={classNames.numInputsWrapper}>
             <Input
               title={t(TranslationKey.From)}
@@ -2353,7 +2363,7 @@ export const InStockMenuItem = React.memo(
       }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, data.filterData])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div title="" className={classNames.shopsDataWrapper}>
           <div>
             <FormControl className={classNames.formControl}>
               <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
@@ -2527,7 +2537,7 @@ export const OnListingCellMenuItem = React.memo(
     // } = props;
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
             <div className={classNames.shop}>
@@ -2583,7 +2593,7 @@ export const YesNoCellMenuItem = React.memo(
     const filterData = data[`${field}YesNoFilterData`]
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
             <div className={classNames.shop}>
@@ -2732,7 +2742,7 @@ export const BatchTrackingCellMenuItem = React.memo(
     }, [currentTab])
 
     return (
-      <div className={classNames.shopsDataWrapper}>
+      <div title="" className={classNames.shopsDataWrapper}>
         <div>
           <FormControl className={classNames.formControl}>
             <RadioGroup
@@ -2803,7 +2813,7 @@ export const NumberWithTabsMenuItem = React.memo(
       }, [activeTab])
 
       return (
-        <div className={styles.shopsDataWrapper}>
+        <div title="" className={styles.shopsDataWrapper}>
           <div>
             <FormControl className={styles.formControl}>
               <RadioGroup
@@ -2951,7 +2961,7 @@ export const SecondsCellMenuItem = React.memo(
     }
 
     return (
-      <div className={styles.shopsDataWrapper}>
+      <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             {filterRequestStatus === loadingStatuses.isLoading ? (
