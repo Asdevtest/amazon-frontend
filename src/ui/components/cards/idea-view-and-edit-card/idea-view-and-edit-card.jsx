@@ -289,6 +289,7 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
+    const disableButtonAfterSupplierNotFound = idea.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
@@ -623,7 +624,7 @@ export const IdeaViewAndEditCard = observer(
 
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
-                          disabled={!formFields.productName}
+                          disabled={!formFields.productName || disableButtonAfterSupplierNotFound}
                           className={classNames.iconBtn}
                           onClick={() =>
                             onClickSupplierBtns('add', () =>
@@ -642,6 +643,7 @@ export const IdeaViewAndEditCard = observer(
                           <div className={classNames.supplierButtonWrapper}>
                             <Button
                               tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                              disabled={disableButtonAfterSupplierNotFound}
                               className={classNames.iconBtn}
                               onClick={() =>
                                 onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
@@ -657,6 +659,7 @@ export const IdeaViewAndEditCard = observer(
                             <Button
                               tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                               className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                              disabled={disableButtonAfterSupplierNotFound}
                               onClick={() =>
                                 onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
                               }
