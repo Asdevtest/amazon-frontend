@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 !important',
   },
   selectIsNotEmpty: {
-    padding: '0 65px 0 25px !important',
+    padding: '0 100px 0 50px !important',
   },
 
   paymentMethodsLabel: {
@@ -100,8 +100,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    flexWrap: 'wrap',
     gap: 5,
-    height: 40,
+    padding: '5px 0',
   },
 
   paymentMethod: {
