@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20017Rows from './InlineResponse20017Rows';
 
 /**
  * The InlineResponse20017 model module.
@@ -48,11 +47,14 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20017Rows]);
+            if (data.hasOwnProperty('totalPriceInYuan')) {
+                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('totalPriceInUSD')) {
+                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
+            }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
             }
         }
         return obj;
@@ -62,14 +64,22 @@ class InlineResponse20017 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20017Rows>} rows
+ * total price in yuan for these statuses
+ * @member {Number} totalPriceInYuan
  */
-InlineResponse20017.prototype['rows'] = undefined;
+InlineResponse20017.prototype['totalPriceInYuan'] = undefined;
 
 /**
- * @member {Number} count
+ * total price in USD for these statuses
+ * @member {Number} totalPriceInUSD
  */
-InlineResponse20017.prototype['count'] = undefined;
+InlineResponse20017.prototype['totalPriceInUSD'] = undefined;
+
+/**
+ * Total partialPaymentAmountRmb
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse20017.prototype['partialPaymentAmountRmb'] = undefined;
 
 
 

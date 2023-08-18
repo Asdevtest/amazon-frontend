@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
-**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
-**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
+**amount** | **Number** | Кол-во продукта в айтеме в коробке | [optional] 
+**id** | **Number** | Номер заказа | [optional] 
 
 

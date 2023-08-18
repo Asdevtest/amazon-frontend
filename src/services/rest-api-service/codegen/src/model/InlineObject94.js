@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject13 from './InlineObject13';
 
 /**
  * The InlineObject94 model module.
@@ -23,10 +22,11 @@ class InlineObject94 {
     /**
      * Constructs a new <code>InlineObject94</code>.
      * @alias module:model/InlineObject94
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor() { 
+    constructor(totalCost) { 
         
-        InlineObject94.initialize(this);
+        InlineObject94.initialize(this, totalCost);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject94 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -48,8 +49,8 @@ class InlineObject94 {
         if (data) {
             obj = obj || new InlineObject94();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject13]);
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -59,10 +60,10 @@ class InlineObject94 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject13>} additionalBoxes
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject94.prototype['additionalBoxes'] = undefined;
+InlineObject94.prototype['totalCost'] = undefined;
 
 
 

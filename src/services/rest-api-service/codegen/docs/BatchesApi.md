@@ -43,7 +43,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
+  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
 };
 apiInstance.apiV1BatchesArchivePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -59,7 +59,7 @@ apiInstance.apiV1BatchesArchivePatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
+ **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
 
 ### Return type
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesByProductGuidGet
 
-> [InlineResponse20037] apiV1BatchesByProductGuidGet(guid, opts)
+> [InlineResponse20013] apiV1BatchesByProductGuidGet(guid, opts)
 
 # Получить партии по гуиду продукта
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20037]**](InlineResponse20037.md)
+[**[InlineResponse20013]**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesCalculateBoxDeliveryCostsInBatchPost
 
-> [InlineResponse20036] apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts)
+> [InlineResponse20012] apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts)
 
 # Рассчитать стоимость доставки коробов.
 
@@ -153,7 +153,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject56() // InlineObject56 | 
+  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -169,11 +169,11 @@ apiInstance.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) =
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject56**](InlineObject56.md)|  | [optional] 
+ **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse20036]**](InlineResponse20036.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGet
 
-> [InlineResponse20034] apiV1BatchesGet(opts)
+> [InlineResponse20010] apiV1BatchesGet(opts)
 
 # Получить партии.
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20034]**](InlineResponse20034.md)
+[**[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -264,7 +264,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID партии.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject53() // InlineObject53 | 
+  'body': new TestSwagger.InlineObject15() // InlineObject15 | 
 };
 apiInstance.apiV1BatchesGuidAddBoxesPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID партии. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject53**](InlineObject53.md)|  | [optional] 
+ **body** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 
@@ -353,7 +353,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGuidEditAttachedDocumentsPatch
 
-> InlineResponse2017 apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts)
+> InlineResponse2011 apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts)
 
 # Редактировать прикрепленные документы партии.
 
@@ -374,7 +374,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID партии.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject57() // InlineObject57 | 
+  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
 };
 apiInstance.apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -391,11 +391,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID партии. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject57**](InlineObject57.md)|  | [optional] 
+ **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2017**](InlineResponse2017.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
@@ -409,7 +409,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGuidGet
 
-> InlineResponse20034 apiV1BatchesGuidGet(guid, opts)
+> InlineResponse20010 apiV1BatchesGuidGet(guid, opts)
 
 # Получить партии.
 
@@ -449,7 +449,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20034**](InlineResponse20034.md)
+[**InlineResponse20010**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -484,7 +484,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID продукта.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject55() // InlineObject55 | 
+  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
 };
 apiInstance.apiV1BatchesGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -501,7 +501,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject55**](InlineObject55.md)|  | [optional] 
+ **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
 
 ### Return type
 
@@ -540,7 +540,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID партии.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject54() // InlineObject54 | 
+  'body': new TestSwagger.InlineObject16() // InlineObject16 | 
 };
 apiInstance.apiV1BatchesGuidRemoveBoxesPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -557,7 +557,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID партии. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject54**](InlineObject54.md)|  | [optional] 
+ **body** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
 
 ### Return type
 
@@ -575,7 +575,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesPost
 
-> InlineResponse2017 apiV1BatchesPost(opts)
+> InlineResponse2011 apiV1BatchesPost(opts)
 
 # Создать партию.
 
@@ -595,7 +595,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject52() // InlineObject52 | 
+  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
 };
 apiInstance.apiV1BatchesPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -611,11 +611,11 @@ apiInstance.apiV1BatchesPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject52**](InlineObject52.md)|  | [optional] 
+ **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2017**](InlineResponse2017.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
@@ -707,7 +707,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject51() // InlineObject51 | 
+  'body': new TestSwagger.InlineObject13() // InlineObject13 | 
 };
 apiInstance.apiV1BatchesRequestSendBoxesToBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -723,7 +723,7 @@ apiInstance.apiV1BatchesRequestSendBoxesToBatchPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject51**](InlineObject51.md)|  | [optional] 
+ **body** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
 
 ### Return type
 
@@ -741,7 +741,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesWithFiltersGet
 
-> InlineResponse20035 apiV1BatchesWithFiltersGet(status, opts)
+> InlineResponse20011 apiV1BatchesWithFiltersGet(status, opts)
 
 # Получить партии.
 
@@ -795,7 +795,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20035**](InlineResponse20035.md)
+[**InlineResponse20011**](InlineResponse20011.md)
 
 ### Authorization
 

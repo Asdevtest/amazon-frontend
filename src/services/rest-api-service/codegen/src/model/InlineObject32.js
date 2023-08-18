@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject32
-     * @param buyerComment {String} Комментарии байера.
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(buyerComment) { 
+    constructor(boxesIds) { 
         
-        InlineObject32.initialize(this, buyerComment);
+        InlineObject32.initialize(this, boxesIds);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -50,8 +49,29 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -61,10 +81,51 @@ class InlineObject32 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * Штрихкод продукта
+ * @member {String} barCode
  */
-InlineObject32.prototype['buyerComment'] = undefined;
+InlineObject32.prototype['barCode'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject32.prototype['logicsTariffId'] = undefined;
+
+/**
+ * GUID сотрудника склада
+ * @member {String} storekeeperId
+ */
+InlineObject32.prototype['storekeeperId'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineObject32.prototype['shippingLabel'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject32.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject32.prototype['fbaNumber'] = undefined;
+
+/**
+ * Гуид модели destination
+ * @member {String} destinationId
+ */
+InlineObject32.prototype['destinationId'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesIds
+ */
+InlineObject32.prototype['boxesIds'] = undefined;
 
 
 

@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**timeoutAt** | **Date** | Время закрытия заявки. | 
-**maxAmountOfProposals** | **Number** | Количество предложений. null без лимитов | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

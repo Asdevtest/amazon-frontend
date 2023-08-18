@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rows** | [**[InlineResponse20017Rows]**](InlineResponse20017Rows.md) |  | [optional] 
-**count** | **Number** |  | [optional] 
+**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
+**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
+**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
 
 

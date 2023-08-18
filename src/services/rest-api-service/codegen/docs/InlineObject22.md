@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
-**additionalBoxes** | [**[InlineObject13]**](InlineObject13.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**orderPayments** | [**[ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]**](ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md) |  | [optional] 
 
 

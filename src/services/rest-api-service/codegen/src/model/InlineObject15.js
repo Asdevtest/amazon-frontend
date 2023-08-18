@@ -22,10 +22,11 @@ class InlineObject15 {
     /**
      * Constructs a new <code>InlineObject15</code>.
      * @alias module:model/InlineObject15
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject15.initialize(this);
+        InlineObject15.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject15 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,44 +49,8 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
-            }
-            if (data.hasOwnProperty('variationTariffId')) {
-                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -94,81 +60,9 @@ class InlineObject15 {
 }
 
 /**
- * GUID пункта назначения коробки
- * @member {String} destinationId
+ * @member {Array.<String>} boxesIds
  */
-InlineObject15.prototype['destinationId'] = undefined;
-
-/**
- * GUID тарифа к сторкипера
- * @member {String} logicsTariffId
- */
-InlineObject15.prototype['logicsTariffId'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject15.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject15.prototype['fbaNumber'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} clientComment
- */
-InlineObject15.prototype['clientComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject15.prototype['referenceId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject15.prototype['trackNumberText'] = undefined;
-
-/**
- * @member {Array.<String>} trackNumberFile
- */
-InlineObject15.prototype['trackNumberFile'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject15.prototype['upsTrackNumber'] = undefined;
-
-/**
- * shippingLabel коробки
- * @member {String} shippingLabel
- */
-InlineObject15.prototype['shippingLabel'] = undefined;
-
-/**
- * shippingLabel проклеен сторкипером
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject15.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Значение информационного ключа
- * @member {String} prepId
- */
-InlineObject15.prototype['prepId'] = undefined;
-
-/**
- * Гуид вариации
- * @member {String} variationTariffId
- */
-InlineObject15.prototype['variationTariffId'] = undefined;
+InlineObject15.prototype['boxesIds'] = undefined;
 
 
 
