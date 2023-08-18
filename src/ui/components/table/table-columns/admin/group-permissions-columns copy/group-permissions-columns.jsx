@@ -54,20 +54,15 @@ export const adminGroupPermissionsColumns = handlers => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 180,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
-
-      return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey.Edit)}
-          tooltipSecondButton={t(TranslationKey.Remove)}
-          handlers={handlersMemo}
-          row={rowMemo}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      )
-    },
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row.originalData}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

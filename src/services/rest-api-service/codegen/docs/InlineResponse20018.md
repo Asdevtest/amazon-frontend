@@ -4,48 +4,60 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **Number** | id заказ. | [optional] 
-**_id** | **String** | GUID данной записи в БД. | [optional] 
-**amount** | **Number** | кол-во | [optional] 
-**clientComment** | **String** | Комментарии клиента. | [optional] 
-**buyerComment** | **String** | комментарии байера. | [optional] 
-**destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
-**item** | **String** |  | [optional] 
-**priceInYuan** | **Number** | Цена в юанях | [optional] 
-**partialPaymentAmountRmb** | **Number** | Сумма частичной оплаты | [optional] 
-**partialPayment** | **Boolean** | Используется ли частичная оплата | [optional] 
-**paymentDetailsAttached** | **Boolean** | Есть ли реквизиты в ордере | [optional] 
-**partiallyPaid** | **Number** | Cумма частичной оплаты | [optional] 
-**payments** | [**[ApiV1BuyersOrdersMyPayments]**](ApiV1BuyersOrdersMyPayments.md) |  | [optional] 
-**orderSupplier** | [**ApiV1BuyersOrdersMyOrderSupplier**](ApiV1BuyersOrdersMyOrderSupplier.md) |  | [optional] 
-**priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
-**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
-**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
-**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
-**paymentDateToSupplier** | **String** | Дата оплаты поставщтку | [optional] 
-**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
-**totalPriceChanged** | **Number** | Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа.  | [optional] 
-**createdById** | **String** |  | [optional] 
-**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**product** | [**ApiV1BuyersOrdersMyProduct**](ApiV1BuyersOrdersMyProduct.md) |  | [optional] 
-**status** | **Number** |    formed: 0,  Корзина - статус \&quot;Формируется\&quot;      new: 1,  Клиент создал заказ - статус \&quot;Новый\&quot;      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \&quot;доступен для обработки\&quot;      atProcess: 15,  Закупщик взял заказ в обработку - статус \&quot;в обработке\&quot;        Варианты обработки - \&quot;Что-то не так - требуется уточнение у клиента\&quot; - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \&quot;требуется подтверждение для изменения цены \&quot;        paid: 20, закупщик оплатил заказ - статус \&quot;оплачен\&quot;       trackNumberIssued: 25, выдан и принят трек номер - статус \&quot;выдан трек номер\&quot;      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \&quot;Пришёл на склад\&quot;      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)    | [optional] 
+**_id** | **String** | GUID коробки. | [optional] 
+**humanFriendlyId** | **Number** | Номер коробки. | [optional] 
+**amount** | **Number** | Количества в коробке. | [optional] 
+**status** | **String** | Статус коробки | [optional] 
+**isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
+**isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
+**isFormed** | **Boolean** | Сформирована ли коробка | [optional] 
+**lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**deliveryTotalPrice** | **Number** | Итого за доставку. | [optional] 
+**deliveryTotalPriceChanged** | **Number** | Обновление итога за доставку. | [optional] 
+**destinationId** | **String** | id склада - склады куда отправляют  | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
+**batchId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
+**storekeeperId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
+**clientId** | **String** | Клиент владелец товара в коробке в работу. | [optional] 
+**createdById** | **String** | Клиент создавший заказ и коробку. | [optional] 
+**lastModifiedById** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
+**variationTariff** | [**ApiV1AdminsTasksLightVariationTariff**](ApiV1AdminsTasksLightVariationTariff.md) |  | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
+**items** | [**[ApiV1BoxesStorekeepersSentToBatchItems]**](ApiV1BoxesStorekeepersSentToBatchItems.md) | Массив коробок. | [optional] 
+**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**client** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**lastModifiedBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
+**logicsTariff** | [**ApiV1AdminsOrdersLogicsTariff**](ApiV1AdminsOrdersLogicsTariff.md) |  | [optional] 
+**batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | [optional] 
 
 
 
-## Enum: PriorityEnum
+## Enum: StatusEnum
 
 
-* `10` (value: `"10"`)
+* `NEW` (value: `"NEW"`)
 
-* `20` (value: `"20"`)
+* `IN_STOCK` (value: `"IN_STOCK"`)
 
-* `30` (value: `"30"`)
+* `REQUESTED_SEND_TO_BATCH` (value: `"REQUESTED_SEND_TO_BATCH"`)
 
-* `40` (value: `"40"`)
+* `NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE` (value: `"NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"`)
 
-* `50` (value: `"50"`)
+* `IN_BATCH` (value: `"IN_BATCH"`)
+
+* `NEED_TO_UPDATE_THE_TARIFF` (value: `"NEED_TO_UPDATE_THE_TARIFF"`)
+
+* `IN_BATCH_ON_THE_WAY` (value: `"IN_BATCH_ON_THE_WAY"`)
+
+* `FINISH_PREP_CENTR_USA` (value: `"FINISH_PREP_CENTR_USA"`)
+
+* `ACCEPTED_IN_PROCESSING` (value: `"ACCEPTED_IN_PROCESSING"`)
 
 
 
