@@ -113,7 +113,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -123,7 +123,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -133,7 +133,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -151,7 +151,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     ),
 
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {

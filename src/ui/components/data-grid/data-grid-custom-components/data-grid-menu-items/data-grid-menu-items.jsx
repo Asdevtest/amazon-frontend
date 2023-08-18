@@ -2085,6 +2085,132 @@ export const FromToDateMenuItem = React.memo(
   ),
 )
 
+export const DateDetailsMenuItem = React.memo(
+  withStyles(
+    ({ classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
+      const [searchType, setSearchType] = useState('days')
+      const [searchFrom, setSearchFrom] = useState('')
+      const [searchTo, setSearchTo] = useState('')
+      const [filteredData, setFilteredData] = useState([])
+      const [disableButton, setDisableButton] = useState(false)
+
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
+      const handleSearchTypeChange = event => {
+        setSearchType(event.target.value)
+        updateFilteredData(event.target.value, searchFrom, searchTo)
+      }
+
+      const handleSearchFromChange = event => {
+        setSearchFrom(event.target.value)
+        updateFilteredData(searchType, event.target.value, searchTo)
+      }
+
+      const handleSearchToChange = event => {
+        setSearchTo(event.target.value)
+        updateFilteredData(searchType, searchFrom, event.target.value)
+      }
+
+      const updateFilteredData = (type, from, to) => {
+        const multiplier = {
+          days: 24 * 60 * 60,
+          hours: 60 * 60,
+          minutes: 60,
+        }
+        const searchValueFrom = from === '' ? 0 : parseInt(from) * multiplier[type]
+        const searchValueTo = to === '' ? Infinity : parseInt(to) * multiplier[type]
+
+        if (searchValueFrom > searchValueTo) {
+          setDisableButton(true)
+        } else {
+          setDisableButton(false)
+        }
+
+        const filteredResults = data[field]?.filterData?.filter(
+          item => item >= searchValueFrom && item <= searchValueTo,
+        )
+        setFilteredData(filteredResults)
+      }
+
+      return (
+        <div className={classNames.dateDetailsWrapper}>
+          <FormControl>
+            <FormLabel
+              id="date-details-filter-radio-buttons-group-label"
+              title={t(TranslationKey['Search by'])}
+              className={classNames.searchLabel}
+            >
+              {t(TranslationKey['Search by']) + ':'}
+            </FormLabel>
+            <RadioGroup
+              row
+              value={searchType}
+              name="date-details-filter-radio-buttons-group"
+              aria-labelledby="date-details-filter-radio-buttons-group-label"
+              className={classNames.radioOptions}
+              onChange={handleSearchTypeChange}
+            >
+              <FormControlLabel
+                value="days"
+                control={<Radio />}
+                title={t(TranslationKey.days)}
+                label={t(TranslationKey.days)}
+                classes={{ label: classNames.radioOptionDate }}
+              />
+              <FormControlLabel
+                value="hours"
+                control={<Radio />}
+                title={t(TranslationKey.hours)}
+                label={t(TranslationKey.hours)}
+                classes={{ label: classNames.radioOptionDate }}
+              />
+              <FormControlLabel
+                value="minutes"
+                control={<Radio />}
+                title={t(TranslationKey.minutes)}
+                label={t(TranslationKey.minutes)}
+                classes={{ label: classNames.radioOptionDate }}
+              />
+            </RadioGroup>
+          </FormControl>
+
+          <div className={classNames.inpunts}>
+            <div title={t(TranslationKey.From)} className={classNames.inpuntContainer}>
+              <span className={classNames.radioOptionDate}>{t(TranslationKey.From)}</span>
+              <input type="number" value={searchFrom} className={classNames.inpunt} onChange={handleSearchFromChange} />
+            </div>
+
+            <div title={t(TranslationKey.To)} className={classNames.inpuntContainer}>
+              <span className={classNames.radioOptionDate}>{t(TranslationKey.To)}</span>
+              <input type="number" value={searchTo} className={classNames.inpunt} onChange={handleSearchToChange} />
+            </div>
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+            <Button
+              variant="contained"
+              disabled={disableButton}
+              onClick={e => {
+                onClose(e)
+                onChangeFullFieldMenuItem(filteredData, field)
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
 export const NumberFieldMenuItem = React.memo(
   withStyles(
     ({
