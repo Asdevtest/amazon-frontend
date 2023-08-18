@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**allImages** | [**[InlineResponse20026AllImages]**](InlineResponse20026AllImages.md) |  | [optional] 
-**allFiles** | [**[InlineResponse20026AllFiles]**](InlineResponse20026AllFiles.md) |  | [optional] 
+**rows** | [**[InlineResponse20026Rows]**](InlineResponse20026Rows.md) |  | [optional] 
+**count** | **Number** |  | [optional] 
 
 

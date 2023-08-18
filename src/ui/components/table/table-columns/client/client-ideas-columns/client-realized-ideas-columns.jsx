@@ -164,8 +164,8 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
   {
     field: 'intervalStatusFinished',
-    headerName: t(TranslationKey.Verifying),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
+    headerName: t(TranslationKey.Realized),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Realized)} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,

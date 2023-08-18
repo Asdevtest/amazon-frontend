@@ -4,17 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** |  | [optional] 
-**title** | **String** | Название идеи | [optional] 
-**status** | **Number** | Статус идеи | [optional] 
-**linksToMediaFiles** | **[String]** | Медиа идеи | [optional] 
-**variation** | **Boolean** | Является ли продукт идеи вариацией существующего | [optional] 
-**childProduct** | [**ApiV1IdeasByParentGuidChildProduct**](ApiV1IdeasByParentGuidChildProduct.md) |  | [optional] 
-**requestsOnCheck** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
-**requestsOnFinished** | [**[ApiV1IdeasByParentGuidRequestsOnCheck]**](ApiV1IdeasByParentGuidRequestsOnCheck.md) |  | [optional] 
-**comments** | **String** | Комментарии к идее | [optional] 
-**buyerComment** | **String** | Комментарий байера | [optional] 
-**createdAt** | **Date** | Дата создания. | [optional] 
-**updatedAt** | **Date** | Дата обновления. | [optional] 
+**count** | **Number** | Общее кол-во идей | [optional] 
+**rows** | [**[InlineResponse20046Rows]**](InlineResponse20046Rows.md) | Список идей | [optional] 
 
 

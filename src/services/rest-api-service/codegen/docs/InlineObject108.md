@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** |  | 
-**iconImage** | **String** |  | [optional] 
+**additionalBoxes** | [**[InlineObject29]**](InlineObject29.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

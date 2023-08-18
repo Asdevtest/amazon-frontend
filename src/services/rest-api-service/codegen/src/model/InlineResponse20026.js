@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20026AllFiles from './InlineResponse20026AllFiles';
-import InlineResponse20026AllImages from './InlineResponse20026AllImages';
+import InlineResponse20026Rows from './InlineResponse20026Rows';
 
 /**
  * The InlineResponse20026 model module.
@@ -49,11 +48,11 @@ class InlineResponse20026 {
         if (data) {
             obj = obj || new InlineResponse20026();
 
-            if (data.hasOwnProperty('allImages')) {
-                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20026AllImages]);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20026Rows]);
             }
-            if (data.hasOwnProperty('allFiles')) {
-                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20026AllFiles]);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
         }
         return obj;
@@ -63,14 +62,14 @@ class InlineResponse20026 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20026AllImages>} allImages
+ * @member {Array.<module:model/InlineResponse20026Rows>} rows
  */
-InlineResponse20026.prototype['allImages'] = undefined;
+InlineResponse20026.prototype['rows'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse20026AllFiles>} allFiles
+ * @member {Number} count
  */
-InlineResponse20026.prototype['allFiles'] = undefined;
+InlineResponse20026.prototype['count'] = undefined;
 
 
 

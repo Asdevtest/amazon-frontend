@@ -22,12 +22,10 @@ class InlineObject111 {
     /**
      * Constructs a new <code>InlineObject111</code>.
      * @alias module:model/InlineObject111
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
      */
-    constructor(oldPassword, newPassword) { 
+    constructor() { 
         
-        InlineObject111.initialize(this, oldPassword, newPassword);
+        InlineObject111.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject111 {
         if (data) {
             obj = obj || new InlineObject111();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
-            }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -65,16 +58,10 @@ class InlineObject111 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * Статус
+ * @member {Number} status
  */
-InlineObject111.prototype['oldPassword'] = undefined;
-
-/**
- * Новый пароль
- * @member {String} newPassword
- */
-InlineObject111.prototype['newPassword'] = undefined;
+InlineObject111.prototype['status'] = undefined;
 
 
 

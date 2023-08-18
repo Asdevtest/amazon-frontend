@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject36 model module.
@@ -47,8 +48,11 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            }
+            if (data.hasOwnProperty('newBoxesParams')) {
+                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
             }
         }
         return obj;
@@ -58,10 +62,15 @@ class InlineObject36 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * GUID коробки, которую делим
+ * @member {String} guid
  */
-InlineObject36.prototype['refundPrice'] = undefined;
+InlineObject36.prototype['guid'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
+ */
+InlineObject36.prototype['newBoxesParams'] = undefined;
 
 
 

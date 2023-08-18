@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasByParentGuidGet
 
-> [InlineResponse20046] apiV1IdeasByParentGuidGet(guid, opts)
+> [InlineResponse20045] apiV1IdeasByParentGuidGet(guid, opts)
 
 Получить идеи по родительскому продукту
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20046]**](InlineResponse20046.md)
+[**[InlineResponse20045]**](InlineResponse20045.md)
 
 ### Authorization
 
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGuidGet
 
-> InlineResponse20047Rows apiV1IdeasGuidGet(guid, opts)
+> InlineResponse20046Rows apiV1IdeasGuidGet(guid, opts)
 
 Получить идею по гуиду
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20047Rows**](InlineResponse20047Rows.md)
+[**InlineResponse20046Rows**](InlineResponse20046Rows.md)
 
 ### Authorization
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasNotificationsGet
 
-> [InlineResponse20048] apiV1IdeasNotificationsGet(opts)
+> [InlineResponse20047] apiV1IdeasNotificationsGet(opts)
 
 Получить нотификации идей
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20048]**](InlineResponse20048.md)
+[**[InlineResponse20047]**](InlineResponse20047.md)
 
 ### Authorization
 
@@ -576,7 +576,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasPagMyGet
 
-> InlineResponse20047 apiV1IdeasPagMyGet(opts)
+> InlineResponse20046 apiV1IdeasPagMyGet(opts)
 
 Список всех идей с пагинацией
 
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20047**](InlineResponse20047.md)
+[**InlineResponse20046**](InlineResponse20046.md)
 
 ### Authorization
 
@@ -642,7 +642,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasPost
 
-> InlineResponse2014 apiV1IdeasPost(opts)
+> InlineResponse2012 apiV1IdeasPost(opts)
 
 Добавить идею
 
@@ -682,7 +682,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

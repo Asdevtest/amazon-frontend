@@ -22,10 +22,11 @@ class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
      * @alias module:model/InlineObject44
+     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor() { 
+    constructor(isFormed) { 
         
-        InlineObject44.initialize(this);
+        InlineObject44.initialize(this, isFormed);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject44 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, isFormed) { 
+        obj['isFormed'] = isFormed;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
             }
         }
         return obj;
@@ -58,9 +60,10 @@ class InlineObject44 {
 }
 
 /**
- * @member {String} clientComment
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
  */
-InlineObject44.prototype['clientComment'] = undefined;
+InlineObject44.prototype['isFormed'] = undefined;
 
 
 

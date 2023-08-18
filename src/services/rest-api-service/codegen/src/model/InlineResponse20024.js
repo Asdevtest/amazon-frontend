@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import InlineResponse20010 from './InlineResponse20010';
+import InlineResponse20022 from './InlineResponse20022';
 
 /**
  * The InlineResponse20024 model module.
@@ -23,6 +22,7 @@ import InlineResponse20010 from './InlineResponse20010';
 class InlineResponse20024 {
     /**
      * Constructs a new <code>InlineResponse20024</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20024
      */
     constructor() { 
@@ -49,50 +49,11 @@ class InlineResponse20024 {
         if (data) {
             obj = obj || new InlineResponse20024();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [InlineResponse20010]);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [InlineResponse20010]);
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updateDate')) {
-                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20022]);
             }
         }
         return obj;
@@ -102,123 +63,19 @@ class InlineResponse20024 {
 }
 
 /**
- * GUID
- * @member {String} _id
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20024.prototype['_id'] = undefined;
+InlineResponse20024.prototype['count'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20022>} rows
  */
-InlineResponse20024.prototype['taskId'] = undefined;
-
-/**
- * Тип операции
- * @member {module:model/InlineResponse20024.OperationTypeEnum} operationType
- */
-InlineResponse20024.prototype['operationType'] = undefined;
-
-/**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/InlineResponse20010>} boxesBefore
- */
-InlineResponse20024.prototype['boxesBefore'] = undefined;
-
-/**
- * Массив коробок.
- * @member {Array.<module:model/InlineResponse20010>} boxes
- */
-InlineResponse20024.prototype['boxes'] = undefined;
-
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
- */
-InlineResponse20024.prototype['status'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineResponse20024.prototype['priority'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineResponse20024.prototype['storekeeperComment'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- */
-InlineResponse20024.prototype['clientComment'] = undefined;
-
-/**
- * Комментарий баера.
- * @member {String} buyerComment
- */
-InlineResponse20024.prototype['buyerComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse20024.prototype['images'] = undefined;
-
-/**
- * GUID сотрудника склада, который выполняет задачу.
- * @member {String} storekeeperId
- */
-InlineResponse20024.prototype['storekeeperId'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
- */
-InlineResponse20024.prototype['storekeeper'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20024.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updateDate
- */
-InlineResponse20024.prototype['updateDate'] = undefined;
+InlineResponse20024.prototype['rows'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20024['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
 
 
 

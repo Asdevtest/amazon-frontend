@@ -22,12 +22,10 @@ class InlineObject37 {
     /**
      * Constructs a new <code>InlineObject37</code>.
      * @alias module:model/InlineObject37
-     * @param userIds {Array.<String>} 
-     * @param title {String} Название группового чата
      */
-    constructor(userIds, title) { 
+    constructor() { 
         
-        InlineObject37.initialize(this, userIds, title);
+        InlineObject37.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject37 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userIds, title) { 
-        obj['userIds'] = userIds;
-        obj['title'] = title;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject37 {
         if (data) {
             obj = obj || new InlineObject37();
 
-            if (data.hasOwnProperty('userIds')) {
-                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -65,15 +58,10 @@ class InlineObject37 {
 }
 
 /**
- * @member {Array.<String>} userIds
+ * GUID коробки разделение которой отменяем.
+ * @member {String} guid
  */
-InlineObject37.prototype['userIds'] = undefined;
-
-/**
- * Название группового чата
- * @member {String} title
- */
-InlineObject37.prototype['title'] = undefined;
+InlineObject37.prototype['guid'] = undefined;
 
 
 

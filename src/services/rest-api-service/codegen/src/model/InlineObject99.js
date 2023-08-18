@@ -22,11 +22,10 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
-     * @param storekeeperComment {String} 
      */
-    constructor(storekeeperComment) { 
+    constructor() { 
         
-        InlineObject99.initialize(this, storekeeperComment);
+        InlineObject99.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperComment) { 
-        obj['storekeeperComment'] = storekeeperComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,20 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -60,9 +70,34 @@ class InlineObject99 {
 }
 
 /**
- * @member {String} storekeeperComment
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject99.prototype['storekeeperComment'] = undefined;
+InlineObject99.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject99.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject99.prototype['fileLink'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
+ */
+InlineObject99.prototype['proposalId'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} requestId
+ */
+InlineObject99.prototype['requestId'] = undefined;
 
 
 

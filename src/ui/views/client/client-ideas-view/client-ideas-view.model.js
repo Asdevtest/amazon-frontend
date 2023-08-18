@@ -293,6 +293,10 @@ export class ClientIdeasViewModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({ history }) {
     runInAction(() => {
       this.history = history
@@ -314,6 +318,14 @@ export class ClientIdeasViewModel {
       () => this.shopList,
       () => {
         this.handleUpdateColumnModel()
+      },
+    )
+    reaction(
+      () => this.languageTag,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
       },
     )
   }

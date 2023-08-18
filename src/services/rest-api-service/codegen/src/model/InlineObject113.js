@@ -22,11 +22,11 @@ class InlineObject113 {
     /**
      * Constructs a new <code>InlineObject113</code>.
      * @alias module:model/InlineObject113
-     * @param hash {String} Токен, который юзер получает через почту
+     * @param storekeeperComment {String} 
      */
-    constructor(hash) { 
+    constructor(storekeeperComment) { 
         
-        InlineObject113.initialize(this, hash);
+        InlineObject113.initialize(this, storekeeperComment);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject113 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, hash) { 
-        obj['hash'] = hash;
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -49,11 +49,8 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('hash')) {
-                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
-            }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -63,16 +60,9 @@ class InlineObject113 {
 }
 
 /**
- * Токен, который юзер получает через почту
- * @member {String} hash
+ * @member {String} storekeeperComment
  */
-InlineObject113.prototype['hash'] = undefined;
-
-/**
- * Новый пароль
- * @member {String} password
- */
-InlineObject113.prototype['password'] = undefined;
+InlineObject113.prototype['storekeeperComment'] = undefined;
 
 
 

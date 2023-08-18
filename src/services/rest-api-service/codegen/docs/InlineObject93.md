@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
-**sellerBoardWarehouseReportUrlDaily** | **String** | uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard. | [optional] 
-**sellerBoardWarehouseReportUrlMonthly** | **String** | uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
 
 
