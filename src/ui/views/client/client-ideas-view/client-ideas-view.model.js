@@ -662,6 +662,8 @@ export class ClientIdeasViewModel {
       onClickConfirm: () => {
         this.statusHandler(IdeaModel.setStatusToCheck, id)
         this.onTriggerOpenModal('showConfirmModal')
+
+        UserModel.getUserInfo()
       },
     }
     this.onTriggerOpenModal('showConfirmModal')
