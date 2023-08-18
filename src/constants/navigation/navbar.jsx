@@ -320,6 +320,11 @@ export const navbarConfig = () => ({
         { subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications' },
         { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
         { subtitle: t(TranslationKey.Freelance), subRoute: '/client/notifications/freelance-notifications' },
+        {
+          subtitle: 'Look at this dude',
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/client/notifications/general-notifications-view',
+        },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>

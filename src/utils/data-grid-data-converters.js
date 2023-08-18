@@ -1012,3 +1012,12 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
       }
     })
 }
+
+export const notificationDataConverter = data =>
+  data.map(item => ({
+    ...item,
+    originalData: item,
+    id: item._id,
+
+    product: item.data?.[0]?.parentProduct,
+  }))

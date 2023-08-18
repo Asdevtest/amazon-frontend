@@ -612,6 +612,12 @@ const ClientIdeasView = lazy(() =>
   })),
 )
 
+const GeneralNotificationsView = lazy(() =>
+  import('@views/shared/general-notifications-view').then(module => ({
+    default: module.GeneralNotificationsView,
+  })),
+)
+
 export const publicRoutesConfigs = [
   {
     routePath: '/auth',
@@ -1943,6 +1949,23 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 4,
       title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/client/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.shared.GENERAL_NOTIFICATIONS,
+
+    crumbNameKey: 'Look at this dude',
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => 'Look at this dude',
     },
   },
 

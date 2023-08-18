@@ -106,6 +106,13 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      // case '/shared/general-notifications-view':
+      //   return (
+      //     <ListItemIcon>
+      //       {<div className={classNames.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
+      //     </ListItemIcon>
+      //   )
+
       case '/client/my-orders/pending-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
 

@@ -1,0 +1,112 @@
+import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
+
+import { useClassNames } from './general-notifications-view.styles'
+
+import { GeneralNotificationsViewModel } from './general-notifications-view.model'
+
+export const GeneralNotificationsView = observer(() => {
+  const { classes: classNames } = useClassNames()
+  const [viewModel] = useState(() => new GeneralNotificationsViewModel())
+
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  return (
+    viewModel.languageTag && (
+      <>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            className={cx(classNames.button, classNames.archiveButton)}
+            variant="outlined"
+            // onClick={() => viewModel.onClickBackButton()}
+          >
+            {t(TranslationKey['Open archive'])}
+          </Button>
+
+          <Button
+            className={classNames.button}
+            color="primary"
+            // onClick={() => viewModel.onClickBackButton()}
+          >
+            {t(TranslationKey.Read)}
+          </Button>
+        </div>
+
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            checkboxSelection
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            // classes={{
+            //   row: classNames.row,
+            //   root: classNames.root,
+            //   footerContainer: classNames.footerContainer,
+            //   footerCell: classNames.footerCell,
+            //   toolbarContainer: classNames.toolbarContainer,
+            //   filterForm: classNames.filterForm,
+            // }}
+            // rowSelectionModel={viewModel.selectedBatches}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            columns={viewModel.columnsModel}
+            getRowHeight={() => 'auto'}
+            // density={viewModel.densityModel}
+            // loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            // slotProps={{
+            //   columnMenu: viewModel.columnMenuSettings,
+
+            //   baseTooltip: {
+            //     title: t(TranslationKey.Filter),
+            //   },
+            //   toolbar: {
+            //     resetFiltersBtnSettings: {
+            //       onClickResetFilters: viewModel.onClickResetFilters,
+            //       isSomeFilterOn: viewModel.isSomeFilterOn,
+            //     },
+            //     columsBtnSettings: {
+            //       columnsModel: viewModel.columnsModel,
+            //       columnVisibilityModel: viewModel.columnVisibilityModel,
+            //       onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            //     },
+            //   },
+            // }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            // onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            // onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+            // onRowSelectionModelChange={viewModel.onSelectionModel}
+          />
+        </div>
+      </>
+    )
+  )
+})
