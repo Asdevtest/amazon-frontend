@@ -918,6 +918,12 @@ export class ClientIdeasViewModel {
 
       await this.editIdea(ideaData._id, { childProductId: result.guid })
 
+      if (createData.suppliersIds?.length) {
+        await ClientModel.updateProduct(result.guid, {
+          currentSupplierId: createData.suppliersIds[0],
+        })
+      }
+
       this.loadData()
 
       this.successModalTitle = t(TranslationKey['Product added'])

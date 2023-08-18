@@ -334,6 +334,7 @@ export class SuppliersAndIdeasModel {
       }
 
       // await this.onClickAcceptButton(data)
+      this.loadData()
 
       this.successModalSettings = {
         modalTitle: t(TranslationKey['Product added']),
