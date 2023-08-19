@@ -758,6 +758,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
+                    success
                     disabled={disableAcceptButton}
                     variant="contained"
                     color="primary"

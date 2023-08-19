@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject41
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor() { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject41.initialize(this);
+        InlineObject41.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -47,20 +50,8 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -70,30 +61,10 @@ class InlineObject41 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject41.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} widthCmWarehouse
- */
-InlineObject41.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} heightCmWarehouse
- */
-InlineObject41.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject41.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject41.prototype['images'] = undefined;
+InlineObject41.prototype['totalPriceChanged'] = undefined;
 
 
 
