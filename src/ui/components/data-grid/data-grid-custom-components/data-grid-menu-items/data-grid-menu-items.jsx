@@ -1166,8 +1166,6 @@ export const NormalFieldMenuItem = React.memo(
         }
       }, [nameSearchValue])
 
-      console.log(filterData)
-
       return (
         <div
           className={cx({
