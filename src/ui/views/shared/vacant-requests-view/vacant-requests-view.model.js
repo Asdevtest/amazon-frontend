@@ -352,6 +352,8 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+
+    this.getRequestsVacant()
   }
 
   onChangeFullFieldMenuItem(value, field) {
