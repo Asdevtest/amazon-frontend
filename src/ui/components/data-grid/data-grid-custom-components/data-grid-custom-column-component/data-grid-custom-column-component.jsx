@@ -8,6 +8,7 @@ import {
   BoxestatusMenuItem,
   ClientOrderAllStatusesMenuItem,
   CreatedByMenuItem,
+  DateDetailsMenuItem,
   DestinationMenuItem,
   FreelanceRequestType,
   FreelancerToWorkConfirmationMenuItem,
@@ -306,6 +307,21 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           data={props}
           filterRequestStatus={filterRequestStatus}
+          onClose={hideMenu}
+          onClickFilterBtn={onClickFilterBtn}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.DATE_DETAILS].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <DateDetailsMenuItem
+          field={currentColumn.field}
+          data={props}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}

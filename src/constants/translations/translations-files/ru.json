@@ -1597,7 +1597,7 @@
   "Search by Email, Nickname...": "Поиск по Email, Nickname...",
   "Repeat search": "Повторить поиск",
   "Repeat the search for a supplier": "Повторить поиск поставщика",
-  "days": "дн",
+  "days": "дни",
   "units": "ед",
   "Tasks were created for the following boxes": "Для следующих коробок созданы задачи",
   "Prep Center USA": "Преп центр США",
@@ -2088,5 +2088,7 @@
   "Select products": "Выберите продукты",
   "Select product": "Выберите продукт",
   "Product variations": "Вариации продукта",
-  "Add product linkage": "Добавить связь продукта"
+  "Add product linkage": "Добавить связь продукта",
+  "hours": "часы",
+  "minutes": "минуты"
 }
