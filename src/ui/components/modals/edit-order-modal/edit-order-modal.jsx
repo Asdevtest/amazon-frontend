@@ -154,7 +154,7 @@ export const EditOrderModal = observer(
     const deliveredGoodsCount =
       boxes
         ?.filter(el => !el.isDraft)
-        .reduce(
+        ?.reduce(
           (acc, cur) =>
             acc +
             cur.items

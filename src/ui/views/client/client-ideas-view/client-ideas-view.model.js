@@ -713,7 +713,7 @@ export class ClientIdeasViewModel {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
-          ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
+          !ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
       },
@@ -917,6 +917,12 @@ export class ClientIdeasViewModel {
       const result = await ClientModel.createProduct(createData)
 
       await this.editIdea(ideaData._id, { childProductId: result.guid })
+
+      if (createData.suppliersIds?.length) {
+        await ClientModel.updateProduct(result.guid, {
+          currentSupplierId: createData.suppliersIds[0],
+        })
+      }
 
       this.loadData()
 

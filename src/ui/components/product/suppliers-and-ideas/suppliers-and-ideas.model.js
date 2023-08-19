@@ -334,6 +334,7 @@ export class SuppliersAndIdeasModel {
       }
 
       // await this.onClickAcceptButton(data)
+      this.loadData()
 
       this.successModalSettings = {
         modalTitle: t(TranslationKey['Product added']),
@@ -699,8 +700,6 @@ export class SuppliersAndIdeasModel {
         this.destinations = destinations
         this.platformSettings = platformSettings
       })
-
-      console.log('currentProduct', this.currentProduct)
 
       this.onTriggerOpenModal('showOrderModal')
       this.requestStatus = loadingStatuses.success
