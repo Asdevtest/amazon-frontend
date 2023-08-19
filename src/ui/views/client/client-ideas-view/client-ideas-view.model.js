@@ -659,6 +659,8 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
+      UserModel.getUserInfo()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -674,8 +676,6 @@ export class ClientIdeasViewModel {
       onClickConfirm: () => {
         this.statusHandler(IdeaModel.setStatusToCheck, id)
         this.onTriggerOpenModal('showConfirmModal')
-
-        UserModel.getUserInfo()
       },
     }
     this.onTriggerOpenModal('showConfirmModal')
