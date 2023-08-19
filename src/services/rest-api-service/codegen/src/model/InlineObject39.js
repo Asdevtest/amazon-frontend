@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 
 /**
  * The InlineObject39 model module.
@@ -47,32 +48,8 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('variationTariffId')) {
-                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('orderPayments')) {
+                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
             }
         }
         return obj;
@@ -82,53 +59,9 @@ class InlineObject39 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
  */
-InlineObject39.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} widthCmWarehouse
- */
-InlineObject39.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} heightCmWarehouse
- */
-InlineObject39.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject39.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineObject39.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject39.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} storekeeperComment
- */
-InlineObject39.prototype['storekeeperComment'] = undefined;
-
-/**
- * Гуид вариации
- * @member {String} variationTariffId
- */
-InlineObject39.prototype['variationTariffId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject39.prototype['images'] = undefined;
+InlineObject39.prototype['orderPayments'] = undefined;
 
 
 

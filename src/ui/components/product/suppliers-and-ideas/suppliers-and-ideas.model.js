@@ -700,8 +700,6 @@ export class SuppliersAndIdeasModel {
         this.platformSettings = platformSettings
       })
 
-      console.log('currentProduct', this.currentProduct)
-
       this.onTriggerOpenModal('showOrderModal')
       this.requestStatus = loadingStatuses.success
     } catch (error) {

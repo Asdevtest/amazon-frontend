@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject34 model module.
@@ -23,12 +22,12 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
-     * @param guids {Array.<String>} Массив коробок.
-     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
+     * @param boxIds {Array.<String>} 
+     * @param newAmounts {Array.<Number>} 
      */
-    constructor(guids, boxBody) { 
+    constructor(boxIds, newAmounts) { 
         
-        InlineObject34.initialize(this, guids, boxBody);
+        InlineObject34.initialize(this, boxIds, newAmounts);
     }
 
     /**
@@ -36,9 +35,9 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, guids, boxBody) { 
-        obj['guids'] = guids;
-        obj['boxBody'] = boxBody;
+    static initialize(obj, boxIds, newAmounts) { 
+        obj['boxIds'] = boxIds;
+        obj['newAmounts'] = newAmounts;
     }
 
     /**
@@ -52,11 +51,11 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('boxIds')) {
+                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
             }
-            if (data.hasOwnProperty('boxBody')) {
-                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+            if (data.hasOwnProperty('newAmounts')) {
+                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
             }
         }
         return obj;
@@ -66,15 +65,14 @@ class InlineObject34 {
 }
 
 /**
- * Массив коробок.
- * @member {Array.<String>} guids
+ * @member {Array.<String>} boxIds
  */
-InlineObject34.prototype['guids'] = undefined;
+InlineObject34.prototype['boxIds'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ * @member {Array.<Number>} newAmounts
  */
-InlineObject34.prototype['boxBody'] = undefined;
+InlineObject34.prototype['newAmounts'] = undefined;
 
 
 

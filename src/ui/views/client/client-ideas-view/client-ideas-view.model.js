@@ -713,7 +713,7 @@ export class ClientIdeasViewModel {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
-          ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
+          !ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
       },
