@@ -765,7 +765,9 @@ export const IdeaViewAndEditCard = observer(
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
                     success
-                    disabled={disableAcceptButton}
+                    disabled={
+                      disableAcceptButton || (isCardCreating && !formFields.childProduct && formFields.variation)
+                    }
                     variant="contained"
                     color="primary"
                     onClick={() => onClickAcceptButton(formFields)}
