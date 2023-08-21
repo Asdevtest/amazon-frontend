@@ -31,12 +31,6 @@ export const CreateOrEditServiceContent = ({
 
   const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
 
-  const [images, setImages] = useState([])
-
-  useEffect(() => {
-    setFormFields(sourceFormFields)
-  }, [data])
-
   const sourceFormFields = {
     type: data?.type || '',
     title: data?.title || '',
@@ -45,6 +39,25 @@ export const CreateOrEditServiceContent = ({
     linksToMediaFiles: data?.linksToMediaFiles || [],
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
+
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [data])
+
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (formFields.linksToMediaFiles.length > 0) {
+      setImages(formFields.linksToMediaFiles)
+    }
+  }, [formFields.linksToMediaFiles])
+
+  useEffect(() => {
+    setFormFields(prevFormFields => ({
+      ...prevFormFields,
+      linksToMediaFiles: images,
+    }))
+  }, [images])
 
   const disabledSubmitButton =
     !formFields.title ||
@@ -127,9 +140,9 @@ export const CreateOrEditServiceContent = ({
           maxNumber={50}
           isNotShowActionsBtns={!images.length}
         />
-        {formFields.linksToMediaFiles?.length ? (
+        {/* {formFields.linksToMediaFiles?.length ? (
           <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
-        ) : null}
+        ) : null} */}
       </div>
 
       <div className={classNames.buttonsWrapper}>
