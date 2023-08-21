@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '404px',
+    height: '372px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
