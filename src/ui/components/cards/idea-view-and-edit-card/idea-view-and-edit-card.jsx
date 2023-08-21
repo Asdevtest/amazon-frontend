@@ -279,9 +279,10 @@ export const IdeaViewAndEditCard = observer(
     const isAddingAsin = formFields?.status === ideaStatusByKey[ideaStatus.ADDING_ASIN]
     const isRejected = formFields?.status === ideaStatusByKey[ideaStatus.REJECTED]
     const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
+    const isClosed = formFields?.status === ideaStatusByKey[ideaStatus.CLOSED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified
+      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified && !isClosed
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
@@ -800,7 +801,7 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {checkIsClientOrBuyer && (
+                {checkIsClientOrBuyer && !isClosed && (
                   <Button variant="contained" color="primary" onClick={() => onEditIdea(formFields)}>
                     {t(TranslationKey.Edit)}
                   </Button>
@@ -811,6 +812,14 @@ export const IdeaViewAndEditCard = observer(
                     {t(TranslationKey.Reject)}
                   </Button>
                 )}
+
+                <Button
+                  variant="text"
+                  className={cx(classNames.actionButton, classNames.cancelBtn)}
+                  onClick={() => onClickCancelBtn()}
+                >
+                  {t(TranslationKey.Close)}
+                </Button>
               </div>
             )}
           </div>
