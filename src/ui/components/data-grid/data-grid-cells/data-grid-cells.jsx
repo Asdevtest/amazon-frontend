@@ -1275,7 +1275,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
           <Button
             disableElevation
             disabled={disabled}
-            // variant={boxesMy?.storekeeper?._id && 'text'}
             className={classNames.storekeeperBtn}
             onClick={e => {
               e.stopPropagation()
