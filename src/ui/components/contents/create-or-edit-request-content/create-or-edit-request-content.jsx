@@ -194,7 +194,7 @@ export const CreateOrEditRequestContent = ({
       productId: requestToEdit?.request?.productId || createRequestForIdeaData?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
       priority: requestToEdit?.request?.priority || 20,
-      executorId: requestToEdit?.request?.executor?._id || executor?._id || '',
+      executorId: requestToEdit?.request?.executor?._id || executor?._id || null,
 
       discountedPrice: requestToEdit
         ? toFixed(
