@@ -3375,9 +3375,11 @@ export const RealizedIdeaActions = React.memo(
   withStyles(props => {
     const { classes: styles, rowHandlers, row } = props
 
+    console.log('row', row)
+
     return (
       <>
-        {!row.parentProduct.order ? (
+        {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
           <Button
             small
             success

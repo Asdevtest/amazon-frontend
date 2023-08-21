@@ -299,7 +299,7 @@ export const IdeaViewAndEditCard = observer(
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
             currentStatus={formFields?.status}
-            ideaData={curIdea}
+            ideaData={formFields}
           />
 
           <div className={classNames.sourcesProductWraper}>
