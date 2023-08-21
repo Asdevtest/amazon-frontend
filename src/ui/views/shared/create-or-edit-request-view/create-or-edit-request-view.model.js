@@ -66,6 +66,7 @@ export class CreateOrEditRequestViewModel {
       if (location.state) {
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
+        this.executor = location.state?.executor
       }
     })
 
