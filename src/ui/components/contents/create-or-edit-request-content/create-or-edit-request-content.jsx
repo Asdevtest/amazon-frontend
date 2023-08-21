@@ -64,6 +64,7 @@ export const CreateOrEditRequestContent = ({
   permissionsData,
   masterUsersData,
   choosenAnnouncements,
+  executor,
   requestToEdit,
   history,
   platformSettingsData,
@@ -92,7 +93,7 @@ export const CreateOrEditRequestContent = ({
   const [announcementsData, setAnnouncementsData] = useState(announcements)
 
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
-  const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || undefined)
+  const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -170,8 +171,8 @@ export const CreateOrEditRequestContent = ({
   }, [announcements])
 
   useEffect(() => {
-    setChosenExecutor(requestToEdit?.request?.executor)
-  }, [requestToEdit?.request?.executor])
+    setChosenExecutor(requestToEdit?.request?.executor || executor)
+  }, [requestToEdit?.request?.executor, executor])
 
   const getSourceFormFields = currentFields => ({
     request: {
@@ -193,7 +194,7 @@ export const CreateOrEditRequestContent = ({
       productId: requestToEdit?.request?.productId || createRequestForIdeaData?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
       priority: requestToEdit?.request?.priority || 20,
-      executorId: requestToEdit?.request?.executor?._id || '',
+      executorId: requestToEdit?.request?.executor?._id || executor?._id || '',
 
       discountedPrice: requestToEdit
         ? toFixed(

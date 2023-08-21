@@ -105,7 +105,8 @@ export class ServiceExchangeViewModel {
 
   onClickOrderBtn(data) {
     this.history.push('/client/freelance/my-requests/create-request', {
-      announcementId: data._id,
+      announcementId: data?._id,
+      executor: data?.createdBy,
     })
   }
 
