@@ -23,14 +23,24 @@ interface IdeaRequestCardProps {
     name: string
     rating: number
   }
+  disableSeeResultButton?: boolean
   onClickRequestId: () => void
-  onClickResultButton: (requestType: number, proposalId: string) => void
+  onClickResultButton: () => void
 }
 
 export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { requestType, requestId, requestStatus, executor, proposals, onClickRequestId, onClickResultButton } = props
+  const {
+    proposals,
+    requestType,
+    requestId,
+    requestStatus,
+    executor,
+    disableSeeResultButton,
+    onClickRequestId,
+    onClickResultButton,
+  } = props
 
   return (
     <div className={classNames.root}>
@@ -73,9 +83,9 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
         )}
 
         <Button
-          disabled={!proposals?.length}
+          disabled={disableSeeResultButton || !proposals?.length}
           className={classNames.resultButton}
-          onClick={() => onClickResultButton(requestType, proposals[0]?._id)}
+          onClick={onClickResultButton}
         >
           {t(TranslationKey['See result'])}
         </Button>

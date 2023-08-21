@@ -223,6 +223,7 @@ export const ClientIdeasView = observer(props => {
             onlyRead
             userInfo={viewModel.curUser}
             request={{ request: viewModel.currentRequest }}
+            // request={viewModel.currentProposal}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           />

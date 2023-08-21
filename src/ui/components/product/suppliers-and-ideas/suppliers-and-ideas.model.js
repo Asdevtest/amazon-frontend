@@ -2,6 +2,7 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -33,6 +34,7 @@ export class SuppliersAndIdeasModel {
   curIdea = undefined
   currentProduct = undefined
   currentProposal = undefined
+  currentRequest = undefined
   requestTypeTask = undefined
   requestsForProduct = []
 
@@ -361,17 +363,18 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onClickResultButton(requestTypeTask, proposalId) {
+  async onClickResultButton(request) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+      const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
 
       runInAction(() => {
-        this.currentProposal = result
+        this.currentProposal = proposals.find(proposal => showResultStatuses.includes(proposal.proposal.status))
+        this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
+      if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.BLOGGER) {
+      } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')
