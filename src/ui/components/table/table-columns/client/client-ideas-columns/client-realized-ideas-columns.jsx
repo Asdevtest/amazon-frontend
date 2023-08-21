@@ -109,7 +109,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -119,7 +119,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -129,7 +129,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -139,7 +139,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -149,7 +149,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -159,7 +159,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -169,7 +169,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -179,7 +179,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {

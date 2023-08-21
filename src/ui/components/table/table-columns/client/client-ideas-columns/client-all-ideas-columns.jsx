@@ -161,7 +161,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -171,7 +171,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -181,7 +181,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -192,7 +192,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 120,
 
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -202,7 +202,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 100,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -212,7 +212,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 106,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -222,7 +222,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -234,7 +234,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     width: 120,
 
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
