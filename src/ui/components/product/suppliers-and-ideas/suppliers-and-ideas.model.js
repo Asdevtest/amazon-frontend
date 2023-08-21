@@ -268,8 +268,11 @@ export class SuppliersAndIdeasModel {
           isForceUpdate,
         )
 
-        const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
-        this.curIdea = createdIdea
+        if (this.isModalView) {
+          await this.getIdea(createdIdeaId)
+        }
+
+        this.loadData()
       }
 
       if (isForceUpdate) {
@@ -279,10 +282,6 @@ export class SuppliersAndIdeasModel {
         this.inCreate = false
         this.inEdit = false
         // this.curIdea = undefined
-      }
-
-      if (!this.isModalView) {
-        this.loadData()
       }
     } catch (error) {
       console.log(error)

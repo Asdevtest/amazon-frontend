@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import Tooltip from '@mui/material/Tooltip'
 
@@ -25,7 +25,6 @@ interface IProgressBarSettings {
 
 export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
   const { classes: classNames } = useClassNames()
-
   const { showStatusDuration, currentStatus, ideaData } = props
 
   const getInterval = (settingItem: IProgressBarSettings) =>
@@ -35,12 +34,18 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
         Number(ideaData?.intervalStatusSupplierSearch)
       : ideaData?.[settingItem?.intervalName]
 
-  const statusesToRender =
+  const getStatusesToRender = () =>
     currentStatus !== ideaStatusByKey[ideaStatus.REJECTED]
       ? progressBarSettings.filter(settingItem => !settingItem.statuses.includes(ideaStatus.REJECTED))
       : progressBarSettings.filter(
           settingItem => getInterval(settingItem) || settingItem.statuses.includes(ideaStatus.REJECTED),
         )
+
+  const [statusesToRender, setStatusesToRender] = useState(getStatusesToRender())
+
+  useEffect(() => {
+    setStatusesToRender(getStatusesToRender())
+  }, [currentStatus, ideaData])
 
   const checkIsActiveBarSetting = (barSetting: IProgressBarSettings) =>
     barSetting?.statuses?.some(setting => ideaStatusByKey[setting] <= currentStatus) &&
@@ -54,35 +59,41 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
 
   return (
     <div className={classNames.root}>
-      {statusesToRender.map((settingItem, settingItemIndex) => {
-        const textContent = (
-          <p
-            className={cx(classNames.settingItemTitle, {
-              [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
-            })}
-          >
-            {settingItem?.title()}
-          </p>
-        )
+      {!!statusesToRender?.length &&
+        statusesToRender.map((settingItem, settingItemIndex) => {
+          const textContent = (
+            <p
+              className={cx(classNames.settingItemTitle, {
+                [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
+              })}
+            >
+              {settingItem?.title()}
+            </p>
+          )
 
-        const tooltipContent = showStatusDuration && getInterval(settingItem) / 60
+          const tooltipContent = showStatusDuration && getInterval(settingItem) / 60
 
-        return (
-          <div
-            key={settingItemIndex}
-            className={cx(classNames.settingItem, {
-              [classNames.activeItem]: checkIsActiveBarSetting(settingItem),
-              [classNames.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
-              [classNames.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
-              [classNames.withoutBorderRadiusRight]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex === 0,
-              [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
-              [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
-            })}
-          >
-            {tooltipContent ? <Tooltip title={minsToTime(tooltipContent)}>{textContent}</Tooltip> : <>{textContent}</>}
-          </div>
-        )
-      })}
+          return (
+            <div
+              key={settingItemIndex}
+              className={cx(classNames.settingItem, {
+                [classNames.activeItem]: checkIsActiveBarSetting(settingItem),
+                [classNames.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
+                [classNames.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
+                [classNames.withoutBorderRadiusRight]:
+                  checkIsLastActiveBarSetting(settingItem) && settingItemIndex === 0,
+                [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
+                [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
+              })}
+            >
+              {tooltipContent ? (
+                <Tooltip title={minsToTime(tooltipContent)}>{textContent}</Tooltip>
+              ) : (
+                <>{textContent}</>
+              )}
+            </div>
+          )
+        })}
     </div>
   )
 })
