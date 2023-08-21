@@ -126,7 +126,12 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
         />
       ),
-      renderCell: params => <PaymentMethodsCell paymentMethods={params.row.originalData.payments} />,
+      renderCell: params => (
+        <PaymentMethodsCell
+          paymentMethods={params.row.originalData.payments}
+          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
+        />
+      ),
       width: 180,
       sortable: false,
 
