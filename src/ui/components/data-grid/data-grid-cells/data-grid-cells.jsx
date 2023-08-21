@@ -183,7 +183,10 @@ export const InStockCell = React.memo(
                   target="_blank"
                   underline={'hover'}
                   className={classNames.linkWrapper}
-                  onClick={() => onClickInStock(boxId, el?.storekeeper)}
+                  onClick={e => {
+                    e.stopPropagation()
+                    onClickInStock(boxId, el?.storekeeper)
+                  }}
                 >
                   <Typography>{el?.amountInBoxes}</Typography>
                 </Link>
@@ -258,6 +261,7 @@ export const ProductAsinCell = React.memo(
                     rel="noreferrer"
                     href={`https://www.amazon.com/dp/${asin}`}
                     className={classNames.normalizeLink}
+                    onClick={e => e.stopPropagation()}
                   >
                     <span className={classNames.linkSpan}>{shortAsin(asin)}</span>
                   </a>
