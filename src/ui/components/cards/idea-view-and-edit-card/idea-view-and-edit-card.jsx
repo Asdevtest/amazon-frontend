@@ -813,13 +813,15 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                <Button
-                  variant="text"
-                  className={cx(classNames.actionButton, classNames.cancelBtn)}
-                  onClick={() => onClickCancelBtn()}
-                >
-                  {t(TranslationKey.Close)}
-                </Button>
+                {isModalView && (
+                  <Button
+                    variant="text"
+                    className={cx(classNames.actionButton, classNames.cancelBtn)}
+                    onClick={() => onClickCancelBtn()}
+                  >
+                    {t(TranslationKey.Close)}
+                  </Button>
+                )}
               </div>
             )}
           </div>

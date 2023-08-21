@@ -20,6 +20,7 @@ interface IdeaProgressBarProps {
 interface IProgressBarSettings {
   title: () => string
   statuses: Array<ideaStatus>
+  intervalName: string
 }
 
 export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
@@ -27,14 +28,18 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
 
   const { showStatusDuration, currentStatus, ideaData } = props
 
+  const getInterval = (settingItem: IProgressBarSettings) =>
+    settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
+      ? Number(ideaData?.intervalStatusSupplierFound) +
+        Number(ideaData?.intervalStatusSupplierNotFound) +
+        Number(ideaData?.intervalStatusSupplierSearch)
+      : ideaData?.[settingItem?.intervalName]
+
   const statusesToRender =
     currentStatus !== ideaStatusByKey[ideaStatus.REJECTED]
       ? progressBarSettings.filter(settingItem => !settingItem.statuses.includes(ideaStatus.REJECTED))
       : progressBarSettings.filter(
-          settingItem =>
-            settingItem.statuses.includes(ideaStatus.NEW) ||
-            settingItem.statuses.includes(ideaStatus.ON_CHECK) ||
-            settingItem.statuses.includes(ideaStatus.REJECTED),
+          settingItem => getInterval(settingItem) || settingItem.statuses.includes(ideaStatus.REJECTED),
         )
 
   const checkIsActiveBarSetting = (barSetting: IProgressBarSettings) =>
@@ -60,13 +65,7 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
           </p>
         )
 
-        const tooltipContent =
-          showStatusDuration &&
-          (settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
-            ? Number(ideaData?.intervalStatusSupplierFound) +
-              Number(ideaData?.intervalStatusSupplierNotFound) +
-              Number(ideaData?.intervalStatusSupplierSearch)
-            : ideaData?.[settingItem?.intervalName]) / 60
+        const tooltipContent = showStatusDuration && getInterval(settingItem) / 60
 
         return (
           <div
@@ -75,6 +74,7 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
               [classNames.activeItem]: checkIsActiveBarSetting(settingItem),
               [classNames.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
               [classNames.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
+              [classNames.withoutBorderRadiusRight]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex === 0,
               [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
               [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
             })}
