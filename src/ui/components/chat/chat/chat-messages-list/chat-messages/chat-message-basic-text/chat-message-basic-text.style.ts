@@ -2,11 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    padding: 10,
+    padding: '10px 10px 5px 10px',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    maxWidth: 1074,
+    maxWidth: 490,
     backgroundColor: theme.palette.background.chatMyMessage,
     borderRadius: 20,
 
@@ -15,7 +15,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      padding: '10px 10px 5px 10px',
       borderRadius: 15,
       gap: 5,
     },

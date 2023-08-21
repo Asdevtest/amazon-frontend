@@ -152,10 +152,14 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
+            executorId: data?.request?.executorId || null,
             announcementId: announcement?._id || null,
             linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
           },
           ['discountedPrice'],
+          undefined,
+          undefined,
+          true,
         ),
         details: {
           ...data.details,

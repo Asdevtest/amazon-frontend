@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -13,12 +14,13 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -33,6 +35,7 @@ export class SuppliersAndIdeasModel {
   curIdea = undefined
   currentProduct = undefined
   currentProposal = undefined
+  currentRequest = undefined
   requestTypeTask = undefined
   requestsForProduct = []
 
@@ -115,6 +118,11 @@ export class SuppliersAndIdeasModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.getIdeas(),
+    )
   }
 
   async loadData() {
@@ -266,8 +274,11 @@ export class SuppliersAndIdeasModel {
           isForceUpdate,
         )
 
-        const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
-        this.curIdea = createdIdea
+        if (this.isModalView) {
+          await this.getIdea(createdIdeaId)
+        }
+
+        this.loadData()
       }
 
       if (isForceUpdate) {
@@ -278,8 +289,6 @@ export class SuppliersAndIdeasModel {
         this.inEdit = false
         // this.curIdea = undefined
       }
-
-      // this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -359,17 +368,18 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onClickResultButton(requestTypeTask, proposalId) {
+  async onClickResultButton(request) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+      const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
 
       runInAction(() => {
-        this.currentProposal = result
+        this.currentProposal = proposals.find(proposal => showResultStatuses.includes(proposal.proposal.status))
+        this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
+      if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.BLOGGER) {
+      } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')

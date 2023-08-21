@@ -13,6 +13,7 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { RequestStatus, showResultStatuses } from '@constants/requests/request-status'
 import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -282,7 +283,13 @@ export const IdeaViewAndEditCard = observer(
     const isClosed = formFields?.status === ideaStatusByKey[ideaStatus.CLOSED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified && !isClosed
+      currentUserIsClient &&
+      !isNewIdea &&
+      !isSupplierSearch &&
+      !isSupplierNotFound &&
+      !isVerified &&
+      !isClosed &&
+      !isRejected
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
@@ -298,7 +305,7 @@ export const IdeaViewAndEditCard = observer(
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
             currentStatus={formFields?.status}
-            ideaData={curIdea}
+            ideaData={formFields}
           />
 
           <div className={classNames.sourcesProductWraper}>
@@ -373,8 +380,9 @@ export const IdeaViewAndEditCard = observer(
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
+                          disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
                           onClickRequestId={() => onClickRequestId(request._id)}
-                          onClickResultButton={onClickResultButton}
+                          onClickResultButton={() => onClickResultButton(request)}
                         />
                       ))}
                     </div>
@@ -763,7 +771,9 @@ export const IdeaViewAndEditCard = observer(
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
                     success
-                    disabled={disableAcceptButton}
+                    disabled={
+                      disableAcceptButton || (isCardCreating && !formFields.childProduct && formFields.variation)
+                    }
                     variant="contained"
                     color="primary"
                     onClick={() => onClickAcceptButton(formFields)}
@@ -813,13 +823,15 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                <Button
-                  variant="text"
-                  className={cx(classNames.actionButton, classNames.cancelBtn)}
-                  onClick={() => onClickCancelBtn()}
-                >
-                  {t(TranslationKey.Close)}
-                </Button>
+                {isModalView && (
+                  <Button
+                    variant="text"
+                    className={cx(classNames.actionButton, classNames.cancelBtn)}
+                    onClick={() => onClickCancelBtn()}
+                  >
+                    {t(TranslationKey.Close)}
+                  </Button>
+                )}
               </div>
             )}
           </div>

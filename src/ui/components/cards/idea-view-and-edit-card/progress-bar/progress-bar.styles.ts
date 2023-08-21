@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '40px',
-    padding: '0 12px',
+    padding: '0 13px',
     position: 'relative',
   },
 
@@ -47,6 +47,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   withoutBorderRadius: {
     borderRadius: '0 !important',
+  },
+
+  withoutBorderRadiusRight: {
+    borderTopRightRadius: '0 !important',
+    borderBottomRightRadius: '0 !important',
   },
 
   activeItem: {

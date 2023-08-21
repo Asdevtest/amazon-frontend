@@ -90,6 +90,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
     filterable: false,
+    sortable: false,
   },
 
   {
@@ -100,6 +101,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
     width: 110,
     filterable: false,
+    sortable: false,
   },
 
   {
@@ -162,7 +164,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
-  {
+  /* {
     field: 'intervalStatusFinished',
     headerName: t(TranslationKey.Realized),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Realized)} />,
@@ -170,7 +172,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
-  },
+  }, */
 
   {
     field: 'intervalsSum',

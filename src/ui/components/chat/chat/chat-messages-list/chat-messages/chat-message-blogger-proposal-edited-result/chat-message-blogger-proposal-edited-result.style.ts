@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
     padding: 30,
-    maxWidth: 1074,
+    maxWidth: 790,
     margin: '0 auto',
     borderRadius: 7,
 
@@ -12,30 +12,97 @@ export const useClassNames = makeStyles()(theme => ({
       maxWidth: 390,
     },
   },
+
+  mainWrapper: {
+    position: 'relative',
+  },
+
+  timeText: {
+    position: 'absolute',
+    top: 0,
+    right: 20,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
   headerText: {
     color: theme.palette.text.general,
     fontSize: 14,
     fontWeight: 600,
-    lineHeight: '140%',
+    lineHeight: '19%',
     textTransform: 'uppercase',
     marginBottom: 20,
   },
-  timeText: {
-    color: theme.palette.text.second,
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '16px',
 
-    position: 'absolute',
-    top: 0,
-    right: 20,
-  },
   descriptionText: {
     color: theme.palette.text.second,
     fontSize: 16,
-    minHeight: 100,
+    minHeight: 50,
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
+  },
+
+  infosWrapper: {
+    display: 'flex',
+    gap: 20,
+  },
+
+  infosSubWrapper: {
+    flex: '1 1 auto',
+  },
+
+  rightInfosSubWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 20,
+  },
+
+  fieldLabel: {
+    fontSize: 14,
+    color: theme.palette.text.second,
+    marginBottom: 5,
+  },
+
+  fieldContainer: {
+    marginBottom: 0,
+  },
+
+  infoItemWrapper: {
+    background: theme.palette.background.disabled,
+    maxWidth: 300,
+    height: 40,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 15px',
+  },
+
+  amazonOrder: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  infoItemText: {
+    color: theme.palette.text.general,
+  },
+
+  amazonOrderText: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  timeInfoItemWrapper: {
+    maxWidth: 150,
+    background: theme.palette.background.green,
   },
 
   footerWrapper: {
@@ -45,7 +112,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'end',
-    marginTop: '48px',
+    marginTop: '30px',
     // gap: 20,
   },
 
@@ -72,54 +139,15 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  mainWrapper: {
-    // display: 'flex',
-    // gap: 20,
-    width: '100%',
-    position: 'relative',
-  },
-
-  infosWrapper: {
-    display: 'flex',
-    // width: 'max-content',
-  },
-
-  infosSubWrapper: {
-    display: 'flex',
-
-    width: '50%',
-    // width: 'max-content',
-  },
-
-  fieldLabel: {
-    fontSize: 14,
-    color: theme.palette.text.second,
-  },
-
-  infoItemWrapper: {
-    background: theme.palette.background.disabled,
-    width: 310,
-    height: 40,
-    borderRadius: 4,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 15px',
-  },
-
   infoLinksItemWrapper: {
     background: theme.palette.background.disabled,
-    maxWidth: 415,
+    maxWidth: 400,
     height: 40,
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 15px',
-  },
-
-  infoItemText: {
-    color: theme.palette.text.general,
   },
 
   infoLinkText: {
@@ -129,25 +157,6 @@ export const useClassNames = makeStyles()(theme => ({
     // maxWidth: 450,
     // color: theme.palette.primary.main,
     color: '#006CFF',
-  },
-
-  fieldContainer: {
-    width: 'min-content !important',
-
-    '&: last-of-type': {
-      marginBottom: '0 !important',
-    },
-  },
-
-  rightInfosSubWrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    columnGap: 40,
-  },
-
-  timeInfoItemWrapper: {
-    width: 167,
-    background: theme.palette.background.green,
   },
 
   infoItemList: {
@@ -160,24 +169,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkInfoItemList: {
-    width: 525,
-  },
-
-  amazonOrder: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  amazonOrderText: {
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: '22px',
-
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
-    WebkitBoxOrient: 'vertical',
+    width: 400,
   },
 }))

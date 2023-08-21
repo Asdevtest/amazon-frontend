@@ -155,7 +155,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
             </Linkify>
           </div>
 
-          <div className={classNames.infosProposalWrapper}>
+          <div className={classNames.infosWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey.Time)}

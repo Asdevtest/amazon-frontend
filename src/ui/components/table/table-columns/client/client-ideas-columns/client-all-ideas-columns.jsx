@@ -215,7 +215,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
-  {
+  /* {
     field: 'intervalStatusFinished',
     headerName: t(TranslationKey.Verifying),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
@@ -223,7 +223,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
-  },
+  }, */
 
   {
     field: 'intervalsSum',

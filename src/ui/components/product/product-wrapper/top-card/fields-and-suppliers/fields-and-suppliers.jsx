@@ -475,7 +475,7 @@ export const FieldsAndSuppliers = observer(
                     : t(TranslationKey.Variations)}
                 </p>
 
-                {!product?.parentProductId && (
+                {checkIsClient(curUserRole) && !product?.parentProductId && (
                   <Button className={classNames.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
                     <AddIcon className={classNames.plusIcon} />
                   </Button>
@@ -512,12 +512,12 @@ export const FieldsAndSuppliers = observer(
                 ))}
               </div>
             </div>
-          ) : (
+          ) : checkIsClient(curUserRole) ? (
             <Button className={classNames.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
               <PlusIcon className={classNames.plusIcon} />
               {t(TranslationKey['Add product linkage'])}
             </Button>
-          )}
+          ) : null}
         </Box>
 
         {checkIsBuyer(curUserRole) ? (

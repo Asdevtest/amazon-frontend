@@ -39,6 +39,10 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
   documentHover: {
+    fontSize: 12,
+    lineHeight: '16px',
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
     display: 'none',
   },
   emptyProposalsIconWrapper: {

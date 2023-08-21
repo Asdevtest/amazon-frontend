@@ -81,6 +81,7 @@ import {
   CubeIcon,
   EditIcon,
   EqualIcon,
+  ParentProductIcon,
   PlusIcon,
   SaveIcon,
   ShareLinkIcon,
@@ -183,7 +184,10 @@ export const InStockCell = React.memo(
                   target="_blank"
                   underline={'hover'}
                   className={classNames.linkWrapper}
-                  onClick={() => onClickInStock(boxId, el?.storekeeper)}
+                  onClick={e => {
+                    e.stopPropagation()
+                    onClickInStock(boxId, el?.storekeeper)
+                  }}
                 >
                   <Typography>{el?.amountInBoxes}</Typography>
                 </Link>
@@ -258,6 +262,7 @@ export const ProductAsinCell = React.memo(
                     rel="noreferrer"
                     href={`https://www.amazon.com/dp/${asin}`}
                     className={classNames.normalizeLink}
+                    onClick={e => e.stopPropagation()}
                   >
                     <span className={classNames.linkSpan}>{shortAsin(asin)}</span>
                   </a>
@@ -3060,7 +3065,14 @@ export const FormedCell = React.memo(
 
 export const SelectRowCell = React.memo(
   withStyles(
-    ({ classes: classNames, checkboxComponent, showVariationButton, onClickShareIcon, onClickVariationButton }) => (
+    ({
+      classes: classNames,
+      checkboxComponent,
+      showVariationButton,
+      isParentProduct,
+      onClickShareIcon,
+      onClickVariationButton,
+    }) => (
       <div className={classNames.selectRowCellWrapper}>
         {checkboxComponent}
 
@@ -3084,7 +3096,11 @@ export const SelectRowCell = React.memo(
               classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
             >
               <div className={classNames.iconWrapper} onClick={onClickVariationButton}>
-                <VariationProductIcon className={classNames.shareLinkIcon} />
+                {isParentProduct ? (
+                  <ParentProductIcon className={classNames.shareLinkIcon} />
+                ) : (
+                  <VariationProductIcon className={classNames.shareLinkIcon} />
+                )}
               </div>
             </Tooltip>
           )}
@@ -3244,8 +3260,9 @@ export const IdeaRequests = React.memo(
             requestStatus={request.status}
             executor={request.executor}
             proposals={request.proposals}
+            disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
             onClickRequestId={() => onClickRequestId(request._id)}
-            onClickResultButton={() => onClickResultButton(request, request?.proposals?.[0]?._id)}
+            onClickResultButton={() => onClickResultButton(request)}
           />
         ))}
         {!withoutControls && (
@@ -3373,9 +3390,11 @@ export const RealizedIdeaActions = React.memo(
   withStyles(props => {
     const { classes: styles, rowHandlers, row } = props
 
+    console.log('row', row)
+
     return (
       <>
-        {!row.parentProduct.order ? (
+        {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
           <Button
             small
             success

@@ -94,6 +94,7 @@ export const SuppliersAndIdeas = observer(
       selectedProduct,
       alertShieldSettings,
       supplierData,
+      currentRequest,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
@@ -283,8 +284,9 @@ export const SuppliersAndIdeas = observer(
             setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
           >
             <RequestDesignerResultClientForm
+              onlyRead
               userInfo={curUser}
-              // request={{ request: viewModel.currentRequest }}
+              request={{ request: currentRequest }}
               proposal={currentProposal}
               setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
             />
@@ -297,7 +299,7 @@ export const SuppliersAndIdeas = observer(
             setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
           >
             <RequestStandartResultForm
-              // request={{ request: viewModel.currentRequest }}
+              request={{ request: currentRequest }}
               proposal={currentProposal}
               setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
             />
@@ -306,7 +308,7 @@ export const SuppliersAndIdeas = observer(
 
         {showRequestBloggerResultModal && (
           <RequestResultModal
-            // request={{ request: viewModel.currentRequest }}
+            request={{ request: currentRequest }}
             proposal={currentProposal}
             openModal={showRequestBloggerResultModal}
             setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
