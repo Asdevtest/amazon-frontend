@@ -198,6 +198,9 @@ export const EditOrderModal = observer(
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
+
+    console.log('orderFields', orderFields)
+
     const [hsCode, setHsCode] = useState({ ...hsCodeData })
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
