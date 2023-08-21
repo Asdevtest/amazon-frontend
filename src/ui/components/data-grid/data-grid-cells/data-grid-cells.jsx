@@ -484,8 +484,8 @@ export const StringListCell = React.memo(
 
 export const PaymentMethodsCell = React.memo(
   withStyles(
-    ({ classes: classNames, paymentMethods }) => (
-      <div className={classNames.paymentMethods}>
+    ({ classes: classNames, paymentMethods, onClickCell }) => (
+      <div className={classNames.paymentMethods} onClick={onClickCell && onClickCell}>
         {paymentMethods.map(({ paymentMethod }) => (
           <div key={paymentMethod.title} className={classNames.paymentMethod}>
             <img src={paymentMethod.iconImage} alt={paymentMethod.title} className={classNames.paymentMethodIcon} />
