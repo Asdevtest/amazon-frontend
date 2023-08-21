@@ -19,6 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   titleWrapper: {
@@ -68,7 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   leftSideWrapper: {
-    width: '403px',
+    flex: '1 1 auto',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -88,8 +89,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   proposalsWrapper: {
-    minWidth: 700,
     display: 'flex',
+    flex: '1 1 auto',
     gap: 20,
   },
 
@@ -160,8 +161,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainInfosWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
-    padding: '0 20px',
+    flex: '1 1 auto',
     gap: 10,
   },
 
