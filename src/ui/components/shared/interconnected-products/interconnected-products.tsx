@@ -9,7 +9,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { useClassNames } from './interconnected-products.styles'
 
 import { Button } from '../buttons/button'
-import { MinusIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
+import { MinusIcon, ParentProductIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
 
 interface InterconnectedProductsProps {
   isParent?: boolean
@@ -35,7 +35,11 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
 
   return (
     <div className={classNames.root}>
-      <VariationIcon className={cx(classNames.variationIcon, { [classNames.parentVariationIcon]: isParent })} />
+      {isParent ? (
+        <ParentProductIcon className={classNames.parentVariationIcon} />
+      ) : (
+        <VariationIcon className={classNames.variationIcon} />
+      )}
 
       <div className={classNames.sourceProductWrapper}>
         <SourceProduct img={getAmazonImageUrl(images?.[0])} asin={asin || ''} sku={skusByClient?.[0] || ''} />

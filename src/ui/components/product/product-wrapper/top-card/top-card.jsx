@@ -25,7 +25,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
-import { VariationIcon } from '@components/shared/svg-icons'
+import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
@@ -235,9 +235,12 @@ export const TopCard = observer(
           <div className={classNames.topPartCardWrapper}>
             <div className={classNames.mainCard}>
               <div className={classNames.variationWrapper}>
-                <VariationIcon
-                  className={cx(classNames.variationIcon, { [classNames.parentVariation]: !isChildProduct })}
-                />
+                {!isChildProduct ? (
+                  <ParentProductIcon className={classNames.parentVariation} />
+                ) : (
+                  <VariationIcon className={classNames.variationIcon} />
+                )}
+
                 <p className={cx(classNames.variationText, { [classNames.parentVariation]: !isChildProduct })}>
                   {isChildProduct ? t(TranslationKey['Child product']) : t(TranslationKey['Parent product'])}
                 </p>
