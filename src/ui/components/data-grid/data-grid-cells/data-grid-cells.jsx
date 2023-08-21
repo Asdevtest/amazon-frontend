@@ -3065,7 +3065,14 @@ export const FormedCell = React.memo(
 
 export const SelectRowCell = React.memo(
   withStyles(
-    ({ classes: classNames, checkboxComponent, showVariationButton, onClickShareIcon, onClickVariationButton }) => (
+    ({
+      classes: classNames,
+      checkboxComponent,
+      showVariationButton,
+      isParentProduct,
+      onClickShareIcon,
+      onClickVariationButton,
+    }) => (
       <div className={classNames.selectRowCellWrapper}>
         {checkboxComponent}
 
@@ -3089,7 +3096,11 @@ export const SelectRowCell = React.memo(
               classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
             >
               <div className={classNames.iconWrapper} onClick={onClickVariationButton}>
-                <ParentProductIcon className={classNames.shareLinkIcon} />
+                {isParentProduct ? (
+                  <ParentProductIcon className={classNames.shareLinkIcon} />
+                ) : (
+                  <VariationProductIcon className={classNames.shareLinkIcon} />
+                )}
               </div>
             </Tooltip>
           )}
