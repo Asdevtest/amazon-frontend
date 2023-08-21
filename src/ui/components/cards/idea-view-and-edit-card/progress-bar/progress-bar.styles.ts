@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '40px',
-    padding: '0 12px',
+    padding: '0 13px',
     position: 'relative',
   },
 

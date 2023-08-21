@@ -283,7 +283,13 @@ export const IdeaViewAndEditCard = observer(
     const isClosed = formFields?.status === ideaStatusByKey[ideaStatus.CLOSED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified && !isClosed
+      currentUserIsClient &&
+      !isNewIdea &&
+      !isSupplierSearch &&
+      !isSupplierNotFound &&
+      !isVerified &&
+      !isClosed &&
+      !isRejected
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
