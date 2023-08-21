@@ -13,6 +13,7 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { RequestStatus, showResultStatuses } from '@constants/requests/request-status'
 import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -373,8 +374,9 @@ export const IdeaViewAndEditCard = observer(
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
+                          disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
                           onClickRequestId={() => onClickRequestId(request._id)}
-                          onClickResultButton={onClickResultButton}
+                          onClickResultButton={() => onClickResultButton(request)}
                         />
                       ))}
                     </div>

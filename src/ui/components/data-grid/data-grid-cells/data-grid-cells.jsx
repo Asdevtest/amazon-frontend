@@ -81,6 +81,7 @@ import {
   CubeIcon,
   EditIcon,
   EqualIcon,
+  ParentProductIcon,
   PlusIcon,
   SaveIcon,
   ShareLinkIcon,
@@ -3088,7 +3089,7 @@ export const SelectRowCell = React.memo(
               classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
             >
               <div className={classNames.iconWrapper} onClick={onClickVariationButton}>
-                <VariationProductIcon className={classNames.shareLinkIcon} />
+                <ParentProductIcon className={classNames.shareLinkIcon} />
               </div>
             </Tooltip>
           )}
@@ -3248,8 +3249,9 @@ export const IdeaRequests = React.memo(
             requestStatus={request.status}
             executor={request.executor}
             proposals={request.proposals}
+            disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
             onClickRequestId={() => onClickRequestId(request._id)}
-            onClickResultButton={() => onClickResultButton(request, request?.proposals?.[0]?._id)}
+            onClickResultButton={() => onClickResultButton(request)}
           />
         ))}
         {!withoutControls && (

@@ -2,6 +2,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -254,7 +255,7 @@ export class ClientIdeasViewModel {
     onClickReject: id => this.handleStatusToReject(id),
     onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
-    onClickResultButton: (request, proposalId) => this.onClickResultButton(request, proposalId),
+    onClickResultButton: request => this.onClickResultButton(request),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
     onClickSelectSupplier: ideaData => this.onTriggerAddOrEditSupplierModal(ideaData),
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
@@ -1112,12 +1113,12 @@ export class ClientIdeasViewModel {
     this.onTriggerOpenModal('showIdeaModal')
   }
 
-  async onClickResultButton(request, proposalId) {
+  async onClickResultButton(request) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+      const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
 
       runInAction(() => {
-        this.currentProposal = result
+        this.currentProposal = proposals.find(proposal => showResultStatuses.includes(proposal.proposal.status))
         this.currentRequest = request
       })
 

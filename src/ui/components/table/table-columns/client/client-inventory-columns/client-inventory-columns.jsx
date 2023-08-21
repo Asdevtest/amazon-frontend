@@ -44,7 +44,7 @@ export const clientInventoryColumns = (
     renderCell: params => (
       <SelectRowCell
         checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-        showVariationButton={params.row?.originalData?.parentProductId || params.row?.originalData?.hasChildren}
+        showVariationButton={!params.row?.originalData?.parentProductId}
         onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?.originalData?._id)}
         onClickVariationButton={() => otherHandlers.onClickVariationButton(params.row?.originalData?._id)}
       />
