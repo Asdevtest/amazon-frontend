@@ -289,7 +289,7 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
-    const disableButtonAfterSupplierNotFound = idea.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+    const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
