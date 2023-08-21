@@ -83,6 +83,7 @@ export const MyProposalsSlider = ({
         <div className={classNames.header}>
           <div className={classNames.arrowsWrapper}>
             <ArrowLeftIcon
+              disabled={isDisableArrow}
               className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
               onClick={handlePrev}
             />
@@ -90,6 +91,7 @@ export const MyProposalsSlider = ({
             <p className={classNames.proposalTitle}>{`${title} ${currentIndex + 1}`}</p>
 
             <ArrowRightIcon
+              disabled={isDisableArrow}
               className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
               onClick={handleNext}
             />
