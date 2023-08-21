@@ -2,11 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.general,
+    position: 'relative',
     padding: 30,
-    maxWidth: 1074,
+    maxWidth: 790,
     margin: '0 auto',
     borderRadius: 7,
+    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(1280)]: {
       maxWidth: 390,
@@ -17,18 +18,18 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontSize: 14,
     fontWeight: 600,
-    lineHeight: '140%',
+    lineHeight: '19px',
     textTransform: 'uppercase',
     marginBottom: 20,
   },
 
   timeText: {
-    color: theme.palette.text.second,
-    fontSize: 14,
-    lineHeight: '16px',
     position: 'absolute',
-    top: 0,
+    top: 20,
     right: 20,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
   },
 
   descriptionText: {
@@ -46,7 +47,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'end',
-    marginTop: '48px',
+    marginTop: '30px',
     gap: 40,
   },
 
@@ -70,22 +71,19 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     gap: 20,
-    position: 'relative',
   },
 
-  mainSubWrapper: {},
+  mainSubWrapper: {
+    flex: '1 1 auto',
+  },
 
   divider: {
     height: 'auto',
-
-    // borderColor: theme.palette.background.border,
   },
 
   labelValueBlockWrapper: {
     minWidth: 260,
     maxWidth: 'max-content',
-
-    // marginBottom: 24,
   },
 
   priceAmazonWrapper: {
@@ -120,20 +118,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: 20,
-
-    minHeight: 120,
-  },
-
-  infosProposalWrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: 20,
-
-    minHeight: 120,
+    marginBottom: 20,
   },
 
   fieldLabel: {
     fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
@@ -154,7 +144,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 
@@ -168,7 +157,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   paragraphWrapper: {
     minHeight: 180,
-    marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 20,
   },
 }))

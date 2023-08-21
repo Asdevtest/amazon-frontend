@@ -62,9 +62,10 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                 <PhotoAndFilesCarousel
                   notToShowEmpty
                   small
+                  direction="column"
                   // files={message.data.proposal.details.linksToMediaFiles}
                   files={chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)}
-                  width="500px"
+                  width="200px"
                   withoutPhotos={undefined}
                   whithoutFiles={undefined}
                   imagesForLoad={undefined}

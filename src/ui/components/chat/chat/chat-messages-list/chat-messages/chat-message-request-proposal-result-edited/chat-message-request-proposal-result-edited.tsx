@@ -45,21 +45,15 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
 
         <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
       </div>
-      <div className={classNames.mainInfoWrapper}>
-        {/* <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>{message.data.request.title}</p>
-        </div> */}
-        <div className={classNames.descriptionWrapper}>
-          <Linkify>
-            <p className={classNames.descriptionText}>{}</p>
-          </Linkify>
-        </div>
-      </div>
-      <div>
-        <Linkify>
-          <p className={classNames.resultText}>{message.data.edited.result}</p>
-        </Linkify>
-      </div>
+
+      <Linkify>
+        <p className={classNames.descriptionText}>{}</p>
+      </Linkify>
+
+      <Linkify>
+        <p className={classNames.descriptionText}>{message.data.edited.result}</p>
+      </Linkify>
+
       <div className={classNames.resultWrapper}>
         <PhotoAndFilesCarousel
           notToShowEmpty
@@ -77,11 +71,9 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
 
         <div className={classNames.timeToCheckBlockWrapper}>
           <p className={classNames.timeToCheckBlockLabelText}>{t(TranslationKey['Time to check'])}</p>
-          <div className={classNames.timeToCheckBlockValueWrapper}>
-            <p className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
-              TranslationKey.minute,
-            )}`}</p>
-          </div>
+          <p className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
+            TranslationKey.minute,
+          )}`}</p>
         </div>
       </div>
       <div className={classNames.footerWrapper}>

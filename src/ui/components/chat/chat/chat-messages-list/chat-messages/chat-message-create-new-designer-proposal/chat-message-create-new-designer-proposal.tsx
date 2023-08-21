@@ -51,12 +51,12 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
           <div className={classNames.massageHeaderWrapper}>
             <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
-            {!!message.humanFriendlyId && (
+            {message.humanFriendlyId ? (
               <div className={classNames.idWrapper}>
                 <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
                 <p className={classNames.idText}>{message.humanFriendlyId}</p>
               </div>
-            )}
+            ) : null}
           </div>
 
           <div className={classNames.paragraphWrapper}>
@@ -110,6 +110,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
         </div>
 
         <Divider orientation="vertical" className={classNames.divider} />
+
         <div className={classNames.mainSubWrapper}>
           <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
 
@@ -118,7 +119,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
               <p className={classNames.descriptionText}>{message.data.proposal?.comment}</p>
             </Linkify>
           </div>
-          <div className={classNames.infosProposalWrapper}>
+          <div className={classNames.infosWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Time to complete'])}
