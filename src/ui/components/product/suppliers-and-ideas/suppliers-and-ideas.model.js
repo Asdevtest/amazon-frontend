@@ -279,7 +279,9 @@ export class SuppliersAndIdeasModel {
         // this.curIdea = undefined
       }
 
-      // this.loadData()
+      if (!this.isModalView) {
+        this.loadData()
+      }
     } catch (error) {
       console.log(error)
     }

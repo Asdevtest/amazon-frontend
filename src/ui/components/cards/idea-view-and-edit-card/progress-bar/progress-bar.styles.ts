@@ -49,6 +49,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '0 !important',
   },
 
+  withoutBorderRadiusRight: {
+    borderTopRightRadius: '0 !important',
+    borderBottomRightRadius: '0 !important',
+  },
+
   activeItem: {
     backgroundColor: theme.palette.primary.main,
     color: '#fff',
