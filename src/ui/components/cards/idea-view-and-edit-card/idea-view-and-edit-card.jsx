@@ -381,7 +381,12 @@ export const IdeaViewAndEditCard = observer(
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
-                          disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
+                          disableSeeResultButton={
+                            request?.status !== RequestStatus.READY_TO_VERIFY ||
+                            request?.status !== RequestStatus.TO_CORRECT ||
+                            request?.status !== RequestStatus.CORRECTED ||
+                            request?.status !== RequestStatus.ACCEPTED_BY_CREATOR_OF_REQUEST
+                          }
                           onClickRequestId={() => onClickRequestId(request._id)}
                           onClickResultButton={() => onClickResultButton(request)}
                         />
