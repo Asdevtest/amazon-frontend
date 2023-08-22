@@ -33,8 +33,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   arrowIcon: {
-    width: '30px !important',
-    height: '30px !important',
+    width: '35px !important',
+    height: '35px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
   },
@@ -45,8 +45,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   smallArrow: {
-    width: '20px !important',
-    height: '20px !important',
+    width: '30px !important',
+    height: '30px !important',
   },
 
   mediumArrow: {
@@ -70,18 +70,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   slideSmall: {
-    height: 48,
-    width: 68,
+    height: '64px !important',
+    width: '90px !important',
   },
 
   slideMedium: {
-    height: 160,
-    width: 224,
+    height: '160px !important',
+    width: '224px !important',
   },
 
   slideBig: {
-    height: 300,
-    width: 420,
+    height: '300px !important',
+    width: '420px !important',
   },
 
   opacity: {
