@@ -82,19 +82,21 @@ export const MyProposalsSlider = ({
       <div className={cx(classNames.mainWrapper, isTransitioning ? classNames.transitioning : classNames.active)}>
         <div className={classNames.header}>
           <div className={classNames.arrowsWrapper}>
-            <ArrowLeftIcon
-              disabled={isDisableArrow}
-              className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
-              onClick={handlePrev}
-            />
+            <button disabled={isDisableArrow}>
+              <ArrowLeftIcon
+                className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
+                onClick={handlePrev}
+              />
+            </button>
 
             <p className={classNames.proposalTitle}>{`${title} ${currentIndex + 1}`}</p>
 
-            <ArrowRightIcon
-              disabled={isDisableArrow}
-              className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
-              onClick={handleNext}
-            />
+            <button disabled={isDisableArrow}>
+              <ArrowRightIcon
+                className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
+                onClick={handleNext}
+              />
+            </button>
           </div>
         </div>
 
