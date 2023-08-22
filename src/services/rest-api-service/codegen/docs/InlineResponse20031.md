@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **shopIds** | **[String]** | ID магазинов для продукта | [optional] 
 **amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
+**buyerId** | **String** | GUID пользователя(байера) | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 
 

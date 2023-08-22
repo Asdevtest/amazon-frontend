@@ -186,7 +186,6 @@ export class ClientInventoryViewModel {
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
-  priceForSeekSupplier = 0
   currentBarcode = ''
   currentHscode = ''
   isModalOpen = false
@@ -624,9 +623,24 @@ export class ClientInventoryViewModel {
 
   async onClickNextButton(chosenProduct) {
     runInAction(() => (this.selectedProductToLaunch = chosenProduct))
-    this.onTriggerOpenModal('showProductLaunch')
 
-    this.onTriggerOpenModal('showIdeaModal')
+    console.log('chosenProduct', chosenProduct)
+
+    if (chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+          this.onTriggerOpenModal('showProductLaunch')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.onTriggerOpenModal('showProductLaunch')
+      this.onTriggerOpenModal('showIdeaModal')
+    }
   }
 
   async onClickOrderBtn() {
@@ -1401,6 +1415,8 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierBtn() {
     try {
+      this.selectedProductToLaunch = undefined
+
       if (this.checkIsNoEditProductSelected()) {
         runInAction(() => {
           this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
@@ -1486,14 +1502,12 @@ export class ClientInventoryViewModel {
 
   async onSubmitCalculateSeekSupplier(clientComment) {
     try {
-      runInAction(() => {
-        this.clientComment = clientComment
-      })
-
-      const result = await ClientModel.calculatePriceToSeekSupplier(this.selectedRowId)
+      const result = await ClientModel.calculatePriceToSeekSupplier(
+        this.selectedProductToLaunch?._id || this.selectedRowId,
+      )
 
       runInAction(() => {
-        this.priceForSeekSupplier = result.priceForClient
+        const priceForSeekSupplier = result.priceForClient
 
         this.confirmMessage = this.confirmModalSettings = {
           isWarning: false,
@@ -1502,7 +1516,7 @@ export class ClientInventoryViewModel {
             result.priceForClient,
             2,
           )}.\n ${t(TranslationKey['Apply?'])}`,
-          onClickConfirm: () => this.onSubmitSeekSupplier(),
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
         }
       })
 
@@ -1524,20 +1538,21 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onSubmitSeekSupplier() {
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
     try {
-      await ClientModel.sendProductToSeekSupplier(this.selectedRowId, {
-        clientComment: this.clientComment,
-        priceForClient: this.priceForSeekSupplier,
+      await ClientModel.sendProductToSeekSupplier(this.selectedProductToLaunch?._id || this.selectedRowId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
       })
 
       this.loadData()
 
       this.onTriggerOpenModal('showConfirmModal')
-
       this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
       console.log(error)
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
     }
   }
 

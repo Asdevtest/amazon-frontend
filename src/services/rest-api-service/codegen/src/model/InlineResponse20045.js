@@ -79,6 +79,36 @@ class InlineResponse20045 {
             if (data.hasOwnProperty('buyerComment')) {
                 obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
+            if (data.hasOwnProperty('intervalStatusNew')) {
+                obj['intervalStatusNew'] = ApiClient.convertToType(data['intervalStatusNew'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusOnCheck')) {
+                obj['intervalStatusOnCheck'] = ApiClient.convertToType(data['intervalStatusOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusSupplierSearch')) {
+                obj['intervalStatusSupplierSearch'] = ApiClient.convertToType(data['intervalStatusSupplierSearch'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusSupplierFound')) {
+                obj['intervalStatusSupplierFound'] = ApiClient.convertToType(data['intervalStatusSupplierFound'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusSupplierNotFound')) {
+                obj['intervalStatusSupplierNotFound'] = ApiClient.convertToType(data['intervalStatusSupplierNotFound'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusProductCreating')) {
+                obj['intervalStatusProductCreating'] = ApiClient.convertToType(data['intervalStatusProductCreating'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusAddingAsin')) {
+                obj['intervalStatusAddingAsin'] = ApiClient.convertToType(data['intervalStatusAddingAsin'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusFinished')) {
+                obj['intervalStatusFinished'] = ApiClient.convertToType(data['intervalStatusFinished'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusRejected')) {
+                obj['intervalStatusRejected'] = ApiClient.convertToType(data['intervalStatusRejected'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalsSum')) {
+                obj['intervalsSum'] = ApiClient.convertToType(data['intervalsSum'], 'Number');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -147,6 +177,66 @@ InlineResponse20045.prototype['comments'] = undefined;
  * @member {String} buyerComment
  */
 InlineResponse20045.prototype['buyerComment'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе new(5)
+ * @member {Number} intervalStatusNew
+ */
+InlineResponse20045.prototype['intervalStatusNew'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе OnCheck(10)
+ * @member {Number} intervalStatusOnCheck
+ */
+InlineResponse20045.prototype['intervalStatusOnCheck'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе supplierSearch(13)
+ * @member {Number} intervalStatusSupplierSearch
+ */
+InlineResponse20045.prototype['intervalStatusSupplierSearch'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе supplierFound(14)
+ * @member {Number} intervalStatusSupplierFound
+ */
+InlineResponse20045.prototype['intervalStatusSupplierFound'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе supplierNotFound(15)
+ * @member {Number} intervalStatusSupplierNotFound
+ */
+InlineResponse20045.prototype['intervalStatusSupplierNotFound'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе productCreating(16)
+ * @member {Number} intervalStatusProductCreating
+ */
+InlineResponse20045.prototype['intervalStatusProductCreating'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе addingAsin(18)
+ * @member {Number} intervalStatusAddingAsin
+ */
+InlineResponse20045.prototype['intervalStatusAddingAsin'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе finished(20)
+ * @member {Number} intervalStatusFinished
+ */
+InlineResponse20045.prototype['intervalStatusFinished'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе rejected(25)
+ * @member {Number} intervalStatusRejected
+ */
+InlineResponse20045.prototype['intervalStatusRejected'] = undefined;
+
+/**
+ * Кол-во секунд идеи во всех статусах
+ * @member {Number} intervalsSum
+ */
+InlineResponse20045.prototype['intervalsSum'] = undefined;
 
 /**
  * Дата создания.

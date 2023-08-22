@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
+import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,6 +19,7 @@ import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
@@ -134,6 +136,19 @@ export const ClientIdeasView = observer(props => {
           onClickVariationRadioButton={viewModel.onClickVariationRadioButton}
           onClickNextButton={viewModel.onClickNextButton}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showSelectionSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
+      >
+        <SelectionSupplierModal
+          product={viewModel.currentProduct}
+          title={t(TranslationKey['Send product card for supplier search'])}
+          buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
+          onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
         />
       </Modal>
 

@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**products** | [**InlineResponse20038Products**](InlineResponse20038Products.md) |  | [optional] 
 **orders** | [**InlineResponse20038Orders**](InlineResponse20038Orders.md) |  | [optional] 
-**pendingOrders** | [**InlineResponse20038PendingOrders**](InlineResponse20038PendingOrders.md) |  | [optional] 
-**finances** | [**InlineResponse20038Finances**](InlineResponse20038Finances.md) |  | [optional] 
+**shops** | [**InlineResponse20038Shops**](InlineResponse20038Shops.md) |  | [optional] 
+**requests** | [**InlineResponse20038Requests**](InlineResponse20038Requests.md) |  | [optional] 
+**products** | [**InlineResponse20038Products**](InlineResponse20038Products.md) |  | [optional] 
+**batch** | [**InlineResponse20038Batch**](InlineResponse20038Batch.md) |  | [optional] 
+**boxes** | [**InlineResponse20038Boxes**](InlineResponse20038Boxes.md) |  | [optional] 
 
 

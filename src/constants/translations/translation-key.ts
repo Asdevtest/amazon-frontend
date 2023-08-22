@@ -2089,5 +2089,7 @@ export enum TranslationKey {
   'Add product linkage' = 'Add product linkage',
   'hours' = 'hours',
   'minutes' = 'minutes',
+  'The card does not fit, send to supplier search' = 'The card does not fit, send to supplier search',
+  'Send product card for supplier search' = 'Send product card for supplier search',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
