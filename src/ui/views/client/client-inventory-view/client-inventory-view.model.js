@@ -368,6 +368,12 @@ export class ClientInventoryViewModel {
   }
 
   onClickProductModal(row) {
+    const selection = window.getSelection()?.baseNode?.data
+
+    if (selection) {
+      return
+    }
+
     if (row) {
       this.isArchive
         ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)

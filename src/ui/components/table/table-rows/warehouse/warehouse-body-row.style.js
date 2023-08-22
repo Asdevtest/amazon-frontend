@@ -9,11 +9,11 @@ export const styles = theme => ({
     borderBottom: '1px solid rgba(217, 222, 229, 1)',
   },
   cellValueNumber: {
-    width: 60,
-    textAlign: 'left',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    // width: 60,
+    // textAlign: 'left',
+    // whiteSpace: 'nowrap',
+    // overflow: 'hidden',
+    // textOverflow: 'ellipsis',
   },
   centerCell: {
     textAlign: 'center',

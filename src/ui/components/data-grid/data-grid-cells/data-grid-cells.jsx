@@ -1646,7 +1646,10 @@ export const MultilineTextHeaderCell = React.memo(
   withStyles(
     ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
       <div
-        className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
+        className={cx(classNames.multilineTextHeaderWrapper, {
+          [classNames.multilineTextHeaderCenter]: textCenter,
+          [classNames.multilineTextHeaderSpaceBetween]: component,
+        })}
       >
         <Tooltip title={text}>
           <Typography className={classNames.multilineHeaderText} style={color && { color }}>
