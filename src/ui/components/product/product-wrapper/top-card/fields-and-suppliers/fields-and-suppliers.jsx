@@ -485,7 +485,7 @@ export const FieldsAndSuppliers = observer(
                 {product?.parentProductId && (
                   <InterconnectedProducts
                     isParent
-                    showRemoveButton
+                    showRemoveButton={checkIsClient(curUserRole)}
                     variationProduct={{
                       _id: productVariations?._id,
                       asin: productVariations?.asin,
@@ -503,7 +503,7 @@ export const FieldsAndSuppliers = observer(
                 {productVariations?.childProducts?.map((variationProduct, variationProductIndex) => (
                   <InterconnectedProducts
                     key={variationProductIndex}
-                    showRemoveButton={!product?.parentProductId}
+                    showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
                     productId={product?._id}
                     variationProduct={variationProduct}
                     navigateToProduct={navigateToProduct}

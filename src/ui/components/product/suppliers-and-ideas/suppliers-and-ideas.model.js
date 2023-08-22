@@ -450,6 +450,10 @@ export class SuppliersAndIdeasModel {
         } else {
           await IdeaModel.changeStatusToSupplierNotFound(_id)
         }
+
+        runInAction(() => {
+          this.curIdea = undefined
+        })
         this.loadData()
         break
 
