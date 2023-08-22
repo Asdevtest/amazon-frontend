@@ -187,15 +187,15 @@ export const CustomSliderTest: FC<Props> = ({
             </div>
 
             {!isHideCounter && (
-              <p
+              <div
                 className={cx(classNames.currentSlideTitle, {
-                  [classNames.slideSmall]: smallSlider,
-                  [classNames.slideMedium]: mediumSlider,
-                  [classNames.slideBig]: bigSlider,
+                  [classNames.smallText]: smallSlider,
+                  [classNames.mediumText]: mediumSlider,
+                  [classNames.bigText]: bigSlider,
                 })}
               >
                 {currentSlideTitle}
-              </p>
+              </div>
             )}
           </div>
         ) : (

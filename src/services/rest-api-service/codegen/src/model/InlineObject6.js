@@ -22,11 +22,10 @@ class InlineObject6 {
     /**
      * Constructs a new <code>InlineObject6</code>.
      * @alias module:model/InlineObject6
-     * @param name {String} Название склада.
      */
-    constructor(name) { 
+    constructor() { 
         
-        InlineObject6.initialize(this, name);
+        InlineObject6.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject6 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,26 +47,8 @@ class InlineObject6 {
         if (data) {
             obj = obj || new InlineObject6();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -78,46 +58,10 @@ class InlineObject6 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject6.prototype['name'] = undefined;
-
-/**
- * Страна.
- * @member {String} country
- */
-InlineObject6.prototype['country'] = undefined;
-
-/**
- * Индекс. 5 цифр.
- * @member {String} zipCode
- */
-InlineObject6.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject6.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject6.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject6.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject6.prototype['fontColor'] = undefined;
+InlineObject6.prototype['guids'] = undefined;
 
 
 

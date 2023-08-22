@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGet
 
-> [InlineResponse200] apiV1ResearchersProductsGet(opts)
+> [InlineResponse2001] apiV1ResearchersProductsGet(opts)
 
 Получить список товаров созданных данным пользователем.
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+[**[InlineResponse2001]**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsGuidGet
 
-> InlineResponse200 apiV1ResearchersProductsGuidGet(guid, opts)
+> InlineResponse2001 apiV1ResearchersProductsGuidGet(guid, opts)
 
 Получить товар по GUID.
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 

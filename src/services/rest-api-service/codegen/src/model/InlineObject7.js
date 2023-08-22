@@ -22,11 +22,11 @@ class InlineObject7 {
     /**
      * Constructs a new <code>InlineObject7</code>.
      * @alias module:model/InlineObject7
-     * @param title {String} Название красного флага
+     * @param name {String} Название склада.
      */
-    constructor(title) { 
+    constructor(name) { 
         
-        InlineObject7.initialize(this, title);
+        InlineObject7.initialize(this, name);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject7 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,11 +49,26 @@ class InlineObject7 {
         if (data) {
             obj = obj || new InlineObject7();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('iconImage')) {
-                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -63,15 +78,46 @@ class InlineObject7 {
 }
 
 /**
- * Название красного флага
- * @member {String} title
+ * Название склада.
+ * @member {String} name
  */
-InlineObject7.prototype['title'] = undefined;
+InlineObject7.prototype['name'] = undefined;
 
 /**
- * @member {String} iconImage
+ * Страна.
+ * @member {String} country
  */
-InlineObject7.prototype['iconImage'] = undefined;
+InlineObject7.prototype['country'] = undefined;
+
+/**
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
+ */
+InlineObject7.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+InlineObject7.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject7.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject7.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject7.prototype['fontColor'] = undefined;
 
 
 

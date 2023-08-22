@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **buyerComment** | **String** | Комментарий баера. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **storekeeperId** | **String** | GUID сотрудника склада, который выполняет задачу. | [optional] 
-**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**storekeeper** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания. | [optional] 
 **updateDate** | **Date** | Дата обновления. | [optional] 
 

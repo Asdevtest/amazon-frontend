@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
+import InlineResponse2003PermissionGroups from './InlineResponse2003PermissionGroups';
+import InlineResponse2003Permissions from './InlineResponse2003Permissions';
+import InlineResponse2003SubUsers from './InlineResponse2003SubUsers';
 
 /**
  * The InlineResponse2003 model module.
@@ -22,11 +24,19 @@ import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 class InlineResponse2003 {
     /**
      * Constructs a new <code>InlineResponse2003</code>.
+     * Пользователь системы
      * @alias module:model/InlineResponse2003
+     * @param _id {String} GUID пользователя в БД.
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
+     * @param fba {Boolean} Флаг fba.
+     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor() { 
+    constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse2003.initialize(this);
+        InlineResponse2003.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -34,7 +44,14 @@ class InlineResponse2003 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
     }
 
     /**
@@ -51,32 +68,74 @@ class InlineResponse2003 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('subUser')) {
-                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('entityId')) {
-                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('paymentType')) {
-                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            if (data.hasOwnProperty('isUserPreprocessingCenterUSA')) {
+                obj['isUserPreprocessingCenterUSA'] = ApiClient.convertToType(data['isUserPreprocessingCenterUSA'], 'Boolean');
             }
-            if (data.hasOwnProperty('recipient')) {
-                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
-            if (data.hasOwnProperty('sum')) {
-                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            if (data.hasOwnProperty('balance')) {
+                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('balanceFreeze')) {
+                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            }
+            if (data.hasOwnProperty('overdraft')) {
+                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], [InlineResponse2003Permissions]);
+            }
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [InlineResponse2003PermissionGroups]);
+            }
+            if (data.hasOwnProperty('masterUser')) {
+                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+            }
+            if (data.hasOwnProperty('allowedStrategies')) {
+                obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
+            }
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            }
+            if (data.hasOwnProperty('canByMasterUser')) {
+                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [InlineResponse2003SubUsers]);
+            }
+            if (data.hasOwnProperty('masterUserInfo')) {
+                obj['masterUserInfo'] = InlineResponse2003SubUsers.constructFromObject(data['masterUserInfo']);
+            }
+            if (data.hasOwnProperty('allowedSpec')) {
+                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
+            }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -86,145 +145,150 @@ class InlineResponse2003 {
 }
 
 /**
- * GUID платежа
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse2003.prototype['_id'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse2003.prototype['createdAt'] = undefined;
+InlineResponse2003.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ * email
+ * @member {String} email
  */
-InlineResponse2003.prototype['createdBy'] = undefined;
+InlineResponse2003.prototype['email'] = undefined;
 
 /**
- * Роль пользователя на момент инициации платежа.
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
  * @member {Number} role
  */
 InlineResponse2003.prototype['role'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
+ * Флаг fba.
+ * @member {Boolean} fba
  */
-InlineResponse2003.prototype['subUser'] = undefined;
+InlineResponse2003.prototype['fba'] = undefined;
 
 /**
- * GUID товара или услуги.
- * @member {String} entityId
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineResponse2003.prototype['entityId'] = undefined;
+InlineResponse2003.prototype['active'] = undefined;
 
 /**
- * Тип платежа
- * @member {module:model/InlineResponse2003.PaymentTypeEnum} paymentType
+ * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
+ * @member {Boolean} isUserPreprocessingCenterUSA
  */
-InlineResponse2003.prototype['paymentType'] = undefined;
+InlineResponse2003.prototype['isUserPreprocessingCenterUSA'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineResponse2003.prototype['recipient'] = undefined;
+InlineResponse2003.prototype['rate'] = undefined;
 
 /**
- * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
- * @member {Number} sum
+ * Баланс пользователя.
+ * @member {Number} balance
  */
-InlineResponse2003.prototype['sum'] = undefined;
+InlineResponse2003.prototype['balance'] = undefined;
 
 /**
- * комментарий
- * @member {String} comment
+ * Замороженная при оплате ордера сумма..
+ * @member {Number} balanceFreeze
  */
-InlineResponse2003.prototype['comment'] = undefined;
-
-
-
-
+InlineResponse2003.prototype['balanceFreeze'] = undefined;
 
 /**
- * Allowed values for the <code>paymentType</code> property.
- * @enum {String}
- * @readonly
+ * Сумма на которую может уходить в минус пользователь.
+ * @member {Number} overdraft
  */
-InlineResponse2003['PaymentTypeEnum'] = {
+InlineResponse2003.prototype['overdraft'] = undefined;
 
-    /**
-     * value: "PRODUCT"
-     * @const
-     */
-    "PRODUCT": "PRODUCT",
+/**
+ * Массив permission-ов.
+ * @member {Array.<module:model/InlineResponse2003Permissions>} permissions
+ */
+InlineResponse2003.prototype['permissions'] = undefined;
 
-    /**
-     * value: "ORDER"
-     * @const
-     */
-    "ORDER": "ORDER",
+/**
+ * Массив групп permission-ов.
+ * @member {Array.<module:model/InlineResponse2003PermissionGroups>} permissionGroups
+ */
+InlineResponse2003.prototype['permissionGroups'] = undefined;
 
-    /**
-     * value: "BOX"
-     * @const
-     */
-    "BOX": "BOX",
+/**
+ * GUID мастер пользователя к которму относится данный субпользователь.
+ * @member {String} masterUser
+ */
+InlineResponse2003.prototype['masterUser'] = undefined;
 
-    /**
-     * value: "BATCH"
-     * @const
-     */
-    "BATCH": "BATCH",
+/**
+ * Массив доступных стратегий.
+ * @member {Array.<Number>} allowedStrategies
+ */
+InlineResponse2003.prototype['allowedStrategies'] = undefined;
 
-    /**
-     * value: "USER"
-     * @const
-     */
-    "USER": "USER",
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
+ */
+InlineResponse2003.prototype['allowedRoles'] = undefined;
 
-    /**
-     * value: "REQUEST-CUSTOM"
-     * @const
-     */
-    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+/**
+ * Может ли данный пользователь быть мастер юзером.
+ * @member {Boolean} canByMasterUser
+ */
+InlineResponse2003.prototype['canByMasterUser'] = undefined;
 
-    /**
-     * value: "REQUEST-SEARCH_PRODUCT"
-     * @const
-     */
-    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+InlineResponse2003.prototype['rating'] = undefined;
 
-    /**
-     * value: "REQUEST-SEARCH_NICHE"
-     * @const
-     */
-    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+/**
+ * Массив id сабюзеров.
+ * @member {Array.<module:model/InlineResponse2003SubUsers>} subUsers
+ */
+InlineResponse2003.prototype['subUsers'] = undefined;
 
-    /**
-     * value: "REQUEST-PROPOSAL-CUSTOM"
-     * @const
-     */
-    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+/**
+ * @member {module:model/InlineResponse2003SubUsers} masterUserInfo
+ */
+InlineResponse2003.prototype['masterUserInfo'] = undefined;
 
-    /**
-     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
-     * @const
-     */
-    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+/**
+ * Массив возможных ролей фрилансера
+ * @member {Array.<Number>} allowedSpec
+ */
+InlineResponse2003.prototype['allowedSpec'] = undefined;
 
-    /**
-     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
-     * @const
-     */
-    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+InlineResponse2003.prototype['hideSuppliers'] = undefined;
 
-    /**
-     * value: "OTHER"
-     * @const
-     */
-    "OTHER": "OTHER"
-};
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse2003.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse2003.prototype['updatedAt'] = undefined;
+
+
+
 
 
 

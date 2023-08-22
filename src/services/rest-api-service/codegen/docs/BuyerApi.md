@@ -921,7 +921,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersVacGet
 
-> [InlineResponse2001] apiV1BuyersOrdersVacGet(opts)
+> [InlineResponse2002] apiV1BuyersOrdersVacGet(opts)
 
 # Получить список свободных заказов.
 
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2001]**](InlineResponse2001.md)
+[**[InlineResponse2002]**](InlineResponse2002.md)
 
 ### Authorization
 

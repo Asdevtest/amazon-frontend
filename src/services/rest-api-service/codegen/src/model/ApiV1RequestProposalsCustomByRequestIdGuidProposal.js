@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy from './ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy';
 import ApiV1RequestProposalsMedia from './ApiV1RequestProposalsMedia';
 import ApiV1RequestProposalsSourceFiles from './ApiV1RequestProposalsSourceFiles';
@@ -94,7 +94,7 @@ class ApiV1RequestProposalsCustomByRequestIdGuidProposal {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
             if (data.hasOwnProperty('sub')) {
-                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
+                obj['sub'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('sourceFiles')) {
                 obj['sourceFiles'] = ApiClient.convertToType(data['sourceFiles'], [ApiV1RequestProposalsSourceFiles]);
@@ -209,7 +209,7 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['chatId'] = undefin
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['lastModifiedById'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} sub
  */
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['sub'] = undefined;
 

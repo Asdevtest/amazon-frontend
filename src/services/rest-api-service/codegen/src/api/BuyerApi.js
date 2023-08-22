@@ -23,7 +23,7 @@ import InlineObject41 from '../model/InlineObject41';
 import InlineObject42 from '../model/InlineObject42';
 import InlineObject43 from '../model/InlineObject43';
 import InlineObject44 from '../model/InlineObject44';
-import InlineResponse2001 from '../model/InlineResponse2001';
+import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse20021 from '../model/InlineResponse20021';
 import InlineResponse20022 from '../model/InlineResponse20022';
 import InlineResponse20023 from '../model/InlineResponse20023';
@@ -949,7 +949,7 @@ export default class BuyerApi {
      * @param {module:model/String} opts.sortField Поле, по которому сортировать запрос
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
      */
     apiV1BuyersOrdersVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -970,7 +970,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2001];
+      let returnType = [InlineResponse2002];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -985,7 +985,7 @@ export default class BuyerApi {
      * @param {module:model/String} opts.sortField Поле, по которому сортировать запрос
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
      */
     apiV1BuyersOrdersVacGet(opts) {
       return this.apiV1BuyersOrdersVacGetWithHttpInfo(opts)

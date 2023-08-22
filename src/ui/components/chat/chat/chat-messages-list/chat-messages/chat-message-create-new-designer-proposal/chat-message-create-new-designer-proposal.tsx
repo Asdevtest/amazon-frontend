@@ -13,7 +13,7 @@ import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -94,18 +94,11 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
+          <PhotoAndFilesCarouselTest
+            directionColumn
             files={message.data.request?.media?.map(el => el.fileLink)}
-            imagesTitles={message.data.request?.media?.map(el => el.commentByClient)}
-            width="340px"
-            withoutPhotos={undefined}
-            whithoutFiles={undefined}
-            imagesForLoad={undefined}
-            isEditable={undefined}
-            withoutMakeMainImage={undefined}
-            onChangeImagesForLoad={undefined}
+            customGap={20}
+            customImageHeight={80}
           />
         </div>
 
@@ -131,17 +124,11 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
+          <PhotoAndFilesCarouselTest
+            directionColumn
             files={message.data.proposal.linksToMediaFiles}
-            width="340px"
-            withoutPhotos={undefined}
-            whithoutFiles={undefined}
-            imagesForLoad={undefined}
-            isEditable={undefined}
-            withoutMakeMainImage={undefined}
-            onChangeImagesForLoad={undefined}
+            customGap={20}
+            customImageHeight={80}
           />
         </div>
       </div>

@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 import ApiV1BuyersOrdersMyOrderSupplier from './ApiV1BuyersOrdersMyOrderSupplier';
 import ApiV1BuyersOrdersMyPayments from './ApiV1BuyersOrdersMyPayments';
 import ApiV1BuyersOrdersMyProduct from './ApiV1BuyersOrdersMyProduct';
@@ -120,7 +120,7 @@ class InlineResponse20025 {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('product')) {
                 obj['product'] = ApiV1BuyersOrdersMyProduct.constructFromObject(data['product']);
@@ -269,7 +269,7 @@ InlineResponse20025.prototype['totalPriceChanged'] = undefined;
 InlineResponse20025.prototype['createdById'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} storekeeper
  */
 InlineResponse20025.prototype['storekeeper'] = undefined;
 

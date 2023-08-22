@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   mainWrapper: {
-    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

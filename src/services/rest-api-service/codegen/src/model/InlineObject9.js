@@ -22,7 +22,7 @@ class InlineObject9 {
     /**
      * Constructs a new <code>InlineObject9</code>.
      * @alias module:model/InlineObject9
-     * @param title {String} 
+     * @param title {String} Название красного флага
      */
     constructor(title) { 
         
@@ -52,6 +52,9 @@ class InlineObject9 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('iconImage')) {
+                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
+            }
         }
         return obj;
     }
@@ -60,9 +63,15 @@ class InlineObject9 {
 }
 
 /**
+ * Название красного флага
  * @member {String} title
  */
 InlineObject9.prototype['title'] = undefined;
+
+/**
+ * @member {String} iconImage
+ */
+InlineObject9.prototype['iconImage'] = undefined;
 
 
 

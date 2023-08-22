@@ -16,7 +16,7 @@ import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject119 from '../model/InlineObject119';
-import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20022 from '../model/InlineResponse20022';
 import InlineResponse20072 from '../model/InlineResponse20072';
 import InlineResponse20073 from '../model/InlineResponse20073';
@@ -321,7 +321,7 @@ export default class SupervisorApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
      */
     apiV1SupervisorsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -341,7 +341,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse200];
+      let returnType = [InlineResponse2001];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -355,7 +355,7 @@ export default class SupervisorApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
      */
     apiV1SupervisorsProductsVacGet(opts) {
       return this.apiV1SupervisorsProductsVacGetWithHttpInfo(opts)

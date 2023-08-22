@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsVacGet
 
-> [InlineResponse200] apiV1SupervisorsProductsVacGet(opts)
+> [InlineResponse2001] apiV1SupervisorsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+[**[InlineResponse2001]**](InlineResponse2001.md)
 
 ### Authorization
 

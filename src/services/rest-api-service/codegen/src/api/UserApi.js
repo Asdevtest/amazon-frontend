@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1AdminsGetProductsByStatusCreatedBy from '../model/ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyCreatedBy from '../model/ApiV1AnnouncementsMyCreatedBy';
 import BadRequestError from '../model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from '../model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from '../model/CheckIsUniqueNameOrEmailSchema';
@@ -792,7 +792,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.specs Роль юзеров
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AnnouncementsMyCreatedBy>} and HTTP response
      */
     apiV1UsersMastersGetWithHttpInfo(role, guid, opts) {
       opts = opts || {};
@@ -822,7 +822,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1AdminsGetProductsByStatusCreatedBy];
+      let returnType = [ApiV1AnnouncementsMyCreatedBy];
       return this.apiClient.callApi(
         '/api/v1/users/masters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -838,7 +838,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.specs Роль юзеров
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AnnouncementsMyCreatedBy>}
      */
     apiV1UsersMastersGet(role, guid, opts) {
       return this.apiV1UsersMastersGetWithHttpInfo(role, guid, opts)

@@ -64,8 +64,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 64,
-    width: 90,
+
+    height: 100,
+    width: 140,
   },
 
   slideSmall: {
@@ -74,13 +75,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   slideMedium: {
-    height: 128,
-    width: 180,
+    height: 160,
+    width: 224,
   },
 
   slideBig: {
-    height: 256,
-    width: 360,
+    height: 300,
+    width: 420,
   },
 
   opacity: {
@@ -148,18 +149,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   smallText: {
-    fontSize: 12,
-    lineHeight: '16px',
+    fontSize: '12px !important',
+    lineHeight: '16px !important',
   },
 
   mediumText: {
-    fontSize: 16,
-    lineHeight: '22px',
+    fontSize: '16px !important',
+    lineHeight: '22px !important',
   },
 
   bigText: {
-    fontSize: 18,
-    lineHeight: '25px',
+    fontSize: '18px !important',
+    lineHeight: '25px !important',
   },
 }))
 
