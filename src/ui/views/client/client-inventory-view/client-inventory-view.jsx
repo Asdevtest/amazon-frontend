@@ -6,6 +6,7 @@ import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
+import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -476,7 +477,12 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
       >
         <SelectionSupplierModal
-          product={viewModel.currentData.find(el => el.originalData._id === viewModel.selectedRowId)}
+          product={
+            viewModel.selectedProductToLaunch ||
+            viewModel.currentData.find(el => el.originalData._id === viewModel.selectedRowId)
+          }
+          title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
+          buttonValue={viewModel.selectedProductToLaunch && SelectedButtonValueConfig.SEND_REQUEST}
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}

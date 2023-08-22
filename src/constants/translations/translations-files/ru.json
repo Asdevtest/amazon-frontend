@@ -2090,5 +2090,7 @@
   "Product variations": "Вариации продукта",
   "Add product linkage": "Добавить связь продукта",
   "hours": "часы",
-  "minutes": "минуты"
+  "minutes": "минуты",
+  "The card does not fit, send to supplier search": "Карточка не подходит, отправьте на поиск поставщика",
+  "Send product card for supplier search": "Отправить карточку товара на поиск поставщика"
 }

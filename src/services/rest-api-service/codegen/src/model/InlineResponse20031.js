@@ -62,6 +62,9 @@ class InlineResponse20031 {
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -100,6 +103,12 @@ InlineResponse20031.prototype['amazonTitle'] = undefined;
  * @member {Array.<String>} skusByClient
  */
 InlineResponse20031.prototype['skusByClient'] = undefined;
+
+/**
+ * GUID пользователя(байера)
+ * @member {String} buyerId
+ */
+InlineResponse20031.prototype['buyerId'] = undefined;
 
 /**
  * Массив картинок.

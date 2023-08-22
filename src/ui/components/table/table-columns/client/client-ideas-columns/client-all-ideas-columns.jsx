@@ -152,6 +152,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
     filterable: false,
+    sortable: false,
   },
 
   {

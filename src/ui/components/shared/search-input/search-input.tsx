@@ -58,7 +58,7 @@ export const SearchInput: FC<Props> = ({
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [internalValue])
+  }, [internalValue, isMyInputFocused])
 
   const searchAndClearSpaces = () => {
     const valueWitchoutSpaces = internalValue.trim()

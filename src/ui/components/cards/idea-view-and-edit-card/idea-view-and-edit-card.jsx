@@ -289,7 +289,8 @@ export const IdeaViewAndEditCard = observer(
       !isSupplierNotFound &&
       !isVerified &&
       !isClosed &&
-      !isRejected
+      !isRejected &&
+      !(isCardCreating && !formFields.childProduct && formFields.variation)
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
@@ -380,7 +381,12 @@ export const IdeaViewAndEditCard = observer(
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
-                          disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
+                          disableSeeResultButton={
+                            request?.status !== RequestStatus.READY_TO_VERIFY ||
+                            request?.status !== RequestStatus.TO_CORRECT ||
+                            request?.status !== RequestStatus.CORRECTED ||
+                            request?.status !== RequestStatus.ACCEPTED_BY_CREATOR_OF_REQUEST
+                          }
                           onClickRequestId={() => onClickRequestId(request._id)}
                           onClickResultButton={() => onClickResultButton(request)}
                         />
@@ -771,9 +777,7 @@ export const IdeaViewAndEditCard = observer(
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
                     success
-                    disabled={
-                      disableAcceptButton || (isCardCreating && !formFields.childProduct && formFields.variation)
-                    }
+                    disabled={disableAcceptButton}
                     variant="contained"
                     color="primary"
                     onClick={() => onClickAcceptButton(formFields)}

@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useImageModalStyles = makeStyles()(theme => ({
   modalContainer: {
-    maxHeight: '70vh',
+    maxHeight: '74vh',
     padding: 40,
 
     [theme.breakpoints.down(768)]: {
@@ -16,7 +16,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
     height: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 42,
+    gap: 40,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column-reverse',
@@ -30,9 +30,9 @@ export const useImageModalStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     overflow: 'auto',
-    paddingRight: 20,
     gap: 25,
-    maxHeight: 'calc(70vh - 80px)',
+    paddingRight: 20,
+    maxHeight: 'calc(74vh - 80px)',
 
     [theme.breakpoints.down(768)]: {
       maxHeight: '273px',
@@ -47,12 +47,14 @@ export const useImageModalStyles = makeStyles()(theme => ({
 
   imagesListItem: {
     display: 'flex',
-    gap: 10,
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 5,
     padding: '10px',
     border: `1px solid #424250`,
     borderRadius: '4px',
     cursor: 'pointer',
-    maxWidth: 193,
+    maxWidth: 150,
     width: '100%',
 
     img: {
@@ -72,13 +74,16 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   imagesListItemTitle: {
-    fontWeight: 600,
     fontSize: 14,
-    minHeight: 20,
+    lineHeight: '19px',
+    fontWeight: 600,
+    textAlign: 'center',
   },
 
   imagesListItemComment: {
-    fontSize: 14,
+    marginTop: 5,
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.second,
     wordBreak: 'break-word',
   },
@@ -95,6 +100,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   body: {
+    padding: '0 100px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -103,15 +109,17 @@ export const useImageModalStyles = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       gap: 10,
+      padding: 0,
     },
   },
 
-  title: {},
+  title: {
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
 
   slider: {
     maxWidth: 720,
-    width: '100vh',
-    height: '100%',
 
     [theme.breakpoints.down(768)]: {
       width: '37vh',
@@ -135,25 +143,26 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   info: {
+    maxWidth: 620,
     display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
     alignItems: 'center',
+    flexDirection: 'column',
+    gap: 20,
   },
-
-  comment: {},
 
   currentSlide: {
     fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
   },
 
   controls: {
     alignItems: 'center',
     justifyContent: 'flex-end',
     display: 'flex',
-    marginTop: '-70px',
+    marginTop: '-60px',
+    marginRight: '-200px',
     width: '100%',
-    marginRight: '-304px',
     gap: 30,
 
     button: {

@@ -50,6 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   disabledNavigation: {
     cursor: 'unset',
-    color: theme.palette.text.second,
+    color: theme.palette.text.gray,
   },
 }))

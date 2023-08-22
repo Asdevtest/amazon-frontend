@@ -1,8 +1,9 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Container, Divider, Grid, Typography } from '@mui/material'
 
+import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,52 +23,47 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
-const selectedButtonValueConfig = {
-  ADD_NEW_SUPPLIER: 'ADD_NEW_SUPPLIER',
-  SEND_REQUEST: 'SEND_REQUEST',
-  SUPPLIER_TO_IDEAS: 'SUPPLIER_TO_IDEAS',
-}
-
 export const SelectionSupplierModal = ({
   product,
+  title,
+  buttonValue,
   onCloseModal,
   onClickFinalAddSupplierButton,
   onSubmitSeekSupplier,
   onClickSeekSupplierToIdea,
 }) => {
-  const [selectedButtonValue, setSelectedButtonValue] = useState('')
-  const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(false)
+  const [selectedButtonValue, setSelectedButtonValue] = useState(buttonValue || '')
+  const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(!!buttonValue || false)
 
-  const [comment, setComment] = useState(product?.originalData.clientComment || '')
+  const [comment, setComment] = useState(product?.originalData?.clientComment || '')
 
   const { classes: classNames } = useClassNames()
 
   const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
-    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS,
+    [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SUPPLIER_TO_IDEAS,
   })
 
   const buttonSendRequestClsx = cx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST,
+    [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST,
   })
   const buttonAddSupplierClsx = cx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER,
+    [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
-  const modalTitleClsx = cx(classNames.modalTitle, { [classNames.modalTitleChange]: clickNextOrPrevButton })
 
   const onClickSearchSupplierForIdeaButton = () => {
-    setSelectedButtonValue(selectedButtonValueConfig.SUPPLIER_TO_IDEAS)
+    setSelectedButtonValue(SelectedButtonValueConfig.SUPPLIER_TO_IDEAS)
   }
 
   const onClickSendRequestButton = () => {
-    setSelectedButtonValue(selectedButtonValueConfig.SEND_REQUEST)
+    setSelectedButtonValue(SelectedButtonValueConfig.SEND_REQUEST)
   }
 
   const onClickAddSupplierButton = () => {
-    setSelectedButtonValue(selectedButtonValueConfig.ADD_NEW_SUPPLIER)
+    setSelectedButtonValue(SelectedButtonValueConfig.ADD_NEW_SUPPLIER)
   }
 
   const onClickNextButton = () => {
-    if (selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST) {
+    if (selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST) {
       setClickNextOrPrevButton(true)
 
       if (clickNextOrPrevButton) {
@@ -75,13 +71,13 @@ export const SelectionSupplierModal = ({
       }
     }
 
-    if (selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER) {
+    if (selectedButtonValue === SelectedButtonValueConfig.ADD_NEW_SUPPLIER) {
       setClickNextOrPrevButton(false)
       onCloseModal()
       onClickFinalAddSupplierButton()
     }
 
-    if (selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS) {
+    if (selectedButtonValue === SelectedButtonValueConfig.SUPPLIER_TO_IDEAS) {
       setClickNextOrPrevButton(false)
       onCloseModal()
       onClickSeekSupplierToIdea()
@@ -90,9 +86,11 @@ export const SelectionSupplierModal = ({
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={modalTitleClsx}>{t(TranslationKey['Find a supplier'])}</Typography>
+      <Typography className={cx(classNames.modalTitle, { [classNames.modalTitleChange]: clickNextOrPrevButton })}>
+        {title || t(TranslationKey['Find a supplier'])}
+      </Typography>
 
-      {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
+      {selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
           <Field
             multiline
@@ -126,7 +124,7 @@ export const SelectionSupplierModal = ({
           <div className={classNames.modalButtonsWrapper}>
             <Button
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
-              disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
+              disabled={product && !clientToEditStatuses.includes(product?.originalData?.status)}
               className={buttonSendRequestClsx}
               onClick={() => onClickSendRequestButton()}
             >
@@ -135,7 +133,7 @@ export const SelectionSupplierModal = ({
 
             <Button
               tooltipAttentionContent={t(TranslationKey['Free service'])}
-              disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
+              disabled={product && !clientToEditStatuses.includes(product?.originalData?.status)}
               className={buttonAddSupplierClsx}
               onClick={() => onClickAddSupplierButton()}
             >
@@ -150,13 +148,16 @@ export const SelectionSupplierModal = ({
         spacing={2}
         className={cx(classNames.modalButtonWrapper, {
           [classNames.modalButtonNextStepWrapper]:
-            selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
+            selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
         })}
       >
-        {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
+        {selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
           <Grid item>
-            <Button className={classNames.modalButtonBack} onClick={() => setClickNextOrPrevButton(false)}>
-              {t(TranslationKey.Back)}
+            <Button
+              className={classNames.modalButtonBack}
+              onClick={() => (buttonValue ? onCloseModal() : setClickNextOrPrevButton(false))}
+            >
+              {buttonValue ? t(TranslationKey.Cancel) : t(TranslationKey.Back)}
             </Button>
           </Grid>
         ) : null}

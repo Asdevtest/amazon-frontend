@@ -36,7 +36,7 @@ import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -188,6 +188,7 @@ export class ClientIdeasViewModel {
   showRequestStandartResultModal = false
   showOrderModal = false
   showAddOrEditSupplierModal = false
+  showSelectionSupplierModal = false
 
   // * Data
 
@@ -1109,8 +1110,64 @@ export class ClientIdeasViewModel {
       this.currentProduct = chosenProduct
       this.productId = chosenProduct?._id
     })
-    this.onTriggerOpenModal('showProductLaunch')
-    this.onTriggerOpenModal('showIdeaModal')
+
+    if (chosenProduct && !chosenProduct?.buyerId) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+          this.onTriggerOpenModal('showProductLaunch')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.onTriggerOpenModal('showProductLaunch')
+      this.onTriggerOpenModal('showIdeaModal')
+    }
+  }
+
+  async onSubmitCalculateSeekSupplier(clientComment) {
+    try {
+      const result = await ClientModel.calculatePriceToSeekSupplier(this.productId)
+
+      runInAction(() => {
+        const priceForSeekSupplier = result.priceForClient
+
+        this.confirmMessage = this.confirmModalSettings = {
+          isWarning: false,
+          confirmTitle: t(TranslationKey.Attention),
+          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n ${t(TranslationKey['Apply?'])}`,
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
+        }
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
+    try {
+      await ClientModel.sendProductToSeekSupplier(this.productId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
+      })
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+      console.log(error)
+    }
   }
 
   async onClickResultButton(request) {

@@ -313,7 +313,7 @@ export const CreateOrEditProposalContent = ({
             </div>
           </div>
 
-          <div className={classNames.checkboxWrapper}>
+          {/* <div className={classNames.checkboxWrapper}>
             <Checkbox
               color="primary"
               checked={checked}
@@ -321,16 +321,16 @@ export const CreateOrEditProposalContent = ({
               onChange={() => setChecked(!checked)}
             />
             <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
-          </div>
+          </div> */}
 
           <div className={classNames.middleSubWrapper}>
-            <Field
+            {/* <Field
               disabled={!checked}
               label={t(TranslationKey['Enter the offer price'])}
               inputProps={{ maxLength: 10 }}
               value={formFields.price}
               onChange={onChangeField('price')}
-            />
+            /> */}
 
             <SetDuration
               title={t(TranslationKey['Time to complete']) + '*'}

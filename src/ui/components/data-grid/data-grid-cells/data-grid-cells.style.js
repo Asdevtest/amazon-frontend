@@ -807,6 +807,10 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
+  multilineTextHeaderSpaceBetween: {
+    justifyContent: 'space-between',
+  },
+
   boxesAndQuantityWrapper: {
     width: '100%',
     display: 'flex',

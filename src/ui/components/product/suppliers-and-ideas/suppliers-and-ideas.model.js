@@ -274,9 +274,9 @@ export class SuppliersAndIdeasModel {
           isForceUpdate,
         )
 
-        if (this.isModalView) {
-          await this.getIdea(createdIdeaId)
-        }
+        // if (this.isModalView) {
+        await this.getIdea(createdIdeaId)
+        // }
 
         this.loadData()
       }
@@ -450,6 +450,10 @@ export class SuppliersAndIdeasModel {
         } else {
           await IdeaModel.changeStatusToSupplierNotFound(_id)
         }
+
+        runInAction(() => {
+          this.curIdea = undefined
+        })
         this.loadData()
         break
 
@@ -545,6 +549,7 @@ export class SuppliersAndIdeasModel {
   }
 
   async onTriggerAddOrEditSupplierModal() {
+    console.log('this.showAddOrEditSupplierModal', this.showAddOrEditSupplierModal)
     try {
       if (this.showAddOrEditSupplierModal) {
         this.selectedSupplier = undefined
@@ -652,7 +657,7 @@ export class SuppliersAndIdeasModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.curIdea._id, { suppliersIds: [createSupplierResult.guid] })
+        await IdeaModel.addSuppliersToIdea(this.curIdea?._id, { suppliersIds: [createSupplierResult.guid] })
       }
 
       if (this.curIdea?._id) {
