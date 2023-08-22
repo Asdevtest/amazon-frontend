@@ -26,6 +26,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './product-card-modal.style'
 
 import { ConfirmationModal } from '../confirmation-modal'
+import { EditHSCodeModal } from '../edit-hs-code-modal'
 import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
@@ -280,6 +281,17 @@ export const ProductCardModal = observer(props => {
         }}
         onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
       />
+
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        />
+      </Modal>
     </Modal>
   )
 })
