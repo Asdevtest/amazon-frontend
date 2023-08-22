@@ -1,0 +1,5 @@
+export enum SelectedButtonValueConfig {
+  ADD_NEW_SUPPLIER = 'ADD_NEW_SUPPLIER',
+  SEND_REQUEST = 'SEND_REQUEST',
+  SUPPLIER_TO_IDEAS = 'SUPPLIER_TO_IDEAS',
+}
