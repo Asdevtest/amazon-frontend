@@ -122,6 +122,21 @@ export class ChatMessageRemovePatchInfoGroupChatContract
   public prevData!: { image: string; title: string }
 }
 
+export class ChatMessageProposalEditedChatContract
+  implements TWebsocketChatService.ChatMessageDataProposalEditedContract
+{
+  @IsString()
+  public comment!: string
+  @IsNumber()
+  public execution_time!: number
+  @IsNotEmpty()
+  public linksToMediaFiles!: string[]
+  @IsNumber()
+  public price!: number
+  @IsString()
+  public title!: string
+}
+
 export class ChatMessageDataProposalResultEditedRequestContract
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedRequest
 {

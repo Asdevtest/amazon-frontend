@@ -1646,7 +1646,10 @@ export const MultilineTextHeaderCell = React.memo(
   withStyles(
     ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
       <div
-        className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
+        className={cx(classNames.multilineTextHeaderWrapper, {
+          [classNames.multilineTextHeaderCenter]: textCenter,
+          [classNames.multilineTextHeaderSpaceBetween]: component,
+        })}
       >
         <Tooltip title={text}>
           <Typography className={classNames.multilineHeaderText} style={color && { color }}>
@@ -3259,7 +3262,12 @@ export const IdeaRequests = React.memo(
             requestStatus={request.status}
             executor={request.executor}
             proposals={request.proposals}
-            disableSeeResultButton={request?.status !== RequestStatus.READY_TO_VERIFY}
+            disableSeeResultButton={
+              request?.status !== RequestStatus.READY_TO_VERIFY ||
+              request?.status !== RequestStatus.TO_CORRECT ||
+              request?.status !== RequestStatus.CORRECTED ||
+              request?.status !== RequestStatus.ACCEPTED_BY_CREATOR_OF_REQUEST
+            }
             onClickRequestId={() => onClickRequestId(request._id)}
             onClickResultButton={() => onClickResultButton(request)}
           />
