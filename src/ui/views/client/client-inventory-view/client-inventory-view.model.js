@@ -624,8 +624,6 @@ export class ClientInventoryViewModel {
   async onClickNextButton(chosenProduct) {
     runInAction(() => (this.selectedProductToLaunch = chosenProduct))
 
-    console.log('chosenProduct', chosenProduct)
-
     if (chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
