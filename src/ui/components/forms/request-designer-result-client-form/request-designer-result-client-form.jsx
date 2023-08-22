@@ -228,7 +228,7 @@ export const RequestDesignerResultClientForm = ({
           return {
             url,
             title: el.comment,
-            comment: el.imageComment,
+            comment: el.commentByClient,
             _id: el._id,
           }
         }),
