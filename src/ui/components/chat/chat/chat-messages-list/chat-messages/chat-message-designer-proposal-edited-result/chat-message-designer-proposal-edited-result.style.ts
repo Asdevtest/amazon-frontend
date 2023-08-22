@@ -66,7 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   editButton: {
-    width: '252px',
+    width: '200px',
   },
 
   successBtn: {
