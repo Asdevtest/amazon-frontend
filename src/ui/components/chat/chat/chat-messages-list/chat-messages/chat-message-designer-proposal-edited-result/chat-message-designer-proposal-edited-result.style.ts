@@ -47,7 +47,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: 50,
   },
 
   btnsWrapper: {
