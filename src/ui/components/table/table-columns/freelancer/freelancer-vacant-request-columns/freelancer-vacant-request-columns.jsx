@@ -220,7 +220,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 97,
+    width: 105,
     // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
   },

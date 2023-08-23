@@ -95,8 +95,6 @@ export const ProductWrapper = observer(
       seturUserRole(() => UserRoleCodeMap[userRole])
     }, [userRole])
 
-    console.log('product', product)
-
     return (
       <>
         {SettingsModel.languageTag && (
