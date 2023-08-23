@@ -47,6 +47,8 @@ export class OrdersModel {
   destinations = []
   platformSettings = undefined
 
+  paginationModel = { page: 0, pageSize: 15 }
+
   confirmModalSettings = {
     isWarning: false,
     confirmTitle: '',
@@ -128,6 +130,14 @@ export class OrdersModel {
         }
       }
     }
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.loadData()
   }
 
   onClickResetFilters() {
