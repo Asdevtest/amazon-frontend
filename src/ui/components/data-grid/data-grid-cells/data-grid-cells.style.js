@@ -1355,7 +1355,7 @@ export const styles = theme => ({
     width: 160,
     marginTop: 10,
     whiteSpace: 'normal',
-    color: theme.palette.text.general,
+    color: '#fff',
     background: theme.palette.primary.main,
   },
 
