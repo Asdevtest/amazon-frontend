@@ -485,6 +485,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.other.succes,
   },
 
+  supplierNotFoundText: {
+    color: theme.palette.orderStatus.red,
+  },
+
   contentWrapper: {
     display: 'flex',
     flexDirection: 'column',

@@ -745,7 +745,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {(isSupplierFound || isSupplierNotFound) && (
-                  <p className={classNames.statusText}>
+                  <p className={cx(classNames.statusText, { [classNames.supplierNotFoundText]: isSupplierNotFound })}>
                     {isSupplierFound ? t(TranslationKey['Supplier found']) : t(TranslationKey['Supplier not found'])}
                   </p>
                 )}
