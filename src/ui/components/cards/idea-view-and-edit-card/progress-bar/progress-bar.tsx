@@ -38,7 +38,10 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
     currentStatus !== ideaStatusByKey[ideaStatus.REJECTED]
       ? progressBarSettings.filter(settingItem => !settingItem.statuses.includes(ideaStatus.REJECTED))
       : progressBarSettings.filter(
-          settingItem => getInterval(settingItem) || settingItem.statuses.includes(ideaStatus.REJECTED),
+          settingItem =>
+            settingItem.statuses.includes(ideaStatus.NEW) ||
+            getInterval(settingItem) ||
+            settingItem.statuses.includes(ideaStatus.REJECTED),
         )
 
   const [statusesToRender, setStatusesToRender] = useState(getStatusesToRender())
