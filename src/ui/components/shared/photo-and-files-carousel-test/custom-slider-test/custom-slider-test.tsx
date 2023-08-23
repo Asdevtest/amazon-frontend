@@ -4,15 +4,15 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { imageTypes } from '@constants/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './custom-slider.style'
+import { useClassNames } from './custom-slider-test.style'
 
 import { FileIcon } from '../../files-carousel/file-icon'
 
@@ -49,7 +49,6 @@ export const CustomSliderTest: FC<Props> = ({
   const [selectedElement, setSelectedElement] = useState<string>('')
 
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isOpacity, setIsOpacity] = useState(false)
 
   const [arrowDirection, setArrowDirection] = useState<ArrowsType>()
 
@@ -69,8 +68,6 @@ export const CustomSliderTest: FC<Props> = ({
 
   const handleArrowClick = (direction: ArrowsType) => {
     if (!isTransitioning) {
-      setIsTransitioning(true)
-      setIsOpacity(true)
       setArrowDirection(direction)
       setCurrentIndex(prevIndex =>
         direction === Arrows.LEFT
@@ -79,6 +76,7 @@ export const CustomSliderTest: FC<Props> = ({
             : prevIndex - 1
           : (prevIndex + 1) % selectedElements.length,
       )
+      setIsTransitioning(true)
     }
   }
 
@@ -88,16 +86,15 @@ export const CustomSliderTest: FC<Props> = ({
 
     if (isTransitioning) {
       transitionTimeout = setTimeout(() => {
-        setIsOpacity(false)
-        setIsTransitioning(false)
         setSelectedElement(selectedElements[currentIndex])
+        setIsTransitioning(false)
       }, transitionDuration)
     }
 
     return () => {
       clearTimeout(transitionTimeout)
     }
-  }, [isTransitioning, isOpacity])
+  }, [isTransitioning])
 
   const currentSlideTitle = `${currentIndex + 1}/${selectedElements.length}`
   const customSlideWidth = customImageHeight && customImageHeight * WIDTH_INCREASE_FACTOR
@@ -106,7 +103,7 @@ export const CustomSliderTest: FC<Props> = ({
   const isLeftArrow = arrowDirection === Arrows.LEFT
   const isNoElements = selectedElements.length === 0
   const elementExtension = selectedElement.split('.').slice(-1)[0]
-  const isImageType = imageTypes.includes(elementExtension)
+  const isImageType = selectedElements.every(el => checkIsImageLink(el))
 
   return (
     <>
@@ -118,7 +115,11 @@ export const CustomSliderTest: FC<Props> = ({
       >
         {!isNoElements ? (
           <div className={classNames.mainWrapper}>
-            <div className={classNames.sliderWrapper}>
+            <div
+              className={cx(classNames.sliderWrapper, {
+                [classNames.bigGap]: bigSlider,
+              })}
+            >
               <button disabled={isDisableArrow}>
                 <ArrowLeftIcon
                   className={cx(classNames.arrowIcon, {
@@ -133,7 +134,6 @@ export const CustomSliderTest: FC<Props> = ({
 
               <div
                 className={cx(classNames.slideWrapper, {
-                  [classNames.opacity]: isOpacity,
                   [classNames.slideLeftBefore]: isTransitioning && isLeftArrow,
                   [classNames.slideLeftAfter]: !isTransitioning && isLeftArrow,
                   [classNames.slideRightBefore]: isTransitioning && isRightArrow,
@@ -211,7 +211,7 @@ export const CustomSliderTest: FC<Props> = ({
               {isImageType ? (
                 <NoPhotoIcon className={classNames.slide} />
               ) : (
-                <NoDocumentIcon className={classNames.slide} />
+                <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
               )}
             </div>
 

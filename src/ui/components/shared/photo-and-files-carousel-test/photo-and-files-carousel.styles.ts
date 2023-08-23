@@ -59,6 +59,10 @@ export const useClassNames = makeStyles()(() => ({
     cursor: 'pointer',
   },
 
+  slideNoDocuments: {
+    color: '#E0E0E0',
+  },
+
   text: {
     fontSize: 14,
     lineHeight: '19px',

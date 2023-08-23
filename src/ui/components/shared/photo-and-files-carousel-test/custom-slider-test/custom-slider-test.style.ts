@@ -32,9 +32,13 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
+  bigGap: {
+    gap: 30,
+  },
+
   arrowIcon: {
-    width: '35px !important',
-    height: '35px !important',
+    width: '30px !important',
+    height: '30px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
   },
@@ -45,18 +49,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   smallArrow: {
-    width: '30px !important',
-    height: '30px !important',
+    width: '20px !important',
+    height: '20px !important',
   },
 
   mediumArrow: {
-    width: '40px !important',
-    height: '40px !important',
+    width: '35px !important',
+    height: '35px !important',
   },
 
   bigArrow: {
-    width: '50px !important',
-    height: '50px !important',
+    width: '40px !important',
+    height: '40px !important',
   },
 
   slideWrapper: {
@@ -65,27 +69,23 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
 
-    height: 100,
-    width: 140,
+    height: 110,
+    width: 146,
   },
 
   slideSmall: {
-    height: '64px !important',
-    width: '90px !important',
+    height: '60px !important',
+    width: '80px !important',
   },
 
   slideMedium: {
     height: '160px !important',
-    width: '224px !important',
+    width: '213px !important',
   },
 
   slideBig: {
     height: '300px !important',
-    width: '420px !important',
-  },
-
-  opacity: {
-    opacity: 0,
+    width: '400px !important',
   },
 
   slideLeftBefore: {
@@ -135,6 +135,10 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
+  slideNoDocuments: {
+    color: '#E0E0E0',
+  },
+
   currentSlideTitle: {
     fontSize: 14,
     lineHeight: '19px',
@@ -171,14 +175,14 @@ const slideLeftBefore = keyframes`
   }
 
   100% {
-    transform: translateX(-20%);
+    transform: translateX(-10%);
     opacity: 0;
   }
 `
 
 const slideLeftAfter = keyframes`
   0% {
-    transform: translateX(20%);
+    transform: translateX(10%);
     opacity: 0;
   }
 
@@ -195,14 +199,14 @@ const slideRightBefore = keyframes`
   }
 
   100% {
-    transform: translateX(20%);
+    transform: translateX(10%);
     opacity: 0;
   }
 `
 
 const slideRightAfter = keyframes`
   0% {
-    transform: translateX(-20%);
+    transform: translateX(-10%);
     opacity: 0;
   }
 

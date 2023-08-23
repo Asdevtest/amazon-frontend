@@ -25,7 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { CustomSliderTest } from '@components/shared/photo-and-files-carousel-test/custom-slider-test'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
@@ -205,7 +205,7 @@ export const BoxViewForm = observer(
               <div className={classNames.imgWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
-                  <PhotoCarousel small files={box.images} />
+                  <PhotoAndFilesCarouselTest whithoutFiles files={box.images} />
                 </div>
               </div>
 
@@ -522,7 +522,7 @@ const Content = React.memo(
           <div key={index} className={classNames.productWrapper}>
             <div className={classNames.leftColumn}>
               <div className={classNames.photoWrapper}>
-                <CustomSliderTest files={item.product.images} />
+                <PhotoAndFilesCarouselTest whithoutFiles files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                 <Typography className={classNames.amazonTitle}>
