@@ -13,11 +13,11 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MyProposalsSlider } from '@components/cards/my-proposals-list-card/my-proposals-slider'
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
+import { ProposalsSlider } from '@components/shared/proposals-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
@@ -252,7 +252,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           <div className={classNames.proposalsWrapper}>
             <Divider orientation={'vertical'} />
 
-            <MyProposalsSlider
+            <ProposalsSlider
               isComment
               proposals={requestProposals}
               title={t(TranslationKey.Proposal)}

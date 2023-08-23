@@ -8,16 +8,18 @@ import { RequestProposalStatusColor, RequestProposalStatusTranslate } from '@con
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import {
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
+} from '@components/cards/my-proposals-list-card/my-proposals-list-card.constants'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './my-proposals-slider.style'
+import { useClassNames } from './proposals-slider.style'
 
-import { disabledCancelBtnStatuses, noDisabledEditBtnStatuses } from '../my-proposals-list-card.constants'
-
-export const MyProposalsSlider = ({
+export const ProposalsSlider = ({
   item,
   proposals,
   title,
