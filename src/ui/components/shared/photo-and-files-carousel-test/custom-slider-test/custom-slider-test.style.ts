@@ -33,8 +33,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   arrowIcon: {
-    width: '35px !important',
-    height: '35px !important',
+    width: '30px !important',
+    height: '30px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
   },
@@ -45,18 +45,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   smallArrow: {
-    width: '30px !important',
-    height: '30px !important',
+    width: '20px !important',
+    height: '20px !important',
   },
 
   mediumArrow: {
-    width: '40px !important',
-    height: '40px !important',
+    width: '35px !important',
+    height: '35px !important',
   },
 
   bigArrow: {
-    width: '50px !important',
-    height: '50px !important',
+    width: '40px !important',
+    height: '40px !important',
   },
 
   slideWrapper: {
@@ -65,23 +65,23 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
 
-    height: 100,
-    width: 140,
+    height: 110,
+    width: 146,
   },
 
   slideSmall: {
-    height: '64px !important',
-    width: '90px !important',
+    height: '60px !important',
+    width: '80px !important',
   },
 
   slideMedium: {
     height: '160px !important',
-    width: '224px !important',
+    width: '213px !important',
   },
 
   slideBig: {
     height: '300px !important',
-    width: '420px !important',
+    width: '400px !important',
   },
 
   opacity: {
@@ -133,6 +133,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100% !important',
     objectFit: 'contain',
     cursor: 'pointer',
+  },
+
+  slideNoDocuments: {
+    color: '#E0E0E0',
   },
 
   currentSlideTitle: {

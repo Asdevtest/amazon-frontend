@@ -66,6 +66,13 @@ export const checkIsImageLink = link =>
   link?.includes('rotated-image') ||
   link?.includes('placeimg.com')
 
+export const checkIsDocumentLink = link =>
+  link?.endsWith('.doc') ||
+  link?.endsWith('.docx') ||
+  link?.endsWith('.pdf') ||
+  link?.endsWith('.xlsx') ||
+  link?.endsWith('.xls')
+
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 

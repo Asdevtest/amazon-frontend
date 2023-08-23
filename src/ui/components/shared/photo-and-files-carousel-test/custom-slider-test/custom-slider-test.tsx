@@ -4,15 +4,15 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { imageTypes } from '@constants/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './custom-slider.style'
+import { useClassNames } from './custom-slider-test.style'
 
 import { FileIcon } from '../../files-carousel/file-icon'
 
@@ -106,7 +106,7 @@ export const CustomSliderTest: FC<Props> = ({
   const isLeftArrow = arrowDirection === Arrows.LEFT
   const isNoElements = selectedElements.length === 0
   const elementExtension = selectedElement.split('.').slice(-1)[0]
-  const isImageType = imageTypes.includes(elementExtension)
+  const isImageType = selectedElements.every(el => checkIsImageLink(el))
 
   return (
     <>
@@ -211,7 +211,7 @@ export const CustomSliderTest: FC<Props> = ({
               {isImageType ? (
                 <NoPhotoIcon className={classNames.slide} />
               ) : (
-                <NoDocumentIcon className={classNames.slide} />
+                <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
               )}
             </div>
 

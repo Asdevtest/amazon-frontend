@@ -283,6 +283,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '225px',
     height: 220,
     paddingBottom: 30,

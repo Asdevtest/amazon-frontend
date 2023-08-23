@@ -2,12 +2,12 @@ import { cx } from '@emotion/css'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-and-files-carousel.styles'
 
-import { NoDocumentIcon } from '../svg-icons'
+import { NoPhotoIcon } from '../svg-icons'
 
 import { CustomSliderTest } from './custom-slider-test'
 import { WIDTH_INCREASE_FACTOR } from './custom-slider-test/custom-slider-test.constants'
@@ -28,8 +28,8 @@ export const PhotoAndFilesCarouselTest = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  const notEmptyFiles = files?.length ? files.filter(el => !checkIsImageLink(el?.file?.name || el)) : []
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
+  const notEmptyFiles = files?.length ? files.filter(el => checkIsDocumentLink(el?.file?.name || el)) : []
 
   const customSlideWidth = customImageHeight && customImageHeight * WIDTH_INCREASE_FACTOR
 
@@ -78,7 +78,8 @@ export const PhotoAndFilesCarouselTest = ({
         })}
         style={{ width: customSlideWidth, height: customImageHeight }}
       >
-        <NoDocumentIcon className={classNames.slide} />
+        <NoPhotoIcon className={classNames.slide} />
+        {/* <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} /> */}
       </div>
 
       <p
@@ -88,7 +89,7 @@ export const PhotoAndFilesCarouselTest = ({
           [classNames.bigText]: bigSlider,
         })}
       >
-        {t(TranslationKey['No files'])}
+        {t(TranslationKey['No photos'])}
       </p>
     </div>
   )
