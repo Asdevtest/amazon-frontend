@@ -76,7 +76,7 @@ export class SupervisorProductsViewModel {
   productCardModal = false
 
   rowHandlers = {
-    onClickShowProduct: row => this.onClickTableRow(row),
+    onClickShowProduct: id => this.onClickTableRow(id),
   }
 
   columnsModel = supervisorProductsViewColumns(this.rowHandlers)

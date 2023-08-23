@@ -647,4 +647,9 @@ export class BuyerProductViewModel {
       console.log(error)
     }
   }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
+    win.focus()
+  }
 }

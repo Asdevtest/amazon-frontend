@@ -379,7 +379,7 @@ export class ClientInventoryViewModel {
     } else {
       this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
 
-      this.loadData()
+      this.getProductsMy()
     }
 
     this.onTriggerOpenModal('productCardModal')
