@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './my-proposals-list-card.style'
 
-import { MyProposalsSlider } from './my-proposals-slider'
+import { ProposalsSlider } from '../../shared/proposals-slider'
 
 export const MyProposalsListCard = ({
   item,
@@ -97,7 +97,7 @@ export const MyProposalsListCard = ({
           <div className={classNames.divider}></div>
         </div>
 
-        <MyProposalsSlider
+        <ProposalsSlider
           item={item}
           title={t(TranslationKey.Proposal)}
           isFirst={isFirst}

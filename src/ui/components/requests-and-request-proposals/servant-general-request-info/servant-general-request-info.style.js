@@ -2,160 +2,135 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
+    padding: 30,
     display: 'flex',
-    borderRadius: '4px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    padding: '30px 30px',
-    width: '100%',
-    minHeight: 'fit-content',
-  },
-  standartText: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: theme.palette.text.second,
+    borderRadius: 4,
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
   },
 
   mainBlockWrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: 40,
   },
 
-  titleWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  userPhoto: {
-    width: '60px',
-    height: '60px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    marginRight: '30px',
-  },
-
-  title: {
-    width: 479,
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '21px',
-
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-  },
-
-  btnsBlockWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'end',
-  },
-  actionBtn: {
-    width: '244px',
-    height: '30px',
+  mainWrapper: {
+    maxWidth: 310,
+    flex: '1 1 auto',
   },
 
   personInfoWrapper: {
     display: 'flex',
-    height: '60px',
     alignItems: 'center',
+    gap: 10,
+    marginBottom: 15,
   },
 
   personWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    gap: 5,
   },
 
-  leftSideWrapper: {
-    flex: '1 1 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  leftSideFooterWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'end',
+  userPhoto: {
+    width: '60px',
+    height: '60px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    borderRadius: '50%',
   },
 
   transactions: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '400',
+    fontSize: 14,
     lineHeight: '19px',
+    color: theme.palette.text.general,
+    marginBottom: 35,
   },
 
-  proposalsWrapper: {
+  btnsBlockWrapper: {
     display: 'flex',
+    justifyContent: 'flex-start',
+  },
+
+  actionBtn: {
+    width: 185,
+    height: 30,
+  },
+
+  requestInfoWrapper: {
     flex: '1 1 auto',
-    gap: 20,
   },
 
-  proposalWrapper: {
+  titleAndIdWrapper: {
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+    gap: 10,
+    marginBottom: 15,
   },
 
-  proposalComment: {
-    margin: '20px 0 10px 0',
-    overflow: 'auto',
-    height: '130px',
+  title: {
+    maxWidth: 350,
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  },
+
+  linkSpan: {
+    fontSize: '18px !important',
+    lineHeight: '25px',
+  },
+
+  idTitleWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  idText: {
+    fontSize: 18,
+    lineHeight: '25px',
+    color: theme.palette.text.second,
+  },
+
+  idTextDark: {
     color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '400',
-    lineHeight: '19px',
-    whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word',
+    fontWeight: 600,
   },
 
-  rightSubWrapper: {
-    width: '100%',
+  standartText: {
+    fontSize: 14,
+    lineHeight: '20px',
+    color: theme.palette.text.second,
+    marginBottom: 15,
+  },
+
+  confirmationToWorkText: {
+    color: '#09BB49',
+    fontSize: 14,
+    lineHeight: '19px',
+    marginBottom: 15,
+  },
+
+  urgentWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 10,
   },
 
-  statusField: {
-    display: 'flex',
-    alignItems: 'center',
+  urgentIcon: {
+    width: 20,
+    height: 20,
   },
 
-  circleIndicator: {
-    width: '12px',
-    height: '12px',
-    borderRadius: '50%',
-    marginRight: '10px',
-  },
-
-  status: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '400',
+  urgentText: {
+    fontSize: 14,
     lineHeight: '19px',
-  },
-
-  price: {
-    color: theme.palette.primary.main,
-    fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '19px',
-  },
-
-  mainWrapper: {
-    width: '585px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  mainHeaderWrapper: {
-    display: 'flex',
-    alignItems: 'start',
-    justifyContent: 'space-between',
+    color: theme.palette.text.second,
   },
 
   mainInfosWrapper: {
@@ -163,6 +138,20 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     flex: '1 1 auto',
     gap: 10,
+  },
+
+  headerWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+
+  cardTitle: {
+    maxWidth: 400,
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
+    color: theme.palette.text.general,
   },
 
   mainInfosSubWrapper: {
@@ -173,101 +162,40 @@ export const useClassNames = makeStyles()(theme => ({
     alignSelf: 'center',
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
-    padding: '15px 15px',
+    padding: '30px 15px',
+  },
+
+  accentText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  proposalsWrapper: {
+    display: 'flex',
+    flex: '1 1 auto',
+    gap: 20,
+  },
+
+  sliderWrapper: {
+    width: '100% !important',
   },
 
   fieldLabel: {
-    fontSize: '14px',
+    fontSize: 12,
     lineHeight: '16px',
-    fontWeight: '400',
+    fontWeight: 400,
     color: theme.palette.text.second,
+    marginBottom: 5,
   },
 
   fieldContainer: {
-    minHeight: 55,
+    minHeight: 40,
     marginBottom: '25px !important',
 
     '&:last-child': {
       marginBottom: '0px !important',
     },
-  },
-
-  subNameContainer: {
-    minHeight: 55,
-    gap: 10,
-    margin: '0 !important',
-  },
-
-  accentText: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: theme.palette.text.general,
-  },
-
-  cardTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-    width: '500px',
-  },
-
-  headerWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  asinAndIdWrapper: {
-    display: 'flex',
-    gap: 30,
-  },
-  idWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
-
-  idText: {
-    fontSize: 18,
-    lineHeight: '140%',
-    color: theme.palette.text.second,
-  },
-  linkSpan: {
-    fontSize: '18px !important',
-    lineHeight: '25px',
-  },
-
-  idTitleWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
-  idTextDark: {
-    color: theme.palette.text.general,
-    fontWeight: 600,
-  },
-  titleAndIdWrapper: {
-    display: 'flex',
-    gap: 30,
-  },
-
-  confirmationToWorkText: {
-    color: '#09BB49',
-  },
-
-  urgentWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  urgentText: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: theme.palette.text.second,
-  },
-
-  requestInfoWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 15,
   },
 }))
