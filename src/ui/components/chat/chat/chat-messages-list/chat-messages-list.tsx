@@ -121,8 +121,6 @@ export const ChatMessagesList: FC<Props> = observer(
       setMessageToReply(messageItem)
     }
 
-    console.log('messages', messages)
-
     return (
       <div
         ref={messagesWrapperRef}
