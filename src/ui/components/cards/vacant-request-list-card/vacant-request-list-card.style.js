@@ -72,8 +72,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   actionButton: {
-    width: '242px',
-    height: '40px',
+    width: 130,
+    height: 40,
   },
 
   updatedAtWrapper: {
@@ -180,9 +180,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   priorityWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
+    minWidth: 20,
+    minHeight: 20,
     marginRight: 20,
+    marginBottom: 5,
+  },
+
+  priorityIcon: {
+    width: 20,
+    height: 20,
   },
 
   yellowBackground: {
