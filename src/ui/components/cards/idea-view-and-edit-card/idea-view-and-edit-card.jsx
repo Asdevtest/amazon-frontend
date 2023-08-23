@@ -367,7 +367,7 @@ export const IdeaViewAndEditCard = observer(
                         changeConditionHandler={condition => setShowRequestType(condition)}
                       />
 
-                      <Button disabled={!showCreateRequestButton} onClick={onClickLinkRequestButton}>
+                      <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
                         {t(TranslationKey['Link request'])}
                       </Button>
                     </div>
