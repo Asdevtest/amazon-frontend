@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
@@ -12,7 +11,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Alert, Box, Grid, Paper, Typography } from '@mui/material'
+import { Alert, Box, Paper, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -23,13 +22,12 @@ import { ImageEditForm } from '@components/forms/image-edit-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './top-card.style'
@@ -249,36 +247,11 @@ export const TopCard = observer(
                 <Box>
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
-                      <CustomSlider>
-                        {(checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad).map(
-                          (imageHash, index) => (
-                            <img
-                              key={index}
-                              alt=""
-                              className={classNames.carouselImage}
-                              // src={getAmazonImageUrl(imageHash, true)}
-
-                              src={
-                                typeof imageHash === 'string'
-                                  ? getAmazonImageUrl(imageHash, true)
-                                  : imageHash?.file.type.includes('image')
-                                  ? imageHash?.data_url
-                                  : '/assets/icons/file.png'
-                              }
-                              onClick={() => {
-                                setShowImageModal(!showImageModal)
-                                setBigImagesOptions({
-                                  images:
-                                    checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole)
-                                      ? product.images
-                                      : imagesForLoad,
-                                  imgIndex: index,
-                                })
-                              }}
-                            />
-                          ),
-                        )}
-                      </CustomSlider>
+                      <PhotoAndFilesCarouselTest
+                        whithoutFiles
+                        bigSlider
+                        files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
+                      />
                     </div>
                   ) : undefined}
                 </Box>

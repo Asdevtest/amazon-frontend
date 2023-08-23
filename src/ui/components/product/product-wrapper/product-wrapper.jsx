@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { ITab } from '@components/shared/i-tab'
-import { BulbIcon } from '@components/shared/svg-icons'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'

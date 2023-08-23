@@ -32,6 +32,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
+  bigGap: {
+    gap: 30,
+  },
+
   arrowIcon: {
     width: '30px !important',
     height: '30px !important',
@@ -82,10 +86,6 @@ export const useClassNames = makeStyles()(theme => ({
   slideBig: {
     height: '300px !important',
     width: '400px !important',
-  },
-
-  opacity: {
-    opacity: 0,
   },
 
   slideLeftBefore: {
@@ -175,14 +175,14 @@ const slideLeftBefore = keyframes`
   }
 
   100% {
-    transform: translateX(-20%);
+    transform: translateX(-10%);
     opacity: 0;
   }
 `
 
 const slideLeftAfter = keyframes`
   0% {
-    transform: translateX(20%);
+    transform: translateX(10%);
     opacity: 0;
   }
 
@@ -199,14 +199,14 @@ const slideRightBefore = keyframes`
   }
 
   100% {
-    transform: translateX(20%);
+    transform: translateX(10%);
     opacity: 0;
   }
 `
 
 const slideRightAfter = keyframes`
   0% {
-    transform: translateX(-20%);
+    transform: translateX(-10%);
     opacity: 0;
   }
 
