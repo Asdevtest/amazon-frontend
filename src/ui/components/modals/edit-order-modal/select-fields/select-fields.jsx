@@ -455,7 +455,6 @@ export const SelectFields = ({
 
           <Field
             multiline
-            disabled
             minRows={4}
             maxRows={4}
             inputProps={{ maxLength: 500 }}

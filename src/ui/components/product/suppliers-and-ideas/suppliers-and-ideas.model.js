@@ -680,16 +680,20 @@ export class SuppliersAndIdeasModel {
 
   async onRemoveSupplier() {
     try {
-      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
-
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
-
-      this.onTriggerOpenModal('showConfirmModal')
-
       if (this.forceUpdateCallBack) {
         await this.forceUpdateCallBack()
       }
-      this.selectedSupplier = undefined
+      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
+
+      // await SupplierModel.removeSupplier(this.selectedSupplier._id)
+
+      runInAction(() => {
+        this.curIdea = undefined
+        this.selectedSupplier = undefined
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)

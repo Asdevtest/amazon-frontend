@@ -102,6 +102,5 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     whiteSpace: 'nowrap',
-    borderRadius: 4,
   },
 }))
