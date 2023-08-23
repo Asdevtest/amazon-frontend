@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
 **boxProperties** | [**ApiV1AdminsGetProductsByStatusBoxProperties**](ApiV1AdminsGetProductsByStatusBoxProperties.md) |  | [optional] 
 **productionTerm** | **Number** |  | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **paymentMethods** | [**[ApiV1AdminsGetProductsByStatusPaymentMethods]**](ApiV1AdminsGetProductsByStatusPaymentMethods.md) |  | [optional] 
 **priceVariations** | **[Object]** |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 

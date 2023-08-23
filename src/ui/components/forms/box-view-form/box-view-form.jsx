@@ -25,6 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { CustomSliderTest } from '@components/shared/photo-and-files-carousel-test/custom-slider-test'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
@@ -521,7 +522,7 @@ const Content = React.memo(
           <div key={index} className={classNames.productWrapper}>
             <div className={classNames.leftColumn}>
               <div className={classNames.photoWrapper}>
-                <PhotoCarousel isAmazonPhoto files={item.product.images} />
+                <CustomSliderTest files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                 <Typography className={classNames.amazonTitle}>

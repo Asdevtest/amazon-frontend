@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **proposal** | [**ApiV1RequestProposalsFreelanceSourcesProposal**](ApiV1RequestProposalsFreelanceSourcesProposal.md) |  | [optional] 
 **typeTask** | **Number** | Код специализации фрилансера | [optional] 
 **productId** | **String** | гуид продукта | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания. | [optional] 
 **updatedAt** | **Date** | Дата создания. | [optional] 
 

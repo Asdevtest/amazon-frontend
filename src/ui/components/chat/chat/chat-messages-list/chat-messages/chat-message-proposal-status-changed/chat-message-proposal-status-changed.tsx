@@ -10,7 +10,7 @@ import { UserModel } from '@models/user-model'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { formatDateTime, formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
@@ -67,18 +67,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
             <p className={classNames.reasonText}>{message?.data?.reason}</p>
 
             {message.data?.linksToMediaFiles?.length > 0 && (
-              <PhotoAndFilesCarousel
-                notToShowEmpty
-                small
-                files={message.data.linksToMediaFiles}
-                width="340px"
-                withoutPhotos={undefined}
-                whithoutFiles={undefined}
-                imagesForLoad={undefined}
-                isEditable={undefined}
-                withoutMakeMainImage={undefined}
-                onChangeImagesForLoad={undefined}
-              />
+              <PhotoAndFilesCarouselTest files={message.data.linksToMediaFiles} customGap={20} customImageHeight={80} />
             )}
 
             <div className={classNames.footerWrapper}>

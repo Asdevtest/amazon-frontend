@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsDetailsCustom from './ApiV1RequestProposalsDetailsCustom';
 import ApiV1RequestProposalsMedia from './ApiV1RequestProposalsMedia';
@@ -96,7 +96,7 @@ class InlineResponse20057 {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
             if (data.hasOwnProperty('sub')) {
-                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
+                obj['sub'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('sourceFiles')) {
                 obj['sourceFiles'] = ApiClient.convertToType(data['sourceFiles'], [ApiV1RequestProposalsSourceFiles]);
@@ -214,7 +214,7 @@ InlineResponse20057.prototype['chatId'] = undefined;
 InlineResponse20057.prototype['lastModifiedById'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} sub
  */
 InlineResponse20057.prototype['sub'] = undefined;
 

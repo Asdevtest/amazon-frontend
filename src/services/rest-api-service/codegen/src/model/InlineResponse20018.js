@@ -12,10 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 import ApiV1BatchesBatch from './ApiV1BatchesBatch';
 import ApiV1BoxesStorekeepersSentToBatchItems from './ApiV1BoxesStorekeepersSentToBatchItems';
 
@@ -126,16 +126,16 @@ class InlineResponse20018 {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesStorekeepersSentToBatchItems]);
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
+                obj['client'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['client']);
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['lastModifiedBy']);
+                obj['lastModifiedBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['lastModifiedBy']);
             }
             if (data.hasOwnProperty('destination')) {
                 obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
@@ -295,22 +295,22 @@ InlineResponse20018.prototype['updatedAt'] = undefined;
 InlineResponse20018.prototype['items'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} storekeeper
  */
 InlineResponse20018.prototype['storekeeper'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} client
  */
 InlineResponse20018.prototype['client'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
  */
 InlineResponse20018.prototype['createdBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} lastModifiedBy
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} lastModifiedBy
  */
 InlineResponse20018.prototype['lastModifiedBy'] = undefined;
 

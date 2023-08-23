@@ -18,6 +18,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -162,9 +163,7 @@ export const RequestResultModal = ({
 
         <div className={classNames.dragAndDropWrapper}>
           {proposal ? (
-            <PhotoAndFilesCarousel
-              notToShowEmpty
-              small
+            <PhotoAndFilesCarouselTest
               files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
             />
           ) : (

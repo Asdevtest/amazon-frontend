@@ -794,7 +794,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersMastersGet
 
-> [ApiV1AdminsGetProductsByStatusCreatedBy] apiV1UsersMastersGet(role, guid, opts)
+> [ApiV1AnnouncementsMyCreatedBy] apiV1UsersMastersGet(role, guid, opts)
 
 Получить список мастеров
 
@@ -838,7 +838,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md)
+[**[ApiV1AnnouncementsMyCreatedBy]**](ApiV1AnnouncementsMyCreatedBy.md)
 
 ### Authorization
 

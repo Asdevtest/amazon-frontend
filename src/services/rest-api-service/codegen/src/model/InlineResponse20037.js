@@ -50,11 +50,23 @@ class InlineResponse20037 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('productCount')) {
-                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -64,22 +76,45 @@ class InlineResponse20037 {
 }
 
 /**
- * Гуид тега
+ * GUID продукта в базе данных
  * @member {String} _id
  */
 InlineResponse20037.prototype['_id'] = undefined;
 
 /**
- * Тег
- * @member {String} title
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20037.prototype['title'] = undefined;
+InlineResponse20037.prototype['asin'] = undefined;
 
 /**
- * Кол-во продуктов, которые используют этот тег
- * @member {Number} productCount
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20037.prototype['productCount'] = undefined;
+InlineResponse20037.prototype['shopIds'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20037.prototype['amazonTitle'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20037.prototype['skusByClient'] = undefined;
+
+/**
+ * GUID пользователя(байера)
+ * @member {String} buyerId
+ */
+InlineResponse20037.prototype['buyerId'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20037.prototype['images'] = undefined;
 
 
 

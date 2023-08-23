@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**products** | [**InlineResponse20041Products**](InlineResponse20041Products.md) |  | [optional] 
-**finances** | [**InlineResponse20039Finances**](InlineResponse20039Finances.md) |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse2005]**](InlineResponse2005.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

@@ -10,6 +10,6 @@ Name | Type | Description | Notes
 **archive** | **Boolean** | Заархивирована ли партия | [optional] 
 **boxes** | [**[ApiV1BatchesByProductGuidBoxes]**](ApiV1BatchesByProductGuidBoxes.md) |  | [optional] 
 **amountInBatch** | **Number** | Общее кол-во продуктов | [optional] 
-**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**storekeeper** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 
 

@@ -25,6 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { PlusIcon } from '@components/shared/svg-icons'
@@ -334,7 +335,8 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.mediaBlock}>
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
-                  <PhotoCarousel files={formFields?.media} />
+                  <PhotoAndFilesCarouselTest bigSlider whithoutFiles files={formFields?.media} />
+                  {/* <PhotoCarousel files={formFields?.media} /> */}
                 </div>
               )}
 

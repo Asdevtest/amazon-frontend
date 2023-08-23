@@ -22,10 +22,11 @@ class InlineObject11 {
     /**
      * Constructs a new <code>InlineObject11</code>.
      * @alias module:model/InlineObject11
+     * @param title {String} 
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject11.initialize(this);
+        InlineObject11.initialize(this, title);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject11 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -47,17 +49,8 @@ class InlineObject11 {
         if (data) {
             obj = obj || new InlineObject11();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
         }
         return obj;
@@ -67,24 +60,9 @@ class InlineObject11 {
 }
 
 /**
- * @member {Number} type
- */
-InlineObject11.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject11.prototype['linksToMediaFiles'] = undefined;
-
-/**
  * @member {String} title
  */
 InlineObject11.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject11.prototype['description'] = undefined;
 
 
 

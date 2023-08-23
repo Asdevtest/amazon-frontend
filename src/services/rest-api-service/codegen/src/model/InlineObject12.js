@@ -22,10 +22,11 @@ class InlineObject12 {
     /**
      * Constructs a new <code>InlineObject12</code>.
      * @alias module:model/InlineObject12
+     * @param productId {String} ГУид продукта
      */
-    constructor() { 
+    constructor(productId) { 
         
-        InlineObject12.initialize(this);
+        InlineObject12.initialize(this, productId);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject12 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId) { 
+        obj['productId'] = productId;
     }
 
     /**
@@ -47,17 +49,8 @@ class InlineObject12 {
         if (data) {
             obj = obj || new InlineObject12();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -67,24 +60,10 @@ class InlineObject12 {
 }
 
 /**
- * @member {Number} type
+ * ГУид продукта
+ * @member {String} productId
  */
-InlineObject12.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject12.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineObject12.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject12.prototype['description'] = undefined;
+InlineObject12.prototype['productId'] = undefined;
 
 
 

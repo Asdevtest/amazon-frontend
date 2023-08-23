@@ -17,6 +17,7 @@ import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field/field'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import {
@@ -91,7 +92,8 @@ export const SelectFields = ({
 
             {!!order.product.images.length && (
               <div className={classNames.carouselWrapper}>
-                <CustomSlider>
+                <PhotoAndFilesCarouselTest mediumSlider whithoutFiles files={order.product.images} />
+                {/* <CustomSlider>
                   {order.product.images.map((imageHash, index) => (
                     <img
                       key={index}
@@ -115,7 +117,7 @@ export const SelectFields = ({
                       }}
                     />
                   ))}
-                </CustomSlider>
+                </CustomSlider> */}
               </div>
             )}
           </div>

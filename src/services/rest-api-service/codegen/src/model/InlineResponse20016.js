@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 import ApiV1BoxesClientsInTransferGuidBatch from './ApiV1BoxesClientsInTransferGuidBatch';
 import ApiV1BoxesClientsInTransferGuidLogicsTariff from './ApiV1BoxesClientsInTransferGuidLogicsTariff';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
@@ -144,16 +144,16 @@ class InlineResponse20016 {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
             }
             if (data.hasOwnProperty('sub')) {
-                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
+                obj['sub'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
+                obj['client'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['client']);
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('destination')) {
                 obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
@@ -348,22 +348,22 @@ InlineResponse20016.prototype['variationTariff'] = undefined;
 InlineResponse20016.prototype['items'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} sub
  */
 InlineResponse20016.prototype['sub'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} storekeeper
  */
 InlineResponse20016.prototype['storekeeper'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} client
  */
 InlineResponse20016.prototype['client'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
  */
 InlineResponse20016.prototype['createdBy'] = undefined;
 

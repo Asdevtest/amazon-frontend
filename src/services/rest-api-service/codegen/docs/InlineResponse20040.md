@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tasks** | [**InlineResponse20040Tasks**](InlineResponse20040Tasks.md) |  | [optional] 
-**boxes** | [**InlineResponse20040Boxes**](InlineResponse20040Boxes.md) |  | [optional] 
-**batches** | [**InlineResponse20040Batches**](InlineResponse20040Batches.md) |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse2002]**](InlineResponse2002.md) | Массив заказов c пагинацией(заданная страничка). | [optional] 
 
 

@@ -12,9 +12,11 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2002PermissionGroups from './InlineResponse2002PermissionGroups';
-import InlineResponse2002Permissions from './InlineResponse2002Permissions';
-import InlineResponse2002SubUsers from './InlineResponse2002SubUsers';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
+import InlineResponse2001 from './InlineResponse2001';
 
 /**
  * The InlineResponse2002 model module.
@@ -24,19 +26,12 @@ import InlineResponse2002SubUsers from './InlineResponse2002SubUsers';
 class InlineResponse2002 {
     /**
      * Constructs a new <code>InlineResponse2002</code>.
-     * Пользователь системы
+     * Заказ.
      * @alias module:model/InlineResponse2002
-     * @param _id {String} GUID пользователя в БД.
-     * @param name {String} Имя пользователя.
-     * @param email {String} email
-     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
-     * @param fba {Boolean} Флаг fba.
-     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
-     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor() { 
         
-        InlineResponse2002.initialize(this, _id, name, email, role, fba, active, rate);
+        InlineResponse2002.initialize(this);
     }
 
     /**
@@ -44,14 +39,7 @@ class InlineResponse2002 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
-        obj['email'] = email;
-        obj['role'] = role;
-        obj['fba'] = fba;
-        obj['active'] = active;
-        obj['rate'] = rate;
+    static initialize(obj) { 
     }
 
     /**
@@ -65,77 +53,113 @@ class InlineResponse2002 {
         if (data) {
             obj = obj || new InlineResponse2002();
 
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            }
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('trackingNumberChina')) {
+                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
-            if (data.hasOwnProperty('active')) {
-                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
-            if (data.hasOwnProperty('isUserPreprocessingCenterUSA')) {
-                obj['isUserPreprocessingCenterUSA'] = ApiClient.convertToType(data['isUserPreprocessingCenterUSA'], 'Boolean');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('rate')) {
-                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('balance')) {
-                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
-            if (data.hasOwnProperty('balanceFreeze')) {
-                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
-            if (data.hasOwnProperty('overdraft')) {
-                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], [InlineResponse2002Permissions]);
+            if (data.hasOwnProperty('paidAt')) {
+                obj['paidAt'] = ApiClient.convertToType(data['paidAt'], 'Date');
             }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [InlineResponse2002PermissionGroups]);
+            if (data.hasOwnProperty('paymentDateToSupplier')) {
+                obj['paymentDateToSupplier'] = ApiClient.convertToType(data['paymentDateToSupplier'], 'String');
             }
-            if (data.hasOwnProperty('masterUser')) {
-                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
             }
-            if (data.hasOwnProperty('allowedStrategies')) {
-                obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
             }
-            if (data.hasOwnProperty('allowedRoles')) {
-                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            if (data.hasOwnProperty('partialPayment')) {
+                obj['partialPayment'] = ApiClient.convertToType(data['partialPayment'], 'Boolean');
             }
-            if (data.hasOwnProperty('canByMasterUser')) {
-                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('subUsers')) {
-                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [InlineResponse2002SubUsers]);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('masterUserInfo')) {
-                obj['masterUserInfo'] = InlineResponse2002SubUsers.constructFromObject(data['masterUserInfo']);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('allowedSpec')) {
-                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
-            if (data.hasOwnProperty('hideSuppliers')) {
-                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
+            }
+            if (data.hasOwnProperty('logicsTariff')) {
+                obj['logicsTariff'] = ApiV1AdminsOrdersLogicsTariff.constructFromObject(data['logicsTariff']);
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = InlineResponse2001.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('buyer')) {
+                obj['buyer'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['buyer']);
+            }
+            if (data.hasOwnProperty('orderSupplier')) {
+                obj['orderSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['orderSupplier']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -145,150 +169,250 @@ class InlineResponse2002 {
 }
 
 /**
- * GUID пользователя в БД.
+ * id заказ.
+ * @member {Number} id
+ */
+InlineResponse2002.prototype['id'] = undefined;
+
+/**
+ * GUID данной записи в БД.
  * @member {String} _id
  */
 InlineResponse2002.prototype['_id'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse2002.prototype['name'] = undefined;
+InlineResponse2002.prototype['asin'] = undefined;
 
 /**
- * email
- * @member {String} email
+ * Комментарии клиента.
+ * @member {String} clientComment
  */
-InlineResponse2002.prototype['email'] = undefined;
+InlineResponse2002.prototype['clientComment'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
- * @member {Number} role
+ * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+ * @member {String} trackingNumberChina
  */
-InlineResponse2002.prototype['role'] = undefined;
+InlineResponse2002.prototype['trackingNumberChina'] = undefined;
 
 /**
- * Флаг fba.
- * @member {Boolean} fba
+ * @member {String} item
  */
-InlineResponse2002.prototype['fba'] = undefined;
+InlineResponse2002.prototype['item'] = undefined;
 
 /**
- * Если истина - пользователь активен. Если нет - заблокирован админом.
- * @member {Boolean} active
+ * комментарии байера.
+ * @member {String} buyerComment
  */
-InlineResponse2002.prototype['active'] = undefined;
+InlineResponse2002.prototype['buyerComment'] = undefined;
 
 /**
- * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
- * @member {Boolean} isUserPreprocessingCenterUSA
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+ * @member {Number} status
  */
-InlineResponse2002.prototype['isUserPreprocessingCenterUSA'] = undefined;
+InlineResponse2002.prototype['status'] = undefined;
 
 /**
- * Ставка, по который оплачивается сотрудник.
- * @member {Number} rate
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineResponse2002.prototype['rate'] = undefined;
+InlineResponse2002.prototype['images'] = undefined;
 
 /**
- * Баланс пользователя.
- * @member {Number} balance
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineResponse2002.PriorityEnum} priority
  */
-InlineResponse2002.prototype['balance'] = undefined;
+InlineResponse2002.prototype['priority'] = undefined;
 
 /**
- * Замороженная при оплате ордера сумма..
- * @member {Number} balanceFreeze
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
  */
-InlineResponse2002.prototype['balanceFreeze'] = undefined;
+InlineResponse2002.prototype['totalPrice'] = undefined;
 
 /**
- * Сумма на которую может уходить в минус пользователь.
- * @member {Number} overdraft
+ * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+ * @member {Number} totalPriceChanged
  */
-InlineResponse2002.prototype['overdraft'] = undefined;
+InlineResponse2002.prototype['totalPriceChanged'] = undefined;
 
 /**
- * Массив permission-ов.
- * @member {Array.<module:model/InlineResponse2002Permissions>} permissions
+ * @member {Date} paidAt
  */
-InlineResponse2002.prototype['permissions'] = undefined;
+InlineResponse2002.prototype['paidAt'] = undefined;
 
 /**
- * Массив групп permission-ов.
- * @member {Array.<module:model/InlineResponse2002PermissionGroups>} permissionGroups
+ * Дата оплаты поставщтку
+ * @member {String} paymentDateToSupplier
  */
-InlineResponse2002.prototype['permissionGroups'] = undefined;
+InlineResponse2002.prototype['paymentDateToSupplier'] = undefined;
 
 /**
- * GUID мастер пользователя к которму относится данный субпользователь.
- * @member {String} masterUser
+ * Сумма частичной оплаты
+ * @member {Number} partialPaymentAmountRmb
  */
-InlineResponse2002.prototype['masterUser'] = undefined;
+InlineResponse2002.prototype['partialPaymentAmountRmb'] = undefined;
 
 /**
- * Массив доступных стратегий.
- * @member {Array.<Number>} allowedStrategies
+ * Cумма частичной оплаты
+ * @member {Number} partiallyPaid
  */
-InlineResponse2002.prototype['allowedStrategies'] = undefined;
+InlineResponse2002.prototype['partiallyPaid'] = undefined;
 
 /**
- * Массив массив ролей.
- * @member {Array.<Number>} allowedRoles
+ * Оплачивается ли заказ частично
+ * @member {Boolean} partialPayment
  */
-InlineResponse2002.prototype['allowedRoles'] = undefined;
+InlineResponse2002.prototype['partialPayment'] = undefined;
 
 /**
- * Может ли данный пользователь быть мастер юзером.
- * @member {Boolean} canByMasterUser
+ * Курс юань доллар.
+ * @member {Number} yuanToDollarRate
  */
-InlineResponse2002.prototype['canByMasterUser'] = undefined;
+InlineResponse2002.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Рейтинг пользователя.
- * @member {Number} rating
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
  */
-InlineResponse2002.prototype['rating'] = undefined;
+InlineResponse2002.prototype['deliveryCostToTheWarehouse'] = undefined;
 
 /**
- * Массив id сабюзеров.
- * @member {Array.<module:model/InlineResponse2002SubUsers>} subUsers
+ * GUID продукта
+ * @member {String} productId
  */
-InlineResponse2002.prototype['subUsers'] = undefined;
+InlineResponse2002.prototype['productId'] = undefined;
 
 /**
- * @member {module:model/InlineResponse2002SubUsers} masterUserInfo
+ * GUID тарифа доставки
+ * @member {String} logicsTariffId
  */
-InlineResponse2002.prototype['masterUserInfo'] = undefined;
+InlineResponse2002.prototype['logicsTariffId'] = undefined;
 
 /**
- * Массив возможных ролей фрилансера
- * @member {Array.<Number>} allowedSpec
+ * GUID пользователя(байера)
+ * @member {String} buyerId
  */
-InlineResponse2002.prototype['allowedSpec'] = undefined;
+InlineResponse2002.prototype['buyerId'] = undefined;
 
 /**
- * Скрывать поставщиков от пользователя.
- * @member {Boolean} hideSuppliers
+ * кол-во
+ * @member {Number} amount
  */
-InlineResponse2002.prototype['hideSuppliers'] = undefined;
+InlineResponse2002.prototype['amount'] = undefined;
 
 /**
- * Дата создания
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineResponse2002.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineResponse2002.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineResponse2002.prototype['deadline'] = undefined;
+
+/**
+ * @member {String} createdById
+ */
+InlineResponse2002.prototype['createdById'] = undefined;
+
+/**
  * @member {Date} createdAt
  */
 InlineResponse2002.prototype['createdAt'] = undefined;
 
 /**
- * Дата изменения
  * @member {Date} updatedAt
  */
 InlineResponse2002.prototype['updatedAt'] = undefined;
 
+/**
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
+ */
+InlineResponse2002.prototype['destination'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariff} logicsTariff
+ */
+InlineResponse2002.prototype['logicsTariff'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse2001} product
+ */
+InlineResponse2002.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} storekeeper
+ */
+InlineResponse2002.prototype['storekeeper'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} buyer
+ */
+InlineResponse2002.prototype['buyer'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} orderSupplier
+ */
+InlineResponse2002.prototype['orderSupplier'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
+ */
+InlineResponse2002.prototype['createdBy'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2002['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 
