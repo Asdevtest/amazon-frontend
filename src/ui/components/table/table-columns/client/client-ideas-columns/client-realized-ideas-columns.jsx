@@ -87,7 +87,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Ordered quantity']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
+    renderCell: params => <MultilineTextCell text={params.row?.order?.amount} />,
     width: 110,
     filterable: false,
     sortable: false,
@@ -98,7 +98,7 @@ export const clientRealizedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Order date']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
 
-    renderCell: params => <ShortDateCell value={params.row?.parentProduct?.order?.createdAt} />,
+    renderCell: params => <ShortDateCell value={params.row?.order?.createdAt} />,
     width: 110,
     filterable: false,
     sortable: false,

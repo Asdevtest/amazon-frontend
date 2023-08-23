@@ -50,17 +50,6 @@ export const PrivateRoutes = observer(() => {
   const redirectToAuth = <Redirect to={'/auth'} />
 
   const generateAllowedRoutes = () => {
-    // const allowedRoutes = privateRoutesConfigs
-    //   .filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))
-    //   .filter(
-    //     route =>
-    //       !isHaveMasterUser(userInfo) ||
-    //       !route?.permissionKey ||
-    //       userInfo?.permissions.some(item => item.key === route?.permissionKey),
-    //   )
-
-    //   .concat(overallRoutesConfigs)
-
     const allowedRoutes = overallRoutesConfigs.concat(
       privateRoutesConfigs
         .filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))

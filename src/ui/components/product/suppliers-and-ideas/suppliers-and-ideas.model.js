@@ -420,9 +420,12 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showBindingModal')
   }
 
-  async onClickLinkRequestButton() {
+  async onClickLinkRequestButton(idea) {
     try {
-      const result = await RequestModel.getRequestsByProductLight(this.productId, { status: 'DRAFT, PUBLISHED' })
+      const result = await RequestModel.getRequestsByProductLight(this.productId, {
+        status: 'DRAFT, PUBLISHED',
+        excludeIdeaId: idea._id,
+      })
       this.requestsForProduct = addIdDataConverter(result)
       this.onTriggerOpenModal('showBindingModal')
     } catch (error) {
