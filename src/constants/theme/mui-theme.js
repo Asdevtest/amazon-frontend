@@ -142,6 +142,14 @@ export const lightTheme = createTheme({
       },
     },
 
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
+
     // MuiTypography: {
     //   styleOverrides: {
     //     root: {
@@ -507,6 +515,7 @@ export const darkTheme = createTheme({
     MuiList: {
       styleOverrides: {
         root: {
+          padding: 0,
           color: '#fff',
         },
       },
