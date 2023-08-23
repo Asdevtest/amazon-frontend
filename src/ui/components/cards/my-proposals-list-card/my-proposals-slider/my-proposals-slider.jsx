@@ -19,12 +19,15 @@ import { disabledCancelBtnStatuses, noDisabledEditBtnStatuses } from '../my-prop
 
 export const MyProposalsSlider = ({
   item,
+  proposals,
   title,
   isFirst,
+  isComment = false,
   onClickEditBtn,
   onClickDeleteBtn,
   onClickOpenBtn,
   onClickResultBtn,
+  classNamesWrapper,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -34,10 +37,12 @@ export const MyProposalsSlider = ({
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
-    if (item) {
+    if (proposals) {
+      setSelectedProposals(proposals.map(proposal => proposal.proposal))
+    } else {
       setSelectedProposals(item.proposals)
     }
-  }, [item])
+  }, [item, proposals])
 
   useEffect(() => {
     if (selectedProposals.length > 0) {
@@ -78,7 +83,7 @@ export const MyProposalsSlider = ({
   const isDisableArrow = selectedProposals.length <= 1
 
   return (
-    <div className={classNames.wrapper}>
+    <div className={cx(classNames.wrapper, classNamesWrapper)}>
       <div className={cx(classNames.mainWrapper, isTransitioning ? classNames.transitioning : classNames.active)}>
         <div className={classNames.header}>
           <div className={classNames.arrowsWrapper}>
@@ -109,6 +114,10 @@ export const MyProposalsSlider = ({
           />
         </div>
 
+        {currentProposal?.comment && isComment ? (
+          <p className={classNames.comment}>{currentProposal?.comment}</p>
+        ) : null}
+
         <div className={classNames.actionsWrapper}>
           <div className={classNames.statusWrapper}>
             <div
@@ -119,40 +128,48 @@ export const MyProposalsSlider = ({
           </div>
 
           <div className={classNames.buttons}>
-            <Button
-              danger
-              tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
-              disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
-              className={classNames.button}
-              onClick={() => onClickDeleteBtn(currentProposal)}
-            >
-              {t(TranslationKey.Cancel)}
-            </Button>
+            {onClickDeleteBtn ? (
+              <Button
+                danger
+                tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
+                disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
+                className={classNames.button}
+                onClick={() => onClickDeleteBtn(currentProposal)}
+              >
+                {t(TranslationKey.Cancel)}
+              </Button>
+            ) : null}
 
-            <Button
-              disabled={!showResultStatuses.includes(currentProposal?.status)}
-              className={classNames.button}
-              onClick={() => onClickResultBtn(item, currentProposal?._id)}
-            >
-              {t(TranslationKey.Result)}
-            </Button>
+            {onClickResultBtn ? (
+              <Button
+                disabled={!showResultStatuses.includes(currentProposal?.status)}
+                className={classNames.button}
+                onClick={() => onClickResultBtn(item, currentProposal?._id)}
+              >
+                {t(TranslationKey.Result)}
+              </Button>
+            ) : null}
 
-            <Button
-              tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
-              disabled={!noDisabledEditBtnStatuses.includes(currentProposal?.status)}
-              className={classNames.button}
-              onClick={() => onClickEditBtn(item, currentProposal)}
-            >
-              {t(TranslationKey.Edit)}
-            </Button>
+            {onClickEditBtn ? (
+              <Button
+                tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
+                disabled={!noDisabledEditBtnStatuses.includes(currentProposal?.status)}
+                className={classNames.button}
+                onClick={() => onClickEditBtn(item, currentProposal)}
+              >
+                {t(TranslationKey.Edit)}
+              </Button>
+            ) : null}
 
-            <Button
-              tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
-              className={classNames.button}
-              onClick={() => onClickOpenBtn(item)}
-            >
-              {t(TranslationKey['Open a request'])}
-            </Button>
+            {onClickOpenBtn ? (
+              <Button
+                tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
+                className={classNames.button}
+                onClick={() => onClickOpenBtn(item)}
+              >
+                {t(TranslationKey['Open a request'])}
+              </Button>
+            ) : null}
           </div>
         </div>
       </div>

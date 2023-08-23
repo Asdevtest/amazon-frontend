@@ -64,6 +64,12 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
+  comment: {
+    fontSize: 14,
+    lineHeight: '19px',
+    width: 450,
+  },
+
   customPerformerLink: {
     fontSize: 16,
     lineHeight: '22px',

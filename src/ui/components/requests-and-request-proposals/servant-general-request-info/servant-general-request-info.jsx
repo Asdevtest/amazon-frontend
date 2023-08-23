@@ -1,14 +1,9 @@
 import { cx } from '@emotion/css'
 
-import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Divider, Rating } from '@mui/material'
 
 import { requestPriority } from '@constants/requests/request-priority'
-import {
-  MyRequestStatusTranslate,
-  RequestProposalStatus,
-  RequestProposalStatusColor,
-  RequestProposalStatusTranslate,
-} from '@constants/requests/request-proposal-status'
+import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByRequestStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
@@ -18,10 +13,10 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { MyProposalsSlider } from '@components/cards/my-proposals-list-card/my-proposals-slider'
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
@@ -54,29 +49,27 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
 
   const getMainInfos = () => (
     <div className={classNames.mainInfosWrapper}>
-      <div className={classNames.headerWrapper}>
-        {requestProposals.length === 0 ? null : (
-          <Typography className={classNames.cardTitle}>{request?.request.title}</Typography>
-        )}
+      {requestProposals.length === 0 ? null : (
+        <div className={classNames.headerWrapper}>
+          <p className={classNames.cardTitle}>{request?.request.title}</p>
 
-        {requestProposals.length === 0 ? null : (
-          <div className={classNames.asinAndIdWrapper}>
-            <AsinOrSkuLink
-              withCopyValue
-              withAttributeTitle="asin"
-              asin={request?.request.product.asin}
-              textStyles={classNames.linkSpan}
-              missingValueTextStyles={classNames.linkSpan}
-            />
-            <div className={classNames.idWrapper}>
-              <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
-              <Typography className={cx(classNames.idText, classNames.idTextDark)}>
-                {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-              </Typography>
-            </div>
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle="asin"
+            asin={request?.request.product.asin}
+            textStyles={classNames.linkSpan}
+            missingValueTextStyles={classNames.linkSpan}
+          />
+
+          <div className={classNames.idTitleWrapper}>
+            <p className={classNames.idText}>{t(TranslationKey.ID) + ':'}</p>
+            <p className={cx(classNames.idText, classNames.idTextDark)}>
+              {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
+            </p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
       <div className={classNames.mainInfosSubWrapper}>
         {request?.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
           <div>
@@ -98,9 +91,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
               containerClasses={classNames.fieldContainer}
               label={'CashBack'}
               inputComponent={
-                <Typography className={classNames.accentText}>
-                  {toFixed(request?.request.cashBackInPercent, 2) + '%'}
-                </Typography>
+                <p className={classNames.accentText}>{toFixed(request?.request.cashBackInPercent, 2) + '%'}</p>
               }
             />
           </div>
@@ -110,11 +101,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             labelClasses={classNames.fieldLabel}
             containerClasses={classNames.fieldContainer}
             label={t(TranslationKey['Request price'])}
-            inputComponent={
-              <Typography className={classNames.accentText}>
-                {toFixedWithDollarSign(request?.request.price, 2)}
-              </Typography>
-            }
+            inputComponent={<p className={classNames.accentText}>{toFixedWithDollarSign(request?.request.price, 2)}</p>}
           />
 
           <Field
@@ -122,12 +109,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             containerClasses={classNames.fieldContainer}
             label={t(TranslationKey.Status)}
             inputComponent={
-              <Typography
-                className={classNames.deadline}
-                style={{ color: colorByRequestStatus(request?.request.status) }}
-              >
+              <p className={classNames.accentText} style={{ color: colorByRequestStatus(request?.request.status) }}>
                 {MyRequestStatusTranslate(request?.request.status)}
-              </Typography>
+              </p>
             }
           />
         </div>
@@ -137,10 +121,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             containerClasses={classNames.fieldContainer}
             label={t(TranslationKey.Time)}
             inputComponent={
-              <Typography className={classNames.accentText}>{`${toFixed(
-                request?.request.timeLimitInMinutes / 60,
-                2,
-              )} ${t(TranslationKey.hour)} `}</Typography>
+              <p className={classNames.accentText}>{`${toFixed(request?.request.timeLimitInMinutes / 60, 2)} ${t(
+                TranslationKey.hour,
+              )} `}</p>
             }
           />
 
@@ -149,9 +132,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             containerClasses={classNames.fieldContainer}
             label={t(TranslationKey['Request type'])}
             inputComponent={
-              <Typography className={classNames.accentText}>
+              <p className={classNames.accentText}>
                 {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request.typeTask])}
-              </Typography>
+              </p>
             }
           />
         </div>
@@ -162,9 +145,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             containerClasses={classNames.fieldContainer}
             label={t(TranslationKey.Updated)}
             inputComponent={
-              <Typography className={classNames.accentText}>
-                {formatNormDateTimeWithParseISO(request?.request.updatedAt)}
-              </Typography>
+              <p className={classNames.accentText}>{formatNormDateTimeWithParseISO(request?.request.updatedAt)}</p>
             }
           />
           <Field
@@ -172,9 +153,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             containerClasses={classNames.fieldContainer}
             label={t(TranslationKey.Deadline)}
             inputComponent={
-              <Typography className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
+              <p className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
                 request?.request.timeoutAt,
-              )}`}</Typography>
+              )}`}</p>
             }
           />
         </div>
@@ -182,69 +163,61 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
     </div>
   )
 
-  return requestProposals.length === 0 ? (
-    <Paper className={classNames.root}>
+  return (
+    <div className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
         <div className={classNames.mainWrapper}>
-          <div className={classNames.mainHeaderWrapper}>
-            <div className={classNames.personInfoWrapper}>
-              <Avatar src={getUserAvatarSrc(request?.request?.createdById)} className={classNames.userPhoto} />
-              <div className={classNames.personWrapper}>
-                <UserLink
-                  blackText
-                  name={request?.request?.createdBy?.name}
-                  userId={request?.request?.createdBy?._id}
-                />
-                <Rating disabled value={request?.request?.createdBy?.rating} />
-              </div>
+          <div className={classNames.personInfoWrapper}>
+            <Avatar src={getUserAvatarSrc(request?.request?.createdById)} className={classNames.userPhoto} />
+            <div className={classNames.personWrapper}>
+              <UserLink blueText name={request?.request?.createdBy?.name} userId={request?.request?.createdBy?._id} />
+              <Rating disabled value={request?.request?.createdBy?.rating} />
             </div>
           </div>
 
-          <Typography className={classNames.transactions}>{`${t(
+          <p className={classNames.transactions}>{`${t(
             TranslationKey['The number of total successful transactions:'],
-          )} 0`}</Typography>
+          )} 0`}</p>
 
-          <div className={classNames.leftSideFooterWrapper}>
-            {(request.request.status === RequestStatus.PUBLISHED ||
-              request.request.status === RequestStatus.IN_PROCESS) && (
-              <div className={classNames.btnsBlockWrapper}>
-                <Button
-                  disabled={buttonDisabled}
-                  tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
-                  variant="contained"
-                  color="primary"
-                  className={classNames.actionBtn}
-                  onClick={onSubmit}
-                >
-                  {t(TranslationKey['Suggest a deal'])}
-                </Button>
-              </div>
-            )}
-          </div>
+          {(request.request.status === RequestStatus.PUBLISHED ||
+            request.request.status === RequestStatus.IN_PROCESS) && (
+            <div className={classNames.btnsBlockWrapper}>
+              <Button
+                disabled={buttonDisabled}
+                tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
+                variant="contained"
+                color="primary"
+                className={classNames.actionBtn}
+                onClick={onSubmit}
+              >
+                {t(TranslationKey['Suggest a deal'])}
+              </Button>
+            </div>
+          )}
         </div>
 
-        <div className={classNames.requestInfoWrapper}>
-          <div className={classNames.titleAndIdWrapper}>
-            <Typography className={classNames.title}>{request?.request.title}</Typography>
+        {requestProposals.length === 0 ? (
+          <div className={classNames.requestInfoWrapper}>
+            <div className={classNames.titleAndIdWrapper}>
+              <p className={classNames.title}>{request?.request.title}</p>
 
-            <AsinOrSkuLink
-              withCopyValue
-              withAttributeTitle="asin"
-              asin={request?.request.product.asin}
-              textStyles={classNames.linkSpan}
-              missingValueTextStyles={classNames.linkSpan}
-            />
+              <AsinOrSkuLink
+                withCopyValue
+                withAttributeTitle="asin"
+                asin={request?.request.product.asin}
+                textStyles={classNames.linkSpan}
+                missingValueTextStyles={classNames.linkSpan}
+              />
 
-            <div className={classNames.idTitleWrapper}>
-              <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
-              <Typography className={cx(classNames.idText, classNames.idTextDark)}>
-                {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-              </Typography>
+              <div className={classNames.idTitleWrapper}>
+                <p className={classNames.idText}>{t(TranslationKey.ID) + ':'}</p>
+                <p className={cx(classNames.idText, classNames.idTextDark)}>
+                  {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className={classNames.titleWrapper}>
-            <Typography className={classNames.standartText}>
+            <p className={classNames.standartText}>
               {translateProposalsLeftMessage(
                 request?.request.maxAmountOfProposals -
                   (requestProposals?.filter(
@@ -255,105 +228,39 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
                   ).length || 0),
                 request?.request.maxAmountOfProposals,
               )}
-            </Typography>
-          </div>
+            </p>
 
-          {request?.request?.withoutConfirmation && (
-            <Typography className={classNames.confirmationToWorkText}>
-              {t(TranslationKey['It is possible to work without confirmation'])}
-            </Typography>
-          )}
+            {request?.request?.withoutConfirmation && (
+              <p className={classNames.confirmationToWorkText}>
+                {t(TranslationKey['It is possible to work without confirmation'])}
+              </p>
+            )}
 
-          {request?.request?.priority === requestPriority.urgentPriority && (
-            <div className={classNames.urgentWrapper}>
-              <img src="/assets/icons/fire.svg" />
+            {request?.request?.priority === requestPriority.urgentPriority && (
+              <div className={classNames.urgentWrapper}>
+                <img src="/assets/icons/fire.svg" className={classNames.urgentIcon} />
 
-              <Typography className={classNames.urgentText}>{t(TranslationKey['Urgent request'])}</Typography>
-            </div>
-          )}
-        </div>
-
-        {getMainInfos()}
-      </div>
-    </Paper>
-  ) : (
-    <Paper className={classNames.root}>
-      <div className={classNames.mainBlockWrapper}>
-        <div className={classNames.leftSideWrapper}>
-          <div className={classNames.personInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
-            <div className={classNames.personWrapper}>
-              <UserLink blackText name={request?.request?.createdBy?.name} userId={request?.request?.createdBy?._id} />
-              <Rating disabled value={request?.request?.createdBy?.rating} />
-            </div>
-          </div>
-          <Typography className={classNames.transactions}>{`${t(
-            TranslationKey['The number of total successful transactions:'],
-          )} 0`}</Typography>
-
-          <div className={classNames.leftSideFooterWrapper}>
-            {(request.request.status === RequestStatus.PUBLISHED ||
-              request.request.status === RequestStatus.IN_PROCESS) && (
-              <div className={classNames.btnsBlockWrapper}>
-                <Button
-                  disabled={buttonDisabled}
-                  tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
-                  variant="contained"
-                  color="primary"
-                  className={classNames.actionBtn}
-                  onClick={onSubmit}
-                >
-                  {t(TranslationKey['Suggest a deal'])}
-                </Button>
+                <p className={classNames.urgentText}>{t(TranslationKey['Urgent request'])}</p>
               </div>
             )}
           </div>
-        </div>
+        ) : null}
 
         {getMainInfos()}
 
-        <div className={classNames.proposalsWrapper}>
-          <Divider orientation={'vertical'} />
+        {requestProposals.length !== 0 ? (
+          <div className={classNames.proposalsWrapper}>
+            <Divider orientation={'vertical'} />
 
-          <CustomSlider view="complex" title={t(TranslationKey.Proposal)}>
-            {requestProposals.map((proposal, index) => (
-              <div key={index} className={classNames.proposalWrapper}>
-                <Field
-                  oneLine
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.subNameContainer}
-                  label={t(TranslationKey.Performer) + ':'}
-                  inputComponent={
-                    // <Typography className={classNames.subName}>
-                    //   {proposal.proposal.sub?.name || proposal.proposal.createdBy?.name}
-                    // </Typography>
-
-                    <UserLink
-                      blackText
-                      name={proposal.proposal.sub?.name || proposal.proposal.createdBy?.name}
-                      userId={proposal.proposal.sub?._id || proposal.proposal.createdBy?._id}
-                    />
-                  }
-                />
-
-                <Typography className={classNames.proposalComment}>{proposal.proposal.comment}</Typography>
-
-                <div className={classNames.rightSubWrapper}>
-                  <div className={classNames.statusField}>
-                    <span
-                      className={classNames.circleIndicator}
-                      style={{ backgroundColor: RequestProposalStatusColor(proposal.proposal.status) }}
-                    />
-                    <Typography className={classNames.status}>
-                      {RequestProposalStatusTranslate(proposal.proposal.status)}
-                    </Typography>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </CustomSlider>
-        </div>
+            <MyProposalsSlider
+              isComment
+              proposals={requestProposals}
+              title={t(TranslationKey.Proposal)}
+              classNamesWrapper={classNames.sliderWrapper}
+            />
+          </div>
+        ) : null}
       </div>
-    </Paper>
+    </div>
   )
 }
