@@ -43,11 +43,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerWrapper: {
+    width: '100%',
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
   },
+
   btnsWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -66,9 +68,9 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 15px',
   },
 
-  editButton: {
-    width: '200px',
-  },
+  // editButton: {
+  //   width: '200px',
+  // },
 
   successBtn: {
     width: '197px',
@@ -182,7 +184,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerSubWrapper: {
+    width: '100%',
     display: 'flex',
-    gap: 50,
+    justifyContent: 'space-between',
   },
 }))

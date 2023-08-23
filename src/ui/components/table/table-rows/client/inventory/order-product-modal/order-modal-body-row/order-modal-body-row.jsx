@@ -12,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
@@ -144,7 +145,20 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
-          <div className={classNames.copyValueWrapper}>
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle={'asin'}
+            asin={item?.asin}
+            attributeTitleTextStyles={classNames.standartText}
+          />
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle={'sku'}
+            sku={item?.skusByClient?.[0]}
+            attributeTitleTextStyles={classNames.standartText}
+          />
+
+          {/* <div className={classNames.copyValueWrapper}>
             <Typography className={classNames.standartText}>{`ASIN: ${item.asin}`}</Typography>
             {item.asin ? <CopyValue text={item.asin} /> : null}
           </div>
@@ -153,7 +167,7 @@ export const OrderModalBodyRow = ({
               item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
             }`}</Typography>
             {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
-          </div>
+          </div> */}
 
           {!item.currentSupplier && (
             <Typography className={classNames.noCurrentSupplierText}>

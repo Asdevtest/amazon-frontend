@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
+import { ClassNamesArg, cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -19,18 +19,19 @@ interface AsinOrSkuLinkProps {
   sku?: string
   withAttributeTitle?: 'asin' | 'sku'
   withCopyValue?: boolean
-  textStyles?: string
-  missingValueTextStyles?: string
+  textStyles?: ClassNamesArg
+  missingValueTextStyles?: ClassNamesArg
+  attributeTitleTextStyles?: ClassNamesArg
 }
 
 export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
-  ({ asin, sku, withCopyValue, withAttributeTitle, textStyles, missingValueTextStyles }) => {
+  ({ asin, sku, withCopyValue, withAttributeTitle, textStyles, attributeTitleTextStyles, missingValueTextStyles }) => {
     const { classes: classNames } = useClassNames()
 
     return (
       <div className={classNames.root}>
         {withAttributeTitle && (
-          <p className={cx(classNames.attributeTitle, missingValueTextStyles)}>
+          <p className={cx(classNames.attributeTitle, attributeTitleTextStyles)}>
             {(withAttributeTitle === 'asin' && `${t(TranslationKey.ASIN)}:`) ||
               (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`)}
           </p>

@@ -300,6 +300,7 @@ export const IdeaViewAndEditCard = observer(
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
     const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+    const isSupplierCreatedByCurrentUser = curUser?._id === selectedSupplier?.createdBy?._id
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
@@ -655,12 +656,12 @@ export const IdeaViewAndEditCard = observer(
                           {t(TranslationKey['Add supplier'])}
                         </Typography>
                       </div>
-                      {selectedSupplier && currentUserIsBuyer && (
+                      {selectedSupplier && (
                         <>
                           <div className={classNames.supplierButtonWrapper}>
                             <Button
                               tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                              disabled={disableButtonAfterSupplierNotFound}
+                              disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                               className={classNames.iconBtn}
                               onClick={() =>
                                 onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
@@ -676,7 +677,7 @@ export const IdeaViewAndEditCard = observer(
                             <Button
                               tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                               className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
-                              disabled={disableButtonAfterSupplierNotFound}
+                              disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                               onClick={() =>
                                 onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
                               }
