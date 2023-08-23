@@ -2140,7 +2140,7 @@ export const DateDetailsMenuItem = React.memo(
       }
 
       return (
-        <div className={classNames.dateDetailsWrapper}>
+        <div title="" className={classNames.dateDetailsWrapper}>
           <FormControl>
             <FormLabel
               id="date-details-filter-radio-buttons-group-label"
