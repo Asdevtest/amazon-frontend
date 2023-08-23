@@ -35,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   simpleSpan: {
-    fontWeight: 600,
+    fontWeight: '600 !important',
     fontSize: 14,
   },
 

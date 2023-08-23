@@ -174,18 +174,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   simpleSpan: {
-    fontWeight: 600,
+    fontWeight: '600 !important',
     fontSize: 14,
     whiteSpace: 'nowrap',
   },
 
   linkSpan: {
     color: theme.palette.primary.main,
-  },
-
-  footerSubWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
   },
 }))

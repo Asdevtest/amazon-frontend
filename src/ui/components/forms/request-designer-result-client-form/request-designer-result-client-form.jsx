@@ -14,6 +14,7 @@ import { RequestProposalStatus } from '@constants/requests/request-proposal-stat
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
@@ -342,15 +343,11 @@ export const RequestDesignerResultClientForm = ({
             label={'ASIN'}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request?.request?.asin}`}
-                >
-                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request?.request?.asin}</span>
-                </a>
-              </Typography>
+              <AsinOrSkuLink
+                withCopyValue
+                asin={proposal?.request?.asin || request?.request?.asin}
+                textStyles={classNames.simpleSpan}
+              />
             }
           />
         </div>
