@@ -1963,6 +1963,7 @@ export const styles = theme => ({
   },
 
   paymentMethods: {
+    cursor: 'pointer',
     width: 150,
     padding: '10px 0',
     display: 'flex',
