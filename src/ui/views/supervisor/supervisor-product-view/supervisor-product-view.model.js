@@ -2,6 +2,7 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -730,5 +731,10 @@ export class SupervisorProductViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/supervisor/products/product?product-id=${id}`, '_blank')
+    win.focus()
   }
 }
