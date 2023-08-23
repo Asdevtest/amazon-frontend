@@ -38,9 +38,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerWrapper: {
     display: 'flex',
+    width: '100%',
     alignSelf: 'flex-end',
     justifySelf: 'flex-end',
-
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
 
     // marginTop: 10,
@@ -49,7 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     gap: 20,
-    margin: '0 0 0 100px',
   },
 
   backBtn: {
@@ -57,7 +57,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   successBtn: {
-    marginLeft: '60px',
     width: '210px',
   },
 

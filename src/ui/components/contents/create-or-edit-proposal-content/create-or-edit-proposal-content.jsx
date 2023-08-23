@@ -312,44 +312,16 @@ export const CreateOrEditProposalContent = ({
               {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
             </div>
           </div>
-
-          {/* <div className={classNames.checkboxWrapper}>
-            <Checkbox
-              color="primary"
-              checked={checked}
-              classes={{ root: classNames.checkbox }}
-              onChange={() => setChecked(!checked)}
-            />
-            <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
-          </div> */}
-
-          <div className={classNames.middleSubWrapper}>
-            {/* <Field
-              disabled={!checked}
-              label={t(TranslationKey['Enter the offer price'])}
-              inputProps={{ maxLength: 10 }}
-              value={formFields.price}
-              onChange={onChangeField('price')}
-            /> */}
-
-            <SetDuration
-              title={t(TranslationKey['Time to complete']) + '*'}
-              duration={formFields.execution_time}
-              titleStyle={classNames.titleStyle}
-              setTotalTimeInMinute={onChangeField('execution_time')}
-            />
-
-            {/* <Field
-              label={t(TranslationKey['Time to complete, min*'])}
-              inputProps={{maxLength: 8}}
-              containerClasses={classNames.dateWrapper}
-              value={formFields.execution_time}
-              onChange={onChangeField('execution_time')}
-            /> */}
-          </div>
         </div>
 
         <div className={classNames.footerWrapper}>
+          <SetDuration
+            title={t(TranslationKey['Time to complete']) + '*'}
+            duration={formFields.execution_time}
+            titleStyle={classNames.titleStyle}
+            setTotalTimeInMinute={onChangeField('execution_time')}
+          />
+
           <div className={classNames.buttonsWrapper}>
             <Button
               success

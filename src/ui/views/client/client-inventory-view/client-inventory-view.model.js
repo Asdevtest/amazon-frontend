@@ -368,9 +368,7 @@ export class ClientInventoryViewModel {
   }
 
   onClickProductModal(row) {
-    const selection = window.getSelection()?.baseNode?.data
-
-    if (selection) {
+    if (window.getSelection().toString()) {
       return
     }
 

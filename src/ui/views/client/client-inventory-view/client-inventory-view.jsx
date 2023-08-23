@@ -292,12 +292,12 @@ export const ClientInventoryViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onCellClick={(params, event) => {
-              if (disableSelectionCells.includes(params.field)) {
-                event.stopPropagation()
-              }
-              event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
-            }}
+            // onCellClick={(params, event) => {
+            //   if (disableSelectionCells.includes(params.field)) {
+            //     event.stopPropagation()
+            //   }
+            //   event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+            // }}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
           />

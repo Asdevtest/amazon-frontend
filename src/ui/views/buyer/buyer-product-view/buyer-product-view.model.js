@@ -118,6 +118,7 @@ export class BuyerProductViewModel {
   showConfirmModal = false
 
   setOpenModal = undefined
+  productVariations = undefined
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -183,8 +184,30 @@ export class BuyerProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+      await this.getProductsVariations()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async getProductsVariations() {
+    if (this.product) {
+      try {
+        this.setRequestStatus(loadingStatuses.isLoading)
+
+        const result = await ProductModel.getProductsVariationsByGuid(
+          this.product?.parentProductId || this.product?._id,
+        )
+
+        runInAction(() => {
+          this.productVariations = result
+        })
+
+        this.setRequestStatus(loadingStatuses.success)
+      } catch (error) {
+        console.log('error', error)
+        this.setRequestStatus(loadingStatuses.failed)
+      }
     }
   }
 
