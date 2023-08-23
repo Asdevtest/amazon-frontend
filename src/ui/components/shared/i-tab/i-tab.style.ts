@@ -23,7 +23,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   icon: {
     color: theme.palette.primary.main,
-    transform: 'scale(.7)',
   },
 
   tooltipsWrapper: {
