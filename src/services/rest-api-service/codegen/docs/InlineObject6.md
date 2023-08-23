@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
+**title** | **String** | Название партии | [optional] 
+**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
+**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
+**trackingNumber** | **String** | Трек номер партии | [optional] 
+**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
 
 

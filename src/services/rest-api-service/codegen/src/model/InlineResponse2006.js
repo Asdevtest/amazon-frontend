@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 
 /**
  * The InlineResponse2006 model module.
@@ -47,8 +48,35 @@ class InlineResponse2006 {
         if (data) {
             obj = obj || new InlineResponse2006();
 
-            if (data.hasOwnProperty('tech_pause')) {
-                obj['tech_pause'] = ApiClient.convertToType(data['tech_pause'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            }
+            if (data.hasOwnProperty('subUser')) {
+                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
+            }
+            if (data.hasOwnProperty('entityId')) {
+                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
+            }
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            }
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -58,12 +86,145 @@ class InlineResponse2006 {
 }
 
 /**
- * @member {Number} tech_pause
+ * GUID платежа
+ * @member {String} _id
  */
-InlineResponse2006.prototype['tech_pause'] = undefined;
+InlineResponse2006.prototype['_id'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse2006.prototype['createdAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ */
+InlineResponse2006.prototype['createdBy'] = undefined;
+
+/**
+ * Роль пользователя на момент инициации платежа.
+ * @member {Number} role
+ */
+InlineResponse2006.prototype['role'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
+ */
+InlineResponse2006.prototype['subUser'] = undefined;
+
+/**
+ * GUID товара или услуги.
+ * @member {String} entityId
+ */
+InlineResponse2006.prototype['entityId'] = undefined;
+
+/**
+ * Тип платежа
+ * @member {module:model/InlineResponse2006.PaymentTypeEnum} paymentType
+ */
+InlineResponse2006.prototype['paymentType'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ */
+InlineResponse2006.prototype['recipient'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2006.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineResponse2006.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2006['PaymentTypeEnum'] = {
+
+    /**
+     * value: "PRODUCT"
+     * @const
+     */
+    "PRODUCT": "PRODUCT",
+
+    /**
+     * value: "ORDER"
+     * @const
+     */
+    "ORDER": "ORDER",
+
+    /**
+     * value: "BOX"
+     * @const
+     */
+    "BOX": "BOX",
+
+    /**
+     * value: "BATCH"
+     * @const
+     */
+    "BATCH": "BATCH",
+
+    /**
+     * value: "USER"
+     * @const
+     */
+    "USER": "USER",
+
+    /**
+     * value: "REQUEST-CUSTOM"
+     * @const
+     */
+    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+
+    /**
+     * value: "REQUEST-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+
+    /**
+     * value: "REQUEST-PROPOSAL-CUSTOM"
+     * @const
+     */
+    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
+
+    /**
+     * value: "OTHER"
+     * @const
+     */
+    "OTHER": "OTHER"
+};
 
 
 

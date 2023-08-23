@@ -262,7 +262,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsDestinationGet
 
-> [ApiV1AdminsOrdersDestination] apiV1ClientsDestinationGet(opts)
+> [ApiV1BatchesOrderDestination] apiV1ClientsDestinationGet(opts)
 
 #  Получить все склады назначения.
 
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsOrdersDestination]**](ApiV1AdminsOrdersDestination.md)
+[**[ApiV1BatchesOrderDestination]**](ApiV1BatchesOrderDestination.md)
 
 ### Authorization
 
@@ -314,7 +314,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsDestinationsGet
 
-> [ApiV1AdminsOrdersDestination] apiV1ClientsDestinationsGet(opts)
+> [ApiV1BatchesOrderDestination] apiV1ClientsDestinationsGet(opts)
 
 Отдает дестинейшны со статусом коробки указаным в квери
 
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsOrdersDestination]**](ApiV1AdminsOrdersDestination.md)
+[**[ApiV1BatchesOrderDestination]**](ApiV1BatchesOrderDestination.md)
 
 ### Authorization
 
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsGetOrdersByProductIdGuidGet
 
-> [InlineResponse2002] apiV1ClientsGetOrdersByProductIdGuidGet(guid, opts)
+> [ApiV1BatchesOrder] apiV1ClientsGetOrdersByProductIdGuidGet(guid, opts)
 
 # Получить заказы текущего клиента через id товара.
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[ApiV1BatchesOrder]**](ApiV1BatchesOrder.md)
 
 ### Authorization
 
@@ -532,7 +532,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersGet
 
-> [InlineResponse2002] apiV1ClientsOrdersGet(opts)
+> [ApiV1BatchesOrder] apiV1ClientsOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[ApiV1BatchesOrder]**](ApiV1BatchesOrder.md)
 
 ### Authorization
 
@@ -916,7 +916,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsPagOrdersGet
 
-> InlineResponse20040 apiV1ClientsPagOrdersGet(opts)
+> InlineResponse20032 apiV1ClientsPagOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -966,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20040**](InlineResponse20040.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 
@@ -1034,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20042 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20034 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -1074,7 +1074,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20042**](InlineResponse20042.md)
+[**InlineResponse20034**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -1256,7 +1256,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20042 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20034 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1296,7 +1296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20042**](InlineResponse20042.md)
+[**InlineResponse20034**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -1422,7 +1422,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsLightGet
 
-> [InlineResponse20037] apiV1ClientsProductsLightGet(opts)
+> [InlineResponse20029] apiV1ClientsProductsLightGet(opts)
 
 # Получить облегченный список товаров
 
@@ -1464,7 +1464,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20037]**](InlineResponse20037.md)
+[**[InlineResponse20029]**](InlineResponse20029.md)
 
 ### Authorization
 
@@ -1478,7 +1478,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse20039] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse20031] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1520,7 +1520,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20039]**](InlineResponse20039.md)
+[**[InlineResponse20031]**](InlineResponse20031.md)
 
 ### Authorization
 
@@ -1534,7 +1534,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyWithPagGet
 
-> InlineResponse20038 apiV1ClientsProductsMyWithPagGet(opts)
+> InlineResponse20030 apiV1ClientsProductsMyWithPagGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1586,7 +1586,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20038**](InlineResponse20038.md)
+[**InlineResponse20030**](InlineResponse20030.md)
 
 ### Authorization
 
@@ -1654,7 +1654,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse20036] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse20028] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1692,7 +1692,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20036]**](InlineResponse20036.md)
+[**[InlineResponse20028]**](InlineResponse20028.md)
 
 ### Authorization
 
@@ -1706,7 +1706,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksByBoxesGet
 
-> InlineResponse20041 apiV1ClientsTasksByBoxesGet(opts)
+> InlineResponse20033 apiV1ClientsTasksByBoxesGet(opts)
 
 # Показать все задачи с коробками данного юзера
 
@@ -1762,7 +1762,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20041**](InlineResponse20041.md)
+[**InlineResponse20033**](InlineResponse20033.md)
 
 ### Authorization
 
@@ -1832,7 +1832,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksGet
 
-> [InlineResponse2005] apiV1ClientsTasksGet(opts)
+> [InlineResponse2007] apiV1ClientsTasksGet(opts)
 
 # Показать все задачи данного пользователя в данном складе.
 
@@ -1872,7 +1872,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 

@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestsByProductLightGuidGet
 
-> [InlineResponse20062] apiV1RequestsByProductLightGuidGet(guid, opts)
+> [InlineResponse20060] apiV1RequestsByProductLightGuidGet(guid, opts)
 
 Получить облегченный список заявок по продукту
 
@@ -51,6 +51,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'status': "status_example", // String | 
+  'excludeIdeaId': null, // String | Гуид идеи, который исключить
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1RequestsByProductLightGuidGet(guid, opts).then((data) => {
@@ -68,11 +69,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **status** | **String**|  | [optional] 
+ **excludeIdeaId** | [**String**](.md)| Гуид идеи, который исключить | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse20062]**](InlineResponse20062.md)
+[**[InlineResponse20060]**](InlineResponse20060.md)
 
 ### Authorization
 
@@ -86,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCalculateRequestCostGuidGet
 
-> InlineResponse20059 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
+> InlineResponse20057 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
 
 Получить детализацию стоимости заявки
 
@@ -126,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20059**](InlineResponse20059.md)
+[**InlineResponse20057**](InlineResponse20057.md)
 
 ### Authorization
 
@@ -140,7 +142,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20080] apiV1RequestsCustomGet(guid, opts)
+> [InlineResponse20078] apiV1RequestsCustomGet(guid, opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -180,7 +182,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20080]**](InlineResponse20080.md)
+[**[InlineResponse20078]**](InlineResponse20078.md)
 
 ### Authorization
 
@@ -194,7 +196,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20081 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20079 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить уникальную заявку по его guid.
 
@@ -234,7 +236,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20081**](InlineResponse20081.md)
+[**InlineResponse20079**](InlineResponse20079.md)
 
 ### Authorization
 
@@ -358,7 +360,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
-> InlineResponse20061 apiV1RequestsGet(kind, opts)
+> InlineResponse20059 apiV1RequestsGet(kind, opts)
 
 Получить список заявок
 
@@ -412,7 +414,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20061**](InlineResponse20061.md)
+[**InlineResponse20059**](InlineResponse20059.md)
 
 ### Authorization
 
@@ -426,7 +428,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGetExistingRequestsTypeTaskGuidGet
 
-> [InlineResponse20060] apiV1RequestsGetExistingRequestsTypeTaskGuidGet(guid, typeTask, opts)
+> [InlineResponse20058] apiV1RequestsGetExistingRequestsTypeTaskGuidGet(guid, typeTask, opts)
 
 Получить заявки с определенным продуктом и типом задания
 
@@ -468,7 +470,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20060]**](InlineResponse20060.md)
+[**[InlineResponse20058]**](InlineResponse20058.md)
 
 ### Authorization
 
@@ -924,7 +926,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsMediaGuidGet
 
-> [InlineResponse20063] apiV1RequestsMediaGuidGet(guid, opts)
+> [InlineResponse20061] apiV1RequestsMediaGuidGet(guid, opts)
 
 #  Получить медиа.
 
@@ -964,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20063]**](InlineResponse20063.md)
+[**[InlineResponse20061]**](InlineResponse20061.md)
 
 ### Authorization
 

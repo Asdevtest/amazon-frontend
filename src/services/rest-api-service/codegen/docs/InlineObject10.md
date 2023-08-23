@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Название красного флага | [optional] 
-**iconImage** | **String** |  | [optional] 
+**status** | **Number** | Админ может менять статус с 70 на 100 и обратно | [optional] 
 
 

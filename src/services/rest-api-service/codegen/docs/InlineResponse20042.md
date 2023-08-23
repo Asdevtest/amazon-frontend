@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priceForClient** | **Number** |  | [optional] 
+**profileId** | **String** | id созданного профайла | [optional] 
 
 

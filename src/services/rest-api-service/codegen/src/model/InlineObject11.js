@@ -22,11 +22,14 @@ class InlineObject11 {
     /**
      * Constructs a new <code>InlineObject11</code>.
      * @alias module:model/InlineObject11
-     * @param title {String} 
+     * @param paymentType {module:model/InlineObject11.PaymentTypeEnum} DEPOSIT - пополнение депозита(баланса), WITHDRAW - вывод средств с баланса, FINE - штраф.
+     * @param recipientId {String} GUID пользователя.
+     * @param sum {Number} Начисленная сумма выплаты. Может быть отрицательной.
+     * @param comment {String} комментарий
      */
-    constructor(title) { 
+    constructor(paymentType, recipientId, sum, comment) { 
         
-        InlineObject11.initialize(this, title);
+        InlineObject11.initialize(this, paymentType, recipientId, sum, comment);
     }
 
     /**
@@ -34,8 +37,11 @@ class InlineObject11 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, paymentType, recipientId, sum, comment) { 
+        obj['paymentType'] = paymentType;
+        obj['recipientId'] = recipientId;
+        obj['sum'] = sum;
+        obj['comment'] = comment;
     }
 
     /**
@@ -49,8 +55,17 @@ class InlineObject11 {
         if (data) {
             obj = obj || new InlineObject11();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            }
+            if (data.hasOwnProperty('recipientId')) {
+                obj['recipientId'] = ApiClient.convertToType(data['recipientId'], 'String');
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -60,12 +75,64 @@ class InlineObject11 {
 }
 
 /**
- * @member {String} title
+ * DEPOSIT - пополнение депозита(баланса), WITHDRAW - вывод средств с баланса, FINE - штраф.
+ * @member {module:model/InlineObject11.PaymentTypeEnum} paymentType
  */
-InlineObject11.prototype['title'] = undefined;
+InlineObject11.prototype['paymentType'] = undefined;
+
+/**
+ * GUID пользователя.
+ * @member {String} recipientId
+ */
+InlineObject11.prototype['recipientId'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Может быть отрицательной.
+ * @member {Number} sum
+ */
+InlineObject11.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineObject11.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject11['PaymentTypeEnum'] = {
+
+    /**
+     * value: "TRANSFER"
+     * @const
+     */
+    "TRANSFER": "TRANSFER",
+
+    /**
+     * value: "DEPOSIT"
+     * @const
+     */
+    "DEPOSIT": "DEPOSIT",
+
+    /**
+     * value: "WITHDRAW"
+     * @const
+     */
+    "WITHDRAW": "WITHDRAW",
+
+    /**
+     * value: "FINE"
+     * @const
+     */
+    "FINE": "FINE"
+};
 
 
 

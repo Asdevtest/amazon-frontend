@@ -47,11 +47,8 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('iconImage')) {
-                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -61,15 +58,10 @@ class InlineObject10 {
 }
 
 /**
- * Название красного флага
- * @member {String} title
+ * Админ может менять статус с 70 на 100 и обратно
+ * @member {Number} status
  */
-InlineObject10.prototype['title'] = undefined;
-
-/**
- * @member {String} iconImage
- */
-InlineObject10.prototype['iconImage'] = undefined;
+InlineObject10.prototype['status'] = undefined;
 
 
 

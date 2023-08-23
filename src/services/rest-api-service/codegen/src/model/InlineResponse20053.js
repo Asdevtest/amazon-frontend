@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20053 {
     /**
      * Constructs a new <code>InlineResponse20053</code>.
+     * Схема парсинга.
      * @alias module:model/InlineResponse20053
      */
     constructor() { 
@@ -47,11 +48,83 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('amazonFee')) {
+                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+            }
+            if (data.hasOwnProperty('weightUnitString')) {
+                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
+            }
+            if (data.hasOwnProperty('isWhiteGloveRequired')) {
+                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
+            }
+            if (data.hasOwnProperty('subCategory')) {
+                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
+            }
+            if (data.hasOwnProperty('fnsku')) {
+                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
+            }
+            if (data.hasOwnProperty('dimensionUnit')) {
+                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
+            }
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('binding')) {
+                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('dimensionUnitString')) {
+                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('imageUrl')) {
+                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
+            }
+            if (data.hasOwnProperty('isAfn')) {
+                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
+            }
+            if (data.hasOwnProperty('gl')) {
+                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
+            }
+            if (data.hasOwnProperty('TRexId')) {
+                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
+            }
+            if (data.hasOwnProperty('isAsinLimits')) {
+                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
+            }
+            if (data.hasOwnProperty('originalUrl')) {
+                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
+            }
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            }
+            if (data.hasOwnProperty('thumbStringUrl')) {
+                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('encryptedMarketplaceId')) {
+                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
+            }
+            if (data.hasOwnProperty('weightUnit')) {
+                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
             }
         }
         return obj;
@@ -61,14 +134,139 @@ class InlineResponse20053 {
 }
 
 /**
- * @member {String} userId
+ * 
+ * @member {Number} amazonFee
  */
-InlineResponse20053.prototype['userId'] = undefined;
+InlineResponse20053.prototype['amazonFee'] = undefined;
 
 /**
- * @member {String} productId
+ * 
+ * @member {Number} width
  */
-InlineResponse20053.prototype['productId'] = undefined;
+InlineResponse20053.prototype['width'] = undefined;
+
+/**
+ * 
+ * @member {Number} height
+ */
+InlineResponse20053.prototype['height'] = undefined;
+
+/**
+ * 
+ * @member {Number} length
+ */
+InlineResponse20053.prototype['length'] = undefined;
+
+/**
+ * 
+ * @member {Number} weight
+ */
+InlineResponse20053.prototype['weight'] = undefined;
+
+/**
+ * @member {String} weightUnitString
+ */
+InlineResponse20053.prototype['weightUnitString'] = undefined;
+
+/**
+ * @member {Boolean} isWhiteGloveRequired
+ */
+InlineResponse20053.prototype['isWhiteGloveRequired'] = undefined;
+
+/**
+ * @member {String} subCategory
+ */
+InlineResponse20053.prototype['subCategory'] = undefined;
+
+/**
+ * @member {String} fnsku
+ */
+InlineResponse20053.prototype['fnsku'] = undefined;
+
+/**
+ * @member {String} dimensionUnit
+ */
+InlineResponse20053.prototype['dimensionUnit'] = undefined;
+
+/**
+ * @member {String} link
+ */
+InlineResponse20053.prototype['link'] = undefined;
+
+/**
+ * @member {String} binding
+ */
+InlineResponse20053.prototype['binding'] = undefined;
+
+/**
+ * @member {String} title
+ */
+InlineResponse20053.prototype['title'] = undefined;
+
+/**
+ * @member {String} dimensionUnitString
+ */
+InlineResponse20053.prototype['dimensionUnitString'] = undefined;
+
+/**
+ * @member {Number} price
+ */
+InlineResponse20053.prototype['price'] = undefined;
+
+/**
+ * @member {String} imageUrl
+ */
+InlineResponse20053.prototype['imageUrl'] = undefined;
+
+/**
+ * @member {Boolean} isAfn
+ */
+InlineResponse20053.prototype['isAfn'] = undefined;
+
+/**
+ * @member {String} gl
+ */
+InlineResponse20053.prototype['gl'] = undefined;
+
+/**
+ * @member {String} TRexId
+ */
+InlineResponse20053.prototype['TRexId'] = undefined;
+
+/**
+ * @member {Boolean} isAsinLimits
+ */
+InlineResponse20053.prototype['isAsinLimits'] = undefined;
+
+/**
+ * @member {String} originalUrl
+ */
+InlineResponse20053.prototype['originalUrl'] = undefined;
+
+/**
+ * @member {String} productGroup
+ */
+InlineResponse20053.prototype['productGroup'] = undefined;
+
+/**
+ * @member {String} thumbStringUrl
+ */
+InlineResponse20053.prototype['thumbStringUrl'] = undefined;
+
+/**
+ * @member {String} asin
+ */
+InlineResponse20053.prototype['asin'] = undefined;
+
+/**
+ * @member {String} encryptedMarketplaceId
+ */
+InlineResponse20053.prototype['encryptedMarketplaceId'] = undefined;
+
+/**
+ * @member {String} weightUnit
+ */
+InlineResponse20053.prototype['weightUnit'] = undefined;
 
 
 

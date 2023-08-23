@@ -22,11 +22,10 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject18.initialize(this, boxesIds);
+        InlineObject18.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('iconImage')) {
+                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
             }
         }
         return obj;
@@ -60,9 +61,15 @@ class InlineObject18 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * Название красного флага
+ * @member {String} title
  */
-InlineObject18.prototype['boxesIds'] = undefined;
+InlineObject18.prototype['title'] = undefined;
+
+/**
+ * @member {String} iconImage
+ */
+InlineObject18.prototype['iconImage'] = undefined;
 
 
 

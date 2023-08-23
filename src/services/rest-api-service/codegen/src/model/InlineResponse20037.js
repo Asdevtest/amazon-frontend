@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20037Batches from './InlineResponse20037Batches';
+import InlineResponse20037Boxes from './InlineResponse20037Boxes';
+import InlineResponse20037Tasks from './InlineResponse20037Tasks';
 
 /**
  * The InlineResponse20037 model module.
@@ -47,26 +50,14 @@ class InlineResponse20037 {
         if (data) {
             obj = obj || new InlineResponse20037();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20037Tasks.constructFromObject(data['tasks']);
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20037Boxes.constructFromObject(data['boxes']);
             }
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
-            }
-            if (data.hasOwnProperty('skusByClient')) {
-                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
-            }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20037Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -76,45 +67,19 @@ class InlineResponse20037 {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} _id
+ * @member {module:model/InlineResponse20037Tasks} tasks
  */
-InlineResponse20037.prototype['_id'] = undefined;
+InlineResponse20037.prototype['tasks'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * @member {module:model/InlineResponse20037Boxes} boxes
  */
-InlineResponse20037.prototype['asin'] = undefined;
+InlineResponse20037.prototype['boxes'] = undefined;
 
 /**
- * ID магазинов для продукта
- * @member {Array.<String>} shopIds
+ * @member {module:model/InlineResponse20037Batches} batches
  */
-InlineResponse20037.prototype['shopIds'] = undefined;
-
-/**
- * Заголовок на товар с сайта амазон.
- * @member {String} amazonTitle
- */
-InlineResponse20037.prototype['amazonTitle'] = undefined;
-
-/**
- * @member {Array.<String>} skusByClient
- */
-InlineResponse20037.prototype['skusByClient'] = undefined;
-
-/**
- * GUID пользователя(байера)
- * @member {String} buyerId
- */
-InlineResponse20037.prototype['buyerId'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse20037.prototype['images'] = undefined;
+InlineResponse20037.prototype['batches'] = undefined;
 
 
 

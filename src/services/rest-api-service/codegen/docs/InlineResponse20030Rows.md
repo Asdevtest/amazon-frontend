@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **currentSupplier** | [**ApiV1BatchesProductSuppliers**](ApiV1BatchesProductSuppliers.md) |  | [optional] 
 **currentSupplierId** | **String** | GUID поставщика в базе данных | [optional] 
 **parentProductId** | **String** | Гуид родительского продукта | [optional] 
+**hasChildren** | **Boolean** | Имеет ли дочерние продукты данный продукт (по parentProductId) | [optional] 
 **category** | **String** | Категория | [optional] 
 **lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
 **bsr** | **Number** |  | [optional] 

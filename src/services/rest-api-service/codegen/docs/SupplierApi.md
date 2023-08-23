@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## apiV1SuppliersGet
 
-> [ApiV1AdminsGetProductsByStatusSuppliers] apiV1SuppliersGet(opts)
+> [ApiV1BatchesProductSuppliers] apiV1SuppliersGet(opts)
 
 # Получить список поставщиков.
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md)
+[**[ApiV1BatchesProductSuppliers]**](ApiV1BatchesProductSuppliers.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersGuidGet
 
-> ApiV1AdminsGetProductsByStatusSuppliers apiV1SuppliersGuidGet(guid, opts)
+> ApiV1BatchesProductSuppliers apiV1SuppliersGuidGet(guid, opts)
 
 # Получить одного поставщика.
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md)
+[**ApiV1BatchesProductSuppliers**](ApiV1BatchesProductSuppliers.md)
 
 ### Authorization
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPaymentMethodsGet
 
-> [InlineResponse20074] apiV1SuppliersPaymentMethodsGet(opts)
+> [InlineResponse20072] apiV1SuppliersPaymentMethodsGet(opts)
 
 # Получить все доступные методы оплаты для поставщика
 
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20074]**](InlineResponse20074.md)
+[**[InlineResponse20072]**](InlineResponse20072.md)
 
 ### Authorization
 

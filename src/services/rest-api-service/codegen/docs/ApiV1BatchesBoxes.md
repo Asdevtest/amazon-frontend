@@ -42,14 +42,14 @@ Name | Type | Description | Notes
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
-**variationTariff** | [**ApiV1AdminsTasksLightVariationTariff**](ApiV1AdminsTasksLightVariationTariff.md) |  | [optional] 
+**variationTariff** | [**ApiV1BatchesVariationTariff**](ApiV1BatchesVariationTariff.md) |  | [optional] 
 **items** | [**[ApiV1BatchesItems]**](ApiV1BatchesItems.md) | Массив коробок. | [optional] 
 **storekeeper** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **client** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **createdBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **lastModifiedBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
-**destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
-**logicsTariff** | [**ApiV1AdminsOrdersLogicsTariff**](ApiV1AdminsOrdersLogicsTariff.md) |  | [optional] 
+**destination** | [**ApiV1BatchesOrderDestination**](ApiV1BatchesOrderDestination.md) |  | [optional] 
+**logicsTariff** | [**ApiV1BatchesOrderLogicsTariff**](ApiV1BatchesOrderLogicsTariff.md) |  | [optional] 
 **batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | [optional] 
 
 

@@ -22,10 +22,11 @@ class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
+     * @param title {String} Название красного флага
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject17.initialize(this);
+        InlineObject17.initialize(this, title);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -50,17 +52,8 @@ class InlineObject17 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumber')) {
-                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
-            }
-            if (data.hasOwnProperty('actualShippingCost')) {
-                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            if (data.hasOwnProperty('iconImage')) {
+                obj['iconImage'] = ApiClient.convertToType(data['iconImage'], 'String');
             }
         }
         return obj;
@@ -70,34 +63,15 @@ class InlineObject17 {
 }
 
 /**
- * Название партии
+ * Название красного флага
  * @member {String} title
  */
 InlineObject17.prototype['title'] = undefined;
 
 /**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
+ * @member {String} iconImage
  */
-InlineObject17.prototype['calculationMethod'] = undefined;
-
-/**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
- */
-InlineObject17.prototype['volumeWeightDivide'] = undefined;
-
-/**
- * Трек номер партии
- * @member {String} trackingNumber
- */
-InlineObject17.prototype['trackingNumber'] = undefined;
-
-/**
- * Настоящая стоимость доставки
- * @member {Number} actualShippingCost
- */
-InlineObject17.prototype['actualShippingCost'] = undefined;
+InlineObject17.prototype['iconImage'] = undefined;
 
 
 

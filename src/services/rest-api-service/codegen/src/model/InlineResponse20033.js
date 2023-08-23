@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20031Finances from './InlineResponse20031Finances';
-import InlineResponse20033Products from './InlineResponse20033Products';
+import InlineResponse2007 from './InlineResponse2007';
 
 /**
  * The InlineResponse20033 model module.
@@ -23,6 +22,7 @@ import InlineResponse20033Products from './InlineResponse20033Products';
 class InlineResponse20033 {
     /**
      * Constructs a new <code>InlineResponse20033</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20033
      */
     constructor() { 
@@ -49,11 +49,11 @@ class InlineResponse20033 {
         if (data) {
             obj = obj || new InlineResponse20033();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20033Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20031Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2007]);
             }
         }
         return obj;
@@ -63,14 +63,16 @@ class InlineResponse20033 {
 }
 
 /**
- * @member {module:model/InlineResponse20033Products} products
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20033.prototype['products'] = undefined;
+InlineResponse20033.prototype['count'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20031Finances} finances
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse2007>} rows
  */
-InlineResponse20033.prototype['finances'] = undefined;
+InlineResponse20033.prototype['rows'] = undefined;
 
 
 

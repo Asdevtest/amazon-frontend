@@ -4,12 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID продукта в базе данных | [optional] 
-**asin** | **String** | ASIN продукта | [optional] 
-**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
-**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
-**skusByClient** | **[String]** |  | [optional] 
-**buyerId** | **String** | GUID пользователя(байера) | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
+**tasks** | [**InlineResponse20037Tasks**](InlineResponse20037Tasks.md) |  | [optional] 
+**boxes** | [**InlineResponse20037Boxes**](InlineResponse20037Boxes.md) |  | [optional] 
+**batches** | [**InlineResponse20037Batches**](InlineResponse20037Batches.md) |  | [optional] 
 
 

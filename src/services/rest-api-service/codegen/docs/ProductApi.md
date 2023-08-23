@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsByCreatorGuidGet
 
-> [InlineResponse20036] apiV1ProductsByCreatorGuidGet(guid, opts)
+> [InlineResponse20028] apiV1ProductsByCreatorGuidGet(guid, opts)
 
 Получение продуктов по ID создателя
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20036]**](InlineResponse20036.md)
+[**[InlineResponse20028]**](InlineResponse20028.md)
 
 ### Authorization
 
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsGuidGet
 
-> InlineResponse2001 apiV1ProductsGuidGet(guid, opts)
+> ApiV1BatchesProduct apiV1ProductsGuidGet(guid, opts)
 
 # Получить товар оп id.
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**ApiV1BatchesProduct**](ApiV1BatchesProduct.md)
 
 ### Authorization
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsKeepaPost
 
-> [InlineResponse20056] apiV1ProductsKeepaPost(opts)
+> [InlineResponse20054] apiV1ProductsKeepaPost(opts)
 
 # Отфильтровать и получить данные  о продуктах через Keepa
 
@@ -444,7 +444,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20056]**](InlineResponse20056.md)
+[**[InlineResponse20054]**](InlineResponse20054.md)
 
 ### Authorization
 
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20055 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20053 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -608,7 +608,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20055**](InlineResponse20055.md)
+[**InlineResponse20053**](InlineResponse20053.md)
 
 ### Authorization
 
@@ -622,7 +622,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsRedFlagsGet
 
-> [ApiV1AdminsGetProductsByStatusRedFlags] apiV1ProductsRedFlagsGet(opts)
+> [ApiV1BatchesProductRedFlags] apiV1ProductsRedFlagsGet(opts)
 
 # Получить красные флаги
 
@@ -660,7 +660,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md)
+[**[ApiV1BatchesProductRedFlags]**](ApiV1BatchesProductRedFlags.md)
 
 ### Authorization
 

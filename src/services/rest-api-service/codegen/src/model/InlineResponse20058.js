@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
-import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20058 model module.
@@ -52,29 +50,8 @@ class InlineResponse20058 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
         }
         return obj;
@@ -84,56 +61,16 @@ class InlineResponse20058 {
 }
 
 /**
- * Гуид медиа
+ * Гуид заявки
  * @member {String} _id
  */
 InlineResponse20058.prototype['_id'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * удобный ключ заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20058.prototype['sourceFile'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} comments
- */
-InlineResponse20058.prototype['comments'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
- */
-InlineResponse20058.prototype['proposal'] = undefined;
-
-/**
- * Код специализации фрилансера
- * @member {Number} typeTask
- */
-InlineResponse20058.prototype['typeTask'] = undefined;
-
-/**
- * гуид продукта
- * @member {String} productId
- */
-InlineResponse20058.prototype['productId'] = undefined;
-
-/**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
- */
-InlineResponse20058.prototype['createdBy'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20058.prototype['createdAt'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse20058.prototype['updatedAt'] = undefined;
+InlineResponse20058.prototype['humanFriendlyId'] = undefined;
 
 
 

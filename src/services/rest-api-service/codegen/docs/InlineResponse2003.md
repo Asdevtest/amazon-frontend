@@ -4,29 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID пользователя в БД. | 
-**name** | **String** | Имя пользователя. | 
-**email** | **String** | email | 
-**role** | **Number** | Код роли присвоенный пользователю.    roles.root &#x3D; 0    roles.client &#x3D; 10    roles.super &#x3D; 20    roles.researcher &#x3D; 30    roles.freelancer &#x3D; 35    roles.buyer &#x3D; 40    roles.storekeeper &#x3D; 45    roles.candidate &#x3D; 50    roles.moderator &#x3D; 60     | 
-**fba** | **Boolean** | Флаг fba. | 
-**active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | 
-**isUserPreprocessingCenterUSA** | **Boolean** | Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге | [optional] 
-**rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
-**balance** | **Number** | Баланс пользователя. | [optional] 
-**balanceFreeze** | **Number** | Замороженная при оплате ордера сумма.. | [optional] 
-**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
-**permissions** | [**[InlineResponse2003Permissions]**](InlineResponse2003Permissions.md) | Массив permission-ов. | [optional] 
-**permissionGroups** | [**[InlineResponse2003PermissionGroups]**](InlineResponse2003PermissionGroups.md) | Массив групп permission-ов. | [optional] 
-**masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
-**allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
-**allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
-**canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
-**rating** | **Number** | Рейтинг пользователя. | [optional] 
-**subUsers** | [**[InlineResponse2003SubUsers]**](InlineResponse2003SubUsers.md) | Массив id сабюзеров. | [optional] 
-**masterUserInfo** | [**InlineResponse2003SubUsers**](InlineResponse2003SubUsers.md) |  | [optional] 
-**allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
-**hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
-**createdAt** | **Date** | Дата создания | [optional] 
-**updatedAt** | **Date** | Дата изменения | [optional] 
+**guid** | **String** | The unique identifier of the box. | [optional] 
+**cubicMeters** | **Number** | Объем в м ^ 3 | [optional] 
+**deliveryCost** | **Number** | The delivery cost of the box. | [optional] 
+**volumeWeightKgWarehouse** | **Number** | The volume weight of the box in kg. | [optional] 
+**weightFinalAccountingKgWarehouse** | **Number** | The weight of the box in kg. | [optional] 
+**deliveryRate** | **Number** | The delivery rate of the box. $/kg | [optional] 
 
 
