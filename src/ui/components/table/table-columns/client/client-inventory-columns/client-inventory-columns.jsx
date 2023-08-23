@@ -47,7 +47,11 @@ export const clientInventoryColumns = (
         showVariationButton={params.row?.originalData?.parentProductId || params.row?.originalData?.hasChildren}
         isParentProduct={!params.row?.originalData?.parentProductId && params.row?.originalData?.hasChildren}
         onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?.originalData?._id)}
-        onClickVariationButton={() => otherHandlers.onClickVariationButton(params.row?.originalData?._id)}
+        onClickVariationButton={() =>
+          otherHandlers.onClickVariationButton(
+            params.row?.originalData?.parentProductId || params.row?.originalData?._id,
+          )
+        }
       />
     ),
     width: 120,
