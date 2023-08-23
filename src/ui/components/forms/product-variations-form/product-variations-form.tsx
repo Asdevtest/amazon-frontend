@@ -15,6 +15,13 @@ interface ProductVariationsFormProps {
   product: {
     childProducts: Array<IProductVariation>
     parentProduct: IProductVariation
+
+    _id: string
+    asin: string
+    skusByClient: string[]
+    images: string[]
+    shopIds: string[]
+    amazonTitle: string
   }
   onClickShowProduct: () => void
 }
@@ -29,10 +36,23 @@ export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(pr
       <p className={classNames.title}>{t(TranslationKey['Interconnected products'])}</p>
 
       <div className={classNames.interconnectedProductsBodyWrapper}>
-        {product?.parentProduct && (
+        {product?.parentProduct ? (
           <InterconnectedProducts
             isParent
             variationProduct={product?.parentProduct}
+            navigateToProduct={onClickShowProduct}
+          />
+        ) : (
+          <InterconnectedProducts
+            isParent
+            variationProduct={{
+              _id: product?._id,
+              asin: product?.asin,
+              skusByClient: product?.skusByClient,
+              images: product?.images,
+              shopIds: product?.shopIds,
+              amazonTitle: product?.amazonTitle,
+            }}
             navigateToProduct={onClickShowProduct}
           />
         )}
