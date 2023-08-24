@@ -2474,7 +2474,7 @@ export const OrderManyItemsCell = React.memo(
 
     return (
       <div className={classNames.manyItemsMainWrapper}>
-        <Tooltip title={renderProductInfo()}>
+        <Tooltip title={renderProductInfo()} classes={{ popper: classNames.manyItemsMainWrapperTooltip }}>
           <div>
             <div className={classNames.manyItemsImagesWrapper}>
               {box.items.map((product, productIndex) => (
