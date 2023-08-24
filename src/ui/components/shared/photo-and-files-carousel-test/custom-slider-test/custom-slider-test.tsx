@@ -28,6 +28,7 @@ interface Props {
   alignRight?: boolean
   isHideCounter?: boolean
   customSlideHeight?: number
+  showPreviewsModal?: boolean
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
@@ -40,6 +41,7 @@ export const CustomSliderTest: FC<Props> = ({
   alignRight = false,
   isHideCounter = false,
   customSlideHeight,
+  showPreviewsModal = false,
   controls,
 }) => {
   const { classes: classNames } = useClassNames()
@@ -246,7 +248,7 @@ export const CustomSliderTest: FC<Props> = ({
 
       {isImageType && (
         <ImageModal
-          showPreviews
+          showPreviews={showPreviewsModal}
           isOpenModal={showPhotosModal}
           imageList={slides}
           currentImageIndex={currentIndex}
