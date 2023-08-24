@@ -141,6 +141,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   filesWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 150,
     width: 300,
 

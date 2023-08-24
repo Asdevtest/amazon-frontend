@@ -174,10 +174,7 @@ export class BuyerProductViewModel {
 
     reaction(
       () => this.productId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
@@ -191,28 +188,27 @@ export class BuyerProductViewModel {
   }
 
   async getProductsVariations() {
-    if (this.product) {
-      try {
-        this.setRequestStatus(loadingStatuses.isLoading)
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
 
-        const result = await ProductModel.getProductsVariationsByGuid(
-          this.product?.parentProductId || this.product?._id,
-        )
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
-        runInAction(() => {
-          this.productVariations = result
-        })
+      console.log('result', result)
 
-        this.setRequestStatus(loadingStatuses.success)
-      } catch (error) {
-        console.log('error', error)
-        this.setRequestStatus(loadingStatuses.failed)
-      }
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
@@ -231,7 +227,9 @@ export class BuyerProductViewModel {
 
         this.getProductById()
       }
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }

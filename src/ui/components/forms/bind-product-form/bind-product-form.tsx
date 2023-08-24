@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -65,6 +65,12 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       }
     })
   }
+
+  useEffect(() => {
+    if (!sourceProduct?.parentProductId && sourceProduct?.hasChildren) {
+      chooseRadioButtonSettingHandler(ProductVariation.CHILD)
+    }
+  }, [!sourceProduct?.parentProductId, sourceProduct?.hasChildren])
 
   return (
     <div className={classNames.root}>

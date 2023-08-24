@@ -197,10 +197,7 @@ export class ClientProductViewModel {
 
     reaction(
       () => this.productId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
@@ -270,23 +267,19 @@ export class ClientProductViewModel {
   }
 
   async getProductsVariations() {
-    if (this.product) {
-      try {
-        this.setRequestStatus(loadingStatuses.isLoading)
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
 
-        const result = await ProductModel.getProductsVariationsByGuid(
-          this.product?.parentProductId || this.product?._id,
-        )
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
-        runInAction(() => {
-          this.productVariations = result
-        })
+      runInAction(() => {
+        this.productVariations = result
+      })
 
-        this.setRequestStatus(loadingStatuses.success)
-      } catch (error) {
-        console.log('error', error)
-        this.setRequestStatus(loadingStatuses.failed)
-      }
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
