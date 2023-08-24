@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '40px',
-    padding: '0 13px',
+    padding: '0px 10px 0px 13px',
     position: 'relative',
   },
 
@@ -30,7 +30,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   lastActiveItem: {
-    paddingRight: '34px',
     ':after': {
       content: '""',
       height: '100%',

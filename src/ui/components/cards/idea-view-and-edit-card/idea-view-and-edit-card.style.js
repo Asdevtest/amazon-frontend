@@ -420,7 +420,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   sourcesProductWraper: {
     display: 'flex',
-    gap: '30px',
+    gap: '15px',
     justifyContent: 'flex-end',
   },
 
