@@ -161,9 +161,7 @@ export const BoxViewForm = observer(
             </div>
           </div>
         </div>
-
         <Divider className={classNames.divider} />
-
         <div className={classNames.blocksWrapper}>
           <div className={classNames.blockWrapper}>
             <Grid container className={classNames.deliveryInfoWrapper}>
@@ -424,13 +422,7 @@ export const BoxViewForm = observer(
                               setBigImagesOptions({
                                 ...bigImagesOptions,
 
-                                images: [
-                                  formFields.tmpTrackNumberFile[index]
-                                    ? typeof formFields.tmpTrackNumberFile[index] === 'string'
-                                      ? formFields.tmpTrackNumberFile[index]
-                                      : formFields.tmpTrackNumberFile[index]?.data_url
-                                    : formFields.trackNumberFile[index],
-                                ],
+                                images: [...formFields.tmpTrackNumberFile, ...formFields.trackNumberFile],
                               })
                             }}
                           />
@@ -445,7 +437,6 @@ export const BoxViewForm = observer(
             </div>
           </div>
         </div>
-
         <div className={classNames.commentsWrapper}>
           <Field
             multiline
@@ -473,7 +464,6 @@ export const BoxViewForm = observer(
             onChange={onChangeField('storekeeperComment')}
           />
         </div>
-
         <div className={classNames.buttonsWrapper}>
           {isEdit && (
             <Button success onClick={() => onSubmitChangeFields(formFields)}>
@@ -485,7 +475,6 @@ export const BoxViewForm = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
-
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={'Track number'}
@@ -499,13 +488,12 @@ export const BoxViewForm = observer(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
-
         <ImageModal
-          handleCurrentImageIndex={bigImagesOptions.imgIndex}
-          imageList={bigImagesOptions.images}
-          currentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          imageList={bigImagesOptions.images}
+          handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
         />
       </div>
     )
