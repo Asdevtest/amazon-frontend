@@ -80,8 +80,6 @@ export const FieldsAndSuppliers = observer(
         !product.archive)
     )
 
-    console.log('productVariations', productVariations)
-
     return (
       <Grid item xs={12}>
         <Field
@@ -463,7 +461,7 @@ export const FieldsAndSuppliers = observer(
             ) : null}
           </div>
 
-          {product?.parentProductId || productVariations?.childProducts?.length ? (
+          {product?.parentProductId || !!productVariations?.childProducts?.length ? (
             <div className={classNames.interconnectedProductsWrapper}>
               <div
                 className={cx(classNames.interconnectedProductsHeader, {
@@ -503,16 +501,18 @@ export const FieldsAndSuppliers = observer(
                   />
                 )}
 
-                {productVariations?.childProducts?.map((variationProduct, variationProductIndex) => (
-                  <InterconnectedProducts
-                    key={variationProductIndex}
-                    showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
-                    productId={product?._id}
-                    variationProduct={variationProduct}
-                    navigateToProduct={navigateToProduct}
-                    unbindProductHandler={unbindProductHandler}
-                  />
-                ))}
+                {productVariations?.childProducts
+                  ?.filter(variationProduct => variationProduct?._id !== product?._id)
+                  .map((variationProduct, variationProductIndex) => (
+                    <InterconnectedProducts
+                      key={variationProductIndex}
+                      showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
+                      productId={product?._id}
+                      variationProduct={variationProduct}
+                      navigateToProduct={navigateToProduct}
+                      unbindProductHandler={unbindProductHandler}
+                    />
+                  ))}
               </div>
             </div>
           ) : checkIsClient(curUserRole) ? (

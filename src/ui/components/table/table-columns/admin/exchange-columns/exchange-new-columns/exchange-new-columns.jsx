@@ -82,6 +82,7 @@ export const exchangeNewColumns = () => [
     ),
     width: 200,
   },
+
   {
     field: 'supervisor',
     headerName: t(TranslationKey.Supervisor),
