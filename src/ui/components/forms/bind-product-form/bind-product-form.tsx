@@ -70,7 +70,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     if (!sourceProduct?.parentProductId && sourceProduct?.hasChildren) {
       chooseRadioButtonSettingHandler(ProductVariation.CHILD)
     }
-  }, [!sourceProduct?.parentProductId, sourceProduct?.hasChildren])
+  }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
 
   return (
     <div className={classNames.root}>
