@@ -204,13 +204,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   productsWrapper: {
     width: 700,
+    overflow: 'hidden',
+    padding: '20px 0',
   },
 
   productWrapper: {
-    padding: '10px 20px 0',
     display: 'flex',
-    justifyContent: 'space-around',
-    width: '100%',
+    justifyContent: 'space-between',
+    width: 660,
+    overflow: 'hidden',
   },
 
   amazonTitle: {
