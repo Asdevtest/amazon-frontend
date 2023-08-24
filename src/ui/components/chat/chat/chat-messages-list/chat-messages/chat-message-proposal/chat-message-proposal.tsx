@@ -70,7 +70,7 @@ export const ChatMessageProposal: FC<Props> = ({ message, handlers }) => {
           </div>
         </div>
         <div className={classNames.rightSideWrapper}>
-          <PhotoAndFilesCarouselTest files={message.images} customGap={20} customImageHeight={80} />
+          <PhotoAndFilesCarouselTest files={message.images} customGap={20} customSlideHeight={80} />
 
           <div className={classNames.footerWrapper}>
             {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&

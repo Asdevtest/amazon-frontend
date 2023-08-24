@@ -3,11 +3,12 @@ import { cx } from '@emotion/css'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-and-files-carousel.styles'
 
-import { NoPhotoIcon } from '../svg-icons'
+import { NoDocumentIcon, NoPhotoIcon } from '../svg-icons'
 
 import { CustomSliderTest } from './custom-slider-test'
 import { WIDTH_INCREASE_FACTOR } from './custom-slider-test/custom-slider-test.constants'
@@ -24,14 +25,32 @@ export const PhotoAndFilesCarouselTest = ({
   alignRight = false,
   isHideCounter = false,
   customGap,
-  customImageHeight,
+  customSlideHeight,
 }) => {
   const { classes: classNames } = useClassNames()
 
-  const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
-  const notEmptyFiles = files?.length ? files.filter(el => checkIsDocumentLink(el?.file?.name || el)) : []
+  const documents = (files || []).filter(el => checkIsDocumentLink(el?.file?.name || el))
+  const photos = (files || []).reduce((result, el) => {
+    const file = el?.file?.name || el
+    const isImage = checkIsImageLink(file)
+    const isDocument = checkIsDocumentLink(file)
 
-  const customSlideWidth = customImageHeight && customImageHeight * WIDTH_INCREASE_FACTOR
+    if (isImage) {
+      result.push(file)
+    } else if (!isImage && !isDocument) {
+      if (typeof el === 'string') {
+        result.push(getAmazonImageUrl(el, true))
+      } else {
+        const isImageDataUrl = el?.file.type.includes('image')
+
+        result.push(isImageDataUrl ? el.data_url : '/assets/icons/file.png')
+      }
+    }
+
+    return result
+  }, [])
+
+  const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
 
   return files?.length ? (
     <div
@@ -44,26 +63,26 @@ export const PhotoAndFilesCarouselTest = ({
     >
       {!withoutPhotos ? (
         <CustomSliderTest
-          files={notEmptyPhotos}
+          files={photos}
           smallSlider={smallSlider}
           mediumSlider={mediumSlider}
           bigSlider={bigSlider}
           alignLeft={alignLeft}
           alignRight={alignRight}
-          customImageHeight={customImageHeight}
+          customSlideHeight={customSlideHeight}
           isHideCounter={isHideCounter}
         />
       ) : null}
 
       {!whithoutFiles ? (
         <CustomSliderTest
-          files={notEmptyFiles}
+          files={documents}
           smallSlider={smallSlider}
           mediumSlider={mediumSlider}
           bigSlider={bigSlider}
           alignLeft={alignLeft}
           alignRight={alignRight}
-          customImageHeight={customImageHeight}
+          customSlideHeight={customSlideHeight}
           isHideCounter={isHideCounter}
         />
       ) : null}
@@ -76,10 +95,13 @@ export const PhotoAndFilesCarouselTest = ({
           [classNames.slideMedium]: mediumSlider,
           [classNames.slideBig]: bigSlider,
         })}
-        style={{ width: customSlideWidth, height: customImageHeight }}
+        style={{ width: customSlideWidth, height: customSlideHeight }}
       >
-        <NoPhotoIcon className={classNames.slide} />
-        {/* <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} /> */}
+        {whithoutFiles ? (
+          <NoPhotoIcon className={classNames.slide} />
+        ) : (
+          <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
+        )}
       </div>
 
       <p
@@ -89,7 +111,7 @@ export const PhotoAndFilesCarouselTest = ({
           [classNames.bigText]: bigSlider,
         })}
       >
-        {t(TranslationKey['No photos'])}
+        {whithoutFiles ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
       </p>
     </div>
   )

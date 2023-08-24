@@ -98,7 +98,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
             directionColumn
             files={message.data.request?.media?.map(el => el.fileLink)}
             customGap={20}
-            customImageHeight={80}
+            customSlideHeight={80}
           />
         </div>
 
@@ -128,7 +128,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
             directionColumn
             files={message.data.proposal.linksToMediaFiles}
             customGap={20}
-            customImageHeight={80}
+            customSlideHeight={80}
           />
         </div>
       </div>

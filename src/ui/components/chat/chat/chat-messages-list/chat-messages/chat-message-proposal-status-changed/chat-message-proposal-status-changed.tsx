@@ -67,7 +67,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
             <p className={classNames.reasonText}>{message?.data?.reason}</p>
 
             {message.data?.linksToMediaFiles?.length > 0 && (
-              <PhotoAndFilesCarouselTest files={message.data.linksToMediaFiles} customGap={20} customImageHeight={80} />
+              <PhotoAndFilesCarouselTest files={message.data.linksToMediaFiles} customGap={20} customSlideHeight={80} />
             )}
 
             <div className={classNames.footerWrapper}>

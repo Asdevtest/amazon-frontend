@@ -27,7 +27,7 @@ interface Props {
   alignLeft?: boolean
   alignRight?: boolean
   isHideCounter?: boolean
-  customImageHeight?: number
+  customSlideHeight?: number
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
@@ -39,7 +39,7 @@ export const CustomSliderTest: FC<Props> = ({
   alignLeft = false,
   alignRight = false,
   isHideCounter = false,
-  customImageHeight,
+  customSlideHeight,
   controls,
 }) => {
   const { classes: classNames } = useClassNames()
@@ -97,8 +97,10 @@ export const CustomSliderTest: FC<Props> = ({
   }, [isTransitioning])
 
   const currentSlideTitle = `${currentIndex + 1}/${selectedElements.length}`
-  const customSlideWidth = customImageHeight && customImageHeight * WIDTH_INCREASE_FACTOR
-  const isDisableArrow = selectedElements.length <= MIN_FILES_IN_ARRAY
+  const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
+  const isDisableArrowRight =
+    selectedElements.length <= MIN_FILES_IN_ARRAY || currentIndex === selectedElements.length - 1
+  const isDisableArrowLeft = selectedElements.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
   const isRightArrow = arrowDirection === Arrows.RIGHT
   const isLeftArrow = arrowDirection === Arrows.LEFT
   const isNoElements = selectedElements.length === 0
@@ -120,10 +122,10 @@ export const CustomSliderTest: FC<Props> = ({
                 [classNames.bigGap]: bigSlider,
               })}
             >
-              <button disabled={isDisableArrow}>
+              <button disabled={isDisableArrowLeft}>
                 <ArrowLeftIcon
                   className={cx(classNames.arrowIcon, {
-                    [classNames.arrowIconDisable]: isDisableArrow,
+                    [classNames.arrowIconDisable]: isDisableArrowLeft,
                     [classNames.smallArrow]: smallSlider,
                     [classNames.mediumArrow]: mediumSlider,
                     [classNames.bigArrow]: bigSlider,
@@ -142,7 +144,7 @@ export const CustomSliderTest: FC<Props> = ({
                   [classNames.slideMedium]: mediumSlider,
                   [classNames.slideBig]: bigSlider,
                 })}
-                style={{ width: customSlideWidth, height: customImageHeight }}
+                style={{ width: customSlideWidth, height: customSlideHeight }}
               >
                 {isImageType ? (
                   <img
@@ -173,10 +175,10 @@ export const CustomSliderTest: FC<Props> = ({
                 )}
               </div>
 
-              <button disabled={isDisableArrow}>
+              <button disabled={isDisableArrowRight}>
                 <ArrowRightIcon
                   className={cx(classNames.arrowIcon, {
-                    [classNames.arrowIconDisable]: isDisableArrow,
+                    [classNames.arrowIconDisable]: isDisableArrowRight,
                     [classNames.smallArrow]: smallSlider,
                     [classNames.mediumArrow]: mediumSlider,
                     [classNames.bigArrow]: bigSlider,
@@ -206,7 +208,7 @@ export const CustomSliderTest: FC<Props> = ({
                 [classNames.slideMedium]: mediumSlider,
                 [classNames.slideBig]: bigSlider,
               })}
-              style={{ width: customSlideWidth, height: customImageHeight }}
+              style={{ width: customSlideWidth, height: customSlideHeight }}
             >
               {isImageType ? (
                 <NoPhotoIcon className={classNames.slide} />

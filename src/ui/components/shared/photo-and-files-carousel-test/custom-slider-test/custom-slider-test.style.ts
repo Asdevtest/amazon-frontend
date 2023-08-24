@@ -175,14 +175,14 @@ const slideLeftBefore = keyframes`
   }
 
   100% {
-    transform: translateX(-10%);
+    transform: translateX(10%);
     opacity: 0;
   }
 `
 
 const slideLeftAfter = keyframes`
   0% {
-    transform: translateX(10%);
+    transform: translateX(-10%);
     opacity: 0;
   }
 
@@ -199,14 +199,14 @@ const slideRightBefore = keyframes`
   }
 
   100% {
-    transform: translateX(10%);
+    transform: translateX(-10%);
     opacity: 0;
   }
 `
 
 const slideRightAfter = keyframes`
   0% {
-    transform: translateX(-10%);
+    transform: translateX(10%);
     opacity: 0;
   }
 
