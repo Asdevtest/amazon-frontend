@@ -155,7 +155,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productsWrapper: {
-    overflow: 'auto',
+    overflow: 'hidden',
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },

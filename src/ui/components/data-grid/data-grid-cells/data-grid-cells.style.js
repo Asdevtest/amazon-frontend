@@ -25,6 +25,11 @@ export const styles = theme => ({
     gap: 10,
   },
 
+  manyItemsMainWrapperTooltip: {
+    maxHeight: 260,
+    overflow: 'auto',
+  },
+
   checkboxWrapper: {
     width: '100%',
     display: 'flex',
