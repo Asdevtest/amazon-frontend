@@ -28,6 +28,7 @@ interface Props {
   alignRight?: boolean
   isHideCounter?: boolean
   customSlideHeight?: number
+  showPreviewsModal?: boolean
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
@@ -40,13 +41,14 @@ export const CustomSliderTest: FC<Props> = ({
   alignRight = false,
   isHideCounter = false,
   customSlideHeight,
+  showPreviewsModal = false,
   controls,
 }) => {
   const { classes: classNames } = useClassNames()
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [selectedElements, setSelectedElements] = useState<string[]>([])
-  const [selectedElement, setSelectedElement] = useState<string>('')
+  const [slides, setSlides] = useState<string[]>([])
+  const [slide, setSlide] = useState<string>('')
 
   const [isTransitioning, setIsTransitioning] = useState(false)
 
@@ -56,15 +58,30 @@ export const CustomSliderTest: FC<Props> = ({
 
   useEffect(() => {
     if (files) {
-      setSelectedElements(files)
+      setSlides(files)
     }
   }, [files])
 
   useEffect(() => {
-    if (selectedElements.length > 0) {
-      setSelectedElement(selectedElements[currentIndex])
+    if (slides.length > 0) {
+      setSlide(slides[currentIndex])
     }
-  }, [selectedElements])
+  }, [slides])
+
+  const preloadImages = () => {
+    const prevItemIndex = currentIndex - 1 < 0 ? slides.length - 1 : currentIndex - 1
+    const nextItemIndex = (currentIndex + 1) % slides.length
+
+    new Image().src = slides[currentIndex]
+    new Image().src = slides[prevItemIndex]
+    new Image().src = slides[nextItemIndex]
+  }
+
+  useEffect(() => {
+    if (slides.length) {
+      preloadImages()
+    }
+  }, [currentIndex, slides])
 
   const handleArrowClick = (direction: ArrowsType) => {
     if (!isTransitioning) {
@@ -72,9 +89,9 @@ export const CustomSliderTest: FC<Props> = ({
       setCurrentIndex(prevIndex =>
         direction === Arrows.LEFT
           ? prevIndex === 0
-            ? selectedElements.length - 1
+            ? slides.length - 1
             : prevIndex - 1
-          : (prevIndex + 1) % selectedElements.length,
+          : (prevIndex + 1) % slides.length,
       )
       setIsTransitioning(true)
     }
@@ -86,7 +103,7 @@ export const CustomSliderTest: FC<Props> = ({
 
     if (isTransitioning) {
       transitionTimeout = setTimeout(() => {
-        setSelectedElement(selectedElements[currentIndex])
+        setSlide(slides[currentIndex])
         setIsTransitioning(false)
       }, transitionDuration)
     }
@@ -96,16 +113,15 @@ export const CustomSliderTest: FC<Props> = ({
     }
   }, [isTransitioning])
 
-  const currentSlideTitle = `${currentIndex + 1}/${selectedElements.length}`
+  const currentSlideTitle = `${currentIndex + 1}/${slides.length}`
   const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
-  const isDisableArrowRight =
-    selectedElements.length <= MIN_FILES_IN_ARRAY || currentIndex === selectedElements.length - 1
-  const isDisableArrowLeft = selectedElements.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
+  const isDisableArrowRight = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === slides.length - 1
+  const isDisableArrowLeft = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
   const isRightArrow = arrowDirection === Arrows.RIGHT
   const isLeftArrow = arrowDirection === Arrows.LEFT
-  const isNoElements = selectedElements.length === 0
-  const elementExtension = selectedElement.split('.').slice(-1)[0]
-  const isImageType = selectedElements.every(el => checkIsImageLink(el))
+  const isNoElements = slides.length === 0
+  const elementExtension = slide.split('.').slice(-1)[0]
+  const isImageType = slides.every(el => checkIsImageLink(el))
 
   return (
     <>
@@ -148,19 +164,19 @@ export const CustomSliderTest: FC<Props> = ({
               >
                 {isImageType ? (
                   <img
-                    src={selectedElement as string}
+                    src={slide as string}
                     alt={`Slide ${currentIndex}`}
                     className={classNames.slide}
                     onClick={() => setShowPhotosModal(!showPhotosModal)}
                   />
                 ) : (
                   <div className={classNames.documentWrapper}>
-                    <a href={selectedElement} target="_blank" rel="noreferrer">
+                    <a href={slide} target="_blank" rel="noreferrer">
                       <FileIcon fileExtension={elementExtension} className={classNames.slide} />
                     </a>
 
                     <a
-                      href={selectedElement}
+                      href={slide}
                       target="_blank"
                       rel="noreferrer"
                       className={cx(classNames.linkDocument, classNames.text, {
@@ -169,7 +185,7 @@ export const CustomSliderTest: FC<Props> = ({
                         [classNames.bigText]: bigSlider,
                       })}
                     >
-                      {selectedElement}
+                      {slide}
                     </a>
                   </div>
                 )}
@@ -232,9 +248,9 @@ export const CustomSliderTest: FC<Props> = ({
 
       {isImageType && (
         <ImageModal
-          showPreviews
+          showPreviews={showPreviewsModal}
           isOpenModal={showPhotosModal}
-          imageList={selectedElements}
+          imageList={slides}
           currentImageIndex={currentIndex}
           handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           handleCurrentImageIndex={photoIndex => setCurrentIndex(photoIndex)}
