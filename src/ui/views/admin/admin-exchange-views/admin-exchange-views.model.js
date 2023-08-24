@@ -186,8 +186,6 @@ export class AdminExchangeViewModel {
 
       const productsData = adminProductsDataConverter(result)
 
-      console.log('productsData', productsData)
-
       runInAction(() => {
         this.currentProductsData = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })

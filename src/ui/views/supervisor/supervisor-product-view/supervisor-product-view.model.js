@@ -204,10 +204,7 @@ export class SupervisorProductViewModel {
 
     reaction(
       () => this.productId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
@@ -221,23 +218,19 @@ export class SupervisorProductViewModel {
   }
 
   async getProductsVariations() {
-    if (this.product) {
-      try {
-        this.setRequestStatus(loadingStatuses.isLoading)
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
 
-        const result = await ProductModel.getProductsVariationsByGuid(
-          this.product?.parentProductId || this.product?._id,
-        )
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
-        runInAction(() => {
-          this.productVariations = result
-        })
+      runInAction(() => {
+        this.productVariations = result
+      })
 
-        this.setRequestStatus(loadingStatuses.success)
-      } catch (error) {
-        console.log('error', error)
-        this.setRequestStatus(loadingStatuses.failed)
-      }
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -259,18 +252,19 @@ export class SupervisorProductViewModel {
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
         this.product = result
-
         this.productBase = result
-
         this.updateImagesForLoad(result.images)
 
         updateProductAutoCalculatedFields.call(this)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
