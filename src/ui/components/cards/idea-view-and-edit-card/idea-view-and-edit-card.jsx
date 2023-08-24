@@ -81,6 +81,8 @@ export const IdeaViewAndEditCard = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
+    console.log('curUser', curUser)
+
     const linkListRef = useRef(null)
 
     const [linkLine, setLinkLine] = useState('')
@@ -121,6 +123,7 @@ export const IdeaViewAndEditCard = observer(
     }, [formFields.productLinks])
 
     const getShortIdea = () => ({
+      ...idea,
       _id: idea?._id,
       status: idea?.status,
       media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
@@ -300,7 +303,8 @@ export const IdeaViewAndEditCard = observer(
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
     const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
-    const isSupplierCreatedByCurrentUser = curUser?._id === selectedSupplier?.createdBy?._id
+    const isSupplierCreatedByCurrentUser =
+      curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>

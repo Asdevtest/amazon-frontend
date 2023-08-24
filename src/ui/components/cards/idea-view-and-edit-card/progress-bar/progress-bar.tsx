@@ -27,12 +27,14 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
   const { classes: classNames } = useClassNames()
   const { showStatusDuration, currentStatus, ideaData } = props
 
+  console.log('ideaData', ideaData)
+
   const getInterval = (settingItem: IProgressBarSettings) =>
     settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
-      ? Number(ideaData?.intervalStatusSupplierFound) +
-        Number(ideaData?.intervalStatusSupplierNotFound) +
-        Number(ideaData?.intervalStatusSupplierSearch)
-      : ideaData?.[settingItem?.intervalName]
+      ? (Number(ideaData?.intervalStatusSupplierFound) || 0) +
+        (Number(ideaData?.intervalStatusSupplierNotFound) || 0) +
+        (Number(ideaData?.intervalStatusSupplierSearch) || 0)
+      : ideaData?.[settingItem?.intervalName] || 0
 
   const getStatusesToRender = () =>
     currentStatus !== ideaStatusByKey[ideaStatus.REJECTED]
