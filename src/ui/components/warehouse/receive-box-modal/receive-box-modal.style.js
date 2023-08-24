@@ -264,6 +264,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   descriptionWrapper: {
+    width: 300,
     display: 'flex',
     marginBottom: 5,
   },
@@ -311,7 +312,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    minWidth: '200px',
+    minWidth: '350px',
 
     overflow: 'hidden',
 
