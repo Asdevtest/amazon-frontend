@@ -33,7 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigGap: {
-    gap: 30,
+    gap: 40,
   },
 
   arrowIcon: {
@@ -85,23 +85,23 @@ export const useClassNames = makeStyles()(theme => ({
 
   slideBig: {
     height: '300px !important',
-    width: '400px !important',
+    width: '550px !important',
   },
 
   slideLeftBefore: {
-    animation: `${slideLeftBefore} 0.3s ease`,
+    animation: `${slideLeftBefore} 0.3s ease-in-out`,
   },
 
   slideLeftAfter: {
-    animation: `${slideLeftAfter} 0.3s ease`,
+    animation: `${slideLeftAfter} 0.3s ease-in-out`,
   },
 
   slideRightBefore: {
-    animation: `${slideRightBefore} 0.3s ease`,
+    animation: `${slideRightBefore} 0.3s ease-in-out`,
   },
 
   slideRightAfter: {
-    animation: `${slideRightAfter} 0.3s ease`,
+    animation: `${slideRightAfter} 0.3s ease-in-out`,
   },
 
   documentWrapper: {
@@ -175,20 +175,20 @@ const slideLeftBefore = keyframes`
   }
 
   100% {
-    transform: translateX(10%);
+    transform: translateX(15%);
     opacity: 0;
   }
 `
 
 const slideLeftAfter = keyframes`
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-15%);
     opacity: 0;
   }
 
   100% {
     transform: translateX(0);
-    opacity: 1
+    opacity: 1;
   }
 `
 
@@ -199,19 +199,19 @@ const slideRightBefore = keyframes`
   }
 
   100% {
-    transform: translateX(-10%);
+    transform: translateX(-15%);
     opacity: 0;
   }
 `
 
 const slideRightAfter = keyframes`
   0% {
-    transform: translateX(10%);
+    transform: translateX(15%);
     opacity: 0;
   }
 
   100% {
     transform: translateX(0);
-    opacity: 1
+    opacity: 1;
   }
 `

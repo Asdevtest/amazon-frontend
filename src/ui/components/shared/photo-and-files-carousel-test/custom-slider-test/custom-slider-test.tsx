@@ -16,7 +16,7 @@ import { useClassNames } from './custom-slider-test.style'
 
 import { FileIcon } from '../../files-carousel/file-icon'
 
-import { DEFAULT_DELAY, MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './custom-slider-test.constants'
+import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './custom-slider-test.constants'
 import { Arrows, ArrowsType } from './custom-slider-test.type'
 
 interface Props {
@@ -81,7 +81,7 @@ export const CustomSliderTest: FC<Props> = ({
   }
 
   useEffect(() => {
-    const transitionDuration = DEFAULT_DELAY
+    const transitionDuration = 0
     let transitionTimeout: ReturnType<typeof setTimeout>
 
     if (isTransitioning) {
