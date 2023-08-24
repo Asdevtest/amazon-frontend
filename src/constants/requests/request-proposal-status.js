@@ -175,3 +175,13 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['Proposal conditions corrected'])
   }
 }
+
+export const statusesValidToShowResoult = [
+  RequestProposalStatus.READY_TO_VERIFY,
+  RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+  RequestProposalStatus.TO_CORRECT,
+  RequestProposalStatus.CORRECTED,
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+  RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+]

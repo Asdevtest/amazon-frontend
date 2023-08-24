@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesProductSuppliers from './ApiV1BatchesProductSuppliers';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 
 /**
  * The ApiV1BoxesClientsLightOrder model module.
@@ -61,7 +61,7 @@ class ApiV1BoxesClientsLightOrder {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
             if (data.hasOwnProperty('orderSupplier')) {
-                obj['orderSupplier'] = ApiV1BatchesProductSuppliers.constructFromObject(data['orderSupplier']);
+                obj['orderSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['orderSupplier']);
             }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
@@ -97,7 +97,7 @@ ApiV1BoxesClientsLightOrder.prototype['item'] = undefined;
 ApiV1BoxesClientsLightOrder.prototype['clientComment'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesProductSuppliers} orderSupplier
+ * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} orderSupplier
  */
 ApiV1BoxesClientsLightOrder.prototype['orderSupplier'] = undefined;
 

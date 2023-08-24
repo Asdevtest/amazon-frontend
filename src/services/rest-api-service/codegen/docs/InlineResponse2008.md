@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tech_pause** | **Number** |  | [optional] 
+**_id** | **String** | Гуид юзера | [optional] 
+**name** | **String** | Имя юзера | [optional] 
 
 

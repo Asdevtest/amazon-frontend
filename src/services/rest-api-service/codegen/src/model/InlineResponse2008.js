@@ -47,8 +47,11 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('tech_pause')) {
-                obj['tech_pause'] = ApiClient.convertToType(data['tech_pause'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
         }
         return obj;
@@ -58,9 +61,16 @@ class InlineResponse2008 {
 }
 
 /**
- * @member {Number} tech_pause
+ * Гуид юзера
+ * @member {String} _id
  */
-InlineResponse2008.prototype['tech_pause'] = undefined;
+InlineResponse2008.prototype['_id'] = undefined;
+
+/**
+ * Имя юзера
+ * @member {String} name
+ */
+InlineResponse2008.prototype['name'] = undefined;
 
 
 

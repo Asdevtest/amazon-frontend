@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxesIds** | **[String]** |  | 
+**title** | **String** | Название красного флага | 
+**iconImage** | **String** |  | [optional] 
 
 

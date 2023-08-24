@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20075] apiV1UsersContactsGet(opts)
+> [InlineResponse20077] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20075]**](InlineResponse20075.md)
+[**[InlineResponse20077]**](InlineResponse20077.md)
 
 ### Authorization
 
@@ -358,7 +358,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackGuidGet
 
-> [InlineResponse20076] apiV1UsersFeedbackGuidGet(guid, opts)
+> [InlineResponse20078] apiV1UsersFeedbackGuidGet(guid, opts)
 
 Получить отзывы оставленые юзеру по его гуиду
 
@@ -400,7 +400,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20076]**](InlineResponse20076.md)
+[**[InlineResponse20078]**](InlineResponse20078.md)
 
 ### Authorization
 
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackMyGet
 
-> [InlineResponse20076] apiV1UsersFeedbackMyGet(opts)
+> [InlineResponse20078] apiV1UsersFeedbackMyGet(opts)
 
 Получить отзывы оставленые юзеру
 
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20076]**](InlineResponse20076.md)
+[**[InlineResponse20078]**](InlineResponse20078.md)
 
 ### Authorization
 
@@ -794,7 +794,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersMastersGet
 
-> [ApiV1AnnouncementsMyCreatedBy] apiV1UsersMastersGet(role, guid, opts)
+> [ApiV1AdminsGetProductsByStatusCreatedBy] apiV1UsersMastersGet(role, guid, opts)
 
 Получить список мастеров
 
@@ -838,7 +838,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1AnnouncementsMyCreatedBy]**](ApiV1AnnouncementsMyCreatedBy.md)
+[**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md)
 
 ### Authorization
 
@@ -1012,7 +1012,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersNotificationsPagMyGet
 
-> InlineResponse20073 apiV1UsersNotificationsPagMyGet(opts)
+> InlineResponse20075 apiV1UsersNotificationsPagMyGet(opts)
 
 Получить нотификации пользователя.
 
@@ -1062,7 +1062,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20073**](InlineResponse20073.md)
+[**InlineResponse20075**](InlineResponse20075.md)
 
 ### Authorization
 
@@ -1076,7 +1076,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20074 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20076 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -1114,7 +1114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20074**](InlineResponse20074.md)
+[**InlineResponse20076**](InlineResponse20076.md)
 
 ### Authorization
 

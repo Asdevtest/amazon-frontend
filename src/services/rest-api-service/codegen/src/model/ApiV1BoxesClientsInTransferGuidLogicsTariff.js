@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesOrderLogicsTariffConditionsByRegion from './ApiV1BatchesOrderLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The ApiV1BoxesClientsInTransferGuidLogicsTariff model module.
@@ -24,7 +24,7 @@ class ApiV1BoxesClientsInTransferGuidLogicsTariff {
      * Constructs a new <code>ApiV1BoxesClientsInTransferGuidLogicsTariff</code>.
      * @alias module:model/ApiV1BoxesClientsInTransferGuidLogicsTariff
      * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1BatchesOrderLogicsTariffConditionsByRegion} 
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
     constructor(name, conditionsByRegion) { 
         
@@ -59,7 +59,7 @@ class ApiV1BoxesClientsInTransferGuidLogicsTariff {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
             if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1BatchesOrderLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
             if (data.hasOwnProperty('cls')) {
                 obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
@@ -90,7 +90,7 @@ ApiV1BoxesClientsInTransferGuidLogicsTariff.prototype['_id'] = undefined;
 ApiV1BoxesClientsInTransferGuidLogicsTariff.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesOrderLogicsTariffConditionsByRegion} conditionsByRegion
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
 ApiV1BoxesClientsInTransferGuidLogicsTariff.prototype['conditionsByRegion'] = undefined;
 

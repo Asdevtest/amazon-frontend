@@ -13,8 +13,8 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './ApiV1AdminsGetProductsByStatusBoxProperties';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsGetProductsByStatusPaymentMethods from './ApiV1AdminsGetProductsByStatusPaymentMethods';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 
 /**
  * The ApiV1AdminsGetProductsByStatusSuppliers model module.
@@ -103,7 +103,7 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
                 obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('paymentMethods')) {
                 obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1AdminsGetProductsByStatusPaymentMethods]);
@@ -225,7 +225,7 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxProperties'] = undefined;
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['productionTerm'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined;
 

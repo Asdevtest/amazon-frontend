@@ -33,6 +33,7 @@ import {
 } from '@components/table/table-columns/client/client-ideas-columns'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
+import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
@@ -1176,12 +1177,12 @@ export class ClientIdeasViewModel {
   async onClickResultButton(request) {
     try {
       const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
-
       runInAction(() => {
-        this.currentProposal = proposals.find(proposal => showResultStatuses.includes(proposal.proposal.status))
+        this.currentProposal = proposals.find(proposal =>
+          checkIsValidProposalStatusToShowResoult(proposal.proposal.status),
+        )
         this.currentRequest = request
       })
-
       if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
       } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {

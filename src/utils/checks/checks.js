@@ -1,5 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
+import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -119,3 +120,10 @@ export const checkIsImageUrlValid = async selectedImageUrl =>
       resolve(false)
     }
   })
+
+export const checkIsValidProposalStatusToShowResoult = status => {
+  console.log('status', status)
+  console.log('statusesValidToShowResoult.includes(status)', statusesValidToShowResoult.includes(status))
+
+  return statusesValidToShowResoult.includes(status)
+}

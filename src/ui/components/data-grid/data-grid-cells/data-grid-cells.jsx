@@ -44,7 +44,7 @@ import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/ke
 import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -97,7 +97,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundHalf,
 } from '@utils/calculation'
-import { checkIsPositiveNum, checkIsString } from '@utils/checks'
+import { checkIsPositiveNum, checkIsString, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import {
   formatDateForShowWithoutParseISO,
   formatDateTime,
@@ -3254,24 +3254,23 @@ export const IdeaRequests = React.memo(
 
     return (
       <div className={styles.ideaRequestsWrapper}>
-        {requests?.map((request, requestIndex) => (
-          <IdeaRequestCard
-            key={requestIndex}
-            requestType={request.typeTask}
-            requestId={request.humanFriendlyId}
-            requestStatus={request.status}
-            executor={request.executor}
-            proposals={request.proposals}
-            disableSeeResultButton={
-              request?.status !== RequestStatus.READY_TO_VERIFY ||
-              request?.status !== RequestStatus.TO_CORRECT ||
-              request?.status !== RequestStatus.CORRECTED ||
-              request?.status !== RequestStatus.ACCEPTED_BY_CREATOR_OF_REQUEST
-            }
-            onClickRequestId={() => onClickRequestId(request._id)}
-            onClickResultButton={() => onClickResultButton(request)}
-          />
-        ))}
+        {requests?.map((request, requestIndex) => {
+          return (
+            <IdeaRequestCard
+              key={requestIndex}
+              requestType={request.typeTask}
+              requestId={request.humanFriendlyId}
+              requestStatus={request.status}
+              executor={request.executor}
+              proposals={request.proposals}
+              disableSeeResultButton={
+                !request?.proposals?.some(proposal => checkIsValidProposalStatusToShowResoult(proposal.status))
+              }
+              onClickRequestId={() => onClickRequestId(request._id)}
+              onClickResultButton={() => onClickResultButton(request)}
+            />
+          )
+        })}
         {!withoutControls && (
           <div className={styles.ideaRequestsControls}>
             <Button success onClick={onClickCreateRequest}>

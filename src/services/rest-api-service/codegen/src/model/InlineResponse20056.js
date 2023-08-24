@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
-import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
+import ApiV1ProductsKeepaOffers from './ApiV1ProductsKeepaOffers';
+import ApiV1ProductsKeepaStats from './ApiV1ProductsKeepaStats';
 
 /**
  * The InlineResponse20056 model module.
@@ -49,32 +49,71 @@ class InlineResponse20056 {
         if (data) {
             obj = obj || new InlineResponse20056();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isRecommended')) {
+                obj['isRecommended'] = ApiClient.convertToType(data['isRecommended'], 'Boolean');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('trackingSince')) {
+                obj['trackingSince'] = ApiClient.convertToType(data['trackingSince'], 'Number');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('lastRatingUpdate')) {
+                obj['lastRatingUpdate'] = ApiClient.convertToType(data['lastRatingUpdate'], 'Number');
             }
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('rootCategory')) {
+                obj['rootCategory'] = ApiClient.convertToType(data['rootCategory'], 'Number');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            if (data.hasOwnProperty('categories')) {
+                obj['categories'] = ApiClient.convertToType(data['categories'], ['Number']);
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('parentAsin')) {
+                obj['parentAsin'] = ApiClient.convertToType(data['parentAsin'], 'String');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('variationCSV')) {
+                obj['variationCSV'] = ApiClient.convertToType(data['variationCSV'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('frequentlyBoughtTogether')) {
+                obj['frequentlyBoughtTogether'] = ApiClient.convertToType(data['frequentlyBoughtTogether'], ['String']);
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('manufacturer')) {
+                obj['manufacturer'] = ApiClient.convertToType(data['manufacturer'], 'String');
+            }
+            if (data.hasOwnProperty('brand')) {
+                obj['brand'] = ApiClient.convertToType(data['brand'], 'String');
+            }
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            }
+            if (data.hasOwnProperty('publicationDate')) {
+                obj['publicationDate'] = ApiClient.convertToType(data['publicationDate'], 'Number');
+            }
+            if (data.hasOwnProperty('releaseDate')) {
+                obj['releaseDate'] = ApiClient.convertToType(data['releaseDate'], 'Number');
+            }
+            if (data.hasOwnProperty('contributors')) {
+                obj['contributors'] = ApiClient.convertToType(data['contributors'], [['Number']]);
+            }
+            if (data.hasOwnProperty('size')) {
+                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            }
+            if (data.hasOwnProperty('salesRanks')) {
+                obj['salesRanks'] = ApiClient.convertToType(data['salesRanks'], Object);
+            }
+            if (data.hasOwnProperty('offers')) {
+                obj['offers'] = ApiClient.convertToType(data['offers'], [ApiV1ProductsKeepaOffers]);
+            }
+            if (data.hasOwnProperty('liveOffersOrder')) {
+                obj['liveOffersOrder'] = ApiClient.convertToType(data['liveOffersOrder'], ['Number']);
+            }
+            if (data.hasOwnProperty('buyBoxSellerIdHistory')) {
+                obj['buyBoxSellerIdHistory'] = ApiClient.convertToType(data['buyBoxSellerIdHistory'], ['String']);
+            }
+            if (data.hasOwnProperty('availabilityAmazon')) {
+                obj['availabilityAmazon'] = ApiClient.convertToType(data['availabilityAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('newPriceIsMAP')) {
+                obj['newPriceIsMAP'] = ApiClient.convertToType(data['newPriceIsMAP'], 'Boolean');
+            }
+            if (data.hasOwnProperty('stats')) {
+                obj['stats'] = ApiV1ProductsKeepaStats.constructFromObject(data['stats']);
             }
         }
         return obj;
@@ -84,56 +123,114 @@ class InlineResponse20056 {
 }
 
 /**
- * Гуид медиа
- * @member {String} _id
+ * @member {Boolean} isRecommended
  */
-InlineResponse20056.prototype['_id'] = undefined;
+InlineResponse20056.prototype['isRecommended'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * @member {Number} trackingSince
  */
-InlineResponse20056.prototype['sourceFile'] = undefined;
+InlineResponse20056.prototype['trackingSince'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comments
+ * @member {Number} lastRatingUpdate
  */
-InlineResponse20056.prototype['comments'] = undefined;
+InlineResponse20056.prototype['lastRatingUpdate'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
+ * @member {Number} rootCategory
  */
-InlineResponse20056.prototype['proposal'] = undefined;
+InlineResponse20056.prototype['rootCategory'] = undefined;
 
 /**
- * Код специализации фрилансера
- * @member {Number} typeTask
+ * @member {Array.<Number>} categories
  */
-InlineResponse20056.prototype['typeTask'] = undefined;
+InlineResponse20056.prototype['categories'] = undefined;
 
 /**
- * гуид продукта
- * @member {String} productId
+ * @member {String} parentAsin
  */
-InlineResponse20056.prototype['productId'] = undefined;
+InlineResponse20056.prototype['parentAsin'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
+ * @member {String} variationCSV
  */
-InlineResponse20056.prototype['createdBy'] = undefined;
+InlineResponse20056.prototype['variationCSV'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * @member {Array.<String>} frequentlyBoughtTogether
  */
-InlineResponse20056.prototype['createdAt'] = undefined;
+InlineResponse20056.prototype['frequentlyBoughtTogether'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} updatedAt
+ * @member {String} manufacturer
  */
-InlineResponse20056.prototype['updatedAt'] = undefined;
+InlineResponse20056.prototype['manufacturer'] = undefined;
+
+/**
+ * @member {String} brand
+ */
+InlineResponse20056.prototype['brand'] = undefined;
+
+/**
+ * @member {String} productGroup
+ */
+InlineResponse20056.prototype['productGroup'] = undefined;
+
+/**
+ * @member {Number} publicationDate
+ */
+InlineResponse20056.prototype['publicationDate'] = undefined;
+
+/**
+ * @member {Number} releaseDate
+ */
+InlineResponse20056.prototype['releaseDate'] = undefined;
+
+/**
+ * @member {Array.<Array.<Number>>} contributors
+ */
+InlineResponse20056.prototype['contributors'] = undefined;
+
+/**
+ * @member {String} size
+ */
+InlineResponse20056.prototype['size'] = undefined;
+
+/**
+ * @member {Object} salesRanks
+ */
+InlineResponse20056.prototype['salesRanks'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1ProductsKeepaOffers>} offers
+ */
+InlineResponse20056.prototype['offers'] = undefined;
+
+/**
+ * @member {Array.<Number>} liveOffersOrder
+ */
+InlineResponse20056.prototype['liveOffersOrder'] = undefined;
+
+/**
+ * @member {Array.<String>} buyBoxSellerIdHistory
+ */
+InlineResponse20056.prototype['buyBoxSellerIdHistory'] = undefined;
+
+/**
+ * @member {Number} availabilityAmazon
+ */
+InlineResponse20056.prototype['availabilityAmazon'] = undefined;
+
+/**
+ * @member {Boolean} newPriceIsMAP
+ */
+InlineResponse20056.prototype['newPriceIsMAP'] = undefined;
+
+/**
+ * @member {module:model/ApiV1ProductsKeepaStats} stats
+ */
+InlineResponse20056.prototype['stats'] = undefined;
 
 
 
