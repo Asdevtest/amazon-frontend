@@ -81,8 +81,6 @@ export const IdeaViewAndEditCard = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    console.log('curUser', curUser)
-
     const linkListRef = useRef(null)
 
     const [linkLine, setLinkLine] = useState('')
