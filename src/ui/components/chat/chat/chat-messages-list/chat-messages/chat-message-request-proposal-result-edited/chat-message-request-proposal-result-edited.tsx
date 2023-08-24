@@ -58,7 +58,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
         <PhotoAndFilesCarouselTest
           files={message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
           customGap={20}
-          customImageHeight={80}
+          customSlideHeight={80}
         />
 
         <div className={classNames.timeToCheckBlockWrapper}>

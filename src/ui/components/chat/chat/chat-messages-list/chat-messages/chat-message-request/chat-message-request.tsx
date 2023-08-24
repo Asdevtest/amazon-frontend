@@ -54,7 +54,7 @@ export const ChatMessageRequest: FC<Props> = ({ message }) => {
         <PhotoAndFilesCarouselTest
           files={message?.data.details?.linksToMediaFiles}
           customGap={20}
-          customImageHeight={80}
+          customSlideHeight={80}
         />
       </div>
       <div className={classNames.footerWrapper}>
