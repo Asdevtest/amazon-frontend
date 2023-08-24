@@ -361,13 +361,13 @@ export const CreateOrEditRequestContent = ({
   }
 
   const disableSubmit =
-    formFields.request.title === '' ||
+    !formFields.request.title ||
     formFields.request.title.length > 100 ||
-    formFields.request.maxAmountOfProposals === '' ||
-    formFields.request.timeLimitInMinutes === '' ||
-    formFields.request.price === '' ||
-    formFields.request.timeoutAt === '' ||
-    formFields.details.conditions === '' ||
+    !formFields.request.maxAmountOfProposals ||
+    !formFields.request.timeLimitInMinutes ||
+    !formFields.request.price ||
+    !formFields.request.timeoutAt ||
+    !formFields.details.conditions ||
     clearСonditionsText.length >= 6000 ||
     !clearСonditionsText.length ||
     !formFields.request.typeTask ||

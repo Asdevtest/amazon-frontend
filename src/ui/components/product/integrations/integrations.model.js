@@ -28,6 +28,8 @@ export class IntegrationsModel {
   sellerBoardDailyData = []
   sellerBoardData = []
 
+  paginationModel = { page: 0, pageSize: 15 }
+
   selectedRowIds = []
 
   columnsModel = productIntegrationsColumns()
@@ -161,6 +163,14 @@ export class IntegrationsModel {
 
       this.sellerBoardData = []
     }
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.loadData()
   }
 
   onTriggerOpenModal(modal) {
