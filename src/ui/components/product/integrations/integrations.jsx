@@ -44,6 +44,8 @@ export const Integrations = observer(({ productId, modal }) => {
     showInfoModal,
     requestStatus,
     columnsModel,
+    paginationModel,
+    onChangePaginationModelChange,
 
     onTriggerOpenModal,
     sellerBoardDailyData,
@@ -81,6 +83,7 @@ export const Integrations = observer(({ productId, modal }) => {
           toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
+        paginationModel={paginationModel}
         pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
@@ -103,6 +106,7 @@ export const Integrations = observer(({ productId, modal }) => {
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
         rowSelectionModel={selectedRowIds}
+        onPaginationModelChange={onChangePaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}
       />
 
