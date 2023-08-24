@@ -1,6 +1,7 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { isConstructorDeclaration } from 'typescript'
 
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
@@ -78,6 +79,8 @@ export const FieldsAndSuppliers = observer(
         checkIsClient(curUserRole) &&
         !product.archive)
     )
+
+    console.log('productVariations', productVariations)
 
     return (
       <Grid item xs={12}>
