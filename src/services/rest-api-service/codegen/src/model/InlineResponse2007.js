@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
-import ApiV1AdminsTasksLightStorekeeper from './ApiV1AdminsTasksLightStorekeeper';
+import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
 
 /**
  * The InlineResponse2007 model module.
@@ -52,35 +51,17 @@ class InlineResponse2007 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
+            }
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
             }
             if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('isBarCodeAttached')) {
-                obj['isBarCodeAttached'] = ApiClient.convertToType(data['isBarCodeAttached'], 'Boolean');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksLightBoxes]);
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -90,69 +71,33 @@ class InlineResponse2007 {
 }
 
 /**
- * GUID элемента
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse2007.prototype['_id'] = undefined;
 
 /**
- * Дата создания.
- * @member {Number} createdAt
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineResponse2007.prototype['createdAt'] = undefined;
+InlineResponse2007.prototype['text'] = undefined;
 
 /**
- * Дата обновления.
- * @member {Number} updatedAt
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<Object>} media
+ */
+InlineResponse2007.prototype['media'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsFeedbackUser} user
+ */
+InlineResponse2007.prototype['user'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
  */
 InlineResponse2007.prototype['updatedAt'] = undefined;
-
-/**
- * Тип операции
- * @member {String} operationType
- */
-InlineResponse2007.prototype['operationType'] = undefined;
-
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
- */
-InlineResponse2007.prototype['status'] = undefined;
-
-/**
- * Проклеены ли все баркоды в задаче
- * @member {Boolean} isBarCodeAttached
- */
-InlineResponse2007.prototype['isBarCodeAttached'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineResponse2007.prototype['priority'] = undefined;
-
-/**
- * reason of priority
- * @member {String} reason
- */
-InlineResponse2007.prototype['reason'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
- */
-InlineResponse2007.prototype['storekeeper'] = undefined;
-
-/**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxes
- */
-InlineResponse2007.prototype['boxes'] = undefined;
-
-/**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxesBefore
- */
-InlineResponse2007.prototype['boxesBefore'] = undefined;
 
 
 

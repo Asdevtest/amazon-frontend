@@ -38,6 +38,7 @@ import {
   checkIsClient,
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
+  checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
@@ -387,10 +388,9 @@ export const IdeaViewAndEditCard = observer(
                           executor={request.executor}
                           proposals={request.proposals}
                           disableSeeResultButton={
-                            request?.status !== RequestStatus.READY_TO_VERIFY ||
-                            request?.status !== RequestStatus.TO_CORRECT ||
-                            request?.status !== RequestStatus.CORRECTED ||
-                            request?.status !== RequestStatus.ACCEPTED_BY_CREATOR_OF_REQUEST
+                            !request?.proposals?.some(proposal =>
+                              checkIsValidProposalStatusToShowResoult(proposal.status),
+                            )
                           }
                           onClickRequestId={() => onClickRequestId(request._id)}
                           onClickResultButton={() => onClickResultButton(request)}

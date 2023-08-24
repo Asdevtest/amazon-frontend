@@ -53,21 +53,6 @@ class InlineResponse20060 {
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
-            }
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
-            }
         }
         return obj;
     }
@@ -76,44 +61,16 @@ class InlineResponse20060 {
 }
 
 /**
- * GUID заявки
+ * Гуид заявки
  * @member {String} _id
  */
 InlineResponse20060.prototype['_id'] = undefined;
 
 /**
- * Номер заявки
+ * удобный ключ заявки
  * @member {Number} humanFriendlyId
  */
 InlineResponse20060.prototype['humanFriendlyId'] = undefined;
-
-/**
- * Тип задачи заявки
- * @member {Number} typeTask
- */
-InlineResponse20060.prototype['typeTask'] = undefined;
-
-/**
- * Название заявки
- * @member {String} title
- */
-InlineResponse20060.prototype['title'] = undefined;
-
-/**
- * Статус заявки
- * @member {String} status
- */
-InlineResponse20060.prototype['status'] = undefined;
-
-/**
- * @member {String} onFinishedIdeaId
- */
-InlineResponse20060.prototype['onFinishedIdeaId'] = undefined;
-
-/**
- * @member {String} onCheckedIdeaId
- */
-InlineResponse20060.prototype['onCheckedIdeaId'] = undefined;
 
 
 

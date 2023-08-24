@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Название партии | [optional] 
-**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
-**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
-**trackingNumber** | **String** | Трек номер партии | [optional] 
-**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
+**name** | **String** | Название склада. | 
+**country** | **String** | Страна. | [optional] 
+**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
+**state** | **String** | Штат. | [optional] 
+**city** | **String** | Город. | [optional] 
+**address** | **String** | Адрес склада. | [optional] 
+**fontColor** | **String** | Цвет шрифта | [optional] 
 
 

@@ -83,7 +83,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
         )}
 
         <Button
-          disabled={disableSeeResultButton || !proposals?.length}
+          disabled={disableSeeResultButton /* || !proposals?.length */}
           className={classNames.resultButton}
           onClick={onClickResultButton}
         >

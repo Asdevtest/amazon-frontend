@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherCheckAsinsPost
 
-> InlineResponse20050 apiV1OtherCheckAsinsPost(opts)
+> InlineResponse20052 apiV1OtherCheckAsinsPost(opts)
 
 # Заполнение списка асинов на проверку
 
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20050**](InlineResponse20050.md)
+[**InlineResponse20052**](InlineResponse20052.md)
 
 ### Authorization
 
@@ -401,7 +401,7 @@ null (empty response body)
 
 ## apiV1OtherPaymentsByProductGuidGet
 
-> [InlineResponse2006] apiV1OtherPaymentsByProductGuidGet(guid, opts)
+> [InlineResponse2003] apiV1OtherPaymentsByProductGuidGet(guid, opts)
 
 # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -455,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherPaymentsByUserGuidGet
 
-> [InlineResponse2006] apiV1OtherPaymentsByUserGuidGet(guid, opts)
+> [InlineResponse2003] apiV1OtherPaymentsByUserGuidGet(guid, opts)
 
 # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 
@@ -495,7 +495,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherPaymentsMyGet
 
-> [InlineResponse2006] apiV1OtherPaymentsMyGet(opts)
+> [InlineResponse2003] apiV1OtherPaymentsMyGet(opts)
 
 # Получить все оплаты, которые были произведены обратившемся пользователем.
 
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 

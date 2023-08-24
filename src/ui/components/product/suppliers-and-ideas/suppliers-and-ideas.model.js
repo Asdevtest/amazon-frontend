@@ -19,6 +19,7 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
+import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
@@ -373,7 +374,9 @@ export class SuppliersAndIdeasModel {
       const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
 
       runInAction(() => {
-        this.currentProposal = proposals.find(proposal => showResultStatuses.includes(proposal.proposal.status))
+        this.currentProposal = proposals.find(proposal =>
+          checkIsValidProposalStatusToShowResoult(proposal.proposal.status),
+        )
         this.currentRequest = request
       })
 

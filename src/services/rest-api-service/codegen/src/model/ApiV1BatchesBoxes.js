@@ -12,12 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 import ApiV1BatchesBatch from './ApiV1BatchesBatch';
 import ApiV1BatchesItems from './ApiV1BatchesItems';
-import ApiV1BatchesOrderDestination from './ApiV1BatchesOrderDestination';
-import ApiV1BatchesOrderLogicsTariff from './ApiV1BatchesOrderLogicsTariff';
-import ApiV1BatchesVariationTariff from './ApiV1BatchesVariationTariff';
 
 /**
  * The ApiV1BatchesBoxes model module.
@@ -168,28 +168,28 @@ class ApiV1BatchesBoxes {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
             if (data.hasOwnProperty('variationTariff')) {
-                obj['variationTariff'] = ApiV1BatchesVariationTariff.constructFromObject(data['variationTariff']);
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BatchesItems]);
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['client']);
+                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['lastModifiedBy']);
+                obj['lastModifiedBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['lastModifiedBy']);
             }
             if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiV1BatchesOrderDestination.constructFromObject(data['destination']);
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
-                obj['logicsTariff'] = ApiV1BatchesOrderLogicsTariff.constructFromObject(data['logicsTariff']);
+                obj['logicsTariff'] = ApiV1AdminsOrdersLogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('batch')) {
                 obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
@@ -427,7 +427,7 @@ ApiV1BatchesBoxes.prototype['createdAt'] = undefined;
 ApiV1BatchesBoxes.prototype['updatedAt'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesVariationTariff} variationTariff
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
  */
 ApiV1BatchesBoxes.prototype['variationTariff'] = undefined;
 
@@ -438,32 +438,32 @@ ApiV1BatchesBoxes.prototype['variationTariff'] = undefined;
 ApiV1BatchesBoxes.prototype['items'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} storekeeper
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
 ApiV1BatchesBoxes.prototype['storekeeper'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} client
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
  */
 ApiV1BatchesBoxes.prototype['client'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 ApiV1BatchesBoxes.prototype['createdBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} lastModifiedBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} lastModifiedBy
  */
 ApiV1BatchesBoxes.prototype['lastModifiedBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesOrderDestination} destination
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
  */
 ApiV1BatchesBoxes.prototype['destination'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesOrderLogicsTariff} logicsTariff
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariff} logicsTariff
  */
 ApiV1BatchesBoxes.prototype['logicsTariff'] = undefined;
 
