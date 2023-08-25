@@ -24,10 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
   standartText: {
     color: theme.palette.text.general,
   },
-
-  details: {
-    height: '53vh',
-  },
   detailsShopWrapper: {
     width: '100%',
   },
@@ -44,7 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   tableWrapper: {
     marginTop: '10px',
-    height: '350px',
+    height: '400px',
   },
 
   accardionTitleWrapper: {
