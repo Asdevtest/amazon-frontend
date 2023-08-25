@@ -166,6 +166,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
                 key={index}
                 src={el.file}
                 alt={el._id}
+                onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                 onClick={() => {
                   setCurrentImageIndex(index)
                   setIsImageModalOpen(true)
