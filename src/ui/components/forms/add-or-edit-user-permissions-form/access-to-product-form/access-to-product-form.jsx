@@ -120,6 +120,8 @@ export const AccessToProductForm = React.memo(
       setSelectionModel(model)
     }
 
+    console.log(curProdutsData.slice().sort((a, b) => chosenGoods?.includes(b?._id) - chosenGoods?.includes(a?._id)))
+
     return (
       shops && (
         <Accordion
@@ -160,7 +162,7 @@ export const AccessToProductForm = React.memo(
             </div>
           </AccordionSummary>
 
-          <AccordionDetails classes={{ root: classNames.details }}>
+          <AccordionDetails>
             <div className={classNames.detailsShopWrapper}>
               {curProdutsData ? (
                 <FormControl>
@@ -204,10 +206,11 @@ export const AccessToProductForm = React.memo(
                 <div className={classNames.tableWrapper}>
                   <MemoDataGrid
                     disableVirtualization
-                    hideFooter
                     keepNonExistentRowsSelected
                     checkboxSelection
                     disableRowSelectionOnClick
+                    disableColumnMenu
+                    hideFooterSelectedRowCount
                     isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                     rows={toJS(
                       curProdutsData
