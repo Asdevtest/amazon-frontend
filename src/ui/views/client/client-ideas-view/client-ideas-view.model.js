@@ -257,6 +257,7 @@ export class ClientIdeasViewModel {
     onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
     onClickResultButton: request => this.onClickResultButton(request),
+    onClickUnbindButton: requestId => this.onClickUnbindButton(requestId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
     onClickSelectSupplier: ideaData => this.onTriggerAddOrEditSupplierModal(ideaData),
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
@@ -1192,6 +1193,28 @@ export class ClientIdeasViewModel {
     } catch (error) {
       console.log('error', error)
     }
+  }
+
+  async unbindRequest(requestId) {
+    try {
+      await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
+      this.getIdeaList()
+    } catch (error) {
+      console.error('error', error)
+    }
+  }
+
+  async onClickUnbindButton(requestId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to unbind the request from the idea?']),
+      onClickConfirm: () => {
+        this.unbindRequest(requestId)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {

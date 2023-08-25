@@ -2091,5 +2091,6 @@
   "hours": "hours",
   "minutes": "minutes",
   "The card does not fit, send to supplier search": "The card does not fit, send to supplier search",
-  "Send product card for supplier search": "Send product card for supplier search"
+  "Send product card for supplier search": "Send product card for supplier search",
+  "Are you sure you want to unbind the request from the idea?": "Are you sure you want to unbind the request from the idea?"
 }

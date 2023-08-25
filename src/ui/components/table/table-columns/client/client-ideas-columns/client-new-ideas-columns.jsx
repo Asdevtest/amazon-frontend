@@ -133,6 +133,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}
         onClickResultButton={rowHandlers.onClickResultButton}
+        onClickUnbindButton={rowHandlers.onClickUnbindButton}
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),

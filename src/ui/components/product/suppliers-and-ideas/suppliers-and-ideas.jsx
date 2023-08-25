@@ -100,6 +100,7 @@ export const SuppliersAndIdeas = observer(
       onDoubleClickBarcode,
       onClickCreateRequestButton,
       onClickBindButton,
+      onClickUnbindButton,
       onClickLinkRequestButton,
       onClickResultButton,
       onClickRejectButton,
@@ -190,6 +191,7 @@ export const SuppliersAndIdeas = observer(
                 onClickOpenNewTab={onClickOpenNewTab}
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
+                onClickUnbindButton={onClickUnbindButton}
               />
             )}
           </>
@@ -226,6 +228,7 @@ export const SuppliersAndIdeas = observer(
                   onClickSaveIcon={onClickSaveIcon}
                   onClickToOrder={onClickToOrder}
                   onClickRequestId={onClickRequestId}
+                  onClickUnbindButton={onClickUnbindButton}
                 />
               </div>
             ))

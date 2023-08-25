@@ -420,7 +420,30 @@ export class SuppliersAndIdeasModel {
       }
     }
 
+    this.getIdea(this.curIdea._id)
     this.onTriggerOpenModal('showBindingModal')
+  }
+
+  async unbindRequest(requestId) {
+    try {
+      await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
+      this.getIdea(this.curIdea._id)
+    } catch (error) {
+      console.error('error', error)
+    }
+  }
+
+  async onClickUnbindButton(requestId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to unbind the request from the idea?']),
+      onClickConfirm: () => {
+        this.unbindRequest(requestId)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onClickLinkRequestButton(idea) {

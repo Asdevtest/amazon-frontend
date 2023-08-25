@@ -79,6 +79,7 @@ export const IdeaViewAndEditCard = observer(
     onClickOpenNewTab,
     onClickToOrder,
     onClickRequestId,
+    onClickUnbindButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -395,6 +396,7 @@ export const IdeaViewAndEditCard = observer(
                           }
                           onClickRequestId={() => onClickRequestId(request._id)}
                           onClickResultButton={() => onClickResultButton(request)}
+                          onClickUnbindButton={() => onClickUnbindButton(request._id)}
                         />
                       ))}
                     </div>

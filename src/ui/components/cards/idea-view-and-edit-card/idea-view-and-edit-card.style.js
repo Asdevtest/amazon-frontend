@@ -427,7 +427,7 @@ export const useClassNames = makeStyles()(theme => ({
   requestsWrapper: {
     width: '100%',
     display: 'flex',
-    gap: '33px',
+    gap: '20px',
     overflow: 'auto',
     paddingBottom: '10px',
 

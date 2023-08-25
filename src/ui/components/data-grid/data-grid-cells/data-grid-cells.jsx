@@ -3239,6 +3239,7 @@ export const IdeaRequests = React.memo(
       onClickLinkRequest,
       onClickResultButton,
       onClickRequestId,
+      onClickUnbindButton,
       withoutControls,
       row,
     } = props
@@ -3268,6 +3269,7 @@ export const IdeaRequests = React.memo(
               }
               onClickRequestId={() => onClickRequestId(request._id)}
               onClickResultButton={() => onClickResultButton(request)}
+              onClickUnbindButton={() => onClickUnbindButton(request._id)}
             />
           )
         })}

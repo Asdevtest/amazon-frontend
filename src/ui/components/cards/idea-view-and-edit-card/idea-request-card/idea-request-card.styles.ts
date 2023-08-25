@@ -45,4 +45,20 @@ export const useClassNames = makeStyles()(theme => ({
   draftStatus: {
     color: `${theme.palette.primary.main} !important`,
   },
+
+  requestWrapper: {
+    display: 'flex',
+    gap: '5px',
+  },
+
+  clearIcon: {
+    width: '20px !important',
+    height: '20px !important',
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+    color: theme.palette.text.second,
+  },
 }))
