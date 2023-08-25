@@ -5,9 +5,10 @@ export const useClassNames = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 10,
   },
 
-  directionColumn: {
+  column: {
     flexDirection: 'column',
   },
 
@@ -20,6 +21,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   noFileWrapper: {
+    padding: 10,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -32,23 +34,23 @@ export const useClassNames = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 64,
-    width: 90,
+    height: 110,
+    width: 146,
   },
 
   slideSmall: {
-    height: 48,
-    width: 68,
+    height: '48px !important',
+    width: '64px !important',
   },
 
   slideMedium: {
-    height: 128,
-    width: 180,
+    height: '160px !important',
+    width: '213px !important',
   },
 
   slideBig: {
-    height: 256,
-    width: 360,
+    height: '300px !important',
+    width: '550px !important',
   },
 
   slide: {

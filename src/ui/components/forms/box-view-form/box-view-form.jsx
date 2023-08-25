@@ -203,7 +203,7 @@ export const BoxViewForm = observer(
               <div className={classNames.imgWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
-                  <PhotoAndFilesCarouselTest whithoutFiles files={box.images} />
+                  <PhotoAndFilesCarouselTest withoutFiles files={box.images} />
                 </div>
               </div>
 
@@ -510,7 +510,7 @@ const Content = React.memo(
           <div key={index} className={classNames.productWrapper}>
             <div className={classNames.leftColumn}>
               <div className={classNames.photoWrapper}>
-                <PhotoAndFilesCarouselTest whithoutFiles files={item.product.images} />
+                <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                 <Typography className={classNames.amazonTitle}>

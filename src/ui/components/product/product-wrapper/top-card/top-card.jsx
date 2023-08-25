@@ -248,7 +248,7 @@ export const TopCard = observer(
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
                       <PhotoAndFilesCarouselTest
-                        whithoutFiles
+                        withoutFiles
                         bigSlider
                         files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
                       />

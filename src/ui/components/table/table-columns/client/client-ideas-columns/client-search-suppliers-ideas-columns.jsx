@@ -18,7 +18,7 @@ import {
   SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { checkIsImageLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -187,7 +187,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Files),
 
     renderCell: params => (
-      <PhotoAndFilesCarousel small isHideCounter files={params.row.originalData?.suppliers[0]?.images} />
+      <PhotoAndFilesCarouselTest isHideCounter smallSlider files={params.row.originalData?.suppliers[0]?.images} />
     ),
     width: 300,
     align: 'center',
