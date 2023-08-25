@@ -103,7 +103,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
         )}
 
         <Field
-          label={t(TranslationKey.Amount)}
+          label={t(TranslationKey.Amount) + ', $'}
           inputProps={{ maxLength: 8 }}
           value={balanceValue}
           onChange={e =>
