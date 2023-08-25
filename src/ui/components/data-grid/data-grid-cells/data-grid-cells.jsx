@@ -626,12 +626,12 @@ export const BarcodeCell = React.memo(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx({ [classNames.barcodeChipNoExists]: !product.barCode })}
+        className={cx({ [classNames.barcodeChipNoExists]: !product?.barCode })}
         size="small"
-        label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
+        label={product?.barCode ? trimBarcode(product?.barCode) : t(TranslationKey.BarCode)}
         onClick={() => handlers.onClickBarcode(product)}
         onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
-        onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
+        onDelete={!product?.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
       />
     ),
     styles,
@@ -3379,7 +3379,11 @@ export const AddAsinIdeaActions = React.memo(
         <Button
           success
           small
-          disabled={!row.childProduct?.barCode && !row.parentProduct?.barCode}
+          disabled={
+            row.originalData.variation
+              ? !row?.originalData?.childProduct?.barCode
+              : !row?.originalData?.parentProduct?.barCode
+          }
           onClick={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
         >
           {t(TranslationKey.Accept)}
