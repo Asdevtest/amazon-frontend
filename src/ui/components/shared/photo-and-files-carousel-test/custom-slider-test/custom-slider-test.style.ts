@@ -25,6 +25,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
+  mainSmall: {
+    padding: '10px 30px',
+  },
+
   sliderWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -74,8 +78,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   slideSmall: {
-    height: '60px !important',
-    width: '80px !important',
+    height: '48px !important',
+    width: '64px !important',
   },
 
   slideMedium: {

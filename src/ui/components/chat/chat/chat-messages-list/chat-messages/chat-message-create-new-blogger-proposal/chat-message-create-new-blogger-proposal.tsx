@@ -130,7 +130,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesCarouselTest
-            directionColumn
+            column
             files={message.data.request?.media?.map(el => el.fileLink)}
             customGap={20}
             customSlideHeight={80}
@@ -174,7 +174,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesCarouselTest
-            directionColumn
+            column
             files={message.data.proposal.linksToMediaFiles}
             customGap={20}
             customSlideHeight={80}

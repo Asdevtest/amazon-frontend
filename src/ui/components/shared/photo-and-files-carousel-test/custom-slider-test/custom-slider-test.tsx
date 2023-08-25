@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-slider-test.style'
@@ -29,6 +28,7 @@ interface Props {
   isHideCounter?: boolean
   customSlideHeight?: number
   showPreviewsModal?: boolean
+  withoutFiles?: boolean
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
@@ -42,6 +42,7 @@ export const CustomSliderTest: FC<Props> = ({
   isHideCounter = false,
   customSlideHeight,
   showPreviewsModal = false,
+  withoutFiles = true,
   controls,
 }) => {
   const { classes: classNames } = useClassNames()
@@ -121,7 +122,6 @@ export const CustomSliderTest: FC<Props> = ({
   const isLeftArrow = arrowDirection === Arrows.LEFT
   const isNoElements = slides.length === 0
   const elementExtension = slide.split('.').slice(-1)[0]
-  const isImageType = slides.every(el => checkIsImageLink(el))
 
   return (
     <>
@@ -162,7 +162,7 @@ export const CustomSliderTest: FC<Props> = ({
                 })}
                 style={{ width: customSlideWidth, height: customSlideHeight }}
               >
-                {isImageType ? (
+                {withoutFiles ? (
                   <img
                     src={slide as string}
                     alt={`Slide ${currentIndex}`}
@@ -217,7 +217,11 @@ export const CustomSliderTest: FC<Props> = ({
             )}
           </div>
         ) : (
-          <div className={classNames.mainWrapper}>
+          <div
+            className={cx(classNames.mainWrapper, {
+              [classNames.mainSmall]: smallSlider,
+            })}
+          >
             <div
               className={cx(classNames.slideWrapper, {
                 [classNames.slideSmall]: smallSlider,
@@ -226,27 +230,29 @@ export const CustomSliderTest: FC<Props> = ({
               })}
               style={{ width: customSlideWidth, height: customSlideHeight }}
             >
-              {isImageType ? (
+              {withoutFiles ? (
                 <NoPhotoIcon className={classNames.slide} />
               ) : (
                 <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
               )}
             </div>
 
-            <p
-              className={cx(classNames.text, {
-                [classNames.smallText]: smallSlider,
-                [classNames.mediumText]: mediumSlider,
-                [classNames.bigText]: bigSlider,
-              })}
-            >
-              {isImageType ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
-            </p>
+            {!isHideCounter && (
+              <p
+                className={cx(classNames.text, {
+                  [classNames.smallText]: smallSlider,
+                  [classNames.mediumText]: mediumSlider,
+                  [classNames.bigText]: bigSlider,
+                })}
+              >
+                {withoutFiles ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
+              </p>
+            )}
           </div>
         )}
       </div>
 
-      {isImageType && (
+      {withoutFiles && (
         <ImageModal
           showPreviews={showPreviewsModal}
           isOpenModal={showPhotosModal}
