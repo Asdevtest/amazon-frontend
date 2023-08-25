@@ -113,11 +113,11 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
 
         <Field
           multiline
-          label={t(TranslationKey.Reason)}
+          label={t(TranslationKey.Comment)}
           minRows={4}
           maxRows={4}
           value={reasonValue}
-          placeholder={t(TranslationKey['Enter the reason...'])}
+          placeholder={t(TranslationKey['Add comment'])}
           className={classNames.modalTextArea}
           onChange={e => setReasonValue(e.target.value)}
         />
