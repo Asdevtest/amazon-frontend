@@ -185,17 +185,17 @@ export const buyerProductsViewColumns = handlers => [
   },
 
   {
-    field: 'ideasVerified',
-    headerName: t(TranslationKey['Verified ideas']),
+    field: 'ideasFinished',
+    headerName: t(TranslationKey['Realized ideas']),
     renderHeader: () => (
       <MultilineTextHeaderCell
-        text={t(TranslationKey['Verified ideas'])}
+        text={t(TranslationKey['Realized ideas'])}
         // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 125,
     type: 'number',
 
     columnKey: columnnsKeys.shared.QUANTITY,

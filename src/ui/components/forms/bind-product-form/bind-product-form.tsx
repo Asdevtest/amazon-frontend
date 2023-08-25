@@ -97,7 +97,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           selectedAsins={selectedProducts}
           checkbox={selectedRadioValue === ProductVariation.CHILD}
           disabled={!selectedRadioValue}
-          data={productsToBind}
+          data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
           width={255}
           searchOnlyFields={['asin', 'skusByClient']}
           customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}

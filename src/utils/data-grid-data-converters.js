@@ -183,6 +183,7 @@ export const buyerProductsDataConverter = data =>
     ideasOnCheck: item.ideasOnCheck,
     ideasVerified: item.ideasVerified,
     ideasClosed: item.ideasClosed,
+    ideasFinished: item?.ideasFinished,
 
     amazon: item.amazon,
     profit: item.profit,

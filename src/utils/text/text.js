@@ -261,6 +261,7 @@ export const getTableByColumn = (column, hint) => {
       'purchaseQuantity',
       'ideasClosed',
       'ideasVerified',
+      'ideasFinished',
       'bsr',
       'fbaamount',
       'client',

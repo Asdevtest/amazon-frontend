@@ -79,6 +79,7 @@ export const SuppliersAndIdeas = observer(
       confirmModalSettings,
       paymentMethods,
       currentProduct,
+      productToOrder,
       currentProposal,
       showRequestDesignerResultModal,
       showRequestStandartResultModal,
@@ -329,7 +330,7 @@ export const SuppliersAndIdeas = observer(
             platformSettings={platformSettings}
             destinations={destinations}
             storekeepers={storekeepers}
-            selectedProductsData={[currentProduct]}
+            selectedProductsData={[productToOrder]}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onConfirmSubmitOrderProductModal}
