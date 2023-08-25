@@ -2092,5 +2092,6 @@
   "hours": "часы",
   "minutes": "минуты",
   "The card does not fit, send to supplier search": "Карточка не подходит, отправьте на поиск поставщика",
-  "Send product card for supplier search": "Отправить карточку товара на поиск поставщика"
+  "Send product card for supplier search": "Отправить карточку товара на поиск поставщика",
+  "Are you sure you want to unbind the request from the idea?": "Вы уверены, что хотите отвязать заявку от идеи?"
 }

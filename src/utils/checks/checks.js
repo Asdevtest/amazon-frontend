@@ -121,9 +121,4 @@ export const checkIsImageUrlValid = async selectedImageUrl =>
     }
   })
 
-export const checkIsValidProposalStatusToShowResoult = status => {
-  console.log('status', status)
-  console.log('statusesValidToShowResoult.includes(status)', statusesValidToShowResoult.includes(status))
-
-  return statusesValidToShowResoult.includes(status)
-}
+export const checkIsValidProposalStatusToShowResoult = status => statusesValidToShowResoult.includes(status)
