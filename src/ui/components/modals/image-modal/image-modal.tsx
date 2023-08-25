@@ -101,7 +101,11 @@ export const ImageModal: FC<Props> = ({
                     })}
                     onClick={() => handleCurrentImageIndex(index)}
                   >
-                    <img src={imageUrl} alt="Image" />
+                    <img
+                      src={imageUrl}
+                      alt="Image"
+                      onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+                    />
 
                     {typeof image !== 'string' && (
                       <div>
@@ -144,6 +148,7 @@ export const ImageModal: FC<Props> = ({
                       }
                       loading="lazy"
                       alt={`Slide ${index + 1}`}
+                      onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                     />
                   </div>
                 ))}
