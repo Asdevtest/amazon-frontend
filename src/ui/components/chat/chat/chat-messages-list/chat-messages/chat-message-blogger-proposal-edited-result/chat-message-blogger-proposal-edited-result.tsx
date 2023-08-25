@@ -60,9 +60,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey['Photos and documents'])}
-              inputComponent={
-                <PhotoAndFilesCarouselTest directionColumn files={files} customGap={20} customSlideHeight={80} />
-              }
+              inputComponent={<PhotoAndFilesCarouselTest column files={files} customGap={20} customSlideHeight={80} />}
             />
           </div>
 

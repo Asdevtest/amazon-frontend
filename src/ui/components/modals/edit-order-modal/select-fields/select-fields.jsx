@@ -92,7 +92,7 @@ export const SelectFields = ({
 
             {!!order.product.images.length && (
               <div className={classNames.carouselWrapper}>
-                <PhotoAndFilesCarouselTest mediumSlider whithoutFiles files={order.product.images} />
+                <PhotoAndFilesCarouselTest mediumSlider withoutFiles files={order.product.images} />
                 {/* <CustomSlider>
                   {order.product.images.map((imageHash, index) => (
                     <img

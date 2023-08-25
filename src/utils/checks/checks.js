@@ -66,14 +66,15 @@ export const checkIsImageLink = link =>
   link?.endsWith('.jfif') ||
   link?.includes('rotated-image') ||
   link?.includes('placeimg.com') ||
-  link?.includes('.mp4')
+  link?.includes('.jfif')
 
 export const checkIsDocumentLink = link =>
   link?.endsWith('.doc') ||
   link?.endsWith('.docx') ||
   link?.endsWith('.pdf') ||
   link?.endsWith('.xlsx') ||
-  link?.endsWith('.xls')
+  link?.endsWith('.xls') ||
+  link?.endsWith('.txt')
 
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
