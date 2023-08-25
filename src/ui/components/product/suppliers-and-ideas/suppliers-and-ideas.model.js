@@ -706,7 +706,7 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickToOrder() {
+  async onClickToOrder(idea) {
     try {
       this.requestStatus = loadingStatuses.isLoading
       const [storekeepers, destinations, platformSettings] = await Promise.all([
@@ -716,7 +716,7 @@ export class SuppliersAndIdeasModel {
       ])
 
       if (!this.currentProduct) {
-        const result = await ProductModel.getProductById(this.productId)
+        const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
         this.currentProduct = result
       }
 
