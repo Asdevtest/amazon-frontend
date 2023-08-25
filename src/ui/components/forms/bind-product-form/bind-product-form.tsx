@@ -72,6 +72,9 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     }
   }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
 
+  console.log('productsToBind', productsToBind)
+  console.log('product', sourceProduct)
+
   return (
     <div className={classNames.root}>
       <p className={classNames.title}>{t(TranslationKey['Select product'])}</p>
@@ -97,7 +100,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           selectedAsins={selectedProducts}
           checkbox={selectedRadioValue === ProductVariation.CHILD}
           disabled={!selectedRadioValue}
-          data={productsToBind}
+          data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
           width={255}
           searchOnlyFields={['asin', 'skusByClient']}
           customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
