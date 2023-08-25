@@ -90,12 +90,28 @@ const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   )
 }
 
-const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio }) => {
+const Box = ({
+  isNewBox,
+  isActiveOneBox,
+  destinations,
+  box,
+  onChangeField,
+  onRemoveBox,
+  index,
+  basicBox,
+  onClickBasicBoxRadio,
+}) => {
   const { classes: classNames } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
+
+  useEffect(() => {
+    if (isActiveOneBox) {
+      onClickBasicBoxRadio(box)
+    }
+  }, [isActiveOneBox])
 
   return (
     <div className={classNames.box}>
@@ -105,7 +121,7 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
 
           <div className={classNames.radioWrapper}>
             {(basicBox?._id === box._id || !basicBox) && (
-              <Radio checked={box._id === basicBox?._id} onClick={() => onClickBasicBoxRadio(box)} />
+              <Radio checked={box._id === basicBox?._id || isActiveOneBox} onClick={() => onClickBasicBoxRadio(box)} />
             )}
 
             <Typography className={classNames.standartText}>{t(TranslationKey['Basic box'])}</Typography>
@@ -376,6 +392,8 @@ export const GroupingBoxesForm = observer(
 
     const [basicBox, setBasicBox] = useState(null)
 
+    const isActiveOneBox = oldBoxes.length === 1
+
     const onClickBasicBoxRadio = box => {
       if (basicBox?._id !== box._id) {
         setBasicBox(box)
@@ -531,6 +549,7 @@ export const GroupingBoxesForm = observer(
                     storekeepers={storekeepers}
                     index={boxIndex}
                     box={box}
+                    isActiveOneBox={isActiveOneBox}
                     onRemoveBox={onRemoveOldBox}
                     onClickBasicBoxRadio={onClickBasicBoxRadio}
                   />
