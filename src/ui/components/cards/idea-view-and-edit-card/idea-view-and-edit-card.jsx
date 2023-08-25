@@ -793,7 +793,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button success variant="contained" onClick={onClickToOrder}>
+                  <Button success variant="contained" onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
                   </Button>
                 )}
