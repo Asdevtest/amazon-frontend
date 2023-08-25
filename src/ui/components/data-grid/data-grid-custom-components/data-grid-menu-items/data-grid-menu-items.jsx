@@ -2300,7 +2300,7 @@ export const NumberFieldMenuItem = React.memo(
           'ideasOnCheck',
           'ideasOnCheck',
           'ideasClosed',
-          'ideasVerified',
+          'ideasFinished',
           'fbaamount',
         ]
         return whiteList.includes(field)
