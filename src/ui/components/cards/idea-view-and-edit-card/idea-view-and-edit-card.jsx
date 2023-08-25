@@ -294,7 +294,7 @@ export const IdeaViewAndEditCard = observer(
       !isClosed &&
       !isRejected &&
       !(isCardCreating && !formFields.childProduct && formFields.variation) &&
-      !(isAddingAsin && !formFields?.childProduct?.barCode && !currentProduct?.barCode)
+      !(isAddingAsin && formFields?.variation ? !formFields?.childProduct?.barCode : !currentProduct?.barCode)
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
