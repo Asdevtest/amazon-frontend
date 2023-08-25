@@ -18,8 +18,6 @@ import { toFixed } from '@utils/text'
 
 import { useClassNames } from './chat-messages-list.style'
 
-import { ChatCurrentReplyMessage } from '../chat-current-reply-message'
-
 import { ChatMessageByType } from './chat-message-by-type'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
@@ -41,7 +39,6 @@ interface Props {
   searchPhrase?: string
   chatId?: string
   isShowChatInfo?: boolean
-  messageToReply?: null | ChatMessageContract
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
@@ -58,7 +55,6 @@ export const ChatMessagesList: FC<Props> = observer(
     searchPhrase,
     isGroupChat,
     messageToScroll,
-    messageToReply,
     isShowChatInfo,
     setMessageToScroll,
     setMessageToReply,
@@ -247,13 +243,6 @@ export const ChatMessagesList: FC<Props> = observer(
               )
             })}
 
-        {messageToReply && (
-          <ChatCurrentReplyMessage
-            message={messageToReply}
-            setMessageToReply={setMessageToReply}
-            setMessageToScroll={setMessageToScroll}
-          />
-        )}
         <div ref={chatBottomRef} />
       </div>
     )
