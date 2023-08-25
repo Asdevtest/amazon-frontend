@@ -381,7 +381,6 @@ export class FreelanceModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
-    console.log(model)
     this.setDataGridState()
   }
 

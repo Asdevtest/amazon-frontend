@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -37,6 +37,8 @@ export class AdminExchangeViewModel {
 
   rowSelectionModel = undefined
 
+  currentData = []
+
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -53,6 +55,16 @@ export class AdminExchangeViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => this.currentProductsData,
+      () => (this.currentData = this.getCurrentData()),
+    )
+
+    reaction(
+      () => this.columnVisibilityModel,
+      () => (this.currentData = this.getCurrentData()),
+    )
   }
 
   onChangeFilterModel(model) {
@@ -79,11 +91,12 @@ export class AdminExchangeViewModel {
   }
 
   onChangeSubCategory(value) {
+    this.columnVisibilityModel = {}
     this.setActiveSubCategoryState(value)
     this.activeSubCategory = value
-    this.getProductsByStatus(value)
     this.updateColumns()
     this.setDataGridState()
+    this.loadData()
   }
 
   updateColumns() {

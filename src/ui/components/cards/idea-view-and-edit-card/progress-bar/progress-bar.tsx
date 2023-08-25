@@ -34,15 +34,28 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
         (Number(ideaData?.intervalStatusSupplierSearch) || 0)
       : ideaData?.[settingItem?.intervalName] || 0
 
-  const getStatusesToRender = () =>
-    currentStatus !== ideaStatusByKey[ideaStatus.REJECTED]
-      ? progressBarSettings.filter(settingItem => !settingItem.statuses.includes(ideaStatus.REJECTED))
-      : progressBarSettings.filter(
-          settingItem =>
-            settingItem.statuses.includes(ideaStatus.NEW) ||
-            getInterval(settingItem) ||
-            settingItem.statuses.includes(ideaStatus.REJECTED),
-        )
+  const getStatusesToRender = () => {
+    if (currentStatus === ideaStatusByKey[ideaStatus.REJECTED]) {
+      return progressBarSettings.filter(
+        settingItem =>
+          settingItem.statuses.includes(ideaStatus.NEW) ||
+          (getInterval(settingItem) && !settingItem.statuses.includes(ideaStatus.CLOSED)) ||
+          settingItem.statuses.includes(ideaStatus.REJECTED),
+      )
+    } else if (currentStatus === ideaStatusByKey[ideaStatus.CLOSED]) {
+      return progressBarSettings.filter(
+        settingItem =>
+          settingItem.statuses.includes(ideaStatus.NEW) ||
+          (getInterval(settingItem) && !settingItem.statuses.includes(ideaStatus.REJECTED)) ||
+          settingItem.statuses.includes(ideaStatus.CLOSED),
+      )
+    } else {
+      return progressBarSettings.filter(
+        settingItem =>
+          !settingItem.statuses.includes(ideaStatus.REJECTED) && !settingItem.statuses.includes(ideaStatus.CLOSED),
+      )
+    }
+  }
 
   const [statusesToRender, setStatusesToRender] = useState(getStatusesToRender())
 
@@ -51,14 +64,17 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
   }, [currentStatus, ideaData])
 
   const checkIsActiveBarSetting = (barSetting: IProgressBarSettings) =>
-    barSetting?.statuses?.some(setting => ideaStatusByKey[setting] <= currentStatus) &&
-    currentStatus !== ideaStatusByKey[ideaStatus.CLOSED]
+    barSetting?.statuses?.some(setting => ideaStatusByKey[setting] <= currentStatus)
 
   const checkIsLastActiveBarSetting = (barSetting: IProgressBarSettings) =>
     barSetting?.statuses?.some(setting => ideaStatusByKey[setting] === currentStatus)
 
-  const checkIsRejectedStatus = (barSetting: IProgressBarSettings) =>
-    barSetting?.statuses?.some(setting => ideaStatusByKey[setting] === ideaStatusByKey[ideaStatus.REJECTED])
+  const checkIsRejectedOrClosedStatus = (barSetting: IProgressBarSettings) =>
+    barSetting?.statuses?.some(
+      setting =>
+        ideaStatusByKey[setting] === ideaStatusByKey[ideaStatus.REJECTED] ||
+        ideaStatusByKey[setting] === ideaStatusByKey[ideaStatus.CLOSED],
+    )
 
   return (
     <div className={classNames.root}>
@@ -86,7 +102,7 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
                 [classNames.withoutBorderRadiusRight]:
                   checkIsLastActiveBarSetting(settingItem) && settingItemIndex === 0,
                 [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
-                [classNames.rejectedStatus]: checkIsRejectedStatus(settingItem),
+                [classNames.rejectedStatus]: checkIsRejectedOrClosedStatus(settingItem),
               })}
             >
               {tooltipContent ? (

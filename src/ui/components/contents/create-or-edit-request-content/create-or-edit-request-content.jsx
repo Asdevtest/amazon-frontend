@@ -187,14 +187,19 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request?.restrictMoreThanOneProposalFromOneAssignee || false,
       typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
-      asin: requestToEdit?.request?.asin || !!createRequestForIdeaData ? createRequestForIdeaData?.asin : undefined,
+      asin: requestToEdit
+        ? requestToEdit?.request?.asin
+        : createRequestForIdeaData
+        ? createRequestForIdeaData?.asin
+        : undefined,
       priceAmazon: requestToEdit?.request?.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request?.cashBackInPercent || 0,
       announcementId: requestToEdit?.request?.announcementId || undefined,
-      productId:
-        requestToEdit?.request?.productId || !!createRequestForIdeaData
-          ? createRequestForIdeaData?.productId
-          : undefined,
+      productId: requestToEdit
+        ? requestToEdit?.request?.productId
+        : createRequestForIdeaData
+        ? createRequestForIdeaData?.productId
+        : undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
       priority: requestToEdit?.request?.priority || 20,
       executorId: requestToEdit?.request?.executor?._id || executor?._id || null,
@@ -213,6 +218,9 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  console.log('requestToEdit', requestToEdit)
+  console.log('formFields', formFields)
 
   const [requestIds, setRequestIds] = useState([])
 
