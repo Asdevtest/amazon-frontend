@@ -35,6 +35,7 @@ export class SuppliersAndIdeasModel {
 
   curIdea = undefined
   currentProduct = undefined
+  productToOrder = undefined
   currentProposal = undefined
   currentRequest = undefined
   requestTypeTask = undefined
@@ -738,12 +739,12 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
-      if (!this.currentProduct) {
-        const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
-        this.currentProduct = result
-      }
+      console.log('this.currentProduct', this.currentProduct)
+
+      const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
+        this.productToOrder = result
         this.storekeepers = storekeepers
         this.destinations = destinations
         this.platformSettings = platformSettings
