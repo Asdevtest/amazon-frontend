@@ -884,5 +884,3 @@ src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
 test/model/InlineResponse20046Order.spec.js
 test/model/InlineResponse20046Proposals.spec.js
-test/model/InlineResponse20081.spec.js
-test/model/InlineResponse20081Details.spec.js

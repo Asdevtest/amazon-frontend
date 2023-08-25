@@ -31,6 +31,7 @@ import { useClassNames } from './chat.styles'
 
 import { CurrentOpponent, IFile } from '../multiple-chats'
 
+import { ChatCurrentReplyMessage } from './chat-current-reply-message'
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
 
@@ -220,6 +221,7 @@ export const Chat: FC<Props> = observer(
       onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
+      onClickScrollToBottom()
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -271,7 +273,6 @@ export const Chat: FC<Props> = observer(
             userId={userId}
             messages={messages}
             isShowChatInfo={isShowChatInfo}
-            messageToReply={messageToReply}
             handlers={chatMessageHandlers}
             toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
@@ -316,6 +317,14 @@ export const Chat: FC<Props> = observer(
             />
           )}
         </div>
+
+        {messageToReply ? (
+          <ChatCurrentReplyMessage
+            message={messageToReply}
+            setMessageToReply={setMessageToReply}
+            setMessageToScroll={setMessageToScroll}
+          />
+        ) : null}
 
         {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
