@@ -57,10 +57,6 @@ export class MessagesViewModel {
     return ChatModel.typingUsers || []
   }
 
-  get isMuteChat() {
-    return SettingsModel.isMuteChat
-  }
-
   get isMuteChats() {
     return SettingsModel.isMuteChats
   }
