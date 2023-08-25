@@ -1451,7 +1451,7 @@ export const MultilineTextCell = React.memo(
 
       return (
         <>
-          {(withTooltip || tooltipText) && !isValidTextLength ? (
+          {withTooltip || tooltipText || !isValidTextLength ? (
             <Tooltip title={tooltipText || text}>
               <div
                 className={cx(classNames.multilineTextWrapper, {

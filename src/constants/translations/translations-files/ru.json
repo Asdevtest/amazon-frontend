@@ -2095,5 +2095,6 @@
   "Send product card for supplier search": "Отправить карточку товара на поиск поставщика",
   "Are you sure you want to unbind the request from the idea?": "Вы уверены, что хотите отвязать заявку от идеи?",
   "Product unbundling": "Отвязка продукта",
-  "Are you sure you want to unbind the product?": "Вы уверены, что хотите отвязать продукт?"
+  "Are you sure you want to unbind the product?": "Вы уверены, что хотите отвязать продукт?",
+  "Idea closed": "Идея закрыта"
 }
