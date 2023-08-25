@@ -255,9 +255,6 @@ export class ClientProductViewModel {
         })
       }
 
-      console.log('option', option)
-      console.log('products', products)
-
       this.loadData()
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
@@ -284,6 +281,21 @@ export class ClientProductViewModel {
   }
 
   async unbindProductHandler(childProductIds) {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey['Product unbundling']),
+        message: t(TranslationKey['Are you sure you want to unbind the product?']),
+        successBtnText: t(TranslationKey.Yes),
+        cancelBtnText: t(TranslationKey.Cancel),
+        onClickOkBtn: () => this.unbindProduct(childProductIds),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async unbindProduct(childProductIds) {
     try {
       await ProductModel.unbindProducts({
         parentProductId: null,
