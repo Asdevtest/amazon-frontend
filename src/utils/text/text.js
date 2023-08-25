@@ -361,3 +361,32 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
 }
 
 export const replaceCommaByDot = str => str.replaceAll(',', '.')
+
+const imgTypes = [
+  '.bmp',
+  '.cdr',
+  '.gif',
+  '.heif',
+  '.ico',
+  '.jpeg',
+  '.jpg',
+  '.pbm',
+  '.pcx',
+  '.pgm',
+  '.png',
+  '.ppm',
+  '.psd',
+  '.raw',
+  '.svg',
+  '.tga',
+  '.tif',
+  '.wbmp',
+  '.web',
+  '.xbm',
+  '.xpm',
+  '.jfif',
+  '.webp',
+]
+
+export const imagesRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))`, 'i')
+export const imagesWithPreviewRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))\\.preview\\.webp`, 'i')
