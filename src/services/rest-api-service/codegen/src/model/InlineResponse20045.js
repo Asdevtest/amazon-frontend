@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1IdeasByParentGuidChildProduct from './ApiV1IdeasByParentGuidChildProduct';
 import ApiV1IdeasByParentGuidRequestsOnCheck from './ApiV1IdeasByParentGuidRequestsOnCheck';
+import ApiV1IdeasByParentGuidSuppliers from './ApiV1IdeasByParentGuidSuppliers';
 
 /**
  * The InlineResponse20045 model module.
@@ -61,11 +62,17 @@ class InlineResponse20045 {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
             if (data.hasOwnProperty('variation')) {
                 obj['variation'] = ApiClient.convertToType(data['variation'], 'Boolean');
             }
             if (data.hasOwnProperty('childProduct')) {
                 obj['childProduct'] = ApiV1IdeasByParentGuidChildProduct.constructFromObject(data['childProduct']);
+            }
+            if (data.hasOwnProperty('suppliers')) {
+                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1IdeasByParentGuidSuppliers]);
             }
             if (data.hasOwnProperty('requestsOnCheck')) {
                 obj['requestsOnCheck'] = ApiClient.convertToType(data['requestsOnCheck'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
@@ -99,9 +106,6 @@ class InlineResponse20045 {
             }
             if (data.hasOwnProperty('intervalStatusAddingAsin')) {
                 obj['intervalStatusAddingAsin'] = ApiClient.convertToType(data['intervalStatusAddingAsin'], 'Number');
-            }
-            if (data.hasOwnProperty('intervalStatusFinished')) {
-                obj['intervalStatusFinished'] = ApiClient.convertToType(data['intervalStatusFinished'], 'Number');
             }
             if (data.hasOwnProperty('intervalStatusRejected')) {
                 obj['intervalStatusRejected'] = ApiClient.convertToType(data['intervalStatusRejected'], 'Number');
@@ -146,6 +150,12 @@ InlineResponse20045.prototype['status'] = undefined;
 InlineResponse20045.prototype['linksToMediaFiles'] = undefined;
 
 /**
+ * Назавние продукта
+ * @member {String} productName
+ */
+InlineResponse20045.prototype['productName'] = undefined;
+
+/**
  * Является ли продукт идеи вариацией существующего
  * @member {Boolean} variation
  */
@@ -155,6 +165,11 @@ InlineResponse20045.prototype['variation'] = undefined;
  * @member {module:model/ApiV1IdeasByParentGuidChildProduct} childProduct
  */
 InlineResponse20045.prototype['childProduct'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IdeasByParentGuidSuppliers>} suppliers
+ */
+InlineResponse20045.prototype['suppliers'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnCheck
@@ -219,12 +234,6 @@ InlineResponse20045.prototype['intervalStatusProductCreating'] = undefined;
  * @member {Number} intervalStatusAddingAsin
  */
 InlineResponse20045.prototype['intervalStatusAddingAsin'] = undefined;
-
-/**
- * Кол-во секунд идеи в статусе finished(20)
- * @member {Number} intervalStatusFinished
- */
-InlineResponse20045.prototype['intervalStatusFinished'] = undefined;
 
 /**
  * Кол-во секунд идеи в статусе rejected(25)
