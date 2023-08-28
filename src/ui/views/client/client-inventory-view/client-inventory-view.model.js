@@ -371,15 +371,12 @@ export class ClientInventoryViewModel {
     if (window.getSelection().toString()) {
       return
     }
-
     if (row) {
       this.isArchive
         ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)
         : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
     } else {
       this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
-
-      this.getProductsMy()
     }
 
     this.onTriggerOpenModal('productCardModal')
