@@ -2095,5 +2095,6 @@ export enum TranslationKey {
   'Product unbundling' = 'Product unbundling',
   'Are you sure you want to unbind the product?' = 'Are you sure you want to unbind the product?',
   'Idea closed' = 'Idea closed',
+  'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
