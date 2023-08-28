@@ -135,10 +135,20 @@ export const CustomSliderTest: FC<Props> = ({
           <div className={classNames.mainWrapper}>
             <div
               className={cx(classNames.sliderWrapper, {
+                [classNames.smallGap]: smallSlider,
                 [classNames.bigGap]: bigSlider,
               })}
             >
-              <button disabled={isDisableArrowLeft}>
+              <button
+                disabled={isDisableArrowLeft}
+                className={cx(classNames.arrowIcon, {
+                  [classNames.arrowIconDisable]: isDisableArrowLeft,
+                  [classNames.smallArrow]: smallSlider,
+                  [classNames.mediumArrow]: mediumSlider,
+                  [classNames.bigArrow]: bigSlider,
+                })}
+                onClick={() => handleArrowClick(Arrows.LEFT)}
+              >
                 <ArrowLeftIcon
                   className={cx(classNames.arrowIcon, {
                     [classNames.arrowIconDisable]: isDisableArrowLeft,
@@ -146,7 +156,6 @@ export const CustomSliderTest: FC<Props> = ({
                     [classNames.mediumArrow]: mediumSlider,
                     [classNames.bigArrow]: bigSlider,
                   })}
-                  onClick={() => handleArrowClick(Arrows.LEFT)}
                 />
               </button>
 
@@ -191,7 +200,16 @@ export const CustomSliderTest: FC<Props> = ({
                 )}
               </div>
 
-              <button disabled={isDisableArrowRight}>
+              <button
+                disabled={isDisableArrowRight}
+                className={cx(classNames.arrowIcon, {
+                  [classNames.arrowIconDisable]: isDisableArrowRight,
+                  [classNames.smallArrow]: smallSlider,
+                  [classNames.mediumArrow]: mediumSlider,
+                  [classNames.bigArrow]: bigSlider,
+                })}
+                onClick={() => handleArrowClick(Arrows.RIGHT)}
+              >
                 <ArrowRightIcon
                   className={cx(classNames.arrowIcon, {
                     [classNames.arrowIconDisable]: isDisableArrowRight,
@@ -199,7 +217,6 @@ export const CustomSliderTest: FC<Props> = ({
                     [classNames.mediumArrow]: mediumSlider,
                     [classNames.bigArrow]: bigSlider,
                   })}
-                  onClick={() => handleArrowClick(Arrows.RIGHT)}
                 />
               </button>
             </div>
