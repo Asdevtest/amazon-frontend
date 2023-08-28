@@ -28,7 +28,7 @@ export const GeneralNotificationsView = observer(() => {
 
   return (
     viewModel.languageTag && (
-      <>
+      <div className={classNames.root}>
         <div className={classNames.buttonsWrapper}>
           <Button
             className={cx(classNames.button, classNames.archiveButton)}
@@ -53,15 +53,7 @@ export const GeneralNotificationsView = observer(() => {
             pagination
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
-            // classes={{
-            //   row: classNames.row,
-            //   root: classNames.root,
-            //   footerContainer: classNames.footerContainer,
-            //   footerCell: classNames.footerCell,
-            //   toolbarContainer: classNames.toolbarContainer,
-            //   filterForm: classNames.filterForm,
-            // }}
-            // rowSelectionModel={viewModel.selectedBatches}
+            rowSelectionModel={viewModel.selectedRowIds}
             sortingMode="server"
             paginationMode="server"
             rowCount={viewModel.rowCount}
@@ -73,7 +65,7 @@ export const GeneralNotificationsView = observer(() => {
             rows={viewModel.currentData}
             columns={viewModel.columnsModel}
             getRowHeight={() => 'auto'}
-            // density={viewModel.densityModel}
+            density="compact"
             // loading={viewModel.requestStatus === loadingStatuses.isLoading}
             slots={{
               toolbar: DataGridCustomToolbar,
@@ -106,7 +98,7 @@ export const GeneralNotificationsView = observer(() => {
             // onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
-      </>
+      </div>
     )
   )
 })

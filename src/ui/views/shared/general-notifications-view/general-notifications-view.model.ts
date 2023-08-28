@@ -26,6 +26,7 @@ export class GeneralNotificationsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel: IColumnVisibilityModel = {}
   filterModel: GridFilterModel = { items: [] }
+  selectedRowIds = []
 
   // * dataGrid data
 

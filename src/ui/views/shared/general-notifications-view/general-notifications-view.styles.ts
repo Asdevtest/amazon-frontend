@@ -1,6 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
   buttonsWrapper: {
     display: 'flex',
     gap: '20px',

@@ -68,6 +68,28 @@ export const lightTheme = createTheme({
           // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#001029',
         },
+
+        row: {
+          cursor: 'pointer',
+          transition: '0.3s ease',
+        },
+
+        footerContainer: {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          borderTop: 'none !important',
+        },
+
+        footerCell: {
+          padding: 0,
+          margin: 0,
+        },
+
+        toolbarContainer: {
+          height: '52px',
+        },
+
         // Убрать
         columnHeaders: {
           height: 65,
@@ -368,6 +390,34 @@ export const darkTheme = createTheme({
           // border: '1px solid rgba(81, 81, 81, 1) !important',
         },
 
+        row: {
+          cursor: 'pointer',
+          transition: '0.3s ease',
+
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(76, 161, 222, 0.16)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          },
+        },
+
+        footerContainer: {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          borderTop: 'none !important',
+        },
+
+        footerCell: {
+          padding: 0,
+          margin: 0,
+        },
+
+        toolbarContainer: {
+          height: '52px',
+        },
+
         columnSeparator: {
           color: 'rgba(81, 81, 81, 1)',
         },
@@ -377,15 +427,6 @@ export const darkTheme = createTheme({
 
           // Убрать
           height: 65,
-        },
-
-        row: {
-          '&.Mui-selected': {
-            backgroundColor: 'rgba(76, 161, 222, 0.16)',
-          },
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          },
         },
 
         paper: {
