@@ -897,16 +897,14 @@ export const AddOrEditSupplierModalContent = observer(
               </div>
             ) : null}
             <div className={classNames.photoAndFilesWrapper}>
-              <PhotoAndFilesCarouselTest smallSlider files={tmpSupplier.images} />
-              {/* <PhotoAndFilesCarousel
-                small
+              <PhotoAndFilesCarouselTest
+                smallSlider
                 withoutMakeMainImage
                 isEditable={!onlyRead}
                 files={tmpSupplier.images}
-                width="300px"
                 imagesForLoad={editPhotosOfSupplier}
                 onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
-              /> */}
+              />
             </div>
           </div>
         </div>
