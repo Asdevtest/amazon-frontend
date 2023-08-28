@@ -3524,13 +3524,37 @@ export const TimeFromSeconds = React.memo(
 
 export const NotificationMessage = React.memo(
   withStyles(props => {
-    const { classes: styles, notificationType, notification } = props
+    const { classes: styles, notificationType, notification, navigateToHandler } = props
 
     if (notificationType === NotificationType.Order) {
       return (
-        <p>{`${t(TranslationKey['Order redemption deadline'])} ${notification?.id} ${t(
-          TranslationKey.expires,
-        )} ${formatNormDateTime(notification?.deadline)}`}</p>
+        <p>
+          {`${t(TranslationKey['Order redemption deadline'])} `}
+          <button className={styles.notificationId} onClick={navigateToHandler}>
+            {notification?.id}
+          </button>
+          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
+        </p>
+      )
+    } else if (notificationType === NotificationType.Box) {
+      return (
+        <p>
+          {/* {`${t(TranslationKey.Box)} `}
+          <button className={styles.notificationId} onClick={navigateToHandler}>
+            {notification?.id}
+          </button>
+          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`} */}
+        </p>
+      )
+    } else if (notificationType === NotificationType.Idea) {
+      return (
+        <p>
+          {/* {`${t(TranslationKey.Box)} `}
+          <button className={styles.notificationId} onClick={navigateToHandler}>
+            {notification?.id}
+          </button>
+          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`} */}
+        </p>
       )
     }
   }, styles),

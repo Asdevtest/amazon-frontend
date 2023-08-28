@@ -1995,4 +1995,9 @@ export const styles = theme => ({
     lineHeight: '19px',
     color: theme.palette.primary.main,
   },
+
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
 })

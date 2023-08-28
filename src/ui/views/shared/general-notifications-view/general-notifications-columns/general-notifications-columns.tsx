@@ -74,7 +74,7 @@ export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
     renderCell: (params: GridCellParams) => (
       <NotificationMessage notificationType={params?.row?.type} notification={params?.row?.data?.[0]} />
     ),
-    width: 100,
+    minWidth: 400,
     // filterable: false,
 
     // columnKey: columnnsKeys.shared.STRING,
