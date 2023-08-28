@@ -135,7 +135,7 @@ export const IdeaViewAndEditCard = observer(
       criteria: idea?.criteria || '',
       variation: idea?.variation || '',
       productName: idea?.productName || '',
-      suppliers: curIdea?.suppliers || [],
+      suppliers: idea?.suppliers || [],
     })
 
     const getFullIdea = () => ({
@@ -654,8 +654,10 @@ export const IdeaViewAndEditCard = observer(
                       disabled={!formFields.productName || disableButtonAfterSupplierNotFound || !checkIsClientOrBuyer}
                       className={classNames.iconBtn}
                       onClick={() =>
-                        onClickSupplierBtns('add', () =>
-                          onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
+                        onClickSupplierBtns(
+                          'add',
+                          () => onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
+                          formFields?._id,
                         )
                       }
                     >
@@ -673,7 +675,11 @@ export const IdeaViewAndEditCard = observer(
                           disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                           className={classNames.iconBtn}
                           onClick={() =>
-                            onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
+                            onClickSupplierBtns(
+                              'edit',
+                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
+                              formFields?._id,
+                            )
                           }
                         >
                           <EditOutlinedIcon />
@@ -688,7 +694,11 @@ export const IdeaViewAndEditCard = observer(
                           className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
                           disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                           onClick={() =>
-                            onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
+                            onClickSupplierBtns(
+                              'delete',
+                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
+                              formFields?._id,
+                            )
                           }
                         >
                           <DeleteOutlineOutlinedIcon />

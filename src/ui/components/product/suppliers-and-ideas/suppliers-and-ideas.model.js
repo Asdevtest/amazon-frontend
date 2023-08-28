@@ -34,6 +34,7 @@ export class SuppliersAndIdeasModel {
   currentIdeaId = undefined
 
   curIdea = undefined
+  ideaIdToCreateSupplier = undefined
   currentProduct = undefined
   productToOrder = undefined
   currentProposal = undefined
@@ -614,7 +615,8 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickSupplierButtons(actionType, callBack) {
+  async onClickSupplierButtons(actionType, callBack, ideaIdToCreateSupplier) {
+    this.ideaIdToCreateSupplier = ideaIdToCreateSupplier
     if (callBack) {
       this.forceUpdateCallBack = callBack
     }
@@ -680,7 +682,7 @@ export class SuppliersAndIdeasModel {
         this.inCreate = undefined
       }
 
-      if (supplier._id) {
+      if (supplier?._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
           supplier,
           patchSuppliers,
@@ -688,16 +690,20 @@ export class SuppliersAndIdeasModel {
           undefined,
           true,
         )
-        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+        await SupplierModel.updateSupplier(supplier?._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.curIdea?._id, { suppliersIds: [createSupplierResult.guid] })
+        await IdeaModel.addSuppliersToIdea(this.curIdea?._id || this.ideaIdToCreateSupplier, {
+          suppliersIds: [createSupplierResult?.guid],
+        })
       }
 
       if (this.curIdea?._id) {
         this.getIdea(this.curIdea?._id)
+      } else {
+        this.loadData()
       }
 
       this.setRequestStatus(loadingStatuses.success)

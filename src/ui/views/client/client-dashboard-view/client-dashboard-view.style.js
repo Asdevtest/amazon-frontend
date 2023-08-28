@@ -29,6 +29,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     gap: '15px',
+    whiteSpace: 'nowrap',
   },
 
   balanceWrapper: {
