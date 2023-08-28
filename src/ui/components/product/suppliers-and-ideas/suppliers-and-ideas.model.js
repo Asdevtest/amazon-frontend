@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -13,12 +14,14 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
+import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -32,7 +35,9 @@ export class SuppliersAndIdeasModel {
 
   curIdea = undefined
   currentProduct = undefined
+  productToOrder = undefined
   currentProposal = undefined
+  currentRequest = undefined
   requestTypeTask = undefined
   requestsForProduct = []
 
@@ -115,6 +120,11 @@ export class SuppliersAndIdeasModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.getIdeas(),
+    )
   }
 
   async loadData() {
@@ -266,8 +276,11 @@ export class SuppliersAndIdeasModel {
           isForceUpdate,
         )
 
-        const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
-        this.curIdea = createdIdea
+        // if (this.isModalView) {
+        await this.getIdea(createdIdeaId)
+        // }
+
+        this.loadData()
       }
 
       if (isForceUpdate) {
@@ -278,8 +291,6 @@ export class SuppliersAndIdeasModel {
         this.inEdit = false
         // this.curIdea = undefined
       }
-
-      // this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -334,6 +345,7 @@ export class SuppliersAndIdeasModel {
       }
 
       // await this.onClickAcceptButton(data)
+      this.loadData()
 
       this.successModalSettings = {
         modalTitle: t(TranslationKey['Product added']),
@@ -358,17 +370,20 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onClickResultButton(requestTypeTask, proposalId) {
+  async onClickResultButton(request) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+      const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
 
       runInAction(() => {
-        this.currentProposal = result
+        this.currentProposal = proposals.find(proposal =>
+          checkIsValidProposalStatusToShowResoult(proposal.proposal.status),
+        )
+        this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.DESIGNER) {
+      if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[requestTypeTask] === freelanceRequestType.BLOGGER) {
+      } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')
@@ -406,12 +421,38 @@ export class SuppliersAndIdeasModel {
       }
     }
 
+    this.getIdea(this.curIdea._id)
     this.onTriggerOpenModal('showBindingModal')
   }
 
-  async onClickLinkRequestButton() {
+  async unbindRequest(requestId) {
     try {
-      const result = await RequestModel.getRequestsByProductLight(this.productId, { status: 'DRAFT, PUBLISHED' })
+      await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
+      this.getIdea(this.curIdea._id)
+    } catch (error) {
+      console.error('error', error)
+    }
+  }
+
+  async onClickUnbindButton(requestId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to unbind the request from the idea?']),
+      onClickConfirm: () => {
+        this.unbindRequest(requestId)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onClickLinkRequestButton(idea) {
+    try {
+      const result = await RequestModel.getRequestsByProductLight(this.productId, {
+        status: 'DRAFT, PUBLISHED',
+        excludeIdeaId: idea._id,
+      })
       this.requestsForProduct = addIdDataConverter(result)
       this.onTriggerOpenModal('showBindingModal')
     } catch (error) {
@@ -439,6 +480,10 @@ export class SuppliersAndIdeasModel {
         } else {
           await IdeaModel.changeStatusToSupplierNotFound(_id)
         }
+
+        runInAction(() => {
+          this.curIdea = undefined
+        })
         this.loadData()
         break
 
@@ -534,6 +579,7 @@ export class SuppliersAndIdeasModel {
   }
 
   async onTriggerAddOrEditSupplierModal() {
+    console.log('this.showAddOrEditSupplierModal', this.showAddOrEditSupplierModal)
     try {
       if (this.showAddOrEditSupplierModal) {
         this.selectedSupplier = undefined
@@ -641,7 +687,7 @@ export class SuppliersAndIdeasModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.curIdea._id, { suppliersIds: [createSupplierResult.guid] })
+        await IdeaModel.addSuppliersToIdea(this.curIdea?._id, { suppliersIds: [createSupplierResult.guid] })
       }
 
       if (this.curIdea?._id) {
@@ -661,16 +707,20 @@ export class SuppliersAndIdeasModel {
 
   async onRemoveSupplier() {
     try {
-      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
-
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
-
-      this.onTriggerOpenModal('showConfirmModal')
-
       if (this.forceUpdateCallBack) {
         await this.forceUpdateCallBack()
       }
-      this.selectedSupplier = undefined
+      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
+
+      // await SupplierModel.removeSupplier(this.selectedSupplier._id)
+
+      runInAction(() => {
+        this.curIdea = undefined
+        this.selectedSupplier = undefined
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -680,7 +730,7 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickToOrder() {
+  async onClickToOrder(idea) {
     try {
       this.requestStatus = loadingStatuses.isLoading
       const [storekeepers, destinations, platformSettings] = await Promise.all([
@@ -689,18 +739,16 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
-      if (!this.currentProduct) {
-        const result = await ProductModel.getProductById(this.productId)
-        this.currentProduct = result
-      }
+      console.log('this.currentProduct', this.currentProduct)
+
+      const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
+        this.productToOrder = result
         this.storekeepers = storekeepers
         this.destinations = destinations
         this.platformSettings = platformSettings
       })
-
-      console.log('currentProduct', this.currentProduct)
 
       this.onTriggerOpenModal('showOrderModal')
       this.requestStatus = loadingStatuses.success

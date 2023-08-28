@@ -1,6 +1,8 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
 
+import ClearIcon from '@mui/icons-material/Clear'
+
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -23,41 +25,57 @@ interface IdeaRequestCardProps {
     name: string
     rating: number
   }
+  disableSeeResultButton?: boolean
   onClickRequestId: () => void
-  onClickResultButton: (requestType: number, proposalId: string) => void
+  onClickResultButton: () => void
+  onClickUnbindButton: () => void
 }
 
 export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { requestType, requestId, requestStatus, executor, proposals, onClickRequestId, onClickResultButton } = props
+  const {
+    proposals,
+    requestType,
+    requestId,
+    requestStatus,
+    executor,
+    disableSeeResultButton,
+    onClickRequestId,
+    onClickResultButton,
+    onClickUnbindButton,
+  } = props
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.categoresWrapper}>
-        <p className={classNames.categoryTitle}>
-          {`${t(TranslationKey['Request type'])}:`}{' '}
-          <span className={classNames.categoryText}>
-            {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[requestType])}
-          </span>
-        </p>
+      <div className={classNames.requestWrapper}>
+        <div className={classNames.categoresWrapper}>
+          <p className={classNames.categoryTitle}>
+            {`${t(TranslationKey['Request type'])}:`}{' '}
+            <span className={classNames.categoryText}>
+              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[requestType])}
+            </span>
+          </p>
+          <p className={classNames.categoryTitle}>
+            {`${t(TranslationKey.ID)}:`}{' '}
+            <button className={cx(classNames.categoryText, classNames.linkStyles)} onClick={onClickRequestId}>
+              {requestId}
+            </button>
+          </p>
+          <p className={classNames.categoryTitle}>
+            {`${t(TranslationKey.Status)}: `}
+            <span
+              className={cx(classNames.categoryText, {
+                [classNames.draftStatus]: requestStatus === RequestStatus.DRAFT,
+              })}
+              style={{ color: colorByStatus(requestStatus) }}
+            >
+              {MyRequestStatusTranslate(requestStatus)}
+            </span>
+          </p>
+        </div>
 
-        <p className={classNames.categoryTitle}>
-          {`${t(TranslationKey.ID)}:`}{' '}
-          <button className={cx(classNames.categoryText, classNames.linkStyles)} onClick={onClickRequestId}>
-            {requestId}
-          </button>
-        </p>
-
-        <p className={classNames.categoryTitle}>
-          {`${t(TranslationKey.Status)}: `}
-          <span
-            className={cx(classNames.categoryText, { [classNames.draftStatus]: requestStatus === RequestStatus.DRAFT })}
-            style={{ color: colorByStatus(requestStatus) }}
-          >
-            {MyRequestStatusTranslate(requestStatus)}
-          </span>
-        </p>
+        <ClearIcon className={classNames.clearIcon} onClick={onClickUnbindButton} />
       </div>
 
       <div className={classNames.resultWrapper}>
@@ -73,9 +91,9 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
         )}
 
         <Button
-          disabled={!proposals?.length}
+          disabled={disableSeeResultButton /* || !proposals?.length */}
           className={classNames.resultButton}
-          onClick={() => onClickResultButton(requestType, proposals[0]?._id)}
+          onClick={onClickResultButton}
         >
           {t(TranslationKey['See result'])}
         </Button>

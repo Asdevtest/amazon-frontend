@@ -13,6 +13,7 @@ import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { imagesRegex } from '@utils/text'
 
 import { useClassNames } from './chat-message-basic-text.style'
 
@@ -78,9 +79,6 @@ const findChunks = ({ searchWords, textToHighlight }: FindChunksProps) => {
 
   return chunks
 }
-
-const imagesRegex =
-  /(http[s]?:\/\/.*\.(?:bmp|cdr|gif|heif|ico|jpeg|jpg|pbm|pcx|pgm|png|ppm|psd|raw|svg|tga|tif|wbmp|webp|xbm|xpm))/i
 
 export const ChatMessageBasicText: FC<Props> = observer(
   ({ message, isIncomming, unReadMessage, isFound, searchPhrase, showName }) => {

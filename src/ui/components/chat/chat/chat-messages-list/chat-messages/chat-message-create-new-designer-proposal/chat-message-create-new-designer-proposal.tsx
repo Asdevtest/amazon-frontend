@@ -13,7 +13,7 @@ import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -51,12 +51,12 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
           <div className={classNames.massageHeaderWrapper}>
             <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
-            {!!message.humanFriendlyId && (
+            {message.humanFriendlyId ? (
               <div className={classNames.idWrapper}>
                 <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
                 <p className={classNames.idText}>{message.humanFriendlyId}</p>
               </div>
-            )}
+            ) : null}
           </div>
 
           <div className={classNames.paragraphWrapper}>
@@ -94,22 +94,16 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
+          <PhotoAndFilesCarouselTest
+            column
             files={message.data.request?.media?.map(el => el.fileLink)}
-            imagesTitles={message.data.request?.media?.map(el => el.commentByClient)}
-            width="340px"
-            withoutPhotos={undefined}
-            whithoutFiles={undefined}
-            imagesForLoad={undefined}
-            isEditable={undefined}
-            withoutMakeMainImage={undefined}
-            onChangeImagesForLoad={undefined}
+            customGap={20}
+            customSlideHeight={80}
           />
         </div>
 
         <Divider orientation="vertical" className={classNames.divider} />
+
         <div className={classNames.mainSubWrapper}>
           <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
 
@@ -118,7 +112,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
               <p className={classNames.descriptionText}>{message.data.proposal?.comment}</p>
             </Linkify>
           </div>
-          <div className={classNames.infosProposalWrapper}>
+          <div className={classNames.infosWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Time to complete'])}
@@ -130,17 +124,11 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
+          <PhotoAndFilesCarouselTest
+            column
             files={message.data.proposal.linksToMediaFiles}
-            width="340px"
-            withoutPhotos={undefined}
-            whithoutFiles={undefined}
-            imagesForLoad={undefined}
-            isEditable={undefined}
-            withoutMakeMainImage={undefined}
-            onChangeImagesForLoad={undefined}
+            customGap={20}
+            customSlideHeight={80}
           />
         </div>
       </div>

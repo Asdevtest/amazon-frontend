@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageDataDesignerProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
@@ -92,41 +93,39 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
         </div>
       </div>
       <div className={classNames.footerWrapper}>
-        <div className={classNames.footerSubWrapper}>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            label={t(TranslationKey['Time to check'])}
-            containerClasses={classNames.containerField}
-            inputComponent={
-              <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>{minsToTime(1440)}</p>
-            }
-          />
-          <Field
-            labelClasses={classNames.fieldLabel}
-            label={t(TranslationKey['Number of illustrations'])}
-            containerClasses={classNames.containerField}
-            inputComponent={
-              <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {message.data.proposal.media?.length}
-              </p>
-            }
-          />
-          <Field
-            labelClasses={classNames.fieldLabel}
-            label={'ASIN'}
-            containerClasses={classNames.containerField}
-            inputComponent={
-              <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${message.data.request.asin}`}>
-                  <span className={classNames.linkSpan}>{message.data.request.asin}</span>
-                </a>
-              </p>
-            }
-          />
-        </div>
+        <Field
+          labelClasses={classNames.fieldLabel}
+          label={t(TranslationKey['Time to check'])}
+          containerClasses={classNames.containerField}
+          inputComponent={<p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>{minsToTime(1440)}</p>}
+        />
+        <Field
+          labelClasses={classNames.fieldLabel}
+          label={t(TranslationKey['Number of illustrations'])}
+          containerClasses={classNames.containerField}
+          inputComponent={
+            <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
+              {message.data.proposal.media?.length}
+            </p>
+          }
+        />
+        <Field
+          labelClasses={classNames.fieldLabel}
+          label={'ASIN'}
+          containerClasses={classNames.containerField}
+          inputComponent={
+            // <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
+            //   <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${message.data.request.asin}`}>
+            //     <span className={classNames.linkSpan}>{message.data.request.asin}</span>
+            //   </a>
+            // </p>
+
+            <AsinOrSkuLink withCopyValue asin={message?.data?.request?.asin} textStyles={classNames.simpleSpan} />
+          }
+        />
 
         <Button
-          className={cx(classNames.actionButton, classNames.editButton)}
+          className={classNames.actionButton}
           onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
         >
           {t(TranslationKey['Open result'])}

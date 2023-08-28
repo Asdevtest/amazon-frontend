@@ -4,8 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
-**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
-**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**hasChildren** | **Boolean** | Имеет ли дочерние продукты данный продукт (по parentProductId) | [optional] 
+**checkednotes** | **String** |  | [optional] 
+**bsr** | **Number** |  | [optional] 
+**amazon** | **Number** |  | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**status** | **Number** | Код текущего статуса | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**material** | **String** | Материл продукта | [optional] 
+**productUsage** | **String** | Применение продукта | [optional] 
+**chinaTitle** | **String** | chinese title? | [optional] 
+**ideasOnCheck** | **Number** |  | [optional] 
+**ideasFinished** | **Number** |  | [optional] 
+**ideasClosed** | **Number** |  | [optional] 
+**tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
+**redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

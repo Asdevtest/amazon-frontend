@@ -66,6 +66,7 @@ export class CreateOrEditRequestViewModel {
       if (location.state) {
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
+        this.executor = location.state?.executor
       }
     })
 
@@ -151,10 +152,14 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
+            executorId: data?.request?.executorId || null,
             announcementId: announcement?._id || null,
             linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
           },
           ['discountedPrice'],
+          undefined,
+          undefined,
+          true,
         ),
         details: {
           ...data.details,
@@ -218,6 +223,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
+            executorId: data?.request?.executorId || null,
             announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
               ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),

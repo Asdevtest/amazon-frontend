@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
+import InlineObject21 from './InlineObject21';
 
 /**
  * The InlineObject30 model module.
@@ -48,8 +48,11 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('orderPayments')) {
-                obj['orderPayments'] = ApiClient.convertToType(data['orderPayments'], [ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            }
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject21]);
             }
         }
         return obj;
@@ -59,9 +62,16 @@ class InlineObject30 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>} orderPayments
+ * GUID для которой подтверждаем действие.
+ * @member {String} guid
  */
-InlineObject30.prototype['orderPayments'] = undefined;
+InlineObject30.prototype['guid'] = undefined;
+
+/**
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject21>} additionalBoxes
+ */
+InlineObject30.prototype['additionalBoxes'] = undefined;
 
 
 

@@ -35,8 +35,13 @@ export const progressBarSettings = [
     intervalName: 'intervalStatusFinished',
   },
   {
-    title: () => t(TranslationKey['Rejected ideas']),
+    title: () => t(TranslationKey.Rejected),
     statuses: [ideaStatus.REJECTED],
     intervalName: 'intervalStatusRejected',
+  },
+  {
+    title: () => t(TranslationKey['Idea closed']),
+    statuses: [ideaStatus.CLOSED],
+    intervalName: 'intervalsSum',
   },
 ]

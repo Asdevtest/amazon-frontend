@@ -77,6 +77,8 @@ export const MessagesView = observer(props => {
     0,
   )
 
+  const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
+
   return (
     viewModel.languageTag && (
       <div className={classNames.wrapper}>
@@ -165,7 +167,7 @@ export const MessagesView = observer(props => {
                       </div>
 
                       <ChatSoundNotification
-                        isMuteChat={viewModel.isMuteChat}
+                        isMuteChat={isMuteCurrentChat}
                         onToggleMuteChat={viewModel.onToggleMuteCurrentChat}
                       />
                     </>
@@ -182,7 +184,7 @@ export const MessagesView = observer(props => {
                       </div>
 
                       <ChatSoundNotification
-                        isMuteChat={viewModel.isMuteChat}
+                        isMuteChat={isMuteCurrentChat}
                         onToggleMuteChat={viewModel.onToggleMuteCurrentChat}
                       />
                     </>

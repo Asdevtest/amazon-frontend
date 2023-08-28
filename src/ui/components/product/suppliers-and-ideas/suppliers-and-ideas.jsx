@@ -79,6 +79,7 @@ export const SuppliersAndIdeas = observer(
       confirmModalSettings,
       paymentMethods,
       currentProduct,
+      productToOrder,
       currentProposal,
       showRequestDesignerResultModal,
       showRequestStandartResultModal,
@@ -94,11 +95,13 @@ export const SuppliersAndIdeas = observer(
       selectedProduct,
       alertShieldSettings,
       supplierData,
+      currentRequest,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
       onClickCreateRequestButton,
       onClickBindButton,
+      onClickUnbindButton,
       onClickLinkRequestButton,
       onClickResultButton,
       onClickRejectButton,
@@ -189,6 +192,7 @@ export const SuppliersAndIdeas = observer(
                 onClickOpenNewTab={onClickOpenNewTab}
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
+                onClickUnbindButton={onClickUnbindButton}
               />
             )}
           </>
@@ -225,6 +229,7 @@ export const SuppliersAndIdeas = observer(
                   onClickSaveIcon={onClickSaveIcon}
                   onClickToOrder={onClickToOrder}
                   onClickRequestId={onClickRequestId}
+                  onClickUnbindButton={onClickUnbindButton}
                 />
               </div>
             ))
@@ -283,8 +288,9 @@ export const SuppliersAndIdeas = observer(
             setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
           >
             <RequestDesignerResultClientForm
+              onlyRead
               userInfo={curUser}
-              // request={{ request: viewModel.currentRequest }}
+              request={{ request: currentRequest }}
               proposal={currentProposal}
               setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
             />
@@ -297,7 +303,7 @@ export const SuppliersAndIdeas = observer(
             setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
           >
             <RequestStandartResultForm
-              // request={{ request: viewModel.currentRequest }}
+              request={{ request: currentRequest }}
               proposal={currentProposal}
               setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
             />
@@ -306,7 +312,7 @@ export const SuppliersAndIdeas = observer(
 
         {showRequestBloggerResultModal && (
           <RequestResultModal
-            // request={{ request: viewModel.currentRequest }}
+            request={{ request: currentRequest }}
             proposal={currentProposal}
             openModal={showRequestBloggerResultModal}
             setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
@@ -324,7 +330,7 @@ export const SuppliersAndIdeas = observer(
             platformSettings={platformSettings}
             destinations={destinations}
             storekeepers={storekeepers}
-            selectedProductsData={[currentProduct]}
+            selectedProductsData={[productToOrder]}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onConfirmSubmitOrderProductModal}

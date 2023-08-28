@@ -45,6 +45,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     showOrderModal,
     showSuccessModal,
     showConfirmModal,
+    paginationModel,
     onClickTableRow,
     onTriggerOpenModal,
     onConfirmSubmitOrderProductModal,
@@ -52,6 +53,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     onDoubleClickBarcode,
     setDataGridState,
     isSomeFilterOn,
+    onChangePaginationModelChange,
     onColumnVisibilityModelChange,
     columnVisibilityModel,
     onClickResetFilters,
@@ -76,6 +78,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}
+        paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
         slots={{
@@ -102,6 +105,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
+        onPaginationModelChange={onChangePaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
       />

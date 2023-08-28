@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
+import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,6 +19,7 @@ import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
@@ -91,7 +93,7 @@ export const ClientIdeasView = observer(props => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
@@ -137,13 +139,26 @@ export const ClientIdeasView = observer(props => {
         />
       </Modal>
 
+      <Modal
+        openModal={viewModel.showSelectionSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
+      >
+        <SelectionSupplierModal
+          product={viewModel.currentProduct}
+          title={t(TranslationKey['Send product card for supplier search'])}
+          buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
+          onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
+        />
+      </Modal>
+
       {viewModel.showIdeaModal && (
         <IdeaCardsModal
           isCreate={viewModel.isIdeaCreate}
           openModal={viewModel.showIdeaModal}
           setOpenModal={() => {
             viewModel.onTriggerOpenModal('showIdeaModal')
-            viewModel.loadData()
+            viewModel.getIdeaList()
           }}
           product={viewModel.currentProduct}
           productId={viewModel.productId}
@@ -223,6 +238,7 @@ export const ClientIdeasView = observer(props => {
             onlyRead
             userInfo={viewModel.curUser}
             request={{ request: viewModel.currentRequest }}
+            // request={viewModel.currentProposal}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           />

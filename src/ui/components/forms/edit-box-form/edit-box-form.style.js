@@ -133,9 +133,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: '250px',
     height: 200,
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    alignSelf: 'center',
+    justifyContent: 'center',
     marginBottom: 10,
   },
 
@@ -147,7 +146,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    gap: 20,
+    gap: 30,
   },
 
   storekeeperBtn: {
@@ -205,13 +204,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   productsWrapper: {
     width: 700,
+    overflow: 'hidden',
+    padding: '20px 0',
   },
 
   productWrapper: {
-    padding: '10px 20px 0',
     display: 'flex',
-    justifyContent: 'space-around',
-    width: '100%',
+    justifyContent: 'space-between',
+    width: 660,
+    overflow: 'hidden',
   },
 
   amazonTitle: {

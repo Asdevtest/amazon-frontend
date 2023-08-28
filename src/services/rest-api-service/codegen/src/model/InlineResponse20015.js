@@ -13,11 +13,11 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
-import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
-import ApiV1BoxesBatch from './ApiV1BoxesBatch';
-import ApiV1BoxesStorekeepersSentToBatchItems from './ApiV1BoxesStorekeepersSentToBatchItems';
+import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
+import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTariff';
 
 /**
  * The InlineResponse20015 model module.
@@ -74,6 +74,30 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('isFormed')) {
                 obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
             }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
+            }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
             if (data.hasOwnProperty('lengthCmWarehouse')) {
                 obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
@@ -86,35 +110,26 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('weighGrossKgWarehouse')) {
                 obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('deliveryTotalPrice')) {
                 obj['deliveryTotalPrice'] = ApiClient.convertToType(data['deliveryTotalPrice'], 'Number');
             }
             if (data.hasOwnProperty('deliveryTotalPriceChanged')) {
                 obj['deliveryTotalPriceChanged'] = ApiClient.convertToType(data['deliveryTotalPriceChanged'], 'Number');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('batchId')) {
-                obj['batchId'] = ApiClient.convertToType(data['batchId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('clientId')) {
-                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('variationTariff')) {
-                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -122,8 +137,14 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
+            }
             if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesStorekeepersSentToBatchItems]);
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
+            }
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
@@ -134,17 +155,14 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['lastModifiedBy']);
-            }
             if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
+                obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
-                obj['logicsTariff'] = ApiV1AdminsOrdersLogicsTariff.constructFromObject(data['logicsTariff']);
+                obj['logicsTariff'] = ApiV1BoxesClientsLightLogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1BoxesBatch.constructFromObject(data['batch']);
+                obj['batch'] = ApiV1BoxesClientsLightBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -166,14 +184,14 @@ InlineResponse20015.prototype['_id'] = undefined;
 InlineResponse20015.prototype['humanFriendlyId'] = undefined;
 
 /**
- * Количества в коробке.
+ * ККоличества в коробке.
  * @member {Number} amount
  */
 InlineResponse20015.prototype['amount'] = undefined;
 
 /**
  * Статус коробки
- * @member {module:model/InlineResponse20015.StatusEnum} status
+ * @member {String} status
  */
 InlineResponse20015.prototype['status'] = undefined;
 
@@ -194,6 +212,53 @@ InlineResponse20015.prototype['isDraft'] = undefined;
  * @member {Boolean} isFormed
  */
 InlineResponse20015.prototype['isFormed'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineResponse20015.prototype['shippingLabel'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineResponse20015.prototype['trackNumberText'] = undefined;
+
+/**
+ * @member {Array.<String>} trackNumberFile
+ */
+InlineResponse20015.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineResponse20015.prototype['prepId'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineResponse20015.prototype['upsTrackNumber'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineResponse20015.prototype['referenceId'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} clientComment
+ */
+InlineResponse20015.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineResponse20015.prototype['storekeeperComment'] = undefined;
 
 /**
  * Что фактически пришло на склад. Кладовщик.
@@ -220,6 +285,24 @@ InlineResponse20015.prototype['heightCmWarehouse'] = undefined;
 InlineResponse20015.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineResponse20015.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineResponse20015.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineResponse20015.prototype['fbaNumber'] = undefined;
+
+/**
  * Итого за доставку.
  * @member {Number} deliveryTotalPrice
  */
@@ -232,51 +315,16 @@ InlineResponse20015.prototype['deliveryTotalPrice'] = undefined;
 InlineResponse20015.prototype['deliveryTotalPriceChanged'] = undefined;
 
 /**
- * id склада - склады куда отправляют 
- * @member {String} destinationId
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineResponse20015.prototype['destinationId'] = undefined;
+InlineResponse20015.prototype['images'] = undefined;
 
 /**
- * GUID тарифа доставки 
- * @member {String} logicsTariffId
+ * Nullable ISO Date
+ * @member {String} deadline
  */
-InlineResponse20015.prototype['logicsTariffId'] = undefined;
-
-/**
- * Сторкипер взявший коробку в работу.
- * @member {String} batchId
- */
-InlineResponse20015.prototype['batchId'] = undefined;
-
-/**
- * Сторкипер взявший коробку в работу.
- * @member {String} storekeeperId
- */
-InlineResponse20015.prototype['storekeeperId'] = undefined;
-
-/**
- * Клиент владелец товара в коробке в работу.
- * @member {String} clientId
- */
-InlineResponse20015.prototype['clientId'] = undefined;
-
-/**
- * Клиент создавший заказ и коробку.
- * @member {String} createdById
- */
-InlineResponse20015.prototype['createdById'] = undefined;
-
-/**
- * GUID любого, кто последний редактировал коробку.
- * @member {String} lastModifiedById
- */
-InlineResponse20015.prototype['lastModifiedById'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
- */
-InlineResponse20015.prototype['variationTariff'] = undefined;
+InlineResponse20015.prototype['deadline'] = undefined;
 
 /**
  * @member {Date} createdAt
@@ -289,10 +337,20 @@ InlineResponse20015.prototype['createdAt'] = undefined;
 InlineResponse20015.prototype['updatedAt'] = undefined;
 
 /**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+InlineResponse20015.prototype['variationTariff'] = undefined;
+
+/**
  * Массив коробок.
- * @member {Array.<module:model/ApiV1BoxesStorekeepersSentToBatchItems>} items
+ * @member {Array.<module:model/ApiV1BoxesClientsLightItems>} items
  */
 InlineResponse20015.prototype['items'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ */
+InlineResponse20015.prototype['sub'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
@@ -310,90 +368,22 @@ InlineResponse20015.prototype['client'] = undefined;
 InlineResponse20015.prototype['createdBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} lastModifiedBy
- */
-InlineResponse20015.prototype['lastModifiedBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsOrdersDestination} destination
+ * @member {module:model/ApiV1BoxesClientsLightDestination} destination
  */
 InlineResponse20015.prototype['destination'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsOrdersLogicsTariff} logicsTariff
+ * @member {module:model/ApiV1BoxesClientsLightLogicsTariff} logicsTariff
  */
 InlineResponse20015.prototype['logicsTariff'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesBatch} batch
+ * @member {module:model/ApiV1BoxesClientsLightBatch} batch
  */
 InlineResponse20015.prototype['batch'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>status</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20015['StatusEnum'] = {
-
-    /**
-     * value: "NEW"
-     * @const
-     */
-    "NEW": "NEW",
-
-    /**
-     * value: "IN_STOCK"
-     * @const
-     */
-    "IN_STOCK": "IN_STOCK",
-
-    /**
-     * value: "REQUESTED_SEND_TO_BATCH"
-     * @const
-     */
-    "REQUESTED_SEND_TO_BATCH": "REQUESTED_SEND_TO_BATCH",
-
-    /**
-     * value: "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"
-     * @const
-     */
-    "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE": "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE",
-
-    /**
-     * value: "IN_BATCH"
-     * @const
-     */
-    "IN_BATCH": "IN_BATCH",
-
-    /**
-     * value: "NEED_TO_UPDATE_THE_TARIFF"
-     * @const
-     */
-    "NEED_TO_UPDATE_THE_TARIFF": "NEED_TO_UPDATE_THE_TARIFF",
-
-    /**
-     * value: "IN_BATCH_ON_THE_WAY"
-     * @const
-     */
-    "IN_BATCH_ON_THE_WAY": "IN_BATCH_ON_THE_WAY",
-
-    /**
-     * value: "FINISH_PREP_CENTR_USA"
-     * @const
-     */
-    "FINISH_PREP_CENTR_USA": "FINISH_PREP_CENTR_USA",
-
-    /**
-     * value: "ACCEPTED_IN_PROCESSING"
-     * @const
-     */
-    "ACCEPTED_IN_PROCESSING": "ACCEPTED_IN_PROCESSING"
-};
 
 
 

@@ -32,13 +32,12 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-// import {checkIsImageLink} from '@utils/checks'
 import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -344,7 +343,7 @@ export const EditBoxForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoCarousel isAmazonPhoto files={item.product.images} />
+                            <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
                           </div>
 
                           <>
@@ -674,7 +673,7 @@ export const EditBoxForm = observer(
                   <Typography className={classNames.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
+                  <PhotoAndFilesCarouselTest withoutFiles files={boxFields.images} />
                 </div>
 
                 <div className={classNames.commentsWrapper}>

@@ -108,6 +108,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '19px',
     color: theme.palette.text.second,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 
   lastMessageText: {

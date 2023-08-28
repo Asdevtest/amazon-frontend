@@ -25,6 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
@@ -160,9 +161,7 @@ export const BoxViewForm = observer(
             </div>
           </div>
         </div>
-
         <Divider className={classNames.divider} />
-
         <div className={classNames.blocksWrapper}>
           <div className={classNames.blockWrapper}>
             <Grid container className={classNames.deliveryInfoWrapper}>
@@ -204,7 +203,7 @@ export const BoxViewForm = observer(
               <div className={classNames.imgWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
-                  <PhotoCarousel small files={box.images} />
+                  <PhotoAndFilesCarouselTest withoutFiles files={box.images} />
                 </div>
               </div>
 
@@ -423,13 +422,7 @@ export const BoxViewForm = observer(
                               setBigImagesOptions({
                                 ...bigImagesOptions,
 
-                                images: [
-                                  formFields.tmpTrackNumberFile[index]
-                                    ? typeof formFields.tmpTrackNumberFile[index] === 'string'
-                                      ? formFields.tmpTrackNumberFile[index]
-                                      : formFields.tmpTrackNumberFile[index]?.data_url
-                                    : formFields.trackNumberFile[index],
-                                ],
+                                images: [...formFields.tmpTrackNumberFile, ...formFields.trackNumberFile],
                               })
                             }}
                           />
@@ -444,7 +437,6 @@ export const BoxViewForm = observer(
             </div>
           </div>
         </div>
-
         <div className={classNames.commentsWrapper}>
           <Field
             multiline
@@ -472,7 +464,6 @@ export const BoxViewForm = observer(
             onChange={onChangeField('storekeeperComment')}
           />
         </div>
-
         <div className={classNames.buttonsWrapper}>
           {isEdit && (
             <Button success onClick={() => onSubmitChangeFields(formFields)}>
@@ -484,7 +475,6 @@ export const BoxViewForm = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
-
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={'Track number'}
@@ -498,13 +488,12 @@ export const BoxViewForm = observer(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
-
         <ImageModal
-          handleCurrentImageIndex={bigImagesOptions.imgIndex}
-          imageList={bigImagesOptions.images}
-          currentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          imageList={bigImagesOptions.images}
+          handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
         />
       </div>
     )
@@ -521,7 +510,7 @@ const Content = React.memo(
           <div key={index} className={classNames.productWrapper}>
             <div className={classNames.leftColumn}>
               <div className={classNames.photoWrapper}>
-                <PhotoCarousel isAmazonPhoto files={item.product.images} />
+                <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                 <Typography className={classNames.amazonTitle}>

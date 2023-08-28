@@ -51,6 +51,8 @@ export const Freelance = observer(({ productId, modal }) => {
     columnMenuSettings,
     columnVisibilityModel,
     rowCount,
+    paginationModel,
+    onChangePaginationModelChange,
     getCurrentData,
     onSearchSubmit,
     onClickTaskType,
@@ -58,7 +60,6 @@ export const Freelance = observer(({ productId, modal }) => {
     onClickResetFilters,
     onColumnVisibilityModelChange,
     onChangeSortingModel,
-    onChangePaginationModelChange,
   } = freelanceModel.current
 
   return (
@@ -102,6 +103,7 @@ export const Freelance = observer(({ productId, modal }) => {
             toolbarContainer: classNames.toolbarContainer,
           }}
           pageSizeOptions={[15, 25, 50, 100]}
+          paginationModel={paginationModel}
           rows={getCurrentData()}
           rowHeight={100}
           slots={{

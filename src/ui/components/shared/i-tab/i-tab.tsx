@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { BulbIcon, TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { useClassNames } from './i-tab.style'
 
@@ -26,7 +26,7 @@ export const ITab: FC<Props> = observer(
   ({ tooltipAttentionContent, tooltipInfoContent, value, label, withIcon, classes, ...restProps }) => {
     const { classes: classNames } = useClassNames()
 
-    const tabIcon = withIcon ? <FiberManualRecordRoundedIcon fontSize="small" className={classNames.icon} /> : undefined
+    const tabIcon = withIcon ? <BulbIcon className={classNames.icon} /> : undefined
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
@@ -59,11 +59,6 @@ export const ITab: FC<Props> = observer(
               onOpen={() => setOpenAttentionTooltip(true)}
             >
               <div>
-                {/* <img
-                  className={classNames.tooltip}
-                  src="/assets/icons/attention.svg"
-                  onClick={() => setOpenAttentionTooltip(true)}
-                /> */}
                 <TooltipAttention className={classNames.tooltip} onClick={() => setOpenAttentionTooltip(true)} />
               </div>
             </Tooltip>

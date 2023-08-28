@@ -211,4 +211,57 @@ export const styles = theme => ({
   fullName: {
     width: 'max-content',
   },
+
+  dateDetailsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 310,
+    padding: '10px 20px',
+    gap: 20,
+  },
+
+  searchLabel: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+    marginRight: 10,
+  },
+
+  radioOptions: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  radioOptionDate: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+    textTransform: 'capitalize',
+  },
+
+  inpunts: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+    padding: 10,
+    border: `1px solid #656565`,
+    borderRadius: 7,
+  },
+
+  inpuntContainer: {
+    display: 'flex',
+    gap: 10,
+  },
+
+  inpunt: {
+    width: 80,
+    borderBottom: `1px solid #656565`,
+  },
 })

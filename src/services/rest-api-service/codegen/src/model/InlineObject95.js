@@ -22,10 +22,12 @@ class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
      * @alias module:model/InlineObject95
+     * @param requestIds {Array.<String>} 
+     * @param uploadedToListing {Boolean} 
      */
-    constructor() { 
+    constructor(requestIds, uploadedToListing) { 
         
-        InlineObject95.initialize(this);
+        InlineObject95.initialize(this, requestIds, uploadedToListing);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject95 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, requestIds, uploadedToListing) { 
+        obj['requestIds'] = requestIds;
+        obj['uploadedToListing'] = uploadedToListing;
     }
 
     /**
@@ -47,17 +51,11 @@ class InlineObject95 {
         if (data) {
             obj = obj || new InlineObject95();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('requestIds')) {
+                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('uploadedToListing')) {
+                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
         }
         return obj;
@@ -67,28 +65,14 @@ class InlineObject95 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * @member {Array.<String>} requestIds
  */
-InlineObject95.prototype['status'] = undefined;
+InlineObject95.prototype['requestIds'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * @member {Boolean} uploadedToListing
  */
-InlineObject95.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject95.prototype['storekeeperComment'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineObject95.prototype['priority'] = undefined;
+InlineObject95.prototype['uploadedToListing'] = undefined;
 
 
 

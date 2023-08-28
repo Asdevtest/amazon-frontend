@@ -420,14 +420,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   sourcesProductWraper: {
     display: 'flex',
-    gap: '30px',
+    gap: '15px',
     justifyContent: 'flex-end',
   },
 
   requestsWrapper: {
     width: '100%',
     display: 'flex',
-    gap: '33px',
+    gap: '20px',
     overflow: 'auto',
     paddingBottom: '10px',
 
@@ -483,6 +483,10 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.other.succes,
+  },
+
+  supplierNotFoundText: {
+    color: theme.palette.orderStatus.red,
   },
 
   contentWrapper: {

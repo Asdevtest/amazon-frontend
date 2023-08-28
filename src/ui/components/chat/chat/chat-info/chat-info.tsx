@@ -16,6 +16,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 
+import { imagesRegex, imagesWithPreviewRegex } from '@utils/text'
 import { t } from '@utils/translations'
 
 interface ChatAttachmentItemTypes {
@@ -80,6 +81,11 @@ export const ChatInfo = (props: ChatInfoProps) => {
         const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
           file.images?.forEach(el => {
             const isVideo = videoRegexp.test(el)
+
+            if (!imagesWithPreviewRegex.test(el)) {
+              res.allFiles.push({ files: [el], _id: file._id })
+              return
+            }
 
             if (!isVideo) {
               acc.push({ file: el, _id: file._id, isVideo })
@@ -160,6 +166,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
                 key={index}
                 src={el.file}
                 alt={el._id}
+                onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                 onClick={() => {
                   setCurrentImageIndex(index)
                   setIsImageModalOpen(true)

@@ -22,11 +22,11 @@ class InlineObject96 {
     /**
      * Constructs a new <code>InlineObject96</code>.
      * @alias module:model/InlineObject96
-     * @param priority {Number} Выставить приоритет задачи
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor(priority) { 
+    constructor(timeoutAt) { 
         
-        InlineObject96.initialize(this, priority);
+        InlineObject96.initialize(this, timeoutAt);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject96 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -49,11 +49,11 @@ class InlineObject96 {
         if (data) {
             obj = obj || new InlineObject96();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -63,16 +63,16 @@ class InlineObject96 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject96.prototype['priority'] = undefined;
+InlineObject96.prototype['timeoutAt'] = undefined;
 
 /**
- * Reason of high priority
- * @member {String} reason
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
  */
-InlineObject96.prototype['reason'] = undefined;
+InlineObject96.prototype['maxAmountOfProposals'] = undefined;
 
 
 

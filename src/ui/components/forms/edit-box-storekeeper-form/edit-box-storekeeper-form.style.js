@@ -175,7 +175,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    gap: 20,
+    gap: 30,
   },
 
   storekeeperBtn: {

@@ -152,6 +152,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <MultilineTextCell text={params.row?.parentProduct?.order?.amount} />,
     width: 110,
     filterable: false,
+    sortable: false,
   },
 
   {
@@ -161,7 +162,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 91,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -171,7 +172,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -181,7 +182,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 110,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -192,7 +193,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 120,
 
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -202,7 +203,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 100,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {
@@ -212,18 +213,18 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 106,
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
-  {
+  /* {
     field: 'intervalStatusFinished',
     headerName: t(TranslationKey.Verifying),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
 
     renderCell: params => <TimeFromSeconds seconds={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.SECONDS,
-  },
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
+  }, */
 
   {
     field: 'intervalsSum',
@@ -234,7 +235,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
 
     width: 120,
 
-    columnKey: columnnsKeys.shared.SECONDS,
+    columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 
   {

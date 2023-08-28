@@ -38,6 +38,8 @@ export const BuyerProductView = observer(props => {
             userRole={viewModel.userInfo.role}
             product={viewModel.product}
             productBase={viewModel.productBase}
+            productVariations={viewModel.productVariations}
+            navigateToProduct={viewModel.navigateToProduct}
             selectedSupplier={viewModel.selectedSupplier}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
             handleSupplierButtons={viewModel.onClickSupplierButtons}

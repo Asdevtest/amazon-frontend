@@ -80,7 +80,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: `${theme.palette.text.general} !important`,
   },
 
   row: {

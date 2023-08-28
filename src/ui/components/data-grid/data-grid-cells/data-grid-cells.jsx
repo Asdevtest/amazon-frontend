@@ -44,7 +44,7 @@ import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/ke
 import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -81,6 +81,7 @@ import {
   CubeIcon,
   EditIcon,
   EqualIcon,
+  ParentProductIcon,
   PlusIcon,
   SaveIcon,
   ShareLinkIcon,
@@ -96,7 +97,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundHalf,
 } from '@utils/calculation'
-import { checkIsPositiveNum, checkIsString } from '@utils/checks'
+import { checkIsPositiveNum, checkIsString, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import {
   formatDateForShowWithoutParseISO,
   formatDateTime,
@@ -183,7 +184,10 @@ export const InStockCell = React.memo(
                   target="_blank"
                   underline={'hover'}
                   className={classNames.linkWrapper}
-                  onClick={() => onClickInStock(boxId, el?.storekeeper)}
+                  onClick={e => {
+                    e.stopPropagation()
+                    onClickInStock(boxId, el?.storekeeper)
+                  }}
                 >
                   <Typography>{el?.amountInBoxes}</Typography>
                 </Link>
@@ -258,6 +262,7 @@ export const ProductAsinCell = React.memo(
                     rel="noreferrer"
                     href={`https://www.amazon.com/dp/${asin}`}
                     className={classNames.normalizeLink}
+                    onClick={e => e.stopPropagation()}
                   >
                     <span className={classNames.linkSpan}>{shortAsin(asin)}</span>
                   </a>
@@ -479,8 +484,8 @@ export const StringListCell = React.memo(
 
 export const PaymentMethodsCell = React.memo(
   withStyles(
-    ({ classes: classNames, paymentMethods }) => (
-      <div className={classNames.paymentMethods}>
+    ({ classes: classNames, paymentMethods, onClickCell }) => (
+      <div className={classNames.paymentMethods} onClick={onClickCell && onClickCell}>
         {paymentMethods.map(({ paymentMethod }) => (
           <div key={paymentMethod.title} className={classNames.paymentMethod}>
             <img src={paymentMethod.iconImage} alt={paymentMethod.title} className={classNames.paymentMethodIcon} />
@@ -621,12 +626,12 @@ export const BarcodeCell = React.memo(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx({ [classNames.barcodeChipNoExists]: !product.barCode })}
+        className={cx({ [classNames.barcodeChipNoExists]: !product?.barCode })}
         size="small"
-        label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
+        label={product?.barCode ? trimBarcode(product?.barCode) : t(TranslationKey.BarCode)}
         onClick={() => handlers.onClickBarcode(product)}
         onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
-        onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
+        onDelete={!product?.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
       />
     ),
     styles,
@@ -1270,7 +1275,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
           <Button
             disableElevation
             disabled={disabled}
-            variant={boxesMy?.storekeeper?._id && 'text'}
             className={classNames.storekeeperBtn}
             onClick={e => {
               e.stopPropagation()
@@ -1447,7 +1451,7 @@ export const MultilineTextCell = React.memo(
 
       return (
         <>
-          {(withTooltip || tooltipText) && !isValidTextLength ? (
+          {withTooltip || tooltipText || !isValidTextLength ? (
             <Tooltip title={tooltipText || text}>
               <div
                 className={cx(classNames.multilineTextWrapper, {
@@ -1642,7 +1646,10 @@ export const MultilineTextHeaderCell = React.memo(
   withStyles(
     ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
       <div
-        className={cx(classNames.multilineTextHeaderWrapper, { [classNames.multilineTextHeaderCenter]: textCenter })}
+        className={cx(classNames.multilineTextHeaderWrapper, {
+          [classNames.multilineTextHeaderCenter]: textCenter,
+          [classNames.multilineTextHeaderSpaceBetween]: component,
+        })}
       >
         <Tooltip title={text}>
           <Typography className={classNames.multilineHeaderText} style={color && { color }}>
@@ -2467,7 +2474,7 @@ export const OrderManyItemsCell = React.memo(
 
     return (
       <div className={classNames.manyItemsMainWrapper}>
-        <Tooltip title={renderProductInfo()}>
+        <Tooltip title={renderProductInfo()} classes={{ popper: classNames.manyItemsMainWrapperTooltip }}>
           <div>
             <div className={classNames.manyItemsImagesWrapper}>
               {box.items.map((product, productIndex) => (
@@ -3060,7 +3067,14 @@ export const FormedCell = React.memo(
 
 export const SelectRowCell = React.memo(
   withStyles(
-    ({ classes: classNames, checkboxComponent, showVariationButton, onClickShareIcon, onClickVariationButton }) => (
+    ({
+      classes: classNames,
+      checkboxComponent,
+      showVariationButton,
+      isParentProduct,
+      onClickShareIcon,
+      onClickVariationButton,
+    }) => (
       <div className={classNames.selectRowCellWrapper}>
         {checkboxComponent}
 
@@ -3084,7 +3098,11 @@ export const SelectRowCell = React.memo(
               classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
             >
               <div className={classNames.iconWrapper} onClick={onClickVariationButton}>
-                <VariationProductIcon className={classNames.shareLinkIcon} />
+                {isParentProduct ? (
+                  <ParentProductIcon className={classNames.shareLinkIcon} />
+                ) : (
+                  <VariationProductIcon className={classNames.shareLinkIcon} />
+                )}
               </div>
             </Tooltip>
           )}
@@ -3221,6 +3239,7 @@ export const IdeaRequests = React.memo(
       onClickLinkRequest,
       onClickResultButton,
       onClickRequestId,
+      onClickUnbindButton,
       withoutControls,
       row,
     } = props
@@ -3236,18 +3255,24 @@ export const IdeaRequests = React.memo(
 
     return (
       <div className={styles.ideaRequestsWrapper}>
-        {requests?.map((request, requestIndex) => (
-          <IdeaRequestCard
-            key={requestIndex}
-            requestType={request.typeTask}
-            requestId={request.humanFriendlyId}
-            requestStatus={request.status}
-            executor={request.executor}
-            proposals={request.proposals}
-            onClickRequestId={() => onClickRequestId(request._id)}
-            onClickResultButton={() => onClickResultButton(request, request?.proposals?.[0]?._id)}
-          />
-        ))}
+        {requests?.map((request, requestIndex) => {
+          return (
+            <IdeaRequestCard
+              key={requestIndex}
+              requestType={request.typeTask}
+              requestId={request.humanFriendlyId}
+              requestStatus={request.status}
+              executor={request.executor}
+              proposals={request.proposals}
+              disableSeeResultButton={
+                !request?.proposals?.some(proposal => checkIsValidProposalStatusToShowResoult(proposal.status))
+              }
+              onClickRequestId={() => onClickRequestId(request._id)}
+              onClickResultButton={() => onClickResultButton(request)}
+              onClickUnbindButton={() => onClickUnbindButton(request._id)}
+            />
+          )
+        })}
         {!withoutControls && (
           <div className={styles.ideaRequestsControls}>
             <Button success onClick={onClickCreateRequest}>
@@ -3356,7 +3381,11 @@ export const AddAsinIdeaActions = React.memo(
         <Button
           success
           small
-          disabled={!row.childProduct?.barCode && !row.parentProduct?.barCode}
+          disabled={
+            row.originalData.variation
+              ? !row?.originalData?.childProduct?.barCode
+              : !row?.originalData?.parentProduct?.barCode
+          }
           onClick={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
         >
           {t(TranslationKey.Accept)}
@@ -3375,7 +3404,7 @@ export const RealizedIdeaActions = React.memo(
 
     return (
       <>
-        {!row.parentProduct.order ? (
+        {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
           <Button
             small
             success

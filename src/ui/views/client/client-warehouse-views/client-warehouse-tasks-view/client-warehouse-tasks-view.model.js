@@ -532,7 +532,7 @@ export class ClientWarehouseTasksViewModel {
     try {
       await BoxesModel.cancelEditBoxes(id)
 
-      await this.getBoxesMy()
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -545,7 +545,7 @@ export class ClientWarehouseTasksViewModel {
     try {
       await BoxesModel.cancelMergeBoxes(id)
 
-      await this.getBoxesMy()
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -558,7 +558,7 @@ export class ClientWarehouseTasksViewModel {
     try {
       await BoxesModel.cancelSplitBoxes(id)
 
-      await this.getBoxesMy()
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       runInAction(() => {

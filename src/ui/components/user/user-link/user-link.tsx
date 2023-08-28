@@ -15,6 +15,7 @@ interface UserLinkProps {
   name?: string
   userId?: string
   blackText?: boolean
+  blueText?: boolean
   rating?: number
   ratingSize?: 'large' | 'medium' | 'small'
   maxNameWidth?: number
@@ -30,6 +31,7 @@ export const UserLink: FC<UserLinkProps> = observer(
     name,
     userId,
     blackText,
+    blueText,
     withAvatar,
     rating,
     ratingSize,
@@ -53,7 +55,7 @@ export const UserLink: FC<UserLinkProps> = observer(
                 ? `${window.location.origin}/profile`
                 : `${window.location.origin}/another-user?${userId}`
             }
-            underline={blackText ? 'none' : 'hover'}
+            underline={blackText || blueText ? 'none' : 'hover'}
             className={classNames.linkWrapper}
             onClick={e => e.stopPropagation()}
           >
@@ -72,6 +74,7 @@ export const UserLink: FC<UserLinkProps> = observer(
                 <p
                   className={cx(classNames.linkText, customClassNames, {
                     [classNames.blackLinkText]: blackText,
+                    [classNames.blueLinkText]: blueText,
                   })}
                   style={{ ...(customStyles ?? {}), ...(maxNameWidth ? { maxWidth: maxNameWidth } : {}) }}
                 >

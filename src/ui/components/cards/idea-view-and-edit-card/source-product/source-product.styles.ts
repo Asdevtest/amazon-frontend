@@ -5,7 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    gap: '15px',
+    gap: '10px',
   },
 
   sourceProductWrapper: {

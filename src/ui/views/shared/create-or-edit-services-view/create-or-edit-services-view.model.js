@@ -111,7 +111,7 @@ export class CreateOrEditServicesViewModel {
 
       const dataWithFiles = {
         ...data,
-        linksToMediaFiles: [...data.linksToMediaFiles, ...this.uploadedFiles],
+        linksToMediaFiles: [...this.uploadedFiles],
       }
 
       await AnnouncementsModel.editAnnouncement(this.requestToEdit._id, dataWithFiles)

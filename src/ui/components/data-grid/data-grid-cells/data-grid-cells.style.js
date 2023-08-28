@@ -25,6 +25,11 @@ export const styles = theme => ({
     gap: 10,
   },
 
+  manyItemsMainWrapperTooltip: {
+    maxHeight: 260,
+    overflow: 'auto',
+  },
+
   checkboxWrapper: {
     width: '100%',
     display: 'flex',
@@ -807,6 +812,10 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
+  multilineTextHeaderSpaceBetween: {
+    justifyContent: 'space-between',
+  },
+
   boxesAndQuantityWrapper: {
     width: '100%',
     display: 'flex',
@@ -1351,7 +1360,7 @@ export const styles = theme => ({
     width: 160,
     marginTop: 10,
     whiteSpace: 'normal',
-    color: theme.palette.text.general,
+    color: '#fff',
     background: theme.palette.primary.main,
   },
 
@@ -1959,6 +1968,7 @@ export const styles = theme => ({
   },
 
   paymentMethods: {
+    cursor: 'pointer',
     width: 150,
     padding: '10px 0',
     display: 'flex',

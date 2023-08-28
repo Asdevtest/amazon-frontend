@@ -32,7 +32,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
@@ -492,11 +492,7 @@ export const EditBoxStorekeeperForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoCarousel
-                              isAmazonPhoto
-                              files={item.product.images}
-                              imageClass={classNames.productImageClass}
-                            />
+                            <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
                           </div>
 
                           <>
@@ -913,7 +909,7 @@ export const EditBoxStorekeeperForm = observer(
                   <Typography className={classNames.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
+                  <PhotoAndFilesCarouselTest withoutFiles files={boxFields.images} />
                 </div>
 
                 <div className={classNames.commentsWrapper}>

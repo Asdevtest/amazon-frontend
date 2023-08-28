@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineObject104 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineObject104 {
     /**
      * Constructs a new <code>InlineObject104</code>.
+     * Схема продажи магазина
      * @alias module:model/InlineObject104
      */
     constructor() { 
@@ -47,26 +49,47 @@ class InlineObject104 {
         if (data) {
             obj = obj || new InlineObject104();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            if (data.hasOwnProperty('shopAssets')) {
+                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
             }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
             }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('shopLink')) {
+                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
+            }
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
+            }
+            if (data.hasOwnProperty('opportunities')) {
+                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
+            }
+            if (data.hasOwnProperty('risks')) {
+                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
+            }
+            if (data.hasOwnProperty('requiredSkills')) {
+                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
+            }
+            if (data.hasOwnProperty('sellIncludes')) {
+                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
+            }
+            if (data.hasOwnProperty('reasonForSale')) {
+                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
+            }
+            if (data.hasOwnProperty('additionalInfo')) {
+                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
             }
         }
         return obj;
@@ -76,46 +99,88 @@ class InlineObject104 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineObject104.prototype['name'] = undefined;
+InlineObject104.prototype['title'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Стоимость магазина
+ * @member {Number} price
  */
-InlineObject104.prototype['country'] = undefined;
+InlineObject104.prototype['price'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
  */
-InlineObject104.prototype['zipCode'] = undefined;
+InlineObject104.prototype['businessStartDate'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * Детали магазина
+ * @member {String} shopDetails
  */
-InlineObject104.prototype['state'] = undefined;
+InlineObject104.prototype['shopDetails'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Активы магазина
+ * @member {Array.<String>} shopAssets
  */
-InlineObject104.prototype['city'] = undefined;
+InlineObject104.prototype['shopAssets'] = undefined;
 
 /**
- * Адрес склада.
- * @member {String} address
+ * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
+ * @member {Array.<String>} files
  */
-InlineObject104.prototype['address'] = undefined;
+InlineObject104.prototype['files'] = undefined;
 
 /**
- * Цвет шрифта
- * @member {String} fontColor
+ * Ссылка на сайт магазина
+ * @member {String} shopLink
  */
-InlineObject104.prototype['fontColor'] = undefined;
+InlineObject104.prototype['shopLink'] = undefined;
+
+/**
+ * Статистика магазина по месяцам
+ * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
+ */
+InlineObject104.prototype['statistics'] = undefined;
+
+/**
+ * Возможности магазина
+ * @member {Array.<String>} opportunities
+ */
+InlineObject104.prototype['opportunities'] = undefined;
+
+/**
+ * Риски магазина
+ * @member {Array.<String>} risks
+ */
+InlineObject104.prototype['risks'] = undefined;
+
+/**
+ * Требуемые навыки
+ * @member {Array.<String>} requiredSkills
+ */
+InlineObject104.prototype['requiredSkills'] = undefined;
+
+/**
+ * В продажу также включено
+ * @member {Array.<String>} sellIncludes
+ */
+InlineObject104.prototype['sellIncludes'] = undefined;
+
+/**
+ * Причина продажи
+ * @member {Array.<String>} reasonForSale
+ */
+InlineObject104.prototype['reasonForSale'] = undefined;
+
+/**
+ * Дополнительная информация
+ * @member {Array.<String>} additionalInfo
+ */
+InlineObject104.prototype['additionalInfo'] = undefined;
 
 
 

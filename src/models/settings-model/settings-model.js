@@ -20,6 +20,7 @@ const persistProperties = [
   'uiTheme',
   'destinationsFavourites',
   'mutedChats',
+  'isMuteChats',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -36,7 +37,9 @@ class SettingsModelStatic {
   breadcrumbsForProfile = null
   showHints = true
 
+  isMuteChats = false
   mutedChats = []
+  numberAllChats = null
 
   lastCrumbAdditionalText = ''
 
@@ -53,9 +56,6 @@ class SettingsModelStatic {
   }
 
   constructor() {
-    this.isMuteChat = this.loadValue('isMuteChat') || false
-    this.isMuteChats = this.loadValue('isMuteChats') || false
-
     makeAutoObservable(this, undefined, { autoBind: true })
     makePersistable(this, { name: stateModelName, properties: persistProperties })
       .then(({ isHydrated }) => {
@@ -89,14 +89,11 @@ class SettingsModelStatic {
 
   onToggleMuteCurrentChat(chatId) {
     this.setMutedChat(chatId)
-    this.isMuteChat = !this.isMuteChat
-    this.saveValue('isMuteChat', this.isMuteChat)
   }
 
   onToggleMuteAllChats(allChats) {
     this.setMutedChats(allChats)
     this.isMuteChats = !this.isMuteChats
-    this.saveValue('isMuteChats', this.isMuteChats)
   }
 
   setMutedChat(chatId) {
@@ -105,13 +102,16 @@ class SettingsModelStatic {
     } else {
       this.mutedChats.push(chatId)
     }
+
+    this.isMuteChats = this.numberAllChats === this.mutedChats.length ? true : false
   }
 
-  setMutedChats(allGhats) {
+  setMutedChats(allChats) {
     if (this.isMuteChats) {
       this.mutedChats.length = 0
     } else {
-      this.mutedChats = [...allGhats.map(chat => chat._id)]
+      this.numberAllChats = allChats.length
+      this.mutedChats = [...allChats.map(chat => chat._id)]
     }
   }
 

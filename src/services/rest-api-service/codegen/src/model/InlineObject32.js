@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject32 model module.
@@ -21,13 +22,12 @@ import ApiClient from '../ApiClient';
 class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject32
-     * @param buyerComment {String} Комментарии байера.
+     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
      */
-    constructor(buyerComment) { 
+    constructor(itemsBarCodeChanges) { 
         
-        InlineObject32.initialize(this, buyerComment);
+        InlineObject32.initialize(this, itemsBarCodeChanges);
     }
 
     /**
@@ -35,8 +35,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj, itemsBarCodeChanges) { 
+        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
     }
 
     /**
@@ -50,8 +50,8 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('itemsBarCodeChanges')) {
+                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
             }
         }
         return obj;
@@ -61,10 +61,9 @@ class InlineObject32 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
  */
-InlineObject32.prototype['buyerComment'] = undefined;
+InlineObject32.prototype['itemsBarCodeChanges'] = undefined;
 
 
 

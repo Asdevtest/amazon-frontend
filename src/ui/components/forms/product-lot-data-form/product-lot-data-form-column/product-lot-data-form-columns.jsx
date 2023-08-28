@@ -60,7 +60,7 @@ export const productLotDataFormColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
     renderCell: params => <MultilineTextCell text={params.value.name} />,
-    width: 180,
+    width: 100,
   },
 
   {
@@ -80,7 +80,7 @@ export const productLotDataFormColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={params.value} />
     ),
-    width: 160,
+    width: 120,
     sortable: false,
   },
 

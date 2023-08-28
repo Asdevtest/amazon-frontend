@@ -2,12 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.general,
     padding: 30,
-    maxWidth: 1074,
-    width: 1074,
+    maxWidth: 790,
     margin: '0 auto',
     borderRadius: 7,
+    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(1280)]: {
       maxWidth: 390,
@@ -44,10 +43,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerWrapper: {
+    width: '100%',
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 50,
   },
+
   btnsWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -66,9 +68,9 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 15px',
   },
 
-  editButton: {
-    width: '252px',
-  },
+  // editButton: {
+  //   width: '200px',
+  // },
 
   successBtn: {
     width: '197px',
@@ -172,17 +174,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   simpleSpan: {
-    fontWeight: 600,
+    fontWeight: '600 !important',
     fontSize: 14,
     whiteSpace: 'nowrap',
   },
 
   linkSpan: {
     color: theme.palette.primary.main,
-  },
-
-  footerSubWrapper: {
-    display: 'flex',
-    gap: 50,
   },
 }))

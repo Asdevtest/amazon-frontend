@@ -2,6 +2,7 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -203,18 +204,33 @@ export class SupervisorProductViewModel {
 
     reaction(
       () => this.productId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
   async loadData() {
     try {
       await this.getProductById()
+      await this.getProductsVariations()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async getProductsVariations() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
+
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -236,18 +252,19 @@ export class SupervisorProductViewModel {
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
         this.product = result
-
         this.productBase = result
-
         this.updateImagesForLoad(result.images)
 
         updateProductAutoCalculatedFields.call(this)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -379,7 +396,7 @@ export class SupervisorProductViewModel {
               case 'bsr':
                 return (value && parseInt(value)) || 0
               case 'amazon':
-                return value && parseFloat(value)
+                return (value && parseFloat(value)) || 0
               case 'weight':
                 return value && parseFloat(value)
               case 'length':
@@ -708,5 +725,10 @@ export class SupervisorProductViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/supervisor/products/product?product-id=${id}`, '_blank')
+    win.focus()
   }
 }

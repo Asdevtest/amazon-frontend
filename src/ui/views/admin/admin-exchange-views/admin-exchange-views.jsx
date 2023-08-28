@@ -64,7 +64,7 @@ export const AdminExchangeViewsRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={100}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,

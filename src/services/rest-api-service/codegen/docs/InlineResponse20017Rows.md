@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**group** | [**InlineResponse20017Group**](InlineResponse20017Group.md) |  | [optional] 
-**boxes** | [**[InlineResponse20012]**](InlineResponse20012.md) |  | [optional] 
+**productId** | **String** | GUID продукта в базе данных | 
+**logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
+**orderId** | **String** | GUID заказа в БД | [optional] 
+**amount** | **Number** | Кол-во продукта | [optional] 
 
 

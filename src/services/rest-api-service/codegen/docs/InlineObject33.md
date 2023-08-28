@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
+**lengthCmWarehouse** | **Number** |  | [optional] 
+**widthCmWarehouse** | **Number** |  | [optional] 
+**heightCmWarehouse** | **Number** |  | [optional] 
+**weighGrossKgWarehouse** | **Number** |  | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

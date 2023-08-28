@@ -1,9 +1,8 @@
 import { cx } from '@emotion/css'
-import { ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
-import { Typography } from '@mui/material'
 
 import { useImageModalStyles } from '@components/modals/image-modal/image-modal.styles'
 import { Button } from '@components/shared/buttons/button'
@@ -16,31 +15,40 @@ import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 export interface ImageObjectType {
   url: string
-  title?: string
+  _id?: string
   comment?: string
   file?: unknown
-  _id?: string
+  title?: string
 }
 
-interface ImageModalProps {
+interface Props {
   isOpenModal: boolean
-  handleOpenModal: () => void
   imageList: string[] | ImageObjectType[]
   currentImageIndex: number
+  handleOpenModal: VoidFunction
   handleCurrentImageIndex: (index: number) => void
   showPreviews?: boolean
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
-export const ImageModal = (props: ImageModalProps) => {
+export const ImageModal: FC<Props> = ({
+  imageList,
+  currentImageIndex,
+  isOpenModal,
+  showPreviews,
+  controls,
+  handleOpenModal,
+  handleCurrentImageIndex,
+}) => {
   const { classes: styles } = useImageModalStyles()
-  const [isZoomActive, setIsZoomActive] = useState<boolean>(false)
+
+  const [isZoomActive, setIsZoomActive] = useState(false)
   const [zoomImage, setZoomImage] = useState<string | null>(null)
   const [currentImage, setCurrentImage] = useState<string | ImageObjectType>()
 
   useEffect(() => {
-    setCurrentImage(props.imageList?.[props.currentImageIndex])
-  }, [props.imageList, props.currentImageIndex])
+    setCurrentImage(imageList?.[currentImageIndex])
+  }, [imageList, currentImageIndex])
 
   const onClickDownloadBtn = (image: string | ImageObjectType) => {
     if (typeof image === 'string') {
@@ -55,17 +63,19 @@ export const ImageModal = (props: ImageModalProps) => {
   const onClickZoomBtn = () => {
     if (typeof currentImage === 'string') {
       setZoomImage(getAmazonImageUrl(currentImage, true))
-    } else {
-      setZoomImage(currentImage!.url)
+    } else if (currentImage) {
+      setZoomImage(currentImage.url)
     }
 
     setIsZoomActive(true)
   }
 
+  const currentSlideTitle = `${currentImageIndex + 1}/${imageList?.length || 0}`
+
   return (
     <Modal
-      openModal={props.isOpenModal}
-      setOpenModal={props.handleOpenModal}
+      openModal={isOpenModal}
+      setOpenModal={handleOpenModal}
       missClickModalOn={undefined}
       isWarning={false}
       dialogContextClassName={styles.modalContainer}
@@ -73,61 +83,60 @@ export const ImageModal = (props: ImageModalProps) => {
       <div className={styles.wrapper}>
         {/* Image List */}
 
-        {props.showPreviews && (
+        {showPreviews && (
           <div className={styles.imagesList}>
-            {!!props.imageList?.length &&
-              props.imageList.map((image, index) => (
-                <div
-                  key={index}
-                  className={cx(styles.imagesListItem, {
-                    [styles.imagesListItemActive]: index === props.currentImageIndex,
-                  })}
-                  onClick={() => {
-                    props.handleCurrentImageIndex(index)
-                  }}
-                >
-                  <img
-                    src={
-                      image
-                        ? typeof image === 'string'
-                          ? getAmazonImageUrl(image, true)
-                          : image.url
-                        : '/assets/img/no-photo.jpg'
-                    }
-                    alt="Image"
-                  />
+            {imageList?.length > 0 &&
+              imageList?.map((image, index) => {
+                const imageUrl = image
+                  ? typeof image === 'string'
+                    ? getAmazonImageUrl(image, true)
+                    : image.url
+                  : '/assets/img/no-photo.jpg'
 
-                  {typeof image !== 'string' && (
-                    <div>
-                      <Typography className={cx(styles.imagesListItemTitle, styles.shortText)}>
-                        {image?.title}
-                      </Typography>
+                return (
+                  <div
+                    key={index}
+                    className={cx(styles.imagesListItem, {
+                      [styles.imagesListItemActive]: index === currentImageIndex,
+                    })}
+                    onClick={() => handleCurrentImageIndex(index)}
+                  >
+                    <img
+                      src={imageUrl}
+                      alt="Image"
+                      onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+                    />
 
-                      <Typography className={styles.imagesListItemComment}>
-                        {getShortenStringIfLongerThanCount(image?.comment, 20)}
-                      </Typography>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    {typeof image !== 'string' && (
+                      <div>
+                        <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{image?.title}</p>
+
+                        {/* <p className={styles.imagesListItemComment}>
+                        {getShortenStringIfLongerThanCount(image?.comment, 24)}
+                      </p> */}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
           </div>
         )}
 
         {/* Slider */}
 
         <div className={styles.body}>
-          {typeof currentImage !== 'string' && <Typography className={styles.title}>{currentImage?.title}</Typography>}
+          {typeof currentImage !== 'string' && <p className={styles.title}>{currentImage?.title}</p>}
 
           <div className={styles.slider}>
-            {!!props.imageList?.length && (
+            {imageList?.length > 0 && (
               <CustomSlider
                 isModal
                 isHideCounter
-                index={props.currentImageIndex}
+                index={currentImageIndex}
                 arrowSize="60px"
-                onChangeIndex={props.handleCurrentImageIndex}
+                onChangeIndex={handleCurrentImageIndex}
               >
-                {props.imageList.map((el, index) => (
+                {imageList?.map((el, index) => (
                   <div key={index} className={cx(styles.sliderItem)}>
                     <img
                       src={
@@ -139,6 +148,7 @@ export const ImageModal = (props: ImageModalProps) => {
                       }
                       loading="lazy"
                       alt={`Slide ${index + 1}`}
+                      onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                     />
                   </div>
                 ))}
@@ -150,17 +160,15 @@ export const ImageModal = (props: ImageModalProps) => {
 
           <div className={styles.info}>
             {typeof currentImage !== 'string' && (
-              <Typography className={styles.comment}>{currentImage?.comment}</Typography>
+              <p className={styles.title}>{getShortenStringIfLongerThanCount(currentImage?.comment, 200)}</p>
             )}
-            <Typography className={styles.currentSlide} color="primary">
-              {`${props.currentImageIndex + 1}/${props.imageList?.length || 0}`}
-            </Typography>
+            <p className={styles.currentSlide}>{currentSlideTitle}</p>
           </div>
 
           {/* Controls */}
 
           <div className={styles.controls}>
-            <Button onClick={() => onClickDownloadBtn(props.imageList?.[props.currentImageIndex])}>
+            <Button onClick={() => onClickDownloadBtn(imageList[currentImageIndex])}>
               <DownloadOutlinedIcon />
             </Button>
 
@@ -168,11 +176,9 @@ export const ImageModal = (props: ImageModalProps) => {
               <ZoomOutMapOutlinedIcon />
             </Button>
 
-            {props?.controls && props.controls(props.currentImageIndex, props.imageList[props.currentImageIndex])}
+            {controls ? controls(currentImageIndex, imageList[currentImageIndex]) : null}
           </div>
         </div>
-
-        <div className={styles.placeholder}></div>
       </div>
 
       {/* Zoom Modal */}

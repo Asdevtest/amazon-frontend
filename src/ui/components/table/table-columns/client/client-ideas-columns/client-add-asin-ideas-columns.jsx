@@ -19,7 +19,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Idea title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.productName} />,
     width: 198,
     filterable: false,
 
@@ -90,7 +90,11 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
 
     renderCell: params => (
       <BarcodeCell
-        product={params.row.parentProduct || params.row.childProduct}
+        product={
+          params.row.originalData.variation
+            ? params.row?.originalData?.childProduct
+            : params.row?.originalData?.parentProduct
+        }
         handlers={rowHandlers.barCodeHandlers}
       />
     ),
@@ -131,6 +135,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}
         onClickResultButton={rowHandlers.onClickResultButton}
+        onClickUnbindButton={rowHandlers.onClickUnbindButton}
         onClickRequestId={rowHandlers.onClickRequestId}
       />
     ),

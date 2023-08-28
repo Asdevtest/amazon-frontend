@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -66,6 +66,12 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     })
   }
 
+  useEffect(() => {
+    if (!sourceProduct?.parentProductId && sourceProduct?.hasChildren) {
+      chooseRadioButtonSettingHandler(ProductVariation.CHILD)
+    }
+  }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
+
   return (
     <div className={classNames.root}>
       <p className={classNames.title}>{t(TranslationKey['Select product'])}</p>
@@ -91,7 +97,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           selectedAsins={selectedProducts}
           checkbox={selectedRadioValue === ProductVariation.CHILD}
           disabled={!selectedRadioValue}
-          data={productsToBind}
+          data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
           width={255}
           searchOnlyFields={['asin', 'skusByClient']}
           customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}

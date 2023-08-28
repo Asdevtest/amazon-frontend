@@ -2072,7 +2072,7 @@
   "Are you sure you want to dismiss the idea": "Are you sure you want to dismiss the idea?",
   "Are you sure you want to restore the idea": "Are you sure you want to restore the idea?",
   "Once confirmed, the idea will be irretrievably lost/deleted": "Once confirmed, the idea will be irretrievably lost/deleted",
-  "Interconnected products": "Interconnected products",
+  "Interconnected products": "Varation products",
   "Variations": "Variations",
   "Choose an executor": "Choose an executor",
   "Select announcement": "Select announcement",
@@ -2086,5 +2086,13 @@
   "Product variations": "Product variations",
   "Add product linkage": "Add product linkage",
   "Read": "Read",
-  "Message": "Message"
+  "Message": "Message",
+  "hours": "hours",
+  "minutes": "minutes",
+  "The card does not fit, send to supplier search": "The card does not fit, send to supplier search",
+  "Send product card for supplier search": "Send product card for supplier search",
+  "Are you sure you want to unbind the request from the idea?": "Are you sure you want to unbind the request from the idea?",
+  "Product unbundling": "Product unbundling",
+  "Are you sure you want to unbind the product?": "Are you sure you want to unbind the product?",
+  "Idea closed": "Idea closed"
 }

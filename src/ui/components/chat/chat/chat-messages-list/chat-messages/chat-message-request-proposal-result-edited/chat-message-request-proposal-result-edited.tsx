@@ -10,7 +10,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -45,43 +45,27 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
 
         <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
       </div>
-      <div className={classNames.mainInfoWrapper}>
-        {/* <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>{message.data.request.title}</p>
-        </div> */}
-        <div className={classNames.descriptionWrapper}>
-          <Linkify>
-            <p className={classNames.descriptionText}>{}</p>
-          </Linkify>
-        </div>
-      </div>
-      <div>
-        <Linkify>
-          <p className={classNames.resultText}>{message.data.edited.result}</p>
-        </Linkify>
-      </div>
+
+      <Linkify>
+        <p className={classNames.descriptionText}>{}</p>
+      </Linkify>
+
+      <Linkify>
+        <p className={classNames.descriptionText}>{message.data.edited.result}</p>
+      </Linkify>
+
       <div className={classNames.resultWrapper}>
-        <PhotoAndFilesCarousel
-          notToShowEmpty
-          small
-          // files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+        <PhotoAndFilesCarouselTest
           files={message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
-          width="340px"
-          withoutPhotos={undefined}
-          whithoutFiles={undefined}
-          imagesForLoad={undefined}
-          isEditable={undefined}
-          withoutMakeMainImage={undefined}
-          onChangeImagesForLoad={undefined}
+          customGap={20}
+          customSlideHeight={80}
         />
 
         <div className={classNames.timeToCheckBlockWrapper}>
           <p className={classNames.timeToCheckBlockLabelText}>{t(TranslationKey['Time to check'])}</p>
-          <div className={classNames.timeToCheckBlockValueWrapper}>
-            <p className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
-              TranslationKey.minute,
-            )}`}</p>
-          </div>
+          <p className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
+            TranslationKey.minute,
+          )}`}</p>
         </div>
       </div>
       <div className={classNames.footerWrapper}>

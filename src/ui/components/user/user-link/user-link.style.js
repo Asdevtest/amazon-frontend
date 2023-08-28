@@ -37,6 +37,24 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  blueLinkText: {
+    color: theme.palette.primary.main,
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: '.3s ease',
+    maxWidth: '100px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
+
   customStyles: {
     fontWeight: '600',
   },

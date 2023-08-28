@@ -294,7 +294,7 @@ export class VacantRequestsViewModel {
         status: { $eq: statusFilter },
       }),
       ...(titleFilter && {
-        title: { $contains: titleFilter },
+        title: { $eq: titleFilter },
       }),
       ...(typeTaskFilter && {
         typeTask: { $eq: typeTaskFilter },
@@ -352,6 +352,8 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+
+    this.getRequestsVacant()
   }
 
   onChangeFullFieldMenuItem(value, field) {

@@ -64,6 +64,7 @@ export const CreateOrEditRequestContent = ({
   permissionsData,
   masterUsersData,
   choosenAnnouncements,
+  executor,
   requestToEdit,
   history,
   platformSettingsData,
@@ -92,7 +93,7 @@ export const CreateOrEditRequestContent = ({
   const [announcementsData, setAnnouncementsData] = useState(announcements)
 
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
-  const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || undefined)
+  const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -170,8 +171,8 @@ export const CreateOrEditRequestContent = ({
   }, [announcements])
 
   useEffect(() => {
-    setChosenExecutor(requestToEdit?.request?.executor)
-  }, [requestToEdit?.request?.executor])
+    setChosenExecutor(requestToEdit?.request?.executor || executor)
+  }, [requestToEdit?.request?.executor, executor])
 
   const getSourceFormFields = currentFields => ({
     request: {
@@ -186,14 +187,22 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request?.restrictMoreThanOneProposalFromOneAssignee || false,
       typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
-      asin: requestToEdit?.request?.asin || createRequestForIdeaData?.asin || undefined,
+      asin: requestToEdit
+        ? requestToEdit?.request?.asin
+        : createRequestForIdeaData
+        ? createRequestForIdeaData?.asin
+        : undefined,
       priceAmazon: requestToEdit?.request?.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request?.cashBackInPercent || 0,
       announcementId: requestToEdit?.request?.announcementId || undefined,
-      productId: requestToEdit?.request?.productId || createRequestForIdeaData?.productId || undefined,
+      productId: requestToEdit
+        ? requestToEdit?.request?.productId
+        : createRequestForIdeaData
+        ? createRequestForIdeaData?.productId
+        : undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
       priority: requestToEdit?.request?.priority || 20,
-      executorId: requestToEdit?.request?.executor?._id || '',
+      executorId: requestToEdit?.request?.executor?._id || executor?._id || null,
 
       discountedPrice: requestToEdit
         ? toFixed(
@@ -209,6 +218,9 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  console.log('requestToEdit', requestToEdit)
+  console.log('formFields', formFields)
 
   const [requestIds, setRequestIds] = useState([])
 
@@ -360,13 +372,13 @@ export const CreateOrEditRequestContent = ({
   }
 
   const disableSubmit =
-    formFields.request.title === '' ||
+    !formFields.request.title ||
     formFields.request.title.length > 100 ||
-    formFields.request.maxAmountOfProposals === '' ||
-    formFields.request.timeLimitInMinutes === '' ||
-    formFields.request.price === '' ||
-    formFields.request.timeoutAt === '' ||
-    formFields.details.conditions === '' ||
+    !formFields.request.maxAmountOfProposals ||
+    !formFields.request.timeLimitInMinutes ||
+    !formFields.request.price ||
+    !formFields.request.timeoutAt ||
+    !formFields.details.conditions ||
     clearСonditionsText.length >= 6000 ||
     !clearСonditionsText.length ||
     !formFields.request.typeTask ||

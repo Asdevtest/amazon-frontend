@@ -30,6 +30,7 @@ export const CreateOrEditRequestView = observer(props => {
       <div ref={mainContentRef}>
         <CreateOrEditRequestContent
           mainContentRef={mainContentRef}
+          executor={viewModel.executor}
           choosenAnnouncements={viewModel.choosenAnnouncements}
           permissionsData={viewModel.permissionsData}
           masterUsersData={viewModel.masterUsersData}

@@ -127,6 +127,7 @@ export const useClassNames = makeStyles()(theme => ({
     '&:disabled': {
       cursor: 'auto',
       background: 'none',
+      color: theme.palette.text.second,
       borderColor: theme.palette.text.second,
     },
 

@@ -14,7 +14,7 @@ import { UserModel } from '@models/user-model'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { formatDateOnlyTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -41,6 +41,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
+  const files = chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)
+
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
@@ -58,21 +60,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey['Photos and documents'])}
-              inputComponent={
-                <PhotoAndFilesCarousel
-                  notToShowEmpty
-                  small
-                  // files={message.data.proposal.details.linksToMediaFiles}
-                  files={chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)}
-                  width="500px"
-                  withoutPhotos={undefined}
-                  whithoutFiles={undefined}
-                  imagesForLoad={undefined}
-                  isEditable={undefined}
-                  withoutMakeMainImage={undefined}
-                  onChangeImagesForLoad={undefined}
-                />
-              }
+              inputComponent={<PhotoAndFilesCarouselTest column files={files} customGap={20} customSlideHeight={80} />}
             />
           </div>
 

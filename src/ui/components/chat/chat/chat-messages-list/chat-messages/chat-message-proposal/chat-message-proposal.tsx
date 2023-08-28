@@ -10,7 +10,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -70,20 +70,7 @@ export const ChatMessageProposal: FC<Props> = ({ message, handlers }) => {
           </div>
         </div>
         <div className={classNames.rightSideWrapper}>
-          <div>
-            <PhotoAndFilesCarousel
-              notToShowEmpty
-              small
-              files={message.images}
-              width="352px"
-              withoutPhotos={undefined}
-              whithoutFiles={undefined}
-              imagesForLoad={undefined}
-              isEditable={undefined}
-              withoutMakeMainImage={undefined}
-              onChangeImagesForLoad={undefined}
-            />
-          </div>
+          <PhotoAndFilesCarouselTest files={message.images} customGap={20} customSlideHeight={80} />
 
           <div className={classNames.footerWrapper}>
             {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&

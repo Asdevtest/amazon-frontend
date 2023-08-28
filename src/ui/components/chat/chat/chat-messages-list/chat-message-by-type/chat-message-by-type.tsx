@@ -14,6 +14,7 @@ import {
   checkIsChatMessageDataProposalStatusChangedContract,
   checkIsChatMessageDesignerProposalResultEditedContract,
   checkIsChatMessagePatchInfoGroupChatContract,
+  checkIsChatMessageProposalEditedContract,
   checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
 
@@ -147,6 +148,8 @@ export const ChatMessageByType: FC<Props> = observer(
         return <ChatMessageRemoveUsersFromGroupChat message={messageItem} />
       } else if (checkIsChatMessagePatchInfoGroupChatContract(messageItem)) {
         return <ChatMessagePatchInfoGroupChat message={messageItem} />
+      } else if (checkIsChatMessageProposalEditedContract(messageItem)) {
+        return
       } else {
         return (
           <ChatMessageBasicText

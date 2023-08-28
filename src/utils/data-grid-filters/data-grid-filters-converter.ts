@@ -78,7 +78,7 @@ export const dataGridFiltersConverter = (
     let finalFilterString = ''
 
     filterList.forEach(item => {
-      if (typeof item === 'object') {
+      if (typeof item === 'object' && item) {
         finalFilterString += `${item._id},`
       } else {
         const isHaveMultipleWords = typeof item === 'string' && item.split(' ').length > 1

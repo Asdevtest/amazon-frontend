@@ -32,10 +32,11 @@ import {
 } from '@components/table/table-columns/client/client-ideas-columns'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
+import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -187,6 +188,7 @@ export class ClientIdeasViewModel {
   showRequestStandartResultModal = false
   showOrderModal = false
   showAddOrEditSupplierModal = false
+  showSelectionSupplierModal = false
 
   // * Data
 
@@ -254,7 +256,8 @@ export class ClientIdeasViewModel {
     onClickReject: id => this.handleStatusToReject(id),
     onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
     onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
-    onClickResultButton: (request, proposalId) => this.onClickResultButton(request, proposalId),
+    onClickResultButton: request => this.onClickResultButton(request),
+    onClickUnbindButton: requestId => this.onClickUnbindButton(requestId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
     onClickSelectSupplier: ideaData => this.onTriggerAddOrEditSupplierModal(ideaData),
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
@@ -293,6 +296,10 @@ export class ClientIdeasViewModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({ history }) {
     runInAction(() => {
       this.history = history
@@ -314,6 +321,14 @@ export class ClientIdeasViewModel {
       () => this.shopList,
       () => {
         this.handleUpdateColumnModel()
+      },
+    )
+    reaction(
+      () => this.languageTag,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
       },
     )
   }
@@ -647,6 +662,8 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
+      UserModel.getUserInfo()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -662,8 +679,6 @@ export class ClientIdeasViewModel {
       onClickConfirm: () => {
         this.statusHandler(IdeaModel.setStatusToCheck, id)
         this.onTriggerOpenModal('showConfirmModal')
-
-        UserModel.getUserInfo()
       },
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -701,7 +716,7 @@ export class ClientIdeasViewModel {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
-          ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
+          !ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
       },
@@ -906,6 +921,12 @@ export class ClientIdeasViewModel {
 
       await this.editIdea(ideaData._id, { childProductId: result.guid })
 
+      if (createData.suppliersIds?.length) {
+        await ClientModel.updateProduct(result.guid, {
+          currentSupplierId: createData.suppliersIds[0],
+        })
+      }
+
       this.loadData()
 
       this.successModalTitle = t(TranslationKey['Product added'])
@@ -1032,7 +1053,10 @@ export class ClientIdeasViewModel {
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
       const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
 
-      const result = await RequestModel.getRequestsByProductLight(currentProductId, { status: 'DRAFT, PUBLISHED' })
+      const result = await RequestModel.getRequestsByProductLight(currentProductId, {
+        status: 'DRAFT, PUBLISHED',
+        excludeIdeaId: idea._id,
+      })
 
       runInAction(() => {
         this.requestsForProduct = addIdDataConverter(result)
@@ -1090,19 +1114,75 @@ export class ClientIdeasViewModel {
       this.currentProduct = chosenProduct
       this.productId = chosenProduct?._id
     })
-    this.onTriggerOpenModal('showProductLaunch')
-    this.onTriggerOpenModal('showIdeaModal')
+
+    if (chosenProduct && !chosenProduct?.buyerId) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+          this.onTriggerOpenModal('showProductLaunch')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.onTriggerOpenModal('showProductLaunch')
+      this.onTriggerOpenModal('showIdeaModal')
+    }
   }
 
-  async onClickResultButton(request, proposalId) {
+  async onSubmitCalculateSeekSupplier(clientComment) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+      const result = await ClientModel.calculatePriceToSeekSupplier(this.productId)
 
       runInAction(() => {
-        this.currentProposal = result
-        this.currentRequest = request
+        const priceForSeekSupplier = result.priceForClient
+
+        this.confirmMessage = this.confirmModalSettings = {
+          isWarning: false,
+          confirmTitle: t(TranslationKey.Attention),
+          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n ${t(TranslationKey['Apply?'])}`,
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
+        }
       })
 
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
+    try {
+      await ClientModel.sendProductToSeekSupplier(this.productId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
+      })
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+      console.log(error)
+    }
+  }
+
+  async onClickResultButton(request) {
+    try {
+      const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
+      runInAction(() => {
+        this.currentProposal = proposals.find(proposal =>
+          checkIsValidProposalStatusToShowResoult(proposal.proposal.status),
+        )
+        this.currentRequest = request
+      })
       if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
       } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
@@ -1113,6 +1193,28 @@ export class ClientIdeasViewModel {
     } catch (error) {
       console.log('error', error)
     }
+  }
+
+  async unbindRequest(requestId) {
+    try {
+      await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
+      this.getIdeaList()
+    } catch (error) {
+      console.error('error', error)
+    }
+  }
+
+  async onClickUnbindButton(requestId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to unbind the request from the idea?']),
+      onClickConfirm: () => {
+        this.unbindRequest(requestId)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {

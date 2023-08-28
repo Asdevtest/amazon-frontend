@@ -154,7 +154,7 @@ export const EditOrderModal = observer(
     const deliveredGoodsCount =
       boxes
         ?.filter(el => !el.isDraft)
-        .reduce(
+        ?.reduce(
           (acc, cur) =>
             acc +
             cur.items
@@ -198,6 +198,7 @@ export const EditOrderModal = observer(
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
+
     const [hsCode, setHsCode] = useState({ ...hsCodeData })
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
@@ -480,9 +481,12 @@ export const EditOrderModal = observer(
     const updateSuplierDisable =
       isPendingOrder ||
       (orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
-        userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
+        userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id) ||
+      !orderFields?.orderSupplier
 
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
+
+    console.log('orderFields', orderFields)
 
     const isOnlyRead =
       selectedSupplier?.createdBy._id !== userInfo._id &&

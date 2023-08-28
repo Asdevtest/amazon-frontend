@@ -103,7 +103,11 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
                     {!hideNames && (
                       <>
                         <p className={classNames.documentTitle}>{shortenDocumentString(file)}</p>
-                        <span className={classNames.documentHover}>{!isString(file) ? file?.file?.name : file}</span>
+                        <span className={classNames.documentHover}>
+                          <Link href={isString(file) ? file : undefined} target="__blank">
+                            {!isString(file) ? file?.file?.name : file}
+                          </Link>
+                        </span>
                       </>
                     )}
                   </div>

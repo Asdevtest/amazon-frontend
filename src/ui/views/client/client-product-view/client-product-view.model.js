@@ -197,10 +197,7 @@ export class ClientProductViewModel {
 
     reaction(
       () => this.productId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
@@ -258,9 +255,6 @@ export class ClientProductViewModel {
         })
       }
 
-      console.log('option', option)
-      console.log('products', products)
-
       this.loadData()
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
@@ -270,27 +264,38 @@ export class ClientProductViewModel {
   }
 
   async getProductsVariations() {
-    if (this.product) {
-      try {
-        this.setRequestStatus(loadingStatuses.isLoading)
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
 
-        const result = await ProductModel.getProductsVariationsByGuid(
-          this.product?.parentProductId || this.product?._id,
-        )
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
-        runInAction(() => {
-          this.productVariations = result
-        })
+      runInAction(() => {
+        this.productVariations = result
+      })
 
-        this.setRequestStatus(loadingStatuses.success)
-      } catch (error) {
-        console.log('error', error)
-        this.setRequestStatus(loadingStatuses.failed)
-      }
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async unbindProductHandler(childProductIds) {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey['Product unbundling']),
+        message: t(TranslationKey['Are you sure you want to unbind the product?']),
+        successBtnText: t(TranslationKey.Yes),
+        cancelBtnText: t(TranslationKey.Cancel),
+        onClickOkBtn: () => this.unbindProduct(childProductIds),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async unbindProduct(childProductIds) {
     try {
       await ProductModel.unbindProducts({
         parentProductId: null,

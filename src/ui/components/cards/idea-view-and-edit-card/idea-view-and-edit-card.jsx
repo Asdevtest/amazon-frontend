@@ -13,6 +13,7 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { RequestStatus, showResultStatuses } from '@constants/requests/request-status'
 import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,6 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { PlusIcon } from '@components/shared/svg-icons'
@@ -36,6 +38,7 @@ import {
   checkIsClient,
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
+  checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
@@ -76,6 +79,7 @@ export const IdeaViewAndEditCard = observer(
     onClickOpenNewTab,
     onClickToOrder,
     onClickRequestId,
+    onClickUnbindButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -119,6 +123,7 @@ export const IdeaViewAndEditCard = observer(
     }, [formFields.productLinks])
 
     const getShortIdea = () => ({
+      ...idea,
       _id: idea?._id,
       status: idea?.status,
       media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
@@ -279,9 +284,18 @@ export const IdeaViewAndEditCard = observer(
     const isAddingAsin = formFields?.status === ideaStatusByKey[ideaStatus.ADDING_ASIN]
     const isRejected = formFields?.status === ideaStatusByKey[ideaStatus.REJECTED]
     const isVerified = formFields?.status === ideaStatusByKey[ideaStatus.VERIFIED]
+    const isClosed = formFields?.status === ideaStatusByKey[ideaStatus.CLOSED]
 
     const showAcceptButtonToClient =
-      currentUserIsClient && !isNewIdea && !isSupplierSearch && !isSupplierNotFound && !isVerified
+      currentUserIsClient &&
+      !isNewIdea &&
+      !isSupplierSearch &&
+      !isSupplierNotFound &&
+      !isVerified &&
+      !isClosed &&
+      !isRejected &&
+      !(isCardCreating && !formFields.childProduct && formFields.variation) &&
+      !(isAddingAsin && formFields?.variation ? !formFields?.childProduct?.barCode : !currentProduct?.barCode)
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
@@ -289,6 +303,9 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
+    const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
+    const isSupplierCreatedByCurrentUser =
+      curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
@@ -296,7 +313,7 @@ export const IdeaViewAndEditCard = observer(
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
             currentStatus={formFields?.status}
-            ideaData={curIdea}
+            ideaData={formFields}
           />
 
           <div className={classNames.sourcesProductWraper}>
@@ -324,7 +341,8 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.mediaBlock}>
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
-                  <PhotoCarousel files={formFields?.media} />
+                  <PhotoAndFilesCarouselTest bigSlider withoutFiles files={formFields?.media} />
+                  {/* <PhotoCarousel files={formFields?.media} /> */}
                 </div>
               )}
 
@@ -355,7 +373,7 @@ export const IdeaViewAndEditCard = observer(
                         changeConditionHandler={condition => setShowRequestType(condition)}
                       />
 
-                      <Button disabled={!showCreateRequestButton} onClick={onClickLinkRequestButton}>
+                      <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
                         {t(TranslationKey['Link request'])}
                       </Button>
                     </div>
@@ -371,8 +389,14 @@ export const IdeaViewAndEditCard = observer(
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
+                          disableSeeResultButton={
+                            !request?.proposals?.some(proposal =>
+                              checkIsValidProposalStatusToShowResoult(proposal.status),
+                            )
+                          }
                           onClickRequestId={() => onClickRequestId(request._id)}
-                          onClickResultButton={onClickResultButton}
+                          onClickResultButton={() => onClickResultButton(request)}
+                          onClickUnbindButton={() => onClickUnbindButton(request._id)}
                         />
                       ))}
                     </div>
@@ -623,7 +647,7 @@ export const IdeaViewAndEditCard = observer(
 
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
-                          disabled={!formFields.productName}
+                          disabled={!formFields.productName || disableButtonAfterSupplierNotFound}
                           className={classNames.iconBtn}
                           onClick={() =>
                             onClickSupplierBtns('add', () =>
@@ -637,11 +661,12 @@ export const IdeaViewAndEditCard = observer(
                           {t(TranslationKey['Add supplier'])}
                         </Typography>
                       </div>
-                      {selectedSupplier && currentUserIsBuyer && (
+                      {selectedSupplier && (
                         <>
                           <div className={classNames.supplierButtonWrapper}>
                             <Button
                               tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                              disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                               className={classNames.iconBtn}
                               onClick={() =>
                                 onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
@@ -657,6 +682,7 @@ export const IdeaViewAndEditCard = observer(
                             <Button
                               tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                               className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                              disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                               onClick={() =>
                                 onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
                               }
@@ -725,7 +751,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {(isSupplierFound || isSupplierNotFound) && (
-                  <p className={classNames.statusText}>
+                  <p className={cx(classNames.statusText, { [classNames.supplierNotFoundText]: isSupplierNotFound })}>
                     {isSupplierFound ? t(TranslationKey['Supplier found']) : t(TranslationKey['Supplier not found'])}
                   </p>
                 )}
@@ -758,6 +784,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
+                    success
                     disabled={disableAcceptButton}
                     variant="contained"
                     color="primary"
@@ -768,7 +795,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button success variant="contained" onClick={onClickToOrder}>
+                  <Button success variant="contained" onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
                   </Button>
                 )}
@@ -796,7 +823,7 @@ export const IdeaViewAndEditCard = observer(
                   </Button>
                 )}
 
-                {checkIsClientOrBuyer && (
+                {checkIsClientOrBuyer && !isClosed && (
                   <Button variant="contained" color="primary" onClick={() => onEditIdea(formFields)}>
                     {t(TranslationKey.Edit)}
                   </Button>
@@ -805,6 +832,16 @@ export const IdeaViewAndEditCard = observer(
                 {currentUserIsClient && showRejectButton && (
                   <Button danger variant="contained" onClick={() => onClickRejectButton(formFields._id)}>
                     {t(TranslationKey.Reject)}
+                  </Button>
+                )}
+
+                {isModalView && (
+                  <Button
+                    variant="text"
+                    className={cx(classNames.actionButton, classNames.cancelBtn)}
+                    onClick={() => onClickCancelBtn()}
+                  >
+                    {t(TranslationKey.Close)}
                   </Button>
                 )}
               </div>

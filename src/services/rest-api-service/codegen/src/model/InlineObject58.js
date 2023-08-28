@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject58
-     * @param batchIds {Array.<String>} 
-     * @param archive {Boolean} Заархивирована ли партия
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor(batchIds, archive) { 
+    constructor(shippingLabel) { 
         
-        InlineObject58.initialize(this, batchIds, archive);
+        InlineObject58.initialize(this, shippingLabel);
     }
 
     /**
@@ -35,9 +35,8 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batchIds, archive) { 
-        obj['batchIds'] = batchIds;
-        obj['archive'] = archive;
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -51,11 +50,8 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('batchIds')) {
-                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -65,15 +61,10 @@ class InlineObject58 {
 }
 
 /**
- * @member {Array.<String>} batchIds
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject58.prototype['batchIds'] = undefined;
-
-/**
- * Заархивирована ли партия
- * @member {Boolean} archive
- */
-InlineObject58.prototype['archive'] = undefined;
+InlineObject58.prototype['shippingLabel'] = undefined;
 
 
 

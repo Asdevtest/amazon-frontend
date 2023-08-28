@@ -2,17 +2,42 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 1074,
+    width: '100%',
     padding: '10px 0',
-    justifyContent: 'center',
-    alignItems: 'center',
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexDirection: 'column',
 
     [theme.breakpoints.down(1280)]: {
       width: 390,
     },
   },
+
+  headerAndTimeWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  titleText: {
+    fontSize: 18,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  timeText: {
+    color: theme.palette.text.second,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
+  reasonText: {
+    marginTop: 10,
+    color: theme.palette.text.general,
+  },
+
   statusTextDesciption: {
     color: 'grey',
     fontSize: '18px',
@@ -21,56 +46,29 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'end',
     gap: '10px',
   },
+
   statusText: {
-    fontSize: '18px',
     color: 'black',
   },
+
   detailsWrapper: {
     marginTop: '5px',
     width: '100%',
     backgroundColor: theme.palette.background.general,
     padding: '40px 30px',
     borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: 700,
-
-    color: theme.palette.text.general,
   },
 
-  reasonText: {
-    marginTop: '10px',
-    color: theme.palette.text.general,
-  },
-
-  headerAndTimeWrapper: {
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  timeText: {
-    marginLeft: '20px',
-    color: theme.palette.text.second,
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '16px',
-  },
   footerWrapper: {
-    marginTop: 25,
+    marginTop: 20,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+
   footerRow: {
     width: '100%',
-
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -79,6 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
       marginTop: '20px',
     },
   },
+
   labelValueBlockWrapper: {
     display: 'flex',
     gap: 10,
@@ -89,6 +88,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     width: 217,
   },
+
   successBtn: {
     width: '107px',
     marginLeft: '30px',
@@ -98,6 +98,7 @@ export const useClassNames = makeStyles()(theme => ({
       backgroundColor: '#4CAF50',
     },
   },
+
   editBtn: {
     width: '214px',
     backgroundColor: '#F44336',

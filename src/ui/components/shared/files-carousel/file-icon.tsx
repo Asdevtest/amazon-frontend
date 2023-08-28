@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { DefaultFileTypeIcon, DocFileTypeIcon, PdfFileTypeIcon, XlsxFileTypeIcon } from '@components/shared/svg-icons'
@@ -6,21 +7,22 @@ import { useClassNames } from './files-carousel.style'
 
 interface Props {
   fileExtension: string
+  className?: string
 }
 
-export const FileIcon: FC<Props> = ({ fileExtension }) => {
+export const FileIcon: FC<Props> = ({ fileExtension, className }) => {
   const { classes: classNames } = useClassNames()
 
   switch (fileExtension) {
     case 'doc':
     case 'docx':
-      return <DocFileTypeIcon className={classNames.fileTypeIcon} />
+      return <DocFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     case 'pdf':
-      return <PdfFileTypeIcon className={classNames.fileTypeIcon} />
+      return <PdfFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     case 'xlsx':
     case 'xls':
-      return <XlsxFileTypeIcon className={classNames.fileTypeIcon} />
+      return <XlsxFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     default:
-      return <DefaultFileTypeIcon className={classNames.fileTypeIcon} />
+      return <DefaultFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
   }
 }

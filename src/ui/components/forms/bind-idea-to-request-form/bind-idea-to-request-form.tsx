@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './bind-idea-to-request-form.styles'
@@ -37,6 +38,7 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = observer(pr
         <MemoDataGrid
           hideFooter
           checkboxSelection
+          localeText={getLocalizationByLanguageTag()}
           rows={requests}
           columns={bindIdeaToRequestColumns()}
           getRowHeight={() => 'auto'}

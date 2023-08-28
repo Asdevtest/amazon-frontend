@@ -1011,8 +1011,8 @@ export class BuyerMyOrdersViewModel {
 
       orderFields = {
         ...orderFields,
+        partiallyPaid: Number(orderFields.partiallyPaid) || 0,
         partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
-        partialPayment: Number(orderFields.partialPayment) || 0,
         images: this.readyImages,
       }
       // }

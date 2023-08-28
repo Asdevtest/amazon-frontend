@@ -2089,5 +2089,13 @@ export enum TranslationKey {
   'Add product linkage' = 'Add product linkage',
   'Read' = 'Read',
   'Message' = 'Message',
+  'hours' = 'hours',
+  'minutes' = 'minutes',
+  'The card does not fit, send to supplier search' = 'The card does not fit, send to supplier search',
+  'Send product card for supplier search' = 'Send product card for supplier search',
+  'Are you sure you want to unbind the request from the idea?' = 'Are you sure you want to unbind the request from the idea?',
+  'Product unbundling' = 'Product unbundling',
+  'Are you sure you want to unbind the product?' = 'Are you sure you want to unbind the product?',
+  'Idea closed' = 'Idea closed',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -22,11 +22,10 @@ class InlineObject47 {
     /**
      * Constructs a new <code>InlineObject47</code>.
      * @alias module:model/InlineObject47
-     * @param productIds {Array.<String>} 
      */
-    constructor(productIds) { 
+    constructor() { 
         
-        InlineObject47.initialize(this, productIds);
+        InlineObject47.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject47 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productIds) { 
-        obj['productIds'] = productIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject47 {
         if (data) {
             obj = obj || new InlineObject47();
 
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
         }
         return obj;
@@ -60,9 +58,10 @@ class InlineObject47 {
 }
 
 /**
- * @member {Array.<String>} productIds
+ * массив GUIDов оплаченных товаров
+ * @member {Array.<String>} guids
  */
-InlineObject47.prototype['productIds'] = undefined;
+InlineObject47.prototype['guids'] = undefined;
 
 
 

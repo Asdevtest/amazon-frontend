@@ -40,6 +40,7 @@ const filtersFields = [
   'purchaseQuantity',
   'ideasClosed',
   'ideasVerified',
+  'ideasFinished',
   'tags',
   'redFlags',
   'bsr',
@@ -265,15 +266,13 @@ export class BuyerMyProductsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
         this.rowCount = result.count
-
         this.baseNoConvertedProducts = result.rows
-
         this.productsMy = buyerProductsDataConverter(result.rows)
       })
       this.setRequestStatus(loadingStatuses.success)
@@ -346,8 +345,6 @@ export class BuyerMyProductsViewModel {
 
         `buyers/products/pag/my?filters=${this.getFilter(column)}`,
       )
-
-      console.log('data', data)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -458,6 +455,9 @@ export class BuyerMyProductsViewModel {
 
     const fbaAmountFilter = exclusion !== 'fbaamount' && this.columnMenuSettings.fbaamount.currentFilterData.join(',')
 
+    const ideasFinishedFilter =
+      exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -547,6 +547,10 @@ export class BuyerMyProductsViewModel {
 
       ...(ideasVerifiedFilter && {
         ideasVerified: { $eq: ideasVerifiedFilter },
+      }),
+
+      ...(ideasFinishedFilter && {
+        ideasFinished: { $eq: ideasFinishedFilter },
       }),
 
       ...(tagsFilter && {

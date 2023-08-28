@@ -1,5 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
+import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -64,7 +65,16 @@ export const checkIsImageLink = link =>
   link?.endsWith('.rotated-image') ||
   link?.endsWith('.jfif') ||
   link?.includes('rotated-image') ||
-  link?.includes('placeimg.com')
+  link?.includes('placeimg.com') ||
+  link?.includes('.jfif')
+
+export const checkIsDocumentLink = link =>
+  link?.endsWith('.doc') ||
+  link?.endsWith('.docx') ||
+  link?.endsWith('.pdf') ||
+  link?.endsWith('.xlsx') ||
+  link?.endsWith('.xls') ||
+  link?.endsWith('.txt')
 
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
@@ -111,3 +121,5 @@ export const checkIsImageUrlValid = async selectedImageUrl =>
       resolve(false)
     }
   })
+
+export const checkIsValidProposalStatusToShowResoult = status => statusesValidToShowResoult.includes(status)

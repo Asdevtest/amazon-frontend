@@ -118,6 +118,7 @@ export class BuyerProductViewModel {
   showConfirmModal = false
 
   setOpenModal = undefined
+  productVariations = undefined
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -173,23 +174,41 @@ export class BuyerProductViewModel {
 
     reaction(
       () => this.productId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
   async loadData() {
     try {
       await this.getProductById()
+      await this.getProductsVariations()
     } catch (error) {
       console.log(error)
     }
   }
 
+  async getProductsVariations() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
+
+      console.log('result', result)
+
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
@@ -208,7 +227,9 @@ export class BuyerProductViewModel {
 
         this.getProductById()
       }
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -623,5 +644,10 @@ export class BuyerProductViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
+    win.focus()
   }
 }

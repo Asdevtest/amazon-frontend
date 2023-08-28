@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { StyledCheckbox } from './styled-checkbox'
 
 export const Checkbox = ({ color, title = '', children = null, ...restProps }) => {

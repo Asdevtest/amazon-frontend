@@ -50,26 +50,23 @@ class InlineResponse20062 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
             }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('onFinishedIdeaId')) {
+                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('onCheckedIdeaId')) {
+                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
             }
         }
         return obj;
@@ -79,52 +76,44 @@ class InlineResponse20062 {
 }
 
 /**
- * GUID в базе данных
+ * GUID заявки
  * @member {String} _id
  */
 InlineResponse20062.prototype['_id'] = undefined;
 
 /**
- * Guid заявки к которой относится данное media.
- * @member {String} requestId
+ * Номер заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20062.prototype['requestId'] = undefined;
+InlineResponse20062.prototype['humanFriendlyId'] = undefined;
 
 /**
- * Guid предложения к которой относится данное media.
- * @member {String} proposalId
+ * Тип задачи заявки
+ * @member {Number} typeTask
  */
-InlineResponse20062.prototype['proposalId'] = undefined;
+InlineResponse20062.prototype['typeTask'] = undefined;
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Название заявки
+ * @member {String} title
  */
-InlineResponse20062.prototype['commentByClient'] = undefined;
+InlineResponse20062.prototype['title'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Статус заявки
+ * @member {String} status
  */
-InlineResponse20062.prototype['commentByPerformer'] = undefined;
+InlineResponse20062.prototype['status'] = undefined;
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * @member {String} onFinishedIdeaId
  */
-InlineResponse20062.prototype['fileLink'] = undefined;
+InlineResponse20062.prototype['onFinishedIdeaId'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * @member {String} onCheckedIdeaId
  */
-InlineResponse20062.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updatedAt
- */
-InlineResponse20062.prototype['updatedAt'] = undefined;
+InlineResponse20062.prototype['onCheckedIdeaId'] = undefined;
 
 
 

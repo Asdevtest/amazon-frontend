@@ -25,7 +25,7 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => (
       <SelectRowCell
         checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-        onClickShareIcon={() => handlers.onClickShowProduct(params.row)}
+        onClickShareIcon={() => handlers.onClickShowProduct(params.row?.originalData?._id)}
       />
     ),
     width: 80,

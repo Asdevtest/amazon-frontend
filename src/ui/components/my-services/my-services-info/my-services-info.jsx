@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 
 import { Avatar, Paper, Rating, Typography } from '@mui/material'
@@ -7,7 +6,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -67,7 +66,7 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
         </div>
         <div className={classNames.userCarouselWrapper}>
           <div className={classNames.photoWrapper}>
-            <PhotoCarousel isAmazonPhoto files={announcementData?.linksToMediaFiles} />
+            <PhotoAndFilesCarouselTest smallSlider files={announcementData?.linksToMediaFiles} />
           </div>
 
           {/* <Carousel
