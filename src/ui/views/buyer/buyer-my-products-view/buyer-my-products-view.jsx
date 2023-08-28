@@ -128,6 +128,7 @@ export const BuyerMyProductsViewRaw = props => {
             history={viewModel.history}
             openModal={viewModel.productCardModal}
             setOpenModal={() => viewModel.onClickProductModal()}
+            updateDataHandler={() => viewModel.loadData()}
             onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
           />
         )}

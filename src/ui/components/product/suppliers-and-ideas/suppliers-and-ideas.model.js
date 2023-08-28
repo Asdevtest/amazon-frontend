@@ -42,6 +42,7 @@ export class SuppliersAndIdeasModel {
   requestsForProduct = []
 
   productId = undefined
+  updateData = undefined
 
   inCreate = false
   isCreateModal = false
@@ -106,7 +107,7 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
-  constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler }) {
+  constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.history = history
     this.productId = productId
     this.currentProduct = product
@@ -114,6 +115,7 @@ export class SuppliersAndIdeasModel {
     this.currentIdeaId = currentIdeaId
     this.closeModalHandler = closeModalHandler
     this.isCreateModal = isCreate
+    this.updateData = updateData
 
     if (isCreate) {
       this.onCreateIdea()
@@ -281,6 +283,10 @@ export class SuppliersAndIdeasModel {
         // }
 
         this.loadData()
+
+        if (this.updateData) {
+          this.updateData()
+        }
       }
 
       if (isForceUpdate) {

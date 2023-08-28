@@ -74,8 +74,14 @@ export const OrderModalBodyRow = ({
       ) / item.currentSupplier.boxProperties?.amountInBox
     : ''
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
-  const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
-    ?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const curTariffRate =
+    curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)?.conditionsByRegion[
+      regionOfDeliveryName
+    ]?.rate ||
+    curStorekeeper?.tariffLogistics
+      ?.find(el => el?._id === orderState?.logicsTariffId)
+      ?.destinationVariations?.find(el => el.destination?._id === curDestination?._id)?.pricePerKgUsd
+
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
   const minDate = dayjs().add(2, 'day')

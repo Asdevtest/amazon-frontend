@@ -355,10 +355,10 @@ export class BuyerProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus, isModal) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus(isModal)
+        this.openConfirmModalWithTextByStatus(updateDataHandler)
 
         break
       case 'cancel':
@@ -372,7 +372,7 @@ export class BuyerProductViewModel {
     }
   }
 
-  async openConfirmModalWithTextByStatus() {
+  async openConfirmModalWithTextByStatus(updateDataHandler) {
     try {
       this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         this.product,
@@ -402,7 +402,7 @@ export class BuyerProductViewModel {
           this.confirmModalSettings = {
             isWarning: false,
             message: confirmMessageByProductStatus()[this.curUpdateProductData.status],
-            onClickOkBtn: () => this.onSaveProductData(),
+            onClickOkBtn: () => this.onSaveProductData(updateDataHandler),
           }
         })
 
@@ -462,14 +462,14 @@ export class BuyerProductViewModel {
     // this.loadData()
   }
 
-  async onSaveProductData() {
+  async onSaveProductData(updateDataHandler) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       await this.loadData()
-
       this.showSuccesAlert()
+      await updateDataHandler()
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
