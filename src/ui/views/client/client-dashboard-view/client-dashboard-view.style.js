@@ -27,7 +27,8 @@ export const styles = theme => ({
     height: '40px',
     width: '156px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    gap: '15px',
   },
 
   balanceWrapper: {
