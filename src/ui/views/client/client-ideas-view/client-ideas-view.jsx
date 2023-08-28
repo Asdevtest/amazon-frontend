@@ -8,6 +8,8 @@ import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { UserModel } from '@models/user-model'
+
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
@@ -159,6 +161,7 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => {
             viewModel.onTriggerOpenModal('showIdeaModal')
             viewModel.getIdeaList()
+            UserModel.getUserInfo()
           }}
           product={viewModel.currentProduct}
           productId={viewModel.productId}
