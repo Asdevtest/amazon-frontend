@@ -295,7 +295,7 @@ export const IdeaViewAndEditCard = observer(
       !isClosed &&
       !isRejected &&
       !(isCardCreating && !formFields.childProduct && formFields.variation) &&
-      !(isAddingAsin && formFields?.variation ? !formFields?.childProduct?.barCode : !currentProduct?.barCode)
+      !(isAddingAsin && (formFields?.variation ? !formFields?.childProduct?.barCode : !currentProduct?.barCode))
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
 
@@ -647,7 +647,9 @@ export const IdeaViewAndEditCard = observer(
 
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
-                          disabled={!formFields.productName || disableButtonAfterSupplierNotFound}
+                          disabled={
+                            !formFields.productName || disableButtonAfterSupplierNotFound || !checkIsClientOrBuyer
+                          }
                           className={classNames.iconBtn}
                           onClick={() =>
                             onClickSupplierBtns('add', () =>
