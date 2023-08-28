@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { GridFilterItem, GridFilterModel } from '@mui/x-data-grid'
+import { GridFilterModel } from '@mui/x-data-grid'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -77,7 +77,7 @@ export class GeneralNotificationsViewModel {
         this.notificationsData = notificationDataConverter(response.rows) || []
         this.rowCount = response.count
 
-        console.log('this.notificationsData', this.notificationsData)
+        console.log('this.notificationsData', this.notificationsData /* .filter(item => item.type === 'box') */)
       })
 
       // addIdDataConverter

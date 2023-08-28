@@ -1,13 +1,16 @@
-import { GridCellParams } from '@mui/x-data-grid'
+import { GridCellParams, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  NotificationMessage,
   ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
+import { getHumanFriendlyNotificationType } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
@@ -24,24 +27,43 @@ export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
     // columnKey: columnnsKeys.shared.STRING,
   },
 
-  // {
-  //   field: 'product',
-  //   headerName: t(TranslationKey.Product),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+  {
+    field: 'product',
+    headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-  //   renderCell: (params: GridCellParams) => {
-  //     return (
-  //       <ProductAsinCell
-  //         image={params?.value?.images?.slice()[0]}
-  //         amazonTitle={params?.value?.amazonTitle}
-  //         asin={params?.value?.asin}
-  //         skusByClient={params?.value?.skusByClient?.slice()[0]}
-  //       />
-  //     )
-  //   },
-  //   width: 300,
-  //   // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-  // },
+    renderCell: (params: GridCellParams) => {
+      return (
+        <ProductAsinCell
+          image={params?.row?.product?.images?.slice()[0]}
+          amazonTitle={params?.row?.product?.amazonTitle}
+          asin={params?.row?.product?.asin}
+          skusByClient={params?.row?.product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
+    width: 300,
+    // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+  },
+
+  {
+    field: 'type',
+    headerName: t(TranslationKey['Notification type']),
+    renderHeader: (/* params: GridRenderCellParams */) => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Notification type'])}
+        // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: (params: GridCellParams) => <MultilineTextCell text={getHumanFriendlyNotificationType(params.value)} />,
+    width: 110,
+    sortable: false,
+    filterable: false,
+
+    // columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+  },
 
   {
     field: 'message',
@@ -49,7 +71,9 @@ export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Message)} />,
 
     // renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
-    renderCell: (params: GridCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridCellParams) => (
+      <NotificationMessage notificationType={params?.row?.type} notification={params?.row?.data?.[0]} />
+    ),
     width: 100,
     // filterable: false,
 

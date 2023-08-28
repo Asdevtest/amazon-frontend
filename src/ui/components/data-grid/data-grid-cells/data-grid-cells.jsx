@@ -38,6 +38,7 @@ import {
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { NotificationType } from '@constants/keys/notifications'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -3518,5 +3519,19 @@ export const TimeFromSeconds = React.memo(
     ) : (
       <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : 0} />
     )
+  }, styles),
+)
+
+export const NotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, notificationType, notification } = props
+
+    if (notificationType === NotificationType.Order) {
+      return (
+        <p>{`${t(TranslationKey['Order redemption deadline'])} ${notification?.id} ${t(
+          TranslationKey.expires,
+        )} ${formatNormDateTime(notification?.deadline)}`}</p>
+      )
+    }
   }, styles),
 )

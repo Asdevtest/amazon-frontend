@@ -1,3 +1,4 @@
+import { NotificationType } from '@constants/keys/notifications'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -1018,7 +1019,13 @@ export const notificationDataConverter = data =>
   data.map(item => ({
     ...item,
     originalData: item,
-    id: item._id,
+    id: item?._id,
+    product:
+      item.type === NotificationType.Idea
+        ? item?.data?.[0]?.parentProduct
+        : item.type === NotificationType.Order
+        ? item?.data?.[0]?.product
+        : item?.data?.[0]?.items?.[0]?.product,
 
-    product: item.data?.[0]?.parentProduct,
+    type: item?.type,
   }))

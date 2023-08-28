@@ -4,6 +4,7 @@ import QueryString from 'qs'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { NotificationType } from '@constants/keys/notifications'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
@@ -391,3 +392,19 @@ const imgTypes = [
 
 export const imagesRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))`, 'i')
 export const imagesWithPreviewRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))\\.preview\\.webp`, 'i')
+
+export const getHumanFriendlyNotificationType = type => {
+  switch (type) {
+    case NotificationType.Box:
+      return t(TranslationKey.Box)
+
+    case NotificationType.Order:
+      return t(TranslationKey.Order)
+
+    case NotificationType.Idea:
+      return t(TranslationKey.Idea)
+
+    default:
+      break
+  }
+}

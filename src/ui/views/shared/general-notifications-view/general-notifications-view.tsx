@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
@@ -66,7 +67,7 @@ export const GeneralNotificationsView = observer(() => {
             columns={viewModel.columnsModel}
             getRowHeight={() => 'auto'}
             density="compact"
-            // loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,

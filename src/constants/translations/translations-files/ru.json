@@ -2098,5 +2098,8 @@
   "Are you sure you want to unbind the request from the idea?": "Вы уверены, что хотите отвязать заявку от идеи?",
   "Product unbundling": "Отвязка продукта",
   "Are you sure you want to unbind the product?": "Вы уверены, что хотите отвязать продукт?",
-  "Idea closed": "Идея закрыта"
+  "Idea closed": "Идея закрыта",
+  "Notification type": "Тип уведомления",
+  "Order redemption deadline": "Срок выкупа заказа",
+  "expires": "истекает"
 }
