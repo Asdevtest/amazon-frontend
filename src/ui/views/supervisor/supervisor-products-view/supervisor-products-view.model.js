@@ -541,8 +541,6 @@ export class SupervisorProductsViewModel {
       this.history.push(`/supervisor/products?product-id=${row.originalData._id}`)
     } else {
       this.history.push(`/supervisor/products`)
-
-      this.loadData()
     }
 
     this.onTriggerOpenModal('productCardModal')

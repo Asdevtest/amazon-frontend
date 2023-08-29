@@ -59,8 +59,10 @@ docs/ApiV1ClientsProductsGuidRedFlags.md
 docs/ApiV1ClientsProductsVacRedFlags.md
 docs/ApiV1GologinProfileNavigator.md
 docs/ApiV1IdeasByParentGuidChildProduct.md
+docs/ApiV1IdeasByParentGuidPriceVariations.md
 docs/ApiV1IdeasByParentGuidProposals.md
 docs/ApiV1IdeasByParentGuidRequestsOnCheck.md
+docs/ApiV1IdeasByParentGuidSuppliers.md
 docs/ApiV1IdeasNotificationsCreatedBy.md
 docs/ApiV1IdeasNotificationsIdea.md
 docs/ApiV1IdeasNotificationsProduct.md
@@ -87,6 +89,7 @@ docs/ApiV1RequestProposalsSourceFiles.md
 docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidRequest.md
+docs/ApiV1RequestsCustomProduct.md
 docs/ApiV1RequestsCustomRequest.md
 docs/ApiV1RequestsCustomRequestLinksToMediaFiles.md
 docs/ApiV1ShopSellStatistics.md
@@ -316,11 +319,9 @@ docs/InlineResponse20046.md
 docs/InlineResponse20046ChildProduct.md
 docs/InlineResponse20046Order.md
 docs/InlineResponse20046ParentProduct.md
-docs/InlineResponse20046PriceVariations.md
 docs/InlineResponse20046Proposals.md
 docs/InlineResponse20046RequestsOnCheck.md
 docs/InlineResponse20046Rows.md
-docs/InlineResponse20046Suppliers.md
 docs/InlineResponse20047.md
 docs/InlineResponse20048.md
 docs/InlineResponse20049.md
@@ -524,8 +525,10 @@ src/model/ApiV1ClientsProductsGuidRedFlags.js
 src/model/ApiV1ClientsProductsVacRedFlags.js
 src/model/ApiV1GologinProfileNavigator.js
 src/model/ApiV1IdeasByParentGuidChildProduct.js
+src/model/ApiV1IdeasByParentGuidPriceVariations.js
 src/model/ApiV1IdeasByParentGuidProposals.js
 src/model/ApiV1IdeasByParentGuidRequestsOnCheck.js
+src/model/ApiV1IdeasByParentGuidSuppliers.js
 src/model/ApiV1IdeasNotificationsCreatedBy.js
 src/model/ApiV1IdeasNotificationsIdea.js
 src/model/ApiV1IdeasNotificationsProduct.js
@@ -552,6 +555,7 @@ src/model/ApiV1RequestProposalsSourceFiles.js
 src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidRequest.js
+src/model/ApiV1RequestsCustomProduct.js
 src/model/ApiV1RequestsCustomRequest.js
 src/model/ApiV1RequestsCustomRequestLinksToMediaFiles.js
 src/model/ApiV1ShopSellStatistics.js
@@ -772,11 +776,9 @@ src/model/InlineResponse20046.js
 src/model/InlineResponse20046ChildProduct.js
 src/model/InlineResponse20046Order.js
 src/model/InlineResponse20046ParentProduct.js
-src/model/InlineResponse20046PriceVariations.js
 src/model/InlineResponse20046Proposals.js
 src/model/InlineResponse20046RequestsOnCheck.js
 src/model/InlineResponse20046Rows.js
-src/model/InlineResponse20046Suppliers.js
 src/model/InlineResponse20047.js
 src/model/InlineResponse20048.js
 src/model/InlineResponse20049.js

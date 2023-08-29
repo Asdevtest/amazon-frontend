@@ -51,8 +51,8 @@ export const ClientDashboardViewRaw = props => {
                   className={classes.button}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
-                  {t(TranslationKey.Deposit)}
                   <img src="/assets/icons/white-plus.svg" className={classes.icon} />
+                  {t(TranslationKey.Deposit)}
                 </Button>
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}

@@ -2100,5 +2100,6 @@ export enum TranslationKey {
   'Notification type' = 'Notification type',
   'Order redemption deadline' = 'Order redemption deadline',
   'expires' = 'expires',
+  'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

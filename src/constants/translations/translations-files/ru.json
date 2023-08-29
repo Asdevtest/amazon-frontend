@@ -2101,5 +2101,6 @@
   "Idea closed": "Идея закрыта",
   "Notification type": "Тип уведомления",
   "Order redemption deadline": "Срок выкупа заказа",
-  "expires": "истекает"
+  "expires": "истекает",
+  "You have changed the tab settings. Do you want to save them?": "Вы изменили настройки вкладки. Хотите их сохранить?"
 }

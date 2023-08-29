@@ -176,21 +176,15 @@ export default class RequestsApi {
     /**
      * Получить все уникальные заявки для исполнителя.
      * ## Получить все уникальные заявки для исполнителя.   
-     * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20080>} and HTTP response
      */
-    apiV1RequestsCustomGetWithHttpInfo(guid, opts) {
+    apiV1RequestsCustomGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsCustomGet");
-      }
 
       let pathParams = {
-        'guid': guid
       };
       let queryParams = {
       };
@@ -214,13 +208,12 @@ export default class RequestsApi {
     /**
      * Получить все уникальные заявки для исполнителя.
      * ## Получить все уникальные заявки для исполнителя.   
-     * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20080>}
      */
-    apiV1RequestsCustomGet(guid, opts) {
-      return this.apiV1RequestsCustomGetWithHttpInfo(guid, opts)
+    apiV1RequestsCustomGet(opts) {
+      return this.apiV1RequestsCustomGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
