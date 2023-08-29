@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: 200,
+    // height: 200,
 
     borderRadius: '4px',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     padding: '30px',
   },
 
@@ -33,10 +33,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: '10px',
   },
 
   cardTitleBlockWrapper: {
-    width: '661px',
+    alignContent: 'space-between',
+    gap: '10px',
+    maxWidth: '661px',
+    width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -45,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardTitle: {
     fontWeight: '600',
-    fontSize: '18px',
+    fontSize: '14px',
     lineHeight: '140%',
     color: theme.palette.text.general,
   },
@@ -99,7 +104,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonWrapper: {
     display: 'flex',
+    alignSelf: 'flex-end',
     justifyContent: 'end',
+    alignItems: 'center',
+    gap: '10px',
   },
 
   fieldLabel: {
@@ -157,10 +165,23 @@ export const useClassNames = makeStyles()(theme => ({
 
   titleWrapper: {
     display: 'flex',
-
     overflowY: 'auto',
     width: '395px',
-    height: 80,
+  },
+
+  requestInfoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+
+  requestTermsWrapper: {
+    width: 'fit-content',
+  },
+
+  productInfo: {
+    width: 'fit-content',
+    minWidth: 256,
   },
 
   idTitle: {
@@ -180,10 +201,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   priorityWrapper: {
-    minWidth: 20,
-    minHeight: 20,
-    marginRight: 20,
-    marginBottom: 5,
+    height: 'fit-content',
   },
 
   priorityIcon: {

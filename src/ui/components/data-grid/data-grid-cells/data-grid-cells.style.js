@@ -228,6 +228,11 @@ export const styles = theme => ({
     borderRadius: 4,
   },
 
+  orderImageSmall: {
+    height: 56,
+    width: 56,
+  },
+
   orderImageBig: {
     height: 100,
     width: 100,

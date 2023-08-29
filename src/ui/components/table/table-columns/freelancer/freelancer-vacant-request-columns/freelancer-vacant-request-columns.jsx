@@ -8,6 +8,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormalActionBtnCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
   ShortDateCell,
   UserMiniCell,
@@ -45,6 +46,16 @@ export const FreelancerVacantRequestColumns = handlers => [
     sortable: false,
 
     // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+  },
+
+  {
+    field: 'product',
+    headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
+    width: 256,
+
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
