@@ -158,8 +158,8 @@ export const ClientIdeasView = observer(props => {
         <IdeaCardsModal
           isCreate={viewModel.isIdeaCreate}
           openModal={viewModel.showIdeaModal}
-          setOpenModal={() => {
-            viewModel.onTriggerOpenModal('showIdeaModal')
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+          updateData={() => {
             viewModel.getIdeaList()
             UserModel.getUserInfo()
           }}

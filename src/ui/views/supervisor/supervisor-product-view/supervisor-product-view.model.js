@@ -366,10 +366,10 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus(withoutStatus)
+        this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)
 
         break
       case 'cancel':
@@ -382,7 +382,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async openConfirmModalWithTextByStatus(withoutStatus) {
+  async openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler) {
     try {
       runInAction(() => {
         this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
@@ -435,7 +435,7 @@ export class SupervisorProductViewModel {
           message: withoutStatus
             ? confirmMessageWithoutStatus()
             : confirmMessageByProductStatus()[this.curUpdateProductData.status],
-          onClickOkBtn: () => this.onSaveProductData(),
+          onClickOkBtn: () => this.onSaveProductData(updateDataHandler),
         }
       })
 
@@ -466,7 +466,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async onSaveProductData() {
+  async onSaveProductData(updateDataHandler) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
@@ -505,6 +505,7 @@ export class SupervisorProductViewModel {
 
       await this.loadData()
       this.showSuccesAlert()
+      await updateDataHandler()
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {

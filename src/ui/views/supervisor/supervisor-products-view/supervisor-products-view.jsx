@@ -198,6 +198,7 @@ export const SupervisorProductsViewRaw = props => {
             history={viewModel.history}
             openModal={viewModel.productCardModal}
             setOpenModal={() => viewModel.onClickProductModal()}
+            updateDataHandler={() => viewModel.loadData()}
             onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
           />
         )}

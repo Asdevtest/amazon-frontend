@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20080] apiV1RequestsCustomGet(guid, opts)
+> [InlineResponse20080] apiV1RequestsCustomGet(opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -160,11 +160,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.RequestsApi();
-let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1RequestsCustomGet(guid, opts).then((data) => {
+apiInstance.apiV1RequestsCustomGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -177,7 +176,6 @@ apiInstance.apiV1RequestsCustomGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

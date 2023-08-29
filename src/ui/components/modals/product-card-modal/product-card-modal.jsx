@@ -32,7 +32,7 @@ import { WarningInfoModal } from '../warning-info-modal'
 export const ProductCardModal = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { openModal, setOpenModal, history, onClickOpenNewTab, role } = props
+  const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
 
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
@@ -163,7 +163,9 @@ export const ProductCardModal = observer(props => {
                   className={cx(classNames.buttonNormal, classNames.buttonAccept)}
                   color="primary"
                   variant="contained"
-                  onClick={() => viewModel?.handleProductActionButtons('accept', false)}
+                  onClick={() => {
+                    viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)
+                  }}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
                     ? t(TranslationKey.Save)
@@ -179,7 +181,7 @@ export const ProductCardModal = observer(props => {
                   onClick={
                     checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
                     checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role])
-                      ? () => viewModel?.handleProductActionButtons('accept', true, true)
+                      ? () => viewModel?.handleProductActionButtons('accept', true, true, updateDataHandler)
                       : undefined
                   }
                 >
@@ -204,7 +206,7 @@ export const ProductCardModal = observer(props => {
                 <Button
                   className={classNames.buttonDelete}
                   variant="contained"
-                  onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true)}
+                  onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Delete)}
                 </Button>
@@ -215,7 +217,7 @@ export const ProductCardModal = observer(props => {
                   className={classNames.restoreBtn}
                   color="primary"
                   variant="contained"
-                  onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true)}
+                  onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Restore)}
                 </Button>
