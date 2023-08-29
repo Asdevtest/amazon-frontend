@@ -68,8 +68,10 @@ import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRe
 import ApiV1ClientsProductsVacRedFlags from './model/ApiV1ClientsProductsVacRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
 import ApiV1IdeasByParentGuidChildProduct from './model/ApiV1IdeasByParentGuidChildProduct';
+import ApiV1IdeasByParentGuidPriceVariations from './model/ApiV1IdeasByParentGuidPriceVariations';
 import ApiV1IdeasByParentGuidProposals from './model/ApiV1IdeasByParentGuidProposals';
 import ApiV1IdeasByParentGuidRequestsOnCheck from './model/ApiV1IdeasByParentGuidRequestsOnCheck';
+import ApiV1IdeasByParentGuidSuppliers from './model/ApiV1IdeasByParentGuidSuppliers';
 import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
 import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
 import ApiV1IdeasNotificationsProduct from './model/ApiV1IdeasNotificationsProduct';
@@ -96,6 +98,7 @@ import ApiV1RequestProposalsSourceFiles from './model/ApiV1RequestProposalsSourc
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
+import ApiV1RequestsCustomProduct from './model/ApiV1RequestsCustomProduct';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1RequestsCustomRequestLinksToMediaFiles from './model/ApiV1RequestsCustomRequestLinksToMediaFiles';
 import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
@@ -316,11 +319,9 @@ import InlineResponse20046 from './model/InlineResponse20046';
 import InlineResponse20046ChildProduct from './model/InlineResponse20046ChildProduct';
 import InlineResponse20046Order from './model/InlineResponse20046Order';
 import InlineResponse20046ParentProduct from './model/InlineResponse20046ParentProduct';
-import InlineResponse20046PriceVariations from './model/InlineResponse20046PriceVariations';
 import InlineResponse20046Proposals from './model/InlineResponse20046Proposals';
 import InlineResponse20046RequestsOnCheck from './model/InlineResponse20046RequestsOnCheck';
 import InlineResponse20046Rows from './model/InlineResponse20046Rows';
-import InlineResponse20046Suppliers from './model/InlineResponse20046Suppliers';
 import InlineResponse20047 from './model/InlineResponse20047';
 import InlineResponse20048 from './model/InlineResponse20048';
 import InlineResponse20049 from './model/InlineResponse20049';
@@ -822,6 +823,12 @@ export {
     ApiV1IdeasByParentGuidChildProduct,
 
     /**
+     * The ApiV1IdeasByParentGuidPriceVariations model constructor.
+     * @property {module:model/ApiV1IdeasByParentGuidPriceVariations}
+     */
+    ApiV1IdeasByParentGuidPriceVariations,
+
+    /**
      * The ApiV1IdeasByParentGuidProposals model constructor.
      * @property {module:model/ApiV1IdeasByParentGuidProposals}
      */
@@ -832,6 +839,12 @@ export {
      * @property {module:model/ApiV1IdeasByParentGuidRequestsOnCheck}
      */
     ApiV1IdeasByParentGuidRequestsOnCheck,
+
+    /**
+     * The ApiV1IdeasByParentGuidSuppliers model constructor.
+     * @property {module:model/ApiV1IdeasByParentGuidSuppliers}
+     */
+    ApiV1IdeasByParentGuidSuppliers,
 
     /**
      * The ApiV1IdeasNotificationsCreatedBy model constructor.
@@ -988,6 +1001,12 @@ export {
      * @property {module:model/ApiV1RequestsCustomGuidRequest}
      */
     ApiV1RequestsCustomGuidRequest,
+
+    /**
+     * The ApiV1RequestsCustomProduct model constructor.
+     * @property {module:model/ApiV1RequestsCustomProduct}
+     */
+    ApiV1RequestsCustomProduct,
 
     /**
      * The ApiV1RequestsCustomRequest model constructor.
@@ -2310,12 +2329,6 @@ export {
     InlineResponse20046ParentProduct,
 
     /**
-     * The InlineResponse20046PriceVariations model constructor.
-     * @property {module:model/InlineResponse20046PriceVariations}
-     */
-    InlineResponse20046PriceVariations,
-
-    /**
      * The InlineResponse20046Proposals model constructor.
      * @property {module:model/InlineResponse20046Proposals}
      */
@@ -2332,12 +2345,6 @@ export {
      * @property {module:model/InlineResponse20046Rows}
      */
     InlineResponse20046Rows,
-
-    /**
-     * The InlineResponse20046Suppliers model constructor.
-     * @property {module:model/InlineResponse20046Suppliers}
-     */
-    InlineResponse20046Suppliers,
 
     /**
      * The InlineResponse20047 model constructor.

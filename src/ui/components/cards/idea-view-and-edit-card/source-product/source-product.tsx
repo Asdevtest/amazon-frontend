@@ -23,7 +23,12 @@ export const SourceProduct: FC<SourceProductProps> = props => {
       {title && <p className={classNames.sourceProductTitle}>{`${title}:`}</p>}
 
       <div className={classNames.sourceProductWrapper}>
-        <img className={classNames.sourceProductImg} src={getAmazonImageUrl(img)} alt={''} />
+        <img
+          className={classNames.sourceProductImg}
+          src={getAmazonImageUrl(img)}
+          alt={''}
+          onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+        />
 
         <div className={classNames.attributesProductWrapper}>
           <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />

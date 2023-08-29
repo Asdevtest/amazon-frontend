@@ -208,7 +208,7 @@ export const RequestDesignerResultClientForm = ({
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  const sourceImagesData = (curResultMedia ?? proposal.proposal.media).map(el => ({
+  const sourceImagesData = (proposal.proposal.media ?? curResultMedia).map(el => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,

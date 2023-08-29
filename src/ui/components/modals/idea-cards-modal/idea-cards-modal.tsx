@@ -13,6 +13,7 @@ interface IdeaCardsModalProps {
   product?: IProduct
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
+  updateData?: () => void
   currentIdeaId?: string
   isCreate?: boolean
 }
@@ -20,7 +21,7 @@ interface IdeaCardsModalProps {
 export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId } = props
+  const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId, updateData } = props
 
   return (
     <Modal
@@ -37,6 +38,7 @@ export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
           closeModalHandler={setOpenModal}
           productId={productId}
           product={product}
+          updateData={updateData}
         />
       </div>
     </Modal>

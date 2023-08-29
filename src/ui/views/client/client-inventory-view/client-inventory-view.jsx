@@ -338,10 +338,8 @@ export const ClientInventoryViewRaw = props => {
           product={viewModel.selectedProductToLaunch}
           productId={viewModel.selectedProductToLaunch?._id}
           openModal={viewModel.showIdeaModal}
-          setOpenModal={() => {
-            viewModel.onTriggerOpenModal('showIdeaModal')
-            viewModel.getProductsMy()
-          }}
+          updateData={viewModel.getProductsMy}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
         />
       )}
 
@@ -350,6 +348,7 @@ export const ClientInventoryViewRaw = props => {
           history={viewModel.history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onClickProductModal()}
+          updateDataHandler={() => viewModel.getProductsMy()}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}

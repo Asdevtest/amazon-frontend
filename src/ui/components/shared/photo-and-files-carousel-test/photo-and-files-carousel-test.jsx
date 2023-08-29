@@ -29,17 +29,17 @@ export const PhotoAndFilesCarouselTest = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  const documents = (files || []).filter(el => checkIsDocumentLink(el))
-  const photos = (files || []).reduce((result, el) => {
-    const isImage = checkIsImageLink(el)
-    const isDocument = checkIsDocumentLink(el)
+  const documents = (files || [])?.filter(el => checkIsDocumentLink(el.data_url || el))
+  const photos = (files || [])?.reduce((result, el) => {
+    const isImage = checkIsImageLink(el.data_url || el)
+    const isDocument = checkIsDocumentLink(el.data_url || el)
 
     if (isImage) {
-      result.push(el)
+      result.push(el.data_url || el)
     }
 
     if (!isImage && !isDocument) {
-      result.push(getAmazonImageUrl(el, true))
+      result.push(getAmazonImageUrl(el.data_url || el, true))
     }
 
     return result

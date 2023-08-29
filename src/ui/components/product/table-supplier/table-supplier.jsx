@@ -22,6 +22,7 @@ import { UserModel } from '@models/user-model'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { NewSupplier } from '@components/shared/svg-icons'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -169,7 +170,7 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
                     }}
                   >
                     <div className={classNames.filesWrapper}>
-                      <PhotoAndFilesCarousel small files={supplier.images} />
+                      <PhotoAndFilesCarouselTest smallSlider files={supplier.images} />
                     </div>
                   </TableCell>
 

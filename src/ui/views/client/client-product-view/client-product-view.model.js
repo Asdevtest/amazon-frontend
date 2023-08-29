@@ -456,10 +456,10 @@ export class ClientProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus, isModal) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus(withoutStatus)
+        this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)
         break
       case 'cancel':
         this.product.archive
@@ -474,7 +474,7 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onDeleteProduct(isModal),
+            onClickOkBtn: () => this.onDeleteProduct(isModal, updateDataHandler),
           }
         })
 
@@ -490,7 +490,7 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
             successBtnText: t(TranslationKey.Yes),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRestoreProduct(isModal),
+            onClickOkBtn: () => this.onRestoreProduct(isModal, updateDataHandler),
           }
         })
 
@@ -503,12 +503,14 @@ export class ClientProductViewModel {
     }
   }
 
-  async onRestoreProduct(isModal) {
+  async onRestoreProduct(isModal, updateDataHandler) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: false }, ['archive']),
       )
+
+      await updateDataHandler()
 
       if (isModal) {
         this.setOpenModal()
@@ -523,12 +525,14 @@ export class ClientProductViewModel {
     }
   }
 
-  async onDeleteProduct(isModal) {
+  async onDeleteProduct(isModal, updateDataHandler) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: true }, ['archive']),
       )
+
+      await updateDataHandler()
 
       if (isModal) {
         this.setOpenModal()
@@ -545,7 +549,7 @@ export class ClientProductViewModel {
     }
   }
 
-  async openConfirmModalWithTextByStatus(withoutStatus) {
+  async openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler) {
     try {
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
@@ -596,8 +600,7 @@ export class ClientProductViewModel {
       }
 
       await this.onSaveProductData()
-
-      await this.loadData()
+      await updateDataHandler()
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
