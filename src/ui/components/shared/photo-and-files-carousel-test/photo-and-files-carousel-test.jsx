@@ -21,6 +21,7 @@ export const PhotoAndFilesCarouselTest = ({
   smallSlider = false,
   mediumSlider = false,
   bigSlider = false,
+
   alignLeft = false,
   alignRight = false,
   isHideCounter = false,
@@ -51,8 +52,8 @@ export const PhotoAndFilesCarouselTest = ({
     <div
       className={cx(classNames.mainWrapper, {
         [classNames.column]: column,
-        [classNames.wrapperAlignLeft]: alignLeft,
-        [classNames.wrapperAlignRight]: alignRight,
+        [classNames.alignLeft]: alignLeft,
+        [classNames.alignRight]: alignRight,
       })}
       style={{ gap: customGap }}
     >

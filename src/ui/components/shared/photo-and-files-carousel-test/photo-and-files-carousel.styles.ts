@@ -12,12 +12,12 @@ export const useClassNames = makeStyles()(() => ({
     flexDirection: 'column',
   },
 
-  wrapperAlignLeft: {
-    alignItems: 'flex-start',
+  alignLeft: {
+    justifyContent: 'flex-start !important',
   },
 
-  wrapperAlignRight: {
-    alignItems: 'flex-end',
+  alignRight: {
+    justifyContent: 'flex-end !important',
   },
 
   noFileWrapper: {

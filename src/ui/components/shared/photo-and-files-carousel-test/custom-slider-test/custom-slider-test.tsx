@@ -122,6 +122,7 @@ export const CustomSliderTest: FC<Props> = ({
   const isLeftArrow = arrowDirection === Arrows.LEFT
   const isNoElements = slides.length === 0
   const elementExtension = slide.split('.').slice(-1)[0]
+  // const oneSlide = slides.length === 1
 
   return (
     <>
@@ -146,6 +147,7 @@ export const CustomSliderTest: FC<Props> = ({
                   [classNames.smallArrow]: smallSlider,
                   [classNames.mediumArrow]: mediumSlider,
                   [classNames.bigArrow]: bigSlider,
+                  // [classNames.hideArrow]: oneSlide,
                 })}
                 onClick={() => handleArrowClick(Arrows.LEFT)}
               >
@@ -207,6 +209,7 @@ export const CustomSliderTest: FC<Props> = ({
                   [classNames.smallArrow]: smallSlider,
                   [classNames.mediumArrow]: mediumSlider,
                   [classNames.bigArrow]: bigSlider,
+                  // [classNames.hideArrow]: oneSlide,
                 })}
                 onClick={() => handleArrowClick(Arrows.RIGHT)}
               >

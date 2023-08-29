@@ -24,6 +24,7 @@ interface UserLinkProps {
   customClassNames?: ClassNamesArg
   customAvatarStyles?: React.CSSProperties
   customStyles?: React.CSSProperties
+  customRatingClass?: string
 }
 
 export const UserLink: FC<UserLinkProps> = observer(
@@ -40,6 +41,7 @@ export const UserLink: FC<UserLinkProps> = observer(
     customClassNames,
     customAvatarStyles,
     customStyles,
+    customRatingClass,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -82,7 +84,7 @@ export const UserLink: FC<UserLinkProps> = observer(
                 </p>
               )}
 
-              {rating && <Rating disabled value={rating} size={ratingSize || 'medium'} />}
+              {rating && <Rating disabled value={rating} size={ratingSize || 'medium'} className={customRatingClass} />}
             </div>
           </Link>
         ) : (
