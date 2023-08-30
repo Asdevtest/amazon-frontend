@@ -72,11 +72,6 @@ export const MessagesView = observer(props => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
 
-  const totalUnreadMessages = filteredChats.reduce(
-    (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
-    0,
-  )
-
   const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
 
   return (
@@ -144,7 +139,9 @@ export const MessagesView = observer(props => {
                 <div className={classNames.infoContainer}>
                   <div className={classNames.arrowBackIconWrapper}>
                     <ArrowBackIcon className={classNames.arrowBackIcon} onClick={viewModel.onClickBackButton} />
-                    {totalUnreadMessages && <span className={classNames.badge}>{totalUnreadMessages}</span>}
+                    {viewModel.unreadMessages > 0 && (
+                      <span className={classNames.badge}>{viewModel.unreadMessages}</span>
+                    )}
                   </div>
 
                   {currentChat?.type === chatsType.DEFAULT ? (
