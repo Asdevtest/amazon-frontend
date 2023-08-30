@@ -2095,5 +2095,6 @@ export enum TranslationKey {
   'Product unbundling' = 'Product unbundling',
   'Are you sure you want to unbind the product?' = 'Are you sure you want to unbind the product?',
   'Idea closed' = 'Idea closed',
+  'SEARCH_BY_TITLE' = 'SEARCH_BY_TITLE',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
