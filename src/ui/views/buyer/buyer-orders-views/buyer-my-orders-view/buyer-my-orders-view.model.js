@@ -345,111 +345,111 @@ export class BuyerMyOrdersViewModel {
       this.columnMenuSettings.partialPaymentAmountRmb?.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      // or: [
-      //   { asin: { $contains: this.nameSearchValue } },
-      //   { amazonTitle: { $contains: this.nameSearchValue } },
-      //   { skusByClient: { $contains: this.nameSearchValue } },
-      //   { id: { $eq: this.nameSearchValue } },
-      //   { item: { $eq: this.nameSearchValue } },
-      // ].filter(
-      //   el =>
-      //     ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //       !el.id &&
-      //       !el.humanFriendlyId) ||
-      //     !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      // ),
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+        { id: { $eq: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
 
-      // ...(idFilter && {
-      //   id: { $eq: idFilter },
-      // }),
-      // ...(itemFilter && {
-      //   item: { $eq: itemFilter },
-      // }),
+      ...(idFilter && {
+        id: { $eq: idFilter },
+      }),
+      ...(itemFilter && {
+        item: { $eq: itemFilter },
+      }),
 
-      // ...(priorityFilter && {
-      //   priority: { $eq: priorityFilter },
-      // }),
+      ...(priorityFilter && {
+        priority: { $eq: priorityFilter },
+      }),
 
-      // ...(asinFilter && {
-      //   asin: { $eq: asinFilter },
-      // }),
-      // ...(skusByClientFilter && {
-      //   skusByClient: { $eq: skusByClientFilter },
-      // }),
-      // ...(amazonTitleFilter && {
-      //   amazonTitle: { $eq: amazonTitleFilter },
-      // }),
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
 
-      // ...(amountFilter && {
-      //   amount: { $eq: amountFilter },
-      // }),
+      ...(amountFilter && {
+        amount: { $eq: amountFilter },
+      }),
 
-      // ...(totalPriceFilter && {
-      //   totalPrice: { $eq: totalPriceFilter },
-      // }),
+      ...(totalPriceFilter && {
+        totalPrice: { $eq: totalPriceFilter },
+      }),
 
-      // ...(paymentDetailsAttachedFilter && {
-      //   paymentDetailsAttached: { $eq: paymentDetailsAttachedFilter },
-      // }),
+      ...(paymentDetailsAttachedFilter && {
+        paymentDetailsAttached: { $eq: paymentDetailsAttachedFilter },
+      }),
 
-      // ...(priceInYuanFilter && {
-      //   priceInYuan: { $eq: priceInYuanFilter },
-      // }),
+      ...(priceInYuanFilter && {
+        priceInYuan: { $eq: priceInYuanFilter },
+      }),
 
-      // ...(paymentMethodFilter && {
-      //   paymentMethod: { $eq: paymentMethodFilter },
-      // }),
+      ...(paymentMethodFilter && {
+        paymentMethod: { $eq: paymentMethodFilter },
+      }),
 
-      // ...(storekeeperFilter && {
-      //   storekeeper: { $eq: storekeeperFilter },
-      // }),
+      ...(storekeeperFilter && {
+        storekeeper: { $eq: storekeeperFilter },
+      }),
 
-      // ...(productionTermFilter && {
-      //   productionTerm: { $eq: productionTermFilter },
-      // }),
+      ...(productionTermFilter && {
+        productionTerm: { $eq: productionTermFilter },
+      }),
 
-      // ...(deadlineFilter && {
-      //   deadline: { $eq: deadlineFilter },
-      // }),
+      ...(deadlineFilter && {
+        deadline: { $eq: deadlineFilter },
+      }),
 
-      // ...(paymentDateToSupplierFilter && {
-      //   paymentDateToSupplier: { $eq: paymentDateToSupplierFilter },
-      // }),
+      ...(paymentDateToSupplierFilter && {
+        paymentDateToSupplier: { $eq: paymentDateToSupplierFilter },
+      }),
 
-      // ...(needsResearchFilter && {
-      //   needsResearch: { $eq: needsResearchFilter },
-      // }),
+      ...(needsResearchFilter && {
+        needsResearch: { $eq: needsResearchFilter },
+      }),
 
-      // ...(clientFilter && {
-      //   client: { $eq: clientFilter },
-      // }),
+      ...(clientFilter && {
+        client: { $eq: clientFilter },
+      }),
 
-      // ...(destinationFilter && {
-      //   destinationId: { $eq: destinationFilter },
-      // }),
+      ...(destinationFilter && {
+        destinationId: { $eq: destinationFilter },
+      }),
 
-      // ...(clientCommentFilter && {
-      //   clientComment: { $eq: clientCommentFilter },
-      // }),
+      ...(clientCommentFilter && {
+        clientComment: { $eq: clientCommentFilter },
+      }),
 
       ...(buyerCommentFilter && {
         buyerComment: { $eq: buyerCommentFilter },
       }),
 
-      // ...(createdAtFilter && {
-      //   createdAt: { $eq: createdAtFilter },
-      // }),
-      // ...(updatedAtFilter && {
-      //   updatedAt: { $eq: updatedAtFilter },
-      // }),
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
 
-      // ...(partiallyPaidFilter && {
-      //   partiallyPaid: { $eq: partiallyPaidFilter },
-      // }),
+      ...(partiallyPaidFilter && {
+        partiallyPaid: { $eq: partiallyPaidFilter },
+      }),
 
-      // ...(partialPaymentAmountRmbFilter && {
-      //   partialPaymentAmountRmb: { $eq: partialPaymentAmountRmbFilter },
-      // }),
+      ...(partialPaymentAmountRmbFilter && {
+        partialPaymentAmountRmb: { $eq: partialPaymentAmountRmbFilter },
+      }),
     })
 
     return filter
