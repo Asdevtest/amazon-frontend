@@ -76,7 +76,7 @@ export class AdminSettingsPaymentMethodsModel {
         this.infoModalText = t(TranslationKey['Payment method successfully saved'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.loadData()
 
@@ -86,7 +86,7 @@ export class AdminSettingsPaymentMethodsModel {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -102,7 +102,7 @@ export class AdminSettingsPaymentMethodsModel {
         this.infoModalText = t(TranslationKey['Payment method successfully saved'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.loadData()
 
@@ -112,7 +112,7 @@ export class AdminSettingsPaymentMethodsModel {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -124,7 +124,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       await AdministratorModel.removePaymentMethod(id)
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.onClickToggleConfirmModal()
 
       this.loadData()
 
@@ -141,7 +141,7 @@ export class AdminSettingsPaymentMethodsModel {
       onClickSuccess: () => this.onRemovePaymentMethod(id),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   async onClickEditPaymentMethod(id) {

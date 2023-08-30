@@ -138,19 +138,19 @@ export class AdminSettingsDestinationsModel {
       onClickSuccess: () => this.onRemoveDestination(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   onClickEditBtn(row) {
     this.destinationToEdit = row
 
-    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+    this.onClickToggleAddOrEditModal()
   }
 
   onClickAddBtn() {
     this.destinationToEdit = undefined
 
-    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+    this.onClickToggleAddOrEditModal()
   }
 
   onClickCancelBtn() {
@@ -160,12 +160,12 @@ export class AdminSettingsDestinationsModel {
       onClickSuccess: () => this.cancelTheOrder(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   cancelTheOrder() {
-    this.onTriggerOpenModal('showAddOrEditDestinationModal')
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleAddOrEditModal()
+    this.onClickToggleConfirmModal()
   }
 
   async onCreateDestination(data) {
@@ -174,7 +174,7 @@ export class AdminSettingsDestinationsModel {
 
       await AdministratorModel.createDestination(data)
 
-      this.onTriggerOpenModal('showAddOrEditDestinationModal')
+      this.onClickToggleAddOrEditModal()
 
       this.loadData()
 
@@ -190,7 +190,7 @@ export class AdminSettingsDestinationsModel {
 
       await AdministratorModel.editDestination(destinationId, data)
 
-      this.onTriggerOpenModal('showAddOrEditDestinationModal')
+      this.onClickToggleAddOrEditModal()
 
       this.loadData()
 
@@ -206,7 +206,7 @@ export class AdminSettingsDestinationsModel {
 
       await AdministratorModel.removeDestination(this.destinationIdToRemove)
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.onClickToggleConfirmModal()
 
       this.loadData()
 

@@ -1,0 +1,94 @@
+import React from 'react'
+
+import { Typography } from '@mui/material'
+
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { useFreelanceRequestDetailsModalStyles } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal.styles'
+import { CustomImageGalleryList } from '@components/requests-and-request-proposals/custom-image-gallery-list'
+import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Button } from '@components/shared/buttons/button'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { FilesCarousel } from '@components/shared/files-carousel'
+import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { UserLink } from '@components/user/user-link'
+
+import { t } from '@utils/translations'
+
+export const FreelanceRequestDetailsModal = props => {
+  const { request, details, isOpenModal, handleOpenModal, onClickSuggest } = props
+  const { classes: styles } = useFreelanceRequestDetailsModalStyles()
+
+  return (
+    <Modal fullWidth openModal={isOpenModal} setOpenModal={handleOpenModal}>
+      <div className={styles.header}>
+        <Typography>{t(TranslationKey['New request'])}</Typography>
+        <div className={styles.headerDetails}>
+          <Typography className={styles.headerText}>
+            {t(TranslationKey['Request type'])}:{' '}
+            <span>{freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}</span>
+          </Typography>
+          <Typography className={styles.headerText}>
+            {t(TranslationKey['Request creator'])}:
+            <UserLink
+              blackText
+              withAvatar
+              name={request?.executor?.name}
+              userId={request?.executor?._id}
+              rating={request?.executor?.rating}
+              ratingSize={'small'}
+            />
+          </Typography>
+        </div>
+      </div>
+
+      <div className={styles.content}>
+        <div className={styles.productInfo}>
+          <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
+          {request?.product.images && (
+            <PhotoAndFilesCarouselTest mediumSlider withoutFiles files={request?.product.images} />
+          )}
+          <div className={styles.category}>
+            {request?.product.asin && (
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={request?.product.asin} />
+            )}
+            {request?.product.amazonTitle && <Typography>{request?.product.amazonTitle}</Typography>}
+          </div>
+
+          <div className={styles.category}>
+            <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
+            <div className={styles.filesItem}>
+              <Typography>{t(TranslationKey.Photos)}</Typography>
+              <CustomImageGalleryList height={145} files={request?.media} />
+            </div>
+            <div className={styles.filesItem}>
+              <Typography>{t(TranslationKey.Files)}</Typography>
+              <FilesCarousel files={request?.media?.map(el => el.fileLink)} />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.requestInfo}>
+          <div className={styles.category}>
+            <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
+            <RequestTermsList request={request} />
+          </div>
+
+          {details?.conditions && (
+            <div className={styles.category}>
+              <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
+              <CustomTextEditor readOnly conditions={details?.conditions} changeConditions={undefined} />
+            </div>
+          )}
+
+          <div className={styles.suggestDeal}>
+            <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  )
+}

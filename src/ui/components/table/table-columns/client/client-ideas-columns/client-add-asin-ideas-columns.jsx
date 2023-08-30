@@ -132,6 +132,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaRequests
         row={params.row}
+        onFinishedOnly
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}
         onClickResultButton={rowHandlers.onClickResultButton}

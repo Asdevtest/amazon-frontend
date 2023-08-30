@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+import React from 'react'
 
 import { Avatar, Divider, Rating } from '@mui/material'
 
@@ -13,7 +14,8 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
@@ -70,96 +72,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         </div>
       )}
 
-      <div className={classNames.mainInfosSubWrapper}>
-        {request?.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
-          <div>
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey['Product price'])}
-              inputComponent={
-                <VacantRequestPriceCell
-                  AlignLeft
-                  price={request?.request.priceAmazon}
-                  cashBackInPercent={request?.request.cashBackInPercent}
-                />
-              }
-            />
-
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={'CashBack'}
-              inputComponent={
-                <p className={classNames.accentText}>{toFixed(request?.request.cashBackInPercent, 2) + '%'}</p>
-              }
-            />
-          </div>
-        ) : null}
-        <div>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey['Request price'])}
-            inputComponent={<p className={classNames.accentText}>{toFixedWithDollarSign(request?.request.price, 2)}</p>}
-          />
-
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Status)}
-            inputComponent={
-              <p className={classNames.accentText} style={{ color: colorByRequestStatus(request?.request.status) }}>
-                {MyRequestStatusTranslate(request?.request.status)}
-              </p>
-            }
-          />
-        </div>
-        <div>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Time)}
-            inputComponent={
-              <p className={classNames.accentText}>{`${toFixed(request?.request.timeLimitInMinutes / 60, 2)} ${t(
-                TranslationKey.hour,
-              )} `}</p>
-            }
-          />
-
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey['Request type'])}
-            inputComponent={
-              <p className={classNames.accentText}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request.typeTask])}
-              </p>
-            }
-          />
-        </div>
-
-        <div>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Updated)}
-            inputComponent={
-              <p className={classNames.accentText}>{formatNormDateTimeWithParseISO(request?.request.updatedAt)}</p>
-            }
-          />
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Deadline)}
-            inputComponent={
-              <p className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-                request?.request.timeoutAt,
-              )}`}</p>
-            }
-          />
-        </div>
-      </div>
+      <RequestTermsList withBorder request={request.request} />
     </div>
   )
 
@@ -201,13 +114,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             <div className={classNames.titleAndIdWrapper}>
               <p className={classNames.title}>{request?.request.title}</p>
 
-              <AsinOrSkuLink
-                withCopyValue
-                withAttributeTitle="asin"
-                asin={request?.request.product.asin}
-                textStyles={classNames.linkSpan}
-                missingValueTextStyles={classNames.linkSpan}
-              />
+              <div>
+                <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
+              </div>
 
               <div className={classNames.idTitleWrapper}>
                 <p className={classNames.idText}>{t(TranslationKey.ID) + ':'}</p>

@@ -933,6 +933,7 @@ export const OrderCell = React.memo(
           alt="product"
           className={cx(classNames.orderImg, {
             [classNames.orderImageBig]: imageSize === 'big',
+            [classNames.orderImageSmall]: imageSize === 'small',
           })}
         />
         <div>

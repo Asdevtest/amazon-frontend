@@ -57,6 +57,7 @@ export const TabTags = observer(() => {
           checkboxSelection
           pagination
           useResizeContainer
+          disableRowSelectionOnClick
           classes={{
             footerCell: classNames.footerCell,
             footerContainer: classNames.footerContainer,

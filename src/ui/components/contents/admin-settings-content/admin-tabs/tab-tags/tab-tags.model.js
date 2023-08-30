@@ -147,7 +147,7 @@ export class AdminSettingsTagsModel {
       onClickSuccess: () => this.onRemoveTag(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   onClickRemoveTagsBtn() {
@@ -157,13 +157,13 @@ export class AdminSettingsTagsModel {
       onClickSuccess: () => this.onRemoveTags(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   onClickEditBtn(row) {
     this.tagToEdit = row
 
-    this.onTriggerOpenModal('showAddOrEditTagModal')
+    this.onClickToggleAddOrEditModal()
   }
 
   onChangeNameSearchValue(event) {
@@ -173,7 +173,7 @@ export class AdminSettingsTagsModel {
   onClickAddBtn() {
     this.tagToEdit = undefined
 
-    this.onTriggerOpenModal('showAddOrEditTagModal')
+    this.onClickToggleAddOrEditModal()
   }
 
   onClickCancelBtn() {
@@ -183,12 +183,12 @@ export class AdminSettingsTagsModel {
       onClickSuccess: () => this.cancelTheOrder(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   cancelTheOrder() {
-    this.onTriggerOpenModal('showAddOrEditTagModal')
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleAddOrEditModal()
+    this.onClickToggleConfirmModal()
   }
 
   async onCreateTag(titleTag) {
@@ -197,7 +197,7 @@ export class AdminSettingsTagsModel {
 
       await GeneralModel.createTag(titleTag)
 
-      this.onTriggerOpenModal('showAddOrEditTagModal')
+      this.onClickToggleAddOrEditModal()
 
       this.loadData()
 
@@ -213,7 +213,7 @@ export class AdminSettingsTagsModel {
 
       await AdministratorModel.editTag(id, data)
 
-      this.onTriggerOpenModal('showAddOrEditTagModal')
+      this.onClickToggleAddOrEditModal()
 
       this.loadData()
 
@@ -229,7 +229,7 @@ export class AdminSettingsTagsModel {
 
       await AdministratorModel.removeTags([this.tagIdToRemove])
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.onClickToggleConfirmModal()
 
       this.loadData()
 
@@ -245,7 +245,7 @@ export class AdminSettingsTagsModel {
 
       await AdministratorModel.removeTags(this.rowSelectionModel)
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.onClickToggleConfirmModal()
 
       this.loadData()
 

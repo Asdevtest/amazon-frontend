@@ -219,9 +219,6 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('requestToEdit', requestToEdit)
-  console.log('formFields', formFields)
-
   const [requestIds, setRequestIds] = useState([])
 
   useEffect(() => {

@@ -23,6 +23,12 @@ export class AdminSettingsModel {
 
   infoModalText = ''
   showInfoModal = false
+  showConfirmModal = false
+  confirmModalSettings = {
+    message: '',
+    onClickSuccess: () => {},
+    onClickFailed: () => {},
+  }
 
   formFields = startValueFields
   prevFormFields = {}
@@ -81,7 +87,7 @@ export class AdminSettingsModel {
         this.infoModalText = t(TranslationKey['The settings are saved.'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.getAdminSettings()
 
@@ -95,7 +101,7 @@ export class AdminSettingsModel {
         this.infoModalText = t(TranslationKey['The settings are not saved.'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -125,7 +131,20 @@ export class AdminSettingsModel {
     this.tabIndex = selectedTab
 
     if (this.isFormFieldsChanged) {
-      this.onCreateAdminSettings()
+      this.confirmModalSettings = {
+        message: t(TranslationKey['You have changed the tab settings. Do you want to save them?']),
+        onClickSuccess: () => {
+          this.onCreateAdminSettings()
+          this.onClickToggleConfirmModal()
+        },
+        onClickFailed: () => {
+          this.isFormFieldsChanged = false
+          this.formFields = this.prevFormFields
+          this.onClickToggleConfirmModal()
+        },
+      }
+
+      this.onClickToggleConfirmModal()
     }
   }
 
@@ -155,7 +174,7 @@ export class AdminSettingsModel {
         this.infoModalText = t(TranslationKey['The proxy servers are saved.'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.getServerProxy()
 
@@ -165,7 +184,7 @@ export class AdminSettingsModel {
         this.infoModalText = t(TranslationKey['The proxy servers are not saved.'])
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      this.onClickToggleInfoModal()
 
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -191,6 +210,10 @@ export class AdminSettingsModel {
 
   onClickToggleProxyModal() {
     this.onTriggerOpenModal('showAsinCheckerModal')
+  }
+
+  onClickToggleConfirmModal() {
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {

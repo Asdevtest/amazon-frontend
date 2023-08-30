@@ -42,7 +42,6 @@ export const ClientOrderViewRaw = props => {
   }, [])
 
   useEffect(() => {
-    console.log(search)
     const queries = new URLSearchParams(search)
     const orderId = queries.get('orderId')
 

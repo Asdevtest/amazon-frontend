@@ -223,9 +223,15 @@ export const styles = theme => ({
   orderImg: {
     height: 64,
     width: 64,
-    objectFit: 'cover',
+    // objectFit: 'cover',
+    objectFit: 'contain',
     objectPosition: 'center',
     borderRadius: 4,
+  },
+
+  orderImageSmall: {
+    height: 56,
+    width: 56,
   },
 
   orderImageBig: {

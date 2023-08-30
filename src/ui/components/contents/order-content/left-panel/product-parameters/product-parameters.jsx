@@ -16,6 +16,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
+import { calcMaxDeliveryForProduct } from '@utils/calculation'
 import { checkAndMakeAbsoluteUrl, toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -37,6 +38,7 @@ export const ProductParameters = ({
   const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
   const weightSizesType = getWeightSizesType(sizeSetting)
+  const maxDelivery = calcMaxDeliveryForProduct(order?.product)
 
   const OrderParameter = ({ label, value }) => (
     <Field
@@ -89,7 +91,8 @@ export const ProductParameters = ({
       <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
       <OrderParameter
         label={t(TranslationKey['Maximum delivery price per unit'])}
-        value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
+        value={toFixed(maxDelivery, 2)}
+        // value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
       />
       <Field
         oneLine

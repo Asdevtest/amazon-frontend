@@ -22,6 +22,7 @@ import { VacantRequestListCard } from '@components/cards/vacant-request-list-car
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { Button } from '@components/shared/buttons/button/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -186,6 +187,7 @@ export const VacantRequestsViewRaw = props => {
                   isFirst={index === 0}
                   item={item}
                   onClickViewMore={viewModel.onClickViewMore}
+                  onDoubleClick={viewModel.handleOpenRequestDetailModal}
                 />
               ) : (
                 <VacantRequestShortCard
@@ -193,6 +195,7 @@ export const VacantRequestsViewRaw = props => {
                   isFirst={index === 0}
                   item={item}
                   onClickViewMore={viewModel.onClickViewMore}
+                  onDoubleClick={viewModel.handleOpenRequestDetailModal}
                 />
               ),
             )}
@@ -251,7 +254,7 @@ export const VacantRequestsViewRaw = props => {
               onFilterModelChange={viewModel.onChangeFilterModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onChangePaginationModelChange}
-              onRowDoubleClick={e => viewModel.onClickViewMore(e.row._id)}
+              onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
             />
           </div>
         ) : (
@@ -266,6 +269,14 @@ export const VacantRequestsViewRaw = props => {
           )
         )}
       </div>
+
+      <FreelanceRequestDetailsModal
+        isOpenModal={viewModel.showRequestDetailModal}
+        request={viewModel.currentRequestDetails?.request}
+        details={viewModel.currentRequestDetails?.details}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+        onClickSuggest={viewModel.onClickSuggest}
+      />
     </React.Fragment>
   )
 }

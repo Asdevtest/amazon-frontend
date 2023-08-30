@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   iconBtn: {
-    marginLeft: '15px',
+    marginRight: '15px',
 
     width: 15,
     height: 15,

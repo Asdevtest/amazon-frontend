@@ -36,6 +36,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
+  smallGap: {
+    gap: 0,
+  },
+
   bigGap: {
     gap: 40,
   },
@@ -53,8 +57,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   smallArrow: {
-    width: '20px !important',
-    height: '20px !important',
+    width: '30px !important',
+    height: '30px !important',
   },
 
   mediumArrow: {
@@ -68,7 +72,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   slideWrapper: {
-    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -108,6 +111,13 @@ export const useClassNames = makeStyles()(theme => ({
     animation: `${slideRightAfter} 0.3s ease-in-out`,
   },
 
+  slide: {
+    width: '100% !important',
+    height: '100% !important',
+    objectFit: 'contain',
+    cursor: 'pointer',
+  },
+
   documentWrapper: {
     width: '100%',
     height: '100%',
@@ -117,6 +127,8 @@ export const useClassNames = makeStyles()(theme => ({
 
       '& > a:nth-of-type(2)': {
         position: 'absolute',
+        top: 0,
+        left: 0,
         width: '100%',
         height: '100%',
         display: 'block',
@@ -129,14 +141,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   linkDocument: {
     display: 'none',
-  },
-
-  slide: {
-    position: 'absolute',
-    width: '100% !important',
-    height: '100% !important',
-    objectFit: 'contain',
-    cursor: 'pointer',
   },
 
   slideNoDocuments: {

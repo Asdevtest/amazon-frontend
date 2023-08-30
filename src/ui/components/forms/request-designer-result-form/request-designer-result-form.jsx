@@ -264,7 +264,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           return {
             url,
             title: el.comment,
-            comment: el.imageComment,
+            comment: el.commentByClient,
             _id: el._id,
           }
         }),

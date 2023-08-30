@@ -578,8 +578,6 @@ export class BuyerMyProductsViewModel {
       this.history.push(`/buyer/my-products?product-id=${row.originalData._id}`)
     } else {
       this.history.push(`/buyer/my-products`)
-
-      this.loadData()
     }
 
     this.onTriggerOpenModal('productCardModal')
