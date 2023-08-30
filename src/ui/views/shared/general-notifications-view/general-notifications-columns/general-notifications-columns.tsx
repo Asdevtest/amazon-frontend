@@ -1,4 +1,4 @@
-import { GridCellParams, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridCellParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,9 @@ import {
 import { getHumanFriendlyNotificationType } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
+import { RowHandlers } from '@typings/data-grid'
+
+export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -72,7 +74,23 @@ export const GeneralNotificationsColumns = (/* rowHandlers, shops */) => [
 
     // renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
     renderCell: (params: GridCellParams) => (
-      <NotificationMessage notificationType={params?.row?.type} notification={params?.row?.data?.[0]} />
+      <NotificationMessage
+        notificationType={params?.row?.type}
+        notification={
+          params?.row?.data?.needConfirmOrders?.[0]
+            ? {
+                ...params?.row?.data?.needConfirmOrders?.[0],
+                needConfirmOrders: true,
+              }
+            : params?.row?.data?.vacOrders?.[0]
+            ? {
+                ...params?.row?.data?.vacOrders?.[0],
+                vacOrders: true,
+              }
+            : params?.row?.data?.[0]
+        }
+        navigateToHandler={rowHandlers.navigateToHandler}
+      />
     ),
     minWidth: 400,
     // filterable: false,

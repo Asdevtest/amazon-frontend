@@ -1024,7 +1024,7 @@ export const notificationDataConverter = data =>
       item.type === NotificationType.Idea
         ? item?.data?.[0]?.parentProduct
         : item.type === NotificationType.Order
-        ? item?.data?.[0]?.product
+        ? item?.data?.[0]?.product || item?.data?.needConfirmOrders?.[0]?.product || item?.data?.vacOrders?.[0]?.product
         : item?.data?.[0]?.items?.[0]?.product,
 
     type: item?.type,

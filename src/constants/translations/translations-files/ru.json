@@ -2102,5 +2102,12 @@
   "Notification type": "Тип уведомления",
   "Order redemption deadline": "Срок выкупа заказа",
   "expires": "истекает",
-  "You have changed the tab settings. Do you want to save them?": "Вы изменили настройки вкладки. Хотите их сохранить?"
+  "You have changed the tab settings. Do you want to save them?": "Вы изменили настройки вкладки. Хотите их сохранить?",
+  "created the idea": "создал идею",
+  "changed the status of the idea": "изменил статус идеи",
+  "to": "на",
+  "updated the data on the idea of": "обновил данные по идее",
+  "To the actual": "К актуальным",
+  "New order available": "Новый заказ доступен",
+  "needs to be confirmed": "нуждается в подтверждении"
 }

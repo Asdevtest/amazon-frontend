@@ -1033,6 +1033,23 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/buyer/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.BUYER],
+
+    permissionKey: permissionsKeys.shared.GENERAL_NOTIFICATIONS,
+
+    crumbNameKey: 'Look at this dude',
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => 'Look at this dude',
+    },
+  },
+
+  {
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
     exact: false,
@@ -3094,6 +3111,23 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 0,
       title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/freelancer/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+
+    permissionKey: permissionsKeys.shared.GENERAL_NOTIFICATIONS,
+
+    crumbNameKey: 'Look at this dude',
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => 'Look at this dude',
     },
   },
 

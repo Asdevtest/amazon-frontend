@@ -507,6 +507,11 @@ export const navbarConfig = () => ({
       route: '/freelancer/notifications',
       subtitles: [
         { subtitle: t(TranslationKey.Freelance), subRoute: '/freelancer/notifications/freelance-notifications' },
+        {
+          subtitle: 'Look at this dude',
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/freelancer/notifications/general-notifications-view',
+        },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -822,7 +827,17 @@ export const navbarConfig = () => ({
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
       route: '/buyer/notifications/ideas-notifications',
-      subtitles: [{ subtitle: t(TranslationKey['On ideas']), subRoute: '/buyer/notifications/ideas-notifications' }],
+      subtitles: [
+        {
+          subtitle: t(TranslationKey['On ideas']),
+          subRoute: '/buyer/notifications/ideas-notifications',
+        },
+        {
+          subtitle: 'Look at this dude',
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/buyer/notifications/general-notifications-view',
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||

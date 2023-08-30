@@ -34,18 +34,16 @@ export const GeneralNotificationsView = observer(() => {
           <Button
             className={cx(classNames.button, classNames.archiveButton)}
             variant="outlined"
-            // onClick={() => viewModel.onClickBackButton()}
+            onClick={() => viewModel.toggleVariationHandler('isArchive')}
           >
-            {t(TranslationKey['Open archive'])}
+            {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
           </Button>
 
-          <Button
-            className={classNames.button}
-            color="primary"
-            // onClick={() => viewModel.onClickBackButton()}
-          >
-            {t(TranslationKey.Read)}
-          </Button>
+          {!viewModel.isArchive && (
+            <Button className={classNames.button} color="primary" onClick={() => viewModel.onClickReadButton()}>
+              {t(TranslationKey.Read)}
+            </Button>
+          )}
         </div>
 
         <div className={classNames.datagridWrapper}>
@@ -93,10 +91,10 @@ export const GeneralNotificationsView = observer(() => {
             // }}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            // onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             // onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
-            // onRowSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
       </div>

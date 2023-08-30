@@ -38,7 +38,7 @@ import {
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-import { NotificationType } from '@constants/keys/notifications'
+import { NotificationIdeaStatus, NotificationType } from '@constants/keys/notifications'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -50,10 +50,13 @@ import { RequestStatus, colorByStatus } from '@constants/requests/request-status
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
 import {
+  colorByIdeaStatus,
   ideaStatus,
+  ideaStatusByCode,
   ideaStatusByKey,
   ideaStatusGroups,
   ideaStatusGroupsNames,
+  ideaStatusTranslate,
 } from '@constants/statuses/idea-status.ts'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusEmumToKey } from '@constants/task/task-status'
@@ -3527,15 +3530,36 @@ export const NotificationMessage = React.memo(
     const { classes: styles, notificationType, notification, navigateToHandler } = props
 
     if (notificationType === NotificationType.Order) {
-      return (
-        <p>
-          {`${t(TranslationKey['Order redemption deadline'])} `}
-          <button className={styles.notificationId} onClick={navigateToHandler}>
-            {notification?.id}
-          </button>
-          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
-        </p>
-      )
+      if (notification?.needConfirmOrders) {
+        return (
+          <p>
+            {`${t(TranslationKey.Order)} `}
+            <a className={styles.notificationId} onClick={navigateToHandler}>
+              {notification?.id}
+            </a>
+            {` ${t(TranslationKey['needs to be confirmed'])}`}
+          </p>
+        )
+      } else if (notification?.vacOrders) {
+        return (
+          <p>
+            {`${t(TranslationKey['New order available'])} `}
+            <a className={styles.notificationId} onClick={navigateToHandler}>
+              {notification?.id}
+            </a>
+          </p>
+        )
+      } else {
+        return (
+          <p>
+            {`${t(TranslationKey['Order redemption deadline'])} `}
+            <a className={styles.notificationId} onClick={navigateToHandler}>
+              {notification?.id}
+            </a>
+            {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
+          </p>
+        )
+      }
     } else if (notificationType === NotificationType.Box) {
       return (
         <p>
@@ -3547,13 +3571,36 @@ export const NotificationMessage = React.memo(
         </p>
       )
     } else if (notificationType === NotificationType.Idea) {
+      const getIdeaMessageTextToRender = () => {
+        switch (notification.type) {
+          case NotificationIdeaStatus.Create:
+            return t(TranslationKey['created the idea'])
+
+          case NotificationIdeaStatus.StatusChange:
+            return t(TranslationKey['changed the status of the idea'])
+
+          case NotificationIdeaStatus.Patch:
+            return t(TranslationKey['updated the data on the idea of'])
+        }
+      }
+
       return (
         <p>
-          {/* {`${t(TranslationKey.Box)} `}
-          <button className={styles.notificationId} onClick={navigateToHandler}>
-            {notification?.id}
-          </button>
-          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`} */}
+          <a className={styles.notificationId} onClick={navigateToHandler}>
+            {notification?.creator?.name}
+          </a>
+          {` ${getIdeaMessageTextToRender()} `}
+          <a className={styles.notificationId} onClick={navigateToHandler}>
+            {notification?.productName}
+          </a>
+          {notification.type === NotificationIdeaStatus.StatusChange && (
+            <>
+              {` ${t(TranslationKey.to)} `}
+              <span style={{ color: colorByIdeaStatus(ideaStatusByCode[notification.status]) }}>
+                {ideaStatusTranslate(ideaStatusByCode[notification.status])}
+              </span>
+            </>
+          )}
         </p>
       )
     }

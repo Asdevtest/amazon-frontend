@@ -2101,5 +2101,12 @@ export enum TranslationKey {
   'Order redemption deadline' = 'Order redemption deadline',
   'expires' = 'expires',
   'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
+  'created the idea' = 'created the idea',
+  'changed the status of the idea' = 'changed the status of the idea',
+  'to' = 'to',
+  'updated the data on the idea of' = 'updated the data on the idea of',
+  'To the actual' = 'To the actual',
+  'New order available' = 'New order available',
+  'needs to be confirmed' = 'needs to be confirmed',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

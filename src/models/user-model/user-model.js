@@ -204,6 +204,12 @@ class UserModelStatic {
 
     return response
   }
+
+  async addNotificationsToArchive(data) {
+    const response = await restApiService.userApi.apiV1UsersNotificationsArchivePatch({ body: data })
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()
