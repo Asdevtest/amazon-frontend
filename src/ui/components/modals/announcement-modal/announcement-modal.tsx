@@ -19,7 +19,7 @@ interface Props {
   isOpenModal: boolean
   service: IService
   onOpenModal: VoidFunction
-  onClickButton: (service: IService) => void
+  onClickButton?: (service: IService) => void
   choose?: boolean
   order?: boolean
 }
@@ -89,11 +89,13 @@ export const AnnouncementModal: FC<Props> = ({ isOpenModal, service, onOpenModal
             <p className={styles.description}>{service.description}</p>
           </div>
 
-          <div className={styles.buttonWrapper}>
-            <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
-              {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
-            </Button>
-          </div>
+          {onClickButton ? (
+            <div className={styles.buttonWrapper}>
+              <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
+                {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </Modal>

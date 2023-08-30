@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -11,6 +10,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
+
+    marginBottom: 20,
   },
 
   cardCarouselWrapper: {

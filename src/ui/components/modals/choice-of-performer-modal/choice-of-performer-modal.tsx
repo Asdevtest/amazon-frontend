@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, { FC, useEffect, useState } from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -141,22 +141,15 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         </Button>
       </div>
       <div className={classNames.cardsWrapper}>
-        <Box
-          component="div"
-          className={classNames.dashboardCardWrapper}
-          display="grid"
-          gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
-        >
-          {dataToRender.map((service, serviceKey) => (
-            <AnnouncementCard
-              key={serviceKey}
-              announcementData={service}
-              selectedCard={selectedService}
-              onClickThumbnail={onClickThumbnail}
-              onClickSelectCard={selectCardHandler}
-            />
-          ))}
-        </Box>
+        {dataToRender.map((service, serviceKey) => (
+          <AnnouncementCard
+            key={serviceKey}
+            announcementData={service}
+            selectedCard={selectedService}
+            onClickThumbnail={onClickThumbnail}
+            onClickSelectCard={selectCardHandler}
+          />
+        ))}
       </div>
 
       <div className={classNames.footerWrapper}>
