@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useClassNames = makeStyles()(() => ({
   modalWrapper: {
     width: '100%',
     height: '100%',
@@ -24,12 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
   },
 
-  generalflexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 80,
-  },
-
   flexRowContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -47,6 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bold: {
+    width: 80,
     fontWeight: 600,
   },
 
@@ -75,5 +70,33 @@ export const useClassNames = makeStyles()(theme => ({
 
   content: {
     width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 30,
+  },
+
+  descriptionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  description: {
+    width: 580,
+    height: 349,
+    fontSize: 14,
+    lineHeight: '19px',
+    overflow: 'auto',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+
+  button: {
+    padding: '0 75px',
   },
 }))

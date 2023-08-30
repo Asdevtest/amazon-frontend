@@ -145,6 +145,8 @@ export const ServiceExchangeCardList: FC<Props> = props => {
       <AnnouncementModal
         isOpenModal={isOpenModal}
         service={service}
+        choose={choose}
+        order={order}
         onOpenModal={handleToggleModal}
         onClickButton={() => onClickButton(service)}
       />

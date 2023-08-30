@@ -4,6 +4,7 @@ import { FC } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { UserLink } from '@components/user/user-link'
@@ -16,12 +17,14 @@ import { useClassNames } from './announcement-modal.styles'
 
 interface Props {
   isOpenModal: boolean
-  onOpenModal: VoidFunction
   service: IService
+  onOpenModal: VoidFunction
   onClickButton: (service: IService) => void
+  choose?: boolean
+  order?: boolean
 }
 
-export const AnnouncementModal: FC<Props> = ({ isOpenModal, onOpenModal, service, onClickButton }) => {
+export const AnnouncementModal: FC<Props> = ({ isOpenModal, service, onOpenModal, onClickButton, choose, order }) => {
   const { classes: styles } = useClassNames()
 
   const serviceType =
@@ -37,26 +40,24 @@ export const AnnouncementModal: FC<Props> = ({ isOpenModal, onOpenModal, service
       <div className={styles.header}>
         <p className={styles.mainTitle}>{service.title}</p>
 
-        <div className={styles.generalflexContainer}>
-          <div className={styles.flexRowContainer}>
-            <p className={styles.text}>{t(TranslationKey['Service type'])}</p>
-            <p className={textBold}>{serviceType}</p>
-          </div>
+        <div className={styles.flexRowContainer}>
+          <p className={styles.text}>{t(TranslationKey['Service type'])}</p>
+          <p className={textBold}>{serviceType}</p>
+        </div>
 
-          <div className={styles.flexRowContainer}>
-            <p className={styles.text}>{t(TranslationKey.Performer)}</p>
+        <div className={styles.flexRowContainer}>
+          <p className={styles.text}>{t(TranslationKey.Performer)}</p>
 
-            <UserLink
-              blueText
-              withAvatar
-              ratingSize="small"
-              name={service.createdBy.name}
-              userId={service.createdBy._id}
-              rating={service.createdBy.rating}
-              customStyles={{ fontSize: 14, lineHeight: '19px' }}
-              customRatingClass={styles.rating}
-            />
-          </div>
+          <UserLink
+            blueText
+            withAvatar
+            ratingSize="small"
+            name={service.createdBy.name}
+            userId={service.createdBy._id}
+            rating={service.createdBy.rating}
+            customStyles={{ fontSize: 14, lineHeight: '19px' }}
+            customRatingClass={styles.rating}
+          />
         </div>
       </div>
 
@@ -82,7 +83,18 @@ export const AnnouncementModal: FC<Props> = ({ isOpenModal, onOpenModal, service
           </div>
         </div>
 
-        <div className={styles.content}>content</div>
+        <div className={styles.content}>
+          <div className={styles.descriptionContainer}>
+            <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
+            <p className={styles.description}>{service.description}</p>
+          </div>
+
+          <div className={styles.buttonWrapper}>
+            <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
+              {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
+            </Button>
+          </div>
+        </div>
       </div>
     </Modal>
   )

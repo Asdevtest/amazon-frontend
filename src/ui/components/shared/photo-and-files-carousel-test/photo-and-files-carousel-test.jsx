@@ -21,7 +21,6 @@ export const PhotoAndFilesCarouselTest = ({
   smallSlider = false,
   mediumSlider = false,
   bigSlider = false,
-
   alignLeft = false,
   alignRight = false,
   isHideCounter = false,
@@ -85,7 +84,12 @@ export const PhotoAndFilesCarouselTest = ({
       ) : null}
     </div>
   ) : (
-    <div className={classNames.noFileWrapper}>
+    <div
+      className={cx(classNames.noFileWrapper, {
+        [classNames.alignLeftNoFile]: alignLeft,
+        [classNames.alignRightNoFIle]: alignRight,
+      })}
+    >
       <div
         className={cx(classNames.slideWrapper, {
           [classNames.slideSmall]: smallSlider,
