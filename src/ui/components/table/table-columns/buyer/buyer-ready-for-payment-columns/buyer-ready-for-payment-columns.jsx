@@ -26,11 +26,11 @@ import { t } from '@utils/translations'
 export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
   const arr = [
     {
-      field: 'idAndItem',
+      field: 'id',
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      sortable: false,
+      renderCell: params => <MultilineTextCell text={params.row.originalData.idAndItem} />,
+      sortable: true,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
