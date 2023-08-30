@@ -51,6 +51,7 @@ export const styles = theme => ({
     fontWeight: 600,
     '&.Mui-disabled': {
       opacity: '.3',
+      color: theme.palette.primary.main,
       backgroundColor: 'transparent',
     },
   },
