@@ -1781,7 +1781,7 @@ export const TaskStatusCell = React.memo(
 
 export const RequestStatusCell = React.memo(
   withStyles(
-    ({ classes: classNames, status, isChat, styles }) => (
+    ({ classes: classNames, status, isChat, styles, languageTag }) => (
       <div className={classNames.statusWrapper}>
         <Typography
           className={cx(classNames.statusText, { [classNames.statusTextChat]: isChat })}
