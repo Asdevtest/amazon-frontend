@@ -3530,11 +3530,15 @@ export const NotificationMessage = React.memo(
     const { classes: styles, notificationType, notification, navigateToHandler } = props
 
     if (notificationType === NotificationType.Order) {
+      const onClickOrderId = () => {
+        navigateToHandler(notification, NotificationType.Order)
+      }
+
       if (notification?.needConfirmOrders) {
         return (
           <p>
             {`${t(TranslationKey.Order)} `}
-            <a className={styles.notificationId} onClick={navigateToHandler}>
+            <a className={styles.notificationId} onClick={onClickOrderId}>
               {notification?.id}
             </a>
             {` ${t(TranslationKey['needs to be confirmed'])}`}
@@ -3544,7 +3548,7 @@ export const NotificationMessage = React.memo(
         return (
           <p>
             {`${t(TranslationKey['New order available'])} `}
-            <a className={styles.notificationId} onClick={navigateToHandler}>
+            <a className={styles.notificationId} onClick={onClickOrderId}>
               {notification?.id}
             </a>
           </p>
@@ -3553,7 +3557,7 @@ export const NotificationMessage = React.memo(
         return (
           <p>
             {`${t(TranslationKey['Order redemption deadline'])} `}
-            <a className={styles.notificationId} onClick={navigateToHandler}>
+            <a className={styles.notificationId} onClick={onClickOrderId}>
               {notification?.id}
             </a>
             {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
@@ -3586,11 +3590,11 @@ export const NotificationMessage = React.memo(
 
       return (
         <p>
-          <a className={styles.notificationId} onClick={navigateToHandler}>
+          <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
             {notification?.creator?.name}
           </a>
           {` ${getIdeaMessageTextToRender()} `}
-          <a className={styles.notificationId} onClick={navigateToHandler}>
+          <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
             {notification?.productName}
           </a>
           {notification.type === NotificationIdeaStatus.StatusChange && (

@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+import { History } from 'history'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -7,8 +8,11 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { UserModel } from '@models/user-model'
+
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
@@ -19,9 +23,14 @@ import { useClassNames } from './general-notifications-view.styles'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 
-export const GeneralNotificationsView = observer(() => {
+export const GeneralNotificationsView = observer(({ history }: { history: History }) => {
   const { classes: classNames } = useClassNames()
-  const [viewModel] = useState(() => new GeneralNotificationsViewModel())
+  const [viewModel] = useState(
+    () =>
+      new GeneralNotificationsViewModel({
+        history,
+      }),
+  )
 
   useEffect(() => {
     viewModel.loadData()
@@ -40,7 +49,12 @@ export const GeneralNotificationsView = observer(() => {
           </Button>
 
           {!viewModel.isArchive && (
-            <Button className={classNames.button} color="primary" onClick={() => viewModel.onClickReadButton()}>
+            <Button
+              disabled={!viewModel.selectedRowIds.length}
+              className={classNames.button}
+              color="primary"
+              onClick={() => viewModel.onClickReadButton()}
+            >
               {t(TranslationKey.Read)}
             </Button>
           )}
@@ -97,6 +111,20 @@ export const GeneralNotificationsView = observer(() => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
+
+        {viewModel.showIdeaModal && (
+          <IdeaCardsModal
+            openModal={viewModel.showIdeaModal}
+            setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
+            updateData={() => {
+              viewModel.getUserNotifications()
+              UserModel.getUserInfo()
+            }}
+            product={viewModel.currentProduct}
+            productId={viewModel.currentProduct?._id}
+            currentIdeaId={viewModel.currentIdeaId}
+          />
+        )}
       </div>
     )
   )

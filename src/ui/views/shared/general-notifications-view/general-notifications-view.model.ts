@@ -1,23 +1,30 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { History } from 'history'
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { GridFilterModel } from '@mui/x-data-grid'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { NotificationType } from '@constants/keys/notifications'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
 
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/data-grid'
+import { IProductIdeaNotification } from '@typings/product'
+import { IUser } from '@typings/user'
 
 import { GeneralNotificationsColumns } from './general-notifications-columns/general-notifications-columns'
 
 export class GeneralNotificationsViewModel {
   requestStatus: string = loadingStatuses.success
   isArchive = false
+  history: History | undefined = undefined
 
   // * Pagination & Sort
 
@@ -32,26 +39,40 @@ export class GeneralNotificationsViewModel {
   // * Table settings
 
   rowHandlers: RowHandlers = {
-    navigateToHandler: (type: string, value: string) => this.navigateToHandler(type, value),
+    navigateToHandler: (notification: any, type: string) => this.navigateToHandler(notification, type),
   }
 
   // * dataGrid data
 
   currentData = []
   notificationsData = []
-
   columnsModel = GeneralNotificationsColumns(this.rowHandlers)
 
-  get currentUser() {
+  // * Modal state
+
+  showIdeaModal = false
+
+  // * Data for Modals
+
+  currentProduct: IProductIdeaNotification | undefined = undefined
+
+  currentIdeaId: string | undefined = undefined
+
+  // * Getters
+
+  get currentUser(): IUser | undefined {
     return UserModel.userInfo
   }
-
   get languageTag() {
     return SettingsModel.languageTag
   }
 
-  constructor() {
+  constructor({ history }: { history: History }) {
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    runInAction(() => {
+      this.history = history
+    })
 
     reaction(
       () => this.notificationsData,
@@ -178,7 +199,30 @@ export class GeneralNotificationsViewModel {
     })
   }
 
-  navigateToHandler(type: string, value: string) {
-    console.log(type, value)
+  navigateToHandler(notification: any, type: string) {
+    if (!this.currentUser) return
+
+    if (type === NotificationType.Order) {
+      if (checkIsClient(UserRoleCodeMap[this.currentUser?.role])) {
+        window
+          .open(
+            `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/my-orders/orders/order?orderId=${
+              notification?._id
+            }&order-human-friendly-id=${notification?.id}`,
+          )
+          ?.focus()
+      } else if (checkIsBuyer(UserRoleCodeMap[this.currentUser?.role])) {
+        window
+          .open(`/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/all-orders?orderId=${notification?._id}`)
+          ?.focus()
+      }
+    } else if (type === 'user') {
+      window.open(`/another-user?${notification?.creator?._id}`)?.focus()
+    } else if (type === NotificationType.Idea) {
+      this.currentProduct = notification.parentProduct
+      this.currentIdeaId = notification.ideaId
+
+      this.toggleVariationHandler('showIdeaModal')
+    }
   }
 }

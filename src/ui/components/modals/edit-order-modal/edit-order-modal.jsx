@@ -486,8 +486,6 @@ export const EditOrderModal = observer(
 
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
 
-    console.log('orderFields', orderFields)
-
     const isOnlyRead =
       selectedSupplier?.createdBy._id !== userInfo._id &&
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
