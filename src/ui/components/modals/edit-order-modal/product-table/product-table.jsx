@@ -57,7 +57,8 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
               {order.orderSupplier ? toFixed(order.orderSupplier.price, 2) : `${t(TranslationKey['Not available'])}`}
             </TableCell>
             <TableCell className={classNames.tableCell}>
-              {toFixed(order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount, 2)}
+              {toFixed(order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount, 2) ||
+                t(TranslationKey['Not available'])}
             </TableCell>
             <TableCell className={classNames.tableCell}>
               <div className={classNames.fieldWrapper}>
