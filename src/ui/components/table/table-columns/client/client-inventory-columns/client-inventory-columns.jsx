@@ -275,7 +275,14 @@ export const clientInventoryColumns = (
         onClickInStock={otherHandlers.onClickInStock}
       />
     ),
+    valueGetter: params => {
+      return params.row.originalData.boxAmounts
+        .sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
+        .map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
+        .join(', ')
+    },
     width: 145,
+
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
   },
