@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
@@ -215,6 +216,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
+    console.log(this.findRequestProposalForCurChat)
     runInAction(() => {
       this.acceptProposalResultSetting = {
         onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
@@ -226,6 +228,11 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickProposalResultAcceptForm(proposalId, data) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
+      await FeedbackModel.sendFeedback(this.findRequestProposalForCurChat.proposal.createdBy._id, {
+        rating: data.rating,
+        comment: data.review,
+      })
+
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
       this.loadData()
     } catch (error) {
