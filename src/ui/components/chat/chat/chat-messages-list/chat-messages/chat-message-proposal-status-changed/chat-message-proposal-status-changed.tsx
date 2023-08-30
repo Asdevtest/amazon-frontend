@@ -40,6 +40,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  const isShowButton = isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
+  const isShowFooter = isShowButton || !!message.data.timeLimitInMinutes
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -64,14 +66,14 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
               <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
             </div>
 
-            <p className={classNames.reasonText}>{message?.data?.reason}</p>
+            {message?.data?.reason ? <p className={classNames.reasonText}>{message?.data?.reason}</p> : null}
 
             {message.data?.linksToMediaFiles?.length > 0 && (
               <PhotoAndFilesCarouselTest files={message.data.linksToMediaFiles} customGap={20} customSlideHeight={80} />
             )}
 
-            <div className={classNames.footerWrapper}>
-              <div className={classNames.footerRow}>
+            {isShowFooter ? (
+              <div className={classNames.footerWrapper}>
                 {message.data.timeLimitInMinutes ? (
                   <div className={classNames.labelValueBlockWrapper}>
                     <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
@@ -82,9 +84,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
                       bgColor="green"
                     />
                   </div>
-                ) : undefined}
+                ) : null}
 
-                {isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id && (
+                {isShowButton && (
                   <Button
                     className={cx(classNames.actionButton /* , classNames.editBtn */)}
                     onClick={handlers.onClickReworkProposal}
@@ -93,7 +95,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
                   </Button>
                 )}
               </div>
-            </div>
+            ) : null}
           </div>
         )
       case RequestProposalStatus.CORRECTED:

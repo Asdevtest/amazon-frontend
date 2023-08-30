@@ -97,6 +97,7 @@ export const useClassNames = makeStyles()(theme => ({
   infosWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   fieldLabel: {
