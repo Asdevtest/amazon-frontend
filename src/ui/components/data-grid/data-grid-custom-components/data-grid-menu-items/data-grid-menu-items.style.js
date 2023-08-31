@@ -264,4 +264,9 @@ export const styles = theme => ({
     width: 80,
     borderBottom: `1px solid #656565`,
   },
+
+  redFlagIcon: {
+    width: 24,
+    height: 24,
+  },
 })

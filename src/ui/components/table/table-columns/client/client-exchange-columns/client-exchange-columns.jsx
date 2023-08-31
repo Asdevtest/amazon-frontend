@@ -145,6 +145,7 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     width: 130,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    sortable: false,
   },
 
   {

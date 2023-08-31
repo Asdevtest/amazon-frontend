@@ -2631,7 +2631,7 @@ export const RedFlagsCellMenuItem = React.memo(
         columnKey={columnnsKeys}
         rowContent={obj => (
           <div className={classNames.redFlagsCell}>
-            <img src={`/assets/icons/redflags/${obj.title}.svg`} alt={obj.title} />
+            <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />
             <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
               {obj.title || t(TranslationKey.Empty)}
             </div>
