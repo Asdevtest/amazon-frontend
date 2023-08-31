@@ -66,9 +66,9 @@ export const MyRequestsViewRaw = props => {
 
           <SearchInput
             inputClasses={classNames.searchInput}
-            placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(TranslationKey.ASIN)}, ${t(
-              TranslationKey.ID,
-            )}`}
+            placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(
+              TranslationKey.ASIN,
+            )}, ${t(TranslationKey.ID)}`}
             value={viewModel.nameSearchValue}
             onSubmit={viewModel.onSearchSubmit}
           />
