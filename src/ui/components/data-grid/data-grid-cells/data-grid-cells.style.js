@@ -105,8 +105,12 @@ export const styles = theme => ({
     gap: '3px',
   },
 
+  defaultText: {
+    color: theme.palette.text.general,
+  },
+
   typoSpan: {
-    color: theme.palette.text.second,
+    color: `${theme.palette.text.second} !important`,
   },
 
   linkSpan: {
