@@ -91,7 +91,9 @@ export const IdeaViewAndEditCard = observer(
 
     const [formFields, setFormFields] = useState({})
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
-    const [showRequestType, setShowRequestType] = useState(RequestSwitherType.REQUESTS_ON_CHECK)
+    const [showRequestType, setShowRequestType] = useState(
+      curIdea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
+    )
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
 
