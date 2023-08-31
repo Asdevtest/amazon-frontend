@@ -12,12 +12,12 @@ export const useClassNames = makeStyles()(() => ({
     flexDirection: 'column',
   },
 
-  wrapperAlignLeft: {
-    alignItems: 'flex-start',
+  alignLeft: {
+    justifyContent: 'flex-start !important',
   },
 
-  wrapperAlignRight: {
-    alignItems: 'flex-end',
+  alignRight: {
+    justifyContent: 'flex-end !important',
   },
 
   noFileWrapper: {
@@ -27,6 +27,14 @@ export const useClassNames = makeStyles()(() => ({
     justifyContent: 'center',
     flexDirection: 'column',
     gap: 10,
+  },
+
+  alignLeftNoFile: {
+    alignItems: 'flex-start !important',
+  },
+
+  alignRightNoFile: {
+    alignItems: 'flex-end !important',
   },
 
   slideWrapper: {

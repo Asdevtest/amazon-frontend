@@ -16,6 +16,7 @@ export interface linksToMediaFilesInterface {
 
 export interface IService {
   createdBy: CreatedBy
+  createdAt: string
   linksToMediaFiles: Array<string | linksToMediaFilesInterface>
   requests: Array<Requests>
   type: number

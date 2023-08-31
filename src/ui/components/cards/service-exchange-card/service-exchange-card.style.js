@@ -1,24 +1,21 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    height: 550,
     width: 375,
-
-    borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
+    height: 550,
     padding: '35px 20px',
+    borderRadius: 4,
+    boxShadow: theme.palette.boxShadow.paper,
+    backgroundColor: theme.palette.background.general,
 
-    marginBottom: 40,
-    marginLeft: 5,
+    marginBottom: 30,
   },
 
   cardCarouselWrapper: {
     height: 180,
     width: 335,
-    marginBottom: 40,
+    marginBottom: 25,
   },
 
   carouselImage: {
@@ -33,41 +30,37 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  titleWrapper: {
-    marginBottom: 10,
-  },
-
   cardTitle: {
-    width: '100%',
-
-    fontWeight: 600,
+    marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-
+    fontWeight: 600,
     color: theme.palette.text.general,
 
-    whiteSpace: 'nowrap',
     overflow: 'hidden',
+    whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-  },
-
-  descriptionWrapper: {
-    marginBottom: 15,
   },
 
   cardDescription: {
-    fontWeight: 400,
+    height: 57,
     fontSize: '14px',
     lineHeight: '19px',
-
-    height: 76,
+    overflow: 'hidden',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    marginBottom: 10,
 
     display: '-webkit-box',
-    WebkitLineClamp: 4,
+    WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
+  },
+
+  detailedDescription: {
+    marginBottom: 20,
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
   },
 
   detailTitle: {
@@ -88,18 +81,18 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 10,
-    padding: '0 30px',
+    padding: '0 20px',
 
-    marginBottom: 31,
+    marginBottom: 20,
   },
 
   detailsWrapperAll: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    padding: '0 30px',
+    padding: '0 20px',
 
-    marginBottom: 31,
+    marginBottom: 20,
   },
 
   detailsSubWrapper: {
