@@ -16,17 +16,17 @@ import { Modal } from '@components/shared/modal'
 import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
-import { onPostImage } from '@utils/upload-files'
 
 import { useClassNames } from './photo-and-files-slider.styles'
 
 import { NoDocumentIcon, NoPhotoIcon } from '../svg-icons'
 
+import { UploadFile } from './photo-and-files-slider.types'
 import { Slider } from './slider'
 import { WIDTH_INCREASE_FACTOR } from './slider/slider.constants'
 
 interface Props {
-  files: string[] | undefined | null
+  files: Array<string | UploadFile> | undefined | null
   smallSlider?: boolean
   mediumSlider?: boolean
   bigSlider?: boolean
@@ -42,7 +42,7 @@ interface Props {
   isEditable?: boolean
   imagesTitles?: string[]
   withoutMakeMainImage?: boolean
-  onChangeImagesForLoad?: (array: string[]) => void
+  onChangeImagesForLoad?: (array: Array<string | UploadFile>) => void
 }
 
 /**
@@ -94,14 +94,14 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   const handleImageEditToggle = () => setImageEditOpen(!imageEditOpen)
   const handlePhotosModalToggle = () => setShowPhotosModal(!showPhotosModal)
 
-  const documents = (files || []).filter(el => checkIsDocumentLink(el))
+  const documents = (files || []).filter(el => typeof el === 'string' && checkIsDocumentLink(el))
 
-  const [photos, setPhotos] = useState<string[]>([])
+  const [photos, setPhotos] = useState<Array<string | UploadFile>>([])
   const [photoIndex, setPhotoIndex] = useState(0)
   const [fileIndex, setFileIndex] = useState(0)
 
   useEffect(() => {
-    const photoFiltering = (files || []).reduce((result: string[], el) => {
+    const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
       const isImage = checkIsImageLink(el)
       const isDocument = checkIsDocumentLink(el)
 
@@ -110,6 +110,8 @@ export const PhotoAndFilesSlider: FC<Props> = ({
       } else if (!isImage && !isDocument) {
         if (typeof el === 'string') {
           result.push(getAmazonImageUrl(el, true))
+        } else if ('data_url' in el && el.data_url.length > 0) {
+          result.push(el)
         } else {
           result.push('/assets/icons/file.png')
         }
@@ -123,7 +125,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
 
   const filteredImagesTitles = files?.length ? (imagesTitles || []).filter((el, i) => checkIsImageLink(files[i])) : []
 
-  const updateImagesForLoad = (newPhotos: string[]) => {
+  const updateImagesForLoad = (newPhotos: Array<string | UploadFile>) => {
     if (onChangeImagesForLoad) {
       onChangeImagesForLoad([...documents, ...newPhotos])
     }
@@ -132,14 +134,12 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   const onClickEditImageSubmit = (image: string) => {
     const editingPhotos = photos.map((slide, index) => (index === photoIndex ? image : slide))
     setPhotos(editingPhotos)
-
     updateImagesForLoad(editingPhotos)
   }
 
   const onClickRemoveImageObj = (imageIndex: number) => {
     const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
     setPhotos(filteringPhotos)
-
     updateImagesForLoad(filteringPhotos)
 
     if (!filteringPhotos.length) {
@@ -155,7 +155,6 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     event.preventDefault()
 
     const filesArr: File[] = Array.from(event.target.files)
-
     const readyFilesArr = filesArr.map((el: File) => ({
       data_url: URL.createObjectURL(el),
       file: new File([el], el.name?.replace(/ /g, ''), {
@@ -163,12 +162,9 @@ export const PhotoAndFilesSlider: FC<Props> = ({
         lastModified: el.lastModified,
       }),
     }))
+    const editingPhotos = photos.map((photo, index) => (index === imageIndex ? readyFilesArr[0] : photo))
 
-    const newIcon = (await onPostImage(readyFilesArr[0])) ?? ''
-
-    const editingPhotos = photos.map((photo, index) => (index === imageIndex ? newIcon : photo))
     setPhotos(editingPhotos)
-
     updateImagesForLoad(editingPhotos)
   }
 
@@ -176,10 +172,9 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     const selectedImage = image as string
     const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
     const editingPhotos = [selectedImage, ...filteringPhotos]
+
     setPhotos(editingPhotos)
-
     updateImagesForLoad(editingPhotos)
-
     setPhotoIndex(0)
   }
 
@@ -317,8 +312,8 @@ export const PhotoAndFilesSlider: FC<Props> = ({
         showPreviews={showPreviews}
         isOpenModal={showPhotosModal}
         handleOpenModal={handlePhotosModalToggle}
-        imageList={photos.map((photoUrl, index) => ({
-          url: photoUrl,
+        imageList={photos.map((photo, index) => ({
+          url: typeof photo === 'string' ? photo : photo.data_url,
           comment: filteredImagesTitles[index],
         }))}
         currentImageIndex={photoIndex}

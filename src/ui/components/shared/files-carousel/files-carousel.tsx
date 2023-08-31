@@ -23,8 +23,7 @@ import { isString, isStringArray } from '@typings/type-guards'
 import { useClassNames } from './files-carousel.style'
 
 import { CustomSlider } from '../custom-slider'
-
-import { FileIcon } from './file-icon'
+import { FileIcon } from '../file-icon/file-icon'
 
 interface File {
   name: string

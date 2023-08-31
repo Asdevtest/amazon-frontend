@@ -6,6 +6,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FileIcon } from '@components/shared//file-icon/file-icon'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -13,13 +14,13 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './slider.style'
 
-import { FileIcon } from '../../files-carousel/file-icon'
+import { UploadFile } from '../photo-and-files-slider.types'
 
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
 import { Arrows, ArrowsType } from './slider.type'
 
 interface Props {
-  slides: string[]
+  slides: Array<string | UploadFile>
   currentIndex: number
   setCurrentIndex: Dispatch<SetStateAction<number>>
   smallSlider?: boolean
@@ -62,7 +63,7 @@ export const Slider: FC<Props> = ({
   const isDisableArrowRight = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === slides.length - 1
   const isDisableArrowLeft = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
   const isNoElements = slides.length === 0
-  const isImageType = slides.every(slide => checkIsImageLink(slide))
+  const isImageType = slides.every(slide => typeof slide === 'string' && checkIsImageLink(slide))
 
   return (
     <div
@@ -113,25 +114,25 @@ export const Slider: FC<Props> = ({
                 }}
               >
                 {slides.map((slide, index) => {
-                  const elementExtension = slide.split('.').slice(-1)[0]
+                  const elementExtension = typeof slide === 'string' ? slide.split('.').slice(-1)[0] : ''
 
                   return (
                     <div key={index} className={classNames.slideWrapper}>
                       {isImageType ? (
                         <img
-                          src={slide}
+                          src={typeof slide === 'string' ? slide : slide.data_url}
                           alt={`Slide ${currentIndex}`}
                           className={classNames.slide}
                           onClick={onPhotosModalToggle}
                         />
                       ) : (
                         <div className={classNames.documentWrapper}>
-                          <a href={slide} target="_blank" rel="noreferrer">
+                          <a href={typeof slide === 'string' ? slide : '/'} target="_blank" rel="noreferrer">
                             <FileIcon fileExtension={elementExtension} className={classNames.slide} />
                           </a>
 
                           <a
-                            href={slide}
+                            href={typeof slide === 'string' ? slide : '/'}
                             target="_blank"
                             rel="noreferrer"
                             className={cx(classNames.linkDocument, classNames.text, {
@@ -140,7 +141,7 @@ export const Slider: FC<Props> = ({
                               [classNames.bigText]: bigSlider,
                             })}
                           >
-                            {slide}
+                            {typeof slide === 'string' ? slide : '/'}
                           </a>
                         </div>
                       )}

@@ -9,7 +9,6 @@ import { Button } from '@components/shared/buttons/button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
-import { onPostImage } from '@utils/upload-files'
 
 import { useClassNames } from './image-edit-form.style'
 
@@ -61,12 +60,7 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
               }),
             }
 
-            const newIcon = await onPostImage(readyFile)
-
-            if (newIcon) {
-              onSave(newIcon)
-            }
-
+            onSave(readyFile)
             setRotation(0)
             setOpenModal()
           })
