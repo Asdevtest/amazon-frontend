@@ -48,7 +48,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
       <div className={classNames.mainWrapper}>
         <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
 
-        <p className={classNames.headerText}>{t(TranslationKey.Result).toUpperCase()}</p>
+        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
 
         <div className={classNames.infosWrapper}>
           <Linkify>

@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
@@ -125,6 +126,16 @@ export const AdminSettings = observer(() => {
           openModal={viewModel.showInfoModal}
           setOpenModal={viewModel.onClickToggleInfoModal}
           onClickBtn={viewModel.onClickToggleInfoModal}
+        />
+
+        <ConfirmationModal
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={viewModel.onClickToggleConfirmModal}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={viewModel.confirmModalSettings.onClickFailed}
         />
       </>
     )

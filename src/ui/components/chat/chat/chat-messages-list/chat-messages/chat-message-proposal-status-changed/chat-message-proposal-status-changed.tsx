@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -40,6 +41,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  const isShowButton = isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
+  const isShowFooter = isShowButton || !!message.data.timeLimitInMinutes
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -64,14 +67,14 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
               <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
             </div>
 
-            <p className={classNames.reasonText}>{message?.data?.reason}</p>
+            {message?.data?.reason ? <p className={classNames.reasonText}>{message?.data?.reason}</p> : null}
 
             {message.data?.linksToMediaFiles?.length > 0 && (
               <PhotoAndFilesCarouselTest files={message.data.linksToMediaFiles} customGap={20} customSlideHeight={80} />
             )}
 
-            <div className={classNames.footerWrapper}>
-              <div className={classNames.footerRow}>
+            {isShowFooter ? (
+              <div className={classNames.footerWrapper}>
                 {message.data.timeLimitInMinutes ? (
                   <div className={classNames.labelValueBlockWrapper}>
                     <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
@@ -82,9 +85,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
                       bgColor="green"
                     />
                   </div>
-                ) : undefined}
+                ) : null}
 
-                {isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id && (
+                {isShowButton && (
                   <Button
                     className={cx(classNames.actionButton /* , classNames.editBtn */)}
                     onClick={handlers.onClickReworkProposal}
@@ -93,82 +96,11 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
                   </Button>
                 )}
               </div>
-            </div>
+            ) : null}
           </div>
         )
       case RequestProposalStatus.CORRECTED:
         return <div></div>
-      // <div className={classNames.detailsWrapper}>
-      //   <div className={classNames.headerAndTimeWrapper}>
-      //     <div className={classNames.titleWrapper}>
-      //       <Typography className={classNames.titleText}>
-      //         {`${t(TranslationKey.Corrections)}`.toUpperCase()}
-      //       </Typography>
-      //     </div>
-
-      //     <div className={classNames.timeWrapper}>
-      //       <Typography className={classNames.timeText}>
-      //         {formatDateTimeHourAndMinutes(message.createdAt)}
-      //       </Typography>
-      //     </div>
-      //   </div>
-      //   <div className={classNames.reasonWrapper}>
-      //     <Linkify>
-      //       <Typography className={classNames.reasonText}>{message.data.reason}</Typography>
-      //     </Linkify>
-      //   </div>
-
-      //   <PhotoAndFilesCarousel
-      //     notToShowEmpty
-      //     small
-      //     files={message.data.linksToMediaFiles}
-      //     width="340px"
-      //     withoutPhotos={undefined}
-      //     whithoutFiles={undefined}
-      //   />
-
-      //   <div className={classNames.footerWrapper}>
-      //     {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-      //     isLastMessage &&
-      //     chatRequestAndRequestProposal &&
-      //     (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED ||
-      //       chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-      //         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-      //       chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-      //         RequestProposalStatus.READY_TO_VERIFY) &&
-      //     curUserId ? (
-      //       <div className={classNames.btnsWrapper}>
-      //         {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
-      //           RequestProposalStatus.TO_CORRECT && (
-      //           <Button
-      //             color="primary"
-      //             btnWrapperStyle={classNames.actionBtnWrapperStyle}
-      //             className={cx(classNames.actionButton, classNames.editBtn)}
-      //             onClick={() =>
-      //               chatRequestAndRequestProposal.requestProposal &&
-      //               handlers.onClickProposalResultToCorrect(
-      //                 chatRequestAndRequestProposal.requestProposal.proposal._id,
-      //               )
-      //             }
-      //           >
-      //             {t(TranslationKey['Send in for rework'])}
-      //           </Button>
-      //         )}
-      //         <Button
-      //           color="primary"
-      //           btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-      //           className={cx(classNames.actionButton, classNames.successBtn)}
-      //           onClick={() =>
-      //             chatRequestAndRequestProposal.requestProposal &&
-      //             handlers.onClickProposalResultAccept(chatRequestAndRequestProposal.requestProposal.proposal._id)
-      //           }
-      //         >
-      //           {t(TranslationKey.Receive)}
-      //         </Button>
-      //       </div>
-      //     ) : undefined}
-      //   </div>
-      // </div>
     }
   }
 
@@ -177,7 +109,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
       <div className={classNames.statusTextDesciption}>
         {`${t(TranslationKey['New proposal status'])}:`}
         <span className={classNames.statusText}>
-          <RequestStatusCell isChat status={message.data.status} />
+          <RequestStatusCell isChat status={message.data.status} languageTag={SettingsModel.languageTag} />
         </span>
       </div>
       {renderDetails()}
