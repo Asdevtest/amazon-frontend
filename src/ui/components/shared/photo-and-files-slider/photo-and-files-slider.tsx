@@ -65,7 +65,7 @@ interface Props {
  * @param {Array<string>} imagesTitles - takes an array of strings with names for photos.
  * @param {Boolean} withoutMakeMainImage - removes the ability to select the main photo in the photo modal window.
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
- * @returns {HTMLElement} return custom slider
+ * @returns {HTMLElement} return custom slider for photos and documents.
  */
 export const PhotoAndFilesSlider: FC<Props> = ({
   files,
