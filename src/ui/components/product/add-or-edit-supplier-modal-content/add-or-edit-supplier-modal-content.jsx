@@ -898,10 +898,10 @@ export const AddOrEditSupplierModalContent = observer(
             <div className={classNames.photoAndFilesWrapper}>
               <PhotoAndFilesSlider
                 smallSlider
+                showPreviews
                 withoutMakeMainImage
                 isEditable={!onlyRead}
                 files={tmpSupplier.images}
-                imagesForLoad={editPhotosOfSupplier}
                 onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
               />
             </div>
