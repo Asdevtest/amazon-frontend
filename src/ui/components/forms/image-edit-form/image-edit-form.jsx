@@ -9,6 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
+import { onPostImage } from '@utils/upload-files'
 
 import { useClassNames } from './image-edit-form.style'
 
@@ -48,7 +49,7 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
           ctx.rotate((rotation * Math.PI) / 180)
           ctx.drawImage(img, -img.width / 2, -img.height / 2)
 
-          canvas.toBlob(blob => {
+          canvas.toBlob(async blob => {
             const url = URL.createObjectURL(blob)
 
             // console.log('blob', blob)
@@ -60,7 +61,12 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
               }),
             }
 
-            onSave(readyFile)
+            const newIcon = await onPostImage(readyFile)
+
+            if (newIcon) {
+              onSave(newIcon)
+            }
+
             setRotation(0)
             setOpenModal()
           })
