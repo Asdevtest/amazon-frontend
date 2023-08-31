@@ -1335,4 +1335,12 @@ export class ClientIdeasViewModel {
       this.actionStatus = actionStatus
     })
   }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
+  }
+
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
 }

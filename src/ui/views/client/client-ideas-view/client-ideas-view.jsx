@@ -280,6 +280,8 @@ export const ClientIdeasView = observer(props => {
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           selectedProductsData={[viewModel.currentProduct]}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          destinationsFavourites={viewModel.destinationsFavourites}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
