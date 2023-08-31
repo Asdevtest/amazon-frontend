@@ -99,7 +99,7 @@ export const ProductCardModal = observer(props => {
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]](viewModel?.productBase?.status)
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div
         className={cx(classNames.root, { [classNames.clippedRoot]: viewModel?.product && currentTab === 'MAIN_INFO' })}
       >
