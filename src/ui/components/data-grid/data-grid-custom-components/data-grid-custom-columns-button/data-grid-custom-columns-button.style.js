@@ -43,7 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     textAlign: 'center',
 
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    boxShadow: theme.palette.boxShadow.filter,
   },
   shop: {
     display: 'flex',
