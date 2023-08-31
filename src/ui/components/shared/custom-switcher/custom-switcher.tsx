@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 
@@ -21,34 +21,38 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
   const { bigSwitch, condition, nameFirstArg, nameSecondArg, firstArgValue, secondArgValue, changeConditionHandler } =
     props
 
+  const [switchOptionsToRender] = useState([
+    {
+      name: nameFirstArg,
+      value: firstArgValue,
+    },
+    {
+      name: nameSecondArg,
+      value: secondArgValue,
+    },
+  ])
+
   return (
     <div className={cx(classNames.switcherWrapper, { [classNames.bigSwitcherWrapper]: bigSwitch })}>
-      <Button
-        className={cx(classNames.switcherOption, {
-          [classNames.activeOption]: condition === firstArgValue,
-          [classNames.bigSwitcherOption]: bigSwitch,
-        })}
-        onClick={() => {
-          if (condition !== firstArgValue) {
-            changeConditionHandler(firstArgValue)
-          }
-        }}
-      >
-        {nameFirstArg}
-      </Button>
-      <Button
-        className={cx(classNames.switcherOption, {
-          [classNames.activeOption]: condition === secondArgValue,
-          [classNames.bigSwitcherOption]: bigSwitch,
-        })}
-        onClick={() => {
-          if (condition !== secondArgValue) {
-            changeConditionHandler(secondArgValue)
-          }
-        }}
-      >
-        {nameSecondArg}
-      </Button>
+      {switchOptionsToRender.map((option, optionIndex) => {
+        return (
+          <Button
+            key={optionIndex}
+            className={cx(classNames.switcherOption, {
+              [classNames.activeOption]: condition === option.value,
+              [classNames.bigSwitcherOption]: bigSwitch,
+            })}
+            btnWrapperStyle={classNames.btnWrapperStyle}
+            onClick={() => {
+              if (condition !== option.value) {
+                changeConditionHandler(option.value)
+              }
+            }}
+          >
+            {option.name}
+          </Button>
+        )
+      })}
     </div>
   )
 }

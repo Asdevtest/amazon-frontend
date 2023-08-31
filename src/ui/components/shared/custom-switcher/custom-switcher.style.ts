@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
     display: 'flex',
     alignItems: 'center',
-    padding: 2,
+    padding: 4,
     borderRadius: 7,
     backgroundColor: theme.palette.input.customDisabled,
     height: 28,
@@ -22,15 +22,22 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     background: 'none',
     minWidth: '24px !important',
+    transition: 'background .5s ease',
 
     '&:hover': {
-      color: '#fff',
+      color: theme.palette.text.general,
+      background: 'none',
     },
   },
 
   activeOption: {
     background: theme.palette.primary.main,
+    '&:hover': {
+      color: '#fff',
+      background: theme.palette.primary.main,
+    },
     color: '#fff',
+    cursor: 'unset',
   },
 
   bigSwitcherWrapper: {
@@ -39,6 +46,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   bigSwitcherOption: {
     padding: '0 15px',
-    height: '40px',
+    height: '100%',
+  },
+
+  btnWrapperStyle: {
+    height: '100%',
   },
 }))
