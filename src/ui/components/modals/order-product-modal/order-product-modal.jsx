@@ -109,7 +109,7 @@ export const OrderProductModal = ({
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
           _id: reorderOrder._id,
           deadline: reorderOrder.deadline || '',
-          // buyerId: reorderOrder.buyer?._id || null,
+          buyerId: reorderOrder.buyer?._id || null,
         }))
       : selectedProductsData.map(product => ({
           amount: 1,
@@ -126,7 +126,7 @@ export const OrderProductModal = ({
           logicsTariffId: '',
           expressChinaDelivery: false,
           priority: '30',
-          // buyerId: product.buyer?._id || null,
+          buyerId: product.buyer?._id || null,
         })),
   )
 
