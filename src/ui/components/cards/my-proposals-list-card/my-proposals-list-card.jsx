@@ -77,7 +77,7 @@ export const MyProposalsListCard = ({
 
               <div className={classNames.blockInfoCell}>
                 <p className={classNames.blockInfoCellTitle}>{t(TranslationKey.ASIN) + ':'}</p>
-                <AsinOrSkuLink asin={item.asin} />
+                <AsinOrSkuLink withCopyValue asin={item.asin} />
               </div>
 
               <div className={classNames.blockInfoCell}>
