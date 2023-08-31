@@ -5,6 +5,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FeedbackModel } from '@models/feedback-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
@@ -46,6 +47,8 @@ export class ProfileViewModel {
   selectedUser = undefined
   showTabModal = false
   showInfoModal = false
+  showConfirmWorkResultFormModal = false
+  reviews = []
 
   headerInfoData = {
     investorsCount: 255,
@@ -142,6 +145,7 @@ export class ProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+      await this.getReviews()
 
       if (!checkIsFreelancer(UserRoleCodeMap[UserModel.userInfo.role])) {
         await this.getProductsVacant()
@@ -360,5 +364,29 @@ export class ProfileViewModel {
 
   resetProfileDataValidation() {
     this.checkValidationNameOrEmail = {}
+  }
+
+  async getReviews() {
+    try {
+      const result = await FeedbackModel.getFeedback(this.user._id)
+
+      runInAction(() => {
+        this.reviews = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onAcceptReview(review) {
+    await FeedbackModel.sendFeedback(this.user._id, {
+      rating: review.rating,
+      comment: review.review,
+    })
+    await this.getReviews()
+    this.onTriggerOpenModal('showConfirmWorkResultFormModal')
   }
 }

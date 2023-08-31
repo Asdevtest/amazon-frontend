@@ -10,6 +10,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
@@ -48,12 +49,14 @@ export const AnotherUserProfileViewRaw = props => {
         {viewModel.user && (
           <UserProfile
             isAnotherUser
+            reviews={viewModel.reviews}
             user={viewModel.user}
             curUser={viewModel.curUser}
             headerInfoData={viewModel.headerInfoData}
             tabReview={viewModel.tabReview}
             tabHistory={viewModel.tabHistory}
             onClickWriteBtn={viewModel.onClickWriteBtn}
+            onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
           />
         )}
 
@@ -172,6 +175,21 @@ export const AnotherUserProfileViewRaw = props => {
           viewModel.onTriggerOpenModal('showSuccessModal')
         }}
       />
+
+      <Modal
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      >
+        <RequestProposalAcceptOrRejectResultForm
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      </Modal>
     </>
   )
 }

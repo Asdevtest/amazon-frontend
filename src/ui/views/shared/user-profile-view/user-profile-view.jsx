@@ -12,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -47,8 +48,10 @@ export const UserProfileViewRaw = props => {
           tabHistory={viewModel.tabHistory}
           setTabHistory={viewModel.onChangeTabHistory}
           setTabReview={viewModel.onChangeTabReview}
+          reviews={viewModel.reviews}
           onClickChangeAvatar={viewModel.onClickChangeAvatar}
           onClickChangeUserInfo={viewModel.onClickChangeUserInfo}
+          onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
 
         {/* <ActiveOrders
@@ -155,6 +158,21 @@ export const UserProfileViewRaw = props => {
           viewModel.onTriggerOpenModal('showInfoModal')
         }}
       />
+
+      <Modal
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      >
+        <RequestProposalAcceptOrRejectResultForm
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      </Modal>
     </>
   )
 }
