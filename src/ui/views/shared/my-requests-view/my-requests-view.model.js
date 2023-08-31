@@ -16,7 +16,7 @@ import { myRequestsViewColumns } from '@components/table/table-columns/overall/m
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
+const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS, RequestStatus.EXPIRED]
 
 // const filtersFields = ['status', 'typeTask']
 
