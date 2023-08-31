@@ -68,7 +68,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   amazonTitle: {
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
     maxHeight: 65,
     whiteSpace: 'normal',
