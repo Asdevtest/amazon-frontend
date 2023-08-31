@@ -6,6 +6,11 @@ class FeedbackModelStatic {
       body: feedback,
     })
   }
+
+  getFeedback = async guid => {
+    const response = await restApiService.userApi.apiV1UsersFeedbackGuidGet(guid)
+    return response
+  }
 }
 
 export const FeedbackModel = new FeedbackModelStatic()

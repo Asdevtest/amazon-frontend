@@ -182,7 +182,11 @@ export const OwnerRequestDetailCustomViewRaw = props => {
       </Modal>
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
-        <ReviewsForm onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')} />
+        <ReviewsForm
+          reviews={viewModel.currentReviews}
+          user={viewModel.currentReviewModalUser}
+          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+        />
       </Modal>
 
       <Modal
