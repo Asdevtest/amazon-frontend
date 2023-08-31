@@ -34,12 +34,12 @@ export const ReviewsForm = observer((props: ReviewsFormProps) => {
       <div className={classNames.modalHeader}>
         <Typography className={classNames.userReviewTitle}>{`${t(TranslationKey['User reviews'])}:`}</Typography>
         <div>
-          <UserLink customClassNames={classNames.userLink} name={user?.name} userId={'1'} />
+          <UserLink customClassNames={classNames.userLink} name={user?.name} userId={user?._id} />
           {user && <ShortRating rating={user.rating} size={'medium'} />}
         </div>
       </div>
       <div className={classNames.reviewsWrapper}>
-        {reviews.map((review, index) => (
+        {reviews?.map((review, index) => (
           <ReviewCard key={index} review={review} />
         ))}
       </div>

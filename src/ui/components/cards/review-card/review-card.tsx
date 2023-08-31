@@ -20,6 +20,7 @@ interface ReviewCardProps {
 export const ReviewCard = (props: ReviewCardProps) => {
   const { review } = props
   const { classes: styles } = useReviewCardStyles()
+
   return (
     <Grid item className={styles.wrapper}>
       <div className={styles.header}>

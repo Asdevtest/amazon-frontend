@@ -47,20 +47,20 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -70,34 +70,34 @@ class InlineObject99 {
 }
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject99.prototype['commentByClient'] = undefined;
+InlineObject99.prototype['execution_time'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject99.prototype['commentByPerformer'] = undefined;
+InlineObject99.prototype['price'] = undefined;
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * Комментарий к предложению.
+ * @member {String} comment
  */
-InlineObject99.prototype['fileLink'] = undefined;
+InlineObject99.prototype['comment'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject99.prototype['proposalId'] = undefined;
+InlineObject99.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} requestId
+ * Название предложения
+ * @member {String} title
  */
-InlineObject99.prototype['requestId'] = undefined;
+InlineObject99.prototype['title'] = undefined;
 
 
 
