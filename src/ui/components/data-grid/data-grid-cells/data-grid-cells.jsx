@@ -1687,6 +1687,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
               <img src="/assets/icons/fire.svg" />
             </div>
           ) : null}
+
           {chinaDelivery === true ? (
             <div className={classNames.chinaDelivery}>
               <img src="/assets/icons/truck.svg" />
