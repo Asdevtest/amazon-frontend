@@ -79,7 +79,7 @@ export const OwnerRequestProposalsCard = ({
                   <div className={classNames.userNameWrapper}>
                     <UserLink blackText name={item?.proposal?.createdBy?.name} userId={item.proposal.createdBy?._id} />
                     <div className={classNames.reviewWrapper}>
-                      <Typography className={classNames.reviews} onClick={() => onClickReview()}>
+                      <Typography className={classNames.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
                         {t(TranslationKey.Reviews)}
                       </Typography>
                       {/* <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} /> */}

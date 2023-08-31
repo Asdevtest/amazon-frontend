@@ -26,6 +26,8 @@ export class OwnerRequestDetailCustomViewModel {
   requestProposals = []
   requestAnnouncement = undefined
   curResultMedia = []
+  currentReviews = []
+  currentReviewModalUser = undefined
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -383,7 +385,23 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  onClickReview() {
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+      runInAction(() => {
+        this.currentReviews = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    this.currentReviewModalUser = user
     this.onTriggerOpenModal('showReviewModal')
   }
 

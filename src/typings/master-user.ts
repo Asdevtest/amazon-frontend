@@ -1,12 +1,6 @@
-export interface IMasterUser {
+export interface ShortUserType {
   _id: string
   name: string
-  rating: number
-}
-
-export interface CreatedBy {
-  name: string
-  _id: string
   rating: number
 }
 
@@ -15,7 +9,7 @@ export interface linksToMediaFilesInterface {
 }
 
 export interface IService {
-  createdBy: CreatedBy
+  createdBy: ShortUserType
   linksToMediaFiles: Array<string | linksToMediaFilesInterface>
   requests: Array<Requests>
   type: number
@@ -26,7 +20,7 @@ export interface IService {
 }
 
 export interface Requests {
-  createdBy: CreatedBy
+  createdBy: ShortUserType
   humanFriendlyId: number
   price: number
   status: string

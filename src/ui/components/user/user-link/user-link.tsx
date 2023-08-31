@@ -7,6 +7,8 @@ import Rating from '@mui/material/Rating'
 
 import { UserModel } from '@models/user-model'
 
+import { ShortRating } from '@components/shared/short-rating'
+
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { useClassNames } from './user-link.style'
@@ -24,6 +26,7 @@ interface UserLinkProps {
   customClassNames?: ClassNamesArg
   customAvatarStyles?: React.CSSProperties
   customStyles?: React.CSSProperties
+  isShortRating?: boolean
 }
 
 export const UserLink: FC<UserLinkProps> = observer(
@@ -40,6 +43,7 @@ export const UserLink: FC<UserLinkProps> = observer(
     customClassNames,
     customAvatarStyles,
     customStyles,
+    isShortRating,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -82,7 +86,8 @@ export const UserLink: FC<UserLinkProps> = observer(
                 </p>
               )}
 
-              {rating && <Rating disabled value={rating} size={ratingSize || 'medium'} />}
+              {rating && !isShortRating && <Rating disabled value={rating} size={ratingSize || 'medium'} />}
+              {rating && isShortRating && <ShortRating rating={rating} size={ratingSize || 'medium'} />}
             </div>
           </Link>
         ) : (
