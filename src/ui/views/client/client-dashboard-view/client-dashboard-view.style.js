@@ -41,8 +41,8 @@ export const styles = theme => ({
   },
 
   icon: {
-    width: 11,
-    height: 11,
+    width: 15,
+    height: 15,
   },
 
   withdrawBtn: {
