@@ -1790,7 +1790,8 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    gap: '10px',
+    gap: '5px',
+    paddingLeft: 5,
   },
 
   buttonsWrapper: {

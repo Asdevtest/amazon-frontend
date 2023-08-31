@@ -5,7 +5,19 @@ export const styles = theme => ({
   },
 
   attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#C69109',
+    },
   },
   root: {
     border: '0 !important',
