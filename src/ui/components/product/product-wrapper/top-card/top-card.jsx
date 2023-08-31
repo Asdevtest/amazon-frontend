@@ -23,7 +23,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -247,7 +247,7 @@ export const TopCard = observer(
                 <Box>
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
-                      <PhotoAndFilesCarouselTest
+                      <PhotoAndFilesSlider
                         withoutFiles
                         bigSlider
                         files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}

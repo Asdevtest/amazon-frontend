@@ -8,7 +8,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -51,11 +51,7 @@ export const ChatMessageRequest: FC<Props> = ({ message }) => {
             />
           </Linkify>
         </div>
-        <PhotoAndFilesCarouselTest
-          files={message?.data.details?.linksToMediaFiles}
-          customGap={20}
-          customSlideHeight={80}
-        />
+        <PhotoAndFilesSlider files={message?.data.details?.linksToMediaFiles} customGap={20} customSlideHeight={80} />
       </div>
       <div className={classNames.footerWrapper}>
         <div className={classNames.footerRow}>

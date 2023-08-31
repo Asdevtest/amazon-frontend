@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, ReactElement, useEffect, useState } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -19,7 +19,7 @@ enum tooltipPositions {
   Center = 'center',
 }
 
-interface Props {
+interface Props extends PropsWithChildren {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
@@ -34,7 +34,6 @@ interface Props {
   disableElevation?: boolean
   btnWrapperStyle?: string
   small?: boolean
-  children?: ReactElement | string
   defaultButtonTooltip?: string
 }
 
