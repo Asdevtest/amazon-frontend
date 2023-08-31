@@ -38,6 +38,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
+  const files = message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))
+
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -47,19 +49,11 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
       </div>
 
       <Linkify>
-        <p className={classNames.descriptionText}>{}</p>
-      </Linkify>
-
-      <Linkify>
         <p className={classNames.descriptionText}>{message.data.edited.result}</p>
       </Linkify>
 
       <div className={classNames.resultWrapper}>
-        <PhotoAndFilesCarouselTest
-          files={message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
-          customGap={20}
-          customSlideHeight={80}
-        />
+        <PhotoAndFilesCarouselTest files={files} customGap={20} customSlideHeight={80} />
 
         <div className={classNames.timeToCheckBlockWrapper}>
           <p className={classNames.timeToCheckBlockLabelText}>{t(TranslationKey['Time to check'])}</p>
