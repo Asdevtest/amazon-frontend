@@ -811,6 +811,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
 
   multilineTextHeaderCenter: {
