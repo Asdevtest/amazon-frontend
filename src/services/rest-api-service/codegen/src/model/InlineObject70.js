@@ -22,12 +22,12 @@ class InlineObject70 {
     /**
      * Constructs a new <code>InlineObject70</code>.
      * @alias module:model/InlineObject70
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
+     * @param productName {String} Назавние продукта
+     * @param price {Number} Желаемая цена
      */
-    constructor(productId, skus) { 
+    constructor(productName, price) { 
         
-        InlineObject70.initialize(this, productId, skus);
+        InlineObject70.initialize(this, productName, price);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject70 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj, productName, price) { 
+        obj['productName'] = productName;
+        obj['price'] = price;
     }
 
     /**
@@ -51,11 +51,47 @@ class InlineObject70 {
         if (data) {
             obj = obj || new InlineObject70();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('criteria')) {
+                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('quantity')) {
+                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
             }
         }
         return obj;
@@ -65,14 +101,88 @@ class InlineObject70 {
 }
 
 /**
+ * Название идеи
+ * @member {String} title
+ */
+InlineObject70.prototype['title'] = undefined;
+
+/**
+ * Image URL
+ * @member {Array.<String>} media
+ */
+InlineObject70.prototype['media'] = undefined;
+
+/**
+ * Комментарий к идее
+ * @member {String} comments
+ */
+InlineObject70.prototype['comments'] = undefined;
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineObject70.prototype['buyerComment'] = undefined;
+
+/**
+ * Назавние продукта
+ * @member {String} productName
+ */
+InlineObject70.prototype['productName'] = undefined;
+
+/**
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
+ */
+InlineObject70.prototype['productLinks'] = undefined;
+
+/**
+ * Дополнительные критерии для поиска товара
+ * @member {String} criteria
+ */
+InlineObject70.prototype['criteria'] = undefined;
+
+/**
+ * Количество товаров
+ * @member {Number} quantity
+ */
+InlineObject70.prototype['quantity'] = undefined;
+
+/**
+ * Желаемая цена
+ * @member {Number} price
+ */
+InlineObject70.prototype['price'] = undefined;
+
+/**
+ * Ширина, см
+ * @member {Number} width
+ */
+InlineObject70.prototype['width'] = undefined;
+
+/**
+ * Высота, см
+ * @member {Number} height
+ */
+InlineObject70.prototype['height'] = undefined;
+
+/**
+ * Длина, см
+ * @member {Number} length
+ */
+InlineObject70.prototype['length'] = undefined;
+
+/**
+ * Product ID
  * @member {String} productId
  */
 InlineObject70.prototype['productId'] = undefined;
 
 /**
- * @member {Array.<String>} skus
+ * Гуид родительского продукта
+ * @member {String} parentProductId
  */
-InlineObject70.prototype['skus'] = undefined;
+InlineObject70.prototype['parentProductId'] = undefined;
 
 
 

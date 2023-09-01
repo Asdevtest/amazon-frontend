@@ -753,6 +753,15 @@ export class ClientProductViewModel {
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
+        boxProperties: supplier?.boxProperties
+          ? supplier.boxProperties
+          : {
+              amountInBox: null,
+              boxHeightCm: null,
+              boxLengthCm: null,
+              boxWeighGrossKg: null,
+              boxWidthCm: null,
+            },
       }
 
       if (photosOfSupplier.length) {

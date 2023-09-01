@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**failed** | **[String]** |  | [optional] 
+**count** | **Number** | Общее кол-во идей | [optional] 
+**rows** | [**[InlineResponse20050Rows]**](InlineResponse20050Rows.md) | Список идей | [optional] 
 
 

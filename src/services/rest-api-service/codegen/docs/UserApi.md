@@ -358,7 +358,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackGuidGet
 
-> [InlineResponse20078] apiV1UsersFeedbackGuidGet(guid, opts)
+> [InlineResponse20079] apiV1UsersFeedbackGuidGet(guid, opts)
 
 Получить отзывы оставленые юзеру по его гуиду
 
@@ -400,7 +400,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20078]**](InlineResponse20078.md)
+[**[InlineResponse20079]**](InlineResponse20079.md)
 
 ### Authorization
 
