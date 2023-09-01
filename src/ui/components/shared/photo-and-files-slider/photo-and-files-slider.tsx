@@ -102,8 +102,8 @@ export const PhotoAndFilesSlider: FC<Props> = ({
 
   useEffect(() => {
     const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
-      const isImage = checkIsImageLink(el)
-      const isDocument = checkIsDocumentLink(el)
+      const isImage = checkIsImageLink(typeof el === 'string' ? el : '')
+      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : '')
 
       if (isImage) {
         result.push(el)
@@ -182,7 +182,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     setImageEditOpen(!imageEditOpen)
   }
 
-  const bigImagesModalControls = (imageIndex: number, image: ImageObjectType | string): ReactNode => (
+  const imageModalControls = (imageIndex: number, image: ImageObjectType | string): ReactNode => (
     <>
       {!withoutMakeMainImage && (
         <>
@@ -270,6 +270,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
               alignRight={alignRight}
               customSlideHeight={customSlideHeight}
               isHideCounter={isHideCounter}
+              withoutFiles={!withoutFiles}
             />
           ) : null}
         </div>
@@ -318,7 +319,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
         }))}
         currentImageIndex={photoIndex}
         handleCurrentImageIndex={imgIndex => setPhotoIndex(imgIndex)}
-        controls={isEditable ? bigImagesModalControls : undefined}
+        controls={isEditable ? imageModalControls : undefined}
       />
     </>
   )

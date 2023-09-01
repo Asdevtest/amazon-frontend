@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
@@ -14,9 +14,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field/field'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -28,7 +26,6 @@ import {
 } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
   getNewTariffTextForBoxOrOrder,
@@ -42,7 +39,6 @@ import { useClassNames } from './select-fields.style'
 
 export const SelectFields = ({
   userInfo,
-  imagesForLoad,
   paymentDetailsPhotosToLoad,
   yuanToDollarRate,
   usePriceInDollars,
@@ -764,12 +760,11 @@ export const SelectFields = ({
               </div>
             )
           }
-          <PhotoAndFilesCarousel
+          <PhotoAndFilesSlider
             withoutMakeMainImage
             isEditable
-            small
+            showPreviews
             files={order.images}
-            imagesForLoad={imagesForLoad}
             onChangeImagesForLoad={onChangeImagesForLoad}
           />
         </div>

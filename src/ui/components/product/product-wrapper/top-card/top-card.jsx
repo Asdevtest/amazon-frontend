@@ -11,7 +11,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Alert, Box, Paper, Typography } from '@mui/material'
+import { Alert, Paper, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -244,17 +244,16 @@ export const TopCard = observer(
                 </p>
               </div>
               <div className={classNames.card}>
-                <Box>
-                  {product.images && product.images.length ? (
-                    <div className={classNames.carouselWrapper}>
-                      <PhotoAndFilesSlider
-                        withoutFiles
-                        bigSlider
-                        files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
-                      />
-                    </div>
-                  ) : undefined}
-                </Box>
+                {product.images && product.images.length ? (
+                  <div className={classNames.carouselWrapper}>
+                    <PhotoAndFilesSlider
+                      withoutFiles
+                      bigSlider
+                      files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
+                    />
+                  </div>
+                ) : undefined}
+
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (

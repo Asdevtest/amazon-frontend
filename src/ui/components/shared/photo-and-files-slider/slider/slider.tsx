@@ -29,6 +29,7 @@ interface Props {
   alignLeft?: boolean
   alignRight?: boolean
   isHideCounter?: boolean
+  withoutFiles?: boolean
   customSlideHeight?: number
   onPhotosModalToggle?: VoidFunction
 }
@@ -45,6 +46,7 @@ export const Slider: FC<Props> = ({
   alignRight = false,
   isHideCounter = false,
   customSlideHeight,
+  withoutFiles,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -63,7 +65,15 @@ export const Slider: FC<Props> = ({
   const isDisableArrowRight = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === slides.length - 1
   const isDisableArrowLeft = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
   const isNoElements = slides.length === 0
-  const isImageType = slides.every(slide => typeof slide === 'string' && checkIsImageLink(slide))
+  const isImageType =
+    !withoutFiles &&
+    slides.every(slide => {
+      if (typeof slide === 'string') {
+        return checkIsImageLink(slide)
+      } else if ('data_url' in slide) {
+        return !!slide.data_url
+      }
+    })
 
   return (
     <div
