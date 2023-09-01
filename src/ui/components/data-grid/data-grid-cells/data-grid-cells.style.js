@@ -2001,4 +2001,10 @@ export const styles = theme => ({
     lineHeight: '19px',
     color: theme.palette.primary.main,
   },
+
+  multipleAsinWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
 })
