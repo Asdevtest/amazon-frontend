@@ -55,9 +55,15 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
+  divider: {
+    gridColumn: '2 / 3',
+  },
+
   currentBox: {
     marginBottom: '20px',
     width: '690px',
+    gridColumn: '1 / 2',
+
     [theme.breakpoints.down(1282)]: {
       width: 550,
     },
@@ -463,11 +469,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   receiveBoxWrapper: {
-    width: '690px',
+    width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    height: 'fit-content',
+    gridColumn: '2 / 4',
+    justifySelf: 'center',
+    position: 'sticky',
+    top: 0,
+    paddingTop: 20,
 
     [theme.breakpoints.down(768)]: {
       width: '100%',
