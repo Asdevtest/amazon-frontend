@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
+**timeoutAt** | **Date** | Время закрытия заявки. | 
+**maxAmountOfProposals** | **Number** | Количество предложений. null без лимитов | [optional] 
 
 
