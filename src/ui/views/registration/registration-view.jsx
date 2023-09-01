@@ -38,6 +38,7 @@ export const RegistrationViewRaw = props => {
         redirect={t(TranslationKey['Already have account?'])}
         title={t(TranslationKey.Registration)}
         onClickRedirect={viewModel.onClickRedirect}
+        onClickThemeIcon={viewModel.onClickThemeIcon}
       >
         <RegistrationForm
           checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}

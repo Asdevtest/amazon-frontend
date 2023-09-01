@@ -150,7 +150,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
       <TimeFromSeconds color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'} seconds={params.value} />
     ),
 
-    width: 91,
+    width: 105,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
 

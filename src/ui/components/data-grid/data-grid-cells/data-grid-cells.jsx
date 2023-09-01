@@ -276,7 +276,7 @@ export const ProductAsinCell = React.memo(
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {`${t(TranslationKey.SKU)}: `}
-                <span className={classNames.typoSpan}>
+                <span className={cx(classNames.defaultText, { [classNames.typoSpan]: !skusByClient })}>
                   {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
               </Typography>
@@ -1687,6 +1687,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
               <img src="/assets/icons/fire.svg" />
             </div>
           ) : null}
+
           {chinaDelivery === true ? (
             <div className={classNames.chinaDelivery}>
               <img src="/assets/icons/truck.svg" />
