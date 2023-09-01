@@ -13,7 +13,7 @@ import { ImageModal, ImageObjectType } from '@components/modals/image-modal/imag
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsImageLink, checkIsNotValidLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -104,8 +104,11 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
       const isImage = checkIsImageLink(typeof el === 'string' ? el : '')
       const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : '')
+      const isNotValid = checkIsNotValidLink(typeof el === 'string' ? el : '')
 
-      if (isImage) {
+      if (isNotValid) {
+        return result
+      } else if (isImage) {
         result.push(el)
       } else if (!isImage && !isDocument) {
         if (typeof el === 'string') {

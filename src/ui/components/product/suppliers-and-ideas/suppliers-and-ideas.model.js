@@ -586,7 +586,6 @@ export class SuppliersAndIdeasModel {
   }
 
   async onTriggerAddOrEditSupplierModal() {
-    console.log('this.showAddOrEditSupplierModal', this.showAddOrEditSupplierModal)
     try {
       if (this.showAddOrEditSupplierModal) {
         this.selectedSupplier = undefined

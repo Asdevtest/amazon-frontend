@@ -64,7 +64,7 @@ export const Slider: FC<Props> = ({
   const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
   const isDisableArrowRight = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === slides.length - 1
   const isDisableArrowLeft = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
-  const isNoElements = slides.length === 0
+  const isNotElements = slides.length === 0
   const isImageType =
     !withoutFiles &&
     slides.every(slide => {
@@ -82,7 +82,7 @@ export const Slider: FC<Props> = ({
         [classNames.wrapperAlignRight]: alignRight,
       })}
     >
-      {!isNoElements ? (
+      {!isNotElements ? (
         <div className={classNames.mainWrapper}>
           <div
             className={cx(classNames.sliderWrapper, {
@@ -203,7 +203,7 @@ export const Slider: FC<Props> = ({
           })}
         >
           <div
-            className={cx(classNames.slideWrapper, {
+            className={cx({
               [classNames.slideSmall]: smallSlider,
               [classNames.slideMedium]: mediumSlider,
               [classNames.slideBig]: bigSlider,
