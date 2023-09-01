@@ -246,14 +246,15 @@ export const lightTheme = createTheme({
       main: '#007bff',
       mainRgb: '0, 123, 255',
     },
+
     text: {
       general: '#001029',
       second: '#656565',
 
-      negativeMain: '#fff',
       gray: '#C4C4C4',
-      green: 'green',
       red: '#DD2121',
+      negativeMain: '#fff',
+      green: 'green',
     },
 
     button: {
@@ -277,6 +278,7 @@ export const lightTheme = createTheme({
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
       yellowRow: '#FFFDF3',
+      greenRow: 'rgba(0, 64, 0, 0.2)',
       redRow: '#FFF3F3',
       searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
@@ -294,29 +296,24 @@ export const lightTheme = createTheme({
     linearGradient: {
       successDashboardCard: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%)',
       negativeDashboardCard: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%)',
-
       hoverSuccessDashboardCard: 'linear-gradient(157deg,#fff 50%, #d8fded 50%)',
       hoverNegativeDashboardCard: 'linear-gradient(157deg,#fff 50%, #f8dede 50%)',
     },
 
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
-
       paper: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
-
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-
       red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-
       imageList: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+      filter: '0 -4px 13px 0 rgba(135, 135, 135, 0.15) inset',
     },
 
     input: {
       // disabled: 'rgba(0, 0, 0, 0.38)',
       // disabled: '#C4C4C4',
       customDisabled: '#EBEBEB',
-
       // disabled: 'normal',
       // disabled: 'rgba(0, 0, 0, 0.26)',
       customBorder: '#E0E0E0',
@@ -327,7 +324,6 @@ export const lightTheme = createTheme({
       succes: '#0B903E',
       tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
-
       ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
       ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
     },
@@ -695,13 +691,13 @@ export const darkTheme = createTheme({
         main: '#4CA1DE',
         mainRgb: '76, 161, 222',
       },
+
       text: {
         general: '#fff',
         second: '#E1E1E1',
 
         gray: 'gray',
         red: '#DD2121',
-
         negativeMain: '#001029',
         green: '#2FE341',
         disabled: '#001029', // 'rgba(255, 255, 255, 0.5)',
@@ -738,6 +734,7 @@ export const darkTheme = createTheme({
         chatMyMessage: '#384C68',
         darkBlue: '#4CA1DE',
         yellowRow: '#2F2C23',
+        greenRow: 'rgba(0, 64, 0, 0.5)',
         redRow: '#2F2329',
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
@@ -746,7 +743,6 @@ export const darkTheme = createTheme({
         yellow: '#FEF0A6',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
-
         default: '#121212',
         disabledDangerBtn: '#4F2026',
         activeChat: '#384C68',
@@ -754,36 +750,28 @@ export const darkTheme = createTheme({
 
       linearGradient: {
         successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-
         // negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
         negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-
         hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
-
         // hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
         hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #8C0000 50%);',
       },
 
       boxShadow: {
         general: 'rgba(31, 31, 31, 0.6)',
-
         paper: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
-
         yellow:
           'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-
         red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-
         imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
+        filter: '-4px -4px 13px 0 rgba(1, 1, 1, 0.17) inset',
       },
 
       input: {
         // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
         customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду, если снова будешь исправлять скажи мне, больше не буду трогать это (18.01.23)
-
         // customDisabled: '#21212B',
         // customDisabled: '#EBEBEB', // макет
-
         customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
       },
 
@@ -792,7 +780,6 @@ export const darkTheme = createTheme({
         succes: '#0B903E',
         tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
-
         ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
         ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
       },

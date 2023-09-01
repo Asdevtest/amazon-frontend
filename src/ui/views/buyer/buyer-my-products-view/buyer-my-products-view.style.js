@@ -4,9 +4,10 @@ export const styles = theme => ({
     transition: '0.3s ease',
   },
 
-  attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
+  dataGridWrapper: {
+    height: '82vh',
   },
+
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -36,35 +37,71 @@ export const styles = theme => ({
     height: '52px',
   },
 
-  ideaRowGreen: {
+  attentionRow: {
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
     '&:before': {
       content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldGreen,
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#C69109',
+    },
+  },
 
+  ideaRowGreen: {
+    position: 'relative',
+    background: theme.palette.background.greenRow,
+
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#09BB4D',
+    },
+
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 1,
+      left: 1,
+      backgroundImage: theme.palette.other.ideaProductSheldGreen,
       width: 48,
       height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
     },
   },
 
   ideaRowYellow: {
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
     '&:before': {
       content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldYellow,
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#C69109',
+    },
 
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 1,
+      left: 1,
+      backgroundImage: theme.palette.other.ideaProductSheldYellow,
       width: 48,
       height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
     },
-  },
-
-  dataGridWrapper: {
-    height: '82vh',
   },
 })

@@ -553,7 +553,7 @@ export class SuppliersAndIdeasModel {
       confirmMessage:
         t(TranslationKey['Are you sure you want to close this idea?']) +
         '\n' +
-        t(TranslationKey['Once confirmed, the idea will be irretrievably lost/deleted']),
+        t(TranslationKey['Once confirmed, the idea will be closed without reopening']),
       onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId, true),
     }
     this.onTriggerOpenModal('showConfirmModal')
