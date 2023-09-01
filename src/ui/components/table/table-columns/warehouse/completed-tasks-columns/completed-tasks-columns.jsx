@@ -8,7 +8,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell, // AsinCopyCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateFromUnixCell,
   NormalActionBtnCell,
