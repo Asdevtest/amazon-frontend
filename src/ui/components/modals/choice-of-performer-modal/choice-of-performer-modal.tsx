@@ -148,6 +148,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
             selectedCard={selectedService}
             onClickThumbnail={onClickThumbnail}
             onClickSelectCard={selectCardHandler}
+            onClickSelectButton={() => onClickSelectButton(selectedService, selectedExecutor)}
           />
         ))}
       </div>

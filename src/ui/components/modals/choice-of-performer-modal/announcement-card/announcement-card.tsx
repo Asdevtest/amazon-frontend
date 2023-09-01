@@ -13,7 +13,7 @@ import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IService, linksToMediaFilesInterface } from '@typings/master-user'
+import { IMasterUser, IService, linksToMediaFilesInterface } from '@typings/master-user'
 
 import { useClassNames } from './announcement-card.styles'
 
@@ -27,12 +27,13 @@ interface AnnouncementCardProps {
   selectedCard?: IService
   onClickThumbnail: (images: onClickThumbnailArguments) => void
   onClickSelectCard: (value: IService) => void
+  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IMasterUser) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { announcementData, selectedCard, onClickThumbnail, onClickSelectCard } = props
+  const { announcementData, selectedCard, onClickThumbnail, onClickSelectCard, onClickSelectButton } = props
 
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
     checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el),
@@ -124,7 +125,13 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
         </div>
       </div>
 
-      <AnnouncementModal isOpenModal={isOpenModal} service={announcementData} onOpenModal={handleToggleModal} />
+      <AnnouncementModal
+        select
+        isOpenModal={isOpenModal}
+        service={announcementData}
+        onOpenModal={handleToggleModal}
+        onClickSelectButton={onClickSelectButton}
+      />
     </>
   )
 }

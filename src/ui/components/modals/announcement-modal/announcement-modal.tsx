@@ -11,7 +11,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IService } from '@typings/master-user'
+import { IMasterUser, IService } from '@typings/master-user'
 
 import { useClassNames } from './announcement-modal.styles'
 
@@ -19,12 +19,23 @@ interface Props {
   isOpenModal: boolean
   service: IService
   onOpenModal: VoidFunction
-  onClickButton?: (service: IService) => void
   choose?: boolean
   order?: boolean
+  select?: boolean
+  onClickButton?: (service: IService) => void
+  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IMasterUser) => void
 }
 
-export const AnnouncementModal: FC<Props> = ({ isOpenModal, service, onOpenModal, onClickButton, choose, order }) => {
+export const AnnouncementModal: FC<Props> = ({
+  isOpenModal,
+  service,
+  choose,
+  order,
+  select,
+  onOpenModal,
+  onClickButton,
+  onClickSelectButton,
+}) => {
   const { classes: styles } = useClassNames()
 
   const serviceType =
@@ -34,6 +45,7 @@ export const AnnouncementModal: FC<Props> = ({ isOpenModal, service, onOpenModal
   const textBold = cx(styles.text, styles.bold)
   const textMediumBold = cx(styles.textMedium, styles.bold)
   const files = service.linksToMediaFiles as string[]
+  const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
 
   return (
     <Modal openModal={isOpenModal} setOpenModal={onOpenModal} dialogContextClassName={styles.modalWrapper}>
@@ -49,14 +61,15 @@ export const AnnouncementModal: FC<Props> = ({ isOpenModal, service, onOpenModal
           <p className={styles.text}>{t(TranslationKey.Performer)}</p>
 
           <UserLink
-            blueText
+            blackText
             withAvatar
             ratingSize="small"
             name={service.createdBy.name}
             userId={service.createdBy._id}
             rating={service.createdBy.rating}
-            customStyles={{ fontSize: 14, lineHeight: '19px' }}
-            customRatingClass={styles.rating}
+            customAvatarStyles={{ width: 30, height: 30 }}
+            customStyles={{ fontSize: 14, lineHeight: '17px' }}
+            customRatingClass={{ fontSize: 13, opacity: 1 }}
           />
         </div>
       </div>
@@ -89,10 +102,18 @@ export const AnnouncementModal: FC<Props> = ({ isOpenModal, service, onOpenModal
             <p className={styles.description}>{service.description}</p>
           </div>
 
-          {onClickButton ? (
+          {onClickButton && (choose || order) ? (
             <div className={styles.buttonWrapper}>
               <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
-                {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
+                {t(translationButtonKey)}
+              </Button>
+            </div>
+          ) : null}
+
+          {onClickSelectButton && select ? (
+            <div className={styles.buttonWrapper}>
+              <Button success={select} className={styles.button} onClick={() => onClickSelectButton()}>
+                {t(TranslationKey.Select)}
               </Button>
             </div>
           ) : null}
