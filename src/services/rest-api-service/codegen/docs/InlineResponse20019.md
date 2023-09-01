@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rows** | [**[InlineResponse20019Rows]**](InlineResponse20019Rows.md) |  | [optional] 
-**count** | **Number** |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse20018]**](InlineResponse20018.md) | Массив батчей c пагинацией(заданная страничка). | [optional] 
 
 

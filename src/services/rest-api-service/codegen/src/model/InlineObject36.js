@@ -22,11 +22,12 @@ class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
      * @alias module:model/InlineObject36
-     * @param isFormed {Boolean} Сформирована ли коробка
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor(isFormed) { 
+    constructor(batchIds, archive) { 
         
-        InlineObject36.initialize(this, isFormed);
+        InlineObject36.initialize(this, batchIds, archive);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isFormed) { 
-        obj['isFormed'] = isFormed;
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('isFormed')) {
-                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -60,10 +65,15 @@ class InlineObject36 {
 }
 
 /**
- * Сформирована ли коробка
- * @member {Boolean} isFormed
+ * @member {Array.<String>} batchIds
  */
-InlineObject36.prototype['isFormed'] = undefined;
+InlineObject36.prototype['batchIds'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineObject36.prototype['archive'] = undefined;
 
 
 

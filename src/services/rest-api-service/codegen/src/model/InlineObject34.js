@@ -22,12 +22,11 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxIds, newAmounts) { 
+    constructor(boxesIds) { 
         
-        InlineObject34.initialize(this, boxIds, newAmounts);
+        InlineObject34.initialize(this, boxesIds);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
-            }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -65,14 +60,9 @@ class InlineObject34 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * @member {Array.<String>} boxesIds
  */
-InlineObject34.prototype['boxIds'] = undefined;
-
-/**
- * @member {Array.<Number>} newAmounts
- */
-InlineObject34.prototype['newAmounts'] = undefined;
+InlineObject34.prototype['boxesIds'] = undefined;
 
 
 

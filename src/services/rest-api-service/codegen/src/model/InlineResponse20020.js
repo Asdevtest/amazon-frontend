@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20020Rows from './InlineResponse20020Rows';
 
 /**
  * The InlineResponse20020 model module.
@@ -48,11 +47,23 @@ class InlineResponse20020 {
         if (data) {
             obj = obj || new InlineResponse20020();
 
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20020Rows]);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('cubicMeters')) {
+                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCost')) {
+                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
+                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryRate')) {
+                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
             }
         }
         return obj;
@@ -62,14 +73,40 @@ class InlineResponse20020 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20020Rows>} rows
+ * The unique identifier of the box.
+ * @member {String} guid
  */
-InlineResponse20020.prototype['rows'] = undefined;
+InlineResponse20020.prototype['guid'] = undefined;
 
 /**
- * @member {Number} count
+ * Объем в м ^ 3
+ * @member {Number} cubicMeters
  */
-InlineResponse20020.prototype['count'] = undefined;
+InlineResponse20020.prototype['cubicMeters'] = undefined;
+
+/**
+ * The delivery cost of the box.
+ * @member {Number} deliveryCost
+ */
+InlineResponse20020.prototype['deliveryCost'] = undefined;
+
+/**
+ * The volume weight of the box in kg.
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineResponse20020.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * The weight of the box in kg.
+ * @member {Number} weightFinalAccountingKgWarehouse
+ */
+InlineResponse20020.prototype['weightFinalAccountingKgWarehouse'] = undefined;
+
+/**
+ * The delivery rate of the box. $/kg
+ * @member {Number} deliveryRate
+ */
+InlineResponse20020.prototype['deliveryRate'] = undefined;
 
 
 

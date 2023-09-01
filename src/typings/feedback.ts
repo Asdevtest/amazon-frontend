@@ -8,5 +8,6 @@ export interface FeedbackType {
   createdBy: ShortUserType
   sub: ShortUserType
   comment: string
+  createdAt: string
   role: keyof typeof UserRolePrettyMap
 }

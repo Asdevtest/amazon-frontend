@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
 
 
