@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -71,13 +70,28 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px !important',
   },
 
-  slideWrapper: {
+  slidesWrapper: {
+    overflow: 'hidden',
+  },
+
+  slides: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    transition: 'transform 0.3s ease-in-out',
 
     height: 110,
     width: 146,
+  },
+
+  slideWrapper: {
+    display: 'flex',
+    flex: '1 0 100%',
+  },
+
+  slide: {
+    width: '100% !important',
+    height: '100% !important',
+    objectFit: 'contain',
+    cursor: 'pointer',
   },
 
   slideSmall: {
@@ -93,29 +107,6 @@ export const useClassNames = makeStyles()(theme => ({
   slideBig: {
     height: '300px !important',
     width: '550px !important',
-  },
-
-  slideLeftBefore: {
-    animation: `${slideLeftBefore} 0.3s ease-in-out`,
-  },
-
-  slideLeftAfter: {
-    animation: `${slideLeftAfter} 0.3s ease-in-out`,
-  },
-
-  slideRightBefore: {
-    animation: `${slideRightBefore} 0.3s ease-in-out`,
-  },
-
-  slideRightAfter: {
-    animation: `${slideRightAfter} 0.3s ease-in-out`,
-  },
-
-  slide: {
-    width: '100% !important',
-    height: '100% !important',
-    objectFit: 'contain',
-    cursor: 'pointer',
   },
 
   documentWrapper: {
@@ -175,51 +166,3 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '25px !important',
   },
 }))
-
-const slideLeftBefore = keyframes`
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(15%);
-    opacity: 0;
-  }
-`
-
-const slideLeftAfter = keyframes`
-  0% {
-    transform: translateX(-15%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`
-
-const slideRightBefore = keyframes`
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(-15%);
-    opacity: 0;
-  }
-`
-
-const slideRightAfter = keyframes`
-  0% {
-    transform: translateX(15%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`

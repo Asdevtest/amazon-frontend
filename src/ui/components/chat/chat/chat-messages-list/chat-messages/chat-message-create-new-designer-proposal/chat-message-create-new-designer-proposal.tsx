@@ -13,7 +13,7 @@ import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -94,7 +94,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarouselTest
+          <PhotoAndFilesSlider
             column
             files={message.data.request?.media?.map(el => el.fileLink)}
             customGap={20}
@@ -124,7 +124,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarouselTest
+          <PhotoAndFilesSlider
             column
             files={message.data.proposal.linksToMediaFiles}
             customGap={20}

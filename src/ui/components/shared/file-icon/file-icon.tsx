@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { DefaultFileTypeIcon, DocFileTypeIcon, PdfFileTypeIcon, XlsxFileTypeIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './files-carousel.style'
+import { useClassNames } from './file-icon.style'
 
 interface Props {
   fileExtension: string

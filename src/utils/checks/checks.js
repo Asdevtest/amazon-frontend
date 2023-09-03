@@ -55,6 +55,7 @@ export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logics
 
 export const checkIsImageLink = link =>
   link?.endsWith('.png') ||
+  link?.endsWith('.PNG') ||
   link?.endsWith('.jpg') ||
   link?.endsWith('.ico') ||
   link?.endsWith('.gif') ||
@@ -75,6 +76,8 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('.xlsx') ||
   link?.endsWith('.xls') ||
   link?.endsWith('.txt')
+
+export const checkIsNotValidLink = link => link?.endsWith('.com')
 
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
