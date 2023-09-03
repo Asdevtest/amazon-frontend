@@ -50,6 +50,9 @@ export const BuyerMyProductsViewRaw = props => {
   const getRowClassName = params =>
     cx(ideasSheldStyle(params), {
       [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+      [classNames.attentionRowShort]:
+        (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified) ||
+        !!params.row.originalData.ideasOnCheck,
     })
 
   return (
