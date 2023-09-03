@@ -1013,7 +1013,7 @@ export const BeforeAfterBlock = observer(
     }
 
     return (
-      <div className={classNames.boxesWrapper}>
+      <>
         <div className={classNames.currentBox}>
           <div className={classNames.titleWrapper}>
             <Text
@@ -1069,7 +1069,7 @@ export const BeforeAfterBlock = observer(
           desiredBoxes.length === 0 &&
           incomingBoxes.length > 0 &&
           !readOnly && <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />}
-      </div>
+      </>
     )
   },
 )
