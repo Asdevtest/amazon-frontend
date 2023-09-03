@@ -462,11 +462,9 @@ export const StringListCell = React.memo(
                   {itemsForRender?.map((item, i) => (
                     <div key={i} className={classNames.multilineTextHeaderWrapper}>
                       <Typography className={classNames.typoCell}>
-                        {
-                          <span className={classNames.multilineHeaderText}>
-                            {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                          </span>
-                        }
+                        <span className={classNames.multilineHeaderText}>
+                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                        </span>
                       </Typography>
                       {withCopy && <CopyValue text={item} />}
                     </div>

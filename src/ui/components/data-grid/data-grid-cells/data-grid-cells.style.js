@@ -95,6 +95,8 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '21px',
     color: 'rgba(189, 194, 209, 1)',
+    textAlign: 'center',
+    width: '100%',
   },
 
   productTypoCell: {
@@ -1394,7 +1396,7 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    width: '100%',
+    width: 180,
     height: 30,
     marginBottom: 10,
   },
