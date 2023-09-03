@@ -144,8 +144,10 @@ export const styles = theme => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
+    height: '30px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+
   barcodeChipHover: {
     '&:hover, &:focus': {
       backgroundColor: theme.palette.primary.main,
