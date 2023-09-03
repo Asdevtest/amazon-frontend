@@ -501,7 +501,12 @@ export const ProductCell = React.memo(
     ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (
       <div className={classNames.productCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(image)} />
+          <img
+            alt=""
+            className={classNames.productCellImg}
+            src={getAmazonImageUrl(image)}
+            onError={e => (e.target.src = '/assets/img/no-photo.jpg')}
+          />
 
           <div className={classNames.productWrapper}>
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
