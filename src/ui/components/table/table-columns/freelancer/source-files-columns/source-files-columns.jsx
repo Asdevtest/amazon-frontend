@@ -18,7 +18,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell text={params.value || '-'} />,
+    renderCell: params => <MultilineTextCell leftAlign text={params.value || '-'} />,
     width: 205,
   },
 
