@@ -559,7 +559,7 @@ export const EditBoxForm = observer(
                         }`
                             : t(TranslationKey.Select)} */}
 
-                          {boxFields.storekeeperId
+                          {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
