@@ -600,7 +600,7 @@ export class ClientProductViewModel {
       }
 
       await this.onSaveProductData()
-      await updateDataHandler()
+      updateDataHandler && (await updateDataHandler())
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
