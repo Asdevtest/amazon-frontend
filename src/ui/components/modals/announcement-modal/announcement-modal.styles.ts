@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(() => ({
   modalWrapper: {
     width: '100%',
     height: '100%',
+    padding: 40,
   },
 
   header: {
@@ -45,27 +46,23 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: 600,
   },
 
-  rating: {
-    fontSize: 9,
-  },
-
   main: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: 50,
+    gap: 48,
   },
 
   files: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 30,
   },
 
   flexColumnContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 14,
   },
 
   content: {
@@ -85,7 +82,7 @@ export const useClassNames = makeStyles()(() => ({
 
   description: {
     width: 580,
-    height: 349,
+    height: 377,
     fontSize: 14,
     lineHeight: '19px',
     overflow: 'auto',
