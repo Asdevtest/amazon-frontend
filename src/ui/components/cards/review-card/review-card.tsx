@@ -1,5 +1,6 @@
 import React from 'react'
 
+import StarIcon from '@mui/icons-material/Star'
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -38,7 +39,14 @@ export const ReviewCard = (props: ReviewCardProps) => {
         </div>
         <div className={styles.headerItem}>
           <Typography className={styles.headerItemTitle}>{new Date(Date.now()).toLocaleDateString()}</Typography>
-          <Rating disabled value={review.rating} size={'small'} />
+          <Rating
+            readOnly
+            disabled
+            classes={{ iconEmpty: styles.ratingEmpty }}
+            value={review.rating}
+            size={'small'}
+            emptyIcon={<StarIcon fontSize="inherit" />}
+          />
         </div>
       </div>
 

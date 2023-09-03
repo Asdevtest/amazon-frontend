@@ -58,4 +58,8 @@ export const useReviewCardStyles = makeStyles()(theme => ({
     fontWeight: 400,
     color: theme.palette.text.general,
   },
+
+  ratingEmpty: {
+    color: theme.palette.text.second,
+  },
 }))
