@@ -3521,3 +3521,17 @@ export const TimeFromSeconds = React.memo(
     )
   }, styles),
 )
+
+export const MultipleAsinCell = React.memo(
+  withStyles(props => {
+    const { classes: styles, asinList } = props
+
+    return (
+      <div className={styles.multipleAsinWrapper}>
+        {asinList.map((asin, index) => (
+          <AsinOrSkuLink key={index} withCopyValue asin={asin} />
+        ))}
+      </div>
+    )
+  }, styles),
+)
