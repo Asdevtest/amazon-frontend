@@ -22,12 +22,10 @@ class InlineObject66 {
     /**
      * Constructs a new <code>InlineObject66</code>.
      * @alias module:model/InlineObject66
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
      */
-    constructor(productId, skus) { 
+    constructor() { 
         
-        InlineObject66.initialize(this, productId, skus);
+        InlineObject66.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject66 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject66 {
         if (data) {
             obj = obj || new InlineObject66();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -65,14 +58,10 @@ class InlineObject66 {
 }
 
 /**
- * @member {String} productId
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject66.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<String>} skus
- */
-InlineObject66.prototype['skus'] = undefined;
+InlineObject66.prototype['suppliersIds'] = undefined;
 
 
 

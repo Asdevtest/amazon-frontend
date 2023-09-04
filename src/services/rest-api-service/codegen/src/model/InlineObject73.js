@@ -22,11 +22,11 @@ class InlineObject73 {
     /**
      * Constructs a new <code>InlineObject73</code>.
      * @alias module:model/InlineObject73
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
+     * @param text {String} текст отзыва/репорта
      */
-    constructor(fileUrl) { 
+    constructor(text) { 
         
-        InlineObject73.initialize(this, fileUrl);
+        InlineObject73.initialize(this, text);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject73 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject73 {
         if (data) {
             obj = obj || new InlineObject73();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -60,10 +63,16 @@ class InlineObject73 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject73.prototype['fileUrl'] = undefined;
+InlineObject73.prototype['text'] = undefined;
+
+/**
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
+ */
+InlineObject73.prototype['media'] = undefined;
 
 
 
