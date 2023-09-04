@@ -10,6 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextCell, // AsinCopyCell, // WarehouseTasksBtnCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   NormalActionBtnCell,
   StringListCell,
@@ -79,7 +80,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
     width: window.innerWidth < 1282 ? 101 : 160,
   },
