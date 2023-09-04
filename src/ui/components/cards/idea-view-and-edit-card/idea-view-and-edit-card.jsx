@@ -77,6 +77,7 @@ export const IdeaViewAndEditCard = observer(
     onClickLinkRequestButton,
     onClickCreateRequestButton,
     onClickOpenNewTab,
+    onClickOpenProduct,
     onClickToOrder,
     onClickRequestId,
     onClickUnbindButton,
@@ -324,18 +325,22 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.sourcesProductWraper}>
             {formFields.childProduct && (
               <SourceProduct
+                showOpenInNewTabIcon
                 title={t(TranslationKey['Child product'])}
                 img={formFields.childProduct?.images?.[0]}
                 asin={formFields.childProduct?.asin}
                 sku={formFields.childProduct?.skusByClient?.[0]}
+                onClickShareIcon={() => onClickOpenProduct(formFields.childProduct?._id)}
               />
             )}
             {(currentProduct || formFields.parentProduct) && (
               <SourceProduct
+                showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
                 img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
                 asin={formFields.parentProduct?.asin || currentProduct?.asin}
                 sku={formFields.parentProduct?.skusByClient?.[0] || currentProduct?.skusByClient?.[0]}
+                onClickShareIcon={() => onClickOpenProduct(formFields.parentProduct?._id || currentProduct?._id)}
               />
             )}
           </div>
