@@ -855,6 +855,19 @@ export const styles = theme => ({
     wordBreak: 'break-word',
   },
 
+  shopOrderText: {
+    width: '100%',
+    textAlign: 'center',
+    color: theme.palette.text.general,
+
+    fontWeight: '600',
+    fontSize: '12px',
+    lineHeight: '14px',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+  },
+
   adaptText: {
     fontSize: 14,
     fontWeight: 400,
@@ -1396,7 +1409,7 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    width: 180,
+    width: 160,
     height: 30,
     marginBottom: 10,
   },
@@ -1429,7 +1442,7 @@ export const styles = theme => ({
     },
 
     stringListMenuWrapper: {
-      width: 150,
+      width: 160,
       padding: '10px',
       maxHeight: 400,
     },
