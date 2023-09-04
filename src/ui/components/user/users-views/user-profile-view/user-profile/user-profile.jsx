@@ -168,8 +168,8 @@ export const UserProfile = observer(
             <div className={classNames.rightSideWrapper}>
               <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
               {isAnotherUser && (
-                <div className={classNames.leaveReviewBtn}>
-                  <Button variant="contained" onClick={onClickReview}>
+                <div className={classNames.leaveReviewBtnWrapper}>
+                  <Button variant="contained" className={classNames.leaveReviewBtn} onClick={onClickReview}>
                     {t(TranslationKey['Leave a review'])}
                   </Button>
                 </div>

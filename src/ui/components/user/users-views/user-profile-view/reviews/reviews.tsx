@@ -26,10 +26,12 @@ export const Reviews = (props: ReviewsProps) => {
         {t(TranslationKey.Reviews)}
       </Typography>
       <Paper className={styles.body}>
-        {!!reviews?.length && reviews.map((el, index) => <ReviewCard key={index} review={el} />)}
-        {!reviews?.length && (
-          <Typography className={styles.typoNoReviews}>{t(TranslationKey['No reviews yet'])}</Typography>
-        )}
+        <div className={styles.reviewList}>
+          {!!reviews?.length && reviews.map((el, index) => <ReviewCard key={index} review={el} />)}
+          {!reviews?.length && (
+            <Typography className={styles.typoNoReviews}>{t(TranslationKey['No reviews yet'])}</Typography>
+          )}
+        </div>
       </Paper>
     </div>
   )

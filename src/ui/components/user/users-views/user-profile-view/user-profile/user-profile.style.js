@@ -157,9 +157,16 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  leaveReviewBtn: {
+  leaveReviewBtnWrapper: {
     paddingTop: 20,
     width: 'fit-content',
     marginLeft: 'auto !important',
+  },
+
+  leaveReviewBtn: {
+    color: '#fff',
+    height: 40,
+    borderRadius: 7,
+    padding: '10px 20px',
   },
 }))
