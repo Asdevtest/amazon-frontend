@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID продукта в базе данных | [optional] 
-**asin** | **String** | ASIN продукта | [optional] 
-**skusByClient** | **[String]** |  | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
-**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse20021]**](InlineResponse20021.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

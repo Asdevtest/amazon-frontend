@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject20 model module.
@@ -23,10 +22,12 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor() { 
+    constructor(batchIds, archive) { 
         
-        InlineObject20.initialize(this);
+        InlineObject20.initialize(this, batchIds, archive);
     }
 
     /**
@@ -34,7 +35,9 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -48,11 +51,11 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
             }
-            if (data.hasOwnProperty('newBoxesParams')) {
-                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -62,15 +65,15 @@ class InlineObject20 {
 }
 
 /**
- * GUID коробки, которую делим
- * @member {String} guid
+ * @member {Array.<String>} batchIds
  */
-InlineObject20.prototype['guid'] = undefined;
+InlineObject20.prototype['batchIds'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
+ * Заархивирована ли партия
+ * @member {Boolean} archive
  */
-InlineObject20.prototype['newBoxesParams'] = undefined;
+InlineObject20.prototype['archive'] = undefined;
 
 
 

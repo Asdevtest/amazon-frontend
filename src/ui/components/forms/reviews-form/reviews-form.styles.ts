@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useReviewsFormStyles = makeStyles()(theme => ({
   root: {
-    width: '810px',
+    width: 'calc(810px - 60px)',
   },
 
   modalHeader: {
@@ -25,14 +25,18 @@ export const useReviewsFormStyles = makeStyles()(theme => ({
   },
 
   reviewsWrapper: {
-    padding: '20px 30px',
     border: '1px solid #e0e0e0',
     borderRadius: '4px',
+  },
+
+  reviewsList: {
+    padding: '5px 5px',
     display: 'flex',
+    overflow: 'auto',
     flexDirection: 'column',
     gap: '20px',
     maxHeight: '700px',
-    overflow: 'auto',
+    margin: '10px 5px',
   },
 
   userLink: {

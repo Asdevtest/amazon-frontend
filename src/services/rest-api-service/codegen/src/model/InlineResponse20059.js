@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20059 model module.
@@ -49,32 +47,29 @@ class InlineResponse20059 {
         if (data) {
             obj = obj || new InlineResponse20059();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
             }
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -84,56 +79,52 @@ class InlineResponse20059 {
 }
 
 /**
- * Гуид медиа
- * @member {String} _id
+ * Цена за каждое предложение.
+ * @member {Number} price
  */
-InlineResponse20059.prototype['_id'] = undefined;
+InlineResponse20059.prototype['price'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20059.prototype['sourceFile'] = undefined;
+InlineResponse20059.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comments
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20059.prototype['comments'] = undefined;
+InlineResponse20059.prototype['platformMargin'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineResponse20059.prototype['proposal'] = undefined;
+InlineResponse20059.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * Код специализации фрилансера
- * @member {Number} typeTask
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
  */
-InlineResponse20059.prototype['typeTask'] = undefined;
+InlineResponse20059.prototype['supervisorFee'] = undefined;
 
 /**
- * гуид продукта
- * @member {String} productId
+ * Сумма.
+ * @member {Number} unitCost
  */
-InlineResponse20059.prototype['productId'] = undefined;
+InlineResponse20059.prototype['unitCost'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
  */
-InlineResponse20059.prototype['createdBy'] = undefined;
+InlineResponse20059.prototype['maxAmountOfProposals'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * Итого.
+ * @member {Number} totalCost
  */
-InlineResponse20059.prototype['createdAt'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse20059.prototype['updatedAt'] = undefined;
+InlineResponse20059.prototype['totalCost'] = undefined;
 
 
 

@@ -47,20 +47,8 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -70,30 +58,10 @@ class InlineObject25 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject25.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} widthCmWarehouse
- */
-InlineObject25.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} heightCmWarehouse
- */
-InlineObject25.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject25.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject25.prototype['images'] = undefined;
+InlineObject25.prototype['guid'] = undefined;
 
 
 

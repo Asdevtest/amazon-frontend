@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20053Failed from './InlineResponse20053Failed';
 
 /**
  * The InlineResponse20053 model module.
@@ -48,8 +47,11 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20053Failed]);
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -59,9 +61,14 @@ class InlineResponse20053 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20053Failed>} failed
+ * @member {String} userId
  */
-InlineResponse20053.prototype['failed'] = undefined;
+InlineResponse20053.prototype['userId'] = undefined;
+
+/**
+ * @member {String} productId
+ */
+InlineResponse20053.prototype['productId'] = undefined;
 
 
 

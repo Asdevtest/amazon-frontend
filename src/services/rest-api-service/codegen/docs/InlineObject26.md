@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxIds** | **[String]** |  | 
-**newAmounts** | **[Number]** |  | 
+**guids** | **[String]** | Массив коробок. | 
+**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | 
 
 

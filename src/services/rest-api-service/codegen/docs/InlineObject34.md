@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxesIds** | **[String]** |  | 
+**boxIds** | **[String]** |  | 
+**newAmounts** | **[Number]** |  | 
 
 

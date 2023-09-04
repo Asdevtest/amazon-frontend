@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxesIds** | **[String]** |  | 
+**itemsBarCodeChanges** | [**[ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]**](ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md) |  | 
 
 

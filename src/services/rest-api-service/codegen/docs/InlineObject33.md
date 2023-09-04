@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Название партии | [optional] 
-**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
-**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
-**trackingNumber** | **String** | Трек номер партии | [optional] 
-**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
+**lengthCmWarehouse** | **Number** |  | [optional] 
+**widthCmWarehouse** | **Number** |  | [optional] 
+**heightCmWarehouse** | **Number** |  | [optional] 
+**weighGrossKgWarehouse** | **Number** |  | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxesIds** | **[String]** |  | 
+**guid** | **String** | GUID коробки разделение которой отменяем. | [optional] 
 
 

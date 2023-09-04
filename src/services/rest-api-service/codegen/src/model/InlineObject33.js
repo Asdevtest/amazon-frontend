@@ -47,20 +47,20 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('trackingNumber')) {
-                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('actualShippingCost')) {
-                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -70,34 +70,30 @@ class InlineObject33 {
 }
 
 /**
- * Название партии
- * @member {String} title
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject33.prototype['title'] = undefined;
+InlineObject33.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
+ * @member {Number} widthCmWarehouse
  */
-InlineObject33.prototype['calculationMethod'] = undefined;
+InlineObject33.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
+ * @member {Number} heightCmWarehouse
  */
-InlineObject33.prototype['volumeWeightDivide'] = undefined;
+InlineObject33.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * Трек номер партии
- * @member {String} trackingNumber
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject33.prototype['trackingNumber'] = undefined;
+InlineObject33.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Настоящая стоимость доставки
- * @member {Number} actualShippingCost
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject33.prototype['actualShippingCost'] = undefined;
+InlineObject33.prototype['images'] = undefined;
 
 
 

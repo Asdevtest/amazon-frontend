@@ -204,7 +204,7 @@ let apiInstance = new TestSwagger.OtherApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
+  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
 };
 apiInstance.apiV1OtherCheckAsinsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
+ **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
 
 ### Return type
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherCheckAsinsPost
 
-> InlineResponse20053 apiV1OtherCheckAsinsPost(opts)
+> InlineResponse20051 apiV1OtherCheckAsinsPost(opts)
 
 # Заполнение списка асинов на проверку
 
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20053**](InlineResponse20053.md)
+[**InlineResponse20051**](InlineResponse20051.md)
 
 ### Authorization
 
@@ -313,7 +313,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
+  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
 };
 apiInstance.apiV1OtherFeedbackPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -329,7 +329,7 @@ apiInstance.apiV1OtherFeedbackPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
+ **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
 
 ### Return type
 
@@ -685,7 +685,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
+  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -701,7 +701,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
+ **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
 
 ### Return type
 

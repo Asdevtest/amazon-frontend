@@ -58,6 +58,7 @@ class InlineResponse2014 {
 }
 
 /**
+ * GUID созданной коробки
  * @member {String} guid
  */
 InlineResponse2014.prototype['guid'] = undefined;

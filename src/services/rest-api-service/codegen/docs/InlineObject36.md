@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**batchIds** | **[String]** |  | 
-**archive** | **Boolean** | Заархивирована ли партия | 
+**isFormed** | **Boolean** | Сформирована ли коробка | 
 
 

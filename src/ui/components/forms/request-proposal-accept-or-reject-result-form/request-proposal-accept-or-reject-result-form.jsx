@@ -53,7 +53,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
 
         <Field
           multiline
-          inputProps={{ maxLength: 500 }}
+          inputProps={{ maxLength: 125 }}
           label={reviewLabel}
           minRows={6}
           maxRows={6}

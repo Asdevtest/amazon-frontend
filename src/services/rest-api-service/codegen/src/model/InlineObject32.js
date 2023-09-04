@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject32 model module.
@@ -22,11 +23,11 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param boxesIds {Array.<String>} 
+     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
      */
-    constructor(boxesIds) { 
+    constructor(itemsBarCodeChanges) { 
         
-        InlineObject32.initialize(this, boxesIds);
+        InlineObject32.initialize(this, itemsBarCodeChanges);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, itemsBarCodeChanges) { 
+        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
     }
 
     /**
@@ -49,8 +50,8 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('itemsBarCodeChanges')) {
+                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
             }
         }
         return obj;
@@ -60,9 +61,9 @@ class InlineObject32 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
  */
-InlineObject32.prototype['boxesIds'] = undefined;
+InlineObject32.prototype['itemsBarCodeChanges'] = undefined;
 
 
 

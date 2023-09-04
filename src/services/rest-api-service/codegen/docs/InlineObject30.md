@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Название партии | [optional] 
-**boxesIds** | **[String]** |  | 
-**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
-**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
-**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
+**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
+**additionalBoxes** | [**[InlineObject21]**](InlineObject21.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 
