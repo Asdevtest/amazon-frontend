@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -104,7 +103,7 @@ const filtersFields = [
   'redFlags',
 ]
 
-const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
+// const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
 
 export class ClientInventoryViewModel {
   history = undefined
