@@ -32,7 +32,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
@@ -492,7 +492,7 @@ export const EditBoxStorekeeperForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
+                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
                           </div>
 
                           <>
@@ -880,14 +880,16 @@ export const EditBoxStorekeeperForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
-                    changeConditionHandler={condition => handleChange(condition)}
-                  />
+                  <div>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      switcherSettings={[
+                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                      ]}
+                      changeConditionHandler={condition => handleChange(condition)}
+                    />
+                  </div>
                 </div>
 
                 <WarehouseDemensions
@@ -909,7 +911,7 @@ export const EditBoxStorekeeperForm = observer(
                   <Typography className={classNames.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesCarouselTest withoutFiles files={boxFields.images} />
+                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
                 </div>
 
                 <div className={classNames.commentsWrapper}>

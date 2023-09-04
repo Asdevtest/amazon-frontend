@@ -25,7 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { PlusIcon } from '@components/shared/svg-icons'
@@ -77,6 +77,7 @@ export const IdeaViewAndEditCard = observer(
     onClickLinkRequestButton,
     onClickCreateRequestButton,
     onClickOpenNewTab,
+    onClickOpenProduct,
     onClickToOrder,
     onClickRequestId,
     onClickUnbindButton,
@@ -324,18 +325,22 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.sourcesProductWraper}>
             {formFields.childProduct && (
               <SourceProduct
+                showOpenInNewTabIcon
                 title={t(TranslationKey['Child product'])}
                 img={formFields.childProduct?.images?.[0]}
                 asin={formFields.childProduct?.asin}
                 sku={formFields.childProduct?.skusByClient?.[0]}
+                onClickShareIcon={() => onClickOpenProduct(formFields.childProduct?._id)}
               />
             )}
             {(currentProduct || formFields.parentProduct) && (
               <SourceProduct
+                showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
                 img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
                 asin={formFields.parentProduct?.asin || currentProduct?.asin}
                 sku={formFields.parentProduct?.skusByClient?.[0] || currentProduct?.skusByClient?.[0]}
+                onClickShareIcon={() => onClickOpenProduct(formFields.parentProduct?._id || currentProduct?._id)}
               />
             )}
           </div>
@@ -346,7 +351,7 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.mediaBlock}>
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
-                  <PhotoAndFilesCarouselTest bigSlider withoutFiles files={formFields?.media} />
+                  <PhotoAndFilesSlider bigSlider withoutFiles files={formFields?.media} />
                   {/* <PhotoCarousel files={formFields?.media} /> */}
                 </div>
               )}
@@ -368,15 +373,17 @@ export const IdeaViewAndEditCard = observer(
                     <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
 
                     <div className={classNames.requestsControlButtonsWrapper}>
-                      <CustomSwitcher
-                        bigSwitch
-                        condition={showRequestType}
-                        nameFirstArg={t(TranslationKey['On check'])}
-                        nameSecondArg={t(TranslationKey.Realized)}
-                        firstArgValue={RequestSwitherType.REQUESTS_ON_CHECK}
-                        secondArgValue={RequestSwitherType.REQUESTS_ON_FINISHED}
-                        changeConditionHandler={condition => setShowRequestType(condition)}
-                      />
+                      <div className={classNames.switcherWrapper}>
+                        <CustomSwitcher
+                          switchMode={'medium'}
+                          condition={showRequestType}
+                          switcherSettings={[
+                            { label: () => t(TranslationKey['On check']), value: RequestSwitherType.REQUESTS_ON_CHECK },
+                            { label: () => t(TranslationKey.Realized), value: RequestSwitherType.REQUESTS_ON_FINISHED },
+                          ]}
+                          changeConditionHandler={setShowRequestType}
+                        />
+                      </div>
 
                       <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
                         {t(TranslationKey['Link request'])}
@@ -576,14 +583,16 @@ export const IdeaViewAndEditCard = observer(
                       <div className={classNames.sizesSubWrapper}>
                         <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
-                        <CustomSwitcher
-                          condition={sizeSetting}
-                          nameFirstArg={'In'}
-                          nameSecondArg={'Cm'}
-                          firstArgValue={sizesType.INCHES}
-                          secondArgValue={sizesType.CM}
-                          changeConditionHandler={condition => handleChange(condition)}
-                        />
+                        <div>
+                          <CustomSwitcher
+                            condition={sizeSetting}
+                            switcherSettings={[
+                              { label: () => 'In', value: sizesType.INCHES },
+                              { label: () => 'Cm', value: sizesType.CM },
+                            ]}
+                            changeConditionHandler={condition => handleChange(condition)}
+                          />
+                        </div>
                       </div>
 
                       <div className={classNames.sizesBottomWrapper}>

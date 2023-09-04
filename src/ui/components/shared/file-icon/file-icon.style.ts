@@ -1,0 +1,7 @@
+import { makeStyles } from 'tss-react/mui'
+
+export const useClassNames = makeStyles()(theme => ({
+  fileTypeIcon: {
+    color: theme.palette.primary.main,
+  },
+}))

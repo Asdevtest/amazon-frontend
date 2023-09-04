@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Modal, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,7 +17,6 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin } from '@utils/text'
-// import {Button} from '@components/buttons/button'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-lot-data-form.style'

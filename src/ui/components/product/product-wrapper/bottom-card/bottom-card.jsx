@@ -168,7 +168,7 @@ export const BottomCard = observer(
 
               <div className={classNames.infoWrapper}>
                 <div className={classNames.infoSubWrapper}>
-                  <Field
+                  {/* <Field
                     disabled
                     error={formFieldsValidationErrors.maxDelivery}
                     containerClasses={classNames.infoContainer}
@@ -176,7 +176,7 @@ export const BottomCard = observer(
                     label={t(TranslationKey['Max delivery price, $'])}
                     value={product.maxDelivery === 0 ? 0 : toFixed(product.maxDelivery, 2) || 0}
                     onChange={onChangeField('maxDelivery')}
-                  />
+                  /> */}
                   <Field
                     tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
                     disabled={defaultFieldDisable}

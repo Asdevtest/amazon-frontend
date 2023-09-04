@@ -34,4 +34,19 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
+
+  shareLinkIcon: {
+    color: theme.palette.primary.main,
+    width: '21px !important',
+    height: '21px !important',
+    cursor: 'pointer',
+  },
+
+  tooltip: {
+    background: theme.palette.primary.main,
+  },
+
+  arrow: {
+    color: theme.palette.primary.main,
+  },
 }))
