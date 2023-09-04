@@ -413,21 +413,11 @@ export const StringListCell = React.memo(
                 ?.slice(0, maxItemsDisplay)
                 ?.filter(el => el)
                 ?.map((item, i) => (
-                  <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                      {
-                        <span
-                          className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                            [classNames.bluelinkText]: onClickCell,
-                            [classNames.orderTextSpanAsin]: asin,
-                          })}
-                        >
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
-                      }
-                    </Typography>
-                    {withCopy && <CopyValue text={item} />}
-                  </div>
+                  <AsinOrSkuLink
+                    key={i}
+                    withCopyValue
+                    asin={getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  />
                 ))}
           </div>
 
