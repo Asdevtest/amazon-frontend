@@ -1859,8 +1859,9 @@ export const TaskTypeCell = React.memo(
 export const TaskDescriptionCell = React.memo(
   withStyles(({ classes: classNames, task }) => {
     const renderProductImages = (product, key, box) => (
-      <Grid key={key && key} item className={classNames.imgWrapper}>
-        <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
+      <div key={key && key} className={classNames.imgWrapper}>
+        <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={classNames.taskDescriptionImg} />
+
         <div className={classNames.taskDescriptionCountWrapper}>
           {box?.amount > 1 && (
             <Typography className={classNames.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>
@@ -1868,7 +1869,7 @@ export const TaskDescriptionCell = React.memo(
 
           <Typography className={classNames.imgNum}>{product?.amount}</Typography>
         </div>
-      </Grid>
+      </div>
     )
 
     const renderBox = (box, key, isOneBox) => (
@@ -1920,7 +1921,7 @@ export const TaskDescriptionCell = React.memo(
     const taskReceiveDescription = () => (
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
-          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} alt="big-box" />
           <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
@@ -1968,14 +1969,12 @@ export const TaskDescriptionCell = React.memo(
       switch (type) {
         case TaskOperationType.MERGE:
           return <>{taskMergeDescription()}</>
-
         case TaskOperationType.SPLIT:
           return <>{taskDivideDescription()}</>
         case TaskOperationType.RECEIVE:
           return <>{taskReceiveDescription()}</>
         case TaskOperationType.EDIT:
           return <>{taskEditDescription()}</>
-
         case TaskOperationType.EDIT_BY_STOREKEEPER:
           return <>{taskEditDescription()}</>
       }
