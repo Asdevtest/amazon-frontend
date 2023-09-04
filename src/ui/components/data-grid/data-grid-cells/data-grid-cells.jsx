@@ -1574,7 +1574,9 @@ export const CommentOfSbCell = React.memo(
           </Tooltip>
         ) : (
           <div className={classNames.commentOfSbSubWrapper}>
-            {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
+            {productsInWarehouse.some(el => el.comment) && (
+              <Typography className={classNames.commentOfSbSubMultiText}>{t(TranslationKey.Comments) + ':'}</Typography>
+            )}
             {productsInWarehouse?.map((item, index) => (
               <Tooltip key={index} title={item.comment}>
                 <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${
