@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeInputCommentCell, // MultilineTextCell, // AsinCopyCell,
+  ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
   NormDateFromUnixCell,
@@ -53,13 +50,6 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
-    // renderCell: params => (
-    //   <TaskPriorityCell
-    //     curPriority={params.value}
-    //     taskId={params.row.originalData._id}
-    //     onChangePriority={handlers.updateTaskPriority}
-    //   />
-    // ),
 
     renderCell: params => (
       <TaskPriorityCell
@@ -104,7 +94,6 @@ export const warehouseMyTasksViewColumns = handlers => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    // renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
 
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
