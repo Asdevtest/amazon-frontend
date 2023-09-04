@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '1480px',
+    width: '1510px',
     display: 'flex',
     padding: '10px 20px',
     height: '100%',
@@ -67,18 +67,22 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   form: {
-    height: 606,
-    overflow: 'auto',
+    maxHeight: 606,
+    overflowY: 'auto',
+    paddingRight: 20,
 
-    paddingRight: 10,
+    marginTop: theme.spacing(2.5),
+    marginBottom: theme.spacing(2.5),
+
+    display: 'grid',
+    gap: '20px',
+    gridTemplateColumns: '1fr 1fr 1fr',
 
     [theme.breakpoints.down(1282)]: {
       height: 550,
       width: 'auto',
       overflowY: 'auto',
     },
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
   },
 
   buttonsWrapper: {
@@ -102,6 +106,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 600,
     color: theme.palette.text.general,
+    gridColumn: '1 / 4',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -116,7 +122,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   horizontalDivider: {
     backgroundColor: '#E0E0E0',
-    margin: '20px 0',
+    gridColumn: '1 / 4',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -226,7 +233,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'start',
-    padding: '0 15px 0 0',
+    gridColumn: '1 / 4',
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',

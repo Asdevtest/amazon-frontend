@@ -46,27 +46,23 @@ export const styles = theme => ({
       display: 'block',
       position: 'absolute',
       left: 1,
-      top: 1,
+      bottom: 2,
       width: 5,
-      height: '98%',
+      height: '96%',
       background: '#C69109',
+      borderRadius: 2,
+    },
+  },
+
+  attentionRowShort: {
+    '&:before': {
+      content: '""',
+      height: '76%',
     },
   },
 
   ideaRowGreen: {
     position: 'relative',
-    background: theme.palette.background.greenRow,
-
-    '&:before': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      left: 1,
-      top: 1,
-      width: 5,
-      height: '98%',
-      background: '#09BB4D',
-    },
 
     '&:after': {
       content: '""',
@@ -81,18 +77,6 @@ export const styles = theme => ({
 
   ideaRowYellow: {
     position: 'relative',
-    background: theme.palette.background.yellowRow,
-
-    '&:before': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      left: 1,
-      top: 1,
-      width: 5,
-      height: '98%',
-      background: '#C69109',
-    },
 
     '&:after': {
       content: '""',

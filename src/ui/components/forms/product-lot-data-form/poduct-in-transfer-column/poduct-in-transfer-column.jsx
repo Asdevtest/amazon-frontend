@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -8,7 +7,6 @@ import {
   MultilineTextHeaderCell,
   NormalActionBtnCell,
   StringListCell,
-  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
@@ -92,7 +90,7 @@ export const productInTransferColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={params.value} />
     ),
-    width: 160,
+    width: 165,
     sortable: false,
   },
 

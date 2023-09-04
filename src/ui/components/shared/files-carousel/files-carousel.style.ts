@@ -92,8 +92,4 @@ export const useClassNames = makeStyles()(theme => ({
     height: '80px !important',
     color: '#E0E0E0',
   },
-
-  fileTypeIcon: {
-    color: theme.palette.primary.main,
-  },
 }))

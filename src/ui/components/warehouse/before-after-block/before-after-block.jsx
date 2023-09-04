@@ -234,10 +234,10 @@ const Box = observer(
                 <div className={classNames.sizesSubWrapper}>
                   <CustomSwitcher
                     condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
+                    switcherSettings={[
+                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                    ]}
                     changeConditionHandler={condition => setSizeSetting(condition)}
                   />
                 </div>
@@ -1013,7 +1013,7 @@ export const BeforeAfterBlock = observer(
     }
 
     return (
-      <div className={classNames.boxesWrapper}>
+      <>
         <div className={classNames.currentBox}>
           <div className={classNames.titleWrapper}>
             <Text
@@ -1069,7 +1069,7 @@ export const BeforeAfterBlock = observer(
           desiredBoxes.length === 0 &&
           incomingBoxes.length > 0 &&
           !readOnly && <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />}
-      </div>
+      </>
     )
   },
 )

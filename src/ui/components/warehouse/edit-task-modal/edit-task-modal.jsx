@@ -161,11 +161,9 @@ export const EditTaskModal = observer(
           </div>
         </div>
         <div className={classNames.form}>
-          <div>
-            <Typography paragraph className={classNames.subTitle}>
-              {t(TranslationKey['Receipt data'])}
-            </Typography>
-          </div>
+          <Typography paragraph className={classNames.subTitle}>
+            {t(TranslationKey['Receipt data'])}
+          </Typography>
 
           <div className={classNames.commentsAndFilesWrapper}>
             <div className={classNames.commentsWrapper}>
