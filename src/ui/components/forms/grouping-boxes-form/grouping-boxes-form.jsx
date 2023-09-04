@@ -392,7 +392,7 @@ export const GroupingBoxesForm = observer(
 
     const [basicBox, setBasicBox] = useState(null)
 
-    const isActiveOneBox = oldBoxes.length === 1
+    const isActiveOneBox = oldBoxes.length === 1 && !basicBox
 
     const onClickBasicBoxRadio = box => {
       if (basicBox?._id !== box._id) {
