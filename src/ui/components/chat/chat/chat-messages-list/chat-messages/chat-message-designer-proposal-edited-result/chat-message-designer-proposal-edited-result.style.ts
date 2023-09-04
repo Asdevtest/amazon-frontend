@@ -2,49 +2,111 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
+    maxWidth: 1080,
     padding: 30,
-    maxWidth: 790,
     margin: '0 auto',
-    borderRadius: 7,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
     backgroundColor: theme.palette.background.general,
+    borderRadius: 7,
 
     [theme.breakpoints.down(1280)]: {
       maxWidth: 390,
     },
   },
 
+  mainWrapper: {
+    width: '100%',
+  },
+
+  headerWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+
   headerText: {
-    color: theme.palette.text.general,
-    fontSize: 14,
+    marginBottom: 10,
+    fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
-    lineHeight: '140%',
     textTransform: 'uppercase',
-    marginBottom: 20,
+    color: theme.palette.text.general,
   },
 
   timeText: {
-    color: theme.palette.text.second,
     fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '16px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
 
-    position: 'absolute',
-    top: 0,
-    right: 20,
+  infosWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 40,
   },
 
   descriptionText: {
-    color: theme.palette.text.second,
-    fontSize: 16,
-    minHeight: 100,
-    whiteSpace: 'pre-line',
+    width: '100%',
+    fontSize: 18,
+    lineHeight: '25px',
+    color: theme.palette.text.general,
     wordBreak: 'break-word',
-    width: '50%',
+  },
+
+  imagesWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 15,
+  },
+
+  imageWrapper: {
+    position: 'relative',
+    width: 100,
+    height: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+    backgroundColor: theme.palette.input.customDisabled,
+  },
+
+  mainImageWrapper: {
+    padding: 3,
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
+
+  mainStarIcon: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    zIndex: 100,
+  },
+
+  moreImagesWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 100,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 36,
+    color: '#fff',
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
   },
 
   footerWrapper: {
     width: '100%',
-    marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
     gap: 50,
@@ -81,92 +143,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-
-    transition: '.3s ease',
-  },
-
-  mainWrapper: {
-    width: '100%',
-    position: 'relative',
-  },
-
-  infosWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 20,
-  },
-
   fieldLabel: {
     fontSize: 14,
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
     marginBottom: 5,
-  },
-
-  imageObjWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 100,
-    // border: '1px solid red',
-    height: 'min-content',
-  },
-
-  imageWrapper: {
-    width: 100,
-    height: 100,
-    borderRadius: 4,
-    backgroundColor: theme.palette.input.customDisabled,
-    marginBottom: 10,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-
-  mainImageWrapper: {
-    position: 'relative',
-
-    padding: 3,
-    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' strokeWidth='4' strokeDasharray='6%2c 14' strokeDashoffset='90' strokeLinecap='square'/%3e%3c/svg%3e")`,
-  },
-
-  mainStarIcon: {
-    position: 'absolute',
-    top: 5,
-    right: 5,
-    zIndex: 99,
-  },
-
-  imageListItem: {
-    width: '100%',
-    height: '100%',
-  },
-
-  imagesWrapper: {
-    display: 'flex',
-    gap: 15,
-  },
-
-  moreImagesWrapper: {
-    background: 'rgba(0, 0, 0, 0.4)',
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 99,
-  },
-
-  moreImagesText: {
-    fontSize: 36,
-    color: '#fff',
   },
 
   containerField: {

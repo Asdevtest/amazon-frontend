@@ -1,8 +1,5 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
-import Linkify from 'react-linkify-always-blank'
-
-import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -46,52 +43,48 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+        <div className={classNames.headerWrapper}>
+          <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
 
-        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+          <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+        </div>
 
         <div className={classNames.infosWrapper}>
-          <Linkify>
-            <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
-            {/* <Typography className={classNames.descriptionText}>
-              {chatRequestAndRequestProposal?.requestProposal?.details.result}
-            </Typography> */}
-          </Linkify>
+          <p className={classNames.descriptionText}>
+            {/* {message.data.proposal?.details?.result} */} Добрый день! Отправляю результат выполненной работы.
+            Публикация в социальной сети Facebook.( 5032 подписчика) Охват 7 340 уникальных пользователей
+          </p>
 
           <div className={classNames.imagesWrapper}>
             {message.data.proposal.media
               ?.slice(0, 4)
               .map(el => el.fileLink)
               .map((item, index) => (
-                <div key={index} className={classNames.imageObjWrapper}>
-                  <div className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}>
-                    {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+                <div
+                  key={index}
+                  className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}
+                  // onClick={() => {
+                  //   setCurImageId(item._id)
+                  //   setShowImageModal(!showImageModal)
+                  // }}
+                >
+                  {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
-                    {index === 3 && message.data.proposal.media.length > 4 && (
-                      <div className={classNames.moreImagesWrapper}>
-                        <p className={classNames.moreImagesText}>{`${message.data.proposal.media.length - 4}`}</p>
-                      </div>
-                    )}
+                  {index === 3 && message.data.proposal.media.length > 4 && (
+                    <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
+                  )}
 
-                    <div className={classNames.imageListItem}>
-                      <Avatar
-                        className={classNames.image}
-                        classes={{ img: classNames.image }}
-                        src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
-                        alt={''}
-                        variant="square"
-                        // onClick={() => {
-                        //   setCurImageId(item._id)
-                        //   setShowImageModal(!showImageModal)
-                        // }}
-                      />
-                    </div>
-                  </div>
+                  <img
+                    src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
+                    alt={`Image ${index}`}
+                    className={classNames.image}
+                  />
                 </div>
               ))}
           </div>
         </div>
       </div>
+
       <div className={classNames.footerWrapper}>
         <Field
           labelClasses={classNames.fieldLabel}
