@@ -294,17 +294,19 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'no-wrap',
     gap: 16,
+    marginRight: 10,
   },
 
   gridBoxesWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
+    gap: 5,
   },
 
   superboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    gap: 5,
     marginRight: 5,
   },
 
@@ -357,6 +359,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '2px',
+    marginRight: 20,
 
     [theme.breakpoints.down(1282)]: {
       flexDirection: 'column',
@@ -368,8 +371,8 @@ export const styles = theme => ({
   gridBoxWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '2px',
-    marginRight: 30,
+    gap: 5,
+    marginRight: 20,
   },
 
   blockProductsImagesWrapper: {
@@ -503,9 +506,8 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflowY: 'auto',
-    margin: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    margin: '10px 0',
+    padding: '5px 0',
   },
 
   smallRowImgWrapper: {
