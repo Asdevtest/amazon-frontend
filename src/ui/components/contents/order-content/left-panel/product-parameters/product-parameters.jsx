@@ -103,10 +103,10 @@ export const ProductParameters = ({
           <div className={classNames.sizesWrapper}>
             <CustomSwitcher
               condition={sizeSetting}
-              nameFirstArg={unitsOfChangeOptions.EU}
-              nameSecondArg={unitsOfChangeOptions.US}
-              firstArgValue={unitsOfChangeOptions.EU}
-              secondArgValue={unitsOfChangeOptions.US}
+              switcherSettings={[
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+              ]}
               changeConditionHandler={condition => setSizeSetting(condition)}
             />
 

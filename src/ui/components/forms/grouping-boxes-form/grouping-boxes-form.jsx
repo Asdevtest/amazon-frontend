@@ -253,14 +253,16 @@ const Box = ({
               <div className={classNames.sizesTitleWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey.Dimensions)}</Typography>
 
-                <CustomSwitcher
-                  condition={sizeSetting}
-                  nameFirstArg={unitsOfChangeOptions.EU}
-                  nameSecondArg={unitsOfChangeOptions.US}
-                  firstArgValue={unitsOfChangeOptions.EU}
-                  secondArgValue={unitsOfChangeOptions.US}
-                  changeConditionHandler={condition => setSizeSetting(condition)}
-                />
+                <div>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    switcherSettings={[
+                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                    ]}
+                    changeConditionHandler={condition => setSizeSetting(condition)}
+                  />
+                </div>
               </div>
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />

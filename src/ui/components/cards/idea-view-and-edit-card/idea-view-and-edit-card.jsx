@@ -373,15 +373,17 @@ export const IdeaViewAndEditCard = observer(
                     <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
 
                     <div className={classNames.requestsControlButtonsWrapper}>
-                      <CustomSwitcher
-                        bigSwitch
-                        condition={showRequestType}
-                        nameFirstArg={t(TranslationKey['On check'])}
-                        nameSecondArg={t(TranslationKey.Realized)}
-                        firstArgValue={RequestSwitherType.REQUESTS_ON_CHECK}
-                        secondArgValue={RequestSwitherType.REQUESTS_ON_FINISHED}
-                        changeConditionHandler={condition => setShowRequestType(condition)}
-                      />
+                      <div className={classNames.switcherWrapper}>
+                        <CustomSwitcher
+                          switchMode={'medium'}
+                          condition={showRequestType}
+                          switcherSettings={[
+                            { label: () => t(TranslationKey['On check']), value: RequestSwitherType.REQUESTS_ON_CHECK },
+                            { label: () => t(TranslationKey.Realized), value: RequestSwitherType.REQUESTS_ON_FINISHED },
+                          ]}
+                          changeConditionHandler={setShowRequestType}
+                        />
+                      </div>
 
                       <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
                         {t(TranslationKey['Link request'])}
@@ -581,14 +583,16 @@ export const IdeaViewAndEditCard = observer(
                       <div className={classNames.sizesSubWrapper}>
                         <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
-                        <CustomSwitcher
-                          condition={sizeSetting}
-                          nameFirstArg={'In'}
-                          nameSecondArg={'Cm'}
-                          firstArgValue={sizesType.INCHES}
-                          secondArgValue={sizesType.CM}
-                          changeConditionHandler={condition => handleChange(condition)}
-                        />
+                        <div>
+                          <CustomSwitcher
+                            condition={sizeSetting}
+                            switcherSettings={[
+                              { label: () => 'In', value: sizesType.INCHES },
+                              { label: () => 'Cm', value: sizesType.CM },
+                            ]}
+                            changeConditionHandler={condition => handleChange(condition)}
+                          />
+                        </div>
                       </div>
 
                       <div className={classNames.sizesBottomWrapper}>

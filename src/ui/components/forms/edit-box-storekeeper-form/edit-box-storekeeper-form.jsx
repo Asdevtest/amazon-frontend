@@ -880,14 +880,16 @@ export const EditBoxStorekeeperForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
-                    changeConditionHandler={condition => handleChange(condition)}
-                  />
+                  <div>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      switcherSettings={[
+                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                      ]}
+                      changeConditionHandler={condition => handleChange(condition)}
+                    />
+                  </div>
                 </div>
 
                 <WarehouseDemensions
