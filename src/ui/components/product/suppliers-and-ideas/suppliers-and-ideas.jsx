@@ -119,6 +119,7 @@ export const SuppliersAndIdeas = observer(
       onClickCreateProduct,
       onClickSupplierButtons,
       onClickOpenNewTab,
+      onClickOpenProduct,
       onClickRequestId,
 
       onChangeSelectedSupplier,
@@ -191,6 +192,7 @@ export const SuppliersAndIdeas = observer(
                 onClickSupplier={onChangeSelectedSupplier}
                 onClickSaveIcon={onClickSaveIcon}
                 onClickOpenNewTab={onClickOpenNewTab}
+                onClickOpenProduct={onClickOpenProduct}
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
                 onClickUnbindButton={onClickUnbindButton}
@@ -226,6 +228,7 @@ export const SuppliersAndIdeas = observer(
                   onSetCurIdea={onSetCurIdea}
                   onEditIdea={onEditIdea}
                   onClickSupplierBtns={onClickSupplierButtons}
+                  onClickOpenProduct={onClickOpenProduct}
                   onClickSupplier={onChangeSelectedSupplier}
                   onClickSaveIcon={onClickSaveIcon}
                   onClickToOrder={onClickToOrder}

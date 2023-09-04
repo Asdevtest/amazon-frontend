@@ -14,7 +14,7 @@ import { UserModel } from '@models/user-model'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -60,7 +60,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey['Photos and documents'])}
-              inputComponent={<PhotoAndFilesCarouselTest column files={files} customGap={20} customSlideHeight={80} />}
+              inputComponent={<PhotoAndFilesSlider column files={files} customGap={20} customSlideHeight={80} />}
             />
           </div>
 

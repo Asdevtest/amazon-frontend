@@ -252,14 +252,22 @@ export const AddOrEditLogisticTariffForm = observer(
                   {t(TranslationKey.Rates)}
                 </Text>
 
-                <CustomSwitcher
-                  condition={currencyType}
-                  nameFirstArg={currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || ''}
-                  nameSecondArg={currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || ''}
-                  firstArgValue={currencyTypes.DOLLAR}
-                  secondArgValue={currencyTypes.YUAN}
-                  changeConditionHandler={handleChange}
-                />
+                <div>
+                  <CustomSwitcher
+                    condition={currencyType}
+                    switcherSettings={[
+                      {
+                        label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
+                        value: currencyTypes.DOLLAR,
+                      },
+                      {
+                        label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
+                        value: currencyTypes.YUAN,
+                      },
+                    ]}
+                    changeConditionHandler={handleChange}
+                  />
+                </div>
               </div>
 
               <div className={classNames.courseWrapper}>

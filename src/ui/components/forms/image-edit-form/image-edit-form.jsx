@@ -48,7 +48,7 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
           ctx.rotate((rotation * Math.PI) / 180)
           ctx.drawImage(img, -img.width / 2, -img.height / 2)
 
-          canvas.toBlob(blob => {
+          canvas.toBlob(async blob => {
             const url = URL.createObjectURL(blob)
 
             // console.log('blob', blob)

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -7,7 +6,6 @@ import {
   MultilineTextHeaderCell,
   NormalActionBtnCell,
   StringListCell,
-  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
@@ -40,7 +38,7 @@ export const productLotDataFormColumns = handlers => [
     ),
 
     renderCell: params => <MultilineTextCell text={params.row.amountInBatch} />,
-    width: 150,
+    width: 145,
   },
 
   {
@@ -51,7 +49,7 @@ export const productLotDataFormColumns = handlers => [
     ),
 
     renderCell: params => <BoxesAndQuantity boxesData={params.row.boxes} />,
-    width: 180,
+    width: 175,
   },
 
   {
@@ -80,7 +78,7 @@ export const productLotDataFormColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={params.value} />
     ),
-    width: 120,
+    width: 155,
     sortable: false,
   },
 
@@ -123,6 +121,6 @@ export const productLotDataFormColumns = handlers => [
         onClickOkBtn={() => handlers.onClickShowBatchBtn(params.row._id)}
       />
     ),
-    width: 190,
+    width: 165,
   },
 ]

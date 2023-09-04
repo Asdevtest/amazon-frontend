@@ -508,4 +508,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '50px',
   },
+
+  switcherWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '30%',
+  },
 }))

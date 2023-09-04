@@ -67,6 +67,7 @@ export const lightTheme = createTheme({
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
           // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#001029',
+          borderRadius: '20px',
         },
         // Убрать
         columnHeaders: {
@@ -291,6 +292,7 @@ export const lightTheme = createTheme({
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
       activeChat: '#E7F1FF',
+      gray: '#D9E0E8',
     },
 
     linearGradient: {
@@ -362,6 +364,7 @@ export const darkTheme = createTheme({
           color: '#fff',
 
           // border: '1px solid rgba(81, 81, 81, 1) !important',
+          borderRadius: '20px',
         },
 
         columnSeparator: {
@@ -746,6 +749,7 @@ export const darkTheme = createTheme({
         default: '#121212',
         disabledDangerBtn: '#4F2026',
         activeChat: '#384C68',
+        gray: '#D9E0E8',
       },
 
       linearGradient: {

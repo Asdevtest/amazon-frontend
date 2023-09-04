@@ -13,9 +13,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
 
@@ -61,20 +61,17 @@ export const ServiceExchangeViewRaw = props => {
             </div>
 
             <div className={classNames.taskTypeWrapper}>
-              {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  btnWrapperStyle={classNames.btnWrapperStyle}
-                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                  })}
-                  onClick={() => viewModel.onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
+              <CustomSwitcher
+                switchMode={'medium'}
+                condition={Number(viewModel.selectedTaskType)}
+                switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => {
+                  return {
+                    label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType]),
+                    value: Number(taskType),
+                  }
+                })}
+                changeConditionHandler={viewModel.onClickTaskType}
+              />
             </div>
           </div>
 
