@@ -324,6 +324,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.sourcesProductWraper}>
             {formFields.childProduct && (
               <SourceProduct
+                showOpenInNewTabIcon
                 title={t(TranslationKey['Child product'])}
                 img={formFields.childProduct?.images?.[0]}
                 asin={formFields.childProduct?.asin}
@@ -332,6 +333,7 @@ export const IdeaViewAndEditCard = observer(
             )}
             {(currentProduct || formFields.parentProduct) && (
               <SourceProduct
+                showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
                 img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
                 asin={formFields.parentProduct?.asin || currentProduct?.asin}
