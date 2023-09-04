@@ -167,14 +167,16 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
         component={
-          <CustomSwitcher
-            condition={getUnitsOption()}
-            nameFirstArg={unitsOfChangeOptions.EU}
-            nameSecondArg={unitsOfChangeOptions.US}
-            firstArgValue={unitsOfChangeOptions.EU}
-            secondArgValue={unitsOfChangeOptions.US}
-            changeConditionHandler={handlers.onChangeUnitsOption}
-          />
+          <div>
+            <CustomSwitcher
+              condition={getUnitsOption()}
+              switcherSettings={[
+                { label: unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+              ]}
+              changeConditionHandler={handlers.onChangeUnitsOption}
+            />
+          </div>
         }
       />
     ),

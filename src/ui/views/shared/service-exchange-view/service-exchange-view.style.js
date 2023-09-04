@@ -7,6 +7,7 @@ export const styles = theme => ({
   },
   taskTypeWrapper: {
     display: 'flex',
+    minWidth: '450px',
   },
   tablePanelWrapper: {
     display: 'flex',

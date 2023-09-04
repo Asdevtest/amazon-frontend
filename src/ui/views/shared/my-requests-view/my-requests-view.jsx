@@ -16,6 +16,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -83,7 +84,17 @@ export const MyRequestsViewRaw = props => {
         </div>
 
         <div className={classNames.switchButtonWrapper}>
-          <Button
+          <CustomSwitcher
+            switchMode={'big'}
+            condition={viewModel.isRequestsAtWork}
+            switcherSettings={[
+              { label: () => t(TranslationKey['Requests in progress']), value: true },
+              { label: () => t(TranslationKey['Completed requests']), value: false },
+            ]}
+            changeConditionHandler={viewModel.onClickChangeCatigory}
+          />
+
+          {/* <Button
             variant={'text'}
             btnWrapperStyle={classNames.btnWrapperStyle}
             className={cx(classNames.switchButton, {
@@ -104,7 +115,7 @@ export const MyRequestsViewRaw = props => {
             onClick={() => viewModel.onClickChangeCatigory(false)}
           >
             {t(TranslationKey['Completed requests'])}
-          </Button>
+          </Button> */}
         </div>
 
         <div className={classNames.datagridWrapper}>

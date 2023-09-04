@@ -103,7 +103,7 @@ export const styles = theme => ({
     maxHeight: '100%',
     fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
     color: theme.palette.text.main,
   },
   amountCell: {

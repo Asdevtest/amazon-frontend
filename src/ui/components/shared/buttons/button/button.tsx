@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
+import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
 import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 
@@ -32,7 +33,7 @@ interface Props extends PropsWithChildren {
   disabled?: boolean
   onClick?: () => void
   disableElevation?: boolean
-  btnWrapperStyle?: string
+  btnWrapperStyle?: string | ClassNamesArg
   small?: boolean
   defaultButtonTooltip?: string
 }

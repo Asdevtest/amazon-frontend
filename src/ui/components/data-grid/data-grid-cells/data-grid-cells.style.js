@@ -62,7 +62,6 @@ export const styles = theme => ({
 
   asinCell: {
     padding: '12px 0px',
-    // height: '88px',
     scope: 'row',
     position: 'relative',
     width: '100%',
@@ -81,11 +80,10 @@ export const styles = theme => ({
   },
   csCodeTypo: {
     fontSize: '14px',
-    lineHeight: '18px',
+    lineHeight: '19px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
     maxWidth: '165px',
-    // maxWidth: '100%',
 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -93,10 +91,8 @@ export const styles = theme => ({
 
   typoCell: {
     fontSize: '14px',
-    lineHeight: '21px',
+    lineHeight: '19px',
     color: 'rgba(189, 194, 209, 1)',
-    textAlign: 'center',
-    width: '100%',
   },
 
   productTypoCell: {
@@ -118,6 +114,7 @@ export const styles = theme => ({
   linkSpan: {
     color: theme.palette.primary.main,
   },
+
   cellBtn: {
     color: 'rgba(0, 123, 255, 1)',
     paddingTop: '0px',
@@ -161,7 +158,6 @@ export const styles = theme => ({
   },
 
   barcodeChipNoExists: {
-    // color: '#F5CF00',
     backgroundColor: '#F5CF00',
     color: '#001029',
 
@@ -185,6 +181,9 @@ export const styles = theme => ({
     width: '100%',
     height: 36,
     textAlign: 'center',
+    fontSize: 14,
+    lineHeight: '19px',
+    padding: 0,
   },
 
   changeInputComment: {
@@ -294,17 +293,19 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'no-wrap',
     gap: 16,
+    marginRight: 10,
   },
 
   gridBoxesWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
+    gap: 5,
   },
 
   superboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    gap: 5,
     marginRight: 5,
   },
 
@@ -340,7 +341,6 @@ export const styles = theme => ({
     fontWeight: 600,
     fontSize: 14,
     color: theme.palette.primary.main,
-    // width: '50px',
   },
   taskDescriptionCountWrapper: {
     marginLeft: 5,
@@ -357,6 +357,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '2px',
+    marginRight: 20,
 
     [theme.breakpoints.down(1282)]: {
       flexDirection: 'column',
@@ -368,8 +369,8 @@ export const styles = theme => ({
   gridBoxWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '2px',
-    marginRight: 30,
+    gap: 5,
+    marginRight: 20,
   },
 
   blockProductsImagesWrapper: {
@@ -503,9 +504,8 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflowY: 'auto',
-    margin: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    margin: '10px 0',
+    padding: '5px 0',
   },
 
   smallRowImgWrapper: {
@@ -664,7 +664,7 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
     wordWrap: 'break-word',
   },
 
@@ -778,6 +778,8 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    fontSize: '14px',
+    lineHeight: '19px',
   },
 
   multilineTextAlignLeft: {
@@ -786,7 +788,7 @@ export const styles = theme => ({
     whiteSpace: 'pre-wrap',
     fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '17px',
+    lineHeight: '19px',
     fontFamily: 'inherit',
     border: 'none',
     backgroundColor: 'inherit',
@@ -1143,7 +1145,7 @@ export const styles = theme => ({
 
   fourMonthesStockLabel: {
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
     marginBottom: '5px',
   },
 
@@ -1227,18 +1229,10 @@ export const styles = theme => ({
   headerIcon: {
     width: '14px !important',
     height: '14px !important',
-
     color: 'gray',
-
-    // zIndex: -1000,
-    // zIndex: 100000000000,
-
     position: 'absolute',
-    // right: -5,
-    // right: -7,
     right: -15,
     top: 20,
-
     overflow: 'visible',
   },
 
@@ -1251,6 +1245,8 @@ export const styles = theme => ({
   },
 
   normalizeLink: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
@@ -1259,6 +1255,8 @@ export const styles = theme => ({
     },
   },
   linkWrapper: {
+    fontSize: 14,
+    lineHeight: '19px',
     cursor: 'pointer',
   },
 
@@ -1506,7 +1504,6 @@ export const styles = theme => ({
     [theme.breakpoints.down(1282)]: {
       width: 130,
     },
-    // width: '210px',
     '& > div': {
       display: 'flex',
       gap: 8,
@@ -1644,7 +1641,7 @@ export const styles = theme => ({
 
     color: theme.palette.primary.main,
     fontSize: 14,
-    lineHeight: '140%',
+    lineHeight: '19px',
     fontWeight: 400,
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -1763,9 +1760,11 @@ export const styles = theme => ({
     gap: 3,
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: 14,
+    lineHeight: '19px',
 
     svg: {
-      fontSize: '16px',
+      fontSize: 16,
       color: theme.palette.primary.main,
       stroke: '#fff',
     },
@@ -1845,7 +1844,6 @@ export const styles = theme => ({
     fontSize: 14,
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    // width: 250,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

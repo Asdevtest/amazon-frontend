@@ -358,14 +358,16 @@ export const clientBoxesViewColumns = (
         text={t(TranslationKey.Dimensions)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         component={
-          <CustomSwitcher
-            condition={getUnitsOption()}
-            nameFirstArg={unitsOfChangeOptions.EU}
-            nameSecondArg={unitsOfChangeOptions.US}
-            firstArgValue={unitsOfChangeOptions.EU}
-            secondArgValue={unitsOfChangeOptions.US}
-            changeConditionHandler={handlers.onChangeUnitsOption}
-          />
+          <div>
+            <CustomSwitcher
+              condition={getUnitsOption()}
+              switcherSettings={[
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+              ]}
+              changeConditionHandler={handlers.onChangeUnitsOption}
+            />
+          </div>
         }
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
