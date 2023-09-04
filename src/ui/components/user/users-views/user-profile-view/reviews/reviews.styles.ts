@@ -17,7 +17,12 @@ export const useReviewsStyles = makeStyles()(theme => ({
   },
 
   body: {
-    padding: '20px',
+    border: '1px solid #e0e0e0',
+  },
+
+  reviewList: {
+    padding: '5px 5px',
+    margin: '10px 5px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
