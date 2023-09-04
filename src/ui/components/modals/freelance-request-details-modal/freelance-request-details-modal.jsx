@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import React from 'react'
 
 import { Typography } from '@mui/material'
@@ -36,9 +37,10 @@ export const FreelanceRequestDetailsModal = props => {
             <UserLink
               blackText
               withAvatar
-              name={request?.executor?.name}
-              userId={request?.executor?._id}
-              rating={request?.executor?.rating}
+              readOnlyRating
+              name={request?.createdBy?.name}
+              userId={request?.createdBy?._id}
+              rating={request?.createdBy?.rating}
               ratingSize={'small'}
             />
           </Typography>
@@ -49,7 +51,9 @@ export const FreelanceRequestDetailsModal = props => {
         <div className={styles.productInfo}>
           <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
           {request?.product.images && (
-            <PhotoAndFilesCarouselTest mediumSlider withoutFiles files={request?.product.images} />
+            <div className={styles.productImages}>
+              <PhotoAndFilesCarouselTest mediumSlider withoutFiles files={request?.product.images} />
+            </div>
           )}
           <div className={styles.category}>
             {request?.product.asin && (
@@ -64,7 +68,7 @@ export const FreelanceRequestDetailsModal = props => {
               <Typography>{t(TranslationKey.Photos)}</Typography>
               <CustomImageGalleryList height={145} files={request?.media} />
             </div>
-            <div className={styles.filesItem}>
+            <div className={cx(styles.filesList)}>
               <Typography>{t(TranslationKey.Files)}</Typography>
               <FilesCarousel files={request?.media?.map(el => el.fileLink)} />
             </div>
@@ -79,7 +83,7 @@ export const FreelanceRequestDetailsModal = props => {
 
           {details?.conditions && (
             <div className={styles.category}>
-              <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
+              <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
               <CustomTextEditor readOnly conditions={details?.conditions} changeConditions={undefined} />
             </div>
           )}

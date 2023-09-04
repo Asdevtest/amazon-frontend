@@ -35,7 +35,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     gap: '10px',
 
     span: {
-      color: theme.palette.text.general,
+      // color: theme.palette.text.general,
       fontWeight: 600,
     },
   },
@@ -61,6 +61,13 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     maxWidth: '380px',
   },
 
+  productImages: {
+    marginTop: '-10px',
+    '& > div > div': {
+      paddingTop: '0px',
+    },
+  },
+
   category: {
     display: 'flex',
     gap: '10px',
@@ -83,9 +90,15 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     display: 'flex',
+    overflow: 'auto',
 
     '& > div': {
       height: 'fit-content',
     },
+  },
+
+  filesList: {
+    paddingBottom: '20px',
+    width: 'fit-content',
   },
 }))

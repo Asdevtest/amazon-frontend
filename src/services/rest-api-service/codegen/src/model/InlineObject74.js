@@ -47,14 +47,53 @@ class InlineObject74 {
         if (data) {
             obj = obj || new InlineObject74();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
+                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
             }
         }
         return obj;
@@ -64,33 +103,111 @@ class InlineObject74 {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject74.prototype['asin'] = undefined;
+InlineObject74.prototype['amount'] = undefined;
 
 /**
- * Причина
- * @member {String} reason
+ * Гуид сапплаера
+ * @member {String} orderSupplierId
  */
-InlineObject74.prototype['reason'] = undefined;
+InlineObject74.prototype['orderSupplierId'] = undefined;
 
 /**
- * Стратегия
- * @member {module:model/InlineObject74.StrategyEnum} strategy
+ * Склад для изменения
+ * @member {String} storekeeperId
  */
-InlineObject74.prototype['strategy'] = undefined;
+InlineObject74.prototype['storekeeperId'] = undefined;
+
+/**
+ * Пункт назначения
+ * @member {String} destinationId
+ */
+InlineObject74.prototype['destinationId'] = undefined;
+
+/**
+ * Тариф для изменения
+ * @member {String} logicsTariffId
+ */
+InlineObject74.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject74.prototype['images'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject74.prototype['totalPrice'] = undefined;
+
+/**
+ * Комментарий баера
+ * @member {String} buyerComment
+ */
+InlineObject74.prototype['buyerComment'] = undefined;
+
+/**
+ * Не настоящий ключ, используется только для нужд юзера
+ * @member {String} item
+ */
+InlineObject74.prototype['item'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineObject74.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineObject74.prototype['deadline'] = undefined;
+
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject74.PriorityEnum} priority
+ */
+InlineObject74.prototype['priority'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject74.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Комментарий клтента в заказе
+ * @member {String} clientComment
+ */
+InlineObject74.prototype['clientComment'] = undefined;
+
+/**
+ * Цена в юанях
+ * @member {Number} priceInYuan
+ */
+InlineObject74.prototype['priceInYuan'] = undefined;
+
+/**
+ * Цена доставки партии в юанях
+ * @member {Number} priceBatchDeliveryInYuan
+ */
+InlineObject74.prototype['priceBatchDeliveryInYuan'] = undefined;
 
 
 
 
 
 /**
- * Allowed values for the <code>strategy</code> property.
+ * Allowed values for the <code>priority</code> property.
  * @enum {String}
  * @readonly
  */
-InlineObject74['StrategyEnum'] = {
+InlineObject74['PriorityEnum'] = {
 
     /**
      * value: "10"
@@ -114,7 +231,13 @@ InlineObject74['StrategyEnum'] = {
      * value: "40"
      * @const
      */
-    "40": "40"
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
 };
 
 

@@ -112,10 +112,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         {requestProposals.length === 0 ? (
           <div className={classNames.requestInfoWrapper}>
             <div className={classNames.titleAndIdWrapper}>
-              <p className={classNames.title}>{request?.request.title}</p>
-
-              <div>
-                <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
+              <div className={classNames.idTitleWrapper}>
+                <p className={classNames.idText}>{t(TranslationKey.Title) + ':'}</p>
+                <p className={classNames.title}>{request?.request.title}</p>
               </div>
 
               <div className={classNames.idTitleWrapper}>
@@ -124,34 +123,40 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
                   {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
                 </p>
               </div>
+
+              <div>
+                <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
+              </div>
             </div>
 
-            <p className={classNames.standartText}>
-              {translateProposalsLeftMessage(
-                request?.request.maxAmountOfProposals -
-                  (requestProposals?.filter(
-                    el =>
-                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-                  ).length || 0),
-                request?.request.maxAmountOfProposals,
-              )}
-            </p>
-
-            {request?.request?.withoutConfirmation && (
-              <p className={classNames.confirmationToWorkText}>
-                {t(TranslationKey['It is possible to work without confirmation'])}
+            <div>
+              <p className={classNames.standartText}>
+                {translateProposalsLeftMessage(
+                  request?.request.maxAmountOfProposals -
+                    (requestProposals?.filter(
+                      el =>
+                        el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                        el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                        el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+                    ).length || 0),
+                  request?.request.maxAmountOfProposals,
+                )}
               </p>
-            )}
 
-            {request?.request?.priority === requestPriority.urgentPriority && (
-              <div className={classNames.urgentWrapper}>
-                <img src="/assets/icons/fire.svg" className={classNames.urgentIcon} />
+              {request?.request?.withoutConfirmation && (
+                <p className={classNames.confirmationToWorkText}>
+                  {t(TranslationKey['It is possible to work without confirmation'])}
+                </p>
+              )}
 
-                <p className={classNames.urgentText}>{t(TranslationKey['Urgent request'])}</p>
-              </div>
-            )}
+              {request?.request?.priority === requestPriority.urgentPriority && (
+                <div className={classNames.urgentWrapper}>
+                  <img src="/assets/icons/fire.svg" className={classNames.urgentIcon} />
+
+                  <p className={classNames.urgentText}>{t(TranslationKey['Urgent request'])}</p>
+                </div>
+              )}
+            </div>
           </div>
         ) : null}
 
