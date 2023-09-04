@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20050Rows from './InlineResponse20050Rows';
 
 /**
  * The InlineResponse20050 model module.
@@ -48,11 +47,8 @@ class InlineResponse20050 {
         if (data) {
             obj = obj || new InlineResponse20050();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
-            }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20050Rows]);
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
             }
         }
         return obj;
@@ -62,16 +58,9 @@ class InlineResponse20050 {
 }
 
 /**
- * Общее кол-во идей
- * @member {Number} count
+ * @member {Array.<String>} failed
  */
-InlineResponse20050.prototype['count'] = undefined;
-
-/**
- * Список идей
- * @member {Array.<module:model/InlineResponse20050Rows>} rows
- */
-InlineResponse20050.prototype['rows'] = undefined;
+InlineResponse20050.prototype['failed'] = undefined;
 
 
 

@@ -10,6 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { useReviewCardStyles } from '@components/cards/review-card/review-card.styles'
 import { UserLink } from '@components/user/user-link'
 
+import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
@@ -38,7 +39,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
           <Typography>{UserRolePrettyMap[review.role]}</Typography>
         </div>
         <div className={styles.headerItem}>
-          <Typography className={styles.headerItemTitle}>{new Date(Date.now()).toLocaleDateString()}</Typography>
+          <Typography className={styles.headerItemTitle}>{formatShortDateTime(review.createdAt)}</Typography>
           <Rating
             readOnly
             disabled
