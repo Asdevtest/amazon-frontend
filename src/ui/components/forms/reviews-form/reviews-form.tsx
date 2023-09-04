@@ -39,9 +39,11 @@ export const ReviewsForm = observer((props: ReviewsFormProps) => {
         </div>
       </div>
       <div className={classNames.reviewsWrapper}>
-        {reviews?.map((review, index) => (
-          <ReviewCard key={index} review={review} />
-        ))}
+        <div className={classNames.reviewsList}>
+          {reviews?.map((review, index) => (
+            <ReviewCard key={index} review={review} />
+          ))}
+        </div>
       </div>
 
       <div className={classNames.footerWrapper}>
