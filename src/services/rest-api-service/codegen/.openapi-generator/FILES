@@ -328,8 +328,8 @@ docs/InlineResponse20049.md
 docs/InlineResponse2005.md
 docs/InlineResponse20050.md
 docs/InlineResponse20051.md
+docs/InlineResponse20051Failed.md
 docs/InlineResponse20052.md
-docs/InlineResponse20052Failed.md
 docs/InlineResponse20053.md
 docs/InlineResponse20054.md
 docs/InlineResponse20055.md
@@ -368,7 +368,8 @@ docs/InlineResponse20079.md
 docs/InlineResponse2008.md
 docs/InlineResponse20080.md
 docs/InlineResponse20081.md
-docs/InlineResponse20081Details.md
+docs/InlineResponse20082.md
+docs/InlineResponse20082Details.md
 docs/InlineResponse2009.md
 docs/InlineResponse201.md
 docs/InlineResponse2011.md
@@ -785,8 +786,8 @@ src/model/InlineResponse20049.js
 src/model/InlineResponse2005.js
 src/model/InlineResponse20050.js
 src/model/InlineResponse20051.js
+src/model/InlineResponse20051Failed.js
 src/model/InlineResponse20052.js
-src/model/InlineResponse20052Failed.js
 src/model/InlineResponse20053.js
 src/model/InlineResponse20054.js
 src/model/InlineResponse20055.js
@@ -825,7 +826,8 @@ src/model/InlineResponse20079.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse20080.js
 src/model/InlineResponse20081.js
-src/model/InlineResponse20081Details.js
+src/model/InlineResponse20082.js
+src/model/InlineResponse20082Details.js
 src/model/InlineResponse2009.js
 src/model/InlineResponse201.js
 src/model/InlineResponse2011.js
