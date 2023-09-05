@@ -1,5 +1,7 @@
 import { cx } from '@emotion/css'
 
+import { Typography } from '@mui/material'
+
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByRequestStatus } from '@constants/requests/request-status'
 import {
@@ -14,13 +16,21 @@ import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/da
 import { useRequestTermsListStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.styles'
 import { Field } from '@components/shared/field'
 
-import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
+import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const RequestTermsList = props => {
   const { request, wrapperClassName, withBorder } = props
   const { classes: styles } = useRequestTermsListStyles()
+
+  const getDeadlineColor = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return styles.redColor
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return styles.yellowColor
+    }
+  }
 
   return (
     <div
@@ -77,9 +87,10 @@ export const RequestTermsList = props => {
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey.Time)}
           inputComponent={
-            <p className={styles.accentText}>{`${toFixed(request?.timeLimitInMinutes / 60, 2)} ${t(
-              TranslationKey.hour,
-            )} `}</p>
+            <Typography className={cx(styles.accentText, getDeadlineColor(request?.timeoutAt))}>{`${toFixed(
+              request?.timeLimitInMinutes / 60,
+              2,
+            )} ${t(TranslationKey.hour)} `}</Typography>
           }
         />
 

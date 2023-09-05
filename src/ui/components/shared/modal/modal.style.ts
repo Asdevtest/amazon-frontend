@@ -11,10 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  fullWidthPaper: {
-    maxWidth: '1300px',
-  },
-
   warningDialogPadding: {
     padding: '30px',
     '&:first-of-type': {
