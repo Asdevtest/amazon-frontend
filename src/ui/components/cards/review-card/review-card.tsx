@@ -41,7 +41,6 @@ export const ReviewCard = (props: ReviewCardProps) => {
           <Typography className={styles.headerItemTitle}>{new Date(Date.now()).toLocaleDateString()}</Typography>
           <Rating
             readOnly
-            disabled
             classes={{ iconEmpty: styles.ratingEmpty }}
             value={review.rating}
             size={'small'}
