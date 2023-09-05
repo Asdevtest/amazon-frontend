@@ -29,7 +29,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed } from '@utils/text'
+import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './merge-boxes-modal.style'
@@ -289,7 +289,9 @@ export const MergeBoxesModal = ({
                       <Typography className={classNames.asinValue}>{order.order.id}</Typography>
                     </div>
 
-                    <Typography className={classNames.title}>{order.product?.amazonTitle}</Typography>
+                    <Typography className={classNames.title}>
+                      {getShortenStringIfLongerThanCount(order.product?.amazonTitle, 85)}
+                    </Typography>
                   </div>
 
                   <div>

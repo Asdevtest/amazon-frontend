@@ -31,6 +31,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { checkIsPositiveNum } from '@utils/checks'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 // import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -109,7 +110,9 @@ const Box = ({
                     </div>
                   </div>
 
-                  <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
+                  <Typography className={classNames.title}>
+                    {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
+                  </Typography>
                 </div>
 
                 <div>
