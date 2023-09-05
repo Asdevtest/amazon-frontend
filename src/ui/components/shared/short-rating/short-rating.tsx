@@ -22,7 +22,7 @@ export const ShortRating = (props: ShortRatingProps) => {
       >
         {rating.toFixed(1)}
       </Typography>
-      <Rating disabled size={size} value={1} max={1} />
+      <Rating readOnly size={size} value={1} max={1} />
     </div>
   )
 }

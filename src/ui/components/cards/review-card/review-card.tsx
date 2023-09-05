@@ -42,7 +42,6 @@ export const ReviewCard = (props: ReviewCardProps) => {
           <Typography className={styles.headerItemTitle}>{formatShortDateTime(review.createdAt)}</Typography>
           <Rating
             readOnly
-            disabled
             classes={{ iconEmpty: styles.ratingEmpty }}
             value={review.rating}
             size={'small'}
