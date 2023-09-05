@@ -137,6 +137,10 @@ export class SuppliersAndIdeasModel {
       if (!this.isCreateModal) {
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
+
+          if (this.updateData) {
+            this.updateData()
+          }
         } else {
           await this.getIdeas()
         }
@@ -284,10 +288,6 @@ export class SuppliersAndIdeasModel {
         // }
 
         this.loadData()
-
-        if (this.updateData) {
-          this.updateData()
-        }
       }
 
       if (isForceUpdate) {

@@ -171,8 +171,8 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
             <CustomSwitcher
               condition={getUnitsOption()}
               switcherSettings={[
-                { label: unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                { label: unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
               ]}
               changeConditionHandler={handlers.onChangeUnitsOption}
             />
