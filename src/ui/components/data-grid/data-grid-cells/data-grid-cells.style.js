@@ -142,6 +142,7 @@ export const styles = theme => ({
     fontSize: '13px',
     borderRadius: '4px',
     height: '30px',
+    width: '100%',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
