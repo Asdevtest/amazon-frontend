@@ -2098,5 +2098,7 @@ export enum TranslationKey {
   'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
   'No reviews yet' = 'No reviews yet',
   'Leave a review' = 'Leave a review',
+  'Rate the user' = 'Rate the user',
+  'Leave a user review' = 'Leave a user review',
 }
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
