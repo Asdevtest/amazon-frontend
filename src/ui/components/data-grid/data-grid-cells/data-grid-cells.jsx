@@ -3028,15 +3028,13 @@ export const OrderIdAndAmountCountCell = React.memo(
   withStyles(
     ({ classes: classNames, orderId, amount, onClickOrderId }) => (
       <div className={classNames.orderIdAndAmountCount}>
-        <MultilineTextCell text={orderId} onClickText={onClickOrderId} />
+        <p className={classNames.multilineLink} onClick={onClickOrderId}>
+          {orderId}
+        </p>
         {amount >= 1 && (
-          <MultilineTextCell
-            text={
-              <div className={classNames.amountWithClocks}>
-                <WatchLaterSharpIcon /> {amount}
-              </div>
-            }
-          />
+          <div className={classNames.amountWithClocks}>
+            <WatchLaterSharpIcon /> {amount}
+          </div>
         )}
       </div>
     ),
