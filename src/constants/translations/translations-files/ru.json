@@ -2075,7 +2075,7 @@
   "Are you sure you want to change the status of an idea": "Вы уверены, что хотите изменить статус идеи?",
   "Are you sure you want to dismiss the idea": "Вы уверены, что хотите отклонить эту идею?",
   "Are you sure you want to restore the idea": "Вы уверены, что хотите восстановить эту идею?",
-  "Once confirmed, the idea will be irretrievably lost/deleted": "После подтверждения, идея будет безвозвратно утеряна/удалена",
+  "Once confirmed, the idea will be closed without reopening": "После подтверждения, идея будет закрыта без возможности возобновления",
   "Interconnected products": "Связанные продукты",
   "Variations": "Вариации",
   "Choose an executor": "Выберите исполнителя",
@@ -2109,5 +2109,6 @@
   "updated the data on the idea of": "обновил данные по идее",
   "To the actual": "К актуальным",
   "New order available": "Новый заказ доступен",
-  "needs to be confirmed": "нуждается в подтверждении"
+  "needs to be confirmed": "нуждается в подтверждении",
+  "SEARCH_BY_TITLE": "Названию"
 }

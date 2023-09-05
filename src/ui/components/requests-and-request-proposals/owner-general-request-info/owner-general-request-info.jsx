@@ -109,6 +109,7 @@ export const OwnerGeneralRequestInfo = ({
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
 
               <AsinOrSkuLink
+                withCopyValue
                 asin={request?.request.asin}
                 textStyles={cx(classNames.sectionText, classNames.linkSpan)}
                 missingValueTextStyles={cx(classNames.sectionText, classNames.linkSpan)}

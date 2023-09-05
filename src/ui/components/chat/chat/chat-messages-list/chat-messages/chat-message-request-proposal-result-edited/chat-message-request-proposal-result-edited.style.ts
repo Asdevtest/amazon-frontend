@@ -2,12 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.general,
     padding: 30,
-    maxWidth: 790,
+    width: 790,
     margin: '0 auto',
     border: '1px solid #4CAF50',
     borderRadius: '4px',
+    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(1280)]: {
       width: 390,

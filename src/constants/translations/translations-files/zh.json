@@ -2074,7 +2074,7 @@
   "Are you sure you want to change the status of an idea": "Are you sure you want to change the status of an idea?",
   "Are you sure you want to dismiss the idea": "Are you sure you want to dismiss the idea?",
   "Are you sure you want to restore the idea": "Are you sure you want to restore the idea?",
-  "Once confirmed, the idea will be irretrievably lost/deleted": "Once confirmed, the idea will be irretrievably lost/deleted",
+  "Once confirmed, the idea will be closed without reopening": "Once confirmed, the idea will be closed without reopening",
   "Interconnected products": "Interconnected products",
   "Variations": "Variations",
   "Choose an executor": "Choose an executor",
@@ -2108,5 +2108,6 @@
   "updated the data on the idea of": "updated the data on the idea of",
   "To the actual": "To the actual",
   "New order available": "New order available",
-  "needs to be confirmed": "needs to be confirmed"
+  "needs to be confirmed": "needs to be confirmed",
+  "SEARCH_BY_TITLE": "Title"
 }

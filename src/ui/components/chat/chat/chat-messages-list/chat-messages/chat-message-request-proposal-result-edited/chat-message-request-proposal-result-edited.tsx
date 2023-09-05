@@ -10,7 +10,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -38,6 +38,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
+  const files = message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))
+
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -47,19 +49,11 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
       </div>
 
       <Linkify>
-        <p className={classNames.descriptionText}>{}</p>
-      </Linkify>
-
-      <Linkify>
         <p className={classNames.descriptionText}>{message.data.edited.result}</p>
       </Linkify>
 
       <div className={classNames.resultWrapper}>
-        <PhotoAndFilesCarouselTest
-          files={message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
-          customGap={20}
-          customSlideHeight={80}
-        />
+        <PhotoAndFilesSlider files={files} customGap={20} customSlideHeight={80} />
 
         <div className={classNames.timeToCheckBlockWrapper}>
           <p className={classNames.timeToCheckBlockLabelText}>{t(TranslationKey['Time to check'])}</p>

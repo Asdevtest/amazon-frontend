@@ -280,7 +280,7 @@ export const ProductAsinCell = React.memo(
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {`${t(TranslationKey.SKU)}: `}
-                <span className={classNames.typoSpan}>
+                <span className={cx(classNames.defaultText, { [classNames.typoSpan]: !skusByClient })}>
                   {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
               </Typography>
@@ -417,21 +417,11 @@ export const StringListCell = React.memo(
                 ?.slice(0, maxItemsDisplay)
                 ?.filter(el => el)
                 ?.map((item, i) => (
-                  <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                      {
-                        <span
-                          className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                            [classNames.bluelinkText]: onClickCell,
-                            [classNames.orderTextSpanAsin]: asin,
-                          })}
-                        >
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
-                      }
-                    </Typography>
-                    {withCopy && <CopyValue text={item} />}
-                  </div>
+                  <AsinOrSkuLink
+                    key={i}
+                    withCopyValue
+                    asin={getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  />
                 ))}
           </div>
 
@@ -466,11 +456,9 @@ export const StringListCell = React.memo(
                   {itemsForRender?.map((item, i) => (
                     <div key={i} className={classNames.multilineTextHeaderWrapper}>
                       <Typography className={classNames.typoCell}>
-                        {
-                          <span className={classNames.multilineHeaderText}>
-                            {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                          </span>
-                        }
+                        <span className={classNames.multilineHeaderText}>
+                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                        </span>
                       </Typography>
                       {withCopy && <CopyValue text={item} />}
                     </div>
@@ -507,7 +495,12 @@ export const ProductCell = React.memo(
     ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (
       <div className={classNames.productCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(image)} />
+          <img
+            alt=""
+            className={classNames.productCellImg}
+            src={getAmazonImageUrl(image)}
+            onError={e => (e.target.src = '/assets/img/no-photo.jpg')}
+          />
 
           <div className={classNames.productWrapper}>
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
@@ -1575,7 +1568,9 @@ export const CommentOfSbCell = React.memo(
           </Tooltip>
         ) : (
           <div className={classNames.commentOfSbSubWrapper}>
-            {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
+            {productsInWarehouse.some(el => el.comment) && (
+              <Typography className={classNames.commentOfSbSubMultiText}>{t(TranslationKey.Comments) + ':'}</Typography>
+            )}
             {productsInWarehouse?.map((item, index) => (
               <Tooltip key={index} title={item.comment}>
                 <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${
@@ -1691,6 +1686,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
               <img src="/assets/icons/fire.svg" />
             </div>
           ) : null}
+
           {chinaDelivery === true ? (
             <div className={classNames.chinaDelivery}>
               <img src="/assets/icons/truck.svg" />
@@ -1785,7 +1781,7 @@ export const TaskStatusCell = React.memo(
 
 export const RequestStatusCell = React.memo(
   withStyles(
-    ({ classes: classNames, status, isChat, styles }) => (
+    ({ classes: classNames, status, isChat, styles, languageTag }) => (
       <div className={classNames.statusWrapper}>
         <Typography
           className={cx(classNames.statusText, { [classNames.statusTextChat]: isChat })}
@@ -1869,8 +1865,9 @@ export const TaskTypeCell = React.memo(
 export const TaskDescriptionCell = React.memo(
   withStyles(({ classes: classNames, task }) => {
     const renderProductImages = (product, key, box) => (
-      <Grid key={key && key} item className={classNames.imgWrapper}>
-        <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
+      <div key={key && key} className={classNames.imgWrapper}>
+        <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={classNames.taskDescriptionImg} />
+
         <div className={classNames.taskDescriptionCountWrapper}>
           {box?.amount > 1 && (
             <Typography className={classNames.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>
@@ -1878,7 +1875,7 @@ export const TaskDescriptionCell = React.memo(
 
           <Typography className={classNames.imgNum}>{product?.amount}</Typography>
         </div>
-      </Grid>
+      </div>
     )
 
     const renderBox = (box, key, isOneBox) => (
@@ -1930,7 +1927,7 @@ export const TaskDescriptionCell = React.memo(
     const taskReceiveDescription = () => (
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
-          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} alt="big-box" />
           <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
@@ -1978,14 +1975,12 @@ export const TaskDescriptionCell = React.memo(
       switch (type) {
         case TaskOperationType.MERGE:
           return <>{taskMergeDescription()}</>
-
         case TaskOperationType.SPLIT:
           return <>{taskDivideDescription()}</>
         case TaskOperationType.RECEIVE:
           return <>{taskReceiveDescription()}</>
         case TaskOperationType.EDIT:
           return <>{taskEditDescription()}</>
-
         case TaskOperationType.EDIT_BY_STOREKEEPER:
           return <>{taskEditDescription()}</>
       }
@@ -3608,5 +3603,19 @@ export const NotificationMessage = React.memo(
         </p>
       )
     }
+  }, styles),
+)
+
+export const MultipleAsinCell = React.memo(
+  withStyles(props => {
+    const { classes: styles, asinList } = props
+
+    return (
+      <div className={styles.multipleAsinWrapper}>
+        {asinList.map((asin, index) => (
+          <AsinOrSkuLink key={index} withCopyValue asin={asin} />
+        ))}
+      </div>
+    )
   }, styles),
 )

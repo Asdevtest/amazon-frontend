@@ -121,4 +121,8 @@ export class RegistrationViewModel {
       })
     }
   }
+
+  onClickThemeIcon = theme => {
+    SettingsModel.setUiTheme(theme)
+  }
 }

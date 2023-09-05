@@ -18,7 +18,7 @@ export const bindIdeaToRequestColumns = () => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    width: 50,
+    width: 70,
     renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.value} />,
   },
 

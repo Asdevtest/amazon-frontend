@@ -26,11 +26,11 @@ import { t } from '@utils/translations'
 export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
   const arr = [
     {
-      field: 'idAndItem',
+      field: 'id',
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      sortable: false,
+      renderCell: params => <MultilineTextCell text={params.row.idAndItem} />,
+      sortable: true,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -69,11 +69,10 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Payment documents']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
       renderCell: params => (
-        <MultilineTextCell
-          text={<Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />}
-        />
+        <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />
       ),
       width: 120,
+      align: 'center',
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },

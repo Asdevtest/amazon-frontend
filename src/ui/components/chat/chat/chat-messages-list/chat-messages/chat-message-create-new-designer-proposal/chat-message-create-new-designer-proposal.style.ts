@@ -29,6 +29,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     flex: '1 1 auto',
   },
 
@@ -76,8 +79,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   infosWrapper: {
+    height: '100%',
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     gap: 20,
     marginBottom: 20,
   },
@@ -88,6 +92,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   fieldLabel: {
+    marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,

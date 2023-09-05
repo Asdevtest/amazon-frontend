@@ -214,4 +214,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.primary.main,
   },
+
+  asinTitle: {
+    fontWeight: 400,
+    fontSize: '1rem',
+  },
 }))

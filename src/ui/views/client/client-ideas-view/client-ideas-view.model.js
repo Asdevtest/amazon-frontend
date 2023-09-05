@@ -1089,7 +1089,7 @@ export class ClientIdeasViewModel {
       confirmMessage:
         t(TranslationKey['Are you sure you want to close this idea?']) +
         '\n' +
-        t(TranslationKey['Once confirmed, the idea will be irretrievably lost/deleted']),
+        t(TranslationKey['Once confirmed, the idea will be closed without reopening']),
       onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -1334,5 +1334,13 @@ export class ClientIdeasViewModel {
     runInAction(() => {
       this.actionStatus = actionStatus
     })
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
+  }
+
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
   }
 }

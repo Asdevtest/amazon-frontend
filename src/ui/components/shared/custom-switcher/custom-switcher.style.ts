@@ -2,12 +2,25 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
+    padding: 3,
+    backgroundColor: theme.palette.background.gray,
+    borderRadius: '31px',
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+
+  mediumStylesSwitcherWrapper: {
+    height: '40px',
+  },
+
+  innerContainer: {
+    width: '100%',
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
-    padding: 2,
-    borderRadius: 7,
-    backgroundColor: theme.palette.input.customDisabled,
-    height: 28,
+    position: 'relative',
+    flexWrap: 'wrap',
   },
 
   switcherOption: {
@@ -18,27 +31,52 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     padding: '0 4px',
-    height: 24,
+    height: '100%',
     color: theme.palette.text.general,
     background: 'none',
-    minWidth: '24px !important',
+    minWidth: '40px !important',
+    transition: 'background .5s ease',
+    zIndex: 3,
+    whiteSpace: 'nowrap',
 
     '&:hover': {
-      color: '#fff',
+      color: theme.palette.text.general,
+      background: 'none',
     },
   },
 
   activeOption: {
-    background: theme.palette.primary.main,
-    color: '#fff',
+    transition: '.4s ease',
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    cursor: 'unset',
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
   },
 
-  bigSwitcherWrapper: {
-    height: '40px',
+  bigOptionStyles: {
+    fontSize: '18px',
   },
 
-  bigSwitcherOption: {
+  mediumOptionStyles: {
     padding: '0 15px',
-    height: '40px',
+  },
+
+  btnWrapperStyle: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    flex: 1,
+  },
+
+  indicator: {
+    position: 'absolute',
+    height: '100%',
+    zIndex: 2,
+    borderRadius: '41px',
+    transition: '.4s ease',
+    backgroundColor: '#fff',
   },
 }))

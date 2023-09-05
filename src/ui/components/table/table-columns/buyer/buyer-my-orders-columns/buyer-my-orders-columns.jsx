@@ -26,12 +26,11 @@ import { t } from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = () => [
   {
-    field: 'idAndItem',
+    field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-
-    width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.idAndItem} />,
+    sortable: true,
   },
 
   {
