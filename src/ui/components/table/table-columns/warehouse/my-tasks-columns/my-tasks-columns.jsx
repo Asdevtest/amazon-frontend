@@ -4,6 +4,7 @@ import {
   ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   StringListCell,
   TaskDescriptionCell,
@@ -105,7 +106,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
     width: window.innerWidth < 1282 ? 100 : 160,
   },

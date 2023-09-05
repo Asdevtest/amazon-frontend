@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   NormalActionBtnCell,
   StringListCell,
@@ -77,7 +78,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     width: window.innerWidth < 1282 ? 101 : 160,
     sortable: false,
   },
