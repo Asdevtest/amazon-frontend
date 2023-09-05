@@ -32,6 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     padding: '0 4px',
     height: '100%',
+    width: '100%',
     color: theme.palette.text.general,
     background: 'none',
     minWidth: '40px !important',
