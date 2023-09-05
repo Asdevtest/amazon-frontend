@@ -1,6 +1,7 @@
 import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
+import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -33,9 +34,10 @@ interface Props {
   isLastMessage: boolean
   message: ChatMessageContract<ChatMessageDataProposalStatusChangedContract>
   handlers: ChatMessageRequestProposalStatusChangedHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isLastMessage }) => {
+export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isShowChatInfo, isLastMessage }) => {
   const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -70,11 +72,16 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
             {message?.data?.reason ? <p className={classNames.reasonText}>{message?.data?.reason}</p> : null}
 
             {message.data?.linksToMediaFiles?.length > 0 && (
-              <PhotoAndFilesSlider files={message.data.linksToMediaFiles} customGap={20} customSlideHeight={80} />
+              <PhotoAndFilesSlider
+                alignLeft
+                smallSlider
+                column={isShowChatInfo || isMobileResolution}
+                files={message.data.linksToMediaFiles}
+              />
             )}
 
             {isShowFooter ? (
-              <div className={classNames.footerWrapper}>
+              <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>
                 {message.data.timeLimitInMinutes ? (
                   <div className={classNames.labelValueBlockWrapper}>
                     <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
@@ -100,7 +107,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
           </div>
         )
       case RequestProposalStatus.CORRECTED:
-        return <div></div>
+        return null
     }
   }
 
@@ -112,6 +119,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
           <RequestStatusCell isChat status={message.data.status} languageTag={SettingsModel.languageTag} />
         </span>
       </div>
+
       {renderDetails()}
     </div>
   )

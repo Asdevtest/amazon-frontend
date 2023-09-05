@@ -13,11 +13,11 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   wrapperAlignLeft: {
-    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   },
 
   wrapperAlignRight: {
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
 
   noFileWrapper: {

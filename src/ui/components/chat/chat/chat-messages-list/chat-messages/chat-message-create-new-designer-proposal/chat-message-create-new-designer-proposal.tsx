@@ -3,6 +3,7 @@ import { FC, useContext } from 'react'
 
 import { Divider } from '@mui/material'
 
+import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -89,7 +90,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
           <PhotoAndFilesSlider
             smallSlider
-            column={isShowChatInfo}
+            column={isShowChatInfo || isMobileResolution}
             files={message.data.request?.media?.map(el => el.fileLink)}
           />
         </div>
@@ -118,7 +119,11 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesSlider smallSlider column={isShowChatInfo} files={message.data.proposal.linksToMediaFiles} />
+          <PhotoAndFilesSlider
+            smallSlider
+            column={isShowChatInfo || isMobileResolution}
+            files={message.data.proposal.linksToMediaFiles}
+          />
         </div>
       </div>
 
