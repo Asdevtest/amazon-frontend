@@ -43,6 +43,9 @@ export class CreateOrEditRequestViewModel {
   progressValue = 0
   showProgress = false
 
+  requestId = undefined
+  executor = undefined
+
   showCheckRequestByTypeExists = false
 
   confirmModalSettings = {
