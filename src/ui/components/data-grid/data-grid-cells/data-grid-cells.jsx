@@ -435,6 +435,8 @@ export const StringListCell = React.memo(
             autoFocus={false}
             open={Boolean(menuAnchor)}
             // classes={{paper: classNames.menu, list: classNames.list}}
+            transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
             onClose={handleClose}
           >
             <div className={classNames.stringListMenuWrapper}>
@@ -451,10 +453,8 @@ export const StringListCell = React.memo(
                 <div className={classNames.shopsBody}>
                   {itemsForRender?.map((item, i) => (
                     <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                      <Typography className={classNames.typoCell}>
-                        <span className={classNames.multilineHeaderText}>
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
+                      <Typography className={classNames.shopOrderText}>
+                        {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
                       </Typography>
                       {withCopy && <CopyValue text={item} />}
                     </div>
