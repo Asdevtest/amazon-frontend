@@ -181,9 +181,9 @@ export const AnotherUserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
       >
         <RequestProposalAcceptOrRejectResultForm
-          title={t(TranslationKey['Confirm acceptance of the work result'])}
-          rateLabel={t(TranslationKey['Rate the performer'])}
-          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          title={t(TranslationKey['Leave a review'])}
+          rateLabel={t(TranslationKey['Rate the user'])}
+          reviewLabel={t(TranslationKey['Leave a user review'])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
           onSubmit={viewModel.onAcceptReview}
