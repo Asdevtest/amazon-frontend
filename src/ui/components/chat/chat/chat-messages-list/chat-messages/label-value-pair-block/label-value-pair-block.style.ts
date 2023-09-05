@@ -19,7 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   labelText: {
     fontWeight: 400,
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',
@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   valueText: {
     fontWeight: 400,
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',

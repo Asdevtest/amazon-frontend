@@ -2,9 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    position: 'relative',
+    maxWidth: 1075,
     padding: 30,
-    maxWidth: 790,
     margin: '0 auto',
     borderRadius: 7,
     backgroundColor: theme.palette.background.general,
@@ -12,41 +11,58 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(1280)]: {
       maxWidth: 390,
     },
-  },
 
-  timeText: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    fontSize: 14,
-    lineHeight: '19px',
-    color: theme.palette.text.second,
+    [theme.breakpoints.down(768)]: {
+      padding: 20,
+    },
   },
 
   mainWrapper: {
     display: 'flex',
-    gap: 20,
+    gap: 30,
+
+    [theme.breakpoints.down(1365)]: {
+      flexDirection: 'column',
+      gap: 20,
+    },
+  },
+
+  mainWrapperShowChatInfo: {
+    [theme.breakpoints.down(1750)]: {
+      flexDirection: 'column',
+    },
   },
 
   mainSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    flex: '1 1 auto',
+    flex: 0.5,
   },
 
-  massageHeaderWrapper: {
+  header: {
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
 
   headerText: {
     color: theme.palette.text.general,
     fontSize: 14,
-    fontWeight: 600,
     lineHeight: '19px',
+    fontWeight: 600,
     textTransform: 'uppercase',
-    marginBottom: 20,
+    marginBottom: 10,
+  },
+
+  timeText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
   },
 
   idWrapper: {
@@ -54,41 +70,66 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
+  idText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 600,
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+  },
+
   idTitle: {
     color: theme.palette.text.general,
   },
 
-  idText: {
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-    color: theme.palette.text.second,
-  },
-
   descriptionText: {
+    width: '100%',
+    maxHeight: 150,
+    marginBottom: 20,
+    overflow: 'auto',
     color: theme.palette.text.second,
-    fontSize: 16,
-    minHeight: 100,
     wordBreak: 'break-word',
     whiteSpace: 'pre-line',
-  },
 
-  paragraphWrapper: {
-    minHeight: 180,
-    marginBottom: 20,
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   infosWrapper: {
-    height: '100%',
+    marginBottom: 20,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
-    marginBottom: 20,
   },
 
-  labelValueBlockWrapper: {
-    minWidth: 260,
-    maxWidth: 'max-content',
+  labelValueBlock: {
+    width: '100%',
+
+    [theme.breakpoints.down(768)]: {
+      flexWrap: 'wrap',
+      gap: 5,
+    },
+  },
+
+  labelValueBlockShowChatInfo: {
+    [theme.breakpoints.down(1350)]: {
+      flexWrap: 'wrap',
+      gap: 5,
+    },
+  },
+
+  accentText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 600,
+    color: theme.palette.text.general,
+    whiteSpace: 'nowrap',
   },
 
   fieldLabel: {
@@ -99,14 +140,25 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   divider: {
+    width: 1,
     height: 'auto',
+    background: 'rgba(255, 255, 255, 0.12)',
+
+    [theme.breakpoints.down(1365)]: {
+      width: '100%',
+      height: 1,
+    },
   },
 
-  footerWrapper: {
-    marginTop: '20px',
+  dividerShowChatInfo: {
+    [theme.breakpoints.down(1750)]: {
+      height: 1,
+      width: 'auto',
+    },
   },
 
   btnsWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'end',
@@ -118,23 +170,12 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 15px',
   },
 
-  editButton: {
-    width: '252px',
-  },
-
   successBtn: {
-    width: '197px',
     backgroundColor: '#4CAF50',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#4CAF50',
     },
-  },
-
-  accentText: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: theme.palette.text.general,
-    whiteSpace: 'nowrap',
   },
 }))
