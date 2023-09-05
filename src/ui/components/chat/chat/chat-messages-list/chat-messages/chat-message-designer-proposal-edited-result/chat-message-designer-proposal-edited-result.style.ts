@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    maxWidth: 1080,
+    maxWidth: 1075,
     padding: 30,
     margin: '0 auto',
     display: 'flex',
@@ -11,8 +11,9 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.general,
     borderRadius: 7,
 
-    [theme.breakpoints.down(1280)]: {
-      maxWidth: 390,
+    [theme.breakpoints.down(768)]: {
+      padding: 20,
+      gap: 20,
     },
   },
 
@@ -33,32 +34,84 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     textTransform: 'uppercase',
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
   },
 
   infosWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     gap: 40,
+
+    [theme.breakpoints.down(1280)]: {
+      flexDirection: 'column',
+      gap: 20,
+    },
+  },
+
+  infosWrapperIsShowChatInfo: {
+    [theme.breakpoints.down(1700)]: {
+      flexDirection: 'column',
+      gap: 20,
+    },
   },
 
   descriptionText: {
-    width: '100%',
+    width: 530,
     fontSize: 18,
     lineHeight: '25px',
     color: theme.palette.text.general,
     wordBreak: 'break-word',
+
+    [theme.breakpoints.down(1750)]: {
+      width: '100%',
+    },
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   imagesWrapper: {
     display: 'flex',
+    justifyContent: 'flex-end',
     flexWrap: 'wrap',
     gap: 15,
+
+    [theme.breakpoints.down(1280)]: {
+      justifyContent: 'flex-start',
+    },
+  },
+
+  imagesWrapperIsShowChatInfo: {
+    [theme.breakpoints.down(1700)]: {
+      justifyContent: 'flex-start',
+    },
   },
 
   imageWrapper: {
@@ -106,45 +159,58 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerWrapper: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     gap: 50,
+
+    [theme.breakpoints.down(1350)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: 20,
+    },
   },
 
-  btnsWrapper: {
+  footerWrapperIsShowChatInfo: {
+    [theme.breakpoints.down(1700)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: 20,
+    },
+  },
+
+  fieldsContainer: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '48px',
-    // gap: 20,
+    justifyContent: 'flex-start',
+    gap: 50,
+
+    [theme.breakpoints.down(1750)]: {
+      gap: 40,
+    },
+
+    [theme.breakpoints.down(1350)]: {
+      width: '100%',
+    },
+
+    [theme.breakpoints.down(1280)]: {
+      flexWrap: 'wrap',
+      gap: 20,
+    },
   },
 
-  actionBtnWrapperStyleNotFirst: {
-    marginLeft: '42px',
-  },
-  actionButton: {
-    // flex: 1,
-    // display: 'flex',
+  fieldsContainerIsShowChatInfo: {
+    [theme.breakpoints.down(1700)]: {
+      width: '100%',
+    },
 
-    padding: '0 15px',
-  },
-
-  // editButton: {
-  //   width: '200px',
-  // },
-
-  successBtn: {
-    width: '197px',
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
+    [theme.breakpoints.down(1550)]: {
+      flexWrap: 'wrap',
+      gap: 20,
     },
   },
 
   fieldLabel: {
-    fontSize: 14,
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
     marginBottom: 5,
@@ -156,12 +222,40 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   simpleSpan: {
-    fontWeight: '600 !important',
     fontSize: 14,
     whiteSpace: 'nowrap',
+    fontWeight: '600 !important',
   },
 
-  linkSpan: {
-    color: theme.palette.primary.main,
+  actionButton: {
+    padding: '0 40px',
+
+    [theme.breakpoints.down(1700)]: {
+      padding: '0 30px',
+    },
   },
+
+  /* btnsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'end',
+    marginTop: '48px',
+  }, */
+
+  /* actionBtnWrapperStyleNotFirst: {
+    marginLeft: '42px',
+  }, */
+
+  /* editButton: {
+    width: '200px',
+  }, */
+
+  /* successBtn: {
+    width: '197px',
+    backgroundColor: '#4CAF50',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#4CAF50',
+    },
+  }, */
 }))

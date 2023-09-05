@@ -31,9 +31,10 @@ export interface ChatMessageRequestProposalDesignerResultEditedHandlers {
 interface Props {
   message: ChatMessageContract<ChatMessageDataDesignerProposalResultEditedContract>
   handlers: ChatMessageRequestProposalDesignerResultEditedHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, handlers }) => {
+export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
 
   // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -49,13 +50,10 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
           <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
         </div>
 
-        <div className={classNames.infosWrapper}>
-          <p className={classNames.descriptionText}>
-            {/* {message.data.proposal?.details?.result} */} Добрый день! Отправляю результат выполненной работы.
-            Публикация в социальной сети Facebook.( 5032 подписчика) Охват 7 340 уникальных пользователей
-          </p>
+        <div className={cx(classNames.infosWrapper, { [classNames.infosWrapperIsShowChatInfo]: isShowChatInfo })}>
+          <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
 
-          <div className={classNames.imagesWrapper}>
+          <div className={cx(classNames.imagesWrapper, { [classNames.imagesWrapperIsShowChatInfo]: isShowChatInfo })}>
             {message.data.proposal.media
               ?.slice(0, 4)
               .map(el => el.fileLink)
@@ -85,37 +83,29 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
         </div>
       </div>
 
-      <div className={classNames.footerWrapper}>
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={t(TranslationKey['Time to check'])}
-          containerClasses={classNames.containerField}
-          inputComponent={<p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>{minsToTime(1440)}</p>}
-        />
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={t(TranslationKey['Number of illustrations'])}
-          containerClasses={classNames.containerField}
-          inputComponent={
-            <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-              {message.data.proposal.media?.length}
-            </p>
-          }
-        />
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={'ASIN'}
-          containerClasses={classNames.containerField}
-          inputComponent={
-            // <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-            //   <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${message.data.request.asin}`}>
-            //     <span className={classNames.linkSpan}>{message.data.request.asin}</span>
-            //   </a>
-            // </p>
-
-            <AsinOrSkuLink withCopyValue asin={message?.data?.request?.asin} textStyles={classNames.simpleSpan} />
-          }
-        />
+      <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperIsShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(classNames.fieldsContainer, { [classNames.fieldsContainerIsShowChatInfo]: isShowChatInfo })}>
+          <Field
+            labelClasses={classNames.fieldLabel}
+            label={t(TranslationKey['Time to check'])}
+            containerClasses={classNames.containerField}
+            inputComponent={<p className={classNames.simpleSpan}>{minsToTime(1440)}</p>}
+          />
+          <Field
+            labelClasses={classNames.fieldLabel}
+            label={t(TranslationKey['Number of illustrations'])}
+            containerClasses={classNames.containerField}
+            inputComponent={<p className={classNames.simpleSpan}>{message.data.proposal.media?.length}</p>}
+          />
+          <Field
+            labelClasses={classNames.fieldLabel}
+            label={'ASIN'}
+            containerClasses={classNames.containerField}
+            inputComponent={
+              <AsinOrSkuLink withCopyValue asin={message?.data?.request?.asin} textStyles={classNames.simpleSpan} />
+            }
+          />
+        </div>
 
         <Button
           className={classNames.actionButton}

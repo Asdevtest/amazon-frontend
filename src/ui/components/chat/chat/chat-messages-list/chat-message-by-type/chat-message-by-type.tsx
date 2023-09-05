@@ -48,6 +48,7 @@ export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
 interface Props {
   isIncomming: boolean
   messageItem: ChatMessageContract
+  isShowChatInfo?: boolean
   unReadMessage: boolean
   showName: boolean
   isLastMessage: boolean
@@ -60,6 +61,7 @@ export const ChatMessageByType: FC<Props> = observer(
   ({
     isIncomming,
     messageItem,
+    isShowChatInfo,
     unReadMessage,
     showName,
     isLastMessage,
@@ -137,6 +139,7 @@ export const ChatMessageByType: FC<Props> = observer(
         return (
           <ChatMessageDesignerProposalEditedResult
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickOpenRequest: handlers.onClickOpenRequest,
             }}
