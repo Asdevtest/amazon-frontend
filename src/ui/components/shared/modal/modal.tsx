@@ -61,17 +61,20 @@ export const Modal: FC<ModalProps> = props => {
       classes={{
         paperScrollBody: cx(classNames.dialogContent, {
           [classNames.warningPaper]: isWarning,
-          [classNames.fullWidthPaper]: fullWidth,
         }),
       }}
       fullWidth={fullWidth}
       open={openModal}
       scroll={'body'}
-      sx={{
-        '& .MuiDialog-paper': {
-          maxWidth: maxWidth && `${maxWidth}px`,
-        },
-      }}
+      sx={
+        fullWidth
+          ? {
+              '& .MuiDialog-paper': {
+                maxWidth: `${maxWidth ?? 1300}px`,
+              },
+            }
+          : {}
+      }
       onClose={(event: React.MouseEvent<HTMLElement, MouseEvent>) =>
         (event.detail !== 0 || event.button === 27) &&
         (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false))

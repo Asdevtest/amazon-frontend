@@ -85,6 +85,9 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
               item?.maxAmountOfProposals,
             )}
           </Typography>
+          <Typography className={classNames.cardSubTitle}>
+            {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span>
+          </Typography>
         </div>
       </div>
 

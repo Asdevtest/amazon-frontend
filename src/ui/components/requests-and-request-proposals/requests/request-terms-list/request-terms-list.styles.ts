@@ -41,4 +41,12 @@ export const useRequestTermsListStyles = makeStyles()(theme => ({
     fontWeight: 600,
     color: theme.palette.text.general,
   },
+
+  yellowColor: {
+    color: `#C69109`,
+  },
+
+  redColor: {
+    color: `#D70D0D`,
+  },
 }))

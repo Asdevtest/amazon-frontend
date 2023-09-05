@@ -17,6 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '30px',
+    gap: '60px',
   },
 
   nameWrapper: {
@@ -60,6 +61,10 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.second,
+
+    span: {
+      fontWeight: '600',
+    },
   },
 
   userInfoWrapper: {
@@ -177,6 +182,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   requestTermsWrapper: {
     width: 'fit-content',
+    flex: '1 1 auto',
+
+    '& > div': {
+      justifyContent: 'flex-start',
+      gap: '20px 70px',
+    },
   },
 
   productInfo: {

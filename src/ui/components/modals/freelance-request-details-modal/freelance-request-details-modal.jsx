@@ -24,9 +24,11 @@ export const FreelanceRequestDetailsModal = props => {
   const { classes: styles } = useFreelanceRequestDetailsModalStyles()
 
   return (
-    <Modal fullWidth openModal={isOpenModal} setOpenModal={handleOpenModal}>
+    <Modal fullWidth maxWidth={1229} openModal={isOpenModal} setOpenModal={handleOpenModal}>
       <div className={styles.header}>
-        <Typography>{t(TranslationKey['New request'])}</Typography>
+        <Typography>
+          {t(TranslationKey.ID)}: {request.humanFriendlyId}
+        </Typography>
         <div className={styles.headerDetails}>
           <Typography className={styles.headerText}>
             {t(TranslationKey['Request type'])}:{' '}
