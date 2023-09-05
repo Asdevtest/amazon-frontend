@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeInputCommentCell, // MultilineTextCell, // AsinCopyCell,
+  ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   StringListCell,
   TaskDescriptionCell,
@@ -53,13 +51,6 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
-    // renderCell: params => (
-    //   <TaskPriorityCell
-    //     curPriority={params.value}
-    //     taskId={params.row.originalData._id}
-    //     onChangePriority={handlers.updateTaskPriority}
-    //   />
-    // ),
 
     renderCell: params => (
       <TaskPriorityCell
@@ -104,7 +95,6 @@ export const warehouseMyTasksViewColumns = handlers => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    // renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
 
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
@@ -116,7 +106,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
     width: window.innerWidth < 1282 ? 100 : 160,
   },

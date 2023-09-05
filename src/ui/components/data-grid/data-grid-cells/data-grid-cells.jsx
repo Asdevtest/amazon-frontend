@@ -413,21 +413,11 @@ export const StringListCell = React.memo(
                 ?.slice(0, maxItemsDisplay)
                 ?.filter(el => el)
                 ?.map((item, i) => (
-                  <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                      {
-                        <span
-                          className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                            [classNames.bluelinkText]: onClickCell,
-                            [classNames.orderTextSpanAsin]: asin,
-                          })}
-                        >
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
-                      }
-                    </Typography>
-                    {withCopy && <CopyValue text={item} />}
-                  </div>
+                  <AsinOrSkuLink
+                    key={i}
+                    withCopyValue
+                    asin={getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  />
                 ))}
           </div>
 
@@ -445,6 +435,8 @@ export const StringListCell = React.memo(
             autoFocus={false}
             open={Boolean(menuAnchor)}
             // classes={{paper: classNames.menu, list: classNames.list}}
+            transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
             onClose={handleClose}
           >
             <div className={classNames.stringListMenuWrapper}>
@@ -461,10 +453,8 @@ export const StringListCell = React.memo(
                 <div className={classNames.shopsBody}>
                   {itemsForRender?.map((item, i) => (
                     <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                      <Typography className={classNames.typoCell}>
-                        <span className={classNames.multilineHeaderText}>
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
+                      <Typography className={classNames.shopOrderText}>
+                        {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
                       </Typography>
                       {withCopy && <CopyValue text={item} />}
                     </div>
@@ -1574,7 +1564,9 @@ export const CommentOfSbCell = React.memo(
           </Tooltip>
         ) : (
           <div className={classNames.commentOfSbSubWrapper}>
-            {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
+            {productsInWarehouse.some(el => el.comment) && (
+              <Typography className={classNames.commentOfSbSubMultiText}>{t(TranslationKey.Comments) + ':'}</Typography>
+            )}
             {productsInWarehouse?.map((item, index) => (
               <Tooltip key={index} title={item.comment}>
                 <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${
@@ -1869,8 +1861,9 @@ export const TaskTypeCell = React.memo(
 export const TaskDescriptionCell = React.memo(
   withStyles(({ classes: classNames, task }) => {
     const renderProductImages = (product, key, box) => (
-      <Grid key={key && key} item className={classNames.imgWrapper}>
-        <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
+      <div key={key && key} className={classNames.imgWrapper}>
+        <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={classNames.taskDescriptionImg} />
+
         <div className={classNames.taskDescriptionCountWrapper}>
           {box?.amount > 1 && (
             <Typography className={classNames.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>
@@ -1878,7 +1871,7 @@ export const TaskDescriptionCell = React.memo(
 
           <Typography className={classNames.imgNum}>{product?.amount}</Typography>
         </div>
-      </Grid>
+      </div>
     )
 
     const renderBox = (box, key, isOneBox) => (
@@ -1930,7 +1923,7 @@ export const TaskDescriptionCell = React.memo(
     const taskReceiveDescription = () => (
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
-          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} alt="big-box" />
           <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
@@ -1978,14 +1971,12 @@ export const TaskDescriptionCell = React.memo(
       switch (type) {
         case TaskOperationType.MERGE:
           return <>{taskMergeDescription()}</>
-
         case TaskOperationType.SPLIT:
           return <>{taskDivideDescription()}</>
         case TaskOperationType.RECEIVE:
           return <>{taskReceiveDescription()}</>
         case TaskOperationType.EDIT:
           return <>{taskEditDescription()}</>
-
         case TaskOperationType.EDIT_BY_STOREKEEPER:
           return <>{taskEditDescription()}</>
       }
@@ -3037,15 +3028,13 @@ export const OrderIdAndAmountCountCell = React.memo(
   withStyles(
     ({ classes: classNames, orderId, amount, onClickOrderId }) => (
       <div className={classNames.orderIdAndAmountCount}>
-        <MultilineTextCell text={orderId} onClickText={onClickOrderId} />
+        <p className={classNames.multilineLink} onClick={onClickOrderId}>
+          {orderId}
+        </p>
         {amount >= 1 && (
-          <MultilineTextCell
-            text={
-              <div className={classNames.amountWithClocks}>
-                <WatchLaterSharpIcon /> {amount}
-              </div>
-            }
-          />
+          <div className={classNames.amountWithClocks}>
+            <WatchLaterSharpIcon /> {amount}
+          </div>
         )}
       </div>
     ),

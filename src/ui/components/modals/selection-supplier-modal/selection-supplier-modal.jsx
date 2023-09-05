@@ -106,7 +106,7 @@ export const SelectionSupplierModal = ({
         </div>
       ) : (
         <div className={classNames.btnsWrapper}>
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
+          {/* <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
           <div className={classNames.searchSupplierForIdeaButtonsWrapper}>
             <Button
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
@@ -117,7 +117,7 @@ export const SelectionSupplierModal = ({
             </Button>
           </div>
 
-          <Divider orientation="horizontal" className={classNames.divider} />
+          <Divider orientation="horizontal" className={classNames.divider} /> */}
 
           <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for a product card'])}</Typography>
 

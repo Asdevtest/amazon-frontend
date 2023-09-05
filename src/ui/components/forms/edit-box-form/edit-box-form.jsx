@@ -535,30 +535,14 @@ export const EditBoxForm = observer(
                         <Button
                           disableElevation
                           color="primary"
-                          variant={boxFields.storekeeperId && 'text'}
+                          disabled={!boxFields.storekeeperId}
                           className={cx(classNames.storekeeperBtnDefault, {
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
-                            [classNames.storekeeperBtnColored]:
-                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {/* {boxFields.storekeeperId
-                            ? `${
-                                storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
-                                t(TranslationKey['Not available'])
-                              } /
-                        ${
-                          boxFields.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-                            : t(TranslationKey.Select)} */}
-
                           {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
@@ -657,14 +641,16 @@ export const EditBoxForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
-                    changeConditionHandler={condition => setSizeSetting(condition)}
-                  />
+                  <div>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      switcherSettings={[
+                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                      ]}
+                      changeConditionHandler={condition => setSizeSetting(condition)}
+                    />
+                  </div>
                 </div>
 
                 <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />

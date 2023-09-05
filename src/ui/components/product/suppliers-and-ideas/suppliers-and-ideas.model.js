@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
@@ -19,7 +19,7 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
@@ -912,5 +912,18 @@ export class SuppliersAndIdeasModel {
     )
 
     win.focus()
+  }
+
+  onClickOpenProduct(id) {
+    const userRole = UserRoleCodeMap[this.curUser?.role]
+    const userRolePath = UserRoleCodeMapForRoutes[this.curUser?.role]
+
+    if (checkIsClient(userRole)) {
+      window.open(`/${userRolePath}/inventory/product?product-id=${id}`)?.focus()
+    } else if (checkIsBuyer(userRole)) {
+      window.open(`/${userRolePath}/my-products/product?product-id=${id}`)?.focus()
+    } else if (checkIsSupervisor(userRole)) {
+      window.open(`/${userRolePath}/products/product?product-id=${id}`)?.focus()
+    }
   }
 }

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
@@ -10,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   NormalActionBtnCell,
   StringListCell,
@@ -44,7 +43,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: window.innerWidth < 1282 ? 125 : 180,
+    width: window.innerWidth < 1282 ? 125 : 170,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
@@ -53,7 +52,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-    width: window.innerWidth < 1282 ? 115 : 170,
+    width: window.innerWidth < 1282 ? 115 : 160,
     renderCell: params => (
       <MultilineTextCell
         color={colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[params.value])}
@@ -79,7 +78,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     width: window.innerWidth < 1282 ? 101 : 160,
     sortable: false,
   },
@@ -114,7 +113,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    width: window.innerWidth < 1282 ? 54 : 160,
+    width: window.innerWidth < 1282 ? 54 : 155,
     sortable: false,
   },
   {
@@ -122,7 +121,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: window.innerWidth < 1282 ? 95 : 150,
+    width: window.innerWidth < 1282 ? 95 : 145,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     // type: 'date',
   },
