@@ -18,7 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '98px',
     width: '92px',
     margin: '0 50px 0 0',
-    objectFit: 'cover',
+    objectFit: 'contain',
     objectPosition: 'center',
   },
 
