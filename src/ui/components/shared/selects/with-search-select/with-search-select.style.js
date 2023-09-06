@@ -161,6 +161,8 @@ export const styles = theme => ({
   submitWrapper: {
     display: 'flex',
     justifyContent: 'center',
+    gap: '15px',
+    marginTop: '15px',
   },
 
   apply: {

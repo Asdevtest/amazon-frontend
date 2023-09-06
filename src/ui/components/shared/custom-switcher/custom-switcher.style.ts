@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
     padding: 3,
-    backgroundColor: theme.palette.background.gray,
+    backgroundColor: theme.palette.customSwitcher.background,
     borderRadius: '31px',
     width: '100%',
     display: 'flex',
@@ -32,6 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     padding: '0 4px',
     height: '100%',
+    width: '100%',
     color: theme.palette.text.general,
     background: 'none',
     minWidth: '40px !important',
@@ -47,11 +48,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   activeOption: {
     transition: '.4s ease',
-    color: theme.palette.primary.main,
+    color: theme.palette.customSwitcher.text,
     fontWeight: 600,
     cursor: 'unset',
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: theme.palette.customSwitcher.text,
     },
   },
 
@@ -77,6 +78,6 @@ export const useClassNames = makeStyles()(theme => ({
     zIndex: 2,
     borderRadius: '41px',
     transition: '.4s ease',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.customSwitcher.indicator,
   },
 }))

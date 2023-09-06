@@ -11,7 +11,7 @@ import { Field } from '@components/shared/field/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getNewTariffTextForBoxOrOrder } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-for-merge.style'
@@ -44,7 +44,9 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
                     <Typography className={classNames.asinValue}>{order.order.id}</Typography>
                   </div>
 
-                  <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
+                  <Typography className={classNames.title}>
+                    {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
+                  </Typography>
                 </div>
 
                 <div>
