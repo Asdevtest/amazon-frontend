@@ -126,14 +126,15 @@ export const styles = theme => ({
 
   deadlineBorder: {
     position: 'relative',
+
     '&:after': {
       content: '" "',
       display: 'block',
       position: 'absolute',
-      left: 4,
+      left: 2,
       top: 1,
 
-      width: 6,
+      width: 5,
       height: 72,
     },
   },
