@@ -50,10 +50,26 @@ export class BuyerFreeOrdersViewModel {
 
   constructor({ history }) {
     this.history = history
+
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onChangeFilterModel({
+        items: [
+          {
+            field: 'ID',
+            operator: '=',
+            value: orderId,
+          },
+        ],
+      })
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
+    console.log('model', model)
     this.filterModel = model
 
     this.setDataGridState()

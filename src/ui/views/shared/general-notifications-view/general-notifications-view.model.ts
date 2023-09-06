@@ -202,6 +202,8 @@ export class GeneralNotificationsViewModel {
   navigateToHandler(notification: any, type: string) {
     if (!this.currentUser) return
 
+    console.log('notification', notification)
+
     if (type === NotificationType.Order) {
       if (checkIsClient(UserRoleCodeMap[this.currentUser?.role])) {
         window
@@ -213,7 +215,11 @@ export class GeneralNotificationsViewModel {
           ?.focus()
       } else if (checkIsBuyer(UserRoleCodeMap[this.currentUser?.role])) {
         window
-          .open(`/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/all-orders?orderId=${notification?._id}`)
+          .open(
+            `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/${
+              notification?.vacOrders ? 'free-orders' : 'all-orders'
+            }?orderId=${notification?.vacOrders ? notification?.id : notification?._id}`,
+          )
           ?.focus()
       }
     } else if (type === 'user') {
