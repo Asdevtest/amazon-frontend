@@ -15,27 +15,19 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  labelsInfoWrapper: {
-    width: '480px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '27px',
-  },
-
   trackNumberPhotoBtn: {
     width: 230,
   },
 
   trackNumberPhotoWrapper: {
-    width: 230,
-    height: 130,
-
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
+    minWidth: 230,
+    width: 'max-content',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
+    height: '100%',
   },
 
   trackNumberPhoto: {
