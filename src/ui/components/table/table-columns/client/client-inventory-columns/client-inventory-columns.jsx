@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'

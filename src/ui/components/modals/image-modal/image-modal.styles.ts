@@ -118,6 +118,10 @@ export const useImageModalStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
+  clientComment: {
+    color: '#DF0C0C',
+  },
+
   slider: {
     maxWidth: 720,
 

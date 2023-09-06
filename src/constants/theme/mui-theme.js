@@ -292,7 +292,12 @@ export const lightTheme = createTheme({
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
       activeChat: '#E7F1FF',
-      gray: '#D9E0E8',
+    },
+
+    customSwitcher: {
+      background: '#D9E0E8',
+      indicator: '#fff',
+      text: '#007bff',
     },
 
     linearGradient: {
@@ -749,7 +754,12 @@ export const darkTheme = createTheme({
         default: '#121212',
         disabledDangerBtn: '#4F2026',
         activeChat: '#384C68',
-        gray: '#D9E0E8',
+      },
+
+      customSwitcher: {
+        background: '#424250',
+        indicator: '#8291A0',
+        text: '#fff',
       },
 
       linearGradient: {

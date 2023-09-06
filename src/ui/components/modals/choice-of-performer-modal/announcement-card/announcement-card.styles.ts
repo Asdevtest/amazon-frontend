@@ -15,8 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectedCard: {
-    border: '1px solid #0A6FE8',
-    background: `${theme.palette.background.fourth} !important`,
+    border: `2px solid ${theme.palette.background.fourth} !important`,
   },
 
   header: {

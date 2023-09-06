@@ -1360,7 +1360,6 @@ export class WarehouseMyWarehouseViewModel {
     runInAction(() => {
       this.unitsOption = option
     })
-    console.log('this.unitsOption', this.unitsOption)
   }
 
   onChangeFullFieldMenuItem(value, field) {

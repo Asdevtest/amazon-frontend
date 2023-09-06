@@ -273,7 +273,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: 'red',
   },
   storekeeperBtnDefault: {
-    color: theme.palette.text.general,
+    // color: theme.palette.text.general,
   },
 
   itemInput: {

@@ -160,7 +160,9 @@ export const ImageModal: FC<Props> = ({
 
           <div className={styles.info}>
             {typeof currentImage !== 'string' && (
-              <p className={styles.title}>{getShortenStringIfLongerThanCount(currentImage?.comment, 200)}</p>
+              <p className={cx(styles.title, styles.clientComment)}>
+                {getShortenStringIfLongerThanCount(currentImage?.comment, 200)}
+              </p>
             )}
             <p className={styles.currentSlide}>{currentSlideTitle}</p>
           </div>

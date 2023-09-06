@@ -108,7 +108,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
         ) : (
           <SuccessActionBtnCell
             bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
           />
         )}
       </>

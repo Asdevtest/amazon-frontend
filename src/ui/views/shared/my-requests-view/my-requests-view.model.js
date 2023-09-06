@@ -192,9 +192,7 @@ export class MyRequestsViewModel {
 
     reaction(
       () => this.isRequestsAtWork,
-      () => {
-        this.currentData = this.getCustomRequests()
-      },
+      () => this.getCustomRequests(),
     )
 
     reaction(
@@ -497,6 +495,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -521,7 +520,9 @@ export class MyRequestsViewModel {
 
         this.rowCount = result.count
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
