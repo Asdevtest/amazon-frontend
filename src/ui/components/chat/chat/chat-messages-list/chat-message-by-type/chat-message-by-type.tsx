@@ -71,7 +71,7 @@ export const ChatMessageByType: FC<Props> = observer(
   }) => {
     const renderMessageByType = () => {
       if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
-        return <ChatMessageRequest message={messageItem} />
+        return <ChatMessageRequest message={messageItem} isShowChatInfo={isShowChatInfo} />
       } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
         return (
           <ChatMessageProposal

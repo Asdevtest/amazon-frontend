@@ -3,6 +3,7 @@ import { ClassNamesArg } from '@emotion/react'
 import { FC, ReactNode } from 'react'
 
 import { Typography } from '@mui/material'
+import { CSSProperties } from '@mui/styles'
 
 import { useClassNames } from './label-value-pair-block.style'
 
@@ -12,9 +13,10 @@ interface Props {
   value: string | undefined | ReactNode
   labelClasses?: ClassNamesArg | undefined
   rootClasses?: ClassNamesArg | undefined
+  valueStyle?: CSSProperties
 }
 
-export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelClasses, rootClasses }) => {
+export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelClasses, rootClasses, valueStyle }) => {
   const { classes: classNames } = useClassNames()
   return (
     <div
@@ -27,7 +29,15 @@ export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelCla
     >
       {label && <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>}
 
-      <div>{typeof value === 'string' ? <Typography className={classNames.valueText}>{value}</Typography> : value}</div>
+      <div>
+        {typeof value === 'string' ? (
+          <Typography style={valueStyle} className={classNames.valueText}>
+            {value}
+          </Typography>
+        ) : (
+          value
+        )}
+      </div>
     </div>
   )
 }
