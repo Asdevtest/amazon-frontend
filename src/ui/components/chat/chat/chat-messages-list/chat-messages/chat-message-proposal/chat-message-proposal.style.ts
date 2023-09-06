@@ -115,6 +115,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   labelValueBlock: {
     width: '100%',
+    maxWidth: 300,
 
     [theme.breakpoints.down(768)]: {
       flexWrap: 'wrap',

@@ -55,10 +55,7 @@ export const ChatMessageProposal: FC<Props> = ({ message, handlers, isShowChatIn
 
       <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperShowChatInfo]: isShowChatInfo })}>
         <div className={classNames.leftSideWrapper}>
-          <p className={classNames.description}>
-            {message.data.comment}dasdasd sdasd sadasd asd asd sadsadsdsa dasdsdsad asdsadsadasdsa dasdsdsdsadsadsa
-            dasdsadsdsdsa dsdasdasd asdasdsadsadsads
-          </p>
+          <p className={classNames.description}>{message.data.comment}</p>
 
           <div className={cx(classNames.leftSide, { [classNames.leftSideShowChatInfo]: isShowChatInfo })}>
             <LabelValuePairBlock
