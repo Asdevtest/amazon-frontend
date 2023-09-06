@@ -42,6 +42,7 @@ interface Props {
   isEditable?: boolean
   imagesTitles?: string[]
   withoutMakeMainImage?: boolean
+  mainClasses?: string
   onChangeImagesForLoad?: (array: Array<string | UploadFile>) => void
 }
 
@@ -65,6 +66,7 @@ interface Props {
  * @param {Array<string>} imagesTitles - takes an array of strings with names for photos.
  * @param {Boolean} withoutMakeMainImage - removes the ability to select the main photo in the photo modal window.
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
+ * @param {String} mainClasses - custom styles for the main wrapper .
  * @returns {HTMLElement} return custom slider for photos and documents.
  */
 export const PhotoAndFilesSlider: FC<Props> = ({
@@ -84,6 +86,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   isEditable = false,
   imagesTitles,
   withoutMakeMainImage = false,
+  mainClasses,
   onChangeImagesForLoad,
 }) => {
   const { classes: classNames } = useClassNames()
@@ -238,11 +241,15 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     <>
       {files?.length ? (
         <div
-          className={cx(classNames.mainWrapper, {
-            [classNames.column]: column,
-            [classNames.wrapperAlignLeft]: alignLeft,
-            [classNames.wrapperAlignRight]: alignRight,
-          })}
+          className={cx(
+            classNames.mainWrapper,
+            {
+              [classNames.column]: column,
+              [classNames.wrapperAlignLeft]: alignLeft,
+              [classNames.wrapperAlignRight]: alignRight,
+            },
+            mainClasses,
+          )}
           style={{ gap: customGap }}
         >
           {!withoutPhotos ? (
