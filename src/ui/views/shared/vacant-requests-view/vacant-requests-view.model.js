@@ -136,7 +136,12 @@ export class VacantRequestsViewModel {
   }
 
   setTableModeState() {
-    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
+    const state = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
   }
@@ -146,8 +151,10 @@ export class VacantRequestsViewModel {
 
     runInAction(() => {
       if (state) {
-        this.viewMode = state.viewMode
-        this.sortMode = state.sortMode
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -449,6 +456,9 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.setTableModeState()
+
+    this.getRequestsVacant()
   }
 
   onChangeFilterModel(model) {
