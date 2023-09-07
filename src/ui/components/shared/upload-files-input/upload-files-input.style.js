@@ -144,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageListWrapper: {
     margin: '0 auto',
-    maxHeight: 300,
+    maxHeight: 154,
     overflowY: 'auto',
 
     [theme.breakpoints.down(1024)]: {
