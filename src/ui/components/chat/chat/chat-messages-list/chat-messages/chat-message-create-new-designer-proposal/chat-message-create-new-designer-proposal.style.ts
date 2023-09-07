@@ -8,12 +8,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 7,
     backgroundColor: theme.palette.background.general,
 
-    [theme.breakpoints.down(1280)]: {
-      maxWidth: 390,
-    },
-
     [theme.breakpoints.down(768)]: {
-      padding: 20,
+      padding: '20px 16px',
     },
   },
 
@@ -34,9 +30,21 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainSubWrapper: {
+    minWidth: 300,
     display: 'flex',
     flexDirection: 'column',
-    flex: 0.5,
+    gap: 20,
+    flex: 1,
+
+    [theme.breakpoints.down(1280)]: {
+      minWidth: 'max-content',
+    },
+  },
+
+  mainSubWrapperShowChatInfo: {
+    [theme.breakpoints.down(1350)]: {
+      minWidth: 'max-content',
+    },
   },
 
   header: {
@@ -46,12 +54,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerText: {
-    color: theme.palette.text.general,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
     textTransform: 'uppercase',
-    marginBottom: 10,
+    color: theme.palette.text.general,
   },
 
   timeText: {
@@ -59,9 +66,14 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1280)]: {
       fontSize: 12,
       lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
     },
   },
 
@@ -76,9 +88,14 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     color: theme.palette.text.second,
 
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(1280)]: {
       fontSize: 12,
       lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
     },
   },
 
@@ -89,7 +106,6 @@ export const useClassNames = makeStyles()(theme => ({
   descriptionText: {
     width: '100%',
     maxHeight: 150,
-    marginBottom: 20,
     overflow: 'auto',
     color: theme.palette.text.second,
     wordBreak: 'break-word',
@@ -102,7 +118,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   infosWrapper: {
-    marginBottom: 20,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,

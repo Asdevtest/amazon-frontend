@@ -22,9 +22,9 @@ export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelCla
     <div
       className={cx(
         classNames.root,
-        rootClasses,
         { [classNames.rootGreen]: bgColor === 'green' },
         { [classNames.rootYellow]: bgColor === 'yellow' },
+        rootClasses,
       )}
     >
       {label && <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>}

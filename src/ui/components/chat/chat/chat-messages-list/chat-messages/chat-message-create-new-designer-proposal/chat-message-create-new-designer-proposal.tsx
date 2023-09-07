@@ -43,11 +43,21 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
   const requestStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
+  const isShowButtons =
+    curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+    (requestStatus === RequestProposalStatus.CREATED ||
+      requestStatus === // этого условия не было
+        RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+      requestStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED)
+  const isRejectButton =
+    requestStatus !== RequestProposalStatus.TO_CORRECT &&
+    requestStatus !== // этого условия не было
+      RequestProposalStatus.OFFER_CONDITIONS_REJECTED
 
   return (
     <div className={classNames.root}>
       <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperShowChatInfo]: isShowChatInfo })}>
-        <div className={classNames.mainSubWrapper}>
+        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
           <div className={classNames.header}>
             <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
@@ -100,7 +110,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
           className={cx(classNames.divider, { [classNames.dividerShowChatInfo]: isShowChatInfo })}
         />
 
-        <div className={classNames.mainSubWrapper}>
+        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
           <div className={classNames.header}>
             <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
             <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
@@ -127,25 +137,19 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
         </div>
       </div>
 
-      {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-      (requestStatus === RequestProposalStatus.CREATED ||
-        requestStatus === // этого условия не было
-          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        requestStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
+      {isShowButtons ? (
         <div className={classNames.btnsWrapper}>
-          {requestStatus !== RequestProposalStatus.TO_CORRECT &&
-            requestStatus !== // этого условия не было
-              RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
-              <Button
-                danger
-                className={classNames.actionButton}
-                onClick={() =>
-                  handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
-                }
-              >
-                {t(TranslationKey.Reject)}
-              </Button>
-            )}
+          {isRejectButton && (
+            <Button
+              danger
+              className={classNames.actionButton}
+              onClick={() =>
+                handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
+              }
+            >
+              {t(TranslationKey.Reject)}
+            </Button>
+          )}
           <Button
             success
             className={cx(classNames.actionButton /* , classNames.successBtn */)}
@@ -154,7 +158,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
             {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
           </Button>
         </div>
-      ) : undefined}
+      ) : null}
     </div>
   )
 }
