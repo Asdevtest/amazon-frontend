@@ -297,7 +297,9 @@ export const lightTheme = createTheme({
     customSwitcher: {
       background: '#D9E0E8',
       indicator: '#fff',
-      text: '#007bff',
+      text: '#001029',
+      activeText: '#0E5CB9',
+      headerBackground: '#F4F4F4',
     },
 
     linearGradient: {
@@ -757,9 +759,11 @@ export const darkTheme = createTheme({
       },
 
       customSwitcher: {
-        background: '#424250',
-        indicator: '#8291A0',
-        text: '#fff',
+        background: '#272730',
+        indicator: '#31313A',
+        text: '#5C6A7A',
+        activeText: '#0E5CB9',
+        headerBackground: '#25252D',
       },
 
       linearGradient: {

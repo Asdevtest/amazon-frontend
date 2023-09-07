@@ -389,7 +389,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     value: currencyTypes.YUAN,
                   },
                 ]}
-                changeConditionHandler={setCurrentCurrency}
+                changeConditionHandler={value => {
+                  if (typeof value === 'string') {
+                    setCurrentCurrency(value)
+                  }
+                }}
               />
             </div>
 

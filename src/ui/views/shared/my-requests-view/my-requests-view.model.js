@@ -42,6 +42,7 @@ const filtersFields = [
 export class MyRequestsViewModel {
   history = undefined
   requestStatus = undefined
+  loadTableStatus = undefined
   error = undefined
 
   showRequestForm = false
@@ -231,6 +232,7 @@ export class MyRequestsViewModel {
   onClickChangeCatigory(value) {
     runInAction(() => {
       this.isRequestsAtWork = value
+      this.loadTableStatus = loadingStatuses.loading
     })
   }
 
@@ -521,6 +523,7 @@ export class MyRequestsViewModel {
         this.rowCount = result.count
       })
       this.setRequestStatus(loadingStatuses.success)
+      this.loadTableStatus = loadingStatuses.success
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
