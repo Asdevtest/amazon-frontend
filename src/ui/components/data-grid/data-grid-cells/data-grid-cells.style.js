@@ -140,7 +140,7 @@ export const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '7px',
     height: '30px',
     width: '100%',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

@@ -87,6 +87,7 @@ export const styles = theme => ({
 
   switchButtonWrapper: {
     display: 'flex',
+    width: '100%',
     marginBottom: 20,
   },
 

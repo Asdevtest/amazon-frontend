@@ -1,13 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable react/no-children-prop */
-
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
-import { Avatar, Typography } from '@mui/material'
-import Rating from '@mui/material/Rating'
+import { Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,7 +12,6 @@ import { UserLink } from '@components/user/user-link'
 
 import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './service-exchange-list-card.style'
@@ -26,6 +19,7 @@ import { useClassNames } from './service-exchange-list-card.style'
 interface CreatedByInterface {
   _id: string
   name: string
+  rating: number
 }
 
 interface linksToMediaFilesInterface {
@@ -72,7 +66,6 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
   return (
     <div className={classNames.cardWrapper}>
       <div className={classNames.cardCarouselWrapper}>
-        {/*  @ts-ignore */}
         <CustomSlider>
           {service.linksToMediaFiles
             .filter(el => checkIsImageLink(typeof el === 'string' ? el : el?.file?.name))
@@ -115,22 +108,17 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
 
             <div className={classNames.detailsSubWrapper}>
               <Typography className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</Typography>
-              <div className={classNames.userInfo}>
-                <Avatar src={getUserAvatarSrc(service.createdBy._id)} className={classNames.cardImg} />
-
-                <div className={classNames.nameWrapper}>
-                  <UserLink
-                    blackText
-                    name={service.createdBy.name}
-                    userId={service.createdBy._id}
-                    customStyles={{ fontSize: 14 }}
-                    withAvatar={undefined}
-                    maxNameWidth={undefined}
-                    customClassNames={undefined}
-                  />
-                  <Rating disabled value={5} size="small" />
-                </div>
-              </div>
+              <UserLink
+                blackText
+                withAvatar
+                ratingSize="small"
+                name={service.createdBy.name}
+                userId={service.createdBy._id}
+                rating={service.createdBy.rating}
+                customAvatarStyles={{ width: 30, height: 30 }}
+                customStyles={{ fontSize: 14, lineHeight: '17px' }}
+                customRatingClass={{ fontSize: 13, opacity: 1 }}
+              />
             </div>
           </div>
         ) : (

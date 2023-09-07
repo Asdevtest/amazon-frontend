@@ -28,6 +28,7 @@ import { OrderDeadlineNotification } from '@components/layout/notifications/orde
 import { OrdersUpdatesNotification } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification'
 import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DialogModal } from '@components/shared/dialog-modal'
 import { LanguageSelector } from '@components/shared/selectors/language-selector'
 import { ExitIcon, HintsOff, HintsOn, MenuIcon } from '@components/shared/svg-icons'
@@ -213,26 +214,19 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
         <p className={classNames.userRoleTitle}>{t(TranslationKey['your role:'])}</p>
 
         <div className={classNames.allowedRolesMainWrapper}>
-          {allowedRolesWithoutCandidate?.length > 1 ? (
-            <div className={classNames.allowedRolesWrapper}>
-              {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                <Button
-                  key={roleCode}
-                  variant={'text'}
-                  className={cx(classNames.allowedRolesItem, {
-                    [classNames.currentAllowedRolesItem]: roleCode === role,
-                  })}
-                  onClick={() => onChangeUserInfo(roleCode)}
-                >
-                  {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
-                </Button>
-              ))}
-            </div>
-          ) : (
-            <p className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
-              {(UserRoleCodeMap as { [key: number]: string })[role]}
-            </p>
-          )}
+          <CustomSwitcher
+            switchMode={'header'}
+            condition={role}
+            switcherSettings={allowedRolesWithoutCandidate?.map((roleCode: number) => ({
+              label: () => (UserRoleCodeMap as { [key: number]: string })[roleCode],
+              value: roleCode,
+            }))}
+            changeConditionHandler={value => {
+              if (typeof value === 'number') {
+                onChangeUserInfo(value)
+              }
+            }}
+          />
         </div>
 
         <Divider orientation="vertical" className={classNames.hideOnModile} />
