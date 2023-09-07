@@ -85,6 +85,18 @@ export const useClassNames = makeStyles()(theme => ({
 
   statusText: {
     color: 'black',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   detailsWrapper: {

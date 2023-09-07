@@ -101,6 +101,7 @@ export const ChatMessageByType: FC<Props> = observer(
           <ChatMessageRequestProposalResultEdited
             isLastMessage={isLastMessage}
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,

@@ -7,13 +7,12 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 30,
+    gap: 20,
     backgroundColor: theme.palette.background.general,
     borderRadius: 7,
 
     [theme.breakpoints.down(768)]: {
       padding: 20,
-      gap: 20,
     },
   },
 

@@ -94,6 +94,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  photosWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
   footerWrapper: {
     display: 'flex',
     alignItems: 'center',

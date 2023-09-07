@@ -65,11 +65,13 @@ export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
             /> */}
         </div>
 
-        <PhotoAndFilesSlider
-          smallSlider={!isMobileResolution}
-          column={isShowChatInfo || isMobileResolution}
-          files={message?.data.details?.linksToMediaFiles}
-        />
+        <div className={cx(isMobileResolution && classNames.photosWrapper)}>
+          <PhotoAndFilesSlider
+            smallSlider={!isMobileResolution}
+            column={isShowChatInfo || isMobileResolution}
+            files={message?.data.details?.linksToMediaFiles}
+          />
+        </div>
       </div>
 
       <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>

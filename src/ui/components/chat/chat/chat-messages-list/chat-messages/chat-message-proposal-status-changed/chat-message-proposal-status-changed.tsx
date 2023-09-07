@@ -2,15 +2,14 @@ import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
 import { isMobileResolution } from '@constants/configs/sizes-settings'
-import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
@@ -115,8 +114,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
     <div className={classNames.root}>
       <div className={classNames.statusTextDesciption}>
         {`${t(TranslationKey['New proposal status'])}:`}
-        <span className={classNames.statusText}>
-          <RequestStatusCell isChat status={message.data.status} languageTag={SettingsModel.languageTag} />
+        <span className={classNames.statusText} style={{ color: colorByStatus(message.data.status) }}>
+          {MyRequestStatusTranslate(message.data.status)}
         </span>
       </div>
 
