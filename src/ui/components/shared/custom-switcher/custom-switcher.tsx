@@ -6,9 +6,12 @@ import { Button } from '@components/shared/buttons/button'
 
 import { useClassNames } from './custom-switcher.style'
 
+import { BulbIcon } from '../svg-icons'
+
 interface ISwitcherSettings {
   label: () => string
   value: string
+  icon?: JSX.Element | boolean
 }
 
 interface CustomSwitcherProps {
@@ -104,6 +107,9 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
                 }}
               >
                 {option.label()}
+
+                {!!option?.icon &&
+                  (typeof option?.icon === 'boolean' ? <BulbIcon className={classNames.icon} /> : option?.icon)}
               </Button>
             </div>
           )

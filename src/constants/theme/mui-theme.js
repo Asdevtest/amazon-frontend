@@ -298,7 +298,7 @@ export const lightTheme = createTheme({
       background: '#D9E0E8',
       indicator: '#fff',
       text: '#001029',
-      activeText: '#0E5CB9',
+      activeText: '#007bff',
       headerBackground: '#F4F4F4',
     },
 
@@ -762,7 +762,7 @@ export const darkTheme = createTheme({
         background: '#272730',
         indicator: '#31313A',
         text: '#5C6A7A',
-        activeText: '#0E5CB9',
+        activeText: '#4CA1DE',
         headerBackground: '#25252D',
       },
 

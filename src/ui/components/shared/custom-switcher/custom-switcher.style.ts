@@ -56,6 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: '10px',
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
@@ -115,7 +116,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerIndicatorStyles: {
-    backgroundColor: '#0E5CB9',
+    backgroundColor: theme.palette.customSwitcher.activeText,
     borderRadius: '7px',
+  },
+
+  icon: {
+    color: theme.palette.primary.main,
   },
 }))
