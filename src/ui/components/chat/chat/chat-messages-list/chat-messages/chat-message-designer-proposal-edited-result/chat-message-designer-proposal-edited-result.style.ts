@@ -105,6 +105,10 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(1280)]: {
       justifyContent: 'flex-start',
     },
+
+    [theme.breakpoints.down(768)]: {
+      justifyContent: 'center',
+    },
   },
 
   imagesWrapperIsShowChatInfo: {

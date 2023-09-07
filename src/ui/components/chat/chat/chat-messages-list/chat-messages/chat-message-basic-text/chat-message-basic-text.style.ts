@@ -11,6 +11,10 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 15,
 
     [theme.breakpoints.down(1280)]: {
+      maxWidth: 320,
+    },
+
+    [theme.breakpoints.down(1024)]: {
       maxWidth: 390,
     },
 

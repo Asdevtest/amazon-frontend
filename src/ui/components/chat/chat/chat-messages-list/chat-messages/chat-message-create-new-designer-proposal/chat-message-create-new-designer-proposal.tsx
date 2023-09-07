@@ -89,7 +89,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesSlider
-            smallSlider
+            smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
             files={message.data.request?.media?.map(el => el.fileLink)}
           />
@@ -120,7 +120,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesSlider
-            smallSlider
+            smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
             files={message.data.proposal.linksToMediaFiles}
           />
