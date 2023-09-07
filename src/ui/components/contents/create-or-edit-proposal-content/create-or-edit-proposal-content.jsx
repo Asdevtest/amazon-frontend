@@ -146,7 +146,7 @@ export const CreateOrEditProposalContent = ({
                 userId={request.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
-                <Rating disabled value={request?.request.createdBy?.rating || request.createdBy?.rating} />
+                <Rating readOnly value={request?.request.createdBy?.rating || request.createdBy?.rating} />
               </div>
             </div>
           </div>

@@ -154,7 +154,6 @@ export const useClassNames = makeStyles()(theme => ({
       marginRight: '60px',
       fontSize: '16px',
       lineHeight: '19px',
-      color: theme.palette.text.general,
     },
   },
   subTitle: {
