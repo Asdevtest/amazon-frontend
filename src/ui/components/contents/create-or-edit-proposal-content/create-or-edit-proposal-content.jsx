@@ -82,6 +82,8 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
+  console.log('request', request)
+
   const disableSubmit =
     !formFields.title ||
     !formFields.execution_time ||
@@ -143,7 +145,7 @@ export const CreateOrEditProposalContent = ({
               <UserLink
                 blackText
                 name={request?.request?.createdBy?.name || request.createdBy?.name}
-                userId={request.createdBy?._id}
+                userId={request?.request?.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
                 <Rating readOnly value={request?.request.createdBy?.rating || request.createdBy?.rating} />

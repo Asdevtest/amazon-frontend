@@ -5,6 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
+import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,6 +19,7 @@ import { RequestStandartResultForm } from '@components/forms/request-standart-re
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
@@ -97,6 +99,7 @@ export const SuppliersAndIdeas = observer(
       alertShieldSettings,
       supplierData,
       currentRequest,
+      showSelectionSupplierModal,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
@@ -126,6 +129,7 @@ export const SuppliersAndIdeas = observer(
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
       onConfirmSubmitOrderProductModal,
+      onSubmitCalculateSeekSupplier,
     } = model.current
 
     useEffect(() => {
@@ -346,6 +350,19 @@ export const SuppliersAndIdeas = observer(
             item={selectedProduct}
             onClickSaveBarcode={onClickSaveBarcode}
             onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSelectionSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+        >
+          <SelectionSupplierModal
+            product={currentProduct}
+            title={t(TranslationKey['Send product card for supplier search'])}
+            buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
+            onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
+            onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
           />
         </Modal>
 
