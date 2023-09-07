@@ -102,8 +102,4 @@ export const permissionsKeys = {
 
     SHOW_NOTIFICATIONS_FREELANCER: 'SHOW_NOTIFICATIONS_FREELANCER',
   },
-
-  shared: {
-    GENERAL_NOTIFICATIONS: 'GENERAL_NOTIFICATIONS',
-  },
 }

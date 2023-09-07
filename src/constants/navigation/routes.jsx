@@ -1038,7 +1038,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
 
-    permissionKey: permissionsKeys.shared.GENERAL_NOTIFICATIONS,
+    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
     crumbNameKey: 'Look at this dude',
 
@@ -1975,7 +1975,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.shared.GENERAL_NOTIFICATIONS,
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: 'Look at this dude',
 
@@ -3120,7 +3120,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
 
-    permissionKey: permissionsKeys.shared.GENERAL_NOTIFICATIONS,
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
     crumbNameKey: 'Look at this dude',
 
