@@ -66,6 +66,6 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.general,
   },
 })
