@@ -60,19 +60,17 @@ export const ServiceExchangeViewRaw = props => {
               </ToggleBtnGroupFreelance>
             </div>
 
-            <div className={classNames.taskTypeWrapper}>
-              <CustomSwitcher
-                switchMode={'medium'}
-                condition={Number(viewModel.selectedTaskType)}
-                switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => {
-                  return {
-                    label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType]),
-                    value: Number(taskType),
-                  }
-                })}
-                changeConditionHandler={viewModel.onClickTaskType}
-              />
-            </div>
+            <CustomSwitcher
+              switchMode={'medium'}
+              condition={Number(viewModel.selectedTaskType)}
+              switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => {
+                return {
+                  label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType]),
+                  value: Number(taskType),
+                }
+              })}
+              changeConditionHandler={viewModel.onClickTaskType}
+            />
           </div>
 
           <div className={classNames.searchInputWrapper}>
