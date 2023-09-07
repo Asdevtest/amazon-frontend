@@ -611,8 +611,9 @@ export const ManyUserLinkCell = React.memo(
 
 export const BarcodeCell = React.memo(
   withStyles(
-    ({ classes: classNames, product, handlers }) => (
+    ({ classes: classNames, product, handlers, disabled }) => (
       <Chip
+        disabled={disabled}
         classes={{
           root: classNames.barcodeChip,
           clickable: classNames.barcodeChipHover,
