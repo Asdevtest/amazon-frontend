@@ -252,6 +252,7 @@ export const TopCard = observer(
                       bigSlider
                       isEditable={clientToEdit}
                       files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
+                      onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
                 ) : undefined}
