@@ -6,8 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {t} from '@utils/translations'
 import { useClassNames } from './dashboard-widgets-card.style'
 
 import { DashboardListOfAnyCard } from '../dashboard-list-of-any-card'
@@ -59,6 +57,7 @@ export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewM
               onClickViewMore={onClickViewMore}
             />
           </div>
+
           <DashboardSingleCardWithButton
             horizontal
             config={config.freelance}
