@@ -55,7 +55,7 @@ export class ClientSentBatchesViewModel {
 
   currentData = []
 
-  currentStorekeeper = undefined
+  currentStorekeeperId = undefined
 
   storekeepersData = []
 
@@ -300,7 +300,7 @@ export class ClientSentBatchesViewModel {
       runInAction(() => {
         this.storekeepersData = result
 
-        this.currentStorekeeper = this.currentStorekeeper ? this.currentStorekeeper : null // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
+        this.currentStorekeeperId = this.currentStorekeeperId || undefined // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
       })
 
       this.getDataGridState()
@@ -309,11 +309,11 @@ export class ClientSentBatchesViewModel {
     }
   }
 
-  onClickStorekeeperBtn(storekeeper) {
+  onClickStorekeeperBtn(currentStorekeeperId) {
     runInAction(() => {
       this.selectedBatches = []
 
-      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+      this.currentStorekeeperId = currentStorekeeperId
     })
 
     this.getBatchesPagMy()
@@ -382,7 +382,7 @@ export class ClientSentBatchesViewModel {
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
           filters: this.getFilter(),
-          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+          storekeeperId: this.currentStorekeeperId,
         },
       })
 

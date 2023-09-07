@@ -5,10 +5,13 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 3,
     backgroundColor: theme.palette.customSwitcher.background,
     borderRadius: '31px',
-    width: '100%',
     height: '100%',
     display: 'flex',
     flexWrap: 'wrap',
+  },
+
+  fullWidthWrapper: {
+    width: '100%',
   },
 
   headerStylesSwitcherWrapper: {

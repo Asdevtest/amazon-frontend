@@ -12,6 +12,7 @@ interface ISwitcherSettings {
 }
 
 interface CustomSwitcherProps {
+  fullWidth?: boolean
   switchMode?: 'small' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
   condition: string
@@ -20,11 +21,11 @@ interface CustomSwitcherProps {
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
   const { classes: classNames } = useClassNames()
+  const { switchMode = 'small', condition, switcherSettings, fullWidth, changeConditionHandler } = props
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const activeOptionRef = useRef<HTMLDivElement | null>(null)
 
-  const { switchMode = 'small', condition, switcherSettings, changeConditionHandler } = props
   const [switchOptionsToRender, setSwitchOptionsToRender] = useState<ISwitcherSettings[]>(switcherSettings)
   const [indicatorPosition, setIndicatorPosition] = useState<{ left: number; top: number } | undefined>({
     left: 0,
@@ -70,6 +71,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
   return (
     <div
       className={cx(classNames.switcherWrapper, {
+        [classNames.fullWidthWrapper]: fullWidth,
         [classNames.headerStylesSwitcherWrapper]: switchMode === 'header',
       })}
     >

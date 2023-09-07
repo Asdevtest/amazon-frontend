@@ -86,6 +86,7 @@ export const MyRequestsViewRaw = props => {
 
         <div className={classNames.switchButtonWrapper}>
           <CustomSwitcher
+            fullWidth
             switchMode={'big'}
             condition={viewModel.isRequestsAtWork}
             switcherSettings={[

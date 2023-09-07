@@ -49,18 +49,7 @@ export const ClientInStockBoxesViewRaw = props => {
   const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
   const [heightSum, setHeightSum] = useState(0)
   const { classes: classNames } = props
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  useEffect(() => {
-    setHeightSum(
-      topHeaderBtnsWrapperRef?.current?.offsetHeight +
-        boxesFiltersWrapperRef?.current?.offsetHeight +
-        btnsWrapperRef?.current?.offsetHeight,
-    )
-  }, [viewModel.storekeepersData, viewModel.clientDestinations])
+  const disableSelectionCells = ['prepId']
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
@@ -68,7 +57,38 @@ export const ClientInStockBoxesViewRaw = props => {
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
     classNames.isDraftRow
 
-  const disableSelectionCells = ['prepId']
+  const handleResize = () =>
+    setHeightSum(
+      topHeaderBtnsWrapperRef?.current?.offsetHeight +
+        boxesFiltersWrapperRef?.current?.offsetHeight +
+        btnsWrapperRef?.current?.offsetHeight,
+    )
+
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  useEffect(() => {
+    handleResize()
+  }, [
+    viewModel.storekeepersData,
+    viewModel.clientDestinations,
+    viewModel.curDestinationId,
+    viewModel.currentStorekeeperId,
+  ])
+
+  useEffect(() => {
+    const container = boxesFiltersWrapperRef.current
+    const resizeObserver = new ResizeObserver(handleResize)
+
+    if (container) {
+      resizeObserver.observe(container)
+    }
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [])
 
   const renderButtons = () => {
     const disable = viewModel.selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
@@ -125,8 +145,6 @@ export const ClientInStockBoxesViewRaw = props => {
     )
   }
 
-  console.log('viewModel.currentStorekeeperId', viewModel.currentStorekeeperId)
-
   return (
     <React.Fragment>
       <div>
@@ -145,35 +163,6 @@ export const ClientInStockBoxesViewRaw = props => {
               ]}
               changeConditionHandler={viewModel.onClickStorekeeperBtn}
             />
-
-            {/* {viewModel.storekeepersData
-              .slice()
-              .sort((a, b) => a.name?.localeCompare(b.name))
-              .map(storekeeper =>
-                storekeeper.boxesCount !== 0 ? (
-                  <Button
-                    key={storekeeper._id}
-                    disabled={viewModel.currentStorekeeperId === storekeeper._id}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: viewModel.currentStorekeeperId === storekeeper._id,
-                    })}
-                    variant="text"
-                    onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-                  >
-                    {storekeeper.name}
-                  </Button>
-                ) : null,
-              )} */}
-
-            {/* <Button
-              disabled={!viewModel.currentStorekeeperId}
-              tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.currentStorekeeperId })}
-              variant="text"
-              onClick={viewModel.onClickStorekeeperBtn}
-            >
-              {t(TranslationKey['All warehouses'])}
-            </Button> */}
           </div>
 
           <SearchInput
@@ -201,46 +190,6 @@ export const ClientInStockBoxesViewRaw = props => {
             ]}
             changeConditionHandler={viewModel.onClickDestinationBtn}
           />
-
-          {/* {viewModel.clientDestinations
-            .slice()
-            .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(destination =>
-              destination.boxesCount !== 0 ? (
-                <Button
-                  key={destination._id}
-                  disabled={viewModel.curDestinationId === destination._id}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curDestinationId === destination._id,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickDestinationBtn(destination)}
-                >
-                  {destination.name}
-                </Button>
-              ) : null,
-            )} */}
-
-          {/* <Button
-            disabled={viewModel.curDestinationId === 'null'}
-            className={cx(classNames.button, {
-              [classNames.selectedBoxesBtn]: viewModel.curDestinationId === 'null',
-            })}
-            variant="text"
-            onClick={() => viewModel.onClickDestinationBtn({ _id: 'null' })}
-          >
-            {t(TranslationKey.Undistributed)}
-          </Button> */}
-
-          {/* <Button
-            disabled={!viewModel.curDestinationId}
-            tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.curDestinationId })}
-            variant="text"
-            onClick={viewModel.onClickDestinationBtn}
-          >
-            {t(TranslationKey.All)}
-          </Button> */}
         </div>
 
         <div ref={btnsWrapperRef} className={classNames.btnsWrapper}>
@@ -250,7 +199,7 @@ export const ClientInStockBoxesViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper}>
+        <div className={classNames.tasksWrapper} style={{ height: `calc(100vh - ${heightSum + 180}px)` }}>
           <MemoDataGrid
             disableVirtualization
             pagination
