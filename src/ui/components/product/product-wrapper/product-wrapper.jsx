@@ -1,15 +1,12 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Tabs } from '@mui/material'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'

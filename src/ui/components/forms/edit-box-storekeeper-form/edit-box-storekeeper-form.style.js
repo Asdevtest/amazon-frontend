@@ -175,10 +175,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '230px',
   },
 
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
-  },
-
   sizesTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -291,9 +287,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
-  },
   label: {
     marginBottom: 0,
   },

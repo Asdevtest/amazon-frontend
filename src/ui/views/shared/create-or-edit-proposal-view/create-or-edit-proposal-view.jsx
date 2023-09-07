@@ -28,12 +28,6 @@ export const CreateOrEditProposalViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        {/* <div className={classNames.backBtnWrapper}>
-                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
-                  {t(TranslationKey.Back)}
-                </Button>
-              </div> */}
-
         <CreateOrEditProposalContent
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
@@ -52,11 +46,6 @@ export const CreateOrEditProposalViewRaw = props => {
           viewModel.onClickResultModal({ goBack: true })
         }}
         title={viewModel.infoModalText}
-        // topBtnText={t(TranslationKey['To vacant requests'])}
-        // bottomBtnText={t(TranslationKey['To the list of proposals'])}
-        // onClickTopBtn={() => onClickResultModal({goBack: true})}
-        // onClickBottomBtn={() => onClickResultModal({goBack: false})}
-
         topBtnText={t(TranslationKey['Go to request'])}
         bottomBtnText={t(TranslationKey['To vacant requests'])}
         thirdBtnText={t(TranslationKey['To the list of proposals'])}

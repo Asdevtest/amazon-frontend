@@ -26,9 +26,10 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
     setMenuAnchor(null)
   }
 
-  const [filteredColumnsModel, setFilteredColumnsModel] = useState(
-    columnsModel?.filter(column => column?.type !== 'checkboxSelection'),
-  )
+  const getCurrentData = () => columnsModel?.filter(column => column?.type !== 'checkboxSelection')
+
+  const [filteredColumnsModel, setFilteredColumnsModel] = useState(getCurrentData())
+
   const [itemsForRender, setItemsForRender] = useState(filteredColumnsModel || [])
 
   const [nameSearchValue, setNameSearchValue] = useState('')
@@ -38,7 +39,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
   }, [filteredColumnsModel])
 
   useEffect(() => {
-    setFilteredColumnsModel(columnsModel)
+    setFilteredColumnsModel(getCurrentData())
   }, [columnsModel])
 
   useEffect(() => {
