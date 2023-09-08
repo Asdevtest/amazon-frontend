@@ -467,6 +467,7 @@ export class SupervisorProductViewModel {
   }
 
   async onSaveProductData(updateDataHandler) {
+    console.log(updateDataHandler)
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
@@ -505,7 +506,7 @@ export class SupervisorProductViewModel {
 
       await this.loadData()
       this.showSuccesAlert()
-      await updateDataHandler()
+      updateDataHandler && (await updateDataHandler())
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
