@@ -26,6 +26,8 @@ import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { TypeTaskSelect } from '@components/shared/selects/type-task-select'
+import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
@@ -57,36 +59,10 @@ export const WarehouseMyTasksViewRaw = props => {
     <React.Fragment>
       <div>
         <div className={classNames.headerWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
-            <Button
-              disabled={viewModel.curTaskPriority === null}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskPriority === null })}
-              variant="text"
-              onClick={() => viewModel.onClickTaskPriorityBtn(null)}
-            >
-              {t(TranslationKey['All priorities'])}
-            </Button>
-
-            {Object.keys(mapTaskPriorityStatusEnum)
-              .reverse()
-              .map(type => (
-                <Button
-                  key={type}
-                  disabled={viewModel.curTaskPriority === type}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curTaskPriority === type,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickTaskPriorityBtn(type)}
-                >
-                  {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
-
-                  {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
-                    <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
-                  )}
-                </Button>
-              ))}
-          </div>
+          <TaskPrioritySelector
+            currentPriority={viewModel.curTaskPriority}
+            handleActivePriority={viewModel.onClickTaskPriorityBtn}
+          />
           <Button
             variant="contained"
             disabled={
@@ -104,32 +80,10 @@ export const WarehouseMyTasksViewRaw = props => {
         </div>
 
         <div className={classNames.headerWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
-            <Button
-              disabled={viewModel.curTaskType === null}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
-              variant="text"
-              onClick={() => viewModel.onClickOperationTypeBtn(null)}
-            >
-              {t(TranslationKey['All tasks'])}
-            </Button>
-
-            {Object.keys(mapTaskOperationTypeKeyToEnum)
-              .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-              .map(type => (
-                <Button
-                  key={type}
-                  disabled={viewModel.curTaskType === type}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickOperationTypeBtn(type)}
-                >
-                  {taskOperationTypeTranslate(type)}
-                </Button>
-              ))}
-          </div>
+          <TypeTaskSelect
+            curTaskType={viewModel.curTaskType}
+            onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
+          />
 
           <SearchInput
             value={viewModel.nameSearchValue}

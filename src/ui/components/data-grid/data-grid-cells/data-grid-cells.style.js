@@ -1478,7 +1478,8 @@ export const styles = theme => ({
   },
   asinCellMainWrapper: {
     display: 'flex',
-    width: 'fit-content',
+    alignItems: 'center',
+    flex: 1,
     height: '100%',
 
     gap: 5,
@@ -1498,13 +1499,9 @@ export const styles = theme => ({
   asinAndSkuTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
-
-    maxWidth: 115,
-
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',

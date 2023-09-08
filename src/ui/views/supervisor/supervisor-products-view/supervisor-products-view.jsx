@@ -19,6 +19,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -108,8 +109,20 @@ export const SupervisorProductsViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
-          {statusesList.map(el => (
+        <CustomSwitcher
+          switchMode={'medium'}
+          condition={viewModel.currentStatusGroup}
+          switcherSettings={[
+            ...statusesList.map(el => ({
+              icon: <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>,
+              label: () => t(productStatusTranslateKey(ProductStatusByCode[el.status])),
+              value: el.userInfoKey,
+            })),
+          ]}
+          changeConditionHandler={viewModel.onClickStatusFilterButton}
+        />
+
+        {/* {statusesList.map(el => (
             <Button
               key={el.status}
               variant="text"
@@ -123,8 +136,7 @@ export const SupervisorProductsViewRaw = props => {
               {t(productStatusTranslateKey(ProductStatusByCode[el.status]))}{' '}
               <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>
             </Button>
-          ))}
-        </div>
+          ))} */}
         <div className={classNames.searchInputWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}

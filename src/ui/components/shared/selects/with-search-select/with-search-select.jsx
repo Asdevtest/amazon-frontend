@@ -34,7 +34,7 @@ const WithSearchSelectRaw = observer(
     onClickNotChosen,
     placeholder,
     searchFields,
-    CustomBtn,
+    CustomButton,
     isFlat,
     favourites,
     withoutSearch,
@@ -203,15 +203,15 @@ const WithSearchSelectRaw = observer(
                   {firstItems}
 
                   {dataToRenderSortedByFavourites?.map((el, index) =>
-                    CustomBtn ? (
-                      <CustomBtn
+                    CustomButton ? (
+                      <CustomButton
                         key={index}
-                        item={el}
-                        onClick={e => {
-                          e.stopPropagation()
-
+                        data={el}
+                        onClickCustomButton={() => {
                           onClickSelect(el)
-                          handleClose()
+                          if (!notCloseOneClick) {
+                            handleClose()
+                          }
                         }}
                       />
                     ) : (

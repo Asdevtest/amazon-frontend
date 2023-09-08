@@ -25,13 +25,6 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
-  headerWrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-
-    gap: 20,
-  },
-
   footerContainer: {
     position: 'absolute',
     top: 0,
@@ -67,7 +60,6 @@ export const styles = theme => ({
     },
   },
   badge: {
-    margin: '0 auto',
     height: 20,
     width: 'fit-content',
     background: theme.palette.primary.main,
