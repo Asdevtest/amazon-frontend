@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
@@ -7,16 +6,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import {
-  TaskOperationType,
-  mapTaskOperationTypeKeyToEnum,
-  taskOperationTypeTranslate,
-} from '@constants/task/task-operation-type'
-import {
-  TaskPriorityStatus,
-  mapTaskPriorityStatusEnum,
-  taskPriorityStatusTranslate,
-} from '@constants/task/task-priority-status'
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
@@ -26,7 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { TypeTaskSelect } from '@components/shared/selects/type-task-select'
+import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -80,7 +70,7 @@ export const WarehouseMyTasksViewRaw = props => {
         </div>
 
         <div className={classNames.headerWrapper}>
-          <TypeTaskSelect
+          <BuyerTypeTaskSelect
             curTaskType={viewModel.curTaskType}
             onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
           />

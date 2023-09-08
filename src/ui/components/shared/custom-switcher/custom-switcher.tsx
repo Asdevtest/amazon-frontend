@@ -9,7 +9,7 @@ import { useClassNames } from './custom-switcher.style'
 import { BulbIcon } from '../svg-icons'
 
 interface ISwitcherSettings {
-  label: () => string
+  label?: () => string | number
   value: string | number | null | undefined
   icon?: JSX.Element | boolean
 }
@@ -106,7 +106,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
                   }
                 }}
               >
-                {option.label()}
+                {!!option.label && option.label()}
 
                 {!!option?.icon &&
                   (typeof option?.icon === 'boolean' ? <BulbIcon className={classNames.icon} /> : option?.icon)}

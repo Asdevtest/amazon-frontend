@@ -23,6 +23,8 @@ import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { SearchInput } from '@components/shared/search-input'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
 
 import { checkIsFreelancer } from '@utils/checks'
@@ -54,46 +56,12 @@ export const MyServicesViewRaw = props => {
       <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <div className={classNames.taskTypeWrapper}>
-              {Object.keys({
-                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-                // freelanceRequestTypeByCode
-              }).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                  })}
-                  onClick={() => viewModel.onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
-            </div>
+            <FreelanceTypeTaskSelect
+              selectedTaskType={viewModel.selectedTaskType}
+              onClickTaskType={viewModel.onClickTaskType}
+            />
           </div>
 
           <div className={classNames.searchInputWrapper}>

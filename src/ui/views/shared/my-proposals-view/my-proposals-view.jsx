@@ -32,6 +32,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsFreelancer } from '@utils/checks'
@@ -86,25 +87,10 @@ export const MyProposalsViewRaw = props => {
     <React.Fragment>
       <div>
         <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.taskTypeWrapper}>
-            {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-              // freelanceRequestTypeByCode
-            }).map((taskType, taskIndex) => (
-              <Button
-                key={taskIndex}
-                variant="text"
-                disabled={taskType === viewModel.selectedTaskType}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={cx(classNames.button, {
-                  [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                })}
-                onClick={() => viewModel.onClickTaskType(taskType)}
-              >
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-              </Button>
-            ))}
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedTaskType={viewModel.selectedTaskType}
+            onClickTaskType={viewModel.onClickTaskType}
+          />
 
           <div>
             <SearchInput

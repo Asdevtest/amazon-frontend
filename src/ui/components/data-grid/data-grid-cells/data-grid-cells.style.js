@@ -174,7 +174,7 @@ export const styles = theme => ({
 
   chipStock: {
     width: '100%',
-
+    minWidth: '125px',
     backgroundcolor: theme.palette.text.general,
   },
 
@@ -994,6 +994,11 @@ export const styles = theme => ({
 
   statusTextChat: {
     fontSize: '18px',
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusWrapper: {

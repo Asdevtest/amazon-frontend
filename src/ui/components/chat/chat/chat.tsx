@@ -153,7 +153,7 @@ export const Chat: FC<Props> = observer(
       if (isSendTypingPossible && message) {
         onTypingMessage(chat._id)
         setIsSendTypingPossible(false)
-        setTimeout(() => setIsSendTypingPossible(true), 3000)
+        setTimeout(() => setIsSendTypingPossible(true), 10000)
       }
     }, [message])
 

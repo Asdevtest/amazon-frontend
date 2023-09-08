@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
@@ -8,12 +7,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Box, Typography } from '@mui/material'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -22,22 +15,18 @@ import { VacantRequestListCard } from '@components/cards/vacant-request-list-car
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { Button } from '@components/shared/buttons/button/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
-import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
-import { checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import {
   getDistanceBetweenDatesInSeconds,
   sortObjectsArrayByFiledDateWithParseISO,
   sortObjectsArrayByFiledDateWithParseISOAsc,
 } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { styles } from './vacant-requests-view.style'
@@ -51,14 +40,6 @@ export const VacantRequestsViewRaw = props => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
-
-  const whiteList =
-    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
-      ? [
-          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-          ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
-        ]
-      : Object.keys(freelanceRequestTypeByCode)
 
   const getSortedData = mode => {
     switch (mode) {
@@ -86,24 +67,10 @@ export const VacantRequestsViewRaw = props => {
     <React.Fragment>
       <div>
         <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.taskTypeWrapper}>
-            {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-              // freelanceRequestTypeByCode
-            }).map((taskType, taskIndex) => (
-              <Button
-                key={taskIndex}
-                variant="text"
-                disabled={taskType === viewModel.selectedTaskType}
-                className={cx(classNames.button, {
-                  [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                })}
-                onClick={() => viewModel.onClickTaskType(taskType)}
-              >
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-              </Button>
-            ))}
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedTaskType={viewModel.selectedTaskType}
+            onClickTaskType={viewModel.onClickTaskType}
+          />
 
           <SearchInput
             placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
@@ -134,34 +101,11 @@ export const VacantRequestsViewRaw = props => {
               </>
             )}
 
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewModel.viewMode === tableViewMode.TABLE}>
-                  <ViewCartsTable
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.TABLE,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+            <ViewCardsSelect
+              withTabelView
+              viewMode={viewModel.viewMode}
+              onChangeViewMode={viewModel.onChangeViewMode}
+            />
           </div>
         </div>
 
@@ -235,7 +179,7 @@ export const VacantRequestsViewRaw = props => {
                 toolbar: {
                   resetFiltersBtnSettings: {
                     onClickResetFilters: viewModel.onClickResetFilters,
-                    isSomeFilterOn: viewModel.onClickResetFilters,
+                    isSomeFilterOn: viewModel.isSomeFilterOn,
                   },
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,

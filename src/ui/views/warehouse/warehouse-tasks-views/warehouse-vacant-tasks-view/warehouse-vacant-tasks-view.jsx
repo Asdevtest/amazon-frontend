@@ -16,7 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { TypeTaskSelect } from '@components/shared/selects/type-task-select'
+import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
 import { DownloadIcon } from '@components/shared/svg-icons'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
@@ -90,7 +90,7 @@ export const WarehouseVacantTasksViewRaw = props => {
               </Button>
             )}
 
-            <TypeTaskSelect
+            <BuyerTypeTaskSelect
               curTaskType={viewModel.curTaskType}
               onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
             />
