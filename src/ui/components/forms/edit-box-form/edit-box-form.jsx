@@ -536,7 +536,7 @@ export const EditBoxForm = observer(
                           disableElevation
                           color="primary"
                           disabled={!boxFields.storekeeperId}
-                          className={cx(classNames.storekeeperBtnDefault, {
+                          className={cx({
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
                           })}
                           onClick={() =>

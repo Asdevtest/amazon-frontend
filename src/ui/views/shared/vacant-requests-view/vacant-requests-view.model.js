@@ -120,6 +120,14 @@ export class VacantRequestsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
       () => this.requests,
       () =>
         runInAction(() => {

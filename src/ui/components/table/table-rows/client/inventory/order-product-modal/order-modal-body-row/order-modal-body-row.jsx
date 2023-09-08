@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { isPast, isToday, isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
@@ -14,14 +12,13 @@ import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkee
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery } from '@utils/calculation'
+import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
@@ -85,7 +82,8 @@ export const OrderModalBodyRow = ({
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
   const minDate = dayjs().add(2, 'day')
-  const parsedDeadline = new Date(item.deadline)
+  const [deadline, setDeadline] = useState('')
+  // const parsedDeadline = new Date(item.deadline)
 
   const boxPropertiesIsFull =
     item.currentSupplier?.boxProperties?.amountInBox &&
@@ -100,6 +98,7 @@ export const OrderModalBodyRow = ({
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
       setOrderStateFiled(nameInput)(event)
+      setDeadline(event)
     } else {
       setOrderStateFiled(nameInput)(event.target.value)
     }
@@ -329,9 +328,9 @@ export const OrderModalBodyRow = ({
           <div className={classNames.datePickerWrapper}>
             <NewDatePicker
               disablePast
-              error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
+              // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
               minDate={minDate}
-              value={parsedDeadline}
+              value={deadline}
               onChange={e => onChangeInput(e, 'deadline')}
             />
           </div>
