@@ -161,11 +161,13 @@ export class BuyerFreeOrdersViewModel {
   }
 
   async onClickTableRowBtn(order, noPush) {
+    const { status } = order.originalData
+
     try {
-      if (order.originalData.buyer) {
-        await BuyerModel.setOrdersAtProcess(order.originalData._id)
-      } else {
+      if (status === OrderStatusByKey[OrderStatus.FORMED] || status === OrderStatusByKey[OrderStatus.NEW]) {
         await BuyerModel.pickupOrder(order.originalData._id)
+      } else {
+        await BuyerModel.setOrdersAtProcess(order.originalData._id)
       }
 
       if (!noPush) {

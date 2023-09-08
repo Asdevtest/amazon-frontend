@@ -10,7 +10,7 @@ import { BulbIcon } from '../svg-icons'
 
 interface ISwitcherSettings {
   label: () => string
-  value: string
+  value: string | number | null | undefined
   icon?: JSX.Element | boolean
 }
 
@@ -18,8 +18,8 @@ interface CustomSwitcherProps {
   fullWidth?: boolean
   switchMode?: 'small' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
-  condition: string
-  changeConditionHandler: (condition: string | number) => void
+  condition: string | number | null | undefined
+  changeConditionHandler: (condition: string | number | null | undefined) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {

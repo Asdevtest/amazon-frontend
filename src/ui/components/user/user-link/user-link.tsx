@@ -49,8 +49,6 @@ export const UserLink: FC<UserLinkProps> = observer(
 
     const curUserId = UserModel.userId
 
-    console.log('userId', userId)
-
     return (
       <>
         {name || userId ? (
