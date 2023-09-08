@@ -54,6 +54,11 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: 12,
       lineHeight: '16px',
     },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
+    },
   },
 
   infosWrapper: {

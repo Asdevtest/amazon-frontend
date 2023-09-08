@@ -2,66 +2,142 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.general,
+    maxWidth: 1075,
     padding: 30,
-    maxWidth: 790,
     margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
     borderRadius: 7,
+    backgroundColor: theme.palette.background.general,
+
+    [theme.breakpoints.down(768)]: {
+      padding: '20px 16px',
+    },
+  },
+
+  header: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+
+  headerText: {
+    marginBottom: 10,
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(1280)]: {
-      maxWidth: 390,
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+  },
+
+  timeText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
     },
   },
 
   mainWrapper: {
-    position: 'relative',
-  },
-
-  timeText: {
-    position: 'absolute',
-    top: 0,
-    right: 20,
-    fontSize: 14,
-    lineHeight: '19px',
-    color: theme.palette.text.second,
-  },
-
-  headerText: {
-    color: theme.palette.text.general,
-    fontSize: 14,
-    fontWeight: 600,
-    lineHeight: '19%',
-    textTransform: 'uppercase',
-    marginBottom: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   descriptionText: {
-    color: theme.palette.text.second,
-    fontSize: 16,
-    minHeight: 50,
-    whiteSpace: 'pre-line',
+    width: '100%',
+    fontSize: 18,
+    lineHeight: '25px',
     wordBreak: 'break-word',
+    color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   infosWrapper: {
     display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     gap: 20,
+
+    [theme.breakpoints.down(1350)]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+
+  infosWrapperShowChatInfo: {
+    [theme.breakpoints.down(1500)]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   },
 
   infosSubWrapper: {
-    flex: '1 1 auto',
-  },
-
-  rightInfosSubWrapper: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     gap: 20,
   },
 
+  fieldsRow: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 20,
+
+    [theme.breakpoints.down(1280)]: {
+      flexWrap: 'wrap',
+    },
+  },
+
+  fieldsRowShowChatInfo: {
+    [theme.breakpoints.down(1600)]: {
+      flexWrap: 'wrap',
+    },
+  },
+
   fieldLabel: {
-    fontSize: 14,
-    color: theme.palette.text.second,
     marginBottom: 5,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
+    },
   },
 
   fieldContainer: {
@@ -69,106 +145,115 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   infoItemWrapper: {
-    background: theme.palette.background.disabled,
-    maxWidth: 300,
     height: 40,
-    borderRadius: 4,
+    width: '100%',
+    minWidth: 140,
+    padding: '0 15px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 15px',
-  },
-
-  amazonOrder: {
-    display: 'flex',
-    alignItems: 'center',
+    gap: 20,
+    borderRadius: 7,
+    background: theme.palette.background.second,
   },
 
   infoItemText: {
-    color: theme.palette.text.general,
-  },
-
-  amazonOrderText: {
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: '22px',
+    fontSize: 18,
+    lineHeight: '25px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
+    color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
-  timeInfoItemWrapper: {
-    maxWidth: 150,
-    background: theme.palette.background.green,
-  },
-
-  footerWrapper: {
-    marginTop: '20px',
-  },
-  btnsWrapper: {
+  infoItem: {
+    height: 40,
+    width: '100%',
+    padding: '0 15px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '30px',
-    // gap: 20,
+    justifyContent: 'space-between',
+    fontSize: 18,
+    lineHeight: '25px',
+    color: theme.palette.text.general,
+    background: theme.palette.background.green,
+    borderRadius: 7,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
-  actionBtnWrapperStyleNotFirst: {
-    marginLeft: '42px',
+  infoItemList: {
+    maxHeight: 170,
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
+
+  btnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 20,
+
+    [theme.breakpoints.down(1350)]: {
+      flexDirection: 'column',
+    },
+  },
+
+  btnsWrapperShowChatInfo: {
+    [theme.breakpoints.down(1500)]: {
+      flexDirection: 'column',
+    },
+  },
+
+  button: {
+    [theme.breakpoints.down(1350)]: {
+      width: '100%',
+    },
+  },
+
+  buttonShowChatInfo: {
+    [theme.breakpoints.down(1500)]: {
+      width: '100%',
+    },
+  },
+
   actionButton: {
-    // flex: 1,
-    // display: 'flex',
-
+    width: '100%',
     padding: '0 15px',
   },
 
-  editButton: {
-    width: '252px',
-  },
+  editButton: {},
 
   successBtn: {
-    width: '197px',
     backgroundColor: '#4CAF50',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#4CAF50',
     },
-  },
-
-  infoLinksItemWrapper: {
-    background: theme.palette.background.disabled,
-    maxWidth: 400,
-    height: 40,
-    borderRadius: 4,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 15px',
-  },
-
-  infoLinkText: {
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    // maxWidth: 450,
-    // color: theme.palette.primary.main,
-    color: '#006CFF',
-  },
-
-  infoItemList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-    maxHeight: 170,
-    overflowY: 'auto',
-    overflowX: 'hidden',
-  },
-
-  linkInfoItemList: {
-    width: 400,
   },
 }))

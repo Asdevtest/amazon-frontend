@@ -23,7 +23,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',
-    textAlign: 'center',
   },
 
   valueText: {
@@ -32,6 +31,5 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',
-    textAlign: 'center',
   },
 }))

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
 import { Divider } from '@mui/material'
@@ -36,7 +35,7 @@ interface Props {
 }
 
 export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handlers, isShowChatInfo }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 

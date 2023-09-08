@@ -134,6 +134,7 @@ export const ChatMessageByType: FC<Props> = observer(
         return (
           <ChatMessageBloggerProposalEditedResult
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,

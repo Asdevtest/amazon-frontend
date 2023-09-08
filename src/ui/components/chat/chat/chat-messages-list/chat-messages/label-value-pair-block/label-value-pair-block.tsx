@@ -29,15 +29,13 @@ export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelCla
     >
       {label && <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>}
 
-      <div>
-        {typeof value === 'string' ? (
-          <Typography style={valueStyle} className={classNames.valueText}>
-            {value}
-          </Typography>
-        ) : (
-          value
-        )}
-      </div>
+      {typeof value === 'string' ? (
+        <Typography style={valueStyle} className={classNames.valueText}>
+          {value}
+        </Typography>
+      ) : (
+        value
+      )}
     </div>
   )
 }

@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
-      padding: '20px 16px',
+      padding: '20px 17px',
     },
   },
 
