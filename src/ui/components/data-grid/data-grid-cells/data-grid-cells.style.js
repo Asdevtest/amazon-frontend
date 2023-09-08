@@ -174,7 +174,7 @@ export const styles = theme => ({
 
   chipStock: {
     width: '100%',
-
+    minWidth: '125px',
     backgroundcolor: theme.palette.text.general,
   },
 
