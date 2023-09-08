@@ -1,8 +1,5 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
-import Linkify from 'react-linkify-always-blank'
-
-import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -34,9 +31,10 @@ export interface ChatMessageRequestProposalDesignerResultEditedHandlers {
 interface Props {
   message: ChatMessageContract<ChatMessageDataDesignerProposalResultEditedContract>
   handlers: ChatMessageRequestProposalDesignerResultEditedHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, handlers }) => {
+export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
 
   // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -46,83 +44,68 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, ha
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+        <div className={classNames.headerWrapper}>
+          <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
 
-        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+          <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+        </div>
 
-        <div className={classNames.infosWrapper}>
-          <Linkify>
-            <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
-            {/* <Typography className={classNames.descriptionText}>
-              {chatRequestAndRequestProposal?.requestProposal?.details.result}
-            </Typography> */}
-          </Linkify>
+        <div className={cx(classNames.infosWrapper, { [classNames.infosWrapperIsShowChatInfo]: isShowChatInfo })}>
+          <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
 
-          <div className={classNames.imagesWrapper}>
+          <div className={cx(classNames.imagesWrapper, { [classNames.imagesWrapperIsShowChatInfo]: isShowChatInfo })}>
             {message.data.proposal.media
               ?.slice(0, 4)
               .map(el => el.fileLink)
               .map((item, index) => (
-                <div key={index} className={classNames.imageObjWrapper}>
-                  <div className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}>
-                    {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+                <div
+                  key={index}
+                  className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}
+                  // onClick={() => {
+                  //   setCurImageId(item._id)
+                  //   setShowImageModal(!showImageModal)
+                  // }}
+                >
+                  {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
-                    {index === 3 && message.data.proposal.media.length > 4 && (
-                      <div className={classNames.moreImagesWrapper}>
-                        <p className={classNames.moreImagesText}>{`${message.data.proposal.media.length - 4}`}</p>
-                      </div>
-                    )}
+                  {index === 3 && message.data.proposal.media.length > 4 && (
+                    <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
+                  )}
 
-                    <div className={classNames.imageListItem}>
-                      <Avatar
-                        className={classNames.image}
-                        classes={{ img: classNames.image }}
-                        src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
-                        alt={''}
-                        variant="square"
-                        // onClick={() => {
-                        //   setCurImageId(item._id)
-                        //   setShowImageModal(!showImageModal)
-                        // }}
-                      />
-                    </div>
-                  </div>
+                  <img
+                    src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
+                    alt={`Image ${index}`}
+                    className={classNames.image}
+                  />
                 </div>
               ))}
           </div>
         </div>
       </div>
-      <div className={classNames.footerWrapper}>
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={t(TranslationKey['Time to check'])}
-          containerClasses={classNames.containerField}
-          inputComponent={<p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>{minsToTime(1440)}</p>}
-        />
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={t(TranslationKey['Number of illustrations'])}
-          containerClasses={classNames.containerField}
-          inputComponent={
-            <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-              {message.data.proposal.media?.length}
-            </p>
-          }
-        />
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={'ASIN'}
-          containerClasses={classNames.containerField}
-          inputComponent={
-            // <p className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-            //   <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${message.data.request.asin}`}>
-            //     <span className={classNames.linkSpan}>{message.data.request.asin}</span>
-            //   </a>
-            // </p>
 
-            <AsinOrSkuLink withCopyValue asin={message?.data?.request?.asin} textStyles={classNames.simpleSpan} />
-          }
-        />
+      <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperIsShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(classNames.fieldsContainer, { [classNames.fieldsContainerIsShowChatInfo]: isShowChatInfo })}>
+          <Field
+            labelClasses={classNames.fieldLabel}
+            label={t(TranslationKey['Time to check'])}
+            containerClasses={classNames.containerField}
+            inputComponent={<p className={classNames.simpleSpan}>{minsToTime(1440)}</p>}
+          />
+          <Field
+            labelClasses={classNames.fieldLabel}
+            label={t(TranslationKey['Number of illustrations'])}
+            containerClasses={classNames.containerField}
+            inputComponent={<p className={classNames.simpleSpan}>{message.data.proposal.media?.length}</p>}
+          />
+          <Field
+            labelClasses={classNames.fieldLabel}
+            label={'ASIN'}
+            containerClasses={classNames.containerField}
+            inputComponent={
+              <AsinOrSkuLink withCopyValue asin={message?.data?.request?.asin} textStyles={classNames.simpleSpan} />
+            }
+          />
+        </div>
 
         <Button
           className={classNames.actionButton}

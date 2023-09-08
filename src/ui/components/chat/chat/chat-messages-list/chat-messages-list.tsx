@@ -216,6 +216,7 @@ export const ChatMessagesList: FC<Props> = observer(
                                 showName
                                 isIncomming={isIncomming}
                                 messageItem={repleyMessage}
+                                isShowChatInfo={isShowChatInfo}
                                 unReadMessage={false}
                                 isLastMessage={false}
                               />
@@ -224,6 +225,7 @@ export const ChatMessagesList: FC<Props> = observer(
                           <ChatMessageByType
                             isIncomming={isIncomming}
                             messageItem={messageItem}
+                            isShowChatInfo={isShowChatInfo}
                             unReadMessage={unReadMessage}
                             showName={showName}
                             isLastMessage={isLastMessage}

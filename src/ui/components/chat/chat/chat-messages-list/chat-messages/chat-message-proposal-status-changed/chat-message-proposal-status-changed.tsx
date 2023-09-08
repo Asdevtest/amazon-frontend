@@ -1,15 +1,15 @@
 import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
-import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { isMobileResolution } from '@constants/configs/sizes-settings'
+import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
@@ -33,9 +33,10 @@ interface Props {
   isLastMessage: boolean
   message: ChatMessageContract<ChatMessageDataProposalStatusChangedContract>
   handlers: ChatMessageRequestProposalStatusChangedHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isLastMessage }) => {
+export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isShowChatInfo, isLastMessage }) => {
   const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -70,11 +71,16 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
             {message?.data?.reason ? <p className={classNames.reasonText}>{message?.data?.reason}</p> : null}
 
             {message.data?.linksToMediaFiles?.length > 0 && (
-              <PhotoAndFilesSlider files={message.data.linksToMediaFiles} customGap={20} customSlideHeight={80} />
+              <PhotoAndFilesSlider
+                alignLeft
+                smallSlider
+                column={isShowChatInfo || isMobileResolution}
+                files={message.data.linksToMediaFiles}
+              />
             )}
 
             {isShowFooter ? (
-              <div className={classNames.footerWrapper}>
+              <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>
                 {message.data.timeLimitInMinutes ? (
                   <div className={classNames.labelValueBlockWrapper}>
                     <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
@@ -100,7 +106,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
           </div>
         )
       case RequestProposalStatus.CORRECTED:
-        return <div></div>
+        return null
     }
   }
 
@@ -108,10 +114,11 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
     <div className={classNames.root}>
       <div className={classNames.statusTextDesciption}>
         {`${t(TranslationKey['New proposal status'])}:`}
-        <span className={classNames.statusText}>
-          <RequestStatusCell isChat status={message.data.status} languageTag={SettingsModel.languageTag} />
+        <span className={classNames.statusText} style={{ color: colorByStatus(message.data.status) }}>
+          {MyRequestStatusTranslate(message.data.status)}
         </span>
       </div>
+
       {renderDetails()}
     </div>
   )

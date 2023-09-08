@@ -5,6 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     height: '100%',
     overflow: 'hidden',
+    boxShadow: theme.palette.boxShadow.paper,
   },
 
   leftSide: {
@@ -45,5 +46,11 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
     background: theme.palette.background.general,
     borderRadius: '0 7px 7px 0',
+  },
+
+  mobileResolution: {
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 }))
