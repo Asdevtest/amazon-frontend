@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
+import { IMasterUser } from '@typings/master-user'
+
 export class SendMessageRequestParamsContract {
   @IsNotEmpty()
   @IsString()
@@ -20,4 +22,11 @@ export class SendMessageRequestParamsContract {
 
   @IsOptional()
   public replyMessageId?: string | null
+
+  @IsOptional()
+  public user?: Omit<IMasterUser, 'rating'>
+
+  @IsOptional()
+  @IsString()
+  public crmItem?: string
 }
