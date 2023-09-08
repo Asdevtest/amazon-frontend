@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useClassNames = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -16,7 +15,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerWrapper: {
     marginTop: 30,
-
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -24,7 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    gap: 10,
+    gap: 20,
   },
 
   buttonNormalNoMargin: {

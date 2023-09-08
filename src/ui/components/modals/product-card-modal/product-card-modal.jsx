@@ -156,6 +156,17 @@ export const ProductCardModal = observer(props => {
 
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
+              {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
+              (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
+                <Button
+                  className={classNames.buttonDelete}
+                  variant="contained"
+                  onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
+                >
+                  {t(TranslationKey.Delete)}
+                </Button>
+              ) : undefined}
+
               {viewModel?.product?.status ===
                 ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
@@ -200,17 +211,6 @@ export const ProductCardModal = observer(props => {
                   ? t(TranslationKey.Close)
                   : t(TranslationKey.Cancel)}
               </Button>
-
-              {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
-              (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
-                <Button
-                  className={classNames.buttonDelete}
-                  variant="contained"
-                  onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
-                >
-                  {t(TranslationKey.Delete)}
-                </Button>
-              ) : undefined}
 
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
