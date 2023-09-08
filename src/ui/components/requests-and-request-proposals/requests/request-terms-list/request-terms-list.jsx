@@ -85,7 +85,7 @@ export const RequestTermsList = props => {
         <Field
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
-          label={t(TranslationKey.Time)}
+          label={t(TranslationKey['Time till deadline'])}
           inputComponent={
             <Typography className={cx(styles.accentText, getDeadlineColor(request?.timeoutAt))}>{`${toFixed(
               request?.timeLimitInMinutes / 60,
