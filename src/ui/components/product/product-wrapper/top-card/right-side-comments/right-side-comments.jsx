@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React from 'react'
 
-import { Box, Grid, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
@@ -136,6 +134,17 @@ export const RightSideComments = observer(
 
               {showActionBtns ? (
                 <div className={classNames.buttonsWrapper}>
+                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
+                    <Button
+                      tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
+                      className={classNames.buttonDelete}
+                      variant="contained"
+                      onClick={() => handleProductActionButtons('delete')}
+                    >
+                      {t(TranslationKey.Delete)}
+                    </Button>
+                  ) : undefined}
+
                   {product?.status ===
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
                   checkIsBuyer(curUserRole) ? null : (
@@ -179,17 +188,6 @@ export const RightSideComments = observer(
                   >
                     {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
                   </Button>
-
-                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
-                    <Button
-                      tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
-                      className={classNames.buttonDelete}
-                      variant="contained"
-                      onClick={() => handleProductActionButtons('delete')}
-                    >
-                      {t(TranslationKey.Delete)}
-                    </Button>
-                  ) : undefined}
 
                   {checkIsClient(curUserRole) && product.archive && (
                     <Button
