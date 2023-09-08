@@ -237,4 +237,11 @@ export const useClassNames = makeStyles()(theme => ({
   redColor: {
     color: `#D70D0D`,
   },
+
+  controls: {
+    height: '100%',
+    maxHeight: 107,
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
 }))

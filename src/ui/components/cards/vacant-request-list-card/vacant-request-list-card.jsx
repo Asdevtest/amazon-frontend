@@ -85,9 +85,9 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
               item?.maxAmountOfProposals,
             )}
           </Typography>
-          <Typography className={classNames.cardSubTitle}>
-            {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span>
-          </Typography>
+          {/* <Typography className={classNames.cardSubTitle}> */}
+          {/*   {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span> */}
+          {/* </Typography> */}
         </div>
       </div>
 
@@ -95,21 +95,23 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
         <RequestTermsList request={item} />
       </div>
 
-      <div className={classNames.buttonWrapper}>
-        <div className={classNames.priorityWrapper}>
-          {Number(item?.priority) === requestPriority.urgentPriority && (
-            <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
-          )}
+      <div className={classNames.controls}>
+        <div className={classNames.buttonWrapper}>
+          <div className={classNames.priorityWrapper}>
+            {Number(item?.priority) === requestPriority.urgentPriority && (
+              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            )}
+          </div>
+          <Button
+            tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
+            variant="contained"
+            color="primary"
+            className={classNames.actionButton}
+            onClick={() => onClickViewMore(item._id)}
+          >
+            {t(TranslationKey.Details)}
+          </Button>
         </div>
-        <Button
-          tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-          variant="contained"
-          color="primary"
-          className={classNames.actionButton}
-          onClick={() => onClickViewMore(item._id)}
-        >
-          {t(TranslationKey.Details)}
-        </Button>
       </div>
     </div>
   )
