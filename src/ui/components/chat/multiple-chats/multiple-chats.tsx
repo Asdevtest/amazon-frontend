@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
@@ -112,7 +113,11 @@ export const MultipleChats = observer(
 
       return (
         <div ref={ref} className={classNames.wrapper}>
-          <div className={classNames.leftSide}>
+          <div
+            className={cx(classNames.leftSide, {
+              [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+            })}
+          >
             <ChatsList
               userId={userId}
               typingUsers={typingUsers}
@@ -123,7 +128,7 @@ export const MultipleChats = observer(
             />
           </div>
 
-          <div className={classNames.rightSide}>
+          <div className={cx(classNames.rightSide, { [classNames.mobileResolution]: !isChatSelectedAndFound })}>
             {isChatSelectedAndFound ? (
               <Chat
                 userId={userId}
