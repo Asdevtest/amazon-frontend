@@ -131,10 +131,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
         </div>
       </div>
 
-      {
-        /* isShowButtons ? */ <div
-          className={cx(classNames.btnsWrapper, { [classNames.btnsWrapperShowChatInfo]: isShowChatInfo })}
-        >
+      {isShowButtons ? (
+        <div className={cx(classNames.btnsWrapper, { [classNames.btnsWrapperShowChatInfo]: isShowChatInfo })}>
           {proposalStatus !== RequestProposalStatus.TO_CORRECT && (
             <Button
               btnWrapperStyle={cx(classNames.button, { [classNames.buttonShowChatInfo]: isShowChatInfo })}
@@ -152,8 +150,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
           >
             {t(TranslationKey.Receive)}
           </Button>
-        </div> /*  : null */
-      }
+        </div>
+      ) : null}
     </div>
   )
 }
