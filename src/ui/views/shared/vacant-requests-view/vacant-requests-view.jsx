@@ -179,7 +179,7 @@ export const VacantRequestsViewRaw = props => {
                 toolbar: {
                   resetFiltersBtnSettings: {
                     onClickResetFilters: viewModel.onClickResetFilters,
-                    isSomeFilterOn: viewModel.onClickResetFilters,
+                    isSomeFilterOn: viewModel.isSomeFilterOn,
                   },
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
