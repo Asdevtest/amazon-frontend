@@ -163,9 +163,9 @@ export class MyServicesViewModel {
     await this.getMyAnnouncementsData()
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
     this.setTableModeState()
   }
