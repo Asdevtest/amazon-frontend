@@ -623,11 +623,11 @@ export const darkTheme = createTheme({
       styleOverrides: {
         '::-webkit-scrollbar': {
           backgroundColor: '#25252D',
-          cursor: 'pointer !important',
+          // cursor: 'pointer !important',
         },
         '::-webkit-scrollbar-thumb': {
           backgroundColor: '#53535B',
-          border: '2px solid #25252D',
+          border: '3px solid #25252D',
           borderTop: 'none',
           borderBottom: 'none',
 
@@ -645,20 +645,44 @@ export const darkTheme = createTheme({
           },
         },
 
-        '::-webkit-scrollbar-button:vertical:start:increment': {
-          display: 'none',
+        '::-webkit-scrollbar-button:vertical:start:decrement': {
+          background:
+            'linear-gradient(120deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(240deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(0deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
-        '::-webkit-scrollbar-button:vertical:end:decrement': {
-          display: 'none',
+        '::-webkit-scrollbar-button:vertical:end:increment': {
+          background:
+            'linear-gradient(300deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(60deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(180deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
-        '::-webkit-scrollbar-button:horizontal:start:increment': {
-          display: 'none',
+        '::-webkit-scrollbar-button:horizontal:start:decrement': {
+          background:
+            'linear-gradient(30deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(150deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(270deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
-        '::-webkit-scrollbar-button:horizontal:end:decrement': {
-          display: 'none',
+        '::-webkit-scrollbar-button:horizontal:end:increment': {
+          background:
+            'linear-gradient(210deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(330deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(90deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
         '::-webkit-scrollbar-corner': {
