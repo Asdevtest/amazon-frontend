@@ -83,7 +83,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   infosWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
     gap: 20,
 
@@ -104,6 +104,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
+    flex: 0.8,
+
+    [theme.breakpoints.down(1350)]: {
+      flex: 1,
+    },
   },
 
   fieldsRow: {
@@ -182,6 +187,7 @@ export const useClassNames = makeStyles()(theme => ({
   infoItem: {
     height: 40,
     width: '100%',
+    minWidth: 140,
     padding: '0 15px',
     display: 'flex',
     alignItems: 'center',
