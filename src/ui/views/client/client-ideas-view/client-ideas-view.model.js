@@ -589,7 +589,7 @@ export class ClientIdeasViewModel {
 
   async onClickVariationRadioButton() {
     try {
-      const result = await ClientModel.getProductPermissionsData({ ideaParent: true })
+      const result = await ClientModel.getProductPermissionsData({ ideaParent: true, isChild: false })
       this.productsToLaunch = result
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

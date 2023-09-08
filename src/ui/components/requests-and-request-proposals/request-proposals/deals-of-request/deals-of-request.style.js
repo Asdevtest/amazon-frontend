@@ -17,7 +17,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     borderRadius: 4,
-    // backgroundColor: theme.palette,
   },
 
   title: {
@@ -55,6 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '5px',
+    opacity: '1 !important', // undisabled style
   },
 
   userRatingWrapper: {

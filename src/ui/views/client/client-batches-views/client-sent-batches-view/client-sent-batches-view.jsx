@@ -15,6 +15,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -84,34 +85,19 @@ export const ClientSentBatchesViewRaw = props => {
         </div>
 
         <div className={className.boxesFiltersWrapper}>
-          {viewModel.storekeepersData
-            .slice()
-            .sort((a, b) => a.name?.localeCompare(b.name))
-            .filter(el => el.boxesCount > 0)
-            .map(storekeeper => (
-              <Button
-                key={storekeeper._id}
-                disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-                className={cx(className.storekeeperButton, {
-                  [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-                })}
-                variant="text"
-                onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-              >
-                {storekeeper.name}
-              </Button>
-            ))}
-
-          <Button
-            disabled={!viewModel.currentStorekeeper?._id}
-            className={cx(className.storekeeperButton, {
-              [className.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id,
-            })}
-            variant="text"
-            onClick={viewModel.onClickStorekeeperBtn}
-          >
-            {t(TranslationKey['All warehouses'])}
-          </Button>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.currentStorekeeperId}
+            switcherSettings={[
+              ...viewModel.storekeepersData
+                .slice()
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .sort((a, b) => a.name?.localeCompare(b.name))
+                .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
+              { label: () => t(TranslationKey['All warehouses']), value: undefined },
+            ]}
+            changeConditionHandler={viewModel.onClickStorekeeperBtn}
+          />
         </div>
 
         <div className={className.datagridWrapper}>

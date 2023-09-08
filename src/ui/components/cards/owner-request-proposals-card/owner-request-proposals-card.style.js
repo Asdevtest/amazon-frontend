@@ -120,6 +120,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '49px',
+    opacity: '1 !important', // undisabled style
   },
 
   userNameWrapper: {

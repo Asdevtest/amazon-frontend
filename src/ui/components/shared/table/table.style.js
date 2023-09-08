@@ -15,11 +15,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableHead: {
-    borderTop: '1px solid rgba(217, 222, 229, 1)',
-    borderBottom: '1px solid rgba(217, 222, 229, 1)',
+    border: '1px solid rgba(217, 222, 229, 1)',
   },
   tableBody: {
-    borderBottom: '1px solid rgba(217, 222, 229, 1)',
+    border: '1px solid rgba(217, 222, 229, 1)',
 
     [theme.breakpoints.down(1282)]: {
       width: '100%',

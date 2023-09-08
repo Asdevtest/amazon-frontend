@@ -103,6 +103,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     height: 'auto !important',
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -145,6 +146,7 @@ export const styles = theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+    color: theme.palette.text.general,
   },
 
   selectedItemName: {

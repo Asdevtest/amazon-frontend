@@ -35,30 +35,30 @@ export const ChatMessageControlsOverlay = (props: ChatMessageControlsOverlayProp
           </button>
         </Tooltip>
 
-        <Tooltip
-          disableInteractive
-          title={t(TranslationKey.Additionally)}
-          placement="left"
-          classes={{ tooltip: styles.tooltip }}
-        >
-          <button className={styles.largeControlIcon}>
-            <ReactionSmileIcon />
-          </button>
-        </Tooltip>
-
-        <Tooltip
-          disableInteractive
-          title={t(TranslationKey.Additionally)}
-          placement="left"
-          classes={{ tooltip: styles.tooltip }}
-        >
-          <button
-            className={styles.largeControlIcon}
-            onClick={() => setIsShowAdditionalControls(prevState => !prevState)}
-          >
-            <MoreHorizTwoToneIcon />
-          </button>
-        </Tooltip>
+        {/* TODO: Uncomment when implement new features*/}
+        {/* <Tooltip*/}
+        {/*  disableInteractive*/}
+        {/*  title={t(TranslationKey.Additionally)}*/}
+        {/*  placement="left"*/}
+        {/*  classes={{ tooltip: styles.tooltip }}*/}
+        {/* >*/}
+        {/*  <button className={styles.largeControlIcon}>*/}
+        {/*    <ReactionSmileIcon />*/}
+        {/*  </button>*/}
+        {/* </Tooltip>*/}
+        {/* <Tooltip*/}
+        {/*  disableInteractive*/}
+        {/*  title={t(TranslationKey.Additionally)}*/}
+        {/*  placement="left"*/}
+        {/*  classes={{ tooltip: styles.tooltip }}*/}
+        {/* >*/}
+        {/*  <button*/}
+        {/*    className={styles.largeControlIcon}*/}
+        {/*    onClick={() => setIsShowAdditionalControls(prevState => !prevState)}*/}
+        {/*  >*/}
+        {/*    <MoreHorizTwoToneIcon />*/}
+        {/*  </button>*/}
+        {/* </Tooltip>*/}
       </div>
 
       <Popover

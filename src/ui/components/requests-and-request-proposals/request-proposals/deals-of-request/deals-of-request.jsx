@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Avatar, Rating, Typography } from '@mui/material'
@@ -24,8 +24,6 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const now = new Date()
-
-  // console.log('requestProposals', requestProposals)
 
   return (
     <div className={classNames.root}>
