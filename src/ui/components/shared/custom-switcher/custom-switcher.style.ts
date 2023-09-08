@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
     padding: 3,
     backgroundColor: theme.palette.customSwitcher.background,
-    borderRadius: '31px',
+    borderRadius: '24px',
     height: '100%',
     display: 'flex',
     flexWrap: 'wrap',
@@ -15,8 +15,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerStylesSwitcherWrapper: {
-    borderRadius: '7px !important',
-    padding: '0',
     backgroundColor: theme.palette.customSwitcher.headerBackground,
   },
 
@@ -110,14 +108,13 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     height: '100%',
     zIndex: 2,
-    borderRadius: '41px',
+    borderRadius: '21px',
     transition: '.1s ease',
     backgroundColor: theme.palette.customSwitcher.indicator,
   },
 
   headerIndicatorStyles: {
     backgroundColor: theme.palette.customSwitcher.activeText,
-    borderRadius: '7px',
   },
 
   icon: {
