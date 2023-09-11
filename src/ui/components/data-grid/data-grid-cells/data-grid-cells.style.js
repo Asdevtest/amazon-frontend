@@ -1264,8 +1264,12 @@ export const styles = theme => ({
   },
 
   normalizeLink: {
-    fontSize: 14,
-    lineHeight: '19px',
+    maxWidth: 140,
+    fontSize: 12,
+    lineHeight: '16px',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
     color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
@@ -1498,7 +1502,6 @@ export const styles = theme => ({
   },
   attributeWrapper: {
     display: 'flex',
-
     gap: 5,
   },
   asinAndSkuTitle: {
@@ -1514,6 +1517,8 @@ export const styles = theme => ({
     color: theme.palette.text.second,
   },
   attributeLink: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.general,
   },
   nativeSelect: {
@@ -1527,6 +1532,8 @@ export const styles = theme => ({
     },
   },
   attributeMissing: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.second,
   },
   colorRed: {
