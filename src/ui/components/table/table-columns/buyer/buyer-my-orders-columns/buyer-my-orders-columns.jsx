@@ -29,7 +29,9 @@ export const buyerMyOrdersViewColumns = () => [
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-    renderCell: params => <MultilineTextCell text={params.row.originalData.idAndItem} />,
+    renderCell: params => (
+      <MultilineTextCell text={params.row.originalData.idAndItem ?? `${params.row.originalData.id}  / -`} />
+    ),
     sortable: true,
   },
 
