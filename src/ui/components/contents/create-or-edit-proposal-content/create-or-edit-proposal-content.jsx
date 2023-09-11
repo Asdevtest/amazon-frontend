@@ -82,7 +82,6 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
-
   const disableSubmit =
     !formFields.title ||
     !formFields.execution_time ||
