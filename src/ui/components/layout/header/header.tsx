@@ -211,7 +211,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
           </div>
         </div>
 
-        <p className={classNames.userRoleTitle}>{t(TranslationKey['your role:'])}</p>
+        <p className={classNames.userRoleTitle}>{t(TranslationKey['Your role:'])}</p>
 
         <div className={classNames.allowedRolesMainWrapper}>
           <CustomSwitcher
@@ -292,7 +292,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
             <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
           </MenuItem>
           <MenuItem className={classNames.mobileAllowedRolesWrapper}>
-            <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['your role:'])}</p>
+            <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
             {allowedRolesWithoutCandidate?.length > 1 ? (
               <div className={classNames.allowedRolesWrapper}>
                 {allowedRolesWithoutCandidate?.map((roleCode: number) => (
