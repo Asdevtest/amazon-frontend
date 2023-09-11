@@ -32,8 +32,6 @@ export class MyServicesViewModel {
 
   currentData = []
 
-  bigImagesOptions = {}
-
   nameSearchValue = undefined
 
   showConfirmModal = false
@@ -96,10 +94,6 @@ export class MyServicesViewModel {
         }, 3000)
       }
     })
-  }
-
-  handleBigImageModal = index => {
-    this.bigImagesOptions.imgIndex = index
   }
 
   async getUserInfo() {
@@ -176,13 +170,6 @@ export class MyServicesViewModel {
     this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
       data: data._id,
     })
-  }
-
-  onClickThumbnail(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
-    this.onTriggerOpenModal('showImageModal')
   }
 
   onTriggerOpenModal(modalState) {

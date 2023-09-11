@@ -11,7 +11,8 @@ export interface CreatedBy {
 }
 
 export interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
+  file: File
+  data_url: string
 }
 
 export interface IService {

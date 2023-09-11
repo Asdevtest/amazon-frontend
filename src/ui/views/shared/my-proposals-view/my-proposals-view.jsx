@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
@@ -13,12 +12,6 @@ import {
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,12 +28,10 @@ import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsFreelancer } from '@utils/checks'
 import {
   sortObjectsArrayByArrayObjectFiledDateWithParseISO,
   sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
 } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { styles } from './my-proposals-view.style'
@@ -61,7 +52,7 @@ export const MyProposalsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  const whiteList =
+  /* const whiteList =
     !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
       ? [
           String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
@@ -69,7 +60,7 @@ export const MyProposalsViewRaw = props => {
             ?.filter(spec => viewModel.requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
             ?.map(item => String(item)) || []),
         ]
-      : Object.keys(freelanceRequestTypeByCode)
+      : Object.keys(freelanceRequestTypeByCode) */
 
   const getSortedData = mode => {
     switch (mode) {
@@ -162,7 +153,7 @@ export const MyProposalsViewRaw = props => {
           </div>
         ) : getSortedData(viewModel.sortMode)?.length ? (
           <Grid
-            container
+            container="true"
             classes={{ root: classNames.dashboardCardWrapper }}
             // spacing={4}
             direction="row"

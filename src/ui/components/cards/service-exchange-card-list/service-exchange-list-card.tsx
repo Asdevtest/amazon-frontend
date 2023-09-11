@@ -1,113 +1,65 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
-
-import { Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CustomSlider } from '@components/shared/custom-slider'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsImageLink } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
+
+import { IService } from '@typings/master-user'
 
 import { useClassNames } from './service-exchange-list-card.style'
 
-interface CreatedByInterface {
-  _id: string
-  name: string
-  rating: number
+interface Props {
+  service: IService
+  onClickButton: (service: IService) => void
+  choose?: boolean
+  order?: boolean
+  pathname?: string
 }
 
-interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
-}
-
-interface RequestsInterface {
-  _id: string
-  title: string
-  humanFriendlyId: number
-  price: number
-  status: string
-  timeoutAt: string
-  createdBy: CreatedByInterface
-  updatedAt: string
-}
-
-interface Service {
-  _id: string
-  type: number
-  requests: Array<RequestsInterface>
-  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
-  title: string
-  description: string
-  createdBy: CreatedByInterface
-  createdAt: string
-  updatedAt: string
-}
-
-interface ServiceExchangeCardListProps {
-  service: Service
-  choose: boolean
-  order: boolean
-  pathname: string
-  onClickThumbnail: (data: { images: Array<string | linksToMediaFilesInterface>; imgIndex: number }) => void
-  onClickButton: (data: Service) => void
-}
-
-export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props => {
-  const { service, choose, order, pathname, onClickThumbnail, onClickButton } = props
-
+export const ServiceExchangeCardList: FC<Props> = ({ service, choose, order, pathname, onClickButton }) => {
   const { classes: classNames } = useClassNames()
+
+  const detailDescription =
+    service.type === 0
+      ? t(TranslationKey.Universal)
+      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])
+  const buttonContent = choose
+    ? t(TranslationKey.Choose)
+    : order
+    ? t(TranslationKey['To order'])
+    : t(TranslationKey.Open)
+
+  const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
   return (
     <div className={classNames.cardWrapper}>
-      <div className={classNames.cardCarouselWrapper}>
-        <CustomSlider>
-          {service.linksToMediaFiles
-            .filter(el => checkIsImageLink(typeof el === 'string' ? el : el?.file?.name))
-            .map((imageHash, index) => (
-              <img
-                key={index}
-                alt=""
-                className={classNames.carouselImage}
-                src={getAmazonImageUrl(imageHash, true)}
-                onClick={() => {
-                  onClickThumbnail({
-                    images: service.linksToMediaFiles.filter(el =>
-                      checkIsImageLink(typeof el === 'string' ? el : el?.file?.name),
-                    ),
-                    imgIndex: index,
-                  })
-                }}
-              />
-            ))}
-        </CustomSlider>
-      </div>
+      <PhotoAndFilesSlider
+        withoutFiles
+        files={service.linksToMediaFiles}
+        mainClasses={!service.linksToMediaFiles.length ? classNames.photosWrapper : ''}
+      />
 
       <div className={classNames.titleAndDescriptionWrapper}>
-        <Typography className={classNames.cardTitle}>{service.title}</Typography>
+        <p className={classNames.cardTitle}>{service.title}</p>
 
-        <Typography className={classNames.cardDescription}>{service.description}</Typography>
+        <p className={classNames.cardDescription}>{service.description}</p>
       </div>
 
       <div className={classNames.detailsAndButtonWrapper}>
-        {pathname !== '/freelancer/freelance/my-services' ? (
+        {isNotMyServices ? (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.detailsSubWrapper}>
-              <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
-              <Typography className={classNames.detailDescription}>
-                {service.type === 0
-                  ? t(TranslationKey.Universal)
-                  : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])}
-              </Typography>
+              <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+              <p className={classNames.detailDescription}>{detailDescription}</p>
             </div>
 
             <div className={classNames.detailsSubWrapper}>
-              <Typography className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</Typography>
+              <p className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
               <UserLink
                 blackText
                 withAvatar
@@ -124,25 +76,19 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
         ) : (
           <div className={classNames.detailsWrapperAll}>
             <div className={classNames.detailsSubWrapperAll}>
-              <Typography className={classNames.detailTitle}>
-                {t(TranslationKey['Number of requests']) + ':'}
-              </Typography>
-              <Typography className={classNames.detailDescription}>{service.requests.length}</Typography>
+              <p className={classNames.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
+              <p className={classNames.detailDescription}>{service.requests.length}</p>
             </div>
             <div className={classNames.detailsSubWrapperAll}>
-              <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
-              <Typography className={classNames.detailDescription}>
-                {service.type === 0
-                  ? t(TranslationKey.Universal)
-                  : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])}
-              </Typography>
+              <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+              <p className={classNames.detailDescription}>{detailDescription}</p>
             </div>
           </div>
         )}
 
         <div className={classNames.buttonWrapper}>
-          <Button success={choose || order} className={cx(classNames.openBtn)} onClick={() => onClickButton(service)}>
-            {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
+          <Button success={choose || order} className={classNames.openBtn} onClick={() => onClickButton(service)}>
+            {buttonContent}
           </Button>
         </div>
       </div>
