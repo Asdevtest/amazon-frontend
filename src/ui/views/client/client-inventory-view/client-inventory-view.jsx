@@ -256,7 +256,7 @@ export const ClientInventoryViewRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             columnHeaderHeight={65}
-            rowHeight={160}
+            getRowHeight={() => 'auto'}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
