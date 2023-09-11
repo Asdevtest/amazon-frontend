@@ -22,12 +22,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BoxesUpdatesNotification } from '@components/layout/notifications/boxes-updates-notification'
-import { IdeaNotification } from '@components/layout/notifications/idea-notification'
-import { OrderDeadlineNotification } from '@components/layout/notifications/order-deadline-notification'
-import { OrdersUpdatesNotification } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification'
 import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
-import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DialogModal } from '@components/shared/dialog-modal'
 import { LanguageSelector } from '@components/shared/selectors/language-selector'
@@ -181,6 +176,13 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
     }
   }, [])
 
+  const roleMapper = (roleCode: number) => ({
+    label: () => (UserRoleCodeMap as { [key: number]: string })[roleCode],
+    value: roleCode,
+  })
+  const roles =
+    allowedRolesWithoutCandidate?.length > 1 ? allowedRolesWithoutCandidate?.map(roleMapper) : [roleMapper(role)]
+
   return (
     <div className={classNames.header} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
       <div className={classNames.menuIconWrapper}>
@@ -211,16 +213,13 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
           </div>
         </div>
 
-        <p className={classNames.userRoleTitle}>{t(TranslationKey['your role:'])}</p>
+        <p className={classNames.userRoleTitle}>{t(TranslationKey['Your role:'])}</p>
 
         <div className={classNames.allowedRolesMainWrapper}>
           <CustomSwitcher
             switchMode={'header'}
             condition={role}
-            switcherSettings={allowedRolesWithoutCandidate?.map((roleCode: number) => ({
-              label: () => (UserRoleCodeMap as { [key: number]: string })[roleCode],
-              value: roleCode,
-            }))}
+            switcherSettings={roles}
             changeConditionHandler={value => {
               if (typeof value === 'number') {
                 onChangeUserInfo(value)
@@ -292,7 +291,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
             <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
           </MenuItem>
           <MenuItem className={classNames.mobileAllowedRolesWrapper}>
-            <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['your role:'])}</p>
+            <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
             {allowedRolesWithoutCandidate?.length > 1 ? (
               <div className={classNames.allowedRolesWrapper}>
                 {allowedRolesWithoutCandidate?.map((roleCode: number) => (

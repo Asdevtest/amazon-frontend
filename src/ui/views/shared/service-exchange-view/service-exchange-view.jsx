@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
@@ -53,7 +52,7 @@ export const ServiceExchangeViewRaw = props => {
         </div>
 
         <Box
-          container
+          container="true"
           classes={{ root: classNames.dashboardCardWrapper }}
           className={classNames.dashboardCardWrapper}
           sx={{

@@ -16,7 +16,7 @@ export enum TranslationKey {
   'Sent' = 'Sent',
   'Requested shipments' = 'Requested shipments',
   'Balance' = 'Balance',
-  'your role:' = 'your role:',
+  'Your role:' = 'Your role:',
   'Menu' = 'Menu',
   'Profile' = 'Profile',
   'Exit' = 'Exit',
@@ -2097,5 +2097,6 @@ export enum TranslationKey {
   'Idea closed' = 'Idea closed',
   'SEARCH_BY_TITLE' = 'SEARCH_BY_TITLE',
   'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
+  'Close idea' = 'Close idea',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

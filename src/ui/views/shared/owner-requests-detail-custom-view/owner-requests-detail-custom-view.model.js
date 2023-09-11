@@ -204,7 +204,7 @@ export class OwnerRequestDetailCustomViewModel {
   async onSubmitMessage(message, files, chatIdId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
-        crmItem: this.requestId,
+        crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
         files: files?.map(item => item?.file),

@@ -15,7 +15,7 @@
   "Sent": "已经发货",
   "Requested shipments": "申请的运输",
   "Balance": "余额",
-  "your role:": "角色:",
+  "Your role:": "角色:",
   "Menu": "菜单",
   "Profile": "用户信息",
   "Exit": "退出",
@@ -2097,5 +2097,6 @@
   "Are you sure you want to unbind the product?": "Are you sure you want to unbind the product?",
   "Idea closed": "Idea closed",
   "SEARCH_BY_TITLE": "Title",
-  "You have changed the tab settings. Do you want to save them?": "You have changed the tab settings. Do you want to save them?"
+  "You have changed the tab settings. Do you want to save them?": "You have changed the tab settings. Do you want to save them?",
+  "Close idea": "Close idea"
 }

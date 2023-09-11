@@ -120,8 +120,6 @@ export const AccessToProductForm = React.memo(
       setSelectionModel(model)
     }
 
-    console.log(curProdutsData.slice().sort((a, b) => chosenGoods?.includes(b?._id) - chosenGoods?.includes(a?._id)))
-
     return (
       shops && (
         <Accordion
