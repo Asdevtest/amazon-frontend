@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     marginBottom: 30,
     alignItems: 'center',
+    gap: 5,
 
     [theme.breakpoints.down(768)]: {
       marginBottom: 20,
