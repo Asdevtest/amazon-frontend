@@ -327,6 +327,7 @@ export class MessagesViewModel {
     try {
       await ChatModel.sendMessage({
         chatId,
+        crmItemId: null,
         text: message,
         files: files?.map(item => item?.file),
         user: {
