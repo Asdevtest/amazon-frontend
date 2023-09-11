@@ -193,8 +193,6 @@ export class BuyerProductViewModel {
 
       const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
-      console.log('result', result)
-
       runInAction(() => {
         this.productVariations = result
       })
@@ -476,7 +474,6 @@ export class BuyerProductViewModel {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        console.log(error.body.message)
         this.error = error.body.message
       }
     }

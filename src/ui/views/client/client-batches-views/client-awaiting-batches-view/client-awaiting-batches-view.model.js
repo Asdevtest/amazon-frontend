@@ -329,8 +329,6 @@ export class ClientAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
-
-        console.log()
       })
     } catch (error) {
       runInAction(() => {

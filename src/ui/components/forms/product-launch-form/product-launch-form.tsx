@@ -53,7 +53,6 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
   } = props
 
   const [selectedProduct, setSelectedProduct] = useState<IProductsLaunch | undefined>(undefined)
-  console.log('selectedProduct', selectedProduct)
 
   const [selectedRadioValue, setSelectedRadioValue] = useState<boolean>(false)
 

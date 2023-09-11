@@ -2,7 +2,6 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -467,7 +466,6 @@ export class SupervisorProductViewModel {
   }
 
   async onSaveProductData(updateDataHandler) {
-    console.log(updateDataHandler)
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
