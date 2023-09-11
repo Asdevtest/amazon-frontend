@@ -512,6 +512,6 @@ export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '30%',
+    width: 'fit-content',
   },
 }))
