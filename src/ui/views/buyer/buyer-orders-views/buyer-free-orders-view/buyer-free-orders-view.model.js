@@ -70,7 +70,7 @@ export class BuyerFreeOrdersViewModel {
   setDataGridState() {
     const requestState = {
       sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
+      // filterModel: toJS(this.filterModel),
       paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
@@ -84,7 +84,7 @@ export class BuyerFreeOrdersViewModel {
     runInAction(() => {
       if (state) {
         this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        // this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
         this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
