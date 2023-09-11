@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { Container, Divider, Grid, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
 
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -39,9 +39,9 @@ export const SelectionSupplierModal = ({
 
   const { classes: classNames } = useClassNames()
 
-  const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
+  /* const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
     [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SUPPLIER_TO_IDEAS,
-  })
+  }) */
 
   const buttonSendRequestClsx = cx(classNames.modalButton, {
     [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST,
@@ -50,9 +50,9 @@ export const SelectionSupplierModal = ({
     [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
 
-  const onClickSearchSupplierForIdeaButton = () => {
+  /* const onClickSearchSupplierForIdeaButton = () => {
     setSelectedButtonValue(SelectedButtonValueConfig.SUPPLIER_TO_IDEAS)
-  }
+  } */
 
   const onClickSendRequestButton = () => {
     setSelectedButtonValue(SelectedButtonValueConfig.SEND_REQUEST)
@@ -154,6 +154,7 @@ export const SelectionSupplierModal = ({
         {selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
           <Grid item>
             <Button
+              variant="contained"
               className={classNames.modalButtonBack}
               onClick={() => (buttonValue ? onCloseModal() : setClickNextOrPrevButton(false))}
             >
