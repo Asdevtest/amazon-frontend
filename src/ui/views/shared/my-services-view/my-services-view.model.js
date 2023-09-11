@@ -1,20 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-} from '@constants/statuses/freelance-request-type'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
-
-import { checkIsFreelancer } from '@utils/checks'
 
 export class MyServicesViewModel {
   history = undefined
@@ -111,8 +104,11 @@ export class MyServicesViewModel {
 
   async getUserInfo() {
     const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
+
+    runInAction(() => {
+      this.userInfo = result
+      this.userRole = UserRoleCodeMap[result.role]
+    })
   }
 
   async loadData() {

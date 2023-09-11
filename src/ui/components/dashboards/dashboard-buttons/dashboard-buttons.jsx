@@ -34,7 +34,6 @@ export const DashboardButtons = ({ user, routes }) => {
         <div
           className={classNames.buttonWrapper}
           onClick={() => {
-            console.log(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
             history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
           }}
         >

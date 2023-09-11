@@ -764,8 +764,6 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
-      console.log('this.currentProduct', this.currentProduct)
-
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
