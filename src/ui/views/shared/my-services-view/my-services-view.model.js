@@ -1,20 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-} from '@constants/statuses/freelance-request-type'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
-
-import { checkIsFreelancer } from '@utils/checks'
 
 export class MyServicesViewModel {
   history = undefined
@@ -38,8 +31,6 @@ export class MyServicesViewModel {
   announcements = []
 
   currentData = []
-
-  bigImagesOptions = {}
 
   nameSearchValue = undefined
 
@@ -103,10 +94,6 @@ export class MyServicesViewModel {
         }, 3000)
       }
     })
-  }
-
-  handleBigImageModal = index => {
-    this.bigImagesOptions.imgIndex = index
   }
 
   async getUserInfo() {
@@ -180,13 +167,6 @@ export class MyServicesViewModel {
     this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
       data: data._id,
     })
-  }
-
-  onClickThumbnail(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
-    this.onTriggerOpenModal('showImageModal')
   }
 
   onTriggerOpenModal(modalState) {

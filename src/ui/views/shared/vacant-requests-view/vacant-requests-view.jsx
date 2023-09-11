@@ -111,7 +111,7 @@ export const VacantRequestsViewRaw = props => {
 
         {viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
-            container
+            container="true"
             classes={{ root: classNames.dashboardCardWrapper }}
             display="grid"
             gridTemplateColumns={

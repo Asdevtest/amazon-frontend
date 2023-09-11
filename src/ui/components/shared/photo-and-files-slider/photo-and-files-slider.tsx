@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { ChangeEvent, FC, ReactNode, useEffect, useState } from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -89,7 +88,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   mainClasses,
   onChangeImagesForLoad,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const [imageEditOpen, setImageEditOpen] = useState(false)
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -285,7 +284,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
           ) : null}
         </div>
       ) : (
-        <div className={classNames.noFileWrapper}>
+        <div className={cx(classNames.noFileWrapper, mainClasses)}>
           <div
             className={cx(classNames.slideWrapper, {
               [classNames.slideSmall]: smallSlider,

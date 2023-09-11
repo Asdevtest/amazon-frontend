@@ -2,67 +2,55 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    height: 550,
+    height: 540,
     width: 375,
-    borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
     padding: '35px 20px',
     marginBottom: 40,
     marginLeft: 5,
-  },
-
-  cardCarouselWrapper: {
-    height: 180,
-    width: 335,
-    marginBottom: 40,
-  },
-
-  carouselImage: {
-    maxWidth: 277,
-    width: '100%',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  titleWrapper: {
-    marginBottom: 10,
+    boxShadow: theme.palette.boxShadow.paper,
+    background: theme.palette.background.general,
+    borderRadius: 7,
   },
 
   cardTitle: {
-    width: '100%',
-    fontWeight: 600,
+    marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    fontWeight: 600,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-
-  descriptionWrapper: {
-    marginBottom: 15,
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
-    fontWeight: 400,
+    height: 95,
+    marginBottom: 10,
     fontSize: '14px',
     lineHeight: '19px',
-    height: 76,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 4,
+    WebkitLineClamp: 5,
     WebkitBoxOrient: 'vertical',
   },
 
+  detailsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 10,
+    padding: '0 30px',
+    marginBottom: 20,
+  },
+
+  detailsSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
   detailTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
@@ -74,26 +62,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  detailsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 10,
-    padding: '0 30px',
-    marginBottom: 31,
-  },
-
   detailsWrapperAll: {
-    display: 'flex',
     flexDirection: 'column',
-    gap: 10,
-    padding: '0 30px',
-    marginBottom: 31,
-  },
-
-  detailsSubWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
   },
 
   detailsSubWrapperAll: {
