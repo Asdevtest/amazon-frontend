@@ -298,14 +298,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
   infoBlockWrapper: {
     display: 'flex',
-
+    gap: 10,
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   infoCellWrapper: {
     display: 'flex',
     flexDirection: 'column',
   },
   lastInfoCellWrapper: {
+    width: 130,
     display: 'flex',
     justifyContent: 'flex-end',
   },
