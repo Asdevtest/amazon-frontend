@@ -560,7 +560,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   customSubMainWrapperAsin: {
     padding: '10px 10px !important',
-    width: '200px !important',
+    width: '260px !important',
   },
 
   customSubMainWrapper: {
