@@ -832,7 +832,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && isRejected && (
                   <Button danger variant="contained" onClick={() => onClickCloseIdea(formFields._id)}>
-                    {t(TranslationKey.Close)}
+                    {t(TranslationKey['Close idea'])}
                   </Button>
                 )}
 
