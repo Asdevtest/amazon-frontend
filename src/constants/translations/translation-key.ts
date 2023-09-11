@@ -16,7 +16,7 @@ export enum TranslationKey {
   'Sent' = 'Sent',
   'Requested shipments' = 'Requested shipments',
   'Balance' = 'Balance',
-  'your role:' = 'your role:',
+  'Your role:' = 'Your role:',
   'Menu' = 'Menu',
   'Profile' = 'Profile',
   'Exit' = 'Exit',
