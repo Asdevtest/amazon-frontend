@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -155,7 +153,6 @@ export const ClientInStockBoxesViewRaw = props => {
               condition={viewModel.currentStorekeeperId}
               switcherSettings={[
                 ...viewModel.storekeepersData
-                  .slice()
                   .filter(storekeeper => storekeeper.boxesCount !== 0)
                   .sort((a, b) => a.name?.localeCompare(b.name))
                   .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
@@ -180,7 +177,6 @@ export const ClientInStockBoxesViewRaw = props => {
             condition={viewModel.curDestinationId}
             switcherSettings={[
               ...viewModel.clientDestinations
-                .slice()
                 .filter(destination => destination.boxesCount !== 0)
                 .sort((a, b) => a.name?.localeCompare(b.name))
                 .map(destination => ({ label: () => destination?.name, value: destination?._id })),
