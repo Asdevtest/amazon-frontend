@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { memo, useState } from 'react'
 
-import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Link, Tooltip } from '@mui/material'
 
 import {
   getConversion,
@@ -26,7 +24,7 @@ import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { TabPanel } from '@components/shared/tab-panel'
 import { UserLink } from '@components/user/user-link'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -43,6 +41,11 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
 
+const tabNames = {
+  BOX_INFO: 0,
+  ORDER_INFO: 1,
+}
+
 export const BoxViewForm = observer(
   ({
     box,
@@ -55,7 +58,7 @@ export const BoxViewForm = observer(
     onClickHsCode,
     calcFinalWeightForBoxFunction,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useClassNames()
 
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -103,380 +106,395 @@ export const BoxViewForm = observer(
     const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
     const weightSizesType = getWeightSizesType(sizeSetting)
 
-    return (
-      <div className={classNames.formContainer}>
-        <div className={classNames.titleWrapper}>
-          <div className={classNames.titlePrepIdWrapper}>
-            <Typography variant="h6" className={classNames.title}>{`${t(TranslationKey.Box)} № ${
-              box.humanFriendlyId
-            } `}</Typography>
+    const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${box.humanFriendlyId}/ prep id:`
 
-            <div className={classNames.titlePrepIdSubWrapper}>
-              <Typography variant="h6" className={classNames.title}>{`ID:`}</Typography>
+    const [activeTab, setActiveTab] = useState(tabNames.BOX_INFO)
+
+    console.log('activeTab', activeTab)
+
+    return (
+      <>
+        <div className={styles.wrapper}>
+          <div className={styles.header}>
+            <div className={styles.boxAndPrepIdContainer}>
+              <p className={styles.boxAndPrepIdTitle}>{boxAndPrepIdTitle}</p>
+
               <Input
                 disabled={!(isClient || isStorekeeper)}
-                className={classNames.itemInput}
-                classes={{ input: classNames.input }}
+                className={styles.boxAndPrepIdInput}
+                classes={{ input: styles.input }}
                 inputProps={{ maxLength: 25 }}
                 value={formFields.prepId}
                 onChange={onChangeField('prepId')}
               />
             </div>
-          </div>
 
-          <div className={classNames.titleSubWrapper}>
-            <div className={classNames.storekeeperFieldWrapper}>
-              <Field
-                oneLine
-                label={`${t(TranslationKey['Int warehouse'])}:`}
-                containerClasses={classNames.storekeeperField}
-                inputComponent={
-                  <div className={classNames.userLinkWrapper}>
-                    <UserLink
-                      blackText
-                      name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
-                      userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
-                    />
-                  </div>
-                }
-              />
-            </div>
-
-            <div className={classNames.batchIdWrapper}>
-              <Typography className={classNames.batchId}>{`${t(TranslationKey.Batch)} № ${
-                (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
-                t(TranslationKey['Not available'])
-              }`}</Typography>
-            </div>
-
-            <div className={classNames.UpdatedWrapper}>
-              <Field
-                oneLine
-                label={`${t(TranslationKey.Updated)}:`}
-                containerClasses={classNames.UpdatedField}
-                inputComponent={
-                  <Typography className={classNames.updatedAt}>{formatShortDateTime(box.updatedAt)}</Typography>
-                }
-              />
-            </div>
-          </div>
-        </div>
-        <Divider className={classNames.divider} />
-        <div className={classNames.blocksWrapper}>
-          <div className={classNames.blockWrapper}>
-            <Grid container className={classNames.deliveryInfoWrapper}>
-              <Grid item>
-                <Field
-                  disabled
-                  inputClasses={classNames.deliveryInfoField}
-                  labelClasses={classNames.label}
-                  label={t(TranslationKey.Destination)}
-                  value={box.destination?.name || t(TranslationKey['Not available'])}
-                  placeholder={t(TranslationKey['Not available'])}
-                />
-              </Grid>
-
-              <Grid item>
-                <Field
-                  disabled
-                  inputClasses={classNames.deliveryInfoField}
-                  labelClasses={classNames.label}
-                  label={t(TranslationKey.Tariff)}
-                  value={getNewTariffTextForBoxOrOrder(box) || ''}
-                  placeholder={t(TranslationKey['Not available'])}
-                />
-              </Grid>
-            </Grid>
-
-            <div className={classNames.productsWrapper}>
-              <Content
-                items={formFields.items}
-                box={box}
-                onClickHsCode={onClickHsCode}
-                onChangeHsCode={onChangeHsCode}
-              />
-            </div>
-          </div>
-
-          <div className={classNames.blockWrapper}>
-            <div className={classNames.imgSizesWrapper}>
-              <div className={classNames.imgWrapper}>
-                <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
-                <div className={classNames.imgBoxWrapper}>
-                  <PhotoAndFilesSlider withoutFiles files={box.images} />
+            {box.amount ? (
+              <div className={styles.superBoxContainer}>
+                <div className={styles.superBoxIconContainer}>
+                  <img src="/assets/icons/big-box.svg" className={styles.superBoxIcon} alt="super box" />
+                  <span className={styles.superBoxText}>SB</span>
                 </div>
+                <p className={styles.superBoxText}>{`x${box.amount}`}</p>
               </div>
+            ) : null}
 
-              <div className={classNames.sizesWrapper}>
-                <div className={classNames.demensionsWrapper}>
-                  <div className={classNames.sizesSubWrapper}>
-                    <Typography className={classNames.label}>{t(TranslationKey.Dimensions) + ':'}</Typography>
+            <div className={styles.updatedContainer}>
+              <p className={styles.updatedText}>{`${t(TranslationKey.Updated)}:`}</p>
+              <p className={styles.updatedTitle}>{formatShortDateTime(box.updatedAt)}</p>
+            </div>
+          </div>
 
-                    <div>
-                      <CustomSwitcher
-                        condition={sizeSetting}
-                        switcherSettings={[
-                          { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                          { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                        ]}
-                        changeConditionHandler={condition => setSizeSetting(condition)}
-                      />
+          <div className={styles.divider} />
+
+          <div className={styles.information}>
+            <div className={styles.informationContainer}>
+              <p className={styles.informationTitle}>{t(TranslationKey.Destination)}</p>
+              <p className={styles.informationText}>{box.destination?.name || t(TranslationKey['Not available'])}</p>
+            </div>
+
+            <div className={styles.informationContainer}>
+              <p className={styles.informationTitle}>{t(TranslationKey.Tariff)}</p>
+              <p className={styles.informationText}>
+                {getNewTariffTextForBoxOrOrder(box) || t(TranslationKey['Not available'])}
+              </p>
+            </div>
+
+            <div className={cx(styles.informationContainer, styles.informationContainerMinGap)}>
+              <p className={styles.informationTitle}>{t(TranslationKey['Int warehouse'])}</p>
+              <UserLink
+                blackText
+                withAvatar
+                name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
+                userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
+                customClassNames={styles.informationUser}
+              />
+            </div>
+
+            <div className={styles.informationContainer}>
+              <p className={styles.informationTitle}>{t(TranslationKey.Batch)}</p>
+              <p className={styles.informationText}>
+                {(batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
+                  t(TranslationKey['Not available'])}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <CustomSwitcher
+              switchMode="medium"
+              condition={activeTab}
+              switcherSettings={[
+                {
+                  label: () => t(TranslationKey['Box info']),
+                  value: tabNames.BOX_INFO,
+                },
+
+                {
+                  label: () => t(TranslationKey['Order info']),
+                  value: tabNames.ORDER_INFO,
+                },
+              ]}
+              changeConditionHandler={value => setActiveTab(value)}
+            />
+
+            <TabPanel value={activeTab} index={tabNames.BOX_INFO}>
+              0000000
+            </TabPanel>
+            <TabPanel value={activeTab} index={tabNames.ORDER_INFO}>
+              11111111
+            </TabPanel>
+          </div>
+
+          <div className={styles.blocksWrapper}>
+            <div className={styles.blockWrapper}>
+              <div className={styles.productsWrapper}>
+                <Content
+                  items={formFields.items}
+                  box={box}
+                  onClickHsCode={onClickHsCode}
+                  onChangeHsCode={onChangeHsCode}
+                />
+              </div>
+            </div>
+
+            <div className={styles.blockWrapper}>
+              <div className={styles.imgSizesWrapper}>
+                <div className={styles.imgWrapper}>
+                  <p className={styles.label}>{t(TranslationKey['Box photos:'])}</p>
+                  <div className={styles.imgBoxWrapper}>
+                    <PhotoAndFilesSlider withoutFiles files={box.images} />
+                  </div>
+                </div>
+
+                <div className={styles.sizesWrapper}>
+                  <div className={styles.demensionsWrapper}>
+                    <div className={styles.sizesSubWrapper}>
+                      <p className={styles.label}>{t(TranslationKey.Dimensions) + ':'}</p>
+
+                      <div>
+                        <CustomSwitcher
+                          condition={sizeSetting}
+                          switcherSettings={[
+                            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                          ]}
+                          changeConditionHandler={condition => setSizeSetting(condition)}
+                        />
+                      </div>
                     </div>
+                    <p className={styles.standartText}>
+                      {t(TranslationKey.Length) + ': '}
+                      {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
+                    </p>
+                    <p className={styles.standartText}>
+                      {t(TranslationKey.Width) + ': '}
+                      {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
+                    </p>
+                    <p className={styles.standartText}>
+                      {t(TranslationKey.Height) + ': '}
+                      {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
+                    </p>
+
+                    <p className={styles.standartText}>
+                      {t(TranslationKey.Weight) + ': '}
+                      {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
+                    </p>
+                    <p className={styles.standartText}>
+                      {t(TranslationKey['Volume weight']) + ': '}
+                      {toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}
+                    </p>
+                    <p
+                      className={cx(styles.standartText, {
+                        [styles.alertText]: finalWeightForBox / weightConversion < totalWeightConversion,
+                      })}
+                    >
+                      {t(TranslationKey['Final weight']) + ': '}
+                      {`${toFixed(finalWeightForBox / weightConversion, 2)} ${weightSizesType}!`}
+                    </p>
+
+                    {finalWeightForBox / weightConversion < totalWeightConversion ? (
+                      // eslint-disable-next-line react/jsx-indent
+                      <span className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+                        totalWeightConversion,
+                        2,
+                      )} ${weightSizesType}!`}</span>
+                    ) : null}
+
+                    {box.amount > 1 ? (
+                      <p className={styles.standartText}>
+                        {t(TranslationKey['Total final weight']) + ': '}
+                        {toFixed((finalWeightForBox / weightConversion) * box.amount, 2)}
+                        {' ' + weightSizesType}
+                      </p>
+                    ) : null}
                   </div>
-                  <Typography className={classNames.standartText}>
-                    {t(TranslationKey.Length) + ': '}
-                    {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
-                  </Typography>
-                  <Typography className={classNames.standartText}>
-                    {t(TranslationKey.Width) + ': '}
-                    {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
-                  </Typography>
-                  <Typography className={classNames.standartText}>
-                    {t(TranslationKey.Height) + ': '}
-                    {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
-                  </Typography>
-
-                  <Typography className={classNames.standartText}>
-                    {t(TranslationKey.Weight) + ': '}
-                    {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
-                  </Typography>
-                  <Typography className={classNames.standartText}>
-                    {t(TranslationKey['Volume weight']) + ': '}
-                    {toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}
-                  </Typography>
-                  <Typography
-                    className={cx(classNames.standartText, {
-                      [classNames.alertText]: finalWeightForBox / weightConversion < totalWeightConversion,
-                    })}
-                  >
-                    {t(TranslationKey['Final weight']) + ': '}
-                    {`${toFixed(finalWeightForBox / weightConversion, 2)} ${weightSizesType}!`}
-                  </Typography>
-
-                  {finalWeightForBox / weightConversion < totalWeightConversion ? (
-                    // eslint-disable-next-line react/jsx-indent
-                    <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
-                      totalWeightConversion,
-                      2,
-                    )} ${weightSizesType}!`}</span>
-                  ) : null}
-
-                  {box.amount > 1 ? (
-                    <Typography className={classNames.standartText}>
-                      {t(TranslationKey['Total final weight']) + ': '}
-                      {toFixed((finalWeightForBox / weightConversion) * box.amount, 2)}
-                      {' ' + weightSizesType}
-                    </Typography>
-                  ) : null}
                 </div>
               </div>
-            </div>
 
-            <div>
-              <div className={cx(classNames.labelsInfoWrapper, classNames.checkboxWrapper)}>
-                <div className={classNames.checkboxContainer}>
-                  <Checkbox
-                    disabled
-                    className={classNames.checkbox}
-                    checked={box.isShippingLabelAttachedByStorekeeper}
-                  />
+              <div>
+                <div className={cx(styles.labelsInfoWrapper, styles.checkboxWrapper)}>
+                  <div className={styles.checkboxContainer}>
+                    <Checkbox disabled className={styles.checkbox} checked={box.isShippingLabelAttachedByStorekeeper} />
 
-                  <Typography className={classNames.label}>
-                    {t(TranslationKey['Shipping label was glued to the warehouse'])}
-                  </Typography>
-                </div>
+                    <p className={styles.label}>{t(TranslationKey['Shipping label was glued to the warehouse'])}</p>
+                  </div>
 
-                <div className={classNames.checkboxContainer}>
-                  <Checkbox disabled className={classNames.checkbox} checked={box.isFormed} />
-                  <Typography className={classNames.label}>{t(TranslationKey.Formed)}</Typography>
-                </div>
+                  <div className={styles.checkboxContainer}>
+                    <Checkbox disabled className={styles.checkbox} checked={box.isFormed} />
+                    <p className={styles.label}>{t(TranslationKey.Formed)}</p>
+                  </div>
 
-                {/* <Field
+                  {/* <Field
                   oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  labelClasses={classNames.label}
+                  containerClasses={styles.checkboxContainer}
+                  labelClasses={styles.label}
                   label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                   inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
                 />
                 <Field
                   oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  labelClasses={classNames.label}
+                  containerClasses={styles.checkboxContainer}
+                  labelClasses={styles.label}
                   label={t(TranslationKey.Formed)}
                   inputComponent={<Checkbox disabled checked={box.isFormed} />}
                 /> */}
-              </div>
+                </div>
 
-              <div className={classNames.labelsInfoWrapper}>
-                <Field
-                  label={t(TranslationKey['Shipping label'])}
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputComponent={
-                    <div className={classNames.barCodeWrapper}>
-                      {box.shippingLabel ? (
-                        <div className={classNames.barCode}>
-                          <Typography className={classNames.linkWrapper}>
-                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                              {t(TranslationKey.View)}
-                            </Link>
-                          </Typography>
+                <div className={styles.labelsInfoWrapper}>
+                  <Field
+                    label={t(TranslationKey['Shipping label'])}
+                    labelClasses={styles.label}
+                    containerClasses={styles.containerField}
+                    inputComponent={
+                      <div className={styles.barCodeWrapper}>
+                        {box.shippingLabel ? (
+                          <div className={styles.barCode}>
+                            <p className={styles.linkWrapper}>
+                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                                {t(TranslationKey.View)}
+                              </Link>
+                            </p>
 
-                          <CopyValue text={box.shippingLabel} />
-                        </div>
+                            <CopyValue text={box.shippingLabel} />
+                          </div>
+                        ) : (
+                          <p className={styles.linkField}>{t(TranslationKey['Not available'])}</p>
+                        )}
+                      </div>
+                    }
+                  />
+
+                  <Field
+                    disabled
+                    labelClasses={styles.label}
+                    containerClasses={styles.containerField}
+                    inputClasses={styles.inputField}
+                    label={t(TranslationKey['FBA Shipment'])}
+                    value={box.fbaShipment || t(TranslationKey['Not available'])}
+                  />
+                </div>
+
+                <div className={styles.labelsInfoWrapper}>
+                  <Field
+                    disabled={!isEdit || isBuyer}
+                    labelClasses={styles.label}
+                    containerClasses={styles.containerField}
+                    inputClasses={styles.shortInputField}
+                    inputProps={{ maxLength: 250 }}
+                    label={t(TranslationKey['Reference id'])}
+                    value={formFields.referenceId}
+                    onChange={onChangeField('referenceId')}
+                  />
+
+                  <Field
+                    disabled={!isEdit || isBuyer}
+                    labelClasses={styles.label}
+                    containerClasses={styles.containerField}
+                    inputClasses={styles.shortInputField}
+                    inputProps={{ maxLength: 250 }}
+                    label={'FBA number'}
+                    value={formFields.fbaNumber}
+                    onChange={onChangeField('fbaNumber')}
+                  />
+
+                  <Field
+                    disabled={isClient || isBuyer}
+                    labelClasses={styles.label}
+                    containerClasses={styles.containerField}
+                    inputClasses={styles.inputField}
+                    inputProps={{ maxLength: 250 }}
+                    label={'UPS Track number'}
+                    value={formFields.upsTrackNumber}
+                    onChange={onChangeField('upsTrackNumber')}
+                  />
+                </div>
+
+                {!isClient ? (
+                  <div className={styles.labelsInfoWrapper}>
+                    <div>
+                      <Field
+                        disabled={!isEdit}
+                        labelClasses={styles.label}
+                        containerClasses={styles.containerField}
+                        inputClasses={styles.inputField}
+                        inputProps={{ maxLength: 250 }}
+                        label={t(TranslationKey['Track number'])}
+                        value={formFields.trackNumberText}
+                        onChange={onChangeField('trackNumberText')}
+                      />
+
+                      <Button
+                        disabled={!isEdit}
+                        className={styles.trackNumberPhotoBtn}
+                        onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                      >
+                        {formFields.tmpTrackNumberFile[0]
+                          ? t(TranslationKey['File added'])
+                          : t(TranslationKey['Photo track numbers'])}
+                      </Button>
+                    </div>
+
+                    <div className={styles.trackNumberPhotoWrapper}>
+                      {formFields.trackNumberFile[0] || formFields.tmpTrackNumberFile[0] ? (
+                        <CustomSlider>
+                          {(formFields.trackNumberFile.length
+                            ? formFields.trackNumberFile
+                            : formFields.tmpTrackNumberFile
+                          ).map((el, index) => (
+                            <img
+                              key={index}
+                              className={styles.trackNumberPhoto}
+                              src={
+                                formFields.tmpTrackNumberFile[index]
+                                  ? typeof formFields.tmpTrackNumberFile[index] === 'string'
+                                    ? formFields.tmpTrackNumberFile[index]
+                                    : formFields.tmpTrackNumberFile[index]?.data_url
+                                  : formFields.trackNumberFile[index]
+                              }
+                              // variant="square"
+                              onClick={() => {
+                                setShowPhotosModal(!showPhotosModal)
+                                setBigImagesOptions({
+                                  ...bigImagesOptions,
+
+                                  images: [...formFields.tmpTrackNumberFile, ...formFields.trackNumberFile],
+                                })
+                              }}
+                            />
+                          ))}
+                        </CustomSlider>
                       ) : (
-                        <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
+                        <p>{`${t(TranslationKey['no photo track number'])}...`}</p>
                       )}
                     </div>
-                  }
-                />
-
-                <Field
-                  disabled
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputClasses={classNames.inputField}
-                  label={t(TranslationKey['FBA Shipment'])}
-                  value={box.fbaShipment || t(TranslationKey['Not available'])}
-                />
-              </div>
-
-              <div className={classNames.labelsInfoWrapper}>
-                <Field
-                  disabled={!isEdit || isBuyer}
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputClasses={classNames.shortInputField}
-                  inputProps={{ maxLength: 250 }}
-                  label={t(TranslationKey['Reference id'])}
-                  value={formFields.referenceId}
-                  onChange={onChangeField('referenceId')}
-                />
-
-                <Field
-                  disabled={!isEdit || isBuyer}
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputClasses={classNames.shortInputField}
-                  inputProps={{ maxLength: 250 }}
-                  label={'FBA number'}
-                  value={formFields.fbaNumber}
-                  onChange={onChangeField('fbaNumber')}
-                />
-
-                <Field
-                  disabled={isClient || isBuyer}
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputClasses={classNames.inputField}
-                  inputProps={{ maxLength: 250 }}
-                  label={'UPS Track number'}
-                  value={formFields.upsTrackNumber}
-                  onChange={onChangeField('upsTrackNumber')}
-                />
-              </div>
-
-              {!isClient ? (
-                <div className={classNames.labelsInfoWrapper}>
-                  <div>
-                    <Field
-                      disabled={!isEdit}
-                      labelClasses={classNames.label}
-                      containerClasses={classNames.containerField}
-                      inputClasses={classNames.inputField}
-                      inputProps={{ maxLength: 250 }}
-                      label={t(TranslationKey['Track number'])}
-                      value={formFields.trackNumberText}
-                      onChange={onChangeField('trackNumberText')}
-                    />
-
-                    <Button
-                      disabled={!isEdit}
-                      className={classNames.trackNumberPhotoBtn}
-                      onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                    >
-                      {formFields.tmpTrackNumberFile[0]
-                        ? t(TranslationKey['File added'])
-                        : t(TranslationKey['Photo track numbers'])}
-                    </Button>
                   </div>
-
-                  <div className={classNames.trackNumberPhotoWrapper}>
-                    {formFields.trackNumberFile[0] || formFields.tmpTrackNumberFile[0] ? (
-                      <CustomSlider>
-                        {(formFields.trackNumberFile.length
-                          ? formFields.trackNumberFile
-                          : formFields.tmpTrackNumberFile
-                        ).map((el, index) => (
-                          <img
-                            key={index}
-                            className={classNames.trackNumberPhoto}
-                            src={
-                              formFields.tmpTrackNumberFile[index]
-                                ? typeof formFields.tmpTrackNumberFile[index] === 'string'
-                                  ? formFields.tmpTrackNumberFile[index]
-                                  : formFields.tmpTrackNumberFile[index]?.data_url
-                                : formFields.trackNumberFile[index]
-                            }
-                            // variant="square"
-                            onClick={() => {
-                              setShowPhotosModal(!showPhotosModal)
-                              setBigImagesOptions({
-                                ...bigImagesOptions,
-
-                                images: [...formFields.tmpTrackNumberFile, ...formFields.trackNumberFile],
-                              })
-                            }}
-                          />
-                        ))}
-                      </CustomSlider>
-                    ) : (
-                      <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
-                    )}
-                  </div>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
             </div>
           </div>
-        </div>
-        <div className={classNames.commentsWrapper}>
-          <Field
-            multiline
-            disabled={!isClient || !onSubmitChangeFields}
-            minRows={3}
-            maxRows={3}
-            label={t(TranslationKey['Client comment'])}
-            placeholder={isClient && onSubmitChangeFields && t(TranslationKey['Add comment'])}
-            className={classNames.commentField}
-            labelClasses={classNames.label}
-            value={formFields.clientComment}
-            onChange={onChangeField('clientComment')}
-          />
 
-          <Field
-            multiline
-            disabled={!isStorekeeper || !onSubmitChangeFields}
-            minRows={3}
-            maxRows={3}
-            label={t(TranslationKey['Storekeeper comment'])}
-            placeholder={isStorekeeper && onSubmitChangeFields && t(TranslationKey['Add comment'])}
-            className={classNames.commentField}
-            labelClasses={classNames.label}
-            value={formFields.storekeeperComment}
-            onChange={onChangeField('storekeeperComment')}
-          />
-        </div>
-        <div className={classNames.buttonsWrapper}>
-          {isEdit && (
-            <Button success onClick={() => onSubmitChangeFields(formFields)}>
-              {t(TranslationKey.Save)}
+          <div className={styles.commentsWrapper}>
+            <Field
+              multiline
+              disabled={!isClient || !onSubmitChangeFields}
+              minRows={3}
+              maxRows={3}
+              label={t(TranslationKey['Client comment'])}
+              placeholder={isClient && onSubmitChangeFields && t(TranslationKey['Add comment'])}
+              className={styles.commentField}
+              labelClasses={styles.label}
+              value={formFields.clientComment}
+              onChange={onChangeField('clientComment')}
+            />
+
+            <Field
+              multiline
+              disabled={!isStorekeeper || !onSubmitChangeFields}
+              minRows={3}
+              maxRows={3}
+              label={t(TranslationKey['Storekeeper comment'])}
+              placeholder={isStorekeeper && onSubmitChangeFields && t(TranslationKey['Add comment'])}
+              className={styles.commentField}
+              labelClasses={styles.label}
+              value={formFields.storekeeperComment}
+              onChange={onChangeField('storekeeperComment')}
+            />
+          </div>
+
+          <div className={styles.buttonsWrapper}>
+            {isEdit && (
+              <Button success onClick={() => onSubmitChangeFields(formFields)}>
+                {t(TranslationKey.Save)}
+              </Button>
+            )}
+
+            <Button variant="text" className={styles.closeBtn} onClick={setOpenModal}>
+              {t(TranslationKey.Close)}
             </Button>
-          )}
-
-          <Button variant="text" className={classNames.closeBtn} onClick={setOpenModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </div>
         </div>
+
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={'Track number'}
@@ -497,95 +515,93 @@ export const BoxViewForm = observer(
           imageList={bigImagesOptions.images}
           handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
         />
-      </div>
+      </>
     )
   },
 )
 
-const Content = React.memo(
+const Content = memo(
   ({ items, box, onClickHsCode, onChangeHsCode }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useClassNames()
 
     return (
       <CustomSlider alignButtons="end">
         {items.map((item, index) => (
-          <div key={index} className={classNames.productWrapper}>
-            <div className={classNames.leftColumn}>
-              <div className={classNames.photoWrapper}>
+          <div key={index} className={styles.productWrapper}>
+            <div className={styles.leftColumn}>
+              <div className={styles.photoWrapper}>
                 <PhotoAndFilesSlider withoutFiles files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
-                <Typography className={classNames.amazonTitle}>
-                  {getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}
-                </Typography>
+                <p className={styles.amazonTitle}>{getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}</p>
               </Tooltip>
 
-              <div className={classNames.copyAsin}>
-                <div className={classNames.asinWrapper}>
-                  <Typography>{t(TranslationKey.ASIN)}</Typography>
+              <div className={styles.copyAsin}>
+                <div className={styles.asinWrapper}>
+                  <p>{t(TranslationKey.ASIN)}</p>
                   {item.product.asin ? (
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href={`https://www.amazon.com/dp/${item.product.asin}`}
-                      className={classNames.normalizeLink}
+                      className={styles.normalizeLink}
                     >
-                      <span className={classNames.linkSpan}>{shortAsin(item.product.asin)}</span>
+                      <span className={styles.linkSpan}>{shortAsin(item.product.asin)}</span>
                     </a>
                   ) : (
-                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                    <span className={styles.typoSpan}>{t(TranslationKey.Missing)}</span>
                   )}
                 </div>
                 {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
               </div>
             </div>
 
-            <div className={classNames.rightColumn}>
+            <div className={styles.rightColumn}>
               <Field
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 label={t(TranslationKey['HS code'])}
                 inputProps={{ maxLength: 255 }}
                 value={item.product.hsCode}
                 placeholder={t(TranslationKey['Not available'])}
                 inputComponent={
-                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id, true)}>
+                  <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id, true)}>
                     {t(TranslationKey['HS code'])}
                   </Button>
                 }
                 onChange={onChangeHsCode(index)}
               />
 
-              <div className={classNames.priorityWrapper}>
-                <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
+              <div className={styles.priorityWrapper}>
+                <p className={styles.label}>{`${t(TranslationKey.Priority)}:`}</p>
                 {item.order.priority === orderPriority.urgentPriority ? (
-                  <div className={classNames.rushOrderWrapper}>
-                    <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
-                    <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+                  <div className={styles.rushOrderWrapper}>
+                    <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
+                    <p className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</p>
                   </div>
                 ) : null}
                 {item.order.priority !== orderPriority.urgentPriority && !item.order.expressChinaDelivery ? (
-                  <div className={classNames.rushOrderWrapper}>
-                    <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+                  <div className={styles.rushOrderWrapper}>
+                    <p className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</p>
                   </div>
                 ) : null}
               </div>
 
               <Field
                 label={t(TranslationKey.BarCode)}
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 inputComponent={
                   item.barCode ? (
-                    <div className={classNames.barCode}>
-                      <Typography className={classNames.linkWrapper}>
+                    <div className={styles.barCode}>
+                      <p className={styles.linkWrapper}>
                         <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
                           {t(TranslationKey.View)}
                         </Link>
-                      </Typography>
+                      </p>
 
                       <CopyValue text={item.barCode} />
                     </div>
                   ) : (
-                    <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
+                    <p className={styles.linkField}>{t(TranslationKey['Not available'])}</p>
                   )
                 }
               />
@@ -593,24 +609,24 @@ const Content = React.memo(
               {item.isBarCodeAlreadyAttachedByTheSupplier ? (
                 <Field
                   oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  labelClasses={classNames.label}
+                  containerClasses={styles.checkboxContainer}
+                  labelClasses={styles.label}
                   label={t(TranslationKey['BarCode is glued by supplier'])}
                   inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
                 />
               ) : (
                 <Field
                   oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  labelClasses={classNames.label}
+                  containerClasses={styles.checkboxContainer}
+                  labelClasses={styles.label}
                   label={t(TranslationKey['BarCode is glued by storekeeper'])}
                   inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
                 />
               )}
               <Field
                 disabled
-                containerClasses={classNames.countContainer}
-                labelClasses={classNames.label}
+                containerClasses={styles.countContainer}
+                labelClasses={styles.label}
                 label={t(TranslationKey.Quantity)}
                 value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
                 placeholder={t(TranslationKey['Not available'])}
@@ -618,8 +634,8 @@ const Content = React.memo(
 
               <Field
                 disabled
-                containerClasses={classNames.countContainer}
-                labelClasses={classNames.label}
+                containerClasses={styles.countContainer}
+                labelClasses={styles.label}
                 label={t(TranslationKey['Order number/Item'])}
                 value={`${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`}
               />

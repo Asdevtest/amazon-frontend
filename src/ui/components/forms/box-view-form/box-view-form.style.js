@@ -1,6 +1,138 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  boxAndPrepIdContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  boxAndPrepIdTitle: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    color: theme.palette.text.general,
+  },
+
+  boxAndPrepIdInput: {
+    width: 240,
+    height: 40,
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 7,
+  },
+
+  input: {
+    fontSize: 16,
+    lineHeight: '22px',
+    color: theme.palette.text.general,
+  },
+
+  superBoxContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  superBoxIconContainer: {
+    padding: '5px 15px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 7,
+  },
+
+  superBoxIcon: {
+    width: 28,
+    height: 28,
+  },
+
+  superBoxText: {
+    fontSize: 22,
+    lineHeight: '28px',
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+  },
+
+  updatedContainer: {
+    marginLeft: 'auto',
+    display: 'flex',
+    gap: 10,
+  },
+
+  updatedText: {
+    fontSize: 18,
+    lineHeight: '25px',
+    color: theme.palette.text.second,
+  },
+
+  updatedTitle: {
+    fontSize: 18,
+    lineHeight: '25px',
+    color: theme.palette.text.general,
+  },
+
+  divider: {
+    height: 1,
+    width: '100%',
+    background: '#E0E0E0',
+  },
+
+  information: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+
+  informationContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  informationContainerMinGap: {
+    gap: 17,
+  },
+
+  informationTitle: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  informationText: {
+    minWidth: 150,
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: 16,
+    lineHeight: '22px',
+    color: theme.palette.text.general,
+  },
+
+  informationUser: {
+    fontSize: 16,
+    lineHeight: '22px',
+    fontWeight: 400,
+    color: theme.palette.text.general,
+  },
+
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -9,28 +141,6 @@ export const useClassNames = makeStyles()(theme => ({
   closeBtn: {
     marginLeft: 40,
     color: theme.palette.text.general,
-  },
-
-  formContainer: {
-    padding: '0 20px',
-    width: '1040px',
-    [theme.breakpoints.down(768)]: {
-      padding: 0,
-      width: '280px',
-    },
-  },
-
-  itemInput: {
-    width: 280,
-    height: 40,
-    marginLeft: 10,
-    // marginBottom: 20,
-    textAlign: 'center',
-  },
-
-  input: {
-    textAlign: 'center',
-    fontSize: 16,
   },
 
   title: {
@@ -78,18 +188,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentField: {
     height: 'auto',
-  },
-
-  titleWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'start',
-      gap: '20px',
-      marginBottom: 0,
-    },
   },
 
   storekeeperField: {
@@ -380,14 +478,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: 10,
   },
 
-  divider: {
-    backgroundColor: '#E0E0E0',
-    margin: '0 -40px 15px -40px',
-    [theme.breakpoints.down(768)]: {
-      backgroundColor: '#E0E0E0',
-      margin: '0 -20px 15px -20px',
-    },
-  },
   label: {
     fontSize: '14px',
     lineHeight: '19px',

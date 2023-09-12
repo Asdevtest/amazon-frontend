@@ -2098,5 +2098,6 @@ export enum TranslationKey {
   'SEARCH_BY_TITLE' = 'SEARCH_BY_TITLE',
   'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
   'Close idea' = 'Close idea',
+  'Order info' = 'Order info',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
