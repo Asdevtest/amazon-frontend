@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import { Checkbox, Divider, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import {
@@ -15,8 +15,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
 import { roundSafely } from '@utils/calculation'
@@ -334,7 +333,7 @@ export const CreateBoxForm = observer(
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
-    const handleChange = (event, newAlignment) => {
+    /* const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
 
       if (newAlignment === sizesType.INCHES) {
@@ -356,7 +355,7 @@ export const CreateBoxForm = observer(
           })),
         )
       }
-    }
+    } */
 
     return (
       <div className={classNames.root}>
@@ -403,17 +402,18 @@ export const CreateBoxForm = observer(
             />
           </div>
 
-          <Divider className={classNames.divider} />
+          <div className={classNames.divider} />
 
           <div className={classNames.sizesSubWrapper}>
-            <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-              <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                {'In'}
-              </ToggleBtn>
-              <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                {'Cm'}
-              </ToggleBtn>
-            </ToggleBtnGroup>
+            <CustomSwitcher
+              switchMode="small"
+              condition={sizeSetting}
+              switcherSettings={[
+                { label: () => sizesType.INCHES.slice(0, 2), value: sizesType.INCHES },
+                { label: () => sizesType.CM, value: sizesType.CM },
+              ]}
+              changeConditionHandler={condition => setSizeSetting(condition)}
+            />
           </div>
 
           {formFieldsArr ? (
