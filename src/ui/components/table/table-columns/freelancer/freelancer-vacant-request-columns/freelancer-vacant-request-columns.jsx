@@ -34,13 +34,20 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Priority),
     renderHeader: () => (
       <MultilineTextHeaderCell
+        textCenter
         component={<img src="/assets/icons/bookmark.svg" />}
         // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    width: 60,
-    renderCell: params => <PriorityAndChinaDeliverCell isRequest priority={params.row.originalData.priority} />,
+    width: 70,
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        isRequest
+        priority={params.row.originalData.priority}
+        onClickOpenInNewTab={() => handlers.onClickOpenInNewTab(params.row._id)}
+      />
+    ),
 
     filterable: false,
     sortable: false,
@@ -211,20 +218,20 @@ export const FreelancerVacantRequestColumns = handlers => [
     columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
   },
 
-  {
-    field: 'actions',
-    headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
-    renderCell: params => (
-      <NormalActionBtnCell
-        // disabled={!params.row.batch}
-        bTnText={t(TranslationKey.Details)}
-        onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
-      />
-    ),
-    width: 126,
-  },
+  // {
+  //   field: 'actions',
+  //   headerName: t(TranslationKey.Actions),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+  //
+  //   renderCell: params => (
+  //     <NormalActionBtnCell
+  //       // disabled={!params.row.batch}
+  //       bTnText={t(TranslationKey.Details)}
+  //       onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
+  //     />
+  //   ),
+  //   width: 126,
+  // },
 
   {
     field: 'updatedAt',

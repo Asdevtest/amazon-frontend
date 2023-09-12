@@ -105,7 +105,10 @@ export class VacantRequestsViewModel {
     ),
   }
 
-  handlers = { onClickViewMore: id => this.onClickViewMore(id) }
+  handlers = {
+    onClickViewMore: id => this.onClickViewMore(id),
+    onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
+  }
 
   columnsModel = FreelancerVacantRequestColumns(
     this.handlers,
@@ -493,5 +496,16 @@ export class VacantRequestsViewModel {
       }/freelance/vacant-requests/custom-search-request/create-proposal`,
       { request: toJS(this.currentRequestDetails) },
     )
+  }
+
+  onClickOpenInNewTab(id) {
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 }
