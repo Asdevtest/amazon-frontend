@@ -86,7 +86,12 @@ export const FreelanceRequestDetailsModal = props => {
           {details?.conditions && (
             <div className={styles.category}>
               <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
-              <CustomTextEditor readOnly conditions={details?.conditions} changeConditions={undefined} />
+              <CustomTextEditor
+                readOnly
+                editorMaxHeight={styles.editorWrapper}
+                conditions={details?.conditions}
+                changeConditions={undefined}
+              />
             </div>
           )}
 

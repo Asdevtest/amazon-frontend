@@ -101,4 +101,9 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     paddingBottom: '20px',
     width: 'fit-content',
   },
+
+  editorWrapper: {
+    maxHeight: '400px !important',
+    maxWidth: '796px',
+  },
 }))
