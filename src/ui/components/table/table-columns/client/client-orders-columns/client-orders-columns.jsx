@@ -47,7 +47,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 100,
     sortable: false,
 

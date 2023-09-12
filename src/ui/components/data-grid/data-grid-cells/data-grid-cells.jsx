@@ -1427,21 +1427,25 @@ export const MultilineTextCell = React.memo(
     ({
       classes: classNames,
       text,
-      noTextText,
+      noText,
       color,
       otherStyles,
-      threeLines,
       withTooltip,
       leftAlign,
       tooltipText,
       withLineBreaks,
       onClickText,
       oneLines,
+      twoLines,
+      threeLines,
       illuminationCell,
       customTextStyles,
+      maxLength,
     }) => {
-      const isValidTextLength = text?.length <= MAX_LENGTH_TITLE
-      const textForRender = isValidTextLength ? text : getShortenStringIfLongerThanCount(text, MAX_LENGTH_TITLE)
+      const isValidTextLength = text?.length <= maxLength || MAX_LENGTH_TITLE
+      const textForRender = isValidTextLength
+        ? text
+        : getShortenStringIfLongerThanCount(text, maxLength || MAX_LENGTH_TITLE)
 
       return (
         <>
@@ -1457,15 +1461,16 @@ export const MultilineTextCell = React.memo(
                     classNames.multilineText,
                     { [classNames.multilineLeftAlignText]: leftAlign },
                     { [classNames.multilineLink]: onClickText && textForRender },
-                    { [classNames.threeMultilineText]: threeLines },
                     { [classNames.oneMultilineText]: oneLines },
+                    { [classNames.twoMultilineText]: twoLines },
+                    { [classNames.threeMultilineText]: threeLines },
                   )}
                   style={otherStyles || customTextStyles || (color && { color })}
                   onClick={onClickText && onClickText}
                 >
                   {checkIsString(textForRender) && !withLineBreaks
                     ? textForRender.replace(/\n/g, ' ')
-                    : textForRender || noTextText || '-'}
+                    : textForRender || noText || '-'}
                 </Typography>
               </div>
             </Tooltip>
@@ -1482,6 +1487,7 @@ export const MultilineTextCell = React.memo(
                   { [classNames.multilineLink]: onClickText && textForRender },
                   { [classNames.threeMultilineText]: threeLines },
                   { [classNames.oneMultilineText]: oneLines },
+                  { [classNames.twoMultilineText]: twoLines },
                   { [classNames.fulfilled]: customTextStyles },
                 )}
                 style={otherStyles || customTextStyles || (color && { color })}
@@ -1489,7 +1495,7 @@ export const MultilineTextCell = React.memo(
               >
                 {checkIsString(textForRender) && !withLineBreaks
                   ? textForRender.replace(/\n/g, ' ')
-                  : textForRender || noTextText || '-'}
+                  : textForRender || noText || '-'}
               </Typography>
             </div>
           )}

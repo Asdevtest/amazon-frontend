@@ -669,27 +669,34 @@ export const styles = theme => ({
     wordWrap: 'break-word',
   },
 
+  oneMultilineText: {
+    height: 19,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  twoMultilineText: {
+    maxHeight: 38,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+  },
+
   threeMultilineText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 48,
+    maxHeight: 57,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-  },
-
-  oneMultilineText: {
-    justifyContent: 'center',
-    height: 16,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
   },
 
