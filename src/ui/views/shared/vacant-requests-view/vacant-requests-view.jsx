@@ -41,18 +41,6 @@ export const VacantRequestsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  const getSortedData = mode => {
-    switch (mode) {
-      case tableSortMode.DESK:
-        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-      case tableSortMode.ASC:
-        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-    }
-  }
-
-  const dataToRender = getSortedData(viewModel.sortMode)
-
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
       return [classNames.deadlineBorder, classNames.redBorder]
@@ -123,7 +111,7 @@ export const VacantRequestsViewRaw = props => {
             }
             gap={'35px'}
           >
-            {dataToRender?.map((item, index) =>
+            {viewModel.currentData?.map((item, index) =>
               viewModel.viewMode === tableViewMode.LIST ? (
                 <VacantRequestListCard
                   key={item._id}

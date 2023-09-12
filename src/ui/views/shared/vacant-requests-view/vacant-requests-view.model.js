@@ -443,11 +443,20 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       if (this.sortMode === tableSortMode.DESK) {
         this.sortMode = tableSortMode.ASC
+        this.sortModel[0] = {
+          ...this.sortModel[0],
+          sort: tableSortMode.ASC,
+        }
       } else {
         this.sortMode = tableSortMode.DESK
+        this.sortModel[0] = {
+          ...this.sortModel[0],
+          sort: tableSortMode.DESC,
+        }
       }
     })
 
+    this.getRequestsVacant()
     this.setTableModeState()
   }
 
