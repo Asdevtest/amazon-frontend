@@ -1887,7 +1887,7 @@ export const styles = theme => ({
   div: {
     display: 'flex',
     width: 104,
-    marginRight: 5,
+    marginRight: 15,
   },
 
   ideaActions: {
