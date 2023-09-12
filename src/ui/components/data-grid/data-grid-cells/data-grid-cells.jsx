@@ -1674,7 +1674,7 @@ export const MultilineTextHeaderCell = React.memo(
 export const IconHeaderCell = React.memo(withStyles(({ classes: classNames, url }) => <img src={url} />, styles))
 
 export const PriorityAndChinaDeliverCell = React.memo(
-  withStyles(({ classes: classNames, priority, chinaDelivery, status, isRequest }) => {
+  withStyles(({ classes: classNames, priority, chinaDelivery, status, isRequest, onClickOpenInNewTab }) => {
     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
 
     return (
@@ -1694,6 +1694,8 @@ export const PriorityAndChinaDeliverCell = React.memo(
             </div>
           ) : null}
         </div>
+
+        {onClickOpenInNewTab && <OpenInNewTabCell onClickOpenInNewTab={onClickOpenInNewTab} />}
       </div>
     )
   }, styles),
@@ -3080,16 +3082,7 @@ export const SelectRowCell = React.memo(
         {checkboxComponent}
 
         <div className={classNames.buttonsWrapper}>
-          <Tooltip
-            arrow
-            title={t(TranslationKey['Open in a new tab'])}
-            placement="top"
-            classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
-          >
-            <div className={classNames.iconWrapper} onClick={onClickShareIcon}>
-              <ShareLinkIcon className={classNames.shareLinkIcon} />
-            </div>
-          </Tooltip>
+          <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
 
           {showVariationButton && (
             <Tooltip
@@ -3518,6 +3511,25 @@ export const TimeFromSeconds = React.memo(
       </div>
     ) : (
       <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : 0} />
+    )
+  }, styles),
+)
+
+export const OpenInNewTabCell = React.memo(
+  withStyles(props => {
+    const { classes: styles, onClickOpenInNewTab } = props
+
+    return (
+      <Tooltip
+        arrow
+        title={t(TranslationKey['Open in a new tab'])}
+        placement="top"
+        classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
+      >
+        <div className={styles.iconWrapper} onClick={onClickOpenInNewTab}>
+          <ShareLinkIcon className={styles.shareLinkIcon} />
+        </div>
+      </Tooltip>
     )
   }, styles),
 )

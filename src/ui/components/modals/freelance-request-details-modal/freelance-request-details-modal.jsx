@@ -95,9 +95,11 @@ export const FreelanceRequestDetailsModal = props => {
             </div>
           )}
 
-          <div className={styles.suggestDeal}>
-            <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>
-          </div>
+          {onClickSuggest && (
+            <div className={styles.suggestDeal}>
+              <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>
+            </div>
+          )}
         </div>
       </div>
     </Modal>

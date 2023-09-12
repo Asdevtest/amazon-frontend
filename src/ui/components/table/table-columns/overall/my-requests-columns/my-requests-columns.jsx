@@ -35,6 +35,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
         status={params.row.originalData.status}
+        onClickOpenInNewTab={() => rowHandlers.onClickOpenInNewTab(params.row._id)}
       />
     ),
 
