@@ -6,5 +6,6 @@ export const tableViewMode = {
 
 export const tableSortMode = {
   DESK: 'DESK',
+  DESC: 'DESC',
   ASC: 'ASC',
 }
