@@ -153,7 +153,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
+    renderCell: params => <MultilineTextCell text={params.value} noText={t(TranslationKey['Outside Batch'])} />,
     type: 'number',
     width: 110,
 
