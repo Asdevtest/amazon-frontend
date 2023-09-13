@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { isPast, isToday, isValid } from 'date-fns'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
@@ -222,7 +221,7 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        /* (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))) || */
+        (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
@@ -240,8 +239,12 @@ export const OrderProductModal = ({
         <Table className={classNames.table}>
           <TableHead>
             <TableRow className={classNames.tableRow}>
-              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
+              <TableCell className={classNames.imgCell}>
+                <p className={classNames.cellText}>{t(TranslationKey.Image)}</p>
+              </TableCell>
+              <TableCell className={classNames.productCell}>
+                <p className={classNames.cellText}>{t(TranslationKey.Product)}</p>
+              </TableCell>
               <TableCell className={classNames.priceCell}>
                 <Button
                   disabled
@@ -323,7 +326,9 @@ export const OrderProductModal = ({
                   {t(TranslationKey['Client comment'])}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.deadlineCell}>{'Deadline'}</TableCell>
+              <TableCell className={classNames.deadlineCell}>
+                <p className={classNames.cellText}>{'Deadline'}</p>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
