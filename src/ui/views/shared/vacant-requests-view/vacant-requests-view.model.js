@@ -418,9 +418,14 @@ export class VacantRequestsViewModel {
 
   async onClickViewMore(id) {
     try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
-      )
+      window
+        .open(
+          `/${
+            UserRoleCodeMapForRoutes[this.user.role]
+          }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+          '_blank',
+        )
+        .focus()
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)
