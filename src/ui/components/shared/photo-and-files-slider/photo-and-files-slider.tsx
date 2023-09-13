@@ -128,8 +128,6 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     setPhotos(photoFiltering)
   }, [files])
 
-  const filteredImagesTitles = files?.length ? (imagesTitles || []).filter((el, i) => checkIsImageLink(files[i])) : []
-
   const updateImagesForLoad = (newPhotos: Array<string | UploadFile>) => {
     if (onChangeImagesForLoad) {
       onChangeImagesForLoad([...documents, ...newPhotos])
@@ -324,7 +322,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
         handleOpenModal={handlePhotosModalToggle}
         imageList={photos.map((photo, index) => ({
           url: typeof photo === 'string' ? photo : photo.data_url,
-          comment: filteredImagesTitles[index],
+          comment: (imagesTitles ?? [])[index],
         }))}
         currentImageIndex={photoIndex}
         handleCurrentImageIndex={imgIndex => setPhotoIndex(imgIndex)}

@@ -40,6 +40,7 @@ import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
@@ -888,12 +889,11 @@ export const CreateOrEditRequestContent = observer(
                         </div>
 
                         <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
-                        <PhotoAndFilesCarousel
-                          small
-                          direction={'column'}
+                        <PhotoAndFilesSlider
+                          column
+                          smallSlider
                           files={images.map(el => el.file)}
                           imagesTitles={images.map(el => el.comment)}
-                          width={399}
                         />
                       </div>
 
