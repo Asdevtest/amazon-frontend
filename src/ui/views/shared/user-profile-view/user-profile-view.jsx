@@ -159,11 +159,9 @@ export const UserProfileViewRaw = props => {
         }}
       />
 
-      <Modal
-        openModal={viewModel.showConfirmWorkResultFormModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-      >
+      {viewModel.showConfirmWorkResultFormModal && (
         <RequestProposalAcceptOrRejectResultForm
+          openModal={viewModel.showConfirmWorkResultFormModal}
           title={t(TranslationKey['Confirm acceptance of the work result'])}
           rateLabel={t(TranslationKey['Rate the performer'])}
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
@@ -172,7 +170,7 @@ export const UserProfileViewRaw = props => {
           onSubmit={viewModel.onAcceptReview}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
-      </Modal>
+      )}
     </>
   )
 }
