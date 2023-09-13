@@ -96,7 +96,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
     filterable: false,

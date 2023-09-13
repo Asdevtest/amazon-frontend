@@ -1442,10 +1442,10 @@ export const MultilineTextCell = React.memo(
       customTextStyles,
       maxLength,
     }) => {
-      const isValidTextLength = text?.length <= maxLength || MAX_LENGTH_TITLE
+      const isValidTextLength = text?.length <= maxLength ?? MAX_LENGTH_TITLE
       const textForRender = isValidTextLength
         ? text
-        : getShortenStringIfLongerThanCount(text, maxLength || MAX_LENGTH_TITLE)
+        : getShortenStringIfLongerThanCount(text, maxLength ?? MAX_LENGTH_TITLE)
 
       return (
         <>
