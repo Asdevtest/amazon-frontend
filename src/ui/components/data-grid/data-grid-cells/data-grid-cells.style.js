@@ -252,7 +252,7 @@ export const styles = theme => ({
   },
   orderText: {
     fontSize: 13,
-    maxWidth: 165,
+    maxWidth: 225,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
