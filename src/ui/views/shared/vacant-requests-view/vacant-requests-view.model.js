@@ -446,12 +446,14 @@ export class VacantRequestsViewModel {
         this.sortModel[0] = {
           ...this.sortModel[0],
           sort: tableSortMode.ASC,
+          field: 'updatedAt',
         }
       } else {
         this.sortMode = tableSortMode.DESK
         this.sortModel[0] = {
           ...this.sortModel[0],
           sort: tableSortMode.DESC,
+          field: 'updatedAt',
         }
       }
     })
