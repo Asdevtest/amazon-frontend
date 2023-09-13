@@ -5,7 +5,7 @@ import { useState } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, Typography } from '@mui/material'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import {
   OrderStatus,
   OrderStatusByKey,
@@ -39,6 +39,15 @@ const BlockOfNewBox = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
+  const volumeWeightConversionFactor = sizeSetting === unitsOfChangeOptions.EU ? Math.pow(inchesCoefficient, 3) : 1
+  const volumeWeight = toFixed(
+    (orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier * volumeWeightConversionFactor) /
+      volumeWeightCoefficient,
+    2,
+  )
+  const finalWeightConversionFactor = sizeSetting === unitsOfChangeOptions.EU ? 1 : Math.pow(inchesCoefficient, 3)
+  const finalWeight = toFixed(Math.max(volumeWeight, orderBox.weighGrossKgSupplier / finalWeightConversionFactor), 2)
+
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsBlocksSubWrapper}>
@@ -71,41 +80,8 @@ const BlockOfNewBox = ({
           />
         </div>
         <div className={classNames.numberInputFieldsWrapper}>
-          <Field
-            disabled
-            label={t(TranslationKey['Volume weight, kg'])}
-            value={toFixed(
-              (sizeSetting === sizesType.INCHES
-                ? orderBox.heightCmSupplier *
-                  inchesCoefficient *
-                  orderBox.widthCmSupplier *
-                  inchesCoefficient *
-                  orderBox.lengthCmSupplier *
-                  inchesCoefficient
-                : orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier) /
-                volumeWeightCoefficient,
-              2,
-            )}
-          />
-          <Field
-            disabled
-            label={t(TranslationKey['Final weight, kg'])}
-            value={toFixed(
-              Math.max(
-                toFixed(
-                  (sizeSetting === sizesType.INCHES
-                    ? roundSafely(orderBox.heightCmSupplier * inchesCoefficient) *
-                      roundSafely(orderBox.widthCmSupplier * inchesCoefficient) *
-                      roundSafely(orderBox.lengthCmSupplier * inchesCoefficient)
-                    : roundSafely(orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier)) /
-                    volumeWeightCoefficient,
-                  2,
-                ),
-                orderBox.weighGrossKgSupplier,
-              ),
-              2,
-            )}
-          />
+          <Field disabled label={t(TranslationKey['Volume weight, kg'])} value={volumeWeight} />
+          <Field disabled label={t(TranslationKey['Final weight, kg'])} value={finalWeight} />
         </div>
 
         <div className={classNames.numberInputFieldsWrapper}>
@@ -225,17 +201,17 @@ export const CreateBoxForm = observer(
         ...editingBox,
 
         lengthCmSupplier:
-          (sizeSetting === sizesType.INCHES
+          (sizeSetting === unitsOfChangeOptions.EU
             ? Math.round(editingBox.lengthCmSupplier * inchesCoefficient * 100) / 100
             : editingBox.lengthCmSupplier) || 0,
 
         widthCmSupplier:
-          (sizeSetting === sizesType.INCHES
+          (sizeSetting === unitsOfChangeOptions.EU
             ? Math.round(editingBox.widthCmSupplier * inchesCoefficient * 100) / 100
             : editingBox.widthCmSupplier) || 0,
 
         heightCmSupplier:
-          (sizeSetting === sizesType.INCHES
+          (sizeSetting === unitsOfChangeOptions.EU
             ? Math.round(editingBox.heightCmSupplier * inchesCoefficient * 100) / 100
             : editingBox.heightCmSupplier) || 0,
       }))
@@ -251,19 +227,19 @@ export const CreateBoxForm = observer(
         tmpUseCurrentSupplierDimensions: e.target.checked,
 
         lengthCmSupplier: e.target.checked
-          ? (sizeSetting === sizesType.INCHES
+          ? (sizeSetting === unitsOfChangeOptions.EU
               ? roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)
               : toFixed(currentSupplier.boxProperties.boxLengthCm, 2)) || 0
           : '',
 
         widthCmSupplier: e.target.checked
-          ? (sizeSetting === sizesType.INCHES
+          ? (sizeSetting === unitsOfChangeOptions.EU
               ? roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)
               : toFixed(currentSupplier.boxProperties.boxWidthCm, 2)) || 0
           : '',
 
         heightCmSupplier: e.target.checked
-          ? (sizeSetting === sizesType.INCHES
+          ? (sizeSetting === unitsOfChangeOptions.EU
               ? roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)
               : toFixed(currentSupplier.boxProperties.boxHeightCm, 2)) || 0
           : '',
@@ -331,12 +307,12 @@ export const CreateBoxForm = observer(
           (currentSupplier.multiplicity && el.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0),
       )
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
     /* const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
 
-      if (newAlignment === sizesType.INCHES) {
+      if (newAlignment === unitsOfChangeOptions.EU) {
         setFormFieldsArr(
           formFieldsArr.map(editingBox => ({
             ...editingBox,
@@ -409,8 +385,8 @@ export const CreateBoxForm = observer(
               switchMode="small"
               condition={sizeSetting}
               switcherSettings={[
-                { label: () => sizesType.INCHES.slice(0, 2), value: sizesType.INCHES },
-                { label: () => sizesType.CM, value: sizesType.CM },
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
               ]}
               changeConditionHandler={condition => setSizeSetting(condition)}
             />
