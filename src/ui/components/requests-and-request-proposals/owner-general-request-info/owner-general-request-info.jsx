@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Typography } from '@mui/material'
