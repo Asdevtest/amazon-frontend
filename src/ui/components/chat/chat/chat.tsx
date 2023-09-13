@@ -11,7 +11,6 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import { isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,6 +25,8 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat.styles'
 
@@ -91,6 +92,7 @@ export const Chat: FC<Props> = observer(
     onClickEditGroupChatInfo,
   }) => {
     const { classes: classNames } = useClassNames()
+    const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)

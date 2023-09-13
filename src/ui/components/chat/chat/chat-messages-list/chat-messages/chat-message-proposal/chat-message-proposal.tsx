@@ -1,7 +1,6 @@
 import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,6 +16,8 @@ import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-proposal.style'
 
@@ -36,6 +37,7 @@ interface Props {
 export const ChatMessageProposal: FC<Props> = ({ message, handlers, isShowChatInfo }) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
   const proporsalStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status

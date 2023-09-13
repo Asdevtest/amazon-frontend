@@ -3,7 +3,6 @@ import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -15,6 +14,8 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './multiple-chats.styles'
 
@@ -90,6 +91,7 @@ export const MultipleChats = observer(
       ref,
     ) => {
       const { classes: classNames } = useClassNames()
+      const { isMobileResolution } = useCreateBreakpointResolutions()
 
       const filteredChats = chats
         .filter(el => {

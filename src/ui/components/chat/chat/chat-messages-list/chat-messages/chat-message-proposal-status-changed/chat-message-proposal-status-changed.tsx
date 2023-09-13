@@ -1,7 +1,6 @@
 import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,6 +17,8 @@ import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-proposal-status-changed.style'
 
@@ -38,6 +39,7 @@ interface Props {
 
 export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isShowChatInfo, isLastMessage }) => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
