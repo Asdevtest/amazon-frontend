@@ -95,6 +95,7 @@ export const OrderModalBodyRow = ({
     item.currentSupplier?.minlot &&
     item.currentSupplier?.priceInYuan &&
     item.currentSupplier?.price
+
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
       setOrderStateFiled(nameInput)(event)
