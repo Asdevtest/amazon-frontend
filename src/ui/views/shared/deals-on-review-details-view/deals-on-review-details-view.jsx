@@ -38,12 +38,10 @@ export const DealsOnReviewDetailsView = observer(props => {
         />
       </div>
 
-      <Modal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      >
+      {viewModel.showConfirmModal && (
         <RequestProposalAcceptOrRejectResultForm
           isSupervisor
+          openModal={viewModel.showConfirmModal}
           title={t(TranslationKey['Confirm acceptance of the work result'])}
           rateLabel={t(TranslationKey['Rate the performer'])}
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
@@ -52,9 +50,9 @@ export const DealsOnReviewDetailsView = observer(props => {
           onSubmit={viewModel.onClickConfirmDeal}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
-      </Modal>
+      )}
 
-      <Modal openModal={viewModel.showRejectModal} setOpenModal={() => viewModel.onTriggerOpenModal('showRejectModal')}>
+      {viewModel.showRejectModal && (
         <RequestProposalAcceptOrRejectResultForm
           isReject
           isSupervisor
@@ -63,10 +61,11 @@ export const DealsOnReviewDetailsView = observer(props => {
           reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
           rejectButtonText={t(TranslationKey['Reject the deal'])}
           cancelBtnText={t(TranslationKey.Cancel)}
+          openModal={viewModel.showRejectModal}
           onSubmit={viewModel.onClickRejectDeal}
           onClose={() => viewModel.onTriggerOpenModal('showRejectModal')}
         />
-      </Modal>
+      )}
 
       <Modal openModal={viewModel.showReworkModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReworkModal')}>
         <RequestProposalResultToCorrectForm onPressSubmitForm={viewModel.onClickReworkDeal} />

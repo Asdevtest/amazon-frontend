@@ -205,11 +205,9 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showConfirmWorkResultFormModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-      >
+      {viewModel.showConfirmWorkResultFormModal && (
         <RequestProposalAcceptOrRejectResultForm
+          openModal={viewModel.showConfirmWorkResultFormModal}
           title={t(TranslationKey['Confirm acceptance of the work result'])}
           rateLabel={t(TranslationKey['Rate the performer'])}
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
@@ -218,7 +216,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
           onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
-      </Modal>
+      )}
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}
