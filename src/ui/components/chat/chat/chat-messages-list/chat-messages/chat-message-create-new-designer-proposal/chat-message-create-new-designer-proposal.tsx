@@ -152,13 +152,15 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
               {t(TranslationKey.Reject)}
             </Button>
           )}
-          <Button
-            success
-            className={cx(classNames.actionButton /* , classNames.successBtn */)}
-            onClick={() => handlers.onClickProposalAccept(message.data.proposal._id, message.data.proposal.price)}
-          >
-            {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
-          </Button>
+          {requestStatus !== RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
+            <Button
+              success
+              className={cx(classNames.actionButton /* , classNames.successBtn */)}
+              onClick={() => handlers.onClickProposalAccept(message.data.proposal._id, message.data.proposal.price)}
+            >
+              {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
+            </Button>
+          )}
         </div>
       ) : null}
     </div>
