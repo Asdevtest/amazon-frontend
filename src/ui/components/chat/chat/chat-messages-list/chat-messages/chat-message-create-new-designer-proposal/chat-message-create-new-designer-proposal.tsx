@@ -3,7 +3,6 @@ import { FC, useContext } from 'react'
 
 import { Divider } from '@mui/material'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,6 +19,8 @@ import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-create-new-designer-proposal.style'
 
@@ -38,6 +39,7 @@ interface Props {
 
 export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 

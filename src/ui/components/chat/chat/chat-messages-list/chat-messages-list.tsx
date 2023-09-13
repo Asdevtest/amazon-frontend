@@ -4,8 +4,6 @@ import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { Avatar, Link } from '@mui/material'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
-
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
@@ -15,6 +13,8 @@ import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-messages-list.style'
 
@@ -62,6 +62,7 @@ export const ChatMessagesList: FC<Props> = observer(
     chatId,
   }) => {
     const { classes: classNames } = useClassNames()
+    const { isMobileResolution } = useCreateBreakpointResolutions()
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
     const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
