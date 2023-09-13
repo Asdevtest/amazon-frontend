@@ -46,7 +46,7 @@ export const MyProposalsListCard = ({
                   userId={item?.createdBy?._id}
                   customClassNames={classNames.customUserLink}
                 />
-                <Rating disabled size="small" value={item?.createdBy?.rating} />
+                <Rating readOnly size="small" value={item?.createdBy?.rating} />
               </div>
             </div>
 
