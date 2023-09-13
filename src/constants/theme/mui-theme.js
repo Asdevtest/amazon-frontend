@@ -745,7 +745,7 @@ export const darkTheme = createTheme({
         disabledBackground: '#2E4760',
         disabledSuccessText: '#41715A',
         disabledSuccessBackground: '#184831',
-        disabledDangerText: '#E5FFEF',
+        disabledDangerText: '#636369',
         disabledDangerBackground: '#451F27',
       },
 
