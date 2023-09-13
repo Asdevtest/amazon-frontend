@@ -62,6 +62,7 @@ interface Props {
   chatMessageHandlers?: ChatMessageUniversalHandlers
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
+  isFreelanceOwner?: boolean
   searchPhrase?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
@@ -89,6 +90,7 @@ export const Chat: FC<Props> = observer(
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
+    isFreelanceOwner,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -109,7 +111,7 @@ export const Chat: FC<Props> = observer(
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
-    const isGroupChat = chat.type === chatsType.GROUP
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
 
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)

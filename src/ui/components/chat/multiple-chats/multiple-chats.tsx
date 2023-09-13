@@ -131,6 +131,7 @@ export const MultipleChats = observer(
           <div className={cx(classNames.rightSide, { [classNames.mobileResolution]: !isChatSelectedAndFound })}>
             {isChatSelectedAndFound ? (
               <Chat
+                isFreelanceOwner={isFreelanceOwner}
                 userId={userId}
                 chat={findChatByChatId}
                 messages={findChatByChatId.messages}
