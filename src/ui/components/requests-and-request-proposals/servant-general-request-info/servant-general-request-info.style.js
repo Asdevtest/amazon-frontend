@@ -127,6 +127,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: 20,
   },
 
+  urgentIconSmall: {
+    width: 16,
+    height: 16,
+  },
+
   urgentText: {
     fontSize: 14,
     lineHeight: '19px',
