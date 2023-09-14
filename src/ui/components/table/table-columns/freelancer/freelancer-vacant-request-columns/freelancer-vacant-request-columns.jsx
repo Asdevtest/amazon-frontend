@@ -40,7 +40,7 @@ export const FreelancerVacantRequestColumns = handlers => [
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    width: 70,
+    width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         isRequest

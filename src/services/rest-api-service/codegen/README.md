@@ -385,6 +385,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultToCorrectPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
 *TestSwagger.RequestsApi* | [**apiV1RequestsByProductLightGuidGet**](docs/RequestsApi.md#apiV1RequestsByProductLightGuidGet) | **GET** /api/v1/requests/by_product/light/{guid} | Получить облегченный список заявок по продукту
 *TestSwagger.RequestsApi* | [**apiV1RequestsCalculateRequestCostGuidGet**](docs/RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализацию стоимости заявки
+*TestSwagger.RequestsApi* | [**apiV1RequestsCompletedGuidPatch**](docs/RequestsApi.md#apiV1RequestsCompletedGuidPatch) | **PATCH** /api/v1/requests/completed/{guid} | # Метод для ручного закрытия заявки
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomGet**](docs/RequestsApi.md#apiV1RequestsCustomGet) | **GET** /api/v1/requests/custom/ | Получить все уникальные заявки для исполнителя.
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomGuidGet**](docs/RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить уникальную заявку по его guid.
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomGuidPatch**](docs/RequestsApi.md#apiV1RequestsCustomGuidPatch) | **PATCH** /api/v1/requests/custom/{guid} | #  Изменить заявку.
@@ -451,7 +452,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить продукт.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsLightGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsLightGet) | **GET** /api/v1/supervisors/products/light | # Получить облегченный список товаров взятых на проверку супервайзером.
-*TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsMyGet) | **GET** /api/v1/supervisors/products/my | # Получить список товаров взятых на проверку супервайзером.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsPagMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsPagMyGet) | **GET** /api/v1/supervisors/products/pag/my | # Получить список товаров взятых на проверку супервайзером с пагинацией.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsPickupGuidPost**](docs/SupervisorApi.md#apiV1SupervisorsProductsPickupGuidPost) | **POST** /api/v1/supervisors/products/pickup/{guid} | # Закрепить продукт за супервайзером. Взять его в работу.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsVacGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsVacGet) | **GET** /api/v1/supervisors/products/vac | # Получить список вакантных товаров.
@@ -753,21 +753,21 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
- - [TestSwagger.InlineResponse20029AllFiles](docs/InlineResponse20029AllFiles.md)
- - [TestSwagger.InlineResponse20029AllImages](docs/InlineResponse20029AllImages.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)
  - [TestSwagger.InlineResponse2002SubUsers](docs/InlineResponse2002SubUsers.md)
  - [TestSwagger.InlineResponse2003](docs/InlineResponse2003.md)
  - [TestSwagger.InlineResponse20030](docs/InlineResponse20030.md)
+ - [TestSwagger.InlineResponse20030Rows](docs/InlineResponse20030Rows.md)
  - [TestSwagger.InlineResponse20031](docs/InlineResponse20031.md)
  - [TestSwagger.InlineResponse20032](docs/InlineResponse20032.md)
- - [TestSwagger.InlineResponse20032Rows](docs/InlineResponse20032Rows.md)
  - [TestSwagger.InlineResponse20033](docs/InlineResponse20033.md)
  - [TestSwagger.InlineResponse20034](docs/InlineResponse20034.md)
  - [TestSwagger.InlineResponse20035](docs/InlineResponse20035.md)
  - [TestSwagger.InlineResponse20036](docs/InlineResponse20036.md)
+ - [TestSwagger.InlineResponse20036AllFiles](docs/InlineResponse20036AllFiles.md)
+ - [TestSwagger.InlineResponse20036AllImages](docs/InlineResponse20036AllImages.md)
  - [TestSwagger.InlineResponse20037](docs/InlineResponse20037.md)
  - [TestSwagger.InlineResponse20037Batch](docs/InlineResponse20037Batch.md)
  - [TestSwagger.InlineResponse20037Boxes](docs/InlineResponse20037Boxes.md)
@@ -807,8 +807,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse20050](docs/InlineResponse20050.md)
  - [TestSwagger.InlineResponse20051](docs/InlineResponse20051.md)
- - [TestSwagger.InlineResponse20051Failed](docs/InlineResponse20051Failed.md)
  - [TestSwagger.InlineResponse20052](docs/InlineResponse20052.md)
+ - [TestSwagger.InlineResponse20052Failed](docs/InlineResponse20052Failed.md)
  - [TestSwagger.InlineResponse20053](docs/InlineResponse20053.md)
  - [TestSwagger.InlineResponse20054](docs/InlineResponse20054.md)
  - [TestSwagger.InlineResponse20055](docs/InlineResponse20055.md)
@@ -836,10 +836,11 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20070](docs/InlineResponse20070.md)
  - [TestSwagger.InlineResponse20071](docs/InlineResponse20071.md)
  - [TestSwagger.InlineResponse20072](docs/InlineResponse20072.md)
+ - [TestSwagger.InlineResponse20072Rows](docs/InlineResponse20072Rows.md)
  - [TestSwagger.InlineResponse20073](docs/InlineResponse20073.md)
  - [TestSwagger.InlineResponse20074](docs/InlineResponse20074.md)
+ - [TestSwagger.InlineResponse20074Rows](docs/InlineResponse20074Rows.md)
  - [TestSwagger.InlineResponse20075](docs/InlineResponse20075.md)
- - [TestSwagger.InlineResponse20075Rows](docs/InlineResponse20075Rows.md)
  - [TestSwagger.InlineResponse20076](docs/InlineResponse20076.md)
  - [TestSwagger.InlineResponse20077](docs/InlineResponse20077.md)
  - [TestSwagger.InlineResponse20078](docs/InlineResponse20078.md)
@@ -847,8 +848,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse20080](docs/InlineResponse20080.md)
  - [TestSwagger.InlineResponse20081](docs/InlineResponse20081.md)
- - [TestSwagger.InlineResponse20082](docs/InlineResponse20082.md)
- - [TestSwagger.InlineResponse20082Details](docs/InlineResponse20082Details.md)
+ - [TestSwagger.InlineResponse20081Details](docs/InlineResponse20081Details.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)

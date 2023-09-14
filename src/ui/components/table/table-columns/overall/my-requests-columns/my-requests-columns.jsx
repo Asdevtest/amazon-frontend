@@ -28,7 +28,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    width: 60,
+    width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         isRequest

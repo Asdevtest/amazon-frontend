@@ -19,7 +19,6 @@ import InlineObject119 from '../model/InlineObject119';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20022 from '../model/InlineResponse20022';
 import InlineResponse20072 from '../model/InlineResponse20072';
-import InlineResponse20073 from '../model/InlineResponse20073';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -147,53 +146,6 @@ export default class SupervisorApi {
 
 
     /**
-     * # Получить список товаров взятых на проверку супервайзером.
-     * ## Получить список товаров взятых на проверку супервайзером.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20072>} and HTTP response
-     */
-    apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [InlineResponse20072];
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Получить список товаров взятых на проверку супервайзером.
-     * ## Получить список товаров взятых на проверку супервайзером.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20072>}
-     */
-    apiV1SupervisorsProductsMyGet(opts) {
-      return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * # Получить список товаров взятых на проверку супервайзером с пагинацией.
      * ## Получить список товаров взятых на проверку супервайзером с пагинацией.   
      * @param {Object} opts Optional parameters
@@ -205,7 +157,7 @@ export default class SupervisorApi {
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.statusGroup \"allProducts\": [5, 205, 15, 20, 30, 230, 35, 235, 40, 240, 50, 250, 60, 260, 70, 270, 75, 275, 80, 280, 90, 290],     \"rejectedBySupervisor\": [20],     \"onCheckWithSupervisor\": [5, 205],     \"atTheBuyerInWork\": [230, 30, 235, 35],     \"searchComplete\": [70, 270],     \"supplierWasNotFound\": [50, 250, 80, 280],     \"supplierPriceDoesNotFit\": [60, 260, 90, 290],     \"paidByTheClient\": [275, 75],     \"productIsAppropriate\": [15],     \"buyerFoundSupplier\": [240, 40]
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20073} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20072} and HTTP response
      */
     apiV1SupervisorsProductsPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -231,7 +183,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20073;
+      let returnType = InlineResponse20072;
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -251,7 +203,7 @@ export default class SupervisorApi {
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.statusGroup \"allProducts\": [5, 205, 15, 20, 30, 230, 35, 235, 40, 240, 50, 250, 60, 260, 70, 270, 75, 275, 80, 280, 90, 290],     \"rejectedBySupervisor\": [20],     \"onCheckWithSupervisor\": [5, 205],     \"atTheBuyerInWork\": [230, 30, 235, 35],     \"searchComplete\": [70, 270],     \"supplierWasNotFound\": [50, 250, 80, 280],     \"supplierPriceDoesNotFit\": [60, 260, 90, 290],     \"paidByTheClient\": [275, 75],     \"productIsAppropriate\": [15],     \"buyerFoundSupplier\": [240, 40]
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20073}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20072}
      */
     apiV1SupervisorsProductsPagMyGet(opts) {
       return this.apiV1SupervisorsProductsPagMyGetWithHttpInfo(opts)
