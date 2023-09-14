@@ -248,28 +248,47 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
     this.triggerShowResultToCorrectFormModal()
+
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
+
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
+
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
+
       if (!findProposalByChatId) {
         return
       }
+
       await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
         ...formFields,
         timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
         linksToMediaFiles: this.uploadedFiles,
       })
+
       this.loadData()
     } catch (error) {
-      console.warn('onClickProposalResultToCorrect error ', error)
+      console.error(error)
     }
+  }
+
+  onSubmitSendInForRework(formFields, files) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Send in for rework'])}?`,
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
