@@ -281,7 +281,7 @@ export class OwnerRequestDetailCustomViewModel {
   onSubmitSendInForRework(formFields, files) {
     this.confirmModalSettings = {
       isWarning: false,
-      message: `${t(TranslationKey['Send in for rework'])}?`,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
       onSubmit: () => {
         this.onTriggerOpenModal('showConfirmModal')
         this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
