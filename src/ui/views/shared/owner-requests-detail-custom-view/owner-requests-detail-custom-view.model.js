@@ -323,7 +323,9 @@ export class OwnerRequestDetailCustomViewModel {
       if (guid) {
         const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
 
-        this.requestAnnouncement = result
+        runInAction(() => {
+          this.requestAnnouncement = result
+        })
       }
     } catch (error) {
       console.log(error)
