@@ -1,12 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
+  wrapper: {
+    height: '100%',
+    maxHeight: '884px',
+  },
+
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: '20px',
     gap: '20px',
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.background.default,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',

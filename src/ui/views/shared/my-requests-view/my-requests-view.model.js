@@ -779,7 +779,7 @@ export class MyRequestsViewModel {
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.user.role]
-      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      }/freelance/my-requests/custom-request?request-id=${id}`,
       '_blank',
     )
 

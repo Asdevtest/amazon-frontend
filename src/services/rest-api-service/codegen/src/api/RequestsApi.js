@@ -31,8 +31,8 @@ import InlineResponse20060 from '../model/InlineResponse20060';
 import InlineResponse20061 from '../model/InlineResponse20061';
 import InlineResponse20062 from '../model/InlineResponse20062';
 import InlineResponse20063 from '../model/InlineResponse20063';
+import InlineResponse20080 from '../model/InlineResponse20080';
 import InlineResponse20081 from '../model/InlineResponse20081';
-import InlineResponse20082 from '../model/InlineResponse20082';
 import InlineResponse20112 from '../model/InlineResponse20112';
 import InlineResponse20113 from '../model/InlineResponse20113';
 import InlineResponse2017 from '../model/InlineResponse2017';
@@ -174,11 +174,65 @@ export default class RequestsApi {
 
 
     /**
+     * # Метод для ручного закрытия заявки
+     * ## Метод для ручного закрытия заявки.    ## Метод вызывает юзер с ролью 10 ## Реквест находится в статусах : IN_PROCESS || EXPIRED ## По реквесту минимум 1 предложение(proposal) в статусе ACCEPTED_BY_CLIENT ( можно найти объединением таблиц requests + request_proposals)  
+     * @param {String} guid GUID сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestsCompletedGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestsCompletedGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/requests/completed/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Метод для ручного закрытия заявки
+     * ## Метод для ручного закрытия заявки.    ## Метод вызывает юзер с ролью 10 ## Реквест находится в статусах : IN_PROCESS || EXPIRED ## По реквесту минимум 1 предложение(proposal) в статусе ACCEPTED_BY_CLIENT ( можно найти объединением таблиц requests + request_proposals)  
+     * @param {String} guid GUID сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestsCompletedGuidPatch(guid, opts) {
+      return this.apiV1RequestsCompletedGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Получить все уникальные заявки для исполнителя.
      * ## Получить все уникальные заявки для исполнителя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20081>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20080>} and HTTP response
      */
     apiV1RequestsCustomGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -197,7 +251,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20081];
+      let returnType = [InlineResponse20080];
       return this.apiClient.callApi(
         '/api/v1/requests/custom/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -210,7 +264,7 @@ export default class RequestsApi {
      * ## Получить все уникальные заявки для исполнителя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20081>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20080>}
      */
     apiV1RequestsCustomGet(opts) {
       return this.apiV1RequestsCustomGetWithHttpInfo(opts)
@@ -226,7 +280,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20082} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20081} and HTTP response
      */
     apiV1RequestsCustomGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -250,7 +304,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20082;
+      let returnType = InlineResponse20081;
       return this.apiClient.callApi(
         '/api/v1/requests/custom/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -264,7 +318,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20082}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20081}
      */
     apiV1RequestsCustomGuidGet(guid, opts) {
       return this.apiV1RequestsCustomGuidGetWithHttpInfo(guid, opts)

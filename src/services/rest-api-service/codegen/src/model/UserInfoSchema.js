@@ -212,6 +212,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('freelanceNotices')) {
                 obj['freelanceNotices'] = ApiClient.convertToType(data['freelanceNotices'], [UserInfoSchemaFreelanceNotices]);
             }
+            if (data.hasOwnProperty('notificationCounter')) {
+                obj['notificationCounter'] = ApiClient.convertToType(data['notificationCounter'], 'Number');
+            }
         }
         return obj;
     }
@@ -522,6 +525,12 @@ UserInfoSchema.prototype['ideas'] = undefined;
  * @member {Array.<module:model/UserInfoSchemaFreelanceNotices>} freelanceNotices
  */
 UserInfoSchema.prototype['freelanceNotices'] = undefined;
+
+/**
+ * Кол-во нотификаций юзера(archive: false)
+ * @member {Number} notificationCounter
+ */
+UserInfoSchema.prototype['notificationCounter'] = undefined;
 
 
 

@@ -167,7 +167,7 @@ export const MyRequestsViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
           />
         </div>
       </div>

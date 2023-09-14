@@ -40,8 +40,7 @@ export const styles = theme => ({
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',
-    margin: '0 auto',
-    gap: 5,
+    gap: 10,
   },
 
   clockIcon: {
