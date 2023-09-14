@@ -17,7 +17,26 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
       // display: 'none',
       marginRight: 20,
     },
+    '.MuiAutocomplete-option': {
+      width: 280,
+      padding: 5,
+    },
   },
+
+  option: {
+    width: 280,
+    fontSize: '14px',
+    lineHeight: '19px',
+    maxHeight: 57,
+    wordBreak: 'break-all',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+  },
+
   addBtn: {
     cursor: 'pointer',
     position: 'absolute',
