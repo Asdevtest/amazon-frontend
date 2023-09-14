@@ -182,7 +182,7 @@ export class CreateOrEditRequestViewModel {
               2,
             )} $. ${t(TranslationKey['Confirm the publication?'])}`,
             onSubmit: () => {
-              this.toPublishRequest(resp.guid, result.totalCost)
+              withPublish && this.toPublishRequest(resp.guid, result.totalCost)
               this.pushSuccess()
             },
 
