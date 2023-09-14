@@ -96,7 +96,11 @@ export const TagSelector: FC<TagSelectorProps> = props => {
                 }}
               />
             )}
-            renderOption={(_, option) => <li {..._}>{prefix + option.title}</li>}
+            renderOption={(_, option) => (
+              <li {..._}>
+                <p className={styles.option}>{`${prefix} ${option.title}`}</p>
+              </li>
+            )}
             value={selectValue}
             onChange={(_, value) => {
               setTextValue(typeof value === 'string' ? value : value?.title || '')
