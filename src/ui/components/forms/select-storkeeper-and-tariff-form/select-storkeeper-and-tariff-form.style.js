@@ -59,4 +59,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
   },
+  tabsWrapper: {
+    padding: '10px 0',
+  },
 }))
