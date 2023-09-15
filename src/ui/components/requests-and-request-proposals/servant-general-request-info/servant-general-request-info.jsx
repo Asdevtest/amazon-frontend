@@ -62,6 +62,11 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           />
 
           <div className={classNames.idTitleWrapper}>
+            {request?.request?.priority === requestPriority.urgentPriority && (
+              <div className={classNames.urgentWrapper}>
+                <img src="/assets/icons/fire.svg" className={classNames.urgentIconSmall} />
+              </div>
+            )}
             <p className={classNames.idText}>{t(TranslationKey.ID) + ':'}</p>
             <p className={cx(classNames.idText, classNames.idTextDark)}>
               {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}

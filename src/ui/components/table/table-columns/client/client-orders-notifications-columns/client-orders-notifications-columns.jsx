@@ -96,6 +96,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderCell: params => (
       <MultilineTextCell
         leftAlign
+        maxLength={56}
         text={params.value}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />

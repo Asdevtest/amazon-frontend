@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
@@ -61,7 +60,7 @@ export const ChatMessagesList: FC<Props> = observer(
     messagesWrapperRef,
     chatId,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
     const { isMobileResolution } = useCreateBreakpointResolutions()
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
     const chatBottomRef = useRef<HTMLDivElement | null>(null)
@@ -197,7 +196,7 @@ export const ChatMessagesList: FC<Props> = observer(
                       ) : null}
 
                       <div
-                        className={cx({
+                        className={cx(classNames.messageInnerWrapper, {
                           [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,

@@ -1591,7 +1591,7 @@
   "Editing completed": "Редактирование завершено",
   "Boxes do not have enough fare or destination. The following boxes will not be counted": "У коробок не хватает тарифа или пункта назначения. Следующие коробки не будут учтены",
   "Boxes with identical storekeeper must be selected": "Должны быть выбраны коробки с идентичным складом",
-  "Cannot be merged with a Superbox": "Нельзя соединить со Супербоксом",
+  "Cannot be merged with a Superbox": "Нельзя соединить с Супербоксом",
   "Comments from the supervisor": "Комментарий супервизора",
   "Storekeeper and destination match": "Склад и пункт назначения совпадают",
   "Search by Email, Nickname...": "Поиск по Email, Nickname...",
@@ -2099,5 +2099,6 @@
   "Idea closed": "Идея закрыта",
   "SEARCH_BY_TITLE": "Названию",
   "You have changed the tab settings. Do you want to save them?": "Вы изменили настройки вкладки. Хотите их сохранить?",
-  "Close idea": "Закрыть идею"
+  "Close idea": "Закрыть идею",
+  "Are you sure you want to send the result for rework?": "Вы уверены, что хотите отправить результат на доработку?"
 }

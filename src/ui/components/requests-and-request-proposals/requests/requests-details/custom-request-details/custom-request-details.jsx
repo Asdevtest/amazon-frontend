@@ -20,10 +20,10 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-request-details.style'
 
-export const CustomSearchRequestDetails = ({ request, isOpen }) => {
+export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
   const { classes: classNames } = useClassNames()
 
-  const [showDetails, setShowDetails] = useState(!!isOpen)
+  const [showDetails, setShowDetails] = useState(isOpen)
 
   useEffect(() => setShowDetails(isOpen), [isOpen])
 

@@ -72,6 +72,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
+  messageInnerWrapper: {
+    width: '100%',
+  },
+
   messageInnerContentWrapper: {
     overflow: 'hidden',
   },

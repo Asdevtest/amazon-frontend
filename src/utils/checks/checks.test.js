@@ -524,6 +524,7 @@ describe('Test findTariffInStorekeepersData(storekeepers, storekeeperId, logicsT
 describe('Test checkIsImageLink(link)', () => {
   const validTestValue = [
     { enter: 'img.png', expect: true },
+    { enter: 'img.PNG', expect: true },
     { enter: 'img.jpg', expect: true },
     { enter: 'img.ico', expect: true },
     { enter: 'img.gif', expect: true },
@@ -531,6 +532,8 @@ describe('Test checkIsImageLink(link)', () => {
     { enter: 'img.webp', expect: true },
     { enter: 'img.avif', expect: true },
     { enter: 'img.jpeg', expect: true },
+    { enter: 'img.rotated-image', expect: true },
+    { enter: 'img.jfif', expect: true },
   ]
 
   const unvalidTestValue = [

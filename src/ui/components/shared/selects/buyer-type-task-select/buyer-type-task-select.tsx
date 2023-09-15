@@ -28,7 +28,7 @@ export const BuyerTypeTaskSelect: FC<BuyerTypeTaskSelectProps> = props => {
       switchMode={'medium'}
       condition={curTaskType}
       switcherSettings={[
-        { label: () => t(TranslationKey['All priorities']), value: null },
+        { label: () => t(TranslationKey['All tasks']), value: null },
 
         ...Object.keys(mapTaskOperationTypeKeyToEnum)
           .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
