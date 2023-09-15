@@ -24,17 +24,7 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
   },
 
   option: {
-    width: 280,
-    fontSize: '14px',
-    lineHeight: '19px',
-    maxHeight: 57,
-    wordBreak: 'break-all',
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
+    maxWidth: 280,
   },
 
   addBtn: {
@@ -68,24 +58,17 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     gap: '10px',
   },
   tagListItem: {
+    maxWidth: 295,
     backgroundColor: theme.palette.background.chatMyMessage,
     color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
-    padding: '3.5px 15px',
+    padding: '0 15px',
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
-
-    p: {
-      maxWidth: 170,
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      lineHeight: 1,
-      margin: 'unset',
-    },
   },
+
   removeTeg: {
     cursor: 'pointer',
     height: '100%',

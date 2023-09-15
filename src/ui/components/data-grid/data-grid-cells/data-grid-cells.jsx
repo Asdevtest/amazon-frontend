@@ -1429,7 +1429,6 @@ export const MultilineTextCell = React.memo(
       text,
       noText,
       color,
-      otherStyles,
       withTooltip,
       leftAlign,
       tooltipText,
@@ -1441,11 +1440,13 @@ export const MultilineTextCell = React.memo(
       illuminationCell,
       customTextStyles,
       maxLength,
+      customTextClass,
     }) => {
-      const isValidTextLength = text?.length <= maxLength ?? MAX_LENGTH_TITLE
+      const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
+      const isValidTextLength = text?.length <= maxTextLength
       const textForRender = isValidTextLength
         ? text
-        : getShortenStringIfLongerThanCount(text, maxLength ?? MAX_LENGTH_TITLE)
+        : getShortenStringIfLongerThanCount(text, maxLength ?? maxTextLength)
 
       return (
         <>
@@ -1464,8 +1465,9 @@ export const MultilineTextCell = React.memo(
                     { [classNames.oneMultilineText]: oneLines },
                     { [classNames.twoMultilineText]: twoLines },
                     { [classNames.threeMultilineText]: threeLines },
+                    customTextClass,
                   )}
-                  style={otherStyles || customTextStyles || (color && { color })}
+                  style={customTextStyles || (color && { color })}
                   onClick={onClickText && onClickText}
                 >
                   {checkIsString(textForRender) && !withLineBreaks
@@ -1485,12 +1487,12 @@ export const MultilineTextCell = React.memo(
                   classNames.multilineText,
                   { [classNames.multilineLeftAlignText]: leftAlign },
                   { [classNames.multilineLink]: onClickText && textForRender },
-                  { [classNames.threeMultilineText]: threeLines },
                   { [classNames.oneMultilineText]: oneLines },
                   { [classNames.twoMultilineText]: twoLines },
-                  { [classNames.fulfilled]: customTextStyles },
+                  { [classNames.threeMultilineText]: threeLines },
+                  customTextClass,
                 )}
-                style={otherStyles || customTextStyles || (color && { color })}
+                style={customTextStyles || (color && { color })}
                 onClick={onClickText && onClickText}
               >
                 {checkIsString(textForRender) && !withLineBreaks
