@@ -223,7 +223,7 @@ export const OrderProductModal = ({
         (isPendingOrder && !order.deadline) ||
         (!isPendingOrdering &&
           !reorderOrdersData?.length &&
-          order.deadline &&
+          !!order.deadline &&
           (!isValid(order.deadline) ||
             isPast(order.deadline) ||
             isToday(order.deadline) ||
