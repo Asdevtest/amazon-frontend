@@ -278,7 +278,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  onSubmitSendInForRework(formFields, files) {
+  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
     this.confirmModalSettings = {
       isWarning: false,
       message: t(TranslationKey['Are you sure you want to send the result for rework?']),
@@ -315,6 +315,28 @@ export class OwnerRequestDetailCustomViewModel {
     } catch (error) {
       console.warn('onClickProposalResultToCorrect error ', error)
     }
+  }
+
+  onSubmitSendInForReworkInProposalResultAccept({
+    reason,
+    timeLimitInMinutes,
+    imagesData /* .filter(el => el.image) */,
+  }) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitDesignerResultToCorrect({
+          reason,
+          timeLimitInMinutes,
+          imagesData /* .filter(el => el.image) */,
+        })
+        this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async getCustomProposalsForRequestCur() {

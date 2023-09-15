@@ -425,14 +425,13 @@ export const RequestDesignerResultClientForm = ({
             <Button
               // disabled /* ={disableSubmit} */
               className={cx(classNames.button)}
-              onClick={() => {
+              onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
                   timeLimitInMinutes: formFields.execution_time /* .filter(el => el.image) */,
                   imagesData,
                 })
-                setOpenModal()
-              }}
+              }
             >
               {t(TranslationKey['Send in for rework'])}
             </Button>
