@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField'
 
 import { GeneralModel } from '@models/general-model'
 
+import { MultilineTextCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { useTagSelectorStyles } from '@components/product/product-wrapper/tag-selector/tag-selector.styles'
 
 interface Tag {
@@ -98,7 +99,9 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             )}
             renderOption={(_, option) => (
               <li {..._}>
-                <p className={styles.option}>{`${prefix} ${option.title}`}</p>
+                <div className={styles.option}>
+                  <MultilineTextCell oneLines leftAlign text={`${prefix} ${option.title}`} />
+                </div>
               </li>
             )}
             value={selectValue}
@@ -120,7 +123,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       <div className={styles.tagList}>
         {selectedTags.map(el => (
           <div key={el._id} className={styles.tagListItem}>
-            <p>{prefix + el.title}</p>
+            <MultilineTextCell oneLines leftAlign text={prefix + el.title} />
             {isEditMode && (
               <button className={styles.removeTeg} onClick={() => handleRemoveTags(el)}>
                 <div>
