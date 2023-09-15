@@ -35,12 +35,14 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: (params: GridCellParams) => {
+      const product = params?.row?.data?.[0]?.product
+
       return (
         <ProductAsinCell
-          image={params?.row?.product?.images?.slice()[0]}
-          amazonTitle={params?.row?.product?.amazonTitle}
-          asin={params?.row?.product?.asin}
-          skusByClient={params?.row?.product?.skusByClient?.slice()[0]}
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
         />
       )
     },
@@ -73,25 +75,17 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Message)} />,
 
     // renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
-    renderCell: (params: GridCellParams) => (
-      <NotificationMessage
-        notificationType={params?.row?.type}
-        notification={
-          params?.row?.data?.needConfirmOrders?.[0]
-            ? {
-                ...params?.row?.data?.needConfirmOrders?.[0],
-                needConfirmOrders: true,
-              }
-            : params?.row?.data?.vacOrders?.[0]
-            ? {
-                ...params?.row?.data?.vacOrders?.[0],
-                vacOrders: true,
-              }
-            : params?.row?.data?.[0]
-        }
-        navigateToHandler={rowHandlers.navigateToHandler}
-      />
-    ),
+    renderCell: (params: GridCellParams) => {
+      const notification = params?.row?.data?.[0] || params?.row?.data
+
+      return (
+        <NotificationMessage
+          notificationType={params?.row?.type}
+          notification={notification}
+          navigateToHandler={rowHandlers.navigateToHandler}
+        />
+      )
+    },
     minWidth: 400,
     // filterable: false,
 

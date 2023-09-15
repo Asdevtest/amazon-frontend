@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { fromUnixTime } from 'date-fns'
+import { toJS } from 'mobx'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
+import { useHistory } from 'react-router-dom'
 import { useReactToPrint } from 'react-to-print'
 import { withStyles } from 'tss-react/mui'
 
@@ -3520,89 +3522,154 @@ export const TimeFromSeconds = React.memo(
   }, styles),
 )
 
-export const NotificationMessage = React.memo(
+const OrderNotificationMessage = React.memo(
   withStyles(props => {
-    const { classes: styles, notificationType, notification, navigateToHandler } = props
+    const { classes: styles, navigateToHandler, notification } = props
 
-    if (notificationType === NotificationType.Order) {
-      const onClickOrderId = () => {
-        navigateToHandler(notification, NotificationType.Order)
-      }
+    const onClickOrderId = () => {
+      navigateToHandler(notification, NotificationType.Order)
+    }
 
-      if (notification?.needConfirmOrders) {
-        return (
-          <p>
+    return (
+      <p>
+        {!!notification?.needConfirmOrders?.length && (
+          <>
             {`${t(TranslationKey.Order)} `}
             <a className={styles.notificationId} onClick={onClickOrderId}>
               {notification?.id}
             </a>
             {` ${t(TranslationKey['needs to be confirmed'])}`}
-          </p>
-        )
-      } else if (notification?.vacOrders) {
-        return (
-          <p>
+          </>
+        )}
+
+        {!!notification?.vacOrder?.length && (
+          <>
             {`${t(TranslationKey['New order available'])} `}
             <a className={styles.notificationId} onClick={onClickOrderId}>
               {notification?.id}
             </a>
-          </p>
-        )
-      } else {
-        return (
-          <p>
+          </>
+        )}
+
+        {!notification?.needConfirmOrders?.length && !notification?.vacOrder?.length && (
+          <>
             {`${t(TranslationKey['Order redemption deadline'])} `}
             <a className={styles.notificationId} onClick={onClickOrderId}>
               {notification?.id}
             </a>
             {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
-          </p>
-        )
-      }
-    } else if (notificationType === NotificationType.Box) {
-      return (
-        <p>
-          {/* {`${t(TranslationKey.Box)} `}
-          <button className={styles.notificationId} onClick={navigateToHandler}>
-            {notification?.id}
-          </button>
-          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`} */}
-        </p>
-      )
-    } else if (notificationType === NotificationType.Idea) {
-      const getIdeaMessageTextToRender = () => {
-        switch (notification.type) {
-          case NotificationIdeaStatus.Create:
-            return t(TranslationKey['created the idea'])
+          </>
+        )}
+      </p>
+    )
+  }, styles),
+)
 
-          case NotificationIdeaStatus.StatusChange:
-            return t(TranslationKey['changed the status of the idea'])
+const BoxNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+    const history = useHistory()
 
-          case NotificationIdeaStatus.Patch:
-            return t(TranslationKey['updated the data on the idea of'])
-        }
-      }
-
-      return (
-        <p>
-          <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
-            {notification?.creator?.name}
-          </a>
-          {` ${getIdeaMessageTextToRender()} `}
-          <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
-            {notification?.productName}
-          </a>
-          {notification.type === NotificationIdeaStatus.StatusChange && (
-            <>
-              {` ${t(TranslationKey.to)} `}
-              <span style={{ color: colorByIdeaStatus(ideaStatusByCode[notification.status]) }}>
-                {ideaStatusTranslate(ideaStatusByCode[notification.status])}
-              </span>
-            </>
-          )}
-        </p>
-      )
+    const goToBox = boxId => {
+      history.push(`/client/warehouse/in-stock?search-text=${boxId}`)
     }
+
+    return (
+      <p>
+        {`${t(TranslationKey.Box)} № `}
+        <a className={styles.notificationId} onClick={() => goToBox(notification?.humanFriendlyId)}>
+          {notification?.humanFriendlyId}
+        </a>{' '}
+        {t(TranslationKey['accepted in stock'])}
+      </p>
+    )
+  }, styles),
+)
+
+const RequestNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+    const history = useHistory()
+
+    const goToRequest = id => {
+      history.push(`/client/freelance/my-requests/custom-request?request-id=${id}`)
+    }
+
+    return (
+      <p>
+        {`${t(TranslationKey.Request)} `}
+        <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
+          {`"${notification?.title}"`}
+        </a>{' '}
+        {''}
+        {t(TranslationKey.Updated).toLowerCase()}
+      </p>
+    )
+  }, styles),
+)
+
+const IdeaNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+
+    const getIdeaMessageTextToRender = () => {
+      switch (notification.type) {
+        case NotificationIdeaStatus.Create:
+          return t(TranslationKey['created the idea'])
+
+        case NotificationIdeaStatus.StatusChange:
+          return t(TranslationKey['changed the status of the idea'])
+
+        case NotificationIdeaStatus.Patch:
+          return t(TranslationKey['updated the data on the idea of'])
+      }
+    }
+
+    return (
+      <p>
+        <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
+          {notification?.creator?.name}
+        </a>
+        {` ${getIdeaMessageTextToRender()} `}
+        <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
+          {notification?.productName}
+        </a>
+        {notification.type === NotificationIdeaStatus.StatusChange && (
+          <>
+            {` ${t(TranslationKey.to)} `}
+            <span style={{ color: colorByIdeaStatus(ideaStatusByCode[notification.status]) }}>
+              {ideaStatusTranslate(ideaStatusByCode[notification.status])}
+            </span>
+          </>
+        )}
+      </p>
+    )
+  }, styles),
+)
+
+export const NotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, notificationType, notification, navigateToHandler } = props
+
+    return (
+      <>
+        {notificationType === NotificationType.Order && (
+          <OrderNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+
+        {notificationType === NotificationType.Box && (
+          <BoxNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+
+        {notificationType === NotificationType.Idea && (
+          <IdeaNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+
+        {notificationType === NotificationType.Request && (
+          <RequestNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+      </>
+    )
   }, styles),
 )
 
