@@ -30,6 +30,7 @@ export const styles = theme => ({
 
   tasksWrapper: {
     marginTop: 20,
+    height: '65vh',
   },
 
   boxesFiltersWrapper: {
