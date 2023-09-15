@@ -168,7 +168,7 @@ export const CreateOrEditProposalContent = ({
 
             <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
               <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={cx(classNames.requestTitle, classNames.requestInfoText)}>
+              <Typography className={classNames.requestTitle}>
                 {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
               </Typography>
             </div>
