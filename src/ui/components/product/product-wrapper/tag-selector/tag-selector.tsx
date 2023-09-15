@@ -100,7 +100,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             renderOption={(_, option) => (
               <li {..._}>
                 <div className={styles.option}>
-                  <MultilineTextCell oneLines leftAlign text={`${prefix} ${option.title}`} />
+                  <MultilineTextCell oneLines leftAlign maxLength={32} text={`${prefix} ${option.title}`} />
                 </div>
               </li>
             )}
@@ -123,7 +123,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       <div className={styles.tagList}>
         {selectedTags.map(el => (
           <div key={el._id} className={styles.tagListItem}>
-            <MultilineTextCell oneLines leftAlign text={prefix + el.title} />
+            <MultilineTextCell oneLines leftAlign maxLength={32} text={prefix + el.title} />
             {isEditMode && (
               <button className={styles.removeTeg} onClick={() => handleRemoveTags(el)}>
                 <div>
