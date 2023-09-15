@@ -1115,7 +1115,7 @@ export class ClientIdeasViewModel {
       this.productId = chosenProduct?._id
     })
 
-    if (chosenProduct && !chosenProduct?.buyerId) {
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
         confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
