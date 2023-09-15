@@ -54,6 +54,14 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
 
     justifyContent: 'space-between',
+
+    button: {
+      backgroundColor: theme.palette.background.chatIncomeMessage,
+      color: theme.palette.text.second,
+      '&:hover': {
+        color: '#fff',
+      },
+    },
   },
 
   modalButtonWrapper: {
