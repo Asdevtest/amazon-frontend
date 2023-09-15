@@ -25,7 +25,7 @@ export const DealDetailsCard = ({
   onClickGetToWorkModal,
   onClickConfirmDealModal,
   onClickRejectDealModal,
-  onClickReworkDealModal,
+  onSubmitSendInForRework,
   dealsOnReview,
   request,
   requestProposals,
@@ -104,7 +104,7 @@ export const DealDetailsCard = ({
             <div>
               <Button
                 className={classNames.actionButton}
-                onClick={() => onClickReworkDealModal(curProposal?.proposal._id)}
+                onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}
               >
                 {t(TranslationKey['Send in for rework'])}
               </Button>

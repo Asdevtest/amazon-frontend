@@ -176,7 +176,9 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         openModal={viewModel.showResultToCorrectFormModal}
         setOpenModal={viewModel.triggerShowResultToCorrectFormModal}
       >
-        <RequestProposalResultToCorrectForm onPressSubmitForm={viewModel.onSubmitSendInForRework} />
+        <RequestProposalResultToCorrectForm
+          onPressSubmitForm={viewModel.onSubmitSendInForReworkInRequestProposalResultToCorrectForm}
+        />
       </Modal>
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
@@ -195,7 +197,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
           curResultMedia={viewModel.curResultMedia}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
           onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
-          onPressSubmitDesignerResultToCorrect={viewModel.onPressSubmitDesignerResultToCorrect}
+          onPressSubmitDesignerResultToCorrect={viewModel.onSubmitSendInForReworkInProposalResultAccept}
         />
       </Modal>
 
