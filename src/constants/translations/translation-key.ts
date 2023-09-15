@@ -2109,5 +2109,7 @@ export enum TranslationKey {
   'To the actual' = 'To the actual',
   'New order available' = 'New order available',
   'needs to be confirmed' = 'needs to be confirmed',
+  'General notifications' = 'General notifications',
+  'accepted in stock' = 'accepted in stock',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -328,8 +328,8 @@ import InlineResponse20049 from './model/InlineResponse20049';
 import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse20050 from './model/InlineResponse20050';
 import InlineResponse20051 from './model/InlineResponse20051';
-import InlineResponse20051Failed from './model/InlineResponse20051Failed';
 import InlineResponse20052 from './model/InlineResponse20052';
+import InlineResponse20052Failed from './model/InlineResponse20052Failed';
 import InlineResponse20053 from './model/InlineResponse20053';
 import InlineResponse20054 from './model/InlineResponse20054';
 import InlineResponse20055 from './model/InlineResponse20055';
@@ -357,10 +357,11 @@ import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse20070 from './model/InlineResponse20070';
 import InlineResponse20071 from './model/InlineResponse20071';
 import InlineResponse20072 from './model/InlineResponse20072';
+import InlineResponse20072Rows from './model/InlineResponse20072Rows';
 import InlineResponse20073 from './model/InlineResponse20073';
 import InlineResponse20074 from './model/InlineResponse20074';
+import InlineResponse20074Rows from './model/InlineResponse20074Rows';
 import InlineResponse20075 from './model/InlineResponse20075';
-import InlineResponse20075Rows from './model/InlineResponse20075Rows';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
 import InlineResponse20078 from './model/InlineResponse20078';
@@ -368,8 +369,7 @@ import InlineResponse20079 from './model/InlineResponse20079';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse20080 from './model/InlineResponse20080';
 import InlineResponse20081 from './model/InlineResponse20081';
-import InlineResponse20082 from './model/InlineResponse20082';
-import InlineResponse20082Details from './model/InlineResponse20082Details';
+import InlineResponse20081Details from './model/InlineResponse20081Details';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
@@ -2384,16 +2384,16 @@ export {
     InlineResponse20051,
 
     /**
-     * The InlineResponse20051Failed model constructor.
-     * @property {module:model/InlineResponse20051Failed}
-     */
-    InlineResponse20051Failed,
-
-    /**
      * The InlineResponse20052 model constructor.
      * @property {module:model/InlineResponse20052}
      */
     InlineResponse20052,
+
+    /**
+     * The InlineResponse20052Failed model constructor.
+     * @property {module:model/InlineResponse20052Failed}
+     */
+    InlineResponse20052Failed,
 
     /**
      * The InlineResponse20053 model constructor.
@@ -2558,6 +2558,12 @@ export {
     InlineResponse20072,
 
     /**
+     * The InlineResponse20072Rows model constructor.
+     * @property {module:model/InlineResponse20072Rows}
+     */
+    InlineResponse20072Rows,
+
+    /**
      * The InlineResponse20073 model constructor.
      * @property {module:model/InlineResponse20073}
      */
@@ -2570,16 +2576,16 @@ export {
     InlineResponse20074,
 
     /**
+     * The InlineResponse20074Rows model constructor.
+     * @property {module:model/InlineResponse20074Rows}
+     */
+    InlineResponse20074Rows,
+
+    /**
      * The InlineResponse20075 model constructor.
      * @property {module:model/InlineResponse20075}
      */
     InlineResponse20075,
-
-    /**
-     * The InlineResponse20075Rows model constructor.
-     * @property {module:model/InlineResponse20075Rows}
-     */
-    InlineResponse20075Rows,
 
     /**
      * The InlineResponse20076 model constructor.
@@ -2624,16 +2630,10 @@ export {
     InlineResponse20081,
 
     /**
-     * The InlineResponse20082 model constructor.
-     * @property {module:model/InlineResponse20082}
+     * The InlineResponse20081Details model constructor.
+     * @property {module:model/InlineResponse20081Details}
      */
-    InlineResponse20082,
-
-    /**
-     * The InlineResponse20082Details model constructor.
-     * @property {module:model/InlineResponse20082Details}
-     */
-    InlineResponse20082Details,
+    InlineResponse20081Details,
 
     /**
      * The InlineResponse2009 model constructor.

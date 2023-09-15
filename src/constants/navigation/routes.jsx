@@ -1040,12 +1040,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
-    crumbNameKey: 'Look at this dude',
+    crumbNameKey: TranslationKey['General notifications'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
-      title: () => 'Look at this dude',
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 
@@ -1977,12 +1977,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
-    crumbNameKey: 'Look at this dude',
+    crumbNameKey: TranslationKey['General notifications'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
-      title: () => 'Look at this dude',
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 
@@ -3122,12 +3122,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
-    crumbNameKey: 'Look at this dude',
+    crumbNameKey: TranslationKey['General notifications'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
-      title: () => 'Look at this dude',
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 

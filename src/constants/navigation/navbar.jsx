@@ -321,7 +321,7 @@ export const navbarConfig = () => ({
         { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
         { subtitle: t(TranslationKey.Freelance), subRoute: '/client/notifications/freelance-notifications' },
         {
-          subtitle: 'Look at this dude',
+          subtitle: t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/client/notifications/general-notifications-view',
         },
@@ -508,7 +508,7 @@ export const navbarConfig = () => ({
       subtitles: [
         { subtitle: t(TranslationKey.Freelance), subRoute: '/freelancer/notifications/freelance-notifications' },
         {
-          subtitle: 'Look at this dude',
+          subtitle: t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/freelancer/notifications/general-notifications-view',
         },
@@ -833,7 +833,7 @@ export const navbarConfig = () => ({
           subRoute: '/buyer/notifications/ideas-notifications',
         },
         {
-          subtitle: 'Look at this dude',
+          subtitle: t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/buyer/notifications/general-notifications-view',
         },
