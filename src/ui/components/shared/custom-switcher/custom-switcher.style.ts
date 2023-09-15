@@ -54,7 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.customSwitcher.text,
     borderRadius: '21px',
 
-    '&:hover': {
+    '&:active': {
       color: theme.palette.customSwitcher.text,
       backgroundColor: theme.palette.customSwitcher.headerBackground,
     },
