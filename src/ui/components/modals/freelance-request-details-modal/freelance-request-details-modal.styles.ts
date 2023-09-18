@@ -4,6 +4,21 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   wrapper: {
     height: '100%',
     maxHeight: '884px',
+    overflowY: 'auto',
+    '&::-webkit-scrollbar-thumb': {
+      borderRadius: '7  px',
+      backgroundColor: theme.palette.background.scrollThumb,
+    },
+
+    '&::-webkit-scrollbar': {
+      width: '15px',
+      display: 'block',
+      position: 'unset',
+    },
+
+    '&::-webkit-scrollbar-track': {
+      borderRadius: '7px',
+    },
   },
 
   header: {
@@ -14,7 +29,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     gap: '20px',
     position: 'sticky',
     top: 0,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
