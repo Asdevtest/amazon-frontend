@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**apiV1RequestProposalsCustomGuidGet**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidGet) | **GET** /api/v1/request-proposals/custom/{guid} | Получить предложение по его id.
 [**apiV1RequestProposalsCustomGuidResultEditPatch**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidResultEditPatch) | **PATCH** /api/v1/request-proposals/custom/{guid}/result_edit | #  Редактировать результат работы.
 [**apiV1RequestProposalsFreelanceSourcesGet**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGet) | **GET** /api/v1/request-proposals/freelance-sources | #  Получить исходники.
-[**apiV1RequestProposalsFreelanceSourcesGuidDelete**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidDelete) | **DELETE** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
+[**apiV1RequestProposalsFreelanceSourcesGuidDelete**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidDelete) | **DELETE** /api/v1/request-proposals/freelance-sources/{guid} | #  Удалить исходник
 [**apiV1RequestProposalsFreelanceSourcesGuidPatch**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidPatch) | **PATCH** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
 [**apiV1RequestProposalsFreelanceSourcesPost**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesPost) | **POST** /api/v1/request-proposals/freelance-sources | #  Создать исходник.
 [**apiV1RequestProposalsGet**](RequestProposalsApi.md#apiV1RequestProposalsGet) | **GET** /api/v1/request-proposals/ | Получить все предложения для супервизора.
@@ -24,12 +24,13 @@ Method | HTTP request | Description
 [**apiV1RequestProposalsGuidResultAcceptPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_accept | #  Принять результаты работы.
 [**apiV1RequestProposalsGuidResultCorrectedPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_corrected | #  Отправить обратно на утверждение, после доработки.
 [**apiV1RequestProposalsGuidResultToCorrectPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
+[**apiV1RequestProposalsProposalPagMyGet**](RequestProposalsApi.md#apiV1RequestProposalsProposalPagMyGet) | **GET** /api/v1/request-proposals/proposal_pag_my | Получить все предложения фрилансера.
 
 
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20079] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20080] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -69,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20079]**](InlineResponse20079.md)
+[**[InlineResponse20080]**](InlineResponse20080.md)
 
 ### Authorization
 
@@ -247,9 +248,9 @@ Name | Type | Description  | Notes
 
 > String apiV1RequestProposalsFreelanceSourcesGuidDelete(guid, opts)
 
-#  Изменить исходник.
+#  Удалить исходник
 
-## Изменить исходник
+## Удалить исходник
 
 ### Example
 
@@ -1134,5 +1135,67 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsProposalPagMyGet
+
+> InlineResponse20059 apiV1RequestProposalsProposalPagMyGet(opts)
+
+Получить все предложения фрилансера.
+
+Получить все предложения фрилансера
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let opts = {
+  'filters': "filters_example", // String |                Возможные поля: (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, createdBy,               (Product) -> asin, amazonTitle,               (Proposal) -> proposalStatus, proposalCreatedBy, proposalSub, proposalUpdatedAt               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1RequestProposalsProposalPagMyGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | **String**|                Возможные поля: (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, createdBy,               (Product) -&gt; asin, amazonTitle,               (Proposal) -&gt; proposalStatus, proposalCreatedBy, proposalSub, proposalUpdatedAt               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20059**](InlineResponse20059.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 

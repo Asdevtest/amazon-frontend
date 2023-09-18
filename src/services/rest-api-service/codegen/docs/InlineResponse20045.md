@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **title** | **String** | Название идеи | [optional] 
 **status** | **Number** | Статус идеи | [optional] 
 **linksToMediaFiles** | **[String]** | Медиа идеи | [optional] 
+**fbaFee** | **Number** | FBA Fee | [optional] 
+**approximatePrice** | **Number** | Ориентационная цена | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
 **variation** | **Boolean** | Является ли продукт идеи вариацией существующего | [optional] 
 **childProduct** | [**ApiV1IdeasByParentGuidChildProduct**](ApiV1IdeasByParentGuidChildProduct.md) |  | [optional] 

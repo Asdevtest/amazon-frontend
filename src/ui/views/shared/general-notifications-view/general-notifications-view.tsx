@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import { History } from 'history'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -36,7 +35,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
   useEffect(() => {
     viewModel.loadData()
   }, [])
-  console.log(toJS(viewModel.currentData))
+
   return (
     viewModel.languageTag && (
       <div className={classNames.root}>

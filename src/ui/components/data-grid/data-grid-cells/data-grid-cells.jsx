@@ -51,6 +51,7 @@ import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requ
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
+import { colorByStatusFreelanceRequest } from '@constants/statuses/freelance-request-type'
 import {
   colorByIdeaStatus,
   ideaStatus,
@@ -3590,6 +3591,8 @@ const RequestNotificationMessage = React.memo(
   withStyles(props => {
     const { classes: styles, navigateToHandler, notification } = props
     const history = useHistory()
+    const isStatusChanged = !!notification?.status
+    const isDeadlineExpires = !!notification?.timeoutAt
 
     const goToRequest = id => {
       history.push(`/client/freelance/my-requests/custom-request?request-id=${id}`)
@@ -3597,12 +3600,26 @@ const RequestNotificationMessage = React.memo(
 
     return (
       <p>
-        {`${t(TranslationKey.Request)} `}
-        <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
-          {`"${notification?.title}"`}
-        </a>{' '}
-        {''}
-        {t(TranslationKey.Updated).toLowerCase()}
+        {isStatusChanged && !isDeadlineExpires && (
+          <>
+            {t(TranslationKey['Status of the bid proposal'])}{' '}
+            <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
+              {`"${notification?.title}"`}
+            </a>{' '}
+            {t(TranslationKey['changed to'])}
+            <span style={{ color: colorByStatusFreelanceRequest(notification?.status) }}> {notification?.status}</span>
+          </>
+        )}
+
+        {isDeadlineExpires && (
+          <>
+            {t(TranslationKey['Deadline for application'])}{' '}
+            <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
+              {`"${notification?.title}"`}
+            </a>{' '}
+            {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
+          </>
+        )}
       </p>
     )
   }, styles),
