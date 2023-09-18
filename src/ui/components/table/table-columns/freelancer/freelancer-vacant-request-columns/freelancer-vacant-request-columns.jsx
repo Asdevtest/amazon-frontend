@@ -20,16 +20,6 @@ import { t } from '@utils/translations'
 
 export const FreelancerVacantRequestColumns = handlers => [
   {
-    field: 'title',
-    headerName: t(TranslationKey['Request title']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 159,
-
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => (
@@ -53,6 +43,16 @@ export const FreelancerVacantRequestColumns = handlers => [
     sortable: false,
 
     // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+  },
+
+  {
+    field: 'title',
+    headerName: t(TranslationKey['Request title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 159,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

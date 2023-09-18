@@ -41,6 +41,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    paddingLeft: '10px',
   },
 
   clockIcon: {
