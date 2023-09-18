@@ -313,7 +313,7 @@ export const navbarConfig = () => ({
     {
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
-      route: '/client/notifications/orders-notifications',
+      route: '/client/notifications',
       subtitles: [
         { subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications' },
         { subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
