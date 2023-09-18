@@ -792,7 +792,7 @@ export class ClientInventoryViewModel {
         column,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
+          shopFilter ? `;&[shopIds][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 
