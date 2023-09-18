@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -39,7 +37,7 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
     width: 500,
   },
   {

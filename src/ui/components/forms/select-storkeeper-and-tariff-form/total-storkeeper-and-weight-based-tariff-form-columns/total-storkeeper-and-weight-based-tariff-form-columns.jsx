@@ -1,9 +1,6 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   WarehouseTariffDatesCell,
@@ -28,7 +25,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 150,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
   },
 
   {

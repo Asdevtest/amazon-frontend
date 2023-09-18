@@ -1444,64 +1444,37 @@ export const MultilineTextCell = React.memo(
     }) => {
       const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
       const isValidTextLength = text?.length <= maxTextLength
-      const textForRender = isValidTextLength
-        ? text
-        : getShortenStringIfLongerThanCount(text, maxLength ?? maxTextLength)
+      const oneLineText =
+        isValidTextLength || oneLines ? text : getShortenStringIfLongerThanCount(text, maxLength ?? maxTextLength)
+      const textForRender = threeLines || twoLines ? text : oneLineText
+      const isTooltip = withTooltip || tooltipText || !isValidTextLength
 
       return (
-        <>
-          {withTooltip || tooltipText || !isValidTextLength ? (
-            <Tooltip title={tooltipText || text}>
-              <div
-                className={cx(classNames.multilineTextWrapper, {
-                  [classNames.illuminationCell]: illuminationCell && textForRender,
-                })}
-              >
-                <Typography
-                  className={cx(
-                    classNames.multilineText,
-                    { [classNames.multilineLeftAlignText]: leftAlign },
-                    { [classNames.multilineLink]: onClickText && textForRender },
-                    { [classNames.oneMultilineText]: oneLines },
-                    { [classNames.twoMultilineText]: twoLines },
-                    { [classNames.threeMultilineText]: threeLines },
-                    customTextClass,
-                  )}
-                  style={customTextStyles || (color && { color })}
-                  onClick={onClickText && onClickText}
-                >
-                  {checkIsString(textForRender) && !withLineBreaks
-                    ? textForRender.replace(/\n/g, ' ')
-                    : textForRender || noText || '-'}
-                </Typography>
-              </div>
-            </Tooltip>
-          ) : (
-            <div
-              className={cx(classNames.multilineTextWrapper, {
-                [classNames.illuminationCell]: illuminationCell && textForRender,
-              })}
+        <div
+          className={cx(classNames.multilineTextWrapper, {
+            [classNames.illuminationCell]: illuminationCell && textForRender,
+          })}
+        >
+          <Tooltip title={isTooltip ? tooltipText || text : ''}>
+            <Typography
+              className={cx(
+                classNames.multilineText,
+                { [classNames.multilineLeftAlignText]: leftAlign },
+                { [classNames.multilineLink]: onClickText && textForRender },
+                { [classNames.oneMultilineText]: oneLines },
+                { [classNames.twoMultilineText]: twoLines },
+                { [classNames.threeMultilineText]: threeLines },
+                customTextClass,
+              )}
+              style={customTextStyles || (color && { color })}
+              onClick={onClickText && onClickText}
             >
-              <Typography
-                className={cx(
-                  classNames.multilineText,
-                  { [classNames.multilineLeftAlignText]: leftAlign },
-                  { [classNames.multilineLink]: onClickText && textForRender },
-                  { [classNames.oneMultilineText]: oneLines },
-                  { [classNames.twoMultilineText]: twoLines },
-                  { [classNames.threeMultilineText]: threeLines },
-                  customTextClass,
-                )}
-                style={customTextStyles || (color && { color })}
-                onClick={onClickText && onClickText}
-              >
-                {checkIsString(textForRender) && !withLineBreaks
-                  ? textForRender.replace(/\n/g, ' ')
-                  : textForRender || noText || '-'}
-              </Typography>
-            </div>
-          )}
-        </>
+              {checkIsString(textForRender) && !withLineBreaks
+                ? textForRender.replace(/\n/g, ' ')
+                : textForRender || noText || '-'}
+            </Typography>
+          </Tooltip>
+        </div>
       )
     },
     styles,
@@ -1648,14 +1621,25 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
+    ({
+      classes: classNames,
+      text,
+      withIcon,
+      isShowIconOnHover,
+      isFilterActive,
+      component,
+      textCenter,
+      color,
+      withTooltip,
+      tooltipText,
+    }) => (
       <div
         className={cx(classNames.multilineTextHeaderWrapper, {
           [classNames.multilineTextHeaderCenter]: textCenter,
           [classNames.multilineTextHeaderSpaceBetween]: component,
         })}
       >
-        <Tooltip title={text}>
+        <Tooltip title={withTooltip ? tooltipText || text : ''}>
           <Typography className={classNames.multilineHeaderText} style={color && { color }}>
             {text}
           </Typography>
@@ -3006,31 +2990,28 @@ export const RedFlagsCell = React.memo(
   ),
 )
 export const TagsCell = React.memo(
-  withStyles(({ classes: classNames, tags }) => {
-    const tagsText = (
-      <div>
-        {tags?.map((el, index) => (
-          <p key={el._id}>
-            #{el.title}
-            {index !== tags.length - 1 ? ',' : ''}
-          </p>
-        ))}
-      </div>
-    )
+  withStyles(
+    ({ classes: classNames, tags }) => (
+      <div className={classNames.tags}>
+        {tags?.map((el, index) => {
+          const createTagText = `#${el.title}`
+          const isValidTextLength = createTagText?.length <= MAX_LENGTH_TITLE
 
-    return (
-      <Tooltip title={tagsText}>
-        <div className={classNames.tags}>
-          {tags?.map((el, index) => (
-            <p key={el._id} className={classNames.tagItem}>
-              #{el.title}
-              {index !== tags.length - 1 && ', '}
-            </p>
-          ))}
-        </div>
-      </Tooltip>
-    )
-  }, styles),
+          return (
+            <React.Fragment key={el._id}>
+              <Tooltip title={!isValidTextLength ? createTagText : ''}>
+                <p className={classNames.tagItem}>
+                  {createTagText}
+                  {index !== tags.length - 1 && ', '}
+                </p>
+              </Tooltip>
+            </React.Fragment>
+          )
+        })}
+      </div>
+    ),
+    styles,
+  ),
 )
 
 export const OrderIdAndAmountCountCell = React.memo(

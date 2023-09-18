@@ -1695,22 +1695,16 @@ export const styles = theme => ({
   },
 
   tags: {
-    alignSelf: 'flex-start',
-
-    p: {
-      padding: 0,
-      margin: 0,
-    },
+    padding: '10px 0',
   },
 
   tagItem: {
-    fontSize: 14,
-    fontWeight: 400,
     maxWidth: 130,
+    fontSize: 14,
+    lineHeight: '19px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    lineHeight: '16px',
   },
 
   batchTrackingWrapper: {

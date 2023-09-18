@@ -200,7 +200,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,
@@ -211,7 +211,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
     headerName: t(TranslationKey['Buyer comment']),
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,

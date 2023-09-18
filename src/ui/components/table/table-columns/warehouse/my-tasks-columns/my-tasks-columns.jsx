@@ -12,7 +12,6 @@ import {
   TaskTypeCell,
   WarehouseMyTasksBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -116,7 +115,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    // renderCell: params => <MultilineTextCell oneLines withTooltip text={params.value} />,
+    // renderCell: params => <MultilineTextCell oneLines text={params.value} />,
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),

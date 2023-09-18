@@ -244,7 +244,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-    renderCell: params => <MultilineTextCell withTooltip leftAlign threeLines text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 120,
     sortable: false,
 
@@ -255,7 +255,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'clientComment',
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-    renderCell: params => <MultilineTextCell withTooltip leftAlign threeLines text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 120,
     sortable: false,
 

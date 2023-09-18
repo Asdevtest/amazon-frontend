@@ -5,7 +5,6 @@ import {
   ClientNotificationsBtnsCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OrderCell,
@@ -177,7 +176,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment to order']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 225,
   },
 ]

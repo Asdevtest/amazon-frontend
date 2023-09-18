@@ -1,5 +1,3 @@
-import React, { useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {

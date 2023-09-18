@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { UiTheme } from '@constants/theme/themes'
@@ -72,7 +70,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,
@@ -83,7 +81,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,

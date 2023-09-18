@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -50,7 +49,7 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     headerName: t(TranslationKey['Comments from the supervisor']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
     width: 400,
   },
 

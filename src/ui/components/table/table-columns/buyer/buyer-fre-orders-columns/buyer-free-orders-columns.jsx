@@ -3,7 +3,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -176,7 +175,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 400,
   },
 
