@@ -300,11 +300,6 @@ const ClientIdeasNotificationsView = lazy(() =>
   })),
 )
 
-const ClientNotificationsView = lazy(() =>
-  import('@views/client/client-notifications-views/client-notifications-view').then(module => ({
-    default: module.ClientNotificationsView,
-  })),
-)
 const ClientOrdersNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-orders-notifications-view').then(module => ({
     default: module.ClientOrdersNotificationsView,
@@ -314,14 +309,6 @@ const ClientOrdersNotificationsView = lazy(() =>
 const ClientFreelanceNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-freelance-notifications-view').then(module => ({
     default: module.ClientFreelanceNotificationsView,
-  })),
-)
-
-const FreelancerFreelanceNotificationsView = lazy(() =>
-  import(
-    '@views/freelancer/freelancer-notifications-views/freelancer-notifications-view/freelancer-notifications-view'
-  ).then(module => ({
-    default: module.FreelancerNotificationsView,
   })),
 )
 
@@ -1871,7 +1858,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/notifications',
-    component: ClientNotificationsView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
@@ -3082,7 +3069,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/freelancer/notifications',
-    component: FreelancerFreelanceNotificationsView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.FREELANCER],
 
