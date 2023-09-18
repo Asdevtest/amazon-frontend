@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Box, Container, Typography } from '@mui/material'
 
@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
@@ -293,14 +293,7 @@ export const EditBoxTasksModal = ({
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <div className={classNames.photoAndFilesTitleMobileWrapper}>
-          <PhotoAndFilesCarousel
-            small
-            direction={window.screen.width < 768 ? 'column' : 'row'}
-            files={box?.images}
-            width={window.screen.width < 768 ? '400px' : '300px'}
-          />
-        </div>
+        <PhotoAndFilesSlider smallSlider files={box?.images} />
       </div>
 
       <div className={classNames.buttonsWrapper}>
