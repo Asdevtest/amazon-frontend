@@ -5,7 +5,7 @@ import { useState } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, Typography } from '@mui/material'
 
-import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import {
   OrderStatus,
   OrderStatusByKey,
@@ -18,7 +18,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
-import { roundSafely } from '@utils/calculation'
+import { calcFinalWeightForBox, calcVolumeWeightForBox, roundSafely } from '@utils/calculation'
 import { checkIsPositiveNum } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -33,55 +33,74 @@ const BlockOfNewBox = ({
   setAmountField,
   setDimensionsOfSupplierField,
   onRemoveBox,
-  sizeSetting,
+  // sizeSetting,
   volumeWeightCoefficient,
   currentSupplier,
 }) => {
   const { classes: classNames } = useClassNames()
-
-  const volumeWeightConversionFactor = sizeSetting === unitsOfChangeOptions.EU ? Math.pow(inchesCoefficient, 3) : 1
-  const volumeWeight = toFixed(
-    (orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier * volumeWeightConversionFactor) /
-      volumeWeightCoefficient,
-    2,
-  )
-  const finalWeightConversionFactor = sizeSetting === unitsOfChangeOptions.EU ? 1 : Math.pow(inchesCoefficient, 3)
-  const finalWeight = toFixed(Math.max(volumeWeight, orderBox.weighGrossKgSupplier / finalWeightConversionFactor), 2)
 
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsBlocksSubWrapper}>
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
+            type="number"
             inputProps={{ maxLength: 6 }}
-            label={`${t(TranslationKey['Box length'])}`}
+            label={t(TranslationKey['Box length'])}
+            error={Number(orderBox.lengthCmSupplier) === 0}
             value={orderBox.lengthCmSupplier}
             onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
           />
+
           <Field
+            type="number"
             inputProps={{ maxLength: 6 }}
-            label={`${t(TranslationKey['Box width'])}`}
+            label={t(TranslationKey['Box width'])}
+            error={Number(orderBox.widthCmSupplier) === 0}
             value={orderBox.widthCmSupplier}
             onChange={setFormField('widthCmSupplier', orderBoxIndex)}
           />
         </div>
+
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
+            type="number"
             inputProps={{ maxLength: 6 }}
-            label={`${t(TranslationKey['Box height'])}`}
+            label={t(TranslationKey['Box height'])}
+            error={Number(orderBox.heightCmSupplier) === 0}
             value={orderBox.heightCmSupplier}
             onChange={setFormField('heightCmSupplier', orderBoxIndex)}
           />
+
           <Field
+            type="number"
             inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Real weight'])}
+            error={Number(orderBox.weighGrossKgSupplier) === 0}
             value={orderBox.weighGrossKgSupplier}
             onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
           />
         </div>
+
         <div className={classNames.numberInputFieldsWrapper}>
-          <Field disabled label={t(TranslationKey['Volume weight, kg'])} value={volumeWeight} />
-          <Field disabled label={t(TranslationKey['Final weight, kg'])} value={finalWeight} />
+          <Field
+            disabled
+            label={t(TranslationKey['Volume weight'])}
+            value={toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient), 2)}
+          />
+
+          <Field
+            disabled
+            label={t(TranslationKey['Final weight'])}
+            value={toFixed(
+              Math.max(
+                (orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier) /
+                  volumeWeightCoefficient,
+                orderBox.weighGrossKgSupplier,
+              ),
+              2,
+            )}
+          />
         </div>
 
         <div className={classNames.numberInputFieldsWrapper}>
@@ -97,11 +116,11 @@ const BlockOfNewBox = ({
             error={
               currentSupplier.multiplicity &&
               currentSupplier.boxProperties?.amountInBox &&
-              orderBox.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0 &&
+              orderBox.items[0]?.amount % currentSupplier.boxProperties?.amountInBox !== 0 &&
               ` ${t(TranslationKey['Value is not a multiple of'])} ${currentSupplier.boxProperties?.amountInBox}`
             }
             label={t(TranslationKey['Products in a box'])}
-            value={orderBox.items[0].amount}
+            value={orderBox.items[0]?.amount}
             onChange={setAmountField(orderBoxIndex)}
           />
         </div>
@@ -155,6 +174,9 @@ export const CreateBoxForm = observer(
       widthCmSupplier: formItem?.widthCmSupplier || 0,
       heightCmSupplier: formItem?.heightCmSupplier || 0,
       weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
+      volumeWeightKgSupplier: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
+      weightFinalAccountingKgSupplier: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
+
       warehouse: formItem?.warehouse || '',
       deliveryMethod: formItem?.deliveryMethod || '',
       amount: 1,
@@ -175,15 +197,15 @@ export const CreateBoxForm = observer(
     const [formFieldsArr, setFormFieldsArr] = useState(isEdit ? boxesForCreation : [sourceBox])
 
     const setFormField = (fieldName, orderBoxIndex) => e => {
-      if (
-        isNaN(e.target.value) ||
-        Number(e.target.value) < 0 ||
-        (fieldName === 'amount' && !checkIsPositiveNum(e.target.value))
-      ) {
-        return
+      const newFormFields = { ...formFieldsArr[orderBoxIndex] }
+
+      if (['lengthCmSupplier', 'widthCmSupplier', 'heightCmSupplier', 'weighGrossKgSupplier'].includes(fieldName)) {
+        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+          return
+        }
       }
 
-      const newFormFields = { ...formFieldsArr[orderBoxIndex] }
+      newFormFields[fieldName] = e.target.value
 
       if (fieldName === 'amount') {
         newFormFields[fieldName] = isNaN(parseInt(e.target.value)) ? '' : parseInt(e.target.value)
@@ -193,6 +215,7 @@ export const CreateBoxForm = observer(
       }
 
       const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
+
       setFormFieldsArr(updatedNewBoxes)
     }
 
@@ -309,29 +332,31 @@ export const CreateBoxForm = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    /* const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
-
-      if (newAlignment === unitsOfChangeOptions.EU) {
+    const handleChange = newAlignment => {
+      if (newAlignment === unitsOfChangeOptions.US) {
         setFormFieldsArr(
           formFieldsArr.map(editingBox => ({
             ...editingBox,
-            lengthCmSupplier: toFixed(roundSafely(editingBox.lengthCmSupplier / inchesCoefficient), 2),
-            widthCmSupplier: toFixed(roundSafely(editingBox.widthCmSupplier / inchesCoefficient), 2),
-            heightCmSupplier: toFixed(roundSafely(editingBox.heightCmSupplier / inchesCoefficient), 2),
+            lengthCmSupplier: toFixed(editingBox.lengthCmSupplier / inchesCoefficient, 2),
+            widthCmSupplier: toFixed(editingBox.widthCmSupplier / inchesCoefficient, 2),
+            heightCmSupplier: toFixed(editingBox.heightCmSupplier / inchesCoefficient, 2),
+            weighGrossKgSupplier: toFixed(editingBox.weighGrossKgSupplier / poundsWeightCoefficient, 2),
           })),
         )
       } else {
         setFormFieldsArr(
           formFieldsArr.map(editingBox => ({
             ...editingBox,
-            lengthCmSupplier: toFixed(roundSafely(editingBox.lengthCmSupplier * inchesCoefficient), 2),
-            widthCmSupplier: toFixed(roundSafely(editingBox.widthCmSupplier * inchesCoefficient), 2),
-            heightCmSupplier: toFixed(roundSafely(editingBox.heightCmSupplier * inchesCoefficient), 2),
+            lengthCmSupplier: toFixed(editingBox.lengthCmSupplier * inchesCoefficient, 2),
+            widthCmSupplier: toFixed(editingBox.widthCmSupplier * inchesCoefficient, 2),
+            heightCmSupplier: toFixed(editingBox.heightCmSupplier * inchesCoefficient, 2),
+            weighGrossKgSupplier: toFixed(editingBox.weighGrossKgSupplier * poundsWeightCoefficient, 2),
           })),
         )
       }
-    } */
+
+      setSizeSetting(newAlignment)
+    }
 
     return (
       <div className={classNames.root}>
@@ -382,13 +407,12 @@ export const CreateBoxForm = observer(
 
           <div className={classNames.sizesSubWrapper}>
             <CustomSwitcher
-              switchMode="small"
               condition={sizeSetting}
               switcherSettings={[
                 { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
                 { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
               ]}
-              changeConditionHandler={condition => setSizeSetting(condition)}
+              changeConditionHandler={condition => handleChange(condition)}
             />
           </div>
 
