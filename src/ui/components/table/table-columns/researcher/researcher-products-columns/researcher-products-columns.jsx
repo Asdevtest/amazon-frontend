@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   ProductStatus,
   ProductStatusByCode,
@@ -11,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   AsinCell,
   MultilineStatusCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -95,7 +92,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey["Supervisor's comment"]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
 
     filterable: false,
     sortable: false,

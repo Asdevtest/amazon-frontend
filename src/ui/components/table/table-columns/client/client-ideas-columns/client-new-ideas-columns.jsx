@@ -20,7 +20,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Idea title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
     width: 198,
     filterable: false,
 
@@ -79,7 +79,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 251,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,
@@ -90,7 +90,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 251,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,

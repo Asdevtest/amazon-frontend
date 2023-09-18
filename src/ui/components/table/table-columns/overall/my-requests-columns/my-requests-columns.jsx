@@ -222,9 +222,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
 
-    renderCell: params => (
-      <MultilineTextCell withTooltip leftAlign threeLines={params.value.length > 50} text={params.value} />
-    ),
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 228,
 
     columnKey: columnnsKeys.shared.STRING,

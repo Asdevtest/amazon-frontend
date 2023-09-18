@@ -32,7 +32,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
 
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
     columnKey: columnnsKeys.shared.STRING,
   },
