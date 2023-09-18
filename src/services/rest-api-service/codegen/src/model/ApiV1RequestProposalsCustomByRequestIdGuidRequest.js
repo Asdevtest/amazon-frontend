@@ -51,6 +51,9 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
+            if (data.hasOwnProperty('taskComplexity')) {
+                obj['taskComplexity'] = ApiClient.convertToType(data['taskComplexity'], 'Number');
+            }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
@@ -69,6 +72,12 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
  * @member {Number} humanFriendlyId
  */
 ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Уровень сложности задачи
+ * @member {Number} taskComplexity
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['taskComplexity'] = undefined;
 
 /**
  * ASIN

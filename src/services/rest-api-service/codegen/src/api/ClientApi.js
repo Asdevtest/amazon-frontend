@@ -1399,6 +1399,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isChild Существуют ли у продукта родитель
      * @param {Boolean} opts.isParent Является ли продукт родителем
+     * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20031>} and HTTP response
      */
@@ -1410,7 +1411,8 @@ export default class ClientApi {
       };
       let queryParams = {
         'isChild': opts['isChild'],
-        'isParent': opts['isParent']
+        'isParent': opts['isParent'],
+        'shopId': opts['shopId']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -1435,6 +1437,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isChild Существуют ли у продукта родитель
      * @param {Boolean} opts.isParent Является ли продукт родителем
+     * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20031>}
      */

@@ -409,7 +409,7 @@ export const darkTheme = createTheme({
             },
 
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#DAE1E9',
+              backgroundColor: '#45454d',
               borderRadius: '22px',
               border: '2px solid #25252D',
             },

@@ -2112,5 +2112,8 @@
   "needs to be confirmed": "нуждается в подтверждении",
   "SEARCH_BY_TITLE": "Названию",
   "General notifications": "Общие уведомления",
-  "accepted in stock": "принята на складе"
+  "accepted in stock": "принята на складе",
+  "Status of the bid proposal": "Статус предложения по заявке",
+  "changed to": "изменен на",
+  "Deadline for application": "Deadline for application"
 }
