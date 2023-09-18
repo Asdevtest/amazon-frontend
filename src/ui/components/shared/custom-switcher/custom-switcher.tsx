@@ -16,12 +16,20 @@ interface CustomSwitcherProps {
   switchMode?: 'small' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
   condition: string | number | null | undefined
+  customCondition?: (vale: string | number | null | undefined | Object) => boolean
   changeConditionHandler: (condition: string | number | null | undefined) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
   const { classes: classNames, cx } = useClassNames()
-  const { switchMode = 'small', condition, switcherSettings, fullWidth, changeConditionHandler } = props
+  const {
+    switchMode = 'small',
+    condition,
+    switcherSettings,
+    fullWidth,
+    changeConditionHandler,
+    customCondition,
+  } = props
 
   const [switchOptionsToRender, setSwitchOptionsToRender] = useState<ISwitcherSettings[]>(switcherSettings)
 
@@ -50,11 +58,12 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
               [classNames.mediumOptionStyles]: switchMode === 'medium',
               [classNames.bigOptionStyles]: switchMode === 'big',
               [classNames.headerOptionStyles]: switchMode === 'header',
-              [classNames.activeOption]: condition === option.value,
-              [classNames.headerActiveOptionStyles]: switchMode === 'header' && condition === option.value,
+              [classNames.activeOption]: condition === option.value || customCondition?.(option.value),
+              [classNames.headerActiveOptionStyles]:
+                switchMode === 'header' && (condition === option.value || customCondition?.(option.value)),
             })}
             onClick={() => {
-              if (condition !== option.value) {
+              if (condition !== option.value || !customCondition?.(option.value)) {
                 changeConditionHandler(option.value)
               }
             }}

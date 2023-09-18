@@ -78,12 +78,14 @@ export const SelectStorekeeperAndTariffForm = observer(
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 
+    console.log(storekeepers)
+
     return (
       <div className={classNames.root}>
         <div className={classNames.boxesFiltersWrapper}>
           <CustomSwitcher
             switchMode={'small'}
-            condition={curStorekeeper._id}
+            condition={curStorekeeper}
             switcherSettings={storekeepers
               .slice()
               .sort((a, b) => a.name?.localeCompare(b?.name))
@@ -91,7 +93,8 @@ export const SelectStorekeeperAndTariffForm = observer(
                 label: () => value?.name,
                 value: value?._id,
               }))}
-            changeConditionHandler={setCurStorekeeper}
+            customCondition={value => value === curStorekeeper?._id}
+            changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
           />
         </div>
 
