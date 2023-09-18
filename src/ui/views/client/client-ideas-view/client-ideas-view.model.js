@@ -36,9 +36,12 @@ import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getCurrentSortingDirectionOfColumns } from '@utils/sortings'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { intervalFields } from './client-ideas-view.constants'
 
 // * Объект с доп. фильтра в зависимости от текущего роута
 
@@ -520,7 +523,7 @@ export class ClientIdeasViewModel {
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : this.currentSettings.defaultSortingModel,
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        sortType: getCurrentSortingDirectionOfColumns(this.sortModel, intervalFields),
 
         filters: this.getFilters(),
       })
