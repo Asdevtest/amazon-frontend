@@ -82,8 +82,7 @@ export const OrderModalBodyRow = ({
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
   const minDate = dayjs().add(2, 'day')
-  const [deadline, setDeadline] = useState('')
-  // const parsedDeadline = new Date(item.deadline)
+  const [deadline, setDeadline] = useState(item.deadline ? new Date(item.deadline) : item.deadline)
 
   const boxPropertiesIsFull =
     item.currentSupplier?.boxProperties?.amountInBox &&
@@ -99,7 +98,7 @@ export const OrderModalBodyRow = ({
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
       setOrderStateFiled(nameInput)(event)
-      setDeadline(event)
+      setDeadline(event === '' ? null : event)
     } else {
       setOrderStateFiled(nameInput)(event.target.value)
     }

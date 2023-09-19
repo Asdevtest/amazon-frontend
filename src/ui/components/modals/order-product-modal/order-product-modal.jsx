@@ -72,7 +72,15 @@ export const OrderProductModal = ({
             : '',
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          deadline: reorderOrder.deadline || '',
+          deadline:
+            isPendingOrdering &&
+            !(
+              isPast(new Date(reorderOrder.deadline)) ||
+              isToday(new Date(reorderOrder.deadline)) ||
+              isTomorrow(new Date(reorderOrder.deadline))
+            )
+              ? reorderOrder.deadline
+              : null,
         }))
       : selectedProductsData.map(product => ({
           ...product,
@@ -107,7 +115,15 @@ export const OrderProductModal = ({
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
           _id: reorderOrder._id,
-          deadline: reorderOrder.deadline || '',
+          deadline:
+            isPendingOrdering &&
+            !(
+              isPast(new Date(reorderOrder.deadline)) ||
+              isToday(new Date(reorderOrder.deadline)) ||
+              isTomorrow(new Date(reorderOrder.deadline))
+            )
+              ? reorderOrder.deadline
+              : null,
           buyerId: reorderOrder.buyer?._id || null,
         }))
       : selectedProductsData.map(product => ({
@@ -221,10 +237,9 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (!isPendingOrdering &&
-          !reorderOrdersData?.length &&
-          !!order.deadline &&
-          (!isValid(order.deadline) ||
+        (!!order.deadline &&
+          isValid(order.deadline) &&
+          (!reorderOrdersData?.length ||
             isPast(order.deadline) ||
             isToday(order.deadline) ||
             isTomorrow(order.deadline))) ||
