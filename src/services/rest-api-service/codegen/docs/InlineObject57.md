@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shippingLabel** | **String** | shippingLabel | 
+**boxId** | **String** | GUID коробки, который планируем изменить | 
+**logicsTariffId** | **String** | GUID тарифа, на которую планируем изменить | 
 
 

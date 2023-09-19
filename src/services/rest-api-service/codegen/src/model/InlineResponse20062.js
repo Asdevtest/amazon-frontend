@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20062Rows from './InlineResponse20062Rows';
 
 /**
  * The InlineResponse20062 model module.
@@ -47,26 +48,11 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
-            }
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20062Rows]);
             }
         }
         return obj;
@@ -76,44 +62,15 @@ class InlineResponse20062 {
 }
 
 /**
- * GUID заявки
- * @member {String} _id
+ * @member {Number} count
  */
-InlineResponse20062.prototype['_id'] = undefined;
+InlineResponse20062.prototype['count'] = undefined;
 
 /**
- * Номер заявки
- * @member {Number} humanFriendlyId
+ * Массив заявок.
+ * @member {Array.<module:model/InlineResponse20062Rows>} rows
  */
-InlineResponse20062.prototype['humanFriendlyId'] = undefined;
-
-/**
- * Тип задачи заявки
- * @member {Number} typeTask
- */
-InlineResponse20062.prototype['typeTask'] = undefined;
-
-/**
- * Название заявки
- * @member {String} title
- */
-InlineResponse20062.prototype['title'] = undefined;
-
-/**
- * Статус заявки
- * @member {String} status
- */
-InlineResponse20062.prototype['status'] = undefined;
-
-/**
- * @member {String} onFinishedIdeaId
- */
-InlineResponse20062.prototype['onFinishedIdeaId'] = undefined;
-
-/**
- * @member {String} onCheckedIdeaId
- */
-InlineResponse20062.prototype['onCheckedIdeaId'] = undefined;
+InlineResponse20062.prototype['rows'] = undefined;
 
 
 

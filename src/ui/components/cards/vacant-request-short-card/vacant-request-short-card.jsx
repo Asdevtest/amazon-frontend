@@ -115,9 +115,8 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey.Time)}
               inputComponent={
-                <Typography className={cx(classNames.accentText, getDeadlineColor(item.timeoutAt))}>{`${toFixed(
-                  item.timeLimitInMinutes / 60,
-                  2,
+                <Typography className={cx(classNames.accentText, getDeadlineColor(item?.timeoutAt))}>{`${Math.round(
+                  getDistanceBetweenDatesInSeconds(item?.timeoutAt) / 3600,
                 )} ${t(TranslationKey.hour)} `}</Typography>
               }
             />

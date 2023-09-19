@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20036AllFiles from './InlineResponse20036AllFiles';
-import InlineResponse20036AllImages from './InlineResponse20036AllImages';
 
 /**
  * The InlineResponse20036 model module.
@@ -23,6 +21,7 @@ import InlineResponse20036AllImages from './InlineResponse20036AllImages';
 class InlineResponse20036 {
     /**
      * Constructs a new <code>InlineResponse20036</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20036
      */
     constructor() { 
@@ -49,11 +48,8 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('allImages')) {
-                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20036AllImages]);
-            }
-            if (data.hasOwnProperty('allFiles')) {
-                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20036AllFiles]);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -63,14 +59,9 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20036AllImages>} allImages
+ * @member {Number} priceForClient
  */
-InlineResponse20036.prototype['allImages'] = undefined;
-
-/**
- * @member {Array.<module:model/InlineResponse20036AllFiles>} allFiles
- */
-InlineResponse20036.prototype['allFiles'] = undefined;
+InlineResponse20036.prototype['priceForClient'] = undefined;
 
 
 

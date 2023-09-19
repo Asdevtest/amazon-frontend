@@ -640,8 +640,8 @@ export default class BatchesApi {
 
 
     /**
-     * # Получить партии по гуиду продукта
-     * ## Получить партии по гуиду продукта.   
+     * # Получить репорт по партии
+     * ## Получить репорт по партии.       Возвращает файл xlsx, есть 2 версии       
      * @param {Number} batchId GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.getOldVer Если true то заполнит старую версию отчета
@@ -682,8 +682,8 @@ export default class BatchesApi {
     }
 
     /**
-     * # Получить партии по гуиду продукта
-     * ## Получить партии по гуиду продукта.   
+     * # Получить репорт по партии
+     * ## Получить репорт по партии.       Возвращает файл xlsx, есть 2 версии       
      * @param {Number} batchId GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.getOldVer Если true то заполнит старую версию отчета

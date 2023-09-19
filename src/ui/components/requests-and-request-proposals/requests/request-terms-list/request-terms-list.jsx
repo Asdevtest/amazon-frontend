@@ -116,11 +116,7 @@ export const RequestTermsList = props => {
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey.Deadline)}
-          inputComponent={
-            <p className={styles.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-              request?.timeoutAt,
-            )}`}</p>
-          }
+          inputComponent={<p className={styles.accentText}>{`${formatNormDateTime(request?.timeoutAt)}`}</p>}
         />
       </div>
     </div>
