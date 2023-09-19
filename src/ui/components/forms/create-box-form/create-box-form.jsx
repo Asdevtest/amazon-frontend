@@ -219,66 +219,6 @@ export const CreateBoxForm = observer(
       setFormFieldsArr(updatedNewBoxes)
     }
 
-    const onSubmit = () => {
-      const newArr = formFieldsArr.map(editingBox => ({
-        ...editingBox,
-
-        lengthCmSupplier:
-          (sizeSetting === unitsOfChangeOptions.EU
-            ? Math.round(editingBox.lengthCmSupplier * inchesCoefficient * 100) / 100
-            : editingBox.lengthCmSupplier) || 0,
-
-        widthCmSupplier:
-          (sizeSetting === unitsOfChangeOptions.EU
-            ? Math.round(editingBox.widthCmSupplier * inchesCoefficient * 100) / 100
-            : editingBox.widthCmSupplier) || 0,
-
-        heightCmSupplier:
-          (sizeSetting === unitsOfChangeOptions.EU
-            ? Math.round(editingBox.heightCmSupplier * inchesCoefficient * 100) / 100
-            : editingBox.heightCmSupplier) || 0,
-      }))
-
-      setBoxesForCreation(isEdit ? [...newArr] : [...boxesForCreation, ...newArr])
-      onTriggerOpenModal()
-    }
-
-    const setDimensionsOfSupplierField = orderBoxIndex => e => {
-      const newStateFormFields = [...formFieldsArr]
-      newStateFormFields[orderBoxIndex] = {
-        ...newStateFormFields[orderBoxIndex],
-        tmpUseCurrentSupplierDimensions: e.target.checked,
-
-        lengthCmSupplier: e.target.checked
-          ? (sizeSetting === unitsOfChangeOptions.EU
-              ? roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)
-              : toFixed(currentSupplier.boxProperties.boxLengthCm, 2)) || 0
-          : '',
-
-        widthCmSupplier: e.target.checked
-          ? (sizeSetting === unitsOfChangeOptions.EU
-              ? roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)
-              : toFixed(currentSupplier.boxProperties.boxWidthCm, 2)) || 0
-          : '',
-
-        heightCmSupplier: e.target.checked
-          ? (sizeSetting === unitsOfChangeOptions.EU
-              ? roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)
-              : toFixed(currentSupplier.boxProperties.boxHeightCm, 2)) || 0
-          : '',
-
-        weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier.boxProperties.boxWeighGrossKg) || 0 : '',
-        items: [
-          {
-            ...newStateFormFields[orderBoxIndex].items[0],
-            amount: e.target.checked ? currentSupplier.boxProperties.amountInBox || 0 : formItem?.amount,
-          },
-        ],
-      }
-
-      setFormFieldsArr(newStateFormFields)
-    }
-
     const setAmountField = orderBoxIndex => e => {
       if (!checkIsPositiveNum(e.target.value)) {
         return
@@ -356,6 +296,72 @@ export const CreateBoxForm = observer(
       }
 
       setSizeSetting(newAlignment)
+    }
+
+    const onSubmit = () => {
+      const newArr = formFieldsArr.map(editingBox => ({
+        ...editingBox,
+
+        lengthCmSupplier:
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? editingBox.lengthCmSupplier
+            : toFixed(editingBox.lengthCmSupplier * inchesCoefficient, 2)) || 0,
+
+        widthCmSupplier:
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? editingBox.widthCmSupplier
+            : toFixed(editingBox.widthCmSupplier * inchesCoefficient, 2)) || 0,
+
+        heightCmSupplier:
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? editingBox.heightCmSupplier
+            : toFixed(editingBox.heightCmSupplier * inchesCoefficient, 2)) || 0,
+
+        weighGrossKgSupplier:
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? editingBox.weighGrossKgSupplier
+            : toFixed(editingBox.weighGrossKgSupplier * inchesCoefficient, 2)) || 0,
+      }))
+
+      setBoxesForCreation(isEdit ? [...newArr] : [...boxesForCreation, ...newArr])
+      onTriggerOpenModal()
+    }
+
+    const setDimensionsOfSupplierField = orderBoxIndex => e => {
+      const newStateFormFields = [...formFieldsArr]
+
+      newStateFormFields[orderBoxIndex] = {
+        ...newStateFormFields[orderBoxIndex],
+        tmpUseCurrentSupplierDimensions: e.target.checked,
+
+        lengthCmSupplier: e.target.checked
+          ? (sizeSetting === unitsOfChangeOptions.EU
+              ? roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)
+              : toFixed(currentSupplier.boxProperties.boxLengthCm, 2)) || 0
+          : '',
+
+        widthCmSupplier: e.target.checked
+          ? (sizeSetting === unitsOfChangeOptions.EU
+              ? roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)
+              : toFixed(currentSupplier.boxProperties.boxWidthCm, 2)) || 0
+          : '',
+
+        heightCmSupplier: e.target.checked
+          ? (sizeSetting === unitsOfChangeOptions.EU
+              ? roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)
+              : toFixed(currentSupplier.boxProperties.boxHeightCm, 2)) || 0
+          : '',
+
+        weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier.boxProperties.boxWeighGrossKg) || 0 : '',
+        items: [
+          {
+            ...newStateFormFields[orderBoxIndex].items[0],
+            amount: e.target.checked ? currentSupplier.boxProperties.amountInBox || 0 : formItem?.amount,
+          },
+        ],
+      }
+
+      setFormFieldsArr(newStateFormFields)
     }
 
     return (
