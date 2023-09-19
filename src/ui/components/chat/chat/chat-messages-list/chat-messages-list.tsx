@@ -38,6 +38,7 @@ interface Props {
   searchPhrase?: string
   chatId?: string
   isShowChatInfo?: boolean
+  isFreelanceOwner?: boolean
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
@@ -59,6 +60,7 @@ export const ChatMessagesList: FC<Props> = observer(
     setMessageToReply,
     messagesWrapperRef,
     chatId,
+    isFreelanceOwner,
   }) => {
     const { classes: classNames, cx } = useClassNames()
     const { isMobileResolution } = useCreateBreakpointResolutions()
@@ -196,7 +198,8 @@ export const ChatMessagesList: FC<Props> = observer(
                       ) : null}
 
                       <div
-                        className={cx(classNames.messageInnerWrapper, {
+                        className={cx({
+                          [classNames.messageInnerWrapper]: isFreelanceOwner,
                           [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,
