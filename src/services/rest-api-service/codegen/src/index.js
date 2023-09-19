@@ -274,21 +274,21 @@ import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
 import InlineResponse20028 from './model/InlineResponse20028';
 import InlineResponse20029 from './model/InlineResponse20029';
+import InlineResponse20029AllFiles from './model/InlineResponse20029AllFiles';
+import InlineResponse20029AllImages from './model/InlineResponse20029AllImages';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
 import InlineResponse2002SubUsers from './model/InlineResponse2002SubUsers';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse20030 from './model/InlineResponse20030';
-import InlineResponse20030Rows from './model/InlineResponse20030Rows';
 import InlineResponse20031 from './model/InlineResponse20031';
 import InlineResponse20032 from './model/InlineResponse20032';
+import InlineResponse20032Rows from './model/InlineResponse20032Rows';
 import InlineResponse20033 from './model/InlineResponse20033';
 import InlineResponse20034 from './model/InlineResponse20034';
 import InlineResponse20035 from './model/InlineResponse20035';
 import InlineResponse20036 from './model/InlineResponse20036';
-import InlineResponse20036AllFiles from './model/InlineResponse20036AllFiles';
-import InlineResponse20036AllImages from './model/InlineResponse20036AllImages';
 import InlineResponse20037 from './model/InlineResponse20037';
 import InlineResponse20037Batch from './model/InlineResponse20037Batch';
 import InlineResponse20037Boxes from './model/InlineResponse20037Boxes';
@@ -322,6 +322,7 @@ import InlineResponse20046ParentProduct from './model/InlineResponse20046ParentP
 import InlineResponse20046Proposals from './model/InlineResponse20046Proposals';
 import InlineResponse20046RequestsOnCheck from './model/InlineResponse20046RequestsOnCheck';
 import InlineResponse20046Rows from './model/InlineResponse20046Rows';
+import InlineResponse20046Suppliers from './model/InlineResponse20046Suppliers';
 import InlineResponse20047 from './model/InlineResponse20047';
 import InlineResponse20048 from './model/InlineResponse20048';
 import InlineResponse20049 from './model/InlineResponse20049';
@@ -337,15 +338,18 @@ import InlineResponse20056 from './model/InlineResponse20056';
 import InlineResponse20057 from './model/InlineResponse20057';
 import InlineResponse20058 from './model/InlineResponse20058';
 import InlineResponse20059 from './model/InlineResponse20059';
+import InlineResponse20059Data from './model/InlineResponse20059Data';
+import InlineResponse20059Product from './model/InlineResponse20059Product';
+import InlineResponse20059Proposals from './model/InlineResponse20059Proposals';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
 import InlineResponse20061 from './model/InlineResponse20061';
-import InlineResponse20061Announcement from './model/InlineResponse20061Announcement';
-import InlineResponse20061CountProposalsByStatuses from './model/InlineResponse20061CountProposalsByStatuses';
-import InlineResponse20061Media from './model/InlineResponse20061Media';
-import InlineResponse20061Product from './model/InlineResponse20061Product';
-import InlineResponse20061Rows from './model/InlineResponse20061Rows';
 import InlineResponse20062 from './model/InlineResponse20062';
+import InlineResponse20062Announcement from './model/InlineResponse20062Announcement';
+import InlineResponse20062CountProposalsByStatuses from './model/InlineResponse20062CountProposalsByStatuses';
+import InlineResponse20062Media from './model/InlineResponse20062Media';
+import InlineResponse20062Product from './model/InlineResponse20062Product';
+import InlineResponse20062Rows from './model/InlineResponse20062Rows';
 import InlineResponse20063 from './model/InlineResponse20063';
 import InlineResponse20064 from './model/InlineResponse20064';
 import InlineResponse20065 from './model/InlineResponse20065';
@@ -357,11 +361,11 @@ import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse20070 from './model/InlineResponse20070';
 import InlineResponse20071 from './model/InlineResponse20071';
 import InlineResponse20072 from './model/InlineResponse20072';
-import InlineResponse20072Rows from './model/InlineResponse20072Rows';
 import InlineResponse20073 from './model/InlineResponse20073';
+import InlineResponse20073Rows from './model/InlineResponse20073Rows';
 import InlineResponse20074 from './model/InlineResponse20074';
-import InlineResponse20074Rows from './model/InlineResponse20074Rows';
 import InlineResponse20075 from './model/InlineResponse20075';
+import InlineResponse20075Rows from './model/InlineResponse20075Rows';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
 import InlineResponse20078 from './model/InlineResponse20078';
@@ -369,7 +373,8 @@ import InlineResponse20079 from './model/InlineResponse20079';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse20080 from './model/InlineResponse20080';
 import InlineResponse20081 from './model/InlineResponse20081';
-import InlineResponse20081Details from './model/InlineResponse20081Details';
+import InlineResponse20082 from './model/InlineResponse20082';
+import InlineResponse20082Details from './model/InlineResponse20082Details';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
@@ -2060,6 +2065,18 @@ export {
     InlineResponse20029,
 
     /**
+     * The InlineResponse20029AllFiles model constructor.
+     * @property {module:model/InlineResponse20029AllFiles}
+     */
+    InlineResponse20029AllFiles,
+
+    /**
+     * The InlineResponse20029AllImages model constructor.
+     * @property {module:model/InlineResponse20029AllImages}
+     */
+    InlineResponse20029AllImages,
+
+    /**
      * The InlineResponse2002AllowedUrls model constructor.
      * @property {module:model/InlineResponse2002AllowedUrls}
      */
@@ -2096,12 +2113,6 @@ export {
     InlineResponse20030,
 
     /**
-     * The InlineResponse20030Rows model constructor.
-     * @property {module:model/InlineResponse20030Rows}
-     */
-    InlineResponse20030Rows,
-
-    /**
      * The InlineResponse20031 model constructor.
      * @property {module:model/InlineResponse20031}
      */
@@ -2112,6 +2123,12 @@ export {
      * @property {module:model/InlineResponse20032}
      */
     InlineResponse20032,
+
+    /**
+     * The InlineResponse20032Rows model constructor.
+     * @property {module:model/InlineResponse20032Rows}
+     */
+    InlineResponse20032Rows,
 
     /**
      * The InlineResponse20033 model constructor.
@@ -2136,18 +2153,6 @@ export {
      * @property {module:model/InlineResponse20036}
      */
     InlineResponse20036,
-
-    /**
-     * The InlineResponse20036AllFiles model constructor.
-     * @property {module:model/InlineResponse20036AllFiles}
-     */
-    InlineResponse20036AllFiles,
-
-    /**
-     * The InlineResponse20036AllImages model constructor.
-     * @property {module:model/InlineResponse20036AllImages}
-     */
-    InlineResponse20036AllImages,
 
     /**
      * The InlineResponse20037 model constructor.
@@ -2348,6 +2353,12 @@ export {
     InlineResponse20046Rows,
 
     /**
+     * The InlineResponse20046Suppliers model constructor.
+     * @property {module:model/InlineResponse20046Suppliers}
+     */
+    InlineResponse20046Suppliers,
+
+    /**
      * The InlineResponse20047 model constructor.
      * @property {module:model/InlineResponse20047}
      */
@@ -2438,6 +2449,24 @@ export {
     InlineResponse20059,
 
     /**
+     * The InlineResponse20059Data model constructor.
+     * @property {module:model/InlineResponse20059Data}
+     */
+    InlineResponse20059Data,
+
+    /**
+     * The InlineResponse20059Product model constructor.
+     * @property {module:model/InlineResponse20059Product}
+     */
+    InlineResponse20059Product,
+
+    /**
+     * The InlineResponse20059Proposals model constructor.
+     * @property {module:model/InlineResponse20059Proposals}
+     */
+    InlineResponse20059Proposals,
+
+    /**
      * The InlineResponse2006 model constructor.
      * @property {module:model/InlineResponse2006}
      */
@@ -2456,40 +2485,40 @@ export {
     InlineResponse20061,
 
     /**
-     * The InlineResponse20061Announcement model constructor.
-     * @property {module:model/InlineResponse20061Announcement}
-     */
-    InlineResponse20061Announcement,
-
-    /**
-     * The InlineResponse20061CountProposalsByStatuses model constructor.
-     * @property {module:model/InlineResponse20061CountProposalsByStatuses}
-     */
-    InlineResponse20061CountProposalsByStatuses,
-
-    /**
-     * The InlineResponse20061Media model constructor.
-     * @property {module:model/InlineResponse20061Media}
-     */
-    InlineResponse20061Media,
-
-    /**
-     * The InlineResponse20061Product model constructor.
-     * @property {module:model/InlineResponse20061Product}
-     */
-    InlineResponse20061Product,
-
-    /**
-     * The InlineResponse20061Rows model constructor.
-     * @property {module:model/InlineResponse20061Rows}
-     */
-    InlineResponse20061Rows,
-
-    /**
      * The InlineResponse20062 model constructor.
      * @property {module:model/InlineResponse20062}
      */
     InlineResponse20062,
+
+    /**
+     * The InlineResponse20062Announcement model constructor.
+     * @property {module:model/InlineResponse20062Announcement}
+     */
+    InlineResponse20062Announcement,
+
+    /**
+     * The InlineResponse20062CountProposalsByStatuses model constructor.
+     * @property {module:model/InlineResponse20062CountProposalsByStatuses}
+     */
+    InlineResponse20062CountProposalsByStatuses,
+
+    /**
+     * The InlineResponse20062Media model constructor.
+     * @property {module:model/InlineResponse20062Media}
+     */
+    InlineResponse20062Media,
+
+    /**
+     * The InlineResponse20062Product model constructor.
+     * @property {module:model/InlineResponse20062Product}
+     */
+    InlineResponse20062Product,
+
+    /**
+     * The InlineResponse20062Rows model constructor.
+     * @property {module:model/InlineResponse20062Rows}
+     */
+    InlineResponse20062Rows,
 
     /**
      * The InlineResponse20063 model constructor.
@@ -2558,16 +2587,16 @@ export {
     InlineResponse20072,
 
     /**
-     * The InlineResponse20072Rows model constructor.
-     * @property {module:model/InlineResponse20072Rows}
-     */
-    InlineResponse20072Rows,
-
-    /**
      * The InlineResponse20073 model constructor.
      * @property {module:model/InlineResponse20073}
      */
     InlineResponse20073,
+
+    /**
+     * The InlineResponse20073Rows model constructor.
+     * @property {module:model/InlineResponse20073Rows}
+     */
+    InlineResponse20073Rows,
 
     /**
      * The InlineResponse20074 model constructor.
@@ -2576,16 +2605,16 @@ export {
     InlineResponse20074,
 
     /**
-     * The InlineResponse20074Rows model constructor.
-     * @property {module:model/InlineResponse20074Rows}
-     */
-    InlineResponse20074Rows,
-
-    /**
      * The InlineResponse20075 model constructor.
      * @property {module:model/InlineResponse20075}
      */
     InlineResponse20075,
+
+    /**
+     * The InlineResponse20075Rows model constructor.
+     * @property {module:model/InlineResponse20075Rows}
+     */
+    InlineResponse20075Rows,
 
     /**
      * The InlineResponse20076 model constructor.
@@ -2630,10 +2659,16 @@ export {
     InlineResponse20081,
 
     /**
-     * The InlineResponse20081Details model constructor.
-     * @property {module:model/InlineResponse20081Details}
+     * The InlineResponse20082 model constructor.
+     * @property {module:model/InlineResponse20082}
      */
-    InlineResponse20081Details,
+    InlineResponse20082,
+
+    /**
+     * The InlineResponse20082Details model constructor.
+     * @property {module:model/InlineResponse20082Details}
+     */
+    InlineResponse20082Details,
 
     /**
      * The InlineResponse2009 model constructor.

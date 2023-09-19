@@ -4,21 +4,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   wrapper: {
     height: '100%',
     maxHeight: '884px',
-    overflowY: 'auto',
-    '&::-webkit-scrollbar-thumb': {
-      borderRadius: '7  px',
-      backgroundColor: theme.palette.background.scrollThumb,
-    },
-
-    '&::-webkit-scrollbar': {
-      width: '15px',
-      display: 'block',
-      position: 'unset',
-    },
-
-    '&::-webkit-scrollbar-track': {
-      borderRadius: '7px',
-    },
+    overflowY: 'hidden',
   },
 
   header: {

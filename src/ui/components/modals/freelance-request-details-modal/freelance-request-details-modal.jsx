@@ -17,6 +17,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
 import { UserLink } from '@components/user/user-link'
 
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const FreelanceRequestDetailsModal = props => {
@@ -67,7 +68,9 @@ export const FreelanceRequestDetailsModal = props => {
             {request?.product.asin && (
               <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={request?.product.asin} />
             )}
-            {request?.product.amazonTitle && <Typography>{request?.product.amazonTitle}</Typography>}
+            {request?.product.amazonTitle && (
+              <Typography>{getShortenStringIfLongerThanCount(request?.product.amazonTitle, 40)}</Typography>
+            )}
           </div>
 
           <div className={styles.category}>

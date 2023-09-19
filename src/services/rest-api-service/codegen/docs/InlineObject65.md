@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
 **quantity** | **Number** | Количество товаров | [optional] 
 **price** | **Number** | Желаемая цена | 
+**fbaFee** | **Number** | FBA Fee | [optional] 
+**approximatePrice** | **Number** | Ориентационная цена | [optional] 
 **width** | **Number** | Ширина, см | [optional] 
 **height** | **Number** | Высота, см | [optional] 
 **length** | **Number** | Длина, см | [optional] 
