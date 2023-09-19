@@ -2099,5 +2099,6 @@ export enum TranslationKey {
   'You have changed the tab settings. Do you want to save them?' = 'You have changed the tab settings. Do you want to save them?',
   'Close idea' = 'Close idea',
   'Are you sure you want to send the result for rework?' = 'Are you sure you want to send the result for rework?',
+  'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
