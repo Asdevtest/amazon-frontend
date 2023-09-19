@@ -1,3 +1,5 @@
+import { isPast, parseISO } from 'date-fns'
+
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -374,7 +376,7 @@ export const clientOrdersDataConverter = (data, shopsData) =>
     trackingNumberChina: item.trackingNumberChina,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
-    deadline: item.deadline,
+    deadline: !isPast(parseISO(item.deadline)) ? item.deadline : undefined,
     needsResearch: item.needsResearch,
     buyerComment: item.buyerComment,
     clientComment: item.clientComment,
