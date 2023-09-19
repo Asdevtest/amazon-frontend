@@ -282,6 +282,7 @@ export const Chat: FC<Props> = observer(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
+            isFreelanceOwner={isFreelanceOwner}
             setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
           />
