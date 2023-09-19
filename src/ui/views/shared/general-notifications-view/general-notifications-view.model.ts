@@ -214,11 +214,14 @@ export class GeneralNotificationsViewModel {
           )
           ?.focus()
       } else if (checkIsBuyer(UserRoleCodeMap[this.currentUser?.role])) {
+        const isVacOrders = !!notification?.vacOrders.length
+        const isNeedConfirmOrders = !!notification?.needConfirmOrders.length
+
         window
           .open(
             `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/${
-              notification?.vacOrders ? 'free-orders' : 'all-orders'
-            }?orderId=${notification?.vacOrders ? notification?.id : notification?._id}`,
+              isVacOrders ? 'free-orders' : 'all-orders'
+            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?._id : notification?.needConfirmOrders?.[0]?._id}`,
           )
           ?.focus()
       }

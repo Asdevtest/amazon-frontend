@@ -1947,7 +1947,7 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
-    crumbNameKey: TranslationKey['On orders'],
+    crumbNameKey: TranslationKey['Request messages'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
@@ -3092,7 +3092,7 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
-    crumbNameKey: TranslationKey['On orders'],
+    crumbNameKey: TranslationKey['Request messages'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,

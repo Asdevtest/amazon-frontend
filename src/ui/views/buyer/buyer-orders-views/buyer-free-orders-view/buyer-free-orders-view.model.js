@@ -63,13 +63,14 @@ export class BuyerFreeOrdersViewModel {
           },
         ],
       })
+
+      this.getOrdersVacant()
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    console.log('model', model)
     this.filterModel = model
 
     this.setDataGridState()

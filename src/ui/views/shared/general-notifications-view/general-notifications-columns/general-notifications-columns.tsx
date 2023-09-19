@@ -1,3 +1,6 @@
+import { isArray } from 'class-validator'
+import { toJS } from 'mobx'
+
 import { GridCellParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,7 +38,13 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: (params: GridCellParams) => {
-      const product = params?.row?.data?.[0]?.product
+      const notification = isArray(params?.row?.data) ? params?.row?.data?.[0] : params?.row?.data
+      const product =
+        notification?.product ||
+        notification?.vacOrders?.[0]?.product ||
+        notification?.needConfi?.rmOrders[0]?.product ||
+        notification?.request?.product ||
+        notification?.items?.[0]?.product
 
       return (
         <ProductAsinCell
