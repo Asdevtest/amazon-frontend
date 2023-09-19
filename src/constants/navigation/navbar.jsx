@@ -318,8 +318,8 @@ export const navbarConfig = () => ({
         { subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications' },
         { subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
         { subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications' },
-        { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
-        { subtitle: t(TranslationKey.Freelance), subRoute: '/client/notifications/freelance-notifications' },
+        // { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
+        { subtitle: t(TranslationKey['Request messages']), subRoute: '/client/notifications/freelance-notifications' },
         {
           subtitle: t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
@@ -506,7 +506,10 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Notifications),
       route: '/freelancer/notifications',
       subtitles: [
-        { subtitle: t(TranslationKey.Freelance), subRoute: '/freelancer/notifications/freelance-notifications' },
+        {
+          subtitle: t(TranslationKey['Request messages']),
+          subRoute: '/freelancer/notifications/freelance-notifications',
+        },
         {
           subtitle: t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
@@ -828,10 +831,10 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Notifications),
       route: '/buyer/notifications/ideas-notifications',
       subtitles: [
-        {
-          subtitle: t(TranslationKey['On ideas']),
-          subRoute: '/buyer/notifications/ideas-notifications',
-        },
+        // {
+        //   subtitle: t(TranslationKey['On ideas']),
+        //   subRoute: '/buyer/notifications/ideas-notifications',
+        // },
         {
           subtitle: t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,

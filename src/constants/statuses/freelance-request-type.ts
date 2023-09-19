@@ -40,23 +40,3 @@ export const freelanceRequestTypeTranslate = (type: string) => {
       return t(TranslationKey.PPC)
   }
 }
-
-export const colorByStatusFreelanceRequest = (status: string) => {
-  if ([RequestStatus.DRAFT].includes(status)) {
-    return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
-  } else if (
-    [RequestStatus.CANCELED_BY_CREATOR, RequestStatus.FORBID_NEW_PROPOSALS, RequestStatus.CANCELED_BY_ADMIN].includes(
-      status,
-    )
-  ) {
-    return '#FF1616'
-  } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
-    return '#00B746'
-  } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
-    return '#F3AF00'
-  } else if ([RequestStatus.EXPIRED].includes(status)) {
-    return '#C4C4C4'
-  } else {
-    return 'black'
-  }
-}

@@ -2113,7 +2113,8 @@
   "SEARCH_BY_TITLE": "Названию",
   "General notifications": "Общие уведомления",
   "accepted in stock": "принята на складе",
-  "Status of the bid proposal": "Статус предложения по заявке",
+  "Status of the proposal": "Статус предложения по заявке",
   "changed to": "изменен на",
-  "Deadline for application": "Deadline for application"
+  "Deadline for request": "Срок дедлайна по заявке",
+  "Request messages": "Сообщения по заявкам"
 }

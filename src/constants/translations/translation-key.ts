@@ -2111,8 +2111,9 @@ export enum TranslationKey {
   'needs to be confirmed' = 'needs to be confirmed',
   'General notifications' = 'General notifications',
   'accepted in stock' = 'accepted in stock',
-  'Status of the bid proposal' = 'Status of the bid proposal',
+  'Status of the proposal' = 'Status of the proposal',
   'changed to' = 'changed to',
-  'Deadline for application' = 'Deadline for application',
+  'Deadline for request' = 'Deadline for request',
+  'Request messages' = 'Request messages',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

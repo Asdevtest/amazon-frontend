@@ -47,11 +47,15 @@ import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/ke
 import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
-import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import {
+  MyRequestStatusTranslate,
+  RequestProposalStatus,
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+} from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { colorByStatusFreelanceRequest } from '@constants/statuses/freelance-request-type'
 import {
   colorByIdeaStatus,
   ideaStatus,
@@ -3531,28 +3535,31 @@ const OrderNotificationMessage = React.memo(
       navigateToHandler(notification, NotificationType.Order)
     }
 
+    const isVacOrders = !!notification?.vacOrders?.length
+    const isNeedConfirmOrders = !!notification?.needConfirmOrders?.length
+
     return (
       <p>
-        {!!notification?.needConfirmOrders?.length && (
+        {isNeedConfirmOrders && (
           <>
             {`${t(TranslationKey.Order)} `}
             <a className={styles.notificationId} onClick={onClickOrderId}>
-              {notification?.id}
+              {notification?.needConfirmOrders?.[0]?.id}
             </a>
             {` ${t(TranslationKey['needs to be confirmed'])}`}
           </>
         )}
 
-        {!!notification?.vacOrder?.length && (
+        {isVacOrders && (
           <>
             {`${t(TranslationKey['New order available'])} `}
             <a className={styles.notificationId} onClick={onClickOrderId}>
-              {notification?.id}
+              {notification?.vacOrders?.[0]?.id}
             </a>
           </>
         )}
 
-        {!notification?.needConfirmOrders?.length && !notification?.vacOrder?.length && (
+        {!isVacOrders && !isNeedConfirmOrders && (
           <>
             {`${t(TranslationKey['Order redemption deadline'])} `}
             <a className={styles.notificationId} onClick={onClickOrderId}>
@@ -3602,20 +3609,23 @@ const RequestNotificationMessage = React.memo(
       <p>
         {isStatusChanged && !isDeadlineExpires && (
           <>
-            {t(TranslationKey['Status of the bid proposal'])}{' '}
-            <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
-              {`"${notification?.title}"`}
+            {t(TranslationKey['Status of the proposal'])}{' '}
+            <a className={styles.notificationId} onClick={() => goToRequest(notification?.request?._id)}>
+              {`"${notification?.request?.humanFriendlyId}"`}
             </a>{' '}
             {t(TranslationKey['changed to'])}
-            <span style={{ color: colorByStatusFreelanceRequest(notification?.status) }}> {notification?.status}</span>
+            <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
+              {' '}
+              {RequestProposalStatusTranslate(notification?.status)}
+            </span>
           </>
         )}
 
         {isDeadlineExpires && (
           <>
-            {t(TranslationKey['Deadline for application'])}{' '}
+            {t(TranslationKey['Deadline for request'])}{' '}
             <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
-              {`"${notification?.title}"`}
+              {`"${notification?.humanFriendlyId}"`}
             </a>{' '}
             {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
           </>
@@ -3682,7 +3692,7 @@ export const NotificationMessage = React.memo(
           <IdeaNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
         )}
 
-        {notificationType === NotificationType.Request && (
+        {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
           <RequestNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
         )}
       </>

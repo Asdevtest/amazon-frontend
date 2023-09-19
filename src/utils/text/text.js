@@ -404,6 +404,12 @@ export const getHumanFriendlyNotificationType = type => {
     case NotificationType.Idea:
       return t(TranslationKey.Idea)
 
+    case NotificationType.Request:
+      return t(TranslationKey.Request)
+
+    case NotificationType.Proposal:
+      return t(TranslationKey.Proposal)
+
     default:
       break
   }

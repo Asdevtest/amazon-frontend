@@ -3,6 +3,7 @@ export enum NotificationType {
   'Order' = 'order',
   'Idea' = 'idea',
   'Request' = 'request',
+  'Proposal' = 'proposal',
 }
 
 export enum NotificationIdeaStatus {
