@@ -40,5 +40,6 @@ export const useTaskPrioritySelectorStyles = makeStyles()(theme => ({
   rushOrderImg: {
     width: '12px',
     height: '14px',
+    marginLeft: 5,
   },
 }))

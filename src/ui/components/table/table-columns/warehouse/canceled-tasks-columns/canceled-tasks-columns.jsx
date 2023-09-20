@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
@@ -8,7 +6,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell, // AsinCopyCell, // WarehouseTasksBtnCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
   NormDateFromUnixCell,
@@ -17,7 +15,6 @@ import {
   TaskDescriptionCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
