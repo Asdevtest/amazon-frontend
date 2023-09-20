@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
 
     padding: 30,
-    minHeight: 760,
+    minHeight: 740,
 
     display: 'flex',
     flexDirection: 'column',
