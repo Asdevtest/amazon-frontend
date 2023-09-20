@@ -12,6 +12,7 @@ import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
+import { checkIsChatMessageDataProposalResultEditedContract } from '@utils/ts-checks'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -119,6 +120,10 @@ export const ChatMessagesList: FC<Props> = observer(
       setMessageToReply(messageItem)
     }
 
+    const requestProposalResultEditedMessages = messages?.filter(el =>
+      checkIsChatMessageDataProposalResultEditedContract(el),
+    )
+
     return (
       <div
         ref={messagesWrapperRef}
@@ -133,7 +138,7 @@ export const ChatMessagesList: FC<Props> = observer(
               const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
 
               const isLastMessage = index === messages.length - 1
-
+              const isLastResultMessage = requestProposalResultEditedMessages?.at(-1)?._id === messageItem._id
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
@@ -232,6 +237,7 @@ export const ChatMessagesList: FC<Props> = observer(
                             unReadMessage={unReadMessage}
                             showName={showName}
                             isLastMessage={isLastMessage}
+                            isLastResultMessage={isLastResultMessage}
                             handlers={handlers}
                             messagesFoundIds={messagesFoundIds}
                             searchPhrase={searchPhrase}

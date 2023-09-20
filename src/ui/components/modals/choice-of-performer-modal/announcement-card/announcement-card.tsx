@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -29,7 +28,7 @@ interface AnnouncementCardProps {
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const { announcementData, selectedCard, onClickThumbnail, onClickSelectCard } = props
 

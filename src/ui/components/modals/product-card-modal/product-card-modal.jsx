@@ -27,6 +27,7 @@ import { useClassNames } from './product-card-modal.style'
 
 import { ConfirmationModal } from '../confirmation-modal'
 import { EditHSCodeModal } from '../edit-hs-code-modal'
+import { SuccessInfoModal } from '../success-info-modal'
 import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
@@ -282,6 +283,14 @@ export const ProductCardModal = observer(props => {
           viewModel?.onTriggerOpenModal('showConfirmModal')
         }}
         onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={viewModel.successModalTitle}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
       <Modal

@@ -40,6 +40,7 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => {
       const product = params.row.originalData
+      console.log(product)
 
       return (
         <ProductAsinCell
@@ -50,7 +51,7 @@ export const buyerProductsViewColumns = handlers => [
         />
       )
     },
-    width: 320,
+    width: 260,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -60,7 +61,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 150,
+    width: 170,
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
@@ -77,7 +78,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 140,
+    width: 135,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -133,7 +134,7 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    minWidth: 50,
+    width: 75,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },

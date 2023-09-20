@@ -21,13 +21,6 @@ export const useClassNames = makeStyles()(theme => ({
     flex: '1 1 auto',
   },
 
-  personInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 15,
-  },
-
   personWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -46,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
-    marginBottom: 35,
+    margin: '15px 0 35px',
   },
 
   btnsBlockWrapper: {
