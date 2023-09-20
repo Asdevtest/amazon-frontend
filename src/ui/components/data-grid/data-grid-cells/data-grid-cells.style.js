@@ -666,7 +666,8 @@ export const styles = theme => ({
     overflow: 'hidden',
     fontSize: '14px',
     lineHeight: '19px',
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
+    overflowWrap: 'anywhere',
   },
 
   oneMultilineText: {
