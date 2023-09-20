@@ -40,6 +40,7 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => {
       const product = params.row.originalData
+      console.log(product)
 
       return (
         <ProductAsinCell

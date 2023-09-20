@@ -74,8 +74,7 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('.xlsx') ||
   link?.endsWith('.xls') ||
   link?.endsWith('.txt') ||
-  link?.endsWith('.com')
-
+  (link?.includes('.com') && !link?.includes('placeimg.com'))
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 
