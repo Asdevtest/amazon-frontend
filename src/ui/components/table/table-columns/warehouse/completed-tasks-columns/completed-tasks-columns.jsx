@@ -15,7 +15,6 @@ import {
   TaskDescriptionCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 

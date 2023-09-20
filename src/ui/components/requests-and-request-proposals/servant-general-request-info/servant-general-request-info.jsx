@@ -1,6 +1,4 @@
-import { cx } from '@emotion/css'
-
-import { Avatar, Divider, Rating } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -21,7 +19,6 @@ import { ProposalsSlider } from '@components/shared/proposals-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
@@ -29,7 +26,7 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 import { useClassNames } from './servant-general-request-info.style'
 
 export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const buttonDisabled =
     (request?.request.restrictMoreThanOneProposalFromOneAssignee && requestProposals.length) ||
@@ -172,13 +169,17 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
     <div className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
         <div className={classNames.mainWrapper}>
-          <div className={classNames.personInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(request?.request?.createdById)} className={classNames.userPhoto} />
-            <div className={classNames.personWrapper}>
-              <UserLink blueText name={request?.request?.createdBy?.name} userId={request?.request?.createdBy?._id} />
-              <Rating disabled value={request?.request?.createdBy?.rating} />
-            </div>
-          </div>
+          <UserLink
+            blueText
+            withAvatar
+            ratingSize="large"
+            name={request?.request?.createdBy?.name}
+            userId={request?.request?.createdBy?._id}
+            rating={request?.request?.createdBy?.rating}
+            customAvatarStyles={{ width: 60, height: 60 }}
+            customStyles={{ fontSize: 18, lineHeight: '30px' }}
+            customRatingClass={{ fontSize: 24, opacity: 1 }}
+          />
 
           <p className={classNames.transactions}>{`${t(
             TranslationKey['The number of total successful transactions:'],
