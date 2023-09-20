@@ -27,17 +27,17 @@ export interface ChatMessageRequestProposalResultEditedHandlers {
 }
 
 interface Props {
-  isLastMessage: boolean
   message: ChatMessageContract<ChatMessageDataProposalResultEditedContract>
   handlers: ChatMessageRequestProposalResultEditedHandlers
   isShowChatInfo?: boolean
+  isLastResultMessage?: boolean
 }
 
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({
   message,
-  isLastMessage,
   handlers,
   isShowChatInfo,
+  isLastResultMessage,
 }) => {
   const { classes: classNames } = useClassNames()
   const { isMobileResolution } = useCreateBreakpointResolutions()
@@ -53,7 +53,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({
       proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
       proposalStatus !== RequestProposalStatus.TO_CORRECT) &&
     curUserId &&
-    isLastMessage &&
+    isLastResultMessage &&
     message.data.needApproveBy?.includes(curUserId)
   const files = message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))
 
