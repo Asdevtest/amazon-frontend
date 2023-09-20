@@ -116,6 +116,7 @@ export class BuyerProductViewModel {
 
   showWarningModal = false
   showConfirmModal = false
+  showSuccessModal = false
 
   setOpenModal = undefined
   productVariations = undefined
@@ -400,7 +401,12 @@ export class BuyerProductViewModel {
           this.confirmModalSettings = {
             isWarning: false,
             message: confirmMessageByProductStatus()[this.curUpdateProductData.status],
-            onClickOkBtn: () => this.onSaveProductData(updateDataHandler),
+            onClickOkBtn: () => {
+              this.onSaveProductData(updateDataHandler)
+
+              this.successModalTitle = `${t(TranslationKey['Status changed'])}!`
+              this.onTriggerOpenModal('showSuccessModal')
+            },
           }
         })
 
@@ -467,7 +473,7 @@ export class BuyerProductViewModel {
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       await this.loadData()
       this.showSuccesAlert()
-      await updateDataHandler()
+      updateDataHandler && (await updateDataHandler())
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
