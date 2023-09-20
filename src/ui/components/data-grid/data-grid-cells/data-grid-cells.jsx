@@ -43,7 +43,13 @@ import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { NotificationIdeaStatus, NotificationType } from '@constants/keys/notifications'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import {
+  UserRole,
+  UserRoleCodeMap,
+  UserRoleCodeMapForRoutes,
+  UserRolePrettyMap,
+  mapUserRoleEnumToKey,
+} from '@constants/keys/user-roles'
 import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
@@ -72,6 +78,7 @@ import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
@@ -3602,7 +3609,17 @@ const RequestNotificationMessage = React.memo(
     const isDeadlineExpires = !!notification?.timeoutAt
 
     const goToRequest = id => {
-      history.push(`/client/freelance/my-requests/custom-request?request-id=${id}`)
+      if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
+        history.push(
+          `/${
+            UserRoleCodeMapForRoutes[UserModel.userInfo.role]
+          }/freelance/my-proposals/custom-search-request?request-id=${id}`,
+        )
+      } else {
+        history.push(
+          `/${UserRoleCodeMapForRoutes[UserModel.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+        )
+      }
     }
 
     return (
