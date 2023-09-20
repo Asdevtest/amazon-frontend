@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import dayjs from 'dayjs'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
 import {
@@ -28,18 +27,18 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CheckRequestByTypeExist, CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
+import { SettingsModel } from '@models/settings-model'
+
+import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { CopyValue } from '@components/shared/copy-value'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -51,7 +50,7 @@ import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/cal
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import { replaceCommaByDot, shortAsin, toFixed } from '@utils/text'
+import { replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-request-content.style'
@@ -140,7 +139,7 @@ export const CreateOrEditRequestContent = observer(
           resizeObserver?.unobserve(componentRef.current)
         }
       }
-    }, [])
+    }, [SettingsModel.languageTag])
 
     const createImagesArray = () => {
       if (requestToEdit?.request?.media?.length) {
@@ -177,7 +176,7 @@ export const CreateOrEditRequestContent = observer(
       setChosenExecutor(requestToEdit?.request?.executor || executor)
     }, [requestToEdit?.request?.executor, executor])
 
-    const getSourceFormFields = currentFields => ({
+    const getSourceFormFields = () => ({
       request: {
         title: requestToEdit?.request?.title || '',
         maxAmountOfProposals: requestToEdit?.request?.maxAmountOfProposals || '',
