@@ -2100,5 +2100,6 @@ export enum TranslationKey {
   'Close idea' = 'Close idea',
   'Are you sure you want to send the result for rework?' = 'Are you sure you want to send the result for rework?',
   'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
+  'Status changed' = 'Status changed',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
