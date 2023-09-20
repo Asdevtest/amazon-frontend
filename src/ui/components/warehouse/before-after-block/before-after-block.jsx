@@ -340,7 +340,7 @@ const Box = observer(
                     )}:`}</Typography>
                     {isNewBox && box.tmpImages?.length ? (
                       <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
-                        box.tmpImages?.length
+                        box.tmpImages?.length - box.images.length
                       })`}</Typography>
                     ) : null}
                     <PhotoAndFilesSlider
