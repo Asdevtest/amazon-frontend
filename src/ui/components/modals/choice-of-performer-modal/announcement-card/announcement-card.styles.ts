@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -15,7 +14,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectedCard: {
-    border: `2px solid ${theme.palette.background.fourth} !important`,
+    border: `1px solid ${theme.palette.primary.main}`,
   },
 
   header: {
