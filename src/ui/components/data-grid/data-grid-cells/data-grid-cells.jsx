@@ -1251,7 +1251,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
 
       const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
 
-      const firstNumOfCode = curDestination?.zipCode[0]
+      const firstNumOfCode = curDestination?.zipCode?.[0]
 
       const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
 
