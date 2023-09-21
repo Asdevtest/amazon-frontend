@@ -103,6 +103,12 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   const [fileIndex, setFileIndex] = useState(0)
 
   useEffect(() => {
+    if (photos.length - 1 < photoIndex && photos.length > 0) {
+      setPhotoIndex(photos.length - 1)
+    }
+  }, [photos.length])
+
+  useEffect(() => {
     const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
       const isImage = checkIsImageLink(typeof el === 'string' ? el : el.file.name)
       const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : el.file.name)
