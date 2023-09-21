@@ -320,7 +320,7 @@ export const CreateBoxForm = observer(
         weighGrossKgSupplier:
           (sizeSetting === unitsOfChangeOptions.EU
             ? editingBox.weighGrossKgSupplier
-            : toFixed(editingBox.weighGrossKgSupplier * inchesCoefficient, 2)) || 0,
+            : toFixed(editingBox.weighGrossKgSupplier * poundsWeightCoefficient, 2)) || 0,
       }))
 
       setBoxesForCreation(isEdit ? [...newArr] : [...boxesForCreation, ...newArr])
