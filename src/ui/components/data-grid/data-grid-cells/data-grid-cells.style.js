@@ -252,13 +252,13 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 190,
+    maxWidth: 185,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
   orderText: {
     fontSize: 13,
-    maxWidth: 225,
+    maxWidth: 165,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -270,8 +270,11 @@ export const styles = theme => ({
   },
 
   orderTextSpan: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: 'rgb(189, 194, 209)',
   },
+
   select: {
     backgroundcolor: theme.palette.text.general,
   },
@@ -1279,8 +1282,8 @@ export const styles = theme => ({
 
   normalizeLink: {
     maxWidth: 140,
-    fontSize: 12,
-    lineHeight: '16px',
+    fontSize: 14,
+    lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',

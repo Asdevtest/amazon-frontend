@@ -20,16 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '60px',
   },
 
-  nameWrapper: {
-    display: 'flex',
-
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: '60px',
-
-    marginLeft: '15px',
-  },
-
   cardTitleBlockHeaderWrapper: {
     display: 'flex',
     alignItems: 'start',
@@ -65,20 +55,6 @@ export const useClassNames = makeStyles()(theme => ({
     span: {
       fontWeight: '600',
     },
-  },
-
-  userInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-
-    marginBottom: '30px',
-  },
-
-  cardImg: {
-    width: '60px',
-    height: '60px',
-    objectFit: 'contain',
-    objectPosition: 'center',
   },
 
   actionButton: {

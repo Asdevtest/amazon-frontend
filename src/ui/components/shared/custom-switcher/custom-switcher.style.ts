@@ -47,6 +47,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 5,
     fontSize: 14,
     lineHeight: '19px',
     whiteSpace: 'nowrap',
