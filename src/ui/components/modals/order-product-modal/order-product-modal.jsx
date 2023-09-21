@@ -31,6 +31,7 @@ export const OrderProductModal = ({
   destinationsFavourites,
   setDestinationsFavouritesItem,
   isPendingOrdering,
+  isInventory,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -227,8 +228,12 @@ export const OrderProductModal = ({
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
 
   const disabledSubmit =
-    orderState.some(
-      (order, index) =>
+    orderState.some((order, index) => {
+      console.log(
+        order.deadline,
+        !(isValid(order.deadline) && (isPast(order.deadline) || isToday(order.deadline) || isTomorrow(order.deadline))),
+      )
+      return (
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
@@ -237,16 +242,14 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (!!order.deadline &&
-          isValid(order.deadline) &&
-          (!reorderOrdersData?.length ||
-            isPast(order.deadline) ||
-            isToday(order.deadline) ||
-            isTomorrow(order.deadline))) ||
+        (isInventory && !order.deadline) ||
+        (isValid(order.deadline) &&
+          (isPast(order.deadline) || isToday(order.deadline) || isTomorrow(order.deadline))) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
-    ) ||
+          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
+      )
+    }) ||
     storekeeperEqualsDestination ||
     // productsForRender.some(item => !item.currentSupplier) ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
