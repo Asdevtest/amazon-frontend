@@ -122,17 +122,6 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'asin',
-    headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-
-    renderCell: params => <AsinCell asin={params.row.asin} />,
-    width: 145,
-
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
