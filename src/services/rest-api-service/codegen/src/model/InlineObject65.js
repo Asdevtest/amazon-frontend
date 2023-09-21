@@ -78,6 +78,12 @@ class InlineObject65 {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('fbaFee')) {
+                obj['fbaFee'] = ApiClient.convertToType(data['fbaFee'], 'Number');
+            }
+            if (data.hasOwnProperty('approximatePrice')) {
+                obj['approximatePrice'] = ApiClient.convertToType(data['approximatePrice'], 'Number');
+            }
             if (data.hasOwnProperty('width')) {
                 obj['width'] = ApiClient.convertToType(data['width'], 'Number');
             }
@@ -153,6 +159,18 @@ InlineObject65.prototype['quantity'] = undefined;
  * @member {Number} price
  */
 InlineObject65.prototype['price'] = undefined;
+
+/**
+ * FBA Fee
+ * @member {Number} fbaFee
+ */
+InlineObject65.prototype['fbaFee'] = undefined;
+
+/**
+ * Ориентационная цена
+ * @member {Number} approximatePrice
+ */
+InlineObject65.prototype['approximatePrice'] = undefined;
 
 /**
  * Ширина, см

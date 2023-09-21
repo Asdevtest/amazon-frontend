@@ -40,7 +40,8 @@ export const styles = theme => ({
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
+    paddingLeft: '10px',
   },
 
   clockIcon: {
@@ -235,6 +236,11 @@ export const styles = theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
     borderRadius: 4,
+  },
+
+  orderImageSmall: {
+    height: 56,
+    width: 56,
   },
 
   orderImageBig: {
@@ -2029,6 +2035,11 @@ export const styles = theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.primary.main,
+  },
+
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
   },
 
   multipleAsinWrapper: {

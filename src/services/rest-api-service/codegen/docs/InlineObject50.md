@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **buyerId** | **String** | GUID баера | [optional] 
 **item** | **String** |  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
+**variationTariffId** | **String** | Гуид вариации | [optional] 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
 **destinationId** | **String** | GUID пункта назначения. | [optional] 
 **amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 

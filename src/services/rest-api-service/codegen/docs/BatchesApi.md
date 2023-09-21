@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**apiV1BatchesGuidPatch**](BatchesApi.md#apiV1BatchesGuidPatch) | **PATCH** /api/v1/batches/{guid} | # Изменение партии
 [**apiV1BatchesGuidRemoveBoxesPatch**](BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
 [**apiV1BatchesPost**](BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
-[**apiV1BatchesReportBatchIdGet**](BatchesApi.md#apiV1BatchesReportBatchIdGet) | **GET** /api/v1/batches/report/{batchId} | # Получить партии по гуиду продукта
+[**apiV1BatchesReportBatchIdGet**](BatchesApi.md#apiV1BatchesReportBatchIdGet) | **GET** /api/v1/batches/report/{batchId} | # Получить репорт по партии
 [**apiV1BatchesRequestSendBoxesToBatchPost**](BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
 [**apiV1BatchesWithFiltersGet**](BatchesApi.md#apiV1BatchesWithFiltersGet) | **GET** /api/v1/batches/with_filters | # Получить партии.
 
@@ -631,9 +631,9 @@ Name | Type | Description  | Notes
 
 > File apiV1BatchesReportBatchIdGet(batchId, opts)
 
-# Получить партии по гуиду продукта
+# Получить репорт по партии
 
-## Получить партии по гуиду продукта.   
+## Получить репорт по партии.       Возвращает файл xlsx, есть 2 версии       
 
 ### Example
 

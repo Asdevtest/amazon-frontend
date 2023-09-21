@@ -162,6 +162,15 @@ export interface IProductVariation {
   _id: string
 }
 
+export interface IProductIdeaNotification {
+  _id: string
+  asin: string
+  images: Array<string>
+  buyerId: string
+  clientId: string
+  skusByClient: Array<string>
+}
+
 export enum ProductVariation {
   PARENT = 'PARENT',
   CHILD = 'CHILD',

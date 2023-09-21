@@ -43,8 +43,10 @@ export class VacantRequestsViewModel {
   nameSearchValue = ''
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  showRequestDetailModal = false
 
   currentData = []
+  currentRequestDetails = undefined
 
   userInfo = []
   userRole = undefined
@@ -103,7 +105,10 @@ export class VacantRequestsViewModel {
     ),
   }
 
-  handlers = { onClickViewMore: id => this.onClickViewMore(id) }
+  handlers = {
+    onClickViewMore: id => this.onClickViewMore(id),
+    onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
+  }
 
   columnsModel = FreelancerVacantRequestColumns(
     this.handlers,
@@ -495,5 +500,46 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.requestStatus = requestStatus
     })
+  }
+
+  async getRequestDetail(id) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const response = await RequestModel.getCustomRequestById(id)
+
+      runInAction(() => {
+        this.currentRequestDetails = response
+      })
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  handleOpenRequestDetailModal(id) {
+    this.getRequestDetail(id).then(() => {
+      this.onTriggerOpenModal('showRequestDetailModal')
+    })
+  }
+
+  onClickSuggest() {
+    this.history.push(
+      `/${
+        UserRoleCodeMapForRoutes[this.userInfo.role]
+      }/freelance/vacant-requests/custom-search-request/create-proposal`,
+      { request: toJS(this.currentRequestDetails) },
+    )
+  }
+
+  onClickOpenInNewTab(id) {
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 }

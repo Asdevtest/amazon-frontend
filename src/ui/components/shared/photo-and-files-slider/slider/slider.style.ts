@@ -70,6 +70,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px !important',
   },
 
+  hideArrow: {
+    opacity: 0,
+  },
+
   slidesWrapper: {
     overflow: 'hidden',
   },

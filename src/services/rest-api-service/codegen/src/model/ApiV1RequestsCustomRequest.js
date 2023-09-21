@@ -72,6 +72,9 @@ class ApiV1RequestsCustomRequest {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('taskComplexity')) {
+                obj['taskComplexity'] = ApiClient.convertToType(data['taskComplexity'], 'Number');
+            }
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
@@ -144,6 +147,12 @@ ApiV1RequestsCustomRequest.prototype['withoutConfirmation'] = undefined;
  * @member {Number} price
  */
 ApiV1RequestsCustomRequest.prototype['price'] = undefined;
+
+/**
+ * Уровень сложности задачи
+ * @member {Number} taskComplexity
+ */
+ApiV1RequestsCustomRequest.prototype['taskComplexity'] = undefined;
 
 /**
  * Время закрытия заявки.

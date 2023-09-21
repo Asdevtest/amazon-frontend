@@ -220,8 +220,8 @@ export default class AdministratorApi {
 
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Получить список отзывов/жалоб
+     * ## Получить список отзывов/жалоб   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
@@ -252,8 +252,8 @@ export default class AdministratorApi {
     }
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Получить список отзывов/жалоб
+     * ## Получить список отзывов/жалоб   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
@@ -1002,8 +1002,8 @@ export default class AdministratorApi {
 
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * # Удалить новый красный флаг
+     * ## Удалить новый красный флаг
      * @param {String} guid GUID красного флага в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -1040,8 +1040,8 @@ export default class AdministratorApi {
     }
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * # Удалить новый красный флаг
+     * ## Удалить новый красный флаг
      * @param {String} guid GUID красного флага в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -1112,8 +1112,8 @@ export default class AdministratorApi {
 
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Создать новый красный флаг
+     * ##  Создать новый красный флаг  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject7} opts.body 
@@ -1145,8 +1145,8 @@ export default class AdministratorApi {
     }
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Создать новый красный флаг
+     * ##  Создать новый красный флаг  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject7} opts.body 

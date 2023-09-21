@@ -62,6 +62,12 @@ class InlineResponse20045 {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
+            if (data.hasOwnProperty('fbaFee')) {
+                obj['fbaFee'] = ApiClient.convertToType(data['fbaFee'], 'Number');
+            }
+            if (data.hasOwnProperty('approximatePrice')) {
+                obj['approximatePrice'] = ApiClient.convertToType(data['approximatePrice'], 'Number');
+            }
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
@@ -148,6 +154,18 @@ InlineResponse20045.prototype['status'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineResponse20045.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * FBA Fee
+ * @member {Number} fbaFee
+ */
+InlineResponse20045.prototype['fbaFee'] = undefined;
+
+/**
+ * Ориентационная цена
+ * @member {Number} approximatePrice
+ */
+InlineResponse20045.prototype['approximatePrice'] = undefined;
 
 /**
  * Назавние продукта
