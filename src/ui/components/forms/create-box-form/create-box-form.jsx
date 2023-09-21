@@ -5,7 +5,12 @@ import { useState } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import {
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+  volumePoundsWeightCoefficient,
+} from '@constants/configs/sizes-settings'
 import {
   OrderStatus,
   OrderStatusByKey,
@@ -168,14 +173,18 @@ export const CreateBoxForm = observer(
     isEdit,
   }) => {
     const { classes: classNames } = useClassNames()
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+
+    const weightCoefficient =
+      sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient
 
     const sourceBox = {
       lengthCmSupplier: formItem?.lengthCmSupplier || 0,
       widthCmSupplier: formItem?.widthCmSupplier || 0,
       heightCmSupplier: formItem?.heightCmSupplier || 0,
       weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
-      volumeWeightKgSupplier: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
-      weightFinalAccountingKgSupplier: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
+      volumeWeightKgSupplier: formItem ? calcVolumeWeightForBox(formItem, weightCoefficient) : 0,
+      weightFinalAccountingKgSupplier: formItem ? calcFinalWeightForBox(formItem, weightCoefficient) : 0,
 
       warehouse: formItem?.warehouse || '',
       deliveryMethod: formItem?.deliveryMethod || '',
@@ -270,8 +279,6 @@ export const CreateBoxForm = observer(
           (currentSupplier.multiplicity && el.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0),
       )
 
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
     const handleChange = newAlignment => {
       if (newAlignment === unitsOfChangeOptions.US) {
         setFormFieldsArr(
@@ -320,7 +327,7 @@ export const CreateBoxForm = observer(
         weighGrossKgSupplier:
           (sizeSetting === unitsOfChangeOptions.EU
             ? editingBox.weighGrossKgSupplier
-            : toFixed(editingBox.weighGrossKgSupplier * inchesCoefficient, 2)) || 0,
+            : toFixed(editingBox.weighGrossKgSupplier * poundsWeightCoefficient, 2)) || 0,
       }))
 
       setBoxesForCreation(isEdit ? [...newArr] : [...boxesForCreation, ...newArr])
@@ -429,7 +436,7 @@ export const CreateBoxForm = observer(
                   key={orderBoxIndex}
                   currentSupplier={currentSupplier}
                   order={order}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
+                  volumeWeightCoefficient={weightCoefficient}
                   sizeSetting={sizeSetting}
                   orderBoxIndex={orderBoxIndex}
                   // orderBox={isEdit ? editingBox : orderBox}
