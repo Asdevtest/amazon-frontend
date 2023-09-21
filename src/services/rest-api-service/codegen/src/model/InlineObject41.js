@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
-     * Схема комментарии байера.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject41
-     * @param buyerComment {String} Комментарии байера.
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(buyerComment) { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject41.initialize(this, buyerComment);
+        InlineObject41.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -35,8 +35,8 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -50,8 +50,8 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -61,10 +61,10 @@ class InlineObject41 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject41.prototype['buyerComment'] = undefined;
+InlineObject41.prototype['totalPriceChanged'] = undefined;
 
 
 

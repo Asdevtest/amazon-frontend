@@ -18,6 +18,8 @@ export const poundsCoefficient = /* 2.046223 */ 2.20462
 
 export const poundsWeightCoefficient = 0.4535923745
 
+export const volumePoundsWeightCoefficient = 166
+
 export const RIGHT_BLOCK_WIDTH = 100
 
 export const getConversion = (unitsOptions, coefficient, divider = 1) =>

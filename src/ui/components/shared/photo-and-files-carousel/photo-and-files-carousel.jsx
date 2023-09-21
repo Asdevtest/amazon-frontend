@@ -34,7 +34,7 @@ export const PhotoAndFilesCarousel = props => {
     direction = 'row',
     notToShowEmpty = false,
     withoutPhotos,
-    whithoutFiles,
+    withoutFiles,
     imagesTitles = [],
     isHideCounter = false,
     imagesForLoad,
@@ -219,7 +219,7 @@ export const PhotoAndFilesCarousel = props => {
         </>
       )}
 
-      {!whithoutFiles && (
+      {!withoutFiles && (
         <>
           {((notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty) && (
             <div className={cx(classNames.documentsWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
