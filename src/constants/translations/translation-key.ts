@@ -2120,5 +2120,6 @@ export enum TranslationKey {
   'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
   'Status changed' = 'Status changed',
   'This product has a parent product' = 'This product has a parent product',
+  'Mark as completed' = 'Mark as completed',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

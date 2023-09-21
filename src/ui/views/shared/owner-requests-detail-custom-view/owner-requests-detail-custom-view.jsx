@@ -65,6 +65,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
             onClickPublishBtn={viewModel.onClickPublishBtn}
             onClickEditBtn={viewModel.onClickEditBtn}
             onClickCancelBtn={viewModel.onClickCancelBtn}
+            onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
             onClickAbortBtn={viewModel.onClickAbortBtn}
             onRecoverRequest={viewModel.onRecoverRequest}
             onToggleUploadedToListing={viewModel.onToggleUploadedToListing}

@@ -564,6 +564,33 @@ export class OwnerRequestDetailCustomViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
+  async onMarkAsCompletedRequest() {
+    try {
+      await RequestModel.manualCompletedRequest(this.requestId)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
+    } catch (error) {
+      console.log(error)
+
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onClickMarkAsCompletedBtn() {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: `${t(TranslationKey['Mark as completed'])}?`,
+        onSubmit: () => this.onMarkAsCompletedRequest(),
+      }
+    })
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
   async onSubmitEditCustomSearchRequest(data, requestId) {
     try {
       await this.editCustomSearchRequest(data, requestId)
