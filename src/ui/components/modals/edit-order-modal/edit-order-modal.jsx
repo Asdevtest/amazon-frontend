@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -485,8 +484,6 @@ export const EditOrderModal = observer(
       !orderFields?.orderSupplier
 
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
-
-    console.log('orderFields', orderFields)
 
     const isOnlyRead =
       selectedSupplier?.createdBy._id !== userInfo._id &&

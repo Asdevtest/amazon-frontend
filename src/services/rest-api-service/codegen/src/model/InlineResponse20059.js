@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20059Data from './InlineResponse20059Data';
+import InlineResponse20059Rows from './InlineResponse20059Rows';
 
 /**
  * The InlineResponse20059 model module.
@@ -48,11 +48,11 @@ class InlineResponse20059 {
         if (data) {
             obj = obj || new InlineResponse20059();
 
-            if (data.hasOwnProperty('data')) {
-                obj['data'] = ApiClient.convertToType(data['data'], [InlineResponse20059Data]);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('totalCount')) {
-                obj['totalCount'] = ApiClient.convertToType(data['totalCount'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20059Rows]);
             }
         }
         return obj;
@@ -62,14 +62,14 @@ class InlineResponse20059 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20059Data>} data
+ * @member {Number} count
  */
-InlineResponse20059.prototype['data'] = undefined;
+InlineResponse20059.prototype['count'] = undefined;
 
 /**
- * @member {Number} totalCount
+ * @member {Array.<module:model/InlineResponse20059Rows>} rows
  */
-InlineResponse20059.prototype['totalCount'] = undefined;
+InlineResponse20059.prototype['rows'] = undefined;
 
 
 

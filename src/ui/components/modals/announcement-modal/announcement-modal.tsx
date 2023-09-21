@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -80,12 +80,12 @@ export const AnnouncementModal: FC<Props> = ({
 
           <div className={styles.flexColumnContainer}>
             <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
-            <PhotoAndFilesCarouselTest withoutFiles isHideCounter files={files} customGap={0} customSlideHeight={210} />
+            <PhotoAndFilesCarousel withoutFiles isHideCounter files={files} customGap={0} customSlideHeight={210} />
           </div>
 
           <div className={styles.flexColumnContainer}>
             <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
-            <PhotoAndFilesCarouselTest
+            <PhotoAndFilesCarousel
               alignLeft
               withoutPhotos
               isHideCounter

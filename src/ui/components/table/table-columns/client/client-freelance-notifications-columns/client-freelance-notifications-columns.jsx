@@ -55,20 +55,16 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
-      <MultilineTextCell
-        text={
-          <Button
-            sx={{
-              height: '30px !important',
-            }}
-            onClick={() => {
-              handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
-            }}
-          >
-            {t(TranslationKey.Reply)}
-          </Button>
-        }
-      />
+      <Button
+        sx={{
+          height: '30px !important',
+        }}
+        onClick={() => {
+          handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
+        }}
+      >
+        {t(TranslationKey.Reply)}
+      </Button>
     ),
 
     sortable: false,

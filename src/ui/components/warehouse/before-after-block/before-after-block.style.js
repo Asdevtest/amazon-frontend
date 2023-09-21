@@ -55,9 +55,15 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
+  divider: {
+    gridColumn: '2 / 3',
+  },
+
   currentBox: {
     marginBottom: '20px',
     width: '690px',
+    gridColumn: '1 / 2',
+
     [theme.breakpoints.down(1282)]: {
       width: 550,
     },
@@ -171,6 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
   imagesWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    gap: 10,
 
     [theme.breakpoints.down(1282)]: {
       paddingLeft: 20,
@@ -183,7 +190,7 @@ export const useClassNames = makeStyles()(theme => ({
   photoWrapper: {
     width: '300px',
     marginLeft: '20px',
-    minHeight: '150px',
+    minHeight: '120px',
     [theme.breakpoints.down(1282)]: {
       width: '100%',
       minHeight: 200,
@@ -195,17 +202,6 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'center',
       alignItems: 'center',
       marginLeft: 0,
-    },
-  },
-
-  photoSubWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: 'fit-content',
-    marginTop: '10px',
-    [theme.breakpoints.down(768)]: {
-      height: '250px',
     },
   },
 
@@ -377,6 +373,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photoAndFilesTitle: {
+    marginBottom: 10,
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
@@ -463,11 +460,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   receiveBoxWrapper: {
-    width: '690px',
+    width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    height: 'fit-content',
+    gridColumn: '2 / 4',
+    justifySelf: 'center',
+    position: 'sticky',
+    top: 0,
+    paddingTop: 20,
 
     [theme.breakpoints.down(768)]: {
       width: '100%',

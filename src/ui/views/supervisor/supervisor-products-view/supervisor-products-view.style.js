@@ -5,19 +5,24 @@ export const styles = theme => ({
   },
 
   attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#C69109',
+    },
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
-  },
-
-  headerWrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-
-    gap: 20,
   },
 
   footerContainer: {
@@ -55,7 +60,6 @@ export const styles = theme => ({
     },
   },
   badge: {
-    margin: '0 auto',
     height: 20,
     width: 'fit-content',
     background: theme.palette.primary.main,

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { isPast, isToday, isValid } from 'date-fns'
-import React, { useEffect, useState } from 'react'
+import { isPast, isToday, isTomorrow, isValid } from 'date-fns'
+import { useEffect, useState } from 'react'
 
 import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
@@ -73,7 +72,15 @@ export const OrderProductModal = ({
             : '',
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          deadline: reorderOrder.deadline || '',
+          deadline:
+            isPendingOrdering &&
+            !(
+              isPast(new Date(reorderOrder.deadline)) ||
+              isToday(new Date(reorderOrder.deadline)) ||
+              isTomorrow(new Date(reorderOrder.deadline))
+            )
+              ? reorderOrder.deadline
+              : null,
         }))
       : selectedProductsData.map(product => ({
           ...product,
@@ -108,8 +115,16 @@ export const OrderProductModal = ({
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
           _id: reorderOrder._id,
-          deadline: reorderOrder.deadline || '',
-          // buyerId: reorderOrder.buyer?._id || null,
+          deadline:
+            isPendingOrdering &&
+            !(
+              isPast(new Date(reorderOrder.deadline)) ||
+              isToday(new Date(reorderOrder.deadline)) ||
+              isTomorrow(new Date(reorderOrder.deadline))
+            )
+              ? reorderOrder.deadline
+              : null,
+          buyerId: reorderOrder.buyer?._id || null,
         }))
       : selectedProductsData.map(product => ({
           amount: 1,
@@ -126,7 +141,7 @@ export const OrderProductModal = ({
           logicsTariffId: '',
           expressChinaDelivery: false,
           priority: '30',
-          // buyerId: product.buyer?._id || null,
+          buyerId: product.buyer?._id || null,
         })),
   )
 
@@ -222,7 +237,12 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))) ||
+        (!!order.deadline &&
+          isValid(order.deadline) &&
+          (!reorderOrdersData?.length ||
+            isPast(order.deadline) ||
+            isToday(order.deadline) ||
+            isTomorrow(order.deadline))) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
@@ -240,8 +260,12 @@ export const OrderProductModal = ({
         <Table className={classNames.table}>
           <TableHead>
             <TableRow className={classNames.tableRow}>
-              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
+              <TableCell className={classNames.imgCell}>
+                <p className={classNames.cellText}>{t(TranslationKey.Image)}</p>
+              </TableCell>
+              <TableCell className={classNames.productCell}>
+                <p className={classNames.cellText}>{t(TranslationKey.Product)}</p>
+              </TableCell>
               <TableCell className={classNames.priceCell}>
                 <Button
                   disabled
@@ -323,7 +347,9 @@ export const OrderProductModal = ({
                   {t(TranslationKey['Client comment'])}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.deadlineCell}>{'Deadline'}</TableCell>
+              <TableCell className={classNames.deadlineCell}>
+                <p className={classNames.cellText}>{'Deadline'}</p>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

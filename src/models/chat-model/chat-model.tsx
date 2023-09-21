@@ -321,6 +321,8 @@ class ChatModelStatic {
         ]
       })
 
+      this.removeTypingUser(message.chatId, message.userId)
+
       if (
         checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
         this.userId &&
@@ -367,20 +369,22 @@ class ChatModelStatic {
     }
   }
 
+  private removeTypingUser(chatId: string, userId: string) {
+    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.userId === userId)
+
+    runInAction(() => {
+      this.typingUsers.splice(typingUserToRemove, 1)
+    })
+  }
+
   private onTypingMessage(response: OnTypingMessageResponse) {
     runInAction(() => {
       this.typingUsers = [...this.typingUsers, response]
     })
 
     setTimeout(() => {
-      const typingUserToRemove = this.typingUsers.findIndex(
-        el => el.chatId === response.chatId && el.userId === response.userId,
-      )
-
-      runInAction(() => {
-        this.typingUsers.splice(typingUserToRemove, 1)
-      })
-    }, 3000)
+      this.removeTypingUser(response.chatId, response.userId)
+    }, 10000)
   }
 
   private onNewChat(newChat: ChatContract) {

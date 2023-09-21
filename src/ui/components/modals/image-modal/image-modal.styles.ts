@@ -54,13 +54,14 @@ export const useImageModalStyles = makeStyles()(theme => ({
     border: `1px solid #424250`,
     borderRadius: '4px',
     cursor: 'pointer',
-    maxWidth: 150,
+    maxWidth: 120,
     width: '100%',
 
     img: {
-      width: 74,
+      width: '100%',
       height: 74,
       borderRadius: '4px',
+      objectFit: 'contain',
     },
 
     p: {
@@ -76,7 +77,6 @@ export const useImageModalStyles = makeStyles()(theme => ({
   imagesListItemTitle: {
     fontSize: 14,
     lineHeight: '19px',
-    fontWeight: 600,
     textAlign: 'center',
   },
 
@@ -118,6 +118,10 @@ export const useImageModalStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
+  clientComment: {
+    color: '#DF0C0C',
+  },
+
   slider: {
     maxWidth: 720,
 
@@ -135,10 +139,10 @@ export const useImageModalStyles = makeStyles()(theme => ({
     height: 'auto',
 
     img: {
-      objectFit: 'contain',
       width: '100%',
       height: 'auto',
       maxHeight: '45vh',
+      objectFit: 'contain',
     },
   },
 
@@ -181,8 +185,6 @@ export const useImageModalStyles = makeStyles()(theme => ({
   placeholder: {
     width: '110px',
   },
-
-  controlBtn: {},
 
   zoomModal: {
     padding: 0,

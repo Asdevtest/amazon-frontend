@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Typography } from '@mui/material'
@@ -109,6 +108,7 @@ export const OwnerGeneralRequestInfo = ({
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
 
               <AsinOrSkuLink
+                withCopyValue
                 asin={request?.request.asin}
                 textStyles={cx(classNames.sectionText, classNames.linkSpan)}
                 missingValueTextStyles={cx(classNames.sectionText, classNames.linkSpan)}

@@ -64,10 +64,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   detailTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 
@@ -115,17 +113,5 @@ export const useClassNames = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',
-  },
-
-  cardImg: {
-    width: 28,
-    height: 28,
-  },
-
-  userInfo: {
-    display: 'flex',
-    alignItems: 'center',
-
-    gap: 10,
   },
 }))

@@ -89,6 +89,7 @@ export const RequestDetailCustomViewRaw = props => {
               }}
             >
               <MultipleChats
+                isFreelanceOwner
                 chats={viewModel.chats}
                 typingUsers={viewModel.typingUsers}
                 userId={viewModel.userInfo?._id}

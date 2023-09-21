@@ -5,6 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 165,
     width: 800,
     padding: '20px 20px 20px 0',
+    background: theme.palette.background.general,
     display: 'flex',
     justifyContent: 'space-between',
     borderRadius: 4,
@@ -19,44 +20,39 @@ export const useClassNames = makeStyles()(theme => ({
     width: 220,
   },
 
-  carouselImage: {
-    height: 96,
-    objectFit: 'contain',
-    width: '100%',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
+  photosWrapper: {
+    padding: '10px 50px',
   },
 
   titleAndDescriptionWrapper: {
     width: 275,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   cardTitle: {
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.general,
     marginBottom: 10,
 
-    overflow: 'hidden',
     whiteSpace: 'nowrap',
+    overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
+    maxHeight: 95,
     fontSize: '14px',
     lineHeight: '19px',
     height: 57,
-    overflow: 'hidden',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
-    marginBottom: 10,
-
+    overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 5,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -67,17 +63,21 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   detailTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 
   detailDescription: {
-    fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
+    fontWeight: 600,
+  },
+
+  detailsAndButtonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   detailsWrapper: {
@@ -94,13 +94,6 @@ export const useClassNames = makeStyles()(theme => ({
   openBtn: {
     padding: '0 75px',
     height: 40,
-  },
-
-  detailsAndButtonWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
   },
 
   buttonWrapper: {

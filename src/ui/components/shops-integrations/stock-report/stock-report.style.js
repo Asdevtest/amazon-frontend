@@ -1,7 +1,7 @@
 export const styles = theme => ({
   button: {
     marginBottom: 5,
-    color: theme.palette.primary.main,
+    color: theme.palette.text.general,
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',

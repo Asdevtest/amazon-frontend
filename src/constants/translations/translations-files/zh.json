@@ -15,7 +15,7 @@
   "Sent": "已经发货",
   "Requested shipments": "申请的运输",
   "Balance": "余额",
-  "your role:": "角色:",
+  "Your role:": "角色:",
   "Menu": "菜单",
   "Profile": "用户信息",
   "Exit": "退出",
@@ -2074,7 +2074,7 @@
   "Are you sure you want to change the status of an idea": "Are you sure you want to change the status of an idea?",
   "Are you sure you want to dismiss the idea": "Are you sure you want to dismiss the idea?",
   "Are you sure you want to restore the idea": "Are you sure you want to restore the idea?",
-  "Once confirmed, the idea will be irretrievably lost/deleted": "Once confirmed, the idea will be irretrievably lost/deleted",
+  "Once confirmed, the idea will be closed without reopening": "Once confirmed, the idea will be closed without reopening",
   "Interconnected products": "Interconnected products",
   "Variations": "Variations",
   "Choose an executor": "Choose an executor",
@@ -2096,5 +2096,11 @@
   "Product unbundling": "Product unbundling",
   "Are you sure you want to unbind the product?": "Are you sure you want to unbind the product?",
   "Idea closed": "Idea closed",
-  "You have changed the tab settings. Do you want to save them?": "You have changed the tab settings. Do you want to save them?"
+  "SEARCH_BY_TITLE": "Title",
+  "You have changed the tab settings. Do you want to save them?": "You have changed the tab settings. Do you want to save them?",
+  "Close idea": "Close idea",
+  "Are you sure you want to send the result for rework?": "Are you sure you want to send the result for rework?",
+  "Are you sure you want to close this window?": "Are you sure you want to close this window?",
+  "Status changed": "Status changed",
+  "This product has a parent product": "This product has a parent product"
 }

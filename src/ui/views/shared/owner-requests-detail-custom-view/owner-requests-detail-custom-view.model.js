@@ -204,9 +204,14 @@ export class OwnerRequestDetailCustomViewModel {
   async onSubmitMessage(message, files, chatIdId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
+        crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
         files: files?.map(item => item?.file),
+        user: {
+          name: UserModel.userInfo.name,
+          _id: UserModel.userInfo._id,
+        },
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
@@ -243,28 +248,47 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
     this.triggerShowResultToCorrectFormModal()
+
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
+
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
+
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
+
       if (!findProposalByChatId) {
         return
       }
+
       await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
         ...formFields,
         timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
         linksToMediaFiles: this.uploadedFiles,
       })
+
       this.loadData()
     } catch (error) {
-      console.warn('onClickProposalResultToCorrect error ', error)
+      console.error(error)
     }
+  }
+
+  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
@@ -293,6 +317,28 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
+  onSubmitSendInForReworkInProposalResultAccept({
+    reason,
+    timeLimitInMinutes,
+    imagesData /* .filter(el => el.image) */,
+  }) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitDesignerResultToCorrect({
+          reason,
+          timeLimitInMinutes,
+          imagesData /* .filter(el => el.image) */,
+        })
+        this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
   async getCustomProposalsForRequestCur() {
     try {
       const [platformSettings, result] = await Promise.all([
@@ -318,7 +364,9 @@ export class OwnerRequestDetailCustomViewModel {
       if (guid) {
         const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
 
-        this.requestAnnouncement = result
+        runInAction(() => {
+          this.requestAnnouncement = result
+        })
       }
     } catch (error) {
       console.log(error)

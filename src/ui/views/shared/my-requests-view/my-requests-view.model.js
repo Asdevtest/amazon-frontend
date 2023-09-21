@@ -16,7 +16,7 @@ import { myRequestsViewColumns } from '@components/table/table-columns/overall/m
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
+const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS, RequestStatus.EXPIRED]
 
 // const filtersFields = ['status', 'typeTask']
 
@@ -42,6 +42,7 @@ const filtersFields = [
 export class MyRequestsViewModel {
   history = undefined
   requestStatus = undefined
+  loadTableStatus = undefined
   error = undefined
 
   showRequestForm = false
@@ -195,9 +196,7 @@ export class MyRequestsViewModel {
 
     reaction(
       () => this.isRequestsAtWork,
-      () => {
-        this.currentData = this.getCustomRequests()
-      },
+      () => this.getCustomRequests(),
     )
 
     reaction(
@@ -239,6 +238,7 @@ export class MyRequestsViewModel {
   onClickChangeCatigory(value) {
     runInAction(() => {
       this.isRequestsAtWork = value
+      this.loadTableStatus = loadingStatuses.loading
     })
   }
 
@@ -503,6 +503,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -527,7 +528,10 @@ export class MyRequestsViewModel {
 
         this.rowCount = result.count
       })
+      this.setRequestStatus(loadingStatuses.success)
+      this.loadTableStatus = loadingStatuses.success
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error

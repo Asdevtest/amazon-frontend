@@ -19,8 +19,7 @@ import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-bt
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -897,12 +896,12 @@ export const AddOrEditSupplierModalContent = observer(
               </div>
             ) : null}
             <div className={classNames.photoAndFilesWrapper}>
-              <PhotoAndFilesCarouselTest
+              <PhotoAndFilesSlider
                 smallSlider
+                showPreviews
                 withoutMakeMainImage
                 isEditable={!onlyRead}
                 files={tmpSupplier.images}
-                imagesForLoad={editPhotosOfSupplier}
                 onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
               />
             </div>

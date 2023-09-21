@@ -37,7 +37,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const currentProposal = chatRequestAndRequestProposal.requestProposals?.find(
-    requestProposal => requestProposal.proposal.chatId === chat._id,
+    requestProposal => requestProposal?.proposal?.chatId === chat?._id,
   )
 
   const { messages, users } = chat

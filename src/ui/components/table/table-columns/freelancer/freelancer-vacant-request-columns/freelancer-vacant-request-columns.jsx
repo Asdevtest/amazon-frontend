@@ -176,7 +176,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'remainingOffers',
+    field: 'maxAmountOfProposals',
     headerName: t(TranslationKey['Remaining offers']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Remaining offers'])} />,
 

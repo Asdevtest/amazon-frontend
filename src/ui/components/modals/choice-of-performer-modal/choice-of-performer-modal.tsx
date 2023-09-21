@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable no-unused-vars */
 import React, { FC, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
@@ -65,15 +63,21 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   useEffect(() => {
     if (nameSearchValue) {
       setDataToRender(
-        announcements.filter(
-          performer =>
-            performer.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            performer.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            performer.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
-        ),
+        announcements
+          .filter(announcement => (selectedExecutor?._id ? announcement.createdBy._id === selectedExecutor?._id : true))
+          .filter(
+            announcement =>
+              announcement.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              announcement.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              announcement.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
+          ),
       )
     } else {
-      setDataToRender(announcements)
+      setDataToRender(
+        announcements.filter(announcement =>
+          selectedExecutor?._id ? announcement.createdBy._id === selectedExecutor?._id : true,
+        ),
+      )
     }
   }, [nameSearchValue])
 

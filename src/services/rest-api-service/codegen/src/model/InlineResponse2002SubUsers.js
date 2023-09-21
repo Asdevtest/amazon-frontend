@@ -57,6 +57,9 @@ class InlineResponse2002SubUsers {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
+            if (data.hasOwnProperty('lastSeen')) {
+                obj['lastSeen'] = ApiClient.convertToType(data['lastSeen'], 'Date');
+            }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -84,6 +87,12 @@ InlineResponse2002SubUsers.prototype['name'] = undefined;
  * @member {Number} rating
  */
 InlineResponse2002SubUsers.prototype['rating'] = undefined;
+
+/**
+ * Последний раз онлайн
+ * @member {Date} lastSeen
+ */
+InlineResponse2002SubUsers.prototype['lastSeen'] = undefined;
 
 /**
  * email

@@ -1,20 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { Checkbox, TableCell, TableRow, Typography } from '@mui/material'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 
-import { calcFinalWeightForBoxWithoutAmount, calcVolumeWeightForBox } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -43,6 +41,29 @@ const renderHeadRow = () => (
 
 const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
   const { classes: classNames } = useClassNames()
+
+  const heightCmSupplier = toFixed(
+    item.heightCmSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1),
+    2,
+  )
+  const widthCmSupplier = toFixed(
+    item.widthCmSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1),
+    2,
+  )
+  const lengthCmSupplier = toFixed(
+    item.lengthCmSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1),
+    2,
+  )
+  const weighGrossKgSupplier = toFixed(
+    item.weighGrossKgSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? poundsWeightCoefficient : 1),
+    2,
+  )
+  const volumeWeightKgSupplier = toFixed(
+    (heightCmSupplier * widthCmSupplier * lengthCmSupplier) / restProps.volumeWeightCoefficient,
+    2,
+  )
+
+  const weightFinalAccountingKgSupplier = Math.max(weighGrossKgSupplier, volumeWeightKgSupplier)
 
   return (
     <TableRow className={classNames.row}>
@@ -86,10 +107,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             <Input
               disabled
               classes={{ root: classNames.inputWrapper, input: classNames.input }}
-              value={toFixed(
-                item.heightCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                2,
-              )}
+              value={heightCmSupplier}
             />
           </div>
           <div className={classNames.sizeWrapper}>
@@ -97,10 +115,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             <Input
               disabled
               classes={{ root: classNames.inputWrapper, input: classNames.input }}
-              value={toFixed(
-                item.widthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                2,
-              )}
+              value={widthCmSupplier}
             />
           </div>
           <div className={classNames.sizeWrapper}>
@@ -108,10 +123,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             <Input
               disabled
               classes={{ root: classNames.inputWrapper, input: classNames.input }}
-              value={toFixed(
-                item.lengthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                2,
-              )}
+              value={lengthCmSupplier}
             />
           </div>
         </div>
@@ -121,7 +133,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
           <Input
             disabled
             classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={item.weighGrossKgSupplier}
+            value={weighGrossKgSupplier}
           />
         </div>
       </TableCell>
@@ -130,7 +142,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
           <Input
             disabled
             classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={toFixed(calcVolumeWeightForBox(item, restProps.volumeWeightCoefficient), 2)}
+            value={volumeWeightKgSupplier}
           />
         </div>
       </TableCell>
@@ -139,7 +151,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
           <Input
             disabled
             classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={toFixed(calcFinalWeightForBoxWithoutAmount(item, restProps.volumeWeightCoefficient), 2)}
+            value={weightFinalAccountingKgSupplier}
           />
         </div>
       </TableCell>
@@ -210,9 +222,9 @@ export const BoxesToCreateTable = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-  const handleChange = (event, newAlignment) => {
+  const handleChange = newAlignment => {
     setSizeSetting(newAlignment)
   }
 
@@ -223,14 +235,14 @@ export const BoxesToCreateTable = ({
       </Typography>
 
       <div className={classNames.sizesSubWrapper}>
-        <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-          <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-            {'In'}
-          </ToggleBtn>
-          <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-            {'Cm'}
-          </ToggleBtn>
-        </ToggleBtnGroup>
+        <CustomSwitcher
+          condition={sizeSetting}
+          switcherSettings={[
+            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+          ]}
+          changeConditionHandler={condition => handleChange(condition)}
+        />
       </div>
 
       <Table

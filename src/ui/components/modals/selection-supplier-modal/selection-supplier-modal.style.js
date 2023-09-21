@@ -54,6 +54,14 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
 
     justifyContent: 'space-between',
+
+    button: {
+      backgroundColor: theme.palette.background.chatIncomeMessage,
+      color: theme.palette.text.second,
+      '&:hover': {
+        color: '#fff',
+      },
+    },
   },
 
   modalButtonWrapper: {
@@ -71,11 +79,13 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
+
     '&:hover': {
-      backgroundColor: '#e4e4e4',
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
     },
   },
   modalButtonNext: {

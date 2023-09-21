@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -10,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -26,12 +22,13 @@ import { t } from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = () => [
   {
-    field: 'idAndItem',
+    field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-
-    width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell text={params.row.originalData.idAndItem ?? `${params.row.originalData.id}  / -`} />
+    ),
+    sortable: true,
   },
 
   {
@@ -210,7 +207,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell alignLeft threeLines maxLength={140} text={params.value} />,
     width: 400,
     sortable: false,
   },
@@ -220,7 +217,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell alignLeft threeLines maxLength={140} text={params.value} />,
     width: 400,
     sortable: false,
   },

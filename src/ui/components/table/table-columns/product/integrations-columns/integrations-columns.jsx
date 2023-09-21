@@ -26,7 +26,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 150,
   },
 

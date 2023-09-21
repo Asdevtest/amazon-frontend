@@ -154,6 +154,7 @@ import InlineObject13 from './model/InlineObject13';
 import InlineObject130 from './model/InlineObject130';
 import InlineObject131 from './model/InlineObject131';
 import InlineObject132 from './model/InlineObject132';
+import InlineObject133 from './model/InlineObject133';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -338,9 +339,9 @@ import InlineResponse20056 from './model/InlineResponse20056';
 import InlineResponse20057 from './model/InlineResponse20057';
 import InlineResponse20058 from './model/InlineResponse20058';
 import InlineResponse20059 from './model/InlineResponse20059';
-import InlineResponse20059Data from './model/InlineResponse20059Data';
-import InlineResponse20059Product from './model/InlineResponse20059Product';
-import InlineResponse20059Proposals from './model/InlineResponse20059Proposals';
+import InlineResponse20059Request from './model/InlineResponse20059Request';
+import InlineResponse20059RequestProduct from './model/InlineResponse20059RequestProduct';
+import InlineResponse20059Rows from './model/InlineResponse20059Rows';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
 import InlineResponse20061 from './model/InlineResponse20061';
@@ -1343,6 +1344,12 @@ export {
      * @property {module:model/InlineObject132}
      */
     InlineObject132,
+
+    /**
+     * The InlineObject133 model constructor.
+     * @property {module:model/InlineObject133}
+     */
+    InlineObject133,
 
     /**
      * The InlineObject14 model constructor.
@@ -2449,22 +2456,22 @@ export {
     InlineResponse20059,
 
     /**
-     * The InlineResponse20059Data model constructor.
-     * @property {module:model/InlineResponse20059Data}
+     * The InlineResponse20059Request model constructor.
+     * @property {module:model/InlineResponse20059Request}
      */
-    InlineResponse20059Data,
+    InlineResponse20059Request,
 
     /**
-     * The InlineResponse20059Product model constructor.
-     * @property {module:model/InlineResponse20059Product}
+     * The InlineResponse20059RequestProduct model constructor.
+     * @property {module:model/InlineResponse20059RequestProduct}
      */
-    InlineResponse20059Product,
+    InlineResponse20059RequestProduct,
 
     /**
-     * The InlineResponse20059Proposals model constructor.
-     * @property {module:model/InlineResponse20059Proposals}
+     * The InlineResponse20059Rows model constructor.
+     * @property {module:model/InlineResponse20059Rows}
      */
-    InlineResponse20059Proposals,
+    InlineResponse20059Rows,
 
     /**
      * The InlineResponse2006 model constructor.

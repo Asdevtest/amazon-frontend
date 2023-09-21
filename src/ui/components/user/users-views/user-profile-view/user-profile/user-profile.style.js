@@ -75,6 +75,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '15px',
+    opacity: '1 !important', // undisabled style
+
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       fontWeight: 600,

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { Box, Checkbox, FormControlLabel } from '@mui/material'
 
@@ -7,8 +7,10 @@ import { ProductModel } from '@models/product-model'
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.styles'
 
 interface Flag {
-  title: string
   _id: string
+  iconImage: string
+  productCount: number
+  title: string
   value: number
 }
 
@@ -48,19 +50,19 @@ export const RedFlags: FC<RedFlagsProps> = props => {
     <>
       {isEditMode &&
         !!flags.length &&
-        flags.map((el, index) => (
-          <div key={index}>
+        flags.map(flag => (
+          <div key={flag._id}>
             <FormControlLabel
               label={
                 <Box display="flex" gap="15px">
                   <Box className={styles.flagIcon}>
-                    <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
+                    <img src={flag.iconImage} alt={flag.title} />
                   </Box>
-                  {el.title}
+                  {flag.title}
                 </Box>
               }
               control={
-                <Checkbox checked={selectedFlags.some(val => val._id === el._id)} onChange={() => handleFlag(el)} />
+                <Checkbox checked={selectedFlags.some(val => val._id === flag._id)} onChange={() => handleFlag(flag)} />
               }
             />
           </div>
@@ -68,9 +70,9 @@ export const RedFlags: FC<RedFlagsProps> = props => {
 
       {!isEditMode &&
         !!selectedFlags.length &&
-        selectedFlags.map((el, index) => (
-          <Box key={index} className={styles.flagIcon}>
-            <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
+        selectedFlags.map(flag => (
+          <Box key={flag._id} className={styles.flagIcon}>
+            <img src={flag.iconImage} alt={flag.title} />
           </Box>
         ))}
     </>

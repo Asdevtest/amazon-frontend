@@ -379,11 +379,21 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             <div className={classNames.customSwitcherWrapper}>
               <CustomSwitcher
                 condition={currentCurrency}
-                nameFirstArg={currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || ''}
-                nameSecondArg={currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || ''}
-                firstArgValue={currencyTypes.DOLLAR}
-                secondArgValue={currencyTypes.YUAN}
-                changeConditionHandler={(currency: string) => setCurrentCurrency(currency)}
+                switcherSettings={[
+                  {
+                    label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
+                    value: currencyTypes.DOLLAR,
+                  },
+                  {
+                    label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
+                    value: currencyTypes.YUAN,
+                  },
+                ]}
+                changeConditionHandler={value => {
+                  if (typeof value === 'string') {
+                    setCurrentCurrency(value)
+                  }
+                }}
               />
             </div>
 

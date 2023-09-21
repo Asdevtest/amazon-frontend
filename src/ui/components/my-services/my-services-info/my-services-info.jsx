@@ -6,7 +6,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -36,12 +36,7 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
                 />
                 <div className={classNames.userRatingWrapper}>
                   <Typography className={classNames.reviewText}>{t(TranslationKey.Reviews)}</Typography>
-                  <Rating
-                    disabled
-                    value={announcementData?.createdBy?.rating}
-                    size="small"
-                    classes={classNames.rating}
-                  />
+                  <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />
                 </div>
               </div>
             </div>
@@ -66,7 +61,7 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
         </div>
         <div className={classNames.userCarouselWrapper}>
           <div className={classNames.photoWrapper}>
-            <PhotoAndFilesCarouselTest smallSlider files={announcementData?.linksToMediaFiles} />
+            <PhotoAndFilesSlider smallSlider files={announcementData?.linksToMediaFiles} />
           </div>
 
           {/* <Carousel

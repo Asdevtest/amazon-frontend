@@ -36,6 +36,13 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
     viewModel.loadData()
   }, [])
 
+  const selectedBatchesString =
+    '№ ' +
+    viewModel.currentData
+      .filter(batch => viewModel.selectedBatches.includes(batch._id))
+      .map(batch => batch.humanFriendlyId)
+      .join(', ')
+
   return (
     <React.Fragment>
       <div>
@@ -180,7 +187,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
-        message={t(TranslationKey.Send) + '?'}
+        message={`${t(TranslationKey['Send batch'])} ${selectedBatchesString}?`}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}

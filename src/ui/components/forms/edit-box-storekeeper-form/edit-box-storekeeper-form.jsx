@@ -32,7 +32,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
@@ -492,7 +492,7 @@ export const EditBoxStorekeeperForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
+                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
                           </div>
 
                           <>
@@ -634,6 +634,7 @@ export const EditBoxStorekeeperForm = observer(
                 </div>
 
                 <Divider className={classNames.divider} />
+
                 <div className={classNames.shareBoxWrapper}>
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
@@ -675,37 +676,22 @@ export const EditBoxStorekeeperForm = observer(
                         <Button
                           disableElevation
                           color="primary"
-                          variant={boxFields.storekeeperId && 'text'}
-                          className={cx(classNames.storekeeperBtnDefault, {
+                          disabled={!boxFields.storekeeperId}
+                          className={cx({
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
-                            [classNames.storekeeperBtnColored]:
-                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {/* {boxFields.storekeeperId
-                            ? `${
-                                storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
-                                t(TranslationKey['Not available'])
-                              } /
-                        ${
-                          boxFields.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-                            : t(TranslationKey.Select)} */}
-
-                          {boxFields.storekeeperId
+                          {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
                       }
                     />
                   </div>
+
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
                       labelClasses={classNames.standartLabel}
@@ -751,6 +737,7 @@ export const EditBoxStorekeeperForm = observer(
                       }
                     />
                   </div>
+
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
                       labelClasses={classNames.standartLabel}
@@ -786,12 +773,12 @@ export const EditBoxStorekeeperForm = observer(
                     />
                   </div>
 
-                  <div className={classNames.labelsInfoWrapper}>
-                    <div>
+                  <div className={classNames.shareBoxSubWrapper}>
+                    <div className={classNames.field}>
                       <Field
                         labelClasses={classNames.standartLabel}
                         containerClasses={classNames.field}
-                        inputClasses={classNames.inputField}
+                        inputClasses={classNames.fbaShipmentInput}
                         inputProps={{ maxLength: 255 }}
                         label={t(TranslationKey['Track number'])}
                         value={boxFields.trackNumberText}
@@ -822,44 +809,22 @@ export const EditBoxStorekeeperForm = observer(
                       </Button>
                     </div>
 
-                    <div className={classNames.trackNumberPhotoWrapper}>
-                      {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
-                        <CustomSlider>
-                          {(boxFields.trackNumberFile.length
-                            ? boxFields.trackNumberFile
-                            : boxFields.tmpTrackNumberFile
-                          ).map((el, index) => (
-                            <img
-                              key={index}
-                              className={classNames.trackNumberPhoto}
-                              src={
-                                boxFields.tmpTrackNumberFile[index]
-                                  ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
-                                    ? boxFields.tmpTrackNumberFile[index]
-                                    : boxFields.tmpTrackNumberFile[index]?.data_url
-                                  : boxFields.trackNumberFile[index]
-                              }
-                              // variant="square"
-                              onClick={() => {
-                                setShowPhotosModal(!showPhotosModal)
-                                setBigImagesOptions({
-                                  ...bigImagesOptions,
-
-                                  images: [
-                                    boxFields.tmpTrackNumberFile[index]
-                                      ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
-                                        ? boxFields.tmpTrackNumberFile[index]
-                                        : boxFields.tmpTrackNumberFile[index]?.data_url
-                                      : boxFields.trackNumberFile[index],
-                                  ],
-                                })
-                              }}
-                            />
-                          ))}
-                        </CustomSlider>
-                      ) : (
-                        <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
-                      )}
+                    <div className={classNames.field}>
+                      <div className={classNames.trackNumberPhotoWrapper}>
+                        {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
+                          <PhotoAndFilesSlider
+                            withoutFiles
+                            customSlideHeight={96}
+                            files={
+                              boxFields.trackNumberFile.length
+                                ? boxFields.trackNumberFile
+                                : boxFields.tmpTrackNumberFile
+                            }
+                          />
+                        ) : (
+                          <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -880,14 +845,16 @@ export const EditBoxStorekeeperForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
-                    changeConditionHandler={condition => handleChange(condition)}
-                  />
+                  <div>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      switcherSettings={[
+                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                      ]}
+                      changeConditionHandler={condition => handleChange(condition)}
+                    />
+                  </div>
                 </div>
 
                 <WarehouseDemensions
@@ -909,7 +876,7 @@ export const EditBoxStorekeeperForm = observer(
                   <Typography className={classNames.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesCarouselTest withoutFiles files={boxFields.images} />
+                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
                 </div>
 
                 <div className={classNames.commentsWrapper}>

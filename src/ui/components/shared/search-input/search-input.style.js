@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     height: 36,
     position: 'relative',
+    borderRadius: '41px',
   },
 
   inputAdornmentRoot: {
@@ -49,6 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
   submit: {
     height: '100%',
     padding: '9px 20px 8px 20px',
-    borderRadius: 4,
+    borderRadius: '24px',
   },
 }))

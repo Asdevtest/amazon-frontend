@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 
 import { Avatar, Link } from '@mui/material'
 
-import { isMobileResolution, isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -28,12 +27,15 @@ import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useClassNames } from './messages-view.style'
 
 import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesView = observer(props => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
 
   useEffect(() => {
@@ -71,11 +73,6 @@ export const MessagesView = observer(props => {
   const findChatByChatId = filteredChats.find(chat => chat._id === viewModel.chatSelectedId)
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
-
-  const totalUnreadMessages = filteredChats.reduce(
-    (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
-    0,
-  )
 
   const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
 
@@ -144,7 +141,9 @@ export const MessagesView = observer(props => {
                 <div className={classNames.infoContainer}>
                   <div className={classNames.arrowBackIconWrapper}>
                     <ArrowBackIcon className={classNames.arrowBackIcon} onClick={viewModel.onClickBackButton} />
-                    {totalUnreadMessages && <span className={classNames.badge}>{totalUnreadMessages}</span>}
+                    {viewModel.unreadMessages > 0 && (
+                      <span className={classNames.badge}>{viewModel.unreadMessages}</span>
+                    )}
                   </div>
 
                   {currentChat?.type === chatsType.DEFAULT ? (

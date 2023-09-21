@@ -11,7 +11,6 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import { isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,6 +25,8 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat.styles'
 
@@ -62,6 +63,7 @@ interface Props {
   chatMessageHandlers?: ChatMessageUniversalHandlers
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
+  isFreelanceOwner?: boolean
   searchPhrase?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
@@ -89,8 +91,10 @@ export const Chat: FC<Props> = observer(
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
+    isFreelanceOwner,
   }) => {
     const { classes: classNames } = useClassNames()
+    const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
@@ -109,7 +113,7 @@ export const Chat: FC<Props> = observer(
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
-    const isGroupChat = chat.type === chatsType.GROUP
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
 
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
@@ -153,7 +157,7 @@ export const Chat: FC<Props> = observer(
       if (isSendTypingPossible && message) {
         onTypingMessage(chat._id)
         setIsSendTypingPossible(false)
-        setTimeout(() => setIsSendTypingPossible(true), 3000)
+        setTimeout(() => setIsSendTypingPossible(true), 10000)
       }
     }, [message])
 
@@ -278,6 +282,7 @@ export const Chat: FC<Props> = observer(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
+            isFreelanceOwner={isFreelanceOwner}
             setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
           />

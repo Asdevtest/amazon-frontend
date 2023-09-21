@@ -17,6 +17,7 @@ module.exports = config => ({
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@typings': path.resolve(__dirname, './src/typings'),
       '@contexts': path.resolve(__dirname, './src/contexts'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
     },
   },
 })

@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { DefaultFileTypeIcon, DocFileTypeIcon, PdfFileTypeIcon, XlsxFileTypeIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './files-carousel.style'
+import { useClassNames } from './file-icon.style'
 
 interface Props {
   fileExtension: string
@@ -18,6 +18,7 @@ export const FileIcon: FC<Props> = ({ fileExtension, className }) => {
     case 'docx':
       return <DocFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     case 'pdf':
+    case 'com':
       return <PdfFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     case 'xlsx':
     case 'xls':

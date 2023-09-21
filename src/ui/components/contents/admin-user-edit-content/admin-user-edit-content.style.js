@@ -192,7 +192,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '40px',
     height: '22px',
     fontSize: '18px',
-    backgroundColor: '#006CFF',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
     color: '#fff',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

@@ -24,7 +24,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
 import { DownloadIcon } from '@components/shared/svg-icons'
 
@@ -425,7 +425,7 @@ export const BatchInfoModal = observer(
 
           <div className={classNames.filesAndButtonWrapper}>
             <div className={classNames.filesSubWrapper}>
-              <PhotoAndFilesCarouselTest
+              <PhotoAndFilesSlider
                 smallSlider
                 column={window.innerWidth < 768}
                 files={currentBatch.attachedDocuments}

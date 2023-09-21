@@ -69,6 +69,10 @@ export class MessagesViewModel {
     return SettingsModel.languageTag
   }
 
+  get unreadMessages() {
+    return ChatModel.unreadMessages
+  }
+
   constructor({ history, location }) {
     runInAction(() => {
       this.history = history
@@ -323,9 +327,13 @@ export class MessagesViewModel {
     try {
       await ChatModel.sendMessage({
         chatId,
+        crmItemId: null,
         text: message,
         files: files?.map(item => item?.file),
-
+        user: {
+          name: UserModel.userInfo.name,
+          _id: UserModel.userInfo._id,
+        },
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {

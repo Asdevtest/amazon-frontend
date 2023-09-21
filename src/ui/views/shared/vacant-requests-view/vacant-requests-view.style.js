@@ -126,14 +126,15 @@ export const styles = theme => ({
 
   deadlineBorder: {
     position: 'relative',
-    ':after': {
+
+    '&:after': {
       content: '" "',
       display: 'block',
       position: 'absolute',
-      left: 4,
+      left: 2,
       top: 1,
 
-      width: 6,
+      width: 5,
       height: 72,
     },
   },
@@ -141,11 +142,11 @@ export const styles = theme => ({
   yellowBorder: {
     background: theme.palette.background.yellowRow,
 
-    ':hover': {
+    '&:hover': {
       background: theme.palette.background.yellowRow,
     },
 
-    ':after': {
+    '&:after': {
       background: '#C69109',
     },
   },
@@ -153,11 +154,11 @@ export const styles = theme => ({
   redBorder: {
     background: theme.palette.background.redRow,
 
-    ':hover': {
+    '&:hover': {
       background: theme.palette.background.redRow,
     },
 
-    ':after': {
+    '&:after': {
       background: theme.palette.other.rejected,
     },
   },

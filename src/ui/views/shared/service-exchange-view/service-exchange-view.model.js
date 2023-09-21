@@ -117,9 +117,9 @@ export class ServiceExchangeViewModel {
     await this.getVacAnnouncementsData()
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
     this.setTableModeState()
   }

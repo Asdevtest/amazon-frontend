@@ -125,6 +125,14 @@ export class VacantRequestsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
       () => this.requests,
       () =>
         runInAction(() => {
@@ -141,7 +149,12 @@ export class VacantRequestsViewModel {
   }
 
   setTableModeState() {
-    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
+    const state = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
   }
@@ -151,15 +164,17 @@ export class VacantRequestsViewModel {
 
     runInAction(() => {
       if (state) {
-        this.viewMode = state.viewMode
-        this.sortMode = state.sortMode
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
     this.setTableModeState()
   }
@@ -408,9 +423,14 @@ export class VacantRequestsViewModel {
 
   async onClickViewMore(id) {
     try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
-      )
+      window
+        .open(
+          `/${
+            UserRoleCodeMapForRoutes[this.user.role]
+          }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+          '_blank',
+        )
+        .focus()
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)
@@ -433,11 +453,22 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       if (this.sortMode === tableSortMode.DESK) {
         this.sortMode = tableSortMode.ASC
+        this.sortModel[0] = {
+          ...this.sortModel[0],
+          sort: tableSortMode.ASC,
+          field: 'updatedAt',
+        }
       } else {
         this.sortMode = tableSortMode.DESK
+        this.sortModel[0] = {
+          ...this.sortModel[0],
+          sort: tableSortMode.DESC,
+          field: 'updatedAt',
+        }
       }
     })
 
+    this.getRequestsVacant()
     this.setTableModeState()
   }
 
@@ -454,6 +485,9 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.setTableModeState()
+
+    this.getRequestsVacant()
   }
 
   onChangeFilterModel(model) {

@@ -152,15 +152,12 @@ export const NavbarDrawerContent: FC<Props> = observer(
           </Typography>
         </div>
 
-        <Modal
+        <FeedBackModal
           openModal={showFeedbackModal}
           setOpenModal={() => onTriggerOpenModal('showFeedbackModal')}
-          isWarning={false}
-          missClickModalOn={false}
-          dialogContextClassName=""
-        >
-          <FeedBackModal onSubmit={sendFeedbackAboutPlatform} onClose={() => onTriggerOpenModal('showFeedbackModal')} />
-        </Modal>
+          onSubmit={sendFeedbackAboutPlatform}
+          onClose={() => onTriggerOpenModal('showFeedbackModal')}
+        />
 
         <WarningInfoModal
           isWarning={false}

@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -26,11 +25,11 @@ import { t } from '@utils/translations'
 export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
   const arr = [
     {
-      field: 'idAndItem',
+      field: 'id',
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      sortable: false,
+      renderCell: params => <MultilineTextCell text={params.row.idAndItem} />,
+      sortable: true,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -69,11 +68,10 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Payment documents']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
       renderCell: params => (
-        <MultilineTextCell
-          text={<Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />}
-        />
+        <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />
       ),
       width: 120,
+      align: 'center',
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
@@ -285,7 +283,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
       sortable: false,
 
@@ -296,7 +294,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'buyerComment',
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-      renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
       sortable: false,
 

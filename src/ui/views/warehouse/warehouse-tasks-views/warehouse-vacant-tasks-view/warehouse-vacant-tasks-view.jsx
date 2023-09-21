@@ -6,11 +6,7 @@ import { withStyles } from 'tss-react/mui'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import {
-  TaskOperationType,
-  mapTaskOperationTypeKeyToEnum,
-  taskOperationTypeTranslate,
-} from '@constants/task/task-operation-type'
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
@@ -20,6 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
 import { DownloadIcon } from '@components/shared/svg-icons'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
@@ -93,32 +90,10 @@ export const WarehouseVacantTasksViewRaw = props => {
               </Button>
             )}
 
-            <div className={classNames.boxesFiltersWrapper}>
-              <Button
-                disabled={viewModel.curTaskType === null}
-                className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
-                variant="text"
-                onClick={() => viewModel.onClickOperationTypeBtn(null)}
-              >
-                {t(TranslationKey['All tasks'])}
-              </Button>
-
-              {Object.keys(mapTaskOperationTypeKeyToEnum)
-                .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-                .map(type => (
-                  <Button
-                    key={type}
-                    disabled={viewModel.curTaskType === type}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
-                    })}
-                    variant="text"
-                    onClick={() => viewModel.onClickOperationTypeBtn(type)}
-                  >
-                    {taskOperationTypeTranslate(type)}
-                  </Button>
-                ))}
-            </div>
+            <BuyerTypeTaskSelect
+              curTaskType={viewModel.curTaskType}
+              onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
+            />
           </div>
 
           <SearchInput

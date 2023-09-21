@@ -120,6 +120,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
               rating={announcementData?.createdBy?.rating || 5}
               customClassNames={classNames.userLinkCustomClassNames}
               ratingSize="small"
+              customRatingClass={{ fontSize: 13, opacity: 1 }}
             />
           </div>
         </div>

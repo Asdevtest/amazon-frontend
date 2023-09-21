@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject130 from '../model/InlineObject130';
+import InlineObject131 from '../model/InlineObject131';
 import InlineObject82 from '../model/InlineObject82';
 import InlineObject83 from '../model/InlineObject83';
 import InlineObject84 from '../model/InlineObject84';
@@ -170,7 +170,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject130} opts.body 
+     * @param {module:model/InlineObject131} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -209,7 +209,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject130} opts.body 
+     * @param {module:model/InlineObject131} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {
@@ -548,7 +548,7 @@ export default class RequestProposalsApi {
 
     /**
      * # Отмена предложения до заключения сделки.
-     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли вызвавший данный метод владельцем предложения.
+     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -587,7 +587,7 @@ export default class RequestProposalsApi {
 
     /**
      * # Отмена предложения до заключения сделки.
-     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли вызвавший данный метод владельцем предложения.
+     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -716,7 +716,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Принять предложение.
-     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -755,7 +755,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Принять предложение.
-     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -772,7 +772,7 @@ export default class RequestProposalsApi {
 
     /**
      * # Отправить предложение обратно, после доработки.
-     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Только владелец предложения может вызвать данный метод.
+     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -811,7 +811,7 @@ export default class RequestProposalsApi {
 
     /**
      * # Отправить предложение обратно, после доработки.
-     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Только владелец предложения может вызвать данный метод.
+     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -828,7 +828,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Редактировать условия предложения.
-     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -867,7 +867,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Редактировать условия предложения.
-     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -884,7 +884,7 @@ export default class RequestProposalsApi {
 
     /**
      * # Отказаться от предложения.
-     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -923,7 +923,7 @@ export default class RequestProposalsApi {
 
     /**
      * # Отказаться от предложения.
-     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -1164,9 +1164,9 @@ export default class RequestProposalsApi {
 
     /**
      * Получить все предложения фрилансера.
-     * Получить все предложения фрилансера
+     * Получить все предложения фрилансера с пагинацией
      * @param {Object} opts Optional parameters
-     * @param {String} opts.filters                Возможные поля: (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, createdBy,               (Product) -> asin, amazonTitle,               (Proposal) -> proposalStatus, proposalCreatedBy, proposalSub, proposalUpdatedAt               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {String} opts.filters                Возможные поля:               (Proposal) -> status, createdBy, sub, updatedAt               (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -> asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля
@@ -1174,7 +1174,7 @@ export default class RequestProposalsApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20059} and HTTP response
      */
-    apiV1RequestProposalsProposalPagMyGetWithHttpInfo(opts) {
+    apiV1RequestProposalsPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -1198,7 +1198,7 @@ export default class RequestProposalsApi {
       let accepts = ['application/json'];
       let returnType = InlineResponse20059;
       return this.apiClient.callApi(
-        '/api/v1/request-proposals/proposal_pag_my', 'GET',
+        '/api/v1/request-proposals/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -1206,9 +1206,9 @@ export default class RequestProposalsApi {
 
     /**
      * Получить все предложения фрилансера.
-     * Получить все предложения фрилансера
+     * Получить все предложения фрилансера с пагинацией
      * @param {Object} opts Optional parameters
-     * @param {String} opts.filters                Возможные поля: (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, createdBy,               (Product) -> asin, amazonTitle,               (Proposal) -> proposalStatus, proposalCreatedBy, proposalSub, proposalUpdatedAt               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {String} opts.filters                Возможные поля:               (Proposal) -> status, createdBy, sub, updatedAt               (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -> asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля
@@ -1216,8 +1216,8 @@ export default class RequestProposalsApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20059}
      */
-    apiV1RequestProposalsProposalPagMyGet(opts) {
-      return this.apiV1RequestProposalsProposalPagMyGetWithHttpInfo(opts)
+    apiV1RequestProposalsPagMyGet(opts) {
+      return this.apiV1RequestProposalsPagMyGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

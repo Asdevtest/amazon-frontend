@@ -87,6 +87,7 @@ export const styles = theme => ({
 
   switchButtonWrapper: {
     display: 'flex',
+    width: '100%',
     marginBottom: 20,
   },
 
@@ -138,11 +139,11 @@ export const styles = theme => ({
   yellowBorder: {
     background: theme.palette.background.yellowRow,
 
-    ':hover': {
+    '&:hover': {
       background: theme.palette.background.yellowRow,
     },
 
-    ':after': {
+    '&:after': {
       background: '#C69109',
     },
   },
@@ -150,11 +151,11 @@ export const styles = theme => ({
   redBorder: {
     background: theme.palette.background.redRow,
 
-    ':hover': {
+    '&:hover': {
       background: theme.palette.background.redRow,
     },
 
-    ':after': {
+    '&:after': {
       background: theme.palette.other.rejected,
     },
   },

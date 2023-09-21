@@ -276,7 +276,7 @@ export const ProductAsinCell = React.memo(
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {`${t(TranslationKey.SKU)}: `}
-                <span className={classNames.typoSpan}>
+                <span className={cx(classNames.defaultText, { [classNames.typoSpan]: !skusByClient })}>
                   {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
               </Typography>
@@ -413,21 +413,11 @@ export const StringListCell = React.memo(
                 ?.slice(0, maxItemsDisplay)
                 ?.filter(el => el)
                 ?.map((item, i) => (
-                  <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                      {
-                        <span
-                          className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                            [classNames.bluelinkText]: onClickCell,
-                            [classNames.orderTextSpanAsin]: asin,
-                          })}
-                        >
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
-                      }
-                    </Typography>
-                    {withCopy && <CopyValue text={item} />}
-                  </div>
+                  <AsinOrSkuLink
+                    key={i}
+                    withCopyValue
+                    asin={getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  />
                 ))}
           </div>
 
@@ -445,6 +435,8 @@ export const StringListCell = React.memo(
             autoFocus={false}
             open={Boolean(menuAnchor)}
             // classes={{paper: classNames.menu, list: classNames.list}}
+            transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
             onClose={handleClose}
           >
             <div className={classNames.stringListMenuWrapper}>
@@ -461,12 +453,8 @@ export const StringListCell = React.memo(
                 <div className={classNames.shopsBody}>
                   {itemsForRender?.map((item, i) => (
                     <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                      <Typography className={classNames.typoCell}>
-                        {
-                          <span className={classNames.multilineHeaderText}>
-                            {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                          </span>
-                        }
+                      <Typography className={classNames.shopOrderText}>
+                        {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
                       </Typography>
                       {withCopy && <CopyValue text={item} />}
                     </div>
@@ -503,7 +491,12 @@ export const ProductCell = React.memo(
     ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (
       <div className={classNames.productCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(image)} />
+          <img
+            alt=""
+            className={classNames.productCellImg}
+            src={getAmazonImageUrl(image)}
+            onError={e => (e.target.src = '/assets/img/no-photo.jpg')}
+          />
 
           <div className={classNames.productWrapper}>
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
@@ -618,8 +611,9 @@ export const ManyUserLinkCell = React.memo(
 
 export const BarcodeCell = React.memo(
   withStyles(
-    ({ classes: classNames, product, handlers }) => (
+    ({ classes: classNames, product, handlers, disabled }) => (
       <Chip
+        disabled={disabled}
         classes={{
           root: classNames.barcodeChip,
           clickable: classNames.barcodeChipHover,
@@ -1434,73 +1428,54 @@ export const MultilineTextCell = React.memo(
     ({
       classes: classNames,
       text,
-      noTextText,
+      noText,
       color,
-      otherStyles,
-      threeLines,
       withTooltip,
       leftAlign,
       tooltipText,
       withLineBreaks,
       onClickText,
       oneLines,
+      twoLines,
+      threeLines,
       illuminationCell,
       customTextStyles,
+      maxLength,
+      customTextClass,
     }) => {
-      const isValidTextLength = text?.length <= MAX_LENGTH_TITLE
-      const textForRender = isValidTextLength ? text : getShortenStringIfLongerThanCount(text, MAX_LENGTH_TITLE)
+      const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
+      const isValidTextLength = text?.length <= maxTextLength
+      const oneLineText =
+        isValidTextLength || oneLines ? text : getShortenStringIfLongerThanCount(text, maxLength ?? maxTextLength)
+      const textForRender = threeLines || twoLines ? text : oneLineText
+      const isTooltip = withTooltip || tooltipText || !isValidTextLength
 
       return (
-        <>
-          {withTooltip || tooltipText || !isValidTextLength ? (
-            <Tooltip title={tooltipText || text}>
-              <div
-                className={cx(classNames.multilineTextWrapper, {
-                  [classNames.illuminationCell]: illuminationCell && textForRender,
-                })}
-              >
-                <Typography
-                  className={cx(
-                    classNames.multilineText,
-                    { [classNames.multilineLeftAlignText]: leftAlign },
-                    { [classNames.multilineLink]: onClickText && textForRender },
-                    { [classNames.threeMultilineText]: threeLines },
-                    { [classNames.oneMultilineText]: oneLines },
-                  )}
-                  style={otherStyles || customTextStyles || (color && { color })}
-                  onClick={onClickText && onClickText}
-                >
-                  {checkIsString(textForRender) && !withLineBreaks
-                    ? textForRender.replace(/\n/g, ' ')
-                    : textForRender || noTextText || '-'}
-                </Typography>
-              </div>
-            </Tooltip>
-          ) : (
-            <div
-              className={cx(classNames.multilineTextWrapper, {
-                [classNames.illuminationCell]: illuminationCell && textForRender,
-              })}
+        <div
+          className={cx(classNames.multilineTextWrapper, {
+            [classNames.illuminationCell]: illuminationCell && textForRender,
+          })}
+        >
+          <Tooltip title={isTooltip ? tooltipText || text : ''}>
+            <Typography
+              className={cx(
+                classNames.multilineText,
+                { [classNames.multilineLeftAlignText]: leftAlign },
+                { [classNames.multilineLink]: onClickText && textForRender },
+                { [classNames.oneMultilineText]: oneLines },
+                { [classNames.twoMultilineText]: twoLines },
+                { [classNames.threeMultilineText]: threeLines },
+                customTextClass,
+              )}
+              style={customTextStyles || (color && { color })}
+              onClick={onClickText && onClickText}
             >
-              <Typography
-                className={cx(
-                  classNames.multilineText,
-                  { [classNames.multilineLeftAlignText]: leftAlign },
-                  { [classNames.multilineLink]: onClickText && textForRender },
-                  { [classNames.threeMultilineText]: threeLines },
-                  { [classNames.oneMultilineText]: oneLines },
-                  { [classNames.fulfilled]: customTextStyles },
-                )}
-                style={otherStyles || customTextStyles || (color && { color })}
-                onClick={onClickText && onClickText}
-              >
-                {checkIsString(textForRender) && !withLineBreaks
-                  ? textForRender.replace(/\n/g, ' ')
-                  : textForRender || noTextText || '-'}
-              </Typography>
-            </div>
-          )}
-        </>
+              {checkIsString(textForRender) && !withLineBreaks
+                ? textForRender.replace(/\n/g, ' ')
+                : textForRender || noText || '-'}
+            </Typography>
+          </Tooltip>
+        </div>
       )
     },
     styles,
@@ -1572,7 +1547,9 @@ export const CommentOfSbCell = React.memo(
           </Tooltip>
         ) : (
           <div className={classNames.commentOfSbSubWrapper}>
-            {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
+            {productsInWarehouse.some(el => el.comment) && (
+              <Typography className={classNames.commentOfSbSubMultiText}>{t(TranslationKey.Comments) + ':'}</Typography>
+            )}
             {productsInWarehouse?.map((item, index) => (
               <Tooltip key={index} title={item.comment}>
                 <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${
@@ -1645,14 +1622,25 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color }) => (
+    ({
+      classes: classNames,
+      text,
+      withIcon,
+      isShowIconOnHover,
+      isFilterActive,
+      component,
+      textCenter,
+      color,
+      withTooltip,
+      tooltipText,
+    }) => (
       <div
         className={cx(classNames.multilineTextHeaderWrapper, {
           [classNames.multilineTextHeaderCenter]: textCenter,
           [classNames.multilineTextHeaderSpaceBetween]: component,
         })}
       >
-        <Tooltip title={text}>
+        <Tooltip title={withTooltip ? tooltipText || text : ''}>
           <Typography className={classNames.multilineHeaderText} style={color && { color }}>
             {text}
           </Typography>
@@ -1697,6 +1685,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
               <img src="/assets/icons/fire.svg" />
             </div>
           ) : null}
+
           {chinaDelivery === true ? (
             <div className={classNames.chinaDelivery}>
               <img src="/assets/icons/truck.svg" />
@@ -1791,7 +1780,7 @@ export const TaskStatusCell = React.memo(
 
 export const RequestStatusCell = React.memo(
   withStyles(
-    ({ classes: classNames, status, isChat, styles }) => (
+    ({ classes: classNames, status, isChat, styles, languageTag }) => (
       <div className={classNames.statusWrapper}>
         <Typography
           className={cx(classNames.statusText, { [classNames.statusTextChat]: isChat })}
@@ -1875,8 +1864,9 @@ export const TaskTypeCell = React.memo(
 export const TaskDescriptionCell = React.memo(
   withStyles(({ classes: classNames, task }) => {
     const renderProductImages = (product, key, box) => (
-      <Grid key={key && key} item className={classNames.imgWrapper}>
-        <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
+      <div key={key && key} className={classNames.imgWrapper}>
+        <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={classNames.taskDescriptionImg} />
+
         <div className={classNames.taskDescriptionCountWrapper}>
           {box?.amount > 1 && (
             <Typography className={classNames.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>
@@ -1884,7 +1874,7 @@ export const TaskDescriptionCell = React.memo(
 
           <Typography className={classNames.imgNum}>{product?.amount}</Typography>
         </div>
-      </Grid>
+      </div>
     )
 
     const renderBox = (box, key, isOneBox) => (
@@ -1936,7 +1926,7 @@ export const TaskDescriptionCell = React.memo(
     const taskReceiveDescription = () => (
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
-          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} alt="big-box" />
           <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
@@ -1984,14 +1974,12 @@ export const TaskDescriptionCell = React.memo(
       switch (type) {
         case TaskOperationType.MERGE:
           return <>{taskMergeDescription()}</>
-
         case TaskOperationType.SPLIT:
           return <>{taskDivideDescription()}</>
         case TaskOperationType.RECEIVE:
           return <>{taskReceiveDescription()}</>
         case TaskOperationType.EDIT:
           return <>{taskEditDescription()}</>
-
         case TaskOperationType.EDIT_BY_STOREKEEPER:
           return <>{taskEditDescription()}</>
       }
@@ -3012,46 +3000,41 @@ export const RedFlagsCell = React.memo(
   ),
 )
 export const TagsCell = React.memo(
-  withStyles(({ classes: classNames, tags }) => {
-    const tagsText = (
-      <div>
-        {tags?.map((el, index) => (
-          <p key={el._id}>
-            #{el.title}
-            {index !== tags.length - 1 ? ',' : ''}
-          </p>
-        ))}
-      </div>
-    )
+  withStyles(
+    ({ classes: classNames, tags }) => (
+      <div className={classNames.tags}>
+        {tags?.map((el, index) => {
+          const createTagText = `#${el.title}`
+          const isValidTextLength = createTagText?.length <= MAX_LENGTH_TITLE
 
-    return (
-      <Tooltip title={tagsText}>
-        <div className={classNames.tags}>
-          {tags?.map((el, index) => (
-            <p key={el._id} className={classNames.tagItem}>
-              #{el.title}
-              {index !== tags.length - 1 && ', '}
-            </p>
-          ))}
-        </div>
-      </Tooltip>
-    )
-  }, styles),
+          return (
+            <React.Fragment key={el._id}>
+              <Tooltip title={!isValidTextLength ? createTagText : ''}>
+                <p className={classNames.tagItem}>
+                  {createTagText}
+                  {index !== tags.length - 1 && ', '}
+                </p>
+              </Tooltip>
+            </React.Fragment>
+          )
+        })}
+      </div>
+    ),
+    styles,
+  ),
 )
 
 export const OrderIdAndAmountCountCell = React.memo(
   withStyles(
     ({ classes: classNames, orderId, amount, onClickOrderId }) => (
       <div className={classNames.orderIdAndAmountCount}>
-        <MultilineTextCell text={orderId} onClickText={onClickOrderId} />
+        <p className={classNames.multilineLink} onClick={onClickOrderId}>
+          {orderId}
+        </p>
         {amount >= 1 && (
-          <MultilineTextCell
-            text={
-              <div className={classNames.amountWithClocks}>
-                <WatchLaterSharpIcon /> {amount}
-              </div>
-            }
-          />
+          <div className={classNames.amountWithClocks}>
+            <WatchLaterSharpIcon /> {amount}
+          </div>
         )}
       </div>
     ),
@@ -3537,6 +3520,20 @@ export const OpenInNewTabCell = React.memo(
           <ShareLinkIcon className={styles.shareLinkIcon} />
         </div>
       </Tooltip>
+    )
+  }, styles),
+)
+
+export const MultipleAsinCell = React.memo(
+  withStyles(props => {
+    const { classes: styles, asinList } = props
+
+    return (
+      <div className={styles.multipleAsinWrapper}>
+        {asinList.map((asin, index) => (
+          <AsinOrSkuLink key={index} withCopyValue asin={asin} />
+        ))}
+      </div>
     )
   }, styles),
 )

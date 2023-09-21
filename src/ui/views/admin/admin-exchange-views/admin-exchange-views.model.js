@@ -88,6 +88,7 @@ export class AdminExchangeViewModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+    this.getProductsByStatus()
   }
 
   onChangeSubCategory(value) {

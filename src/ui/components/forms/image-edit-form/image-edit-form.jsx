@@ -50,12 +50,11 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
 
           canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob)
-
-            // console.log('blob', blob)
+            const extension = blob.type.split('/')[1]
 
             const readyFile = {
               data_url: url,
-              file: new File([blob], 'rotated-image', {
+              file: new File([blob], extension, {
                 type: blob.type,
               }),
             }

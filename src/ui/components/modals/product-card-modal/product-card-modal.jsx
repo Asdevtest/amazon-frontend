@@ -27,6 +27,7 @@ import { useClassNames } from './product-card-modal.style'
 
 import { ConfirmationModal } from '../confirmation-modal'
 import { EditHSCodeModal } from '../edit-hs-code-modal'
+import { SuccessInfoModal } from '../success-info-modal'
 import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
@@ -99,7 +100,7 @@ export const ProductCardModal = observer(props => {
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]](viewModel?.productBase?.status)
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div
         className={cx(classNames.root, { [classNames.clippedRoot]: viewModel?.product && currentTab === 'MAIN_INFO' })}
       >
@@ -156,6 +157,17 @@ export const ProductCardModal = observer(props => {
 
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
+              {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
+              (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
+                <Button
+                  className={classNames.buttonDelete}
+                  variant="contained"
+                  onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
+                >
+                  {t(TranslationKey.Delete)}
+                </Button>
+              ) : undefined}
+
               {viewModel?.product?.status ===
                 ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
@@ -200,17 +212,6 @@ export const ProductCardModal = observer(props => {
                   ? t(TranslationKey.Close)
                   : t(TranslationKey.Cancel)}
               </Button>
-
-              {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
-              (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
-                <Button
-                  className={classNames.buttonDelete}
-                  variant="contained"
-                  onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
-                >
-                  {t(TranslationKey.Delete)}
-                </Button>
-              ) : undefined}
 
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
@@ -282,6 +283,14 @@ export const ProductCardModal = observer(props => {
           viewModel?.onTriggerOpenModal('showConfirmModal')
         }}
         onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={viewModel.successModalTitle}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
       <Modal

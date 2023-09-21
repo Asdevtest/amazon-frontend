@@ -14,7 +14,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { FilesCarousel } from '@components/shared/files-carousel'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
@@ -61,7 +61,7 @@ export const FreelanceRequestDetailsModal = props => {
           <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
           {request?.product.images && (
             <div className={styles.productImages}>
-              <PhotoAndFilesCarouselTest mediumSlider withoutFiles files={request?.product.images} />
+              <PhotoAndFilesCarousel withoutFiles mediumSlider files={request?.product.images} />
             </div>
           )}
           <div className={styles.category}>

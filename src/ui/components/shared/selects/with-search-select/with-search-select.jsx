@@ -8,11 +8,12 @@ import { withStyles } from 'tss-react/mui'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import { Button, Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
+import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -33,7 +34,7 @@ const WithSearchSelectRaw = observer(
     onClickNotChosen,
     placeholder,
     searchFields,
-    CustomBtn,
+    CustomButton,
     isFlat,
     favourites,
     withoutSearch,
@@ -202,15 +203,15 @@ const WithSearchSelectRaw = observer(
                   {firstItems}
 
                   {dataToRenderSortedByFavourites?.map((el, index) =>
-                    CustomBtn ? (
-                      <CustomBtn
+                    CustomButton ? (
+                      <CustomButton
                         key={index}
-                        item={el}
-                        onClick={e => {
-                          e.stopPropagation()
-
+                        data={el}
+                        onClickCustomButton={() => {
                           onClickSelect(el)
-                          handleClose()
+                          if (!notCloseOneClick) {
+                            handleClose()
+                          }
                         }}
                       />
                     ) : (
@@ -306,9 +307,18 @@ const WithSearchSelectRaw = observer(
                   )}
                 </div>
 
-                {onClickSubmitBtn && (
+                {(checkbox || onClickSubmitBtn) && (
                   <div className={classNames.submitWrapper}>
-                    <Button className={classNames.apply} variant="contained" onClick={onClickSubmitBtn}>
+                    <Button
+                      className={classNames.apply}
+                      onClick={() => {
+                        if (onClickSubmitBtn) {
+                          onClickSubmitBtn()
+                        } else {
+                          handleClose()
+                        }
+                      }}
+                    >
                       {t(TranslationKey.Apply)}
                     </Button>
                   </div>

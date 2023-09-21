@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -257,8 +256,11 @@ export class MyProposalsViewModel {
 
   async getUserInfo() {
     const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
+
+    runInAction(() => {
+      this.userInfo = result
+      this.userRole = UserRoleCodeMap[result.role]
+    })
   }
 
   async loadData() {

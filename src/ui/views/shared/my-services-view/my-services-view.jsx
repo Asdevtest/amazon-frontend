@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
@@ -6,12 +5,6 @@ import { withStyles } from 'tss-react/mui'
 
 import { Box, Typography } from '@mui/material'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,80 +13,42 @@ import { ServiceExchangeCardList } from '@components/cards/service-exchange-card
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { SearchInput } from '@components/shared/search-input'
-import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
-import { checkIsFreelancer } from '@utils/checks'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { styles } from './my-services-view.style'
 
 import { MyServicesViewModel } from './my-services-view.model'
 
-export const MyServicesViewRaw = props => {
-  const [viewModel] = useState(() => new MyServicesViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+export const MyServicesViewRaw = ({ classes: classNames, history, location }) => {
+  const [viewModel] = useState(() => new MyServicesViewModel({ history, location }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const whiteList =
+  /* const whiteList =
     !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
       ? [
           String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
           ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
         ]
-      : Object.keys(freelanceRequestTypeByCode)
+      : Object.keys(freelanceRequestTypeByCode) */
 
   return (
     <React.Fragment>
       <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <div className={classNames.taskTypeWrapper}>
-              {Object.keys({
-                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-                // freelanceRequestTypeByCode
-              }).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                  })}
-                  onClick={() => viewModel.onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
-            </div>
+            <FreelanceTypeTaskSelect
+              selectedTaskType={viewModel.selectedTaskType}
+              onClickTaskType={viewModel.onClickTaskType}
+            />
           </div>
 
           <div className={classNames.searchInputWrapper}>
@@ -153,9 +108,7 @@ export const MyServicesViewRaw = props => {
       <ImageModal
         showPreviews
         isOpenModal={viewModel.showImageModal}
-        imageList={viewModel.bigImagesOptions.images}
-        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
-        handleCurrentImageIndex={index => viewModel.handleBigImageModal(index)}
+        imageList={viewModel.service?.linksToMediaFiles}
         openModal={viewModel.showImageModal}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
       />

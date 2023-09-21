@@ -4,9 +4,10 @@ export const styles = theme => ({
     transition: '0.3s ease',
   },
 
-  attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
+  dataGridWrapper: {
+    height: '82vh',
   },
+
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -36,35 +37,55 @@ export const styles = theme => ({
     height: '52px',
   },
 
-  ideaRowGreen: {
+  attentionRow: {
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
     '&:before': {
       content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldGreen,
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      bottom: 2,
+      width: 5,
+      height: '96%',
+      background: '#C69109',
+      borderRadius: 2,
+    },
+  },
 
+  attentionRowShort: {
+    '&:before': {
+      content: '""',
+      height: '76%',
+    },
+  },
+
+  ideaRowGreen: {
+    position: 'relative',
+
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 1,
+      left: 1,
+      backgroundImage: theme.palette.other.ideaProductSheldGreen,
       width: 48,
       height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
     },
   },
 
   ideaRowYellow: {
-    '&:before': {
-      content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldYellow,
+    position: 'relative',
 
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 1,
+      left: 1,
+      backgroundImage: theme.palette.other.ideaProductSheldYellow,
       width: 48,
       height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
     },
-  },
-
-  dataGridWrapper: {
-    height: '82vh',
   },
 })

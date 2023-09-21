@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**[InlineResponse20059Data]**](InlineResponse20059Data.md) |  | [optional] 
-**totalCount** | **Number** |  | [optional] 
+**count** | **Number** |  | [optional] 
+**rows** | [**[InlineResponse20059Rows]**](InlineResponse20059Rows.md) |  | [optional] 
 
 

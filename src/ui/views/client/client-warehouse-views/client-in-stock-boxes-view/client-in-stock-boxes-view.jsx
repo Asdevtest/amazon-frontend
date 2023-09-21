@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -28,6 +26,7 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -42,24 +41,9 @@ import { styles } from './client-in-stock-boxes-view.style'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
 export const ClientInStockBoxesViewRaw = props => {
-  const topHeaderBtnsWrapperRef = useRef()
-  const boxesFiltersWrapperRef = useRef()
-  const btnsWrapperRef = useRef()
   const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
-  const [heightSum, setHeightSum] = useState(0)
   const { classes: classNames } = props
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  useEffect(() => {
-    setHeightSum(
-      topHeaderBtnsWrapperRef?.current?.offsetHeight +
-        boxesFiltersWrapperRef?.current?.offsetHeight +
-        btnsWrapperRef?.current?.offsetHeight,
-    )
-  }, [viewModel.storekeepersData, viewModel.clientDestinations])
+  const disableSelectionCells = ['prepId']
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
@@ -67,7 +51,9 @@ export const ClientInStockBoxesViewRaw = props => {
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
     classNames.isDraftRow
 
-  const disableSelectionCells = ['prepId']
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
   const renderButtons = () => {
     const disable = viewModel.selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
@@ -127,36 +113,20 @@ export const ClientInStockBoxesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div ref={topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
+        <div className={classNames.topHeaderBtnsWrapper}>
           <div className={classNames.boxesFiltersWrapper}>
-            {viewModel.storekeepersData
-              .slice()
-              .sort((a, b) => a.name?.localeCompare(b.name))
-              .map(storekeeper =>
-                storekeeper.boxesCount !== 0 ? (
-                  <Button
-                    key={storekeeper._id}
-                    disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-                    })}
-                    variant="text"
-                    onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-                  >
-                    {storekeeper.name}
-                  </Button>
-                ) : null,
-              )}
-
-            <Button
-              disabled={!viewModel.currentStorekeeper?._id}
-              tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
-              variant="text"
-              onClick={viewModel.onClickStorekeeperBtn}
-            >
-              {t(TranslationKey['All warehouses'])}
-            </Button>
+            <CustomSwitcher
+              switchMode={'medium'}
+              condition={viewModel.currentStorekeeperId}
+              switcherSettings={[
+                ...viewModel.storekeepersData
+                  .filter(storekeeper => storekeeper.boxesCount !== 0)
+                  .sort((a, b) => a.name?.localeCompare(b.name))
+                  .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
+                { label: () => t(TranslationKey['All warehouses']), value: undefined },
+              ]}
+              changeConditionHandler={viewModel.onClickStorekeeperBtn}
+            />
           </div>
 
           <SearchInput
@@ -168,56 +138,31 @@ export const ClientInStockBoxesViewRaw = props => {
           />
         </div>
 
-        <div ref={boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
-          {viewModel.clientDestinations
-            .slice()
-            .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(destination =>
-              destination.boxesCount !== 0 ? (
-                <Button
-                  key={destination._id}
-                  disabled={viewModel.curDestination?._id === destination._id}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curDestination?._id === destination._id,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickDestinationBtn(destination)}
-                >
-                  {destination.name}
-                </Button>
-              ) : null,
-            )}
+        <div className={classNames.boxesFiltersWrapper}>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.curDestinationId}
+            switcherSettings={[
+              ...viewModel.clientDestinations
+                .filter(destination => destination.boxesCount !== 0)
+                .sort((a, b) => a.name?.localeCompare(b.name))
+                .map(destination => ({ label: () => destination?.name, value: destination?._id })),
 
-          <Button
-            disabled={viewModel.curDestination?._id === 'null'}
-            className={cx(classNames.button, {
-              [classNames.selectedBoxesBtn]: viewModel.curDestination?._id === 'null',
-            })}
-            variant="text"
-            onClick={() => viewModel.onClickDestinationBtn({ _id: 'null' })}
-          >
-            {t(TranslationKey.Undistributed)}
-          </Button>
-
-          <Button
-            disabled={!viewModel.curDestination?._id}
-            tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.curDestination?._id })}
-            variant="text"
-            onClick={viewModel.onClickDestinationBtn}
-          >
-            {t(TranslationKey.All)}
-          </Button>
+              { label: () => t(TranslationKey.Undistributed), value: null },
+              { label: () => t(TranslationKey.All), value: undefined },
+            ]}
+            changeConditionHandler={viewModel.onClickDestinationBtn}
+          />
         </div>
 
-        <div ref={btnsWrapperRef} className={classNames.btnsWrapper}>
+        <div className={classNames.btnsWrapper}>
           <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
           <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper} style={{ height: `calc(100vh - ${heightSum + 170}px)` }}>
+        <div className={classNames.tasksWrapper}>
           <MemoDataGrid
             disableVirtualization
             pagination

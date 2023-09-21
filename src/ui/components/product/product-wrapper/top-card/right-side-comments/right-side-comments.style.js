@@ -48,9 +48,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(4,auto)',
     justifyContent: 'flex-end',
-    gap: '10px',
+    gap: 20,
     marginBottom: '20px',
-    width: '33%',
+    width: '38%',
   },
 
   buttonWrapper: {
