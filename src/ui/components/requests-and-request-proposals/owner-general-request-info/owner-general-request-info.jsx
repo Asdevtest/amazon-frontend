@@ -38,6 +38,7 @@ export const OwnerGeneralRequestInfo = ({
   onClickPublishBtn,
   onClickEditBtn,
   onClickCancelBtn,
+  onClickMarkAsCompletedBtn,
   onClickAbortBtn,
   onRecoverRequest,
   onToggleUploadedToListing,
@@ -53,6 +54,11 @@ export const OwnerGeneralRequestInfo = ({
 
   const requestIsNotDraftAndPublished =
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
+
+  const isDisplayingMarkAsCompletedButton =
+    (!!request?.request.createdBy || !!request?.request.sub) &&
+    (request?.request.status === RequestStatus.EXPIRED || request?.request.status === RequestStatus.IN_PROCESS) &&
+    requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
 
   return (
     <div className={classNames.root}>
@@ -287,6 +293,16 @@ export const OwnerGeneralRequestInfo = ({
           />
           <Typography className={cx(classNames.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
         </Button>
+        {isDisplayingMarkAsCompletedButton && (
+          <Button
+            success
+            // tooltipInfoContent={t(TranslationKey['Mark as completed'])}
+            className={classNames.publishBtn}
+            onClick={onClickMarkAsCompletedBtn}
+          >
+            {t(TranslationKey['Mark as completed'])}
+          </Button>
+        )}
         {request && request?.request.status === RequestStatus.DRAFT && (
           <div className={classNames.btnsWrapper}>
             <div className={classNames.btnsRow}>
@@ -320,33 +336,35 @@ export const OwnerGeneralRequestInfo = ({
         )}
         {request && request?.request.status !== RequestStatus.DRAFT && (
           <>
-            <div className={classNames.btnsWrapper}>
-              <div className={classNames.btnsRow}>
-                {requestIsNotDraftAndPublished && (
-                  <Button
-                    danger
-                    tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                    className={classNames.deleteBtn}
-                    onClick={onClickCancelBtn}
-                  >
-                    {t(TranslationKey.Delete)}
-                  </Button>
-                )}
+            {requestIsNotDraftAndPublished || (request && request?.request.status === RequestStatus.PUBLISHED) ? (
+              <div className={classNames.btnsWrapper}>
+                <div className={classNames.btnsRow}>
+                  {requestIsNotDraftAndPublished && (
+                    <Button
+                      danger
+                      tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+                      className={classNames.deleteBtn}
+                      onClick={onClickCancelBtn}
+                    >
+                      {t(TranslationKey.Delete)}
+                    </Button>
+                  )}
 
-                {request && request?.request.status === RequestStatus.PUBLISHED && (
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                    color="primary"
-                    className={cx(classNames.editBtn, {
-                      [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
-                    })}
-                    onClick={onClickEditBtn}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                )}
+                  {request && request?.request.status === RequestStatus.PUBLISHED && (
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+                      color="primary"
+                      className={cx(classNames.editBtn, {
+                        [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
+                      })}
+                      onClick={onClickEditBtn}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             {(request?.request.status === RequestStatus.IN_PROCESS ||
               request?.request.status === RequestStatus.EXPIRED ||

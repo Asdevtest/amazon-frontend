@@ -28,14 +28,12 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => {
-      const onPickUpeMemo = useCallback(() => handlers.onPickUp(params.row.originalData), [])
-
       return (
         <NormalActionBtnCell
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
           bTnText={t(TranslationKey['Get to work'])}
-          onClickOkBtn={onPickUpeMemo}
+          onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
         />
       )
     },
