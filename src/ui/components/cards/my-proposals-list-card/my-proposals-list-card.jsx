@@ -46,7 +46,7 @@ export const MyProposalsListCard = ({
                   userId={item?.createdBy?._id}
                   customClassNames={classNames.customUserLink}
                 />
-                <Rating disabled size="small" value={item?.createdBy?.rating} />
+                <Rating readOnly size="small" value={item?.createdBy?.rating} />
               </div>
             </div>
 
@@ -82,9 +82,7 @@ export const MyProposalsListCard = ({
 
               <div className={classNames.blockInfoCell}>
                 <p className={classNames.blockInfoCellTitle}>{t(TranslationKey.ID) + ':'}</p>
-                <path className={cx(classNames.blockInfoCellText)}>
-                  {item.humanFriendlyId ?? t(TranslationKey.Missing)}
-                </path>
+                <p className={cx(classNames.blockInfoCellText)}>{item.humanFriendlyId ?? t(TranslationKey.Missing)}</p>
               </div>
 
               <div className={classNames.blockInfoCell}>

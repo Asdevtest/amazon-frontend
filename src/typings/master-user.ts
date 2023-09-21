@@ -11,11 +11,13 @@ export interface CreatedBy {
 }
 
 export interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
+  file: File
+  data_url: string
 }
 
 export interface IService {
   createdBy: CreatedBy
+  createdAt: string
   linksToMediaFiles: Array<string | linksToMediaFilesInterface>
   requests: Array<Requests>
   type: number

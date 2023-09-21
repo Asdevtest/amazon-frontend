@@ -1,8 +1,8 @@
+import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -14,6 +14,8 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './multiple-chats.styles'
 
@@ -89,6 +91,7 @@ export const MultipleChats = observer(
       ref,
     ) => {
       const { classes: classNames } = useClassNames()
+      const { isMobileResolution } = useCreateBreakpointResolutions()
 
       const filteredChats = chats
         .filter(el => {
@@ -112,7 +115,11 @@ export const MultipleChats = observer(
 
       return (
         <div ref={ref} className={classNames.wrapper}>
-          <div className={classNames.leftSide}>
+          <div
+            className={cx(classNames.leftSide, {
+              [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+            })}
+          >
             <ChatsList
               userId={userId}
               typingUsers={typingUsers}
@@ -123,9 +130,10 @@ export const MultipleChats = observer(
             />
           </div>
 
-          <div className={classNames.rightSide}>
+          <div className={cx(classNames.rightSide, { [classNames.mobileResolution]: !isChatSelectedAndFound })}>
             {isChatSelectedAndFound ? (
               <Chat
+                isFreelanceOwner={isFreelanceOwner}
                 userId={userId}
                 chat={findChatByChatId}
                 messages={findChatByChatId.messages}

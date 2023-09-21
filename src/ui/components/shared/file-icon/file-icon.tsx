@@ -18,6 +18,7 @@ export const FileIcon: FC<Props> = ({ fileExtension, className }) => {
     case 'docx':
       return <DocFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     case 'pdf':
+    case 'com':
       return <PdfFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
     case 'xlsx':
     case 'xls':

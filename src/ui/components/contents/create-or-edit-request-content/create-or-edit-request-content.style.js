@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
 
     padding: 30,
-    minHeight: 760,
+    minHeight: 740,
 
     display: 'flex',
     flexDirection: 'column',
@@ -560,7 +560,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   customSubMainWrapperAsin: {
     padding: '10px 10px !important',
-    width: '200px !important',
+    width: '260px !important',
   },
 
   customSubMainWrapper: {

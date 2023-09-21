@@ -13,9 +13,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -85,6 +87,7 @@ export const MyRequestsViewRaw = props => {
 
         <div className={classNames.switchButtonWrapper}>
           <CustomSwitcher
+            fullWidth
             switchMode={'big'}
             condition={viewModel.isRequestsAtWork}
             switcherSettings={[
@@ -93,92 +96,73 @@ export const MyRequestsViewRaw = props => {
             ]}
             changeConditionHandler={viewModel.onClickChangeCatigory}
           />
-
-          {/* <Button
-            variant={'text'}
-            btnWrapperStyle={classNames.btnWrapperStyle}
-            className={cx(classNames.switchButton, {
-              [classNames.switchButtonBorder]: viewModel.isRequestsAtWork,
-              [classNames.selectedSwitchButton]: viewModel.isRequestsAtWork,
-            })}
-            onClick={() => viewModel.onClickChangeCatigory(true)}
-          >
-            {t(TranslationKey['Requests in progress'])}
-          </Button>
-          <Button
-            variant={'text'}
-            btnWrapperStyle={classNames.btnWrapperStyle}
-            className={cx(classNames.switchButton, {
-              [classNames.switchButtonBorder]: !viewModel.isRequestsAtWork,
-              [classNames.selectedSwitchButton]: !viewModel.isRequestsAtWork,
-            })}
-            onClick={() => viewModel.onClickChangeCatigory(false)}
-          >
-            {t(TranslationKey['Completed requests'])}
-          </Button> */}
         </div>
 
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            sortingMode="server"
-            paginationMode="server"
-            propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
-            localeText={getLocalizationByLanguageTag()}
-            getCellClassName={getCellClassName}
-            getRowClassName={getRowClassName}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            rows={viewModel.currentData}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rowHeight={130}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              columnMenu: viewModel.columnMenuSettings,
+          {viewModel.loadTableStatus === loadingStatuses.success ? (
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              sortingMode="server"
+              paginationMode="server"
+              propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
+              localeText={getLocalizationByLanguageTag()}
+              getCellClassName={getCellClassName}
+              getRowClassName={getRowClassName}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              filterModel={viewModel.filterModel}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
+              paginationModel={viewModel.paginationModel}
+              rowCount={viewModel.rowCount}
+              sortModel={viewModel.sortModel}
+              rows={viewModel.currentData}
+              pageSizeOptions={[15, 25, 50, 100]}
+              rowHeight={130}
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
+                columnMenu: DataGridCustomColumnMenuComponent,
+              }}
+              slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
+                columnMenu: viewModel.columnMenuSettings,
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                toolbar: {
+                  resetFiltersBtnSettings: {
+                    onClickResetFilters: viewModel.onClickResetFilters,
+                    isSomeFilterOn: viewModel.isSomeFilterOn,
+                  },
+                  columsBtnSettings: {
+                    columnsModel: viewModel.columnsModel,
+                    columnVisibilityModel: viewModel.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                  },
                 },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onColumnHeaderEnter={params => {
-              viewModel.onHoverColumnField(params.field)
-            }}
-            onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-          />
+              }}
+              density={viewModel.densityModel}
+              columns={viewModel.columnsModel}
+              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              onColumnHeaderEnter={params => {
+                viewModel.onHoverColumnField(params.field)
+              }}
+              onColumnHeaderLeave={viewModel.onLeaveColumnField}
+              onSortModelChange={viewModel.onChangeSortingModel}
+              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onFilterModelChange={viewModel.onChangeFilterModel}
+              onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+            />
+          ) : (
+            <CircularProgressWithLabel />
+          )}
         </div>
       </div>
 
@@ -212,6 +196,13 @@ export const MyRequestsViewRaw = props => {
           severity={viewModel?.alertShieldSettings?.error ? 'error' : 'success'}
         />
       )}
+
+      <FreelanceRequestDetailsModal
+        isOpenModal={viewModel.showRequestDetailModal}
+        request={viewModel.currentRequestDetails?.request}
+        details={viewModel.currentRequestDetails?.details}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+      />
     </React.Fragment>
   )
 }

@@ -3,55 +3,78 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
     padding: 3,
-    backgroundColor: theme.palette.background.gray,
-    borderRadius: '31px',
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-
-  mediumStylesSwitcherWrapper: {
-    height: '40px',
-  },
-
-  innerContainer: {
-    width: '100%',
-    height: '100%',
     display: 'flex',
     alignItems: 'center',
-    position: 'relative',
     flexWrap: 'wrap',
+    gap: 5,
+    backgroundColor: theme.palette.customSwitcher.background,
+    borderRadius: '21px',
+  },
+
+  fullWidthWrapper: {
+    width: '100%',
+  },
+
+  headerStylesSwitcherWrapper: {
+    borderRadius: '24px',
+    backgroundColor: theme.palette.customSwitcher.headerBackground,
+  },
+
+  mediumGapWrapper: {
+    gap: 10,
+  },
+
+  optionWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+
+  headerOptionWrapper: {
+    height: 45,
+  },
+
+  mediumOptionWrapper: {
+    height: 40,
   },
 
   switcherOption: {
+    height: '100%',
+    width: '100%',
+    minWidth: 25,
+    padding: '0 5px',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    fontWeight: 400,
+    justifyContent: 'center',
     fontSize: 14,
     lineHeight: '19px',
-    padding: '0 4px',
-    height: '100%',
-    color: theme.palette.text.general,
-    background: 'none',
-    minWidth: '40px !important',
-    transition: 'background .5s ease',
-    zIndex: 3,
     whiteSpace: 'nowrap',
+    transition: 'all .3s ease',
+    color: theme.palette.customSwitcher.text,
+    borderRadius: '21px',
 
-    '&:hover': {
-      color: theme.palette.text.general,
-      background: 'none',
+    '&:active': {
+      color: theme.palette.customSwitcher.text,
+      backgroundColor: theme.palette.customSwitcher.headerBackground,
     },
   },
 
+  headerOptionStyles: {
+    padding: '0 15px',
+    borderRadius: '24px',
+  },
+
   activeOption: {
-    transition: '.4s ease',
-    color: theme.palette.primary.main,
-    fontWeight: 600,
     cursor: 'unset',
+    fontWeight: 600,
+    transition: 'all .3s ease',
+    color: theme.palette.customSwitcher.activeText,
+    backgroundColor: theme.palette.customSwitcher.indicator,
+
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: theme.palette.customSwitcher.activeText,
+      backgroundColor: theme.palette.customSwitcher.indicator,
     },
   },
 
@@ -63,20 +86,17 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 15px',
   },
 
-  btnWrapperStyle: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    flex: 1,
+  headerActiveOptionStyles: {
+    color: '#fff',
+    background: theme.palette.primary.main,
+
+    '&:hover': {
+      color: '#fff',
+      background: theme.palette.primary.main,
+    },
   },
 
-  indicator: {
-    position: 'absolute',
-    height: '100%',
-    zIndex: 2,
-    borderRadius: '41px',
-    transition: '.4s ease',
-    backgroundColor: '#fff',
+  icon: {
+    color: theme.palette.primary.main,
   },
 }))

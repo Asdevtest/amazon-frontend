@@ -1,5 +1,4 @@
 import { t } from 'i18n-js'
-import React from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
@@ -108,7 +107,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
         ) : (
           <SuccessActionBtnCell
             bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
           />
         )}
       </>
@@ -227,7 +226,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     width: 160,
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -235,7 +234,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextCell withTooltip leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 120,
     sortable: false,
   },
@@ -245,7 +244,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextCell withTooltip leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 120,
     sortable: false,
   },

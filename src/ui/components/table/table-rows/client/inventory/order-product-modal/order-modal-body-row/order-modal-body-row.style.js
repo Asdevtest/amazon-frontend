@@ -24,7 +24,8 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '14px',
-    borderRadius: '4px',
+    width: '90px',
+    borderRadius: '7px',
     height: '36px',
   },
   barcodeChipHover: {
@@ -63,7 +64,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   commentInput: {
-    height: '70px',
+    height: 70,
+    padding: '5px 0',
+  },
+
+  inputMultiline: {
+    height: '60px !important',
+    padding: '0 10px',
+    fontSize: 16,
+    lineHeight: '20px',
   },
 
   amazonTitle: {
@@ -133,7 +142,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '0 20px',
+    padding: '0 10px',
   },
 
   copyValueWrapper: {

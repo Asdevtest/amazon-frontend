@@ -28,7 +28,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 80,
     columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
 
@@ -38,7 +38,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 160,
+    width: 140,
     sortable: false,
 
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -49,7 +49,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    width: 380,
+    width: 320,
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} imageSize={'big'} />
@@ -153,7 +153,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
+    renderCell: params => <MultilineTextCell text={params.value} noText={t(TranslationKey['Outside Batch'])} />,
     type: 'number',
     width: 110,
 
@@ -171,8 +171,8 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
             <CustomSwitcher
               condition={getUnitsOption()}
               switcherSettings={[
-                { label: unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                { label: unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
               ]}
               changeConditionHandler={handlers.onChangeUnitsOption}
             />

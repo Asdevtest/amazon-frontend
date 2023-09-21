@@ -16,7 +16,7 @@ export enum TranslationKey {
   'Sent' = 'Sent',
   'Requested shipments' = 'Requested shipments',
   'Balance' = 'Balance',
-  'your role:' = 'your role:',
+  'Your role:' = 'Your role:',
   'Menu' = 'Menu',
   'Profile' = 'Profile',
   'Exit' = 'Exit',
@@ -2115,5 +2115,10 @@ export enum TranslationKey {
   'changed to' = 'changed to',
   'Deadline for request' = 'Deadline for request',
   'Request messages' = 'Request messages',
+  'Close idea' = 'Close idea',
+  'Are you sure you want to send the result for rework?' = 'Are you sure you want to send the result for rework?',
+  'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
+  'Status changed' = 'Status changed',
+  'This product has a parent product' = 'This product has a parent product',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

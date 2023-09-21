@@ -24,7 +24,7 @@ Method | HTTP request | Description
 [**apiV1RequestProposalsGuidResultAcceptPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_accept | #  Принять результаты работы.
 [**apiV1RequestProposalsGuidResultCorrectedPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_corrected | #  Отправить обратно на утверждение, после доработки.
 [**apiV1RequestProposalsGuidResultToCorrectPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
-[**apiV1RequestProposalsProposalPagMyGet**](RequestProposalsApi.md#apiV1RequestProposalsProposalPagMyGet) | **GET** /api/v1/request-proposals/proposal_pag_my | Получить все предложения фрилансера.
+[**apiV1RequestProposalsPagMyGet**](RequestProposalsApi.md#apiV1RequestProposalsPagMyGet) | **GET** /api/v1/request-proposals/pag/my | Получить все предложения фрилансера.
 
 
 
@@ -159,7 +159,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject130() // InlineObject130 | 
+  'body': new TestSwagger.InlineObject131() // InlineObject131 | 
 };
 apiInstance.apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject130**](InlineObject130.md)|  | [optional] 
+ **body** | [**InlineObject131**](InlineObject131.md)|  | [optional] 
 
 ### Return type
 
@@ -528,7 +528,7 @@ Name | Type | Description  | Notes
 
 # Отмена предложения до заключения сделки.
 
-## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли вызвавший данный метод владельцем предложения.
+## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
 
 ### Example
 
@@ -696,7 +696,7 @@ Name | Type | Description  | Notes
 
 #  Принять предложение.
 
-## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
 
 ### Example
 
@@ -752,7 +752,7 @@ Name | Type | Description  | Notes
 
 # Отправить предложение обратно, после доработки.
 
-##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Только владелец предложения может вызвать данный метод.
+##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
 
 ### Example
 
@@ -808,7 +808,7 @@ Name | Type | Description  | Notes
 
 #  Редактировать условия предложения.
 
-## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
 
 ### Example
 
@@ -864,7 +864,7 @@ Name | Type | Description  | Notes
 
 # Отказаться от предложения.
 
-## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
 
 ### Example
 
@@ -1138,13 +1138,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1RequestProposalsProposalPagMyGet
+## apiV1RequestProposalsPagMyGet
 
-> InlineResponse20059 apiV1RequestProposalsProposalPagMyGet(opts)
+> InlineResponse20059 apiV1RequestProposalsPagMyGet(opts)
 
 Получить все предложения фрилансера.
 
-Получить все предложения фрилансера
+Получить все предложения фрилансера с пагинацией
 
 ### Example
 
@@ -1159,14 +1159,14 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.RequestProposalsApi();
 let opts = {
-  'filters': "filters_example", // String |                Возможные поля: (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, createdBy,               (Product) -> asin, amazonTitle,               (Proposal) -> proposalStatus, proposalCreatedBy, proposalSub, proposalUpdatedAt               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'filters': "filters_example", // String |                Возможные поля:               (Proposal) -> status, createdBy, sub, updatedAt               (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -> asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
   'sortField': "sortField_example", // String | Название поля
   'sortType': "sortType_example", // String | Тип сортировки
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1RequestProposalsProposalPagMyGet(opts).then((data) => {
+apiInstance.apiV1RequestProposalsPagMyGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1179,7 +1179,7 @@ apiInstance.apiV1RequestProposalsProposalPagMyGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filters** | **String**|                Возможные поля: (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, createdBy,               (Product) -&gt; asin, amazonTitle,               (Proposal) -&gt; proposalStatus, proposalCreatedBy, proposalSub, proposalUpdatedAt               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **filters** | **String**|                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
  **sortField** | **String**| Название поля | [optional] 

@@ -8,6 +8,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormalActionBtnCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
   ShortDateCell,
   UserMiniCell,
@@ -19,6 +20,32 @@ import { t } from '@utils/translations'
 
 export const FreelancerVacantRequestColumns = handlers => [
   {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        textCenter
+        component={<img src="/assets/icons/bookmark.svg" />}
+        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    width: 80,
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        isRequest
+        priority={params.row.originalData.priority}
+        onClickOpenInNewTab={() => handlers.onClickOpenInNewTab(params.row._id)}
+      />
+    ),
+
+    filterable: false,
+    sortable: false,
+
+    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+  },
+
+  {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
@@ -29,22 +56,13 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'priority',
-    headerName: t(TranslationKey.Priority),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        component={<img src="/assets/icons/bookmark.svg" />}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-    width: 60,
-    renderCell: params => <PriorityAndChinaDeliverCell isRequest priority={params.row.originalData.priority} />,
+    field: 'product',
+    headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
+    width: 256,
 
-    filterable: false,
-    sortable: false,
-
-    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -158,7 +176,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'remainingOffers',
+    field: 'maxAmountOfProposals',
     headerName: t(TranslationKey['Remaining offers']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Remaining offers'])} />,
 
@@ -200,20 +218,20 @@ export const FreelancerVacantRequestColumns = handlers => [
     columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
   },
 
-  {
-    field: 'actions',
-    headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
-    renderCell: params => (
-      <NormalActionBtnCell
-        // disabled={!params.row.batch}
-        bTnText={t(TranslationKey.Details)}
-        onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
-      />
-    ),
-    width: 126,
-  },
+  // {
+  //   field: 'actions',
+  //   headerName: t(TranslationKey.Actions),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+  //
+  //   renderCell: params => (
+  //     <NormalActionBtnCell
+  //       // disabled={!params.row.batch}
+  //       bTnText={t(TranslationKey.Details)}
+  //       onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
+  //     />
+  //   ),
+  //   width: 126,
+  // },
 
   {
     field: 'updatedAt',

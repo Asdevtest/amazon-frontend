@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+import React from 'react'
 
 import Avatar from '@mui/material/Avatar'
 import Rating from '@mui/material/Rating'
@@ -15,7 +16,8 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
@@ -28,7 +30,7 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-list-card.style'
 
-export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
+export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
   const getCardClassName = timeoutAt => {
@@ -48,23 +50,32 @@ export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
   }
 
   return (
-    <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
+    <div
+      className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}
+      onDoubleClick={() => onDoubleClick(item._id)}
+    >
       <div className={classNames.cardTitleBlockWrapper}>
         <div className={classNames.cardTitleBlockHeaderWrapper}>
-          <div className={classNames.userInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
-
-            <div className={classNames.nameWrapper}>
-              <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
-
-              <Rating disabled value={item?.createdBy?.rating} />
-            </div>
-          </div>
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.cardTitle}>
               {`${item.title} / ${t(TranslationKey.ID)}`}{' '}
               <span className={cx(classNames.cardTitle, classNames.idText)}>{item.humanFriendlyId}</span>
             </Typography>
+          </div>
+          <div className={classNames.requestInfoWrapper}>
+            <div className={classNames.userInfoWrapper}>
+              <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
+
+              <div className={classNames.nameWrapper}>
+                <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
+
+                <Rating disabled value={item?.createdBy?.rating} />
+              </div>
+            </div>
+
+            <div className={classNames.productInfo}>
+              <OrderCell withoutSku imageSize={'small'} product={item.product} />
+            </div>
           </div>
         </div>
         <div className={classNames.cardTitleBlockFooterWrapper}>
@@ -74,125 +85,33 @@ export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
               item?.maxAmountOfProposals,
             )}
           </Typography>
+          {/* <Typography className={classNames.cardSubTitle}> */}
+          {/*   {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span> */}
+          {/* </Typography> */}
         </div>
       </div>
 
-      <div className={classNames.mainInfosWrapper}>
-        <div>
-          {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey['Product price'])}
-              inputComponent={
-                <div className={classNames.priceAmazonWrapper}>
-                  <VacantRequestPriceCell
-                    AlignLeft
-                    price={item.priceAmazon}
-                    cashBackInPercent={item.cashBackInPercent}
-                  />
-                </div>
-              }
-            />
-          ) : (
-            <div className={classNames.emptyDiv} />
-          )}
-
-          {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={'CashBack'}
-              inputComponent={
-                <Typography className={classNames.accentText}>{toFixed(item.cashBackInPercent, 2) + '%'}</Typography>
-              }
-            />
-          ) : null}
-        </div>
-        <div>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey['Request price'])}
-            inputComponent={
-              <Typography className={classNames.accentText}>{toFixedWithDollarSign(item.price, 2)}</Typography>
-            }
-          />
-
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Status)}
-            inputComponent={
-              <Typography className={classNames.deadline} style={{ color: colorByRequestStatus(item.status) }}>
-                {MyRequestStatusTranslate(item.status)}
-              </Typography>
-            }
-          />
-        </div>
-        <div>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Time)}
-            inputComponent={
-              <Typography className={cx(classNames.accentText, getDeadlineColor(item.timeoutAt))}>{`${toFixed(
-                item.timeLimitInMinutes / 60,
-                2,
-              )} ${t(TranslationKey.hour)} `}</Typography>
-            }
-          />
-
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey['Request type'])}
-            inputComponent={
-              <Typography className={classNames.accentText}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
-              </Typography>
-            }
-          />
-        </div>
-
-        <div>
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Updated)}
-            inputComponent={
-              <Typography className={classNames.accentText}>
-                {formatNormDateTimeWithParseISO(item.updatedAt)}
-              </Typography>
-            }
-          />
-          <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
-            label={t(TranslationKey.Deadline)}
-            inputComponent={
-              <Typography className={classNames.accentText}>{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
-            }
-          />
-        </div>
+      <div className={classNames.requestTermsWrapper}>
+        <RequestTermsList request={item} />
       </div>
 
-      <div className={classNames.priorityWrapper}>
-        {Number(item?.priority) === requestPriority.urgentPriority && (
-          <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
-        )}
-      </div>
-
-      <div className={classNames.buttonWrapper}>
-        <Button
-          tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-          variant="contained"
-          color="primary"
-          className={classNames.actionButton}
-          onClick={() => onClickViewMore(item._id)}
-        >
-          {t(TranslationKey.Details)}
-        </Button>
+      <div className={classNames.controls}>
+        <div className={classNames.buttonWrapper}>
+          <div className={classNames.priorityWrapper}>
+            {Number(item?.priority) === requestPriority.urgentPriority && (
+              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            )}
+          </div>
+          <Button
+            tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
+            variant="contained"
+            color="primary"
+            className={classNames.actionButton}
+            onClick={() => onClickViewMore(item._id)}
+          >
+            {t(TranslationKey.Details)}
+          </Button>
+        </div>
       </div>
     </div>
   )

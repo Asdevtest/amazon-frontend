@@ -2,21 +2,25 @@ import { FC, PropsWithChildren } from 'react'
 
 import Dialog from '@mui/material/Dialog'
 
-import { isTabletResolution } from '@constants/configs/sizes-settings'
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 interface Props extends PropsWithChildren {
   open: boolean
   onClose: VoidFunction
 }
 
-export const DialogModal: FC<Props> = ({ open, onClose, children }) => (
-  <>
-    {isTabletResolution ? (
-      <Dialog open={open} onClose={onClose}>
-        {children}
-      </Dialog>
-    ) : (
-      children
-    )}
-  </>
-)
+export const DialogModal: FC<Props> = ({ open, onClose, children }) => {
+  const { isTabletResolution } = useCreateBreakpointResolutions()
+
+  return (
+    <>
+      {isTabletResolution ? (
+        <Dialog open={open} onClose={onClose}>
+          {children}
+        </Dialog>
+      ) : (
+        children
+      )}
+    </>
+  )
+}

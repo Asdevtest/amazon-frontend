@@ -2037,20 +2037,6 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/supervisor/freelance/vacant-deals',
-    component: VacantDealsView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey['Vacant deals'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: () => t(TranslationKey['Vacant deals']),
-    },
-  },
-
-  {
     routePath: '/supervisor/freelance/deals-on-review',
     component: DealsOnReviewView,
     exact: true,
@@ -2061,20 +2047,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
       title: () => t(TranslationKey['Deals on review']),
-    },
-  },
-
-  {
-    routePath: '/supervisor/freelance/vacant-deals/deal-details',
-    component: VacantDealsDetailsView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey.Deal,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: () => t(TranslationKey['Vacant deals']),
     },
   },
 

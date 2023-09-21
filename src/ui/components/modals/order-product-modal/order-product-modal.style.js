@@ -244,6 +244,11 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
+  cellText: {
+    fontWeight: 400,
+    lineHeight: 1.75,
+  },
+
   commentCellBtn: {
     width: '100%',
     cursor: 'auto',

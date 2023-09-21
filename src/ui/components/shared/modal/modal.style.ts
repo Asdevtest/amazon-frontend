@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   dialogPadding: {
     padding: '30px',
     height: '100%',
+    width: '100%',
 
     [theme.breakpoints.down(768)]: {
       padding: 20,

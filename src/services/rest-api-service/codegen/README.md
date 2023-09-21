@@ -383,7 +383,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultAcceptPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_accept | #  Принять результаты работы.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultCorrectedPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_corrected | #  Отправить обратно на утверждение, после доработки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultToCorrectPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
-*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsProposalPagMyGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsProposalPagMyGet) | **GET** /api/v1/request-proposals/proposal_pag_my | Получить все предложения фрилансера.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsPagMyGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsPagMyGet) | **GET** /api/v1/request-proposals/pag/my | Получить все предложения фрилансера.
 *TestSwagger.RequestsApi* | [**apiV1RequestsByProductLightGuidGet**](docs/RequestsApi.md#apiV1RequestsByProductLightGuidGet) | **GET** /api/v1/requests/by_product/light/{guid} | Получить облегченный список заявок по продукту
 *TestSwagger.RequestsApi* | [**apiV1RequestsCalculateRequestCostGuidGet**](docs/RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализацию стоимости заявки
 *TestSwagger.RequestsApi* | [**apiV1RequestsCompletedGuidPatch**](docs/RequestsApi.md#apiV1RequestsCompletedGuidPatch) | **PATCH** /api/v1/requests/completed/{guid} | # Метод для ручного закрытия заявки
@@ -485,6 +485,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersNotificationsPagMyGet**](docs/UserApi.md#apiV1UsersNotificationsPagMyGet) | **GET** /api/v1/users/notifications/pag/my | Получить нотификации пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersPlatformSettingsGet**](docs/UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
 *TestSwagger.UserApi* | [**apiV1UsersPost**](docs/UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
+*TestSwagger.UserApi* | [**apiV1UsersShareSpecSubGuidPost**](docs/UserApi.md#apiV1UsersShareSpecSubGuidPost) | **POST** /api/v1/users/share_spec_sub/{guid} | #  Добавление определенных специализаций сабам фрилансера
 *TestSwagger.UserApi* | [**apiV1UsersSignInPost**](docs/UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
 *TestSwagger.UserApi* | [**apiV1UsersSubNotePatch**](docs/UserApi.md#apiV1UsersSubNotePatch) | **PATCH** /api/v1/users/sub_note | Создание/изменение subNote
 *TestSwagger.UserApi* | [**apiV1UsersUnlinkSubUserPatch**](docs/UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
@@ -634,6 +635,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject130](docs/InlineObject130.md)
  - [TestSwagger.InlineObject131](docs/InlineObject131.md)
  - [TestSwagger.InlineObject132](docs/InlineObject132.md)
+ - [TestSwagger.InlineObject133](docs/InlineObject133.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
  - [TestSwagger.InlineObject16](docs/InlineObject16.md)
@@ -747,8 +749,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20020Rows](docs/InlineResponse20020Rows.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
- - [TestSwagger.InlineResponse20022AllFiles](docs/InlineResponse20022AllFiles.md)
- - [TestSwagger.InlineResponse20022AllImages](docs/InlineResponse20022AllImages.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
@@ -756,6 +756,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
+ - [TestSwagger.InlineResponse20029AllFiles](docs/InlineResponse20029AllFiles.md)
+ - [TestSwagger.InlineResponse20029AllImages](docs/InlineResponse20029AllImages.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)
@@ -818,9 +820,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20057](docs/InlineResponse20057.md)
  - [TestSwagger.InlineResponse20058](docs/InlineResponse20058.md)
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
- - [TestSwagger.InlineResponse20059Data](docs/InlineResponse20059Data.md)
- - [TestSwagger.InlineResponse20059Product](docs/InlineResponse20059Product.md)
- - [TestSwagger.InlineResponse20059Proposals](docs/InlineResponse20059Proposals.md)
+ - [TestSwagger.InlineResponse20059Request](docs/InlineResponse20059Request.md)
+ - [TestSwagger.InlineResponse20059RequestProduct](docs/InlineResponse20059RequestProduct.md)
+ - [TestSwagger.InlineResponse20059Rows](docs/InlineResponse20059Rows.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)

@@ -33,10 +33,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   divider: {
     width: '100%',
-    flexGrow: 1,
-    margin: '0 -20px',
-    marginTop: theme.spacing(1.25),
-    marginBottom: theme.spacing(2.5),
+    height: 1,
+    background: '#E0E0E0',
+    marginBottom: 20,
   },
 
   numberInputFieldsBlocksWrapper: {
@@ -128,5 +127,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   sizesSubWrapper: {
     width: 'fit-content',
+    marginBottom: 20,
   },
 }))

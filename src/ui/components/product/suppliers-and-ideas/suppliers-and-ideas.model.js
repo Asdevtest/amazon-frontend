@@ -23,6 +23,7 @@ import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalSta
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -81,6 +82,7 @@ export class SuppliersAndIdeasModel {
   showBindingModal = false
   showOrderModal = false
   showSetBarcodeModal = false
+  showSelectionSupplierModal = false
 
   selectedProduct = undefined
   storekeepers = []
@@ -137,6 +139,10 @@ export class SuppliersAndIdeasModel {
       if (!this.isCreateModal) {
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
+
+          if (this.updateData) {
+            this.updateData()
+          }
         } else {
           await this.getIdeas()
         }
@@ -228,8 +234,20 @@ export class SuppliersAndIdeasModel {
   }
 
   onCreateIdea() {
-    this.curIdea = undefined
-    this.inCreate = true
+    if (!!this.currentProduct && !this.currentProduct?.buyer?._id) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.curIdea = undefined
+      this.inCreate = true
+    }
   }
 
   onSetCurIdea(idea) {
@@ -284,10 +302,6 @@ export class SuppliersAndIdeasModel {
         // }
 
         this.loadData()
-
-        if (this.updateData) {
-          this.updateData()
-        }
       }
 
       if (isForceUpdate) {
@@ -750,8 +764,6 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
-      console.log('this.currentProduct', this.currentProduct)
-
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
@@ -924,6 +936,48 @@ export class SuppliersAndIdeasModel {
       window.open(`/${userRolePath}/my-products/product?product-id=${id}`)?.focus()
     } else if (checkIsSupervisor(userRole)) {
       window.open(`/${userRolePath}/products/product?product-id=${id}`)?.focus()
+    }
+  }
+
+  async onSubmitCalculateSeekSupplier(clientComment) {
+    try {
+      const result = await ClientModel.calculatePriceToSeekSupplier(this.productId)
+
+      runInAction(() => {
+        const priceForSeekSupplier = result.priceForClient
+
+        this.confirmMessage = this.confirmModalSettings = {
+          isWarning: false,
+          confirmTitle: t(TranslationKey.Attention),
+          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n ${t(TranslationKey['Apply?'])}`,
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
+        }
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
+    try {
+      await ClientModel.sendProductToSeekSupplier(this.productId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
+      })
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+      console.log(error)
     }
   }
 }

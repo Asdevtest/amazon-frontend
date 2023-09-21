@@ -8,13 +8,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   NormalActionBtnCell,
   StringListCell,
   TaskDescriptionCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -77,7 +77,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinOrSkuLink withCopyValue asin={params.value} />,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     width: window.innerWidth < 1282 ? 101 : 160,
     sortable: false,
   },
@@ -112,7 +112,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    width: window.innerWidth < 1282 ? 54 : 160,
+    width: window.innerWidth < 1282 ? 54 : 155,
     sortable: false,
   },
   {
@@ -120,7 +120,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: window.innerWidth < 1282 ? 95 : 150,
+    width: window.innerWidth < 1282 ? 95 : 145,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     // type: 'date',
   },

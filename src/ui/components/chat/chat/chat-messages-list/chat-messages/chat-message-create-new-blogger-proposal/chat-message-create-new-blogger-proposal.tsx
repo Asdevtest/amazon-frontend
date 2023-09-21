@@ -1,6 +1,4 @@
-import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
-import Linkify from 'react-linkify-always-blank'
 
 import { Divider } from '@mui/material'
 
@@ -12,7 +10,6 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
@@ -20,6 +17,8 @@ import { minsToTime, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-create-new-blogger-proposal.style'
 
@@ -33,189 +32,180 @@ export interface ChatMessageProposalHandlers {
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreateNewBloggerProposalContract>
   handlers: ChatMessageProposalHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handlers }) => {
-  const { classes: classNames } = useClassNames()
+export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handlers, isShowChatInfo }) => {
+  const { classes: classNames, cx } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  const proposalStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
+  const isShowButtons =
+    curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+    (proposalStatus === RequestProposalStatus.CREATED ||
+      proposalStatus === // этого условия не было
+        RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+      proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED)
+  const isRejectButton =
+    proposalStatus !== RequestProposalStatus.TO_CORRECT &&
+    proposalStatus !== // этого условия не было
+      RequestProposalStatus.OFFER_CONDITIONS_REJECTED
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.mainWrapper}>
-        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
-
-        <div className={classNames.mainSubWrapper}>
-          <div className={classNames.massageHeaderWrapper}>
+      <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
+          <div className={classNames.header}>
             <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
-            {!!message.humanFriendlyId && (
+            {message.humanFriendlyId ? (
               <div className={classNames.idWrapper}>
                 <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
                 <p className={classNames.idText}>{message.humanFriendlyId}</p>
               </div>
-            )}
+            ) : null}
           </div>
 
-          <div className={classNames.paragraphWrapper}>
-            <Linkify>
-              {/* <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography> */}
+          <p className={classNames.descriptionText}>{message.data.request?.title}</p>
 
-              <CustomTextEditor
+          {/* <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography> */}
+
+          {/* <CustomTextEditor
                 readOnly
-                conditions={message.data.request.details.conditions}
+                conditions={message.data.request?.details?.conditions}
                 changeConditions={undefined}
-                editorMaxHeight={undefined /* classNames.editorMaxHeight */}
+                editorMaxHeight={undefined}
                 verticalResize={undefined}
                 textToCheck={undefined}
-              />
-            </Linkify>
-          </div>
+              /> */}
 
           <div className={classNames.infosWrapper}>
-            <div className={classNames.labelValueBlockWrapper}>
-              <LabelValuePairBlock
-                label={t(TranslationKey.Deadline)}
-                value={formatNormDateTime(message.data.request.timeoutAt)}
-                bgColor="green"
-              />
-            </div>
+            <LabelValuePairBlock
+              label={t(TranslationKey.Deadline)}
+              value={formatNormDateTime(message.data.request.timeoutAt)}
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
 
-            <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Request price'])}
-                value={<p className={classNames.accentText}>{toFixedWithDollarSign(message.data.request.price, 2)}</p>}
-                bgColor="green"
-              />
-            </div>
+            <LabelValuePairBlock
+              label={t(TranslationKey['Request price'])}
+              value={<p className={classNames.accentText}>{toFixedWithDollarSign(message.data.request.price, 2)}</p>}
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
 
-            <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Product price'])}
-                value={
-                  <div className={classNames.priceAmazonWrapper}>
-                    <p className={classNames.cashBackPrice}>
-                      {`$ ${toFixed(
-                        message.data.request.priceAmazon -
-                          (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
-                        2,
-                      )}`}
-                    </p>
-
-                    <p className={classNames.redText}>{`$ ${toFixed(message.data.request.priceAmazon, 2)}`}</p>
-                  </div>
-                }
-                bgColor="green"
-              />
-            </div>
-
-            <div className={classNames.labelValueBlockWrapper}>
-              <LabelValuePairBlock
-                label={'CashBack'}
-                value={
-                  <p className={classNames.accentText}>
+            <LabelValuePairBlock
+              label={t(TranslationKey['Product price'])}
+              value={
+                <div className={classNames.priceAmazonWrapper}>
+                  <p className={classNames.cashBackPrice}>
                     {`$ ${toFixed(
-                      (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
+                      message.data.request.priceAmazon -
+                        (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
                       2,
                     )}`}
                   </p>
-                }
-                bgColor="green"
-              />
-            </div>
+
+                  <p className={classNames.redText}>{`$ ${toFixed(message.data.request.priceAmazon, 2)}`}</p>
+                </div>
+              }
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
+
+            <LabelValuePairBlock
+              label={'CashBack'}
+              value={
+                <p className={classNames.accentText}>
+                  {`$ ${toFixed((message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100, 2)}`}
+                </p>
+              }
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
           </div>
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesSlider
-            column
+            smallSlider={!isMobileResolution}
+            column={isShowChatInfo || isMobileResolution}
             files={message.data.request?.media?.map(el => el.fileLink)}
-            customGap={20}
-            customSlideHeight={80}
           />
         </div>
 
-        <Divider orientation="vertical" className={classNames.divider} />
+        <Divider
+          orientation={isShowChatInfo ? 'horizontal' : 'vertical'}
+          className={cx(classNames.divider, { [classNames.dividerShowChatInfo]: isShowChatInfo })}
+        />
 
-        <div className={classNames.mainSubWrapper}>
-          <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
-
-          <div className={classNames.paragraphWrapper}>
-            <Linkify>
-              <p className={classNames.descriptionText}>{message.data.proposal.comment}</p>
-            </Linkify>
+        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
+          <div className={classNames.header}>
+            <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
+            <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
           </div>
+
+          <p className={classNames.descriptionText}>{message.data.proposal.comment}</p>
 
           <div className={classNames.infosWrapper}>
-            <div className={classNames.labelValueBlockWrapper}>
-              <LabelValuePairBlock
-                label={t(TranslationKey.Time)}
-                value={<p className={classNames.accentText}>{minsToTime(message.data.proposal.execution_time)}</p>}
-                bgColor="green"
-              />
-            </div>
+            <LabelValuePairBlock
+              label={t(TranslationKey.Time)}
+              value={<p className={classNames.accentText}>{minsToTime(message.data.proposal.execution_time)}</p>}
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
 
-            <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Request price'])}
-                labelClasses={classNames.blackText}
-                value={
-                  <p className={cx(classNames.accentText, classNames.blackText)}>
-                    {toFixedWithDollarSign(message.data.proposal.price, 2)}
-                  </p>
-                }
-                bgColor="yellow"
-              />
-            </div>
+            <LabelValuePairBlock
+              label={t(TranslationKey['Request price'])}
+              labelClasses={classNames.blackText}
+              value={
+                <p className={cx(classNames.accentText, classNames.blackText)}>
+                  {toFixedWithDollarSign(message.data.proposal.price, 2)}
+                </p>
+              }
+              bgColor="yellow"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
           </div>
 
           <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesSlider
-            column
+            smallSlider={!isMobileResolution}
+            column={isShowChatInfo || isMobileResolution}
             files={message.data.proposal.linksToMediaFiles}
-            customGap={20}
-            customSlideHeight={80}
           />
         </div>
       </div>
 
-      <div className={classNames.footerWrapper}>
-        {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-        (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === // этого условия не было
-            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-            RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
-          <div className={classNames.btnsWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT &&
-              chatRequestAndRequestProposal.requestProposal?.proposal?.status !== // этого условия не было
-                RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
-                <Button
-                  danger
-                  className={cx(classNames.actionButton /* , classNames.editButton */)}
-                  onClick={() =>
-                    handlers.onClickProposalRegect(
-                      chatRequestAndRequestProposal.requestProposal?.proposal
-                        ._id /* handlers.onClickProposalRegect(message.data.proposal._id */,
-                    )
-                  }
-                >
-                  {t(TranslationKey.Reject)}
-                </Button>
-              )}
+      {isShowButtons ? (
+        <div className={classNames.btnsWrapper}>
+          {isRejectButton && (
             <Button
-              success
-              className={cx(classNames.actionButton /* , classNames.successBtn */)}
-              onClick={() => handlers.onClickProposalAccept(message.data.proposal._id, message.data.proposal.price)}
+              danger
+              className={cx(classNames.actionButton /* , classNames.editButton */)}
+              onClick={() =>
+                handlers.onClickProposalRegect(
+                  chatRequestAndRequestProposal.requestProposal?.proposal
+                    ._id /* handlers.onClickProposalRegect(message.data.proposal._id */,
+                )
+              }
             >
-              {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
+              {t(TranslationKey.Reject)}
             </Button>
-          </div>
-        ) : undefined}
-      </div>
+          )}
+          <Button
+            success
+            className={cx(classNames.actionButton /* , classNames.successBtn */)}
+            onClick={() => handlers.onClickProposalAccept(message.data.proposal._id, message.data.proposal.price)}
+          >
+            {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
+          </Button>
+        </div>
+      ) : null}
     </div>
   )
 }

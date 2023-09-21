@@ -154,13 +154,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  photoAndFilesTitleMobileWrapper: {
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  },
-
   modalHeaderWrapper: {
     display: 'flex',
     flexDirection: 'column',

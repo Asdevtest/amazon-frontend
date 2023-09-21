@@ -2,16 +2,13 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 590,
-    padding: '10px 0',
+    maxWidth: 1075,
+    margin: '0 auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-
-    [theme.breakpoints.down(1280)]: {
-      width: 390,
-    },
+    gap: 10,
   },
 
   headerAndTimeWrapper: {
@@ -19,63 +16,129 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: 100,
   },
 
   titleText: {
     width: '100%',
     fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
   },
 
   reasonText: {
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 18,
+    lineHeight: '25px',
+    wordBreak: 'break-all',
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusTextDesciption: {
-    color: 'grey',
-    fontSize: '18px',
     display: 'flex',
     alignItems: 'end',
-    gap: '10px',
+    gap: 10,
+    color: 'grey',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusText: {
     color: 'black',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   detailsWrapper: {
     width: '100%',
     padding: 30,
-    marginTop: '5px',
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 15,
     backgroundColor: theme.palette.background.general,
     borderRadius: 4,
+
+    [theme.breakpoints.down(768)]: {
+      padding: 20,
+    },
   },
 
   footerWrapper: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     gap: 20,
+
+    [theme.breakpoints.down(1280)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+  },
+
+  footerWrapperShowChatInfo: {
+    [theme.breakpoints.down(1450)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
   },
 
   labelValueBlockWrapper: {
+    width: '100%',
     display: 'flex',
-    gap: 10,
     alignItems: 'center',
+    gap: 10,
   },
 
   actionButton: {

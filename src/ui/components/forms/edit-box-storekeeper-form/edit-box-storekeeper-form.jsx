@@ -634,6 +634,7 @@ export const EditBoxStorekeeperForm = observer(
                 </div>
 
                 <Divider className={classNames.divider} />
+
                 <div className={classNames.shareBoxWrapper}>
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
@@ -675,37 +676,22 @@ export const EditBoxStorekeeperForm = observer(
                         <Button
                           disableElevation
                           color="primary"
-                          variant={boxFields.storekeeperId && 'text'}
-                          className={cx(classNames.storekeeperBtnDefault, {
+                          disabled={!boxFields.storekeeperId}
+                          className={cx({
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
-                            [classNames.storekeeperBtnColored]:
-                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {/* {boxFields.storekeeperId
-                            ? `${
-                                storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
-                                t(TranslationKey['Not available'])
-                              } /
-                        ${
-                          boxFields.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-                            : t(TranslationKey.Select)} */}
-
-                          {boxFields.storekeeperId
+                          {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
                       }
                     />
                   </div>
+
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
                       labelClasses={classNames.standartLabel}
@@ -751,6 +737,7 @@ export const EditBoxStorekeeperForm = observer(
                       }
                     />
                   </div>
+
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
                       labelClasses={classNames.standartLabel}
@@ -786,12 +773,12 @@ export const EditBoxStorekeeperForm = observer(
                     />
                   </div>
 
-                  <div className={classNames.labelsInfoWrapper}>
-                    <div>
+                  <div className={classNames.shareBoxSubWrapper}>
+                    <div className={classNames.field}>
                       <Field
                         labelClasses={classNames.standartLabel}
                         containerClasses={classNames.field}
-                        inputClasses={classNames.inputField}
+                        inputClasses={classNames.fbaShipmentInput}
                         inputProps={{ maxLength: 255 }}
                         label={t(TranslationKey['Track number'])}
                         value={boxFields.trackNumberText}
@@ -822,44 +809,22 @@ export const EditBoxStorekeeperForm = observer(
                       </Button>
                     </div>
 
-                    <div className={classNames.trackNumberPhotoWrapper}>
-                      {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
-                        <CustomSlider>
-                          {(boxFields.trackNumberFile.length
-                            ? boxFields.trackNumberFile
-                            : boxFields.tmpTrackNumberFile
-                          ).map((el, index) => (
-                            <img
-                              key={index}
-                              className={classNames.trackNumberPhoto}
-                              src={
-                                boxFields.tmpTrackNumberFile[index]
-                                  ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
-                                    ? boxFields.tmpTrackNumberFile[index]
-                                    : boxFields.tmpTrackNumberFile[index]?.data_url
-                                  : boxFields.trackNumberFile[index]
-                              }
-                              // variant="square"
-                              onClick={() => {
-                                setShowPhotosModal(!showPhotosModal)
-                                setBigImagesOptions({
-                                  ...bigImagesOptions,
-
-                                  images: [
-                                    boxFields.tmpTrackNumberFile[index]
-                                      ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
-                                        ? boxFields.tmpTrackNumberFile[index]
-                                        : boxFields.tmpTrackNumberFile[index]?.data_url
-                                      : boxFields.trackNumberFile[index],
-                                  ],
-                                })
-                              }}
-                            />
-                          ))}
-                        </CustomSlider>
-                      ) : (
-                        <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
-                      )}
+                    <div className={classNames.field}>
+                      <div className={classNames.trackNumberPhotoWrapper}>
+                        {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
+                          <PhotoAndFilesSlider
+                            withoutFiles
+                            customSlideHeight={96}
+                            files={
+                              boxFields.trackNumberFile.length
+                                ? boxFields.trackNumberFile
+                                : boxFields.tmpTrackNumberFile
+                            }
+                          />
+                        ) : (
+                          <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

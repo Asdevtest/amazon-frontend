@@ -1,90 +1,83 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
+    height: 165,
+    width: 800,
+    padding: '20px 20px 20px 0',
+    background: theme.palette.background.general,
     display: 'flex',
     justifyContent: 'space-between',
-
-    height: 165,
-
-    width: 800,
-
-    borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    borderRadius: 4,
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
 
-    padding: '20px 20px 20px 0',
-
-    marginBottom: 30,
+    marginBottom: 20,
   },
 
-  nameWrapper: {},
   cardCarouselWrapper: {
     height: 105,
     width: 220,
   },
 
-  carouselImage: {
-    height: 96,
-    objectFit: 'contain',
-    width: '100%',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
+  photosWrapper: {
+    padding: '10px 50px',
   },
 
   titleAndDescriptionWrapper: {
+    width: 275,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-
-    width: 275,
   },
 
   cardTitle: {
-    width: '100%',
-
-    fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
-    color: theme.palette.text.general,
+    fontWeight: 600,
+    marginBottom: 10,
 
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
-    fontWeight: 400,
+    maxHeight: 95,
     fontSize: '14px',
     lineHeight: '19px',
-
-    maxHeight: 76,
+    height: 57,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     display: '-webkit-box',
-    WebkitLineClamp: 4,
+    WebkitLineClamp: 5,
     WebkitBoxOrient: 'vertical',
   },
 
+  detailedDescription: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
   detailTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 
   detailDescription: {
-    fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
+    fontWeight: 600,
+  },
+
+  detailsAndButtonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   detailsWrapper: {
@@ -101,12 +94,6 @@ export const useClassNames = makeStyles()(theme => ({
   openBtn: {
     padding: '0 75px',
     height: 40,
-  },
-
-  detailsAndButtonWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
   },
 
   buttonWrapper: {

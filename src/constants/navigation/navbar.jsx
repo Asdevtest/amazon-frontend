@@ -535,27 +535,6 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: FreelanceIcon,
-      title: t(TranslationKey.Freelance),
-      route: '/supervisor/freelance/vacant-deals',
-      subtitles: [
-        {
-          subtitle: t(TranslationKey['Vacant deals']),
-          subRoute: '/supervisor/freelance/vacant-deals',
-          key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-        },
-        {
-          subtitle: t(TranslationKey['Deals on review']),
-          subRoute: '/supervisor/freelance/deals-on-review',
-          key: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
-        },
-      ],
-      key: navBarActiveCategory.NAVBAR_DEALS,
-      checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
-    },
-    {
       icon: TasksIcon,
       title: t(TranslationKey['Ready to check']),
       route: '/supervisor/ready-to-check',

@@ -30,14 +30,11 @@ export const styles = theme => ({
 
   tasksWrapper: {
     marginTop: 20,
+    height: '65vh',
   },
 
   boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
+    marginBottom: '15px',
   },
 
   selectedBoxesBtn: {

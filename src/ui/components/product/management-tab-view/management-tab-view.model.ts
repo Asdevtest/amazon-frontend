@@ -26,7 +26,7 @@ export class ManagementTabViewModel {
   private initialDataIds: DataIdsType = {
     productId: '',
     buyerId: '',
-    supervisorId: '',
+    checkedById: '',
     clientId: '',
   }
   private productIdFromUrl: string | null = new URL(window.location.href).searchParams.get('product-id')
@@ -206,7 +206,7 @@ export class ManagementTabViewModel {
     this.dataIds = {
       productId: this.product?._id ?? '',
       buyerId: this.buyer._id,
-      supervisorId: this.supervisor._id,
+      checkedById: this.supervisor._id,
       clientId: this.client._id,
     }
 

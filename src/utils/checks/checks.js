@@ -65,9 +65,7 @@ export const checkIsImageLink = link =>
   link?.endsWith('.jpeg') ||
   link?.endsWith('.rotated-image') ||
   link?.endsWith('.jfif') ||
-  link?.includes('rotated-image') ||
-  link?.includes('placeimg.com') ||
-  link?.includes('.jfif')
+  link?.includes('placeimg.com')
 
 export const checkIsDocumentLink = link =>
   link?.endsWith('.doc') ||
@@ -75,10 +73,8 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('.pdf') ||
   link?.endsWith('.xlsx') ||
   link?.endsWith('.xls') ||
-  link?.endsWith('.txt')
-
-export const checkIsNotValidLink = link => link?.endsWith('.com')
-
+  link?.endsWith('.txt') ||
+  (link?.includes('.com') && !link?.includes('placeimg.com'))
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 

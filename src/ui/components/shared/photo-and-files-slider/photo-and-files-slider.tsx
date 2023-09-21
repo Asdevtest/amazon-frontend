@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { ChangeEvent, FC, ReactNode, useEffect, useState } from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -13,7 +12,7 @@ import { ImageModal, ImageObjectType } from '@components/modals/image-modal/imag
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsDocumentLink, checkIsImageLink, checkIsNotValidLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -42,6 +41,7 @@ interface Props {
   isEditable?: boolean
   imagesTitles?: string[]
   withoutMakeMainImage?: boolean
+  mainClasses?: string
   onChangeImagesForLoad?: (array: Array<string | UploadFile>) => void
 }
 
@@ -65,6 +65,7 @@ interface Props {
  * @param {Array<string>} imagesTitles - takes an array of strings with names for photos.
  * @param {Boolean} withoutMakeMainImage - removes the ability to select the main photo in the photo modal window.
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
+ * @param {String} mainClasses - custom styles for the main wrapper .
  * @returns {HTMLElement} return custom slider for photos and documents.
  */
 export const PhotoAndFilesSlider: FC<Props> = ({
@@ -84,9 +85,10 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   isEditable = false,
   imagesTitles,
   withoutMakeMainImage = false,
+  mainClasses,
   onChangeImagesForLoad,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const [imageEditOpen, setImageEditOpen] = useState(false)
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -94,7 +96,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   const handleImageEditToggle = () => setImageEditOpen(!imageEditOpen)
   const handlePhotosModalToggle = () => setShowPhotosModal(!showPhotosModal)
 
-  const documents = (files || []).filter(el => typeof el === 'string' && checkIsDocumentLink(el))
+  const documents = (files || []).filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el.file.name))
 
   const [photos, setPhotos] = useState<Array<string | UploadFile>>([])
   const [photoIndex, setPhotoIndex] = useState(0)
@@ -102,21 +104,18 @@ export const PhotoAndFilesSlider: FC<Props> = ({
 
   useEffect(() => {
     const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
-      const isImage = checkIsImageLink(typeof el === 'string' ? el : '')
-      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : '')
-      const isNotValid = checkIsNotValidLink(typeof el === 'string' ? el : '')
+      const isImage = checkIsImageLink(typeof el === 'string' ? el : el.file.name)
+      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : el.file.name)
 
-      if (isNotValid) {
-        return result
-      } else if (isImage) {
+      if (isImage) {
         result.push(el)
-      } else if (!isImage && !isDocument) {
+      }
+
+      if (!isImage && !isDocument) {
         if (typeof el === 'string') {
           result.push(getAmazonImageUrl(el, true))
-        } else if ('data_url' in el && el.data_url.length > 0) {
-          result.push(el)
         } else {
-          result.push('/assets/icons/file.png')
+          result.push(el)
         }
       }
 
@@ -125,8 +124,6 @@ export const PhotoAndFilesSlider: FC<Props> = ({
 
     setPhotos(photoFiltering)
   }, [files])
-
-  const filteredImagesTitles = files?.length ? (imagesTitles || []).filter((el, i) => checkIsImageLink(files[i])) : []
 
   const updateImagesForLoad = (newPhotos: Array<string | UploadFile>) => {
     if (onChangeImagesForLoad) {
@@ -238,11 +235,15 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     <>
       {files?.length ? (
         <div
-          className={cx(classNames.mainWrapper, {
-            [classNames.column]: column,
-            [classNames.wrapperAlignLeft]: alignLeft,
-            [classNames.wrapperAlignRight]: alignRight,
-          })}
+          className={cx(
+            classNames.mainWrapper,
+            {
+              [classNames.column]: column,
+              [classNames.wrapperAlignLeft]: alignLeft,
+              [classNames.wrapperAlignRight]: alignRight,
+            },
+            mainClasses,
+          )}
           style={{ gap: customGap }}
         >
           {!withoutPhotos ? (
@@ -278,7 +279,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
           ) : null}
         </div>
       ) : (
-        <div className={classNames.noFileWrapper}>
+        <div className={cx(classNames.noFileWrapper, mainClasses)}>
           <div
             className={cx(classNames.slideWrapper, {
               [classNames.slideSmall]: smallSlider,
@@ -318,7 +319,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
         handleOpenModal={handlePhotosModalToggle}
         imageList={photos.map((photo, index) => ({
           url: typeof photo === 'string' ? photo : photo.data_url,
-          comment: filteredImagesTitles[index],
+          comment: (imagesTitles ?? [])[index],
         }))}
         currentImageIndex={photoIndex}
         handleCurrentImageIndex={imgIndex => setPhotoIndex(imgIndex)}

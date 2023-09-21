@@ -63,7 +63,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
 
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 160,
+    width: 140,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
@@ -80,7 +80,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
 
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
-    width: 400,
+    width: 390,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -99,7 +99,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderCell: params => (
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
-    width: 145,
+    width: 140,
 
     columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
   },
@@ -151,7 +151,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 85,
+    width: 90,
     headerAlign: 'center',
   },
 

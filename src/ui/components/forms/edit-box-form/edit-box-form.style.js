@@ -85,7 +85,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     width: '230px',
     height: '30px',
   },
@@ -271,9 +271,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   noBarCodeGlued: {
     color: 'red',
-  },
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
   },
 
   itemInput: {

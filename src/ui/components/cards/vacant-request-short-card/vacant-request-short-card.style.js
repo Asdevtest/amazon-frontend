@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.background.general,
     padding: '30px 20px ',
     width: 300,
-    height: 500,
+    height: '100%',
   },
 
   cardHeader: {

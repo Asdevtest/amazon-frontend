@@ -1,30 +1,37 @@
-import { cx } from '@emotion/css'
-import React, { FC, useEffect, useState } from 'react'
-
-import { Button } from '@components/shared/buttons/button'
+import { observer } from 'mobx-react'
+import { FC, useEffect, useState } from 'react'
 
 import { useClassNames } from './custom-switcher.style'
 
+import { BulbIcon } from '../svg-icons'
+
 interface ISwitcherSettings {
-  label: () => string
-  value: string
+  label?: () => string | number
+  value: string | number | null | undefined
+  icon?: JSX.Element | boolean
 }
 
 interface CustomSwitcherProps {
-  switchMode?: 'small' | 'medium' | 'big'
+  fullWidth?: boolean
+  switchMode?: 'small' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
-  condition: string
-  changeConditionHandler: (condition: string) => void
+  condition: string | number | null | undefined
+  customCondition?: (vale: string | number | null | undefined | Object) => boolean
+  changeConditionHandler: (condition: string | number | null | undefined) => void
 }
 
-export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
-  const { classes: classNames } = useClassNames()
-
-  const { switchMode = 'small', condition, switcherSettings, changeConditionHandler } = props
+export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
+  const { classes: classNames, cx } = useClassNames()
+  const {
+    switchMode = 'small',
+    condition,
+    switcherSettings,
+    fullWidth,
+    changeConditionHandler,
+    customCondition,
+  } = props
 
   const [switchOptionsToRender, setSwitchOptionsToRender] = useState<ISwitcherSettings[]>(switcherSettings)
-
-  const findCurrentOption = switchOptionsToRender.findIndex(option => option.value === condition)
 
   useEffect(() => {
     setSwitchOptionsToRender(switcherSettings)
@@ -33,38 +40,41 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
   return (
     <div
       className={cx(classNames.switcherWrapper, {
-        [classNames.mediumStylesSwitcherWrapper]: switchMode === 'medium' || switchMode === 'big',
+        [classNames.fullWidthWrapper]: fullWidth,
+        [classNames.headerStylesSwitcherWrapper]: switchMode === 'header',
+        [classNames.mediumGapWrapper]: switchMode === 'medium',
       })}
     >
-      <div className={classNames.innerContainer}>
-        {switchOptionsToRender.map((option, optionIndex) => {
-          return (
-            <Button
-              key={optionIndex}
-              className={cx(classNames.switcherOption, {
-                [classNames.mediumOptionStyles]: switchMode === 'medium',
-                [classNames.bigOptionStyles]: switchMode === 'big',
-                [classNames.activeOption]: condition === option.value,
-              })}
-              btnWrapperStyle={classNames.btnWrapperStyle}
-              onClick={() => {
-                if (condition !== option.value) {
-                  changeConditionHandler(option.value)
-                }
-              }}
-            >
-              {option.label()}
-            </Button>
-          )
-        })}
-        <span
-          style={{
-            width: `calc(100% / ${switchOptionsToRender?.length})`,
-            left: `calc((100% / ${switchOptionsToRender?.length}) * ${findCurrentOption > 0 ? findCurrentOption : 0})`,
-          }}
-          className={classNames.indicator}
-        />
-      </div>
+      {switchOptionsToRender.map((option, optionIndex) => (
+        <div
+          key={optionIndex}
+          className={cx(classNames.optionWrapper, {
+            [classNames.headerOptionWrapper]: switchMode === 'header',
+            [classNames.mediumOptionWrapper]: switchMode === 'medium' || switchMode === 'big',
+          })}
+        >
+          <button
+            className={cx(classNames.switcherOption, {
+              [classNames.mediumOptionStyles]: switchMode === 'medium',
+              [classNames.bigOptionStyles]: switchMode === 'big',
+              [classNames.headerOptionStyles]: switchMode === 'header',
+              [classNames.activeOption]: condition === option.value || customCondition?.(option.value),
+              [classNames.headerActiveOptionStyles]:
+                switchMode === 'header' && (condition === option.value || customCondition?.(option.value)),
+            })}
+            onClick={() => {
+              if (condition !== option.value || !customCondition?.(option.value)) {
+                changeConditionHandler(option.value)
+              }
+            }}
+          >
+            {!!option.label && option.label()}
+
+            {!!option?.icon &&
+              (typeof option?.icon === 'boolean' ? <BulbIcon className={classNames.icon} /> : option?.icon)}
+          </button>
+        </div>
+      ))}
     </div>
   )
-}
+})

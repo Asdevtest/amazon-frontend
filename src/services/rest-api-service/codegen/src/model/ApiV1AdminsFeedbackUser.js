@@ -57,6 +57,9 @@ class ApiV1AdminsFeedbackUser {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
+            if (data.hasOwnProperty('lastSeen')) {
+                obj['lastSeen'] = ApiClient.convertToType(data['lastSeen'], 'Date');
+            }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -84,6 +87,12 @@ ApiV1AdminsFeedbackUser.prototype['name'] = undefined;
  * @member {Number} rating
  */
 ApiV1AdminsFeedbackUser.prototype['rating'] = undefined;
+
+/**
+ * Последний раз онлайн
+ * @member {Date} lastSeen
+ */
+ApiV1AdminsFeedbackUser.prototype['lastSeen'] = undefined;
 
 /**
  * @member {String} email
