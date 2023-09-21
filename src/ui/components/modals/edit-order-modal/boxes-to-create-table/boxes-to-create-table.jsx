@@ -4,7 +4,12 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { Checkbox, TableCell, TableRow, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import {
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+  volumePoundsWeightCoefficient,
+} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -224,6 +229,9 @@ export const BoxesToCreateTable = ({
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
+  const weightCoefficient =
+    sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient
+
   const handleChange = newAlignment => {
     setSizeSetting(newAlignment)
   }
@@ -252,7 +260,7 @@ export const BoxesToCreateTable = ({
         renderHeadRow={renderHeadRow()}
         rowsHandlers={{ onRemoveBox, onEditBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart }}
         barcodeIsExist={barcodeIsExist}
-        volumeWeightCoefficient={volumeWeightCoefficient}
+        volumeWeightCoefficient={weightCoefficient}
         sizeSetting={sizeSetting}
         isNoBuyerSupplier={isNoBuyerSupplier}
       />
