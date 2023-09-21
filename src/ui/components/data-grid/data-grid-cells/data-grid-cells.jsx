@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { fromUnixTime } from 'date-fns'
+import { toJS } from 'mobx'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
+import { useHistory } from 'react-router-dom'
 import { useReactToPrint } from 'react-to-print'
 import { withStyles } from 'tss-react/mui'
 
@@ -38,21 +40,36 @@ import {
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { NotificationIdeaStatus, NotificationType } from '@constants/keys/notifications'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import {
+  UserRole,
+  UserRoleCodeMap,
+  UserRoleCodeMapForRoutes,
+  UserRolePrettyMap,
+  mapUserRoleEnumToKey,
+} from '@constants/keys/user-roles'
 import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
-import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import {
+  MyRequestStatusTranslate,
+  RequestProposalStatus,
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+} from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
 import {
+  colorByIdeaStatus,
   ideaStatus,
+  ideaStatusByCode,
   ideaStatusByKey,
   ideaStatusGroups,
   ideaStatusGroupsNames,
+  ideaStatusTranslate,
 } from '@constants/statuses/idea-status.ts'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusEmumToKey } from '@constants/task/task-status'
@@ -61,6 +78,7 @@ import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
@@ -3520,6 +3538,189 @@ export const OpenInNewTabCell = React.memo(
           <ShareLinkIcon className={styles.shareLinkIcon} />
         </div>
       </Tooltip>
+    )
+  }, styles),
+)
+
+const OrderNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+
+    const onClickOrderId = () => {
+      navigateToHandler(notification, NotificationType.Order)
+    }
+
+    const isVacOrders = !!notification?.vacOrders?.length
+    const isNeedConfirmOrders = !!notification?.needConfirmOrders?.length
+
+    return (
+      <p>
+        {isNeedConfirmOrders && (
+          <>
+            {`${t(TranslationKey.Order)} `}
+            <a className={styles.notificationId} onClick={onClickOrderId}>
+              {notification?.needConfirmOrders?.[0]?.id}
+            </a>
+            {` ${t(TranslationKey['needs to be confirmed'])}`}
+          </>
+        )}
+
+        {isVacOrders && (
+          <>
+            {`${t(TranslationKey['New order available'])} `}
+            <a className={styles.notificationId} onClick={onClickOrderId}>
+              {notification?.vacOrders?.[0]?.id}
+            </a>
+          </>
+        )}
+
+        {!isVacOrders && !isNeedConfirmOrders && (
+          <>
+            {`${t(TranslationKey['Order redemption deadline'])} `}
+            <a className={styles.notificationId} onClick={onClickOrderId}>
+              {notification?.id}
+            </a>
+            {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
+          </>
+        )}
+      </p>
+    )
+  }, styles),
+)
+
+const BoxNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+    const history = useHistory()
+
+    const goToBox = boxId => {
+      history.push(`/client/warehouse/in-stock?search-text=${boxId}`)
+    }
+
+    return (
+      <p>
+        {`${t(TranslationKey.Box)} № `}
+        <a className={styles.notificationId} onClick={() => goToBox(notification?.humanFriendlyId)}>
+          {notification?.humanFriendlyId}
+        </a>{' '}
+        {t(TranslationKey['accepted in stock'])}
+      </p>
+    )
+  }, styles),
+)
+
+const RequestNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+    const history = useHistory()
+    const isStatusChanged = !!notification?.status
+    const isDeadlineExpires = !!notification?.timeoutAt
+
+    const goToRequest = id => {
+      if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
+        history.push(
+          `/${
+            UserRoleCodeMapForRoutes[UserModel.userInfo.role]
+          }/freelance/my-proposals/custom-search-request?request-id=${id}`,
+        )
+      } else {
+        history.push(
+          `/${UserRoleCodeMapForRoutes[UserModel.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+        )
+      }
+    }
+
+    return (
+      <p>
+        {isStatusChanged && !isDeadlineExpires && (
+          <>
+            {t(TranslationKey['Status of the proposal'])}{' '}
+            <a className={styles.notificationId} onClick={() => goToRequest(notification?.request?._id)}>
+              {`"${notification?.request?.humanFriendlyId}"`}
+            </a>{' '}
+            {t(TranslationKey['changed to'])}
+            <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
+              {' '}
+              {RequestProposalStatusTranslate(notification?.status)}
+            </span>
+          </>
+        )}
+
+        {isDeadlineExpires && (
+          <>
+            {t(TranslationKey['Deadline for request'])}{' '}
+            <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
+              {`"${notification?.humanFriendlyId}"`}
+            </a>{' '}
+            {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
+          </>
+        )}
+      </p>
+    )
+  }, styles),
+)
+
+const IdeaNotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, navigateToHandler, notification } = props
+
+    const getIdeaMessageTextToRender = () => {
+      switch (notification.type) {
+        case NotificationIdeaStatus.Create:
+          return t(TranslationKey['created the idea'])
+
+        case NotificationIdeaStatus.StatusChange:
+          return t(TranslationKey['changed the status of the idea'])
+
+        case NotificationIdeaStatus.Patch:
+          return t(TranslationKey['updated the data on the idea of'])
+      }
+    }
+
+    return (
+      <p>
+        <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
+          {notification?.creator?.name}
+        </a>
+        {` ${getIdeaMessageTextToRender()} `}
+        <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
+          {notification?.productName}
+        </a>
+        {notification.type === NotificationIdeaStatus.StatusChange && (
+          <>
+            {` ${t(TranslationKey.to)} `}
+            <span style={{ color: colorByIdeaStatus(ideaStatusByCode[notification.status]) }}>
+              {ideaStatusTranslate(ideaStatusByCode[notification.status])}
+            </span>
+          </>
+        )}
+      </p>
+    )
+  }, styles),
+)
+
+export const NotificationMessage = React.memo(
+  withStyles(props => {
+    const { classes: styles, notificationType, notification, navigateToHandler } = props
+
+    return (
+      <>
+        {notificationType === NotificationType.Order && (
+          <OrderNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+
+        {notificationType === NotificationType.Box && (
+          <BoxNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+
+        {notificationType === NotificationType.Idea && (
+          <IdeaNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+
+        {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
+          <RequestNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+        )}
+      </>
     )
   }, styles),
 )

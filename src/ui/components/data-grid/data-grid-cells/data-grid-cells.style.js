@@ -2037,6 +2037,11 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
   },
 
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
+
   multipleAsinWrapper: {
     display: 'flex',
     flexDirection: 'column',

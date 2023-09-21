@@ -11,6 +11,8 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
     () => <DataGrid key={SettingsModel.languageTag} disableVirtualization {...restProps} />,
 
     [
+      SettingsModel.uiTheme,
+      SettingsModel.languageTag,
       restProps.rows,
       restProps.columns,
       restProps.loading,
@@ -21,7 +23,6 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
       restProps.filterModel,
       restProps.rowSelectionModel,
       restProps.slotProps?.columnMenu,
-      SettingsModel.uiTheme,
       restProps.propsToRerender?.onHover,
       restProps.propsToRerender?.unitsOption,
       restProps.propsToRerender?.isArchive,
