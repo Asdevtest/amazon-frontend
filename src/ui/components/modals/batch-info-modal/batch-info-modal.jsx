@@ -329,10 +329,15 @@ export const BatchInfoModal = observer(
               labelClasses={cx(classNames.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  disabled={!patchActualShippingCostBatch}
+                  // disabled={!patchActualShippingCostBatch}
                   rowId={currentBatch._id}
                   text={currentBatch.actualShippingCost}
-                  onClickSubmit={!!patchActualShippingCostBatch && patchActualShippingCostBatch}
+                  onClickSubmit={(id, cost) => {
+                    !!patchActualShippingCostBatch &&
+                      patchActualShippingCostBatch(id, cost).then(() => {
+                        setCurrentBatch(prevState => ({ ...prevState, actualShippingCost: cost || '0' }))
+                      })
+                  }}
                 />
               }
             />

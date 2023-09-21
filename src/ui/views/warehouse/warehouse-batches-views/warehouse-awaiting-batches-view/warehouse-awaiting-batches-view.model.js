@@ -459,10 +459,10 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async patchActualShippingCostBatch(id, cost) {
     await BatchesModel.changeBatch(id, {
-      actualShippingCost: cost,
+      actualShippingCost: cost || '0',
     })
 
-    this.setCurrentOpenedBatch(id, true)
+    await this.setCurrentOpenedBatch(id, true)
   }
 
   async confirmSendToBatch(batchId) {
