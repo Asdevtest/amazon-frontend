@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
+import { AnnouncementModal } from '@components/modals/announcement-modal/announcement-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'

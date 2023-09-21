@@ -27,7 +27,7 @@ export const styles = theme => ({
 
   row: {
     whiteSpace: 'normal',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
   },
 

@@ -18,7 +18,6 @@ import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject119 from '../model/InlineObject119';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20022 from '../model/InlineResponse20022';
-import InlineResponse20072 from '../model/InlineResponse20072';
 import InlineResponse20073 from '../model/InlineResponse20073';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -140,53 +139,6 @@ export default class SupervisorApi {
      */
     apiV1SupervisorsProductsLightGet(opts) {
       return this.apiV1SupervisorsProductsLightGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Получить список товаров взятых на проверку супервайзером.
-     * ## Получить список товаров взятых на проверку супервайзером.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20072>} and HTTP response
-     */
-    apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = null;
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [InlineResponse20072];
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/my', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Получить список товаров взятых на проверку супервайзером.
-     * ## Получить список товаров взятых на проверку супервайзером.   
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20072>}
-     */
-    apiV1SupervisorsProductsMyGet(opts) {
-      return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -292,6 +292,7 @@ export const lightTheme = createTheme({
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
       activeChat: '#E7F1FF',
+      scrollThumb: '#AEAEAE',
     },
 
     customSwitcher: {
@@ -780,6 +781,7 @@ export const darkTheme = createTheme({
         default: '#121212',
         disabledDangerBtn: '#4F2026',
         activeChat: '#384C68',
+        scrollThumb: '#45454d',
       },
 
       customSwitcher: {

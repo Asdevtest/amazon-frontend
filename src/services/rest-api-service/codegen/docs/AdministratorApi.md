@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**apiV1AdminsDestinationEditGuidPatch**](AdministratorApi.md#apiV1AdminsDestinationEditGuidPatch) | **PATCH** /api/v1/admins/destination_edit/{guid} | #  Редактировать склад назначения.
 [**apiV1AdminsDestinationGuidDelete**](AdministratorApi.md#apiV1AdminsDestinationGuidDelete) | **DELETE** /api/v1/admins/destination/{guid} | #  Редактировать склад назначения.
 [**apiV1AdminsDestinationPost**](AdministratorApi.md#apiV1AdminsDestinationPost) | **POST** /api/v1/admins/destination | #  Создать склад назначения.
-[**apiV1AdminsFeedbackGet**](AdministratorApi.md#apiV1AdminsFeedbackGet) | **GET** /api/v1/admins/feedback | #  Получить список отзывов/репортов
+[**apiV1AdminsFeedbackGet**](AdministratorApi.md#apiV1AdminsFeedbackGet) | **GET** /api/v1/admins/feedback | #  Получить список отзывов/жалоб
 [**apiV1AdminsGetCheckingProductsGet**](AdministratorApi.md#apiV1AdminsGetCheckingProductsGet) | **GET** /api/v1/admins/get_checking_products | # Получить список товаров, которые находятся на проверке. 
 [**apiV1AdminsGetPaidProductsGet**](AdministratorApi.md#apiV1AdminsGetPaidProductsGet) | **GET** /api/v1/admins/get_paid_products | # Получить список оплаченных товаров.
 [**apiV1AdminsGetProductsByStatusGet**](AdministratorApi.md#apiV1AdminsGetProductsByStatusGet) | **GET** /api/v1/admins/get_products_by_status | # Получить список продуктов с фильтром по статусу.
@@ -23,9 +23,9 @@ Method | HTTP request | Description
 [**apiV1AdminsProductsVacGet**](AdministratorApi.md#apiV1AdminsProductsVacGet) | **GET** /api/v1/admins/products/vac | # Получить список вакантных товаров.
 [**apiV1AdminsProxyGet**](AdministratorApi.md#apiV1AdminsProxyGet) | **GET** /api/v1/admins/proxy | #  Получить список прокси
 [**apiV1AdminsProxyPost**](AdministratorApi.md#apiV1AdminsProxyPost) | **POST** /api/v1/admins/proxy | #  Изменить список прокси
-[**apiV1AdminsRedFlagsGuidDelete**](AdministratorApi.md#apiV1AdminsRedFlagsGuidDelete) | **DELETE** /api/v1/admins/red_flags/{guid} | #  Получить список отзывов/репортов
+[**apiV1AdminsRedFlagsGuidDelete**](AdministratorApi.md#apiV1AdminsRedFlagsGuidDelete) | **DELETE** /api/v1/admins/red_flags/{guid} | # Удалить новый красный флаг
 [**apiV1AdminsRedFlagsGuidPatch**](AdministratorApi.md#apiV1AdminsRedFlagsGuidPatch) | **PATCH** /api/v1/admins/red_flags/{guid} | #  Изменить красный флаг
-[**apiV1AdminsRedFlagsPost**](AdministratorApi.md#apiV1AdminsRedFlagsPost) | **POST** /api/v1/admins/red_flags | #  Получить список отзывов/репортов
+[**apiV1AdminsRedFlagsPost**](AdministratorApi.md#apiV1AdminsRedFlagsPost) | **POST** /api/v1/admins/red_flags | #  Создать новый красный флаг
 [**apiV1AdminsSetSettingPatch**](AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
 [**apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch**](AdministratorApi.md#apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch) | **PATCH** /api/v1/admins/set_timeToDeadlinePendingOrder/{value} | # Изменить интервал нотификаций касательно дедлайна ордера
 [**apiV1AdminsTagsDelete**](AdministratorApi.md#apiV1AdminsTagsDelete) | **DELETE** /api/v1/admins/tags | #  Удалить массив тегов
@@ -207,9 +207,9 @@ Name | Type | Description  | Notes
 
 > [InlineResponse2007] apiV1AdminsFeedbackGet(opts)
 
-#  Получить список отзывов/репортов
+#  Получить список отзывов/жалоб
 
-## Получить список отзывов/репортов   
+## Получить список отзывов/жалоб   
 
 ### Example
 
@@ -1057,9 +1057,9 @@ Name | Type | Description  | Notes
 
 > String apiV1AdminsRedFlagsGuidDelete(guid, opts)
 
-#  Получить список отзывов/репортов
+# Удалить новый красный флаг
 
-## Получить список отзывов/репортов   
+## Удалить новый красный флаг
 
 ### Example
 
@@ -1167,9 +1167,9 @@ Name | Type | Description  | Notes
 
 > {String: Object} apiV1AdminsRedFlagsPost(opts)
 
-#  Получить список отзывов/репортов
+#  Создать новый красный флаг
 
-## Получить список отзывов/репортов   
+##  Создать новый красный флаг  
 
 ### Example
 

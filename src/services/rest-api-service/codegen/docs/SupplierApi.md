@@ -9,8 +9,8 @@ Method | HTTP request | Description
 [**apiV1SuppliersGuidGet**](SupplierApi.md#apiV1SuppliersGuidGet) | **GET** /api/v1/suppliers/{guid} | # Получить одного поставщика.
 [**apiV1SuppliersGuidPatch**](SupplierApi.md#apiV1SuppliersGuidPatch) | **PATCH** /api/v1/suppliers/{guid} | # Изменить поставщика.
 [**apiV1SuppliersPaymentMethodsGet**](SupplierApi.md#apiV1SuppliersPaymentMethodsGet) | **GET** /api/v1/suppliers/payment_methods | # Получить все доступные методы оплаты для поставщика
-[**apiV1SuppliersPaymentMethodsGuidPatch**](SupplierApi.md#apiV1SuppliersPaymentMethodsGuidPatch) | **PATCH** /api/v1/suppliers/payment_methods/{guid} | # Получить все доступные методы оплаты для поставщика
-[**apiV1SuppliersPaymentMethodsPost**](SupplierApi.md#apiV1SuppliersPaymentMethodsPost) | **POST** /api/v1/suppliers/payment_methods | # Получить все доступные методы оплаты для поставщика
+[**apiV1SuppliersPaymentMethodsGuidPatch**](SupplierApi.md#apiV1SuppliersPaymentMethodsGuidPatch) | **PATCH** /api/v1/suppliers/payment_methods/{guid} | # Изменить метод оплаты
+[**apiV1SuppliersPaymentMethodsPost**](SupplierApi.md#apiV1SuppliersPaymentMethodsPost) | **POST** /api/v1/suppliers/payment_methods | # Добавить метод оплаты
 [**apiV1SuppliersPost**](SupplierApi.md#apiV1SuppliersPost) | **POST** /api/v1/suppliers/ | # Добавить нового поставщика.
 
 
@@ -287,9 +287,9 @@ Name | Type | Description  | Notes
 
 > String apiV1SuppliersPaymentMethodsGuidPatch(guid, opts)
 
-# Получить все доступные методы оплаты для поставщика
+# Изменить метод оплаты
 
-##  Получить все доступные методы оплаты для поставщика
+## Изменить метод оплаты
 
 ### Example
 
@@ -343,9 +343,9 @@ Name | Type | Description  | Notes
 
 > {String: Object} apiV1SuppliersPaymentMethodsPost(opts)
 
-# Получить все доступные методы оплаты для поставщика
+# Добавить метод оплаты
 
-##  Получить все доступные методы оплаты для поставщика
+## Добавить метод оплаты
 
 ### Example
 

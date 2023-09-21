@@ -56,5 +56,6 @@ Name | Type | Description | Notes
 **buyerFoundSupplier** | **Number** | Количество продуктов супервизора в 240, 40 статусах | [optional] 
 **ideas** | [**UserInfoSchemaIdeas**](UserInfoSchemaIdeas.md) |  | [optional] 
 **freelanceNotices** | [**[UserInfoSchemaFreelanceNotices]**](UserInfoSchemaFreelanceNotices.md) |  | [optional] 
+**notificationCounter** | **Number** | Кол-во нотификаций юзера(archive: false) | [optional] 
 
 

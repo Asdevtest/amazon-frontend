@@ -303,8 +303,8 @@ export default class SupplierApi {
 
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Изменить метод оплаты
+     * ## Изменить метод оплаты
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -342,8 +342,8 @@ export default class SupplierApi {
     }
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Изменить метод оплаты
+     * ## Изменить метод оплаты
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -359,8 +359,8 @@ export default class SupplierApi {
 
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Добавить метод оплаты
+     * ## Добавить метод оплаты
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject122} opts.body 
@@ -392,8 +392,8 @@ export default class SupplierApi {
     }
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Добавить метод оплаты
+     * ## Добавить метод оплаты
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject122} opts.body 

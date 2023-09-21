@@ -15,7 +15,7 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
@@ -28,7 +28,7 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-short-card.style'
 
-export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
+export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
   const getCardClassName = timeoutAt => {
@@ -48,7 +48,10 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
   }
 
   return (
-    <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
+    <div
+      className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}
+      onDoubleClick={() => onDoubleClick(item._id)}
+    >
       <div className={classNames.cardHeader}>
         <div className={classNames.userInfoWrapper}>
           <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
@@ -71,6 +74,8 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
           )}
         </div>
       </div>
+
+      <OrderCell withoutSku imageSize={'small'} product={item.product} />
 
       <div className={classNames.cardTitleBlockWrapper}>
         <Typography className={classNames.cardTitle}>{item.title}</Typography>
@@ -110,9 +115,8 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey.Time)}
               inputComponent={
-                <Typography className={cx(classNames.accentText, getDeadlineColor(item.timeoutAt))}>{`${toFixed(
-                  item.timeLimitInMinutes / 60,
-                  2,
+                <Typography className={cx(classNames.accentText, getDeadlineColor(item?.timeoutAt))}>{`${Math.round(
+                  getDistanceBetweenDatesInSeconds(item?.timeoutAt) / 3600,
                 )} ${t(TranslationKey.hour)} `}</Typography>
               }
             />

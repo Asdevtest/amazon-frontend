@@ -116,6 +116,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
             if (data.hasOwnProperty('buyerId')) {
                 obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
@@ -291,6 +294,12 @@ InlineResponse2001.prototype['productId'] = undefined;
  * @member {String} logicsTariffId
  */
 InlineResponse2001.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineResponse2001.prototype['variationTariffId'] = undefined;
 
 /**
  * GUID пользователя(байера)

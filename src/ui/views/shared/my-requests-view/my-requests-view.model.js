@@ -47,6 +47,7 @@ export class MyRequestsViewModel {
 
   showRequestForm = false
   showConfirmModal = false
+  showRequestDetailModal = false
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -57,6 +58,7 @@ export class MyRequestsViewModel {
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
+  currentRequestDetails = undefined
 
   nameSearchValue = ''
   onHover = null
@@ -102,6 +104,7 @@ export class MyRequestsViewModel {
   rowHandlers = {
     onToggleUploadedToListing: (id, uploadedToListingState) =>
       this.onToggleUploadedToListing(id, uploadedToListingState),
+    onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
   }
 
   columnsModel = myRequestsViewColumns(
@@ -204,6 +207,9 @@ export class MyRequestsViewModel {
     )
   }
 
+  get user() {
+    return UserModel.userInfo
+  }
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
@@ -750,5 +756,37 @@ export class MyRequestsViewModel {
       }
       this.getCustomRequests()
     })
+  }
+
+  async getRequestDetail(id) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const response = await RequestModel.getCustomRequestById(id)
+
+      runInAction(() => {
+        this.currentRequestDetails = response
+      })
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  handleOpenRequestDetailModal(id) {
+    this.getRequestDetail(id).then(() => {
+      this.onTriggerOpenModal('showRequestDetailModal')
+    })
+  }
+
+  onClickOpenInNewTab(id) {
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/my-requests/custom-request?request-id=${id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 }
