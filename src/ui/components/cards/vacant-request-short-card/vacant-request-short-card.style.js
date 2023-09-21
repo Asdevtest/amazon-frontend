@@ -13,6 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
   cardHeader: {
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: 10,
   },
 
   cardTitleBlockWrapper: {
@@ -48,29 +49,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  userInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: '100%',
-    marginBottom: '10px',
-  },
-
-  cardImg: {
-    width: '40px',
-    height: '40px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    marginRight: '5px',
-  },
-
   actionButton: {
     width: '254px',
     height: '40px',
-  },
-
-  nameRatingWrapper: {
-    marginLeft: '10px',
   },
 
   mainInfosWrapper: {

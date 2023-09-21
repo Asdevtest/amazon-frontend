@@ -367,13 +367,8 @@ export const BatchInfoModal = observer(
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               classes={{
-                row: classNames.row,
                 toolbarContainer: classNames.toolbarContainer,
                 // virtualScroller: classNames.virtualScroller,
-              }}
-              sx={{
-                border: `1px solid  #EBEBEB !important`,
-                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
               slots={{
                 toolbar: DataGridCustomToolbar,
@@ -420,7 +415,6 @@ export const BatchInfoModal = observer(
               onRowDoubleClick={e => openBoxView(e.row)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
-            {/* </div> */}
           </div>
 
           <div className={classNames.filesAndButtonWrapper}>

@@ -1,28 +1,17 @@
-import { cx } from '@emotion/css'
-
-import { Avatar, Divider, Rating } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { requestPriority } from '@constants/requests/request-priority'
-import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
-import { RequestStatus, colorByRequestStatus } from '@constants/requests/request-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-import { Field } from '@components/shared/field'
 import { ProposalsSlider } from '@components/shared/proposals-slider'
 import { UserLink } from '@components/user/user-link'
 
-import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
-import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
