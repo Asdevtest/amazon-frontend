@@ -4,7 +4,7 @@ import { fromUnixTime } from 'date-fns'
 import { toJS } from 'mobx'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
-import { useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useReactToPrint } from 'react-to-print'
 import { withStyles } from 'tss-react/mui'
 
@@ -3616,17 +3616,15 @@ const RequestNotificationMessage = React.memo(
     const isStatusChanged = !!notification?.status
     const isDeadlineExpires = !!notification?.timeoutAt
 
-    const goToRequest = id => {
+    const getUrlToRequest = id => {
       if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
-        history.push(
-          `/${
-            UserRoleCodeMapForRoutes[UserModel.userInfo.role]
-          }/freelance/my-proposals/custom-search-request?request-id=${id}`,
-        )
+        return `/${
+          UserRoleCodeMapForRoutes[UserModel.userInfo.role]
+        }/freelance/my-proposals/custom-search-request?request-id=${id}`
       } else {
-        history.push(
-          `/${UserRoleCodeMapForRoutes[UserModel.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
-        )
+        return `/${
+          UserRoleCodeMapForRoutes[UserModel.userInfo.role]
+        }/freelance/my-requests/custom-request?request-id=${id}`
       }
     }
 
@@ -3635,9 +3633,9 @@ const RequestNotificationMessage = React.memo(
         {isStatusChanged && !isDeadlineExpires && (
           <>
             {t(TranslationKey['Status of the proposal'])}{' '}
-            <a className={styles.notificationId} onClick={() => goToRequest(notification?.request?._id)}>
-              {`"${notification?.request?.humanFriendlyId}"`}
-            </a>{' '}
+            <NavLink to={getUrlToRequest(notification?.request?._id)} className={styles.notificationId} target="_blank">
+              {`"${notification?.request?.humanFriendlyId}" `}
+            </NavLink>
             {t(TranslationKey['changed to'])}
             <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
               {' '}
@@ -3649,9 +3647,9 @@ const RequestNotificationMessage = React.memo(
         {isDeadlineExpires && (
           <>
             {t(TranslationKey['Deadline for request'])}{' '}
-            <a className={styles.notificationId} onClick={() => goToRequest(notification?._id)}>
-              {`"${notification?.humanFriendlyId}"`}
-            </a>{' '}
+            <NavLink to={getUrlToRequest(notification?._id)} className={styles.notificationId} target="_blank">
+              {`"${notification?.humanFriendlyId}" `}
+            </NavLink>
             {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
           </>
         )}
