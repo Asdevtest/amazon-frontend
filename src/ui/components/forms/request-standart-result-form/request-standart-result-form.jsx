@@ -44,7 +44,7 @@ export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposa
           files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
           width="100%"
           withoutPhotos={undefined}
-          whithoutFiles={undefined}
+          withoutFiles={undefined}
           imagesForLoad={undefined}
           isEditable={undefined}
           withoutMakeMainImage={undefined}
