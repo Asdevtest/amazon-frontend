@@ -43,6 +43,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   } = props
   const { classes: classNames } = useClassNames()
 
+  const actualmasterUsersDataIds = masterUsersData.map(obj => obj._id)
   const [dataToRender, setDataToRender] = useState(announcements)
   const [nameSearchValue, setNameSearchValue] = useState('')
   const [selectedExecutor, setSelectedExecutor] = useState<IMasterUser | undefined>(chosenExecutor)
@@ -56,7 +57,9 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
     if (selectedExecutor) {
       setDataToRender(announcements.filter(announcement => announcement.createdBy._id === selectedExecutor?._id))
     } else {
-      setDataToRender(announcements)
+      setDataToRender(
+        announcements.filter(announcement => actualmasterUsersDataIds.includes(announcement.createdBy?._id)),
+      )
     }
   }, [announcements, selectedExecutor])
 
