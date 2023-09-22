@@ -29,12 +29,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   trackNumberPhotoWrapper: {
     width: 230,
-    height: 80,
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
     [theme.breakpoints.down(1282)]: {
       width: 270,
     },
