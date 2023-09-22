@@ -52,7 +52,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 280,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },
@@ -99,7 +99,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 160,
+    width: 140,
     renderCell: params => (
       <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
     ),
@@ -114,7 +114,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 160,
+    width: 120,
     sortable: false,
   },
 
@@ -144,7 +144,7 @@ export const buyerMyOrdersViewColumns = () => [
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 100,
   },
 
   {
@@ -188,7 +188,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
     ),
-    width: 150,
+    width: 120,
     sortable: false,
   },
 
@@ -238,7 +238,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 130,
+    width: 100,
     // type: 'date',
   },
 ]

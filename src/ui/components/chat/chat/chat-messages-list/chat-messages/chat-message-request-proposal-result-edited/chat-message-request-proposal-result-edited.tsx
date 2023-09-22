@@ -52,6 +52,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({
     (proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
       proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
       proposalStatus !== RequestProposalStatus.TO_CORRECT) &&
+    proposalStatus !== RequestProposalStatus.ACCEPTED_BY_CLIENT &&
     curUserId &&
     isLastResultMessage &&
     message.data.needApproveBy?.includes(curUserId)

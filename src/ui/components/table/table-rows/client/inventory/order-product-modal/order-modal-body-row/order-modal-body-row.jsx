@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
@@ -97,8 +98,8 @@ export const OrderModalBodyRow = ({
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(event)
-      setDeadline(event === '' ? null : event)
+      setOrderStateFiled(nameInput)(isValid(event) ? event : null)
+      setDeadline(isValid(event) ? event : null)
     } else {
       setOrderStateFiled(nameInput)(event.target.value)
     }

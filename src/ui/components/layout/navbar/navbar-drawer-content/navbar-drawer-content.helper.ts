@@ -8,13 +8,14 @@ export const getCategoryBadge = (category: CurNavbarType, userInfo: IUser) => {
       userInfo.needConfirmPriceChange?.boxes +
       userInfo.needConfirmPriceChange?.orders +
       userInfo.needUpdateTariff?.boxes +
-      userInfo.updatesOnIdeas +
-      userInfo.freelanceNotices.length
+      // userInfo.updatesOnIdeas +
+      userInfo.freelanceNotices.length +
+      userInfo?.notificationCounter
     )
   } else if (category.route?.includes('/freelancer/notifications')) {
-    return userInfo.freelanceNotices.length
+    return userInfo.freelanceNotices.length + userInfo?.notificationCounter
   } else if (category.route?.includes('/buyer/notifications')) {
-    return userInfo.updatesOnIdeas
+    return /* userInfo.updatesOnIdeas +*/ userInfo?.notificationCounter
   } else if (category.route?.includes('/client/my-orders/orders')) {
     return userInfo.allOrders
   } else if (category.route?.includes('/warehouse/tasks')) {

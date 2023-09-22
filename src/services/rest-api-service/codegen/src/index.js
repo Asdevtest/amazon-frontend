@@ -29,6 +29,7 @@ import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1Admins
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
 import ApiV1AdminsOrdersLogicsTariffDestination from './model/ApiV1AdminsOrdersLogicsTariffDestination';
 import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './model/ApiV1AdminsOrdersLogicsTariffDestinationVariations';
+import ApiV1AdminsOrdersVariationTariff from './model/ApiV1AdminsOrdersVariationTariff';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
@@ -423,6 +424,7 @@ import UserInfoSchema from './model/UserInfoSchema';
 import UserInfoSchemaFreelanceNotices from './model/UserInfoSchemaFreelanceNotices';
 import UserInfoSchemaIdeas from './model/UserInfoSchemaIdeas';
 import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
+import UserInfoSchemaMyProposals from './model/UserInfoSchemaMyProposals';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
@@ -594,6 +596,12 @@ export {
      * @property {module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations}
      */
     ApiV1AdminsOrdersLogicsTariffDestinationVariations,
+
+    /**
+     * The ApiV1AdminsOrdersVariationTariff model constructor.
+     * @property {module:model/ApiV1AdminsOrdersVariationTariff}
+     */
+    ApiV1AdminsOrdersVariationTariff,
 
     /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
@@ -2958,6 +2966,12 @@ export {
      * @property {module:model/UserInfoSchemaMasterUser}
      */
     UserInfoSchemaMasterUser,
+
+    /**
+     * The UserInfoSchemaMyProposals model constructor.
+     * @property {module:model/UserInfoSchemaMyProposals}
+     */
+    UserInfoSchemaMyProposals,
 
     /**
      * The UserInfoSchemaNeedConfirmPriceChange model constructor.

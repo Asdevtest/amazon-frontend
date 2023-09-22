@@ -1,7 +1,5 @@
 import { cx } from '@emotion/css'
 
-import Avatar from '@mui/material/Avatar'
-import Rating from '@mui/material/Rating'
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
@@ -21,7 +19,6 @@ import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
@@ -53,15 +50,17 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
       onDoubleClick={() => onDoubleClick(item._id)}
     >
       <div className={classNames.cardHeader}>
-        <div className={classNames.userInfoWrapper}>
-          <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
-
-          <div className={classNames.nameRatingWrapper}>
-            <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
-
-            <Rating disabled value={item?.createdBy?.rating} />
-          </div>
-        </div>
+        <UserLink
+          blueText
+          withAvatar
+          ratingSize="large"
+          name={item?.createdBy?.name}
+          userId={item?.createdBy?._id}
+          rating={item?.createdBy?.rating}
+          customAvatarStyles={{ width: 40, height: 40 }}
+          customStyles={{ fontSize: 16, lineHeight: '20px' }}
+          customRatingClass={{ fontSize: 20, opacity: 1 }}
+        />
 
         <div className={classNames.idAndPriorityWrapper}>
           <div className={classNames.idWrapper}>

@@ -12,7 +12,6 @@ import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -31,6 +30,7 @@ export const OrderProductModal = ({
   destinationsFavourites,
   setDestinationsFavouritesItem,
   isPendingOrdering,
+  isInventory,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -87,6 +87,7 @@ export const OrderProductModal = ({
           amount: 1,
           expressChinaDelivery: false,
           priority: '30',
+          deadline: null,
         })),
   )
 
@@ -192,24 +193,19 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
-    const ordersData = orderState.map((el, i) =>
-      getObjectFilteredByKeyArrayBlackList(
-        {
-          ...el,
-          destinationId: el.destinationId ? el.destinationId : null,
-          totalPrice: productsForRender[i]?.currentSupplier?.price
-            ? (productsForRender[i]?.currentSupplier.price +
-                productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
-                  productsForRender[i]?.currentSupplier.amount) *
-              el?.amount
-            : 0,
+    const ordersData = orderState.map((el, i) => ({
+      ...el,
+      destinationId: el.destinationId ? el.destinationId : null,
+      totalPrice: productsForRender[i]?.currentSupplier?.price
+        ? (productsForRender[i]?.currentSupplier.price +
+            productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
+              productsForRender[i]?.currentSupplier.amount) *
+          el?.amount
+        : 0,
 
-          needsResearch: isResearchSupplier,
-          tmpIsPendingOrder: isPendingOrder,
-        },
-        el.deadline ? [] : ['deadline'],
-      ),
-    )
+      needsResearch: isResearchSupplier,
+      tmpIsPendingOrder: isPendingOrder,
+    }))
 
     onSubmit({
       ordersDataState: ordersData,
@@ -227,8 +223,10 @@ export const OrderProductModal = ({
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
 
   const disabledSubmit =
-    orderState.some(
-      (order, index) =>
+    orderState.some((order, index) => {
+      const isDeadlineTodayOrTomorrow = isPast(order.deadline) || isToday(order.deadline) || isTomorrow(order.deadline)
+
+      return (
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
@@ -237,16 +235,13 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (!!order.deadline &&
-          isValid(order.deadline) &&
-          (!reorderOrdersData?.length ||
-            isPast(order.deadline) ||
-            isToday(order.deadline) ||
-            isTomorrow(order.deadline))) ||
+        (!!isInventory && (!isValid(order.deadline) || isDeadlineTodayOrTomorrow)) ||
+        ((!!reorderOrdersData?.length || !!isPendingOrdering) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
-    ) ||
+          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
+      )
+    }) ||
     storekeeperEqualsDestination ||
     // productsForRender.some(item => !item.currentSupplier) ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||

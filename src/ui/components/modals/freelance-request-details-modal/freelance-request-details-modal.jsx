@@ -33,9 +33,14 @@ export const FreelanceRequestDetailsModal = props => {
       setOpenModal={handleOpenModal}
     >
       <div className={styles.header}>
-        <Typography>
-          {t(TranslationKey.ID)}: {request?.humanFriendlyId}
-        </Typography>
+        <div className={styles.headerDetails}>
+          <Typography>
+            {t(TranslationKey.ID)}: {request?.humanFriendlyId}
+          </Typography>
+          <Typography className={styles.title}>
+            <span>{getShortenStringIfLongerThanCount(request?.title + request?.title, 55)}</span>
+          </Typography>
+        </div>
         <div className={styles.headerDetails}>
           <Typography className={styles.headerText}>
             {t(TranslationKey['Request type'])}:{' '}
