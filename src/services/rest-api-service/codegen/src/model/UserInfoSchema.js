@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import UserInfoSchemaFreelanceNotices from './UserInfoSchemaFreelanceNotices';
 import UserInfoSchemaIdeas from './UserInfoSchemaIdeas';
 import UserInfoSchemaMasterUser from './UserInfoSchemaMasterUser';
+import UserInfoSchemaMyProposals from './UserInfoSchemaMyProposals';
 import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
@@ -205,6 +206,9 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('buyerFoundSupplier')) {
                 obj['buyerFoundSupplier'] = ApiClient.convertToType(data['buyerFoundSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('myProposals')) {
+                obj['myProposals'] = UserInfoSchemaMyProposals.constructFromObject(data['myProposals']);
             }
             if (data.hasOwnProperty('ideas')) {
                 obj['ideas'] = UserInfoSchemaIdeas.constructFromObject(data['ideas']);
@@ -515,6 +519,11 @@ UserInfoSchema.prototype['productIsAppropriate'] = undefined;
  * @member {Number} buyerFoundSupplier
  */
 UserInfoSchema.prototype['buyerFoundSupplier'] = undefined;
+
+/**
+ * @member {module:model/UserInfoSchemaMyProposals} myProposals
+ */
+UserInfoSchema.prototype['myProposals'] = undefined;
 
 /**
  * @member {module:model/UserInfoSchemaIdeas} ideas
