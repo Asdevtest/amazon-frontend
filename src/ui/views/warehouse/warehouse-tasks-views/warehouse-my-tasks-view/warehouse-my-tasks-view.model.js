@@ -334,7 +334,7 @@ export class WarehouseMyTasksViewModel {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
 
-        data = { ...data, images: [...data.images, ...this.imagesOfBox] }
+        data = { ...data, images: [...this.imagesOfBox] }
       }
 
       const updateBoxData = {
