@@ -49,7 +49,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 190,
+    width: 140,
     renderCell: params => (
       <NormalActionBtnCell
         tooltipText={t(TranslationKey['To assign the order to Byer'])}
@@ -126,7 +126,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
         text={params.value ? formatDate(params.value) : ''}
       />
     ),
-    width: 115,
+    width: 100,
   },
 
   {
@@ -147,7 +147,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 170,
+    width: 140,
   },
 
   {
@@ -158,7 +158,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
     ),
-    width: 160,
+    width: 120,
   },
 
   {
@@ -185,7 +185,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    width: 100,
     // type: 'date',
   },
 ]
