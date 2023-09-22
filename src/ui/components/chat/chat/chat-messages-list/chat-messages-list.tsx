@@ -204,7 +204,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
                       <div
                         className={cx({
-                          [classNames.messageInnerWrapper]: isFreelanceOwner,
+                          [classNames.messageInnerWrapper]: isFreelanceOwner && isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,
