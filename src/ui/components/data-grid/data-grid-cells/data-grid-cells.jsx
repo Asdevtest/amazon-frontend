@@ -2141,7 +2141,7 @@ export const ActualCostWithDeliveryPerUnit = React.memo(
         <div className={classNames.pricesWrapper}>
           {rowMemo.items.map((el, i) => (
             <Typography key={i} className={classNames.multilineText}>
-              {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
+              {(!!actualShippingCost && toFixedWithDollarSign(getTotalCost(el), 2)) || '-'}
             </Typography>
           ))}
         </div>
