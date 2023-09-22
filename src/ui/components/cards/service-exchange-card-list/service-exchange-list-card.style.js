@@ -2,12 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    height: 165,
+    minHeight: 165,
+    height: 'fit-content',
     width: 800,
-    padding: '20px 20px 20px 0',
+    padding: '20px 20px 20px 20px',
     background: theme.palette.background.general,
     display: 'flex',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
     borderRadius: 4,
     boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
@@ -29,6 +31,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
+    margin: '10px 0',
   },
 
   cardTitle: {
@@ -78,6 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    margin: '10px 0',
   },
 
   detailsWrapper: {
@@ -94,11 +98,13 @@ export const useClassNames = makeStyles()(theme => ({
   openBtn: {
     padding: '0 75px',
     height: 40,
+    marginBottom: 10,
   },
 
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',
+    marginTop: 20,
   },
 
   userInfo: {
