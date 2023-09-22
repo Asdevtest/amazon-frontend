@@ -399,7 +399,7 @@ export const BatchInfoModal = observer(
                       currentBatch.volumeWeightDivide,
                       currentBatch.calculationMethod,
                       isActualGreaterTheVolume,
-                      currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                      currentBatch.actualShippingCost,
                       currentBatch.finalWeight,
                     ),
                     columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -412,7 +412,7 @@ export const BatchInfoModal = observer(
                 currentBatch.volumeWeightDivide,
                 currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
-                currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                currentBatch.actualShippingCost,
                 currentBatch.finalWeight,
               )}
               rows={toJS(dataToRender)}
