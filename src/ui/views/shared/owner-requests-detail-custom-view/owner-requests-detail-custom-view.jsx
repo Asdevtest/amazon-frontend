@@ -59,6 +59,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
       <div>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
+            userInfo={viewModel.userInfo}
             request={viewModel.request}
             requestProposals={viewModel.requestProposals}
             requestAnnouncement={viewModel.requestAnnouncement}

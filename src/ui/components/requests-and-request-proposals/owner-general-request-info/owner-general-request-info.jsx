@@ -32,6 +32,7 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 import { useClassNames } from './owner-general-request-info.style'
 
 export const OwnerGeneralRequestInfo = ({
+  userInfo,
   request,
   requestProposals,
   requestAnnouncement,
@@ -56,7 +57,7 @@ export const OwnerGeneralRequestInfo = ({
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
 
   const isDisplayingMarkAsCompletedButton =
-    (!!request?.request.createdBy || !!request?.request.sub) &&
+    (request?.request.createdBy?._id === userInfo?._id || request?.request.sub?._id === userInfo?._id) &&
     (request?.request.status === RequestStatus.EXPIRED || request?.request.status === RequestStatus.IN_PROCESS) &&
     requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
 
