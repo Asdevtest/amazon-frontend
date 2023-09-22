@@ -38,7 +38,7 @@ export const FreelanceRequestDetailsModal = props => {
             {t(TranslationKey.ID)}: {request?.humanFriendlyId}
           </Typography>
           <Typography className={styles.title}>
-            <span>{getShortenStringIfLongerThanCount(request?.title + request?.title, 55)}</span>
+            <span>{getShortenStringIfLongerThanCount(request?.title, 55)}</span>
           </Typography>
         </div>
         <div className={styles.headerDetails}>
