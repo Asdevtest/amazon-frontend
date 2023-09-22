@@ -368,6 +368,7 @@ export const BatchInfoModal = observer(
               // hideFooter
               // autoHeight
               pagination
+              disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
