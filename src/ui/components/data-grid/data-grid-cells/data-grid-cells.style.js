@@ -817,7 +817,7 @@ export const styles = theme => ({
 
   fourLinesTextAlignLeft: {
     justifyContent: 'center',
-    height: 65,
+    height: 'auto',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',

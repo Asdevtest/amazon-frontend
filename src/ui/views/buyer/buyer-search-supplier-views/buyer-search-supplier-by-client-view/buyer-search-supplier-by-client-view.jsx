@@ -53,6 +53,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
+              cell: classNames.cell,
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             slots={{
@@ -75,7 +76,8 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            rowHeight={100}
+            // rowHeight={100}
+            getRowHeight={() => 'auto'}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
