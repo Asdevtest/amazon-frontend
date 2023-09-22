@@ -198,6 +198,18 @@ class UserModelStatic {
 
     return response
   }
+
+  async getUsersNotificationsPagMy(data) {
+    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(data)
+
+    return response
+  }
+
+  async addNotificationsToArchive(data) {
+    const response = await restApiService.userApi.apiV1UsersNotificationsArchivePatch({ body: data })
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()

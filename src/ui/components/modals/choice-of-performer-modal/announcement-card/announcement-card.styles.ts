@@ -4,13 +4,11 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     width: '375px',
-    padding: '30px 20px 35px 20px',
+    padding: '35px 20px',
     flexDirection: 'column',
     gap: '15px',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
-    marginBottom: '40px',
-    borderRadius: '7px',
   },
 
   selectedCard: {
@@ -94,5 +92,16 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+
+  detailedDescriptionWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+
+  detailedDescription: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
   },
 }))

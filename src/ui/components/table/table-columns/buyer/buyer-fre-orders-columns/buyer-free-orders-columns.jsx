@@ -67,7 +67,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 390,
+    width: 280,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
   },
 

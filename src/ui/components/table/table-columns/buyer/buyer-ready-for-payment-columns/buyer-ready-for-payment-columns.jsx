@@ -58,7 +58,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
       renderCell: params => <OrderCell product={params.row.originalData.product} />,
       sortable: false,
-      width: 320,
+      width: 280,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },

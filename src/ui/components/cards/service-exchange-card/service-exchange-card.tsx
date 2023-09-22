@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AnnouncementModal } from '@components/modals/announcement-modal/announcement-modal'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
@@ -13,16 +14,28 @@ import { IService } from '@typings/master-user'
 
 import { useClassNames } from './service-exchange-card.style'
 
-interface Props {
+interface onClickThumbnailArguments {
+  images: Array<string | linksToMediaFilesInterface>
+  imgIndex: number
+}
+
+interface linksToMediaFilesInterface {
+  file: { name: Array<string> }
+}
+
+interface ServiceExchangeCardProps {
   service: IService
-  onClickButton: (service: IService) => void
   choose?: boolean
   order?: boolean
   pathname?: string
+  onClickThumbnail?: (images: onClickThumbnailArguments) => void
+  onClickButton: (service: IService) => void
 }
 
-export const ServiceExchangeCard: FC<Props> = ({ service, choose, order, pathname, onClickButton }) => {
+export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
   const { classes: classNames, cx } = useClassNames()
+
+  const { service, choose, order, pathname, onClickButton, onClickThumbnail } = props
 
   const detailDescription =
     service.type === 0
@@ -36,11 +49,22 @@ export const ServiceExchangeCard: FC<Props> = ({ service, choose, order, pathnam
 
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleToggleModal = () => {
+    setIsOpenModal(!isOpenModal)
+  }
+
   return (
     <div className={classNames.cardWrapper}>
       <p className={classNames.cardTitle}>{service.title}</p>
 
       <p className={classNames.cardDescription}>{service.description}</p>
+      <p className={classNames.cardDescription}>{service.description}</p>
+
+      <button className={classNames.detailedDescription} onClick={handleToggleModal}>
+        {t(TranslationKey.Details)}
+      </button>
 
       <PhotoAndFilesSlider withoutFiles mediumSlider files={service?.linksToMediaFiles} />
 
@@ -84,6 +108,15 @@ export const ServiceExchangeCard: FC<Props> = ({ service, choose, order, pathnam
           {buttonContent}
         </Button>
       </div>
+
+      <AnnouncementModal
+        isOpenModal={isOpenModal}
+        service={service}
+        choose={choose}
+        order={order}
+        onOpenModal={handleToggleModal}
+        onClickButton={() => onClickButton(service)}
+      />
     </div>
   )
 }

@@ -27,6 +27,7 @@ interface FilesObject {
 interface CustomImageGalleryListProps {
   files: (string | FilesObject)[]
   isAmazonPhoto: boolean
+  height?: number
 }
 
 interface BigImagesOptionsState {
@@ -37,7 +38,7 @@ interface BigImagesOptionsState {
 export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { files, isAmazonPhoto } = props
+  const { files, isAmazonPhoto, height } = props
 
   const isObjectFiles = files?.some(el => typeof el === 'object')
 
@@ -81,7 +82,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
       })
 
   return !!filesForRender && filesForRender?.length ? (
-    <div className={classNames.imagesCarouselWrapper}>
+    <div className={classNames.imagesCarouselWrapper} style={{ height: height && height + 'px' }}>
       {notEmptyPhotos.map((photo: string | FilesObject, index: number) => (
         <div key={index} className={classNames.imageWrapper}>
           <Avatar

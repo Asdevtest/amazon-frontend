@@ -60,6 +60,9 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('taskComplexity')) {
+                obj['taskComplexity'] = ApiClient.convertToType(data['taskComplexity'], 'Number');
+            }
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
@@ -132,6 +135,12 @@ ApiV1RequestsCustomGuidRequest.prototype['withoutConfirmation'] = undefined;
  * @member {Number} price
  */
 ApiV1RequestsCustomGuidRequest.prototype['price'] = undefined;
+
+/**
+ * Уровень сложности задачи
+ * @member {Number} taskComplexity
+ */
+ApiV1RequestsCustomGuidRequest.prototype['taskComplexity'] = undefined;
 
 /**
  * Время закрытия заявки.

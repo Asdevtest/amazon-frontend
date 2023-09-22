@@ -29,6 +29,14 @@ export const useClassNames = makeStyles()(() => ({
     gap: 10,
   },
 
+  alignLeftNoFile: {
+    alignItems: 'flex-start !important',
+  },
+
+  alignRightNoFile: {
+    alignItems: 'flex-end !important',
+  },
+
   slideWrapper: {
     position: 'relative',
     display: 'flex',

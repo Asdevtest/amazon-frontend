@@ -28,13 +28,14 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    width: 60,
+    width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         isRequest
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
         status={params.row.originalData.status}
+        onClickOpenInNewTab={() => rowHandlers.onClickOpenInNewTab(params.row._id)}
       />
     ),
 

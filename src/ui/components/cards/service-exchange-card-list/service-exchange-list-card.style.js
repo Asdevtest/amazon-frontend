@@ -5,12 +5,19 @@ export const useClassNames = makeStyles()(theme => ({
     height: 165,
     width: 800,
     padding: '20px 20px 20px 0',
-    marginBottom: 30,
+    background: theme.palette.background.general,
     display: 'flex',
     justifyContent: 'space-between',
+    borderRadius: 4,
     boxShadow: theme.palette.boxShadow.paper,
-    background: theme.palette.background.general,
-    borderRadius: 7,
+    backgroundColor: theme.palette.background.general,
+
+    marginBottom: 20,
+  },
+
+  cardCarouselWrapper: {
+    height: 105,
+    width: 220,
   },
 
   photosWrapper: {
@@ -28,6 +35,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
+    marginBottom: 10,
+
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -38,12 +47,19 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 95,
     fontSize: '14px',
     lineHeight: '19px',
+    height: 57,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 5,
     WebkitBoxOrient: 'vertical',
+  },
+
+  detailedDescription: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
   },
 
   detailTitle: {
@@ -83,6 +99,18 @@ export const useClassNames = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  userInfo: {
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: 10,
+  },
+
+  cardImg: {
+    width: 28,
+    height: 28,
   },
 
   detailsWrapperAll: {

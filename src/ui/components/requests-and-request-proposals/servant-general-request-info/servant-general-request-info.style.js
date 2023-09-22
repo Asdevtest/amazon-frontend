@@ -54,14 +54,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   requestInfoWrapper: {
     flex: '1 1 auto',
+    display: 'flex',
+    gap: 20,
+    flexWrap: 'wrap',
   },
 
   titleAndIdWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: 10,
-    marginBottom: 15,
+    flexDirection: 'column',
+    gap: 5,
+
+    p: {
+      fontSize: 16,
+    },
   },
 
   title: {
@@ -140,7 +145,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   headerWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
 

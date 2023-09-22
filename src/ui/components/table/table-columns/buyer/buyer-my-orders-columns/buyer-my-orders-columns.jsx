@@ -52,7 +52,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 280,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },

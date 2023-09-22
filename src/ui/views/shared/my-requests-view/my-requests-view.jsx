@@ -13,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
@@ -157,7 +158,7 @@ export const MyRequestsViewRaw = props => {
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onChangePaginationModelChange}
               onFilterModelChange={viewModel.onChangeFilterModel}
-              onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+              onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
             />
           ) : (
             <CircularProgressWithLabel />
@@ -195,6 +196,13 @@ export const MyRequestsViewRaw = props => {
           severity={viewModel?.alertShieldSettings?.error ? 'error' : 'success'}
         />
       )}
+
+      <FreelanceRequestDetailsModal
+        isOpenModal={viewModel.showRequestDetailModal}
+        request={viewModel.currentRequestDetails?.request}
+        details={viewModel.currentRequestDetails?.details}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+      />
     </React.Fragment>
   )
 }

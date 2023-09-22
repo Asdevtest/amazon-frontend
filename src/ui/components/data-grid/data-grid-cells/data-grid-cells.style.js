@@ -40,7 +40,8 @@ export const styles = theme => ({
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
+    paddingLeft: '10px',
   },
 
   clockIcon: {
@@ -237,6 +238,11 @@ export const styles = theme => ({
     borderRadius: 4,
   },
 
+  orderImageSmall: {
+    height: 56,
+    width: 56,
+  },
+
   orderImageBig: {
     height: 100,
     width: 100,
@@ -246,13 +252,13 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 190,
+    maxWidth: 185,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
   orderText: {
     fontSize: 13,
-    maxWidth: 225,
+    maxWidth: 165,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -264,8 +270,11 @@ export const styles = theme => ({
   },
 
   orderTextSpan: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: 'rgb(189, 194, 209)',
   },
+
   select: {
     backgroundcolor: theme.palette.text.general,
   },
@@ -1273,8 +1282,8 @@ export const styles = theme => ({
 
   normalizeLink: {
     maxWidth: 140,
-    fontSize: 12,
-    lineHeight: '16px',
+    fontSize: 14,
+    lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -2029,6 +2038,11 @@ export const styles = theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.primary.main,
+  },
+
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
   },
 
   multipleAsinWrapper: {

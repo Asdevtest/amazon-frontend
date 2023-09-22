@@ -3,7 +3,7 @@ import { ClassNamesArg } from '@emotion/react'
 import React, { FC, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import { Dialog, DialogContent } from '@mui/material'
+import { Breakpoint, Dialog, DialogContent } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,12 +21,24 @@ interface ModalProps {
   children: React.ReactNode
   dialogContextClassName?: ClassNamesArg
   setOpenModal: (openModal?: boolean) => void
+  fullWidth?: boolean
+  maxWidth?: number
 }
 
 export const Modal: FC<ModalProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn, noPadding } = props
+  const {
+    openModal,
+    isWarning,
+    setOpenModal,
+    dialogContextClassName,
+    children,
+    missClickModalOn,
+    noPadding,
+    fullWidth,
+    maxWidth,
+  } = props
 
   const [showMissclickModal, setShowMissclickModal] = useState(false)
 
@@ -47,10 +59,22 @@ export const Modal: FC<ModalProps> = props => {
     <Dialog
       maxWidth={false}
       classes={{
-        paperScrollBody: cx(classNames.dialogContent, { [classNames.warningPaper]: isWarning }),
+        paperScrollBody: cx(classNames.dialogContent, {
+          [classNames.warningPaper]: isWarning,
+        }),
       }}
+      fullWidth={fullWidth}
       open={openModal}
       scroll={'body'}
+      sx={
+        fullWidth
+          ? {
+              '& .MuiDialog-paper': {
+                maxWidth: `${maxWidth ?? 1300}px`,
+              },
+            }
+          : {}
+      }
       onClose={(event: React.MouseEvent<HTMLElement, MouseEvent>) =>
         (event.detail !== 0 || event.button === 27) &&
         (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false))

@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **productId** | **String** | GUID продукта | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
+**variationTariffId** | **String** | Гуид вариации | [optional] 
 **buyerId** | **String** | GUID пользователя(байера) | [optional] 
 **amount** | **Number** | кол-во | [optional] 
 **expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
