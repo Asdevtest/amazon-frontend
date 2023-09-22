@@ -169,7 +169,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      width: 160,
+      width: 140,
       sortable: false,
       filterable: false,
     },
@@ -181,7 +181,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => (
         <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
       ),
-      width: 160,
+      width: 120,
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
@@ -213,7 +213,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         ) : (
           <MultilineTextCell text={'-'} />
         ),
-      width: 200,
+      width: 100,
 
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -262,7 +262,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => (
         <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
       ),
-      width: 150,
+      width: 120,
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
@@ -319,7 +319,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 130,
+      width: 100,
       // type: 'date',
 
       columnKey: columnnsKeys.shared.DATE,

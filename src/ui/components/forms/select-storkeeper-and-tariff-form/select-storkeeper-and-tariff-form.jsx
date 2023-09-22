@@ -1,15 +1,11 @@
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
-
-import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
@@ -77,8 +73,6 @@ export const SelectStorekeeperAndTariffForm = observer(
       onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
-
-    console.log(storekeepers)
 
     return (
       <div className={classNames.root}>

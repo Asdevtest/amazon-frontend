@@ -32,4 +32,5 @@ export interface IUser {
   tasksAtProcessAll: any
   tasksNewAll: any
   freeOrders: any
+  notificationCounter: number
 }

@@ -149,7 +149,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     updateImagesForLoad(filteringPhotos)
 
     if (!filteringPhotos.length) {
-      handlePhotosModalToggle
+      handlePhotosModalToggle()
     }
   }
 
