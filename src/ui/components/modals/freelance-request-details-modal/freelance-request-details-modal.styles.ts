@@ -1,6 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
+  title: {
+    fontWeight: 600,
+  },
+
   wrapper: {
     height: '100%',
     maxHeight: '884px',
