@@ -60,7 +60,6 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
       <p className={classNames.cardTitle}>{service.title}</p>
 
       <p className={classNames.cardDescription}>{service.description}</p>
-      <p className={classNames.cardDescription}>{service.description}</p>
 
       <button className={classNames.detailedDescription} onClick={handleToggleModal}>
         {t(TranslationKey.Details)}
