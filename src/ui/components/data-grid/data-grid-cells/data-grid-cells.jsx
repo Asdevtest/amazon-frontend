@@ -3648,7 +3648,7 @@ const RequestNotificationMessage = React.memo(
           <>
             {t(TranslationKey['Deadline for request'])}{' '}
             <NavLink to={getUrlToRequest(notification?._id)} className={styles.notificationId} target="_blank">
-              {`"${notification?.humanFriendlyId}" `}
+              {`"${notification?.humanFriendlyId || notification?.request?.humanFriendlyId}" `}
             </NavLink>
             {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
           </>
