@@ -20,6 +20,7 @@ docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md
 docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.md
 docs/ApiV1AdminsOrdersLogicsTariffDestination.md
 docs/ApiV1AdminsOrdersLogicsTariffDestinationVariations.md
+docs/ApiV1AdminsOrdersVariationTariff.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
 docs/ApiV1AdminsProductsVacCheckedby.md
 docs/ApiV1AdminsTasksLightBoxes.md
@@ -437,6 +438,7 @@ docs/UserInfoSchema.md
 docs/UserInfoSchemaFreelanceNotices.md
 docs/UserInfoSchemaIdeas.md
 docs/UserInfoSchemaMasterUser.md
+docs/UserInfoSchemaMyProposals.md
 docs/UserInfoSchemaNeedConfirmPriceChange.md
 docs/UserInfoSchemaNeedUpdateTariff.md
 docs/UserInfoSchemaPermissionGroups.md
@@ -493,6 +495,7 @@ src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.js
 src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.js
 src/model/ApiV1AdminsOrdersLogicsTariffDestination.js
 src/model/ApiV1AdminsOrdersLogicsTariffDestinationVariations.js
+src/model/ApiV1AdminsOrdersVariationTariff.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js
 src/model/ApiV1AdminsProductsVacCheckedby.js
 src/model/ApiV1AdminsTasksLightBoxes.js
@@ -887,6 +890,7 @@ src/model/UserInfoSchema.js
 src/model/UserInfoSchemaFreelanceNotices.js
 src/model/UserInfoSchemaIdeas.js
 src/model/UserInfoSchemaMasterUser.js
+src/model/UserInfoSchemaMyProposals.js
 src/model/UserInfoSchemaNeedConfirmPriceChange.js
 src/model/UserInfoSchemaNeedUpdateTariff.js
 src/model/UserInfoSchemaPermissionGroups.js
@@ -898,5 +902,5 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineResponse20059Request.spec.js
-test/model/InlineResponse20059RequestProduct.spec.js
+test/model/ApiV1AdminsOrdersVariationTariff.spec.js
+test/model/UserInfoSchemaMyProposals.spec.js

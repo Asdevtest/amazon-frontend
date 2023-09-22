@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **createdById** | **String** |  | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
+**variationTariff** | [**ApiV1AdminsOrdersVariationTariff**](ApiV1AdminsOrdersVariationTariff.md) |  | [optional] 
 **destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
 **logicsTariff** | [**ApiV1AdminsOrdersLogicsTariff**](ApiV1AdminsOrdersLogicsTariff.md) |  | [optional] 
 **product** | [**InlineResponse200**](InlineResponse200.md) |  | [optional] 
