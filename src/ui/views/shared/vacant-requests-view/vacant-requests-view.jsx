@@ -16,9 +16,6 @@ import { VacantRequestShortCard } from '@components/cards/vacant-request-short-c
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
-import { Button } from '@components/shared/buttons/button/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -26,11 +23,7 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import {
-  getDistanceBetweenDatesInSeconds,
-  sortObjectsArrayByFiledDateWithParseISO,
-  sortObjectsArrayByFiledDateWithParseISOAsc,
-} from '@utils/date-time'
+import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { styles } from './vacant-requests-view.style'

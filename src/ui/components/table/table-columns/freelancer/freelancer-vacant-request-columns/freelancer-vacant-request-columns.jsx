@@ -3,11 +3,9 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AsinCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   ShortDateCell,
@@ -171,9 +169,9 @@ export const FreelancerVacantRequestColumns = handlers => [
 
     renderCell: params => (
       <MultilineTextCell
-        text={`${params.row.countProposalsByStatuses.acceptedProposals} ${t(TranslationKey['out of'])} ${
-          params.row.maxAmountOfProposals
-        }`}
+        text={`${params.row.maxAmountOfProposals - params.row.countProposalsByStatuses.acceptedProposals} ${t(
+          TranslationKey['out of'],
+        )} ${params.row.maxAmountOfProposals}`}
       />
     ),
     width: 115,
