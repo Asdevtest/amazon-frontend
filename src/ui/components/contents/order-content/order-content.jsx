@@ -139,34 +139,36 @@ export const OrderContent = ({
             className={classNames.containerTitle}
           />
 
-          <div className={classNames.orderNumWrapper}>
-            <Typography className={classNames.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
-            <Typography className={classNames.orderText}>{`№ ${updatedOrder.id}`}</Typography>
-          </div>
+          <div className={classNames.infosWrapper}>
+            <div className={classNames.orderItemWrapper}>
+              <Typography className={classNames.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
+              <Typography className={classNames.orderText}>{`№ ${updatedOrder.id}`}</Typography>
+            </div>
 
-          <div className={classNames.orderItemWrapper}>
-            <Field
-              oneLine
-              tooltipInfoContent={t(TranslationKey['Total order amount'])}
-              label={t(TranslationKey['Order amount'])}
-              labelClasses={classNames.orderTitle}
-              containerClasses={classNames.field}
-              inputComponent={
-                <Typography className={classNames.orderText}>
-                  {toFixedWithDollarSign(formFields.totalPrice, 2)}
-                </Typography>
-              }
-            />
-          </div>
+            <div className={classNames.orderItemWrapper}>
+              <Field
+                oneLine
+                tooltipInfoContent={t(TranslationKey['Total order amount'])}
+                label={t(TranslationKey['Order amount'])}
+                labelClasses={classNames.orderTitle}
+                containerClasses={classNames.field}
+                inputComponent={
+                  <Typography className={classNames.orderText}>
+                    {toFixedWithDollarSign(formFields.totalPrice, 2)}
+                  </Typography>
+                }
+              />
+            </div>
 
-          <div className={classNames.orderItemWrapper}>
-            <Typography className={classNames.orderTitle}>{'item'}</Typography>
-            <Typography className={classNames.orderText}>{updatedOrder.item || '-'}</Typography>
-          </div>
+            <div className={classNames.orderItemWrapper}>
+              <Typography className={classNames.orderTitle}>{'item'}</Typography>
+              <Typography className={classNames.orderText}>{updatedOrder.item || '-'}</Typography>
+            </div>
 
-          <div className={classNames.orderItemWrapper}>
-            <Typography className={classNames.orderTitle}>{t(TranslationKey.Created)}</Typography>
-            <Typography className={classNames.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+            <div className={classNames.orderItemWrapper}>
+              <Typography className={classNames.orderTitle}>{t(TranslationKey.Created)}</Typography>
+              <Typography className={classNames.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+            </div>
           </div>
         </div>
 
