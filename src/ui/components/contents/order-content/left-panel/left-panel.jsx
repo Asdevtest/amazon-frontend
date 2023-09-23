@@ -1,13 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { Button, Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'

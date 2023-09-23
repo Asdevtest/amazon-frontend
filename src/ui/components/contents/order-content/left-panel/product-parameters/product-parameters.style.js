@@ -51,7 +51,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     fontWeight: '600',
     fontSize: '16px',
-    // lineHeight: '19px',
   },
 
   standartText: {
