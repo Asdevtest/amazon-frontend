@@ -368,8 +368,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   headerWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    gap: 20,
   },
 
   disableSelect: {
@@ -420,10 +421,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   sourcesProductWraper: {
     display: 'flex',
-    gap: '15px',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    width: '543px',
+    alignItems: 'center',
+    gap: 20,
   },
 
   requestsWrapper: {
