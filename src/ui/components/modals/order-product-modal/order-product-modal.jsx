@@ -1,4 +1,4 @@
-import { isPast, isToday, isTomorrow, isValid } from 'date-fns'
+import { isPast, isToday, isTomorrow } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
@@ -235,8 +235,7 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (!!isInventory && (!isValid(order.deadline) || isDeadlineTodayOrTomorrow)) ||
-        ((!!reorderOrdersData?.length || !!isPendingOrdering) && isDeadlineTodayOrTomorrow) ||
+        ((!!isInventory || !!reorderOrdersData?.length || !!isPendingOrdering) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
