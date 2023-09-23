@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 import ImageUploading from 'react-images-uploading-alex76457-version'
@@ -52,7 +51,7 @@ export const UploadFilesInput = observer(props => {
     withoutDragAndDropTitle = false,
   } = props
 
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const [linkInput, setLinkInput] = useState('')
 
@@ -293,7 +292,7 @@ export const UploadFilesInput = observer(props => {
                               multiline
                               inputProps={{ maxLength: 64 }}
                               startAdornment={
-                                <InputAdornment position="start">
+                                <InputAdornment position="start" className={classNames.inputIndexWrapper}>
                                   <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
                                 </InputAdornment>
                               }
@@ -342,7 +341,7 @@ export const UploadFilesInput = observer(props => {
                               multiline
                               inputProps={{ maxLength: 64 }}
                               startAdornment={
-                                <InputAdornment position="start">
+                                <InputAdornment position="start" className={classNames.inputIndexWrapper}>
                                   <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
                                 </InputAdornment>
                               }
