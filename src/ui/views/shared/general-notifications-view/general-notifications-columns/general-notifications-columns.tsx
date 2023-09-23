@@ -42,7 +42,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
       const product =
         notification?.product ||
         notification?.vacOrders?.[0]?.product ||
-        notification?.needConfirmOrders[0]?.product ||
+        notification?.needConfirmOrders?.[0]?.product ||
         notification?.request?.product ||
         notification?.items?.[0]?.product
 
