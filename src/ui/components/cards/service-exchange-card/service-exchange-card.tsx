@@ -14,28 +14,18 @@ import { IService } from '@typings/master-user'
 
 import { useClassNames } from './service-exchange-card.style'
 
-interface onClickThumbnailArguments {
-  images: Array<string | linksToMediaFilesInterface>
-  imgIndex: number
-}
-
-interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
-}
-
-interface ServiceExchangeCardProps {
+interface Props {
   service: IService
   choose?: boolean
   order?: boolean
   pathname?: string
-  onClickThumbnail?: (images: onClickThumbnailArguments) => void
   onClickButton: (service: IService) => void
 }
 
-export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
+export const ServiceExchangeCard: FC<Props> = props => {
   const { classes: classNames, cx } = useClassNames()
 
-  const { service, choose, order, pathname, onClickButton, onClickThumbnail } = props
+  const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription =
     service.type === 0

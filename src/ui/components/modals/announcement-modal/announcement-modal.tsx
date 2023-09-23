@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -6,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -36,7 +35,7 @@ export const AnnouncementModal: FC<Props> = ({
   onClickButton,
   onClickSelectButton,
 }) => {
-  const { classes: styles } = useClassNames()
+  const { classes: styles, cx } = useClassNames()
 
   const serviceType =
     service.type === 0
@@ -45,6 +44,7 @@ export const AnnouncementModal: FC<Props> = ({
   const textBold = cx(styles.text, styles.bold)
   const textMediumBold = cx(styles.textMedium, styles.bold)
   const files = service.linksToMediaFiles as string[]
+
   const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
 
   return (
@@ -80,12 +80,12 @@ export const AnnouncementModal: FC<Props> = ({
 
           <div className={styles.flexColumnContainer}>
             <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
-            <PhotoAndFilesCarousel withoutFiles isHideCounter files={files} customGap={0} customSlideHeight={210} />
+            <PhotoAndFilesSlider withoutFiles isHideCounter files={files} customGap={0} customSlideHeight={210} />
           </div>
 
           <div className={styles.flexColumnContainer}>
             <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
-            <PhotoAndFilesCarousel
+            <PhotoAndFilesSlider
               alignLeft
               withoutPhotos
               isHideCounter
