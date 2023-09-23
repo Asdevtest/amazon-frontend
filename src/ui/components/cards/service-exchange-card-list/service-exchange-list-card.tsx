@@ -10,38 +10,19 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IService, linksToMediaFilesInterface } from '@typings/master-user'
+import { IService } from '@typings/master-user'
 
 import { useClassNames } from './service-exchange-list-card.style'
 
-interface CreatedByInterface {
-  _id: string
-  name: string
-}
-
-interface RequestsInterface {
-  _id: string
-  title: string
-  humanFriendlyId: number
-  price: number
-  status: string
-  timeoutAt: string
-  createdBy: CreatedByInterface
-  updatedAt: string
-}
-
-interface ServiceExchangeCardListProps {
+interface Props {
   service: IService
   choose: boolean
   order: boolean
   pathname: string
-  onClickThumbnail: (data: { images: Array<string | linksToMediaFilesInterface>; imgIndex: number }) => void
   onClickButton: (data: IService) => void
 }
 
-export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props => {
-  const { service, choose, order, pathname, onClickThumbnail, onClickButton } = props
-
+export const ServiceExchangeCardList: FC<Props> = ({ service, choose, order, pathname, onClickButton }) => {
   const { classes: classNames } = useClassNames()
 
   const detailDescription =
@@ -75,6 +56,10 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
           <p className={classNames.cardTitle}>{service.title}</p>
 
           <p className={classNames.cardDescription}>{service.description}</p>
+
+          <button className={classNames.detailedDescription} onClick={handleToggleModal}>
+            {t(TranslationKey.Details)}
+          </button>
         </div>
 
         <div className={classNames.detailsAndButtonWrapper}>

@@ -2,24 +2,15 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    minHeight: 165,
-    height: 'fit-content',
+    height: 165,
     width: 800,
-    padding: '20px 20px 20px 20px',
-    background: theme.palette.background.general,
+    padding: '20px 20px 20px 0',
+    marginBottom: 30,
     display: 'flex',
     justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    borderRadius: 4,
     boxShadow: theme.palette.boxShadow.paper,
-    backgroundColor: theme.palette.background.general,
-
-    marginBottom: 20,
-  },
-
-  cardCarouselWrapper: {
-    height: 105,
-    width: 220,
+    background: theme.palette.background.general,
+    borderRadius: 7,
   },
 
   photosWrapper: {
@@ -28,18 +19,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   titleAndDescriptionWrapper: {
     width: 275,
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    margin: '10px 0',
   },
 
   cardTitle: {
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    marginBottom: 10,
-
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -50,7 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 95,
     fontSize: '14px',
     lineHeight: '19px',
-    height: 57,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -60,6 +48,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   detailedDescription: {
+    width: 'max-content',
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.primary.main,
@@ -81,7 +70,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    margin: '10px 0',
   },
 
   detailsWrapper: {
@@ -98,25 +86,11 @@ export const useClassNames = makeStyles()(theme => ({
   openBtn: {
     padding: '0 75px',
     height: 40,
-    marginBottom: 10,
   },
 
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: 20,
-  },
-
-  userInfo: {
-    display: 'flex',
-    alignItems: 'center',
-
-    gap: 10,
-  },
-
-  cardImg: {
-    width: 28,
-    height: 28,
   },
 
   detailsWrapperAll: {
