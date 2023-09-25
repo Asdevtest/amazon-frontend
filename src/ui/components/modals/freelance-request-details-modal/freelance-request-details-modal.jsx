@@ -66,7 +66,7 @@ export const FreelanceRequestDetailsModal = props => {
           <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
           {request?.product.images && (
             <div className={styles.productImages}>
-              <PhotoAndFilesCarousel withoutFiles mediumSlider files={request?.product.images} />
+              <PhotoAndFilesCarousel withoutFiles isImagesFullWidth files={request?.product.images} />
             </div>
           )}
           <div className={styles.category}>

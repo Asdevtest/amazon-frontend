@@ -64,6 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     height: '100%',
     width: '100%',
+    justifyContent: 'space-between',
   },
 
   modal: {
