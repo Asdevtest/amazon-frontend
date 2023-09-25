@@ -738,7 +738,9 @@ export const ChangeInputCell = React.memo(
           }
           onChange={e => {
             if (isInts) {
-              setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+              if (checkIsPositiveNum(e.target.value)) {
+                setValue(parseFloat(e.target.value))
+              }
             } else {
               setValue(e.target.value)
             }
