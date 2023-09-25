@@ -1,1 +1,1 @@
-export const MAX_LENGTH_TITLE = 48
+export const MAX_LENGTH_TITLE = 36

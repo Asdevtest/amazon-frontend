@@ -22,12 +22,10 @@ class InlineObject81 {
     /**
      * Constructs a new <code>InlineObject81</code>.
      * @alias module:model/InlineObject81
-     * @param parentProductId {String} Ключ родительского продукта
-     * @param childProductIds {Array.<String>} 
      */
-    constructor(parentProductId, childProductIds) { 
+    constructor() { 
         
-        InlineObject81.initialize(this, parentProductId, childProductIds);
+        InlineObject81.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject81 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, parentProductId, childProductIds) { 
-        obj['parentProductId'] = parentProductId;
-        obj['childProductIds'] = childProductIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,14 +47,8 @@ class InlineObject81 {
         if (data) {
             obj = obj || new InlineObject81();
 
-            if (data.hasOwnProperty('deletePermissions')) {
-                obj['deletePermissions'] = ApiClient.convertToType(data['deletePermissions'], 'Boolean');
-            }
-            if (data.hasOwnProperty('parentProductId')) {
-                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
-            }
-            if (data.hasOwnProperty('childProductIds')) {
-                obj['childProductIds'] = ApiClient.convertToType(data['childProductIds'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -68,22 +58,10 @@ class InlineObject81 {
 }
 
 /**
- * Удалять ли пермишны(только, если parentProductId - null
- * @member {Boolean} deletePermissions
- * @default false
+ * GUIDы магазинов, которые нужно удалить.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject81.prototype['deletePermissions'] = false;
-
-/**
- * Ключ родительского продукта
- * @member {String} parentProductId
- */
-InlineObject81.prototype['parentProductId'] = undefined;
-
-/**
- * @member {Array.<String>} childProductIds
- */
-InlineObject81.prototype['childProductIds'] = undefined;
+InlineObject81.prototype['suppliersIds'] = undefined;
 
 
 

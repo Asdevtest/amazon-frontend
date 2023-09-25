@@ -1,4 +1,5 @@
 import { cx } from '@emotion/css'
+import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
@@ -82,8 +83,7 @@ export const OrderModalBodyRow = ({
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
   const minDate = dayjs().add(2, 'day')
-  const [deadline, setDeadline] = useState('')
-  // const parsedDeadline = new Date(item.deadline)
+  const [deadline, setDeadline] = useState(item.deadline ? new Date(item.deadline) : item.deadline)
 
   const boxPropertiesIsFull =
     item.currentSupplier?.boxProperties?.amountInBox &&
@@ -95,10 +95,11 @@ export const OrderModalBodyRow = ({
     item.currentSupplier?.minlot &&
     item.currentSupplier?.priceInYuan &&
     item.currentSupplier?.price
+
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(event)
-      setDeadline(event)
+      setOrderStateFiled(nameInput)(isValid(event) ? event : null)
+      setDeadline(isValid(event) ? event : null)
     } else {
       setOrderStateFiled(nameInput)(event.target.value)
     }
@@ -320,6 +321,7 @@ export const OrderModalBodyRow = ({
             maxRows={3}
             inputProps={{ maxLength: 500 }}
             className={classNames.commentInput}
+            classes={{ inputMultiline: classNames.inputMultiline }}
             onChange={e => onChangeInput(e, 'clientComment')}
           />
         </TableCell>

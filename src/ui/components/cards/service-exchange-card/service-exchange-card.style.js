@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    height: 540,
+    height: 550,
     width: 375,
     padding: '35px 20px',
     marginBottom: 40,
@@ -36,6 +36,13 @@ export const useClassNames = makeStyles()(theme => ({
     WebkitBoxOrient: 'vertical',
   },
 
+  detailedDescription: {
+    width: 'max-content',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
   detailsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -57,9 +64,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   detailDescription: {
-    fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
+    fontWeight: 600,
   },
 
   detailsWrapperAll: {

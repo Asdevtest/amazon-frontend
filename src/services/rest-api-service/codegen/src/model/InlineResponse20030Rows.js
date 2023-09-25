@@ -12,12 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusBoxAmounts from './ApiV1AdminsGetProductsByStatusBoxAmounts';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
 import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
-import ApiV1BatchesProductBoxAmounts from './ApiV1BatchesProductBoxAmounts';
-import ApiV1BatchesProductRedFlags from './ApiV1BatchesProductRedFlags';
-import ApiV1BatchesProductSuppliers from './ApiV1BatchesProductSuppliers';
-import ApiV1BatchesProductTags from './ApiV1BatchesProductTags';
 
 /**
  * The InlineResponse20030Rows model module.
@@ -63,10 +63,10 @@ class InlineResponse20030Rows {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
             if (data.hasOwnProperty('suppliers')) {
-                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1BatchesProductSuppliers]);
+                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusSuppliers]);
             }
             if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiV1BatchesProductSuppliers.constructFromObject(data['currentSupplier']);
+                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['currentSupplier']);
             }
             if (data.hasOwnProperty('currentSupplierId')) {
                 obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
@@ -135,7 +135,7 @@ class InlineResponse20030Rows {
                 obj['isCreatedByClient'] = ApiClient.convertToType(data['isCreatedByClient'], 'Boolean');
             }
             if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['client']);
+                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
             }
             if (data.hasOwnProperty('amazonDescription')) {
                 obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
@@ -171,10 +171,10 @@ class InlineResponse20030Rows {
                 obj['inTransfer'] = ApiClient.convertToType(data['inTransfer'], 'Number');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('checkedBy')) {
-                obj['checkedBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['checkedBy']);
+                obj['checkedBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['checkedBy']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -186,7 +186,7 @@ class InlineResponse20030Rows {
                 obj['checkedAt'] = ApiClient.convertToType(data['checkedAt'], 'Date');
             }
             if (data.hasOwnProperty('buyer')) {
-                obj['buyer'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['buyer']);
+                obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['buyer']);
             }
             if (data.hasOwnProperty('buyerTimeoutAt')) {
                 obj['buyerTimeoutAt'] = ApiClient.convertToType(data['buyerTimeoutAt'], 'Date');
@@ -222,7 +222,7 @@ class InlineResponse20030Rows {
                 obj['amountInPendingOrders'] = ApiClient.convertToType(data['amountInPendingOrders'], 'Number');
             }
             if (data.hasOwnProperty('boxAmounts')) {
-                obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1BatchesProductBoxAmounts]);
+                obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1AdminsGetProductsByStatusBoxAmounts]);
             }
             if (data.hasOwnProperty('archive')) {
                 obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
@@ -279,13 +279,13 @@ class InlineResponse20030Rows {
                 obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
             }
             if (data.hasOwnProperty('subUsers')) {
-                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AnnouncementsMyCreatedBy]);
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
             }
             if (data.hasOwnProperty('redFlags')) {
-                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1BatchesProductRedFlags]);
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BatchesProductTags]);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
             }
             if (data.hasOwnProperty('checkedby')) {
                 obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
@@ -330,12 +330,12 @@ InlineResponse20030Rows.prototype['asin'] = undefined;
 InlineResponse20030Rows.prototype['skusByClient'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BatchesProductSuppliers>} suppliers
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} suppliers
  */
 InlineResponse20030Rows.prototype['suppliers'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesProductSuppliers} currentSupplier
+ * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} currentSupplier
  */
 InlineResponse20030Rows.prototype['currentSupplier'] = undefined;
 
@@ -471,7 +471,7 @@ InlineResponse20030Rows.prototype['checkednotes'] = undefined;
 InlineResponse20030Rows.prototype['isCreatedByClient'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} client
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
  */
 InlineResponse20030Rows.prototype['client'] = undefined;
 
@@ -542,12 +542,12 @@ InlineResponse20030Rows.prototype['margin'] = undefined;
 InlineResponse20030Rows.prototype['inTransfer'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 InlineResponse20030Rows.prototype['createdBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} checkedBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} checkedBy
  */
 InlineResponse20030Rows.prototype['checkedBy'] = undefined;
 
@@ -570,7 +570,7 @@ InlineResponse20030Rows.prototype['updatedAt'] = undefined;
 InlineResponse20030Rows.prototype['checkedAt'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} buyer
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} buyer
  */
 InlineResponse20030Rows.prototype['buyer'] = undefined;
 
@@ -641,7 +641,7 @@ InlineResponse20030Rows.prototype['amountInOrders'] = undefined;
 InlineResponse20030Rows.prototype['amountInPendingOrders'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BatchesProductBoxAmounts>} boxAmounts
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusBoxAmounts>} boxAmounts
  */
 InlineResponse20030Rows.prototype['boxAmounts'] = undefined;
 
@@ -747,17 +747,17 @@ InlineResponse20030Rows.prototype['ideasFinished'] = undefined;
 InlineResponse20030Rows.prototype['ideasClosed'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1AnnouncementsMyCreatedBy>} subUsers
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
  */
 InlineResponse20030Rows.prototype['subUsers'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BatchesProductRedFlags>} redFlags
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
  */
 InlineResponse20030Rows.prototype['redFlags'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BatchesProductTags>} tags
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
  */
 InlineResponse20030Rows.prototype['tags'] = undefined;
 

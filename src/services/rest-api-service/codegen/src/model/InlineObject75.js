@@ -47,11 +47,14 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
             }
         }
         return obj;
@@ -61,19 +64,58 @@ class InlineObject75 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineObject75.prototype['clientComment'] = undefined;
+InlineObject75.prototype['asin'] = undefined;
 
 /**
- * Комментарий баера
- * @member {String} buyerComment
+ * Причина
+ * @member {String} reason
  */
-InlineObject75.prototype['buyerComment'] = undefined;
+InlineObject75.prototype['reason'] = undefined;
+
+/**
+ * Стратегия
+ * @member {module:model/InlineObject75.StrategyEnum} strategy
+ */
+InlineObject75.prototype['strategy'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>strategy</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject75['StrategyEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40"
+};
 
 
 

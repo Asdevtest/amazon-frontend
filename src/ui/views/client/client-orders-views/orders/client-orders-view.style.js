@@ -16,6 +16,12 @@ export const styles = theme => ({
     padding: '0 25px',
   },
 
+  buttonDanger: {
+    '&:disabled': {
+      color: `${theme.palette.button.disabledDangerText} !important`,
+    },
+  },
+
   invis: {
     width: 261,
   },

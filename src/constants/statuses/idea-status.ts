@@ -111,7 +111,7 @@ export const colorByIdeaStatus = (status: ideaStatus) => {
     return '#F3AF00'
   } else if ([ideaStatus.VERIFIED, ideaStatus.SUPPLIER_FOUND, ideaStatus.CARD_CREATING].includes(status)) {
     return '#00B746'
-  } else if ([ideaStatus.CLOSED, ideaStatus.SUPPLIER_NOT_FOUND].includes(status)) {
+  } else if ([ideaStatus.CLOSED, ideaStatus.SUPPLIER_NOT_FOUND, ideaStatus.REJECTED].includes(status)) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'
   } else if ([ideaStatus.REJECTED].includes(status)) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'

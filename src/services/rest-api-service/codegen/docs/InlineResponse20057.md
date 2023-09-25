@@ -61,6 +61,8 @@ Name | Type | Description | Notes
 
 * `EXPIRED` (value: `"EXPIRED"`)
 
+* `COMPLETE_PROPOSALS_AMOUNT_ACHIEVED` (value: `"COMPLETE_PROPOSALS_AMOUNT_ACHIEVED"`)
+
 
 
 

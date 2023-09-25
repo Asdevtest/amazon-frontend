@@ -1,7 +1,6 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,6 +13,8 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-request.style'
 
@@ -30,6 +31,7 @@ interface Props {
 
 export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const jsonConditions = JSON.parse(message?.data?.details?.conditions)
   const conditions: string[] = jsonConditions.blocks.map((block: BlockType) => block.text)

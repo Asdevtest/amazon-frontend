@@ -1,6 +1,5 @@
 import { FC, useContext } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,6 +18,8 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
@@ -34,6 +35,7 @@ interface Props {
 
 export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames, cx } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 

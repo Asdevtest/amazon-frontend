@@ -344,7 +344,13 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal['StatusEnum'] = {
      * value: "EXPIRED"
      * @const
      */
-    "EXPIRED": "EXPIRED"
+    "EXPIRED": "EXPIRED",
+
+    /**
+     * value: "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED"
+     * @const
+     */
+    "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED": "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED"
 };
 
 

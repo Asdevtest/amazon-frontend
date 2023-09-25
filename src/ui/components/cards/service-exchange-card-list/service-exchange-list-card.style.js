@@ -19,6 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   titleAndDescriptionWrapper: {
     width: 275,
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -44,6 +45,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 5,
     WebkitBoxOrient: 'vertical',
+  },
+
+  detailedDescription: {
+    width: 'max-content',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
   },
 
   detailTitle: {

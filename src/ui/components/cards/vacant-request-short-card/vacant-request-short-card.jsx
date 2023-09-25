@@ -1,7 +1,5 @@
 import { cx } from '@emotion/css'
 
-import Avatar from '@mui/material/Avatar'
-import Rating from '@mui/material/Rating'
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
@@ -15,20 +13,19 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-short-card.style'
 
-export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
+export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
   const getCardClassName = timeoutAt => {
@@ -48,17 +45,22 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
   }
 
   return (
-    <div className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}>
+    <div
+      className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}
+      onDoubleClick={() => onDoubleClick(item._id)}
+    >
       <div className={classNames.cardHeader}>
-        <div className={classNames.userInfoWrapper}>
-          <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
-
-          <div className={classNames.nameRatingWrapper}>
-            <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
-
-            <Rating disabled value={item?.createdBy?.rating} />
-          </div>
-        </div>
+        <UserLink
+          blueText
+          withAvatar
+          ratingSize="large"
+          name={item?.createdBy?.name}
+          userId={item?.createdBy?._id}
+          rating={item?.createdBy?.rating}
+          customAvatarStyles={{ width: 40, height: 40 }}
+          customStyles={{ fontSize: 16, lineHeight: '20px' }}
+          customRatingClass={{ fontSize: 20, opacity: 1 }}
+        />
 
         <div className={classNames.idAndPriorityWrapper}>
           <div className={classNames.idWrapper}>
@@ -71,6 +73,8 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
           )}
         </div>
       </div>
+
+      <OrderCell withoutSku imageSize={'small'} product={item.product} />
 
       <div className={classNames.cardTitleBlockWrapper}>
         <Typography className={classNames.cardTitle}>{item.title}</Typography>
@@ -110,9 +114,8 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey.Time)}
               inputComponent={
-                <Typography className={cx(classNames.accentText, getDeadlineColor(item.timeoutAt))}>{`${toFixed(
-                  item.timeLimitInMinutes / 60,
-                  2,
+                <Typography className={cx(classNames.accentText, getDeadlineColor(item?.timeoutAt))}>{`${Math.round(
+                  getDistanceBetweenDatesInSeconds(item?.timeoutAt) / 3600,
                 )} ${t(TranslationKey.hour)} `}</Typography>
               }
             />

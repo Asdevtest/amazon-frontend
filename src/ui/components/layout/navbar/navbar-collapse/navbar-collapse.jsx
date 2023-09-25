@@ -6,6 +6,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
 
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 
 import { Button } from '@components/shared/buttons/button'
@@ -106,6 +107,13 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      // case '/shared/general-notifications-view':
+      //   return (
+      //     <ListItemIcon>
+      //       {<div className={classNames.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
+      //     </ListItemIcon>
+      //   )
+
       case '/client/my-orders/pending-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
 
@@ -156,6 +164,9 @@ export const NavbarCollapse = ({
 
       case '/client/ideas/closed':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.rejectedOrClosed}</div>}</ListItemIcon>
+
+      case `/${UserRoleCodeMapForRoutes[userInfo?.role]}/notifications/general-notifications-view`:
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.notificationCounter}</div>}</ListItemIcon>
 
       case '/client/ideas/all':
         return (

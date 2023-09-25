@@ -12,7 +12,7 @@ import { ImageModal, ImageObjectType } from '@components/modals/image-modal/imag
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsDocumentLink, checkIsImageLink, checkIsNotValidLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -96,29 +96,32 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   const handleImageEditToggle = () => setImageEditOpen(!imageEditOpen)
   const handlePhotosModalToggle = () => setShowPhotosModal(!showPhotosModal)
 
-  const documents = (files || []).filter(el => typeof el === 'string' && checkIsDocumentLink(el))
+  const documents = (files || []).filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el.file.name))
 
   const [photos, setPhotos] = useState<Array<string | UploadFile>>([])
   const [photoIndex, setPhotoIndex] = useState(0)
   const [fileIndex, setFileIndex] = useState(0)
 
   useEffect(() => {
-    const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
-      const isImage = checkIsImageLink(typeof el === 'string' ? el : '')
-      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : '')
-      const isNotValid = checkIsNotValidLink(typeof el === 'string' ? el : '')
+    if (photos.length - 1 < photoIndex && photos.length > 0) {
+      setPhotoIndex(photos.length - 1)
+    }
+  }, [photos.length])
 
-      if (isNotValid) {
-        return result
-      } else if (isImage) {
+  useEffect(() => {
+    const photoFiltering = (files || []).reduce((result: Array<string | UploadFile>, el) => {
+      const isImage = checkIsImageLink(typeof el === 'string' ? el : el.file.name)
+      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : el.file.name)
+
+      if (isImage) {
         result.push(el)
-      } else if (!isImage && !isDocument) {
+      }
+
+      if (!isImage && !isDocument) {
         if (typeof el === 'string') {
           result.push(getAmazonImageUrl(el, true))
-        } else if ('data_url' in el && el.data_url.length > 0) {
-          result.push(el)
         } else {
-          result.push('/assets/icons/file.png')
+          result.push(el)
         }
       }
 
@@ -127,8 +130,6 @@ export const PhotoAndFilesSlider: FC<Props> = ({
 
     setPhotos(photoFiltering)
   }, [files])
-
-  const filteredImagesTitles = files?.length ? (imagesTitles || []).filter((el, i) => checkIsImageLink(files[i])) : []
 
   const updateImagesForLoad = (newPhotos: Array<string | UploadFile>) => {
     if (onChangeImagesForLoad) {
@@ -148,7 +149,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
     updateImagesForLoad(filteringPhotos)
 
     if (!filteringPhotos.length) {
-      handlePhotosModalToggle
+      handlePhotosModalToggle()
     }
   }
 
@@ -324,7 +325,7 @@ export const PhotoAndFilesSlider: FC<Props> = ({
         handleOpenModal={handlePhotosModalToggle}
         imageList={photos.map((photo, index) => ({
           url: typeof photo === 'string' ? photo : photo.data_url,
-          comment: filteredImagesTitles[index],
+          comment: (imagesTitles ?? [])[index],
         }))}
         currentImageIndex={photoIndex}
         handleCurrentImageIndex={imgIndex => setPhotoIndex(imgIndex)}

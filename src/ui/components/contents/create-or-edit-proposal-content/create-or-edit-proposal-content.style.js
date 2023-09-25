@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainLeftWrapper: {
-    width: '25%',
+    width: '27%',
   },
 
   title: {
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   adviceWrapper: {
-    width: '26%',
+    width: '25%',
   },
   adviceTitle: {
     fontSize: '30px',
@@ -298,21 +298,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
   infoBlockWrapper: {
     display: 'flex',
-
+    gap: 20,
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   infoCellWrapper: {
     display: 'flex',
     flexDirection: 'column',
   },
   lastInfoCellWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+    minWidth: 100,
   },
-  requestInfoText: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
+
   editorMaxHeight: {
     maxHeight: 300,
   },

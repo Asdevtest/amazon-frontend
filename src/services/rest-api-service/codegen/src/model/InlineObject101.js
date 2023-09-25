@@ -22,10 +22,11 @@ class InlineObject101 {
     /**
      * Constructs a new <code>InlineObject101</code>.
      * @alias module:model/InlineObject101
+     * @param fileLink {String} Ссылка на файл
      */
-    constructor() { 
+    constructor(fileLink) { 
         
-        InlineObject101.initialize(this);
+        InlineObject101.initialize(this, fileLink);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject101 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileLink) { 
+        obj['fileLink'] = fileLink;
     }
 
     /**
@@ -47,11 +49,20 @@ class InlineObject101 {
         if (data) {
             obj = obj || new InlineObject101();
 
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
         }
         return obj;
@@ -61,18 +72,34 @@ class InlineObject101 {
 }
 
 /**
- * Гуид идеи в статусе onChecked(10)
- * @member {String} onCheckedIdeaId
- * @default 'null'
+ * Guid заявки
+ * @member {String} requestId
  */
-InlineObject101.prototype['onCheckedIdeaId'] = 'null';
+InlineObject101.prototype['requestId'] = undefined;
 
 /**
- * Гуид идеи в статусе finished(20)
- * @member {String} onFinishedIdeaId
- * @default 'null'
+ * Guid предложения
+ * @member {String} proposalId
  */
-InlineObject101.prototype['onFinishedIdeaId'] = 'null';
+InlineObject101.prototype['proposalId'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineObject101.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject101.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject101.prototype['fileLink'] = undefined;
 
 
 

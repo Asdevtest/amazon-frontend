@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -43,11 +41,7 @@ import { styles } from './client-in-stock-boxes-view.style'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
 export const ClientInStockBoxesViewRaw = props => {
-  const topHeaderBtnsWrapperRef = useRef()
-  const boxesFiltersWrapperRef = useRef()
-  const btnsWrapperRef = useRef()
   const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
-  const [heightSum, setHeightSum] = useState(0)
   const { classes: classNames } = props
   const disableSelectionCells = ['prepId']
 
@@ -57,37 +51,8 @@ export const ClientInStockBoxesViewRaw = props => {
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
     classNames.isDraftRow
 
-  const handleResize = () =>
-    setHeightSum(
-      topHeaderBtnsWrapperRef?.current?.offsetHeight +
-        boxesFiltersWrapperRef?.current?.offsetHeight +
-        btnsWrapperRef?.current?.offsetHeight,
-    )
-
   useEffect(() => {
     viewModel.loadData()
-  }, [])
-
-  useEffect(() => {
-    handleResize()
-  }, [
-    viewModel.storekeepersData,
-    viewModel.clientDestinations,
-    viewModel.curDestinationId,
-    viewModel.currentStorekeeperId,
-  ])
-
-  useEffect(() => {
-    const container = boxesFiltersWrapperRef.current
-    const resizeObserver = new ResizeObserver(handleResize)
-
-    if (container) {
-      resizeObserver.observe(container)
-    }
-
-    return () => {
-      resizeObserver.disconnect()
-    }
   }, [])
 
   const renderButtons = () => {
@@ -148,14 +113,13 @@ export const ClientInStockBoxesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div ref={topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
+        <div className={classNames.topHeaderBtnsWrapper}>
           <div className={classNames.boxesFiltersWrapper}>
             <CustomSwitcher
               switchMode={'medium'}
               condition={viewModel.currentStorekeeperId}
               switcherSettings={[
                 ...viewModel.storekeepersData
-                  .slice()
                   .filter(storekeeper => storekeeper.boxesCount !== 0)
                   .sort((a, b) => a.name?.localeCompare(b.name))
                   .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
@@ -174,13 +138,12 @@ export const ClientInStockBoxesViewRaw = props => {
           />
         </div>
 
-        <div ref={boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
+        <div className={classNames.boxesFiltersWrapper}>
           <CustomSwitcher
             switchMode={'medium'}
             condition={viewModel.curDestinationId}
             switcherSettings={[
               ...viewModel.clientDestinations
-                .slice()
                 .filter(destination => destination.boxesCount !== 0)
                 .sort((a, b) => a.name?.localeCompare(b.name))
                 .map(destination => ({ label: () => destination?.name, value: destination?._id })),
@@ -192,14 +155,14 @@ export const ClientInStockBoxesViewRaw = props => {
           />
         </div>
 
-        <div ref={btnsWrapperRef} className={classNames.btnsWrapper}>
+        <div className={classNames.btnsWrapper}>
           <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
           <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper} style={{ height: `calc(100vh - ${heightSum + 180}px)` }}>
+        <div className={classNames.tasksWrapper}>
           <MemoDataGrid
             disableVirtualization
             pagination

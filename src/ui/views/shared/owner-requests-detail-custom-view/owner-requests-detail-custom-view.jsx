@@ -59,12 +59,14 @@ export const OwnerRequestDetailCustomViewRaw = props => {
       <div>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
+            userInfo={viewModel.userInfo}
             request={viewModel.request}
             requestProposals={viewModel.requestProposals}
             requestAnnouncement={viewModel.requestAnnouncement}
             onClickPublishBtn={viewModel.onClickPublishBtn}
             onClickEditBtn={viewModel.onClickEditBtn}
             onClickCancelBtn={viewModel.onClickCancelBtn}
+            onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
             onClickAbortBtn={viewModel.onClickAbortBtn}
             onRecoverRequest={viewModel.onRecoverRequest}
             onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
@@ -177,7 +179,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         setOpenModal={viewModel.triggerShowResultToCorrectFormModal}
       >
         <RequestProposalResultToCorrectForm
-          onPressSubmitForm={viewModel.onPressSubmitRequestProposalResultToCorrectForm}
+          onPressSubmitForm={viewModel.onSubmitSendInForReworkInRequestProposalResultToCorrectForm}
         />
       </Modal>
 
@@ -197,7 +199,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
           curResultMedia={viewModel.curResultMedia}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
           onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
-          onPressSubmitDesignerResultToCorrect={viewModel.onPressSubmitDesignerResultToCorrect}
+          onPressSubmitDesignerResultToCorrect={viewModel.onSubmitSendInForReworkInProposalResultAccept}
         />
       </Modal>
 

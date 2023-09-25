@@ -12,7 +12,6 @@ import {
   HsCodeCell,
   InStockCell,
   MultilineStatusCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OrderIdAndAmountCountCell,
@@ -96,7 +95,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
     filterable: false,
@@ -596,7 +595,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 400,
     filterable: false,
     sortable: false,

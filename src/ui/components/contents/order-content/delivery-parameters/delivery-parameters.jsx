@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Checkbox, Typography } from '@mui/material'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -16,8 +14,6 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-// import {formatDateWithoutTime} from '@utils/date-time'
-// import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './delivery-parameters.style'
@@ -43,19 +39,9 @@ export const DeliveryParameters = ({
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
-  const curDestination = destinations?.find(el => el?._id === formFields.destinationId)
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
-
   const tariffName = storekeepers
     ?.find(el => el?._id === formFields?.storekeeperId)
     ?.tariffLogistics?.find(el => el?._id === formFields?.logicsTariffId)?.name
-
-  const tariffRate = storekeepers
-    ?.find(el => el._id === formFields.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === formFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const minDate = dayjs().add(2, 'day')
 

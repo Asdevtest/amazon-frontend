@@ -59,7 +59,7 @@ export const ClientOrdersViewRaw = props => {
               <Button
                 danger
                 disabled={!viewModel.selectedRowIds.length}
-                className={classNames.button}
+                className={cx(classNames.button, classNames.buttonDanger)}
                 onClick={viewModel.onConfirmCancelManyReorder}
               >
                 {t(TranslationKey['Cancel order'])}

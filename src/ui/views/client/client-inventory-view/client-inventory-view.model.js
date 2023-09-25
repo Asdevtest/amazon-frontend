@@ -624,7 +624,7 @@ export class ClientInventoryViewModel {
   async onClickNextButton(chosenProduct) {
     runInAction(() => (this.selectedProductToLaunch = chosenProduct))
 
-    if (chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
         confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
@@ -792,7 +792,7 @@ export class ClientInventoryViewModel {
         column,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
+          shopFilter ? `;&[shopIds][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 

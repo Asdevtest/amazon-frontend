@@ -279,7 +279,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
           classes={{ root: classNames.menu, list: classNames.list }}
           onClose={handleClose}
         >
-          <MenuItem className={classNames.menuClientInfoWrapper}>
+          <MenuItem className={classNames.menuClientInfoWrapper} onClick={handleClose}>
             <div className={classNames.menuClientInfo}>
               <p className={classNames.menuClientInfoText}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
 
@@ -290,7 +290,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
 
             <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
           </MenuItem>
-          <MenuItem className={classNames.mobileAllowedRolesWrapper}>
+          <MenuItem className={classNames.mobileAllowedRolesWrapper} onClick={handleClose}>
             <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
             {allowedRolesWithoutCandidate?.length > 1 ? (
               <div className={classNames.allowedRolesWrapper}>
@@ -319,11 +319,23 @@ export const Header: FC<Props> = observer(({ title, onToggleModal, onMouseOver, 
             )}
           </MenuItem>
 
-          <MenuItem className={classNames.menuItem} onClick={onClickProfile}>
+          <MenuItem
+            className={classNames.menuItem}
+            onClick={() => {
+              onClickProfile()
+              handleClose()
+            }}
+          >
             <PersonIcon className={classNames.icon} />
             {t(TranslationKey.Profile)}
           </MenuItem>
-          <MenuItem className={classNames.menuItem} onClick={onClickExit}>
+          <MenuItem
+            className={classNames.menuItem}
+            onClick={() => {
+              onClickExit()
+              handleClose()
+            }}
+          >
             <ExitIcon className={classNames.icon} />
             {t(TranslationKey.Exit)}
           </MenuItem>

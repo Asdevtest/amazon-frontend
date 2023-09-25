@@ -2,9 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
+    padding: '30px 50px 20px',
     display: 'flex',
     alignItems: 'center',
-    padding: '30px 50px 20px',
+    justifyContent: 'space-between',
+    gap: 100,
   },
 
   containerTitle: {
@@ -12,10 +14,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '25px',
   },
 
-  orderNumWrapper: {
+  infosWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 400,
+    gap: 100,
   },
 
   orderTitle: {
@@ -23,7 +25,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   orderText: {
-    marginLeft: 15,
     fontWeight: 600,
     color: theme.palette.text.general,
   },
@@ -35,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
   orderItemWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 100,
+    gap: 10,
   },
 
   panelsWrapper: {

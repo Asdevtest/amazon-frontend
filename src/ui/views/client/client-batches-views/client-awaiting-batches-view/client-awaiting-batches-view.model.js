@@ -437,7 +437,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async patchActualShippingCostBatch(id, cost) {
     await BatchesModel.changeBatch(id, {
-      actualShippingCost: cost,
+      actualShippingCost: cost || '0',
     })
 
     this.setCurrentOpenedBatch(id, true)

@@ -3,11 +3,12 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
     padding: 3,
-    backgroundColor: theme.palette.customSwitcher.background,
-    borderRadius: '24px',
-    height: '100%',
     display: 'flex',
+    alignItems: 'center',
     flexWrap: 'wrap',
+    gap: 5,
+    backgroundColor: theme.palette.customSwitcher.background,
+    borderRadius: '21px',
   },
 
   fullWidthWrapper: {
@@ -15,72 +16,66 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerStylesSwitcherWrapper: {
+    borderRadius: '24px',
     backgroundColor: theme.palette.customSwitcher.headerBackground,
   },
 
-  innerContainer: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    gap: '10px',
-    alignItems: 'center',
-    position: 'relative',
-    flexWrap: 'wrap',
-  },
-
-  smallInnerContainer: {
-    gap: '0',
+  mediumGapWrapper: {
+    gap: 10,
   },
 
   optionWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: '0 5px',
-    height: '100%',
+    justifyContent: 'center',
     flex: 1,
   },
 
   headerOptionWrapper: {
-    height: '45px',
-    padding: '0 15px',
+    height: 45,
   },
 
   mediumOptionWrapper: {
-    height: '40px',
+    height: 40,
   },
 
   switcherOption: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '10px',
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-    padding: '0',
     height: '100%',
     width: '100%',
-    color: theme.palette.customSwitcher.text,
-    background: 'none',
-    minWidth: '25px !important',
-    transition: 'background .1s ease',
-    zIndex: 3,
+    minWidth: 25,
+    padding: '0 5px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+    fontSize: 14,
+    lineHeight: '19px',
     whiteSpace: 'nowrap',
+    transition: 'all .3s ease',
+    color: theme.palette.customSwitcher.text,
+    borderRadius: '21px',
 
-    '&:hover': {
+    '&:active': {
       color: theme.palette.customSwitcher.text,
-      background: 'none',
+      backgroundColor: theme.palette.customSwitcher.headerBackground,
     },
   },
 
+  headerOptionStyles: {
+    padding: '0 15px',
+    borderRadius: '24px',
+  },
+
   activeOption: {
-    transition: '.1s ease',
-    color: theme.palette.customSwitcher.activeText,
-    fontWeight: 600,
     cursor: 'unset',
+    fontWeight: 600,
+    transition: 'all .3s ease',
+    color: theme.palette.customSwitcher.activeText,
+    backgroundColor: theme.palette.customSwitcher.indicator,
+
     '&:hover': {
       color: theme.palette.customSwitcher.activeText,
+      backgroundColor: theme.palette.customSwitcher.indicator,
     },
   },
 
@@ -93,28 +88,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerActiveOptionStyles: {
-    color: '#FFF !important',
-  },
+    color: '#fff',
+    background: theme.palette.primary.main,
 
-  btnWrapperStyle: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    flex: 1,
-  },
-
-  indicator: {
-    position: 'absolute',
-    height: '100%',
-    zIndex: 2,
-    borderRadius: '21px',
-    transition: '.1s ease',
-    backgroundColor: theme.palette.customSwitcher.indicator,
-  },
-
-  headerIndicatorStyles: {
-    backgroundColor: theme.palette.customSwitcher.activeText,
+    '&:hover': {
+      color: '#fff',
+      background: theme.palette.primary.main,
+    },
   },
 
   icon: {

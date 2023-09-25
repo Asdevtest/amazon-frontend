@@ -2,24 +2,28 @@ import { FC, PropsWithChildren } from 'react'
 
 import Drawer from '@mui/material/Drawer'
 
-import { isTabletResolution } from '@constants/configs/sizes-settings'
+import { PositionModalType } from '@typings/positions'
 
-type PositionType = 'left' | 'top' | 'right' | 'bottom' | undefined
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 interface Props extends PropsWithChildren {
-  position: PositionType
   open: boolean
   onClose: VoidFunction
+  position?: PositionModalType
 }
 
-export const DrawerModal: FC<Props> = ({ position, open, onClose, children }) => (
-  <>
-    {isTabletResolution ? (
-      <Drawer anchor={position} open={open} onClose={onClose}>
-        {children}
-      </Drawer>
-    ) : (
-      children
-    )}
-  </>
-)
+export const DrawerModal: FC<Props> = ({ position = 'left', open, onClose, children }) => {
+  const { isTabletResolution } = useCreateBreakpointResolutions()
+
+  return (
+    <>
+      {isTabletResolution ? (
+        <Drawer anchor={position} open={open} onClose={onClose}>
+          {children}
+        </Drawer>
+      ) : (
+        children
+      )}
+    </>
+  )
+}

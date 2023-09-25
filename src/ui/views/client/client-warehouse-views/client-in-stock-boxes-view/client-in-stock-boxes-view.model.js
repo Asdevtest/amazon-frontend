@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -839,14 +838,17 @@ export class ClientInStockBoxesViewModel {
 
   async getClientDestinations() {
     try {
-      const clientDestinations = await ClientModel.getClientDestinations({
-        status: BoxStatus.IN_STOCK,
-        storekeeperId: this.currentStorekeeperId ? this.currentStorekeeperId : null,
-      })
+      if (this.currentStorekeeperId) {
+        const clientDestinations = await ClientModel.getClientDestinations({
+          status: BoxStatus.IN_STOCK,
+          storekeeperId: this.currentStorekeeperId,
+        })
 
-      runInAction(() => {
-        this.clientDestinations = clientDestinations
-      })
+        runInAction(() => {
+          this.clientDestinations = clientDestinations
+        })
+      }
+
       this.getDataGridState()
     } catch (error) {
       console.log(error)

@@ -52,6 +52,7 @@ interface Props {
   unReadMessage: boolean
   showName: boolean
   isLastMessage: boolean
+  isLastResultMessage?: boolean
   handlers?: ChatMessageUniversalHandlers
   messagesFoundIds?: string[]
   searchPhrase?: string
@@ -65,6 +66,7 @@ export const ChatMessageByType: FC<Props> = observer(
     unReadMessage,
     showName,
     isLastMessage,
+    isLastResultMessage,
     handlers,
     messagesFoundIds = [],
     searchPhrase,
@@ -99,8 +101,8 @@ export const ChatMessageByType: FC<Props> = observer(
       } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
         return (
           <ChatMessageRequestProposalResultEdited
-            isLastMessage={isLastMessage}
             message={messageItem}
+            isLastResultMessage={isLastResultMessage}
             isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,

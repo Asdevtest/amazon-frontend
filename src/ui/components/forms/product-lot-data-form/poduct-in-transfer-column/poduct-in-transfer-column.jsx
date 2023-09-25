@@ -30,7 +30,10 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={t(boxStatusTranslateKey(params.value))} otherStyles={colorByBoxStatus(params.value)} />
+      <MultilineTextCell
+        text={t(boxStatusTranslateKey(params.value))}
+        customTextStyles={colorByBoxStatus(params.value)}
+      />
     ),
     width: 80,
   },

@@ -213,12 +213,17 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       this.history = history
     })
-    // this.isShowPartialPayment = routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname;
     if (
       routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname ||
       routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT === history.location.pathname
     ) {
       this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
+    }
+
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onClickOrder(orderId)
     }
 
     if (location.state?.orderId) {

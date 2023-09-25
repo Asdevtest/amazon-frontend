@@ -22,13 +22,10 @@ class InlineObject51 {
     /**
      * Constructs a new <code>InlineObject51</code>.
      * @alias module:model/InlineObject51
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject51.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor() { 
         
-        InlineObject51.initialize(this, taskId, boxes, operationType);
+        InlineObject51.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject51 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,35 +47,50 @@ class InlineObject51 {
         if (data) {
             obj = obj || new InlineObject51();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
             }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
+                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
         }
         return obj;
@@ -91,51 +100,33 @@ class InlineObject51 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * GUID storekeeper-a
+ * @member {String} storekeeperId
  */
-InlineObject51.prototype['taskId'] = undefined;
+InlineObject51.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {Array.<String>} boxesBefore
+ * GUID баера
+ * @member {String} buyerId
  */
-InlineObject51.prototype['boxesBefore'] = undefined;
+InlineObject51.prototype['buyerId'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * @member {String} item
  */
-InlineObject51.prototype['boxes'] = undefined;
+InlineObject51.prototype['item'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineObject51.OperationTypeEnum} operationType
+ * GUID тарифа доставки
+ * @member {String} logicsTariffId
  */
-InlineObject51.prototype['operationType'] = undefined;
+InlineObject51.prototype['logicsTariffId'] = undefined;
 
 /**
- * Комментарий клиента.
- * @member {String} clientComment
- * @default ''
+ * Гуид вариации
+ * @member {String} variationTariffId
  */
-InlineObject51.prototype['clientComment'] = '';
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject51.prototype['buyerComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject51.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject51.prototype['storekeeperComment'] = undefined;
+InlineObject51.prototype['variationTariffId'] = undefined;
 
 /**
  * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
@@ -144,46 +135,61 @@ InlineObject51.prototype['storekeeperComment'] = undefined;
 InlineObject51.prototype['priority'] = undefined;
 
 /**
- * Причина приоритета
- * @member {String} reason
+ * GUID пункта назначения.
+ * @member {String} destinationId
  */
-InlineObject51.prototype['reason'] = undefined;
-
-
-
-
+InlineObject51.prototype['destinationId'] = undefined;
 
 /**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject51['OperationTypeEnum'] = {
+InlineObject51.prototype['amount'] = undefined;
 
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
+/**
+ * Стоимость доставки до склада.
+ * @member {Number} deliveryCostToTheWarehouse
+ */
+InlineObject51.prototype['deliveryCostToTheWarehouse'] = undefined;
 
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineObject51.prototype['clientComment'] = undefined;
 
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
+/**
+ * Массив изображений.
+ * @member {Array.<String>} images
+ */
+InlineObject51.prototype['images'] = undefined;
 
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject51.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineObject51.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineObject51.prototype['deadline'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject51.prototype['totalPrice'] = undefined;
+
+
+
 
 
 /**

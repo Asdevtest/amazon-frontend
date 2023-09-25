@@ -145,7 +145,15 @@ export const SuppliersAndIdeas = observer(
           !inEdit &&
           !isModalView && (
             <div className={classNames.btnsWrapper}>
-              <Button success variant="contained" onClick={onCreateIdea}>
+              <Button
+                success
+                disabled={!!product.parentProductId}
+                tooltipInfoContent={
+                  product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''
+                }
+                variant="contained"
+                onClick={onCreateIdea}
+              >
                 {t(TranslationKey['Add a product idea'])}
               </Button>
             </div>

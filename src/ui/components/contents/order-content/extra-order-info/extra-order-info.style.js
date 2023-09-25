@@ -33,7 +33,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   subTitleWrapper: {
-    // marginBottom: '28px',
     display: 'flex',
     justifyContent: 'center',
 

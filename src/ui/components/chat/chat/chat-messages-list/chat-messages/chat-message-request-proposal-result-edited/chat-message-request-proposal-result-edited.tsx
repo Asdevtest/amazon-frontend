@@ -1,7 +1,6 @@
 import { cx } from '@emotion/css'
 import { FC, useContext } from 'react'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,6 +17,8 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useClassNames } from './chat-message-request-proposal-result-edited.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
@@ -26,19 +27,20 @@ export interface ChatMessageRequestProposalResultEditedHandlers {
 }
 
 interface Props {
-  isLastMessage: boolean
   message: ChatMessageContract<ChatMessageDataProposalResultEditedContract>
   handlers: ChatMessageRequestProposalResultEditedHandlers
   isShowChatInfo?: boolean
+  isLastResultMessage?: boolean
 }
 
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({
   message,
-  isLastMessage,
   handlers,
   isShowChatInfo,
+  isLastResultMessage,
 }) => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
   const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -50,8 +52,9 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({
     (proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
       proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
       proposalStatus !== RequestProposalStatus.TO_CORRECT) &&
+    proposalStatus !== RequestProposalStatus.ACCEPTED_BY_CLIENT &&
     curUserId &&
-    isLastMessage &&
+    isLastResultMessage &&
     message.data.needApproveBy?.includes(curUserId)
   const files = message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))
 

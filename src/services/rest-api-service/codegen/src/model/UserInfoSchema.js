@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import UserInfoSchemaFreelanceNotices from './UserInfoSchemaFreelanceNotices';
 import UserInfoSchemaIdeas from './UserInfoSchemaIdeas';
 import UserInfoSchemaMasterUser from './UserInfoSchemaMasterUser';
+import UserInfoSchemaMyProposals from './UserInfoSchemaMyProposals';
 import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
@@ -206,11 +207,17 @@ class UserInfoSchema {
             if (data.hasOwnProperty('buyerFoundSupplier')) {
                 obj['buyerFoundSupplier'] = ApiClient.convertToType(data['buyerFoundSupplier'], 'Number');
             }
+            if (data.hasOwnProperty('myProposals')) {
+                obj['myProposals'] = UserInfoSchemaMyProposals.constructFromObject(data['myProposals']);
+            }
             if (data.hasOwnProperty('ideas')) {
                 obj['ideas'] = UserInfoSchemaIdeas.constructFromObject(data['ideas']);
             }
             if (data.hasOwnProperty('freelanceNotices')) {
                 obj['freelanceNotices'] = ApiClient.convertToType(data['freelanceNotices'], [UserInfoSchemaFreelanceNotices]);
+            }
+            if (data.hasOwnProperty('notificationCounter')) {
+                obj['notificationCounter'] = ApiClient.convertToType(data['notificationCounter'], 'Number');
             }
         }
         return obj;
@@ -514,6 +521,11 @@ UserInfoSchema.prototype['productIsAppropriate'] = undefined;
 UserInfoSchema.prototype['buyerFoundSupplier'] = undefined;
 
 /**
+ * @member {module:model/UserInfoSchemaMyProposals} myProposals
+ */
+UserInfoSchema.prototype['myProposals'] = undefined;
+
+/**
  * @member {module:model/UserInfoSchemaIdeas} ideas
  */
 UserInfoSchema.prototype['ideas'] = undefined;
@@ -522,6 +534,12 @@ UserInfoSchema.prototype['ideas'] = undefined;
  * @member {Array.<module:model/UserInfoSchemaFreelanceNotices>} freelanceNotices
  */
 UserInfoSchema.prototype['freelanceNotices'] = undefined;
+
+/**
+ * Кол-во нотификаций юзера(archive: false)
+ * @member {Number} notificationCounter
+ */
+UserInfoSchema.prototype['notificationCounter'] = undefined;
 
 
 

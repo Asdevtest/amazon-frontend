@@ -2,7 +2,6 @@ import { FC, useContext } from 'react'
 
 import { Divider } from '@mui/material'
 
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,6 +17,8 @@ import { minsToTime, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-create-new-blogger-proposal.style'
 
@@ -36,6 +37,7 @@ interface Props {
 
 export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handlers, isShowChatInfo }) => {
   const { classes: classNames, cx } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 

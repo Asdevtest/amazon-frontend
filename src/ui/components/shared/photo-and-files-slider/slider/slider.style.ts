@@ -25,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainSmall: {
-    padding: '10px 30px',
+    padding: '0 30px',
   },
 
   sliderWrapper: {
@@ -68,6 +68,10 @@ export const useClassNames = makeStyles()(theme => ({
   bigArrow: {
     width: '40px !important',
     height: '40px !important',
+  },
+
+  hideArrow: {
+    opacity: 0,
   },
 
   slidesWrapper: {
@@ -116,6 +120,11 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       position: 'relative',
 
+      '& > a:nth-of-type(1)': {
+        opacity: 0.5,
+        transition: '0.3s ease',
+      },
+
       '& > a:nth-of-type(2)': {
         position: 'absolute',
         top: 0,
@@ -132,6 +141,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   linkDocument: {
     display: 'none',
+    opacity: 0,
+    transition: '0.3s ease',
   },
 
   slideNoDocuments: {

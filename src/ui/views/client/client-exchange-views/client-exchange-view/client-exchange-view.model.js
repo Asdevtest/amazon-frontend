@@ -272,6 +272,7 @@ export class ClientExchangeViewModel {
         expressChinaDelivery: orderObject.expressChinaDelivery,
         deadline: orderObject.deadline,
         needsResearch: orderObject.needsResearch,
+        buyerId: orderObject.buyerId,
       }
 
       if (orderObject.tmpIsPendingOrder) {

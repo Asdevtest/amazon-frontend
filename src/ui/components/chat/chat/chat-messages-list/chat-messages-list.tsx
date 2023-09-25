@@ -1,10 +1,7 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { Avatar, Link } from '@mui/material'
-
-import { isMobileResolution } from '@constants/configs/sizes-settings'
 
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
@@ -15,6 +12,9 @@ import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
+import { checkIsChatMessageDataProposalResultEditedContract } from '@utils/ts-checks'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-messages-list.style'
 
@@ -39,6 +39,7 @@ interface Props {
   searchPhrase?: string
   chatId?: string
   isShowChatInfo?: boolean
+  isFreelanceOwner?: boolean
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
@@ -60,8 +61,10 @@ export const ChatMessagesList: FC<Props> = observer(
     setMessageToReply,
     messagesWrapperRef,
     chatId,
+    isFreelanceOwner,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
+    const { isMobileResolution } = useCreateBreakpointResolutions()
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
     const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
@@ -117,6 +120,10 @@ export const ChatMessagesList: FC<Props> = observer(
       setMessageToReply(messageItem)
     }
 
+    const requestProposalResultEditedMessages = messages?.filter(el =>
+      checkIsChatMessageDataProposalResultEditedContract(el),
+    )
+
     return (
       <div
         ref={messagesWrapperRef}
@@ -131,7 +138,7 @@ export const ChatMessagesList: FC<Props> = observer(
               const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
 
               const isLastMessage = index === messages.length - 1
-
+              const isLastResultMessage = requestProposalResultEditedMessages?.at(-1)?._id === messageItem._id
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
@@ -197,6 +204,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
                       <div
                         className={cx({
+                          [classNames.messageInnerWrapper]: isFreelanceOwner && isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,
@@ -229,6 +237,7 @@ export const ChatMessagesList: FC<Props> = observer(
                             unReadMessage={unReadMessage}
                             showName={showName}
                             isLastMessage={isLastMessage}
+                            isLastResultMessage={isLastResultMessage}
                             handlers={handlers}
                             messagesFoundIds={messagesFoundIds}
                             searchPhrase={searchPhrase}

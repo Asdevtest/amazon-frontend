@@ -40,7 +40,8 @@ export const styles = theme => ({
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
+    paddingLeft: '10px',
   },
 
   clockIcon: {
@@ -237,6 +238,11 @@ export const styles = theme => ({
     borderRadius: 4,
   },
 
+  orderImageSmall: {
+    height: 56,
+    width: 56,
+  },
+
   orderImageBig: {
     height: 100,
     width: 100,
@@ -246,7 +252,7 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 190,
+    maxWidth: 185,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -264,8 +270,11 @@ export const styles = theme => ({
   },
 
   orderTextSpan: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: 'rgb(189, 194, 209)',
   },
+
   select: {
     backgroundcolor: theme.palette.text.general,
   },
@@ -666,30 +675,38 @@ export const styles = theme => ({
     overflow: 'hidden',
     fontSize: '14px',
     lineHeight: '19px',
-    wordWrap: 'break-word',
+    wordBreak: 'break-word',
+    overflowWrap: 'anywhere',
+  },
+
+  oneMultilineText: {
+    height: 19,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  twoMultilineText: {
+    maxHeight: 38,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   threeMultilineText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 48,
+    maxHeight: 57,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-  },
-
-  oneMultilineText: {
-    justifyContent: 'center',
-    height: 16,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -800,7 +817,7 @@ export const styles = theme => ({
 
   fourLinesTextAlignLeft: {
     justifyContent: 'center',
-    height: 65,
+    height: 'auto',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -1265,8 +1282,8 @@ export const styles = theme => ({
 
   normalizeLink: {
     maxWidth: 140,
-    fontSize: 12,
-    lineHeight: '16px',
+    fontSize: 14,
+    lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -1688,22 +1705,16 @@ export const styles = theme => ({
   },
 
   tags: {
-    alignSelf: 'flex-start',
-
-    p: {
-      padding: 0,
-      margin: 0,
-    },
+    padding: '10px 0',
   },
 
   tagItem: {
-    fontSize: 14,
-    fontWeight: 400,
     maxWidth: 130,
+    fontSize: 14,
+    lineHeight: '19px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    lineHeight: '16px',
   },
 
   batchTrackingWrapper: {
@@ -1887,7 +1898,7 @@ export const styles = theme => ({
   div: {
     display: 'flex',
     width: 104,
-    marginRight: 5,
+    marginRight: 15,
   },
 
   ideaActions: {
@@ -2027,6 +2038,11 @@ export const styles = theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.primary.main,
+  },
+
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
   },
 
   multipleAsinWrapper: {

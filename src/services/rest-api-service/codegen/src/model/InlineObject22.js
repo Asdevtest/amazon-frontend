@@ -126,9 +126,6 @@ class InlineObject22 {
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
         }
         return obj;
     }
@@ -268,7 +265,7 @@ InlineObject22.prototype['images'] = undefined;
 InlineObject22.prototype['destinationId'] = undefined;
 
 /**
- * GUID тарифа доставки 
+ *  logicsTariff GUID
  * @member {String} logicsTariffId
  */
 InlineObject22.prototype['logicsTariffId'] = undefined;
@@ -284,12 +281,6 @@ InlineObject22.prototype['variationTariffId'] = undefined;
  * @member {String} prepId
  */
 InlineObject22.prototype['prepId'] = undefined;
-
-/**
- * GUID сторкипера
- * @member {String} storekeeperId
- */
-InlineObject22.prototype['storekeeperId'] = undefined;
 
 
 

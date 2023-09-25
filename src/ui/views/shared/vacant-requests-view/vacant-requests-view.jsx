@@ -15,6 +15,7 @@ import { VacantRequestListCard } from '@components/cards/vacant-request-list-car
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -22,11 +23,7 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import {
-  getDistanceBetweenDatesInSeconds,
-  sortObjectsArrayByFiledDateWithParseISO,
-  sortObjectsArrayByFiledDateWithParseISOAsc,
-} from '@utils/date-time'
+import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { styles } from './vacant-requests-view.style'
@@ -40,18 +37,6 @@ export const VacantRequestsViewRaw = props => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
-
-  const getSortedData = mode => {
-    switch (mode) {
-      case tableSortMode.DESK:
-        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-      case tableSortMode.ASC:
-        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-    }
-  }
-
-  const dataToRender = getSortedData(viewModel.sortMode)
 
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
@@ -123,13 +108,14 @@ export const VacantRequestsViewRaw = props => {
             }
             gap={'35px'}
           >
-            {dataToRender?.map((item, index) =>
+            {viewModel.currentData?.map((item, index) =>
               viewModel.viewMode === tableViewMode.LIST ? (
                 <VacantRequestListCard
                   key={item._id}
                   isFirst={index === 0}
                   item={item}
                   onClickViewMore={viewModel.onClickViewMore}
+                  onDoubleClick={viewModel.handleOpenRequestDetailModal}
                 />
               ) : (
                 <VacantRequestShortCard
@@ -137,6 +123,7 @@ export const VacantRequestsViewRaw = props => {
                   isFirst={index === 0}
                   item={item}
                   onClickViewMore={viewModel.onClickViewMore}
+                  onDoubleClick={viewModel.handleOpenRequestDetailModal}
                 />
               ),
             )}
@@ -195,7 +182,7 @@ export const VacantRequestsViewRaw = props => {
               onFilterModelChange={viewModel.onChangeFilterModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onChangePaginationModelChange}
-              onRowDoubleClick={e => viewModel.onClickViewMore(e.row._id)}
+              onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
             />
           </div>
         ) : (
@@ -210,6 +197,14 @@ export const VacantRequestsViewRaw = props => {
           )
         )}
       </div>
+
+      <FreelanceRequestDetailsModal
+        isOpenModal={viewModel.showRequestDetailModal}
+        request={viewModel.currentRequestDetails?.request}
+        details={viewModel.currentRequestDetails?.details}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+        onClickSuggest={viewModel.onClickSuggest}
+      />
     </React.Fragment>
   )
 }

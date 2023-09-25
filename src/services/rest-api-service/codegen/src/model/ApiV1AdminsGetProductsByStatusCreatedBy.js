@@ -57,6 +57,9 @@ class ApiV1AdminsGetProductsByStatusCreatedBy {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
+            if (data.hasOwnProperty('lastSeen')) {
+                obj['lastSeen'] = ApiClient.convertToType(data['lastSeen'], 'Date');
+            }
         }
         return obj;
     }
@@ -81,6 +84,12 @@ ApiV1AdminsGetProductsByStatusCreatedBy.prototype['name'] = undefined;
  * @member {Number} rating
  */
 ApiV1AdminsGetProductsByStatusCreatedBy.prototype['rating'] = undefined;
+
+/**
+ * Последний раз онлайн
+ * @member {Date} lastSeen
+ */
+ApiV1AdminsGetProductsByStatusCreatedBy.prototype['lastSeen'] = undefined;
 
 
 

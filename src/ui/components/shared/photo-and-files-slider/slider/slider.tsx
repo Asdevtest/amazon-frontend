@@ -124,7 +124,7 @@ export const Slider: FC<Props> = ({
                 }}
               >
                 {slides.map((slide, index) => {
-                  const elementExtension = typeof slide === 'string' ? slide.split('.').slice(-1)[0] : ''
+                  const elementExtension = (typeof slide === 'string' ? slide : slide.file.name).split('.').slice(-1)[0]
 
                   return (
                     <div key={index} className={classNames.slideWrapper}>
@@ -151,7 +151,7 @@ export const Slider: FC<Props> = ({
                               [classNames.bigText]: bigSlider,
                             })}
                           >
-                            {typeof slide === 'string' ? slide : '/'}
+                            {typeof slide === 'string' ? slide : slide.file.name}
                           </a>
                         </div>
                       )}

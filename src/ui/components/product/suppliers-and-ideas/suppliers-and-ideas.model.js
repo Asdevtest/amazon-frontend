@@ -234,7 +234,7 @@ export class SuppliersAndIdeasModel {
   }
 
   onCreateIdea() {
-    if (!this.currentProduct?.buyer?._id) {
+    if (!!this.currentProduct && !this.currentProduct?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
         confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),

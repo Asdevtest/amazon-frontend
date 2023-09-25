@@ -22,12 +22,11 @@ class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
      * @alias module:model/InlineObject95
-     * @param requestIds {Array.<String>} 
-     * @param uploadedToListing {Boolean} 
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor(requestIds, uploadedToListing) { 
+    constructor(totalCost) { 
         
-        InlineObject95.initialize(this, requestIds, uploadedToListing);
+        InlineObject95.initialize(this, totalCost);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject95 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, requestIds, uploadedToListing) { 
-        obj['requestIds'] = requestIds;
-        obj['uploadedToListing'] = uploadedToListing;
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject95 {
         if (data) {
             obj = obj || new InlineObject95();
 
-            if (data.hasOwnProperty('requestIds')) {
-                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
-            }
-            if (data.hasOwnProperty('uploadedToListing')) {
-                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -65,14 +60,10 @@ class InlineObject95 {
 }
 
 /**
- * @member {Array.<String>} requestIds
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject95.prototype['requestIds'] = undefined;
-
-/**
- * @member {Boolean} uploadedToListing
- */
-InlineObject95.prototype['uploadedToListing'] = undefined;
+InlineObject95.prototype['totalCost'] = undefined;
 
 
 
