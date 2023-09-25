@@ -14,7 +14,7 @@ export const LinkWithCopy = (props: LinkWithCopyProps) => {
   return (
     <div className={styles.wrapper}>
       <a target="_blank" rel="noreferrer" href={url} className={styles.normalizeLink}>
-        <span className={styles.linkSpan}>{title}</span>
+        {title}
       </a>
 
       <CopyValue text={valueToCopy} />

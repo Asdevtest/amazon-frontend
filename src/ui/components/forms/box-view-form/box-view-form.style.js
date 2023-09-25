@@ -133,6 +133,20 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  switcherWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  informationTitleMargin: {
+    marginTop: 20,
+  },
+
+  blueColor: {
+    color: theme.palette.primary.main,
+  },
+  // stopped
+
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

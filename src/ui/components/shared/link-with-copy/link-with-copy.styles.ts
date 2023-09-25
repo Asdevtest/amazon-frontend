@@ -6,7 +6,7 @@ export const useLinkWithCopyStyles = makeStyles()(theme => ({
     textDecoration: 'none',
     transition: '.3s ease',
     fontSize: '14px',
-    lineHeight: '21px',
+    lineHeight: '19px',
 
     '&:hover': {
       opacity: '.7',
@@ -16,13 +16,13 @@ export const useLinkWithCopyStyles = makeStyles()(theme => ({
   linkSpan: {
     color: theme.palette.primary.main,
     fontSize: '14px',
-    lineHeight: '21px',
+    lineHeight: '19px',
   },
 
   wrapper: {
     width: '100%',
     display: 'flex',
+    alignItems: 'flex-end',
     gap: 5,
-    alignItems: 'center',
   },
 }))

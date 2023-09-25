@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
-import { memo, useState } from 'react'
+import { useState } from 'react'
 
-import { Checkbox, Link, Tooltip } from '@mui/material'
+import { Checkbox, Link } from '@mui/material'
 
 import {
   getConversion,
@@ -11,7 +11,6 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
@@ -30,16 +29,12 @@ import { UserLink } from '@components/user/user-link'
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
-import {
-  checkAndMakeAbsoluteUrl,
-  getNewTariffTextForBoxOrOrder,
-  getShortenStringIfLongerThanCount,
-  shortAsin,
-  toFixed,
-} from '@utils/text'
+import { checkAndMakeAbsoluteUrl, getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
+
+import { OrderInfoTab } from './order-info-tab/order-info-tab'
 
 const tabNames = {
   BOX_INFO: 0,
@@ -110,8 +105,6 @@ export const BoxViewForm = observer(
 
     const [activeTab, setActiveTab] = useState(tabNames.BOX_INFO)
 
-    console.log('activeTab', activeTab)
-
     return (
       <>
         <div className={styles.wrapper}>
@@ -123,7 +116,7 @@ export const BoxViewForm = observer(
                 disabled={!(isClient || isStorekeeper)}
                 className={styles.boxAndPrepIdInput}
                 classes={{ input: styles.input }}
-                inputProps={{ maxLength: 25 }}
+                inputProps={{ maxLength: 20 }}
                 value={formFields.prepId}
                 onChange={onChangeField('prepId')}
               />
@@ -180,7 +173,7 @@ export const BoxViewForm = observer(
             </div>
           </div>
 
-          <div>
+          <div className={styles.switcherWrapper}>
             <CustomSwitcher
               switchMode="medium"
               condition={activeTab}
@@ -198,8 +191,13 @@ export const BoxViewForm = observer(
               changeConditionHandler={value => setActiveTab(value)}
             />
 
+            <p className={cx(styles.informationTitle, styles.informationTitleMargin)}>
+              {`${t(TranslationKey['Products in a box'])}: `}
+              <span className={styles.blueColor}>{formFields.items?.length}</span>
+            </p>
+
             <TabPanel value={activeTab} index={tabNames.BOX_INFO}>
-              0000000
+              <OrderInfoTab box={box} items={formFields.items} onClickHsCode={onClickHsCode} />
             </TabPanel>
             <TabPanel value={activeTab} index={tabNames.ORDER_INFO}>
               11111111
@@ -207,17 +205,6 @@ export const BoxViewForm = observer(
           </div>
 
           <div className={styles.blocksWrapper}>
-            <div className={styles.blockWrapper}>
-              <div className={styles.productsWrapper}>
-                <Content
-                  items={formFields.items}
-                  box={box}
-                  onClickHsCode={onClickHsCode}
-                  onChangeHsCode={onChangeHsCode}
-                />
-              </div>
-            </div>
-
             <div className={styles.blockWrapper}>
               <div className={styles.imgSizesWrapper}>
                 <div className={styles.imgWrapper}>
@@ -517,138 +504,5 @@ export const BoxViewForm = observer(
         />
       </>
     )
-  },
-)
-
-const Content = memo(
-  ({ items, box, onClickHsCode, onChangeHsCode }) => {
-    const { classes: styles } = useClassNames()
-
-    return (
-      <CustomSlider alignButtons="end">
-        {items.map((item, index) => (
-          <div key={index} className={styles.productWrapper}>
-            <div className={styles.leftColumn}>
-              <div className={styles.photoWrapper}>
-                <PhotoAndFilesSlider withoutFiles files={item.product.images} />
-              </div>
-              <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
-                <p className={styles.amazonTitle}>{getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}</p>
-              </Tooltip>
-
-              <div className={styles.copyAsin}>
-                <div className={styles.asinWrapper}>
-                  <p>{t(TranslationKey.ASIN)}</p>
-                  {item.product.asin ? (
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={`https://www.amazon.com/dp/${item.product.asin}`}
-                      className={styles.normalizeLink}
-                    >
-                      <span className={styles.linkSpan}>{shortAsin(item.product.asin)}</span>
-                    </a>
-                  ) : (
-                    <span className={styles.typoSpan}>{t(TranslationKey.Missing)}</span>
-                  )}
-                </div>
-                {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
-              </div>
-            </div>
-
-            <div className={styles.rightColumn}>
-              <Field
-                labelClasses={styles.label}
-                label={t(TranslationKey['HS code'])}
-                inputProps={{ maxLength: 255 }}
-                value={item.product.hsCode}
-                placeholder={t(TranslationKey['Not available'])}
-                inputComponent={
-                  <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id, true)}>
-                    {t(TranslationKey['HS code'])}
-                  </Button>
-                }
-                onChange={onChangeHsCode(index)}
-              />
-
-              <div className={styles.priorityWrapper}>
-                <p className={styles.label}>{`${t(TranslationKey.Priority)}:`}</p>
-                {item.order.priority === orderPriority.urgentPriority ? (
-                  <div className={styles.rushOrderWrapper}>
-                    <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
-                    <p className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</p>
-                  </div>
-                ) : null}
-                {item.order.priority !== orderPriority.urgentPriority && !item.order.expressChinaDelivery ? (
-                  <div className={styles.rushOrderWrapper}>
-                    <p className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</p>
-                  </div>
-                ) : null}
-              </div>
-
-              <Field
-                label={t(TranslationKey.BarCode)}
-                labelClasses={styles.label}
-                inputComponent={
-                  item.barCode ? (
-                    <div className={styles.barCode}>
-                      <p className={styles.linkWrapper}>
-                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                          {t(TranslationKey.View)}
-                        </Link>
-                      </p>
-
-                      <CopyValue text={item.barCode} />
-                    </div>
-                  ) : (
-                    <p className={styles.linkField}>{t(TranslationKey['Not available'])}</p>
-                  )
-                }
-              />
-
-              {item.isBarCodeAlreadyAttachedByTheSupplier ? (
-                <Field
-                  oneLine
-                  containerClasses={styles.checkboxContainer}
-                  labelClasses={styles.label}
-                  label={t(TranslationKey['BarCode is glued by supplier'])}
-                  inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
-                />
-              ) : (
-                <Field
-                  oneLine
-                  containerClasses={styles.checkboxContainer}
-                  labelClasses={styles.label}
-                  label={t(TranslationKey['BarCode is glued by storekeeper'])}
-                  inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
-                />
-              )}
-              <Field
-                disabled
-                containerClasses={styles.countContainer}
-                labelClasses={styles.label}
-                label={t(TranslationKey.Quantity)}
-                value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
-                placeholder={t(TranslationKey['Not available'])}
-              />
-
-              <Field
-                disabled
-                containerClasses={styles.countContainer}
-                labelClasses={styles.label}
-                label={t(TranslationKey['Order number/Item'])}
-                value={`${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`}
-              />
-            </div>
-          </div>
-        ))}
-      </CustomSlider>
-    )
-  },
-  (prevProps, nextProps) => {
-    if (prevProps.items === nextProps.items && prevProps.box === nextProps.box) {
-      return true
-    }
-    return false
   },
 )
