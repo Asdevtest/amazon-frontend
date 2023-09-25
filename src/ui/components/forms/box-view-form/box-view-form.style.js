@@ -145,17 +145,39 @@ export const useClassNames = makeStyles()(theme => ({
   blueColor: {
     color: theme.palette.primary.main,
   },
-  // stopped
+
+  commentsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 30,
+  },
+
+  commentField: {
+    height: 'auto',
+  },
+
+  label: {
+    marginBottom: 5,
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    margin: 0,
+  },
 
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: 40,
   },
 
   closeBtn: {
-    marginLeft: 40,
+    padding: '0 15px',
     color: theme.palette.text.general,
   },
+  // stopped
 
   title: {
     fontSize: '18px',
@@ -191,17 +213,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
-  },
-
-  commentsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 40,
-    marginTop: 20,
-  },
-
-  commentField: {
-    height: 'auto',
   },
 
   storekeeperField: {
@@ -490,12 +501,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     width: 240,
     marginLeft: 10,
-  },
-
-  label: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
   },
 
   normalizeLink: {

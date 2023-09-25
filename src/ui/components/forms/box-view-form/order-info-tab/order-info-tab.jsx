@@ -19,6 +19,8 @@ import { useClassNames } from './order-info-tab.style'
 export const OrderInfoTab = memo(({ box, items, onClickHsCode }) => {
   const { classes: styles, cx } = useClassNames()
 
+  console.log(items)
+
   return (
     <div className={styles.wrapper}>
       {items.map((item, index) => {

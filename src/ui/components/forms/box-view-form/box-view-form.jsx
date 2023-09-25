@@ -13,7 +13,6 @@ import {
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -34,12 +33,9 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
 
+import { BoxInfoTab } from './box-info-tab/box-info-tab'
+import { switcherSettings, tabs } from './box-view-form.constants'
 import { OrderInfoTab } from './order-info-tab/order-info-tab'
-
-const tabNames = {
-  BOX_INFO: 0,
-  ORDER_INFO: 1,
-}
 
 export const BoxViewForm = observer(
   ({
@@ -55,10 +51,7 @@ export const BoxViewForm = observer(
   }) => {
     const { classes: styles, cx } = useClassNames()
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+    const [activeTab, setActiveTab] = useState(tabs.BOX_INFO)
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
@@ -88,22 +81,12 @@ export const BoxViewForm = observer(
       onChangeField('tmpTrackNumberFile')({ target: { value } })
     }
 
-    const finalWeightForBox = calcFinalWeightForBoxFunction
-      ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
-      : calcFinalWeightForBox(box, volumeWeightCoefficient)
-
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
     const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
     const isEdit = isClient || isStorekeeper || isBuyer
-    const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-    const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
-    const weightSizesType = getWeightSizesType(sizeSetting)
 
     const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${box.humanFriendlyId}/ prep id:`
-
-    const [activeTab, setActiveTab] = useState(tabNames.BOX_INFO)
 
     return (
       <>
@@ -177,34 +160,30 @@ export const BoxViewForm = observer(
             <CustomSwitcher
               switchMode="medium"
               condition={activeTab}
-              switcherSettings={[
-                {
-                  label: () => t(TranslationKey['Box info']),
-                  value: tabNames.BOX_INFO,
-                },
-
-                {
-                  label: () => t(TranslationKey['Order info']),
-                  value: tabNames.ORDER_INFO,
-                },
-              ]}
+              switcherSettings={switcherSettings}
               changeConditionHandler={value => setActiveTab(value)}
             />
 
-            <p className={cx(styles.informationTitle, styles.informationTitleMargin)}>
-              {`${t(TranslationKey['Products in a box'])}: `}
-              <span className={styles.blueColor}>{formFields.items?.length}</span>
-            </p>
+            {activeTab === tabs.BOX_INFO ? (
+              <p className={cx(styles.informationTitle, styles.informationTitleMargin)}>
+                {`${t(TranslationKey['Products in a box'])}: `}
+                <span className={styles.blueColor}>{formFields.items?.length}</span>
+              </p>
+            ) : null}
 
-            <TabPanel value={activeTab} index={tabNames.BOX_INFO}>
+            <TabPanel value={activeTab} index={tabs.BOX_INFO}>
               <OrderInfoTab box={box} items={formFields.items} onClickHsCode={onClickHsCode} />
             </TabPanel>
-            <TabPanel value={activeTab} index={tabNames.ORDER_INFO}>
-              11111111
+            <TabPanel value={activeTab} index={tabs.ORDER_INFO}>
+              <BoxInfoTab
+                box={box}
+                volumeWeightCoefficient={volumeWeightCoefficient}
+                calcFinalWeightForBoxFunction={calcFinalWeightForBoxFunction}
+              />
             </TabPanel>
           </div>
 
-          <div className={styles.blocksWrapper}>
+          {/* <div className={styles.blocksWrapper}>
             <div className={styles.blockWrapper}>
               <div className={styles.imgSizesWrapper}>
                 <div className={styles.imgWrapper}>
@@ -305,7 +284,7 @@ export const BoxViewForm = observer(
                   labelClasses={styles.label}
                   label={t(TranslationKey.Formed)}
                   inputComponent={<Checkbox disabled checked={box.isFormed} />}
-                /> */}
+                /> 
                 </div>
 
                 <div className={styles.labelsInfoWrapper}>
@@ -439,7 +418,7 @@ export const BoxViewForm = observer(
                 ) : null}
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className={styles.commentsWrapper}>
             <Field
@@ -451,6 +430,7 @@ export const BoxViewForm = observer(
               placeholder={isClient && onSubmitChangeFields && t(TranslationKey['Add comment'])}
               className={styles.commentField}
               labelClasses={styles.label}
+              containerClasses={styles.fieldContainer}
               value={formFields.clientComment}
               onChange={onChangeField('clientComment')}
             />
@@ -465,6 +445,7 @@ export const BoxViewForm = observer(
               className={styles.commentField}
               labelClasses={styles.label}
               value={formFields.storekeeperComment}
+              containerClasses={styles.fieldContainer}
               onChange={onChangeField('storekeeperComment')}
             />
           </div>
@@ -495,13 +476,6 @@ export const BoxViewForm = observer(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          imageList={bigImagesOptions.images}
-          handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
-        />
       </>
     )
   },

@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     maxHeight: 261,
     overflowY: 'auto',
+    borderTop: `1px solid #E0E0E0`,
     borderBottom: `1px solid #E0E0E0`,
   },
 
@@ -18,6 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-start',
     gap: 30,
     borderTop: `1px solid #E0E0E0`,
+
+    '&:first-child': {
+      borderTop: 'none',
+    },
   },
 
   descriptionWrapper: {
