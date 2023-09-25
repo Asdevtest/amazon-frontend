@@ -357,7 +357,7 @@ export const Chat: FC<Props> = observer(
           <div className={classNames.inputWrapper}>
             <TextField
               multiline
-              autoFocus
+              autoFocus={!isTabletResolution}
               inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
