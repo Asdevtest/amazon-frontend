@@ -27,11 +27,9 @@ export const getCategoryBadge = (category: CurNavbarType, userInfo: IUser) => {
   } else if (category.route?.includes('/client/ideas')) {
     return (
       userInfo.ideas.addingAsin +
-      userInfo.ideas.finished +
       userInfo.ideas.new +
       userInfo.ideas.onCheck +
       userInfo.ideas.productCreating +
-      userInfo.ideas.rejectedOrClosed +
       userInfo.ideas.supplierSearch
     )
   }
