@@ -140,6 +140,7 @@ export const ProductWrapper = observer(
 
             <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
+                languageTag={SettingsModel.languageTag}
                 modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}

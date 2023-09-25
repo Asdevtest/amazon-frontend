@@ -1047,6 +1047,12 @@ export const notificationDataConverter = data =>
             humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
             title: item?.data?.[0]?.request?.title,
           }
+        : item.type === NotificationType.Request
+        ? {
+            ...item?.data?.[0]?.product,
+            humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
+            title: item?.data?.[0]?.title,
+          }
         : {
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,
