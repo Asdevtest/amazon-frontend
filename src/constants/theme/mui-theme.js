@@ -70,7 +70,7 @@ export const lightTheme = createTheme({
 
           '& .MuiDataGrid-virtualScroller': {
             '&::-webkit-scrollbar': {
-              // width: '8px',
+              width: '8px',
             },
 
             '&::-webkit-scrollbar-thumb': {
@@ -413,7 +413,7 @@ export const darkTheme = createTheme({
 
           '& .MuiDataGrid-virtualScroller': {
             '&::-webkit-scrollbar': {
-              // width: '8px',
+              width: '8px',
             },
 
             '&::-webkit-scrollbar-thumb': {

@@ -89,9 +89,9 @@ export class MyProposalsViewModel {
     )
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
   }
 

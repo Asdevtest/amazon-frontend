@@ -102,8 +102,6 @@ export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldN
         return 1
       }
       return 0
-
-      // compareDesc(first, second)
     })
     .reverse()
 
