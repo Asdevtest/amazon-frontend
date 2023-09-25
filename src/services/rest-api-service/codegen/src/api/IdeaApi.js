@@ -14,10 +14,10 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject64 from '../model/InlineObject64';
 import InlineObject65 from '../model/InlineObject65';
 import InlineObject66 from '../model/InlineObject66';
 import InlineObject67 from '../model/InlineObject67';
+import InlineObject68 from '../model/InlineObject68';
 import InlineResponse20045 from '../model/InlineResponse20045';
 import InlineResponse20046 from '../model/InlineResponse20046';
 import InlineResponse20046Rows from '../model/InlineResponse20046Rows';
@@ -51,7 +51,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject66} opts.body 
+     * @param {module:model/InlineObject67} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IdeasAddSuppliersGuidPostWithHttpInfo(guid, opts) {
@@ -90,7 +90,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject66} opts.body 
+     * @param {module:model/InlineObject67} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IdeasAddSuppliersGuidPost(guid, opts) {
@@ -437,7 +437,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject64} opts.body 
+     * @param {module:model/InlineObject65} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IdeasGuidPatchWithHttpInfo(guid, opts) {
@@ -476,7 +476,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject64} opts.body 
+     * @param {module:model/InlineObject65} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IdeasGuidPatch(guid, opts) {
@@ -664,7 +664,7 @@ export default class IdeaApi {
      * ## Добавление новой идеи   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject65} opts.body 
+     * @param {module:model/InlineObject66} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1IdeasPostWithHttpInfo(opts) {
@@ -697,7 +697,7 @@ export default class IdeaApi {
      * ## Добавление новой идеи   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject65} opts.body 
+     * @param {module:model/InlineObject66} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1IdeasPost(opts) {
@@ -822,7 +822,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
+     * @param {module:model/InlineObject68} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IdeasRemoveSupplierGuidPostWithHttpInfo(guid, opts) {
@@ -861,7 +861,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject67} opts.body 
+     * @param {module:model/InlineObject68} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IdeasRemoveSupplierGuidPost(guid, opts) {

@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**onCheckedIdeaId** | **String** | Гуид идеи в статусе onChecked(10) | [optional] [default to &#39;null&#39;]
-**onFinishedIdeaId** | **String** | Гуид идеи в статусе finished(20) | [optional] [default to &#39;null&#39;]
+**requestId** | **String** | Guid заявки | [optional] 
+**proposalId** | **String** | Guid предложения | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | 
 
 

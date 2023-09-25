@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject104 from '../model/InlineObject104';
 import InlineObject105 from '../model/InlineObject105';
+import InlineObject106 from '../model/InlineObject106';
 import InlineResponse20066 from '../model/InlineResponse20066';
 import InlineResponse20067 from '../model/InlineResponse20067';
 import InlineResponse2017 from '../model/InlineResponse2017';
@@ -148,7 +148,7 @@ export default class ShopSellApi {
      * @param {String} guid GUID магазина на продажу в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject105} opts.body 
+     * @param {module:model/InlineObject106} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ShopSellGuidPatchWithHttpInfo(guid, opts) {
@@ -186,7 +186,7 @@ export default class ShopSellApi {
      * @param {String} guid GUID магазина на продажу в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject105} opts.body 
+     * @param {module:model/InlineObject106} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ShopSellGuidPatch(guid, opts) {
@@ -201,7 +201,7 @@ export default class ShopSellApi {
      * # Добавить на продажу новый магазин.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject104} opts.body 
+     * @param {module:model/InlineObject105} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1ShopSellPostWithHttpInfo(opts) {
@@ -233,7 +233,7 @@ export default class ShopSellApi {
      * # Добавить на продажу новый магазин.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject104} opts.body 
+     * @param {module:model/InlineObject105} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1ShopSellPost(opts) {

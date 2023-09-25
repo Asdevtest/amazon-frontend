@@ -156,6 +156,7 @@ import InlineObject130 from './model/InlineObject130';
 import InlineObject131 from './model/InlineObject131';
 import InlineObject132 from './model/InlineObject132';
 import InlineObject133 from './model/InlineObject133';
+import InlineObject134 from './model/InlineObject134';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -1358,6 +1359,12 @@ export {
      * @property {module:model/InlineObject133}
      */
     InlineObject133,
+
+    /**
+     * The InlineObject134 model constructor.
+     * @property {module:model/InlineObject134}
+     */
+    InlineObject134,
 
     /**
      * The InlineObject14 model constructor.

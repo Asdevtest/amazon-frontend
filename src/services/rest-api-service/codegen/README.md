@@ -160,6 +160,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGuidGet**](docs/AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGuidPatch**](docs/AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
+*TestSwagger.AnnouncementsApi* | [**apiV1AnnouncementsGuidArchivePatch**](docs/AnnouncementsApi.md#apiV1AnnouncementsGuidArchivePatch) | **PATCH** /api/v1/announcements/{guid}/archive | # Изменить статус архива в анонс
 *TestSwagger.AnnouncementsApi* | [**apiV1AnnouncementsGuidDelete**](docs/AnnouncementsApi.md#apiV1AnnouncementsGuidDelete) | **DELETE** /api/v1/announcements/{guid} | # Удалить анонс по гуиду
 *TestSwagger.AnnouncementsApi* | [**apiV1AnnouncementsGuidGet**](docs/AnnouncementsApi.md#apiV1AnnouncementsGuidGet) | **GET** /api/v1/announcements/{guid} | # Получить анонс по гуиду
 *TestSwagger.AnnouncementsApi* | [**apiV1AnnouncementsGuidPatch**](docs/AnnouncementsApi.md#apiV1AnnouncementsGuidPatch) | **PATCH** /api/v1/announcements/{guid} | # Изменить анонс
@@ -637,6 +638,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject131](docs/InlineObject131.md)
  - [TestSwagger.InlineObject132](docs/InlineObject132.md)
  - [TestSwagger.InlineObject133](docs/InlineObject133.md)
+ - [TestSwagger.InlineObject134](docs/InlineObject134.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
  - [TestSwagger.InlineObject16](docs/InlineObject16.md)

@@ -14,10 +14,11 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject11 from '../model/InlineObject11';
-import InlineObject12 from '../model/InlineObject12';
-import InlineResponse2009 from '../model/InlineResponse2009';
-import InlineResponse201 from '../model/InlineResponse201';
+import InlineObject19 from '../model/InlineObject19';
+import InlineObject20 from '../model/InlineObject20';
+import InlineObject21 from '../model/InlineObject21';
+import InlineResponse20013 from '../model/InlineResponse20013';
+import InlineResponse2011 from '../model/InlineResponse2011';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -39,6 +40,62 @@ export default class AnnouncementsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * # Изменить статус архива в анонс
+     * ## Изменить статус архива в анонс
+     * @param {String} guid Гуид анонса
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject21} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AnnouncementsGuidArchivePatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1AnnouncementsGuidArchivePatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/announcements/{guid}/archive', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить статус архива в анонс
+     * ## Изменить статус архива в анонс
+     * @param {String} guid Гуид анонса
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject21} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AnnouncementsGuidArchivePatch(guid, opts) {
+      return this.apiV1AnnouncementsGuidArchivePatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**
@@ -155,7 +212,7 @@ export default class AnnouncementsApi {
      * @param {String} guid Гуид анонса
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject12} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AnnouncementsGuidPatchWithHttpInfo(guid, opts) {
@@ -194,7 +251,7 @@ export default class AnnouncementsApi {
      * @param {String} guid Гуид анонса
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject12} opts.body 
+     * @param {module:model/InlineObject20} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AnnouncementsGuidPatch(guid, opts) {
@@ -210,8 +267,9 @@ export default class AnnouncementsApi {
      * ## Получить свои анонсы
      * @param {Object} opts Optional parameters
      * @param {String} opts.type 
+     * @param {Boolean} opts.archive 
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20013>} and HTTP response
      */
     apiV1AnnouncementsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -220,7 +278,8 @@ export default class AnnouncementsApi {
       let pathParams = {
       };
       let queryParams = {
-        'type': opts['type']
+        'type': opts['type'],
+        'archive': opts['archive']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -231,7 +290,7 @@ export default class AnnouncementsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2009];
+      let returnType = [InlineResponse20013];
       return this.apiClient.callApi(
         '/api/v1/announcements/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -244,8 +303,9 @@ export default class AnnouncementsApi {
      * ## Получить свои анонсы
      * @param {Object} opts Optional parameters
      * @param {String} opts.type 
+     * @param {Boolean} opts.archive 
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20013>}
      */
     apiV1AnnouncementsMyGet(opts) {
       return this.apiV1AnnouncementsMyGetWithHttpInfo(opts)
@@ -260,8 +320,8 @@ export default class AnnouncementsApi {
      * ## Создать анонс
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject11} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
+     * @param {module:model/InlineObject19} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1AnnouncementsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -280,7 +340,7 @@ export default class AnnouncementsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse201;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/announcements/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -293,8 +353,8 @@ export default class AnnouncementsApi {
      * ## Создать анонс
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject11} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     * @param {module:model/InlineObject19} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1AnnouncementsPost(opts) {
       return this.apiV1AnnouncementsPostWithHttpInfo(opts)
@@ -310,7 +370,7 @@ export default class AnnouncementsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.type 
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20013>} and HTTP response
      */
     apiV1AnnouncementsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -330,7 +390,7 @@ export default class AnnouncementsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2009];
+      let returnType = [InlineResponse20013];
       return this.apiClient.callApi(
         '/api/v1/announcements/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -344,7 +404,7 @@ export default class AnnouncementsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.type 
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20013>}
      */
     apiV1AnnouncementsVacGet(opts) {
       return this.apiV1AnnouncementsVacGetWithHttpInfo(opts)

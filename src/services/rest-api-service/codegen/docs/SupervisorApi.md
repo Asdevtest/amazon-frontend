@@ -35,7 +35,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject119() // InlineObject119 | 
+  'body': new TestSwagger.InlineObject120() // InlineObject120 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject119**](InlineObject119.md)|  | [optional] 
+ **body** | [**InlineObject120**](InlineObject120.md)|  | [optional] 
 
 ### Return type
 

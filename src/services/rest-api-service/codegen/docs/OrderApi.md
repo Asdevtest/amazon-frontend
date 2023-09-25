@@ -88,7 +88,7 @@ let apiInstance = new TestSwagger.OrderApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
+  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
 };
 apiInstance.apiV1OrdersCommentGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
+ **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
 
 ### Return type
 
@@ -144,7 +144,7 @@ let apiInstance = new TestSwagger.OrderApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
+  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
 };
 apiInstance.apiV1OrdersPendingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
+ **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
 
 ### Return type
 

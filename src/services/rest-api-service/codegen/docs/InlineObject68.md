@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | 
-**warehouseStocks** | [**[ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]**](ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md) |  | 
+**suppliersId** | **String** | GUID поставщика, который нужно удалить в БД. | [optional] 
 
 
