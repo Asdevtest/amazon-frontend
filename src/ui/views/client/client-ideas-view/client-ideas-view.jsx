@@ -59,6 +59,7 @@ export const ClientIdeasView = observer(props => {
     <div>
       <div className={styles.controls}>
         <div />
+
         <SearchInput
           inputClasses={styles.searchInput}
           value={viewModel.currentSearchValue}
