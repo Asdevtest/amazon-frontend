@@ -27,6 +27,8 @@ import { CustomSlider } from '../custom-slider'
 
 export const PhotoAndFilesCarousel = props => {
   const { classes: classNames } = useClassNames()
+  const [imageEditOpen, setImageEditOpen] = useState(false)
+
   const {
     files,
     width,
@@ -36,14 +38,13 @@ export const PhotoAndFilesCarousel = props => {
     withoutPhotos,
     withoutFiles,
     imagesTitles = [],
+    isImagesFullWidth = false,
     isHideCounter = false,
     imagesForLoad,
     onChangeImagesForLoad,
     isEditable,
     withoutMakeMainImage,
   } = props
-
-  const [imageEditOpen, setImageEditOpen] = useState(false)
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -170,7 +171,7 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={classNames.imagesWrapper}>
+            <div className={classNames.imagesWrapper} style={{ width: isImagesFullWidth && '100%' }}>
               {notEmptyPhotos?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable

@@ -904,14 +904,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1AdminsOrdersVariationTariff.spec.js
-test/model/InlineObject133.spec.js
 test/model/InlineObject134.spec.js
-test/model/InlineResponse20059Request.spec.js
-test/model/InlineResponse20059RequestProduct.spec.js
-test/model/InlineResponse20062Announcement.spec.js
-test/model/InlineResponse20062CountProposalsByStatuses.spec.js
-test/model/InlineResponse20062Media.spec.js
-test/model/InlineResponse20062Product.spec.js
-test/model/InlineResponse20062Rows.spec.js
-test/model/UserInfoSchemaMyProposals.spec.js
