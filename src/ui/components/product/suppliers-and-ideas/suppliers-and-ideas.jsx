@@ -10,8 +10,6 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
@@ -100,6 +98,8 @@ export const SuppliersAndIdeas = observer(
       supplierData,
       currentRequest,
       showSelectionSupplierModal,
+      currentData,
+      languageTag,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
@@ -162,6 +162,7 @@ export const SuppliersAndIdeas = observer(
         {inCreate && (
           <IdeaViewAndEditCard
             inCreate
+            languageTag={languageTag}
             isModalView={isModalView}
             curUser={curUser}
             curIdea={curIdea}
@@ -182,6 +183,7 @@ export const SuppliersAndIdeas = observer(
             ) : (
               <IdeaViewAndEditCard
                 isModalView
+                languageTag={languageTag}
                 curUser={curUser}
                 curIdea={curIdea}
                 inEdit={inEdit}
@@ -216,14 +218,15 @@ export const SuppliersAndIdeas = observer(
         {!isModalView &&
           (requestStatus === loadingStatuses.isLoading ? (
             <CircularProgressWithLabel />
-          ) : SettingsModel.languageTag && ideasData.length ? (
-            ideasData.map(idea => (
+          ) : currentData?.length ? (
+            currentData.map(idea => (
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
                   curUser={curUser}
                   curIdea={curIdea}
                   inEdit={inEdit}
                   idea={idea}
+                  languageTag={languageTag}
                   currentProduct={currentProduct}
                   selectedSupplier={selectedSupplier}
                   selectedIdea={selectedIdeaId}

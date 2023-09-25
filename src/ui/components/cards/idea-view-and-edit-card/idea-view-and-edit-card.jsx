@@ -50,6 +50,7 @@ import { SourceProduct } from './source-product'
 export const IdeaViewAndEditCard = observer(
   ({
     isModalView,
+    languageTag,
     curUser,
     inEdit,
     inCreate,
@@ -210,7 +211,7 @@ export const IdeaViewAndEditCard = observer(
       } else {
         setFormFields(getFullIdea())
       }
-    }, [curIdea, idea])
+    }, [curIdea, idea, languageTag])
 
     useEffect(() => {
       if (selectedIdea === idea?._id) {
