@@ -1,10 +1,10 @@
-import { cx } from '@emotion/css'
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,9 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
+import { checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
@@ -24,7 +26,7 @@ import { useClassNames } from './general-notifications-view.styles'
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 
 export const GeneralNotificationsView = observer(({ history }: { history: History }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
   const [viewModel] = useState(
     () =>
       new GeneralNotificationsViewModel({
@@ -36,28 +38,52 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
     viewModel.loadData()
   }, [])
 
+  const currentUserRole = viewModel?.currentUser?.role || -1
+  const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])
+  const isCurrentUserFreelancer = checkIsFreelancer(UserRoleCodeMap[currentUserRole])
+
+  const searchPlaceholderText = isCurrentUserClient
+    ? `, ${t(TranslationKey['Box ID'])}, ${t(TranslationKey['Request ID'])}`
+    : isCurrentUserFreelancer
+    ? `, ${t(TranslationKey['Request ID'])}`
+    : ''
+
   return (
     viewModel.languageTag && (
       <div className={classNames.root}>
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            className={cx(classNames.button, classNames.archiveButton)}
-            variant="outlined"
-            onClick={() => viewModel.toggleVariationHandler('isArchive')}
-          >
-            {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
-          </Button>
+        <div className={classNames.actionPanelWrapper}>
+          <div />
 
-          {!viewModel.isArchive && (
+          <SearchInput
+            inputClasses={cx(classNames.searchInput, {
+              [classNames.searchInputClient]: isCurrentUserClient,
+              [classNames.searchInputFreelancer]: isCurrentUserFreelancer,
+            })}
+            value={viewModel.searchValue}
+            placeholder={`${t(TranslationKey['Search by SKU, ASIN, Title']) + searchPlaceholderText}`}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => viewModel.onChangeSearchValue(e.target.value)}
+          />
+
+          <div className={classNames.buttonsWrapper}>
             <Button
-              disabled={!viewModel.selectedRowIds.length}
-              className={classNames.button}
-              color="primary"
-              onClick={() => viewModel.onClickReadButton()}
+              className={cx(classNames.button, classNames.archiveButton)}
+              variant="outlined"
+              onClick={() => viewModel.toggleVariationHandler('isArchive')}
             >
-              {t(TranslationKey.Read)}
+              {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
             </Button>
-          )}
+
+            {!viewModel.isArchive && (
+              <Button
+                disabled={!viewModel.selectedRowIds.length}
+                className={classNames.button}
+                color="primary"
+                onClick={() => viewModel.onClickReadButton()}
+              >
+                {t(TranslationKey.Read)}
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className={classNames.datagridWrapper}>
