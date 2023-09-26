@@ -1523,6 +1523,7 @@ export const styles = theme => ({
   },
   asinAndSkuTitle: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-start',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
