@@ -229,7 +229,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-      if (!disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
+      if (!isTabletResolution && !disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
         onSubmitMessageInternal()
         event.preventDefault()
       }
@@ -357,7 +357,7 @@ export const Chat: FC<Props> = observer(
           <div className={classNames.inputWrapper}>
             <TextField
               multiline
-              autoFocus
+              autoFocus={!isTabletResolution}
               inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
