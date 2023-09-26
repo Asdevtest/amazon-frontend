@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20081] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20080] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20081]**](InlineResponse20081.md)
+[**[InlineResponse20080]**](InlineResponse20080.md)
 
 ### Authorization
 

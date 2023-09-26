@@ -37,6 +37,8 @@ export const UserProfile = observer(
     setTabHistory,
     setTabReview,
     onClickWriteBtn,
+    reviews,
+    onClickReview,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -164,13 +166,14 @@ export const UserProfile = observer(
             </div>
 
             <div className={classNames.rightSideWrapper}>
-              <Reviews tabReview={tabReview} setTabReview={setTabReview} />
-
-              <Box className={classNames.normalBox}>
-                <FeedbackCard isPositive counter={265} />
-
-                <FeedbackCard isPositive={false} counter={1} />
-              </Box>
+              <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
+              {isAnotherUser && (
+                <div className={classNames.leaveReviewBtnWrapper}>
+                  <Button variant="contained" className={classNames.leaveReviewBtn} onClick={onClickReview}>
+                    {t(TranslationKey['Leave a review'])}
+                  </Button>
+                </div>
+              )}
 
               {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
             </div>
