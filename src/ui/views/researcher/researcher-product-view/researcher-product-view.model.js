@@ -160,6 +160,7 @@ export class ResearcherProductViewModel {
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   supplierModalReadOnly = false
 
@@ -221,6 +222,12 @@ export class ResearcherProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
 
       if (this.startParse) {
         // this.onClickParseProductData(ProductDataParser.AMAZON, this.product)

@@ -34,6 +34,7 @@ export const BuyerProductView = observer(props => {
       <div>
         {viewModel.product ? (
           <ProductWrapper
+            platformSettings={viewModel.platformSettings}
             showTab={viewModel.showTab}
             user={viewModel.userInfo}
             userRole={viewModel.userInfo.role}
