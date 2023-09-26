@@ -13,7 +13,7 @@ import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IMasterUser, IService, linksToMediaFilesInterface } from '@typings/master-user'
+import { IService, ShortUserType, linksToMediaFilesInterface } from '@typings/master-user'
 
 import { useClassNames } from './announcement-card.styles'
 
@@ -27,7 +27,7 @@ interface AnnouncementCardProps {
   selectedCard?: IService
   onClickThumbnail: (images: onClickThumbnailArguments) => void
   onClickSelectCard: (value: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IMasterUser) => void
+  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: ShortUserType) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
