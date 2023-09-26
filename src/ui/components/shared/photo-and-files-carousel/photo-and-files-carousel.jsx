@@ -90,7 +90,7 @@ export const PhotoAndFilesCarousel = props => {
       onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
       setBigImagesOptions(() => ({
         ...bigImagesOptions,
-        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
+        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0].data_url : el)),
       }))
     }
   }
@@ -109,10 +109,12 @@ export const PhotoAndFilesCarousel = props => {
   }
 
   const onClickEditImageSubmit = image => {
+    console.log(image)
+    console.log(bigImagesOptions)
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
-      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
+      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image.data_url : el)),
     }))
   }
 
