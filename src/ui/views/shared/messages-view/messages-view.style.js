@@ -13,6 +13,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  safari: {
+    [theme.breakpoints.down(768)]: {
+      height: 'calc(100vh - 152px)',
+    },
+  },
+
   leftSide: {
     display: 'flex',
     flexDirection: 'column',

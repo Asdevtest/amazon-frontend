@@ -37,6 +37,7 @@ export const ResearcherProductView = observer(props => {
             showProgress={viewModel.showProgress}
             progressValue={viewModel.progressValue}
             alertFailedText={viewModel.alertFailedText}
+            platformSettings={viewModel.platformSettings}
             product={viewModel.product}
             productBase={viewModel.productBase}
             actionStatus={viewModel.actionStatus}

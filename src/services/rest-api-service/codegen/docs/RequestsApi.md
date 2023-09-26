@@ -31,7 +31,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestsByProductLightGuidGet
 
-> [InlineResponse20063] apiV1RequestsByProductLightGuidGet(guid, opts)
+> [InlineResponse20064] apiV1RequestsByProductLightGuidGet(guid, opts)
 
 Получить облегченный список заявок по продукту
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20063]**](InlineResponse20063.md)
+[**[InlineResponse20064]**](InlineResponse20064.md)
 
 ### Authorization
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCalculateRequestCostGuidGet
 
-> InlineResponse20060 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
+> InlineResponse20061 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
 
 Получить детализацию стоимости заявки
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20060**](InlineResponse20060.md)
+[**InlineResponse20061**](InlineResponse20061.md)
 
 ### Authorization
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
-> InlineResponse20062 apiV1RequestsGet(kind, opts)
+> InlineResponse20063 apiV1RequestsGet(kind, opts)
 
 Получить список заявок
 
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20062**](InlineResponse20062.md)
+[**InlineResponse20063**](InlineResponse20063.md)
 
 ### Authorization
 
@@ -481,7 +481,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGetExistingRequestsTypeTaskGuidGet
 
-> [InlineResponse20061] apiV1RequestsGetExistingRequestsTypeTaskGuidGet(guid, typeTask, opts)
+> [InlineResponse20062] apiV1RequestsGetExistingRequestsTypeTaskGuidGet(guid, typeTask, opts)
 
 Получить заявки с определенным продуктом и типом задания
 
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20061]**](InlineResponse20061.md)
+[**[InlineResponse20062]**](InlineResponse20062.md)
 
 ### Authorization
 
@@ -979,7 +979,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsMediaGuidGet
 
-> [InlineResponse20064] apiV1RequestsMediaGuidGet(guid, opts)
+> [InlineResponse20065] apiV1RequestsMediaGuidGet(guid, opts)
 
 #  Получить медиа.
 
@@ -1019,7 +1019,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20064]**](InlineResponse20064.md)
+[**[InlineResponse20065]**](InlineResponse20065.md)
 
 ### Authorization
 

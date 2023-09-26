@@ -22,11 +22,12 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
-     * @param archive {Boolean} 
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor(archive) { 
+    constructor(batchIds, archive) { 
         
-        InlineObject21.initialize(this, archive);
+        InlineObject21.initialize(this, batchIds, archive);
     }
 
     /**
@@ -34,7 +35,8 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, archive) { 
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
         obj['archive'] = archive;
     }
 
@@ -49,6 +51,9 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
+            }
             if (data.hasOwnProperty('archive')) {
                 obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
@@ -60,6 +65,12 @@ class InlineObject21 {
 }
 
 /**
+ * @member {Array.<String>} batchIds
+ */
+InlineObject21.prototype['batchIds'] = undefined;
+
+/**
+ * Заархивирована ли партия
  * @member {Boolean} archive
  */
 InlineObject21.prototype['archive'] = undefined;

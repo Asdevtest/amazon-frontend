@@ -330,9 +330,14 @@ export const BatchInfoModal = observer(
               inputComponent={
                 <ChangeInputCell
                   // disabled={!patchActualShippingCostBatch}
+                  isInts
                   rowId={currentBatch._id}
                   text={currentBatch.actualShippingCost}
                   onClickSubmit={(id, cost) => {
+                    if (Number.isNaN(cost)) {
+                      return
+                    }
+
                     !!patchActualShippingCostBatch &&
                       patchActualShippingCostBatch(id, cost).then(() => {
                         setCurrentBatch(prevState => ({ ...prevState, actualShippingCost: cost || '0' }))

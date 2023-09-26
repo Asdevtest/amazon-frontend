@@ -22,10 +22,11 @@ class InlineObject73 {
     /**
      * Constructs a new <code>InlineObject73</code>.
      * @alias module:model/InlineObject73
+     * @param text {String} текст отзыва/репорта
      */
-    constructor() { 
+    constructor(text) { 
         
-        InlineObject73.initialize(this);
+        InlineObject73.initialize(this, text);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject73 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -47,11 +49,11 @@ class InlineObject73 {
         if (data) {
             obj = obj || new InlineObject73();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -61,16 +63,16 @@ class InlineObject73 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject73.prototype['clientComment'] = undefined;
+InlineObject73.prototype['text'] = undefined;
 
 /**
- * Комментарий баера
- * @member {String} buyerComment
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
  */
-InlineObject73.prototype['buyerComment'] = undefined;
+InlineObject73.prototype['media'] = undefined;
 
 
 

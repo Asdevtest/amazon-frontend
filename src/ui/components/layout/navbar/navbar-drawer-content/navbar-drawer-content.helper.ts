@@ -24,6 +24,14 @@ export const getCategoryBadge = (category: CurNavbarType, userInfo: IUser) => {
     return userInfo.freeOrders
   } else if (category.route?.includes('/buyer/pending-orders')) {
     return userInfo.pendingOrders
+  } else if (category.route?.includes('/client/ideas')) {
+    return (
+      userInfo.ideas.addingAsin +
+      userInfo.ideas.new +
+      userInfo.ideas.onCheck +
+      userInfo.ideas.productCreating +
+      userInfo.ideas.supplierSearch
+    )
   }
   return 0
 }
