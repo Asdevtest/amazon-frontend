@@ -164,6 +164,7 @@ export const SuppliersAndIdeas = observer(
             inCreate
             languageTag={languageTag}
             isModalView={isModalView}
+            platformSettings={platformSettings}
             curUser={curUser}
             curIdea={curIdea}
             currentProduct={currentProduct}
@@ -184,6 +185,7 @@ export const SuppliersAndIdeas = observer(
               <IdeaViewAndEditCard
                 isModalView
                 languageTag={languageTag}
+                platformSettings={platformSettings}
                 curUser={curUser}
                 curIdea={curIdea}
                 inEdit={inEdit}
@@ -225,6 +227,7 @@ export const SuppliersAndIdeas = observer(
                   curUser={curUser}
                   curIdea={curIdea}
                   inEdit={inEdit}
+                  platformSettings={platformSettings}
                   idea={idea}
                   languageTag={languageTag}
                   currentProduct={currentProduct}

@@ -17,6 +17,8 @@ export class AdminOrderViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  platformSettings = undefined
+
   showAddOrEditSupplierModal = false
 
   orderBoxes = []
@@ -39,16 +41,18 @@ export class AdminOrderViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const [order, boxes, storekeepers, destinations] = await Promise.all([
+      const [order, boxes, storekeepers, destinations, platformSettings] = await Promise.all([
         this.getOrderById(),
         this.getBoxesOfOrder(this.orderId),
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
         this.destinations = destinations
         this.storekeepers = storekeepers
+        this.platformSettings = platformSettings
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

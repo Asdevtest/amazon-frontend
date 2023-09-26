@@ -154,6 +154,12 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       if (!this.isCreateModal) {
+        await UserModel.getPlatformSettings().then(platformSettings =>
+          runInAction(() => {
+            this.platformSettings = platformSettings
+          }),
+        )
+
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
           if (this.updateData) {
