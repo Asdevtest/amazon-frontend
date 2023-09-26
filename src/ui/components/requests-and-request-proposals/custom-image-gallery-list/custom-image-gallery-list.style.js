@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexWrap: 'wrap',
     width: 379,
     height: 390,
+    gap: '20px 0',
     padding: '10px 5px',
     boxShadow: theme.palette.boxShadow.imageList,
     overflowY: 'auto',
@@ -17,7 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'calc(100% / 4)',
     maxHeight: 122,
     padding: '0 6px',
-    marginBottom: 20,
   },
   emptyIconWrapper: {
     width: '100%',
