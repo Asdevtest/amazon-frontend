@@ -69,6 +69,7 @@ export const ClientOrderViewRaw = props => {
             destinations={viewModel.destinations}
             userInfo={viewModel.userInfo}
             volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+            platformSettings={viewModel.platformSettings}
             order={viewModel.order}
             boxes={viewModel.orderBoxes}
             selectedSupplier={viewModel.selectedSupplier}

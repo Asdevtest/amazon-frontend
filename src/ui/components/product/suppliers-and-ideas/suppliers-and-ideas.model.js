@@ -52,6 +52,8 @@ export class SuppliersAndIdeasModel {
   ideasData = []
   ideaIdToRemove = undefined
 
+  currentData = undefined
+
   selectedSupplier = undefined
   supplierData = undefined
 
@@ -110,6 +112,10 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.history = history
     this.productId = productId
@@ -127,8 +133,19 @@ export class SuppliersAndIdeasModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.getIdeas(),
+      () => this.ideasData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
     )
   }
 
@@ -137,9 +154,14 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       if (!this.isCreateModal) {
+        await UserModel.getPlatformSettings().then(platformSettings =>
+          runInAction(() => {
+            this.platformSettings = platformSettings
+          }),
+        )
+
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
-
           if (this.updateData) {
             this.updateData()
           }
@@ -152,6 +174,10 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  getCurrentData() {
+    return this.ideasData?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
   }
 
   async onClickOpenNewTab(productId, ideaId) {
@@ -170,7 +196,7 @@ export class SuppliersAndIdeasModel {
       const result = await IdeaModel.getIdeas(this.productId)
 
       runInAction(() => {
-        this.ideasData = result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+        this.ideasData = result
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -234,7 +260,7 @@ export class SuppliersAndIdeasModel {
   }
 
   onCreateIdea() {
-    if (!!this.currentProduct && !this.currentProduct?.buyer?._id) {
+    if (!!this.currentProduct && !this.currentProduct?.buyer?._id && !this.currentProduct?.buyerId) {
       this.confirmModalSettings = {
         isWarning: true,
         confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),

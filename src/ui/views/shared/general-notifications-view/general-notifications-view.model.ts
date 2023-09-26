@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { History } from 'history'
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { GridFilterModel } from '@mui/x-data-grid'
 
@@ -42,6 +44,10 @@ export class GeneralNotificationsViewModel {
     navigateToHandler: (notification: any, type: string) => this.navigateToHandler(notification, type),
   }
 
+  // * Search
+
+  searchValue = ''
+
   // * dataGrid data
 
   currentData = []
@@ -76,14 +82,17 @@ export class GeneralNotificationsViewModel {
 
     reaction(
       () => this.notificationsData,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.isArchive,
       () => this.getUserNotifications(),
+    )
+
+    reaction(
+      () => this.searchValue,
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -134,7 +143,25 @@ export class GeneralNotificationsViewModel {
   }
 
   getCurrentData() {
-    return this.notificationsData
+    console.log(this.notificationsData)
+
+    if (this.searchValue) {
+      const searchValue = String(this.searchValue).toLowerCase()
+
+      return this.notificationsData.filter((notification: any) => {
+        const product = notification?.product
+
+        return (
+          String(product?.asin)?.toLowerCase()?.includes(searchValue) ||
+          String(product?.skusByClient?.[0])?.toLowerCase()?.includes(searchValue) ||
+          String(product?.humanFriendlyId)?.toLowerCase()?.includes(searchValue) ||
+          String(product?.title)?.toLowerCase()?.includes(searchValue) ||
+          String(product?.amazonTitle)?.toLowerCase()?.includes(searchValue)
+        )
+      })
+    } else {
+      return this.notificationsData
+    }
   }
 
   setDataGridState() {
@@ -202,8 +229,6 @@ export class GeneralNotificationsViewModel {
   navigateToHandler(notification: any, type: string) {
     if (!this.currentUser) return
 
-    console.log('notification', notification)
-
     if (type === NotificationType.Order) {
       if (checkIsClient(UserRoleCodeMap[this.currentUser?.role])) {
         window
@@ -215,7 +240,6 @@ export class GeneralNotificationsViewModel {
           ?.focus()
       } else if (checkIsBuyer(UserRoleCodeMap[this.currentUser?.role])) {
         const isVacOrders = !!notification?.vacOrders.length
-        const isNeedConfirmOrders = !!notification?.needConfirmOrders.length
 
         window
           .open(
@@ -233,5 +257,9 @@ export class GeneralNotificationsViewModel {
 
       this.toggleVariationHandler('showIdeaModal')
     }
+  }
+
+  onChangeSearchValue(value: string) {
+    this.searchValue = value
   }
 }

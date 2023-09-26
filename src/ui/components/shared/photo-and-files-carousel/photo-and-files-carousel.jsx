@@ -44,6 +44,8 @@ export const PhotoAndFilesCarousel = props => {
     onChangeImagesForLoad,
     isEditable,
     withoutMakeMainImage,
+    customAvatarStyles,
+    customImgStyles,
   } = props
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -171,7 +173,7 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={classNames.imagesWrapper} style={{ width: isImagesFullWidth && '100%' }}>
+            <div className={cx(classNames.imagesWrapper, { [classNames.fullImagesWrapper]: withoutFiles })}>
               {notEmptyPhotos?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable
@@ -185,8 +187,9 @@ export const PhotoAndFilesCarousel = props => {
                           variant="square"
                           alt={'!'}
                           src={photo?.data_url || photo}
-                          className={classNames.image}
                           classes={{ img: small ? classNames.smallImage : classNames.image }}
+                          imgProps={{ style: customImgStyles }}
+                          sx={customAvatarStyles}
                           onClick={() => {
                             setShowPhotosModal(!showPhotosModal)
 

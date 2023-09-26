@@ -622,7 +622,7 @@ export class ClientInventoryViewModel {
   }
 
   async onClickNextButton(chosenProduct) {
-    runInAction(() => (this.selectedProductToLaunch = chosenProduct))
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct?.originalData || chosenProduct))
 
     if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
       this.confirmModalSettings = {
