@@ -1,6 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    height: '72vh',
+    height: '70vh',
   },
 
   headerWrapper: {
@@ -11,9 +11,9 @@ export const styles = theme => ({
   },
 
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
+    borderRadius: 20,
   },
 
   footerContainer: {

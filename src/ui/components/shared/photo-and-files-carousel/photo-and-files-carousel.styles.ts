@@ -64,6 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '100%',
+    width: '100%',
   },
 
   headerCarouselDocumentsWrapper: {
@@ -132,6 +133,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   imagesWrapper: {
     width: '50%',
+    height: '100%',
+  },
+
+  fullImagesWrapper: {
+    width: '100%',
     height: '100%',
   },
 

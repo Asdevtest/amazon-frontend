@@ -17,7 +17,16 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
       // display: 'none',
       marginRight: 20,
     },
+    '.MuiAutocomplete-option': {
+      width: 280,
+      padding: 5,
+    },
   },
+
+  option: {
+    maxWidth: 280,
+  },
+
   addBtn: {
     cursor: 'pointer',
     position: 'absolute',
@@ -49,24 +58,17 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     gap: '10px',
   },
   tagListItem: {
+    maxWidth: 295,
     backgroundColor: theme.palette.background.chatMyMessage,
     color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
-    padding: '3.5px 15px',
+    padding: '0 15px',
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
-
-    p: {
-      maxWidth: 170,
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      lineHeight: 1,
-      margin: 'unset',
-    },
   },
+
   removeTeg: {
     cursor: 'pointer',
     height: '100%',

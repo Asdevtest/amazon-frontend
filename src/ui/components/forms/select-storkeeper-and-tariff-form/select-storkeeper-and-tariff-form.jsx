@@ -1,14 +1,11 @@
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
-import { Tabs } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
@@ -22,6 +19,8 @@ import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-stork
 import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
 import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
 import { WeightBasedTariffFormColumns } from './weight-based-tariff-form-columns'
+
+const tariffTypesLabels = ['Weight-based logistics tariffs', 'Logistics tariffs', 'Tariffs of warehouse services']
 
 export const SelectStorekeeperAndTariffForm = observer(
   ({
@@ -78,29 +77,19 @@ export const SelectStorekeeperAndTariffForm = observer(
     return (
       <div className={classNames.root}>
         <div className={classNames.boxesFiltersWrapper}>
-          {storekeepers
-            .slice()
-            .sort((a, b) => a.name?.localeCompare(b?.name))
-            .map(storekeeper => (
-              <Button
-                key={storekeeper._id}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                disabled={curStorekeeper?._id === storekeeper._id}
-                className={cx(
-                  classNames.button,
-                  {
-                    [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
-                  },
-                  {
-                    [classNames.selectedStorekeeperBtn]: curStorekeeperId === storekeeper._id,
-                  },
-                )}
-                variant="text"
-                onClick={() => setCurStorekeeper(storekeeper)}
-              >
-                {storekeeper.name}
-              </Button>
-            ))}
+          <CustomSwitcher
+            switchMode={'small'}
+            condition={curStorekeeper}
+            switcherSettings={storekeepers
+              .slice()
+              .sort((a, b) => a.name?.localeCompare(b?.name))
+              .map(value => ({
+                label: () => value?.name,
+                value: value?._id,
+              }))}
+            customCondition={value => value === curStorekeeper?._id}
+            changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
+          />
         </div>
 
         <SearchInput
@@ -110,19 +99,18 @@ export const SelectStorekeeperAndTariffForm = observer(
           onChange={e => setNameSearchValue(e.target.value)}
         />
 
-        <Tabs
-          variant={'fullWidth'}
-          classes={{
-            root: classNames.row,
-            indicator: classNames.indicator,
-          }}
-          value={tabIndex}
-          onChange={(e, index) => setTabIndex(index)}
-        >
-          <ITab label={t(TranslationKey['Weight-based logistics tariffs'])} />
-          <ITab label={t(TranslationKey['Logistics tariffs'])} />
-          <ITab label={t(TranslationKey['Tariffs of warehouse services'])} />
-        </Tabs>
+        <div className={classNames.tabsWrapper}>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={tabIndex}
+            switcherSettings={tariffTypesLabels.map((label, index) => ({
+              label: () => t(label),
+              value: index,
+            }))}
+            changeConditionHandler={setTabIndex}
+          />
+        </div>
+
         <TabPanel value={tabIndex} index={0}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid

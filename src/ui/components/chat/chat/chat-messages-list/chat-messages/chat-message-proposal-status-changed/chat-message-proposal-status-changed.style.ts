@@ -2,97 +2,152 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '100%',
-    padding: '10px 0',
+    maxWidth: 1075,
+    margin: '0 auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-
-    [theme.breakpoints.down(1280)]: {
-      width: 390,
-    },
+    gap: 10,
   },
 
   headerAndTimeWrapper: {
+    width: '100%',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: 100,
   },
 
   titleText: {
+    width: '100%',
     fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   timeText: {
-    color: theme.palette.text.second,
     fontSize: 14,
     lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
   },
 
   reasonText: {
-    marginTop: 10,
+    fontSize: 18,
+    lineHeight: '25px',
+    wordBreak: 'break-all',
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusTextDesciption: {
-    color: 'grey',
-    fontSize: '18px',
-    marginBottom: 0,
     display: 'flex',
     alignItems: 'end',
-    gap: '10px',
+    gap: 10,
+    color: 'grey',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusText: {
     color: 'black',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   detailsWrapper: {
-    marginTop: '5px',
     width: '100%',
+    padding: 30,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
     backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
-    borderRadius: '4px',
+    borderRadius: 4,
+
+    [theme.breakpoints.down(768)]: {
+      padding: 20,
+    },
   },
 
   footerWrapper: {
-    marginTop: 20,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    gap: 20,
+
+    [theme.breakpoints.down(1280)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
   },
 
-  footerRow: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    '&:not(:first-of-type)': {
-      marginTop: '20px',
+  footerWrapperShowChatInfo: {
+    [theme.breakpoints.down(1450)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
     },
   },
 
   labelValueBlockWrapper: {
+    width: '100%',
     display: 'flex',
-    gap: 10,
     alignItems: 'center',
+    gap: 10,
   },
 
   actionButton: {
-    height: '40px',
-    width: 217,
+    width: 150,
   },
 
   successBtn: {
-    width: '107px',
-    marginLeft: '30px',
     backgroundColor: '#4CAF50',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#4CAF50',
@@ -100,8 +155,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   editBtn: {
-    width: '214px',
     backgroundColor: '#F44336',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#F44336',
@@ -110,7 +165,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   btnsWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },

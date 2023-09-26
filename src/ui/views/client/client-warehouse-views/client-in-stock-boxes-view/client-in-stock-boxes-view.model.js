@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -99,13 +98,13 @@ export class ClientInStockBoxesViewModel {
   selectedRows = []
   curOpenedTask = {}
   toCancelData = {}
-  currentStorekeeper = undefined
+  currentStorekeeperId = undefined
   storekeepersData = []
   destinations = []
   clientDestinations = []
   // isFormed = null
 
-  curDestination = undefined
+  curDestinationId = undefined
   // curShops = []
 
   currentData = []
@@ -276,7 +275,7 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.history = history
 
-      this.currentStorekeeper = { _id: url.searchParams.get('storekeeper-id') }
+      this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
       this.nameSearchValue = url.searchParams.get('search-text')
     })
 
@@ -295,7 +294,7 @@ export class ClientInStockBoxesViewModel {
     )
 
     reaction(
-      () => this.currentStorekeeper,
+      () => this.currentStorekeeperId,
       () => this.getClientDestinations(),
     )
   }
@@ -408,11 +407,11 @@ export class ClientInStockBoxesViewModel {
     return toJS(this.tasksMy)
   }
 
-  onClickStorekeeperBtn(storekeeper) {
+  onClickStorekeeperBtn(currentStorekeeperId) {
     runInAction(() => {
       this.selectedBoxes = []
 
-      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+      this.currentStorekeeperId = currentStorekeeperId
     })
 
     this.getBoxesMy()
@@ -425,9 +424,11 @@ export class ClientInStockBoxesViewModel {
       runInAction(() => {
         this.storekeepersData = result
 
-        this.currentStorekeeper = this.currentStorekeeper
-          ? this.currentStorekeeper
-          : result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
+        this.currentStorekeeperId = this.currentStorekeeperId
+          ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
+          : result
+              .filter(storekeeper => storekeeper.boxesCount !== 0)
+              .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
       })
 
       this.getDataGridState()
@@ -819,9 +820,9 @@ export class ClientInStockBoxesViewModel {
     this.showSetShippingLabelModal = false
   }
 
-  onClickDestinationBtn(destination) {
+  onClickDestinationBtn(curDestinationId) {
     runInAction(() => {
-      this.curDestination = destination ? destination : undefined
+      this.curDestinationId = curDestinationId
     })
 
     this.requestStatus = loadingStatuses.isLoading
@@ -837,14 +838,17 @@ export class ClientInStockBoxesViewModel {
 
   async getClientDestinations() {
     try {
-      const clientDestinations = await ClientModel.getClientDestinations({
-        status: BoxStatus.IN_STOCK,
-        storekeeperId: this.currentStorekeeper ? this.currentStorekeeper._id : null,
-      })
+      if (this.currentStorekeeperId) {
+        const clientDestinations = await ClientModel.getClientDestinations({
+          status: BoxStatus.IN_STOCK,
+          storekeeperId: this.currentStorekeeperId,
+        })
 
-      runInAction(() => {
-        this.clientDestinations = clientDestinations
-      })
+        runInAction(() => {
+          this.clientDestinations = clientDestinations
+        })
+      }
+
       this.getDataGridState()
     } catch (error) {
       console.log(error)
@@ -1876,11 +1880,11 @@ export class ClientInStockBoxesViewModel {
       const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
-        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        storekeeperId: this.currentStorekeeperId,
 
         // storekeeperId: 'add51a2a-3f0b-4796-9497-73eaa992de24,402b6b17-280f-4a3a-a04c-543b17a10c28',
 
-        destinationId: this.curDestination && this.curDestination._id,
+        destinationId: this.curDestinationId,
 
         shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 

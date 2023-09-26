@@ -13,8 +13,10 @@ export const getAmazonImageUrl = (str, big) => {
       } else {
         return big ? str : str + '.preview.webp'
       }
-    } else if (str.includes('http')) {
+    } else if (str.includes('placeimg.com')) {
       return str
+    } else if (str.includes('.com')) {
+      return '/assets/img/no-photo.jpg'
     } else if (str.includes('base64')) {
       return str
     } else {

@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20064 {
     /**
      * Constructs a new <code>InlineResponse20064</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20064
      */
     constructor() { 
@@ -48,11 +47,26 @@ class InlineResponse20064 {
         if (data) {
             obj = obj || new InlineResponse20064();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('onFinishedIdeaId')) {
+                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
+            }
+            if (data.hasOwnProperty('onCheckedIdeaId')) {
+                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
             }
         }
         return obj;
@@ -62,16 +76,44 @@ class InlineResponse20064 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * GUID заявки
+ * @member {String} _id
  */
-InlineResponse20064.prototype['isExist'] = undefined;
+InlineResponse20064.prototype['_id'] = undefined;
 
 /**
- * Причина из таблицы с асинами
- * @member {String} reason
+ * Номер заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20064.prototype['reason'] = undefined;
+InlineResponse20064.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Тип задачи заявки
+ * @member {Number} typeTask
+ */
+InlineResponse20064.prototype['typeTask'] = undefined;
+
+/**
+ * Название заявки
+ * @member {String} title
+ */
+InlineResponse20064.prototype['title'] = undefined;
+
+/**
+ * Статус заявки
+ * @member {String} status
+ */
+InlineResponse20064.prototype['status'] = undefined;
+
+/**
+ * @member {String} onFinishedIdeaId
+ */
+InlineResponse20064.prototype['onFinishedIdeaId'] = undefined;
+
+/**
+ * @member {String} onCheckedIdeaId
+ */
+InlineResponse20064.prototype['onCheckedIdeaId'] = undefined;
 
 
 

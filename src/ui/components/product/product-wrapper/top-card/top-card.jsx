@@ -11,7 +11,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Alert, Box, Paper, Typography } from '@mui/material'
+import { Alert, Paper, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -23,7 +23,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -61,6 +61,7 @@ export const TopCard = observer(
     unbindProductHandler,
     shops,
     modal,
+    platformSettings,
 
     productBase,
     onClickSupplierBtns,
@@ -244,17 +245,19 @@ export const TopCard = observer(
                 </p>
               </div>
               <div className={classNames.card}>
-                <Box>
-                  {product.images && product.images.length ? (
-                    <div className={classNames.carouselWrapper}>
-                      <PhotoAndFilesCarouselTest
-                        withoutFiles
-                        bigSlider
-                        files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
-                      />
-                    </div>
-                  ) : undefined}
-                </Box>
+                {product.images && product.images.length ? (
+                  <div className={classNames.carouselWrapper}>
+                    <PhotoAndFilesSlider
+                      showPreviews
+                      withoutFiles
+                      bigSlider
+                      isEditable={clientToEdit}
+                      files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
+                      onChangeImagesForLoad={onChangeImagesForLoad}
+                    />
+                  </div>
+                ) : undefined}
+
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (
@@ -497,6 +500,7 @@ export const TopCard = observer(
 
               <TableSupplier
                 // isClient
+                platformSettings={platformSettings}
                 product={product}
                 productBaseData={productBase}
                 selectedSupplier={selectedSupplier}

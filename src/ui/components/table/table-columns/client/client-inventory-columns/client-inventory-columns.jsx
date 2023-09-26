@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -15,7 +12,6 @@ import {
   HsCodeCell,
   InStockCell,
   MultilineStatusCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OrderIdAndAmountCountCell,
@@ -99,7 +95,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
     filterable: false,
@@ -599,7 +595,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 400,
     filterable: false,
     sortable: false,

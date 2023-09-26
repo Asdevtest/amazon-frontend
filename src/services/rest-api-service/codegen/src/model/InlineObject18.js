@@ -22,11 +22,10 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject18.initialize(this, boxesIds);
+        InlineObject18.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,20 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('trackingNumber')) {
+                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
         }
         return obj;
@@ -60,9 +70,34 @@ class InlineObject18 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * Название партии
+ * @member {String} title
  */
-InlineObject18.prototype['boxesIds'] = undefined;
+InlineObject18.prototype['title'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject18.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject18.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Трек номер партии
+ * @member {String} trackingNumber
+ */
+InlineObject18.prototype['trackingNumber'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineObject18.prototype['actualShippingCost'] = undefined;
 
 
 

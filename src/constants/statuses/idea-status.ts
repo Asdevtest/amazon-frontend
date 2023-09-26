@@ -93,15 +93,25 @@ export const ideaStatusTranslate = (status: ideaStatus) => {
       return t(TranslationKey.New)
     case ideaStatus.CARD_CREATING:
       return t(TranslationKey['Card creating'])
+    case ideaStatus.ADDING_ASIN:
+      return t(TranslationKey['Adding ASIN'])
   }
 }
 
 export const colorByIdeaStatus = (status: ideaStatus) => {
-  if ([ideaStatus.ON_CHECK, ideaStatus.SUPPLIER_SEARCH, ideaStatus.NEW, ideaStatus.REALIZED].includes(status)) {
+  if (
+    [
+      ideaStatus.ON_CHECK,
+      ideaStatus.SUPPLIER_SEARCH,
+      ideaStatus.NEW,
+      ideaStatus.REALIZED,
+      ideaStatus.ADDING_ASIN,
+    ].includes(status)
+  ) {
     return '#F3AF00'
   } else if ([ideaStatus.VERIFIED, ideaStatus.SUPPLIER_FOUND, ideaStatus.CARD_CREATING].includes(status)) {
     return '#00B746'
-  } else if ([ideaStatus.CLOSED, ideaStatus.SUPPLIER_NOT_FOUND].includes(status)) {
+  } else if ([ideaStatus.CLOSED, ideaStatus.SUPPLIER_NOT_FOUND, ideaStatus.REJECTED].includes(status)) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'
   } else if ([ideaStatus.REJECTED].includes(status)) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'

@@ -19,10 +19,14 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '16px',
     display: 'flex',
     gap: '10px',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   actionButton: {
     width: '179px',
     height: '40px',
+  },
+
+  cancelButton: {
+    color: `${theme.palette.text.general} !important`,
   },
 }))

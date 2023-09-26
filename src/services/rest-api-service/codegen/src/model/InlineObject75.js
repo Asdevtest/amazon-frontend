@@ -76,6 +76,39 @@ InlineObject75.prototype['buyerComment'] = undefined;
 
 
 
+/**
+ * Allowed values for the <code>strategy</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject75['StrategyEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40"
+};
+
+
 
 export default InlineObject75;
 

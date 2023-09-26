@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -104,7 +103,7 @@ const filtersFields = [
   'redFlags',
 ]
 
-const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
+// const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
 
 export class ClientInventoryViewModel {
   history = undefined
@@ -623,9 +622,9 @@ export class ClientInventoryViewModel {
   }
 
   async onClickNextButton(chosenProduct) {
-    runInAction(() => (this.selectedProductToLaunch = chosenProduct))
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct?.originalData || chosenProduct))
 
-    if (chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
         confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
@@ -793,7 +792,7 @@ export class ClientInventoryViewModel {
         column,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
+          shopFilter ? `;&[shopIds][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 

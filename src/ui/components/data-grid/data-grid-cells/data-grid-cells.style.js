@@ -40,7 +40,8 @@ export const styles = theme => ({
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
+    paddingLeft: '10px',
   },
 
   clockIcon: {
@@ -62,7 +63,6 @@ export const styles = theme => ({
 
   asinCell: {
     padding: '12px 0px',
-    // height: '88px',
     scope: 'row',
     position: 'relative',
     width: '100%',
@@ -81,11 +81,10 @@ export const styles = theme => ({
   },
   csCodeTypo: {
     fontSize: '14px',
-    lineHeight: '18px',
+    lineHeight: '19px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
     maxWidth: '165px',
-    // maxWidth: '100%',
 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -93,7 +92,7 @@ export const styles = theme => ({
 
   typoCell: {
     fontSize: '14px',
-    lineHeight: '21px',
+    lineHeight: '19px',
     color: 'rgba(189, 194, 209, 1)',
   },
 
@@ -105,13 +104,18 @@ export const styles = theme => ({
     gap: '3px',
   },
 
+  defaultText: {
+    color: theme.palette.text.general,
+  },
+
   typoSpan: {
-    color: theme.palette.text.second,
+    color: `${theme.palette.text.second} !important`,
   },
 
   linkSpan: {
     color: theme.palette.primary.main,
   },
+
   cellBtn: {
     color: 'rgba(0, 123, 255, 1)',
     paddingTop: '0px',
@@ -137,9 +141,12 @@ export const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '7px',
+    height: '30px',
+    width: '100%',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+
   barcodeChipHover: {
     '&:hover, &:focus': {
       backgroundColor: theme.palette.primary.main,
@@ -153,7 +160,6 @@ export const styles = theme => ({
   },
 
   barcodeChipNoExists: {
-    // color: '#F5CF00',
     backgroundColor: '#F5CF00',
     color: '#001029',
 
@@ -169,7 +175,7 @@ export const styles = theme => ({
 
   chipStock: {
     width: '100%',
-
+    minWidth: '125px',
     backgroundcolor: theme.palette.text.general,
   },
 
@@ -177,6 +183,9 @@ export const styles = theme => ({
     width: '100%',
     height: 36,
     textAlign: 'center',
+    fontSize: 14,
+    lineHeight: '19px',
+    padding: 0,
   },
 
   changeInputComment: {
@@ -229,6 +238,11 @@ export const styles = theme => ({
     borderRadius: 4,
   },
 
+  orderImageSmall: {
+    height: 56,
+    width: 56,
+  },
+
   orderImageBig: {
     height: 100,
     width: 100,
@@ -238,7 +252,7 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 190,
+    maxWidth: 185,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -256,8 +270,11 @@ export const styles = theme => ({
   },
 
   orderTextSpan: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: 'rgb(189, 194, 209)',
   },
+
   select: {
     backgroundcolor: theme.palette.text.general,
   },
@@ -286,17 +303,19 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'no-wrap',
     gap: 16,
+    marginRight: 10,
   },
 
   gridBoxesWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
+    gap: 5,
   },
 
   superboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    gap: 5,
     marginRight: 5,
   },
 
@@ -332,7 +351,6 @@ export const styles = theme => ({
     fontWeight: 600,
     fontSize: 14,
     color: theme.palette.primary.main,
-    // width: '50px',
   },
   taskDescriptionCountWrapper: {
     marginLeft: 5,
@@ -349,6 +367,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '2px',
+    marginRight: 20,
 
     [theme.breakpoints.down(1282)]: {
       flexDirection: 'column',
@@ -360,8 +379,8 @@ export const styles = theme => ({
   gridBoxWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '2px',
-    marginRight: 30,
+    gap: 5,
+    marginRight: 20,
   },
 
   blockProductsImagesWrapper: {
@@ -495,9 +514,8 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflowY: 'auto',
-    margin: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    margin: '10px 0',
+    padding: '5px 0',
   },
 
   smallRowImgWrapper: {
@@ -513,8 +531,9 @@ export const styles = theme => ({
     height: '100%',
     width: '100%',
     padding: '5px',
-    maxHeight: 240,
+    maxHeight: '199px',
     overflow: 'auto',
+    gap: '5px',
   },
 
   withScrollBatchBoxesWrapper: {
@@ -539,7 +558,6 @@ export const styles = theme => ({
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
     padding: '3px',
-    marginBottom: '5px',
     width: '100%',
   },
 
@@ -656,31 +674,39 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     fontSize: '14px',
-    lineHeight: '16px',
-    wordWrap: 'break-word',
+    lineHeight: '19px',
+    wordBreak: 'break-word',
+    overflowWrap: 'anywhere',
+  },
+
+  oneMultilineText: {
+    height: 19,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  twoMultilineText: {
+    maxHeight: 38,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   threeMultilineText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 48,
+    maxHeight: 57,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-  },
-
-  oneMultilineText: {
-    justifyContent: 'center',
-    height: 16,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -770,6 +796,8 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    fontSize: '14px',
+    lineHeight: '19px',
   },
 
   multilineTextAlignLeft: {
@@ -778,7 +806,7 @@ export const styles = theme => ({
     whiteSpace: 'pre-wrap',
     fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '17px',
+    lineHeight: '19px',
     fontFamily: 'inherit',
     border: 'none',
     backgroundColor: 'inherit',
@@ -789,7 +817,7 @@ export const styles = theme => ({
 
   fourLinesTextAlignLeft: {
     justifyContent: 'center',
-    height: 65,
+    height: 'auto',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -807,6 +835,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
 
   multilineTextHeaderCenter: {
@@ -833,6 +862,19 @@ export const styles = theme => ({
 
   multilineHeaderText: {
     width: 'fit-content',
+    textAlign: 'center',
+    color: theme.palette.text.general,
+
+    fontWeight: '600',
+    fontSize: '12px',
+    lineHeight: '14px',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+  },
+
+  shopOrderText: {
+    width: '100%',
     textAlign: 'center',
     color: theme.palette.text.general,
 
@@ -969,6 +1011,11 @@ export const styles = theme => ({
 
   statusTextChat: {
     fontSize: '18px',
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusWrapper: {
@@ -1134,7 +1181,7 @@ export const styles = theme => ({
 
   fourMonthesStockLabel: {
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
     marginBottom: '5px',
   },
 
@@ -1218,18 +1265,10 @@ export const styles = theme => ({
   headerIcon: {
     width: '14px !important',
     height: '14px !important',
-
     color: 'gray',
-
-    // zIndex: -1000,
-    // zIndex: 100000000000,
-
     position: 'absolute',
-    // right: -5,
-    // right: -7,
     right: -15,
     top: 20,
-
     overflow: 'visible',
   },
 
@@ -1242,6 +1281,12 @@ export const styles = theme => ({
   },
 
   normalizeLink: {
+    maxWidth: 140,
+    fontSize: 14,
+    lineHeight: '19px',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
     color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
@@ -1250,6 +1295,8 @@ export const styles = theme => ({
     },
   },
   linkWrapper: {
+    fontSize: 14,
+    lineHeight: '19px',
     cursor: 'pointer',
   },
 
@@ -1389,7 +1436,7 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    width: '100%',
+    width: 160,
     height: 30,
     marginBottom: 10,
   },
@@ -1422,7 +1469,7 @@ export const styles = theme => ({
     },
 
     stringListMenuWrapper: {
-      width: 150,
+      width: 160,
       padding: '10px',
       maxHeight: 400,
     },
@@ -1457,7 +1504,8 @@ export const styles = theme => ({
   },
   asinCellMainWrapper: {
     display: 'flex',
-    width: 'fit-content',
+    alignItems: 'center',
+    flex: 1,
     height: '100%',
 
     gap: 5,
@@ -1471,19 +1519,15 @@ export const styles = theme => ({
   },
   attributeWrapper: {
     display: 'flex',
-
     gap: 5,
   },
   asinAndSkuTitle: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-start',
-
-    maxWidth: 115,
-
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
@@ -1491,13 +1535,14 @@ export const styles = theme => ({
     color: theme.palette.text.second,
   },
   attributeLink: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.general,
   },
   nativeSelect: {
     [theme.breakpoints.down(1282)]: {
       width: 130,
     },
-    // width: '210px',
     '& > div': {
       display: 'flex',
       gap: 8,
@@ -1505,6 +1550,8 @@ export const styles = theme => ({
     },
   },
   attributeMissing: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.second,
   },
   colorRed: {
@@ -1635,7 +1682,7 @@ export const styles = theme => ({
 
     color: theme.palette.primary.main,
     fontSize: 14,
-    lineHeight: '140%',
+    lineHeight: '19px',
     fontWeight: 400,
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -1659,22 +1706,16 @@ export const styles = theme => ({
   },
 
   tags: {
-    alignSelf: 'flex-start',
-
-    p: {
-      padding: 0,
-      margin: 0,
-    },
+    padding: '10px 0',
   },
 
   tagItem: {
-    fontSize: 14,
-    fontWeight: 400,
     maxWidth: 130,
+    fontSize: 14,
+    lineHeight: '19px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    lineHeight: '16px',
   },
 
   batchTrackingWrapper: {
@@ -1754,9 +1795,11 @@ export const styles = theme => ({
     gap: 3,
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: 14,
+    lineHeight: '19px',
 
     svg: {
-      fontSize: '16px',
+      fontSize: 16,
       color: theme.palette.primary.main,
       stroke: '#fff',
     },
@@ -1786,7 +1829,8 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    gap: '10px',
+    gap: '5px',
+    paddingLeft: 5,
   },
 
   buttonsWrapper: {
@@ -1835,7 +1879,6 @@ export const styles = theme => ({
     fontSize: 14,
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    // width: 250,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -1856,6 +1899,7 @@ export const styles = theme => ({
   div: {
     display: 'flex',
     width: 104,
+    marginRight: 15,
   },
 
   ideaActions: {
@@ -1995,5 +2039,16 @@ export const styles = theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.primary.main,
+  },
+
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
+
+  multipleAsinWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
   },
 })

@@ -22,11 +22,10 @@ class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
      * @alias module:model/InlineObject24
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject24.initialize(this, boxesIds);
+        InlineObject24.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,17 +47,11 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
@@ -67,11 +59,32 @@ class InlineObject24 {
             if (data.hasOwnProperty('fbaNumber')) {
                 obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
+            }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
             }
         }
         return obj;
@@ -81,28 +94,16 @@ class InlineObject24 {
 }
 
 /**
- * Штрихкод продукта
- * @member {String} barCode
+ * GUID пункта назначения коробки
+ * @member {String} destinationId
  */
-InlineObject24.prototype['barCode'] = undefined;
+InlineObject24.prototype['destinationId'] = undefined;
 
 /**
- *  logicsTariff GUID
+ * GUID тарифа к сторкипера
  * @member {String} logicsTariffId
  */
 InlineObject24.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID сотрудника склада
- * @member {String} storekeeperId
- */
-InlineObject24.prototype['storekeeperId'] = undefined;
-
-/**
- * Ссылка на наклейку для коробки
- * @member {String} shippingLabel
- */
-InlineObject24.prototype['shippingLabel'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.
@@ -117,15 +118,57 @@ InlineObject24.prototype['fbaShipment'] = undefined;
 InlineObject24.prototype['fbaNumber'] = undefined;
 
 /**
- * Гуид модели destination
- * @member {String} destinationId
+ * Комментарии к коробке
+ * @member {String} clientComment
  */
-InlineObject24.prototype['destinationId'] = undefined;
+InlineObject24.prototype['clientComment'] = undefined;
 
 /**
- * @member {Array.<String>} boxesIds
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject24.prototype['boxesIds'] = undefined;
+InlineObject24.prototype['referenceId'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject24.prototype['trackNumberText'] = undefined;
+
+/**
+ * @member {Array.<String>} trackNumberFile
+ */
+InlineObject24.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject24.prototype['upsTrackNumber'] = undefined;
+
+/**
+ * shippingLabel коробки
+ * @member {String} shippingLabel
+ */
+InlineObject24.prototype['shippingLabel'] = undefined;
+
+/**
+ * shippingLabel проклеен сторкипером
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject24.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject24.prototype['prepId'] = undefined;
+
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineObject24.prototype['variationTariffId'] = undefined;
 
 
 

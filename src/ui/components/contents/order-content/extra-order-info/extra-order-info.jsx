@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
@@ -15,8 +13,6 @@ import { useClassNames } from './extra-order-info.style'
 
 export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) => {
   const { classes: classNames } = useClassNames()
-
-  // console.log('order', order)
 
   return (
     <div className={classNames.orderContainer}>

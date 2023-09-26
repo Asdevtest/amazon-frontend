@@ -79,11 +79,7 @@ export const styles = theme => ({
   },
 
   boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
     display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {

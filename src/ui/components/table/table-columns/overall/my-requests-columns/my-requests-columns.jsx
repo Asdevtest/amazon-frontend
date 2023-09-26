@@ -28,18 +28,20 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    width: 60,
+    width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         isRequest
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
         status={params.row.originalData.status}
+        onClickOpenInNewTab={() => rowHandlers.onClickOpenInNewTab(params.row._id)}
       />
     ),
 
     filterable: false,
     sortable: false,
+    align: 'center',
 
     columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
@@ -71,7 +73,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         />
       )
     },
-    width: 300,
+    width: 270,
 
     filterable: false,
     sortable: false,
@@ -109,7 +111,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     ),
 
     renderCell: params => <MultilineRequestStatusCell /* languageTag={languageTag} */ status={params.value} />,
-    width: 161,
+    width: 120,
     filterable: false,
     sortable: false,
 
@@ -221,9 +223,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
 
-    renderCell: params => (
-      <MultilineTextCell withTooltip leftAlign threeLines={params.value.length > 50} text={params.value} />
-    ),
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 228,
 
     columnKey: columnnsKeys.shared.STRING,
@@ -243,7 +243,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     renderCell: params => (
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
-    width: 146,
+    width: 90,
     columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
   },
 
@@ -299,7 +299,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     ),
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 115,
+    width: 100,
     // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -316,7 +316,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     ),
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 117,
+    width: 100,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -332,7 +332,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     ),
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 117,
+    width: 100,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

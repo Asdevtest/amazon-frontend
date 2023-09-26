@@ -140,4 +140,9 @@ export const useClassNames = makeStyles()(theme => ({
   editBtn: {
     color: 'grey',
   },
+
+  sizesSubWrapper: {
+    width: 'fit-content',
+    marginBottom: 10,
+  },
 }))

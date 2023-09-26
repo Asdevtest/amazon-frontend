@@ -18,6 +18,8 @@ export const poundsCoefficient = /* 2.046223 */ 2.20462
 
 export const poundsWeightCoefficient = 0.4535923745
 
+export const volumePoundsWeightCoefficient = 166
+
 export const RIGHT_BLOCK_WIDTH = 100
 
 export const getConversion = (unitsOptions, coefficient, divider = 1) =>
@@ -25,6 +27,3 @@ export const getConversion = (unitsOptions, coefficient, divider = 1) =>
 
 export const getWeightSizesType = sizeSetting =>
   sizeSetting === unitsOfChangeOptions.US ? t(TranslationKey.lb) : t(TranslationKey.kg)
-
-export const isMobileResolution = window.innerWidth < 768
-export const isTabletResolution = window.innerWidth < 1024

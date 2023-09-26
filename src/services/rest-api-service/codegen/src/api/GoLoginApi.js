@@ -14,11 +14,11 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject60 from '../model/InlineObject60';
 import InlineObject61 from '../model/InlineObject61';
 import InlineObject62 from '../model/InlineObject62';
 import InlineObject63 from '../model/InlineObject63';
-import InlineResponse20044 from '../model/InlineResponse20044';
+import InlineObject64 from '../model/InlineObject64';
+import InlineResponse20045 from '../model/InlineResponse20045';
 import InlineResponse2019 from '../model/InlineResponse2019';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -48,8 +48,8 @@ export default class GoLoginApi {
      * ## Создать новый профайл пользователя.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject60} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20044} and HTTP response
+     * @param {module:model/InlineObject61} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20045} and HTTP response
      */
     apiV1GologinProfilePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -68,7 +68,7 @@ export default class GoLoginApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse20044;
+      let returnType = InlineResponse20045;
       return this.apiClient.callApi(
         '/api/v1/gologin/profile', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -81,8 +81,8 @@ export default class GoLoginApi {
      * ## Создать новый профайл пользователя.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject60} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20044}
+     * @param {module:model/InlineObject61} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20045}
      */
     apiV1GologinProfilePost(opts) {
       return this.apiV1GologinProfilePostWithHttpInfo(opts)
@@ -98,7 +98,7 @@ export default class GoLoginApi {
      * @param {String} profileId id профайла который нужно изменить.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject61} opts.body 
+     * @param {module:model/InlineObject62} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1GologinProfileProfileIdPatchWithHttpInfo(profileId, opts) {
@@ -137,7 +137,7 @@ export default class GoLoginApi {
      * @param {String} profileId id профайла который нужно изменить.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject61} opts.body 
+     * @param {module:model/InlineObject62} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1GologinProfileProfileIdPatch(profileId, opts) {
@@ -153,7 +153,7 @@ export default class GoLoginApi {
      * ## Запустить профайл пользователя.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject62} opts.body 
+     * @param {module:model/InlineObject63} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2019} and HTTP response
      */
     apiV1GologinProfileStartPostWithHttpInfo(opts) {
@@ -186,7 +186,7 @@ export default class GoLoginApi {
      * ## Запустить профайл пользователя.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject62} opts.body 
+     * @param {module:model/InlineObject63} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2019}
      */
     apiV1GologinProfileStartPost(opts) {
@@ -202,7 +202,7 @@ export default class GoLoginApi {
      * ## Остановить профайл пользователя.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject63} opts.body 
+     * @param {module:model/InlineObject64} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
     apiV1GologinProfileStopPostWithHttpInfo(opts) {
@@ -235,7 +235,7 @@ export default class GoLoginApi {
      * ## Остановить профайл пользователя.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject63} opts.body 
+     * @param {module:model/InlineObject64} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
     apiV1GologinProfileStopPost(opts) {

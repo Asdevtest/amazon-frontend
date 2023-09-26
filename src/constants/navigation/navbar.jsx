@@ -313,13 +313,18 @@ export const navbarConfig = () => ({
     {
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
-      route: '/client/notifications/orders-notifications',
+      route: '/client/notifications',
       subtitles: [
         { subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications' },
         { subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
         { subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications' },
-        { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
-        { subtitle: t(TranslationKey.Freelance), subRoute: '/client/notifications/freelance-notifications' },
+        // { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
+        { subtitle: t(TranslationKey['Request messages']), subRoute: '/client/notifications/freelance-notifications' },
+        {
+          subtitle: t(TranslationKey['General notifications']),
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/client/notifications/general-notifications-view',
+        },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -501,7 +506,15 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Notifications),
       route: '/freelancer/notifications',
       subtitles: [
-        { subtitle: t(TranslationKey.Freelance), subRoute: '/freelancer/notifications/freelance-notifications' },
+        {
+          subtitle: t(TranslationKey['Request messages']),
+          subRoute: '/freelancer/notifications/freelance-notifications',
+        },
+        {
+          subtitle: t(TranslationKey['General notifications']),
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/freelancer/notifications/general-notifications-view',
+        },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -521,27 +534,6 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR),
     },
 
-    {
-      icon: FreelanceIcon,
-      title: t(TranslationKey.Freelance),
-      route: '/supervisor/freelance/vacant-deals',
-      subtitles: [
-        {
-          subtitle: t(TranslationKey['Vacant deals']),
-          subRoute: '/supervisor/freelance/vacant-deals',
-          key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-        },
-        {
-          subtitle: t(TranslationKey['Deals on review']),
-          subRoute: '/supervisor/freelance/deals-on-review',
-          key: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
-        },
-      ],
-      key: navBarActiveCategory.NAVBAR_DEALS,
-      checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
-    },
     {
       icon: TasksIcon,
       title: t(TranslationKey['Ready to check']),
@@ -817,7 +809,17 @@ export const navbarConfig = () => ({
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
       route: '/buyer/notifications/ideas-notifications',
-      subtitles: [{ subtitle: t(TranslationKey['On ideas']), subRoute: '/buyer/notifications/ideas-notifications' }],
+      subtitles: [
+        // {
+        //   subtitle: t(TranslationKey['On ideas']),
+        //   subRoute: '/buyer/notifications/ideas-notifications',
+        // },
+        {
+          subtitle: t(TranslationKey['General notifications']),
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/buyer/notifications/general-notifications-view',
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||

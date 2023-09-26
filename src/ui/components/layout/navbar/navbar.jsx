@@ -73,7 +73,7 @@ export const Navbar = observer(
           )}
         </div>
 
-        <DrawerModal position="left" open={isOpenModal} onClose={onToggleModal}>
+        <DrawerModal open={isOpenModal} onClose={onToggleModal}>
           <NavbarDrawerContent
             shortNavbar={shortNavbar}
             alertShieldSettings={alertShieldSettings}

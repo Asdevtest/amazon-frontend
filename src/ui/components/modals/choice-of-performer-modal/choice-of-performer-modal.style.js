@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -11,7 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: 770,
   },
   cardsWrapper: {
-    padding: '10px 0',
+    display: 'flex',
+    gap: 40,
+    flexWrap: 'wrap',
+    padding: 10,
     height: '100%',
     width: '100%',
     overflowY: 'auto',

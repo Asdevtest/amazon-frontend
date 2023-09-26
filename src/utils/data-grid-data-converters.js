@@ -1,3 +1,4 @@
+import { NotificationType } from '@constants/keys/notifications'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -1013,3 +1014,49 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
       }
     })
 }
+
+export const notificationDataConverter = data =>
+  data.map(item => ({
+    ...item,
+    originalData: item,
+    id: item?._id,
+    product:
+      item.type === NotificationType.Idea
+        ? {
+            ...item?.data?.[0]?.parentProduct,
+            title: item?.data?.[0]?.productName,
+          }
+        : item.type === NotificationType.Order
+        ? item?.data?.[0]?.product
+          ? {
+              ...item?.data?.[0]?.product,
+              humanFriendlyId: item?.data?.[0]?.id,
+            }
+          : item?.data?.needConfirmOrders?.[0]?.product
+          ? {
+              ...item?.data?.needConfirmOrders?.[0]?.product,
+              humanFriendlyId: item?.data?.needConfirmOrders?.[0]?.id,
+            }
+          : {
+              ...item?.data?.vacOrders?.[0]?.product,
+              humanFriendlyId: item?.data?.vacOrders?.[0]?.id,
+            }
+        : item.type === NotificationType.Proposal
+        ? {
+            ...item?.data?.[0]?.request?.product,
+            humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
+            title: item?.data?.[0]?.request?.title,
+          }
+        : item.type === NotificationType.Request
+        ? {
+            ...item?.data?.[0]?.product,
+            humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
+            title: item?.data?.[0]?.title,
+          }
+        : {
+            ...item?.data?.items?.[0]?.product,
+            humanFriendlyId: item?.data?.humanFriendlyId,
+          },
+
+    type: item?.type,
+  }))

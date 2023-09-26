@@ -54,7 +54,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
     ),
     width: 100,
     sortable: false,
@@ -88,16 +88,19 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => (
-      <BarcodeCell
-        product={
-          params.row.originalData.variation
-            ? params.row?.originalData?.childProduct
-            : params.row?.originalData?.parentProduct
-        }
-        handlers={rowHandlers.barCodeHandlers}
-      />
-    ),
+    renderCell: params => {
+      return (
+        <BarcodeCell
+          disabled={params.row.originalData.variation && !params.row.originalData.childProduct}
+          product={
+            params.row.originalData.variation
+              ? params.row?.originalData?.childProduct
+              : params.row?.originalData?.parentProduct
+          }
+          handlers={rowHandlers.barCodeHandlers}
+        />
+      )
+    },
     width: 113,
     sortable: false,
     filterable: false,

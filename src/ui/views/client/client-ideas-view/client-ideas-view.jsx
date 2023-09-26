@@ -59,6 +59,7 @@ export const ClientIdeasView = observer(props => {
     <div>
       <div className={styles.controls}>
         <div />
+
         <SearchInput
           inputClasses={styles.searchInput}
           value={viewModel.currentSearchValue}
@@ -280,6 +281,8 @@ export const ClientIdeasView = observer(props => {
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           selectedProductsData={[viewModel.currentProduct]}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          destinationsFavourites={viewModel.destinationsFavourites}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}

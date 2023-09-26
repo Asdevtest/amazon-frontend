@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Typography } from '@mui/material'
@@ -33,12 +32,14 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 import { useClassNames } from './owner-general-request-info.style'
 
 export const OwnerGeneralRequestInfo = ({
+  userInfo,
   request,
   requestProposals,
   requestAnnouncement,
   onClickPublishBtn,
   onClickEditBtn,
   onClickCancelBtn,
+  onClickMarkAsCompletedBtn,
   onClickAbortBtn,
   onRecoverRequest,
   onToggleUploadedToListing,
@@ -54,6 +55,11 @@ export const OwnerGeneralRequestInfo = ({
 
   const requestIsNotDraftAndPublished =
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
+
+  const isDisplayingMarkAsCompletedButton =
+    (request?.request.createdBy?._id === userInfo?._id || request?.request.sub?._id === userInfo?._id) &&
+    (request?.request.status === RequestStatus.EXPIRED || request?.request.status === RequestStatus.IN_PROCESS) &&
+    requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
 
   return (
     <div className={classNames.root}>
@@ -109,6 +115,7 @@ export const OwnerGeneralRequestInfo = ({
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
 
               <AsinOrSkuLink
+                withCopyValue
                 asin={request?.request.asin}
                 textStyles={cx(classNames.sectionText, classNames.linkSpan)}
                 missingValueTextStyles={cx(classNames.sectionText, classNames.linkSpan)}
@@ -287,6 +294,16 @@ export const OwnerGeneralRequestInfo = ({
           />
           <Typography className={cx(classNames.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
         </Button>
+        {isDisplayingMarkAsCompletedButton && (
+          <Button
+            success
+            // tooltipInfoContent={t(TranslationKey['Mark as completed'])}
+            className={classNames.publishBtn}
+            onClick={onClickMarkAsCompletedBtn}
+          >
+            {t(TranslationKey['Mark as completed'])}
+          </Button>
+        )}
         {request && request?.request.status === RequestStatus.DRAFT && (
           <div className={classNames.btnsWrapper}>
             <div className={classNames.btnsRow}>
@@ -320,33 +337,35 @@ export const OwnerGeneralRequestInfo = ({
         )}
         {request && request?.request.status !== RequestStatus.DRAFT && (
           <>
-            <div className={classNames.btnsWrapper}>
-              <div className={classNames.btnsRow}>
-                {requestIsNotDraftAndPublished && (
-                  <Button
-                    danger
-                    tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                    className={classNames.deleteBtn}
-                    onClick={onClickCancelBtn}
-                  >
-                    {t(TranslationKey.Delete)}
-                  </Button>
-                )}
+            {requestIsNotDraftAndPublished || (request && request?.request.status === RequestStatus.PUBLISHED) ? (
+              <div className={classNames.btnsWrapper}>
+                <div className={classNames.btnsRow}>
+                  {requestIsNotDraftAndPublished && (
+                    <Button
+                      danger
+                      tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+                      className={classNames.deleteBtn}
+                      onClick={onClickCancelBtn}
+                    >
+                      {t(TranslationKey.Delete)}
+                    </Button>
+                  )}
 
-                {request && request?.request.status === RequestStatus.PUBLISHED && (
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                    color="primary"
-                    className={cx(classNames.editBtn, {
-                      [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
-                    })}
-                    onClick={onClickEditBtn}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                )}
+                  {request && request?.request.status === RequestStatus.PUBLISHED && (
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+                      color="primary"
+                      className={cx(classNames.editBtn, {
+                        [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
+                      })}
+                      onClick={onClickEditBtn}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             {(request?.request.status === RequestStatus.IN_PROCESS ||
               request?.request.status === RequestStatus.EXPIRED ||

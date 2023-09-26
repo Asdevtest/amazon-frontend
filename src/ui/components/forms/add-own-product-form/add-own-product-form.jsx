@@ -150,7 +150,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                   />
                   <Button
                     disableElevation
-                    disabled={skuLine === ''}
+                    disabled={skuLine === '' || !!formFields.skusByClient.length}
                     className={classNames.defaultBtn}
                     variant="contained"
                     color="primary"

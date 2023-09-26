@@ -126,6 +126,7 @@ export class ClientProductViewModel {
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   selectedSupplier = undefined
 
@@ -222,6 +223,11 @@ export class ClientProductViewModel {
       await this.getProductById()
       await this.getShops()
       await this.getProductsVariations()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }
@@ -600,7 +606,7 @@ export class ClientProductViewModel {
       }
 
       await this.onSaveProductData()
-      await updateDataHandler()
+      updateDataHandler && (await updateDataHandler())
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -753,6 +759,15 @@ export class ClientProductViewModel {
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
+        boxProperties: supplier?.boxProperties
+          ? supplier.boxProperties
+          : {
+              amountInBox: null,
+              boxHeightCm: null,
+              boxLengthCm: null,
+              boxWeighGrossKg: null,
+              boxWidthCm: null,
+            },
       }
 
       if (photosOfSupplier.length) {

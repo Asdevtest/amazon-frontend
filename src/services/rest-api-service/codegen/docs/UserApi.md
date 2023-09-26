@@ -25,6 +25,7 @@ Method | HTTP request | Description
 [**apiV1UsersNotificationsPagMyGet**](UserApi.md#apiV1UsersNotificationsPagMyGet) | **GET** /api/v1/users/notifications/pag/my | Получить нотификации пользователя.
 [**apiV1UsersPlatformSettingsGet**](UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
 [**apiV1UsersPost**](UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
+[**apiV1UsersShareSpecSubGuidPost**](UserApi.md#apiV1UsersShareSpecSubGuidPost) | **POST** /api/v1/users/share_spec_sub/{guid} | #  Добавление определенных специализаций сабам фрилансера
 [**apiV1UsersSignInPost**](UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
 [**apiV1UsersSubNotePatch**](UserApi.md#apiV1UsersSubNotePatch) | **PATCH** /api/v1/users/sub_note | Создание/изменение subNote
 [**apiV1UsersUnlinkSubUserPatch**](UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
@@ -54,7 +55,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject127() // InlineObject127 | 
+  'body': new TestSwagger.InlineObject129() // InlineObject129 | 
 };
 apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -70,7 +71,7 @@ apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject127**](InlineObject127.md)|  | [optional] 
+ **body** | [**InlineObject129**](InlineObject129.md)|  | [optional] 
 
 ### Return type
 
@@ -108,7 +109,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject125() // InlineObject125 | 
+  'body': new TestSwagger.InlineObject127() // InlineObject127 | 
 };
 apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -124,7 +125,7 @@ apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject125**](InlineObject125.md)|  | [optional] 
+ **body** | [**InlineObject127**](InlineObject127.md)|  | [optional] 
 
 ### Return type
 
@@ -196,7 +197,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20077] apiV1UsersContactsGet(opts)
+> [InlineResponse20078] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -234,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20077]**](InlineResponse20077.md)
+[**[InlineResponse20078]**](InlineResponse20078.md)
 
 ### Authorization
 
@@ -435,7 +436,7 @@ let apiInstance = new TestSwagger.UserApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject129() // InlineObject129 | 
+  'body': new TestSwagger.InlineObject131() // InlineObject131 | 
 };
 apiInstance.apiV1UsersFeedbackGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -452,7 +453,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject129**](InlineObject129.md)|  | [optional] 
+ **body** | [**InlineObject131**](InlineObject131.md)|  | [optional] 
 
 ### Return type
 
@@ -491,7 +492,7 @@ let apiInstance = new TestSwagger.UserApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject128() // InlineObject128 | 
+  'body': new TestSwagger.InlineObject130() // InlineObject130 | 
 };
 apiInstance.apiV1UsersFeedbackGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -508,7 +509,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject128**](InlineObject128.md)|  | [optional] 
+ **body** | [**InlineObject130**](InlineObject130.md)|  | [optional] 
 
 ### Return type
 
@@ -526,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackMyGet
 
-> [InlineResponse20078] apiV1UsersFeedbackMyGet(opts)
+> [InlineResponse20079] apiV1UsersFeedbackMyGet(opts)
 
 Получить отзывы оставленые юзеру
 
@@ -566,7 +567,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20078]**](InlineResponse20078.md)
+[**[InlineResponse20079]**](InlineResponse20079.md)
 
 ### Authorization
 
@@ -600,7 +601,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject126() // InlineObject126 | 
+  'body': new TestSwagger.InlineObject128() // InlineObject128 | 
 };
 apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -616,7 +617,7 @@ apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject126**](InlineObject126.md)|  | [optional] 
+ **body** | [**InlineObject128**](InlineObject128.md)|  | [optional] 
 
 ### Return type
 
@@ -1012,7 +1013,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersNotificationsPagMyGet
 
-> InlineResponse20075 apiV1UsersNotificationsPagMyGet(opts)
+> InlineResponse20076 apiV1UsersNotificationsPagMyGet(opts)
 
 Получить нотификации пользователя.
 
@@ -1062,7 +1063,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20075**](InlineResponse20075.md)
+[**InlineResponse20076**](InlineResponse20076.md)
 
 ### Authorization
 
@@ -1076,7 +1077,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20076 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20077 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -1114,7 +1115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20076**](InlineResponse20076.md)
+[**InlineResponse20077**](InlineResponse20077.md)
 
 ### Authorization
 
@@ -1163,6 +1164,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserFullSchema**](UserFullSchema.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1UsersShareSpecSubGuidPost
+
+> String apiV1UsersShareSpecSubGuidPost(guid, opts)
+
+#  Добавление определенных специализаций сабам фрилансера
+
+## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+
+let apiInstance = new TestSwagger.UserApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject125() // InlineObject125 | 
+};
+apiInstance.apiV1UsersShareSpecSubGuidPost(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject125**](InlineObject125.md)|  | [optional] 
+
+### Return type
+
+**String**
 
 ### Authorization
 
@@ -1244,7 +1295,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject124() // InlineObject124 | 
+  'body': new TestSwagger.InlineObject126() // InlineObject126 | 
 };
 apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1260,7 +1311,7 @@ apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject124**](InlineObject124.md)|  | [optional] 
+ **body** | [**InlineObject126**](InlineObject126.md)|  | [optional] 
 
 ### Return type
 

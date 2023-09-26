@@ -213,12 +213,17 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       this.history = history
     })
-    // this.isShowPartialPayment = routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname;
     if (
       routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname ||
       routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT === history.location.pathname
     ) {
       this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
+    }
+
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onClickOrder(orderId)
     }
 
     if (location.state?.orderId) {
@@ -327,10 +332,12 @@ export class BuyerMyOrdersViewModel {
       exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData?.map(el => el._id).join(',')
 
     const clientCommentFilter =
-      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+      exclusion !== 'clientComment' &&
+      this.columnMenuSettings.clientComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     const buyerCommentFilter =
-      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+      exclusion !== 'buyerComment' &&
+      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
@@ -429,6 +436,7 @@ export class BuyerMyOrdersViewModel {
       ...(clientCommentFilter && {
         clientComment: { $eq: clientCommentFilter },
       }),
+
       ...(buyerCommentFilter && {
         buyerComment: { $eq: buyerCommentFilter },
       }),

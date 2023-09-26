@@ -10,7 +10,8 @@
       "@views/*": ["./src/ui/views/*"],
       "@utils/*": ["./src/utils/*"],
       "@contexts/*": ["./src/contexts/*"],
-      "@typings/*": ["./src/typings/*"]
+      "@typings/*": ["./src/typings/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   }
 }

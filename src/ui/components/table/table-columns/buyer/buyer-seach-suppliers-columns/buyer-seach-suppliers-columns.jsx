@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,14 +28,12 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => {
-      const onPickUpeMemo = useCallback(() => handlers.onPickUp(params.row.originalData), [])
-
       return (
         <NormalActionBtnCell
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
           bTnText={t(TranslationKey['Get to work'])}
-          onClickOkBtn={onPickUpeMemo}
+          onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
         />
       )
     },
@@ -50,7 +47,7 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     headerName: t(TranslationKey['Comments from the supervisor']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell fourLines text={params.value} />,
     width: 400,
   },
 

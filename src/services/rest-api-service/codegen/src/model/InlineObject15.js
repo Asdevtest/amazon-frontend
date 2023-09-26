@@ -49,8 +49,20 @@ class InlineObject15 {
         if (data) {
             obj = obj || new InlineObject15();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
         }
         return obj;
@@ -60,9 +72,33 @@ class InlineObject15 {
 }
 
 /**
+ * Название партии
+ * @member {String} title
+ */
+InlineObject15.prototype['title'] = undefined;
+
+/**
  * @member {Array.<String>} boxesIds
  */
 InlineObject15.prototype['boxesIds'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject15.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject15.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineObject15.prototype['actualShippingCost'] = undefined;
 
 
 

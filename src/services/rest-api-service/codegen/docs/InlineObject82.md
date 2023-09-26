@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rating** | **Number** | Поставить оценку юзеру | [optional] 
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**deletePermissions** | **Boolean** | Удалять ли пермишны(только, если parentProductId - null | [optional] [default to false]
+**parentProductId** | **String** | Ключ родительского продукта | 
+**childProductIds** | **[String]** |  | 
 
 

@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '7px 0 0 7px',
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
-    borderRight: `1px solid ${theme.palette.background.second}`,
+    borderRight: `2px solid ${theme.palette.background.chatIncomeMessage}`,
 
     [theme.breakpoints.down(1024)]: {
       width: 220,
@@ -17,6 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
       borderRadius: 7,
+      borderRight: 'none',
     },
   },
 

@@ -18,7 +18,7 @@ import {
   SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { checkIsImageLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -85,7 +85,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
     ),
     width: 100,
     sortable: false,
@@ -187,7 +187,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Files),
 
     renderCell: params => (
-      <PhotoAndFilesCarouselTest isHideCounter smallSlider files={params.row.originalData?.suppliers[0]?.images} />
+      <PhotoAndFilesSlider isHideCounter smallSlider files={params.row.originalData?.suppliers[0]?.images} />
     ),
     width: 300,
     align: 'center',
@@ -200,7 +200,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
     headerName: t(TranslationKey['Client comment']),
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,
@@ -211,7 +211,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
     headerName: t(TranslationKey['Buyer comment']),
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,

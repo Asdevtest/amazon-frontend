@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 

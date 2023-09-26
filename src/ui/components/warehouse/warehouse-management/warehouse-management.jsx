@@ -1,26 +1,20 @@
 import { observer } from 'mobx-react'
 import React, { useEffect } from 'react'
 
-import { Tabs } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
-
-import { useClassNames } from './warehouse-management.style'
 
 import { LogisticsTariffs } from './logistics-tariffs'
 import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 
 export const WarehouseManagement = observer(() => {
-  const { classes: classNames } = useClassNames()
-
   const [tabIndex, setTabIndex] = React.useState(0)
 
   useEffect(() => {
@@ -29,28 +23,17 @@ export const WarehouseManagement = observer(() => {
 
   return (
     <React.Fragment>
-      <Tabs
-        variant="fullWidth"
-        classes={{
-          root: classNames.row,
-          indicator: classNames.indicator,
-        }}
-        value={tabIndex}
-        onChange={(e, index) => setTabIndex(index)}
-      >
-        <ITab
-          tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
-          label={t(TranslationKey['Weight-based logistics tariffs'])}
-        />
-        <ITab
-          tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
-          label={t(TranslationKey['Logistics tariffs'])}
-        />
-        <ITab
-          tooltipInfoContent={t(TranslationKey['Prices for additional warehouse services'])}
-          label={t(TranslationKey['Tariffs of warehouse services'])}
-        />
-      </Tabs>
+      <CustomSwitcher
+        switchMode={'medium'}
+        condition={tabIndex}
+        switcherSettings={[
+          { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
+          { label: () => t(TranslationKey['Logistics tariffs']), value: 1 },
+          { label: () => t(TranslationKey['Tariffs of warehouse services']), value: 2 },
+        ]}
+        changeConditionHandler={setTabIndex}
+      />
+
       <TabPanel value={tabIndex} index={0}>
         <WeightBasedLogisticsTariffs />
       </TabPanel>

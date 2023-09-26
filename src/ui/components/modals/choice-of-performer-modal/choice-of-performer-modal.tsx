@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable no-unused-vars */
 import React, { FC, useEffect, useState } from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -45,6 +43,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   } = props
   const { classes: classNames } = useClassNames()
 
+  const actualmasterUsersDataIds = masterUsersData.map(obj => obj._id)
   const [dataToRender, setDataToRender] = useState(announcements)
   const [nameSearchValue, setNameSearchValue] = useState('')
   const [selectedExecutor, setSelectedExecutor] = useState<ShortUserType | undefined>(chosenExecutor)
@@ -58,22 +57,30 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
     if (selectedExecutor) {
       setDataToRender(announcements.filter(announcement => announcement.createdBy._id === selectedExecutor?._id))
     } else {
-      setDataToRender(announcements)
+      setDataToRender(
+        announcements.filter(announcement => actualmasterUsersDataIds.includes(announcement.createdBy?._id)),
+      )
     }
   }, [announcements, selectedExecutor])
 
   useEffect(() => {
     if (nameSearchValue) {
       setDataToRender(
-        announcements.filter(
-          performer =>
-            performer.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            performer.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            performer.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
-        ),
+        announcements
+          .filter(announcement => (selectedExecutor?._id ? announcement.createdBy._id === selectedExecutor?._id : true))
+          .filter(
+            announcement =>
+              announcement.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              announcement.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              announcement.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
+          ),
       )
     } else {
-      setDataToRender(announcements)
+      setDataToRender(
+        announcements.filter(announcement =>
+          selectedExecutor?._id ? announcement.createdBy._id === selectedExecutor?._id : true,
+        ),
+      )
     }
   }, [nameSearchValue])
 
@@ -141,22 +148,16 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         </Button>
       </div>
       <div className={classNames.cardsWrapper}>
-        <Box
-          component="div"
-          className={classNames.dashboardCardWrapper}
-          display="grid"
-          gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
-        >
-          {dataToRender.map((service, serviceKey) => (
-            <AnnouncementCard
-              key={serviceKey}
-              announcementData={service}
-              selectedCard={selectedService}
-              onClickThumbnail={onClickThumbnail}
-              onClickSelectCard={selectCardHandler}
-            />
-          ))}
-        </Box>
+        {dataToRender.map((service, serviceKey) => (
+          <AnnouncementCard
+            key={serviceKey}
+            announcementData={service}
+            selectedCard={selectedService}
+            onClickThumbnail={onClickThumbnail}
+            onClickSelectCard={selectCardHandler}
+            onClickSelectButton={() => onClickSelectButton(selectedService, selectedExecutor)}
+          />
+        ))}
       </div>
 
       <div className={classNames.footerWrapper}>

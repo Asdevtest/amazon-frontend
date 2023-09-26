@@ -3,8 +3,8 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   linkText: {
     color: theme.palette.primary.main,
-    fontSize: '16px',
-    lineHeight: '140%',
+    fontSize: '14px',
+    lineHeight: '19px',
     fontWeight: '400',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',

@@ -26,4 +26,10 @@ export const styles = theme => ({
     marginTop: '20px',
     height: '81vh',
   },
+  cell: {
+    '& > *': {
+      paddingTop: 10,
+      paddingBottom: 10,
+    },
+  },
 })

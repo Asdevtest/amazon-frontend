@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
@@ -19,10 +19,11 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -50,6 +51,8 @@ export class SuppliersAndIdeasModel {
   inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
+
+  currentData = undefined
 
   selectedSupplier = undefined
   supplierData = undefined
@@ -81,6 +84,7 @@ export class SuppliersAndIdeasModel {
   showBindingModal = false
   showOrderModal = false
   showSetBarcodeModal = false
+  showSelectionSupplierModal = false
 
   selectedProduct = undefined
   storekeepers = []
@@ -108,6 +112,10 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.history = history
     this.productId = productId
@@ -125,8 +133,19 @@ export class SuppliersAndIdeasModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.getIdeas(),
+      () => this.ideasData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
     )
   }
 
@@ -135,8 +154,17 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       if (!this.isCreateModal) {
+        await UserModel.getPlatformSettings().then(platformSettings =>
+          runInAction(() => {
+            this.platformSettings = platformSettings
+          }),
+        )
+
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
+          if (this.updateData) {
+            this.updateData()
+          }
         } else {
           await this.getIdeas()
         }
@@ -146,6 +174,10 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  getCurrentData() {
+    return this.ideasData?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
   }
 
   async onClickOpenNewTab(productId, ideaId) {
@@ -164,7 +196,7 @@ export class SuppliersAndIdeasModel {
       const result = await IdeaModel.getIdeas(this.productId)
 
       runInAction(() => {
-        this.ideasData = result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+        this.ideasData = result
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -228,8 +260,20 @@ export class SuppliersAndIdeasModel {
   }
 
   onCreateIdea() {
-    this.curIdea = undefined
-    this.inCreate = true
+    if (!!this.currentProduct && !this.currentProduct?.buyer?._id && !this.currentProduct?.buyerId) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.curIdea = undefined
+      this.inCreate = true
+    }
   }
 
   onSetCurIdea(idea) {
@@ -284,10 +328,6 @@ export class SuppliersAndIdeasModel {
         // }
 
         this.loadData()
-
-        if (this.updateData) {
-          this.updateData()
-        }
       }
 
       if (isForceUpdate) {
@@ -553,7 +593,7 @@ export class SuppliersAndIdeasModel {
       confirmMessage:
         t(TranslationKey['Are you sure you want to close this idea?']) +
         '\n' +
-        t(TranslationKey['Once confirmed, the idea will be irretrievably lost/deleted']),
+        t(TranslationKey['Once confirmed, the idea will be closed without reopening']),
       onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId, true),
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -586,7 +626,6 @@ export class SuppliersAndIdeasModel {
   }
 
   async onTriggerAddOrEditSupplierModal() {
-    console.log('this.showAddOrEditSupplierModal', this.showAddOrEditSupplierModal)
     try {
       if (this.showAddOrEditSupplierModal) {
         this.selectedSupplier = undefined
@@ -751,8 +790,6 @@ export class SuppliersAndIdeasModel {
         UserModel.getPlatformSettings(),
       ])
 
-      console.log('this.currentProduct', this.currentProduct)
-
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
@@ -913,5 +950,60 @@ export class SuppliersAndIdeasModel {
     )
 
     win.focus()
+  }
+
+  onClickOpenProduct(id) {
+    const userRole = UserRoleCodeMap[this.curUser?.role]
+    const userRolePath = UserRoleCodeMapForRoutes[this.curUser?.role]
+
+    if (checkIsClient(userRole)) {
+      window.open(`/${userRolePath}/inventory/product?product-id=${id}`)?.focus()
+    } else if (checkIsBuyer(userRole)) {
+      window.open(`/${userRolePath}/my-products/product?product-id=${id}`)?.focus()
+    } else if (checkIsSupervisor(userRole)) {
+      window.open(`/${userRolePath}/products/product?product-id=${id}`)?.focus()
+    }
+  }
+
+  async onSubmitCalculateSeekSupplier(clientComment) {
+    try {
+      const result = await ClientModel.calculatePriceToSeekSupplier(this.productId)
+
+      runInAction(() => {
+        const priceForSeekSupplier = result.priceForClient
+
+        this.confirmMessage = this.confirmModalSettings = {
+          isWarning: false,
+          confirmTitle: t(TranslationKey.Attention),
+          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n ${t(TranslationKey['Apply?'])}`,
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
+        }
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
+    try {
+      await ClientModel.sendProductToSeekSupplier(this.productId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
+      })
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+    } catch (error) {
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
+      console.log(error)
+    }
   }
 }

@@ -25,7 +25,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
@@ -203,7 +203,7 @@ export const BoxViewForm = observer(
               <div className={classNames.imgWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
-                  <PhotoAndFilesCarouselTest withoutFiles files={box.images} />
+                  <PhotoAndFilesSlider withoutFiles files={box.images} />
                 </div>
               </div>
 
@@ -212,14 +212,16 @@ export const BoxViewForm = observer(
                   <div className={classNames.sizesSubWrapper}>
                     <Typography className={classNames.label}>{t(TranslationKey.Dimensions) + ':'}</Typography>
 
-                    <CustomSwitcher
-                      condition={sizeSetting}
-                      nameFirstArg={unitsOfChangeOptions.EU}
-                      nameSecondArg={unitsOfChangeOptions.US}
-                      firstArgValue={unitsOfChangeOptions.EU}
-                      secondArgValue={unitsOfChangeOptions.US}
-                      changeConditionHandler={condition => setSizeSetting(condition)}
-                    />
+                    <div>
+                      <CustomSwitcher
+                        condition={sizeSetting}
+                        switcherSettings={[
+                          { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                          { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                        ]}
+                        changeConditionHandler={condition => setSizeSetting(condition)}
+                      />
+                    </div>
                   </div>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Length) + ': '}
@@ -510,7 +512,7 @@ const Content = React.memo(
           <div key={index} className={classNames.productWrapper}>
             <div className={classNames.leftColumn}>
               <div className={classNames.photoWrapper}>
-                <PhotoAndFilesCarouselTest withoutFiles files={item.product.images} />
+                <PhotoAndFilesSlider withoutFiles files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                 <Typography className={classNames.amazonTitle}>

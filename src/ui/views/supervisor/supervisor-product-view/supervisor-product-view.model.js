@@ -2,7 +2,6 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -138,6 +137,8 @@ export class SupervisorProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  platformSettings = undefined
+
   supplierModalReadOnly = false
 
   paymentMethods = []
@@ -212,6 +213,11 @@ export class SupervisorProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }
@@ -505,7 +511,7 @@ export class SupervisorProductViewModel {
 
       await this.loadData()
       this.showSuccesAlert()
-      await updateDataHandler()
+      updateDataHandler && (await updateDataHandler())
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {

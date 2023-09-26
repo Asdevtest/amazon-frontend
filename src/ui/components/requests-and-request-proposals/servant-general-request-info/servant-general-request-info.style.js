@@ -21,13 +21,6 @@ export const useClassNames = makeStyles()(theme => ({
     flex: '1 1 auto',
   },
 
-  personInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 15,
-  },
-
   personWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -46,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
-    marginBottom: 35,
+    margin: '15px 0 35px',
   },
 
   btnsBlockWrapper: {
@@ -61,14 +54,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   requestInfoWrapper: {
     flex: '1 1 auto',
+    display: 'flex',
+    gap: 20,
+    flexWrap: 'wrap',
   },
 
   titleAndIdWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: 10,
-    marginBottom: 15,
+    flexDirection: 'column',
+    gap: 5,
+
+    p: {
+      fontSize: 16,
+    },
   },
 
   title: {
@@ -127,6 +125,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: 20,
   },
 
+  urgentIconSmall: {
+    width: 16,
+    height: 16,
+  },
+
   urgentText: {
     fontSize: 14,
     lineHeight: '19px',
@@ -142,7 +145,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   headerWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
 

@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DealDetailsCard } from '@components/cards/deal-details-card'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
@@ -34,7 +35,7 @@ export const DealsOnReviewDetailsView = observer(props => {
           proposalId={viewModel.curProposalId}
           onClickConfirmDealModal={viewModel.onClickConfirmDealModal}
           onClickRejectDealModal={viewModel.onClickRejectDealModal}
-          onClickReworkDealModal={viewModel.onClickReworkDealModal}
+          onSubmitSendInForRework={viewModel.onSubmitSendInForRework}
         />
       </div>
 
@@ -70,6 +71,18 @@ export const DealsOnReviewDetailsView = observer(props => {
       <Modal openModal={viewModel.showReworkModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReworkModal')}>
         <RequestProposalResultToCorrectForm onPressSubmitForm={viewModel.onClickReworkDeal} />
       </Modal>
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
     </React.Fragment>
   )
 })

@@ -1,14 +1,12 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Tabs } from '@mui/material'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
@@ -67,6 +65,7 @@ export const ProductWrapper = observer(
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
+    platformSettings,
     onClickSupplier,
     onClickSetProductStatusBtn,
     onChangeField,
@@ -90,6 +89,8 @@ export const ProductWrapper = observer(
 
     const [tabIndex, setTabIndex] = useState(getTab(showTab))
 
+    const isClientOrAdmin = checkIsClient(curUserRole) || checkIsAdmin(curUserRole)
+
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
     }, [userRole])
@@ -98,86 +99,50 @@ export const ProductWrapper = observer(
       <>
         {SettingsModel.languageTag && (
           <div className={classNames.mainWrapper}>
-            <Tabs
-              variant={'fullWidth'}
-              classes={{
-                root: classNames.rootTabs,
-                indicator: classNames.indicator,
-                flexContainer: classNames.flexContainerTabs,
-              }}
-              value={tabIndex}
-              onChange={(e, value) => {
+            <CustomSwitcher
+              switchMode="medium"
+              condition={tabIndex}
+              switcherSettings={[
+                {
+                  label: () => t(TranslationKey['Basic information']),
+                  value: tabsValues.MAIN_INFO,
+                },
+
+                isClientOrAdmin && {
+                  label: () => t(TranslationKey.Orders),
+                  value: tabsValues.ORDERS,
+                },
+
+                isClientOrAdmin && {
+                  label: () => t(TranslationKey.Integrations),
+                  value: tabsValues.INTEGRATIONS,
+                },
+                isClientOrAdmin && {
+                  label: () => t(TranslationKey.Freelance),
+                  value: tabsValues.FREELANCE,
+                },
+
+                !checkIsResearcher(curUserRole) && {
+                  icon: product.ideasOnCheck > 0,
+                  label: () => t(TranslationKey['Suppliers and Ideas']),
+                  value: tabsValues.SUPPLIERS_AND_IDEAS,
+                },
+
+                checkIsAdmin(curUserRole) && {
+                  label: () => t(TranslationKey.Management),
+                  value: tabsValues.MANAGEMENT,
+                },
+              ].filter(item => item)}
+              changeConditionHandler={value => {
                 setTabIndex(value)
                 setCurrentTab && setCurrentTab(value)
               }}
-            >
-              <ITab
-                tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
-                value={tabsValues.MAIN_INFO}
-                label={t(TranslationKey['Basic information'])}
-                classes={{
-                  root: classNames.rootTab,
-                }}
-              />
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
-                  label={t(TranslationKey.Orders)}
-                  value={tabsValues.ORDERS}
-                  classes={{
-                    root: classNames.rootTab,
-                  }}
-                />
-              )}
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
-                  label={t(TranslationKey.Integrations)}
-                  value={tabsValues.INTEGRATIONS}
-                  classes={{
-                    root: classNames.rootTab,
-                  }}
-                />
-              )}
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  label={t(TranslationKey.Freelance)}
-                  value={tabsValues.FREELANCE}
-                  classes={{
-                    root: classNames.rootTab,
-                  }}
-                />
-              )}
-
-              {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
-
-              {!checkIsResearcher(curUserRole) && (
-                <ITab
-                  label={t(TranslationKey['Suppliers and Ideas'])}
-                  value={tabsValues.SUPPLIERS_AND_IDEAS}
-                  withIcon={product.ideasOnCheck > 0}
-                  classes={{
-                    root: classNames.rootTab,
-                  }}
-                />
-              )}
-
-              {checkIsAdmin(curUserRole) && (
-                <ITab
-                  label={t(TranslationKey.Management)}
-                  value={tabsValues.MANAGEMENT}
-                  classes={{
-                    root: classNames.rootTab,
-                  }}
-                />
-              )}
-            </Tabs>
+            />
 
             <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
+                languageTag={SettingsModel.languageTag}
+                platformSettings={platformSettings}
                 modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}

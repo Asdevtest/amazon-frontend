@@ -143,10 +143,10 @@ export const CreateOrEditProposalContent = ({
               <UserLink
                 blackText
                 name={request?.request?.createdBy?.name || request.createdBy?.name}
-                userId={request.createdBy?._id}
+                userId={request?.request?.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
-                <Rating disabled value={request?.request.createdBy?.rating || request.createdBy?.rating} />
+                <Rating readOnly value={request?.request.createdBy?.rating || request.createdBy?.rating} />
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ export const CreateOrEditProposalContent = ({
 
             <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
               <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={cx(classNames.requestTitle, classNames.requestInfoText)}>
+              <Typography className={classNames.requestTitle}>
                 {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
               </Typography>
             </div>

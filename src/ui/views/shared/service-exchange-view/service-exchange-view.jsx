@@ -1,23 +1,18 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Box, Typography } from '@mui/material'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { SearchInput } from '@components/shared/search-input'
-import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
@@ -38,44 +33,12 @@ export const ServiceExchangeViewRaw = props => {
       <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <div className={classNames.taskTypeWrapper}>
-              {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  btnWrapperStyle={classNames.btnWrapperStyle}
-                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                  })}
-                  onClick={() => viewModel.onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
-            </div>
+            <FreelanceTypeTaskSelect
+              selectedTaskType={viewModel.selectedTaskType}
+              onClickTaskType={viewModel.onClickTaskType}
+            />
           </div>
 
           <div className={classNames.searchInputWrapper}>
@@ -89,7 +52,7 @@ export const ServiceExchangeViewRaw = props => {
         </div>
 
         <Box
-          container
+          container="true"
           classes={{ root: classNames.dashboardCardWrapper }}
           className={classNames.dashboardCardWrapper}
           sx={{

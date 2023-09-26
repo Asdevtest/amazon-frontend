@@ -157,12 +157,6 @@ export const styles = theme => ({
     },
   },
 
-  boxesFiltersWrapper: {
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
-  },
-
   selectedBoxesBtn: {
     paddingBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',

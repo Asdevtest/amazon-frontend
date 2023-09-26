@@ -15,8 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject130 from '../model/InlineObject130';
-import InlineObject82 from '../model/InlineObject82';
+import InlineObject132 from '../model/InlineObject132';
 import InlineObject83 from '../model/InlineObject83';
 import InlineObject84 from '../model/InlineObject84';
 import InlineObject85 from '../model/InlineObject85';
@@ -28,7 +27,7 @@ import InlineObject90 from '../model/InlineObject90';
 import InlineObject91 from '../model/InlineObject91';
 import InlineObject92 from '../model/InlineObject92';
 import InlineObject93 from '../model/InlineObject93';
-import InlineResponse20057 from '../model/InlineResponse20057';
+import InlineObject94 from '../model/InlineObject94';
 import InlineResponse20058 from '../model/InlineResponse20058';
 import InlineResponse20080 from '../model/InlineResponse20080';
 import InlineResponse20111 from '../model/InlineResponse20111';
@@ -169,7 +168,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject130} opts.body 
+     * @param {module:model/InlineObject132} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -208,7 +207,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject130} opts.body 
+     * @param {module:model/InlineObject132} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {
@@ -224,7 +223,7 @@ export default class RequestProposalsApi {
      * ## Получить исходники
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20058>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20059>} and HTTP response
      */
     apiV1RequestProposalsFreelanceSourcesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -243,7 +242,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20058];
+      let returnType = [InlineResponse20059];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/freelance-sources', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -256,7 +255,7 @@ export default class RequestProposalsApi {
      * ## Получить исходники
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20058>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20059>}
      */
     apiV1RequestProposalsFreelanceSourcesGet(opts) {
       return this.apiV1RequestProposalsFreelanceSourcesGetWithHttpInfo(opts)
@@ -267,8 +266,8 @@ export default class RequestProposalsApi {
 
 
     /**
-     * #  Изменить исходник.
-     * ## Изменить исходник
+     * #  Удалить исходник
+     * ## Удалить исходник
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -305,8 +304,8 @@ export default class RequestProposalsApi {
     }
 
     /**
-     * #  Изменить исходник.
-     * ## Изменить исходник
+     * #  Удалить исходник
+     * ## Удалить исходник
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -326,7 +325,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject93} opts.body 
+     * @param {module:model/InlineObject94} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsFreelanceSourcesGuidPatchWithHttpInfo(guid, opts) {
@@ -365,7 +364,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject93} opts.body 
+     * @param {module:model/InlineObject94} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, opts) {
@@ -381,7 +380,7 @@ export default class RequestProposalsApi {
      * ## Создать исходник
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject92} opts.body 
+     * @param {module:model/InlineObject93} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20111} and HTTP response
      */
     apiV1RequestProposalsFreelanceSourcesPostWithHttpInfo(opts) {
@@ -414,7 +413,7 @@ export default class RequestProposalsApi {
      * ## Создать исходник
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject92} opts.body 
+     * @param {module:model/InlineObject93} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20111}
      */
     apiV1RequestProposalsFreelanceSourcesPost(opts) {
@@ -433,7 +432,7 @@ export default class RequestProposalsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20057>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20058>} and HTTP response
      */
     apiV1RequestProposalsGetWithHttpInfo(type, kind, opts) {
       opts = opts || {};
@@ -463,7 +462,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20057];
+      let returnType = [InlineResponse20058];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -479,7 +478,7 @@ export default class RequestProposalsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20057>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20058>}
      */
     apiV1RequestProposalsGet(type, kind, opts) {
       return this.apiV1RequestProposalsGetWithHttpInfo(type, kind, opts)
@@ -495,7 +494,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject83} opts.body 
+     * @param {module:model/InlineObject84} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidApprovePatchWithHttpInfo(guid, opts) {
@@ -534,7 +533,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject83} opts.body 
+     * @param {module:model/InlineObject84} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidApprovePatch(guid, opts) {
@@ -547,11 +546,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отмена предложения до заключения сделки.
-     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли вызвавший данный метод владельцем предложения.
+     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject82} opts.body 
+     * @param {module:model/InlineObject83} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCancelBeforeDealPatchWithHttpInfo(guid, opts) {
@@ -586,11 +585,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отмена предложения до заключения сделки.
-     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли вызвавший данный метод владельцем предложения.
+     * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject82} opts.body 
+     * @param {module:model/InlineObject83} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCancelBeforeDealPatch(guid, opts) {
@@ -607,7 +606,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject90} opts.body 
+     * @param {module:model/InlineObject91} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCancelPatchWithHttpInfo(guid, opts) {
@@ -646,7 +645,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject90} opts.body 
+     * @param {module:model/InlineObject91} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCancelPatch(guid, opts) {
@@ -663,7 +662,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject91} opts.body 
+     * @param {module:model/InlineObject92} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatchWithHttpInfo(guid, opts) {
@@ -702,7 +701,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject91} opts.body 
+     * @param {module:model/InlineObject92} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts) {
@@ -715,7 +714,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Принять предложение.
-     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -754,7 +753,7 @@ export default class RequestProposalsApi {
 
     /**
      * #  Принять предложение.
-     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Принять предложение.   При вызове данного метода клиент подтверждает согласие на заключение договора Если клиент принял предложение, то статус меняется на OFFER_CONDITIONS_ACCEPTEDУ фрилансеру дается время в минутах, которое было оговорено (execution_time). У клиента замораживаются средства. Проверки: Только владелец заявки может принять предложение Принимаются предложения только со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -771,11 +770,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отправить предложение обратно, после доработки.
-     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Только владелец предложения может вызвать данный метод.
+     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject86} opts.body 
+     * @param {module:model/InlineObject87} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidProposalCorrectedPatchWithHttpInfo(guid, opts) {
@@ -810,11 +809,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отправить предложение обратно, после доработки.
-     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Только владелец предложения может вызвать данный метод.
+     * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject86} opts.body 
+     * @param {module:model/InlineObject87} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidProposalCorrectedPatch(guid, opts) {
@@ -827,11 +826,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Редактировать условия предложения.
-     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject85} opts.body 
+     * @param {module:model/InlineObject86} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidProposalEditPatchWithHttpInfo(guid, opts) {
@@ -866,11 +865,11 @@ export default class RequestProposalsApi {
 
     /**
      * #  Редактировать условия предложения.
-     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED
+     * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject85} opts.body 
+     * @param {module:model/InlineObject86} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidProposalEditPatch(guid, opts) {
@@ -883,11 +882,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отказаться от предложения.
-     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject84} opts.body 
+     * @param {module:model/InlineObject85} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidProposalRejectPatchWithHttpInfo(guid, opts) {
@@ -922,11 +921,11 @@ export default class RequestProposalsApi {
 
     /**
      * # Отказаться от предложения.
-     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. 
+     * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject84} opts.body 
+     * @param {module:model/InlineObject85} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidProposalRejectPatch(guid, opts) {
@@ -999,7 +998,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject89} opts.body 
+     * @param {module:model/InlineObject90} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidResultAcceptPatchWithHttpInfo(guid, opts) {
@@ -1038,7 +1037,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject89} opts.body 
+     * @param {module:model/InlineObject90} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidResultAcceptPatch(guid, opts) {
@@ -1055,7 +1054,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject88} opts.body 
+     * @param {module:model/InlineObject89} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidResultCorrectedPatchWithHttpInfo(guid, opts) {
@@ -1094,7 +1093,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject88} opts.body 
+     * @param {module:model/InlineObject89} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidResultCorrectedPatch(guid, opts) {
@@ -1111,7 +1110,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject87} opts.body 
+     * @param {module:model/InlineObject88} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidResultToCorrectPatchWithHttpInfo(guid, opts) {
@@ -1150,11 +1149,73 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject87} opts.body 
+     * @param {module:model/InlineObject88} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidResultToCorrectPatch(guid, opts) {
       return this.apiV1RequestProposalsGuidResultToCorrectPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить все предложения фрилансера.
+     * Получить все предложения фрилансера с пагинацией
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля:               (Proposal) -> status, createdBy, sub, updatedAt               (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -> asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20060} and HTTP response
+     */
+    apiV1RequestProposalsPagMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'filters': opts['filters'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20060;
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/pag/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить все предложения фрилансера.
+     * Получить все предложения фрилансера с пагинацией
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля:               (Proposal) -> status, createdBy, sub, updatedAt               (Request) -> humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -> asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20060}
+     */
+    apiV1RequestProposalsPagMyGet(opts) {
+      return this.apiV1RequestProposalsPagMyGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

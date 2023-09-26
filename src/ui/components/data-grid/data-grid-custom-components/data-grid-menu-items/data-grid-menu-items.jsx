@@ -1212,14 +1212,12 @@ export const NormalFieldMenuItem = React.memo(
                       const valueChecked = choosenItems.some(item => item === el)
 
                       return (
-                        !!el && (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                            <div title={value} className={classNames.shopName}>
-                              {value}
-                            </div>
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                          <div title={value} className={classNames.shopName}>
+                            {value}
                           </div>
-                        )
+                        </div>
                       )
                     })}
                   </>
@@ -2631,7 +2629,7 @@ export const RedFlagsCellMenuItem = React.memo(
         columnKey={columnnsKeys}
         rowContent={obj => (
           <div className={classNames.redFlagsCell}>
-            <img src={`/assets/icons/redflags/${obj.title}.svg`} alt={obj.title} />
+            <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />
             <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
               {obj.title || t(TranslationKey.Empty)}
             </div>

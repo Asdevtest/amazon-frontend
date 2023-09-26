@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '436px',
     justifyContent: 'space-between',
     marginBottom: '30px',
+    gap: 90,
   },
 
   amountInput: {
@@ -50,7 +51,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     fontWeight: '600',
     fontSize: '16px',
-    // lineHeight: '19px',
   },
 
   standartText: {
@@ -65,11 +65,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sizesWrapper: {
-    width: '255px',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '10px',
+    gap: 10,
   },
 
   container: {

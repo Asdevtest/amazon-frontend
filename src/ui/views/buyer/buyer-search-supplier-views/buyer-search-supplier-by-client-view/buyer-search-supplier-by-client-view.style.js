@@ -9,6 +9,13 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
+  cell: {
+    '& > *': {
+      paddingTop: 10,
+      paddingBottom: 10,
+    },
+  },
+
   footerContainer: {
     position: 'absolute',
     top: 0,

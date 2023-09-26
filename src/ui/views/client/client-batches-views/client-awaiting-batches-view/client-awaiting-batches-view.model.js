@@ -56,7 +56,7 @@ export class ClientAwaitingBatchesViewModel {
   hsCodeData = {}
   showEditHSCodeModal = false
 
-  currentStorekeeper = undefined
+  currentStorekeeperId = undefined
 
   storekeepersData = []
 
@@ -239,7 +239,7 @@ export class ClientAwaitingBatchesViewModel {
       runInAction(() => {
         this.storekeepersData = result
 
-        this.currentStorekeeper = this.currentStorekeeper ? this.currentStorekeeper : null // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
+        this.currentStorekeeperId = this.currentStorekeeperId || undefined // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
       })
 
       this.getDataGridState()
@@ -248,11 +248,11 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
-  onClickStorekeeperBtn(storekeeper) {
+  onClickStorekeeperBtn(currentStorekeeperId) {
     runInAction(() => {
       this.selectedBatches = []
 
-      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+      this.currentStorekeeperId = currentStorekeeperId
     })
 
     this.getBatchesPagMy()
@@ -317,7 +317,7 @@ export class ClientAwaitingBatchesViewModel {
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
           filters: this.getFilter(),
-          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+          storekeeperId: this.currentStorekeeperId,
         },
       })
 
@@ -329,8 +329,6 @@ export class ClientAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
-
-        console.log()
       })
     } catch (error) {
       runInAction(() => {
@@ -439,7 +437,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async patchActualShippingCostBatch(id, cost) {
     await BatchesModel.changeBatch(id, {
-      actualShippingCost: cost,
+      actualShippingCost: cost || '0',
     })
 
     this.setCurrentOpenedBatch(id, true)
@@ -590,6 +588,7 @@ export class ClientAwaitingBatchesViewModel {
         'amazonTitle',
         'humanFriendlyId',
         'asin',
+        'orderHumanFriendlyId',
       ]),
     )
   }

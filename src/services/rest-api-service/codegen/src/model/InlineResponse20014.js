@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
 
 /**
  * The InlineResponse20014 model module.
@@ -47,11 +49,26 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
+            }
+            if (data.hasOwnProperty('amountInBatch')) {
+                obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
         }
         return obj;
@@ -61,16 +78,44 @@ class InlineResponse20014 {
 }
 
 /**
- * Кол-во продукта в айтеме в коробке
- * @member {Number} amount
+ * GUID партии.
+ * @member {String} _id
  */
-InlineResponse20014.prototype['amount'] = undefined;
+InlineResponse20014.prototype['_id'] = undefined;
 
 /**
- * Номер заказа
- * @member {Number} id
+ * Человекочитаемый id партии.
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20014.prototype['id'] = undefined;
+InlineResponse20014.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Название партии
+ * @member {String} title
+ */
+InlineResponse20014.prototype['title'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineResponse20014.prototype['archive'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes
+ */
+InlineResponse20014.prototype['boxes'] = undefined;
+
+/**
+ * Общее кол-во продуктов
+ * @member {Number} amountInBatch
+ */
+InlineResponse20014.prototype['amountInBatch'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20014.prototype['storekeeper'] = undefined;
 
 
 

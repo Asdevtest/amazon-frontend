@@ -55,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '140%',
     color: theme.palette.text.general,
-    maxHeight: 150,
+    maxHeight: 151,
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
     overflowY: 'auto',

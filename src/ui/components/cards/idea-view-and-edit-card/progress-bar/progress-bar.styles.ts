@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '40px',
-    padding: '0px 10px 0px 13px',
+    padding: '0px 10px',
     position: 'relative',
   },
 
@@ -30,7 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   lastActiveItem: {
-    ':after': {
+    '&:after': {
       content: '""',
       height: '100%',
       position: 'absolute',
@@ -71,14 +71,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   finalStatus: {
     backgroundColor: `${theme.palette.other.succes} !important`,
-    ':after': {
+    '&:after': {
       borderColor: `transparent ${theme.palette.other.succes} !important`,
     },
   },
 
   rejectedStatus: {
     backgroundColor: `${theme.palette.other.rejected} !important`,
-    ':after': {
+    '&:after': {
       borderColor: `transparent ${theme.palette.other.rejected} !important`,
     },
   },

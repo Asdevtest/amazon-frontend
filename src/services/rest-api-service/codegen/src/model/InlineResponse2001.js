@@ -16,6 +16,7 @@ import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByS
 import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsOrdersVariationTariff from './ApiV1AdminsOrdersVariationTariff';
 import InlineResponse200 from './InlineResponse200';
 
 /**
@@ -116,6 +117,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
             if (data.hasOwnProperty('buyerId')) {
                 obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
@@ -139,6 +143,9 @@ class InlineResponse2001 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsOrdersVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('destination')) {
                 obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
@@ -293,6 +300,12 @@ InlineResponse2001.prototype['productId'] = undefined;
 InlineResponse2001.prototype['logicsTariffId'] = undefined;
 
 /**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineResponse2001.prototype['variationTariffId'] = undefined;
+
+/**
  * GUID пользователя(байера)
  * @member {String} buyerId
  */
@@ -336,6 +349,11 @@ InlineResponse2001.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse2001.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersVariationTariff} variationTariff
+ */
+InlineResponse2001.prototype['variationTariff'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsOrdersDestination} destination

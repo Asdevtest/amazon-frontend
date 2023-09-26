@@ -252,9 +252,11 @@ export class ClientOrdersViewModel {
       exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
 
     const clientCommentFilter =
-      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+      exclusion !== 'clientComment' &&
+      this.columnMenuSettings.clientComment?.currentFilterData.map(item => `"${item}"`).join(',')
     const buyerCommentFilter =
-      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+      exclusion !== 'buyerComment' &&
+      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
@@ -925,11 +927,20 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push(
+    const win = window.open(
       `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
         order.originalData._id
       }&order-human-friendly-id=${order.originalData.id}`,
+      '_blank',
     )
+
+    win.focus()
+
+    /* this.history.push(
+      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
+        order.originalData._id
+      }&order-human-friendly-id=${order.originalData.id}`,
+    ) */
   }
 
   onTriggerOpenModal(modalState) {

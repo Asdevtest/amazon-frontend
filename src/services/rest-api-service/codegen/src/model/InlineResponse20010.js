@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
-import ApiV1BatchesStorekeeper from './ApiV1BatchesStorekeeper';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
 
 /**
  * The InlineResponse20010 model module.
@@ -52,62 +52,23 @@ class InlineResponse20010 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
             }
-            if (data.hasOwnProperty('shipId')) {
-                obj['shipId'] = ApiClient.convertToType(data['shipId'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('calculatedShippingCost')) {
-                obj['calculatedShippingCost'] = ApiClient.convertToType(data['calculatedShippingCost'], 'Number');
-            }
-            if (data.hasOwnProperty('actualShippingCost')) {
-                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumber')) {
-                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
-            }
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
-            }
-            if (data.hasOwnProperty('finalWeightAsOneBox')) {
-                obj['finalWeightAsOneBox'] = ApiClient.convertToType(data['finalWeightAsOneBox'], 'Number');
-            }
-            if (data.hasOwnProperty('finalWeightSumEachBoxAmount')) {
-                obj['finalWeightSumEachBoxAmount'] = ApiClient.convertToType(data['finalWeightSumEachBoxAmount'], 'Number');
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
-            }
-            if (data.hasOwnProperty('finalWeight')) {
-                obj['finalWeight'] = ApiClient.convertToType(data['finalWeight'], 'Number');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1BatchesStorekeeper.constructFromObject(data['storekeeper']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['lastModifiedBy']);
-            }
-            if (data.hasOwnProperty('arrivalDate')) {
-                obj['arrivalDate'] = ApiClient.convertToType(data['arrivalDate'], 'Date');
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -123,120 +84,40 @@ class InlineResponse20010 {
 }
 
 /**
- * GUID партии.
+ * GUID в базе данных
  * @member {String} _id
  */
 InlineResponse20010.prototype['_id'] = undefined;
 
 /**
- * Человекочитаемый id партии.
- * @member {Number} humanFriendlyId
+ * @member {String} type
  */
-InlineResponse20010.prototype['humanFriendlyId'] = undefined;
+InlineResponse20010.prototype['type'] = undefined;
 
 /**
- * Статус партии.
- * @member {String} status
+ * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
  */
-InlineResponse20010.prototype['status'] = undefined;
+InlineResponse20010.prototype['requests'] = undefined;
 
 /**
- * id корабля.
- * @member {String} shipId
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineResponse20010.prototype['shipId'] = undefined;
+InlineResponse20010.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Название партии
  * @member {String} title
  */
 InlineResponse20010.prototype['title'] = undefined;
 
 /**
- * Стоимость доставки при расчете из коробок
- * @member {Number} calculatedShippingCost
+ * @member {String} description
  */
-InlineResponse20010.prototype['calculatedShippingCost'] = undefined;
+InlineResponse20010.prototype['description'] = undefined;
 
 /**
- * Настоящая стоимость доставки
- * @member {Number} actualShippingCost
- */
-InlineResponse20010.prototype['actualShippingCost'] = undefined;
-
-/**
- * Трек номер партии
- * @member {String} trackingNumber
- */
-InlineResponse20010.prototype['trackingNumber'] = undefined;
-
-/**
- * Массив ссылок на файлов документации к партии.
- * @member {Array.<String>} attachedDocuments
- */
-InlineResponse20010.prototype['attachedDocuments'] = undefined;
-
-/**
- * Финальный вес партии, если считать все коробки как одну большую коробу.
- * @member {Number} finalWeightAsOneBox
- */
-InlineResponse20010.prototype['finalWeightAsOneBox'] = undefined;
-
-/**
- * Финальный вес партии, если сложить все веса коробок по отдельности.
- * @member {Number} finalWeightSumEachBoxAmount
- */
-InlineResponse20010.prototype['finalWeightSumEachBoxAmount'] = undefined;
-
-/**
- * Заархивирована ли партия
- * @member {Boolean} archive
- */
-InlineResponse20010.prototype['archive'] = undefined;
-
-/**
- * Массив id коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
- */
-InlineResponse20010.prototype['boxes'] = undefined;
-
-/**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
- */
-InlineResponse20010.prototype['calculationMethod'] = undefined;
-
-/**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
- */
-InlineResponse20010.prototype['volumeWeightDivide'] = undefined;
-
-/**
- * Масса партии
- * @member {Number} finalWeight
- */
-InlineResponse20010.prototype['finalWeight'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} storekeeper
- */
-InlineResponse20010.prototype['storekeeper'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 InlineResponse20010.prototype['createdBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} lastModifiedBy
- */
-InlineResponse20010.prototype['lastModifiedBy'] = undefined;
-
-/**
- * @member {Date} arrivalDate
- */
-InlineResponse20010.prototype['arrivalDate'] = undefined;
 
 /**
  * Дата создания.
@@ -245,7 +126,7 @@ InlineResponse20010.prototype['arrivalDate'] = undefined;
 InlineResponse20010.prototype['createdAt'] = undefined;
 
 /**
- * Дата создания.
+ * Дата обновления.
  * @member {Date} updatedAt
  */
 InlineResponse20010.prototype['updatedAt'] = undefined;

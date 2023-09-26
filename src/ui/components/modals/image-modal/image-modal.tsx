@@ -9,6 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
 
+import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
@@ -52,11 +53,11 @@ export const ImageModal: FC<Props> = ({
 
   const onClickDownloadBtn = (image: string | ImageObjectType) => {
     if (typeof image === 'string') {
-      downloadFileByLink(getAmazonImageUrl(image))
+      downloadFileByLink(checkIsImageLink(image) ? image : getAmazonImageUrl(image))
     } else if (image.file) {
       downloadFile(image.file, image.title)
     } else {
-      downloadFileByLink(getAmazonImageUrl(image.url))
+      downloadFileByLink(checkIsImageLink(image.url) ? image.url : getAmazonImageUrl(image.url))
     }
   }
 
@@ -160,7 +161,9 @@ export const ImageModal: FC<Props> = ({
 
           <div className={styles.info}>
             {typeof currentImage !== 'string' && (
-              <p className={styles.title}>{getShortenStringIfLongerThanCount(currentImage?.comment, 200)}</p>
+              <p className={cx(styles.title, styles.clientComment)}>
+                {getShortenStringIfLongerThanCount(currentImage?.comment, 200)}
+              </p>
             )}
             <p className={styles.currentSlide}>{currentSlideTitle}</p>
           </div>

@@ -56,6 +56,30 @@ class InlineObject72 {
             if (data.hasOwnProperty('strategy')) {
                 obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
             }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
+                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            }
         }
         return obj;
     }
@@ -81,6 +105,53 @@ InlineObject72.prototype['reason'] = undefined;
  */
 InlineObject72.prototype['strategy'] = undefined;
 
+/**
+ * Не настоящий ключ, используется только для нужд юзера
+ * @member {String} item
+ */
+InlineObject72.prototype['item'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineObject72.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineObject72.prototype['deadline'] = undefined;
+
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject72.PriorityEnum} priority
+ */
+InlineObject72.prototype['priority'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject72.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Комментарий клтента в заказе
+ * @member {String} clientComment
+ */
+InlineObject72.prototype['clientComment'] = undefined;
+
+/**
+ * Цена в юанях
+ * @member {Number} priceInYuan
+ */
+InlineObject72.prototype['priceInYuan'] = undefined;
+
+/**
+ * Цена доставки партии в юанях
+ * @member {Number} priceBatchDeliveryInYuan
+ */
+InlineObject72.prototype['priceBatchDeliveryInYuan'] = undefined;
 
 
 
@@ -115,6 +186,46 @@ InlineObject72['StrategyEnum'] = {
      * @const
      */
     "40": "40"
+};
+
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject72['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
 };
 
 

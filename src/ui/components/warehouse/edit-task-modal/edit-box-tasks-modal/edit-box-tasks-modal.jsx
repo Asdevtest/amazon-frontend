@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Box, Container, Typography } from '@mui/material'
 
@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
@@ -259,10 +259,10 @@ export const EditBoxTasksModal = ({
         <div className={classNames.customSwitcherWrapper}>
           <CustomSwitcher
             condition={sizeSetting}
-            nameFirstArg={unitsOfChangeOptions.EU}
-            nameSecondArg={unitsOfChangeOptions.US}
-            firstArgValue={unitsOfChangeOptions.EU}
-            secondArgValue={unitsOfChangeOptions.US}
+            switcherSettings={[
+              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+            ]}
             changeConditionHandler={condition => handleChange(condition)}
           />
         </div>
@@ -283,7 +283,7 @@ export const EditBoxTasksModal = ({
             withoutLinks
             fullWidth
             dragAndDropBtnHeight={67}
-            images={editingBox.tmpImages}
+            images={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images}
             setImages={setImagesOfBox}
             maxNumber={50}
           />
@@ -293,14 +293,7 @@ export const EditBoxTasksModal = ({
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <div className={classNames.photoAndFilesTitleMobileWrapper}>
-          <PhotoAndFilesCarousel
-            small
-            direction={window.screen.width < 768 ? 'column' : 'row'}
-            files={box?.images}
-            width={window.screen.width < 768 ? '400px' : '300px'}
-          />
-        </div>
+        <PhotoAndFilesSlider smallSlider files={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images} />
       </div>
 
       <div className={classNames.buttonsWrapper}>

@@ -52,6 +52,15 @@ class InlineObject10 {
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
+            if (data.hasOwnProperty('checkedById')) {
+                obj['checkedById'] = ApiClient.convertToType(data['checkedById'], 'String');
+            }
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
+            }
         }
         return obj;
     }
@@ -64,6 +73,24 @@ class InlineObject10 {
  * @member {String} productId
  */
 InlineObject10.prototype['productId'] = undefined;
+
+/**
+ * Гуид баера
+ * @member {String} buyerId
+ */
+InlineObject10.prototype['buyerId'] = undefined;
+
+/**
+ * Гуид супервизора
+ * @member {String} checkedById
+ */
+InlineObject10.prototype['checkedById'] = undefined;
+
+/**
+ * Гуид клиента
+ * @member {String} clientId
+ */
+InlineObject10.prototype['clientId'] = undefined;
 
 
 

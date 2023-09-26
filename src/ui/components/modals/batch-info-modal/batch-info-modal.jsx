@@ -24,7 +24,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarouselTest } from '@components/shared/photo-and-files-carousel-test'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
 import { DownloadIcon } from '@components/shared/svg-icons'
 
@@ -329,10 +329,20 @@ export const BatchInfoModal = observer(
               labelClasses={cx(classNames.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  disabled={!patchActualShippingCostBatch}
+                  // disabled={!patchActualShippingCostBatch}
+                  isInts
                   rowId={currentBatch._id}
                   text={currentBatch.actualShippingCost}
-                  onClickSubmit={!!patchActualShippingCostBatch && patchActualShippingCostBatch}
+                  onClickSubmit={(id, cost) => {
+                    if (Number.isNaN(cost)) {
+                      return
+                    }
+
+                    !!patchActualShippingCostBatch &&
+                      patchActualShippingCostBatch(id, cost).then(() => {
+                        setCurrentBatch(prevState => ({ ...prevState, actualShippingCost: cost || '0' }))
+                      })
+                  }}
                 />
               }
             />
@@ -363,17 +373,13 @@ export const BatchInfoModal = observer(
               // hideFooter
               // autoHeight
               pagination
+              disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               classes={{
-                row: classNames.row,
                 toolbarContainer: classNames.toolbarContainer,
                 // virtualScroller: classNames.virtualScroller,
-              }}
-              sx={{
-                border: `1px solid  #EBEBEB !important`,
-                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
               slots={{
                 toolbar: DataGridCustomToolbar,
@@ -399,7 +405,7 @@ export const BatchInfoModal = observer(
                       currentBatch.volumeWeightDivide,
                       currentBatch.calculationMethod,
                       isActualGreaterTheVolume,
-                      currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                      currentBatch.actualShippingCost,
                       currentBatch.finalWeight,
                     ),
                     columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -412,7 +418,7 @@ export const BatchInfoModal = observer(
                 currentBatch.volumeWeightDivide,
                 currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
-                currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                currentBatch.actualShippingCost,
                 currentBatch.finalWeight,
               )}
               rows={toJS(dataToRender)}
@@ -420,12 +426,11 @@ export const BatchInfoModal = observer(
               onRowDoubleClick={e => openBoxView(e.row)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
-            {/* </div> */}
           </div>
 
           <div className={classNames.filesAndButtonWrapper}>
             <div className={classNames.filesSubWrapper}>
-              <PhotoAndFilesCarouselTest
+              <PhotoAndFilesSlider
                 smallSlider
                 column={window.innerWidth < 768}
                 files={currentBatch.attachedDocuments}

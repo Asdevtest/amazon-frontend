@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
@@ -7,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 
 import { t } from '@utils/translations'
 
@@ -50,6 +53,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
   } = props
 
   const [selectedProduct, setSelectedProduct] = useState<IProductsLaunch | undefined>(undefined)
+
   const [selectedRadioValue, setSelectedRadioValue] = useState<boolean>(false)
 
   const changeRadioValueHandler = (selectedValue: boolean) => {
@@ -91,6 +95,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         blackSelectedItem
         darkIcon
         chosenItemNoHover
+        CustomButton={(componentProps: any) => <SelectProductButton {...componentProps} />}
         disabled={!selectedRadioValue}
         data={productsToLaunch}
         width={255}

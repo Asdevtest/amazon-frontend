@@ -74,11 +74,11 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
   yellowBorder: {
     background: theme.palette.background.yellowRow,
 
-    ':hover': {
+    '&:hover': {
       background: theme.palette.background.yellowRow,
     },
 
-    ':after': {
+    '&:after': {
       background: '#C69109',
     },
   },
@@ -86,11 +86,11 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
   redBorder: {
     background: theme.palette.background.redRow,
 
-    ':hover': {
+    '&:hover': {
       background: theme.palette.background.redRow,
     },
 
-    ':after': {
+    '&:after': {
       background: theme.palette.other.rejected,
     },
   },

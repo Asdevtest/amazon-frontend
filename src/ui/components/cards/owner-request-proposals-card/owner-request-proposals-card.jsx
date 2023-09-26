@@ -178,8 +178,6 @@ export const OwnerRequestProposalsCard = ({
           {[
             RequestProposalStatus.CREATED,
             RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
-            RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
-
             RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
             RequestProposalStatus.CANCELED_BY_SUPERVISOR,
             RequestProposalStatus.CANCELED_BY_SUPERVISOR,
@@ -190,6 +188,7 @@ export const OwnerRequestProposalsCard = ({
               RequestStatus.CANCELED_BY_ADMIN,
               RequestStatus.CANCELED_BY_SUPERVISOR,
               RequestStatus.CANCELED_BY_EXECUTOR,
+              RequestStatus.OFFER_CONDITIONS_REJECTED,
             ].includes(request.request.status) && (
               <Button
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}

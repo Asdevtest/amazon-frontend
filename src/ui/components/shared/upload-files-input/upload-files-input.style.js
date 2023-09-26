@@ -144,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageListWrapper: {
     margin: '0 auto',
-    maxHeight: 300,
+    maxHeight: 154,
     overflowY: 'auto',
 
     [theme.breakpoints.down(1024)]: {
@@ -302,13 +302,19 @@ export const useClassNames = makeStyles()(theme => ({
   imageObjInput: {
     width: 133,
     height: 55,
+    padding: '5px 0',
   },
 
   subImageObjInput: {
-    height: '55px !important',
+    height: '50px !important',
+    padding: '0 10px',
+    fontSize: 16,
+    lineHeight: '17px',
     overflowY: 'auto !important',
-    paddingLeft: 0,
-    marginLeft: '-5px',
+  },
+
+  inputIndexWrapper: {
+    marginRight: 0,
   },
 
   inputIndex: {

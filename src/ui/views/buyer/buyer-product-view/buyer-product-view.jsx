@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
@@ -33,6 +34,7 @@ export const BuyerProductView = observer(props => {
       <div>
         {viewModel.product ? (
           <ProductWrapper
+            platformSettings={viewModel.platformSettings}
             showTab={viewModel.showTab}
             user={viewModel.userInfo}
             userRole={viewModel.userInfo.role}
@@ -107,6 +109,14 @@ export const BuyerProductView = observer(props => {
           viewModel.onTriggerOpenModal('showConfirmModal')
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={viewModel.successModalTitle}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
     </React.Fragment>
   )

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид заявки | [optional] 
-**humanFriendlyId** | **Number** | удобный ключ заявки | [optional] 
+**count** | **Number** |  | [optional] 
+**rows** | [**[InlineResponse20060Rows]**](InlineResponse20060Rows.md) |  | [optional] 
 
 

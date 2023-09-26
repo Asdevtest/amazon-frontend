@@ -47,7 +47,7 @@ export const styles = theme => ({
     overflowY: 'auto',
     textAlign: 'center',
 
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    boxShadow: theme.palette.boxShadow.filter,
   },
 
   shop: {
@@ -205,7 +205,7 @@ export const styles = theme => ({
     maxHeight: 245,
     overflowY: 'auto',
     textAlign: 'center',
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    boxShadow: theme.palette.boxShadow.filter,
   },
 
   fullName: {
@@ -263,5 +263,10 @@ export const styles = theme => ({
   inpunt: {
     width: 80,
     borderBottom: `1px solid #656565`,
+  },
+
+  redFlagIcon: {
+    width: 24,
+    height: 24,
   },
 })

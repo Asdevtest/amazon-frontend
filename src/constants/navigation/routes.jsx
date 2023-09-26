@@ -300,11 +300,6 @@ const ClientIdeasNotificationsView = lazy(() =>
   })),
 )
 
-const ClientNotificationsView = lazy(() =>
-  import('@views/client/client-notifications-views/client-notifications-view').then(module => ({
-    default: module.ClientNotificationsView,
-  })),
-)
 const ClientOrdersNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-orders-notifications-view').then(module => ({
     default: module.ClientOrdersNotificationsView,
@@ -314,14 +309,6 @@ const ClientOrdersNotificationsView = lazy(() =>
 const ClientFreelanceNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-freelance-notifications-view').then(module => ({
     default: module.ClientFreelanceNotificationsView,
-  })),
-)
-
-const FreelancerFreelanceNotificationsView = lazy(() =>
-  import(
-    '@views/freelancer/freelancer-notifications-views/freelancer-notifications-view/freelancer-notifications-view'
-  ).then(module => ({
-    default: module.FreelancerNotificationsView,
   })),
 )
 
@@ -609,6 +596,12 @@ const CategoryRootView = lazy(() =>
 const ClientIdeasView = lazy(() =>
   import('@views/client/client-ideas-view/client-ideas-view').then(module => ({
     default: module.ClientIdeasView,
+  })),
+)
+
+const GeneralNotificationsView = lazy(() =>
+  import('@views/shared/general-notifications-view').then(module => ({
+    default: module.GeneralNotificationsView,
   })),
 )
 
@@ -1023,6 +1016,23 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 0,
       title: () => t(TranslationKey['Notifications on ideas']),
+    },
+  },
+
+  {
+    routePath: '/buyer/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.BUYER],
+
+    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
+
+    crumbNameKey: TranslationKey['General notifications'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 
@@ -1848,7 +1858,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/notifications',
-    component: ClientNotificationsView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
@@ -1937,12 +1947,29 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
-    crumbNameKey: TranslationKey['On orders'],
+    crumbNameKey: TranslationKey['Request messages'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 4,
       title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/client/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+
+    crumbNameKey: TranslationKey['General notifications'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 
@@ -2010,20 +2037,6 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/supervisor/freelance/vacant-deals',
-    component: VacantDealsView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey['Vacant deals'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: () => t(TranslationKey['Vacant deals']),
-    },
-  },
-
-  {
     routePath: '/supervisor/freelance/deals-on-review',
     component: DealsOnReviewView,
     exact: true,
@@ -2034,20 +2047,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
       title: () => t(TranslationKey['Deals on review']),
-    },
-  },
-
-  {
-    routePath: '/supervisor/freelance/vacant-deals/deal-details',
-    component: VacantDealsDetailsView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey.Deal,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: () => t(TranslationKey['Vacant deals']),
     },
   },
 
@@ -3042,7 +3041,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/freelancer/notifications',
-    component: FreelancerFreelanceNotificationsView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.FREELANCER],
 
@@ -3065,12 +3064,29 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
-    crumbNameKey: TranslationKey['On orders'],
+    crumbNameKey: TranslationKey['Request messages'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 0,
       title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/freelancer/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
+
+    crumbNameKey: TranslationKey['General notifications'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 

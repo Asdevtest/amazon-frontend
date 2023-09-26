@@ -13,6 +13,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -73,25 +74,17 @@ export const SupervisorSettingsContent = observer(() => {
 
   return (
     <React.Fragment>
-      <Tabs
-        variant={'fullWidth'}
-        classes={{
-          root: classNames.row,
-          indicator: classNames.indicator,
-        }}
-        value={tabIndex}
-        onChange={(e, value) => {
-          setTabIndex(value)
-        }}
-      >
-        <ITab value={tabsValues.ONLINE_ARBITRAGE_CHINA} label={'ONLINE ARBITRAGE CHINA'} />
-
-        <ITab label={'DROPSHIPPING'} value={tabsValues.DROPSHIPPING} />
-
-        <ITab label={'PRIVATE LABEL'} value={tabsValues.PRIVATE_LABEL} />
-
-        <ITab label={'WHOLE SALE USA'} value={tabsValues.WHOLE_SALE_USA} />
-      </Tabs>
+      <CustomSwitcher
+        switchMode={'medium'}
+        condition={tabIndex}
+        switcherSettings={[
+          { label: () => 'ONLINE ARBITRAGE CHINA', value: tabsValues.ONLINE_ARBITRAGE_CHINA },
+          { label: () => 'DROPSHIPPING', value: tabsValues.DROPSHIPPING },
+          { label: () => 'PRIVATE LABEL', value: tabsValues.PRIVATE_LABEL },
+          { label: () => 'WHOLE SALE USA', value: tabsValues.WHOLE_SALE_USA },
+        ]}
+        changeConditionHandler={setTabIndex}
+      />
 
       <TabPanel value={tabIndex} index={tabsValues.ONLINE_ARBITRAGE_CHINA}>
         <div className={classNames.buttonWrapper}>

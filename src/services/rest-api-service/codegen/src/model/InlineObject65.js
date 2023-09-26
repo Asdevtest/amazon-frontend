@@ -22,12 +22,10 @@ class InlineObject65 {
     /**
      * Constructs a new <code>InlineObject65</code>.
      * @alias module:model/InlineObject65
-     * @param productName {String} Назавние продукта
-     * @param price {Number} Желаемая цена
      */
-    constructor(productName, price) { 
+    constructor() { 
         
-        InlineObject65.initialize(this, productName, price);
+        InlineObject65.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject65 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productName, price) { 
-        obj['productName'] = productName;
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,6 +47,12 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('childProductId')) {
+                obj['childProductId'] = ApiClient.convertToType(data['childProductId'], 'String');
+            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
@@ -59,9 +61,6 @@ class InlineObject65 {
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
@@ -78,6 +77,12 @@ class InlineObject65 {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('fbaFee')) {
+                obj['fbaFee'] = ApiClient.convertToType(data['fbaFee'], 'Number');
+            }
+            if (data.hasOwnProperty('approximatePrice')) {
+                obj['approximatePrice'] = ApiClient.convertToType(data['approximatePrice'], 'Number');
+            }
             if (data.hasOwnProperty('width')) {
                 obj['width'] = ApiClient.convertToType(data['width'], 'Number');
             }
@@ -87,12 +92,6 @@ class InlineObject65 {
             if (data.hasOwnProperty('length')) {
                 obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('parentProductId')) {
-                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
-            }
         }
         return obj;
     }
@@ -101,13 +100,25 @@ class InlineObject65 {
 }
 
 /**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineObject65.prototype['buyerComment'] = undefined;
+
+/**
+ * Гуид дочернего компонента
+ * @member {String} childProductId
+ */
+InlineObject65.prototype['childProductId'] = undefined;
+
+/**
  * Название идеи
  * @member {String} title
  */
 InlineObject65.prototype['title'] = undefined;
 
 /**
- * Image URL
+ * Images URLs
  * @member {Array.<String>} media
  */
 InlineObject65.prototype['media'] = undefined;
@@ -117,12 +128,6 @@ InlineObject65.prototype['media'] = undefined;
  * @member {String} comments
  */
 InlineObject65.prototype['comments'] = undefined;
-
-/**
- * Комментарий байера
- * @member {String} buyerComment
- */
-InlineObject65.prototype['buyerComment'] = undefined;
 
 /**
  * Назавние продукта
@@ -155,6 +160,18 @@ InlineObject65.prototype['quantity'] = undefined;
 InlineObject65.prototype['price'] = undefined;
 
 /**
+ * FBA Fee
+ * @member {Number} fbaFee
+ */
+InlineObject65.prototype['fbaFee'] = undefined;
+
+/**
+ * Ориентационная цена
+ * @member {Number} approximatePrice
+ */
+InlineObject65.prototype['approximatePrice'] = undefined;
+
+/**
  * Ширина, см
  * @member {Number} width
  */
@@ -171,18 +188,6 @@ InlineObject65.prototype['height'] = undefined;
  * @member {Number} length
  */
 InlineObject65.prototype['length'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject65.prototype['productId'] = undefined;
-
-/**
- * Гуид родительского продукта
- * @member {String} parentProductId
- */
-InlineObject65.prototype['parentProductId'] = undefined;
 
 
 

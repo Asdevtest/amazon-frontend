@@ -119,7 +119,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     width: 230,
     height: '40px',
   },

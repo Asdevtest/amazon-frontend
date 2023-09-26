@@ -1,11 +1,9 @@
-import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { Avatar, Link } from '@mui/material'
 
-import { isMobileResolution, isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -28,12 +26,15 @@ import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useClassNames } from './messages-view.style'
 
 import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesView = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
+  const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
 
   useEffect(() => {
@@ -72,16 +73,13 @@ export const MessagesView = observer(props => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
 
-  const totalUnreadMessages = filteredChats.reduce(
-    (acc, chat) => acc + chat.messages.filter(el => !el.isRead).length,
-    0,
-  )
-
   const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
+
+  const isSafariBrowser = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
 
   return (
     viewModel.languageTag && (
-      <div className={classNames.wrapper}>
+      <div className={cx(classNames.wrapper, { [classNames.safari]: isSafariBrowser })}>
         <div
           className={cx(classNames.leftSide, {
             [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
@@ -144,7 +142,9 @@ export const MessagesView = observer(props => {
                 <div className={classNames.infoContainer}>
                   <div className={classNames.arrowBackIconWrapper}>
                     <ArrowBackIcon className={classNames.arrowBackIcon} onClick={viewModel.onClickBackButton} />
-                    {totalUnreadMessages && <span className={classNames.badge}>{totalUnreadMessages}</span>}
+                    {viewModel.unreadMessages > 0 && (
+                      <span className={classNames.badge}>{viewModel.unreadMessages}</span>
+                    )}
                   </div>
 
                   {currentChat?.type === chatsType.DEFAULT ? (

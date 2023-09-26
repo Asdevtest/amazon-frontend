@@ -8,13 +8,14 @@ export const getCategoryBadge = (category: CurNavbarType, userInfo: IUser) => {
       userInfo.needConfirmPriceChange?.boxes +
       userInfo.needConfirmPriceChange?.orders +
       userInfo.needUpdateTariff?.boxes +
-      userInfo.updatesOnIdeas +
-      userInfo.freelanceNotices.length
+      // userInfo.updatesOnIdeas +
+      userInfo.freelanceNotices.length +
+      userInfo?.notificationCounter
     )
   } else if (category.route?.includes('/freelancer/notifications')) {
-    return userInfo.freelanceNotices.length
+    return userInfo.freelanceNotices.length + userInfo?.notificationCounter
   } else if (category.route?.includes('/buyer/notifications')) {
-    return userInfo.updatesOnIdeas
+    return /* userInfo.updatesOnIdeas +*/ userInfo?.notificationCounter
   } else if (category.route?.includes('/client/my-orders/orders')) {
     return userInfo.allOrders
   } else if (category.route?.includes('/warehouse/tasks')) {
@@ -23,6 +24,14 @@ export const getCategoryBadge = (category: CurNavbarType, userInfo: IUser) => {
     return userInfo.freeOrders
   } else if (category.route?.includes('/buyer/pending-orders')) {
     return userInfo.pendingOrders
+  } else if (category.route?.includes('/client/ideas')) {
+    return (
+      userInfo.ideas.addingAsin +
+      userInfo.ideas.new +
+      userInfo.ideas.onCheck +
+      userInfo.ideas.productCreating +
+      userInfo.ideas.supplierSearch
+    )
   }
   return 0
 }

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -11,7 +10,6 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import { isTabletResolution } from '@constants/configs/sizes-settings'
 import { chatsType } from '@constants/keys/chats'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,6 +24,8 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat.styles'
 
@@ -62,6 +62,7 @@ interface Props {
   chatMessageHandlers?: ChatMessageUniversalHandlers
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
+  isFreelanceOwner?: boolean
   searchPhrase?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
@@ -89,8 +90,10 @@ export const Chat: FC<Props> = observer(
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
+    isFreelanceOwner,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
+    const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
@@ -109,7 +112,7 @@ export const Chat: FC<Props> = observer(
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
-    const isGroupChat = chat.type === chatsType.GROUP
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
 
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
@@ -153,7 +156,7 @@ export const Chat: FC<Props> = observer(
       if (isSendTypingPossible && message) {
         onTypingMessage(chat._id)
         setIsSendTypingPossible(false)
-        setTimeout(() => setIsSendTypingPossible(true), 3000)
+        setTimeout(() => setIsSendTypingPossible(true), 10000)
       }
     }, [message])
 
@@ -225,7 +228,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-      if (!disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
+      if (!isTabletResolution && !disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
         onSubmitMessageInternal()
         event.preventDefault()
       }
@@ -278,6 +281,7 @@ export const Chat: FC<Props> = observer(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
+            isFreelanceOwner={isFreelanceOwner}
             setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
           />
@@ -352,7 +356,7 @@ export const Chat: FC<Props> = observer(
           <div className={classNames.inputWrapper}>
             <TextField
               multiline
-              autoFocus
+              autoFocus={!isTabletResolution}
               inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
@@ -386,8 +390,8 @@ export const Chat: FC<Props> = observer(
                 ),
               }}
               value={message}
-              onFocus={onFocus}
-              onBlur={onBlur}
+              onFocus={!isTabletResolution ? onFocus : undefined}
+              onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
               onPaste={evt => onPasteFiles(evt)}
