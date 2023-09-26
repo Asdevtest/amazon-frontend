@@ -155,7 +155,8 @@ export class GeneralNotificationsViewModel {
           String(product?.asin)?.toLowerCase()?.includes(searchValue) ||
           String(product?.skusByClient?.[0])?.toLowerCase()?.includes(searchValue) ||
           String(product?.humanFriendlyId)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.title)?.toLowerCase()?.includes(searchValue)
+          String(product?.title)?.toLowerCase()?.includes(searchValue) ||
+          String(product?.amazonTitle)?.toLowerCase()?.includes(searchValue)
         )
       })
     } else {
