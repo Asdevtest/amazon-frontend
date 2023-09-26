@@ -391,8 +391,8 @@ export const Chat: FC<Props> = observer(
                 ),
               }}
               value={message}
-              onFocus={onFocus}
-              onBlur={onBlur}
+              onFocus={!isTabletResolution ? onFocus : undefined}
+              onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
               onPaste={evt => onPasteFiles(evt)}
