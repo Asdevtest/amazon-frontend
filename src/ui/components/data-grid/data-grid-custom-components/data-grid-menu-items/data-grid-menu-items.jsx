@@ -1212,14 +1212,12 @@ export const NormalFieldMenuItem = React.memo(
                       const valueChecked = choosenItems.some(item => item === el)
 
                       return (
-                        !!el && (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                            <div title={value} className={classNames.shopName}>
-                              {value}
-                            </div>
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                          <div title={value} className={classNames.shopName}>
+                            {value}
                           </div>
-                        )
+                        </div>
                       )
                     })}
                   </>

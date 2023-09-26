@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**archive** | **Boolean** |  | 
+**batchIds** | **[String]** |  | 
+**archive** | **Boolean** | Заархивирована ли партия | 
 
 
