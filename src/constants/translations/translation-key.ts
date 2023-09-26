@@ -64,7 +64,7 @@ export enum TranslationKey {
   'Box number:' = 'Box number:',
   'Super' = 'Super',
   'Sizes from supplier:' = 'Sizes from supplier:',
-  'Sizes from storekeeper:' = 'Sizes from storekeeper:',
+  'Sizes from storekeeper' = 'Sizes from storekeeper',
   'Length' = 'Length',
   'Width' = 'Width',
   'Height' = 'Height',

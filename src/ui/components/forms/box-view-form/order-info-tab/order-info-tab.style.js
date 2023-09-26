@@ -2,9 +2,16 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
-    maxHeight: 261,
+    height: 301,
     overflowY: 'auto',
     borderTop: `1px solid #E0E0E0`,
+  },
+
+  product: {
+    padding: '10px 0',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 30,
     borderBottom: `1px solid #E0E0E0`,
   },
 
@@ -12,17 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
-  },
-
-  product: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: 30,
-    borderTop: `1px solid #E0E0E0`,
-
-    '&:first-child': {
-      borderTop: 'none',
-    },
   },
 
   descriptionWrapper: {

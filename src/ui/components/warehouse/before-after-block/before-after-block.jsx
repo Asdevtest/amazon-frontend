@@ -208,8 +208,8 @@ const Box = observer(
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
                       ? t(TranslationKey['Sizes from buyer']) + ':'
-                      : t(TranslationKey['Sizes from storekeeper:'])
-                    : t(TranslationKey['Sizes from storekeeper:'])}
+                      : `${t(TranslationKey['Sizes from storekeeper'])}:`
+                    : `${t(TranslationKey['Sizes from storekeeper'])}:`}
                 </Typography>
 
                 <div className={classNames.sizesSubWrapper}>
