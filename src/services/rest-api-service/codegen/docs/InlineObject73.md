@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** | Комментарий клиента | [optional] 
-**buyerComment** | **String** | Комментарий баера | [optional] 
+**text** | **String** | текст отзыва/репорта | 
+**media** | **[String]** | Прикрепленные ссылки на медиа для репорта/отзыва | [optional] 
 
 

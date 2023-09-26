@@ -23,7 +23,7 @@ export const useClassNames = makeStyles()(() => ({
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(2, 1fr)',
 
-    '& div:nth-child(1)': {
+    '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/3',
     },
@@ -32,7 +32,7 @@ export const useClassNames = makeStyles()(() => ({
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(3, 1fr)',
 
-    '& div:nth-child(1)': {
+    '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/4',
     },
@@ -41,7 +41,7 @@ export const useClassNames = makeStyles()(() => ({
     gridTemplateColumns: 'repeat(4, 1fr)',
     gridTemplateRows: 'repeat(2, 1fr)',
 
-    '& div:nth-child(1)': {
+    '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/3',
     },
@@ -50,12 +50,12 @@ export const useClassNames = makeStyles()(() => ({
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(3, 1fr)',
 
-    '& div:nth-child(1)': {
+    '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/3',
     },
 
-    '& div:nth-child(6)': {
+    '& div:nth-of-type(6)': {
       gridColumn: '3',
       gridRow: '3',
     },

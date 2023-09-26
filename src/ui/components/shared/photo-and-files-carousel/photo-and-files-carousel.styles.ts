@@ -136,6 +136,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
   },
 
+  fullImagesWrapper: {
+    width: '100%',
+    height: '100%',
+  },
+
   imageSubWrapper: {
     width: '100%',
     display: 'flex',

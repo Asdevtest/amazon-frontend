@@ -108,19 +108,21 @@ export const useClassNames = makeStyles()(theme => ({
 
   input: {
     width: '100%',
-    borderRadius: 4,
+    borderRadius: 7,
     backgroundColor: theme.palette.input.second,
 
     [theme.breakpoints.down(768)]: {
       '& > div': {
-        padding: 8.5,
+        padding: 11,
 
         '& > textarea': {
           fontSize: 12,
+          lineHeight: '16px',
         },
 
         '& > textarea::placeholder': {
           fontSize: 12,
+          lineHeight: '16px',
         },
       },
     },

@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatModel } from '@models/chat-model'
 import { ChatsModel } from '@models/chats-model'
 import { ClientModel } from '@models/client-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
@@ -36,6 +37,7 @@ export class AnotherProfileViewModel {
   user = undefined
 
   productList = []
+  reviews = []
 
   productsVacant = []
   shopsData = []
@@ -47,6 +49,7 @@ export class AnotherProfileViewModel {
   selectedUser = undefined
   showTabModal = false
   showInfoModal = false
+  showConfirmWorkResultFormModal = false
 
   headerInfoData = {
     investorsCount: 255,
@@ -275,6 +278,21 @@ export class AnotherProfileViewModel {
     }
   }
 
+  async getReviews() {
+    try {
+      const result = await FeedbackModel.getFeedback(this.userId)
+
+      runInAction(() => {
+        this.reviews = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
   async updateUserInfo() {
     await UserModel.getUserInfo()
   }
@@ -420,7 +438,7 @@ export class AnotherProfileViewModel {
         await this.getShops()
       }
 
-      await this.getDataGridState()
+      await Promise.all(this.getDataGridState(), this.getReviews())
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -483,5 +501,14 @@ export class AnotherProfileViewModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  async onAcceptReview(review) {
+    await FeedbackModel.sendFeedback(this.userId, {
+      rating: review.rating,
+      comment: review.review,
+    })
+    await this.getReviews()
+    this.onTriggerOpenModal('showConfirmWorkResultFormModal')
   }
 }

@@ -47,14 +47,11 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -64,22 +61,16 @@ class InlineObject75 {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Комментарий клиента
+ * @member {String} clientComment
  */
-InlineObject75.prototype['asin'] = undefined;
+InlineObject75.prototype['clientComment'] = undefined;
 
 /**
- * Причина
- * @member {String} reason
+ * Комментарий баера
+ * @member {String} buyerComment
  */
-InlineObject75.prototype['reason'] = undefined;
-
-/**
- * Стратегия
- * @member {module:model/InlineObject75.StrategyEnum} strategy
- */
-InlineObject75.prototype['strategy'] = undefined;
+InlineObject75.prototype['buyerComment'] = undefined;
 
 
 

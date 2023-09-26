@@ -4,10 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Название партии | [optional] 
-**boxesIds** | **[String]** |  | 
-**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
-**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
-**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
+**type** | **Number** |  | [optional] 
+**linksToMediaFiles** | **[String]** |  | [optional] 
+**title** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
 
 

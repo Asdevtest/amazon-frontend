@@ -61,6 +61,7 @@ export const TopCard = observer(
     unbindProductHandler,
     shops,
     modal,
+    platformSettings,
 
     productBase,
     onClickSupplierBtns,
@@ -499,6 +500,7 @@ export const TopCard = observer(
 
               <TableSupplier
                 // isClient
+                platformSettings={platformSettings}
                 product={product}
                 productBaseData={productBase}
                 selectedSupplier={selectedSupplier}

@@ -588,6 +588,7 @@ export class ClientAwaitingBatchesViewModel {
         'amazonTitle',
         'humanFriendlyId',
         'asin',
+        'orderHumanFriendlyId',
       ]),
     )
   }

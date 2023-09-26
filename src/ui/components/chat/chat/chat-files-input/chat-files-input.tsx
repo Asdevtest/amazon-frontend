@@ -1,8 +1,10 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { ImageType } from 'react-images-uploading-alex76457-version'
 
 import { IFile } from '@components/chat/multiple-chats'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-files-input.style'
 
@@ -13,13 +15,14 @@ interface Props {
 
 export const ChatFilesInput: FC<Props> = ({ files, setFiles }) => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   return (
     <div className={classNames.root}>
       <UploadFilesInput
         withoutLinks
-        oneLine
         fullWidth
+        oneLine={!isMobileResolution}
         images={files}
         setImages={setFiles}
         maxNumber={50}

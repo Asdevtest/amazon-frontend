@@ -50,6 +50,7 @@ import { SourceProduct } from './source-product'
 export const IdeaViewAndEditCard = observer(
   ({
     isModalView,
+    languageTag,
     curUser,
     inEdit,
     inCreate,
@@ -58,6 +59,7 @@ export const IdeaViewAndEditCard = observer(
     selectedIdea,
     selectedSupplier,
     currentProduct,
+    platformSettings,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
@@ -210,7 +212,7 @@ export const IdeaViewAndEditCard = observer(
       } else {
         setFormFields(getFullIdea())
       }
-    }, [curIdea, idea])
+    }, [curIdea, idea, languageTag])
 
     useEffect(() => {
       if (selectedIdea === idea?._id) {
@@ -720,7 +722,12 @@ export const IdeaViewAndEditCard = observer(
               }
             />
 
-            <TableSupplier product={formFields} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
+            <TableSupplier
+              product={formFields}
+              selectedSupplier={selectedSupplier}
+              platformSettings={platformSettings}
+              onClickSupplier={onClickSupplier}
+            />
           </div>
         </div>
 

@@ -52,6 +52,7 @@ export class AdminProductViewModel {
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   supplierModalReadOnly = false
 
@@ -93,6 +94,11 @@ export class AdminProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }

@@ -61,6 +61,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   roles: {
     display: 'flex',
+    flexWrap: 'wrap',
   },
 
   role: {
@@ -156,5 +157,18 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'center',
       marginTop: 30,
     },
+  },
+
+  leaveReviewBtnWrapper: {
+    paddingTop: 20,
+    width: 'fit-content',
+    marginLeft: 'auto !important',
+  },
+
+  leaveReviewBtn: {
+    color: '#fff',
+    height: 40,
+    borderRadius: 7,
+    padding: '10px 20px',
   },
 }))
