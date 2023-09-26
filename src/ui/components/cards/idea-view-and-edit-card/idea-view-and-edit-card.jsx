@@ -59,6 +59,7 @@ export const IdeaViewAndEditCard = observer(
     selectedIdea,
     selectedSupplier,
     currentProduct,
+    platformSettings,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
@@ -721,7 +722,12 @@ export const IdeaViewAndEditCard = observer(
               }
             />
 
-            <TableSupplier product={formFields} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
+            <TableSupplier
+              product={formFields}
+              selectedSupplier={selectedSupplier}
+              platformSettings={platformSettings}
+              onClickSupplier={onClickSupplier}
+            />
           </div>
         </div>
 

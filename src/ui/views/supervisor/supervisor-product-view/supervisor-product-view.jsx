@@ -31,6 +31,7 @@ export const SupervisorProductView = observer(props => {
         {viewModel.product ? (
           <ProductWrapper
             imagesForLoad={viewModel.imagesForLoad}
+            platformSettings={viewModel.platformSettings}
             user={viewModel.userInfo}
             userRole={viewModel.userInfo.role}
             product={viewModel.getCurrentData()}

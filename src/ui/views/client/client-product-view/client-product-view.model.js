@@ -126,6 +126,7 @@ export class ClientProductViewModel {
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   selectedSupplier = undefined
 
@@ -222,6 +223,11 @@ export class ClientProductViewModel {
       await this.getProductById()
       await this.getShops()
       await this.getProductsVariations()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }
