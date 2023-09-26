@@ -41,6 +41,8 @@ export const PhotoAndFilesCarousel = props => {
     onChangeImagesForLoad,
     isEditable,
     withoutMakeMainImage,
+    customAvatarStyles,
+    customImgStyles,
   } = props
 
   const [imageEditOpen, setImageEditOpen] = useState(false)
@@ -182,8 +184,9 @@ export const PhotoAndFilesCarousel = props => {
                           variant="square"
                           alt={'!'}
                           src={photo?.data_url || photo}
-                          className={classNames.image}
                           classes={{ img: small ? classNames.smallImage : classNames.image }}
+                          imgProps={{ style: customImgStyles }}
+                          sx={customAvatarStyles}
                           onClick={() => {
                             setShowPhotosModal(!showPhotosModal)
 
