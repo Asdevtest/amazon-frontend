@@ -49,134 +49,74 @@ class InlineResponse20049 {
         if (data) {
             obj = obj || new InlineResponse20049();
 
-            if (data.hasOwnProperty('date')) {
-                obj['date'] = ApiClient.convertToType(data['date'], 'String');
-            }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
-            }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('sku')) {
                 obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('salesorganic')) {
-                obj['salesorganic'] = ApiClient.convertToType(data['salesorganic'], 'Number');
+            if (data.hasOwnProperty('roi')) {
+                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
             }
-            if (data.hasOwnProperty('salesppc')) {
-                obj['salesppc'] = ApiClient.convertToType(data['salesppc'], 'Number');
+            if (data.hasOwnProperty('fbaFbmStock')) {
+                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
             }
-            if (data.hasOwnProperty('unitsorganic')) {
-                obj['unitsorganic'] = ApiClient.convertToType(data['unitsorganic'], 'Number');
+            if (data.hasOwnProperty('stockValue')) {
+                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
             }
-            if (data.hasOwnProperty('unitsppc')) {
-                obj['unitsppc'] = ApiClient.convertToType(data['unitsppc'], 'Number');
+            if (data.hasOwnProperty('estimatedSalesVelocity')) {
+                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
             }
-            if (data.hasOwnProperty('refunds')) {
-                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
+            if (data.hasOwnProperty('daysOfStockLeft')) {
+                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
             }
-            if (data.hasOwnProperty('promovalue')) {
-                obj['promovalue'] = ApiClient.convertToType(data['promovalue'], 'Number');
+            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
+                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
             }
-            if (data.hasOwnProperty('sponsoredproducts')) {
-                obj['sponsoredproducts'] = ApiClient.convertToType(data['sponsoredproducts'], 'Number');
+            if (data.hasOwnProperty('runningOutOfStock')) {
+                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
             }
-            if (data.hasOwnProperty('sponsoreddisplay')) {
-                obj['sponsoreddisplay'] = ApiClient.convertToType(data['sponsoreddisplay'], 'Number');
+            if (data.hasOwnProperty('reserved')) {
+                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
             }
-            if (data.hasOwnProperty('sponsoredRands')) {
-                obj['sponsoredRands'] = ApiClient.convertToType(data['sponsoredRands'], 'Number');
+            if (data.hasOwnProperty('sentToFba')) {
+                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
             }
-            if (data.hasOwnProperty('sponsoredbrandsvideo')) {
-                obj['sponsoredbrandsvideo'] = ApiClient.convertToType(data['sponsoredbrandsvideo'], 'Number');
+            if (data.hasOwnProperty('fbaPrepStock')) {
+                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
             }
-            if (data.hasOwnProperty('giftwrap')) {
-                obj['giftwrap'] = ApiClient.convertToType(data['giftwrap'], 'Number');
+            if (data.hasOwnProperty('ordered')) {
+                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
             }
-            if (data.hasOwnProperty('shipping')) {
-                obj['shipping'] = ApiClient.convertToType(data['shipping'], 'Number');
+            if (data.hasOwnProperty('timeToReorder')) {
+                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
             }
-            if (data.hasOwnProperty('refundcost')) {
-                obj['refundcost'] = ApiClient.convertToType(data['refundcost'], 'Number');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('valueOfReturnedItems')) {
-                obj['valueOfReturnedItems'] = ApiClient.convertToType(data['valueOfReturnedItems'], 'Number');
+            if (data.hasOwnProperty('marketplace')) {
+                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
             }
-            if (data.hasOwnProperty('productcostUnsellableRefunds')) {
-                obj['productcostUnsellableRefunds'] = ApiClient.convertToType(data['productcostUnsellableRefunds'], 'Number');
+            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
+                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
             }
-            if (data.hasOwnProperty('commission')) {
-                obj['commission'] = ApiClient.convertToType(data['commission'], 'Number');
+            if (data.hasOwnProperty('fbaBufferDays')) {
+                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
             }
-            if (data.hasOwnProperty('compensatedClawback')) {
-                obj['compensatedClawback'] = ApiClient.convertToType(data['compensatedClawback'], 'Number');
+            if (data.hasOwnProperty('manufTimeDays')) {
+                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
             }
-            if (data.hasOwnProperty('fbadisposalfee')) {
-                obj['fbadisposalfee'] = ApiClient.convertToType(data['fbadisposalfee'], 'Number');
+            if (data.hasOwnProperty('useAPrepCenter')) {
+                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
             }
-            if (data.hasOwnProperty('fbaperunitfulfillmentfee')) {
-                obj['fbaperunitfulfillmentfee'] = ApiClient.convertToType(data['fbaperunitfulfillmentfee'], 'Number');
+            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
+                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
             }
-            if (data.hasOwnProperty('fbastoragefee')) {
-                obj['fbastoragefee'] = ApiClient.convertToType(data['fbastoragefee'], 'Number');
-            }
-            if (data.hasOwnProperty('freeReplacementRefundItems')) {
-                obj['freeReplacementRefundItems'] = ApiClient.convertToType(data['freeReplacementRefundItems'], 'Number');
-            }
-            if (data.hasOwnProperty('subscription')) {
-                obj['subscription'] = ApiClient.convertToType(data['subscription'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouseDamage')) {
-                obj['warehouseDamage'] = ApiClient.convertToType(data['warehouseDamage'], 'Number');
-            }
-            if (data.hasOwnProperty('warehouseLost')) {
-                obj['warehouseLost'] = ApiClient.convertToType(data['warehouseLost'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedpayout')) {
-                obj['estimatedpayout'] = ApiClient.convertToType(data['estimatedpayout'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostSales')) {
-                obj['productcostSales'] = ApiClient.convertToType(data['productcostSales'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostNonAmazon')) {
-                obj['productcostNonAmazon'] = ApiClient.convertToType(data['productcostNonAmazon'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMultichannelcosts')) {
-                obj['productcostMultichannelcosts'] = ApiClient.convertToType(data['productcostMultichannelcosts'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostMissingfrominbound')) {
-                obj['productcostMissingfrominbound'] = ApiClient.convertToType(data['productcostMissingfrominbound'], 'Number');
-            }
-            if (data.hasOwnProperty('productcostCostofmissingreturns')) {
-                obj['productcostCostofmissingreturns'] = ApiClient.convertToType(data['productcostCostofmissingreturns'], 'Number');
-            }
-            if (data.hasOwnProperty('vat')) {
-                obj['vat'] = ApiClient.convertToType(data['vat'], 'Number');
-            }
-            if (data.hasOwnProperty('grossprofit')) {
-                obj['grossprofit'] = ApiClient.convertToType(data['grossprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('netprofit')) {
-                obj['netprofit'] = ApiClient.convertToType(data['netprofit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('realAcos')) {
-                obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
-            }
-            if (data.hasOwnProperty('adjustmentFbaperunitfulfillmentfee')) {
-                obj['adjustmentFbaperunitfulfillmentfee'] = ApiClient.convertToType(data['adjustmentFbaperunitfulfillmentfee'], 'Number');
-            }
-            if (data.hasOwnProperty('amazonfees')) {
-                obj['amazonfees'] = ApiClient.convertToType(data['amazonfees'], 'Number');
-            }
-            if (data.hasOwnProperty('costOfGoods')) {
-                obj['costOfGoods'] = ApiClient.convertToType(data['costOfGoods'], 'Number');
+            if (data.hasOwnProperty('shippingToFbaDays')) {
+                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
             }
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
@@ -198,19 +138,7 @@ class InlineResponse20049 {
 }
 
 /**
- * ﻿\"Date\"
- * @member {String} date
- */
-InlineResponse20049.prototype['date'] = undefined;
-
-/**
- * Marketplace
- * @member {String} marketplace
- */
-InlineResponse20049.prototype['marketplace'] = undefined;
-
-/**
- * ASIN
+ * ﻿\"ASIN\"
  * @member {String} asin
  */
 InlineResponse20049.prototype['asin'] = undefined;
@@ -222,238 +150,130 @@ InlineResponse20049.prototype['asin'] = undefined;
 InlineResponse20049.prototype['sku'] = undefined;
 
 /**
- * Name
- * @member {String} name
+ * Title
+ * @member {String} title
  */
-InlineResponse20049.prototype['name'] = undefined;
+InlineResponse20049.prototype['title'] = undefined;
 
 /**
- * SalesOrganic
- * @member {Number} salesorganic
+ * ROI, %
+ * @member {Number} roi
  */
-InlineResponse20049.prototype['salesorganic'] = undefined;
+InlineResponse20049.prototype['roi'] = undefined;
 
 /**
- * SalesPPC
- * @member {Number} salesppc
+ * FBA/FBM Stock
+ * @member {Number} fbaFbmStock
  */
-InlineResponse20049.prototype['salesppc'] = undefined;
+InlineResponse20049.prototype['fbaFbmStock'] = undefined;
 
 /**
- * UnitsOrganic
- * @member {Number} unitsorganic
+ * Stock value
+ * @member {Number} stockValue
  */
-InlineResponse20049.prototype['unitsorganic'] = undefined;
+InlineResponse20049.prototype['stockValue'] = undefined;
 
 /**
- * UnitsPPC
- * @member {Number} unitsppc
+ * Estimated Sales Velocity
+ * @member {Number} estimatedSalesVelocity
  */
-InlineResponse20049.prototype['unitsppc'] = undefined;
+InlineResponse20049.prototype['estimatedSalesVelocity'] = undefined;
 
 /**
- * Refunds
- * @member {Number} refunds
+ * Days  of stock  left
+ * @member {Number} daysOfStockLeft
  */
-InlineResponse20049.prototype['refunds'] = undefined;
+InlineResponse20049.prototype['daysOfStockLeft'] = undefined;
 
 /**
- * PromoValue
- * @member {Number} promovalue
+ * Recommended quantity for  reordering
+ * @member {Number} recommendedQuantityForReordering
  */
-InlineResponse20049.prototype['promovalue'] = undefined;
+InlineResponse20049.prototype['recommendedQuantityForReordering'] = undefined;
 
 /**
- * SponsoredProducts
- * @member {Number} sponsoredproducts
+ * Running  out of stock
+ * @member {String} runningOutOfStock
  */
-InlineResponse20049.prototype['sponsoredproducts'] = undefined;
+InlineResponse20049.prototype['runningOutOfStock'] = undefined;
 
 /**
- * SponsoredDisplay
- * @member {Number} sponsoreddisplay
+ * Reserved
+ * @member {Number} reserved
  */
-InlineResponse20049.prototype['sponsoreddisplay'] = undefined;
+InlineResponse20049.prototype['reserved'] = undefined;
 
 /**
- * SponsoredВrands
- * @member {Number} sponsoredRands
+ * Sent  to FBA
+ * @member {Number} sentToFba
  */
-InlineResponse20049.prototype['sponsoredRands'] = undefined;
+InlineResponse20049.prototype['sentToFba'] = undefined;
 
 /**
- * SponsoredBrandsVideo
- * @member {Number} sponsoredbrandsvideo
+ * FBA  Prep. Stock
+ * @member {Number} fbaPrepStock
  */
-InlineResponse20049.prototype['sponsoredbrandsvideo'] = undefined;
+InlineResponse20049.prototype['fbaPrepStock'] = undefined;
 
 /**
- * GiftWrap
- * @member {Number} giftwrap
+ * Ordered
+ * @member {String} ordered
  */
-InlineResponse20049.prototype['giftwrap'] = undefined;
+InlineResponse20049.prototype['ordered'] = undefined;
 
 /**
- * Shipping
- * @member {Number} shipping
+ * Time to  reorder
+ * @member {String} timeToReorder
  */
-InlineResponse20049.prototype['shipping'] = undefined;
+InlineResponse20049.prototype['timeToReorder'] = undefined;
 
 /**
- * RefundCost
- * @member {Number} refundcost
+ * Comment
+ * @member {String} comment
  */
-InlineResponse20049.prototype['refundcost'] = undefined;
+InlineResponse20049.prototype['comment'] = undefined;
 
 /**
- * Value of returned items
- * @member {Number} valueOfReturnedItems
+ * Marketplace
+ * @member {String} marketplace
  */
-InlineResponse20049.prototype['valueOfReturnedItems'] = undefined;
+InlineResponse20049.prototype['marketplace'] = undefined;
 
 /**
- * ProductCost Unsellable Refunds
- * @member {Number} productcostUnsellableRefunds
+ * Target stock range after new order days
+ * @member {Number} targetStockRangeAfterNewOrderDays
  */
-InlineResponse20049.prototype['productcostUnsellableRefunds'] = undefined;
+InlineResponse20049.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
 
 /**
- * Commission
- * @member {Number} commission
+ * FBA buffer days
+ * @member {Number} fbaBufferDays
  */
-InlineResponse20049.prototype['commission'] = undefined;
+InlineResponse20049.prototype['fbaBufferDays'] = undefined;
 
 /**
- * COMPENSATED_CLAWBACK
- * @member {Number} compensatedClawback
+ * Manuf. time days
+ * @member {Number} manufTimeDays
  */
-InlineResponse20049.prototype['compensatedClawback'] = undefined;
+InlineResponse20049.prototype['manufTimeDays'] = undefined;
 
 /**
- * FBADisposalFee
- * @member {Number} fbadisposalfee
+ * Use a Prep Center
+ * @member {String} useAPrepCenter
  */
-InlineResponse20049.prototype['fbadisposalfee'] = undefined;
+InlineResponse20049.prototype['useAPrepCenter'] = undefined;
 
 /**
- * FBAPerUnitFulfillmentFee
- * @member {Number} fbaperunitfulfillmentfee
+ * Shipping to Prep Center days
+ * @member {Number} shippingToPrepCenterDays
  */
-InlineResponse20049.prototype['fbaperunitfulfillmentfee'] = undefined;
+InlineResponse20049.prototype['shippingToPrepCenterDays'] = undefined;
 
 /**
- * FBAStorageFee
- * @member {Number} fbastoragefee
+ * Shipping to FBA days
+ * @member {Number} shippingToFbaDays
  */
-InlineResponse20049.prototype['fbastoragefee'] = undefined;
-
-/**
- * FREE_REPLACEMENT_REFUND_ITEMS
- * @member {Number} freeReplacementRefundItems
- */
-InlineResponse20049.prototype['freeReplacementRefundItems'] = undefined;
-
-/**
- * Subscription
- * @member {Number} subscription
- */
-InlineResponse20049.prototype['subscription'] = undefined;
-
-/**
- * WAREHOUSE_DAMAGE
- * @member {Number} warehouseDamage
- */
-InlineResponse20049.prototype['warehouseDamage'] = undefined;
-
-/**
- * WAREHOUSE_LOST
- * @member {Number} warehouseLost
- */
-InlineResponse20049.prototype['warehouseLost'] = undefined;
-
-/**
- * EstimatedPayout
- * @member {Number} estimatedpayout
- */
-InlineResponse20049.prototype['estimatedpayout'] = undefined;
-
-/**
- * ProductCost Sales
- * @member {Number} productcostSales
- */
-InlineResponse20049.prototype['productcostSales'] = undefined;
-
-/**
- * ProductCost Non-Amazon
- * @member {Number} productcostNonAmazon
- */
-InlineResponse20049.prototype['productcostNonAmazon'] = undefined;
-
-/**
- * ProductCost MultichannelCosts
- * @member {Number} productcostMultichannelcosts
- */
-InlineResponse20049.prototype['productcostMultichannelcosts'] = undefined;
-
-/**
- * ProductCost MissingFromInbound
- * @member {Number} productcostMissingfrominbound
- */
-InlineResponse20049.prototype['productcostMissingfrominbound'] = undefined;
-
-/**
- * ProductCost CostOfMissingReturns
- * @member {Number} productcostCostofmissingreturns
- */
-InlineResponse20049.prototype['productcostCostofmissingreturns'] = undefined;
-
-/**
- * VAT
- * @member {Number} vat
- */
-InlineResponse20049.prototype['vat'] = undefined;
-
-/**
- * GrossProfit
- * @member {Number} grossprofit
- */
-InlineResponse20049.prototype['grossprofit'] = undefined;
-
-/**
- * NetProfit
- * @member {Number} netprofit
- */
-InlineResponse20049.prototype['netprofit'] = undefined;
-
-/**
- * Margin
- * @member {Number} margin
- */
-InlineResponse20049.prototype['margin'] = undefined;
-
-/**
- * Real ACOS
- * @member {Number} realAcos
- */
-InlineResponse20049.prototype['realAcos'] = undefined;
-
-/**
- * Adjustment_FBAPerUnitFulfillmentFee
- * @member {Number} adjustmentFbaperunitfulfillmentfee
- */
-InlineResponse20049.prototype['adjustmentFbaperunitfulfillmentfee'] = undefined;
-
-/**
- * AmazonFees
- * @member {Number} amazonfees
- */
-InlineResponse20049.prototype['amazonfees'] = undefined;
-
-/**
- * Cost of Goods
- * @member {Number} costOfGoods
- */
-InlineResponse20049.prototype['costOfGoods'] = undefined;
+InlineResponse20049.prototype['shippingToFbaDays'] = undefined;
 
 /**
  * Гуид записи
