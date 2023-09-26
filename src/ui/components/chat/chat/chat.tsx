@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -93,7 +92,7 @@ export const Chat: FC<Props> = observer(
     onClickEditGroupChatInfo,
     isFreelanceOwner,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
     const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
