@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
-**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
-**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse20022]**](InlineResponse20022.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

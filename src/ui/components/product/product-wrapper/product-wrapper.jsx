@@ -65,6 +65,7 @@ export const ProductWrapper = observer(
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
+    platformSettings,
     onClickSupplier,
     onClickSetProductStatusBtn,
     onChangeField,
@@ -140,6 +141,8 @@ export const ProductWrapper = observer(
 
             <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
+                languageTag={SettingsModel.languageTag}
+                platformSettings={platformSettings}
                 modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}

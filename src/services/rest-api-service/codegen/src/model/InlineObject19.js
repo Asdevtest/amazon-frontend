@@ -22,10 +22,11 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject19.initialize(this);
+        InlineObject19.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,17 +49,8 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -67,24 +60,9 @@ class InlineObject19 {
 }
 
 /**
- * @member {Number} type
+ * @member {Array.<String>} boxesIds
  */
-InlineObject19.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject19.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineObject19.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject19.prototype['description'] = undefined;
+InlineObject19.prototype['boxesIds'] = undefined;
 
 
 

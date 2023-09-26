@@ -47,29 +47,14 @@ class InlineObject72 {
         if (data) {
             obj = obj || new InlineObject72();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
             }
             if (data.hasOwnProperty('item')) {
                 obj['item'] = ApiClient.convertToType(data['item'], 'String');
@@ -103,52 +88,22 @@ class InlineObject72 {
 }
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineObject72.prototype['amount'] = undefined;
+InlineObject72.prototype['asin'] = undefined;
 
 /**
- * Гуид сапплаера
- * @member {String} orderSupplierId
+ * Причина
+ * @member {String} reason
  */
-InlineObject72.prototype['orderSupplierId'] = undefined;
+InlineObject72.prototype['reason'] = undefined;
 
 /**
- * Склад для изменения
- * @member {String} storekeeperId
+ * Стратегия
+ * @member {module:model/InlineObject72.StrategyEnum} strategy
  */
-InlineObject72.prototype['storekeeperId'] = undefined;
-
-/**
- * Пункт назначения
- * @member {String} destinationId
- */
-InlineObject72.prototype['destinationId'] = undefined;
-
-/**
- * Тариф для изменения
- * @member {String} logicsTariffId
- */
-InlineObject72.prototype['logicsTariffId'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject72.prototype['images'] = undefined;
-
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
- */
-InlineObject72.prototype['totalPrice'] = undefined;
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject72.prototype['buyerComment'] = undefined;
+InlineObject72.prototype['strategy'] = undefined;
 
 /**
  * Не настоящий ключ, используется только для нужд юзера
@@ -199,6 +154,39 @@ InlineObject72.prototype['priceInYuan'] = undefined;
 InlineObject72.prototype['priceBatchDeliveryInYuan'] = undefined;
 
 
+
+
+/**
+ * Allowed values for the <code>strategy</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject72['StrategyEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40"
+};
 
 
 

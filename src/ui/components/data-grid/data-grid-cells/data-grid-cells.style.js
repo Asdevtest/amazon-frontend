@@ -531,8 +531,9 @@ export const styles = theme => ({
     height: '100%',
     width: '100%',
     padding: '5px',
-    maxHeight: 240,
+    maxHeight: '199px',
     overflow: 'auto',
+    gap: '5px',
   },
 
   withScrollBatchBoxesWrapper: {
@@ -557,7 +558,6 @@ export const styles = theme => ({
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
     padding: '3px',
-    marginBottom: '5px',
     width: '100%',
   },
 
@@ -1523,6 +1523,7 @@ export const styles = theme => ({
   },
   asinAndSkuTitle: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-start',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',

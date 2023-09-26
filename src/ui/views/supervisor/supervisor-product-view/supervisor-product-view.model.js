@@ -137,6 +137,8 @@ export class SupervisorProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  platformSettings = undefined
+
   supplierModalReadOnly = false
 
   paymentMethods = []
@@ -211,6 +213,11 @@ export class SupervisorProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }

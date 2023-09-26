@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** |  | [optional] 
-**rows** | [**[InlineResponse20062Rows]**](InlineResponse20062Rows.md) | Массив заявок. | [optional] 
+**_id** | **String** | Гуид заявки | [optional] 
+**humanFriendlyId** | **Number** | удобный ключ заявки | [optional] 
 
 

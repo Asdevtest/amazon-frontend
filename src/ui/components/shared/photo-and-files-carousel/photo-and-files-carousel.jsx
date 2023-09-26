@@ -44,6 +44,8 @@ export const PhotoAndFilesCarousel = props => {
     onChangeImagesForLoad,
     isEditable,
     withoutMakeMainImage,
+    customAvatarStyles,
+    customImgStyles,
   } = props
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -90,7 +92,7 @@ export const PhotoAndFilesCarousel = props => {
       onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
       setBigImagesOptions(() => ({
         ...bigImagesOptions,
-        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
+        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0].data_url : el)),
       }))
     }
   }
@@ -109,10 +111,12 @@ export const PhotoAndFilesCarousel = props => {
   }
 
   const onClickEditImageSubmit = image => {
+    console.log(image)
+    console.log(bigImagesOptions)
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
-      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
+      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image.data_url : el)),
     }))
   }
 
@@ -169,7 +173,7 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={classNames.imagesWrapper} style={{ width: isImagesFullWidth && '100%' }}>
+            <div className={cx(classNames.imagesWrapper, { [classNames.fullImagesWrapper]: withoutFiles })}>
               {notEmptyPhotos?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable
@@ -183,8 +187,9 @@ export const PhotoAndFilesCarousel = props => {
                           variant="square"
                           alt={'!'}
                           src={photo?.data_url || photo}
-                          className={classNames.image}
                           classes={{ img: small ? classNames.smallImage : classNames.image }}
+                          imgProps={{ style: customImgStyles }}
+                          sx={customAvatarStyles}
                           onClick={() => {
                             setShowPhotosModal(!showPhotosModal)
 

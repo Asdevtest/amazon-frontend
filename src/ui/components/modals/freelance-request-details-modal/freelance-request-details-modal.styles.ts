@@ -71,7 +71,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    maxWidth: '380px',
+    width: '380px',
   },
 
   productImages: {
