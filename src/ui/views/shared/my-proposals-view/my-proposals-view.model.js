@@ -11,14 +11,69 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import { RequestModel } from '@models/request-model'
+import { GeneralModel } from '@models/general-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { FreelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
+
+import { addIdDataConverter, myProposalsDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+// * Список полей для фильтраций
+
+const filtersFields = [
+  'status',
+  'createdBy',
+  'sub',
+  'updatedAt',
+  'humanFriendlyId',
+  'priority',
+  'title',
+  'maxAmountOfProposals',
+  'timeoutAt',
+  'requestCreatedBy',
+  'asin',
+  'amazonTitle',
+]
 
 export class MyProposalsViewModel {
+  // * Pagination & Sort
+
+  rowCount = 0
+  sortModel = []
+  densityModel = 'compact'
+  paginationModel = { page: 0, pageSize: 15 }
+  filterModel = { items: [] }
+  selectedRowIds = []
+
+  // * Table settings
+
+  columnVisibilityModel = {}
+  rowHandlers = {
+    navigateToHandler: (notification, type) => this.navigateToHandler(notification, type),
+  }
+
+  columnsModel = FreelancerMyProposalsColumns(this.rowHandlers)
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getIdeaList()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  currentSearchValue = ''
+
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -31,15 +86,12 @@ export class MyProposalsViewModel {
 
   searchMyRequestsIds = []
   requests = []
-  requestsBase = []
   selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
     name: RequestProposalStatusTranslate(el),
     _id: el,
   }))
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-
-  nameSearchValue = ''
 
   userInfo = []
   userRole = undefined
@@ -50,7 +102,7 @@ export class MyProposalsViewModel {
   showRequestResultModal = false
   selectedProposal = undefined
 
-  viewMode = tableViewMode.LIST
+  viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
   get user() {
@@ -78,13 +130,6 @@ export class MyProposalsViewModel {
         runInAction(() => {
           this.currentData = this.getCurrentData()
         })
-      },
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
       },
     )
   }
@@ -119,26 +164,7 @@ export class MyProposalsViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.requests).filter(
-        el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.proposals?.some(item =>
-            item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.proposals.some(
-            el =>
-              el.sub?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-              el.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ),
-        // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.requests)
-    }
+    return toJS(this.requests)
   }
 
   onClickDeleteBtn(item) {
@@ -176,22 +202,6 @@ export class MyProposalsViewModel {
     })
 
     this.setTableModeState()
-  }
-
-  getFilteredRequests() {
-    let res
-
-    if (Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])) {
-      res = this.requestsBase
-    } else {
-      res = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
-    }
-
-    const selectedStatuses = this.selectedProposalFilters.map(el => el._id)
-
-    res = res.filter(el => el.proposals.some(e => selectedStatuses.includes(e.status)))
-
-    return res
   }
 
   onClickTaskType(taskType) {
@@ -267,7 +277,7 @@ export class MyProposalsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserInfo()
-      await this.getRequestsCustom()
+      await this.getRequestsProposalsPagMy()
       this.getTableModeState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -276,27 +286,27 @@ export class MyProposalsViewModel {
     }
   }
 
-  async getRequestsCustom() {
+  async getRequestsProposalsPagMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await RequestModel.getRequestsCustom(this.user._id)
+      await RequestProposalModel.getRequestProposalsPagMy({
+        filters: '',
 
-      runInAction(() => {
-        this.requestsBase = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        this.requests = result
-          .filter(el => {
-            if (this.selectedTaskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]) {
-              return el
-            } else {
-              return Number(el.typeTask) === Number(this.selectedTaskType)
-            }
-          })
-          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      }).then(response => {
+        runInAction(() => {
+          this.requests = myProposalsDataConverter(response.rows) || []
+          this.rowCount = response.count
 
-        // console.log('this.requests', this.requests)
+          console.log('this.requests', this.requests)
+        })
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -330,9 +340,68 @@ export class MyProposalsViewModel {
     }
   }
 
-  onChangeNameSearchValue(e) {
+  onChangeSearchValue(value) {
+    this.currentSearchValue = value
+    this.getRequestsProposalsPagMy()
+  }
+
+  getFilters(exclusion) {
+    // const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
+
+    return objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.currentSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'amazonTitle'],
+        // {
+        //   ...(!statusFilterData.length && {
+        //     status: {
+        //       $eq: this.currentSettings.statuses.join(','),
+        //     },
+        //   }),
+        // },
+      ),
+    )
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column),
+        column,
+
+        `request-proposals/pag/my?filters=${this.getFilters(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
     runInAction(() => {
-      this.nameSearchValue = e.target.value
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
     })
   }
 

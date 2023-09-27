@@ -27,6 +27,8 @@ export const MyProposalsListCard = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
+  console.log('item', item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>

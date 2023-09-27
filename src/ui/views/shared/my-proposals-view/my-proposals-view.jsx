@@ -68,8 +68,6 @@ export const MyProposalsViewRaw = props => {
     }
   }
 
-  console.log('viewModel.viewMode', viewModel.viewMode)
-
   return (
     <React.Fragment>
       <div className={classNames.root}>
@@ -84,11 +82,13 @@ export const MyProposalsViewRaw = props => {
             placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
               TranslationKey.Title,
             )}, User, ${t(TranslationKey.ID)}`}
-            value={viewModel.nameSearchValue}
-            onChange={viewModel.onChangeNameSearchValue}
+            value={viewModel.currentSearchValue}
+            onSubmit={viewModel.onChangeSearchValue}
           />
 
-          <div className={classNames.tablePanelSubWrapper}>
+          <div />
+
+          {/* <div className={classNames.tablePanelSubWrapper}>
             <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
               <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
@@ -141,69 +141,69 @@ export const MyProposalsViewRaw = props => {
               viewMode={viewModel.viewMode}
               onChangeViewMode={viewModel.onChangeViewMode}
             />
-          </div>
+          </div> */}
         </div>
 
-        {viewModel.requestStatus === loadingStatuses.isLoading ? (
+        {/* {viewModel.requestStatus === loadingStatuses.isLoading ? (
           <div className={classNames.loadingWrapper}>
             <CircularProgressWithLabel />
           </div>
         ) : viewModel.currentData?.length ? (
-          viewModel.viewMode === tableViewMode.TABLE ? (
-            <div className={classNames.dataGridWrapper}>
-              <MemoDataGrid
-                disableVirtualization
-                pagination
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
-                sortingMode="server"
-                paginationMode="server"
-                rowCount={viewModel.rowCount}
-                sortModel={viewModel.sortModel}
-                filterModel={viewModel.filterModel}
-                columnVisibilityModel={viewModel.columnVisibilityModel}
-                paginationModel={viewModel.paginationModel}
-                // pageSizeOptions={pageSizeOptions}
-                rows={viewModel.currentData}
-                rowHeight={'auto'}
-                slots={{
-                  toolbar: DataGridCustomToolbar,
-                  columnMenuIcon: FilterAltOutlinedIcon,
-                  columnMenu: DataGridCustomColumnMenuComponent,
-                }}
-                slotProps={{
-                  baseTooltip: {
-                    title: t(TranslationKey.Filter),
-                  },
-                  columnMenu: viewModel.columnMenuSettings,
+          viewModel.viewMode === tableViewMode.TABLE ? ( */}
+        <div className={classNames.dataGridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            // pageSizeOptions={pageSizeOptions}
+            rows={viewModel.currentData}
+            rowHeight={87}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
 
-                  toolbar: {
-                    resetFiltersBtnSettings: {
-                      onClickResetFilters: viewModel.onClickResetFilters,
-                      isSomeFilterOn: viewModel.isSomeFilterOn,
-                    },
-                    columsBtnSettings: {
-                      columnsModel: viewModel.columnsModel,
-                      columnVisibilityModel: viewModel.columnVisibilityModel,
-                      onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                    },
-                  },
-                }}
-                columns={viewModel.columnsModel}
-                loading={viewModel.requestStatus === loadingStatuses.isLoading}
-                onSortModelChange={viewModel.onChangeSortingModel}
-                onFilterModelChange={viewModel.onChangeFilterModel}
-                onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-                onPaginationModelChange={viewModel.onChangePaginationModelChange}
-              />
-            </div>
-          ) : (
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          />
+        </div>
+        {/* ) : (
             <div className={classNames.cardsWrapper}>
               {getSortedData(viewModel.sortMode)?.map((item, index) => (
                 <MyProposalsListCard
                   key={item._id}
                   isFirst={index === 0}
-                  item={item}
+                  item={item?.originalData?.request}
                   onClickEditBtn={viewModel.onClickEditBtn}
                   onClickDeleteBtn={viewModel.onClickDeleteBtn}
                   onClickOpenBtn={viewModel.onClickOpenBtn}
@@ -219,7 +219,7 @@ export const MyProposalsViewRaw = props => {
               {t(TranslationKey['No suggestions'])}
             </Typography>
           </div>
-        )}
+        )} */}
       </div>
 
       <ConfirmationModal

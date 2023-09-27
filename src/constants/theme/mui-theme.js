@@ -1,5 +1,3 @@
-// import {grey} from '@mui/material/colors'
-import { Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {

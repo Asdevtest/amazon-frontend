@@ -5,6 +5,10 @@ export const styles = theme => ({
     gap: '20px',
   },
 
+  dataGridWrapper: {
+    height: 'calc(100vh - 190px)',
+  },
+
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
