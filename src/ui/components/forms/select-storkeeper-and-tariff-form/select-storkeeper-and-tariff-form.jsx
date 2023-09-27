@@ -2,6 +2,8 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
+import Checkbox from '@mui/material/Checkbox'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -37,8 +39,16 @@ export const SelectStorekeeperAndTariffForm = observer(
     const { classes: classNames } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
-
     const [nameSearchValue, setNameSearchValue] = useState('')
+    const [curStorekeeper, setCurStorekeeper] = useState(
+      curStorekeeperId
+        ? storekeepers.find(el => el._id === curStorekeeperId)
+        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
+    )
+    const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
+    const [destinationId, setDestinationId] = useState(currentDestinationId)
+    const [isRemovedDestinationRestriction, setIsRemovedDestinationRestriction] = useState(false)
+    const [isSelectedDestinationNotValid, setIsSelectedDestinationNotValid] = useState(false)
 
     const filterByNameSearch = data => {
       if (nameSearchValue) {
@@ -48,31 +58,27 @@ export const SelectStorekeeperAndTariffForm = observer(
       }
     }
 
-    const [curStorekeeper, setCurStorekeeper] = useState(
-      curStorekeeperId
-        ? storekeepers.find(el => el._id === curStorekeeperId)
-        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
-    )
-
-    const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
-    const [destinationId, setDestinationId] = useState(currentDestinationId)
-
-    const setVariationTariff = (variationId, destinationId) => {
+    const setVariationTariff = (variationId, destinationId, isNotValidDestination) => {
       if (variationTariffId === variationId) {
         setVariationTariffId(null)
         setDestinationId(null)
+        setIsSelectedDestinationNotValid(null)
       } else {
         setVariationTariffId(variationId)
         setDestinationId(destinationId)
+        setIsSelectedDestinationNotValid(isNotValidDestination)
       }
     }
 
-    const onClickSelectTariff = tariffId => onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
+    const onClickSelectTariff = tariffId =>
+      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid)
 
     const onClickSelectTariffOld = (tariffId, variationTariffId) =>
       onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
+
+    console.log('curStorekeeper', curStorekeeper)
 
     return (
       <div className={classNames.root}>
@@ -145,13 +151,22 @@ export const SelectStorekeeperAndTariffForm = observer(
                       currentDestinationId,
                       onClickSelectTariff,
                       setVariationTariff,
+                      isRemovedDestinationRestriction,
                     )
               }
               getRowHeight={() => 'auto'}
             />
           </div>
-          {!inNotifications ? (
+          {!inNotifications && (
             <div className={classNames.clearBtnWrapper}>
+              <div className={classNames.checkboxWrapper}>
+                <Checkbox
+                  checked={isRemovedDestinationRestriction}
+                  onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
+                />
+                <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
+              </div>
+
               <Button
                 disableElevation
                 color="primary"
@@ -165,7 +180,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 {t(TranslationKey.reset)}
               </Button>
             </div>
-          ) : null}
+          )}
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           <div className={classNames.tableWrapper}>

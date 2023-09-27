@@ -380,7 +380,7 @@ export const ClientInStockBoxesViewRaw = props => {
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickCancelBtn={viewModel.confirmModalSettings.onClickCancelBtn}
       />
 
       <Modal
@@ -434,12 +434,17 @@ export const ClientInStockBoxesViewRaw = props => {
           total={!viewModel.changeItem}
           currentDestinationId={viewModel.changeItem?.destination?._id}
           currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(storekeeperId, tariffId, variationTariffId) =>
-            viewModel.editTariff(viewModel.changeItem?._id, {
-              logicsTariffId: tariffId,
-              storekeeperId,
-              variationTariffId,
-            })
+          onSubmit={(storekeeperId, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid) =>
+            viewModel.editTariff(
+              viewModel.changeItem?._id,
+              {
+                logicsTariffId: tariffId,
+                storekeeperId,
+                variationTariffId,
+                destinationId,
+              },
+              isSelectedDestinationNotValid,
+            )
           }
         />
       </Modal>
