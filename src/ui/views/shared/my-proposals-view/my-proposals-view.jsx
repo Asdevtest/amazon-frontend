@@ -165,7 +165,7 @@ export const MyProposalsViewRaw = props => {
                 paginationModel={viewModel.paginationModel}
                 // pageSizeOptions={pageSizeOptions}
                 rows={viewModel.currentData}
-                rowHeight={75}
+                rowHeight={'auto'}
                 slots={{
                   toolbar: DataGridCustomToolbar,
                   columnMenuIcon: FilterAltOutlinedIcon,
@@ -195,7 +195,6 @@ export const MyProposalsViewRaw = props => {
                 onFilterModelChange={viewModel.onChangeFilterModel}
                 onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
                 onPaginationModelChange={viewModel.onChangePaginationModelChange}
-                onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
               />
             </div>
           ) : (
