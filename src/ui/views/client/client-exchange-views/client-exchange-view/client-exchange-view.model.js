@@ -5,7 +5,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
-// import {ProductModel} from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
