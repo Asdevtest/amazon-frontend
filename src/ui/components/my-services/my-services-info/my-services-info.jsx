@@ -57,7 +57,9 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
             </div>
           </div>
         </div>
-        <PhotoAndFilesSlider customSlideHeight={80} files={announcementData?.linksToMediaFiles} />
+        <div className={classNames.photosWrapper}>
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={150} files={announcementData?.linksToMediaFiles} />
+        </div>
       </div>
 
       <div className={classNames.footerWrapper}>

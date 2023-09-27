@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
@@ -34,7 +33,7 @@ import { useClassNames } from './messages-view.style'
 import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesView = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
 
@@ -76,9 +75,11 @@ export const MessagesView = observer(props => {
 
   const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
 
+  const isSafariBrowser = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
   return (
     viewModel.languageTag && (
-      <div className={classNames.wrapper}>
+      <div className={cx(classNames.wrapper, { [classNames.safari]: isSafariBrowser })}>
         <div
           className={cx(classNames.leftSide, {
             [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,

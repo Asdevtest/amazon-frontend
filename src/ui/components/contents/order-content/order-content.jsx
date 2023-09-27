@@ -48,6 +48,7 @@ export const OrderContent = ({
   isClient,
   onSubmitSaveOrder,
   onClickReorder,
+  platformSettings,
   selectedSupplier,
   onChangeSelectedSupplier,
   onTriggerAddOrEditSupplierModal,
@@ -279,6 +280,7 @@ export const OrderContent = ({
 
           <TableSupplier
             isClient
+            platformSettings={platformSettings}
             product={updatedOrder.product}
             productBaseData={updatedOrder}
             selectedSupplier={selectedSupplier}

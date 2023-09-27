@@ -25,4 +25,21 @@ export const useClassNames = makeStyles()(theme => ({
   datagridWrapper: {
     height: 'calc(100vh - 190px)',
   },
+
+  actionPanelWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  searchInputClient: {
+    width: '420px',
+  },
+
+  searchInputFreelancer: {
+    width: '350px',
+  },
+
+  searchInput: {
+    width: '270px',
+  },
 }))

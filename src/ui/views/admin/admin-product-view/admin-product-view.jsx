@@ -29,6 +29,7 @@ export const AdminProductView = observer(props => {
       <div>
         {viewModel.product ? (
           <ProductWrapper
+            platformSettings={viewModel.platformSettings}
             userRole={viewModel.userInfo.role}
             product={viewModel.product}
             selectedSupplier={viewModel.selectedSupplier}

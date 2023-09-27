@@ -10,7 +10,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IMasterUser, IService } from '@typings/master-user'
+import { IService, ShortUserType } from '@typings/master-user'
 
 import { useClassNames } from './announcement-modal.styles'
 
@@ -22,7 +22,7 @@ interface Props {
   order?: boolean
   select?: boolean
   onClickButton?: (service: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IMasterUser) => void
+  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: ShortUserType) => void
 }
 
 export const AnnouncementModal: FC<Props> = ({

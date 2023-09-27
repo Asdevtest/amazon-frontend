@@ -106,4 +106,11 @@ export const useClassNames = makeStyles()(theme => ({
 
     overflowY: 'auto',
   },
+
+  photosWrapper: {
+    width: 410,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }))

@@ -38,20 +38,21 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: (params: GridCellParams) => {
-      const notification = isArray(params?.row?.data) ? params?.row?.data?.[0] : params?.row?.data
-      const product =
-        notification?.product ||
-        notification?.vacOrders?.[0]?.product ||
-        notification?.needConfirmOrders?.[0]?.product ||
-        notification?.request?.product ||
-        notification?.items?.[0]?.product
+      // const notification = isArray(params?.row?.data) ? params?.row?.data?.[0] : params?.row?.data
+      // const product =
+      //   notification?.product ||
+      //   notification?.vacOrders?.[0]?.product ||
+      //   notification?.needConfirmOrders?.[0]?.product ||
+      //   notification?.request?.product ||
+      //   notification?.items?.[0]?.product ||
+      //   notification?.parentProduct
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
-          amazonTitle={product?.amazonTitle}
-          asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          image={params.row.product?.images?.slice()[0]}
+          amazonTitle={params.row.product?.amazonTitle}
+          asin={params.row.product?.asin}
+          skusByClient={params.row.product?.skusByClient?.slice()[0]}
         />
       )
     },

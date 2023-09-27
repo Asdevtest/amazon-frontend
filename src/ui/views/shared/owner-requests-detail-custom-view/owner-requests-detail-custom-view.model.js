@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
@@ -25,6 +26,8 @@ export class OwnerRequestDetailCustomViewModel {
   requestProposals = []
   requestAnnouncement = undefined
   curResultMedia = []
+  currentReviews = []
+  currentReviewModalUser = undefined
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -220,6 +223,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
+    console.log(this.findRequestProposalForCurChat)
     runInAction(() => {
       this.acceptProposalResultSetting = {
         onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
@@ -231,6 +235,11 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickProposalResultAcceptForm(proposalId, data) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
+      await FeedbackModel.sendFeedback(this.findRequestProposalForCurChat.proposal.createdBy._id, {
+        rating: data.rating,
+        comment: data.review,
+      })
+
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
       this.loadData()
     } catch (error) {
@@ -424,7 +433,23 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  onClickReview() {
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+      runInAction(() => {
+        this.currentReviews = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    this.currentReviewModalUser = user
     this.onTriggerOpenModal('showReviewModal')
   }
 

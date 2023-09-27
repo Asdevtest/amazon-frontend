@@ -73,6 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap',
     color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
