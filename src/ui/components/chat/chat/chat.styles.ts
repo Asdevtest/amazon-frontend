@@ -113,17 +113,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(768)]: {
       '& > div': {
-        padding: 11,
-
-        '& > textarea': {
-          fontSize: 12,
-          lineHeight: '16px',
-        },
-
-        '& > textarea::placeholder': {
-          fontSize: 12,
-          lineHeight: '16px',
-        },
+        padding: '8px 0 8px 8px',
+        fontSize: 16,
+        lineHeight: '22px',
       },
     },
   },
@@ -157,6 +149,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
+
+    [theme.breakpoints.down(768)]: {
+      margin: '0 3px',
+    },
   },
 
   inputIcon: {

@@ -363,7 +363,6 @@ export const Chat: FC<Props> = observer(
               id="outlined-multiline-flexible"
               size="small"
               className={cx(classNames.input, { [classNames.inputFilled]: !!message || !!focused })}
-              classes={{ root: classNames.input }}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{ maxLength: 1000 }}
