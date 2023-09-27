@@ -185,17 +185,4 @@ export const useImageModalStyles = makeStyles()(theme => ({
   placeholder: {
     width: '110px',
   },
-
-  zoomModal: {
-    padding: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  zoomModalImage: {
-    width: '95vw',
-    height: '93vh',
-    objectFit: 'contain',
-  },
 }))
