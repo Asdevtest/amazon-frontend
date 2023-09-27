@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20030AllFiles from './InlineResponse20030AllFiles';
-import InlineResponse20030AllImages from './InlineResponse20030AllImages';
 
 /**
  * The InlineResponse20030 model module.
@@ -49,11 +47,11 @@ class InlineResponse20030 {
         if (data) {
             obj = obj || new InlineResponse20030();
 
-            if (data.hasOwnProperty('allImages')) {
-                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20030AllImages]);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('allFiles')) {
-                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20030AllFiles]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
         }
         return obj;
@@ -63,14 +61,16 @@ class InlineResponse20030 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20030AllImages>} allImages
+ * GUID в базе данных
+ * @member {String} _id
  */
-InlineResponse20030.prototype['allImages'] = undefined;
+InlineResponse20030.prototype['_id'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse20030AllFiles>} allFiles
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse20030.prototype['allFiles'] = undefined;
+InlineResponse20030.prototype['name'] = undefined;
 
 
 

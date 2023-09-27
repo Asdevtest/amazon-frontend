@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20063Rows from './InlineResponse20063Rows';
 
 /**
  * The InlineResponse20063 model module.
@@ -48,11 +47,11 @@ class InlineResponse20063 {
         if (data) {
             obj = obj || new InlineResponse20063();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20063Rows]);
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
         }
         return obj;
@@ -62,15 +61,16 @@ class InlineResponse20063 {
 }
 
 /**
- * @member {Number} count
+ * Гуид заявки
+ * @member {String} _id
  */
-InlineResponse20063.prototype['count'] = undefined;
+InlineResponse20063.prototype['_id'] = undefined;
 
 /**
- * Массив заявок.
- * @member {Array.<module:model/InlineResponse20063Rows>} rows
+ * удобный ключ заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20063.prototype['rows'] = undefined;
+InlineResponse20063.prototype['humanFriendlyId'] = undefined;
 
 
 

@@ -16,7 +16,7 @@ import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject60 from '../model/InlineObject60';
-import InlineResponse20044 from '../model/InlineResponse20044';
+import InlineResponse20045 from '../model/InlineResponse20045';
 import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 
@@ -113,7 +113,7 @@ export default class GeneralApi {
      * # Получить теги
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20044>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20045>} and HTTP response
      */
     apiV1GeneralTagsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -132,7 +132,7 @@ export default class GeneralApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20044];
+      let returnType = [InlineResponse20045];
       return this.apiClient.callApi(
         '/api/v1/general/tags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -145,7 +145,7 @@ export default class GeneralApi {
      * # Получить теги
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20044>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20045>}
      */
     apiV1GeneralTagsGet(opts) {
       return this.apiV1GeneralTagsGetWithHttpInfo(opts)

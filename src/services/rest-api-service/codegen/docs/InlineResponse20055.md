@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**userId** | **String** |  | [optional] 
 **productId** | **String** |  | [optional] 
-**shopIds** | **[String]** | Массив магазинов | [optional] 
 
 

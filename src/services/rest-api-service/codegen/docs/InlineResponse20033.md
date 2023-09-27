@@ -4,7 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20033Rows]**](InlineResponse20033Rows.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
+**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**buyerId** | **String** | GUID пользователя(байера) | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
 
 
