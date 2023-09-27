@@ -3632,7 +3632,7 @@ const RequestNotificationMessage = React.memo(
       <p>
         {isStatusChanged && !isDeadlineExpires && (
           <>
-            {t(TranslationKey['Status of the proposal'])}{' '}
+            {t(TranslationKey['Status of the proposal by request '])}{' '}
             <NavLink to={getUrlToRequest(notification?.request?._id)} className={styles.notificationId} target="_blank">
               {`"${notification?.request?.humanFriendlyId}" `}
             </NavLink>
