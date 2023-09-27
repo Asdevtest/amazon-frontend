@@ -2122,5 +2122,7 @@
   "Are you sure you want to close this window?": "Вы уверены, что хотите закрыть это окно?",
   "Status changed": "Статус изменен",
   "This product has a parent product": "У этого продукта есть родительский продукт",
-  "Mark as completed": "Отметить как выполненную"
+  "Mark as completed": "Отметить как выполненную",
+  "Remove destination restriction": "Снять ограничение по пункту назначения",
+  "Wish to change a destination?": "Желаете изменить пункт назначения?"
 }

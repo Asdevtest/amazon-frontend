@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
+import InlineResponse200 from './InlineResponse200';
 
 /**
  * The InlineResponse2007 model module.
@@ -48,20 +48,11 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('text')) {
-                obj['text'] = ApiClient.convertToType(data['text'], 'String');
-            }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
-            }
-            if (data.hasOwnProperty('user')) {
-                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse200]);
             }
         }
         return obj;
@@ -71,33 +62,16 @@ class InlineResponse2007 {
 }
 
 /**
- * GUID пользователя в БД.
- * @member {String} _id
+ * Количество товаров
+ * @member {Number} count
  */
-InlineResponse2007.prototype['_id'] = undefined;
+InlineResponse2007.prototype['count'] = undefined;
 
 /**
- * текст отзыва/репорта
- * @member {String} text
+ * Массив товаров
+ * @member {Array.<module:model/InlineResponse200>} rows
  */
-InlineResponse2007.prototype['text'] = undefined;
-
-/**
- * Прикрепленные ссылки на медиа для репорта/отзыва
- * @member {Array.<Object>} media
- */
-InlineResponse2007.prototype['media'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsFeedbackUser} user
- */
-InlineResponse2007.prototype['user'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse2007.prototype['updatedAt'] = undefined;
+InlineResponse2007.prototype['rows'] = undefined;
 
 
 

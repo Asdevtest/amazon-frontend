@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
 
 /**
  * The InlineResponse2008 model module.
@@ -50,8 +51,17 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
+            }
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -61,16 +71,33 @@ class InlineResponse2008 {
 }
 
 /**
- * Гуид юзера
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse2008.prototype['_id'] = undefined;
 
 /**
- * Имя юзера
- * @member {String} name
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineResponse2008.prototype['name'] = undefined;
+InlineResponse2008.prototype['text'] = undefined;
+
+/**
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<Object>} media
+ */
+InlineResponse2008.prototype['media'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsFeedbackUser} user
+ */
+InlineResponse2008.prototype['user'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+InlineResponse2008.prototype['updatedAt'] = undefined;
 
 
 
