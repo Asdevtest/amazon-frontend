@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Общее кол-во идей | [optional] 
-**rows** | [**[InlineResponse20047Rows]**](InlineResponse20047Rows.md) | Список идей | [optional] 
+**_id** | **String** | Гуид тега | [optional] 
+**title** | **String** | Тег | [optional] 
+**productCount** | **Number** | Кол-во продуктов, которые используют этот тег | [optional] 
 
 

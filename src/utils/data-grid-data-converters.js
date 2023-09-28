@@ -1069,7 +1069,7 @@ export const myProposalsDataConverter = data =>
     priority: item.request.priority,
     typeTask: item.request.typeTask,
     timeoutAt: item.request.timeoutAt,
-    reworkСounter: item.request.reworkСounter,
+    taskComplexity: item.request.taskComplexity,
     status: item.status,
 
     originalData: item,

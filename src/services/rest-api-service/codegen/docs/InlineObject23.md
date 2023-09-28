@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **Number** | Сколько таких же коробок в одной коробке | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
-**lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при з�казе ( могут отличаться с реальными). | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **[String]** |  | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 

@@ -2125,7 +2125,11 @@ export enum TranslationKey {
   'Status changed' = 'Status changed',
   'This product has a parent product' = 'This product has a parent product',
   'Mark as completed' = 'Mark as completed',
-  'Number of improvements' = 'Number of improvements',
+  'Number of rework' = 'Number of rework',
+  'Difficulty level' = 'Difficulty level',
+  'Simple' = 'Simple',
+  'MEDIUM_DIFFICULTY_LEVEL' = 'MEDIUM_DIFFICULTY_LEVEL',
+  'Hard' = 'Hard',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

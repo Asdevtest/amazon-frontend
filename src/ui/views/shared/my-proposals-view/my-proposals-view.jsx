@@ -58,15 +58,15 @@ export const MyProposalsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  const getSortedData = mode => {
-    switch (mode) {
-      case tableSortMode.DESK:
-        return sortObjectsArrayByArrayObjectFiledDateWithParseISO(viewModel.currentData, 'updatedAt', 'proposals')
+  // const getSortedData = mode => {
+  //   switch (mode) {
+  //     case tableSortMode.DESK:
+  //       return sortObjectsArrayByArrayObjectFiledDateWithParseISO(viewModel.currentData, 'updatedAt', 'proposals')
 
-      case tableSortMode.ASC:
-        return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(viewModel.currentData, 'updatedAt', 'proposals')
-    }
-  }
+  //     case tableSortMode.ASC:
+  //       return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(viewModel.currentData, 'updatedAt', 'proposals')
+  //   }
+  // }
 
   return (
     <React.Fragment>

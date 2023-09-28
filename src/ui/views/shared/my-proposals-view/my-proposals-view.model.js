@@ -51,9 +51,14 @@ export class MyProposalsViewModel {
 
   // * Table settings
 
+  currentSettings = undefined
+
   columnVisibilityModel = {}
   rowHandlers = {
-    navigateToHandler: (notification, type) => this.navigateToHandler(notification, type),
+    onClickDeleteButton: proposal => this.onClickDeleteBtn(proposal),
+    onClickEditButton: (request, proposal) => this.onClickEditBtn(request, proposal),
+    onClickResultButton: (request, proposalId) => this.onClickResultBtn(request, proposalId),
+    onClickOpenButton: request => this.onClickOpenBtn(request),
   }
 
   columnsModel = FreelancerMyProposalsColumns(this.rowHandlers)
@@ -63,8 +68,7 @@ export class MyProposalsViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
-      this.getIdeaList()
-      this.getDataGridState()
+      this.getRequestsProposalsPagMy()
     },
 
     filterRequestStatus: undefined,
@@ -221,7 +225,7 @@ export class MyProposalsViewModel {
         rating: request.createdBy.rating,
         _id: request.createdBy._id,
       },
-      details: { conditions: request.detailsCustom.conditions },
+      details: { conditions: request?.detailsCustom?.conditions },
       request: {
         price: request.price,
         timeoutAt: request.timeoutAt,
@@ -302,8 +306,6 @@ export class MyProposalsViewModel {
         runInAction(() => {
           this.requests = myProposalsDataConverter(response.rows) || []
           this.rowCount = response.count
-
-          console.log('this.requests', this.requests)
         })
       })
 
@@ -421,5 +423,13 @@ export class MyProposalsViewModel {
     runInAction(() => {
       this.requestStatus = requestStatus
     })
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.getRequestsProposalsPagMy()
   }
 }

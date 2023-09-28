@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20047Rows from './InlineResponse20047Rows';
 
 /**
  * The InlineResponse20047 model module.
@@ -48,11 +47,14 @@ class InlineResponse20047 {
         if (data) {
             obj = obj || new InlineResponse20047();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20047Rows]);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('productCount')) {
+                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
             }
         }
         return obj;
@@ -62,16 +64,22 @@ class InlineResponse20047 {
 }
 
 /**
- * Общее кол-во идей
- * @member {Number} count
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse20047.prototype['count'] = undefined;
+InlineResponse20047.prototype['_id'] = undefined;
 
 /**
- * Список идей
- * @member {Array.<module:model/InlineResponse20047Rows>} rows
+ * Тег
+ * @member {String} title
  */
-InlineResponse20047.prototype['rows'] = undefined;
+InlineResponse20047.prototype['title'] = undefined;
+
+/**
+ * Кол-во продуктов, которые используют этот тег
+ * @member {Number} productCount
+ */
+InlineResponse20047.prototype['productCount'] = undefined;
 
 
 

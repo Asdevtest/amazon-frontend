@@ -4,9 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**products** | [**InlineResponse20039Products**](InlineResponse20039Products.md) |  | [optional] 
-**orders** | [**InlineResponse20039Orders**](InlineResponse20039Orders.md) |  | [optional] 
-**pendingOrders** | [**InlineResponse20039PendingOrders**](InlineResponse20039PendingOrders.md) |  | [optional] 
-**finances** | [**InlineResponse20039Finances**](InlineResponse20039Finances.md) |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse2005]**](InlineResponse2005.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

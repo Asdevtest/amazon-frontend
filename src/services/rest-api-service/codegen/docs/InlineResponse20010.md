@@ -4,14 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID в базе данных | [optional] 
-**type** | **String** |  | [optional] 
-**requests** | [**[ApiV1AnnouncementsMyRequests]**](ApiV1AnnouncementsMyRequests.md) |  | [optional] 
-**linksToMediaFiles** | **[String]** |  | [optional] 
-**title** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**createdAt** | **Date** | Дата создания. | [optional] 
-**updatedAt** | **Date** | Дата обновления. | [optional] 
+**_id** | **String** | GUID пользователя в БД. | [optional] 
+**text** | **String** | текст отзыва/репорта | [optional] 
+**media** | **[Object]** | Прикрепленные ссылки на медиа для репорта/отзыва | [optional] 
+**user** | [**ApiV1AdminsFeedbackUser**](ApiV1AdminsFeedbackUser.md) |  | [optional] 
+**updatedAt** | **Date** | Дата создания. | [optional] 
 
 

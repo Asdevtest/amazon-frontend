@@ -1,10 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GridCellParams, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  FreelancerMyProposalsActions,
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -18,7 +25,14 @@ import {
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerMyProposalsColumns = handlers => [
+interface IHandlers {
+  onClickDeleteButton: (proposal: any) => void
+  onClickEditButton: (request: any, proposal: any) => void
+  onClickResultButton: (request: any, proposalId: any) => void
+  onClickOpenButton: (request: any) => void
+}
+
+export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
@@ -35,7 +49,7 @@ export const FreelancerMyProposalsColumns = handlers => [
       <PriorityAndChinaDeliverCell
         isRequest
         priority={params.value}
-        onClickOpenInNewTab={() => handlers.onClickOpenInNewTab(params.row._id)}
+        onClickOpenInNewTab={() => handlers.onClickOpenButton(params.row.originalData.request)}
       />
     ),
 
@@ -56,6 +70,24 @@ export const FreelancerMyProposalsColumns = handlers => [
   },
 
   {
+    field: 'taskComplexity',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
+    headerName: t(TranslationKey['Difficulty level']),
+
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell
+        text={difficultyLevelTranslate(difficultyLevelByCode[params.value as number])}
+        customTextStyles={{
+          color: colorByDifficultyLevel(difficultyLevelByCode[params.value as number]),
+          fontWeight: 600,
+        }}
+      />
+    ),
+    width: 95,
+    // columnKey: columnnsKeys.client.IDEAS_STATUS,
+  },
+
+  {
     field: 'product',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
@@ -67,8 +99,8 @@ export const FreelancerMyProposalsColumns = handlers => [
 
   {
     field: 'requestCreatedBy',
-    headerName: t(TranslationKey.Client),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     width: 130,
     renderCell: (params: GridCellParams) => (
       <UserMiniCell
@@ -114,81 +146,55 @@ export const FreelancerMyProposalsColumns = handlers => [
   },
 
   {
-    field: 'reworkСounter',
-    headerName: t(TranslationKey['Number of improvements']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of improvements'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
+    field: 'reworkCounter',
+    headerName: t(TranslationKey['Number of rework']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
+    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.originalData.reworkCounter} />,
     width: 115,
 
     // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
-  // {
-  //   field: 'deadline',
-  //   headerName: t(TranslationKey['Time till deadline']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time till deadline'])} />,
+  {
+    field: 'createdBy',
+    headerName: t(TranslationKey.Performer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
+    width: 122,
+    renderCell: (params: GridCellParams) => (
+      <UserMiniCell
+        userName={params?.row?.originalData?.createdBy?.name}
+        userId={params?.row?.originalData?.createdBy?._id}
+      />
+    ),
+  },
 
-  //   renderCell: (params: GridCellParams) => (
-  //     <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
-  //   ),
-  //   width: 100,
-  // },
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
+    width: 85,
+    // type: 'date',
+    // columnKey: columnnsKeys.shared.DATE,
+  },
 
-  // {
-  //   field: 'humanFriendlyId',
-  //   headerName: t(TranslationKey.ID),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-  //   renderCell: params => <MultilineTextCell text={params.value} />,
-  //   width: 70,
+  {
+    field: 'actions',
+    headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-  //   columnKey: columnnsKeys.shared.QUANTITY,
-  // },
-
-  // {
-  //   field: 'price',
-  //   headerName: t(TranslationKey['Request price']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request price'])} />,
-
-  //   renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-  //   type: 'number',
-  //   width: 96,
-  //   sortable: false,
-
-  //   columnKey: columnnsKeys.shared.QUANTITY,
-  // },
-
-  // {
-  //   field: 'timeoutAt',
-  //   headerName: t(TranslationKey.Deadline),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-  //   renderCell: params => <ShortDateCell value={params.value} />,
-  //   width: 87,
-
-  //   columnKey: columnnsKeys.shared.DATE,
-  // },
-
-  // {
-  //   field: 'maxAmountOfProposals',
-  //   headerName: t(TranslationKey['Remaining offers']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Remaining offers'])} />,
-
-  //   renderCell: params => (
-  //     <MultilineTextCell
-  //       text={`${params.row.maxAmountOfProposals - params.row.countProposalsByStatuses.acceptedProposals} ${t(
-  //         TranslationKey['out of'],
-  //       )} ${params.row.maxAmountOfProposals}`}
-  //     />
-  //   ),
-  //   width: 115,
-  // },
-
-  // {
-  //   field: 'updatedAt',
-  //   headerName: t(TranslationKey.Updated),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-  //   renderCell: params => <ShortDateCell value={params.value} />,
-  //   width: 105,
-  //   // type: 'date',
-  //   columnKey: columnnsKeys.shared.DATE,
-  // },
+    renderCell: (params: GridCellParams) => (
+      <FreelancerMyProposalsActions
+        status={params.row.originalData.status}
+        onClickDeleteButton={() => handlers.onClickDeleteButton(params.row.originalData)}
+        onClickEditButton={() => handlers.onClickEditButton(params.row.originalData.request, params.row.originalData)}
+        onClickResultButton={() =>
+          handlers.onClickResultButton(params.row.originalData.request, params.row.originalData._id)
+        }
+      />
+    ),
+    width: 220,
+    sortable: false,
+    filterable: false,
+  },
 ]

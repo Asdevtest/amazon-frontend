@@ -38,7 +38,7 @@ export const CreateOrEditProposalContent = ({
   const { classes: classNames } = useClassNames()
 
   const [images, setImages] = useState(
-    proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
+    proposalToEdit?.linksToMediaFiles?.length ? proposalToEdit?.linksToMediaFiles : [],
   )
 
   const newProductPrice =
@@ -48,7 +48,7 @@ export const CreateOrEditProposalContent = ({
     price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles?.length ? proposalToEdit?.linksToMediaFiles : [],
     title: proposalToEdit?.title || '',
   }
 

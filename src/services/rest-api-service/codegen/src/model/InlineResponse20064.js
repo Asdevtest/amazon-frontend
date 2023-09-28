@@ -47,26 +47,29 @@ class InlineResponse20064 {
         if (data) {
             obj = obj || new InlineResponse20064();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
             }
-            if (data.hasOwnProperty('onFinishedIdeaId')) {
-                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
             }
-            if (data.hasOwnProperty('onCheckedIdeaId')) {
-                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -76,44 +79,52 @@ class InlineResponse20064 {
 }
 
 /**
- * GUID заявки
- * @member {String} _id
+ * Цена за каждое предложение.
+ * @member {Number} price
  */
-InlineResponse20064.prototype['_id'] = undefined;
+InlineResponse20064.prototype['price'] = undefined;
 
 /**
- * Номер заявки
- * @member {Number} humanFriendlyId
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20064.prototype['humanFriendlyId'] = undefined;
+InlineResponse20064.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * Тип задачи заявки
- * @member {Number} typeTask
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20064.prototype['typeTask'] = undefined;
+InlineResponse20064.prototype['platformMargin'] = undefined;
 
 /**
- * Название заявки
- * @member {String} title
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineResponse20064.prototype['title'] = undefined;
+InlineResponse20064.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * Статус заявки
- * @member {String} status
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
  */
-InlineResponse20064.prototype['status'] = undefined;
+InlineResponse20064.prototype['supervisorFee'] = undefined;
 
 /**
- * @member {String} onFinishedIdeaId
+ * Сумма.
+ * @member {Number} unitCost
  */
-InlineResponse20064.prototype['onFinishedIdeaId'] = undefined;
+InlineResponse20064.prototype['unitCost'] = undefined;
 
 /**
- * @member {String} onCheckedIdeaId
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
  */
-InlineResponse20064.prototype['onCheckedIdeaId'] = undefined;
+InlineResponse20064.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Итого.
+ * @member {Number} totalCost
+ */
+InlineResponse20064.prototype['totalCost'] = undefined;
 
 
 

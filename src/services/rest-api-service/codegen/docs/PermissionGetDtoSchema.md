@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **key** | **String** | Permission ключ | 
 **title** | **String** | Простое название. | 
 **description** | **String** | Описание permission | 
-**allowedUrls** | [**[InlineResponse2002AllowedUrls]**](InlineResponse2002AllowedUrls.md) | Массив доступных url. | 
+**allowedUrls** | [**[InlineResponse2003AllowedUrls]**](InlineResponse2003AllowedUrls.md) | Массив доступных url. | 
 **role** | **Number** | Роль для которого данный permission | 
 **hierarchy** | **Number** | Для фронта, чтобы хранить иерархию. | [optional] 
 **createdById** | **String** | GUID любого, кто последний создал permission. | 

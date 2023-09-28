@@ -2127,5 +2127,9 @@
   "Status changed": "Статус изменен",
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
-  "Number of improvements": "Кол-во доработок"
+  "Number of rework": "Кол-во доработок",
+  "Difficulty level": "Уровень сложности",
+  "Simple": "Просто",
+  "MEDIUM_DIFFICULTY_LEVEL": "Средне",
+  "Hard": "Сложно"
 }

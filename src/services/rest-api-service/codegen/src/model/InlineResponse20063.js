@@ -67,7 +67,6 @@ class InlineResponse20063 {
 InlineResponse20063.prototype['count'] = undefined;
 
 /**
- * Массив заявок.
  * @member {Array.<module:model/InlineResponse20063Rows>} rows
  */
 InlineResponse20063.prototype['rows'] = undefined;

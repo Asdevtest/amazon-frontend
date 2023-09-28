@@ -14,10 +14,10 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
-import ApiV1BoxesClientsInTransferGuidBatch from './ApiV1BoxesClientsInTransferGuidBatch';
-import ApiV1BoxesClientsInTransferGuidLogicsTariff from './ApiV1BoxesClientsInTransferGuidLogicsTariff';
-import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
-import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
+import ApiV1BatchesBatch from './ApiV1BatchesBatch';
+import InlineResponse20017Destination from './InlineResponse20017Destination';
+import InlineResponse20017Items from './InlineResponse20017Items';
+import InlineResponse20017LogicsTariff from './InlineResponse20017LogicsTariff';
 
 /**
  * The InlineResponse20017 model module.
@@ -119,20 +119,8 @@ class InlineResponse20017 {
             if (data.hasOwnProperty('fbaNumber')) {
                 obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('deliveryTotalPrice')) {
-                obj['deliveryTotalPrice'] = ApiClient.convertToType(data['deliveryTotalPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryTotalPriceChanged')) {
-                obj['deliveryTotalPriceChanged'] = ApiClient.convertToType(data['deliveryTotalPriceChanged'], 'Number');
-            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('deadline')) {
-                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
@@ -141,7 +129,7 @@ class InlineResponse20017 {
                 obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
+                obj['items'] = ApiClient.convertToType(data['items'], [InlineResponse20017Items]);
             }
             if (data.hasOwnProperty('sub')) {
                 obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
@@ -152,17 +140,14 @@ class InlineResponse20017 {
             if (data.hasOwnProperty('client')) {
                 obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
-            }
             if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
+                obj['destination'] = InlineResponse20017Destination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
-                obj['logicsTariff'] = ApiV1BoxesClientsInTransferGuidLogicsTariff.constructFromObject(data['logicsTariff']);
+                obj['logicsTariff'] = InlineResponse20017LogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1BoxesClientsInTransferGuidBatch.constructFromObject(data['batch']);
+                obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -184,14 +169,14 @@ InlineResponse20017.prototype['_id'] = undefined;
 InlineResponse20017.prototype['humanFriendlyId'] = undefined;
 
 /**
- * ККоличества в коробке.
+ * Количества в коробке.
  * @member {Number} amount
  */
 InlineResponse20017.prototype['amount'] = undefined;
 
 /**
  * Статус коробки
- * @member {String} status
+ * @member {module:model/InlineResponse20017.StatusEnum} status
  */
 InlineResponse20017.prototype['status'] = undefined;
 
@@ -303,33 +288,10 @@ InlineResponse20017.prototype['fbaShipment'] = undefined;
 InlineResponse20017.prototype['fbaNumber'] = undefined;
 
 /**
- * Итого за доставку.
- * @member {Number} deliveryTotalPrice
- */
-InlineResponse20017.prototype['deliveryTotalPrice'] = undefined;
-
-/**
- * Обновление итога за доставку.
- * @member {Number} deliveryTotalPriceChanged
- */
-InlineResponse20017.prototype['deliveryTotalPriceChanged'] = undefined;
-
-/**
  * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineResponse20017.prototype['images'] = undefined;
-
-/**
- * Nullable ISO Date
- * @member {String} deadline
- */
-InlineResponse20017.prototype['deadline'] = undefined;
-
-/**
- * @member {Date} createdAt
- */
-InlineResponse20017.prototype['createdAt'] = undefined;
 
 /**
  * @member {Date} updatedAt
@@ -343,7 +305,7 @@ InlineResponse20017.prototype['variationTariff'] = undefined;
 
 /**
  * Массив коробок.
- * @member {Array.<module:model/ApiV1BoxesClientsLightItems>} items
+ * @member {Array.<module:model/InlineResponse20017Items>} items
  */
 InlineResponse20017.prototype['items'] = undefined;
 
@@ -363,27 +325,85 @@ InlineResponse20017.prototype['storekeeper'] = undefined;
 InlineResponse20017.prototype['client'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20017.prototype['createdBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesClientsLightDestination} destination
+ * @member {module:model/InlineResponse20017Destination} destination
  */
 InlineResponse20017.prototype['destination'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesClientsInTransferGuidLogicsTariff} logicsTariff
+ * @member {module:model/InlineResponse20017LogicsTariff} logicsTariff
  */
 InlineResponse20017.prototype['logicsTariff'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesClientsInTransferGuidBatch} batch
+ * @member {module:model/ApiV1BatchesBatch} batch
  */
 InlineResponse20017.prototype['batch'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20017['StatusEnum'] = {
+
+    /**
+     * value: "NEW"
+     * @const
+     */
+    "NEW": "NEW",
+
+    /**
+     * value: "IN_STOCK"
+     * @const
+     */
+    "IN_STOCK": "IN_STOCK",
+
+    /**
+     * value: "REQUESTED_SEND_TO_BATCH"
+     * @const
+     */
+    "REQUESTED_SEND_TO_BATCH": "REQUESTED_SEND_TO_BATCH",
+
+    /**
+     * value: "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"
+     * @const
+     */
+    "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE": "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE",
+
+    /**
+     * value: "IN_BATCH"
+     * @const
+     */
+    "IN_BATCH": "IN_BATCH",
+
+    /**
+     * value: "NEED_TO_UPDATE_THE_TARIFF"
+     * @const
+     */
+    "NEED_TO_UPDATE_THE_TARIFF": "NEED_TO_UPDATE_THE_TARIFF",
+
+    /**
+     * value: "IN_BATCH_ON_THE_WAY"
+     * @const
+     */
+    "IN_BATCH_ON_THE_WAY": "IN_BATCH_ON_THE_WAY",
+
+    /**
+     * value: "FINISH_PREP_CENTR_USA"
+     * @const
+     */
+    "FINISH_PREP_CENTR_USA": "FINISH_PREP_CENTR_USA",
+
+    /**
+     * value: "ACCEPTED_IN_PROCESSING"
+     * @const
+     */
+    "ACCEPTED_IN_PROCESSING": "ACCEPTED_IN_PROCESSING"
+};
 
 
 

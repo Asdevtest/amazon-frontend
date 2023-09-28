@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID коробки. | [optional] 
 **humanFriendlyId** | **Number** | Номер коробки. | [optional] 
-**amount** | **Number** | ККоличества в коробке. | [optional] 
+**amount** | **Number** | Количества в коробке. | [optional] 
 **status** | **String** | Статус коробки | [optional] 
 **isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
 **isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
@@ -26,20 +26,40 @@ Name | Type | Description | Notes
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
-**deliveryTotalPrice** | **Number** | Итого за доставку. | [optional] 
-**deliveryTotalPriceChanged** | **Number** | Обновление итога за доставку. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**deadline** | **String** | Nullable ISO Date | [optional] 
-**createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
 **variationTariff** | [**ApiV1AdminsTasksLightVariationTariff**](ApiV1AdminsTasksLightVariationTariff.md) |  | [optional] 
-**items** | [**[ApiV1BoxesClientsLightItems]**](ApiV1BoxesClientsLightItems.md) | Массив коробок. | [optional] 
+**items** | [**[InlineResponse20017Items]**](InlineResponse20017Items.md) | Массив коробок. | [optional] 
 **sub** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **client** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**destination** | [**ApiV1BoxesClientsLightDestination**](ApiV1BoxesClientsLightDestination.md) |  | [optional] 
-**logicsTariff** | [**ApiV1BoxesClientsInTransferGuidLogicsTariff**](ApiV1BoxesClientsInTransferGuidLogicsTariff.md) |  | [optional] 
-**batch** | [**ApiV1BoxesClientsInTransferGuidBatch**](ApiV1BoxesClientsInTransferGuidBatch.md) |  | [optional] 
+**destination** | [**InlineResponse20017Destination**](InlineResponse20017Destination.md) |  | [optional] 
+**logicsTariff** | [**InlineResponse20017LogicsTariff**](InlineResponse20017LogicsTariff.md) |  | [optional] 
+**batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | [optional] 
+
+
+
+## Enum: StatusEnum
+
+
+* `NEW` (value: `"NEW"`)
+
+* `IN_STOCK` (value: `"IN_STOCK"`)
+
+* `REQUESTED_SEND_TO_BATCH` (value: `"REQUESTED_SEND_TO_BATCH"`)
+
+* `NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE` (value: `"NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"`)
+
+* `IN_BATCH` (value: `"IN_BATCH"`)
+
+* `NEED_TO_UPDATE_THE_TARIFF` (value: `"NEED_TO_UPDATE_THE_TARIFF"`)
+
+* `IN_BATCH_ON_THE_WAY` (value: `"IN_BATCH_ON_THE_WAY"`)
+
+* `FINISH_PREP_CENTR_USA` (value: `"FINISH_PREP_CENTR_USA"`)
+
+* `ACCEPTED_IN_PROCESSING` (value: `"ACCEPTED_IN_PROCESSING"`)
+
+
 
 

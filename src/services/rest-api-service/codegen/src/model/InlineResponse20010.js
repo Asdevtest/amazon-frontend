@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
+import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
 
 /**
  * The InlineResponse20010 model module.
@@ -52,26 +51,14 @@ class InlineResponse20010 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
@@ -84,49 +71,30 @@ class InlineResponse20010 {
 }
 
 /**
- * GUID в базе данных
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse20010.prototype['_id'] = undefined;
 
 /**
- * @member {String} type
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineResponse20010.prototype['type'] = undefined;
+InlineResponse20010.prototype['text'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<Object>} media
  */
-InlineResponse20010.prototype['requests'] = undefined;
+InlineResponse20010.prototype['media'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * @member {module:model/ApiV1AdminsFeedbackUser} user
  */
-InlineResponse20010.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineResponse20010.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineResponse20010.prototype['description'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20010.prototype['createdBy'] = undefined;
+InlineResponse20010.prototype['user'] = undefined;
 
 /**
  * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20010.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
  * @member {Date} updatedAt
  */
 InlineResponse20010.prototype['updatedAt'] = undefined;
