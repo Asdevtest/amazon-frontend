@@ -2124,5 +2124,6 @@
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
   "Remove destination restriction": "Снять ограничение по пункту назначения",
-  "Wish to change a destination?": "Желаете изменить пункт назначения?"
+  "Wish to change a destination?": "Желаете изменить пункт назначения?",
+  "Price without delivery": "Цена без доставки"
 }

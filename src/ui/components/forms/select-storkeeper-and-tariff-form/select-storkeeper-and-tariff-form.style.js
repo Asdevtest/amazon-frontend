@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '80vw',
+    height: '665px',
   },
   indicator: {
     backgroundColor: '#1da1f2',

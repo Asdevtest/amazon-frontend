@@ -2123,5 +2123,6 @@ export enum TranslationKey {
   'Mark as completed' = 'Mark as completed',
   'Remove destination restriction' = 'Remove destination restriction',
   'Wish to change a destination?' = 'Wish to change a destination?',
+  'Price without delivery' = 'Price without delivery',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

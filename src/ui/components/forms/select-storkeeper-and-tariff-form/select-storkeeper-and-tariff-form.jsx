@@ -17,12 +17,11 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './select-storkeeper-and-tariff-form.style'
 
-import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
-import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
+import { warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
 import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
 import { WeightBasedTariffFormColumns } from './weight-based-tariff-form-columns'
 
-const tariffTypesLabels = ['Weight-based logistics tariffs', 'Logistics tariffs', 'Tariffs of warehouse services']
+const tariffTypesLabels = ['Weight-based logistics tariffs', 'Tariffs of warehouse services']
 
 export const SelectStorekeeperAndTariffForm = observer(
   ({
@@ -73,9 +72,6 @@ export const SelectStorekeeperAndTariffForm = observer(
 
     const onClickSelectTariff = tariffId =>
       onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid)
-
-    const onClickSelectTariffOld = (tariffId, variationTariffId) =>
-      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 
@@ -184,39 +180,6 @@ export const SelectStorekeeperAndTariffForm = observer(
               </Button>
             </div>
           )}
-        </TabPanel>
-        <TabPanel value={tabIndex} index={1}>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
-              getRowClassName={getRowClassName}
-              rows={
-                curStorekeeper?.tariffLogistics?.length
-                  ? filterByNameSearch(
-                      addIdDataConverter(curStorekeeper.tariffLogistics).filter(item => item.tariffType !== 20),
-                    )
-                  : []
-              }
-              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({ onClickSelectTariffOld })}
-              getRowHeight={() => 'auto'}
-            />
-          </div>
-          {!inNotifications ? (
-            <div className={classNames.clearBtnWrapper}>
-              <Button
-                disableElevation
-                color="primary"
-                variant={'outlined'}
-                className={classNames.resetBtn}
-                onClick={() => {
-                  setVariationTariffId(null)
-                  onSubmit(null, null, null)
-                }}
-              >
-                {t(TranslationKey.reset)}
-              </Button>
-            </div>
-          ) : null}
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
           <div className={classNames.tableWrapper}>
