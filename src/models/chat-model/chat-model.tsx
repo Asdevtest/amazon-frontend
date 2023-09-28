@@ -290,13 +290,19 @@ class ChatModelStatic {
       newMessage,
     )
 
+    if (
+      message.user?._id !== this.userId &&
+      message.type === ChatMessageType.USER &&
+      !this.mutedChats.includes(message.chatId)
+    ) {
+      SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
+
+      noticeSound.play()
+    }
+
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findChatIndexById !== -1) {
-      if (message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
-        noticeSound.play()
-      }
-
       runInAction(() => {
         this.chats[findChatIndexById].messages = [
           ...this.chats[findChatIndexById].messages.filter(mes => mes._id !== message._id),
@@ -307,17 +313,7 @@ class ChatModelStatic {
 
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
-    if (message.user?._id !== this.userId && message.type === ChatMessageType.USER) {
-      SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
-    }
-
     if (findSimpleChatIndexById !== -1) {
-      if (message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
-        noticeSound.play()
-
-        // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
-      }
-
       runInAction(() => {
         this.simpleChats[findSimpleChatIndexById].messages = [
           ...this.simpleChats[findSimpleChatIndexById].messages.filter(mes => mes._id !== message._id),
