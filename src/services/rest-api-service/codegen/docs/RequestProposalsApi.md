@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20081] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20086] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20081]**](InlineResponse20081.md)
+[**[InlineResponse20086]**](InlineResponse20086.md)
 
 ### Authorization
 
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsFreelanceSourcesGet
 
-> [InlineResponse20059] apiV1RequestProposalsFreelanceSourcesGet(opts)
+> [InlineResponse20061] apiV1RequestProposalsFreelanceSourcesGet(opts)
 
 #  Получить исходники.
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20059]**](InlineResponse20059.md)
+[**[InlineResponse20061]**](InlineResponse20061.md)
 
 ### Authorization
 
@@ -264,7 +264,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.RequestProposalsApi();
-let guid = null; // String | GUID в сущности в БД
+let guid = null; // String | GUID в сущности � БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -281,7 +281,7 @@ apiInstance.apiV1RequestProposalsFreelanceSourcesGuidDelete(guid, opts).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| GUID в сущности в БД | 
+ **guid** | [**String**](.md)| GUID в сущности � БД | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsGet
 
-> [InlineResponse20058] apiV1RequestProposalsGet(type, kind, opts)
+> [InlineResponse20060] apiV1RequestProposalsGet(type, kind, opts)
 
 Получить все предложения для супервизора.
 
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20058]**](InlineResponse20058.md)
+[**[InlineResponse20060]**](InlineResponse20060.md)
 
 ### Authorization
 
@@ -1140,7 +1140,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsPagMyGet
 
-> InlineResponse20060 apiV1RequestProposalsPagMyGet(opts)
+> InlineResponse20062 apiV1RequestProposalsPagMyGet(opts)
 
 Получить все предложения фрилансера.
 
@@ -1188,7 +1188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20060**](InlineResponse20060.md)
+[**InlineResponse20062**](InlineResponse20062.md)
 
 ### Authorization
 

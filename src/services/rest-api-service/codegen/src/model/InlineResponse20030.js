@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20030AllFiles from './InlineResponse20030AllFiles';
-import InlineResponse20030AllImages from './InlineResponse20030AllImages';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20030 model module.
@@ -49,11 +49,50 @@ class InlineResponse20030 {
         if (data) {
             obj = obj || new InlineResponse20030();
 
-            if (data.hasOwnProperty('allImages')) {
-                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20030AllImages]);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('allFiles')) {
-                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20030AllFiles]);
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1BatchesBoxes]);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updateDate')) {
+                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
             }
         }
         return obj;
@@ -63,17 +102,123 @@ class InlineResponse20030 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20030AllImages>} allImages
+ * GUID
+ * @member {String} _id
  */
-InlineResponse20030.prototype['allImages'] = undefined;
+InlineResponse20030.prototype['_id'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse20030AllFiles>} allFiles
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineResponse20030.prototype['allFiles'] = undefined;
+InlineResponse20030.prototype['taskId'] = undefined;
+
+/**
+ * Тип операции
+ * @member {module:model/InlineResponse20030.OperationTypeEnum} operationType
+ */
+InlineResponse20030.prototype['operationType'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxesBefore
+ */
+InlineResponse20030.prototype['boxesBefore'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
+ */
+InlineResponse20030.prototype['boxes'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
+ */
+InlineResponse20030.prototype['status'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineResponse20030.prototype['priority'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineResponse20030.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ */
+InlineResponse20030.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарий баера.
+ * @member {String} buyerComment
+ */
+InlineResponse20030.prototype['buyerComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20030.prototype['images'] = undefined;
+
+/**
+ * GUID сотрудника склада, который выполняет задачу.
+ * @member {String} storekeeperId
+ */
+InlineResponse20030.prototype['storekeeperId'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20030.prototype['storekeeper'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20030.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updateDate
+ */
+InlineResponse20030.prototype['updateDate'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20030['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 

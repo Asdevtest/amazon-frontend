@@ -12,7 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2004 from './InlineResponse2004';
+import ApiV1AdminsGetProductsByStatusBoxAmounts from './ApiV1AdminsGetProductsByStatusBoxAmounts';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
+import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
 
 /**
  * The InlineResponse20036 model module.
@@ -22,7 +27,6 @@ import InlineResponse2004 from './InlineResponse2004';
 class InlineResponse20036 {
     /**
      * Constructs a new <code>InlineResponse20036</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20036
      */
     constructor() { 
@@ -49,11 +53,248 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2004]);
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('suppliers')) {
+                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusSuppliers]);
+            }
+            if (data.hasOwnProperty('currentSupplier')) {
+                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['currentSupplier']);
+            }
+            if (data.hasOwnProperty('currentSupplierId')) {
+                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
+            }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
+            if (data.hasOwnProperty('hasChildren')) {
+                obj['hasChildren'] = ApiClient.convertToType(data['hasChildren'], 'Boolean');
+            }
+            if (data.hasOwnProperty('category')) {
+                obj['category'] = ApiClient.convertToType(data['category'], 'String');
+            }
+            if (data.hasOwnProperty('lamazon')) {
+                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            }
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+            }
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            }
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            }
+            if (data.hasOwnProperty('weight')) {
+                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+            }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaamount')) {
+                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('icomment')) {
+                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            }
+            if (data.hasOwnProperty('checkednotes')) {
+                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
+            }
+            if (data.hasOwnProperty('isCreatedByClient')) {
+                obj['isCreatedByClient'] = ApiClient.convertToType(data['isCreatedByClient'], 'Boolean');
+            }
+            if (data.hasOwnProperty('client')) {
+                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
+            }
+            if (data.hasOwnProperty('amazonDescription')) {
+                obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
+            }
+            if (data.hasOwnProperty('amazonDetail')) {
+                obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('material')) {
+                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            }
+            if (data.hasOwnProperty('productUsage')) {
+                obj['productUsage'] = ApiClient.convertToType(data['productUsage'], 'String');
+            }
+            if (data.hasOwnProperty('chinaTitle')) {
+                obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('minpurchase')) {
+                obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
+            }
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            }
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            }
+            if (data.hasOwnProperty('inTransfer')) {
+                obj['inTransfer'] = ApiClient.convertToType(data['inTransfer'], 'Number');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('checkedBy')) {
+                obj['checkedBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['checkedBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('checkedAt')) {
+                obj['checkedAt'] = ApiClient.convertToType(data['checkedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('buyer')) {
+                obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['buyer']);
+            }
+            if (data.hasOwnProperty('buyerTimeoutAt')) {
+                obj['buyerTimeoutAt'] = ApiClient.convertToType(data['buyerTimeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('buyersComment')) {
+                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            }
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
+            if (data.hasOwnProperty('researcherRate')) {
+                obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorRate')) {
+                obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
+            }
+            if (data.hasOwnProperty('paidAt')) {
+                obj['paidAt'] = ApiClient.convertToType(data['paidAt'], 'Date');
+            }
+            if (data.hasOwnProperty('buyerRate')) {
+                obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
+            if (data.hasOwnProperty('amountInOrders')) {
+                obj['amountInOrders'] = ApiClient.convertToType(data['amountInOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('amountInPendingOrders')) {
+                obj['amountInPendingOrders'] = ApiClient.convertToType(data['amountInPendingOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('boxAmounts')) {
+                obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1AdminsGetProductsByStatusBoxAmounts]);
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('hsCode')) {
+                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            }
+            if (data.hasOwnProperty('niche')) {
+                obj['niche'] = ApiClient.convertToType(data['niche'], 'String');
+            }
+            if (data.hasOwnProperty('asins')) {
+                obj['asins'] = ApiClient.convertToType(data['asins'], 'String');
+            }
+            if (data.hasOwnProperty('totalRevenue')) {
+                obj['totalRevenue'] = ApiClient.convertToType(data['totalRevenue'], 'String');
+            }
+            if (data.hasOwnProperty('coefficient')) {
+                obj['coefficient'] = ApiClient.convertToType(data['coefficient'], 'String');
+            }
+            if (data.hasOwnProperty('avgRevenue')) {
+                obj['avgRevenue'] = ApiClient.convertToType(data['avgRevenue'], 'String');
+            }
+            if (data.hasOwnProperty('avgBSR')) {
+                obj['avgBSR'] = ApiClient.convertToType(data['avgBSR'], 'String');
+            }
+            if (data.hasOwnProperty('avgPrice')) {
+                obj['avgPrice'] = ApiClient.convertToType(data['avgPrice'], 'String');
+            }
+            if (data.hasOwnProperty('avgReviews')) {
+                obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
+            }
+            if (data.hasOwnProperty('fourMonthesStock')) {
+                obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
+            }
+            if (data.hasOwnProperty('stockUSA')) {
+                obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
+            }
+            if (data.hasOwnProperty('reservedSum')) {
+                obj['reservedSum'] = ApiClient.convertToType(data['reservedSum'], 'Number');
+            }
+            if (data.hasOwnProperty('sentToFbaSum')) {
+                obj['sentToFbaSum'] = ApiClient.convertToType(data['sentToFbaSum'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaFbmStockSum')) {
+                obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasFinished')) {
+                obj['ideasFinished'] = ApiClient.convertToType(data['ideasFinished'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
+            }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
+            }
+            if (data.hasOwnProperty('redFlags')) {
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
+            }
+            if (data.hasOwnProperty('tags')) {
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
+            }
+            if (data.hasOwnProperty('checkedby')) {
+                obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
+            }
+            if (data.hasOwnProperty('productsInWarehouse')) {
+                obj['productsInWarehouse'] = ApiClient.convertToType(data['productsInWarehouse'], [Object]);
+            }
+            if (data.hasOwnProperty('ideasCounter')) {
+                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
             }
         }
         return obj;
@@ -63,16 +304,469 @@ class InlineResponse20036 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20036.prototype['count'] = undefined;
+InlineResponse20036.prototype['_id'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse2004>} rows
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20036.prototype['rows'] = undefined;
+InlineResponse20036.prototype['asin'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20036.prototype['skusByClient'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} suppliers
+ */
+InlineResponse20036.prototype['suppliers'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} currentSupplier
+ */
+InlineResponse20036.prototype['currentSupplier'] = undefined;
+
+/**
+ * GUID поставщика в базе данных
+ * @member {String} currentSupplierId
+ */
+InlineResponse20036.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineResponse20036.prototype['parentProductId'] = undefined;
+
+/**
+ * Имеет ли дочерние продукты данный продукт (по parentProductId)
+ * @member {Boolean} hasChildren
+ */
+InlineResponse20036.prototype['hasChildren'] = undefined;
+
+/**
+ * Категория
+ * @member {String} category
+ */
+InlineResponse20036.prototype['category'] = undefined;
+
+/**
+ * Ссылка на этот продукт на амазоне.
+ * @member {String} lamazon
+ */
+InlineResponse20036.prototype['lamazon'] = undefined;
+
+/**
+ * 
+ * @member {Number} bsr
+ */
+InlineResponse20036.prototype['bsr'] = undefined;
+
+/**
+ * Признак fba
+ * @member {Boolean} fba
+ */
+InlineResponse20036.prototype['fba'] = undefined;
+
+/**
+ * 
+ * @member {Number} amazon
+ */
+InlineResponse20036.prototype['amazon'] = undefined;
+
+/**
+ * Высота
+ * @member {Number} height
+ */
+InlineResponse20036.prototype['height'] = undefined;
+
+/**
+ * Ширина
+ * @member {Number} width
+ */
+InlineResponse20036.prototype['width'] = undefined;
+
+/**
+ * Длинна
+ * @member {Number} length
+ */
+InlineResponse20036.prototype['length'] = undefined;
+
+/**
+ * Вес
+ * @member {Number} weight
+ */
+InlineResponse20036.prototype['weight'] = undefined;
+
+/**
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
+ */
+InlineResponse20036.prototype['reffee'] = undefined;
+
+/**
+ * ФБА комиссия
+ * @member {Number} fbafee
+ */
+InlineResponse20036.prototype['fbafee'] = undefined;
+
+/**
+ *  Общая сумма с фба.
+ * @member {Number} fbaamount
+ */
+InlineResponse20036.prototype['fbaamount'] = undefined;
+
+/**
+ * Код текущего статуса
+ * @member {Number} status
+ */
+InlineResponse20036.prototype['status'] = undefined;
+
+/**
+ * Комментарии к товару.
+ * @member {String} icomment
+ */
+InlineResponse20036.prototype['icomment'] = undefined;
+
+/**
+ * Комментарии к товару, от клиента.
+ * @member {String} clientComment
+ */
+InlineResponse20036.prototype['clientComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20036.prototype['images'] = undefined;
+
+/**
+ * @member {Number} priceForClient
+ */
+InlineResponse20036.prototype['priceForClient'] = undefined;
+
+/**
+ * 
+ * @member {String} checkednotes
+ */
+InlineResponse20036.prototype['checkednotes'] = undefined;
+
+/**
+ * Признак isCreatedByClient
+ * @member {Boolean} isCreatedByClient
+ */
+InlineResponse20036.prototype['isCreatedByClient'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
+ */
+InlineResponse20036.prototype['client'] = undefined;
+
+/**
+ * Описание с сайта амазон.
+ * @member {String} amazonDescription
+ */
+InlineResponse20036.prototype['amazonDescription'] = undefined;
+
+/**
+ * Данные из поля детали с сайта амазон.
+ * @member {String} amazonDetail
+ */
+InlineResponse20036.prototype['amazonDetail'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20036.prototype['amazonTitle'] = undefined;
+
+/**
+ * Материл продукта
+ * @member {String} material
+ */
+InlineResponse20036.prototype['material'] = undefined;
+
+/**
+ * Применение продукта
+ * @member {String} productUsage
+ */
+InlineResponse20036.prototype['productUsage'] = undefined;
+
+/**
+ * chinese title?
+ * @member {String} chinaTitle
+ */
+InlineResponse20036.prototype['chinaTitle'] = undefined;
+
+/**
+ * Баркод
+ * @member {String} barCode
+ */
+InlineResponse20036.prototype['barCode'] = undefined;
+
+/**
+ * Минимальный заказ
+ * @member {Number} minpurchase
+ */
+InlineResponse20036.prototype['minpurchase'] = undefined;
+
+/**
+ * Прибыль
+ * @member {Number} profit
+ */
+InlineResponse20036.prototype['profit'] = undefined;
+
+/**
+ * Маржа
+ * @member {Number} margin
+ */
+InlineResponse20036.prototype['margin'] = undefined;
+
+/**
+ * Кол-во товаров, которые находятся в пути
+ * @member {Number} inTransfer
+ */
+InlineResponse20036.prototype['inTransfer'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ */
+InlineResponse20036.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} checkedBy
+ */
+InlineResponse20036.prototype['checkedBy'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse20036.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20036.prototype['updatedAt'] = undefined;
+
+/**
+ * Дата проверки
+ * @member {Date} checkedAt
+ */
+InlineResponse20036.prototype['checkedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} buyer
+ */
+InlineResponse20036.prototype['buyer'] = undefined;
+
+/**
+ * Дедлаин на на поиск поставщика байером.
+ * @member {Date} buyerTimeoutAt
+ */
+InlineResponse20036.prototype['buyerTimeoutAt'] = undefined;
+
+/**
+ * Комментарии к товару от байера.
+ * @member {String} buyersComment
+ */
+InlineResponse20036.prototype['buyersComment'] = undefined;
+
+/**
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
+ */
+InlineResponse20036.prototype['shopIds'] = undefined;
+
+/**
+ * Савка ресечера.
+ * @member {Number} researcherRate
+ */
+InlineResponse20036.prototype['researcherRate'] = undefined;
+
+/**
+ * Савка супервайзера.
+ * @member {Number} supervisorRate
+ */
+InlineResponse20036.prototype['supervisorRate'] = undefined;
+
+/**
+ * Дата оплаты
+ * @member {Date} paidAt
+ */
+InlineResponse20036.prototype['paidAt'] = undefined;
+
+/**
+ * Савка байера.
+ * @member {Number} buyerRate
+ */
+InlineResponse20036.prototype['buyerRate'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineResponse20036.prototype['strategyStatus'] = undefined;
+
+/**
+ * Признак needCheckBySupervisor
+ * @member {Boolean} needCheckBySupervisor
+ */
+InlineResponse20036.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Сколько такого продукта находится в заказах.
+ * @member {Number} amountInOrders
+ */
+InlineResponse20036.prototype['amountInOrders'] = undefined;
+
+/**
+ * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
+ * @member {Number} amountInPendingOrders
+ */
+InlineResponse20036.prototype['amountInPendingOrders'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusBoxAmounts>} boxAmounts
+ */
+InlineResponse20036.prototype['boxAmounts'] = undefined;
+
+/**
+ * Флаг указывает что продукт в архиве.
+ * @member {Boolean} archive
+ */
+InlineResponse20036.prototype['archive'] = undefined;
+
+/**
+ * hsCode продукта.
+ * @member {String} hsCode
+ */
+InlineResponse20036.prototype['hsCode'] = undefined;
+
+/**
+ * Ниша
+ * @member {String} niche
+ */
+InlineResponse20036.prototype['niche'] = undefined;
+
+/**
+ * Асины
+ * @member {String} asins
+ */
+InlineResponse20036.prototype['asins'] = undefined;
+
+/**
+ * Общий доход
+ * @member {String} totalRevenue
+ */
+InlineResponse20036.prototype['totalRevenue'] = undefined;
+
+/**
+ * Коэффициент прибыли
+ * @member {String} coefficient
+ */
+InlineResponse20036.prototype['coefficient'] = undefined;
+
+/**
+ * Средний доход
+ * @member {String} avgRevenue
+ */
+InlineResponse20036.prototype['avgRevenue'] = undefined;
+
+/**
+ * Средний BSR
+ * @member {String} avgBSR
+ */
+InlineResponse20036.prototype['avgBSR'] = undefined;
+
+/**
+ * Средняя цена
+ * @member {String} avgPrice
+ */
+InlineResponse20036.prototype['avgPrice'] = undefined;
+
+/**
+ * Средний отзывы
+ * @member {String} avgReviews
+ */
+InlineResponse20036.prototype['avgReviews'] = undefined;
+
+/**
+ * Каков должен быть сток за 4 месяца
+ * @member {Number} fourMonthesStock
+ */
+InlineResponse20036.prototype['fourMonthesStock'] = undefined;
+
+/**
+ * @member {Number} stockUSA
+ */
+InlineResponse20036.prototype['stockUSA'] = undefined;
+
+/**
+ * @member {Number} reservedSum
+ */
+InlineResponse20036.prototype['reservedSum'] = undefined;
+
+/**
+ * @member {Number} sentToFbaSum
+ */
+InlineResponse20036.prototype['sentToFbaSum'] = undefined;
+
+/**
+ * @member {Number} fbaFbmStockSum
+ */
+InlineResponse20036.prototype['fbaFbmStockSum'] = undefined;
+
+/**
+ * @member {Number} ideasOnCheck
+ */
+InlineResponse20036.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasFinished
+ */
+InlineResponse20036.prototype['ideasFinished'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse20036.prototype['ideasClosed'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
+ */
+InlineResponse20036.prototype['subUsers'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
+ */
+InlineResponse20036.prototype['redFlags'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
+ */
+InlineResponse20036.prototype['tags'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsProductsVacCheckedby} checkedby
+ */
+InlineResponse20036.prototype['checkedby'] = undefined;
+
+/**
+ * @member {Array.<Object>} productsInWarehouse
+ */
+InlineResponse20036.prototype['productsInWarehouse'] = undefined;
+
+/**
+ * Кол-во идей продукта в статусе 10
+ * @member {Number} ideasCounter
+ */
+InlineResponse20036.prototype['ideasCounter'] = undefined;
 
 
 

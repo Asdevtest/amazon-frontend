@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20028 from './InlineResponse20028';
 
 /**
  * The InlineResponse20029 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20029 {
     /**
      * Constructs a new <code>InlineResponse20029</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20029
      */
     constructor() { 
@@ -47,11 +49,11 @@ class InlineResponse20029 {
         if (data) {
             obj = obj || new InlineResponse20029();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20028]);
             }
         }
         return obj;
@@ -61,16 +63,16 @@ class InlineResponse20029 {
 }
 
 /**
- * GUID в базе данных
- * @member {String} _id
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20029.prototype['_id'] = undefined;
+InlineResponse20029.prototype['count'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20028>} rows
  */
-InlineResponse20029.prototype['name'] = undefined;
+InlineResponse20029.prototype['rows'] = undefined;
 
 
 

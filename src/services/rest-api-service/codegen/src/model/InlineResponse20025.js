@@ -47,14 +47,20 @@ class InlineResponse20025 {
         if (data) {
             obj = obj || new InlineResponse20025();
 
-            if (data.hasOwnProperty('totalPriceInYuan')) {
-                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('totalPriceInUSD')) {
-                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
-                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
         }
         return obj;
@@ -64,22 +70,33 @@ class InlineResponse20025 {
 }
 
 /**
- * total price in yuan for these statuses
- * @member {Number} totalPriceInYuan
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20025.prototype['totalPriceInYuan'] = undefined;
+InlineResponse20025.prototype['_id'] = undefined;
 
 /**
- * total price in USD for these statuses
- * @member {Number} totalPriceInUSD
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20025.prototype['totalPriceInUSD'] = undefined;
+InlineResponse20025.prototype['asin'] = undefined;
 
 /**
- * Total partialPaymentAmountRmb
- * @member {Number} partialPaymentAmountRmb
+ * @member {Array.<String>} skusByClient
  */
-InlineResponse20025.prototype['partialPaymentAmountRmb'] = undefined;
+InlineResponse20025.prototype['skusByClient'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20025.prototype['images'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20025.prototype['amazonTitle'] = undefined;
 
 
 
