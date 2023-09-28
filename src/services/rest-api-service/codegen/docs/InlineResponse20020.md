@@ -39,7 +39,7 @@ Name | Type | Description | Notes
 **client** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **destination** | [**ApiV1BoxesClientsLightDestination**](ApiV1BoxesClientsLightDestination.md) |  | [optional] 
-**logicsTariff** | [**ApiV1BoxesClientsLightLogicsTariff**](ApiV1BoxesClientsLightLogicsTariff.md) |  | [optional] 
-**batch** | [**ApiV1BoxesClientsLightBatch**](ApiV1BoxesClientsLightBatch.md) |  | [optional] 
+**logicsTariff** | [**ApiV1BoxesClientsInTransferGuidLogicsTariff**](ApiV1BoxesClientsInTransferGuidLogicsTariff.md) |  | [optional] 
+**batch** | [**ApiV1BoxesClientsInTransferGuidBatch**](ApiV1BoxesClientsInTransferGuidBatch.md) |  | [optional] 
 
 

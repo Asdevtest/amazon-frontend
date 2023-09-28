@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Общее кол-во идей | [optional] 
-**rows** | [**[InlineResponse20051Rows]**](InlineResponse20051Rows.md) | Список идей | [optional] 
+**product** | [**ApiV1IdeasNotificationsProduct**](ApiV1IdeasNotificationsProduct.md) |  | [optional] 
+**idea** | [**ApiV1IdeasNotificationsIdea**](ApiV1IdeasNotificationsIdea.md) |  | [optional] 
+**createdBy** | [**ApiV1IdeasNotificationsCreatedBy**](ApiV1IdeasNotificationsCreatedBy.md) |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 
 

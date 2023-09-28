@@ -47,8 +47,11 @@ class InlineResponse20055 {
         if (data) {
             obj = obj || new InlineResponse20055();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
         }
         return obj;
@@ -58,9 +61,16 @@ class InlineResponse20055 {
 }
 
 /**
- * @member {Array.<String>} failed
+ * GUID заказа
+ * @member {String} _id
  */
-InlineResponse20055.prototype['failed'] = undefined;
+InlineResponse20055.prototype['_id'] = undefined;
+
+/**
+ * id заказа
+ * @member {Number} id
+ */
+InlineResponse20055.prototype['id'] = undefined;
 
 
 

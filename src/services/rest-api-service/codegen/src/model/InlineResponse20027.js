@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20025 from './InlineResponse20025';
 
 /**
  * The InlineResponse20027 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20027 {
     /**
      * Constructs a new <code>InlineResponse20027</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20027
      */
     constructor() { 
@@ -47,20 +49,11 @@ class InlineResponse20027 {
         if (data) {
             obj = obj || new InlineResponse20027();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('skusByClient')) {
-                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20025]);
             }
         }
         return obj;
@@ -70,33 +63,16 @@ class InlineResponse20027 {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} _id
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20027.prototype['_id'] = undefined;
+InlineResponse20027.prototype['count'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20025>} rows
  */
-InlineResponse20027.prototype['asin'] = undefined;
-
-/**
- * @member {Array.<String>} skusByClient
- */
-InlineResponse20027.prototype['skusByClient'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse20027.prototype['images'] = undefined;
-
-/**
- * Заголовок на товар с сайта амазон.
- * @member {String} amazonTitle
- */
-InlineResponse20027.prototype['amazonTitle'] = undefined;
+InlineResponse20027.prototype['rows'] = undefined;
 
 
 

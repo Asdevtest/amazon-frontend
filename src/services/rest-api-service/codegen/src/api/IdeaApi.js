@@ -18,10 +18,10 @@ import InlineObject65 from '../model/InlineObject65';
 import InlineObject66 from '../model/InlineObject66';
 import InlineObject67 from '../model/InlineObject67';
 import InlineObject68 from '../model/InlineObject68';
+import InlineResponse20049 from '../model/InlineResponse20049';
 import InlineResponse20050 from '../model/InlineResponse20050';
+import InlineResponse20050Rows from '../model/InlineResponse20050Rows';
 import InlineResponse20051 from '../model/InlineResponse20051';
-import InlineResponse20051Rows from '../model/InlineResponse20051Rows';
-import InlineResponse20052 from '../model/InlineResponse20052';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 
@@ -161,7 +161,7 @@ export default class IdeaApi {
      * @param {String} guid ID родительского продукта, который должен быть в идее
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20050>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20049>} and HTTP response
      */
     apiV1IdeasByParentGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -185,7 +185,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20050];
+      let returnType = [InlineResponse20049];
       return this.apiClient.callApi(
         '/api/v1/ideas/by_parent/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -199,7 +199,7 @@ export default class IdeaApi {
      * @param {String} guid ID родительского продукта, который должен быть в идее
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20050>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20049>}
      */
     apiV1IdeasByParentGuidGet(guid, opts) {
       return this.apiV1IdeasByParentGuidGetWithHttpInfo(guid, opts)
@@ -373,13 +373,13 @@ export default class IdeaApi {
 
     /**
      * Получить идею по гуиду
-     * Получить идею по гуиду
+     * Получить и�ею по гуиду
      * @param {String} guid GUID идеи в БД
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.withRequests Наличие в ответе заявок в продуктах
      * @param {Boolean} opts.withOrder Наличие в ответе заказа в продуктах
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20051Rows} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20050Rows} and HTTP response
      */
     apiV1IdeasGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -405,7 +405,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20051Rows;
+      let returnType = InlineResponse20050Rows;
       return this.apiClient.callApi(
         '/api/v1/ideas/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -415,13 +415,13 @@ export default class IdeaApi {
 
     /**
      * Получить идею по гуиду
-     * Получить идею по гуиду
+     * Получить и�ею по гуиду
      * @param {String} guid GUID идеи в БД
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.withRequests Наличие в ответе заявок в продуктах
      * @param {Boolean} opts.withOrder Наличие в ответе заказа в продуктах
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20051Rows}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20050Rows}
      */
     apiV1IdeasGuidGet(guid, opts) {
       return this.apiV1IdeasGuidGetWithHttpInfo(guid, opts)
@@ -493,7 +493,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20052>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20051>} and HTTP response
      */
     apiV1IdeasNotificationsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -513,7 +513,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20052];
+      let returnType = [InlineResponse20051];
       return this.apiClient.callApi(
         '/api/v1/ideas/notifications', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -527,7 +527,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20052>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20051>}
      */
     apiV1IdeasNotificationsGet(opts) {
       return this.apiV1IdeasNotificationsGetWithHttpInfo(opts)
@@ -603,7 +603,7 @@ export default class IdeaApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20051} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20050} and HTTP response
      */
     apiV1IdeasPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -629,7 +629,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20051;
+      let returnType = InlineResponse20050;
       return this.apiClient.callApi(
         '/api/v1/ideas/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -649,7 +649,7 @@ export default class IdeaApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20051}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20050}
      */
     apiV1IdeasPagMyGet(opts) {
       return this.apiV1IdeasPagMyGetWithHttpInfo(opts)

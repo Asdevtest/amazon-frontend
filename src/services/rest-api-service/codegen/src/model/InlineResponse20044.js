@@ -12,9 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20044Batches from './InlineResponse20044Batches';
-import InlineResponse20044Boxes from './InlineResponse20044Boxes';
-import InlineResponse20044Tasks from './InlineResponse20044Tasks';
+import InlineResponse20042Finances from './InlineResponse20042Finances';
+import InlineResponse20044Products from './InlineResponse20044Products';
 
 /**
  * The InlineResponse20044 model module.
@@ -50,14 +49,11 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20044Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20044Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20044Boxes.constructFromObject(data['boxes']);
-            }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20044Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20042Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -67,19 +63,14 @@ class InlineResponse20044 {
 }
 
 /**
- * @member {module:model/InlineResponse20044Tasks} tasks
+ * @member {module:model/InlineResponse20044Products} products
  */
-InlineResponse20044.prototype['tasks'] = undefined;
+InlineResponse20044.prototype['products'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20044Boxes} boxes
+ * @member {module:model/InlineResponse20042Finances} finances
  */
-InlineResponse20044.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20044Batches} batches
- */
-InlineResponse20044.prototype['batches'] = undefined;
+InlineResponse20044.prototype['finances'] = undefined;
 
 
 
