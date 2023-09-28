@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## apiV1SuppliersGet
 
-> [InlineResponse20079] apiV1SuppliersGet(opts)
+> [ApiV1AdminsGetProductsByStatusSuppliers] apiV1SuppliersGet(opts)
 
 # Получить список поставщиков.
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20079]**](InlineResponse20079.md)
+[**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md)
 
 ### Authorization
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPaymentMethodsGet
 
-> [InlineResponse20080] apiV1SuppliersPaymentMethodsGet(opts)
+> [InlineResponse20078] apiV1SuppliersPaymentMethodsGet(opts)
 
 # Получить все доступные методы оплаты для поставщика
 
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20080]**](InlineResponse20080.md)
+[**[InlineResponse20078]**](InlineResponse20078.md)
 
 ### Authorization
 

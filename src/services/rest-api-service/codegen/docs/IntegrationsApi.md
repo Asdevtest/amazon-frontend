@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsGetSkusByProductIdGuidGet
 
-> [InlineResponse20051] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
+> [InlineResponse20052] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
 
 Получить товары из склада (sku), через GUID продукта.
 
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20051]**](InlineResponse20051.md)
+[**[InlineResponse20052]**](InlineResponse20052.md)
 
 ### Authorization
 
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsRefreshProductsPatch
 
-> InlineResponse20053 apiV1IntegrationsRefreshProductsPatch(opts)
+> InlineResponse20054 apiV1IntegrationsRefreshProductsPatch(opts)
 
 # Обновить товары через парсер
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20053**](InlineResponse20053.md)
+[**InlineResponse20054**](InlineResponse20054.md)
 
 ### Authorization
 
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet
 
-> [InlineResponse20052] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
+> [InlineResponse20053] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
 
 Получить месячный отчет селерборда.
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20052]**](InlineResponse20052.md)
+[**[InlineResponse20053]**](InlineResponse20053.md)
 
 ### Authorization
 
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardWarehouseStocksGet
 
-> [InlineResponse20051] apiV1IntegrationsSellerboardWarehouseStocksGet(opts)
+> [InlineResponse20052] apiV1IntegrationsSellerboardWarehouseStocksGet(opts)
 
 Получить днанные со склада.
 
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20051]**](InlineResponse20051.md)
+[**[InlineResponse20052]**](InlineResponse20052.md)
 
 ### Authorization
 
@@ -505,7 +505,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsWarehouseReportGet
 
-> [InlineResponse20051] apiV1IntegrationsWarehouseReportGet(opts)
+> [InlineResponse20052] apiV1IntegrationsWarehouseReportGet(opts)
 
 Поиск по товарам со склада по: asin, sku, title..
 
@@ -545,7 +545,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20051]**](InlineResponse20051.md)
+[**[InlineResponse20052]**](InlineResponse20052.md)
 
 ### Authorization
 

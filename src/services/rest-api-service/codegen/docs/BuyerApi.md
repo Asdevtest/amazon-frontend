@@ -425,7 +425,7 @@ Name | Type | Description  | Notes
 
 # Выставить статус \&quot;выдан трек номер\&quot;.
 
-## Выставить статус \&quot;выдан трек номер\&quot;.  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt &#x3D;&#x3D;&#x3D; null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и пере�одит админу Проверки:  пока нет проверок
+## Выставить статус \&quot;выдан трек номер\&quot;.  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt &#x3D;&#x3D;&#x3D; null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
 
 ### Example
 
@@ -475,7 +475,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersMyGet
 
-> [InlineResponse20028] apiV1BuyersOrdersMyGet(opts)
+> [InlineResponse20029] apiV1BuyersOrdersMyGet(opts)
 
 # Получить список заказов текущего байера.
 
@@ -513,7 +513,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20028]**](InlineResponse20028.md)
+[**[InlineResponse20029]**](InlineResponse20029.md)
 
 ### Authorization
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersPagMyGet
 
-> InlineResponse20029 apiV1BuyersOrdersPagMyGet(opts)
+> InlineResponse20030 apiV1BuyersOrdersPagMyGet(opts)
 
 # Получить список заказов текущего байера с пагинацией.
 
@@ -577,7 +577,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20029**](InlineResponse20029.md)
+[**InlineResponse20030**](InlineResponse20030.md)
 
 ### Authorization
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersPaymentAmountGet
 
-> InlineResponse20027 apiV1BuyersOrdersPaymentAmountGet(status, opts)
+> InlineResponse20028 apiV1BuyersOrdersPaymentAmountGet(status, opts)
 
 # Получить общую стоимость заказов по статусам
 
@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20027**](InlineResponse20027.md)
+[**InlineResponse20028**](InlineResponse20028.md)
 
 ### Authorization
 
@@ -1033,7 +1033,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsLightGet
 
-> [InlineResponse20025] apiV1BuyersProductsLightGet(opts)
+> [InlineResponse20026] apiV1BuyersProductsLightGet(opts)
 
 # Получить список товаров, где пользователь - баер товара(не архив).
 
@@ -1073,7 +1073,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20025]**](InlineResponse20025.md)
+[**[InlineResponse20026]**](InlineResponse20026.md)
 
 ### Authorization
 
@@ -1087,7 +1087,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsMyGet
 
-> [InlineResponse20024] apiV1BuyersProductsMyGet(opts)
+> [InlineResponse20025] apiV1BuyersProductsMyGet(opts)
 
 # Получить список товаров взятых в работу байером.
 
@@ -1125,7 +1125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20025]**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1139,7 +1139,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsPagMyGet
 
-> InlineResponse20026 apiV1BuyersProductsPagMyGet(opts)
+> InlineResponse20027 apiV1BuyersProductsPagMyGet(opts)
 
 # Получить список товаров взятых в работу байером с пагинацией.
 
@@ -1187,7 +1187,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20026**](InlineResponse20026.md)
+[**InlineResponse20027**](InlineResponse20027.md)
 
 ### Authorization
 
@@ -1255,7 +1255,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsVacGet
 
-> [InlineResponse20024] apiV1BuyersProductsVacGet(opts)
+> [InlineResponse20025] apiV1BuyersProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1295,7 +1295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20025]**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1363,7 +1363,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse20030] apiV1BuyersTasksGet(opts)
+> [InlineResponse20031] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -1401,7 +1401,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20030]**](InlineResponse20030.md)
+[**[InlineResponse20031]**](InlineResponse20031.md)
 
 ### Authorization
 
