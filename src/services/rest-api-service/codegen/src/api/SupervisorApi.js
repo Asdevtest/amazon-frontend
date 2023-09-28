@@ -17,7 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject120 from '../model/InlineObject120';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20025 from '../model/InlineResponse20025';
+import InlineResponse20027 from '../model/InlineResponse20027';
 import InlineResponse20078 from '../model/InlineResponse20078';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -103,7 +103,7 @@ export default class SupervisorApi {
      * ## Получить облегченный список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20025>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20027>} and HTTP response
      */
     apiV1SupervisorsProductsLightGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -122,7 +122,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20025];
+      let returnType = [InlineResponse20027];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -135,7 +135,7 @@ export default class SupervisorApi {
      * ## Получить облегченный список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20025>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20027>}
      */
     apiV1SupervisorsProductsLightGet(opts) {
       return this.apiV1SupervisorsProductsLightGetWithHttpInfo(opts)

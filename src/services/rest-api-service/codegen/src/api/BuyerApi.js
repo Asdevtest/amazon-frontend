@@ -24,13 +24,13 @@ import InlineObject43 from '../model/InlineObject43';
 import InlineObject44 from '../model/InlineObject44';
 import InlineObject45 from '../model/InlineObject45';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse20024 from '../model/InlineResponse20024';
-import InlineResponse20025 from '../model/InlineResponse20025';
 import InlineResponse20026 from '../model/InlineResponse20026';
 import InlineResponse20027 from '../model/InlineResponse20027';
 import InlineResponse20028 from '../model/InlineResponse20028';
 import InlineResponse20029 from '../model/InlineResponse20029';
 import InlineResponse20030 from '../model/InlineResponse20030';
+import InlineResponse20031 from '../model/InlineResponse20031';
+import InlineResponse20032 from '../model/InlineResponse20032';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -448,7 +448,7 @@ export default class BuyerApi {
 
     /**
      * # Выставить статус \"выдан трек номер\".
-     * ## Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и пере�одит админу Проверки:  пока нет проверок
+     * ## Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
      * @param {String} guid GUID заказа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -486,7 +486,7 @@ export default class BuyerApi {
 
     /**
      * # Выставить статус \"выдан трек номер\".
-     * ## Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и пере�одит админу Проверки:  пока нет проверок
+     * ## Выставить статус \"выдан трек номер\".  При вызове данного метода статус меняется на 25 trackNumberIssued  Если ранее не была произведена оплата(paidAt === null), то производит оплату:   при оплате снимает средства с замороженных средств клиента и переводит админу Проверки:  пока нет проверок
      * @param {String} guid GUID заказа
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -505,7 +505,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20028>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20030>} and HTTP response
      */
     apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -524,7 +524,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20028];
+      let returnType = [InlineResponse20030];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -537,7 +537,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20028>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20030>}
      */
     apiV1BuyersOrdersMyGet(opts) {
       return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts)
@@ -558,7 +558,7 @@ export default class BuyerApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20031} and HTTP response
      */
     apiV1BuyersOrdersPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -583,7 +583,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20029;
+      let returnType = InlineResponse20031;
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -602,7 +602,7 @@ export default class BuyerApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20031}
      */
     apiV1BuyersOrdersPagMyGet(opts) {
       return this.apiV1BuyersOrdersPagMyGetWithHttpInfo(opts)
@@ -672,7 +672,7 @@ export default class BuyerApi {
      * @param {String} status Order status
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20027} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
      */
     apiV1BuyersOrdersPaymentAmountGetWithHttpInfo(status, opts) {
       opts = opts || {};
@@ -696,7 +696,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20027;
+      let returnType = InlineResponse20029;
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/payment_amount', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -710,7 +710,7 @@ export default class BuyerApi {
      * @param {String} status Order status
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20027}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
      */
     apiV1BuyersOrdersPaymentAmountGet(status, opts) {
       return this.apiV1BuyersOrdersPaymentAmountGetWithHttpInfo(status, opts)
@@ -1057,7 +1057,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20025>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20027>} and HTTP response
      */
     apiV1BuyersProductsLightGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1077,7 +1077,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20025];
+      let returnType = [InlineResponse20027];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1091,7 +1091,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20025>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20027>}
      */
     apiV1BuyersProductsLightGet(opts) {
       return this.apiV1BuyersProductsLightGetWithHttpInfo(opts)
@@ -1106,7 +1106,7 @@ export default class BuyerApi {
      * ## Получить список товаров взятых в работу байером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20024>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20026>} and HTTP response
      */
     apiV1BuyersProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1125,7 +1125,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20024];
+      let returnType = [InlineResponse20026];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1138,7 +1138,7 @@ export default class BuyerApi {
      * ## Получить список товаров взятых в работу байером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20024>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20026>}
      */
     apiV1BuyersProductsMyGet(opts) {
       return this.apiV1BuyersProductsMyGetWithHttpInfo(opts)
@@ -1158,7 +1158,7 @@ export default class BuyerApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20026} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20028} and HTTP response
      */
     apiV1BuyersProductsPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1182,7 +1182,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20026;
+      let returnType = InlineResponse20028;
       return this.apiClient.callApi(
         '/api/v1/buyers/products/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1200,7 +1200,7 @@ export default class BuyerApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20026}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20028}
      */
     apiV1BuyersProductsPagMyGet(opts) {
       return this.apiV1BuyersProductsPagMyGetWithHttpInfo(opts)
@@ -1268,7 +1268,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20024>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20026>} and HTTP response
      */
     apiV1BuyersProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1288,7 +1288,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20024];
+      let returnType = [InlineResponse20026];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1302,7 +1302,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20024>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20026>}
      */
     apiV1BuyersProductsVacGet(opts) {
       return this.apiV1BuyersProductsVacGetWithHttpInfo(opts)
@@ -1371,7 +1371,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20030>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20032>} and HTTP response
      */
     apiV1BuyersTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1390,7 +1390,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20030];
+      let returnType = [InlineResponse20032];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1403,7 +1403,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20030>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20032>}
      */
     apiV1BuyersTasksGet(opts) {
       return this.apiV1BuyersTasksGetWithHttpInfo(opts)

@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasByParentGuidGet
 
-> [InlineResponse20048] apiV1IdeasByParentGuidGet(guid, opts)
+> [InlineResponse20050] apiV1IdeasByParentGuidGet(guid, opts)
 
 Получить идеи по родительскому продукту
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20048]**](InlineResponse20048.md)
+[**[InlineResponse20050]**](InlineResponse20050.md)
 
 ### Authorization
 
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGuidGet
 
-> InlineResponse20049Rows apiV1IdeasGuidGet(guid, opts)
+> InlineResponse20051Rows apiV1IdeasGuidGet(guid, opts)
 
 Получить идею по гуиду
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20049Rows**](InlineResponse20049Rows.md)
+[**InlineResponse20051Rows**](InlineResponse20051Rows.md)
 
 ### Authorization
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasNotificationsGet
 
-> [InlineResponse20050] apiV1IdeasNotificationsGet(opts)
+> [InlineResponse20052] apiV1IdeasNotificationsGet(opts)
 
 Получить нотификации идей
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20050]**](InlineResponse20050.md)
+[**[InlineResponse20052]**](InlineResponse20052.md)
 
 ### Authorization
 
@@ -576,7 +576,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasPagMyGet
 
-> InlineResponse20049 apiV1IdeasPagMyGet(opts)
+> InlineResponse20051 apiV1IdeasPagMyGet(opts)
 
 Список всех идей с пагинацией
 
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20049**](InlineResponse20049.md)
+[**InlineResponse20051**](InlineResponse20051.md)
 
 ### Authorization
 

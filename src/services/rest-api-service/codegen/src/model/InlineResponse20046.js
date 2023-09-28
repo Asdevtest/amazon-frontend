@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20043Finances from './InlineResponse20043Finances';
 
 /**
  * The InlineResponse20046 model module.
@@ -47,14 +48,8 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('productCount')) {
-                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20043Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -64,22 +59,9 @@ class InlineResponse20046 {
 }
 
 /**
- * Гуид тега
- * @member {String} _id
+ * @member {module:model/InlineResponse20043Finances} finances
  */
-InlineResponse20046.prototype['_id'] = undefined;
-
-/**
- * Тег
- * @member {String} title
- */
-InlineResponse20046.prototype['title'] = undefined;
-
-/**
- * Кол-во продуктов, которые используют этот тег
- * @member {Number} productCount
- */
-InlineResponse20046.prototype['productCount'] = undefined;
+InlineResponse20046.prototype['finances'] = undefined;
 
 
 

@@ -13,11 +13,11 @@ Method | HTTP request | Description
 
 ## apiV1ShopSellGet
 
-> [InlineResponse20069] apiV1ShopSellGet(opts)
+> [InlineResponse20071] apiV1ShopSellGet(opts)
 
 # Получить все магазины на продажу
 
-Если вызвал покупатель - Видны объявления в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot; Если вызвал покупатель, который забронировал магазин - Видны объявления в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot;/\&quot;Вызван модератор\&quot; Если вызвал продавец(создатель) - Видны объявления в статусах \&quot;DRAFT\&quot;/\&quot;DELETED\&quot;/\&quot;MODERATING\&quot;/\&quot;PUBLISHED\&quot;/\&quot;BOOKED\&quot;/\&quot;MODERATOR_CALLED\&quot;/\&quot;SOLD\&quot;
+Если вызвал покупатель - Видны объявлени� в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot; Если вызвал покупатель, который забронировал магазин - Видны объявления в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot;/\&quot;Вызван модератор\&quot; Если вызвал продавец(создатель) - Видны объявления в статусах \&quot;DRAFT\&quot;/\&quot;DELETED\&quot;/\&quot;MODERATING\&quot;/\&quot;PUBLISHED\&quot;/\&quot;BOOKED\&quot;/\&quot;MODERATOR_CALLED\&quot;/\&quot;SOLD\&quot;
 
 ### Example
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20069]**](InlineResponse20069.md)
+[**[InlineResponse20071]**](InlineResponse20071.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopSellGuidGet
 
-> InlineResponse20070 apiV1ShopSellGuidGet(guid, opts)
+> InlineResponse20072 apiV1ShopSellGuidGet(guid, opts)
 
 # Получить магазин на продажу по GUID
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20070**](InlineResponse20070.md)
+[**InlineResponse20072**](InlineResponse20072.md)
 
 ### Authorization
 
