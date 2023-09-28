@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20028 from './InlineResponse20028';
 
 /**
  * The InlineResponse20029 model module.
@@ -22,7 +21,6 @@ import InlineResponse20028 from './InlineResponse20028';
 class InlineResponse20029 {
     /**
      * Constructs a new <code>InlineResponse20029</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20029
      */
     constructor() { 
@@ -49,11 +47,14 @@ class InlineResponse20029 {
         if (data) {
             obj = obj || new InlineResponse20029();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('totalPriceInYuan')) {
+                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20028]);
+            if (data.hasOwnProperty('totalPriceInUSD')) {
+                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
+            }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
             }
         }
         return obj;
@@ -63,16 +64,22 @@ class InlineResponse20029 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * total price in yuan for these statuses
+ * @member {Number} totalPriceInYuan
  */
-InlineResponse20029.prototype['count'] = undefined;
+InlineResponse20029.prototype['totalPriceInYuan'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20028>} rows
+ * total price in USD for these statuses
+ * @member {Number} totalPriceInUSD
  */
-InlineResponse20029.prototype['rows'] = undefined;
+InlineResponse20029.prototype['totalPriceInUSD'] = undefined;
+
+/**
+ * Total partialPaymentAmountRmb
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse20029.prototype['partialPaymentAmountRmb'] = undefined;
 
 
 
