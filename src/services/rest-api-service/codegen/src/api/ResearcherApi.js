@@ -18,7 +18,7 @@ import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject103 from '../model/InlineObject103';
 import InlineObject104 from '../model/InlineObject104';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20067 from '../model/InlineResponse20067';
+import InlineResponse20068 from '../model/InlineResponse20068';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -50,7 +50,7 @@ export default class ResearcherApi {
      * @param {String} strategy Стратегия АСИНА для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20067} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20068} and HTTP response
      */
     apiV1ResearchersCheckProductsAsinStrategyGetWithHttpInfo(asin, strategy, opts) {
       opts = opts || {};
@@ -79,7 +79,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20067;
+      let returnType = InlineResponse20068;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{asin}/{strategy}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -94,7 +94,7 @@ export default class ResearcherApi {
      * @param {String} strategy Стратегия АСИНА для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20067}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20068}
      */
     apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts) {
       return this.apiV1ResearchersCheckProductsAsinStrategyGetWithHttpInfo(asin, strategy, opts)

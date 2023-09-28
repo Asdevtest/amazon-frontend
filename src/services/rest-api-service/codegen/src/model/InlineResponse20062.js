@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20062Rows from './InlineResponse20062Rows';
 
 /**
  * The InlineResponse20062 model module.
@@ -47,29 +48,11 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
-            }
-            if (data.hasOwnProperty('platformMargin')) {
-                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
-            }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFee')) {
-                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
-            }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
-            }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20062Rows]);
             }
         }
         return obj;
@@ -79,52 +62,14 @@ class InlineResponse20062 {
 }
 
 /**
- * Цена за каждое предложение.
- * @member {Number} price
+ * @member {Number} count
  */
-InlineResponse20062.prototype['price'] = undefined;
+InlineResponse20062.prototype['count'] = undefined;
 
 /**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
+ * @member {Array.<module:model/InlineResponse20062Rows>} rows
  */
-InlineResponse20062.prototype['requestPlatformMarginInPercent'] = undefined;
-
-/**
- * Услуги платформы.
- * @member {Number} platformMargin
- */
-InlineResponse20062.prototype['platformMargin'] = undefined;
-
-/**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
- */
-InlineResponse20062.prototype['requestSupervisorFeeInPercent'] = undefined;
-
-/**
- * Услуги супервайзера.
- * @member {Number} supervisorFee
- */
-InlineResponse20062.prototype['supervisorFee'] = undefined;
-
-/**
- * Сумма.
- * @member {Number} unitCost
- */
-InlineResponse20062.prototype['unitCost'] = undefined;
-
-/**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
- */
-InlineResponse20062.prototype['maxAmountOfProposals'] = undefined;
-
-/**
- * Итого.
- * @member {Number} totalCost
- */
-InlineResponse20062.prototype['totalCost'] = undefined;
+InlineResponse20062.prototype['rows'] = undefined;
 
 
 

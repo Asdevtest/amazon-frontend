@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
+import InlineResponse20049Rows from './InlineResponse20049Rows';
 
 /**
  * The InlineResponse20049 model module.
@@ -50,17 +48,11 @@ class InlineResponse20049 {
         if (data) {
             obj = obj || new InlineResponse20049();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20049Rows]);
             }
         }
         return obj;
@@ -70,24 +62,16 @@ class InlineResponse20049 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * Общее кол-во идей
+ * @member {Number} count
  */
-InlineResponse20049.prototype['product'] = undefined;
+InlineResponse20049.prototype['count'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ * Список идей
+ * @member {Array.<module:model/InlineResponse20049Rows>} rows
  */
-InlineResponse20049.prototype['idea'] = undefined;
-
-/**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
- */
-InlineResponse20049.prototype['createdBy'] = undefined;
-
-/**
- * @member {String} createdAt
- */
-InlineResponse20049.prototype['createdAt'] = undefined;
+InlineResponse20049.prototype['rows'] = undefined;
 
 
 

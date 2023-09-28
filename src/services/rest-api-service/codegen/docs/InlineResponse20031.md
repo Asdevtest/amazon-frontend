@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**allImages** | [**[InlineResponse20031AllImages]**](InlineResponse20031AllImages.md) |  | [optional] 
-**allFiles** | [**[InlineResponse20031AllFiles]**](InlineResponse20031AllFiles.md) |  | [optional] 
+**_id** | **String** | GUID в базе данных | [optional] 
+**name** | **String** | Имя пользователя. | [optional] 
 
 

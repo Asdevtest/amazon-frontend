@@ -35,8 +35,9 @@ export const SelectStorekeeperAndTariffForm = observer(
     total,
     currentVariationTariffId,
     currentDestinationId,
+    RemoveDestinationRestriction,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -77,8 +78,6 @@ export const SelectStorekeeperAndTariffForm = observer(
       onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
-
-    console.log('curStorekeeper', curStorekeeper)
 
     return (
       <div className={classNames.root}>
@@ -158,14 +157,18 @@ export const SelectStorekeeperAndTariffForm = observer(
             />
           </div>
           {!inNotifications && (
-            <div className={classNames.clearBtnWrapper}>
-              <div className={classNames.checkboxWrapper}>
-                <Checkbox
-                  checked={isRemovedDestinationRestriction}
-                  onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
-                />
-                <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
-              </div>
+            <div
+              className={cx(classNames.clearBtnWrapper, { [classNames.oneItemWrapper]: !RemoveDestinationRestriction })}
+            >
+              {RemoveDestinationRestriction && (
+                <div className={classNames.checkboxWrapper}>
+                  <Checkbox
+                    checked={isRemovedDestinationRestriction}
+                    onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
+                  />
+                  <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
+                </div>
+              )}
 
               <Button
                 disableElevation

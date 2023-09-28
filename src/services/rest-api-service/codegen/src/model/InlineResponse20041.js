@@ -12,9 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20041Batches from './InlineResponse20041Batches';
-import InlineResponse20041Boxes from './InlineResponse20041Boxes';
-import InlineResponse20041Tasks from './InlineResponse20041Tasks';
+import InlineResponse20041Finances from './InlineResponse20041Finances';
+import InlineResponse20041Orders from './InlineResponse20041Orders';
+import InlineResponse20041PendingOrders from './InlineResponse20041PendingOrders';
+import InlineResponse20041Products from './InlineResponse20041Products';
 
 /**
  * The InlineResponse20041 model module.
@@ -50,14 +51,17 @@ class InlineResponse20041 {
         if (data) {
             obj = obj || new InlineResponse20041();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20041Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20041Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20041Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20041Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20041Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20041PendingOrders.constructFromObject(data['pendingOrders']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20041Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -67,19 +71,24 @@ class InlineResponse20041 {
 }
 
 /**
- * @member {module:model/InlineResponse20041Tasks} tasks
+ * @member {module:model/InlineResponse20041Products} products
  */
-InlineResponse20041.prototype['tasks'] = undefined;
+InlineResponse20041.prototype['products'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20041Boxes} boxes
+ * @member {module:model/InlineResponse20041Orders} orders
  */
-InlineResponse20041.prototype['boxes'] = undefined;
+InlineResponse20041.prototype['orders'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20041Batches} batches
+ * @member {module:model/InlineResponse20041PendingOrders} pendingOrders
  */
-InlineResponse20041.prototype['batches'] = undefined;
+InlineResponse20041.prototype['pendingOrders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20041Finances} finances
+ */
+InlineResponse20041.prototype['finances'] = undefined;
 
 
 

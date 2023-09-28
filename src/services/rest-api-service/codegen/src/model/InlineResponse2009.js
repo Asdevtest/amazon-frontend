@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse2005 from './InlineResponse2005';
 
 /**
  * The InlineResponse2009 model module.
@@ -47,11 +48,11 @@ class InlineResponse2009 {
         if (data) {
             obj = obj || new InlineResponse2009();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2005]);
             }
         }
         return obj;
@@ -61,16 +62,16 @@ class InlineResponse2009 {
 }
 
 /**
- * Гуид юзера
- * @member {String} _id
+ * Количество задач
+ * @member {Number} count
  */
-InlineResponse2009.prototype['_id'] = undefined;
+InlineResponse2009.prototype['count'] = undefined;
 
 /**
- * Имя юзера
- * @member {String} name
+ * Массив задач
+ * @member {Array.<module:model/InlineResponse2005>} rows
  */
-InlineResponse2009.prototype['name'] = undefined;
+InlineResponse2009.prototype['rows'] = undefined;
 
 
 

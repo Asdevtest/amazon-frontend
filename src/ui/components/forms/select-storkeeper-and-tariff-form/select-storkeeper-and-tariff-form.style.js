@@ -67,4 +67,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+
+  oneItemWrapper: {
+    justifyContent: 'flex-end',
+  },
 }))

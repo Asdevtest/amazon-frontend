@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ChatsMediaGuidGet
 
-> InlineResponse20031 apiV1ChatsMediaGuidGet(guid, opts)
+> InlineResponse20032 apiV1ChatsMediaGuidGet(guid, opts)
 
 Получить все файлы и имеджы с чата по гуиду
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ChatsNamesGet
 
-> [InlineResponse20030] apiV1ChatsNamesGet(opts)
+> [InlineResponse20031] apiV1ChatsNamesGet(opts)
 
 Получить все имена юзеров
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20030]**](InlineResponse20030.md)
+[**[InlineResponse20031]**](InlineResponse20031.md)
 
 ### Authorization
 
