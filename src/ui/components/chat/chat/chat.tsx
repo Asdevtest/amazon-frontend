@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -65,6 +64,7 @@ interface Props {
   messagesFound?: ChatMessageContract[]
   isFreelanceOwner?: boolean
   searchPhrase?: string
+  classNamesWrapper?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
@@ -92,8 +92,9 @@ export const Chat: FC<Props> = observer(
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
     isFreelanceOwner,
+    classNamesWrapper,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
     const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
@@ -269,7 +270,7 @@ export const Chat: FC<Props> = observer(
 
     return (
       <>
-        <div className={classNames.scrollViewWrapper}>
+        <div className={cx(classNames.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
             messagesWrapperRef={messagesWrapperRef}
