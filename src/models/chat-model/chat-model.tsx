@@ -293,6 +293,10 @@ class ChatModelStatic {
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findChatIndexById !== -1) {
+      if (message.user?._id !== this.userId && !this.mutedChats.includes(message.chatId)) {
+        noticeSound.play()
+      }
+
       runInAction(() => {
         this.chats[findChatIndexById].messages = [
           ...this.chats[findChatIndexById].messages.filter(mes => mes._id !== message._id),

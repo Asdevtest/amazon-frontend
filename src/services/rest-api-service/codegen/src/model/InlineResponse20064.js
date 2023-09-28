@@ -47,11 +47,29 @@ class InlineResponse20064 {
         if (data) {
             obj = obj || new InlineResponse20064();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            }
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            }
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -61,16 +79,52 @@ class InlineResponse20064 {
 }
 
 /**
- * Гуид заявки
- * @member {String} _id
+ * Цена за каждое предложение.
+ * @member {Number} price
  */
-InlineResponse20064.prototype['_id'] = undefined;
+InlineResponse20064.prototype['price'] = undefined;
 
 /**
- * удобный ключ заявки
- * @member {Number} humanFriendlyId
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20064.prototype['humanFriendlyId'] = undefined;
+InlineResponse20064.prototype['requestPlatformMarginInPercent'] = undefined;
+
+/**
+ * Услуги платформы.
+ * @member {Number} platformMargin
+ */
+InlineResponse20064.prototype['platformMargin'] = undefined;
+
+/**
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
+ */
+InlineResponse20064.prototype['requestSupervisorFeeInPercent'] = undefined;
+
+/**
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
+ */
+InlineResponse20064.prototype['supervisorFee'] = undefined;
+
+/**
+ * Сумма.
+ * @member {Number} unitCost
+ */
+InlineResponse20064.prototype['unitCost'] = undefined;
+
+/**
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
+ */
+InlineResponse20064.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Итого.
+ * @member {Number} totalCost
+ */
+InlineResponse20064.prototype['totalCost'] = undefined;
 
 
 

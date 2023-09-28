@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20083] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20084] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20083]**](InlineResponse20083.md)
+[**[InlineResponse20084]**](InlineResponse20084.md)
 
 ### Authorization
 
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsFreelanceSourcesGet
 
-> [InlineResponse20061] apiV1RequestProposalsFreelanceSourcesGet(opts)
+> [InlineResponse20062] apiV1RequestProposalsFreelanceSourcesGet(opts)
 
 #  Получить исходники.
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20061]**](InlineResponse20061.md)
+[**[InlineResponse20062]**](InlineResponse20062.md)
 
 ### Authorization
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsGet
 
-> [InlineResponse20060] apiV1RequestProposalsGet(type, kind, opts)
+> [InlineResponse20061] apiV1RequestProposalsGet(type, kind, opts)
 
 Получить все предложения для супервизора.
 
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20060]**](InlineResponse20060.md)
+[**[InlineResponse20061]**](InlineResponse20061.md)
 
 ### Authorization
 
@@ -1140,7 +1140,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsPagMyGet
 
-> InlineResponse20062 apiV1RequestProposalsPagMyGet(opts)
+> InlineResponse20063 apiV1RequestProposalsPagMyGet(opts)
 
 Получить все предложения фрилансера.
 
@@ -1188,7 +1188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20062**](InlineResponse20062.md)
+[**InlineResponse20063**](InlineResponse20063.md)
 
 ### Authorization
 

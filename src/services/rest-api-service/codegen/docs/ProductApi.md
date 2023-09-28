@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsByCreatorGuidGet
 
-> [InlineResponse20033] apiV1ProductsByCreatorGuidGet(guid, opts)
+> [InlineResponse20034] apiV1ProductsByCreatorGuidGet(guid, opts)
 
 Получение продуктов по ID создателя
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20033]**](InlineResponse20033.md)
+[**[InlineResponse20034]**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsKeepaPost
 
-> [InlineResponse20059] apiV1ProductsKeepaPost(opts)
+> [InlineResponse20060] apiV1ProductsKeepaPost(opts)
 
 # Отфильтровать и получить данные  о продуктах через Keepa
 
@@ -444,7 +444,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20059]**](InlineResponse20059.md)
+[**[InlineResponse20060]**](InlineResponse20060.md)
 
 ### Authorization
 
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20058 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20059 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -608,7 +608,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20058**](InlineResponse20058.md)
+[**InlineResponse20059**](InlineResponse20059.md)
 
 ### Authorization
 

@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsLightGet
 
-> [InlineResponse20025] apiV1SupervisorsProductsLightGet(opts)
+> [InlineResponse20026] apiV1SupervisorsProductsLightGet(opts)
 
 # Получить облегченный список товаров взятых на проверку супервайзером.
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20025]**](InlineResponse20025.md)
+[**[InlineResponse20026]**](InlineResponse20026.md)
 
 ### Authorization
 
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsPagMyGet
 
-> InlineResponse20076 apiV1SupervisorsProductsPagMyGet(opts)
+> InlineResponse20077 apiV1SupervisorsProductsPagMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером с пагинацией.
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20076**](InlineResponse20076.md)
+[**InlineResponse20077**](InlineResponse20077.md)
 
 ### Authorization
 
