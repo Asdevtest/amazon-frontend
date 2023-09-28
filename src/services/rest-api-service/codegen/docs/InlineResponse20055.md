@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**failed** | [**[InlineResponse20055Failed]**](InlineResponse20055Failed.md) |  | [optional] 
+**_id** | **String** | GUID заказа | [optional] 
+**id** | **Number** | id заказа | [optional] 
 
 

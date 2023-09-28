@@ -156,6 +156,8 @@ export const ChatMessagesList: FC<Props> = observer(
 
               const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
+              const isRequestOrProposal = !!messageItem.data
+
               return (
                 <div
                   ref={
@@ -204,7 +206,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
                       <div
                         className={cx({
-                          [classNames.messageInnerWrapper]: isFreelanceOwner && isIncomming,
+                          [classNames.messageInnerWrapper]: isFreelanceOwner && isRequestOrProposal,
                           [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,
