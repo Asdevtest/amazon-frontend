@@ -9,6 +9,7 @@ import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { toFixed } from '@utils/text'
@@ -63,6 +64,18 @@ export class OwnerRequestDetailCustomViewModel {
     alertShieldMessage: '',
   }
 
+  mesSearchValue = ''
+  messagesFound = []
+  curFoundedMessage = undefined
+
+  get isMuteChats() {
+    return SettingsModel.isMuteChats
+  }
+
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
+
   get user() {
     return UserModel.userInfo
   }
@@ -110,6 +123,37 @@ export class OwnerRequestDetailCustomViewModel {
         history.replace({ ...history.location, state })
       }
     })
+
+    reaction(
+      () => this.chatSelectedId,
+      () => {
+        runInAction(() => {
+          this.mesSearchValue = ''
+        })
+      },
+    )
+
+    reaction(
+      () => this.mesSearchValue,
+      () => {
+        runInAction(() => {
+          if (this.mesSearchValue && this.chatSelectedId) {
+            const mesAr = this.chats
+              .find(el => el._id === this.chatSelectedId)
+              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+
+            this.messagesFound = mesAr
+
+            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+          } else {
+            this.curFoundedMessage = undefined
+
+            this.messagesFound = []
+          }
+        })
+      },
+    )
+
     makeAutoObservable(this, undefined, { autoBind: true })
     try {
       if (ChatModel.isConnected) {
@@ -174,6 +218,32 @@ export class OwnerRequestDetailCustomViewModel {
 
   get userInfo() {
     return UserModel.userInfo || {}
+  }
+
+  onChangeCurFoundedMessage(index) {
+    runInAction(() => {
+      this.curFoundedMessage = this.messagesFound[index]
+    })
+  }
+
+  onChangeMesSearchValue(e) {
+    runInAction(() => {
+      this.mesSearchValue = e.target.value
+    })
+  }
+
+  onCloseMesSearchValue() {
+    runInAction(() => {
+      this.mesSearchValue = ''
+    })
+  }
+
+  onToggleMuteCurrentChat() {
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+  }
+
+  onToggleMuteAllChats() {
+    SettingsModel.onToggleMuteAllChats(this.chats)
   }
 
   onClickChat(chat) {
