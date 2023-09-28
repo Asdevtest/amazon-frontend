@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**apiV1AdminsMakePaymentPost**](AdministratorApi.md#apiV1AdminsMakePaymentPost) | **POST** /api/v1/admins/make_payment | # Создать оплату или штраф для пользователя.
 [**apiV1AdminsMakePaymentsPost**](AdministratorApi.md#apiV1AdminsMakePaymentsPost) | **POST** /api/v1/admins/make_payments | # Оплатить товары.
 [**apiV1AdminsOrdersGet**](AdministratorApi.md#apiV1AdminsOrdersGet) | **GET** /api/v1/admins/orders | # Получить список заказов.
+[**apiV1AdminsOrdersPagGet**](AdministratorApi.md#apiV1AdminsOrdersPagGet) | **GET** /api/v1/admins/orders/pag | # Получить список заказов с пагинацией.
 [**apiV1AdminsPatchProductsGuidPatch**](AdministratorApi.md#apiV1AdminsPatchProductsGuidPatch) | **PATCH** /api/v1/admins/patch_products/{guid} | # Внести изменения в продукт (снять с биржи).
 [**apiV1AdminsPaymentMethodGuidDelete**](AdministratorApi.md#apiV1AdminsPaymentMethodGuidDelete) | **DELETE** /api/v1/admins/payment_method/{guid} | #  Удаление PaymentMethod
 [**apiV1AdminsPaymentsGet**](AdministratorApi.md#apiV1AdminsPaymentsGet) | **GET** /api/v1/admins/payments | # Получить все оплаты, которые были начислены всем ролям.
@@ -32,6 +33,7 @@ Method | HTTP request | Description
 [**apiV1AdminsTagsDelete**](AdministratorApi.md#apiV1AdminsTagsDelete) | **DELETE** /api/v1/admins/tags | #  Удалить массив тегов
 [**apiV1AdminsTagsGuidPatch**](AdministratorApi.md#apiV1AdminsTagsGuidPatch) | **PATCH** /api/v1/admins/tags/{guid} | #  Редактирование тега
 [**apiV1AdminsTasksLightGet**](AdministratorApi.md#apiV1AdminsTasksLightGet) | **GET** /api/v1/admins/tasks_light | #  Облегченная версия. Получить задачи.
+[**apiV1AdminsTasksPagGet**](AdministratorApi.md#apiV1AdminsTasksPagGet) | **GET** /api/v1/admins/tasks/pag | # Получить список задач c пагинацией.
 [**apiV1AdminsToggleServerPatch**](AdministratorApi.md#apiV1AdminsToggleServerPatch) | **PATCH** /api/v1/admins/toggle_server | # Включить/выключить сервер
 [**apiV1AdminsUsersByRoleGet**](AdministratorApi.md#apiV1AdminsUsersByRoleGet) | **GET** /api/v1/admins/users_by_role | #  Получить пользователей по роли
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
@@ -206,7 +208,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsFeedbackGet
 
-> [InlineResponse2008] apiV1AdminsFeedbackGet(opts)
+> [InlineResponse20010] apiV1AdminsFeedbackGet(opts)
 
 #  Получить список отзывов/жалоб
 
@@ -244,7 +246,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -680,6 +682,70 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1AdminsOrdersPagGet
+
+> InlineResponse2002 apiV1AdminsOrdersPagGet(opts)
+
+# Получить список заказов с пагинацией.
+
+## Получить список заказов с пагинацией.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'status': "status_example", // String | Статусы заказа (можно указать несколько через запятую).
+  'filters': "filters_example", // String |                Возможные поля:  asin, amazonTitle, skusByClient, id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsOrdersPagGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**| Статусы заказа (можно указать несколько через запятую). | [optional] 
+ **filters** | **String**|                Возможные поля:  asin, amazonTitle, skusByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse2002**](InlineResponse2002.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1AdminsPatchProductsGuidPatch
 
 > String apiV1AdminsPatchProductsGuidPatch(guid, opts)
@@ -792,7 +858,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsPaymentsGet
 
-> [InlineResponse2003] apiV1AdminsPaymentsGet(opts)
+> [InlineResponse2004] apiV1AdminsPaymentsGet(opts)
 
 # Получить все оплаты, которые были начислены всем ролям.
 
@@ -830,7 +896,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -898,7 +964,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsPagGet
 
-> InlineResponse2007 apiV1AdminsProductsPagGet(opts)
+> InlineResponse2008 apiV1AdminsProductsPagGet(opts)
 
 # Получить список товаров c пагинацией.
 
@@ -948,7 +1014,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -962,7 +1028,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsVacGet
 
-> [InlineResponse2006] apiV1AdminsProductsVacGet(opts)
+> [InlineResponse2007] apiV1AdminsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1000,7 +1066,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -1338,7 +1404,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch
 
-> InlineResponse2005 apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts)
+> InlineResponse2006 apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts)
 
 # Изменить интервал нотификаций касательно дедлайна ордера
 
@@ -1378,7 +1444,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2006**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -1502,7 +1568,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsTasksLightGet
 
-> [InlineResponse2004] apiV1AdminsTasksLightGet(opts)
+> [InlineResponse2005] apiV1AdminsTasksLightGet(opts)
 
 #  Облегченная версия. Получить задачи.
 
@@ -1542,7 +1608,75 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1AdminsTasksPagGet
+
+> InlineResponse2009 apiV1AdminsTasksPagGet(opts)
+
+# Получить список задач c пагинацией.
+
+## Получить список задач c пагинацией.  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'status': "status_example", // String | Статус задачи (можно указать несколько через запятую).
+  'type': "type_example", // String | Тип задачи (можно указать несколько через запятую).
+  'priority': "priority_example", // String | Приоритет задачи (можно указать несколько через запятую).
+  'filters': "filters_example", // String |                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsTasksPagGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**| Статус задачи (можно указать несколько через запятую). | [optional] 
+ **type** | **String**| Тип задачи (можно указать несколько через запятую). | [optional] 
+ **priority** | **String**| Приоритет задачи (можно указать несколько через запятую). | [optional] 
+ **filters** | **String**|                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse2009**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -1556,7 +1690,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsToggleServerPatch
 
-> InlineResponse2005 apiV1AdminsToggleServerPatch(opts)
+> InlineResponse2006 apiV1AdminsToggleServerPatch(opts)
 
 # Включить/выключить сервер
 
@@ -1594,7 +1728,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**InlineResponse2006**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -1608,7 +1742,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersByRoleGet
 
-> [InlineResponse2009] apiV1AdminsUsersByRoleGet(role, opts)
+> [InlineResponse20011] apiV1AdminsUsersByRoleGet(role, opts)
 
 #  Получить пользователей по роли
 
@@ -1648,7 +1782,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2009]**](InlineResponse2009.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -1714,7 +1848,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidGet
 
-> InlineResponse2002 apiV1AdminsUsersGuidGet(guid, opts)
+> InlineResponse2003 apiV1AdminsUsersGuidGet(guid, opts)
 
 Получить пользователя по GUID.
 
@@ -1754,7 +1888,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 

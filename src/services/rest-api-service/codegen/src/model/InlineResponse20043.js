@@ -12,9 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20039Finances from './InlineResponse20039Finances';
-import InlineResponse20043Checking from './InlineResponse20043Checking';
-import InlineResponse20043Products from './InlineResponse20043Products';
+import InlineResponse20043Batches from './InlineResponse20043Batches';
+import InlineResponse20043Boxes from './InlineResponse20043Boxes';
+import InlineResponse20043Tasks from './InlineResponse20043Tasks';
 
 /**
  * The InlineResponse20043 model module.
@@ -50,14 +50,14 @@ class InlineResponse20043 {
         if (data) {
             obj = obj || new InlineResponse20043();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20043Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20043Tasks.constructFromObject(data['tasks']);
             }
-            if (data.hasOwnProperty('checking')) {
-                obj['checking'] = InlineResponse20043Checking.constructFromObject(data['checking']);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20043Boxes.constructFromObject(data['boxes']);
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20039Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20043Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -67,19 +67,19 @@ class InlineResponse20043 {
 }
 
 /**
- * @member {module:model/InlineResponse20043Products} products
+ * @member {module:model/InlineResponse20043Tasks} tasks
  */
-InlineResponse20043.prototype['products'] = undefined;
+InlineResponse20043.prototype['tasks'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20043Checking} checking
+ * @member {module:model/InlineResponse20043Boxes} boxes
  */
-InlineResponse20043.prototype['checking'] = undefined;
+InlineResponse20043.prototype['boxes'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20039Finances} finances
+ * @member {module:model/InlineResponse20043Batches} batches
  */
-InlineResponse20043.prototype['finances'] = undefined;
+InlineResponse20043.prototype['batches'] = undefined;
 
 
 

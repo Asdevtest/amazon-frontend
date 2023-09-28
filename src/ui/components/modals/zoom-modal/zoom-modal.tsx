@@ -1,0 +1,82 @@
+import { Dispatch, FC, SetStateAction, memo } from 'react'
+
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+
+import { Modal } from '@components/shared/modal'
+import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
+import { Arrows, ArrowsType } from '@components/shared/photo-and-files-slider/slider/slider.type'
+
+import { useStyles } from './zoom-modal.styles'
+
+import { ImageObjectType } from '../image-modal/image-modal'
+
+interface Props {
+  images: string[] | ImageObjectType[]
+  currentImageIndex: number
+  isOpenModal: boolean
+  setIsOpenModal: Dispatch<SetStateAction<boolean>>
+  setCurrentImageIndex: Dispatch<SetStateAction<number>>
+}
+
+export const ZoomModal: FC<Props> = memo(
+  ({ images, currentImageIndex, isOpenModal, setIsOpenModal, setCurrentImageIndex }) => {
+    const { classes: styles, cx } = useStyles()
+
+    const handleArrowClick = (direction: ArrowsType) => {
+      setCurrentImageIndex((prevIndex: number) =>
+        direction === Arrows.LEFT
+          ? prevIndex === 0
+            ? images.length - 1
+            : prevIndex - 1
+          : (prevIndex + 1) % images.length,
+      )
+    }
+
+    const isDisableArrowRight = images.length <= MIN_FILES_IN_ARRAY || currentImageIndex === images.length - 1
+    const isDisableArrowLeft = images.length <= MIN_FILES_IN_ARRAY || currentImageIndex === 0
+
+    return (
+      <Modal
+        openModal={isOpenModal}
+        setOpenModal={() => setIsOpenModal(!isOpenModal)}
+        dialogContextClassName={styles.modal}
+      >
+        <button disabled={isDisableArrowLeft} onClick={() => handleArrowClick(Arrows.LEFT)}>
+          <ArrowLeftIcon
+            className={cx(styles.arrowIcon, {
+              [styles.arrowIconDisable]: isDisableArrowLeft,
+            })}
+          />
+        </button>
+
+        <div className={styles.imagesWrapper}>
+          <div
+            className={styles.images}
+            style={{
+              transform: `translateX(-${currentImageIndex * 100}%)`,
+            }}
+          >
+            {images.map((image, index) => (
+              <div key={index} className={styles.imageWrapper}>
+                <img
+                  src={typeof image === 'string' ? image : image.url}
+                  alt={`Slide ${index + 1}`}
+                  className={styles.image}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button disabled={isDisableArrowRight} onClick={() => handleArrowClick(Arrows.RIGHT)}>
+          <ArrowRightIcon
+            className={cx(styles.arrowIcon, {
+              [styles.arrowIconDisable]: isDisableArrowRight,
+            })}
+          />
+        </button>
+      </Modal>
+    )
+  },
+)

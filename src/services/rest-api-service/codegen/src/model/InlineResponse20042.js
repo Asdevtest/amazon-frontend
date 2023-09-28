@@ -12,7 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20039Finances from './InlineResponse20039Finances';
+import InlineResponse20042Finances from './InlineResponse20042Finances';
+import InlineResponse20042Orders from './InlineResponse20042Orders';
+import InlineResponse20042PendingOrders from './InlineResponse20042PendingOrders';
+import InlineResponse20042Products from './InlineResponse20042Products';
 
 /**
  * The InlineResponse20042 model module.
@@ -48,8 +51,17 @@ class InlineResponse20042 {
         if (data) {
             obj = obj || new InlineResponse20042();
 
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20042Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20042Orders.constructFromObject(data['orders']);
+            }
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20042PendingOrders.constructFromObject(data['pendingOrders']);
+            }
             if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20039Finances.constructFromObject(data['finances']);
+                obj['finances'] = InlineResponse20042Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -59,7 +71,22 @@ class InlineResponse20042 {
 }
 
 /**
- * @member {module:model/InlineResponse20039Finances} finances
+ * @member {module:model/InlineResponse20042Products} products
+ */
+InlineResponse20042.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20042Orders} orders
+ */
+InlineResponse20042.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20042PendingOrders} pendingOrders
+ */
+InlineResponse20042.prototype['pendingOrders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20042Finances} finances
  */
 InlineResponse20042.prototype['finances'] = undefined;
 

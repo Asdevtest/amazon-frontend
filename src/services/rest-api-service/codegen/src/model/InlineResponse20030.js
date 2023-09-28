@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20030AllFiles from './InlineResponse20030AllFiles';
-import InlineResponse20030AllImages from './InlineResponse20030AllImages';
+import InlineResponse20029 from './InlineResponse20029';
 
 /**
  * The InlineResponse20030 model module.
@@ -23,6 +22,7 @@ import InlineResponse20030AllImages from './InlineResponse20030AllImages';
 class InlineResponse20030 {
     /**
      * Constructs a new <code>InlineResponse20030</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20030
      */
     constructor() { 
@@ -49,11 +49,11 @@ class InlineResponse20030 {
         if (data) {
             obj = obj || new InlineResponse20030();
 
-            if (data.hasOwnProperty('allImages')) {
-                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20030AllImages]);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('allFiles')) {
-                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20030AllFiles]);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20029]);
             }
         }
         return obj;
@@ -63,14 +63,16 @@ class InlineResponse20030 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20030AllImages>} allImages
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20030.prototype['allImages'] = undefined;
+InlineResponse20030.prototype['count'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse20030AllFiles>} allFiles
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20029>} rows
  */
-InlineResponse20030.prototype['allFiles'] = undefined;
+InlineResponse20030.prototype['rows'] = undefined;
 
 
 

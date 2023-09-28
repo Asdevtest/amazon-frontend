@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20016]**](InlineResponse20016.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**amount** | **Number** | Кол-во продукта в айтеме в коробке | [optional] 
+**id** | **Number** | Номер заказа | [optional] 
 
 

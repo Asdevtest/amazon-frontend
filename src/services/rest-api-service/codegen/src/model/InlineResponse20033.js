@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20033Rows from './InlineResponse20033Rows';
+import InlineResponse20033AllFiles from './InlineResponse20033AllFiles';
+import InlineResponse20033AllImages from './InlineResponse20033AllImages';
 
 /**
  * The InlineResponse20033 model module.
@@ -22,7 +23,6 @@ import InlineResponse20033Rows from './InlineResponse20033Rows';
 class InlineResponse20033 {
     /**
      * Constructs a new <code>InlineResponse20033</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20033
      */
     constructor() { 
@@ -49,11 +49,11 @@ class InlineResponse20033 {
         if (data) {
             obj = obj || new InlineResponse20033();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('allImages')) {
+                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20033AllImages]);
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20033Rows]);
+            if (data.hasOwnProperty('allFiles')) {
+                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20033AllFiles]);
             }
         }
         return obj;
@@ -63,16 +63,14 @@ class InlineResponse20033 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * @member {Array.<module:model/InlineResponse20033AllImages>} allImages
  */
-InlineResponse20033.prototype['count'] = undefined;
+InlineResponse20033.prototype['allImages'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20033Rows>} rows
+ * @member {Array.<module:model/InlineResponse20033AllFiles>} allFiles
  */
-InlineResponse20033.prototype['rows'] = undefined;
+InlineResponse20033.prototype['allFiles'] = undefined;
 
 
 

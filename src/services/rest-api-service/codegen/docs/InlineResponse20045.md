@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id созданного профайла | [optional] 
+**finances** | [**InlineResponse20042Finances**](InlineResponse20042Finances.md) |  | [optional] 
 
 

@@ -5,6 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **count** | **Number** |  | [optional] 
-**rows** | [**[InlineResponse20063Rows]**](InlineResponse20063Rows.md) | Массив заявок. | [optional] 
+**rows** | [**[InlineResponse20063Rows]**](InlineResponse20063Rows.md) |  | [optional] 
 
 
