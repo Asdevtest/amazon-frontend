@@ -10,6 +10,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -38,9 +39,9 @@ export const AdminExchangeViewsRaw = props => {
               <Button
                 variant={'text'}
                 className={cx(classNames.filterBtn, {
-                  [classNames.currentFilterBtn]: viewModel.activeSubCategory === index,
+                  [classNames.currentFilterBtn]: viewModel.activeSubCategory === buttonConfig.status,
                 })}
-                onClick={() => viewModel.onChangeSubCategory(index)}
+                onClick={() => viewModel.onChangeSubCategory(buttonConfig.status)}
               >
                 {buttonConfig.label}
               </Button>
@@ -65,9 +66,12 @@ export const AdminExchangeViewsRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={100}
             rows={viewModel.currentData}
+            rowCount={viewModel.rowsCount}
+            getRowId={row => row._id}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
               baseTooltip: {

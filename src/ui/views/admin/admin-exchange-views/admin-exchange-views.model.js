@@ -1,31 +1,18 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { SettingsModel } from '@models/settings-model'
 
-import { exchangeProductsColumns } from '@components/table/table-columns/admin/exchange-columns'
+import { adminExchangeColumns } from '@components/table/table-columns/admin/admin-exchange-columns'
 
-import { adminProductsDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
 
-const productsStatusBySubCategory = {
-  0: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT], // 5 статус
-  1: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR], // 15 статус
-  2: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
-  3: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
-  4: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-  5: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
-  6: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
-  7: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
-  8: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-  9: ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND],
-  10: ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
-}
+const filtersFields = []
 
 export class AdminExchangeViewModel {
   history = undefined
@@ -42,13 +29,28 @@ export class AdminExchangeViewModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = exchangeProductsColumns({ activeSubCategory: this.activeSubCategory })
+  columnsModel = adminExchangeColumns()
 
   paginationModel = { page: 0, pageSize: 15 }
+  rowsCount = 0
   columnVisibilityModel = {}
 
   showSetBarcodeModal = false
   selectedProduct = undefined
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getProductsByStatus()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
 
   constructor({ history }) {
     runInAction(() => {
@@ -58,7 +60,9 @@ export class AdminExchangeViewModel {
 
     reaction(
       () => this.currentProductsData,
-      () => (this.currentData = this.getCurrentData()),
+      () => {
+        this.currentData = this.getCurrentData()
+      },
     )
 
     reaction(
@@ -73,6 +77,7 @@ export class AdminExchangeViewModel {
     })
 
     this.setDataGridState()
+    this.getProductsByStatus()
   }
 
   onChangePaginationModelChange(model) {
@@ -81,6 +86,7 @@ export class AdminExchangeViewModel {
     })
 
     this.setDataGridState()
+    this.getProductsByStatus()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -95,49 +101,15 @@ export class AdminExchangeViewModel {
     this.columnVisibilityModel = {}
     this.setActiveSubCategoryState(value)
     this.activeSubCategory = value
-    this.updateColumns()
     this.setDataGridState()
     this.loadData()
-  }
-
-  updateColumns() {
-    runInAction(() => {
-      this.columnsModel = exchangeProductsColumns({ activeSubCategory: this.activeSubCategory })
-    })
   }
 
   onClickTableRow(product) {
     this.history.push({
       pathname: '/admin/exchange/product',
-      search: `product-id=${product.originalData._id}`,
+      search: `product-id=${product._id}`,
     })
-  }
-
-  dataGridTableKeyDependingOnActiveSubCategory() {
-    switch (this.activeSubCategory) {
-      case 0:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_CREATED
-      case 1:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_CHECKED_BY_SUPERVISOR
-      case 2:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_SEARCHING
-      case 3:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_BUYER_WORK
-      case 4:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_FOUNDED
-      case 5:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_SUPPLIER_NOT_FOUNDED
-      case 6:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_HIGH_PRICE
-      case 7:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_PUBLISHED
-      case 8:
-        return DataGridTablesKeys.ADMIN_EXCHANGE_CANCELED
-      case 9:
-        return DataGridTablesKeys.COMPLETE_SUPPLIER_WAS_NOT_FOUND
-      case 10:
-        return DataGridTablesKeys.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE
-    }
   }
 
   setActiveSubCategoryState(state) {
@@ -152,11 +124,11 @@ export class AdminExchangeViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, this.dataGridTableKeyDependingOnActiveSubCategory())
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_EXCHANGE)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[this.dataGridTableKeyDependingOnActiveSubCategory()]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_EXCHANGE]
 
     runInAction(() => {
       if (state) {
@@ -194,14 +166,21 @@ export class AdminExchangeViewModel {
 
   async getProductsByStatus() {
     try {
-      const result = await AdministratorModel.getProductsByStatus({
-        status: productsStatusBySubCategory[this.activeSubCategory],
+      const result = await AdministratorModel.getProductsPag({
+        status: this.activeSubCategory,
+
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
-      const productsData = adminProductsDataConverter(result)
+      // const productsData = adminProductsDataConverter(result);
 
       runInAction(() => {
-        this.currentProductsData = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.rowsCount = result.count
+        this.currentProductsData = result.rows
       })
     } catch (error) {
       console.log(error)
@@ -222,5 +201,21 @@ export class AdminExchangeViewModel {
     runInAction(() => {
       this.requestStatus = requestStatus
     })
+  }
+
+  // * Filtration
+
+  getFilters(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.currentSearchValue, exclusion, filtersFields, [
+        'parentProductSkusByClient',
+        'parentProductAmazonTitle',
+        'parentProductAsin',
+        'childProductAmazonTitle',
+        'childProductSkusByClient',
+        'childProductAsin',
+        'title',
+      ]),
+    )
   }
 }
