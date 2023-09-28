@@ -269,6 +269,9 @@ export const getTableByColumn = (column, hint) => {
       'buyer',
       'childProductShopIds',
       'parentProductShopIds',
+      'supervisor',
+      'margin',
+      'checkednotes',
     ].includes(column)
   ) {
     // if (hint === 'requests') {

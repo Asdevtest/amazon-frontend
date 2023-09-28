@@ -7,11 +7,13 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Grid } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
+import { AdminExchangeStatusesCategories, adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -32,24 +34,23 @@ export const AdminExchangeViewsRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <Grid container spacing={2} className={classNames.filterBtnWrapper}>
-          {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
-            <Grid key={index} item>
-              <Button
-                variant={'text'}
-                className={cx(classNames.filterBtn, {
-                  [classNames.currentFilterBtn]: viewModel.activeSubCategory === index,
-                })}
-                onClick={() => viewModel.onChangeSubCategory(index)}
-              >
-                {buttonConfig.label}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
+        <div className={classNames.filterBtnWrapper}>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.activeCategory}
+            switcherSettings={[
+              ...adminExchangeBtnsConfig,
+              { label: () => t(TranslationKey['All warehouses']), value: AdminExchangeStatusesCategories.all },
+            ]}
+            changeConditionHandler={viewModel.onChangeSubCategory}
+          />
+        </div>
+
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             pagination
+            sortingMode="server"
+            paginationMode="server"
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -65,15 +66,26 @@ export const AdminExchangeViewsRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={100}
             rows={viewModel.currentData}
+            rowCount={viewModel.rowsCount}
+            getRowId={row => row._id}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
