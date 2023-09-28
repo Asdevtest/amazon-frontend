@@ -4,53 +4,100 @@ import { t } from '@utils/translations'
 
 import { TranslationKey } from '../translations/translation-key'
 
-export const adminExchangeBtnsConfig = () => [
-  {
-    status: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-    label: t(TranslationKey.Created),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-    label: t(TranslationKey.New),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
-    label: t(TranslationKey['Supplier search']),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
-    label: t(TranslationKey['In the work of a Bayer']),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-    label: t(TranslationKey['Supplier found by Bayer']),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
-    label: t(TranslationKey['Supplier not found by Bayer']),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
-    label: t(TranslationKey['Price is higher than MZC']),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
-    label: t(TranslationKey.Published),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-    label: t(TranslationKey.Rejected),
-  },
-  {
-    status: ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND],
-    label: t(TranslationKey['No supplier (completed by supervisor)']),
-  },
+export const AdminExchangeStatusesCategories = {
+  all: 'all',
+  created: 'created',
+  new: 'new',
+  supplierSearch: 'supplierSearch',
+  inWork: 'inWork',
+  supplierFound: 'supplierFound',
+  supplierNotFound: 'supplierNotFound',
+  priceHigher: 'priceHigher',
+  complete: 'complete',
+  rejected: 'rejected',
+  completePriceNotAcceptable: 'completeSupplierNotFound',
+  completeSupplierNotFound: 'completePriceNotAcceptable',
+}
 
+export const adminExchangeBtnsConfig = [
   {
-    status: ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
-    label: t(TranslationKey["The supplier's price does not fit"]),
+    value: AdminExchangeStatusesCategories.created,
+    label: () => t(TranslationKey.Created),
+  },
+  {
+    value: AdminExchangeStatusesCategories.new,
+    label: () => t(TranslationKey.New),
+  },
+  {
+    value: AdminExchangeStatusesCategories.supplierSearch,
+    label: () => t(TranslationKey['Supplier search']),
+  },
+  {
+    value: AdminExchangeStatusesCategories.inWork,
+    label: () => t(TranslationKey['In the work of a Bayer']),
+  },
+  {
+    value: AdminExchangeStatusesCategories.supplierFound,
+    label: () => t(TranslationKey['Supplier found by Bayer']),
+  },
+  {
+    value: AdminExchangeStatusesCategories.supplierNotFound,
+    label: () => t(TranslationKey['Supplier not found by Bayer']),
+  },
+  {
+    value: AdminExchangeStatusesCategories.priceHigher,
+    label: () => t(TranslationKey['Price is higher than MZC']),
+  },
+  {
+    value: AdminExchangeStatusesCategories.complete,
+    label: () => t(TranslationKey.Published),
+  },
+  {
+    value: AdminExchangeStatusesCategories.rejected,
+    label: () => t(TranslationKey.Rejected),
+  },
+  {
+    value: AdminExchangeStatusesCategories.completeSupplierNotFound,
+    label: () => t(TranslationKey['No supplier (completed by supervisor)']),
+  },
+  {
+    value: AdminExchangeStatusesCategories.completePriceNotAcceptable,
+    label: () => t(TranslationKey["The supplier's price does not fit"]),
   },
 ]
+
+export const adminExchangeStatusesByCategory = {
+  [AdminExchangeStatusesCategories.all]: [
+    ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+    ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+    ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
+    ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
+    ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+    ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+    ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+    ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
+    ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+    ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+    ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+  ],
+  [AdminExchangeStatusesCategories.created]: [ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]],
+  [AdminExchangeStatusesCategories.new]: [ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]],
+  [AdminExchangeStatusesCategories.supplierSearch]: [ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]],
+  [AdminExchangeStatusesCategories.inWork]: [ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]],
+  [AdminExchangeStatusesCategories.supplierFound]: [ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]],
+  [AdminExchangeStatusesCategories.supplierNotFound]: [
+    ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+  ],
+  [AdminExchangeStatusesCategories.priceHigher]: [ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]],
+  [AdminExchangeStatusesCategories.complete]: [ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]],
+  [AdminExchangeStatusesCategories.rejected]: [ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]],
+  [AdminExchangeStatusesCategories.completeSupplierNotFound]: [
+    ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  ],
+  [AdminExchangeStatusesCategories.completePriceNotAcceptable]: [
+    ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+  ],
+}
 
 export const adminOrdersBtnsConfig = () => [
   {

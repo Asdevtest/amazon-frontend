@@ -1,3 +1,4 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -31,6 +32,8 @@ export const adminExchangeColumns = () => [
       )
     },
     width: 300,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+    sortable: false,
   },
 
   {
@@ -44,7 +47,10 @@ export const adminExchangeColumns = () => [
         text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
       />
     ),
+
     width: 250,
+    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
+    sortable: false,
   },
 
   {
@@ -55,6 +61,8 @@ export const adminExchangeColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -64,6 +72,8 @@ export const adminExchangeColumns = () => [
 
     renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
     width: 200,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
   {
     field: 'supervisor',
@@ -74,6 +84,9 @@ export const adminExchangeColumns = () => [
       <UserLinkCell blackText name={params.row.checkedBy?.name} userId={params.row.checkedBy?._id} />
     ),
     width: 200,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+    sortable: false,
   },
 
   {
@@ -83,6 +96,21 @@ export const adminExchangeColumns = () => [
 
     renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
     width: 200,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+    sortable: false,
+  },
+
+  {
+    field: 'checkednotes',
+    headerName: t(TranslationKey['Supervisor comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supervisor comment'])} />,
+
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    width: 200,
+    sortable: false,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -93,6 +121,8 @@ export const adminExchangeColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'margin',
@@ -102,6 +132,8 @@ export const adminExchangeColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'bsr',
@@ -111,6 +143,8 @@ export const adminExchangeColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'fbafee',
@@ -120,6 +154,8 @@ export const adminExchangeColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'fbaamount',
@@ -129,6 +165,8 @@ export const adminExchangeColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -138,6 +176,8 @@ export const adminExchangeColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -147,5 +187,7 @@ export const adminExchangeColumns = () => [
 
     renderCell: params => <NormDateCell value={params?.value} />,
     width: 120,
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]
