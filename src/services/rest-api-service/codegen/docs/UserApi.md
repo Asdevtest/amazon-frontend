@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20078] apiV1UsersContactsGet(opts)
+> [InlineResponse20083] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20078]**](InlineResponse20078.md)
+[**[InlineResponse20083]**](InlineResponse20083.md)
 
 ### Authorization
 
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackGuidGet
 
-> [InlineResponse20079] apiV1UsersFeedbackGuidGet(guid, opts)
+> [InlineResponse20085] apiV1UsersFeedbackGuidGet(guid, opts)
 
 Получить отзывы оставленые юзеру по его гуиду
 
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20079]**](InlineResponse20079.md)
+[**[InlineResponse20085]**](InlineResponse20085.md)
 
 ### Authorization
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackMyGet
 
-> [InlineResponse20079] apiV1UsersFeedbackMyGet(opts)
+> [InlineResponse20084] apiV1UsersFeedbackMyGet(opts)
 
 Получить отзывы оставленые юзеру
 
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20079]**](InlineResponse20079.md)
+[**[InlineResponse20084]**](InlineResponse20084.md)
 
 ### Authorization
 
@@ -1013,7 +1013,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersNotificationsPagMyGet
 
-> InlineResponse20076 apiV1UsersNotificationsPagMyGet(opts)
+> InlineResponse20081 apiV1UsersNotificationsPagMyGet(opts)
 
 Получить нотификации пользователя.
 
@@ -1063,7 +1063,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20076**](InlineResponse20076.md)
+[**InlineResponse20081**](InlineResponse20081.md)
 
 ### Authorization
 
@@ -1077,7 +1077,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20077 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20082 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -1115,7 +1115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20077**](InlineResponse20077.md)
+[**InlineResponse20082**](InlineResponse20082.md)
 
 ### Authorization
 

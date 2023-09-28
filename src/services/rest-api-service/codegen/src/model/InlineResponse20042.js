@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20039Finances from './InlineResponse20039Finances';
+import InlineResponse20042Batches from './InlineResponse20042Batches';
+import InlineResponse20042Boxes from './InlineResponse20042Boxes';
+import InlineResponse20042Tasks from './InlineResponse20042Tasks';
 
 /**
  * The InlineResponse20042 model module.
@@ -48,8 +50,14 @@ class InlineResponse20042 {
         if (data) {
             obj = obj || new InlineResponse20042();
 
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20039Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20042Tasks.constructFromObject(data['tasks']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20042Boxes.constructFromObject(data['boxes']);
+            }
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20042Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -59,9 +67,19 @@ class InlineResponse20042 {
 }
 
 /**
- * @member {module:model/InlineResponse20039Finances} finances
+ * @member {module:model/InlineResponse20042Tasks} tasks
  */
-InlineResponse20042.prototype['finances'] = undefined;
+InlineResponse20042.prototype['tasks'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20042Boxes} boxes
+ */
+InlineResponse20042.prototype['boxes'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20042Batches} batches
+ */
+InlineResponse20042.prototype['batches'] = undefined;
 
 
 

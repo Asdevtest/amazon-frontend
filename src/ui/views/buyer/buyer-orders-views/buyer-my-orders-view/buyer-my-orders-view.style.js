@@ -10,7 +10,7 @@ export const styles = theme => ({
   },
 
   row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
   },
 
   headerWrapper: {

@@ -38,10 +38,10 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
-import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
@@ -960,29 +960,7 @@ export const EditOrderModal = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <CustomSlider>
-                      {trackNumber.files.map((el, index) => (
-                        <img
-                          key={index}
-                          className={classNames.trackNumberPhoto}
-                          src={
-                            typeof trackNumber.files[index] === 'string'
-                              ? trackNumber.files[index]
-                              : trackNumber.files[index]?.data_url
-                          }
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
-                            setBigImagesOptions({
-                              ...bigImagesOptions,
-                              imgIndex: index,
-                              images: trackNumber.files.map(el => {
-                                return el === 'string' ? el : el?.data_url
-                              }),
-                            })
-                          }}
-                        />
-                      ))}
-                    </CustomSlider>
+                    <PhotoAndFilesSlider withoutFiles customSlideHeight={85} files={trackNumber.files} />
                   ) : (
                     <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}

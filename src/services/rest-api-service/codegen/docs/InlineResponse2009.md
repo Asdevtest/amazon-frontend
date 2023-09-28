@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид юзера | [optional] 
-**name** | **String** | Имя юзера | [optional] 
+**count** | **Number** | Количество задач | [optional] 
+**rows** | [**[InlineResponse2005]**](InlineResponse2005.md) | Массив задач | [optional] 
 
 

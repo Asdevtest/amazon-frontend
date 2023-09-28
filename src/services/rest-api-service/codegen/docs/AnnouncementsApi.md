@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsMyGet
 
-> [InlineResponse20010] apiV1AnnouncementsMyGet(opts)
+> [InlineResponse20012] apiV1AnnouncementsMyGet(opts)
 
 # Получить свои анонсы
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsVacGet
 
-> [InlineResponse20010] apiV1AnnouncementsVacGet(opts)
+> [InlineResponse20012] apiV1AnnouncementsVacGet(opts)
 
 # Получить не свои анонсы
 
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 

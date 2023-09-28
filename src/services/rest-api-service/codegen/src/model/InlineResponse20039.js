@@ -12,10 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20039Finances from './InlineResponse20039Finances';
-import InlineResponse20039Orders from './InlineResponse20039Orders';
-import InlineResponse20039PendingOrders from './InlineResponse20039PendingOrders';
-import InlineResponse20039Products from './InlineResponse20039Products';
 
 /**
  * The InlineResponse20039 model module.
@@ -25,6 +21,7 @@ import InlineResponse20039Products from './InlineResponse20039Products';
 class InlineResponse20039 {
     /**
      * Constructs a new <code>InlineResponse20039</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20039
      */
     constructor() { 
@@ -51,17 +48,8 @@ class InlineResponse20039 {
         if (data) {
             obj = obj || new InlineResponse20039();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20039Products.constructFromObject(data['products']);
-            }
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20039Orders.constructFromObject(data['orders']);
-            }
-            if (data.hasOwnProperty('pendingOrders')) {
-                obj['pendingOrders'] = InlineResponse20039PendingOrders.constructFromObject(data['pendingOrders']);
-            }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20039Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -71,24 +59,9 @@ class InlineResponse20039 {
 }
 
 /**
- * @member {module:model/InlineResponse20039Products} products
+ * @member {Number} priceForClient
  */
-InlineResponse20039.prototype['products'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20039Orders} orders
- */
-InlineResponse20039.prototype['orders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20039PendingOrders} pendingOrders
- */
-InlineResponse20039.prototype['pendingOrders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20039Finances} finances
- */
-InlineResponse20039.prototype['finances'] = undefined;
+InlineResponse20039.prototype['priceForClient'] = undefined;
 
 
 

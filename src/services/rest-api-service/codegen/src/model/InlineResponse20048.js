@@ -12,9 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
+import ApiV1IdeasByParentGuidChildProduct from './ApiV1IdeasByParentGuidChildProduct';
+import ApiV1IdeasByParentGuidRequestsOnCheck from './ApiV1IdeasByParentGuidRequestsOnCheck';
+import ApiV1IdeasByParentGuidSuppliers from './ApiV1IdeasByParentGuidSuppliers';
 
 /**
  * The InlineResponse20048 model module.
@@ -50,17 +50,80 @@ class InlineResponse20048 {
         if (data) {
             obj = obj || new InlineResponse20048();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('fbaFee')) {
+                obj['fbaFee'] = ApiClient.convertToType(data['fbaFee'], 'Number');
+            }
+            if (data.hasOwnProperty('approximatePrice')) {
+                obj['approximatePrice'] = ApiClient.convertToType(data['approximatePrice'], 'Number');
+            }
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('variation')) {
+                obj['variation'] = ApiClient.convertToType(data['variation'], 'Boolean');
+            }
+            if (data.hasOwnProperty('childProduct')) {
+                obj['childProduct'] = ApiV1IdeasByParentGuidChildProduct.constructFromObject(data['childProduct']);
+            }
+            if (data.hasOwnProperty('suppliers')) {
+                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1IdeasByParentGuidSuppliers]);
+            }
+            if (data.hasOwnProperty('requestsOnCheck')) {
+                obj['requestsOnCheck'] = ApiClient.convertToType(data['requestsOnCheck'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
+            }
+            if (data.hasOwnProperty('requestsOnFinished')) {
+                obj['requestsOnFinished'] = ApiClient.convertToType(data['requestsOnFinished'], [ApiV1IdeasByParentGuidRequestsOnCheck]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('intervalStatusNew')) {
+                obj['intervalStatusNew'] = ApiClient.convertToType(data['intervalStatusNew'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusOnCheck')) {
+                obj['intervalStatusOnCheck'] = ApiClient.convertToType(data['intervalStatusOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusSupplierSearch')) {
+                obj['intervalStatusSupplierSearch'] = ApiClient.convertToType(data['intervalStatusSupplierSearch'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusSupplierFound')) {
+                obj['intervalStatusSupplierFound'] = ApiClient.convertToType(data['intervalStatusSupplierFound'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusSupplierNotFound')) {
+                obj['intervalStatusSupplierNotFound'] = ApiClient.convertToType(data['intervalStatusSupplierNotFound'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusProductCreating')) {
+                obj['intervalStatusProductCreating'] = ApiClient.convertToType(data['intervalStatusProductCreating'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusAddingAsin')) {
+                obj['intervalStatusAddingAsin'] = ApiClient.convertToType(data['intervalStatusAddingAsin'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalStatusRejected')) {
+                obj['intervalStatusRejected'] = ApiClient.convertToType(data['intervalStatusRejected'], 'Number');
+            }
+            if (data.hasOwnProperty('intervalsSum')) {
+                obj['intervalsSum'] = ApiClient.convertToType(data['intervalsSum'], 'Number');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -70,24 +133,149 @@ class InlineResponse20048 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * @member {String} _id
  */
-InlineResponse20048.prototype['product'] = undefined;
+InlineResponse20048.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ * Название идеи
+ * @member {String} title
  */
-InlineResponse20048.prototype['idea'] = undefined;
+InlineResponse20048.prototype['title'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
+ * Статус идеи
+ * @member {Number} status
  */
-InlineResponse20048.prototype['createdBy'] = undefined;
+InlineResponse20048.prototype['status'] = undefined;
 
 /**
- * @member {String} createdAt
+ * Медиа идеи
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineResponse20048.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * FBA Fee
+ * @member {Number} fbaFee
+ */
+InlineResponse20048.prototype['fbaFee'] = undefined;
+
+/**
+ * Ориентационная цена
+ * @member {Number} approximatePrice
+ */
+InlineResponse20048.prototype['approximatePrice'] = undefined;
+
+/**
+ * Назавние продукта
+ * @member {String} productName
+ */
+InlineResponse20048.prototype['productName'] = undefined;
+
+/**
+ * Является ли продукт идеи вариацией существующего
+ * @member {Boolean} variation
+ */
+InlineResponse20048.prototype['variation'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasByParentGuidChildProduct} childProduct
+ */
+InlineResponse20048.prototype['childProduct'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IdeasByParentGuidSuppliers>} suppliers
+ */
+InlineResponse20048.prototype['suppliers'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnCheck
+ */
+InlineResponse20048.prototype['requestsOnCheck'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IdeasByParentGuidRequestsOnCheck>} requestsOnFinished
+ */
+InlineResponse20048.prototype['requestsOnFinished'] = undefined;
+
+/**
+ * Комментарии к идее
+ * @member {String} comments
+ */
+InlineResponse20048.prototype['comments'] = undefined;
+
+/**
+ * Комментарий байера
+ * @member {String} buyerComment
+ */
+InlineResponse20048.prototype['buyerComment'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе new(5)
+ * @member {Number} intervalStatusNew
+ */
+InlineResponse20048.prototype['intervalStatusNew'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе OnCheck(10)
+ * @member {Number} intervalStatusOnCheck
+ */
+InlineResponse20048.prototype['intervalStatusOnCheck'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе supplierSearch(13)
+ * @member {Number} intervalStatusSupplierSearch
+ */
+InlineResponse20048.prototype['intervalStatusSupplierSearch'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе supplierFound(14)
+ * @member {Number} intervalStatusSupplierFound
+ */
+InlineResponse20048.prototype['intervalStatusSupplierFound'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе supplierNotFound(15)
+ * @member {Number} intervalStatusSupplierNotFound
+ */
+InlineResponse20048.prototype['intervalStatusSupplierNotFound'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе productCreating(16)
+ * @member {Number} intervalStatusProductCreating
+ */
+InlineResponse20048.prototype['intervalStatusProductCreating'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе addingAsin(18)
+ * @member {Number} intervalStatusAddingAsin
+ */
+InlineResponse20048.prototype['intervalStatusAddingAsin'] = undefined;
+
+/**
+ * Кол-во секунд идеи в статусе rejected(25)
+ * @member {Number} intervalStatusRejected
+ */
+InlineResponse20048.prototype['intervalStatusRejected'] = undefined;
+
+/**
+ * Кол-во секунд идеи во всех статусах
+ * @member {Number} intervalsSum
+ */
+InlineResponse20048.prototype['intervalsSum'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
  */
 InlineResponse20048.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20048.prototype['updatedAt'] = undefined;
 
 
 

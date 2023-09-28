@@ -204,7 +204,7 @@ let apiInstance = new TestSwagger.OtherApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
+  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
 };
 apiInstance.apiV1OtherCheckAsinsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
+ **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
 
 ### Return type
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherCheckAsinsPost
 
-> InlineResponse20051 apiV1OtherCheckAsinsPost(opts)
+> InlineResponse20055 apiV1OtherCheckAsinsPost(opts)
 
 # Заполнение списка асинов на проверку
 
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20051**](InlineResponse20051.md)
+[**InlineResponse20055**](InlineResponse20055.md)
 
 ### Authorization
 
@@ -313,7 +313,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
+  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
 };
 apiInstance.apiV1OtherFeedbackPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -329,7 +329,7 @@ apiInstance.apiV1OtherFeedbackPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
+ **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
 
 ### Return type
 
@@ -401,7 +401,7 @@ null (empty response body)
 
 ## apiV1OtherPaymentsByProductGuidGet
 
-> [InlineResponse2003] apiV1OtherPaymentsByProductGuidGet(guid, opts)
+> [InlineResponse2004] apiV1OtherPaymentsByProductGuidGet(guid, opts)
 
 # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -455,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherPaymentsByUserGuidGet
 
-> [InlineResponse2003] apiV1OtherPaymentsByUserGuidGet(guid, opts)
+> [InlineResponse2004] apiV1OtherPaymentsByUserGuidGet(guid, opts)
 
 # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 
@@ -495,7 +495,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherPaymentsMyGet
 
-> [InlineResponse2003] apiV1OtherPaymentsMyGet(opts)
+> [InlineResponse2004] apiV1OtherPaymentsMyGet(opts)
 
 # Получить все оплаты, которые были произведены обратившемся пользователем.
 
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -685,7 +685,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
+  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -701,7 +701,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
+ **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
 
 ### Return type
 

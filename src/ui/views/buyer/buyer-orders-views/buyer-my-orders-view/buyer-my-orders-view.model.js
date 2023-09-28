@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 

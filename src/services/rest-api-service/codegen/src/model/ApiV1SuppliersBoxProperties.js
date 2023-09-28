@@ -23,15 +23,10 @@ class ApiV1SuppliersBoxProperties {
      * Constructs a new <code>ApiV1SuppliersBoxProperties</code>.
      * Параметры коробок.
      * @alias module:model/ApiV1SuppliersBoxProperties
-     * @param amountInBox {Number} Количество единиц в коробке.
-     * @param boxLengthCm {Number} Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param boxWidthCm {Number} Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param boxHeightCm {Number} Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).
-     * @param boxWeighGrossKg {Number} Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).
      */
-    constructor(amountInBox, boxLengthCm, boxWidthCm, boxHeightCm, boxWeighGrossKg) { 
+    constructor() { 
         
-        ApiV1SuppliersBoxProperties.initialize(this, amountInBox, boxLengthCm, boxWidthCm, boxHeightCm, boxWeighGrossKg);
+        ApiV1SuppliersBoxProperties.initialize(this);
     }
 
     /**
@@ -39,12 +34,7 @@ class ApiV1SuppliersBoxProperties {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, amountInBox, boxLengthCm, boxWidthCm, boxHeightCm, boxWeighGrossKg) { 
-        obj['amountInBox'] = amountInBox;
-        obj['boxLengthCm'] = boxLengthCm;
-        obj['boxWidthCm'] = boxWidthCm;
-        obj['boxHeightCm'] = boxHeightCm;
-        obj['boxWeighGrossKg'] = boxWeighGrossKg;
+    static initialize(obj) { 
     }
 
     /**
@@ -105,7 +95,7 @@ ApiV1SuppliersBoxProperties.prototype['boxWidthCm'] = undefined;
 ApiV1SuppliersBoxProperties.prototype['boxHeightCm'] = undefined;
 
 /**
- * Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).
+ * Вес коробки, назвал поставщик при за�азе ( могут отличаться с реальными).
  * @member {Number} boxWeighGrossKg
  */
 ApiV1SuppliersBoxProperties.prototype['boxWeighGrossKg'] = undefined;

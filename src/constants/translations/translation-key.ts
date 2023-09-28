@@ -2115,7 +2115,7 @@ export enum TranslationKey {
   'needs to be confirmed' = 'needs to be confirmed',
   'General notifications' = 'General notifications',
   'accepted in stock' = 'accepted in stock',
-  'Status of the proposal' = 'Status of the proposal',
+  'Status of the proposal by request ' = 'Status of the proposal by request ',
   'changed to' = 'changed to',
   'Deadline for request' = 'Deadline for request',
   'Request messages' = 'Request messages',

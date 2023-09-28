@@ -4,7 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20011]**](InlineResponse20011.md) | Массив батчей c пагинацией(заданная страничка). | [optional] 
+**_id** | **String** | GUID в базе данных | [optional] 
+**type** | **String** |  | [optional] 
+**requests** | [**[ApiV1AnnouncementsMyRequests]**](ApiV1AnnouncementsMyRequests.md) |  | [optional] 
+**linksToMediaFiles** | **[String]** |  | [optional] 
+**title** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата обновления. | [optional] 
 
 

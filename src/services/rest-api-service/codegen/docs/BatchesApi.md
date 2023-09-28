@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesByProductGuidGet
 
-> [InlineResponse20014] apiV1BatchesByProductGuidGet(guid, opts)
+> [InlineResponse20016] apiV1BatchesByProductGuidGet(guid, opts)
 
 # Получить партии по гуиду продукта
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20014]**](InlineResponse20014.md)
+[**[InlineResponse20016]**](InlineResponse20016.md)
 
 ### Authorization
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesCalculateBoxDeliveryCostsInBatchPost
 
-> [InlineResponse20013] apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts)
+> [InlineResponse20015] apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts)
 
 # Рассчитать стоимость доставки коробов.
 
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20013]**](InlineResponse20013.md)
+[**[InlineResponse20015]**](InlineResponse20015.md)
 
 ### Authorization
 
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGet
 
-> [InlineResponse20011] apiV1BatchesGet(opts)
+> [InlineResponse20013] apiV1BatchesGet(opts)
 
 # Получить партии.
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20011]**](InlineResponse20011.md)
+[**[InlineResponse20013]**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -409,7 +409,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGuidGet
 
-> InlineResponse20011 apiV1BatchesGuidGet(guid, opts)
+> InlineResponse20013 apiV1BatchesGuidGet(guid, opts)
 
 # Получить партии.
 
@@ -449,7 +449,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20011**](InlineResponse20011.md)
+[**InlineResponse20013**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -741,7 +741,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesWithFiltersGet
 
-> InlineResponse20012 apiV1BatchesWithFiltersGet(status, opts)
+> InlineResponse20014 apiV1BatchesWithFiltersGet(status, opts)
 
 # Получить партии.
 
@@ -795,7 +795,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20012**](InlineResponse20012.md)
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 
