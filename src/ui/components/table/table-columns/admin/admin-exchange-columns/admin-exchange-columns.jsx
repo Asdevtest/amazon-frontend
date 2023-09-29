@@ -23,7 +23,7 @@ export const adminExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={''} />,
 
     renderCell: params => {
-      return <OpenInNewTabCell href={`/admin/exchange/product?product-id=${params.row._id}`} />
+      return <OpenInNewTabCell href={`/admin/inventory/product?product-id=${params.row._id}`} />
     },
     width: 60,
     filterable: false,
