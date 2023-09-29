@@ -9,6 +9,7 @@ import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -357,6 +358,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return OrderStatusTranslate(OrderStatusByCode[status])
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
+    case columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS:
+      return difficultyLevelTranslate(difficultyLevelByCode[status])
     default:
       return status
   }

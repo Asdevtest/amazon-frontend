@@ -278,6 +278,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.ORDERS_STATUS,
       columnnsKeys.client.IDEAS_STATUS,
       columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+      columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS,
     ].includes(currentColumn.columnKey)
   ) {
     return (

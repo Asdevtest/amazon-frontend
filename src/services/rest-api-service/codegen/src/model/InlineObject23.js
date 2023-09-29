@@ -149,7 +149,7 @@ InlineObject23.prototype['amount'] = undefined;
 InlineObject23.prototype['isDraft'] = undefined;
 
 /**
- * Размеры которые назвал поставщик при з�казе ( могут отличаться с реальными).
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
  * @member {Number} lengthCmSupplier
  */
 InlineObject23.prototype['lengthCmSupplier'] = undefined;

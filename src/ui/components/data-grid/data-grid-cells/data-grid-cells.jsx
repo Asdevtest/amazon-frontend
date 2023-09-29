@@ -1658,28 +1658,30 @@ export const MultilineTextHeaderCell = React.memo(
       color,
       withTooltip,
       tooltipText,
-    }) => (
-      <div
-        className={cx(classNames.multilineTextHeaderWrapper, {
-          [classNames.multilineTextHeaderCenter]: textCenter,
-          [classNames.multilineTextHeaderSpaceBetween]: component,
-        })}
-      >
-        <Tooltip title={withTooltip ? tooltipText || text : ''}>
-          <Typography className={classNames.multilineHeaderText} style={color && { color }}>
-            {text}
-          </Typography>
-        </Tooltip>
-        {component}
-        {withIcon || isShowIconOnHover || isFilterActive ? (
-          <FilterAltOutlinedIcon
-            className={cx(classNames.headerIcon, {
-              [classNames.headerIconBlue]: isFilterActive,
-            })}
-          />
-        ) : null}
-      </div>
-    ),
+    }) => {
+      return (
+        <div
+          className={cx(classNames.multilineTextHeaderWrapper, {
+            [classNames.multilineTextHeaderCenter]: textCenter,
+            [classNames.multilineTextHeaderSpaceBetween]: component,
+          })}
+        >
+          <Tooltip title={withTooltip ? tooltipText || text : ''}>
+            <Typography className={classNames.multilineHeaderText} style={color && { color }}>
+              {text}
+            </Typography>
+          </Tooltip>
+          {component}
+          {withIcon || isShowIconOnHover || isFilterActive ? (
+            <FilterAltOutlinedIcon
+              className={cx(classNames.headerIcon, {
+                [classNames.headerIconBlue]: isFilterActive,
+              })}
+            />
+          ) : null}
+        </div>
+      )
+    },
     styles,
   ),
 )

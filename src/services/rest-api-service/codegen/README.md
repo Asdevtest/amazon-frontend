@@ -873,7 +873,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20085](docs/InlineResponse20085.md)
  - [TestSwagger.InlineResponse20086](docs/InlineResponse20086.md)
  - [TestSwagger.InlineResponse20086Details](docs/InlineResponse20086Details.md)
- - [TestSwagger.InlineResponse20086Request](docs/InlineResponse20086Request.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)

@@ -55,8 +55,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
 
     filterable: false,
     sortable: false,
-
-    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {
@@ -65,8 +64,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
     width: 140,
-
-    // columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -84,17 +82,26 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       />
     ),
     width: 95,
-    // columnKey: columnnsKeys.client.IDEAS_STATUS,
+    // columnKey: columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS,
   },
 
   {
     field: 'product',
     headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={
+        //   getColumnMenuSettings()?.asin?.currentFilterData?.length ||
+        //   getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+        //   getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
+        // }
+        text={t(TranslationKey.Product)}
+      />
+    ),
     renderCell: (params: GridCellParams) => <OrderCell withoutSku imageSize={'small'} product={params.value} />,
     width: 252,
-
-    // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -131,8 +138,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: (params: GridCellParams) => <ShortDateCell value={params.value} />,
     width: 110,
-
-    // columnKey: columnnsKeys.shared.DATE,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -141,8 +147,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.value} />,
     width: 161,
-
-    // columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
+    columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
   {
@@ -151,7 +156,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.originalData.reworkCounter} />,
     width: 115,
-
     // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -175,7 +179,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
     width: 85,
     // type: 'date',
-    // columnKey: columnnsKeys.shared.DATE,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {

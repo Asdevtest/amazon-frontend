@@ -42,6 +42,7 @@ export const columnnsKeys = {
   researcher: {},
   freelancer: {
     FREELANCE_REQUESTS_CONFIRMATION: 'FREELANCE_REQUESTS_CONFIRMATION',
+    FREELANCE_MY_PROPOSALS: 'FREELANCE_MY_PROPOSALS',
   },
 
   shared: {
