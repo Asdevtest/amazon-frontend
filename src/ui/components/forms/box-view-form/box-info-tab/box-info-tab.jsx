@@ -161,7 +161,7 @@ export const BoxInfoTab = memo(
             </div>
           </div>
 
-          <div className={styles.infosWrapper}>
+          <div className={cx(styles.infosWrapper, { [styles.infosWrapperNoClient]: isClient })}>
             <div className={styles.flexContainer}>
               <div className={styles.checkboxContainer}>
                 <NoPhotoIcon className={styles.userIcon} />
@@ -177,36 +177,38 @@ export const BoxInfoTab = memo(
               </div>
             </div>
 
-            <div className={styles.flexContainer}>
-              <div className={styles.trackNumberFields}>
-                <Field
-                  disabled={!isEdit}
-                  inputClasses={styles.input}
-                  // containerClasses={styles.field}
-                  labelClasses={cx(styles.text, styles.label)}
-                  inputProps={{ maxLength: 250 }}
-                  label={t(TranslationKey['Track number'])}
-                  value={formFields.trackNumberText}
-                  onChange={onChangeField('trackNumberText')}
-                />
+            {!isClient ? (
+              <div className={styles.flexContainer}>
+                <div className={styles.trackNumberFields}>
+                  <Field
+                    disabled={!isEdit}
+                    inputClasses={styles.input}
+                    // containerClasses={styles.field}
+                    labelClasses={cx(styles.text, styles.label)}
+                    inputProps={{ maxLength: 250 }}
+                    label={t(TranslationKey['Track number'])}
+                    value={formFields.trackNumberText}
+                    onChange={onChangeField('trackNumberText')}
+                  />
 
-                <Button
-                  disabled={!isEdit}
-                  className={styles.trackNumberBtn}
-                  onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                >
-                  {trackNumbers.length ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
-                </Button>
-              </div>
+                  <Button
+                    disabled={!isEdit}
+                    className={styles.trackNumberBtn}
+                    onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                  >
+                    {trackNumbers.length ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
+                  </Button>
+                </div>
 
-              <div className={styles.trackNumberPhoto}>
-                {trackNumbers.length ? (
-                  <PhotoAndFilesSlider withoutFiles customSlideHeight={76} files={trackNumbers} />
-                ) : (
-                  <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
-                )}
+                <div className={styles.trackNumberPhoto}>
+                  {trackNumbers.length ? (
+                    <PhotoAndFilesSlider withoutFiles customSlideHeight={76} files={trackNumbers} />
+                  ) : (
+                    <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <div className={styles.flexContainer}>
               <Field
@@ -216,7 +218,7 @@ export const BoxInfoTab = memo(
                 labelClasses={cx(styles.text, styles.label)}
                 inputProps={{ maxLength: 250 }}
                 label={'UPS Track number'}
-                value={formFields.upsTrackNumber}
+                value={formFields.upsTrackNumber || t(TranslationKey['Not available'])}
                 onChange={onChangeField('upsTrackNumber')}
               />
               <Field

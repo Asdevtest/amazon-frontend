@@ -19,6 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 15,
   },
 
+  infosWrapperNoClient: {
+    justifyContent: 'flex-start',
+  },
+
   dimensionsAndPhotosWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
