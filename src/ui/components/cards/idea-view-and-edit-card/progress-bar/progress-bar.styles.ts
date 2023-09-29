@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '40px',
-    padding: '0px 10px',
+    padding: '0px 11px',
     position: 'relative',
   },
 
@@ -37,7 +37,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'translateX(100%)',
       top: 0,
       right: 0,
-      borderWidth: '20px 0 20px 12px',
+      borderWidth: '20px 0 20px 10px',
       borderStyle: 'solid',
       borderColor: `transparent ${theme.palette.primary.main}`,
       zIndex: 3,
