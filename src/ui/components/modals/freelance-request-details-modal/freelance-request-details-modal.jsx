@@ -14,6 +14,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { FilesCarousel } from '@components/shared/files-carousel'
 import { Modal } from '@components/shared/modal'
+import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UserLink } from '@components/user/user-link'
 
@@ -21,7 +22,7 @@ import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const FreelanceRequestDetailsModal = props => {
-  const { request, details, isOpenModal, handleOpenModal, onClickSuggest } = props
+  const { request, details, isOpenModal, handleOpenModal, onClickSuggest, onClickOpenNewTab } = props
   const { classes: styles } = useFreelanceRequestDetailsModalStyles()
 
   return (
@@ -115,13 +116,12 @@ export const FreelanceRequestDetailsModal = props => {
               />
             </div>
           )}
-
-          {onClickSuggest && (
-            <div className={styles.suggestDeal}>
-              <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>
-            </div>
-          )}
         </div>
+      </div>
+      <div className={styles.suggestDeal}>
+        <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+
+        {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button> : <div />}
       </div>
     </Modal>
   )

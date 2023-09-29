@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
 **variationTariff** | [**ApiV1AdminsTasksLightVariationTariff**](ApiV1AdminsTasksLightVariationTariff.md) |  | [optional] 
-**items** | [**[ApiV1BoxesClientsLightItems]**](ApiV1BoxesClientsLightItems.md) | Массив коробок. | [optional] 
+**items** | [**[ApiV1BoxesClientsInTransferGuidItems]**](ApiV1BoxesClientsInTransferGuidItems.md) | Массив коробок. | [optional] 
 **sub** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **client** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
