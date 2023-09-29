@@ -127,7 +127,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
+                      files={product.images}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
