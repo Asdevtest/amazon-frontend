@@ -129,6 +129,7 @@ input[type='submit'] {
   background-color: transparent;
   background: none;
   cursor: pointer;
+  font-weight: 600 !important;
 }
 
 input:focus,
