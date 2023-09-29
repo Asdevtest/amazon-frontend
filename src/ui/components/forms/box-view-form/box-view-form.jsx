@@ -59,8 +59,6 @@ export const BoxViewForm = observer(
 
     const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${box.humanFriendlyId}/ prep id:`
 
-    console.log(formFields)
-
     return (
       <>
         <div className={styles.wrapper}>

@@ -2,13 +2,13 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
-    height: 301,
+    height: 309,
     overflowY: 'auto',
     borderTop: `1px solid #E0E0E0`,
   },
 
   product: {
-    padding: '10px 0',
+    padding: '12px 0',
     display: 'flex',
     alignItems: 'flex-start',
     gap: 30,

@@ -107,7 +107,7 @@ export const BoxInfoTab = memo(
                   {toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}
                   {' ' + weightSizesType}
                 </p>
-                <p className={styles.text}>
+                <p className={cx(styles.text, styles.twoLines)}>
                   {t(TranslationKey['Final weight']) + ': '}
                   {`${toFixed(finalWeightForBox / weightConversion, 2)} ${weightSizesType} `}
                   <span className={styles.textAlert}>

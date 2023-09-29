@@ -16,7 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    gap: 22,
+    gap: 15,
   },
 
   dimensionsAndPhotosWrapper: {
@@ -137,6 +137,10 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
+  },
+
+  twoLines: {
+    height: 38,
   },
 
   textSecond: {
