@@ -368,7 +368,7 @@ export class ProfileViewModel {
 
   async getReviews() {
     try {
-      const result = await FeedbackModel.getMyFeedback()
+      const result = await FeedbackModel.getFeedback(this.user._id)
 
       runInAction(() => {
         this.reviews = result

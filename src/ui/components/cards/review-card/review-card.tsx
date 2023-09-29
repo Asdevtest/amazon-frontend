@@ -1,7 +1,7 @@
-import React from 'react'
+import { FC } from 'react'
 
 import StarIcon from '@mui/icons-material/Star'
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { UserRolePrettyMap } from '@constants/keys/user-roles'
@@ -15,12 +15,11 @@ import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-interface ReviewCardProps {
+interface Props {
   review: FeedbackType
 }
 
-export const ReviewCard = (props: ReviewCardProps) => {
-  const { review } = props
+export const ReviewCard: FC<Props> = ({ review }) => {
   const { classes: styles } = useReviewCardStyles()
 
   return (
@@ -33,6 +32,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
           name={review.createdBy.name}
           userId={review.createdBy._id}
           rating={review.createdBy.rating}
+          customRatingClass={{ opacity: 1 }}
         />
         <div className={styles.headerItem}>
           <Typography className={styles.headerItemTitle}>{t(TranslationKey.Role)}</Typography>
