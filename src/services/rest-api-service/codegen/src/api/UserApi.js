@@ -26,11 +26,11 @@ import InlineObject128 from '../model/InlineObject128';
 import InlineObject129 from '../model/InlineObject129';
 import InlineObject130 from '../model/InlineObject130';
 import InlineObject131 from '../model/InlineObject131';
+import InlineResponse20079 from '../model/InlineResponse20079';
 import InlineResponse20080 from '../model/InlineResponse20080';
 import InlineResponse20081 from '../model/InlineResponse20081';
 import InlineResponse20082 from '../model/InlineResponse20082';
 import InlineResponse20083 from '../model/InlineResponse20083';
-import InlineResponse20084 from '../model/InlineResponse20084';
 import InlineResponse20112 from '../model/InlineResponse20112';
 import InternalServerError from '../model/InternalServerError';
 import LinkSubuserInputSchema from '../model/LinkSubuserInputSchema';
@@ -216,7 +216,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20082>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20081>} and HTTP response
      */
     apiV1UsersContactsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -235,7 +235,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20082];
+      let returnType = [InlineResponse20081];
       return this.apiClient.callApi(
         '/api/v1/users/contacts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -248,7 +248,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20082>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20081>}
      */
     apiV1UsersContactsGet(opts) {
       return this.apiV1UsersContactsGetWithHttpInfo(opts)
@@ -375,7 +375,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20084>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20083>} and HTTP response
      */
     apiV1UsersFeedbackGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -400,7 +400,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20084];
+      let returnType = [InlineResponse20083];
       return this.apiClient.callApi(
         '/api/v1/users/feedback/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -415,7 +415,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20084>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20083>}
      */
     apiV1UsersFeedbackGuidGet(guid, opts) {
       return this.apiV1UsersFeedbackGuidGetWithHttpInfo(guid, opts)
@@ -543,7 +543,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20083>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20082>} and HTTP response
      */
     apiV1UsersFeedbackMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -563,7 +563,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20083];
+      let returnType = [InlineResponse20082];
       return this.apiClient.callApi(
         '/api/v1/users/feedback/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -577,7 +577,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20083>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20082>}
      */
     apiV1UsersFeedbackMyGet(opts) {
       return this.apiV1UsersFeedbackMyGetWithHttpInfo(opts)
@@ -999,6 +999,7 @@ export default class UserApi {
      * Получить нотификации пользователя.
      * ## Получить нотификации пользователя.   
      * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -> anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Boolean} opts.archive Заархивирована ли нотификация
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -1006,7 +1007,7 @@ export default class UserApi {
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20080} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20079} and HTTP response
      */
     apiV1UsersNotificationsPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1015,6 +1016,7 @@ export default class UserApi {
       let pathParams = {
       };
       let queryParams = {
+        'filters': opts['filters'],
         'archive': opts['archive'],
         'limit': opts['limit'],
         'offset': opts['offset'],
@@ -1031,7 +1033,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20080;
+      let returnType = InlineResponse20079;
       return this.apiClient.callApi(
         '/api/v1/users/notifications/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1043,6 +1045,7 @@ export default class UserApi {
      * Получить нотификации пользователя.
      * ## Получить нотификации пользователя.   
      * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -> anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Boolean} opts.archive Заархивирована ли нотификация
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -1050,7 +1053,7 @@ export default class UserApi {
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20080}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20079}
      */
     apiV1UsersNotificationsPagMyGet(opts) {
       return this.apiV1UsersNotificationsPagMyGetWithHttpInfo(opts)
@@ -1065,7 +1068,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20081} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20080} and HTTP response
      */
     apiV1UsersPlatformSettingsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1084,7 +1087,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20081;
+      let returnType = InlineResponse20080;
       return this.apiClient.callApi(
         '/api/v1/users/platform_settings', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1097,7 +1100,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20081}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20080}
      */
     apiV1UsersPlatformSettingsGet(opts) {
       return this.apiV1UsersPlatformSettingsGetWithHttpInfo(opts)

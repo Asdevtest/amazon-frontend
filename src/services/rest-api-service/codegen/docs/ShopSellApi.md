@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 # Получить все магазины на продажу
 
-Если вызвал покупатель - Видны объявлени� в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot; Если вызвал покупатель, который забронировал магазин - Видны объявления в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot;/\&quot;Вызван модератор\&quot; Если вызвал продавец(создатель) - Видны объявления в статусах \&quot;DRAFT\&quot;/\&quot;DELETED\&quot;/\&quot;MODERATING\&quot;/\&quot;PUBLISHED\&quot;/\&quot;BOOKED\&quot;/\&quot;MODERATOR_CALLED\&quot;/\&quot;SOLD\&quot;
+Если вызвал покупатель - Видны объявления в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot; Если вызвал покупатель, который забронировал магазин - Видны объявления в статусах \&quot;Опубликовано\&quot;/\&quot;Забронировано\&quot;/\&quot;Вызван модератор\&quot; Если вызвал продавец(создатель) - Видны объявления в статусах \&quot;DRAFT\&quot;/\&quot;DELETED\&quot;/\&quot;MODERATING\&quot;/\&quot;PUBLISHED\&quot;/\&quot;BOOKED\&quot;/\&quot;MODERATOR_CALLED\&quot;/\&quot;SOLD\&quot;
 
 ### Example
 
