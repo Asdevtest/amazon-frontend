@@ -207,6 +207,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('buyerFoundSupplier')) {
                 obj['buyerFoundSupplier'] = ApiClient.convertToType(data['buyerFoundSupplier'], 'Number');
             }
+            if (data.hasOwnProperty('vacantRequests')) {
+                obj['vacantRequests'] = ApiClient.convertToType(data['vacantRequests'], 'Number');
+            }
             if (data.hasOwnProperty('myProposals')) {
                 obj['myProposals'] = UserInfoSchemaMyProposals.constructFromObject(data['myProposals']);
             }
@@ -519,6 +522,12 @@ UserInfoSchema.prototype['productIsAppropriate'] = undefined;
  * @member {Number} buyerFoundSupplier
  */
 UserInfoSchema.prototype['buyerFoundSupplier'] = undefined;
+
+/**
+ * Kоличество вакантных заявок
+ * @member {Number} vacantRequests
+ */
+UserInfoSchema.prototype['vacantRequests'] = undefined;
 
 /**
  * @member {module:model/UserInfoSchemaMyProposals} myProposals

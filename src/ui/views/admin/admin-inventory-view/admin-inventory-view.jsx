@@ -7,7 +7,9 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -41,6 +43,8 @@ export const AdminInventoryViewRaw = props => {
           <MemoDataGrid
             pagination
             useResizeContainer
+            sortingMode="server"
+            paginationMode="server"
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -61,12 +65,21 @@ export const AdminInventoryViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -74,15 +87,28 @@ export const AdminInventoryViewRaw = props => {
                 },
               },
             }}
+            getRowId={row => row._id}
+            rowCount={viewModel.rowsCount}
             rows={viewModel.currentData}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            // onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
       </div>
+
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          updateDataHandler={() => viewModel.getProducts()}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
     </React.Fragment>
   )
 }

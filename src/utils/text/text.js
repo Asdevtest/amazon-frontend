@@ -273,6 +273,7 @@ export const getTableByColumn = (column, hint) => {
       'margin',
       'checkedBy',
       'checkednotes',
+      'currentSupplier',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
