@@ -343,20 +343,20 @@ export const CreateBoxForm = observer(
 
         lengthCmSupplier: e.target.checked
           ? (sizeSetting === unitsOfChangeOptions.EU
-              ? roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)
-              : toFixed(currentSupplier.boxProperties.boxLengthCm, 2)) || 0
+              ? toFixed(currentSupplier.boxProperties.boxLengthCm, 2)
+              : roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)) || 0
           : '',
 
         widthCmSupplier: e.target.checked
           ? (sizeSetting === unitsOfChangeOptions.EU
-              ? roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)
-              : toFixed(currentSupplier.boxProperties.boxWidthCm, 2)) || 0
+              ? toFixed(currentSupplier.boxProperties.boxWidthCm, 2)
+              : roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)) || 0
           : '',
 
         heightCmSupplier: e.target.checked
           ? (sizeSetting === unitsOfChangeOptions.EU
-              ? roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)
-              : toFixed(currentSupplier.boxProperties.boxHeightCm, 2)) || 0
+              ? toFixed(currentSupplier.boxProperties.boxHeightCm, 2)
+              : roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)) || 0
           : '',
 
         weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier.boxProperties.boxWeighGrossKg) || 0 : '',

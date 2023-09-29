@@ -373,7 +373,7 @@ export default class IdeaApi {
 
     /**
      * Получить идею по гуиду
-     * Получить идею по гуиду
+     * Получить и�ею по гуиду
      * @param {String} guid GUID идеи в БД
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.withRequests Наличие в ответе заявок в продуктах
@@ -415,7 +415,7 @@ export default class IdeaApi {
 
     /**
      * Получить идею по гуиду
-     * Получить идею по гуиду
+     * Получить и�ею по гуиду
      * @param {String} guid GUID идеи в БД
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.withRequests Наличие в ответе заявок в продуктах

@@ -107,6 +107,12 @@ import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersBoxesGuidItems from './model/ApiV1StorekeepersBoxesGuidItems';
 import ApiV1StorekeepersTariffLogisticsDestinationVariations from './model/ApiV1StorekeepersTariffLogisticsDestinationVariations';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
+import ApiV1StorekeepersTasksMyBoxes from './model/ApiV1StorekeepersTasksMyBoxes';
+import ApiV1StorekeepersTasksMyBoxesBefore from './model/ApiV1StorekeepersTasksMyBoxesBefore';
+import ApiV1StorekeepersTasksMyItems from './model/ApiV1StorekeepersTasksMyItems';
+import ApiV1StorekeepersTasksMyProduct from './model/ApiV1StorekeepersTasksMyProduct';
+import ApiV1StorekeepersTasksMyProductCurrentSupplier from './model/ApiV1StorekeepersTasksMyProductCurrentSupplier';
+import ApiV1StorekeepersTasksMyProductCurrentSupplierBoxProperties from './model/ApiV1StorekeepersTasksMyProductCurrentSupplierBoxProperties';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import ApiV1SuppliersPaymentMethods from './model/ApiV1SuppliersPaymentMethods';
 import ApiV1SuppliersPriceVariations from './model/ApiV1SuppliersPriceVariations';
@@ -295,6 +301,10 @@ import InlineResponse20036 from './model/InlineResponse20036';
 import InlineResponse20036Rows from './model/InlineResponse20036Rows';
 import InlineResponse20037 from './model/InlineResponse20037';
 import InlineResponse20038 from './model/InlineResponse20038';
+import InlineResponse20038Product from './model/InlineResponse20038Product';
+import InlineResponse20038ProductBoxAmounts from './model/InlineResponse20038ProductBoxAmounts';
+import InlineResponse20038ProductStorekeeper from './model/InlineResponse20038ProductStorekeeper';
+import InlineResponse20038Rows from './model/InlineResponse20038Rows';
 import InlineResponse20039 from './model/InlineResponse20039';
 import InlineResponse2003AllowedUrls from './model/InlineResponse2003AllowedUrls';
 import InlineResponse2003PermissionGroups from './model/InlineResponse2003PermissionGroups';
@@ -380,13 +390,16 @@ import InlineResponse20079 from './model/InlineResponse20079';
 import InlineResponse20079Rows from './model/InlineResponse20079Rows';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse20080 from './model/InlineResponse20080';
+import InlineResponse20080Rows from './model/InlineResponse20080Rows';
 import InlineResponse20081 from './model/InlineResponse20081';
 import InlineResponse20082 from './model/InlineResponse20082';
 import InlineResponse20083 from './model/InlineResponse20083';
 import InlineResponse20084 from './model/InlineResponse20084';
 import InlineResponse20085 from './model/InlineResponse20085';
 import InlineResponse20086 from './model/InlineResponse20086';
-import InlineResponse20086Details from './model/InlineResponse20086Details';
+import InlineResponse20087 from './model/InlineResponse20087';
+import InlineResponse20087Details from './model/InlineResponse20087Details';
+import InlineResponse20087Request from './model/InlineResponse20087Request';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
@@ -1074,6 +1087,42 @@ export {
      * @property {module:model/ApiV1StorekeepersTariffWarehouses}
      */
     ApiV1StorekeepersTariffWarehouses,
+
+    /**
+     * The ApiV1StorekeepersTasksMyBoxes model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksMyBoxes}
+     */
+    ApiV1StorekeepersTasksMyBoxes,
+
+    /**
+     * The ApiV1StorekeepersTasksMyBoxesBefore model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksMyBoxesBefore}
+     */
+    ApiV1StorekeepersTasksMyBoxesBefore,
+
+    /**
+     * The ApiV1StorekeepersTasksMyItems model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksMyItems}
+     */
+    ApiV1StorekeepersTasksMyItems,
+
+    /**
+     * The ApiV1StorekeepersTasksMyProduct model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksMyProduct}
+     */
+    ApiV1StorekeepersTasksMyProduct,
+
+    /**
+     * The ApiV1StorekeepersTasksMyProductCurrentSupplier model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksMyProductCurrentSupplier}
+     */
+    ApiV1StorekeepersTasksMyProductCurrentSupplier,
+
+    /**
+     * The ApiV1StorekeepersTasksMyProductCurrentSupplierBoxProperties model constructor.
+     * @property {module:model/ApiV1StorekeepersTasksMyProductCurrentSupplierBoxProperties}
+     */
+    ApiV1StorekeepersTasksMyProductCurrentSupplierBoxProperties,
 
     /**
      * The ApiV1SuppliersBoxProperties model constructor.
@@ -2204,6 +2253,30 @@ export {
     InlineResponse20038,
 
     /**
+     * The InlineResponse20038Product model constructor.
+     * @property {module:model/InlineResponse20038Product}
+     */
+    InlineResponse20038Product,
+
+    /**
+     * The InlineResponse20038ProductBoxAmounts model constructor.
+     * @property {module:model/InlineResponse20038ProductBoxAmounts}
+     */
+    InlineResponse20038ProductBoxAmounts,
+
+    /**
+     * The InlineResponse20038ProductStorekeeper model constructor.
+     * @property {module:model/InlineResponse20038ProductStorekeeper}
+     */
+    InlineResponse20038ProductStorekeeper,
+
+    /**
+     * The InlineResponse20038Rows model constructor.
+     * @property {module:model/InlineResponse20038Rows}
+     */
+    InlineResponse20038Rows,
+
+    /**
      * The InlineResponse20039 model constructor.
      * @property {module:model/InlineResponse20039}
      */
@@ -2714,6 +2787,12 @@ export {
     InlineResponse20080,
 
     /**
+     * The InlineResponse20080Rows model constructor.
+     * @property {module:model/InlineResponse20080Rows}
+     */
+    InlineResponse20080Rows,
+
+    /**
      * The InlineResponse20081 model constructor.
      * @property {module:model/InlineResponse20081}
      */
@@ -2753,7 +2832,19 @@ export {
      * The InlineResponse20086Details model constructor.
      * @property {module:model/InlineResponse20086Details}
      */
-    InlineResponse20086Details,
+    InlineResponse20087,
+
+    /**
+     * The InlineResponse20087Details model constructor.
+     * @property {module:model/InlineResponse20087Details}
+     */
+    InlineResponse20087Details,
+
+    /**
+     * The InlineResponse20087Request model constructor.
+     * @property {module:model/InlineResponse20087Request}
+     */
+    InlineResponse20087Request,
 
     /**
      * The InlineResponse2009 model constructor.
