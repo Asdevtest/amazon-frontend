@@ -15,6 +15,7 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -66,19 +67,15 @@ export const Freelance = observer(({ productId, modal }) => {
     <div>
       <div className={classNames.tablePanelWrapper}>
         <div className={classNames.taskTypeWrapper}>
-          {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
-            <Button
-              key={taskIndex}
-              variant="text"
-              disabled={taskType === selectedTaskType}
-              className={cx(classNames.button, {
-                [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
-              })}
-              onClick={() => onClickTaskType(taskType)}
-            >
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-            </Button>
-          ))}
+          <CustomSwitcher
+            switchMode="medium"
+            condition={Number(selectedTaskType)}
+            switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
+              value: Number(taskType),
+              label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType]),
+            }))}
+            changeConditionHandler={onClickTaskType}
+          />
         </div>
 
         <SearchInput

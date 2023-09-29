@@ -1066,6 +1066,7 @@ export const styles = theme => ({
 
   sabUserRating: {
     marginLeft: 10,
+    opacity: '1 !important',
   },
 
   userRolesWrapper: {

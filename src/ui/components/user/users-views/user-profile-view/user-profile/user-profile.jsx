@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
@@ -20,7 +19,6 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './user-profile.style'
 
-import { FeedbackCard } from './feedback-card'
 import { Info } from './info'
 import { Tested } from './tested'
 

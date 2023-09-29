@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React from 'react'
+import { FC } from 'react'
 
 import { Paper, Typography } from '@mui/material'
 
@@ -12,12 +11,11 @@ import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-interface ReviewsProps {
+interface Props {
   reviews: FeedbackType[]
 }
 
-export const Reviews = (props: ReviewsProps) => {
-  const { reviews } = props
+export const Reviews: FC<Props> = ({ reviews }) => {
   const { classes: styles } = useReviewsStyles()
 
   return (
