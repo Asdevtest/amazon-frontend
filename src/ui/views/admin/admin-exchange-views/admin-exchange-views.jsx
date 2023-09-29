@@ -12,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -99,11 +100,22 @@ export const AdminExchangeViewsRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            // onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
       </div>
+
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          updateDataHandler={() => viewModel.getProductsByStatus()}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
     </React.Fragment>
   )
 }

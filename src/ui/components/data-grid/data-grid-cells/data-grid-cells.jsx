@@ -3527,7 +3527,7 @@ export const TimeFromSeconds = React.memo(
 
 export const OpenInNewTabCell = React.memo(
   withStyles(props => {
-    const { classes: styles, onClickOpenInNewTab } = props
+    const { classes: styles, onClickOpenInNewTab, href } = props
 
     return (
       <Tooltip
@@ -3536,9 +3536,11 @@ export const OpenInNewTabCell = React.memo(
         placement="top"
         classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
       >
-        <div className={styles.iconWrapper} onClick={onClickOpenInNewTab}>
-          <ShareLinkIcon className={styles.shareLinkIcon} />
-        </div>
+        <NavLink to={href || ''} target="_blank" onClick={event => event.stopPropagation()}>
+          <div className={styles.iconWrapper} onClick={() => !href && onClickOpenInNewTab()}>
+            <ShareLinkIcon className={styles.shareLinkIcon} />
+          </div>
+        </NavLink>
       </Tooltip>
     )
   }, styles),
