@@ -19,6 +19,7 @@ import {
   Typography,
 } from '@mui/material'
 
+import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -212,6 +213,7 @@ export const CreateOrEditRequestContent = observer(
               2,
             )
           : 0,
+        taskComplexity: requestToEdit?.request?.taskComplexity || 20,
       },
       details: {
         conditions: requestToEdit?.details?.conditions || '',
@@ -220,6 +222,8 @@ export const CreateOrEditRequestContent = observer(
     })
 
     const [formFields, setFormFields] = useState(getSourceFormFields())
+
+    console.log('formFields', formFields)
 
     const [requestIds, setRequestIds] = useState([])
 
@@ -422,16 +426,42 @@ export const CreateOrEditRequestContent = observer(
             {curStep === stepVariant.STEP_ONE && (
               <div className={classNames.mainSubRightWrapper}>
                 <div className={classNames.middleWrapper}>
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    inputProps={{ maxLength: 100 }}
+                    label={t(TranslationKey['Request title']) + '*'}
+                    className={classNames.nameField}
+                    containerClasses={classNames.nameFieldContainer}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.request.title}
+                    onChange={onChangeField('request')('title')}
+                  />
+
                   <div className={classNames.nameFieldWrapper}>
                     <Field
-                      tooltipInfoContent={t(TranslationKey['Future request title'])}
-                      inputProps={{ maxLength: 100 }}
-                      label={t(TranslationKey['Request title']) + '*'}
-                      className={classNames.nameField}
-                      containerClasses={classNames.nameFieldContainer}
+                      label={t(TranslationKey['Difficulty level'])}
                       labelClasses={classNames.spanLabelSmall}
-                      value={formFields.request.title}
-                      onChange={onChangeField('request')('title')}
+                      tooltipInfoContent={t(TranslationKey['Difficulty level'])}
+                      containerClasses={classNames.requestTypeContainer}
+                      inputComponent={
+                        <Select
+                          displayEmpty
+                          value={formFields.request.taskComplexity}
+                          className={classNames.requestTypeField}
+                          input={<Input startAdornment={<InputAdornment position="start" />} />}
+                          onChange={onChangeField('request')('taskComplexity')}
+                        >
+                          <MenuItem disabled value={null}>
+                            {t(TranslationKey['Select from the list'])}
+                          </MenuItem>
+
+                          {Object.keys(difficultyLevelByCode).map((difficultyLevel, difficultyLevelIndex) => (
+                            <MenuItem key={difficultyLevelIndex} value={difficultyLevel}>
+                              {difficultyLevelTranslate(difficultyLevelByCode[difficultyLevel])}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      }
                     />
 
                     <Field
