@@ -102,6 +102,8 @@ export const PhotoAndFilesSlider: FC<Props> = ({
   const [photoIndex, setPhotoIndex] = useState(0)
   const [fileIndex, setFileIndex] = useState(0)
 
+  console.log(files, documents, photos)
+
   useEffect(() => {
     if (photos.length - 1 < photoIndex && photos.length > 0) {
       setPhotoIndex(photos.length - 1)
