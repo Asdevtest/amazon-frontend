@@ -167,6 +167,9 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('lastRateTariff')) {
+                obj['lastRateTariff'] = ApiClient.convertToType(data['lastRateTariff'], 'Number');
+            }
             if (data.hasOwnProperty('variationTariff')) {
                 obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
             }
@@ -425,6 +428,12 @@ ApiV1BatchesBoxes.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 ApiV1BatchesBoxes.prototype['updatedAt'] = undefined;
+
+/**
+ * Рейт за кг из тарифа
+ * @member {Number} lastRateTariff
+ */
+ApiV1BatchesBoxes.prototype['lastRateTariff'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
