@@ -1391,7 +1391,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20075] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20031] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1431,7 +1431,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20075]**](InlineResponse20075.md)
+[**[InlineResponse20031]**](InlineResponse20031.md)
 
 ### Authorization
 

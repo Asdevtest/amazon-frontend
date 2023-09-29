@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import {
   getConversion,
@@ -18,9 +18,9 @@ import { Field } from '@components/shared/field'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -41,6 +41,13 @@ export const BoxInfoTab = memo(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+    const [trackNumbers, setTrackNumbers] = useState(formFields.trackNumberFile)
+
+    useEffect(() => {
+      if (formFields.tmpTrackNumberFile && formFields.trackNumberFile) {
+        setTrackNumbers([...formFields.trackNumberFile, ...formFields.tmpTrackNumberFile])
+      }
+    }, [formFields.trackNumberFile, formFields.tmpTrackNumberFile])
 
     const finalWeightForBox = calcFinalWeightForBoxFunction
       ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
@@ -157,7 +164,8 @@ export const BoxInfoTab = memo(
           <div className={styles.infosWrapper}>
             <div className={styles.flexContainer}>
               <div className={styles.checkboxContainer}>
-                <img src={getUserAvatarSrc(box.storekeeper._id)} alt="storekeeper" className={styles.storekeeperIcon} />
+                <NoPhotoIcon className={styles.userIcon} />
+                {/* <img src={'/assets/img/no-photo.jpg'} alt="user" className={styles.userIcon} /> */}
                 <Checkbox disabled className={styles.checkbox} checked={box.isFormed} />
                 <p className={styles.text}>{t(TranslationKey.Formed)}</p>
               </div>
@@ -187,15 +195,13 @@ export const BoxInfoTab = memo(
                   className={styles.trackNumberBtn}
                   onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                 >
-                  {formFields.tmpTrackNumberFile[0]
-                    ? t(TranslationKey['File added'])
-                    : t(TranslationKey['Photo track numbers'])}
+                  {trackNumbers.length ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
                 </Button>
               </div>
 
               <div className={styles.trackNumberPhoto}>
-                {formFields.trackNumberFile[0] || formFields.tmpTrackNumberFile[0] ? (
-                  <PhotoAndFilesSlider withoutFiles customSlideHeight={76} files={box.images} />
+                {trackNumbers.length ? (
+                  <PhotoAndFilesSlider withoutFiles customSlideHeight={76} files={trackNumbers} />
                 ) : (
                   <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                 )}
@@ -228,9 +234,8 @@ export const BoxInfoTab = memo(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={'Track number'}
-            maxNumber={50 - formFields.tmpTrackNumberFile.length - formFields.trackNumberFile.length}
+            maxNumber={50 - trackNumbers.length}
             tmpCode={formFields.tmpTrackNumberFile}
-            item={formFields}
             onClickSaveBarcode={value => {
               setTmpTrackNumberFile(value)
               setShowSetBarcodeModal(!showSetBarcodeModal)

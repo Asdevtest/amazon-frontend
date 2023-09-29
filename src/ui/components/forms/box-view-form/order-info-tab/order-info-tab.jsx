@@ -30,7 +30,7 @@ export const OrderInfoTab = memo(({ box, items, onClickHsCode }) => {
         const barcodeCheckedText = item.isBarCodeAlreadyAttachedByTheSupplier
           ? t(TranslationKey['BarCode is glued by supplier'])
           : t(TranslationKey['BarCode is glued by storekeeper'])
-        const isRushOrder = item.order.priority === orderPriority.urgentPriority
+        const isRushOrder = Number(item.order.priority) === orderPriority.urgentPriority
 
         return (
           <div key={index} className={styles.product}>

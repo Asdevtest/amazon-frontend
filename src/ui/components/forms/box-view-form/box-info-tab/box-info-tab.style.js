@@ -105,7 +105,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  storekeeperIcon: {
+  userIcon: {
     height: 24,
     width: 24,
     borderRadius: '50%',

@@ -59,7 +59,7 @@ export const BoxViewForm = observer(
 
     const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${box.humanFriendlyId}/ prep id:`
 
-    console.log(box)
+    console.log(formFields)
 
     return (
       <>
