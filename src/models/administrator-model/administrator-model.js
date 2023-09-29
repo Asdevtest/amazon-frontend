@@ -196,6 +196,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsProductsPagGet(data)
     return response
   }
+
+  getOrdersPag = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsOrdersPagGet(data)
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

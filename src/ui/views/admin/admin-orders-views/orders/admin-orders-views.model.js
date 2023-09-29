@@ -166,7 +166,8 @@ export class AdminOrdersAllViewModel {
         this.error = undefined
       })
       this.getDataGridState()
-      const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
+      // const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
+      const result = await AdministratorModel.getOrdersPag(ordersStatusBySubCategory[activeSubCategory])
 
       runInAction(() => {
         this.baseNoConvertedOrders = result
