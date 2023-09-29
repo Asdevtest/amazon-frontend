@@ -271,6 +271,7 @@ export const getTableByColumn = (column, hint) => {
       'parentProductShopIds',
       'supervisor',
       'margin',
+      'checkedBy',
       'checkednotes',
     ].includes(column)
   ) {

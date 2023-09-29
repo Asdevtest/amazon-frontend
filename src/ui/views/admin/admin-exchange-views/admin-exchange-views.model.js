@@ -24,7 +24,7 @@ const filtersFields = [
   'strategyStatus',
   'amazon',
   'createdBy',
-  'supervisor',
+  'checkedBy',
   'buyer',
   'profit',
   'profit',
@@ -41,6 +41,8 @@ export class AdminExchangeViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  productCardModal = false
 
   activeCategory = AdminExchangeStatusesCategories.all
   currentProductsData = []
@@ -222,6 +224,32 @@ export class AdminExchangeViewModel {
     runInAction(() => {
       this.requestStatus = requestStatus
     })
+  }
+
+  onTriggerOpenModal(modalState) {
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
+  }
+
+  onClickShowProduct(id) {
+    const win = window.open(`${window.location.origin}/admin/exchange/product?product-id=${id}`, '_blank')
+
+    win.focus()
+  }
+
+  onClickProductModal(row) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    if (row) {
+      this.history.push(`/admin/exchange?product-id=${row._id}`)
+    } else {
+      this.history.push(`/admin/exchange`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 
   // * Filtration

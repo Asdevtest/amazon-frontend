@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -6,6 +8,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  OpenInNewTabCell,
   ProductAsinCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -14,6 +17,19 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const adminExchangeColumns = () => [
+  {
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={''} />,
+
+    renderCell: params => {
+      return <OpenInNewTabCell href={`/admin/exchange/product?product-id=${params.row._id}`} />
+    },
+    width: 60,
+    filterable: false,
+    sortable: false,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
@@ -76,7 +92,7 @@ export const adminExchangeColumns = () => [
     columnKey: columnnsKeys.shared.OBJECT,
   },
   {
-    field: 'supervisor',
+    field: 'checkedBy',
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
