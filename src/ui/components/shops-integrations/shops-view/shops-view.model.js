@@ -59,6 +59,14 @@ export class ShopsViewModel {
     title: '',
   }
 
+  confirmModalSettings = {
+    isWarning: false,
+    title: '',
+    message: '',
+    onSubmit: () => {},
+    onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+  }
+
   constructor({ history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal }) {
     this.history = history
 
@@ -223,8 +231,11 @@ export class ShopsViewModel {
 
   async removeShopById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       await ShopModel.removeShopById(this.selectedShop._id)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
     }
@@ -243,6 +254,19 @@ export class ShopsViewModel {
   }
 
   async onSubmitShopForm(data, shopId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure?']),
+      onSubmit: () => {
+        this.createShop(data, shopId)
+        this.onTriggerOpenModal('showAddOrEditShopModal')
+      },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+  async createShop(data, shopId) {
     try {
       if (shopId) {
         await ShopModel.editShop(shopId, data)
@@ -262,8 +286,8 @@ export class ShopsViewModel {
         this.onTriggerOpenModal('showWarningModal')
       }
 
+      this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.onTriggerOpenModal('showAddOrEditShopModal')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -283,6 +307,13 @@ export class ShopsViewModel {
 
   onClickRemoveBtn(row) {
     this.selectedShop = row
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure you want to delete the store?']),
+      onSubmit: () => this.onSubmitRemoveShop(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
