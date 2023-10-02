@@ -61,7 +61,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'fit-content',
     padding: '2px 4px',
     background: theme.palette.primary.main,
-    borderRadius: '50%',
+    borderRadius: '40%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
