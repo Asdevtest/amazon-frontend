@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GridCellParams, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
@@ -19,10 +19,8 @@ import {
   PriorityAndChinaDeliverCell,
   ShortDateCell,
   UserMiniCell,
-  VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 interface IHandlers {

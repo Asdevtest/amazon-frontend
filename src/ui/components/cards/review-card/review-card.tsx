@@ -1,7 +1,7 @@
 import React from 'react'
 
 import StarIcon from '@mui/icons-material/Star'
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { UserRolePrettyMap } from '@constants/keys/user-roles'

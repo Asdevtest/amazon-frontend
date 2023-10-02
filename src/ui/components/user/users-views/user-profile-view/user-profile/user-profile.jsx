@@ -20,7 +20,6 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './user-profile.style'
 
-import { FeedbackCard } from './feedback-card'
 import { Info } from './info'
 import { Tested } from './tested'
 

@@ -10,7 +10,6 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
-import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { GeneralModel } from '@models/general-model'
 import { RequestProposalModel } from '@models/request-proposal'
@@ -19,7 +18,7 @@ import { UserModel } from '@models/user-model'
 
 import { FreelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
 
-import { addIdDataConverter, myProposalsDataConverter } from '@utils/data-grid-data-converters'
+import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 

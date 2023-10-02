@@ -1,43 +1,24 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Checkbox, Typography } from '@mui/material'
 
-import {
-  RequestProposalStatus,
-  RequestProposalStatusColor,
-  RequestProposalStatusTranslate,
-} from '@constants/requests/request-proposal-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MyProposalsListCard } from '@components/cards/my-proposals-list-card'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { Button } from '@components/shared/buttons/button'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
-import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import {
-  sortObjectsArrayByArrayObjectFiledDateWithParseISO,
-  sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
-} from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { styles } from './my-proposals-view.style'
