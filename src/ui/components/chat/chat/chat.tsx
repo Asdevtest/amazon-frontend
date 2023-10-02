@@ -264,6 +264,10 @@ export const Chat: FC<Props> = observer(
       setUnreadMessages([])
     }
 
+    useEffect(() => {
+      setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
+    }, [toScrollMesId])
+
     const disabledSubmit = !message.replace(/\n/g, '') && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
@@ -279,7 +283,6 @@ export const Chat: FC<Props> = observer(
             messages={messages}
             isShowChatInfo={isShowChatInfo}
             handlers={chatMessageHandlers}
-            toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
