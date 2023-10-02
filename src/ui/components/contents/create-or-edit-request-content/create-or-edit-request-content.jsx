@@ -43,6 +43,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
@@ -429,6 +430,7 @@ export const CreateOrEditRequestContent = observer(
                   <Field
                     tooltipInfoContent={t(TranslationKey['Future request title'])}
                     inputProps={{ maxLength: 100 }}
+                    placeholder={t(TranslationKey['Request title'])}
                     label={t(TranslationKey['Request title']) + '*'}
                     className={classNames.nameField}
                     containerClasses={classNames.nameFieldContainer}
@@ -442,7 +444,7 @@ export const CreateOrEditRequestContent = observer(
                       label={t(TranslationKey['Difficulty level'])}
                       labelClasses={classNames.spanLabelSmall}
                       tooltipInfoContent={t(TranslationKey['Difficulty level'])}
-                      containerClasses={classNames.requestTypeContainer}
+                      containerClasses={classNames.difficultylevelContainer}
                       inputComponent={
                         <Select
                           displayEmpty
@@ -472,13 +474,13 @@ export const CreateOrEditRequestContent = observer(
                       className={classNames.nameField}
                       inputComponent={
                         <WithSearchSelect
-                          asinSelect
                           grayBorder
                           blackSelectedItem
                           darkIcon
                           chosenItemNoHover
+                          CustomButton={componentProps => <SelectProductButton {...componentProps} />}
                           data={permissionsData}
-                          width={185}
+                          width={'100%'}
                           searchOnlyFields={['asin', 'skusByClient']}
                           customSubMainWrapper={classNames.customSubMainWrapperAsin}
                           customSearchInput={classNames.customSearchInput}
