@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
@@ -124,7 +123,6 @@ export const SuppliersAndIdeas = observer(
       onClickOpenNewTab,
       onClickOpenProduct,
       onClickRequestId,
-
       onChangeSelectedSupplier,
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
