@@ -1,6 +1,5 @@
 import { FC } from 'react'
 
-import StarIcon from '@mui/icons-material/Star'
 import { Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -40,13 +39,7 @@ export const ReviewCard: FC<Props> = ({ review }) => {
         </div>
         <div className={styles.headerItem}>
           <Typography className={styles.headerItemTitle}>{formatShortDateTime(review.createdAt)}</Typography>
-          <Rating
-            readOnly
-            classes={{ iconEmpty: styles.ratingEmpty }}
-            value={review.rating}
-            size={'small'}
-            emptyIcon={<StarIcon fontSize="inherit" />}
-          />
+          <Rating readOnly value={review.rating} size={'small'} />
         </div>
       </div>
 
