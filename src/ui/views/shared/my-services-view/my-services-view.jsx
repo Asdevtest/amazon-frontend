@@ -67,7 +67,6 @@ export const MyServicesViewRaw = ({ classes: classNames, history, location }) =>
           </div>
         </div>
         <Box
-          classes={{ root: classNames.dashboardCardWrapper }}
           display="grid"
           gridTemplateColumns={
             viewModel.viewMode === tableViewMode.LIST

@@ -22,7 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 5,
   },
 
   cardTitle: {
@@ -36,14 +36,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardDescription: {
-    maxHeight: 95,
+    maxHeight: 76,
     fontSize: '14px',
     lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 5,
+    WebkitLineClamp: 4,
     WebkitBoxOrient: 'vertical',
   },
 
