@@ -12,10 +12,6 @@ const ani = keyframes`
 `
 
 export const styles = theme => ({
-  dashboardCardWrapper: {
-    width: '100%',
-  },
-
   taskTypeWrapper: {
     display: 'flex',
   },

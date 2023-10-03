@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
 import {
-  Avatar,
   Checkbox,
   Input,
   InputAdornment,
@@ -14,7 +13,6 @@ import {
   ListItem,
   ListItemText,
   MenuItem,
-  Rating,
   Select,
   Typography,
 } from '@mui/material'
@@ -44,12 +42,10 @@ import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -1013,22 +1009,13 @@ export const CreateOrEditRequestContent = observer(
                               <Typography className={classNames.spanLabelSmall}>
                                 {t(TranslationKey.Performer)}
                               </Typography>
-                              <div className={classNames.userInfo}>
-                                <Avatar
-                                  src={getUserAvatarSrc(announcement?.createdBy?._id)}
-                                  className={classNames.cardImg}
-                                />
 
-                                <div className={classNames.nameWrapperStepTwo}>
-                                  <UserLink
-                                    blackText
-                                    name={announcement?.createdBy?.name}
-                                    userId={announcement?.createdBy?._id}
-                                    customStyles={{ maxWidth: 300 }}
-                                  />
-                                  <Rating disabled value={5} size="small" classes={classNames.rating} />
-                                </div>
-                              </div>
+                              <MasterUserItem
+                                id={chosenExecutor?._id}
+                                name={chosenExecutor?.name}
+                                rating={chosenExecutor?.rating}
+                              />
+
                               <Typography className={classNames.performerDescriptionText}>
                                 {announcement?.description}
                               </Typography>

@@ -306,8 +306,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   criterionsField: {
-    height: '245px',
+    height: 240,
+    fontSize: 16,
+    lineHeight: '23px',
     width: '100%',
+    padding: 0,
   },
 
   supplierSearchTitle: {

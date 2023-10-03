@@ -5,7 +5,7 @@ import { React, useState } from 'react'
 
 import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,6 +17,7 @@ import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -50,12 +51,12 @@ export const AddOrEditSupplierModalContent = observer(
 
     const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
+    const handleChange = value => {
+      setSizeSetting(value)
 
-      if (newAlignment === sizesType.INCHES) {
+      if (value === unitsOfChangeOptions.US) {
         setTmpSupplier({
           ...tmpSupplier,
           boxProperties: {
@@ -125,15 +126,15 @@ export const AddOrEditSupplierModalContent = observer(
         boxProperties: {
           ...tmpSupplier.boxProperties,
           boxLengthCm:
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.US
               ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
               : tmpSupplier.boxProperties.boxLengthCm) || 0,
           boxWidthCm:
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.US
               ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
               : tmpSupplier.boxProperties.boxWidthCm) || 0,
           boxHeightCm:
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.US
               ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
               : tmpSupplier.boxProperties.boxHeightCm) || 0,
 
@@ -709,14 +710,14 @@ export const AddOrEditSupplierModalContent = observer(
                 <div className={classNames.sizesSubWrapper}>
                   <Typography className={classNames.standartText}>{t(TranslationKey.Dimensions)}</Typography>
 
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    switcherSettings={[
+                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                    ]}
+                    changeConditionHandler={condition => handleChange(condition)}
+                  />
                 </div>
 
                 <div className={classNames.sizesBottomWrapper}>
@@ -814,7 +815,7 @@ export const AddOrEditSupplierModalContent = observer(
                       containerClasses={classNames.shortContainer}
                       labelClasses={classNames.normalLabel}
                       value={toFixed(
-                        (sizeSetting === sizesType.INCHES
+                        (sizeSetting === unitsOfChangeOptions.US
                           ? tmpSupplier.boxProperties.boxHeightCm *
                             inchesCoefficient *
                             tmpSupplier.boxProperties.boxWidthCm *
