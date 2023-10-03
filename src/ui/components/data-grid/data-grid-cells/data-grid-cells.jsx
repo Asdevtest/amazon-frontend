@@ -1684,6 +1684,9 @@ export const IconHeaderCell = React.memo(withStyles(({ classes: classNames, url 
 export const PriorityAndChinaDeliverCell = React.memo(
   withStyles(({ classes: classNames, priority, chinaDelivery, status, isRequest, onClickOpenInNewTab }) => {
     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+    const isUrgent =
+      Number(priority) === orderPriority.urgentPriority ||
+      (isRequest && Number(priority) === requestPriority.urgentPriority)
 
     return (
       <div className={classNames.priorityAndChinaDeliveryWrapper}>
@@ -1697,10 +1700,8 @@ export const PriorityAndChinaDeliverCell = React.memo(
         )}
 
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
-
         <div>
-          {Number(priority) === orderPriority.urgentPriority ||
-          (isRequest && Number(priority) === requestPriority.urgentPriority) ? (
+          {isUrgent ? (
             <div className={classNames.priority}>
               <img src="/assets/icons/fire.svg" />
             </div>
