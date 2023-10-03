@@ -3137,7 +3137,7 @@ export const ProductInfoExtended = React.memo(
                 </div>
 
                 {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                  <Typography className={classNames.orderText}>
+                  <Typography className={classNames.productInfoText}>
                     <span className={classNames.needPay}>{`${t(
                       TranslationKey['Extra payment required!'],
                     )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
@@ -3199,7 +3199,7 @@ export const ProductInfoAbbreviated = React.memo(
                   <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
                 </div>
                 {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                  <Typography className={classNames.orderText}>
+                  <Typography className={classNames.productInfoText}>
                     <span className={classNames.needPay}>{`${t(
                       TranslationKey['Extra payment required!'],
                     )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
