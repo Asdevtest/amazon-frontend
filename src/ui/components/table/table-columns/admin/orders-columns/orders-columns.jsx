@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { OrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -26,6 +27,7 @@ export const adminOrdersViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 100,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'priorityAndChinaDelivery',
@@ -34,9 +36,9 @@ export const adminOrdersViewColumns = () => [
     width: 60,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
-        priority={params.row.originalData.priority}
-        chinaDelivery={params.row.originalData.expressChinaDelivery}
-        status={params.row.originalData.status}
+        priority={params.row.priority}
+        chinaDelivery={params.row.expressChinaDelivery}
+        status={params.row.status}
       />
     ),
     sortable: false,
@@ -48,8 +50,10 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    width: 265,
+    renderCell: params => <OrderCell product={params.row.product} />,
+    sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -60,10 +64,13 @@ export const adminOrdersViewColumns = () => [
     width: 210,
     renderCell: params => (
       <MultilineTextCell
-        text={params.value}
-        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
+        text={OrderStatusTranslate(OrderStatusByCode[params.value])}
+        color={orderColorByStatus(OrderStatusByCode[params.value])}
       />
     ),
+
+    sortable: false,
+    columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
   {
@@ -72,7 +79,10 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 170,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barcode} />,
+
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -82,15 +92,8 @@ export const adminOrdersViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 150,
-  },
 
-  {
-    field: 'warehouses',
-    headerName: t(TranslationKey['Where to']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -99,9 +102,11 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
+      <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
     ),
     width: 200,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -109,10 +114,10 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
+    renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
     width: 200,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -120,18 +125,22 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    width: 250,
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    width: 200,
+    renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'surcharge',
+    field: 'partialPaymentAmountRmb',
     headerName: t(TranslationKey['Pay more']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
 
     width: 140,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -142,25 +151,22 @@ export const adminOrdersViewColumns = () => [
     width: 150,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'grossWeightKg',
+    field: 'weight',
     headerName: t(TranslationKey['Gross weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
     width: 160,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.product.weight} fix={2} />,
     type: 'number',
-  },
-  {
-    field: 'trackingNumberChina',
-    headerName: t(TranslationKey['Track number']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
+
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -168,7 +174,8 @@ export const adminOrdersViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -178,6 +185,7 @@ export const adminOrdersViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

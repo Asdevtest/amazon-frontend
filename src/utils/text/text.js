@@ -274,11 +274,14 @@ export const getTableByColumn = (column, hint) => {
       'checkedBy',
       'checkednotes',
       'currentSupplier',
+      'weight',
+      'createdAt',
+      'updatedAt',
     ].includes(column)
   ) {
-    // if (hint === 'requests') {
-    //   return 'requests'
-    // } else {
+    if (['buyer'].includes(column) && hint === 'orders') {
+      return 'orders'
+    }
     return 'products'
     // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy'].includes(column)) {
