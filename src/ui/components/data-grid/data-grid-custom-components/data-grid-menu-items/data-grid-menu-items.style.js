@@ -202,7 +202,7 @@ export const styles = theme => ({
   universalFilterBody: {
     width: '100%',
     minHeight: 50,
-    maxHeight: 245,
+    maxHeight: 255,
     overflowY: 'auto',
     textAlign: 'center',
     boxShadow: theme.palette.boxShadow.filter,
