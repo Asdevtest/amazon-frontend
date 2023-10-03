@@ -3,6 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '30px 40px',
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+    borderRadius: 7,
   },
 
   userWrapper: {

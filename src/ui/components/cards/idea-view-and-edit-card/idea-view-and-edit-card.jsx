@@ -349,8 +349,7 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.mediaBlock}>
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
-                  <PhotoAndFilesSlider bigSlider withoutFiles files={formFields?.media} />
-                  {/* <PhotoCarousel files={formFields?.media} /> */}
+                  <PhotoAndFilesSlider bigSlider showPreviews isEditable withoutFiles files={formFields?.media} />
                 </div>
               )}
 

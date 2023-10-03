@@ -75,11 +75,9 @@ export const MessagesView = observer(props => {
 
   const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
 
-  const isSafariBrowser = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-
   return (
     viewModel.languageTag && (
-      <div className={cx(classNames.wrapper, { [classNames.safari]: isSafariBrowser })}>
+      <div className={classNames.wrapper}>
         <div
           className={cx(classNames.leftSide, {
             [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,

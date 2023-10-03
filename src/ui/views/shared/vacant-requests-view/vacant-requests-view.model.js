@@ -518,6 +518,10 @@ export class VacantRequestsViewModel {
   }
 
   handleOpenRequestDetailModal(id) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
     this.getRequestDetail(id).then(() => {
       this.onTriggerOpenModal('showRequestDetailModal')
     })

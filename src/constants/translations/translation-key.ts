@@ -64,7 +64,7 @@ export enum TranslationKey {
   'Box number:' = 'Box number:',
   'Super' = 'Super',
   'Sizes from supplier:' = 'Sizes from supplier:',
-  'Sizes from storekeeper:' = 'Sizes from storekeeper:',
+  'Sizes from storekeeper' = 'Sizes from storekeeper',
   'Length' = 'Length',
   'Width' = 'Width',
   'Height' = 'Height',
@@ -2115,11 +2115,12 @@ export enum TranslationKey {
   'needs to be confirmed' = 'needs to be confirmed',
   'General notifications' = 'General notifications',
   'accepted in stock' = 'accepted in stock',
-  'Status of the proposal' = 'Status of the proposal',
+  'Status of the proposal by request ' = 'Status of the proposal by request ',
   'changed to' = 'changed to',
   'Deadline for request' = 'Deadline for request',
   'Request messages' = 'Request messages',
   'Close idea' = 'Close idea',
+  'Order info' = 'Order info',
   'Are you sure you want to send the result for rework?' = 'Are you sure you want to send the result for rework?',
   'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
   'Status changed' = 'Status changed',
@@ -2130,6 +2131,7 @@ export enum TranslationKey {
   'Simple' = 'Simple',
   'MEDIUM_DIFFICULTY_LEVEL' = 'MEDIUM_DIFFICULTY_LEVEL',
   'Hard' = 'Hard',
+  'Are you sure?' = 'Are you sure?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

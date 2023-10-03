@@ -264,6 +264,13 @@ export const styles = theme => ({
     overflow: 'hidden',
   },
 
+  productInfoText: {
+    fontSize: 13,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+
   asinText: {
     fontSize: 14,
     lineHeight: '19px',
@@ -1066,6 +1073,7 @@ export const styles = theme => ({
 
   sabUserRating: {
     marginLeft: 10,
+    opacity: '1 !important',
   },
 
   userRolesWrapper: {

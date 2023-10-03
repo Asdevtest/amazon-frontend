@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -56,6 +55,7 @@ export const FreelanceRequestDetailsModal = props => {
               userId={request?.createdBy?._id}
               rating={request?.createdBy?.rating}
               ratingSize={'small'}
+              customRatingClass={{ opacity: 1 }}
             />
           </Typography>
         </div>

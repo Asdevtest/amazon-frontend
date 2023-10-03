@@ -9,6 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 7,
     // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
+    fontWeight: 600,
   },
 
   defaultButton: {

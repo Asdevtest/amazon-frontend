@@ -65,6 +65,10 @@ export const calcVolumeWeightForBox = (box, coefficient) => {
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
     return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
   } else {
+    console.log('box.lengthCmSupplier', box.lengthCmSupplier)
+    console.log('box.widthCmSupplier', box.widthCmSupplier)
+    console.log('box.heightCmSupplier', box.heightCmSupplier)
+    console.log('coefficient', coefficient)
     return (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient || 0
   }
 }

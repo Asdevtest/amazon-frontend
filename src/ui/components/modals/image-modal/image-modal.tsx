@@ -5,6 +5,7 @@ import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
 
 import { useImageModalStyles } from '@components/modals/image-modal/image-modal.styles'
+import { ZoomModal } from '@components/modals/zoom-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
@@ -44,8 +45,8 @@ export const ImageModal: FC<Props> = ({
   const { classes: styles } = useImageModalStyles()
 
   const [isZoomActive, setIsZoomActive] = useState(false)
-  const [zoomImage, setZoomImage] = useState<string | null>(null)
   const [currentImage, setCurrentImage] = useState<string | ImageObjectType>()
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(currentImageIndex)
 
   useEffect(() => {
     setCurrentImage(imageList?.[currentImageIndex])
@@ -61,22 +62,15 @@ export const ImageModal: FC<Props> = ({
     }
   }
 
-  const onClickZoomBtn = () => {
-    if (typeof currentImage === 'string') {
-      setZoomImage(getAmazonImageUrl(currentImage, true))
-    } else if (currentImage) {
-      setZoomImage(currentImage.url)
-    }
-
-    setIsZoomActive(true)
-  }
-
-  const currentSlideTitle = `${currentImageIndex + 1}/${imageList?.length || 0}`
+  const currentSlideTitle = `${currentPhotoIndex + 1}/${imageList?.length || 0}`
 
   return (
     <Modal
       openModal={isOpenModal}
-      setOpenModal={handleOpenModal}
+      setOpenModal={() => {
+        handleOpenModal()
+        handleCurrentImageIndex(currentPhotoIndex)
+      }}
       missClickModalOn={undefined}
       isWarning={false}
       dialogContextClassName={styles.modalContainer}
@@ -98,9 +92,9 @@ export const ImageModal: FC<Props> = ({
                   <div
                     key={index}
                     className={cx(styles.imagesListItem, {
-                      [styles.imagesListItemActive]: index === currentImageIndex,
+                      [styles.imagesListItemActive]: index === currentPhotoIndex,
                     })}
-                    onClick={() => handleCurrentImageIndex(index)}
+                    onClick={() => setCurrentPhotoIndex(index)}
                   >
                     <img
                       src={imageUrl}
@@ -133,9 +127,9 @@ export const ImageModal: FC<Props> = ({
               <CustomSlider
                 isModal
                 isHideCounter
-                index={currentImageIndex}
+                index={currentPhotoIndex}
                 arrowSize="60px"
-                onChangeIndex={handleCurrentImageIndex}
+                onChangeIndex={setCurrentPhotoIndex}
               >
                 {imageList?.map((el, index) => (
                   <div key={index} className={cx(styles.sliderItem)}>
@@ -171,30 +165,26 @@ export const ImageModal: FC<Props> = ({
           {/* Controls */}
 
           <div className={styles.controls}>
-            <Button onClick={() => onClickDownloadBtn(imageList[currentImageIndex])}>
+            <Button onClick={() => onClickDownloadBtn(imageList[currentPhotoIndex])}>
               <DownloadOutlinedIcon />
             </Button>
 
-            <Button onClick={() => onClickZoomBtn()}>
+            <Button onClick={() => setIsZoomActive(true)}>
               <ZoomOutMapOutlinedIcon />
             </Button>
 
-            {controls ? controls(currentImageIndex, imageList[currentImageIndex]) : null}
+            {controls ? controls(currentPhotoIndex, imageList[currentPhotoIndex]) : null}
           </div>
         </div>
       </div>
 
-      {/* Zoom Modal */}
-
-      <Modal
-        openModal={isZoomActive}
-        setOpenModal={() => setIsZoomActive(prev => !prev)}
-        missClickModalOn={undefined}
-        isWarning={false}
-        dialogContextClassName={styles.zoomModal}
-      >
-        <img className={styles.zoomModalImage} src={zoomImage || '/assets/img/no-photo.jpg'} alt="Zoom" />
-      </Modal>
+      <ZoomModal
+        images={imageList}
+        currentImageIndex={currentPhotoIndex}
+        isOpenModal={isZoomActive}
+        setIsOpenModal={setIsZoomActive}
+        setCurrentImageIndex={setCurrentPhotoIndex}
+      />
     </Modal>
   )
 }

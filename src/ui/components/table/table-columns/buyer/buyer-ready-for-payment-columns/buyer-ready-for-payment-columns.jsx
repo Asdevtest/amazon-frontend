@@ -83,10 +83,11 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => (
         <MultilineTextCell
           text={params.value}
+          maxLength={50}
           color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
         />
       ),
-      width: 130,
+      width: 140,
       sortable: false,
 
       columnKey: columnnsKeys.client.ORDERS_STATUS,

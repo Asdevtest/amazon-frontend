@@ -1,6 +1,5 @@
-import React from 'react'
+import { FC } from 'react'
 
-import StarIcon from '@mui/icons-material/Star'
 import { Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -15,12 +14,11 @@ import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-interface ReviewCardProps {
+interface Props {
   review: FeedbackType
 }
 
-export const ReviewCard = (props: ReviewCardProps) => {
-  const { review } = props
+export const ReviewCard: FC<Props> = ({ review }) => {
   const { classes: styles } = useReviewCardStyles()
 
   return (
@@ -33,6 +31,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
           name={review.createdBy.name}
           userId={review.createdBy._id}
           rating={review.createdBy.rating}
+          customRatingClass={{ opacity: 1 }}
         />
         <div className={styles.headerItem}>
           <Typography className={styles.headerItemTitle}>{t(TranslationKey.Role)}</Typography>
@@ -40,13 +39,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
         </div>
         <div className={styles.headerItem}>
           <Typography className={styles.headerItemTitle}>{formatShortDateTime(review.createdAt)}</Typography>
-          <Rating
-            readOnly
-            classes={{ iconEmpty: styles.ratingEmpty }}
-            value={review.rating}
-            size={'small'}
-            emptyIcon={<StarIcon fontSize="inherit" />}
-          />
+          <Rating readOnly value={review.rating} size={'small'} />
         </div>
       </div>
 

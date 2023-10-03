@@ -62,7 +62,7 @@
   "Box number:": "Box number:",
   "Super": "Super",
   "Sizes from supplier:": "Sizes from supplier:",
-  "Sizes from storekeeper:": "Sizes from storekeeper:",
+  "Sizes from storekeeper": "Sizes from storekeeper",
   "Length": "Length",
   "Width": "Width",
   "Height": "Height",
@@ -2103,6 +2103,7 @@
   "Notification type": "Notification type",
   "Order redemption deadline": "Order redemption deadline",
   "expires": "expires",
+  "Order info": "Order info",
   "created the idea": "created the idea",
   "changed the status of the idea": "changed the status of the idea",
   "to": "to",
@@ -2113,7 +2114,7 @@
   "SEARCH_BY_TITLE": "Title",
   "General notifications": "General notifications",
   "accepted in stock": "accepted in stock",
-  "Status of the proposal": "Status of the proposal",
+  "Status of the proposal by request ": "Status of the proposal by request ",
   "changed to": "changed to",
   "Deadline for request": "Deadline for request",
   "Request messages": "Request messages",
@@ -2127,5 +2128,6 @@
   "Difficulty level": "Difficulty level",
   "Simple": "Simple",
   "MEDIUM_DIFFICULTY_LEVEL": "Medium",
-  "Hard": "Hard"
+  "Hard": "Hard",
+  "Are you sure?": "Are you sure?"
 }

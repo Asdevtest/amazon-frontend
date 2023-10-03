@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'

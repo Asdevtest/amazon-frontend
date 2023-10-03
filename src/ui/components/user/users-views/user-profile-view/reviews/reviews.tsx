@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,12 +11,11 @@ import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-interface ReviewsProps {
+interface Props {
   reviews: FeedbackType[]
 }
 
-export const Reviews = (props: ReviewsProps) => {
-  const { reviews } = props
+export const Reviews: FC<Props> = ({ reviews }) => {
   const { classes: styles } = useReviewsStyles()
 
   return (
