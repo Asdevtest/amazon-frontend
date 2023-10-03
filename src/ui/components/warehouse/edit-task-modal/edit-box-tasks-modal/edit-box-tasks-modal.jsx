@@ -186,7 +186,6 @@ export const EditBoxTasksModal = ({
       }
 
       storekeeperWarehouseSubmit(box._id, lastStepEditBox)
-      // console.log('lastStepEditBox', lastStepEditBox)
     } else {
       const lastStepEditBox = {
         ...editingBox,

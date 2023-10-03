@@ -294,8 +294,6 @@ export class MyProposalsViewModel {
             }
           })
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-        // console.log('this.requests', this.requests)
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

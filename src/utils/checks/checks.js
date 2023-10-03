@@ -54,27 +54,27 @@ export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logics
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
 export const checkIsImageLink = link =>
-  link?.endsWith('.png') ||
-  link?.endsWith('.PNG') ||
-  link?.endsWith('.jpg') ||
-  link?.endsWith('.ico') ||
-  link?.endsWith('.gif') ||
-  link?.endsWith('.svg') ||
-  link?.endsWith('.webp') ||
-  link?.endsWith('.avif') ||
-  link?.endsWith('.jpeg') ||
-  link?.endsWith('.rotated-image') ||
-  link?.endsWith('.jfif') ||
+  link?.endsWith('png') ||
+  link?.endsWith('PNG') ||
+  link?.endsWith('jpg') ||
+  link?.endsWith('ico') ||
+  link?.endsWith('gif') ||
+  link?.endsWith('svg') ||
+  link?.endsWith('webp') ||
+  link?.endsWith('avif') ||
+  link?.endsWith('jpeg') ||
+  link?.endsWith('rotated-image') ||
+  link?.endsWith('jfif') ||
   link?.includes('placeimg.com')
 
 export const checkIsDocumentLink = link =>
-  link?.endsWith('.doc') ||
-  link?.endsWith('.docx') ||
-  link?.endsWith('.pdf') ||
-  link?.endsWith('.xlsx') ||
-  link?.endsWith('.xls') ||
-  link?.endsWith('.txt') ||
-  link?.endsWith('.mp4') ||
+  link?.endsWith('doc') ||
+  link?.endsWith('docx') ||
+  link?.endsWith('pdf') ||
+  link?.endsWith('xlsx') ||
+  link?.endsWith('xls') ||
+  link?.endsWith('txt') ||
+  link?.endsWith('mp4') ||
   (link?.includes('.com') && !link?.includes('placeimg.com'))
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))

@@ -12,15 +12,15 @@ import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './slider.style'
+import { IUploadFile } from '@typings/upload-file'
 
-import { UploadFile } from '../photo-and-files-slider.types'
+import { useClassNames } from './slider.style'
 
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
 import { Arrows, ArrowsType } from './slider.type'
 
 interface Props {
-  slides: Array<string | UploadFile>
+  slides: Array<string | IUploadFile>
   currentIndex: number
   setCurrentIndex: Dispatch<SetStateAction<number>>
   smallSlider?: boolean
@@ -65,15 +65,10 @@ export const Slider: FC<Props> = ({
   const isDisableArrowRight = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === slides.length - 1
   const isDisableArrowLeft = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
   const isNotElements = slides.length === 0
-  const isImageType =
-    !withoutFiles &&
-    slides.every(slide => {
-      if (typeof slide === 'string') {
-        return checkIsImageLink(slide)
-      } else if ('data_url' in slide) {
-        return !!slide.data_url
-      }
-    })
+  const isImagesType =
+    !withoutFiles && slides.every(slide => checkIsImageLink(typeof slide === 'string' ? slide : slide.file.name))
+  const isImageType = (slide: string | IUploadFile): boolean =>
+    checkIsImageLink(typeof slide === 'string' ? slide : slide.file.name)
 
   return (
     <div
@@ -128,7 +123,7 @@ export const Slider: FC<Props> = ({
 
                   return (
                     <div key={index} className={classNames.slideWrapper}>
-                      {isImageType ? (
+                      {isImageType(slide) ? (
                         <img
                           src={typeof slide === 'string' ? slide : slide.data_url}
                           alt={`Slide ${currentIndex}`}
@@ -210,7 +205,7 @@ export const Slider: FC<Props> = ({
             })}
             style={{ width: customSlideWidth, height: customSlideHeight }}
           >
-            {isImageType ? (
+            {isImagesType ? (
               <NoPhotoIcon className={classNames.slide} />
             ) : (
               <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
@@ -225,7 +220,7 @@ export const Slider: FC<Props> = ({
                 [classNames.bigText]: bigSlider,
               })}
             >
-              {isImageType ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
+              {isImagesType ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
             </p>
           )}
         </div>
