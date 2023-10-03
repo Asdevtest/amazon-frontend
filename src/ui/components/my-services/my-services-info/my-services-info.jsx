@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 
-import { Avatar, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Rating, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,7 +18,7 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
   const { classes: classNames } = useClassNames()
 
   return (
-    <Paper className={classNames.root}>
+    <div className={classNames.root}>
       <div className={classNames.userWrapper}>
         <div className={classNames.userInfoAndFooterWrapper}>
           <div className={classNames.userInfoWrapper}>
@@ -82,6 +82,6 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
           </Button>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

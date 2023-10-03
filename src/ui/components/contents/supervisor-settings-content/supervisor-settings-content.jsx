@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useRef } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Tabs } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,7 +13,6 @@ import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'

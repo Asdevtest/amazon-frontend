@@ -6,6 +6,7 @@ export const styles = theme => ({
 
   filterBtnWrapper: {
     marginBottom: '10px',
+    paddingLeft: '8px',
   },
 
   filterBtn: {

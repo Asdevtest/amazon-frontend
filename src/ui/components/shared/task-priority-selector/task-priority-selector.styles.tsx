@@ -2,8 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useTaskPrioritySelectorStyles = makeStyles()(theme => ({
   wrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
     display: 'flex',
     gap: '10px',
     flexWrap: 'wrap',

@@ -1,3 +1,4 @@
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 
 import { t } from '@utils/translations'
@@ -99,56 +100,82 @@ export const adminExchangeStatusesByCategory = {
   ],
 }
 
-export const adminOrdersBtnsConfig = () => [
+export const AdminOrdersStatusesCategories = {
+  all: 'all',
+  readToProcess: 'readToProcess',
+  atProcess: 'atProcess',
+  paid: 'paid',
+  trackNumberIssued: 'trackNumberIssued',
+  inStock: 'inStock',
+  canceledByBuyer: 'canceledByBuyer',
+  needConfirming: 'needConfirming',
+  canceledByClient: 'canceledByClient',
+  verifyReceipt: 'verifyReceipt',
+}
+
+export const adminOrdersStatusesByCategory = {
+  [AdminOrdersStatusesCategories.all]: [
+    OrderStatusByKey[OrderStatus.READY_TO_PROCESS],
+    OrderStatusByKey[OrderStatus.AT_PROCESS],
+    OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+    OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+    OrderStatusByKey[OrderStatus.IN_STOCK],
+    OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+    OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+    OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+    OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+  ],
+  [AdminOrdersStatusesCategories.readToProcess]: [OrderStatusByKey[OrderStatus.READY_TO_PROCESS]],
+  [AdminOrdersStatusesCategories.atProcess]: [OrderStatusByKey[OrderStatus.AT_PROCESS]],
+  [AdminOrdersStatusesCategories.paid]: [OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]],
+  [AdminOrdersStatusesCategories.trackNumberIssued]: [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]],
+  [AdminOrdersStatusesCategories.inStock]: [OrderStatusByKey[OrderStatus.IN_STOCK]],
+  [AdminOrdersStatusesCategories.canceledByBuyer]: [OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]],
+  [AdminOrdersStatusesCategories.needConfirming]: [OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]],
+  [AdminOrdersStatusesCategories.canceledByClient]: [OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]],
+  [AdminOrdersStatusesCategories.verifyReceipt]: [OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]],
+}
+
+export const adminOrdersBtnsConfig = [
   {
-    label: t(TranslationKey['Available for processing']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#007a07',
+    label: () => t(TranslationKey['Available for processing']),
+    value: AdminOrdersStatusesCategories.readToProcess,
   },
   {
-    label: t(TranslationKey['The buyer took the order']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['The buyer took the order']),
+    value: AdminOrdersStatusesCategories.atProcess,
   },
   {
-    label: t(TranslationKey['The buyer paid for the order']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['The buyer paid for the order']),
+    value: AdminOrdersStatusesCategories.paid,
   },
   {
-    label: t(TranslationKey['Track number issued']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['Track number issued']),
+    value: AdminOrdersStatusesCategories.trackNumberIssued,
   },
   {
-    label: t(TranslationKey['Came to the warehouse']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['Came to the warehouse']),
+    value: AdminOrdersStatusesCategories.inStock,
   },
   {
-    label: t(TranslationKey['Return Order']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['Return Order']),
+    value: AdminOrdersStatusesCategories.canceledByBuyer,
   },
 
   {
-    label: t(TranslationKey['Additional payment required']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['Additional payment required']),
+    value: AdminOrdersStatusesCategories.needConfirming,
   },
   {
-    label: t(TranslationKey['Canceled by Client']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['Canceled by Client']),
+    value: AdminOrdersStatusesCategories.canceledByClient,
   },
   {
-    label: t(TranslationKey['Verify receipt']),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey['Verify receipt']),
+    value: AdminOrdersStatusesCategories.verifyReceipt,
   },
   {
-    label: t(TranslationKey.All),
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
+    label: () => t(TranslationKey.All),
+    value: AdminOrdersStatusesCategories.all,
   },
 ]

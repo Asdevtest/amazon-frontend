@@ -113,7 +113,7 @@ export const BeforeAfterBox = ({ box, isCurrentBox, taskType, volumeWeightCoeffi
           ) : (
             <div className={classNames.demensionsWrapper}>
               <Typography className={classNames.categoryTitle}>
-                {t(TranslationKey['Sizes from storekeeper:'])}
+                {`${t(TranslationKey['Sizes from storekeeper'])}:`}
               </Typography>
               <Typography>
                 {t(TranslationKey.Length) + ': '}

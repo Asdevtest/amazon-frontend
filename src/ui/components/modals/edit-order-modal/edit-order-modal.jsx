@@ -234,6 +234,12 @@ export const EditOrderModal = observer(
       setSelectedSupplier(null)
     }, [order])
 
+    useEffect(() => {
+      if (isPendingOrder) {
+        onClickUpdateButton()
+      }
+    }, [orderFields.orderSupplier])
+
     const onRemoveForCreationBox = boxIndex => {
       const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
       setBoxesForCreation(updatedNewBoxes)
