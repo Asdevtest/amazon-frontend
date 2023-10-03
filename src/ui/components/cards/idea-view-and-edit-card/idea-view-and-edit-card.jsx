@@ -10,7 +10,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
@@ -89,7 +89,7 @@ export const IdeaViewAndEditCard = observer(
     const [showFullCard, setShowFullCard] = useState(false)
 
     const [formFields, setFormFields] = useState({})
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
       curIdea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
     )
@@ -223,7 +223,7 @@ export const IdeaViewAndEditCard = observer(
     const handleChange = newAlignment => {
       setSizeSetting(newAlignment)
 
-      if (newAlignment === sizesType.INCHES) {
+      if (newAlignment === unitsOfChangeOptions.US) {
         setFormFields({
           ...formFields,
           width: toFixed(formFields.width / inchesCoefficient, 2) || '',
@@ -245,14 +245,17 @@ export const IdeaViewAndEditCard = observer(
         ...formFields,
 
         width:
-          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.width * inchesCoefficient) : formFields.width) ||
-          0,
+          (sizeSetting === unitsOfChangeOptions.US
+            ? roundSafely(formFields.width * inchesCoefficient)
+            : formFields.width) || 0,
         height:
-          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.height * inchesCoefficient) : formFields.height) ||
-          0,
+          (sizeSetting === unitsOfChangeOptions.US
+            ? roundSafely(formFields.height * inchesCoefficient)
+            : formFields.height) || 0,
         length:
-          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.length * inchesCoefficient) : formFields.length) ||
-          0,
+          (sizeSetting === unitsOfChangeOptions.US
+            ? roundSafely(formFields.length * inchesCoefficient)
+            : formFields.length) || 0,
       }
 
       return res
@@ -263,11 +266,17 @@ export const IdeaViewAndEditCard = observer(
         ...formFields,
 
         width:
-          (sizeSetting === sizesType.CM ? roundSafely(formFields.width / inchesCoefficient) : formFields.width) || 0,
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? roundSafely(formFields.width / inchesCoefficient)
+            : formFields.width) || 0,
         height:
-          (sizeSetting === sizesType.CM ? roundSafely(formFields.height / inchesCoefficient) : formFields.height) || 0,
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? roundSafely(formFields.height / inchesCoefficient)
+            : formFields.height) || 0,
         length:
-          (sizeSetting === sizesType.CM ? roundSafely(formFields.length / inchesCoefficient) : formFields.length) || 0,
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? roundSafely(formFields.length / inchesCoefficient)
+            : formFields.length) || 0,
       }
 
       return res
@@ -580,8 +589,8 @@ export const IdeaViewAndEditCard = observer(
                           <CustomSwitcher
                             condition={sizeSetting}
                             switcherSettings={[
-                              { label: () => 'In', value: sizesType.INCHES },
-                              { label: () => 'Cm', value: sizesType.CM },
+                              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
                             ]}
                             changeConditionHandler={condition => handleChange(condition)}
                           />
