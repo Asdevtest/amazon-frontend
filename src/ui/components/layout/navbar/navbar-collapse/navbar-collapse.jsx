@@ -12,6 +12,7 @@ import { navBarActiveCategory } from '@constants/navigation/navbar-active-catego
 import { Button } from '@components/shared/buttons/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
+import { getSumPropertiesObject } from '@utils/object'
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
 import { useClassNames } from './navbar-collapse.style'
@@ -207,6 +208,14 @@ export const NavbarCollapse = ({
         return (
           <div className={cx(classNames.bigBadge, classNames.redBadge)}>
             {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+          </div>
+        )
+      case '/freelancer/freelance/vacant-requests':
+        return <div className={cx(classNames.bigBadge, classNames.redBadge)}>{userInfo?.vacantRequests}</div>
+      case '/freelancer/freelance/my-proposals':
+        return (
+          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
+            {getSumPropertiesObject(userInfo?.myProposals)}
           </div>
         )
     }

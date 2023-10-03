@@ -15,7 +15,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FeedBackModal } from '@components/modals/feedback-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Modal } from '@components/shared/modal'
 import { Feedback } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'

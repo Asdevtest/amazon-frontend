@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+export type MyProposalsType = Record<string, number>
 
 export interface IUser {
   active: boolean
@@ -14,6 +15,7 @@ export interface IUser {
   freelanceNotices: any[] // find and add
   ideas: Record<string, number>
   masterUser: string | undefined
+  myProposals: MyProposalsType
   name: string
   needConfirmPriceChange: Record<string, number>
   needUpdateTariff: Record<string, number>
