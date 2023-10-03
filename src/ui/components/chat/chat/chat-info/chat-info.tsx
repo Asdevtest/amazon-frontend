@@ -16,7 +16,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { imagesRegex, imagesWithPreviewRegex } from '@utils/text'
+import { imagesWithPreviewRegex } from '@utils/text'
 import { t } from '@utils/translations'
 
 interface ChatAttachmentItemTypes {
