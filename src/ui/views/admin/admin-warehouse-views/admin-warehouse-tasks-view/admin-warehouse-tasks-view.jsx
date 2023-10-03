@@ -7,6 +7,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -33,6 +34,8 @@ export const AdminWarehouseTasksViewRaw = props => {
         <MemoDataGrid
           pagination
           useResizeContainer
+          sortingMode="server"
+          paginationMode="server"
           localeText={getLocalizationByLanguageTag()}
           classes={{
             row: classNames.row,
@@ -47,16 +50,26 @@ export const AdminWarehouseTasksViewRaw = props => {
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
+          rowCount={viewModel.rowsCount}
+          getRowId={row => row._id}
           getRowHeight={() => 'auto'}
           slots={{
             toolbar: DataGridCustomToolbar,
             columnMenuIcon: FilterAltOutlinedIcon,
+            columnMenu: DataGridCustomColumnMenuComponent,
           }}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
