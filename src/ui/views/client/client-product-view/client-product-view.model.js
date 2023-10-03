@@ -236,7 +236,9 @@ export class ClientProductViewModel {
   async onClickGetProductsToBind(option) {
     try {
       const result = await ClientModel.getProductPermissionsData(
-        option === ProductVariation.PARENT ? { isChild: false } : { isChild: false, isParent: false },
+        option === ProductVariation.PARENT
+          ? { isChild: false }
+          : { isChild: false, isParent: false, shopId: this.product?.shopIds?.[0] || null },
       )
       runInAction(() => {
         this.productsToBind = result

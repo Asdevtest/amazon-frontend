@@ -64,7 +64,7 @@ export enum TranslationKey {
   'Box number:' = 'Box number:',
   'Super' = 'Super',
   'Sizes from supplier:' = 'Sizes from supplier:',
-  'Sizes from storekeeper:' = 'Sizes from storekeeper:',
+  'Sizes from storekeeper' = 'Sizes from storekeeper',
   'Length' = 'Length',
   'Width' = 'Width',
   'Height' = 'Height',
@@ -2120,11 +2120,13 @@ export enum TranslationKey {
   'Deadline for request' = 'Deadline for request',
   'Request messages' = 'Request messages',
   'Close idea' = 'Close idea',
+  'Order info' = 'Order info',
   'Are you sure you want to send the result for rework?' = 'Are you sure you want to send the result for rework?',
   'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
   'Status changed' = 'Status changed',
   'This product has a parent product' = 'This product has a parent product',
   'Mark as completed' = 'Mark as completed',
+  'Are you sure?' = 'Are you sure?',
   'Supervisor comment' = 'Supervisor comment',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

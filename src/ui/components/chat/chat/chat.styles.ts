@@ -220,7 +220,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'none',
 
       'em-emoji-picker': {
-        width: 280,
+        // width: 280,
       },
     },
   },
@@ -281,8 +281,6 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.1)',
     },
   },
-
-  messageToReplySubWrapper: {},
 
   hideElement: {
     display: 'none',

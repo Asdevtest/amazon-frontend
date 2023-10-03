@@ -62,7 +62,7 @@
   "Box number:": "Коробка номер:",
   "Super": "Супер",
   "Sizes from supplier:": "Размеры от поставщика:",
-  "Sizes from storekeeper:": "Размеры от склада:",
+  "Sizes from storekeeper": "Размеры от склада",
   "Length": "Длина",
   "Width": "Ширина",
   "Height": "Высота",
@@ -808,7 +808,7 @@
   "Box length in ": "Длина коробки в ",
   "Box width in ": "Ширина коробки в ",
   "Box height in ": "Высота коробки в ",
-  "inches": "дюймах",
+  "inches": "дюймов",
   "Box merge task created": "Создана задача на объединение коробок",
   "Box splitting task created": "Создана задача на разъединение коробки",
   "Average delivery cost per pc": "Средняя стоимость доставки за шт",
@@ -2107,6 +2107,8 @@
   "Notification type": "Тип уведомления",
   "Order redemption deadline": "Срок выкупа заказа",
   "expires": "истекает",
+  "Close idea": "Закрыть идею",
+  "Order info": "Информация о заказе",
   "created the idea": "создал идею",
   "changed the status of the idea": "изменил статус идеи",
   "to": "на",
@@ -2127,5 +2129,6 @@
   "Status changed": "Статус изменен",
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
+  "Are you sure?": "Вы уверены?",
   "Supervisor comment": "Комментарий супервайзера"
 }
