@@ -25,9 +25,9 @@ export const difficultyLevelByKey: Record<string, number> = objectFlip(difficult
 export const difficultyLevelTranslate = (level: difficultyLevel) => {
   switch (level) {
     case difficultyLevel.EASY:
-      return t(TranslationKey.Simple)
+      return t(TranslationKey.Easy)
     case difficultyLevel.NORMAL:
-      return t(TranslationKey.MEDIUM_DIFFICULTY_LEVEL)
+      return t(TranslationKey.Normal)
     case difficultyLevel.HARD:
       return t(TranslationKey.Hard)
   }

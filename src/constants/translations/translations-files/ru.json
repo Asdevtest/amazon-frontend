@@ -2130,8 +2130,8 @@
   "Mark as completed": "Отметить как выполненную",
   "Number of rework": "Кол-во доработок",
   "Difficulty level": "Уровень сложности",
-  "Simple": "Просто",
-  "MEDIUM_DIFFICULTY_LEVEL": "Средне",
+  "Easy": "Просто",
+  "Normal": "Средне",
   "Hard": "Сложно",
   "Are you sure?": "Вы уверены?"
 }

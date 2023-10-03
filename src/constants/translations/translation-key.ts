@@ -2128,8 +2128,8 @@ export enum TranslationKey {
   'Mark as completed' = 'Mark as completed',
   'Number of rework' = 'Number of rework',
   'Difficulty level' = 'Difficulty level',
-  'Simple' = 'Simple',
-  'MEDIUM_DIFFICULTY_LEVEL' = 'MEDIUM_DIFFICULTY_LEVEL',
+  'Easy' = 'Easy',
+  'Normal' = 'Normal',
   'Hard' = 'Hard',
   'Are you sure?' = 'Are you sure?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

@@ -1,4 +1,9 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,6 +22,16 @@ import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@u
 import { t } from '@utils/translations'
 
 export const FreelancerVacantRequestColumns = handlers => [
+  {
+    field: 'title',
+    headerName: t(TranslationKey['Request title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 159,
+
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
@@ -44,13 +59,21 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'title',
-    headerName: t(TranslationKey['Request title']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 159,
+    field: 'taskComplexity',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
+    headerName: t(TranslationKey['Difficulty level']),
 
-    columnKey: columnnsKeys.shared.STRING,
+    renderCell: params => (
+      <MultilineTextCell
+        text={difficultyLevelTranslate(difficultyLevelByCode[params.value])}
+        customTextStyles={{
+          color: colorByDifficultyLevel(difficultyLevelByCode[params.value]),
+          fontWeight: 600,
+        }}
+      />
+    ),
+    width: 95,
+    // columnKey: columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS,
   },
 
   {

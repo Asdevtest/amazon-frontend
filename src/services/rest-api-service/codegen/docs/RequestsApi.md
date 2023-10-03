@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20085] apiV1RequestsCustomGet(opts)
+> [InlineResponse20084] apiV1RequestsCustomGet(opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20085]**](InlineResponse20085.md)
+[**[InlineResponse20084]**](InlineResponse20084.md)
 
 ### Authorization
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20086 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20085 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить уникальную заявку по его guid.
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20086**](InlineResponse20086.md)
+[**InlineResponse20085**](InlineResponse20085.md)
 
 ### Authorization
 
