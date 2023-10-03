@@ -103,6 +103,24 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
+    field: 'humanFriendlyId',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.ID)}
+        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
+    type: 'number',
+    width: 62,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
     field: 'requestCreatedBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,

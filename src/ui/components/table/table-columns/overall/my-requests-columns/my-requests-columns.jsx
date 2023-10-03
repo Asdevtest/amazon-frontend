@@ -63,7 +63,6 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
 
     filterable: false,
     sortable: false,
-    align: 'center',
 
     columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },

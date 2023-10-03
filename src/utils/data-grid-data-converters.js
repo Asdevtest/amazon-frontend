@@ -1072,6 +1072,7 @@ export const myProposalsDataConverter = data =>
     timeoutAt: item.request.timeoutAt,
     taskComplexity: item.request.taskComplexity,
     status: item.status,
+    humanFriendlyId: item.request.humanFriendlyId,
 
     originalData: item,
     id: item._id ? item._id : index,
