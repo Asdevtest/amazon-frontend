@@ -11,7 +11,6 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -344,8 +343,9 @@ export const Chat: FC<Props> = observer(
             >
               <div className={classNames.emojisWrapper}>
                 <Picker
-                  theme={SettingsModel.uiTheme === UiTheme.light ? 'light' : 'dark'}
                   data={data}
+                  perLine={isTabletResolution ? 7 : 9}
+                  theme={SettingsModel.uiTheme}
                   locale={SettingsModel.languageTag}
                   onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
                 />
