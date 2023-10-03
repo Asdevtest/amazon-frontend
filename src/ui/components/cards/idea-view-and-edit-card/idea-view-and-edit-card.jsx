@@ -475,6 +475,8 @@ export const IdeaViewAndEditCard = observer(
 
                     <Field
                       multiline
+                      minRows={10}
+                      maxRows={10}
                       disabled={disableFields}
                       labelClasses={classNames.spanLabel}
                       className={classNames.criterionsField}
@@ -482,12 +484,6 @@ export const IdeaViewAndEditCard = observer(
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
-                      sx={{
-                        '& .MuiInputBase-inputMultiline': {
-                          height: '100% !important',
-                          width: '100% !important',
-                        },
-                      }}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
