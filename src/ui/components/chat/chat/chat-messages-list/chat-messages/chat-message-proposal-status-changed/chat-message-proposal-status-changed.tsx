@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
-import { formatDateTime, formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -51,7 +51,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
     return (
       <div className={classNames.root}>
         <p className={classNames.statusTextDesciption}>
-          {`${t(TranslationKey['The proposal is accepted by the Client and taken on work'])} ${formatDateTime(
+          {`${t(TranslationKey['The proposal is accepted by the Client and taken on work'])} ${formatNormDateTime(
             message.createdAt,
           )}`}
         </p>
