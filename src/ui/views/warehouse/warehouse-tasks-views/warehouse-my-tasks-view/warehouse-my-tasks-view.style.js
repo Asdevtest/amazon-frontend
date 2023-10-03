@@ -1,6 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    height: '70vh',
+    height: '72vh',
   },
 
   headerWrapper: {
