@@ -158,12 +158,12 @@ export const ShopsViewRaw = props => {
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to delete the store?'])}
+        title={viewModel.confirmModalSettings.title}
+        message={viewModel.confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onSubmitRemoveShop}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
       />
     </React.Fragment>
   )
