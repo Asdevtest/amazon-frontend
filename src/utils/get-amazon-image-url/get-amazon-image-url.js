@@ -19,6 +19,8 @@ export const getAmazonImageUrl = (str, big) => {
       return '/assets/img/no-photo.jpg'
     } else if (str.includes('base64')) {
       return str
+    } else if (str.includes(amazonImageUrlBigPostfix) || str.includes(amazonImageUrlSmallPostfix)) {
+      return str
     } else {
       return `${amazonImageUrlPrefix}${str}${big ? amazonImageUrlBigPostfix : amazonImageUrlSmallPostfix}`
     }
