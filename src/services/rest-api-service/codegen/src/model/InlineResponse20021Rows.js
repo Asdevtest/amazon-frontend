@@ -14,6 +14,12 @@
 import ApiClient from '../ApiClient';
 import InlineResponse20016 from './InlineResponse20016';
 import InlineResponse20021Group from './InlineResponse20021Group';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
+import ApiV1BoxesClientsInTransferGuidItems from './ApiV1BoxesClientsInTransferGuidItems';
+import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTariff';
 
 /**
  * The InlineResponse20021Rows model module.

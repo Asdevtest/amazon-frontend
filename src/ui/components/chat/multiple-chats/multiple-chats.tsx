@@ -10,6 +10,8 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
+import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
+import { SearchInput } from '@components/shared/search-input'
 import { NoSelectedChat } from '@components/shared/svg-icons'
 
 import { isNotUndefined } from '@utils/checks'
@@ -22,6 +24,7 @@ import { useClassNames } from './multiple-chats.styles'
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
 import { ChatsList } from '../chats-list'
+import { SearchResult } from '../search-result'
 
 export interface IFile {
   data_url: string
@@ -45,12 +48,14 @@ interface Props {
   isFreelanceOwner: boolean
   searchFilter: string
   chats: ChatContract[]
+  curFoundedMessage: ChatContract
+  mutedChats: string[]
   userId: string
+  mesSearchValue: string
   currentOpponent?: CurrentOpponent
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   typingUsers?: OnTypingMessageResponse[]
-  toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
@@ -62,6 +67,10 @@ interface Props {
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
+  onToggleMuteCurrentChat: () => void
+  onChangeMesSearchValue: () => void
+  onChangeCurFoundedMessage: () => void
+  onCloseMesSearchValue: () => void
 }
 
 export const MultipleChats = observer(
@@ -70,14 +79,16 @@ export const MultipleChats = observer(
       {
         isFreelanceOwner,
         searchPhrase,
-        toScrollMesId,
         messagesFound,
         typingUsers,
+        mesSearchValue,
         searchFilter,
         chats,
         userId,
+        mutedChats,
         chatSelectedId,
         chatMessageHandlers,
+        curFoundedMessage,
         updateData,
         onSubmitMessage,
         onClickChat,
@@ -87,6 +98,10 @@ export const MultipleChats = observer(
         onClickAddUsersToGroupChat,
         onRemoveUsersFromGroupChat,
         onClickEditGroupChatInfo,
+        onToggleMuteCurrentChat,
+        onChangeMesSearchValue,
+        onChangeCurFoundedMessage,
+        onCloseMesSearchValue,
       },
       ref,
     ) => {
@@ -112,6 +127,8 @@ export const MultipleChats = observer(
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
       const isChatSelectedAndFound = isNotUndefined(chatSelectedId) && findChatByChatId
+      const isMuteCurrentChat = mutedChats.includes(findChatByChatId ? findChatByChatId?._id : '')
+      const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
 
       return (
         <div ref={ref} className={classNames.wrapper}>
@@ -126,11 +143,38 @@ export const MultipleChats = observer(
               isFreelanceOwner={isFreelanceOwner}
               chats={filteredChats}
               chatSelectedId={chatSelectedId}
+              mutedChats={mutedChats}
               onClickChat={onClickChat}
             />
           </div>
 
-          <div className={cx(classNames.rightSide, { [classNames.mobileResolution]: !isChatSelectedAndFound })}>
+          <div className={classNames.rightSide}>
+            {isChatSelectedAndFound && (
+              <div className={classNames.header}>
+                <div className={classNames.searchMessageContainer}>
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    placeholder={t(TranslationKey['Message Search'])}
+                    value={mesSearchValue}
+                    onChange={onChangeMesSearchValue}
+                  />
+
+                  {messagesFound?.length ? (
+                    <SearchResult
+                      curFoundedMessageIndex={curFoundedMessageIndex}
+                      messagesFound={messagesFound}
+                      onClose={onCloseMesSearchValue}
+                      onChangeCurFoundedMessage={onChangeCurFoundedMessage}
+                    />
+                  ) : mesSearchValue ? (
+                    <p className={classNames.searchResult}>{t(TranslationKey['Not found'])}</p>
+                  ) : null}
+                </div>
+
+                <ChatSoundNotification isMuteChat={isMuteCurrentChat} onToggleMuteChat={onToggleMuteCurrentChat} />
+              </div>
+            )}
+
             {isChatSelectedAndFound ? (
               <Chat
                 isFreelanceOwner={isFreelanceOwner}
@@ -138,9 +182,10 @@ export const MultipleChats = observer(
                 chat={findChatByChatId}
                 messages={findChatByChatId.messages}
                 chatMessageHandlers={chatMessageHandlers}
-                toScrollMesId={toScrollMesId}
+                toScrollMesId={curFoundedMessage?._id}
                 messagesFound={messagesFound}
                 searchPhrase={searchPhrase}
+                classNamesWrapper={classNames.chatWrapper}
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
                 currentOpponent={currentOpponent}

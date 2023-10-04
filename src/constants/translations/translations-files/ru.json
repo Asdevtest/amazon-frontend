@@ -2128,5 +2128,8 @@
   "Status changed": "Статус изменен",
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
-  "Are you sure?": "Вы уверены?"
+  "Are you sure?": "Вы уверены?",
+  "Remove destination restriction": "Снять ограничение по пункту назначения",
+  "Wish to change a destination?": "Желаете изменить пункт назначения?",
+  "Price without delivery": "Цена без доставки"
 }

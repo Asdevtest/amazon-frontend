@@ -92,7 +92,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey["Supervisor's comment"]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign twoLines text={params.value} />,
 
     filterable: false,
     sortable: false,

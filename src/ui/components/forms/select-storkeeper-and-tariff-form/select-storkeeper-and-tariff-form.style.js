@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '80vw',
+    height: '665px',
   },
   indicator: {
     backgroundColor: '#1da1f2',
@@ -51,7 +52,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   clearBtnWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     margin: '15px 0 0',
   },
 
@@ -61,5 +62,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
   tabsWrapper: {
     padding: '10px 0',
+  },
+
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  oneItemWrapper: {
+    justifyContent: 'flex-end',
   },
 }))
