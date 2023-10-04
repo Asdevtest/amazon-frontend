@@ -65,7 +65,7 @@ export const adminExchangeColumns = () => [
     ),
 
     width: 250,
-    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
+    columnKey: columnnsKeys.admin.STRATEGY_STATUS,
     sortable: false,
   },
 
