@@ -65,10 +65,6 @@ export const calcVolumeWeightForBox = (box, coefficient) => {
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
     return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
   } else {
-    console.log('box.lengthCmSupplier', box.lengthCmSupplier)
-    console.log('box.widthCmSupplier', box.widthCmSupplier)
-    console.log('box.heightCmSupplier', box.heightCmSupplier)
-    console.log('coefficient', coefficient)
     return (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient || 0
   }
 }
@@ -90,17 +86,6 @@ export const getTariffRateForBoxOrOrder = box => {
 }
 
 export const calcFinalWeightForBox = (box, coefficient) =>
-  // Math.max(
-  //   parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
-  //   parseFloat(
-  //     isShipping
-  //       ? box.deliveryMass * box.amount
-  //       : box.weighGrossKgWarehouse
-  //       ? box.weighGrossKgWarehouse
-  //       : box.weighGrossKgSupplier,
-  //   ) || 0,
-  // )
-
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
     parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
