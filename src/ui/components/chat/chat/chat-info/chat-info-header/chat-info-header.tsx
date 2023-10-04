@@ -1,6 +1,5 @@
-import React from 'react'
-
-import { Avatar, Typography } from '@mui/material'
+import { observer } from 'mobx-react'
+import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,36 +12,35 @@ import { Pencil } from '@components/shared/svg-icons'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-interface ChatInfoHeaderProps {
+interface Props {
   chat: ChatContract
-  currentOpponent?: CurrentOpponent
-  isGroupChat?: boolean
   userId: string
-  onClickEditGroupChatInfo: () => void
+  onClickEditGroupChatInfo: VoidFunction
+  isGroupChat?: boolean
+  currentOpponent?: CurrentOpponent
 }
 
-export const ChatInfoHeader = (props: ChatInfoHeaderProps) => {
+export const ChatInfoHeader: FC<Props> = observer(props => {
   const { chat, currentOpponent, isGroupChat, userId, onClickEditGroupChatInfo } = props
   const { classes: styles } = useChatInfoHeaderStyles()
 
+  const chatAvatar =
+    !isGroupChat && currentOpponent
+      ? getUserAvatarSrc(currentOpponent?._id)
+      : chat?.info?.image || '/assets/img/no-photo.jpg'
+
   return (
     <div className={styles.chatHeader}>
-      <Avatar
-        classes={{ root: styles.chatAvatar }}
-        variant="rounded"
-        src={!isGroupChat ? getUserAvatarSrc(currentOpponent?._id) : chat?.info?.image || '/assets/img/no-photo.jpg'}
-      />
+      <img src={chatAvatar} alt="chat avatar" className={styles.chatAvatar} />
       <div className={styles.chatHeaderOverlay}>
-        <Typography className={styles.chatTitle}>
-          {(isGroupChat && chat?.info?.title) || currentOpponent?.name}
-        </Typography>
-        <Typography className={styles.chatSubTitle}>
+        <p className={styles.chatTitle}>{(isGroupChat && chat?.info?.title) || currentOpponent?.name}</p>
+        <p className={styles.chatSubTitle}>
           {isGroupChat && `${chat?.users?.length} ${t(TranslationKey.Participants).toLocaleLowerCase()}`}
-        </Typography>
+        </p>
         {isGroupChat && userId === chat.info?.createdBy && (
           <Pencil className={styles.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
         )}
       </div>
     </div>
   )
-}
+})

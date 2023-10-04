@@ -2,6 +2,8 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
+import Checkbox from '@mui/material/Checkbox'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -15,12 +17,11 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './select-storkeeper-and-tariff-form.style'
 
-import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
-import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
+import { warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
 import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
 import { WeightBasedTariffFormColumns } from './weight-based-tariff-form-columns'
 
-const tariffTypesLabels = ['Weight-based logistics tariffs', 'Logistics tariffs', 'Tariffs of warehouse services']
+const tariffTypesLabels = ['Weight-based logistics tariffs', 'Tariffs of warehouse services']
 
 export const SelectStorekeeperAndTariffForm = observer(
   ({
@@ -33,12 +34,21 @@ export const SelectStorekeeperAndTariffForm = observer(
     total,
     currentVariationTariffId,
     currentDestinationId,
+    RemoveDestinationRestriction,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
-
     const [nameSearchValue, setNameSearchValue] = useState('')
+    const [curStorekeeper, setCurStorekeeper] = useState(
+      curStorekeeperId
+        ? storekeepers.find(el => el._id === curStorekeeperId)
+        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
+    )
+    const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
+    const [destinationId, setDestinationId] = useState(currentDestinationId)
+    const [isRemovedDestinationRestriction, setIsRemovedDestinationRestriction] = useState(false)
+    const [isSelectedDestinationNotValid, setIsSelectedDestinationNotValid] = useState(false)
 
     const filterByNameSearch = data => {
       if (nameSearchValue) {
@@ -48,29 +58,20 @@ export const SelectStorekeeperAndTariffForm = observer(
       }
     }
 
-    const [curStorekeeper, setCurStorekeeper] = useState(
-      curStorekeeperId
-        ? storekeepers.find(el => el._id === curStorekeeperId)
-        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
-    )
-
-    const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
-    const [destinationId, setDestinationId] = useState(currentDestinationId)
-
-    const setVariationTariff = (variationId, destinationId) => {
+    const setVariationTariff = (variationId, destinationId, isNotValidDestination) => {
       if (variationTariffId === variationId) {
         setVariationTariffId(null)
         setDestinationId(null)
+        setIsSelectedDestinationNotValid(null)
       } else {
         setVariationTariffId(variationId)
         setDestinationId(destinationId)
+        setIsSelectedDestinationNotValid(isNotValidDestination)
       }
     }
 
-    const onClickSelectTariff = tariffId => onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
-
-    const onClickSelectTariffOld = (tariffId, variationTariffId) =>
-      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
+    const onClickSelectTariff = tariffId =>
+      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid)
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 
@@ -145,13 +146,26 @@ export const SelectStorekeeperAndTariffForm = observer(
                       currentDestinationId,
                       onClickSelectTariff,
                       setVariationTariff,
+                      isRemovedDestinationRestriction,
                     )
               }
               getRowHeight={() => 'auto'}
             />
           </div>
-          {!inNotifications ? (
-            <div className={classNames.clearBtnWrapper}>
+          {!inNotifications && (
+            <div
+              className={cx(classNames.clearBtnWrapper, { [classNames.oneItemWrapper]: !RemoveDestinationRestriction })}
+            >
+              {RemoveDestinationRestriction && (
+                <div className={classNames.checkboxWrapper}>
+                  <Checkbox
+                    checked={isRemovedDestinationRestriction}
+                    onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
+                  />
+                  <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
+                </div>
+              )}
+
               <Button
                 disableElevation
                 color="primary"
@@ -165,40 +179,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 {t(TranslationKey.reset)}
               </Button>
             </div>
-          ) : null}
-        </TabPanel>
-        <TabPanel value={tabIndex} index={1}>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
-              getRowClassName={getRowClassName}
-              rows={
-                curStorekeeper?.tariffLogistics?.length
-                  ? filterByNameSearch(
-                      addIdDataConverter(curStorekeeper.tariffLogistics).filter(item => item.tariffType !== 20),
-                    )
-                  : []
-              }
-              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({ onClickSelectTariffOld })}
-              getRowHeight={() => 'auto'}
-            />
-          </div>
-          {!inNotifications ? (
-            <div className={classNames.clearBtnWrapper}>
-              <Button
-                disableElevation
-                color="primary"
-                variant={'outlined'}
-                className={classNames.resetBtn}
-                onClick={() => {
-                  setVariationTariffId(null)
-                  onSubmit(null, null, null)
-                }}
-              >
-                {t(TranslationKey.reset)}
-              </Button>
-            </div>
-          ) : null}
+          )}
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
           <div className={classNames.tableWrapper}>

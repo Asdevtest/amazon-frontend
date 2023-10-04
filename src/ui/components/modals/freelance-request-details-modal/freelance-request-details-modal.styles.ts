@@ -15,7 +15,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: '20px',
+    paddingBottom: '10px',
     gap: '20px',
     position: 'sticky',
     top: 0,
@@ -70,7 +70,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   productInfo: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '10px',
     width: '380px',
   },
 
@@ -83,7 +83,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
 
   category: {
     display: 'flex',
-    gap: '10px',
+    gap: '2px',
     flexDirection: 'column',
   },
 
@@ -94,15 +94,13 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   requestInfo: {
     width: '100%',
     flexDirection: 'column',
-    gap: '30px',
+    gap: '20px',
     display: 'flex',
   },
   suggestDeal: {
-    height: '100%',
-    alignSelf: 'flex-end',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     overflow: 'auto',
 
     '& > div': {

@@ -204,6 +204,7 @@ export const VacantRequestsViewRaw = props => {
         details={viewModel.currentRequestDetails?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
         onClickSuggest={viewModel.onClickSuggest}
+        onClickOpenNewTab={viewModel.onClickOpenInNewTab}
       />
     </React.Fragment>
   )

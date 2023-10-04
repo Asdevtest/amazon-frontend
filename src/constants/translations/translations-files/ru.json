@@ -2123,12 +2123,14 @@
   "changed to": "изменен на",
   "Deadline for request": "Срок дедлайна по заявке",
   "Request messages": "Сообщения по заявкам",
-  "Close idea": "Закрыть идею",
   "Are you sure you want to send the result for rework?": "Вы уверены, что хотите отправить результат на доработку?",
   "Are you sure you want to close this window?": "Вы уверены, что хотите закрыть это окно?",
   "Status changed": "Статус изменен",
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
   "Are you sure?": "Вы уверены?",
-  "Supervisor comment": "Комментарий супервайзера"
+  "Supervisor comment": "Комментарий супервайзера",
+  "Remove destination restriction": "Снять ограничение по пункту назначения",
+  "Wish to change a destination?": "Желаете изменить пункт назначения?",
+  "Price without delivery": "Цена без доставки"
 }
