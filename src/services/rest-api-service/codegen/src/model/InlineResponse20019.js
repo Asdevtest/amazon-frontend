@@ -14,10 +14,10 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
-import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsInTransferGuidBatch from './ApiV1BoxesClientsInTransferGuidBatch';
+import ApiV1BoxesClientsInTransferGuidLogicsTariff from './ApiV1BoxesClientsInTransferGuidLogicsTariff';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
 import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
-import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTariff';
 
 /**
  * The InlineResponse20019 model module.
@@ -159,10 +159,10 @@ class InlineResponse20019 {
                 obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
-                obj['logicsTariff'] = ApiV1BoxesClientsLightLogicsTariff.constructFromObject(data['logicsTariff']);
+                obj['logicsTariff'] = ApiV1BoxesClientsInTransferGuidLogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1BoxesClientsLightBatch.constructFromObject(data['batch']);
+                obj['batch'] = ApiV1BoxesClientsInTransferGuidBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -373,12 +373,12 @@ InlineResponse20019.prototype['createdBy'] = undefined;
 InlineResponse20019.prototype['destination'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesClientsLightLogicsTariff} logicsTariff
+ * @member {module:model/ApiV1BoxesClientsInTransferGuidLogicsTariff} logicsTariff
  */
 InlineResponse20019.prototype['logicsTariff'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesClientsLightBatch} batch
+ * @member {module:model/ApiV1BoxesClientsInTransferGuidBatch} batch
  */
 InlineResponse20019.prototype['batch'] = undefined;
 
