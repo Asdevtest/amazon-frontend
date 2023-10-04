@@ -1186,7 +1186,7 @@ export default class UserApi {
       let formParams = {
       };
 
-      let authNames = [];
+      let authNames = ['AccessTokenBearer'];;
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = 'String';

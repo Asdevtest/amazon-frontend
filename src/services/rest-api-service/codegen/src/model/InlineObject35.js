@@ -22,10 +22,12 @@ class InlineObject35 {
     /**
      * Constructs a new <code>InlineObject35</code>.
      * @alias module:model/InlineObject35
+     * @param boxIds {Array.<String>} 
+     * @param newAmounts {Array.<Number>} 
      */
-    constructor() { 
+    constructor(boxIds, newAmounts) { 
         
-        InlineObject35.initialize(this);
+        InlineObject35.initialize(this, boxIds, newAmounts);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject35 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxIds, newAmounts) { 
+        obj['boxIds'] = boxIds;
+        obj['newAmounts'] = newAmounts;
     }
 
     /**
@@ -47,17 +51,11 @@ class InlineObject35 {
         if (data) {
             obj = obj || new InlineObject35();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            if (data.hasOwnProperty('boxIds')) {
+                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('newAmounts')) {
+                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
             }
         }
         return obj;
@@ -67,24 +65,14 @@ class InlineObject35 {
 }
 
 /**
- * @member {Number} type
+ * @member {Array.<String>} boxIds
  */
-InlineObject35.prototype['type'] = undefined;
+InlineObject35.prototype['boxIds'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * @member {Array.<Number>} newAmounts
  */
-InlineObject35.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineObject35.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject35.prototype['description'] = undefined;
+InlineObject35.prototype['newAmounts'] = undefined;
 
 
 

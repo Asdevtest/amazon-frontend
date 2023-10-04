@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**itemsBarCodeChanges** | [**[ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]**](ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md) |  | 
+**guid** | **String** | GUID коробки разделение которой отменяем. | [optional] 
 
 

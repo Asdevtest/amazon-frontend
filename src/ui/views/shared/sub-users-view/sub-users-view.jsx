@@ -120,7 +120,7 @@ export const SubUsersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
         <AddOrEditUserPermissionsForm
-        
+          masterUserData={viewModel.userInfo}
           isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
           isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
           curUserProductPermissions={viewModel.curUserProductPermissions}

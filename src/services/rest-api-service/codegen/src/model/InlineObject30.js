@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject30 model module.
@@ -23,11 +22,10 @@ class InlineObject30 {
     /**
      * Constructs a new <code>InlineObject30</code>.
      * @alias module:model/InlineObject30
-     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
      */
-    constructor(itemsBarCodeChanges) { 
+    constructor() { 
         
-        InlineObject30.initialize(this, itemsBarCodeChanges);
+        InlineObject30.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject30 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, itemsBarCodeChanges) { 
-        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,8 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('itemsBarCodeChanges')) {
-                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -61,9 +58,10 @@ class InlineObject30 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
+ * GUID коробки разделение которой отменяем.
+ * @member {String} guid
  */
-InlineObject30.prototype['itemsBarCodeChanges'] = undefined;
+InlineObject30.prototype['guid'] = undefined;
 
 
 

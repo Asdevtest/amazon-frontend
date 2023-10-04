@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject19]**](InlineObject19.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**additionalBoxes** | [**[InlineObject22]**](InlineObject22.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

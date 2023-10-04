@@ -65,7 +65,6 @@ export class SubUsersViewModel {
   }
 
   get userInfo() {
-    console.log('UserModel.userInfo', UserModel.userInfo)
     return UserModel.userInfo
   }
 
@@ -322,11 +321,15 @@ export class SubUsersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async setPermissionsForUser(id, data, allowedProductsIds) {
+  async setPermissionsForUser(id, data, allowedProductsIds, currentSpec) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
       await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+
+      if (currentSpec) {
+        await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
+      }
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -334,6 +337,7 @@ export class SubUsersViewModel {
           title: t(TranslationKey['User permissions were changed']),
         }
       })
+      console.log('currentSpec', currentSpec)
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
@@ -353,9 +357,14 @@ export class SubUsersViewModel {
     }
   }
 
-  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds) {
+  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds, currentSpec) {
     try {
-      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedProductsIds)
+      await this.setPermissionsForUser(
+        subUserId,
+        { permissions, permissionGroups: [] },
+        allowedProductsIds,
+        currentSpec,
+      )
 
       await this.getUsers()
     } catch (error) {

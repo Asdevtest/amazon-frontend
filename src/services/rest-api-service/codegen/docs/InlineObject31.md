@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**lengthCmWarehouse** | **Number** |  | [optional] 
-**widthCmWarehouse** | **Number** |  | [optional] 
-**heightCmWarehouse** | **Number** |  | [optional] 
-**weighGrossKgWarehouse** | **Number** |  | [optional] 
-**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
+**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
+**additionalBoxes** | [**[InlineObject22]**](InlineObject22.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

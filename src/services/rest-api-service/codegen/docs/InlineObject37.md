@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**archive** | **Boolean** |  | 
+**isFormed** | **Boolean** | Сформирована ли коробка | 
 
 

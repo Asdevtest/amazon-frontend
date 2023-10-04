@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '619px',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     overflowY: 'auto',
     [theme.breakpoints.down(768)]: {
       width: '295px',
@@ -33,6 +34,11 @@ export const useClassNames = makeStyles()(theme => ({
       marginTop: '30px',
       gap: '10px',
     },
+  },
+
+  buttonsSubWrapper: {
+    display: 'flex',
+    gap: '10px',
   },
 
   divider: {

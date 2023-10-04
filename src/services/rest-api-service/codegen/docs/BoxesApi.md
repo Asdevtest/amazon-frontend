@@ -62,7 +62,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
+  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
 };
 apiInstance.apiV1BoxesAdditionalInfoGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
+ **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
 
 ### Return type
 
@@ -117,7 +117,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
+  'body': new TestSwagger.InlineObject31() // InlineObject31 | 
 };
 apiInstance.apiV1BoxesApprovePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -133,7 +133,7 @@ apiInstance.apiV1BoxesApprovePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
+ **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
 
 ### Return type
 
@@ -333,7 +333,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject23() // InlineObject23 | 
+  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
 };
 apiInstance.apiV1BoxesCancelEditPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -349,7 +349,7 @@ apiInstance.apiV1BoxesCancelEditPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject23**](InlineObject23.md)|  | [optional] 
+ **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
 
 ### Return type
 
@@ -441,7 +441,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
+  'body': new TestSwagger.InlineObject28() // InlineObject28 | 
 };
 apiInstance.apiV1BoxesCancelMergePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -457,7 +457,7 @@ apiInstance.apiV1BoxesCancelMergePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
+ **body** | [**InlineObject28**](InlineObject28.md)|  | [optional] 
 
 ### Return type
 
@@ -495,7 +495,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
+  'body': new TestSwagger.InlineObject30() // InlineObject30 | 
 };
 apiInstance.apiV1BoxesCancelSplitPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -511,7 +511,7 @@ apiInstance.apiV1BoxesCancelSplitPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
+ **body** | [**InlineObject30**](InlineObject30.md)|  | [optional] 
 
 ### Return type
 
@@ -550,7 +550,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = null; // String | GUID коробки.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject31() // InlineObject31 | 
+  'body': new TestSwagger.InlineObject34() // InlineObject34 | 
 };
 apiInstance.apiV1BoxesChangeDimensionsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID коробки. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
+ **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
 
 ### Return type
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsGuidPatch
 
-> InlineResponse2012 apiV1BoxesClientsGuidPatch(guid, opts)
+> InlineResponse2013 apiV1BoxesClientsGuidPatch(guid, opts)
 
 # Отредактировать коробку клиентом
 
@@ -666,7 +666,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject21() // InlineObject21 | 
+  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
 };
 apiInstance.apiV1BoxesClientsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -683,11 +683,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject21**](InlineObject21.md)|  | [optional] 
+ **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2013**](InlineResponse2013.md)
 
 ### Authorization
 
@@ -701,7 +701,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsInTransferGuidGet
 
-> [InlineResponse20019] apiV1BoxesClientsInTransferGuidGet(guid, opts)
+> [InlineResponse20020] apiV1BoxesClientsInTransferGuidGet(guid, opts)
 
 # Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
 
@@ -741,7 +741,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20019]**](InlineResponse20019.md)
+[**[InlineResponse20020]**](InlineResponse20020.md)
 
 ### Authorization
 
@@ -755,7 +755,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsLightGet
 
-> [InlineResponse20018] apiV1BoxesClientsLightGet(status, opts)
+> [InlineResponse20019] apiV1BoxesClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20018]**](InlineResponse20018.md)
+[**[InlineResponse20019]**](InlineResponse20019.md)
 
 ### Authorization
 
@@ -813,7 +813,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsSentToBatchGet
 
-> [InlineResponse20021] apiV1BoxesClientsSentToBatchGet(opts)
+> [InlineResponse20022] apiV1BoxesClientsSentToBatchGet(opts)
 
 # Получить коробки по текущему клиенту отправленные в партию.
 
@@ -851,7 +851,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20021]**](InlineResponse20021.md)
+[**[InlineResponse20022]**](InlineResponse20022.md)
 
 ### Authorization
 
@@ -865,7 +865,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesEditGuidPost
 
-> InlineResponse2012 apiV1BoxesEditGuidPost(guid, opts)
+> InlineResponse2013 apiV1BoxesEditGuidPost(guid, opts)
 
 # Отредактировать коробку. Сликом гибкий метод
 
@@ -886,7 +886,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject20() // InlineObject20 | 
+  'body': new TestSwagger.InlineObject23() // InlineObject23 | 
 };
 apiInstance.apiV1BoxesEditGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -903,11 +903,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+ **body** | [**InlineObject23**](InlineObject23.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2013**](InlineResponse2013.md)
 
 ### Authorization
 
@@ -973,7 +973,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGet
 
-> InlineResponse20023 apiV1BoxesGroupedGet(opts)
+> InlineResponse20024 apiV1BoxesGroupedGet(opts)
 
 # Получить сгруппированные коробки
 
@@ -1017,7 +1017,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20023**](InlineResponse20023.md)
+[**InlineResponse20024**](InlineResponse20024.md)
 
 ### Authorization
 
@@ -1031,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGroupsGet
 
-> InlineResponse20022 apiV1BoxesGroupedGroupsGet(opts)
+> InlineResponse20023 apiV1BoxesGroupedGroupsGet(opts)
 
 # Получить группы
 
@@ -1075,7 +1075,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20022**](InlineResponse20022.md)
+[**InlineResponse20023**](InlineResponse20023.md)
 
 ### Authorization
 
@@ -1089,7 +1089,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedSimilarGet
 
-> [InlineResponse20017] apiV1BoxesGroupedSimilarGet(opts)
+> [InlineResponse20018] apiV1BoxesGroupedSimilarGet(opts)
 
 # Получить похожие коробки
 
@@ -1127,7 +1127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20017]**](InlineResponse20017.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -1141,7 +1141,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGuidGet
 
-> InlineResponse20016 apiV1BoxesGuidGet(guid, opts)
+> InlineResponse20017 apiV1BoxesGuidGet(guid, opts)
 
 # Получить данные коробки по GUID.
 
@@ -1181,7 +1181,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20016**](InlineResponse20016.md)
+[**InlineResponse20017**](InlineResponse20017.md)
 
 ### Authorization
 
@@ -1216,7 +1216,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = null; // String | GUID коробки.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject34() // InlineObject34 | 
+  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
 };
 apiInstance.apiV1BoxesIsFormedGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1233,7 +1233,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID коробки. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
+ **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
 
 ### Return type
 
@@ -1271,7 +1271,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject22() // InlineObject22 | 
+  'body': new TestSwagger.InlineObject25() // InlineObject25 | 
 };
 apiInstance.apiV1BoxesManyPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1287,7 +1287,7 @@ apiInstance.apiV1BoxesManyPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
+ **body** | [**InlineObject25**](InlineObject25.md)|  | [optional] 
 
 ### Return type
 
@@ -1305,7 +1305,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesMergePost
 
-> InlineResponse2013 apiV1BoxesMergePost(opts)
+> InlineResponse2014 apiV1BoxesMergePost(opts)
 
 # Объединить две и более коробок.
 
@@ -1325,7 +1325,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
+  'body': new TestSwagger.InlineObject27() // InlineObject27 | 
 };
 apiInstance.apiV1BoxesMergePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1341,11 +1341,11 @@ apiInstance.apiV1BoxesMergePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
+ **body** | [**InlineObject27**](InlineObject27.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2013**](InlineResponse2013.md)
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 
@@ -1359,7 +1359,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesPagClientsLightGet
 
-> InlineResponse20020 apiV1BoxesPagClientsLightGet(status, opts)
+> InlineResponse20021 apiV1BoxesPagClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20020**](InlineResponse20020.md)
+[**InlineResponse20021**](InlineResponse20021.md)
 
 ### Authorization
 
@@ -1435,7 +1435,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesPost
 
-> InlineResponse2011 apiV1BoxesPost(opts)
+> InlineResponse2012 apiV1BoxesPost(opts)
 
 # Создать коробку и ее строки.
 
@@ -1455,7 +1455,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
+  'body': new TestSwagger.InlineObject22() // InlineObject22 | 
 };
 apiInstance.apiV1BoxesPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1471,11 +1471,11 @@ apiInstance.apiV1BoxesPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
+ **body** | [**InlineObject22**](InlineObject22.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2011**](InlineResponse2011.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 
@@ -1563,7 +1563,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject26() // InlineObject26 | 
+  'body': new TestSwagger.InlineObject29() // InlineObject29 | 
 };
 apiInstance.apiV1BoxesSplitPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1579,7 +1579,7 @@ apiInstance.apiV1BoxesSplitPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject26**](InlineObject26.md)|  | [optional] 
+ **body** | [**InlineObject29**](InlineObject29.md)|  | [optional] 
 
 ### Return type
 
@@ -1618,7 +1618,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject29() // InlineObject29 | 
+  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
 };
 apiInstance.apiV1BoxesStorekeepersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1635,7 +1635,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject29**](InlineObject29.md)|  | [optional] 
+ **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
 
 ### Return type
 
@@ -1674,7 +1674,7 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject30() // InlineObject30 | 
+  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
 };
 apiInstance.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1691,7 +1691,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject30**](InlineObject30.md)|  | [optional] 
+ **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
 
 ### Return type
 
@@ -1709,7 +1709,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesStorekeepersSentToBatchGet
 
-> [InlineResponse20021] apiV1BoxesStorekeepersSentToBatchGet(opts)
+> [InlineResponse20022] apiV1BoxesStorekeepersSentToBatchGet(opts)
 
 # Получить коробки по текущему сторкипера отправленные в партию.
 
@@ -1747,7 +1747,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20021]**](InlineResponse20021.md)
+[**[InlineResponse20022]**](InlineResponse20022.md)
 
 ### Authorization
 
@@ -1781,7 +1781,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
+  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
 };
 apiInstance.apiV1BoxesSuperboxRegroupPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1797,7 +1797,7 @@ apiInstance.apiV1BoxesSuperboxRegroupPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
+ **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
 
 ### Return type
 
