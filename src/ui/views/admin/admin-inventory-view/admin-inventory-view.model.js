@@ -51,6 +51,7 @@ const filtersFields = [
   'checkednotes',
   'client',
   'currentSupplier',
+  'status',
 ]
 
 export class AdminInventoryViewModel {
