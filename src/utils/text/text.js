@@ -346,20 +346,28 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
       return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+
     case columnnsKeys.buyer.MY_PRODUCTS_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)
+
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
+
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
-    case columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS:
+
+    case columnnsKeys.shared.TASK_COMPLEXITY:
       return difficultyLevelTranslate(difficultyLevelByCode[status])
+
     default:
       return status
   }

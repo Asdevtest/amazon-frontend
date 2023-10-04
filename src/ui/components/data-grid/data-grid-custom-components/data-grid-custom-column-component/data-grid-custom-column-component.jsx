@@ -167,7 +167,12 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY) {
+  if (
+    [
+      columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
+    ].includes(currentColumn.columnKey)
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <CreatedByMenuItem
@@ -278,7 +283,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.ORDERS_STATUS,
       columnnsKeys.client.IDEAS_STATUS,
       columnnsKeys.buyer.MY_PRODUCTS_STATUS,
-      columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS,
+      columnnsKeys.shared.TASK_COMPLEXITY,
     ].includes(currentColumn.columnKey)
   ) {
     return (

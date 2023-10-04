@@ -38,6 +38,9 @@ const filtersFields = [
   'asin',
   'skusByClient',
   'amazonTitle',
+  'taskComplexity',
+  'typeTask',
+  'reworkCounter',
 ]
 
 export class MyProposalsViewModel {
@@ -379,10 +382,19 @@ export class MyProposalsViewModel {
   }
 
   getTableByColumn(column) {
-    if (['status', 'createdBy', 'sub', 'updatedAt'].includes(column)) {
+    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter'].includes(column)) {
       return 'proposals'
     } else if (
-      ['humanFriendlyId', 'priority', 'title', 'maxAmountOfProposals', 'timeoutAt', 'requestCreatedBy'].includes(column)
+      [
+        'humanFriendlyId',
+        'priority',
+        'title',
+        'maxAmountOfProposals',
+        'timeoutAt',
+        'requestCreatedBy',
+        'taskComplexity',
+        'typeTask',
+      ].includes(column)
     ) {
       return 'requests'
     } else if (['asin', 'skusByClient', 'amazonTitle'].includes(column)) {

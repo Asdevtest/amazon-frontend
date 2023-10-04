@@ -80,7 +80,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       />
     ),
     width: 95,
-    // columnKey: columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS,
+    columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
   },
 
   {
@@ -131,6 +131,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         userId={params?.row?.originalData?.request?.createdBy?._id}
       />
     ),
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -145,7 +146,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     width: 86,
     sortable: false,
 
-    // columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
   },
 
   {
@@ -172,7 +173,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.originalData.reworkCounter} />,
     width: 115,
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -186,6 +187,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         userId={params?.row?.originalData?.createdBy?._id}
       />
     ),
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
