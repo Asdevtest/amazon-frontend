@@ -252,7 +252,7 @@ export const BottomCard = observer(
                 }}
                 sx={{
                   '& .MuiInputBase-input.Mui-disabled': {
-                    WebkitTextFillColor: colorByProductStatus(ProductStatusByCode[product.status]),
+                    WebkitTextFillColor: `${colorByProductStatus(ProductStatusByCode[product.status])} !important`,
                   },
                 }}
                 error={formFieldsValidationErrors.status}
