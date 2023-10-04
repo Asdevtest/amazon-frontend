@@ -1,15 +1,11 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import React from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { Alert, Paper, Typography } from '@mui/material'
 
@@ -18,8 +14,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
-import { ImageEditForm } from '@components/forms/image-edit-form'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -62,7 +56,6 @@ export const TopCard = observer(
     shops,
     modal,
     platformSettings,
-
     productBase,
     onClickSupplierBtns,
     selectedSupplier,
@@ -81,131 +74,13 @@ export const TopCard = observer(
     onClickHsCode,
     onClickNextButton,
   }) => {
-    const { classes: classNames } = useClassNames()
-
-    const [showImageModal, setShowImageModal] = useState(false)
-
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-
-    const [imageEditOpen, setImageEditOpen] = useState(false)
+    const { classes: classNames, cx } = useClassNames()
 
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
 
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
-
-    const onClickRemoveImageObj = imageIndex => {
-      const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
-
-      onChangeImagesForLoad(newArr)
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        imgIndex: bigImagesOptions.imgIndex - 1 < 0 ? 0 : bigImagesOptions.imgIndex - 1,
-        images: newArr,
-      }))
-
-      if (!newArr.length) {
-        setShowImageModal(false)
-      }
-    }
-
-    const onUploadFile = imageIndex => async evt => {
-      if (evt.target.files.length === 0) {
-        return
-      } else {
-        const filesArr = Array.from(evt.target.files)
-
-        evt.preventDefault()
-
-        const readyFilesArr = filesArr.map(el => ({
-          data_url: URL.createObjectURL(el),
-          file: new File([el], el.name?.replace(/ /g, ''), {
-            type: el.type,
-            lastModified: el.lastModified,
-          }),
-        }))
-
-        // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
-
-        onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
-        setBigImagesOptions(() => ({
-          ...bigImagesOptions,
-          images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
-        }))
-      }
-    }
-
-    const onClickMakeMainImageObj = (imageIndex, image) => {
-      onChangeImagesForLoad([image, ...imagesForLoad.filter((el, i) => i !== imageIndex)])
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        imgIndex: 0,
-        images: [image, ...imagesForLoad.filter((el, i) => i !== imageIndex)],
-      }))
-    }
-
-    const onClickEditImage = () => {
-      setImageEditOpen(!imageEditOpen)
-    }
-
-    const onClickEditImageSubmit = image => {
-      // bigImagesOptions.images[bigImagesOptions.imgIndex]
-
-      onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
-      }))
-    }
-
-    const bigImagesModalControls = (imageIndex, image) => (
-      <>
-        {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
-          !product.archive &&
-          showActionBtns && (
-            <>
-              <>
-                {imageIndex === 0 ? (
-                  <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
-                    <StarOutlinedIcon />
-                  </div>
-                ) : (
-                  <Button
-                    disabled={imageIndex === 0}
-                    // success={imageIndex === 0}
-                    className={cx(classNames.imagesModalBtn)}
-                    onClick={() => onClickMakeMainImageObj(imageIndex, image)}
-                  >
-                    <StarOutlinedIcon />
-                  </Button>
-                )}
-              </>
-              <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
-                <ModeOutlinedIcon />
-              </Button>
-
-              <Button className={cx(classNames.imagesModalBtn)}>
-                <AutorenewIcon />
-                <input
-                  type={'file'}
-                  className={classNames.pasteInput}
-                  defaultValue={''}
-                  onChange={onUploadFile(imageIndex)}
-                />
-              </Button>
-
-              <Button
-                danger
-                className={cx(classNames.imagesModalBtn)}
-                onClick={() => onClickRemoveImageObj(imageIndex)}
-              >
-                <DeleteOutlineOutlinedIcon />
-              </Button>
-            </>
-          )}
-      </>
-    )
 
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
@@ -252,7 +127,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad}
+                      files={product.images}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
@@ -515,29 +390,6 @@ export const TopCard = observer(
 
           {actionStatus === loadingStatuses.isLoading && !showProgress ? <CircularProgressWithLabel /> : null}
         </Paper>
-
-        <ImageModal
-          showPreviews
-          isOpenModal={showImageModal}
-          handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={bigImagesOptions.images.map(el => {
-            if (typeof el === 'object') {
-              return el.data_url
-            }
-            return el
-          })}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          controls={bigImagesModalControls}
-        />
-
-        <Modal openModal={imageEditOpen} setOpenModal={() => setImageEditOpen(!imageEditOpen)}>
-          <ImageEditForm
-            item={bigImagesOptions.images[bigImagesOptions.imgIndex]}
-            setOpenModal={() => setImageEditOpen(!imageEditOpen)}
-            onSave={onClickEditImageSubmit}
-          />
-        </Modal>
 
         {showBindProductModal && (
           <Modal

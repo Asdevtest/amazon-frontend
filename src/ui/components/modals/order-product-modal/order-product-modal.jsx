@@ -266,7 +266,7 @@ export const OrderProductModal = ({
                   className={classNames.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
-                  {t(TranslationKey['Price per unit.']) + ' $'}
+                  {t(TranslationKey['Price without delivery']) + ' $'}
                 </Button>
               </TableCell>
 

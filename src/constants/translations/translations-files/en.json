@@ -544,7 +544,7 @@
   "New search from a client": "New search from a client",
   "On review": "On review",
   "Waiting to be checked": "Waiting to be checked",
-  "In the work of a Bayer": "In the work of a Bayer",
+  "In the work of a Buyer": "In the work of a Buyer",
   "Ready to check": "Ready to check",
   "Create a product": "Create a product",
   "Create with a supplier": "Create with a supplier",
@@ -571,8 +571,8 @@
   "User permissions": "User permissions",
   "Settings": "Settings",
   "New": "New",
-  "Supplier found by Bayer": "Supplier found by Bayer",
-  "Supplier not found by Bayer": "Supplier not found by Bayer",
+  "Supplier found by Buyer": "Supplier found by Buyer",
+  "Supplier not found by Buyer": "Supplier not found by Buyer",
   "Price is higher than MZC": "Price is higher than MZC",
   "Published": "Published",
   "No supplier (completed by supervisor)": "No supplier (completed by supervisor)",
@@ -2125,5 +2125,8 @@
   "This product has a parent product": "This product has a parent product",
   "Mark as completed": "Mark as completed",
   "Are you sure?": "Are you sure?",
-  "Supervisor comment": "Supervisor comment"
+  "Supervisor comment": "Supervisor comment",
+  "Remove destination restriction": "Remove destination restriction",
+  "Wish to change a destination?": "Wish to change a destination?",
+  "Price without delivery": "Price without delivery"
 }

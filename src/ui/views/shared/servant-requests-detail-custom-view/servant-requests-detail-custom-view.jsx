@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
@@ -93,12 +92,16 @@ export const RequestDetailCustomViewRaw = props => {
                 chats={viewModel.chats}
                 typingUsers={viewModel.typingUsers}
                 userId={viewModel.userInfo?._id}
+                mutedChats={viewModel.mutedChats}
+                messagesFound={viewModel.messagesFound}
+                mesSearchValue={viewModel.mesSearchValue}
+                curFoundedMessage={viewModel.curFoundedMessage}
                 chatSelectedId={viewModel.chatSelectedId}
                 chatMessageHandlers={{
                   onClickReworkProposal: viewModel.onClickReworkProposal,
                   onClickOpenRequest: viewModel.onClickOpenRequest,
                 }}
-                renderAdditionalButtons={(params, resetAllInputs) => (
+                renderAdditionalButtons={() => (
                   <div className={classNames.additionalButtonsWrapper}>
                     {findRequestProposalForCurChat &&
                     requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status) ? (
@@ -148,6 +151,10 @@ export const RequestDetailCustomViewRaw = props => {
                 onSubmitMessage={viewModel.onSubmitMessage}
                 onClickChat={viewModel.onClickChat}
                 onTypingMessage={viewModel.onTypingMessage}
+                onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
+                onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
+                onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                onCloseMesSearchValue={viewModel.onCloseMesSearchValue}
               />
             </ChatRequestAndRequestProposalContext.Provider>
           </div>

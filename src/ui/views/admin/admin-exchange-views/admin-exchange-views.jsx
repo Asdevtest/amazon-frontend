@@ -41,7 +41,7 @@ export const AdminExchangeViewsRaw = props => {
             condition={viewModel.activeCategory}
             switcherSettings={[
               ...adminExchangeBtnsConfig,
-              { label: () => t(TranslationKey['All warehouses']), value: AdminExchangeStatusesCategories.all },
+              { label: () => t(TranslationKey.All), value: AdminExchangeStatusesCategories.all },
             ]}
             changeConditionHandler={viewModel.onChangeSubCategory}
           />

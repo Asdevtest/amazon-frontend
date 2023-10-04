@@ -19,6 +19,7 @@ export const WeightBasedTariffFormColumns = (
   currentDestinationId,
   onClickSelectTariff,
   setVariationTariff,
+  isRemovedDestinationRestriction,
 ) => [
   {
     field: 'name',
@@ -50,6 +51,7 @@ export const WeightBasedTariffFormColumns = (
         activeDestinationId={currentDestinationId}
         activeDedestinationVariationt={variationTariffId}
         selectVariationTariff={setVariationTariff}
+        isRemovedDestinationRestriction={isRemovedDestinationRestriction}
       />
     ),
     width: 149,
@@ -123,7 +125,8 @@ export const WeightBasedTariffFormColumns = (
           ((currentDestinationId &&
             params.row.originalData?.destinationVariations.every(
               item => item?.destination?._id !== currentDestinationId,
-            )) ||
+            ) &&
+            !isRemovedDestinationRestriction) ||
             !variationTariffId ||
             params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
         }

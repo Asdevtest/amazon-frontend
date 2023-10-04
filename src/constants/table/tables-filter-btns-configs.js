@@ -35,15 +35,15 @@ export const adminExchangeBtnsConfig = [
   },
   {
     value: AdminExchangeStatusesCategories.inWork,
-    label: () => t(TranslationKey['In the work of a Bayer']),
+    label: () => t(TranslationKey['In the work of a Buyer']),
   },
   {
     value: AdminExchangeStatusesCategories.supplierFound,
-    label: () => t(TranslationKey['Supplier found by Bayer']),
+    label: () => t(TranslationKey['Supplier found by Buyer']),
   },
   {
     value: AdminExchangeStatusesCategories.supplierNotFound,
-    label: () => t(TranslationKey['Supplier not found by Bayer']),
+    label: () => t(TranslationKey['Supplier not found by Buyer']),
   },
   {
     value: AdminExchangeStatusesCategories.priceHigher,
