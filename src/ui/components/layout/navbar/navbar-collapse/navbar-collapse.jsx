@@ -186,6 +186,20 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      case '/freelancer/freelance/vacant-requests':
+        return (
+          <ListItemIcon>
+            <div className={classNames.badge}>{userInfo?.vacantRequests}</div>
+          </ListItemIcon>
+        )
+
+      case '/freelancer/freelance/my-proposals':
+        return (
+          <ListItemIcon>
+            <div className={classNames.badge}>{getSumPropertiesObject(userInfo?.myProposals)}</div>
+          </ListItemIcon>
+        )
+
       default:
         return null
     }
@@ -208,14 +222,6 @@ export const NavbarCollapse = ({
         return (
           <div className={cx(classNames.bigBadge, classNames.redBadge)}>
             {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
-          </div>
-        )
-      case '/freelancer/freelance/vacant-requests':
-        return <div className={cx(classNames.bigBadge, classNames.redBadge)}>{userInfo?.vacantRequests}</div>
-      case '/freelancer/freelance/my-proposals':
-        return (
-          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
-            {getSumPropertiesObject(userInfo?.myProposals)}
           </div>
         )
     }
