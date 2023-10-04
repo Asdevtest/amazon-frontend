@@ -1,4 +1,5 @@
-import { Dispatch, FC, SetStateAction, memo } from 'react'
+import { observer } from 'mobx-react'
+import { Dispatch, FC, SetStateAction } from 'react'
 
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
@@ -16,21 +17,22 @@ interface Props {
   currentImageIndex: number
   isOpenModal: boolean
   setIsOpenModal: Dispatch<SetStateAction<boolean>>
-  setCurrentImageIndex: Dispatch<SetStateAction<number>>
+  setCurrentImageIndex: (index: number) => void
 }
 
-export const ZoomModal: FC<Props> = memo(
+export const ZoomModal: FC<Props> = observer(
   ({ images, currentImageIndex, isOpenModal, setIsOpenModal, setCurrentImageIndex }) => {
     const { classes: styles, cx } = useStyles()
 
     const handleArrowClick = (direction: ArrowsType) => {
-      setCurrentImageIndex((prevIndex: number) =>
+      const currentIndex =
         direction === Arrows.LEFT
-          ? prevIndex === 0
+          ? currentImageIndex === 0
             ? images.length - 1
-            : prevIndex - 1
-          : (prevIndex + 1) % images.length,
-      )
+            : currentImageIndex - 1
+          : (currentImageIndex + 1) % images.length
+
+      setCurrentImageIndex(currentIndex)
     }
 
     const isDisableArrowRight = images.length <= MIN_FILES_IN_ARRAY || currentImageIndex === images.length - 1

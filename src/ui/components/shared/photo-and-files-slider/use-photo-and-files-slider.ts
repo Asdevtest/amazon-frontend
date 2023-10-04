@@ -11,9 +11,7 @@ export const usePhotoAndFilesSlider = (
   files: Array<string | IUploadFile> | undefined | null,
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void,
 ) => {
-  const [imageEditOpen, setImageEditOpen] = useState(false)
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const onImageEditToggle = () => setImageEditOpen(!imageEditOpen)
   const onPhotosModalToggle = () => setShowPhotosModal(!showPhotosModal)
 
   const documents = (files || []).filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el.file.name))
@@ -21,6 +19,11 @@ export const usePhotoAndFilesSlider = (
 
   const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
   const [photoIndex, setPhotoIndex] = useState(0)
+  const [prevPhotoIndex, setPrevPhotoIndex] = useState(0)
+
+  useEffect(() => {
+    setPrevPhotoIndex(photoIndex)
+  }, [showPhotosModal])
 
   useEffect(() => {
     if (photos.length - 1 < photoIndex && photos.length > 0) {
@@ -105,14 +108,14 @@ export const usePhotoAndFilesSlider = (
   }
 
   return {
-    imageEditOpen,
     showPhotosModal,
-    onImageEditToggle,
     onPhotosModalToggle,
 
     photos,
     photoIndex,
+    prevPhotoIndex,
     setPhotoIndex,
+    setPrevPhotoIndex,
 
     documents,
     documentIndex,

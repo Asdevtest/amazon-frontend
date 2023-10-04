@@ -1,10 +1,9 @@
+import { observer } from 'mobx-react'
 import { FC, ReactNode } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageEditForm } from '@components/forms/image-edit-form'
 import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
-import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -65,174 +64,176 @@ interface Props {
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
  * @returns {HTMLElement} return custom slider for photos and documents.
  */
-export const PhotoAndFilesSlider: FC<Props> = ({
-  files,
-  column = false,
-  withoutPhotos = false,
-  withoutFiles = false,
-  withAllFiles = false,
-  smallSlider = false,
-  mediumSlider = false,
-  bigSlider = false,
-  alignLeft = false,
-  alignRight = false,
-  isHideCounter = false,
-  customGap,
-  customSlideHeight,
-  showPreviews = false,
-  isEditable = false,
-  imagesTitles,
-  withoutMakeMainImage = false,
-  mainClasses,
-  onChangeImagesForLoad,
-}) => {
-  const { classes: classNames, cx } = useClassNames()
-  const {
-    imageEditOpen,
-    showPhotosModal,
-    onImageEditToggle,
-    onPhotosModalToggle,
+export const PhotoAndFilesSlider: FC<Props> = observer(
+  ({
+    files,
+    column = false,
+    withoutPhotos = false,
+    withoutFiles = false,
+    withAllFiles = false,
+    smallSlider = false,
+    mediumSlider = false,
+    bigSlider = false,
+    alignLeft = false,
+    alignRight = false,
+    isHideCounter = false,
+    customGap,
+    customSlideHeight,
+    showPreviews = false,
+    isEditable = false,
+    imagesTitles,
+    withoutMakeMainImage = false,
+    mainClasses,
+    onChangeImagesForLoad,
+  }) => {
+    const { classes: classNames, cx } = useClassNames()
+    const {
+      showPhotosModal,
+      onPhotosModalToggle,
 
-    photos,
-    photoIndex,
-    setPhotoIndex,
+      photos,
+      photoIndex,
+      prevPhotoIndex,
+      setPhotoIndex,
+      setPrevPhotoIndex,
 
-    documents,
-    documentIndex,
-    setDocumentIndex,
+      documents,
+      documentIndex,
+      setDocumentIndex,
 
-    onClickMakeMainImageObj,
-    onUploadFile,
-    onClickRemoveImageObj,
-    onClickEditImageSubmit,
-  } = usePhotoAndFilesSlider(files, onChangeImagesForLoad)
+      onClickMakeMainImageObj,
+      onUploadFile,
+      onClickRemoveImageObj,
+      onClickEditImageSubmit,
+    } = usePhotoAndFilesSlider(files, onChangeImagesForLoad)
 
-  const imageModalControls = (imageIndex: number, image: ImageObjectType | string): ReactNode => (
-    <ButtonControls
-      imageIndex={imageIndex}
-      image={image}
-      withoutMakeMainImage={withoutMakeMainImage}
-      onClickMakeMainImageObj={onClickMakeMainImageObj}
-      onImageEditToggle={onImageEditToggle}
-      onUploadFile={onUploadFile}
-      onClickRemoveImageObj={onClickRemoveImageObj}
-    />
-  )
-
-  const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
-
-  console.log(photoIndex)
-
-  return (
-    <>
-      {files?.length ? (
-        <div
-          className={cx(
-            classNames.mainWrapper,
-            {
-              [classNames.column]: column,
-              [classNames.wrapperAlignLeft]: alignLeft,
-              [classNames.wrapperAlignRight]: alignRight,
-            },
-            mainClasses,
-          )}
-          style={{ gap: customGap }}
-        >
-          {!withoutPhotos && !withAllFiles ? (
-            <Slider
-              slides={photos}
-              currentIndex={photoIndex}
-              setCurrentIndex={setPhotoIndex}
-              smallSlider={smallSlider}
-              mediumSlider={mediumSlider}
-              bigSlider={bigSlider}
-              alignLeft={alignLeft}
-              alignRight={alignRight}
-              customSlideHeight={customSlideHeight}
-              isHideCounter={isHideCounter}
-              onPhotosModalToggle={onPhotosModalToggle}
-            />
-          ) : null}
-
-          {!withoutFiles && !withAllFiles ? (
-            <Slider
-              slides={documents}
-              currentIndex={documentIndex}
-              setCurrentIndex={setDocumentIndex}
-              smallSlider={smallSlider}
-              mediumSlider={mediumSlider}
-              bigSlider={bigSlider}
-              alignLeft={alignLeft}
-              alignRight={alignRight}
-              customSlideHeight={customSlideHeight}
-              isHideCounter={isHideCounter}
-              withoutFiles={!withoutFiles}
-            />
-          ) : null}
-
-          {withAllFiles ? (
-            <Slider
-              slides={files}
-              currentIndex={documentIndex}
-              setCurrentIndex={setDocumentIndex}
-              smallSlider={smallSlider}
-              mediumSlider={mediumSlider}
-              bigSlider={bigSlider}
-              alignLeft={alignLeft}
-              alignRight={alignRight}
-              customSlideHeight={customSlideHeight}
-              isHideCounter={isHideCounter}
-              onPhotosModalToggle={onPhotosModalToggle}
-            />
-          ) : null}
-        </div>
-      ) : (
-        <div className={cx(classNames.noFileWrapper, mainClasses)}>
-          <div
-            className={cx(classNames.slideWrapper, {
-              [classNames.slideSmall]: smallSlider,
-              [classNames.slideMedium]: mediumSlider,
-              [classNames.slideBig]: bigSlider,
-            })}
-            style={{ width: customSlideWidth, height: customSlideHeight }}
-          >
-            {withoutFiles ? (
-              <NoPhotoIcon className={classNames.slide} />
-            ) : (
-              <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
-            )}
-          </div>
-
-          {!isHideCounter ? (
-            <p
-              className={cx(classNames.text, {
-                [classNames.smallText]: smallSlider,
-                [classNames.mediumText]: mediumSlider,
-                [classNames.bigText]: bigSlider,
-              })}
-            >
-              {withoutFiles ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
-            </p>
-          ) : null}
-        </div>
-      )}
-
-      <Modal openModal={imageEditOpen} setOpenModal={onImageEditToggle}>
-        <ImageEditForm item={photos[photoIndex]} setOpenModal={onImageEditToggle} onSave={onClickEditImageSubmit} />
-      </Modal>
-
-      <ImageModal
-        showPreviews={showPreviews}
-        isOpenModal={showPhotosModal}
-        handleOpenModal={onPhotosModalToggle}
-        imageList={photos.map((photo, index) => ({
-          url: typeof photo === 'string' ? photo : photo.data_url,
-          comment: (imagesTitles ?? [])[index],
-        }))}
-        currentImageIndex={photoIndex}
-        handleCurrentImageIndex={imgIndex => setPhotoIndex(imgIndex)}
-        controls={isEditable ? imageModalControls : undefined}
+    const imageModalControls = (
+      imageIndex: number,
+      image: ImageObjectType | string,
+      onImageEditToggle?: VoidFunction,
+    ): ReactNode => (
+      <ButtonControls
+        imageIndex={imageIndex}
+        image={image}
+        withoutMakeMainImage={withoutMakeMainImage}
+        onClickMakeMainImageObj={onClickMakeMainImageObj}
+        onImageEditToggle={onImageEditToggle}
+        onUploadFile={onUploadFile}
+        onClickRemoveImageObj={onClickRemoveImageObj}
       />
-    </>
-  )
-}
+    )
+
+    const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
+
+    return (
+      <>
+        {files?.length ? (
+          <div
+            className={cx(
+              classNames.mainWrapper,
+              {
+                [classNames.column]: column,
+                [classNames.wrapperAlignLeft]: alignLeft,
+                [classNames.wrapperAlignRight]: alignRight,
+              },
+              mainClasses,
+            )}
+            style={{ gap: customGap }}
+          >
+            {!withoutPhotos && !withAllFiles ? (
+              <Slider
+                slides={photos}
+                currentIndex={showPhotosModal ? prevPhotoIndex : photoIndex}
+                setCurrentIndex={setPhotoIndex}
+                setPrevPhotoIndex={setPrevPhotoIndex}
+                smallSlider={smallSlider}
+                mediumSlider={mediumSlider}
+                bigSlider={bigSlider}
+                alignLeft={alignLeft}
+                alignRight={alignRight}
+                customSlideHeight={customSlideHeight}
+                isHideCounter={isHideCounter}
+                onPhotosModalToggle={onPhotosModalToggle}
+              />
+            ) : null}
+
+            {!withoutFiles && !withAllFiles ? (
+              <Slider
+                slides={documents}
+                currentIndex={documentIndex}
+                setCurrentIndex={setDocumentIndex}
+                smallSlider={smallSlider}
+                mediumSlider={mediumSlider}
+                bigSlider={bigSlider}
+                alignLeft={alignLeft}
+                alignRight={alignRight}
+                customSlideHeight={customSlideHeight}
+                isHideCounter={isHideCounter}
+                withoutFiles={!withoutFiles}
+              />
+            ) : null}
+
+            {withAllFiles ? (
+              <Slider
+                slides={files}
+                currentIndex={documentIndex}
+                setCurrentIndex={setDocumentIndex}
+                smallSlider={smallSlider}
+                mediumSlider={mediumSlider}
+                bigSlider={bigSlider}
+                alignLeft={alignLeft}
+                alignRight={alignRight}
+                customSlideHeight={customSlideHeight}
+                isHideCounter={isHideCounter}
+                onPhotosModalToggle={onPhotosModalToggle}
+              />
+            ) : null}
+          </div>
+        ) : (
+          <div className={cx(classNames.noFileWrapper, mainClasses)}>
+            <div
+              className={cx(classNames.slideWrapper, {
+                [classNames.slideSmall]: smallSlider,
+                [classNames.slideMedium]: mediumSlider,
+                [classNames.slideBig]: bigSlider,
+              })}
+              style={{ width: customSlideWidth, height: customSlideHeight }}
+            >
+              {withoutFiles ? (
+                <NoPhotoIcon className={classNames.slide} />
+              ) : (
+                <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
+              )}
+            </div>
+
+            {!isHideCounter ? (
+              <p
+                className={cx(classNames.text, {
+                  [classNames.smallText]: smallSlider,
+                  [classNames.mediumText]: mediumSlider,
+                  [classNames.bigText]: bigSlider,
+                })}
+              >
+                {withoutFiles ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
+              </p>
+            ) : null}
+          </div>
+        )}
+
+        <ImageModal
+          showPreviews={showPreviews}
+          isOpenModal={showPhotosModal}
+          handleOpenModal={onPhotosModalToggle}
+          imageList={photos.map((photo, index) => ({
+            url: typeof photo === 'string' ? photo : photo.data_url,
+            comment: (imagesTitles ?? [])[index],
+          }))}
+          currentImageIndex={photoIndex}
+          handleCurrentImageIndex={setPhotoIndex}
+          controls={isEditable ? imageModalControls : undefined}
+          onClickEditImageSubmit={onClickEditImageSubmit}
+        />
+      </>
+    )
+  },
+)

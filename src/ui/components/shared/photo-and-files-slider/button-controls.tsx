@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import { ChangeEvent, FC } from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -17,64 +18,69 @@ interface Props {
   onClickRemoveImageObj: (imageIndex: number) => void
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => void
   onClickMakeMainImageObj: (imageIndex: number, image: string | ImageObjectType) => void
-  onImageEditToggle: VoidFunction
+  onImageEditToggle?: VoidFunction
 }
 
-export const ButtonControls: FC<Props> = ({
-  image,
-  imageIndex,
-  withoutMakeMainImage,
-  onImageEditToggle,
-  onClickRemoveImageObj,
-  onUploadFile,
-  onClickMakeMainImageObj,
-}) => {
-  const { classes: classNames, cx } = useClassNames()
+export const ButtonControls: FC<Props> = observer(
+  ({
+    image,
+    imageIndex,
+    withoutMakeMainImage,
+    onImageEditToggle,
+    onClickRemoveImageObj,
+    onUploadFile,
+    onClickMakeMainImageObj,
+  }) => {
+    const { classes: classNames, cx } = useClassNames()
 
-  return (
-    <>
-      {!withoutMakeMainImage && (
-        <>
-          {imageIndex === 0 ? (
-            <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
-              <StarOutlinedIcon />
-            </div>
-          ) : (
-            <Button
-              disabled={imageIndex === 0}
-              className={classNames.imagesModalBtn}
-              onClick={() => {
-                if (typeof image === 'string') {
-                  onClickMakeMainImageObj(imageIndex, image)
-                } else {
-                  onClickMakeMainImageObj(imageIndex, image.url)
-                }
-              }}
-            >
-              <StarOutlinedIcon />
-            </Button>
-          )}
-        </>
-      )}
+    return (
+      <>
+        {!withoutMakeMainImage && (
+          <>
+            {imageIndex === 0 ? (
+              <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+                <StarOutlinedIcon />
+              </div>
+            ) : (
+              <Button
+                disabled={imageIndex === 0}
+                className={classNames.imagesModalBtn}
+                onClick={() => {
+                  if (typeof image === 'string') {
+                    onClickMakeMainImageObj(imageIndex, image)
+                  } else {
+                    onClickMakeMainImageObj(imageIndex, image.url)
+                  }
+                }}
+              >
+                <StarOutlinedIcon />
+              </Button>
+            )}
+          </>
+        )}
 
-      <Button className={classNames.imagesModalBtn} onClick={() => onImageEditToggle()}>
-        <ModeOutlinedIcon />
-      </Button>
+        <Button
+          className={classNames.imagesModalBtn}
+          onClick={() => (onImageEditToggle ? onImageEditToggle() : undefined)}
+        >
+          <ModeOutlinedIcon />
+        </Button>
 
-      <Button className={classNames.imagesModalBtn}>
-        <AutorenewIcon />
+        <Button className={classNames.imagesModalBtn}>
+          <AutorenewIcon />
 
-        <input
-          type="file"
-          className={classNames.pasteInput}
-          defaultValue={''}
-          onChange={event => onUploadFile(event, imageIndex)}
-        />
-      </Button>
+          <input
+            type="file"
+            className={classNames.pasteInput}
+            defaultValue={''}
+            onChange={event => onUploadFile(event, imageIndex)}
+          />
+        </Button>
 
-      <Button danger className={classNames.imagesModalBtn} onClick={() => onClickRemoveImageObj(imageIndex)}>
-        <DeleteOutlineOutlinedIcon />
-      </Button>
-    </>
-  )
-}
+        <Button danger className={classNames.imagesModalBtn} onClick={() => onClickRemoveImageObj(imageIndex)}>
+          <DeleteOutlineOutlinedIcon />
+        </Button>
+      </>
+    )
+  },
+)
