@@ -22,10 +22,12 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor() { 
+    constructor(batchIds, archive) { 
         
-        InlineObject18.initialize(this);
+        InlineObject18.initialize(this, batchIds, archive);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -47,20 +51,11 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
             }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumber')) {
-                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
-            }
-            if (data.hasOwnProperty('actualShippingCost')) {
-                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -70,34 +65,15 @@ class InlineObject18 {
 }
 
 /**
- * Название партии
- * @member {String} title
+ * @member {Array.<String>} batchIds
  */
-InlineObject18.prototype['title'] = undefined;
+InlineObject18.prototype['batchIds'] = undefined;
 
 /**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
+ * Заархивирована ли партия
+ * @member {Boolean} archive
  */
-InlineObject18.prototype['calculationMethod'] = undefined;
-
-/**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
- */
-InlineObject18.prototype['volumeWeightDivide'] = undefined;
-
-/**
- * Трек номер партии
- * @member {String} trackingNumber
- */
-InlineObject18.prototype['trackingNumber'] = undefined;
-
-/**
- * Настоящая стоимость доставки
- * @member {Number} actualShippingCost
- */
-InlineObject18.prototype['actualShippingCost'] = undefined;
+InlineObject18.prototype['archive'] = undefined;
 
 
 

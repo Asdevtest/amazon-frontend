@@ -65,6 +65,7 @@ export class SubUsersViewModel {
   }
 
   get userInfo() {
+    console.log('UserModel.userInfo', UserModel.userInfo)
     return UserModel.userInfo
   }
 
@@ -228,6 +229,8 @@ export class SubUsersViewModel {
       const result = await UserModel.getMySubUsers()
       runInAction(() => {
         this.subUsersData = addIdDataConverter(result)
+
+        console.log('this.subUsersData', this.subUsersData)
       })
     } catch (error) {
       console.log(error)

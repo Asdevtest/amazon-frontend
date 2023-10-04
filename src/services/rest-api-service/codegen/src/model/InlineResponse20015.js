@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
 
 /**
  * The InlineResponse20015 model module.
@@ -47,23 +49,26 @@ class InlineResponse20015 {
         if (data) {
             obj = obj || new InlineResponse20015();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('cubicMeters')) {
-                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('deliveryCost')) {
-                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
             }
-            if (data.hasOwnProperty('deliveryRate')) {
-                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
+            if (data.hasOwnProperty('amountInBatch')) {
+                obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
         }
         return obj;
@@ -73,40 +78,44 @@ class InlineResponse20015 {
 }
 
 /**
- * The unique identifier of the box.
- * @member {String} guid
+ * GUID партии.
+ * @member {String} _id
  */
-InlineResponse20015.prototype['guid'] = undefined;
+InlineResponse20015.prototype['_id'] = undefined;
 
 /**
- * Объем в м ^ 3
- * @member {Number} cubicMeters
+ * Человекочитаемый id партии.
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20015.prototype['cubicMeters'] = undefined;
+InlineResponse20015.prototype['humanFriendlyId'] = undefined;
 
 /**
- * The delivery cost of the box.
- * @member {Number} deliveryCost
+ * Название партии
+ * @member {String} title
  */
-InlineResponse20015.prototype['deliveryCost'] = undefined;
+InlineResponse20015.prototype['title'] = undefined;
 
 /**
- * The volume weight of the box in kg.
- * @member {Number} volumeWeightKgWarehouse
+ * Заархивирована ли партия
+ * @member {Boolean} archive
  */
-InlineResponse20015.prototype['volumeWeightKgWarehouse'] = undefined;
+InlineResponse20015.prototype['archive'] = undefined;
 
 /**
- * The weight of the box in kg.
- * @member {Number} weightFinalAccountingKgWarehouse
+ * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes
  */
-InlineResponse20015.prototype['weightFinalAccountingKgWarehouse'] = undefined;
+InlineResponse20015.prototype['boxes'] = undefined;
 
 /**
- * The delivery rate of the box. $/kg
- * @member {Number} deliveryRate
+ * Общее кол-во продуктов
+ * @member {Number} amountInBatch
  */
-InlineResponse20015.prototype['deliveryRate'] = undefined;
+InlineResponse20015.prototype['amountInBatch'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20015.prototype['storekeeper'] = undefined;
 
 
 

@@ -2130,6 +2130,7 @@ export enum TranslationKey {
   'Remove destination restriction' = 'Remove destination restriction',
   'Wish to change a destination?' = 'Wish to change a destination?',
   'Price without delivery' = 'Price without delivery',
+  'Available request types' = 'Available request types',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

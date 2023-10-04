@@ -5,11 +5,17 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Box, Divider, ListItemText, Tabs, Typography } from '@mui/material'
+import { Box, Divider, Input, InputAdornment, ListItemText, MenuItem, Select, Tabs, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -44,6 +50,8 @@ export const AddOrEditUserPermissionsForm = observer(
     productPermissionsData,
   }) => {
     const { classes: classNames } = useClassNames()
+
+    console.log('sourceData', sourceData)
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
@@ -130,9 +138,6 @@ export const AddOrEditUserPermissionsForm = observer(
     const submitDisabled =
       JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
       JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender)
-
-    // console.log('productPermissionsData', productPermissionsData)
-    // console.log('shopDataToRender', shopDataToRender)
 
     const getSourceDataToShop = shop =>
       productPermissionsData?.filter(el =>
@@ -389,33 +394,61 @@ export const AddOrEditUserPermissionsForm = observer(
         </TabPanel>
 
         <div className={classNames.buttonsWrapper}>
-          <Button
-            disableElevation
-            disabled={submitDisabled}
-            className={classNames.button}
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              onSubmit(
-                formFields,
-                sourceData._id,
-                Array.from(new Set(shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []))),
-              )
-              onCloseModal()
-            }}
-          >
-            {t(TranslationKey.Edit)}
-          </Button>
+          <div className={classNames.requestTypeWrapper}>
+            <p>{t(TranslationKey['Available request types'])}</p>
 
-          <Button
-            disableElevation
-            className={cx(classNames.button, classNames.cancelBtn)}
-            color="primary"
-            variant="text"
-            onClick={onCloseModal}
-          >
-            {t(TranslationKey.Cancel)}
-          </Button>
+            <Select
+              multiple
+              displayEmpty
+              value={[null]}
+              className={classNames.requestTypeField}
+              input={<Input startAdornment={<InputAdornment position="start" />} />}
+              onChange={value => console.log('value', value)}
+            >
+              <MenuItem disabled value={null}>
+                {t(TranslationKey['Select from the list'])}
+              </MenuItem>
+
+              {Object.keys(freelanceRequestTypeByCode)
+                .filter(el => String(el) !== String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
+                .map((taskType, taskIndex) => (
+                  <MenuItem key={taskIndex} value={taskType}>
+                    <Checkbox checked={false} />
+                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                  </MenuItem>
+                ))}
+            </Select>
+          </div>
+
+          <>
+            <Button
+              disableElevation
+              disabled={submitDisabled}
+              className={classNames.button}
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                onSubmit(
+                  formFields,
+                  sourceData._id,
+                  Array.from(new Set(shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []))),
+                )
+                onCloseModal()
+              }}
+            >
+              {t(TranslationKey.Edit)}
+            </Button>
+
+            <Button
+              disableElevation
+              className={cx(classNames.button, classNames.cancelBtn)}
+              color="primary"
+              variant="text"
+              onClick={onCloseModal}
+            >
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </>
         </div>
       </div>
     )
