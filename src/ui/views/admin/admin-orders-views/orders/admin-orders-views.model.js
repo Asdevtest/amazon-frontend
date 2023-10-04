@@ -146,7 +146,7 @@ export class AdminOrdersAllViewModel {
   onClickTableRow(order) {
     this.history.push({
       pathname: '/admin/orders/order',
-      search: order.originalData._id,
+      search: order._id,
     })
   }
 
