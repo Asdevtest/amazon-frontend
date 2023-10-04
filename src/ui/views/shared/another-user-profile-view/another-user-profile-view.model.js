@@ -283,7 +283,7 @@ export class AnotherProfileViewModel {
       const result = await FeedbackModel.getFeedback(this.userId)
 
       runInAction(() => {
-        this.reviews = result
+        this.reviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)
