@@ -187,6 +187,6 @@ export const downloadArchive = async (files, folderName) => {
 
   fetchedData.forEach(file => zip.file(file.title, file.blob, { base64: true }))
   zip.generateAsync({ type: 'blob' }).then(content => {
-    downloadFile(content, `${folderName}.zip`)
+    downloadFile(content, `${folderName}.rar`)
   })
 }
