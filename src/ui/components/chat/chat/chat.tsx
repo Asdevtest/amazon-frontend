@@ -63,6 +63,7 @@ interface Props {
   messagesFound?: ChatMessageContract[]
   isFreelanceOwner?: boolean
   searchPhrase?: string
+  classNamesWrapper?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
@@ -90,6 +91,7 @@ export const Chat: FC<Props> = observer(
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
     isFreelanceOwner,
+    classNamesWrapper,
   }) => {
     const { classes: classNames, cx } = useClassNames()
     const { isTabletResolution } = useCreateBreakpointResolutions()
@@ -261,13 +263,17 @@ export const Chat: FC<Props> = observer(
       setUnreadMessages([])
     }
 
+    useEffect(() => {
+      setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
+    }, [toScrollMesId])
+
     const disabledSubmit = !message.replace(/\n/g, '') && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
     return (
       <>
-        <div className={classNames.scrollViewWrapper}>
+        <div className={cx(classNames.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
             messagesWrapperRef={messagesWrapperRef}
@@ -276,7 +282,6 @@ export const Chat: FC<Props> = observer(
             messages={messages}
             isShowChatInfo={isShowChatInfo}
             handlers={chatMessageHandlers}
-            toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}

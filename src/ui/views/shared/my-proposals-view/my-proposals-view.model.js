@@ -314,10 +314,12 @@ export class MyProposalsViewModel {
     }
   }
 
-  onClickResultBtn(request, proposalId) {
-    this.currentRequest = request
+  async onClickResultBtn(request, proposalId) {
+    runInAction(() => {
+      this.currentRequest = request
+    })
 
-    this.getProposalById(proposalId)
+    await this.getProposalById(proposalId)
 
     if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')

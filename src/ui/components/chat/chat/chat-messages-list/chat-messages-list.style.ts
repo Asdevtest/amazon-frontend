@@ -121,7 +121,6 @@ export const useClassNames = makeStyles()(theme => ({
   repleyWrapper: {
     marginBottom: 5,
     display: 'flex',
-    opacity: '0.7',
     transform: 'scale(0.97)',
     cursor: 'pointer',
   },

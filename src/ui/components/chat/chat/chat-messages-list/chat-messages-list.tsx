@@ -34,7 +34,6 @@ interface Props {
   userId: string
   messages?: ChatMessageContract[]
   handlers?: ChatMessageUniversalHandlers
-  toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
   chatId?: string
@@ -51,7 +50,6 @@ export const ChatMessagesList: FC<Props> = observer(
     messages,
     userId,
     handlers,
-    toScrollMesId,
     messagesFound,
     searchPhrase,
     isGroupChat,
@@ -105,7 +103,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
     useEffect(() => {
       scrollToMessage()
-    }, [toScrollMesId, messageToScroll])
+    }, [messageToScroll])
 
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
@@ -156,13 +154,11 @@ export const ChatMessagesList: FC<Props> = observer(
 
               const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
+              const isRequestOrProposal = !!messageItem.data
+
               return (
                 <div
-                  ref={
-                    messageToScroll?._id === messageItem._id || toScrollMesId === messageItem._id
-                      ? messageToScrollRef
-                      : undefined
-                  }
+                  ref={messageToScroll?._id === messageItem._id ? messageToScrollRef : undefined}
                   key={`chatMessage_${messageItem._id}`}
                   // ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
                   className={cx(classNames.message, {
@@ -204,7 +200,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
                       <div
                         className={cx({
-                          [classNames.messageInnerWrapper]: isFreelanceOwner && isIncomming,
+                          [classNames.messageInnerWrapper]: isFreelanceOwner && isRequestOrProposal,
                           [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                           [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,
