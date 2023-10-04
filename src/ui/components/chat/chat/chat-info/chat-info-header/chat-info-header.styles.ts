@@ -31,21 +31,26 @@ export const useChatInfoHeaderStyles = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
   },
+
   chatTitle: {
+    color: '#fff',
     fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
-    color: '#fff',
   },
+
   chatSubTitle: {
-    fontSize: 12,
-    fontWeight: 400,
     color: '#fff',
+    fontSize: 12,
+    lineHeight: '16px',
   },
+
   pencilEditIcon: {
     transition: '.3s ease',
     cursor: 'pointer',
     alignSelf: 'flex-end',
     marginTop: '-24px',
+
     '&:hover': {
       transform: 'scale(1.1)',
     },

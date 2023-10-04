@@ -52,7 +52,6 @@ export const BuyerSearchSupplierBySupervisorViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-              cell: classNames.cell,
             }}
             slots={{
               toolbar: DataGridCustomToolbar,
@@ -75,8 +74,7 @@ export const BuyerSearchSupplierBySupervisorViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            // rowHeight={100}
-            getRowHeight={() => 'auto'}
+            rowHeight={80}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}

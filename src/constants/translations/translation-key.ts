@@ -2132,6 +2132,9 @@ export enum TranslationKey {
   'Normal' = 'Normal',
   'Hard' = 'Hard',
   'Are you sure?' = 'Are you sure?',
+  'Remove destination restriction' = 'Remove destination restriction',
+  'Wish to change a destination?' = 'Wish to change a destination?',
+  'Price without delivery' = 'Price without delivery',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

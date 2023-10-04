@@ -222,6 +222,7 @@ export class ClientInStockBoxesViewModel {
     isWarning: false,
     confirmMessage: '',
     onClickConfirm: () => {},
+    onClickCancelBtn: () => {},
   }
 
   rowCount = 0
@@ -492,6 +493,7 @@ export class ClientInStockBoxesViewModel {
         isWarning: true,
         confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
         onClickConfirm: () => this.returnBoxesToStock(),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
 
@@ -625,6 +627,7 @@ export class ClientInStockBoxesViewModel {
             TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
           ),
           onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
+          onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
         }
       })
 
@@ -704,6 +707,7 @@ export class ClientInStockBoxesViewModel {
         } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
         onClickConfirm: () =>
           this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
   }
@@ -724,6 +728,7 @@ export class ClientInStockBoxesViewModel {
                 TranslationKey['to change the Box'],
               )} № ${boxData?.humanFriendlyId}`,
         onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
   }
@@ -738,6 +743,7 @@ export class ClientInStockBoxesViewModel {
           this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
         } ${t(TranslationKey['to merge boxes'])}`,
         onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
   }
@@ -1271,16 +1277,49 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async editTariff(id, boxData) {
+  async editTariff(id, boxData, isSelectedDestinationNotValid) {
     try {
-      await BoxesModel.editBoxAtClient(id, {
-        logicsTariffId: boxData.logicsTariffId,
-        variationTariffId: boxData.variationTariffId,
-      })
+      if (isSelectedDestinationNotValid) {
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey.Attention),
+            confirmMessage: t(TranslationKey['Wish to change a destination?']),
+            onClickConfirm: async () => {
+              await BoxesModel.editBoxAtClient(id, {
+                logicsTariffId: boxData.logicsTariffId,
+                variationTariffId: boxData.variationTariffId,
+                destinationId: boxData.destinationId,
+              })
+              this.onTriggerOpenModal('showConfirmModal')
+              await this.getBoxesMy()
+              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+            },
+            onClickCancelBtn: async () => {
+              await BoxesModel.editBoxAtClient(id, {
+                destinationId: null,
+              })
+              await BoxesModel.editBoxAtClient(id, {
+                logicsTariffId: boxData.logicsTariffId,
+                variationTariffId: boxData.variationTariffId,
+              })
+              this.onTriggerOpenModal('showConfirmModal')
+              await this.getBoxesMy()
+              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+            },
+          }
+        })
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        await BoxesModel.editBoxAtClient(id, {
+          logicsTariffId: boxData.logicsTariffId,
+          variationTariffId: boxData.variationTariffId,
+        })
 
-      await this.getBoxesMy()
+        await this.getBoxesMy()
 
-      this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+        this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+      }
     } catch (error) {
       console.log(error)
 

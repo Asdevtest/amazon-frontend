@@ -22,7 +22,7 @@ export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = props =
       condition={selectedTaskType}
       switcherSettings={[
         ...Object.keys(freelanceRequestTypeByCode).map(taskType => ({
-          label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(taskType)]) || '',
+          label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(taskType)], true) || '',
           value: Number(taskType),
         })),
       ]}

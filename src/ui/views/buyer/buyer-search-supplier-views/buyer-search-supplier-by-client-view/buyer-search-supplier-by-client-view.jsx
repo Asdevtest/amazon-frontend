@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -53,7 +52,6 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-              cell: classNames.cell,
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             slots={{
@@ -76,8 +74,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            // rowHeight={100}
-            getRowHeight={() => 'auto'}
+            rowHeight={80}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
