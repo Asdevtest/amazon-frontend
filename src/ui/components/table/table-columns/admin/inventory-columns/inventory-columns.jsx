@@ -58,6 +58,23 @@ export const exchangeInventoryColumns = () => [
   },
 
   {
+    field: 'status',
+    headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
+    renderCell: params => (
+      <MultilineTextCell
+        color={colorByProductStatus(ProductStatusByCode[params.value])}
+        text={productStatusTranslateKey(ProductStatusByCode[params.value])}
+      />
+    ),
+
+    width: 250,
+    columnKey: columnnsKeys.admin.STRATEGY_STATUS,
+    sortable: false,
+  },
+
+  {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
@@ -70,7 +87,7 @@ export const exchangeInventoryColumns = () => [
     ),
 
     width: 250,
-    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
+    columnKey: columnnsKeys.admin.STRATEGY_STATUS,
     sortable: false,
   },
 
@@ -151,11 +168,11 @@ export const exchangeInventoryColumns = () => [
   },
 
   {
-    field: 'bauyerId',
+    field: 'buyer',
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.row.buyer?.name} userId={params.row.buyer?._id} />,
+    renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
     width: 200,
 
     columnKey: columnnsKeys.shared.OBJECT,
