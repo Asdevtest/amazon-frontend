@@ -63,8 +63,6 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
     setFilteredFiles(images)
   }, [files])
 
-  // console.log('filesForRender', filesForRender)
-
   useEffect(() => {
     setFilesForRender(files)
   }, [SettingsModel.languageTag, files])

@@ -210,6 +210,12 @@ class UserModelStatic {
 
     return response
   }
+
+  async changeSubUserSpec(guid, data) {
+    const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost(guid, { body: data })
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()
