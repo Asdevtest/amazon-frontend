@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -309,7 +307,7 @@ export class SuppliersAndIdeasModel {
       const submitData = {
         ...formFields,
         title: formFields.productName || '',
-        media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media,
+        media: this.readyFiles.length ? this.readyFiles : formFields.media,
         price: formFields.price || 0,
         quantity: Math.floor(formFields.quantity) || 0,
       }

@@ -225,7 +225,7 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
           isOpenModal={showPhotosModal}
           handleOpenModal={onPhotosModalToggle}
           imageList={photos.map((photo, index) => ({
-            url: typeof photo === 'string' ? photo : photo.data_url,
+            url: typeof photo === 'string' ? photo : photo.data_url, // не работает изменить-сделать главнойб добавить-сделать главное из-за того, что в модалке я передаю картинку(добаленную или измененную) и передаю ее урл, а не всю картинку, нужно расширить тип коммент и сам файл: string|FILE...
             comment: (imagesTitles ?? [])[index],
           }))}
           currentImageIndex={photoIndex}
