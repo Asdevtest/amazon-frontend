@@ -30,9 +30,11 @@ export class AdminOrderViewModel {
   order = undefined
 
   constructor({ history }) {
+    const url = new URL(window.location.href)
+
     runInAction(() => {
       this.history = history
-      this.orderId = history.location.search.slice(1)
+      this.orderId = url.searchParams.get('orderId')
     })
     makeAutoObservable(this, undefined, { autoBind: true })
   }
