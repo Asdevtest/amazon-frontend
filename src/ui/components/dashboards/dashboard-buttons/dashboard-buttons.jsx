@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Typography } from '@mui/material'

@@ -104,17 +104,7 @@ export const ChatMessageBasicText: FC<Props> = observer(
         )}
       >
         <div className={classNames.subWrapper}>
-          {showName ? (
-            <UserLink
-              name={message.user?.name}
-              userId={message.user?._id}
-              blackText={undefined}
-              withAvatar={undefined}
-              maxNameWidth={undefined}
-              customStyles={undefined}
-              customClassNames={undefined}
-            />
-          ) : null}
+          {showName ? <UserLink name={message.user?.name} userId={message.user?._id} /> : null}
 
           {!!photoFiles.length && !anotherFiles.length ? (
             <div className={classNames.filesMainWrapper}>

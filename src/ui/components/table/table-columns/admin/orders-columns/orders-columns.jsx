@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { OrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 

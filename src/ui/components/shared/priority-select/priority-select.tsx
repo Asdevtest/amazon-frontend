@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import { MenuItem, Select } from '@mui/material'
 

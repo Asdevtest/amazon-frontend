@@ -32,14 +32,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.root}>
-        <UserLink
-          name={message.user?.name}
-          userId={message.user?._id}
-          blackText={undefined}
-          withAvatar={undefined}
-          maxNameWidth={undefined}
-          customClassNames={undefined}
-        />
+        <UserLink name={message.user?.name} userId={message.user?._id} />
 
         <p className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</p>
       </div>

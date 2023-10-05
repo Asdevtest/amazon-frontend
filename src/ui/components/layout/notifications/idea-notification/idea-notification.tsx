@@ -67,14 +67,7 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
         <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
         <div className={classNames.centerSubWrapper}>
           <div className={classNames.itemWrapper}>
-            <UserLink
-              name={noticeItem?.creator.name}
-              userId={noticeItem?.creator._id}
-              blackText={undefined}
-              withAvatar={undefined}
-              maxNameWidth={undefined}
-              customClassNames={undefined}
-            />
+            <UserLink name={noticeItem?.creator.name} userId={noticeItem?.creator._id} />
             <Typography className={classNames.messageText}>
               {t(TranslationKey['updated data on idea to product']) + ':'}
             </Typography>
