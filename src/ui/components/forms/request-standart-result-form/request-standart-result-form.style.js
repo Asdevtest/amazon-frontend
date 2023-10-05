@@ -8,58 +8,34 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 auto',
     borderRadius: '4px',
   },
-  headerAndTimeWrapper: {
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+
   headerText: {
     color: theme.palette.text.general,
     fontSize: 18,
     fontWeight: 600,
-    lineHeight: '140%',
+    lineHeight: '25px',
     textTransform: 'uppercase',
   },
 
-  mainInfoWrapper: {
-    width: '100%',
-    marginTop: 20,
-  },
-  titleText: {
-    color: theme.palette.text.second,
-    fontSize: 18,
-  },
-  descriptionWrapper: {
-    marginTop: 18,
-  },
-  descriptionText: {
-    color: theme.palette.text.second,
-    fontSize: 18,
-    maxHeight: 150,
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-word',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-  },
-  resultWrapper: {
-    width: '100%',
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
   resultText: {
+    marginTop: 20,
     fontSize: 18,
-    fontWeight: 400,
-    lineHeight: '140%',
+    lineHeight: '25px',
     color: theme.palette.text.general,
     maxHeight: 151,
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
     overflowY: 'auto',
     overflowX: 'hidden',
+  },
+
+  resultWrapper: {
+    marginTop: 20,
+    width: '100%',
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   timeToCheckBlockWrapper: {
@@ -93,7 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'end',
-    marginTop: 30,
+    marginTop: 20,
   },
 
   actionBtnWrapperStyleNotFirst: {
