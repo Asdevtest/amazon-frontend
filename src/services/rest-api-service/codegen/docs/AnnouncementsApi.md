@@ -37,7 +37,7 @@ let apiInstance = new TestSwagger.AnnouncementsApi();
 let guid = null; // String | Гуид анонса
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+  'body': new TestSwagger.InlineObject13() // InlineObject13 | 
 };
 apiInstance.apiV1AnnouncementsGuidArchivePatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| Гуид анонса | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+ **body** | [**InlineObject13**](InlineObject13.md)|  | [optional] 
 
 ### Return type
 
@@ -201,7 +201,7 @@ let apiInstance = new TestSwagger.AnnouncementsApi();
 let guid = null; // String | Гуид анонса
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+  'body': new TestSwagger.InlineObject12() // InlineObject12 | 
 };
 apiInstance.apiV1AnnouncementsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| Гуид анонса | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+ **body** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
 
 ### Return type
 
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsMyGet
 
-> [InlineResponse20024] apiV1AnnouncementsMyGet(opts)
+> [InlineResponse20012] apiV1AnnouncementsMyGet(opts)
 
 # Получить свои анонсы
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsPost
 
-> InlineResponse2014 apiV1AnnouncementsPost(opts)
+> InlineResponse201 apiV1AnnouncementsPost(opts)
 
 # Создать анонс
 
@@ -312,7 +312,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AnnouncementsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+  'body': new TestSwagger.InlineObject11() // InlineObject11 | 
 };
 apiInstance.apiV1AnnouncementsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -328,11 +328,11 @@ apiInstance.apiV1AnnouncementsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **body** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse201**](InlineResponse201.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsVacGet
 
-> [InlineResponse20024] apiV1AnnouncementsVacGet(opts)
+> [InlineResponse20012] apiV1AnnouncementsVacGet(opts)
 
 # Получить не свои анонсы
 
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 

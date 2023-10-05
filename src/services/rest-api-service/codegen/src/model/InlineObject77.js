@@ -22,11 +22,10 @@ class InlineObject77 {
     /**
      * Constructs a new <code>InlineObject77</code>.
      * @alias module:model/InlineObject77
-     * @param text {String} текст отзыва/репорта
      */
-    constructor(text) { 
+    constructor() { 
         
-        InlineObject77.initialize(this, text);
+        InlineObject77.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject77 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, text) { 
-        obj['text'] = text;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,11 @@ class InlineObject77 {
         if (data) {
             obj = obj || new InlineObject77();
 
-            if (data.hasOwnProperty('text')) {
-                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -63,16 +61,14 @@ class InlineObject77 {
 }
 
 /**
- * текст отзыва/репорта
- * @member {String} text
+ * @member {String} userId
  */
-InlineObject77.prototype['text'] = undefined;
+InlineObject77.prototype['userId'] = undefined;
 
 /**
- * Прикрепленные ссылки на медиа для репорта/отзыва
- * @member {Array.<String>} media
+ * @member {Array.<String>} productIds
  */
-InlineObject77.prototype['media'] = undefined;
+InlineObject77.prototype['productIds'] = undefined;
 
 
 

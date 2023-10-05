@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**text** | **String** | текст отзыва/репорта | 
-**media** | **[String]** | Прикрепленные ссылки на медиа для репорта/отзыва | [optional] 
+**userId** | **String** |  | [optional] 
+**productIds** | **[String]** |  | [optional] 
 
 

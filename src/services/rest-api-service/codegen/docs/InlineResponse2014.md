@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | Гуид созданного анонса | [optional] 
+**guid** | **String** | GUID созданной коробки | [optional] 
 
 
