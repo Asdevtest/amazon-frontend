@@ -70,7 +70,7 @@ export const ImageModal: FC<Props> = observer(
     }
 
     const currentSlideTitle = `${currentImageIndex + 1}/${imageList?.length || 0}`
-    const photos = imageList?.map(image => (typeof image === 'string' ? image : image.url))
+    const photos = imageList?.map(image => (typeof image === 'string' ? image : image?.url))
 
     return (
       <Modal
@@ -193,7 +193,7 @@ export const ImageModal: FC<Props> = observer(
 
         <Modal openModal={imageEditOpen} setOpenModal={onImageEditToggle}>
           <ImageEditForm
-            item={photos[currentImageIndex]}
+            item={photos?.[currentImageIndex] || null}
             setOpenModal={onImageEditToggle}
             onSave={onClickEditImageSubmit}
           />
