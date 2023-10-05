@@ -366,7 +366,7 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
     case columnnsKeys.admin.STRATEGY_STATUS:
-      return t(productStatusTranslateKey(ProductStatusByCode[status]))
+      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
     default:
       return status
   }
