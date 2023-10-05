@@ -98,7 +98,7 @@ const filtersFields = [
   'stockCost',
   'purchaseQuantity',
   'ideasClosed',
-  'ideasVerified',
+  'ideasFinished',
   'tags',
   'redFlags',
 ]
@@ -893,7 +893,7 @@ export class ClientInventoryViewModel {
     const ideasClosedFilter =
       exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
     const ideasVerifiedFilter =
-      exclusion !== 'ideasVerified' && this.columnMenuSettings.ideasVerified.currentFilterData.join(',')
+      exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
 
     const tagsFilter =
       exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
@@ -993,7 +993,7 @@ export class ClientInventoryViewModel {
       }),
 
       ...(ideasVerifiedFilter && {
-        ideasVerified: { $eq: ideasVerifiedFilter },
+        ideasFinished: { $eq: ideasVerifiedFilter },
       }),
 
       ...(tagsFilter && {
