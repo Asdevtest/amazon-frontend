@@ -75,6 +75,9 @@ export class ClientAwaitingBatchesViewModel {
   boxesData = []
   volumeWeightCoefficient = undefined
 
+  curBox = undefined
+  showBoxViewModal = false
+
   progressValue = 0
   showProgress = false
 
@@ -205,6 +208,23 @@ export class ClientAwaitingBatchesViewModel {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
 
     this.onTriggerOpenModal('showEditHSCodeModal')
+  }
+
+  async setCurrentOpenedBox(row) {
+    try {
+      const box = await BoxesModel.getBoxById(row._id)
+
+      runInAction(() => {
+        this.curBox = box
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
   setRequestStatus(requestStatus) {
