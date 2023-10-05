@@ -9,8 +9,6 @@ export const roundHalf = num => {
   const dif = roundedNum - Math.trunc(num)
 
   // const haveDoteInEnd = (num + '').slice(-1) === '.'
-  // console.log('num', num)
-  // console.log('haveDoteInEnd', haveDoteInEnd)
 
   // if (dif >= 0.25 && dif < 0.75) {
   //   return haveDoteInEnd ? Math.trunc(num) + 0.5 + '.' : Math.trunc(num) + 0.5

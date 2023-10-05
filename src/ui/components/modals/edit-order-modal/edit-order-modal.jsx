@@ -966,7 +966,7 @@ export const EditOrderModal = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <PhotoAndFilesSlider withoutFiles customSlideHeight={85} files={trackNumber.files} />
+                    <PhotoAndFilesSlider withAllFiles customSlideHeight={85} files={trackNumber.files} />
                   ) : (
                     <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}

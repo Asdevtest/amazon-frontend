@@ -1325,8 +1325,6 @@ export class WarehouseMyWarehouseViewModel {
     try {
       // this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,

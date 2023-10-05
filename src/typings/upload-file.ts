@@ -1,4 +1,4 @@
-export interface UploadFile {
+export interface IUploadFile {
   file: File
   data_url: string
 }
