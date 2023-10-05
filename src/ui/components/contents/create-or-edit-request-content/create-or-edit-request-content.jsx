@@ -490,7 +490,6 @@ export const CreateOrEditRequestContent = observer(
                         </Select>
                       }
                     />
-                    
 
                     {/* <span
                   className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}
