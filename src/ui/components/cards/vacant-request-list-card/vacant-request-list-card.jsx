@@ -43,10 +43,10 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
       <div className={classNames.cardTitleBlockWrapper}>
         <div className={classNames.cardTitleBlockHeaderWrapper}>
           <div className={classNames.titleWrapper}>
-            <Typography className={classNames.cardTitle}>
-              {`${item.title} / ${t(TranslationKey.ID)}`}{' '}
-              <span className={cx(classNames.cardTitle, classNames.idText)}>{item.humanFriendlyId}</span>
-            </Typography>
+            <Typography className={classNames.cardTitle}>{item.title}</Typography>
+            <Typography className={classNames.cardTitle}>{`/ ${t(TranslationKey.ID)} ${
+              item.humanFriendlyId
+            }`}</Typography>
           </div>
           <div className={classNames.requestInfoWrapper}>
             <UserLink

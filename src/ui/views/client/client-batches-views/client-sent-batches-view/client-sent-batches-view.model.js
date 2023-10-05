@@ -121,8 +121,6 @@ export class ClientSentBatchesViewModel {
   }
 
   constructor({ history }) {
-    // console.log('history', history)
-    // console.log('location', location)
     runInAction(() => {
       this.history = history
     })

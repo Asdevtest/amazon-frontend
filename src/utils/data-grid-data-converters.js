@@ -311,7 +311,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     stockUSA: item.stockUSA,
 
     ideasOnCheck: item.ideasOnCheck,
-    ideasVerified: item.ideasVerified,
+    ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
 
     shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',

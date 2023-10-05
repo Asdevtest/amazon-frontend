@@ -61,6 +61,13 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 20px',
   },
 
+  iconContainer: {
+    height: 40,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   barcodeWrapper: {
     display: 'flex',
     alignItems: 'center',
