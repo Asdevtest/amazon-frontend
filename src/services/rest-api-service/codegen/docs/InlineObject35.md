@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxIds** | **[String]** |  | 
-**newAmounts** | **[Number]** |  | 
+**type** | **Number** |  | [optional] 
+**linksToMediaFiles** | **[String]** |  | [optional] 
+**title** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
 
 

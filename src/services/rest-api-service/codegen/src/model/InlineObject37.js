@@ -22,11 +22,11 @@ class InlineObject37 {
     /**
      * Constructs a new <code>InlineObject37</code>.
      * @alias module:model/InlineObject37
-     * @param isFormed {Boolean} Сформирована ли коробка
+     * @param archive {Boolean} 
      */
-    constructor(isFormed) { 
+    constructor(archive) { 
         
-        InlineObject37.initialize(this, isFormed);
+        InlineObject37.initialize(this, archive);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject37 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isFormed) { 
-        obj['isFormed'] = isFormed;
+    static initialize(obj, archive) { 
+        obj['archive'] = archive;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject37 {
         if (data) {
             obj = obj || new InlineObject37();
 
-            if (data.hasOwnProperty('isFormed')) {
-                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -60,10 +60,9 @@ class InlineObject37 {
 }
 
 /**
- * Сформирована ли коробка
- * @member {Boolean} isFormed
+ * @member {Boolean} archive
  */
-InlineObject37.prototype['isFormed'] = undefined;
+InlineObject37.prototype['archive'] = undefined;
 
 
 

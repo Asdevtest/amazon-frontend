@@ -22,11 +22,11 @@ class InlineObject13 {
     /**
      * Constructs a new <code>InlineObject13</code>.
      * @alias module:model/InlineObject13
-     * @param archive {Boolean} 
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(archive) { 
+    constructor(boxesIds) { 
         
-        InlineObject13.initialize(this, archive);
+        InlineObject13.initialize(this, boxesIds);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject13 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, archive) { 
-        obj['archive'] = archive;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -60,9 +60,9 @@ class InlineObject13 {
 }
 
 /**
- * @member {Boolean} archive
+ * @member {Array.<String>} boxesIds
  */
-InlineObject13.prototype['archive'] = undefined;
+InlineObject13.prototype['boxesIds'] = undefined;
 
 
 

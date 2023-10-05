@@ -4,7 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20013]**](InlineResponse20013.md) | Массив батчей c пагинацией(заданная страничка). | [optional] 
+**guid** | **String** | The unique identifier of the box. | [optional] 
+**cubicMeters** | **Number** | Объем в м ^ 3 | [optional] 
+**deliveryCost** | **Number** | The delivery cost of the box. | [optional] 
+**volumeWeightKgWarehouse** | **Number** | The volume weight of the box in kg. | [optional] 
+**weightFinalAccountingKgWarehouse** | **Number** | The weight of the box in kg. | [optional] 
+**deliveryRate** | **Number** | The delivery rate of the box. $/kg | [optional] 
 
 
