@@ -22,10 +22,11 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
+     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor() { 
+    constructor(isFormed) { 
         
-        InlineObject34.initialize(this);
+        InlineObject34.initialize(this, isFormed);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, isFormed) { 
+        obj['isFormed'] = isFormed;
     }
 
     /**
@@ -47,20 +49,8 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
             }
         }
         return obj;
@@ -70,30 +60,10 @@ class InlineObject34 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
  */
-InlineObject34.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} widthCmWarehouse
- */
-InlineObject34.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * @member {Number} heightCmWarehouse
- */
-InlineObject34.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject34.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject34.prototype['images'] = undefined;
+InlineObject34.prototype['isFormed'] = undefined;
 
 
 

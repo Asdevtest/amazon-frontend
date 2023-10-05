@@ -49,7 +49,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 150,
+    width: 165,
     renderCell: params => (
       <NormalActionBtnCell
         tooltipText={t(TranslationKey['To assign the order to Byer'])}
@@ -147,7 +147,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 140,
+    width: 155,
   },
 
   {
