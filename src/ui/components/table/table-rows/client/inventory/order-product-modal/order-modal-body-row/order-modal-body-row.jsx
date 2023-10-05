@@ -45,8 +45,6 @@ export const OrderModalBodyRow = ({
   destinationsFavourites,
   onClickSetDestinationFavourite,
 }) => {
-  console.log('item', item)
-
   const { classes: classNames } = useClassNames()
 
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
@@ -136,8 +134,6 @@ export const OrderModalBodyRow = ({
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
         onClickConfirm: () => {
-          console.log('onClickConfirm')
-
           onChangeInput(
             {
               target: {
@@ -151,10 +147,6 @@ export const OrderModalBodyRow = ({
             },
             'tariff',
           )
-
-          // onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-          // onChangeInput({ target: { value: variationTariffId } }, 'variationTariffId')
-          // onChangeInput({ target: { value: destinationId } }, 'destinationId')
           setDestinationId(destinationId)
           setShowConfirmationModal(false)
           setShowSelectionStorekeeperAndTariffModal(false)
@@ -173,11 +165,6 @@ export const OrderModalBodyRow = ({
             },
             'tariff',
           )
-
-          // onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
-          // onChangeInput({ target: { value: undefined } }, 'destinationId')
-          // onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-          // onChangeInput({ target: { value: variationTariffId } }, 'variationTariffId')
           setDestinationId(undefined)
           setShowConfirmationModal(false)
           setShowSelectionStorekeeperAndTariffModal(false)
@@ -187,10 +174,18 @@ export const OrderModalBodyRow = ({
       setShowConfirmationModal(true)
     } else {
       setDestinationId(destinationId)
-      onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
-      onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-      onChangeInput({ target: { value: variationTariffId } }, 'variationTariffId')
-
+      onChangeInput(
+        {
+          target: {
+            value: {
+              storekeeperId,
+              logicsTariffId: tariffId,
+              variationTariffId,
+            },
+          },
+        },
+        'tariff',
+      )
       setShowSelectionStorekeeperAndTariffModal(false)
     }
   }
