@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
     borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
     padding: '30px 20px ',
     width: 300,

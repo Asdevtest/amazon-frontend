@@ -46,7 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalButtonActive: {
-    backgroundColor: '#006CFF',
+    backgroundColor: `${theme.palette.primary.main} !important`,
   },
 
   modalButtonsWrapper: {

@@ -228,6 +228,8 @@ export class SubUsersViewModel {
       const result = await UserModel.getMySubUsers()
       runInAction(() => {
         this.subUsersData = addIdDataConverter(result)
+
+        console.log('this.subUsersData', this.subUsersData)
       })
     } catch (error) {
       console.log(error)
@@ -319,11 +321,15 @@ export class SubUsersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async setPermissionsForUser(id, data, allowedProductsIds) {
+  async setPermissionsForUser(id, data, allowedProductsIds, currentSpec) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
       await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+
+      if (currentSpec) {
+        await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
+      }
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -331,6 +337,7 @@ export class SubUsersViewModel {
           title: t(TranslationKey['User permissions were changed']),
         }
       })
+      console.log('currentSpec', currentSpec)
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
@@ -350,9 +357,14 @@ export class SubUsersViewModel {
     }
   }
 
-  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds) {
+  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds, currentSpec) {
     try {
-      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedProductsIds)
+      await this.setPermissionsForUser(
+        subUserId,
+        { permissions, permissionGroups: [] },
+        allowedProductsIds,
+        currentSpec,
+      )
 
       await this.getUsers()
     } catch (error) {

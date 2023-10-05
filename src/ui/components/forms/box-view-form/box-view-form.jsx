@@ -18,9 +18,9 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
 
-import { BoxInfoTab } from './box-info-tab/box-info-tab'
+import { BoxInfoTab } from './box-info-tab'
 import { switcherSettings, tabs } from './box-view-form.constants'
-import { OrderInfoTab } from './order-info-tab/order-info-tab'
+import { OrderInfoTab } from './order-info-tab'
 
 export const BoxViewForm = observer(
   ({
@@ -36,14 +36,8 @@ export const BoxViewForm = observer(
   }) => {
     const { classes: styles, cx } = useClassNames()
 
-    const sourceFormFields = {
-      ...box,
-      prepId: box.prepId || '',
-      tmpTrackNumberFile: [],
-    }
-
     const [activeTab, setActiveTab] = useState(tabs.BOX_INFO)
-    const [formFields, setFormFields] = useState(sourceFormFields)
+    const [formFields, setFormFields] = useState(box)
 
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
@@ -57,7 +51,7 @@ export const BoxViewForm = observer(
     const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
     const isEdit = isClient || isStorekeeper || isBuyer
 
-    const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${box.humanFriendlyId}/ prep id:`
+    const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.humanFriendlyId}/ prep id:`
 
     return (
       <>
@@ -71,24 +65,24 @@ export const BoxViewForm = observer(
                 className={styles.boxAndPrepIdInput}
                 classes={{ input: styles.input }}
                 inputProps={{ maxLength: 20 }}
-                value={formFields.prepId}
+                value={formFields?.prepId}
                 onChange={onChangeField('prepId')}
               />
             </div>
 
-            {box.amount ? (
+            {formFields?.amount ? (
               <div className={styles.superBoxContainer}>
                 <div className={styles.superBoxIconContainer}>
                   <img src="/assets/icons/big-box.svg" className={styles.superBoxIcon} alt="super box" />
                   <span className={styles.superBoxText}>SB</span>
                 </div>
-                <p className={styles.superBoxText}>{`x${box.amount}`}</p>
+                <p className={styles.superBoxText}>{`x${formFields?.amount}`}</p>
               </div>
             ) : null}
 
             <div className={styles.updatedContainer}>
               <p className={styles.updatedText}>{`${t(TranslationKey.Updated)}:`}</p>
-              <p className={styles.updatedTitle}>{formatShortDateTime(box.updatedAt)}</p>
+              <p className={styles.updatedTitle}>{formatShortDateTime(formFields?.updatedAt)}</p>
             </div>
           </div>
 
@@ -97,13 +91,15 @@ export const BoxViewForm = observer(
           <div className={styles.information}>
             <div className={styles.informationContainer}>
               <p className={styles.informationTitle}>{t(TranslationKey.Destination)}</p>
-              <p className={styles.informationText}>{box.destination?.name || t(TranslationKey['Not available'])}</p>
+              <p className={styles.informationText}>
+                {formFields?.destination?.name || t(TranslationKey['Not available'])}
+              </p>
             </div>
 
             <div className={styles.informationContainer}>
               <p className={styles.informationTitle}>{t(TranslationKey.Tariff)}</p>
               <p className={styles.informationText}>
-                {getNewTariffTextForBoxOrOrder(box) || t(TranslationKey['Not available'])}
+                {getNewTariffTextForBoxOrOrder(formFields) || t(TranslationKey['Not available'])}
               </p>
             </div>
 
@@ -112,8 +108,8 @@ export const BoxViewForm = observer(
               <UserLink
                 blackText
                 withAvatar
-                name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
-                userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
+                name={storekeeper ? storekeeper?.name : formFields?.storekeeper?.name}
+                userId={storekeeper ? storekeeper?._id : formFields?.storekeeper?._id}
                 customClassNames={styles.informationUser}
               />
             </div>
@@ -121,7 +117,7 @@ export const BoxViewForm = observer(
             <div className={styles.informationContainer}>
               <p className={styles.informationTitle}>{t(TranslationKey.Batch)}</p>
               <p className={styles.informationText}>
-                {(batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
+                {(batchHumanFriendlyId ? batchHumanFriendlyId : formFields?.batch?.humanFriendlyId) ||
                   t(TranslationKey['Not available'])}
               </p>
             </div>
@@ -138,7 +134,7 @@ export const BoxViewForm = observer(
             {activeTab === tabs.ORDER_INFO ? (
               <p className={cx(styles.informationTitle, styles.informationTitleMargin)}>
                 {`${t(TranslationKey['Products in a box'])}: `}
-                <span className={styles.blueColor}>{formFields.items?.length}</span>
+                <span className={styles.blueColor}>{formFields?.items?.length}</span>
               </p>
             ) : null}
 
@@ -147,7 +143,6 @@ export const BoxViewForm = observer(
                 isEdit={isEdit}
                 isBuyer={isBuyer}
                 isClient={isClient}
-                box={box}
                 formFields={formFields}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 calcFinalWeightForBoxFunction={calcFinalWeightForBoxFunction}
@@ -155,7 +150,7 @@ export const BoxViewForm = observer(
               />
             </TabPanel>
             <TabPanel value={activeTab} index={tabs.ORDER_INFO}>
-              <OrderInfoTab box={box} items={formFields.items} onClickHsCode={onClickHsCode} />
+              <OrderInfoTab formFields={formFields} onClickHsCode={onClickHsCode} />
             </TabPanel>
           </div>
 
@@ -166,11 +161,11 @@ export const BoxViewForm = observer(
               minRows={3}
               maxRows={3}
               label={t(TranslationKey['Client comment'])}
-              placeholder={isClient && onSubmitChangeFields && t(TranslationKey['Add comment'])}
+              placeholder={isClient && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''}
               className={styles.commentField}
               labelClasses={styles.label}
               containerClasses={styles.fieldContainer}
-              value={formFields.clientComment}
+              value={formFields?.clientComment || ''}
               onChange={onChangeField('clientComment')}
             />
 
@@ -180,10 +175,10 @@ export const BoxViewForm = observer(
               minRows={3}
               maxRows={3}
               label={t(TranslationKey['Storekeeper comment'])}
-              placeholder={isStorekeeper && onSubmitChangeFields && t(TranslationKey['Add comment'])}
+              placeholder={isStorekeeper && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''}
               className={styles.commentField}
               labelClasses={styles.label}
-              value={formFields.storekeeperComment}
+              value={formFields?.storekeeperComment || ''}
               containerClasses={styles.fieldContainer}
               onChange={onChangeField('storekeeperComment')}
             />

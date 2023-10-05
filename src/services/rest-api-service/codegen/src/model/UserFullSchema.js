@@ -114,6 +114,9 @@ class UserFullSchema {
             if (data.hasOwnProperty('note')) {
                 obj['note'] = UserFullSchemaNote.constructFromObject(data['note']);
             }
+            if (data.hasOwnProperty('allowedSpec')) {
+                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
+            }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
@@ -230,6 +233,12 @@ UserFullSchema.prototype['allowedStrategies'] = undefined;
  * @member {module:model/UserFullSchemaNote} note
  */
 UserFullSchema.prototype['note'] = undefined;
+
+/**
+ * Массив возможных ролей фрилансера
+ * @member {Array.<Number>} allowedSpec
+ */
+UserFullSchema.prototype['allowedSpec'] = undefined;
 
 /**
  * Массив массив ролей.

@@ -1,4 +1,5 @@
-import { memo, useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 import {
   getConversion,
@@ -21,17 +22,17 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-info-tab.style'
 
-export const BoxInfoTab = memo(
+export const BoxInfoTab = observer(
   ({
     isEdit,
     isBuyer,
     isClient,
-    box,
     formFields,
     volumeWeightCoefficient,
     calcFinalWeightForBoxFunction,
@@ -41,22 +42,22 @@ export const BoxInfoTab = memo(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-    const [trackNumbers, setTrackNumbers] = useState(formFields.trackNumberFile)
+    const [trackNumbers, setTrackNumbers] = useState(formFields?.trackNumberFile)
 
     useEffect(() => {
-      if (formFields.tmpTrackNumberFile && formFields.trackNumberFile) {
+      if (formFields?.tmpTrackNumberFile && formFields?.trackNumberFile) {
         setTrackNumbers([...formFields.trackNumberFile, ...formFields.tmpTrackNumberFile])
       }
-    }, [formFields.trackNumberFile, formFields.tmpTrackNumberFile])
+    }, [formFields?.trackNumberFile, formFields?.tmpTrackNumberFile])
 
-    const finalWeightForBox = calcFinalWeightForBoxFunction
-      ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
-      : calcFinalWeightForBox(box, volumeWeightCoefficient)
     const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
     const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
     const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
     const weightSizesType = getWeightSizesType(sizeSetting)
     const dimensionsSizesType = getDimensionsSizesType(sizeSetting)
+    const finalWeightForBox = calcFinalWeightForBoxFunction
+      ? calcFinalWeightForBoxFunction(formFields, volumeWeightCoefficient)
+      : calcFinalWeightForBox(formFields, volumeWeightCoefficient)
 
     const setTmpTrackNumberFile = value => onChangeField('tmpTrackNumberFile')({ target: { value } })
 
@@ -66,7 +67,7 @@ export const BoxInfoTab = memo(
           <div className={styles.infosWrapper}>
             <div className={styles.dimensionsAndPhotosWrapper}>
               <div className={styles.photos}>
-                <PhotoAndFilesSlider withoutFiles files={box.images} />
+                <PhotoAndFilesSlider withoutFiles files={formFields?.images} />
               </div>
 
               <div className={styles.dimensions}>
@@ -84,27 +85,27 @@ export const BoxInfoTab = memo(
 
                 <p className={styles.text}>
                   {t(TranslationKey.Length) + ': '}
-                  {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
+                  {toFixed(formFields?.lengthCmWarehouse / lengthConversion, 2)}
                   {' ' + dimensionsSizesType}
                 </p>
                 <p className={styles.text}>
                   {t(TranslationKey.Width) + ': '}
-                  {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
+                  {toFixed(formFields?.widthCmWarehouse / lengthConversion, 2)}
                   {' ' + dimensionsSizesType}
                 </p>
                 <p className={styles.text}>
                   {t(TranslationKey.Height) + ': '}
-                  {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
+                  {toFixed(formFields?.heightCmWarehouse / lengthConversion, 2)}
                   {' ' + dimensionsSizesType}
                 </p>
                 <p className={styles.text}>
                   {t(TranslationKey.Weight) + ': '}
-                  {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
+                  {toFixed(formFields?.weighGrossKgWarehouse / weightConversion, 2)}
                   {' ' + weightSizesType}
                 </p>
                 <p className={styles.text}>
                   {t(TranslationKey['Volume weight']) + ': '}
-                  {toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}
+                  {toFixed(calcVolumeWeightForBox(formFields, volumeWeightCoefficient) / weightConversion, 2)}
                   {' ' + weightSizesType}
                 </p>
                 <p className={cx(styles.text, styles.twoLines)}>
@@ -123,11 +124,11 @@ export const BoxInfoTab = memo(
               <div className={styles.shippingLabelWrapper}>
                 <p className={styles.text}>{t(TranslationKey['Shipping label'])}</p>
                 <div className={styles.shippingLabel}>
-                  {box.shippingLabel ? (
+                  {formFields?.shippingLabel ? (
                     <LinkWithCopy
                       title={t(TranslationKey.View)}
-                      url={checkAndMakeAbsoluteUrl(box.shippingLabel)}
-                      valueToCopy={box.shippingLabel}
+                      url={checkAndMakeAbsoluteUrl(formFields?.shippingLabel)}
+                      valueToCopy={formFields?.shippingLabel}
                     />
                   ) : (
                     <p className={styles.text}>{t(TranslationKey['Not available'])}</p>
@@ -143,7 +144,7 @@ export const BoxInfoTab = memo(
                   labelClasses={cx(styles.text, styles.label)}
                   inputProps={{ maxLength: 250 }}
                   label={t(TranslationKey['Reference id'])}
-                  value={formFields.referenceId}
+                  value={formFields?.referenceId || ''}
                   onChange={onChangeField('referenceId')}
                 />
 
@@ -154,7 +155,7 @@ export const BoxInfoTab = memo(
                   labelClasses={cx(styles.text, styles.label)}
                   inputProps={{ maxLength: 250 }}
                   label={'FBA number'}
-                  value={formFields.fbaNumber}
+                  value={formFields?.fbaNumber || ''}
                   onChange={onChangeField('fbaNumber')}
                 />
               </div>
@@ -164,14 +165,26 @@ export const BoxInfoTab = memo(
           <div className={cx(styles.infosWrapper, { [styles.infosWrapperNoClient]: isClient })}>
             <div className={styles.flexContainer}>
               <div className={styles.checkboxContainer}>
-                <NoPhotoIcon className={styles.userIcon} />
-                {/* <img src={'/assets/img/no-photo.jpg'} alt="user" className={styles.userIcon} /> */}
-                <Checkbox disabled className={styles.checkbox} checked={box.isFormed} />
+                {formFields?.sub ? (
+                  <img
+                    src={getUserAvatarSrc(formFields?.sub._id)}
+                    alt="user"
+                    className={styles.userIcon}
+                    title={formFields?.sub.name}
+                  />
+                ) : (
+                  <NoPhotoIcon className={styles.userIcon} />
+                )}
+                <Checkbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
                 <p className={styles.text}>{t(TranslationKey.Formed)}</p>
               </div>
 
               <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={box.isShippingLabelAttachedByStorekeeper} />
+                <Checkbox
+                  disabled
+                  className={styles.checkbox}
+                  checked={formFields?.isShippingLabelAttachedByStorekeeper}
+                />
 
                 <p className={styles.text}>{t(TranslationKey['Shipping label was glued to the warehouse'])}</p>
               </div>
@@ -187,7 +200,7 @@ export const BoxInfoTab = memo(
                     labelClasses={cx(styles.text, styles.label)}
                     inputProps={{ maxLength: 250 }}
                     label={t(TranslationKey['Track number'])}
-                    value={formFields.trackNumberText}
+                    value={formFields?.trackNumberText || ''}
                     onChange={onChangeField('trackNumberText')}
                   />
 
@@ -218,7 +231,7 @@ export const BoxInfoTab = memo(
                 labelClasses={cx(styles.text, styles.label)}
                 inputProps={{ maxLength: 250 }}
                 label={'UPS Track number'}
-                value={formFields.upsTrackNumber || t(TranslationKey['Not available'])}
+                value={formFields?.upsTrackNumber || t(TranslationKey['Not available'])}
                 onChange={onChangeField('upsTrackNumber')}
               />
               <Field
@@ -227,7 +240,7 @@ export const BoxInfoTab = memo(
                 containerClasses={cx(styles.field, styles.bigField)}
                 labelClasses={cx(styles.text, styles.label)}
                 label={t(TranslationKey['FBA Shipment'])}
-                value={box.fbaShipment || t(TranslationKey['Not available'])}
+                value={formFields?.fbaShipment || t(TranslationKey['Not available'])}
               />
             </div>
           </div>
@@ -237,7 +250,7 @@ export const BoxInfoTab = memo(
           <SetBarcodeModal
             title={'Track number'}
             maxNumber={50 - trackNumbers.length}
-            tmpCode={formFields.tmpTrackNumberFile}
+            tmpCode={formFields?.tmpTrackNumberFile}
             onClickSaveBarcode={value => {
               setTmpTrackNumberFile(value)
               setShowSetBarcodeModal(!showSetBarcodeModal)

@@ -2,6 +2,7 @@ import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
+import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -58,10 +59,7 @@ export const adminExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => (
-      <MultilineTextCell
-        color={colorByProductStatus(ProductStatusByCode[params.value])}
-        text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
-      />
+      <MultilineTextCell text={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[params.value])} />
     ),
 
     width: 250,
