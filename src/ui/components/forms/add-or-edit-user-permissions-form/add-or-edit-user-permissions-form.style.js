@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '619px',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     overflowY: 'auto',
     [theme.breakpoints.down(768)]: {
       width: '295px',
@@ -23,8 +24,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'end',
-    marginTop: '30px',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginTop: '10px',
     gap: '10px',
     [theme.breakpoints.down(768)]: {
       display: 'flex',
@@ -32,6 +34,11 @@ export const useClassNames = makeStyles()(theme => ({
       marginTop: '30px',
       gap: '10px',
     },
+  },
+
+  buttonsSubWrapper: {
+    display: 'flex',
+    gap: '10px',
   },
 
   divider: {
@@ -233,6 +240,31 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+  },
+
+  requestTypeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+
+    p: {
+      fontSize: '14px',
+      fontWeight: 400,
+      color: theme.palette.text.second,
+    },
+  },
+
+  requestTypeField: {
+    width: '312px',
+    height: 40,
+    margin: 0,
+    paddingLeft: 10,
+
+    borderRadius: 4,
+
+    '&:before': {
+      borderBottom: 'none',
     },
   },
 }))
