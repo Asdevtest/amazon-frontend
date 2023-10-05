@@ -240,12 +240,12 @@ export class GeneralNotificationsViewModel {
           ?.focus()
       } else if (checkIsBuyer(UserRoleCodeMap[this.currentUser?.role])) {
         const isVacOrders = !!notification?.vacOrders.length
-
+        console.log(notification)
         window
           .open(
             `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/${
               isVacOrders ? 'free-orders' : 'all-orders'
-            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?._id : notification?.needConfirmOrders?.[0]?._id}`,
+            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?.id : notification?.needConfirmOrders?.[0]?.id}`,
           )
           ?.focus()
       }
