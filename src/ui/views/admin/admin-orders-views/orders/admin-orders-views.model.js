@@ -144,10 +144,10 @@ export class AdminOrdersAllViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push({
-      pathname: '/admin/orders/order',
-      search: order._id,
-    })
+    const url = `/admin/orders/order?orderId=${order._id}`
+
+    const newTab = window.open(`${url}`, '_blank')
+    newTab.focus()
   }
 
   onChangeSubCategory(value) {
