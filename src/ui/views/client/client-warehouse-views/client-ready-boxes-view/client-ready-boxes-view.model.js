@@ -154,7 +154,6 @@ export class ClientReadyBoxesViewModel {
         this.selectedBoxes = model
       })
     }
-    // console.log('this.curPage', this.curPage * this.rowsPerPage)
   }
 
   setRequestStatus(requestStatus) {

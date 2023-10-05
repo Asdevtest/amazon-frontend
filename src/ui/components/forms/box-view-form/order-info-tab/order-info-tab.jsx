@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { observer } from 'mobx-react'
 
 import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,13 +16,13 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './order-info-tab.style'
 
-export const OrderInfoTab = memo(({ box, items, onClickHsCode }) => {
+export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
   const { classes: styles, cx } = useClassNames()
 
   return (
     <div className={styles.wrapper}>
-      {items.map((item, index) => {
-        const quantity = (box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0
+      {formFields?.items.map((item, index) => {
+        const quantity = (formFields?.amount > 1 ? `${item.amount} * ${formFields?.amount}` : item.amount) || 0
         const orderNumber = `${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`
         const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier
           ? item.isBarCodeAlreadyAttachedByTheSupplier
@@ -74,7 +74,11 @@ export const OrderInfoTab = memo(({ box, items, onClickHsCode }) => {
                   {t(TranslationKey['HS code'])}
                 </Button>
 
-                {isRushOrder ? <FireIcon /> : null}
+                {isRushOrder ? (
+                  <div className={styles.iconContainer}>
+                    <FireIcon />
+                  </div>
+                ) : null}
               </div>
 
               <div className={styles.barcodeWrapper}>
