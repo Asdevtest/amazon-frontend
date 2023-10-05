@@ -89,6 +89,7 @@ export const useClassNames = makeStyles()(theme => ({
   slideWrapper: {
     display: 'flex',
     flex: '1 0 100%',
+    margin: '0 0.05px', // fix micro line of neighboring slide when mod is withAllFiles
   },
 
   slide: {

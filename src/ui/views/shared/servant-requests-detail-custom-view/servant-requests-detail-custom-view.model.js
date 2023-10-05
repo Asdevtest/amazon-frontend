@@ -291,8 +291,6 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
 
-      // console.log('files', files)
-
       if (files.length) {
         await onSubmitPostImages.call(this, {
           images: typeof files[0] === 'object' && 'image' in files[0] ? files.map(el => el.image) : files,

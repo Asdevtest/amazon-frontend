@@ -21,7 +21,7 @@ export class SupervisorSettingsContentModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = supervisorSettingsViewColumns()
+
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -53,6 +53,8 @@ export class SupervisorSettingsContentModel {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
+
+  columnsModel = supervisorSettingsViewColumns(this.rowHandlers)
 
   constructor({ history, tabIndex }) {
     this.history = history

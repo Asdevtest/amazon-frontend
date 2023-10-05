@@ -1,54 +1,25 @@
-import { cx } from '@emotion/css'
-import Linkify from 'react-linkify-always-blank'
-
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-standart-result-form.style'
 
 export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.headerAndTimeWrapper}>
-        <div className={classNames.headerWrapper}>
-          <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
-        </div>
-      </div>
-      <div className={classNames.mainInfoWrapper}>
-        {/* <div className={classNames.titleWrapper}>
-        <p className={classNames.titleText}>{message.data.request.title}</p>
-      </div> */}
-        <div className={classNames.descriptionWrapper}>
-          <Linkify>
-            <Typography className={classNames.descriptionText}>{}</Typography>
-          </Linkify>
-        </div>
-      </div>
-      <div className={classNames.resultTextWrapper}>
-        <Linkify>
-          <Typography className={classNames.resultText}>{proposal?.details?.result}</Typography>
-        </Linkify>
-      </div>
+      <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+
+      <p className={classNames.resultText}>{proposal?.details?.result}</p>
+
       <div className={classNames.resultWrapper}>
-        <PhotoAndFilesCarousel
-          notToShowEmpty
-          small
-          files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
-          width="100%"
-          withoutPhotos={undefined}
-          withoutFiles={undefined}
-          imagesForLoad={undefined}
-          isEditable={undefined}
-          withoutMakeMainImage={undefined}
-          onChangeImagesForLoad={undefined}
+        <PhotoAndFilesSlider
+          smallSlider
+          files={proposal?.proposal?.media?.map(el => ('fileLink' in el ? el?.fileLink : el))}
         />
 
         {/* <div className={classNames.resultRightSide}>

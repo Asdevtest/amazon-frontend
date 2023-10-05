@@ -182,6 +182,11 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesPrepIdPatch({ body: boxes })
     return response
   }
+
+  getBoxById = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesGuidGet(id)
+    return response
+  }
 }
 
 export const BoxesModel = new BoxesModelStatic()
