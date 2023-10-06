@@ -3,9 +3,8 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Avatar, Checkbox, ClickAwayListener, Link, Menu, Tooltip, Typography } from '@mui/material'
@@ -21,9 +20,10 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { DownloadArchiveIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
-import { formatDateWithoutTime, reversedFormatDateWithoutTime } from '@utils/date-time'
+import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -433,7 +433,7 @@ export const RequestDesignerResultClientForm = ({
             className={cx(classNames.imagesModalBtn)}
             onClick={onClickDownloadArchive}
           >
-            <ArchiveOutlinedIcon />
+            <DownloadArchiveIcon />
           </Button>
         </div>
 
