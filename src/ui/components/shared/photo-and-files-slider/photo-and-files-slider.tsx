@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react'
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
 
@@ -13,7 +13,6 @@ import { useClassNames } from './photo-and-files-slider.styles'
 
 import { NoDocumentIcon, NoPhotoIcon } from '../svg-icons'
 
-import { ButtonControls } from './button-controls'
 import { Slider } from './slider'
 import { WIDTH_INCREASE_FACTOR } from './slider/slider.constants'
 import { usePhotoAndFilesSlider } from './use-photo-and-files-slider'
@@ -34,7 +33,7 @@ interface Props {
   customSlideHeight?: number
   showPreviews?: boolean
   isEditable?: boolean
-  imagesTitles?: string[]
+  photosTitles?: string[]
   withoutMakeMainImage?: boolean
   mainClasses?: string
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
@@ -58,7 +57,7 @@ interface Props {
  * @param {Number} customSlideHeight - custom height to resize the slider to the desired size.
  * @param {Boolean} showPreviews - adds a photo preview on the left side of the photo modal window.
  * @param {Boolean} isEditable - adds the ability to work with photos in the photo modal window (adds a panel with buttons).
- * @param {Array<string>} imagesTitles - takes an array of strings with names for photos.
+ * @param {Array<string>} photosTitles - takes an array of strings with names for photos.
  * @param {Boolean} withoutMakeMainImage - removes the ability to select the main photo in the photo modal window.
  * @param {String} mainClasses - custom styles for the main wrapper.
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
@@ -81,47 +80,24 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
     customSlideHeight,
     showPreviews = false,
     isEditable = false,
-    imagesTitles,
+    photosTitles,
     withoutMakeMainImage = false,
     mainClasses,
     onChangeImagesForLoad,
   }) => {
     const { classes: classNames, cx } = useClassNames()
     const {
-      showPhotosModal,
-      onPhotosModalToggle,
+      openImageModal,
+      onOpenImageModal,
 
       photos,
       photoIndex,
-      prevPhotoIndex,
       setPhotoIndex,
-      setPrevPhotoIndex,
 
       documents,
       documentIndex,
       setDocumentIndex,
-
-      onClickMakeMainImageObj,
-      onUploadFile,
-      onClickRemoveImageObj,
-      onClickEditImageSubmit,
     } = usePhotoAndFilesSlider(files, onChangeImagesForLoad)
-
-    const imageModalControls = (
-      imageIndex: number,
-      image: ImageObjectType | string,
-      onImageEditToggle?: VoidFunction,
-    ): ReactNode => (
-      <ButtonControls
-        imageIndex={imageIndex}
-        image={image}
-        withoutMakeMainImage={withoutMakeMainImage}
-        onClickMakeMainImageObj={onClickMakeMainImageObj}
-        onImageEditToggle={onImageEditToggle}
-        onUploadFile={onUploadFile}
-        onClickRemoveImageObj={onClickRemoveImageObj}
-      />
-    )
 
     const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
 
@@ -143,9 +119,8 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
             {!withoutPhotos && !withAllFiles ? (
               <Slider
                 slides={photos}
-                currentIndex={showPhotosModal ? prevPhotoIndex : photoIndex}
+                currentIndex={photoIndex}
                 setCurrentIndex={setPhotoIndex}
-                setPrevPhotoIndex={setPrevPhotoIndex}
                 smallSlider={smallSlider}
                 mediumSlider={mediumSlider}
                 bigSlider={bigSlider}
@@ -153,7 +128,7 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
                 alignRight={alignRight}
                 customSlideHeight={customSlideHeight}
                 isHideCounter={isHideCounter}
-                onPhotosModalToggle={onPhotosModalToggle}
+                onPhotosModalToggle={onOpenImageModal}
               />
             ) : null}
 
@@ -185,7 +160,7 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
                 alignRight={alignRight}
                 customSlideHeight={customSlideHeight}
                 isHideCounter={isHideCounter}
-                onPhotosModalToggle={onPhotosModalToggle}
+                onPhotosModalToggle={onOpenImageModal}
               />
             ) : null}
           </div>
@@ -220,19 +195,20 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
           </div>
         )}
 
-        <ImageModal
-          showPreviews={showPreviews}
-          isOpenModal={showPhotosModal}
-          handleOpenModal={onPhotosModalToggle}
-          imageList={photos.map((photo, index) => ({
-            url: typeof photo === 'string' ? photo : photo.data_url, // не работает изменить-сделать главнойб добавить-сделать главное из-за того, что в модалке я передаю картинку(добаленную или измененную) и передаю ее урл, а не всю картинку, нужно расширить тип коммент и сам файл: string|FILE...
-            comment: (imagesTitles ?? [])[index], // разделить вообще все, сделать все отдельное в модалке(фото, комменты, кнопки перенести и там с этим рабоатть)
-          }))}
-          currentImageIndex={photoIndex}
-          handleCurrentImageIndex={setPhotoIndex}
-          controls={isEditable ? imageModalControls : undefined}
-          onClickEditImageSubmit={onClickEditImageSubmit}
-        />
+        {openImageModal ? (
+          <ImageModal
+            isEditable={isEditable}
+            showPreviews={showPreviews}
+            isOpenModal={openImageModal}
+            withoutMakeMainImage={withoutMakeMainImage}
+            imageList={photos}
+            currentImageIndex={photoIndex}
+            photosTitles={photosTitles}
+            handleOpenModal={onOpenImageModal}
+            handleCurrentImageIndex={setPhotoIndex}
+            onChangeImagesForLoad={onChangeImagesForLoad}
+          />
+        ) : null}
       </>
     )
   },
