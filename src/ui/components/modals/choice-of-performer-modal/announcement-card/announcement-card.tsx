@@ -13,12 +13,13 @@ import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IService, ShortUserType, linksToMediaFilesInterface } from '@typings/master-user'
+import { IService, ShortUserType } from '@typings/master-user'
+import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './announcement-card.styles'
 
 interface onClickThumbnailArguments {
-  images: Array<string | linksToMediaFilesInterface>
+  images: Array<string | IUploadFile>
   imgIndex: number
 }
 

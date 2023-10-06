@@ -1,5 +1,5 @@
 // ГОТОВЫЙ ВАРИАНТ С МОДАЛКОЙ, КОГДА ЯЗЫКОВ БУДЕТ БОЛЬШЕ
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Menu from '@mui/material/Menu'
@@ -64,8 +64,6 @@ export const LanguageSelector = ({ className }) => {
 }
 
 // import {cx} from '@emotion/css'  // ВЕРСИЯ ТОЛЬКО РУС И АНГЛ
-
-// import React from 'react'
 
 // import {LanguageKey} from '@constants/translations/language-key'
 

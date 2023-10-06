@@ -74,7 +74,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
-    width: 390,
+    width: 280,
     sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,

@@ -357,17 +357,15 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={viewModel.triggerRequestToSendBatchModal}
       >
         <RequestToSendBatchForm
-          userInfo={viewModel.userInfo}
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
           selectedBoxes={viewModel.selectedBoxes}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           boxesMy={viewModel.boxesMy.map(box => box.originalData)}
+          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 

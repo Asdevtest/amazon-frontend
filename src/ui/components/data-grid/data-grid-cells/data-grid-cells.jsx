@@ -170,7 +170,7 @@ export const UserCell = React.memo(
           <div className={classNames.sabUserRatingWrapper}>
             <Typography className={classNames.ratingScore}>{`Rating ${toFixed(rating, 1)}`}</Typography>
 
-            <Rating disabled className={classNames.sabUserRating} value={rating} />
+            <Rating readOnly className={classNames.sabUserRating} value={rating} />
           </div>
         </div>
       </div>
@@ -275,36 +275,8 @@ export const ProductAsinCell = React.memo(
 
           <div className={classNames.csCodeTypoWrapper}>
             <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
-            <div className={classNames.copyAsin}>
-              <Typography className={classNames.typoCell}>
-                {`${t(TranslationKey.ASIN)}: `}
-
-                {asin ? (
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://www.amazon.com/dp/${asin}`}
-                    className={classNames.normalizeLink}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <span className={classNames.linkSpan}>{shortAsin(asin)}</span>
-                  </a>
-                ) : (
-                  <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-                )}
-              </Typography>
-              {asin ? <CopyValue text={asin} /> : null}
-            </div>
-
-            <div className={classNames.copyAsin}>
-              <Typography className={classNames.typoCell}>
-                {`${t(TranslationKey.SKU)}: `}
-                <span className={cx(classNames.defaultText, { [classNames.typoSpan]: !skusByClient })}>
-                  {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
-                </span>
-              </Typography>
-              {skusByClient ? <CopyValue text={skusByClient} /> : null}
-            </div>
+            <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} />
           </div>
         </div>
       </div>
@@ -625,6 +597,7 @@ export const ManyUserLinkCell = React.memo(
             name={user?.name}
             userId={user?._id}
             customStyles={{ fontWeight: 400, fontSize: 14 }}
+            customRatingClass={{ opacity: 1 }}
           />
         ))}
       </div>

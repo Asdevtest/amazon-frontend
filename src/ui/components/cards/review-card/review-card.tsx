@@ -20,6 +20,7 @@ interface Props {
 
 export const ReviewCard: FC<Props> = ({ review }) => {
   const { classes: styles } = useReviewCardStyles()
+  const user = review.sub ?? review.createdBy
 
   return (
     <Grid item className={styles.wrapper}>
@@ -28,9 +29,9 @@ export const ReviewCard: FC<Props> = ({ review }) => {
           withAvatar
           isShortRating
           ratingSize="small"
-          name={review.createdBy.name}
-          userId={review.createdBy._id}
-          rating={review.createdBy.rating}
+          name={user?.name}
+          userId={user?._id}
+          rating={user?.rating}
           customRatingClass={{ opacity: 1 }}
         />
         <div className={styles.headerItem}>

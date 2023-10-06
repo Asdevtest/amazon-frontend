@@ -9,10 +9,6 @@ import { CustomList } from '@components/shared/custom-list'
 
 import { t } from '@utils/translations'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {Field} from '@components/field'
-// import {toFixed} from '@utils/text'
-// import {t} from '@utils/translations'
 import { useClassNames } from './bottom-card.style'
 
 export const BottomCard = observer(({ data }) => {

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import RotateLeftOutlinedIcon from '@mui/icons-material/RotateLeftOutlined'
@@ -11,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './image-edit-form.style'
 
-export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
+export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
   const { classes: classNames } = useClassNames()
 
   const [rotation, setRotation] = useState(0)
@@ -102,4 +103,4 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
       </div>
     </div>
   )
-}
+})

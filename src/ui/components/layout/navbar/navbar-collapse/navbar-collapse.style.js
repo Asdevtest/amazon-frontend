@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   listItemText: {
     marginRight: '12px',
     fontSize: 13,
+    fontWeight: 500,
   },
 
   collapseText: {

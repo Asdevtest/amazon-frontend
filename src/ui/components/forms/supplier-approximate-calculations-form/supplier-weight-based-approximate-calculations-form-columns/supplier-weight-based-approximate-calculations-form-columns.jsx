@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'

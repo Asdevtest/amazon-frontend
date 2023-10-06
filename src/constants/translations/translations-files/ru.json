@@ -2136,5 +2136,6 @@
   "Are you sure?": "Вы уверены?",
   "Remove destination restriction": "Снять ограничение по пункту назначения",
   "Wish to change a destination?": "Желаете изменить пункт назначения?",
-  "Price without delivery": "Цена без доставки"
+  "Price without delivery": "Цена без доставки",
+  "Available request types": "Доступные типы заявок"
 }
