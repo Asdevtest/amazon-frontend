@@ -24,23 +24,6 @@ import { t } from '@utils/translations'
 
 export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
-    field: 'title',
-    headerName: t(TranslationKey.Title),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Title)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-    width: 160,
-
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: params => (
@@ -82,7 +65,24 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
     width: 95,
-    // columnKey: columnnsKeys.freelancer.FREELANCE_MY_PROPOSALS,
+    columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
+  },
+
+  {
+    field: 'title',
+    headerName: t(TranslationKey.Title),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Title)}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    width: 160,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

@@ -32,6 +32,7 @@ const filtersFields = [
   'subUsers',
   'priceAmazon',
   'withoutConfirmation',
+  'taskComplexity',
 ]
 
 export class VacantRequestsViewModel {
@@ -281,6 +282,9 @@ export class VacantRequestsViewModel {
     const withoutConfirmationFilter =
       exclusion !== 'withoutConfirmation' && this.columnMenuSettings.withoutConfirmation.currentFilterData.join(',')
 
+    const taskComplexityFilter =
+      exclusion !== 'taskComplexity' && this.columnMenuSettings.taskComplexity.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -336,6 +340,9 @@ export class VacantRequestsViewModel {
       }),
       ...(withoutConfirmationFilter && {
         withoutConfirmation: { $eq: withoutConfirmationFilter },
+      }),
+      ...(taskComplexityFilter && {
+        taskComplexity: { $eq: taskComplexityFilter },
       }),
     })
 

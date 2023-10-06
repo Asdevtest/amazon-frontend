@@ -57,15 +57,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'title',
-    headerName: t(TranslationKey['Request title']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
-    width: 140,
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
     field: 'taskComplexity',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
     headerName: t(TranslationKey['Difficulty level']),
@@ -81,6 +72,15 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     ),
     width: 95,
     columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
+  },
+
+  {
+    field: 'title',
+    headerName: t(TranslationKey['Request title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
+    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
+    width: 140,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

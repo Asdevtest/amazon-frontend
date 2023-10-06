@@ -37,6 +37,7 @@ const filtersFields = [
   'priority',
   'createdAt',
   'announcementCreatedBy',
+  'taskComplexity',
 ]
 
 export class MyRequestsViewModel {
@@ -548,6 +549,9 @@ export class MyRequestsViewModel {
       exclusion !== 'announcementCreatedBy' &&
       this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
 
+    const taskComplexityFilter =
+      exclusion !== 'taskComplexity' && this.columnMenuSettings?.taskComplexity?.currentFilterData?.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -610,6 +614,10 @@ export class MyRequestsViewModel {
 
       ...(announcementCreatedByFilter && {
         announcementCreatedBy: { $eq: announcementCreatedByFilter },
+      }),
+
+      ...(taskComplexityFilter && {
+        taskComplexity: { $eq: taskComplexityFilter },
       }),
     })
 
