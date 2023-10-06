@@ -68,7 +68,7 @@ export const UserProfile = observer(
                   <div className={classNames.ratingWrapper}>
                     <Typography className={classNames.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
 
-                    <Rating disabled className={classNames.userRating} value={user?.rating} />
+                    <Rating readOnly className={classNames.userRating} value={user?.rating} />
                   </div>
                   <div className={classNames.userButtonsWrapper}>
                     {isAnotherUser && (

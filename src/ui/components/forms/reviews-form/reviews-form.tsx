@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -9,9 +8,7 @@ import { ReviewCard } from '@components/cards/review-card'
 import { Button } from '@components/shared/buttons/button'
 import { ShortRating } from '@components/shared/short-rating'
 import { UserLink } from '@components/user/user-link'
-import { FeedbackCard } from '@components/user/users-views/user-profile-view/user-profile/feedback-card'
 
-// import {Field} from '@components/field'
 import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
