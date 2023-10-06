@@ -9,6 +9,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
@@ -37,6 +38,7 @@ const filtersFields = [
   'priority',
   'createdAt',
   'announcementCreatedBy',
+  'shopIds',
 ]
 
 export class MyRequestsViewModel {
@@ -304,36 +306,7 @@ export class MyRequestsViewModel {
   }
 
   getCurrentData() {
-    // if (this.nameSearchValue) {
     return toJS(this.searchRequests)
-    //     .filter(
-    //       el =>
-    //         el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-    //         el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-    //         el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-    //     )
-    //     .filter(el =>
-    //       this.columnMenuSettings?.status?.currentFilterData?.length
-    //         ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
-    //         : el,
-    //     )
-    //     .filter(el =>
-    //       this.columnMenuSettings?.typeTask?.currentFilterData?.length
-    //         ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
-    //         : el,
-    //     )
-    // } else {
-    //   return toJS(this.searchRequests).filter(el =>
-    //     this.columnMenuSettings?.status?.currentFilterData?.length
-    //       ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
-    //       : el,
-    //   )
-    // .filter(el =>
-    //   this.columnMenuSettings?.typeTask?.currentFilterData?.length
-    //     ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
-    //     : el,
-    // )
-    // }
   }
 
   onHoverColumnField(field) {
@@ -396,6 +369,7 @@ export class MyRequestsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      await this.getShops()
       await this.getCustomRequests()
 
       this.getDataGridState()
@@ -403,6 +377,21 @@ export class MyRequestsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      await ShopModel.getMyShopNames().then(result => {
+        runInAction(() => {
+          this.shopsData = result
+        })
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -524,7 +513,7 @@ export class MyRequestsViewModel {
       })
 
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result.rows)
+        this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
 
         this.rowCount = result.count
       })
@@ -576,6 +565,9 @@ export class MyRequestsViewModel {
     const announcementCreatedByFilter =
       exclusion !== 'announcementCreatedBy' &&
       this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
+
+    const shopIdsFilter =
+      exclusion !== 'shopIds' && this.columnMenuSettings?.shopIds?.currentFilterData?.map(item => item._id)?.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -639,6 +631,10 @@ export class MyRequestsViewModel {
 
       ...(announcementCreatedByFilter && {
         announcementCreatedBy: { $eq: announcementCreatedByFilter },
+      }),
+
+      ...(shopIdsFilter && {
+        shopIds: { $eq: shopIdsFilter },
       }),
     })
 
