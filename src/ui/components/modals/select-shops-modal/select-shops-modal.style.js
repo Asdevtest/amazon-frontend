@@ -15,6 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
+    marginTop: 20,
     width: '100%',
     display: 'flex',
     gap: '30px',
