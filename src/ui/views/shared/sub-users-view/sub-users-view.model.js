@@ -225,11 +225,10 @@ export class SubUsersViewModel {
 
   async getUsers() {
     try {
-      const result = await UserModel.getMySubUsers()
-      runInAction(() => {
-        this.subUsersData = addIdDataConverter(result)
-
-        console.log('this.subUsersData', this.subUsersData)
+      await UserModel.getMySubUsers().then(result => {
+        runInAction(() => {
+          this.subUsersData = addIdDataConverter(result)
+        })
       })
     } catch (error) {
       console.log(error)
