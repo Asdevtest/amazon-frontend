@@ -163,15 +163,6 @@ export const OwnerRequestProposalsCard = ({
               >
                 {t(TranslationKey.Reject)}
               </Button>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
-                variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.successBtn)}
-                onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
-              >
-                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
-              </Button>
             </>
           )}
 
