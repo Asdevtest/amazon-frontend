@@ -145,11 +145,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 10px',
   },
 
-  copyValueWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
-
   error: {
     lineHeight: 0,
     fontSize: 12,

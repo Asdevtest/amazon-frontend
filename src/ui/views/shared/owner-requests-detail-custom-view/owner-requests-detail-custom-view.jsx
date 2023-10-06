@@ -132,6 +132,10 @@ export const OwnerRequestDetailCustomViewRaw = props => {
                     typingUsers={viewModel.typingUsers}
                     chats={viewModel.chats}
                     userId={viewModel.userInfo._id}
+                    mutedChats={viewModel.mutedChats}
+                    messagesFound={viewModel.messagesFound}
+                    mesSearchValue={viewModel.mesSearchValue}
+                    curFoundedMessage={viewModel.curFoundedMessage}
                     chatSelectedId={viewModel.chatSelectedId}
                     chatMessageHandlers={{
                       onClickProposalAccept: viewModel.onClickOrderProposal,
@@ -150,6 +154,10 @@ export const OwnerRequestDetailCustomViewRaw = props => {
                     onSubmitMessage={viewModel.onSubmitMessage}
                     onClickChat={viewModel.onClickChat}
                     onTypingMessage={viewModel.onTypingMessage}
+                    onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
+                    onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
+                    onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                    onCloseMesSearchValue={viewModel.onCloseMesSearchValue}
                   />
                 </ChatRequestAndRequestProposalContext.Provider>
               </div>

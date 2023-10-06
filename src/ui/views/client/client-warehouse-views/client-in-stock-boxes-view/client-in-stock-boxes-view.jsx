@@ -357,17 +357,15 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={viewModel.triggerRequestToSendBatchModal}
       >
         <RequestToSendBatchForm
-          userInfo={viewModel.userInfo}
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
           selectedBoxes={viewModel.selectedBoxes}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           boxesMy={viewModel.boxesMy.map(box => box.originalData)}
+          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
@@ -380,7 +378,7 @@ export const ClientInStockBoxesViewRaw = props => {
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickCancelBtn={viewModel.confirmModalSettings.onClickCancelBtn}
       />
 
       <Modal
@@ -422,6 +420,7 @@ export const ClientInStockBoxesViewRaw = props => {
       <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
         <SelectStorekeeperAndTariffForm
           showCheckbox
+          RemoveDestinationRestriction
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)
@@ -434,12 +433,17 @@ export const ClientInStockBoxesViewRaw = props => {
           total={!viewModel.changeItem}
           currentDestinationId={viewModel.changeItem?.destination?._id}
           currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(storekeeperId, tariffId, variationTariffId) =>
-            viewModel.editTariff(viewModel.changeItem?._id, {
-              logicsTariffId: tariffId,
-              storekeeperId,
-              variationTariffId,
-            })
+          onSubmit={(storekeeperId, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid) =>
+            viewModel.editTariff(
+              viewModel.changeItem?._id,
+              {
+                logicsTariffId: tariffId,
+                storekeeperId,
+                variationTariffId,
+                destinationId,
+              },
+              isSelectedDestinationNotValid,
+            )
           }
         />
       </Modal>

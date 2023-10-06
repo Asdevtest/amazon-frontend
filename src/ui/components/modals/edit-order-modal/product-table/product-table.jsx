@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'

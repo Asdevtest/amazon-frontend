@@ -331,8 +331,6 @@ export class BuyerMyProductsViewModel {
 
       // const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,

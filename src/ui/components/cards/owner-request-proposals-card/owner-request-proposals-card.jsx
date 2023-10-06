@@ -83,7 +83,7 @@ export const OwnerRequestProposalsCard = ({
                         {t(TranslationKey.Reviews)}
                       </Typography>
                       {/* <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} /> */}
-                      <Rating disabled className={classNames.userRating} value={item.proposal.createdBy?.rating} />
+                      <Rating readOnly className={classNames.userRating} value={item.proposal.createdBy?.rating} />
                     </div>
                   </div>
                 </div>
@@ -162,15 +162,6 @@ export const OwnerRequestProposalsCard = ({
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {t(TranslationKey.Reject)}
-              </Button>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
-                variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.successBtn)}
-                onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
-              >
-                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
               </Button>
             </>
           )}

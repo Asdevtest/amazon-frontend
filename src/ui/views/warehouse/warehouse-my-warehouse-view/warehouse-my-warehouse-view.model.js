@@ -668,8 +668,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async setHsCode(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
@@ -684,18 +686,12 @@ export class WarehouseMyWarehouseViewModel {
   async onEditBox() {
     try {
       const destinations = await ClientModel.getDestinations()
-
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.destinations = destinations
-
-        this.storekeepersData = storekeepersData
-      })
-
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.destinations = destinations
+        this.storekeepersData = storekeepersData
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -1066,9 +1062,12 @@ export class WarehouseMyWarehouseViewModel {
 
   async setDimensions(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
+
       this.onTriggerShowEditBoxModal()
     } catch (error) {
       console.log(error)
@@ -1181,12 +1180,11 @@ export class WarehouseMyWarehouseViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -1329,8 +1327,6 @@ export class WarehouseMyWarehouseViewModel {
   async onClickFilterBtn(column) {
     try {
       // this.setFilterRequestStatus(loadingStatuses.isLoading)
-
-      // console.log('shopFilter', shopFilter)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),

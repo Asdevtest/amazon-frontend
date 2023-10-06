@@ -102,6 +102,7 @@ export const SelectShopsModal = ({ onClickSuccessBtn, onClickCancelBtn, title, m
       </div>
 
       <p className={classNames.modalMessage}>{message}</p>
+
       <div className={classNames.buttonsWrapper}>
         <Button
           success

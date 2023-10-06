@@ -88,6 +88,7 @@ export const OrderProductModal = ({
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
+          currentVariationTariffId: product.variationTariff?._id,
         })),
   )
 
@@ -177,6 +178,15 @@ export const OrderProductModal = ({
       newStateOrderState[index][fieldsName] = parseInt(value) || 0
 
       newRenderOrderState[index][fieldsName] = parseInt(value) || 0
+    } else if (fieldsName === 'tariff') {
+      newStateOrderState[index] = {
+        ...newStateOrderState[index],
+        ...value,
+      }
+      newRenderOrderState[index] = {
+        ...newRenderOrderState[index],
+        ...value,
+      }
     } else {
       newStateOrderState[index][fieldsName] = value
 
@@ -266,7 +276,7 @@ export const OrderProductModal = ({
                   className={classNames.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
-                  {t(TranslationKey['Price per unit.']) + ' $'}
+                  {t(TranslationKey['Price without delivery']) + ' $'}
                 </Button>
               </TableCell>
 

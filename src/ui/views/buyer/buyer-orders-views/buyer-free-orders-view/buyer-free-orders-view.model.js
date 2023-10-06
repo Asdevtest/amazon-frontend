@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
@@ -14,7 +13,6 @@ import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buye
 
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 export class BuyerFreeOrdersViewModel {

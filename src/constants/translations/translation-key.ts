@@ -2127,6 +2127,10 @@ export enum TranslationKey {
   'This product has a parent product' = 'This product has a parent product',
   'Mark as completed' = 'Mark as completed',
   'Are you sure?' = 'Are you sure?',
+  'Remove destination restriction' = 'Remove destination restriction',
+  'Wish to change a destination?' = 'Wish to change a destination?',
+  'Price without delivery' = 'Price without delivery',
+  'Available request types' = 'Available request types',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

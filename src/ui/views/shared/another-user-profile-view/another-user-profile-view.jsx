@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -183,7 +183,7 @@ export const AnotherUserProfileViewRaw = props => {
           rateLabel={t(TranslationKey['Rate the user'])}
           reviewLabel={t(TranslationKey['Leave a user review'])}
           confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Reject)}
+          cancelBtnText={t(TranslationKey.Cancel)}
           onSubmit={viewModel.onAcceptReview}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
