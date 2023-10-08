@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '674px',
-    height: '619px',
+    maxHeight: '650px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -266,5 +266,11 @@ export const useClassNames = makeStyles()(theme => ({
     '&:before': {
       borderBottom: 'none',
     },
+  },
+
+  currentUserBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
   },
 }))
