@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-// import JSZip from 'jszip'
+import JSZip from 'jszip'
+
 import { Errors } from '@constants/errors'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
