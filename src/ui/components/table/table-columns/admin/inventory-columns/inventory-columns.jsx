@@ -64,11 +64,14 @@ export const exchangeInventoryColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[params.value])} />
+      <MultilineTextCell
+        color={colorByProductStatus(ProductStatusByCode[params.value])}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
+      />
     ),
 
     width: 250,
-    columnKey: columnnsKeys.admin.STRATEGY_STATUS,
+    columnKey: columnnsKeys.client.INVENTORY_STATUS,
     sortable: false,
   },
 
@@ -78,10 +81,7 @@ export const exchangeInventoryColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => (
-      <MultilineTextCell
-        color={colorByProductStatus(ProductStatusByCode[params.value])}
-        text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
-      />
+      <MultilineTextCell text={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[params.value])} />
     ),
 
     width: 250,

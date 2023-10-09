@@ -114,6 +114,7 @@ export const EditOrderModal = observer(
     hsCodeData,
     progressValue,
     volumeWeightCoefficient,
+    setCurrentOpenedBox,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
@@ -1008,6 +1009,7 @@ export const EditOrderModal = observer(
               renderHeadRow={renderHeadRow()}
               mainProductId={order.product._id}
               userInfo={userInfo}
+              setCurrentOpenedBox={setCurrentOpenedBox}
               volumeWeightCoefficient={volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}

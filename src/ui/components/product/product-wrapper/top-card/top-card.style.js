@@ -51,6 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '16px',
     marginBottom: '24px',
     backgroundColor: theme.palette.background.general,
+    borderRadius: 10,
   },
   parseButtonsWrapper: {
     minWidth: 250,

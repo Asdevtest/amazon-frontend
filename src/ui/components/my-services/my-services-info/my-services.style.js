@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
   userWrapper: {
     maxHeight: 400,
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     marginBottom: 25,
   },
@@ -83,7 +83,7 @@ export const useClassNames = makeStyles()(theme => ({
   footerWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
   statusWrapper: {
     display: 'flex',
@@ -110,10 +110,18 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
   },
 
+  showFullDescription: {
+    maxHeight: 'none',
+  },
+
   photosWrapper: {
     width: 410,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  detailsButton: {
+    color: theme.palette.primary.main,
   },
 }))

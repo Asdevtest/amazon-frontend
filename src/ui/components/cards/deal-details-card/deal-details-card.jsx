@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React from 'react'
 import Linkify from 'react-linkify-always-blank'
 
 import { Avatar, Grid, Typography } from '@mui/material'
@@ -50,7 +48,7 @@ export const DealDetailsCard = ({
                     name={curProposal?.request?.createdBy?.name}
                     userId={requestProposals?.request?.createdBy?._id}
                   />
-                  {curProposal && <Rating disabled value={curProposal?.request?.createdBy?.rating} />}
+                  {curProposal && <Rating readOnly value={curProposal?.request?.createdBy?.rating} />}
                 </div>
               </div>
             </div>
@@ -65,7 +63,7 @@ export const DealDetailsCard = ({
                     name={curProposal?.proposal.createdBy.name}
                     userId={curProposal?.proposal.createdBy._id}
                   />
-                  {curProposal && <Rating disabled value={curProposal?.proposal?.createdBy?.rating} />}
+                  {curProposal && <Rating readOnly value={curProposal?.proposal?.createdBy?.rating} />}
                 </div>
               </div>
             </div>

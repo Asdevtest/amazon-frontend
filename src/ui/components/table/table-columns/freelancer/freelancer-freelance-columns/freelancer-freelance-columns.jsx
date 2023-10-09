@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {

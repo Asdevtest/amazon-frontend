@@ -7,8 +7,6 @@ import Rating from '@mui/material/Rating'
 
 import { UserModel } from '@models/user-model'
 
-import { ShortRating } from '@components/shared/short-rating'
-
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { useClassNames } from './user-link.style'
@@ -45,7 +43,6 @@ export const UserLink: FC<UserLinkProps> = observer(
     customClassNames,
     customAvatarStyles,
     customStyles,
-    isShortRating,
     customRatingClass,
     readOnlyRating,
   }) => {

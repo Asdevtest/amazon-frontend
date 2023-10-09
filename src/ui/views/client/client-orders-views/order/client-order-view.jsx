@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
+import { BoxViewForm } from '@components/forms/box-view-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -75,6 +76,7 @@ export const ClientOrderViewRaw = props => {
             selectedSupplier={viewModel.selectedSupplier}
             destinationsFavourites={viewModel.destinationsFavourites}
             setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+            setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
             onClickCancelOrder={viewModel.onClickCancelOrder}
             onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
             onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
@@ -161,6 +163,20 @@ export const ClientOrderViewRaw = props => {
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel.selectedSupplier}
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        <BoxViewForm
+          userInfo={viewModel.userInfo}
+          box={viewModel.curBox}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
     </React.Fragment>

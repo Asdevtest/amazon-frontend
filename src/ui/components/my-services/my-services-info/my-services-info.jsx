@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css'
+import { useEffect, useRef, useState } from 'react'
 
 import { Avatar, Rating, Typography } from '@mui/material'
 
@@ -15,7 +15,20 @@ import { t } from '@utils/translations'
 import { useClassNames } from './my-services.style'
 
 export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
+  const descriptionRef = useRef()
+
+  const [showFullDescription, setShowFullDescription] = useState(false)
+  const [shopFullDescriptionButton, setShopFullDescriptionButton] = useState(false)
+
+  useEffect(() => {
+    const containerElement = descriptionRef?.current
+    const componentHeight = containerElement?.scrollHeight
+
+    if (componentHeight > 76) {
+      setShopFullDescriptionButton(componentHeight)
+    }
+  }, [announcementData])
 
   return (
     <div className={classNames.root}>
@@ -50,10 +63,14 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
                 </Typography>
               </div>
             </div>
-            <div className={classNames.descriptionTextWrapper}>
-              <Typography className={cx(classNames.regularText, classNames.description)}>
+            <div
+              className={cx(classNames.descriptionTextWrapper, {
+                [classNames.showFullDescription]: showFullDescription,
+              })}
+            >
+              <p ref={descriptionRef} className={cx(classNames.regularText, classNames.description)}>
                 {announcementData?.description}
-              </Typography>
+              </p>
             </div>
           </div>
         </div>
@@ -63,10 +80,17 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
       </div>
 
       <div className={classNames.footerWrapper}>
-        {/* <div className={classNames.statusWrapper}>
-          <FiberManualRecordRoundedIcon className={cx({})} />
-          <Typography className={classNames.regularText}>{'Status'}</Typography>
-        </div> */}
+        {shopFullDescriptionButton ? (
+          <Button
+            variant={'text'}
+            className={classNames.detailsButton}
+            onClick={() => setShowFullDescription(prev => !prev)}
+          >
+            {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
+          </Button>
+        ) : (
+          <div />
+        )}
 
         <div className={classNames.buttonsWrapper}>
           <Button danger className={classNames.deleteButton} onClick={onClickCloseAnnouncementBtn}>

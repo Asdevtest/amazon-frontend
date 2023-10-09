@@ -1062,9 +1062,12 @@ export class WarehouseMyWarehouseViewModel {
 
   async setDimensions(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
+
       this.onTriggerShowEditBoxModal()
     } catch (error) {
       console.log(error)

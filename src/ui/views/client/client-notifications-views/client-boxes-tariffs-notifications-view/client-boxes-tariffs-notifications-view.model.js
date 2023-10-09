@@ -201,8 +201,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async onTriggerOpenConfirmModal(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
 
       await this.getStorekeepers()
@@ -342,12 +344,11 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
