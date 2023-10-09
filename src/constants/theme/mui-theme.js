@@ -38,7 +38,7 @@ const baseThemeSettings = {
 
 export const globalStyles = theme => ({
   '::-webkit-scrollbar': {
-    display: 'block',
+    display: 'block !important',
     width: '6px',
     height: '6px',
     cursor: 'pointer',
@@ -51,6 +51,9 @@ export const globalStyles = theme => ({
   '::-webkit-scrollbar-thumb': {
     borderRadius: '8px',
     backgroundColor: theme.palette.text.gray,
+  },
+  '::-webkit-scrollbar-corner': {
+    backgroundColor: 'transparent !important',
   },
 })
 
