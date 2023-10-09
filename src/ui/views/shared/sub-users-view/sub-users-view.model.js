@@ -236,10 +236,16 @@ export class SubUsersViewModel {
 
   async getUsers() {
     try {
-      await UserModel.getMySubUsers().then(result => {
-        runInAction(() => {
-          this.subUsersData = addIdDataConverter(result)
-        })
+      const result = await UserModel.getMySubUsers({
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
+
+      runInAction(() => {
+        this.subUsersData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)
