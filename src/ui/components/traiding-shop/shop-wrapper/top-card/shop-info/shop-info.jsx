@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 
-
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Box, Link, Typography } from '@mui/material'
 
