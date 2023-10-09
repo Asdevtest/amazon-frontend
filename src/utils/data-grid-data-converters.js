@@ -942,7 +942,7 @@ export const supplierApproximateCalculationsDataConverter = (
           volumeWeightCoefficient,
       ) || 0,
       parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+    ) / supplier?.boxProperties?.amountInBox || 0
 
   return tariffLogistics
     ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WITHOUT_WEIGHT_LOGISTICS_TARIFF)
@@ -979,7 +979,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
   supplier,
   volumeWeightCoefficient,
 ) => {
-  const fInalWeightOfUnit =
+  const finalWeightOfUnit =
     Math.max(
       roundSafely(
         (supplier.boxProperties?.boxLengthCm *
@@ -988,7 +988,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
           volumeWeightCoefficient,
       ) || 0,
       parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+    ) / supplier?.boxProperties?.amountInBox
 
   return tariffLogistics
     ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF)
@@ -997,7 +997,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         (+supplier?.price * (+supplier?.amount || 0) + +supplier?.batchDeliveryCostInDollar) / +supplier?.amount
 
       const destinationVariations = tariffLogistic?.destinationVariations?.map(destinationVariation => {
-        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * fInalWeightOfUnit
+        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * finalWeightOfUnit
 
         return {
           ...destinationVariation,

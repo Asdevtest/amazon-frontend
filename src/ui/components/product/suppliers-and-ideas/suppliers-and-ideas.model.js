@@ -85,6 +85,7 @@ export class SuppliersAndIdeasModel {
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
+  showSupplierApproximateCalculationsModal = false
 
   selectedProduct = undefined
   storekeepers = []
@@ -1003,6 +1004,19 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
+      console.log(error)
+    }
+  }
+
+  async onClickApproximateCalculations() {
+    try {
+      StorekeeperModel.getStorekeepers().then(result => {
+        runInAction(() => {
+          this.storekeepers = result
+          this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+        })
+      })
+    } catch (error) {
       console.log(error)
     }
   }

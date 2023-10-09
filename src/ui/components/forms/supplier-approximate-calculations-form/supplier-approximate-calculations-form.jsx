@@ -31,6 +31,9 @@ const tabsValues = {
 
 export const SupplierApproximateCalculationsForm = observer(
   ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient, destinationData }) => {
+    console.log('product', product)
+    console.log('supplier', supplier)
+
     const { classes: classNames } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF)

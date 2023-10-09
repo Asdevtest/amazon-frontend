@@ -13,6 +13,7 @@ import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
@@ -99,6 +100,7 @@ export const SuppliersAndIdeas = observer(
       showSelectionSupplierModal,
       currentData,
       languageTag,
+      showSupplierApproximateCalculationsModal,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
@@ -128,6 +130,7 @@ export const SuppliersAndIdeas = observer(
       onClickSaveSupplierBtn,
       onConfirmSubmitOrderProductModal,
       onSubmitCalculateSeekSupplier,
+      onClickApproximateCalculations,
     } = model.current
 
     useEffect(() => {
@@ -210,6 +213,7 @@ export const SuppliersAndIdeas = observer(
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
                 onClickUnbindButton={onClickUnbindButton}
+                onClickApproximateCalculations={onClickApproximateCalculations}
               />
             )}
           </>
@@ -250,6 +254,7 @@ export const SuppliersAndIdeas = observer(
                   onClickToOrder={onClickToOrder}
                   onClickRequestId={onClickRequestId}
                   onClickUnbindButton={onClickUnbindButton}
+                  onClickApproximateCalculations={onClickApproximateCalculations}
                 />
               </div>
             ))
@@ -377,6 +382,21 @@ export const SuppliersAndIdeas = observer(
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
           />
         </Modal>
+
+        {showSupplierApproximateCalculationsModal && (
+          <Modal
+            openModal={showSupplierApproximateCalculationsModal}
+            setOpenModal={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
+          >
+            <SupplierApproximateCalculationsForm
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              product={curIdea}
+              supplier={curIdea?.suppliers?.[0]}
+              storekeepers={storekeepers}
+              onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
+            />
+          </Modal>
+        )}
 
         {alertShieldSettings.alertShieldMessage && (
           <AlertShield

@@ -228,7 +228,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
   },
 
   shortInput: {
@@ -261,6 +261,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   sizesInput: {
     width: '100px',
+  },
+
+  approximateCalculationInput: {
+    width: '165px',
   },
 
   addOrEditBtnsWrapper: {
@@ -517,5 +521,22 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     width: 'fit-content',
+  },
+
+  approximateCalculationFieldsWrapper: {
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'flex-end',
+  },
+
+  approximateCalculationWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginTop: '35px',
+  },
+
+  approximateCalculationButton: {
+    width: '100%',
   },
 }))

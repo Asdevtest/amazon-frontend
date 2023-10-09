@@ -54,6 +54,8 @@ export const IdeaPatch = [
   'width',
   'height',
   'length',
+  'fbaFee',
+  'approximatePrice',
 ]
 
 export const IdeaCreate = [
@@ -70,6 +72,8 @@ export const IdeaCreate = [
   'height',
   'length',
   'parentProductId',
+  'fbaFee',
+  'approximatePrice',
 ]
 
 export const createProductByClient = [
