@@ -811,7 +811,7 @@ export const ObJectFieldMenuItem = React.memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender.length > 0 ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -819,7 +819,7 @@ export const ObJectFieldMenuItem = React.memo(
                         setChoosenItems={setChoosenItems}
                       />
                       {itemsForRender.map(obj => {
-                        const value = obj.title || obj.name || t(TranslationKey.Empty)
+                        const value = obj?.title || obj?.name || t(TranslationKey.Empty)
                         const valueChecked = choosenItems.some(item => item._id === obj._id)
 
                         return (
