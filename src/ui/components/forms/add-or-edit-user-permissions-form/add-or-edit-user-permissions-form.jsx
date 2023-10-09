@@ -56,8 +56,6 @@ export const AddOrEditUserPermissionsForm = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    console.log('sourceData', sourceData)
-
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
     const [selectedShop, setSelectedShop] = useState(null)

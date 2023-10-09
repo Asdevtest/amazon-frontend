@@ -1079,6 +1079,7 @@ export const styles = theme => ({
   userRolesWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
     height: 70,
     overflow: 'auto',
     width: '100%',
