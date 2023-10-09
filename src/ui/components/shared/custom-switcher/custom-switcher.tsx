@@ -5,7 +5,7 @@ import { useClassNames } from './custom-switcher.style'
 
 import { BulbIcon } from '../svg-icons'
 
-interface ISwitcherSettings {
+export interface ISwitcherSettings {
   label?: () => string | number
   value: string | number | null | undefined
   icon?: JSX.Element | boolean

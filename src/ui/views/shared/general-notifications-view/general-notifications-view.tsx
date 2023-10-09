@@ -1,10 +1,11 @@
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { NotificationTypes } from '@constants/notifications/notification-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,10 +15,11 @@ import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-gr
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher, ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
-import { checkIsClient, checkIsFreelancer } from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
@@ -40,6 +42,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
 
   const currentUserRole = viewModel?.currentUser?.role || -1
   const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])
+  const isCurrentUserBuyer = checkIsBuyer(UserRoleCodeMap[currentUserRole])
   const isCurrentUserFreelancer = checkIsFreelancer(UserRoleCodeMap[currentUserRole])
 
   const searchPlaceholderText = isCurrentUserClient
@@ -47,12 +50,39 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
     : isCurrentUserFreelancer
     ? `, ${t(TranslationKey['Request ID'])}`
     : ''
+  const currentSwitcherSettings: ISwitcherSettings[] = isCurrentUserClient
+    ? [
+        { label: () => t(TranslationKey.Box), value: NotificationTypes.box },
+        { label: () => t(TranslationKey.Idea), value: NotificationTypes.idea },
+        { label: () => t(TranslationKey.Order), value: NotificationTypes.order },
+        { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
+        { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
+        { label: () => t(TranslationKey.All), value: undefined },
+      ]
+    : isCurrentUserBuyer
+    ? [
+        { label: () => t(TranslationKey.Idea), value: NotificationTypes.idea },
+        { label: () => t(TranslationKey.Order), value: NotificationTypes.order },
+        { label: () => t(TranslationKey.All), value: undefined },
+      ]
+    : isCurrentUserFreelancer
+    ? [
+        { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
+        { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
+        { label: () => t(TranslationKey.All), value: undefined },
+      ]
+    : [{ label: () => t(TranslationKey.All), value: undefined }]
 
   return (
     viewModel.languageTag && (
       <div className={classNames.root}>
         <div className={classNames.actionPanelWrapper}>
-          <div />
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.curNotificationType}
+            switcherSettings={currentSwitcherSettings}
+            changeConditionHandler={viewModel.onClickToChangeNotificationType}
+          />
 
           <SearchInput
             inputClasses={cx(classNames.searchInput, {
@@ -61,7 +91,8 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             })}
             value={viewModel.searchValue}
             placeholder={`${t(TranslationKey['Search by SKU, ASIN, Title']) + searchPlaceholderText}`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => viewModel.onChangeSearchValue(e.target.value)}
+            /* onChange={(e: ChangeEvent<HTMLInputElement>) => viewModel.onChangeSearchValue(e.target.value)} */
+            onSubmit={viewModel.onSearchSubmit}
           />
 
           <div className={classNames.buttonsWrapper}>
