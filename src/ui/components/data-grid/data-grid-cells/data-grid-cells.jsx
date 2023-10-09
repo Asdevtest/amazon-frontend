@@ -769,9 +769,9 @@ export const ChangeInputCommentCell = React.memo(
             endAdornment={
               !!onClickSubmit && (
                 <InputAdornment position="start" className={classNames.commentControls}>
-                  {isShow && text !== value ? (
+                  {isShow ? (
                     <DoneIcon classes={{ root: classNames.doneIcon }} />
-                  ) : isEdited ? (
+                  ) : isEdited && text !== value ? (
                     <div className={classNames.iconWrapper}>
                       <SaveIcon
                         className={classNames.changeInputIcon}
