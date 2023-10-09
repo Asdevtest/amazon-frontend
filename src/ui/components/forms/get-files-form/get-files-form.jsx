@@ -1,5 +1,3 @@
-
-
 import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
