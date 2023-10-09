@@ -53,6 +53,7 @@ export const OrderContent = ({
   onChangeSelectedSupplier,
   onTriggerAddOrEditSupplierModal,
   onClickHsCode,
+  setCurrentOpenedBox,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -306,6 +307,7 @@ export const OrderContent = ({
               mainProductId={updatedOrder.product._id}
               volumeWeightCoefficient={volumeWeightCoefficient}
               userInfo={userInfo}
+              setCurrentOpenedBox={setCurrentOpenedBox}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />

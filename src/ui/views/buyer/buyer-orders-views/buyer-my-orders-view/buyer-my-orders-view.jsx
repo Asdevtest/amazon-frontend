@@ -14,6 +14,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { BoxViewForm } from '@components/forms/box-view-form'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -204,6 +205,7 @@ export const BuyerMyOrdersViewRaw = props => {
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
           setPhotosToLoad={viewModel.setPhotosToLoad}
+          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           setUpdateSupplierData={viewModel.setUpdateSupplierData}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
@@ -305,6 +307,20 @@ export const BuyerMyOrdersViewRaw = props => {
           payments={payments}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        <BoxViewForm
+          userInfo={viewModel.userInfo}
+          box={viewModel.curBox}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 

@@ -415,7 +415,7 @@ export const BatchInfoModal = observer(
               )}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}
-              onRowDoubleClick={params => viewModel.setCurrentOpenedBox(params.row.originalData)}
+              onRowDoubleClick={params => viewModel.setCurrentOpenedBox(params.row)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>

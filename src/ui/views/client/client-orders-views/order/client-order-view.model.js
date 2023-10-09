@@ -28,6 +28,9 @@ export class ClientOrderViewModel {
   orderId = undefined
   orderBoxes = []
 
+  curBox = undefined
+  showBoxViewModal = false
+
   platformSettings = undefined
   storekeepers = []
   destinations = []
@@ -176,6 +179,20 @@ export class ClientOrderViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async setCurrentOpenedBox(id) {
+    try {
+      const box = await BoxesModel.getBoxById(id)
+
+      runInAction(() => {
+        this.curBox = box
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
     }
