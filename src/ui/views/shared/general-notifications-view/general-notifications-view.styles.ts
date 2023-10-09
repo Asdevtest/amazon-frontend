@@ -28,6 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   actionPanelWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
 
