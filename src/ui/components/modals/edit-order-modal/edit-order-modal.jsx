@@ -280,22 +280,22 @@ export const EditOrderModal = observer(
       const newOrderFieldsState = { ...orderFields }
 
       newOrderFieldsState.deliveryCostToTheWarehouse =
-        (orderFields.orderSupplier.batchDeliveryCostInYuan /
+        (orderFields?.orderSupplier?.batchDeliveryCostInYuan /
           orderFields?.yuanToDollarRate /
-          orderFields.orderSupplier.amount) *
-        orderFields.amount
+          orderFields?.orderSupplier?.amount) *
+        orderFields?.amount
 
       newOrderFieldsState.priceBatchDeliveryInYuan =
-        (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount
+        (orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) * orderFields?.amount
 
       newOrderFieldsState.priceInYuan =
-        (orderFields?.orderSupplier.priceInYuan +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        (orderFields?.orderSupplier?.priceInYuan +
+          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
         orderFields?.amount
 
       newOrderFieldsState.totalPriceChanged =
-        ((orderFields?.orderSupplier.priceInYuan +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        ((orderFields?.orderSupplier?.priceInYuan +
+          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
           orderFields?.amount) /
         orderFields?.yuanToDollarRate
 
