@@ -1,5 +1,3 @@
-// import {grey} from '@mui/material/colors'
-import { Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
@@ -605,8 +603,8 @@ export const darkTheme = createTheme({
         },
         input: {
           '&.Mui-disabled': {
-            backgroundColor: '#36363F !important',
-            WebkitTextFillColor: '#fff !important',
+            backgroundColor: '#36363F',
+            WebkitTextFillColor: '#fff',
           },
         },
       },
