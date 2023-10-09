@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'

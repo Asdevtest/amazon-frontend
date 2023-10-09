@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -27,7 +25,6 @@ export const adminOrdersViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 100,
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'priorityAndChinaDelivery',

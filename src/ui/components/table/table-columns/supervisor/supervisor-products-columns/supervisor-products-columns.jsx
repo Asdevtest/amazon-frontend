@@ -48,7 +48,7 @@ export const supervisorProductsViewColumns = handlers => [
         />
       )
     },
-    width: 350,
+    width: 265,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Avatar, Grid, Rating, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,19 +9,6 @@ import { UserLink } from '@components/user/user-link'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {Button} from '@components/buttons/button'
-// import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-// import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-// import {UserLink} from '@components/user-link'
-// import {formatNormDateTime} from '@utils/date-time'
-// import {getUserAvatarSrc} from '@utils/get-user-avatar'
-// import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-// import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-// import {getUserAvatarSrc} from '@utils/get-user-avatar'
-// import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-// import {t} from '@utils/translations'
-// import {translateProposalsLeftMessage} from '@utils/validation'
 import { useClassNames } from './appeal-details-card.style'
 
 export const AppealDetailsCard = () => {
@@ -93,7 +78,7 @@ export const AppealDetailsCard = () => {
 
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={'Вася'} userId={''} />
-                  <Rating disabled value={'5'} />
+                  <Rating readOnly value={'5'} />
                 </div>
               </div>
             </div>
@@ -104,7 +89,7 @@ export const AppealDetailsCard = () => {
 
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={'Исполнитель'} userId={''} />
-                  <Rating disabled value={'5'} />
+                  <Rating readOnly value={'5'} />
                 </div>
               </div>
             </div>

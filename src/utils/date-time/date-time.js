@@ -78,6 +78,8 @@ export const formatShortDateTime = dateString => {
 }
 export const formatDateWithoutTime = dateString => formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy')
 
+export const reversedFormatDateWithoutTime = dateString => formatDateToCustomFormatInUTC(dateString, 'yyyy.MM.dd')
+
 export const formatDateOnlyTime = dateString => formatDateToCustomFormatInUTC(dateString, 'HH:mm')
 
 export const formatNormDateTimeWithParseISO = dateString =>

@@ -29,20 +29,12 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 const updateOrderKeys = [
   'amount',
-  'orderSupplierId',
-  'storekeeperId',
-  'destinationId',
-  'logicsTariffId',
-  'images',
-  'totalPrice',
   'buyerComment',
+  'images',
   'item',
-  'needsResearch',
-  'deadline',
-  'priority',
-  'expressChinaDelivery',
-  'clientComment',
+  'orderSupplierId',
   'priceInYuan',
+  'totalPrice',
   'priceBatchDeliveryInYuan',
 ]
 

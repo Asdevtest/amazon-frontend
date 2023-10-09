@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Checkbox, Link, Paper, Typography } from '@mui/material'
 
 import { getOrderStatusOptionByCode } from '@constants/orders/order-status'

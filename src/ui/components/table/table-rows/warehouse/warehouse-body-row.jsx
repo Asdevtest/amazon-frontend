@@ -9,11 +9,9 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { Modal } from '@components/shared/modal'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { checkIsClient, checkIsImageLink } from '@utils/checks'
@@ -40,8 +38,6 @@ const WarehouseBodyRowRaw = ({
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
   const [curImageIndex, setCurImageIndex] = useState(0)
-
-  const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   // const style = colorByBoxStatus(box.status)
 
@@ -110,7 +106,7 @@ const WarehouseBodyRowRaw = ({
         <React.Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
           <TableRow
             className={cx(classNames.row, { [classNames.boxLastRow]: orderIndex === ordersQty - 1 })}
-            onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
+            onDoubleClick={() => restProps.setCurrentOpenedBox(box._id)}
           >
             {orderIndex === 0 && (
               <React.Fragment>
@@ -225,20 +221,6 @@ const WarehouseBodyRowRaw = ({
           ) : undefined}
         </React.Fragment>
       ))}
-
-      <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
-        <BoxViewForm
-          userInfo={restProps.userInfo}
-          box={box}
-          volumeWeightCoefficient={restProps.volumeWeightCoefficient}
-          setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
-          onSubmitChangeFields={data => {
-            restProps.onSubmitChangeBoxFields(data)
-            setShowBoxViewModal(!showBoxViewModal)
-          }}
-          onClickHsCode={onClickHsCode}
-        />
-      </Modal>
 
       <ImageModal
         isOpenModal={showPhotosModal}

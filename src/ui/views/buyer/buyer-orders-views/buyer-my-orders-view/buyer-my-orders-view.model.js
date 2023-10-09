@@ -134,6 +134,9 @@ export class BuyerMyOrdersViewModel {
 
   showSuccessModalText = ''
 
+  curBox = undefined
+  showBoxViewModal = false
+
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
   warningInfoModalSettings = {
@@ -939,6 +942,20 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async setCurrentOpenedBox(id) {
+    try {
+      const box = await BoxesModel.getBoxById(id)
+
+      runInAction(() => {
+        this.curBox = box
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

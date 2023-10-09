@@ -1,11 +1,9 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveIconBtnsCell,
   MultilineTextAlignLeftCell,
-  MultilineTextCell, // EditOrRemoveBtnsCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   WarehouseTariffDatesCell,

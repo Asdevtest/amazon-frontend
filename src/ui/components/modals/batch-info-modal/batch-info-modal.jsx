@@ -67,7 +67,7 @@ export const BatchInfoModal = observer(
     )
     const { classes: classNames } = useClassNames()
 
-    const [showBoxViewModal, setShowBoxViewModal] = useState(false)
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -114,15 +114,7 @@ export const BatchInfoModal = observer(
       }
     }, [nameSearchValue, currentBatch])
 
-    const [curBox, setCurBox] = useState({})
-
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [curImageIndex, setCurImageIndex] = useState(0)
-
-    const openBoxView = box => {
-      setShowBoxViewModal(!showBoxViewModal)
-      setCurBox(box)
-    }
 
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
@@ -423,7 +415,7 @@ export const BatchInfoModal = observer(
               )}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}
-              onRowDoubleClick={e => openBoxView(e.row)}
+              onRowDoubleClick={params => viewModel.setCurrentOpenedBox(params.row)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
@@ -448,22 +440,22 @@ export const BatchInfoModal = observer(
             </div>
           </div>
 
-          <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
+          <Modal
+            openModal={viewModel.showBoxViewModal}
+            setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          >
             <BoxViewForm
               storekeeper={currentBatch?.storekeeper}
               userInfo={userInfo}
-              box={curBox}
+              box={viewModel.curBox}
               batchHumanFriendlyId={currentBatch.humanFriendlyId}
               volumeWeightCoefficient={currentBatch.volumeWeightDivide}
               calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
                 currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
               )}
-              setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
-              onSubmitChangeFields={data => {
-                onSubmitChangeBoxFields(data)
-                setShowBoxViewModal(!showBoxViewModal)
-              }}
+              setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+              onSubmitChangeFields={data => onSubmitChangeBoxFields(data)}
               onClickHsCode={onClickHsCode}
             />
           </Modal>

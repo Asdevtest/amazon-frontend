@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+import JSZip from 'jszip'
+
 import { Errors } from '@constants/errors'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
@@ -166,3 +169,24 @@ export const getFileWeight = async url =>
 
       return formattedSize
     })
+
+export const downloadArchive = async (files, folderName) => {
+  const zip = new JSZip()
+
+  const validFilesData = files.map(async file => {
+    const res = await fetch(file.image.file || file.image)
+    const blob = await res.blob()
+
+    return {
+      title: file.comment,
+      blob,
+    }
+  })
+
+  const fetchedData = await Promise.all(validFilesData)
+
+  fetchedData.forEach(file => zip.file(file.title, file.blob, { base64: true }))
+  zip.generateAsync({ type: 'blob' }).then(content => {
+    downloadFile(content, `${folderName}.rar`)
+  })
+}

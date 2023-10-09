@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Typography } from '@mui/material'
 
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
