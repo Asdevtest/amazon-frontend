@@ -20,22 +20,14 @@ export const useClassNames = makeStyles()(theme => ({
   valueText: {
     fontSize: 14,
     lineHeight: '19px',
+    color: theme.palette.text.general,
   },
 
   asinValueText: {
     color: theme.palette.primary.main,
   },
 
-  skuValueText: {
-    color: '#AEAEAE',
-  },
-
   attributeTitle: {
-    fontSize: 14,
-    color: theme.palette.text.second,
-  },
-
-  missingValueText: {
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
