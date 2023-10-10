@@ -1642,7 +1642,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
   'status': "status_example", // String | Статус задачи (можно указать несколько через запятую).
-  'type': "type_example", // String | Тип задачи (можно указать несколько через запятую).
+  'operationType': "operationType_example", // String | Тип задачи (можно указать несколько через запятую).
   'priority': "priority_example", // String | Приоритет задачи (можно указать несколько через запятую).
   'filters': "filters_example", // String |                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
   'limit': 10.0, // Number | Лимит записей для пагинации
@@ -1665,7 +1665,7 @@ apiInstance.apiV1AdminsTasksPagGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**| Статус задачи (можно указать несколько через запятую). | [optional] 
- **type** | **String**| Тип задачи (можно указать несколько через запятую). | [optional] 
+ **operationType** | **String**| Тип задачи (можно указать несколько через запятую). | [optional] 
  **priority** | **String**| Приоритет задачи (можно указать несколько через запятую). | [optional] 
  **filters** | **String**|                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]

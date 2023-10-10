@@ -1917,7 +1917,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 3,
+      activeSubCategory: 3, // it's now not displayed to the client
       title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
@@ -1951,7 +1951,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 4,
+      activeSubCategory: 3, // change to 4 because the ideas-notification are now hidden
       title: () => t(TranslationKey.Notifications),
     },
   },
