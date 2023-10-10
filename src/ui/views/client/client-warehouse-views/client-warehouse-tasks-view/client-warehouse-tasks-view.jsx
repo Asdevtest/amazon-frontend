@@ -243,6 +243,7 @@ export const ClientWarehouseTasksViewRaw = props => {
             // key={SettingsModel.languageTag}
             checkboxSelection
             pagination
+            disableRowSelectionOnClick
             // propsToRerender={{ onHover: viewModel.onHover }}
             classes={{
               root: classNames.root,

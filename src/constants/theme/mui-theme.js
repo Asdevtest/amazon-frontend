@@ -1,5 +1,3 @@
-// import {grey} from '@mui/material/colors'
-import { Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
@@ -40,7 +38,7 @@ const baseThemeSettings = {
 
 export const globalStyles = theme => ({
   '::-webkit-scrollbar': {
-    display: 'block',
+    display: 'block !important',
     width: '6px',
     height: '6px',
     cursor: 'pointer',
@@ -53,6 +51,9 @@ export const globalStyles = theme => ({
   '::-webkit-scrollbar-thumb': {
     borderRadius: '8px',
     backgroundColor: theme.palette.text.gray,
+  },
+  '::-webkit-scrollbar-corner': {
+    backgroundColor: 'transparent !important',
   },
 })
 
@@ -605,8 +606,8 @@ export const darkTheme = createTheme({
         },
         input: {
           '&.Mui-disabled': {
-            backgroundColor: '#36363F !important',
-            WebkitTextFillColor: '#fff !important',
+            backgroundColor: '#36363F',
+            WebkitTextFillColor: '#fff',
           },
         },
       },

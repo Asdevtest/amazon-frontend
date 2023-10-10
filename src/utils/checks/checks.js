@@ -20,6 +20,9 @@ export const checkIsWithoutProductPermissions = userRole =>
 
 export const checkIsAbsoluteUrl = url => new RegExp('^(?:[a-z]+:)?//', 'i').test(url)
 
+export const checkIsNumberWithDot = str => {
+  return /^\d*\.?\d*$/.test(str)
+}
 export const checkIsPositiveNum = str => !(Number(str) < 0 || isNaN(str))
 export const checkIsMoreTwoCharactersAfterDot = str => {
   str += ''

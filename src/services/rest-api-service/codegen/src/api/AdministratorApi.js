@@ -1556,7 +1556,7 @@ export default class AdministratorApi {
      * ## Получить список задач c пагинацией.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.status Статус задачи (можно указать несколько через запятую).
-     * @param {String} opts.type Тип задачи (можно указать несколько через запятую).
+     * @param {String} opts.operationType Тип задачи (можно указать несколько через запятую).
      * @param {String} opts.priority Приоритет задачи (можно указать несколько через запятую).
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
@@ -1574,7 +1574,7 @@ export default class AdministratorApi {
       };
       let queryParams = {
         'status': opts['status'],
-        'type': opts['type'],
+        'operationType': opts['operationType'],
         'priority': opts['priority'],
         'filters': opts['filters'],
         'limit': opts['limit'],
@@ -1604,7 +1604,7 @@ export default class AdministratorApi {
      * ## Получить список задач c пагинацией.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.status Статус задачи (можно указать несколько через запятую).
-     * @param {String} opts.type Тип задачи (можно указать несколько через запятую).
+     * @param {String} opts.operationType Тип задачи (можно указать несколько через запятую).
      * @param {String} opts.priority Приоритет задачи (можно указать несколько через запятую).
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
