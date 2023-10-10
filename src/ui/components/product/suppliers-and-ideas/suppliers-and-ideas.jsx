@@ -128,7 +128,6 @@ export const SuppliersAndIdeas = observer(
       onClickSaveSupplierBtn,
       onConfirmSubmitOrderProductModal,
       onSubmitCalculateSeekSupplier,
-      onClickApproximateCalculations,
     } = model.current
 
     useEffect(() => {
@@ -211,7 +210,6 @@ export const SuppliersAndIdeas = observer(
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
                 onClickUnbindButton={onClickUnbindButton}
-                onClickApproximateCalculations={onClickApproximateCalculations}
               />
             )}
           </>
@@ -252,7 +250,6 @@ export const SuppliersAndIdeas = observer(
                   onClickToOrder={onClickToOrder}
                   onClickRequestId={onClickRequestId}
                   onClickUnbindButton={onClickUnbindButton}
-                  onClickApproximateCalculations={onClickApproximateCalculations}
                 />
               </div>
             ))

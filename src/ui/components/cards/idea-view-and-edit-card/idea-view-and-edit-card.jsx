@@ -79,7 +79,6 @@ export const IdeaViewAndEditCard = observer(
     onClickToOrder,
     onClickRequestId,
     onClickUnbindButton,
-    onClickApproximateCalculations,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -326,9 +325,6 @@ export const IdeaViewAndEditCard = observer(
     const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
     const isSupplierCreatedByCurrentUser =
       curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
-
-    const approximateCalculationDisabled =
-      (!currentUserIsClient && !currentUserIsBuyer) || !formFields?.suppliers?.length || !curIdea
 
     return (
       <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
@@ -645,40 +641,30 @@ export const IdeaViewAndEditCard = observer(
                         </div>
                       </div>
 
-                      <div className={classNames.approximateCalculationWrapper}>
-                        <div className={classNames.approximateCalculationFieldsWrapper}>
-                          <Field
-                            label={t(TranslationKey['Referral fee, $'])}
-                            disabled={disableFields}
-                            inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.approximateCalculationInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
-                            value={formFields.fbaFee}
-                            onChange={onChangeField('fbaFee')}
-                          />
+                      <div className={classNames.approximateCalculationFieldsWrapper}>
+                        <Field
+                          label={t(TranslationKey['Referral fee, $'])}
+                          disabled={disableFields}
+                          inputProps={{ maxLength: 6 }}
+                          labelClasses={classNames.spanLabel}
+                          inputClasses={classNames.approximateCalculationInput}
+                          className={classNames.oneLineField}
+                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          value={formFields.fbaFee}
+                          onChange={onChangeField('fbaFee')}
+                        />
 
-                          <Field
-                            label={t(TranslationKey['Referral fee, $'])}
-                            disabled={disableFields}
-                            inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.approximateCalculationInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
-                            value={formFields.approximatePrice}
-                            onChange={onChangeField('approximatePrice')}
-                          />
-                        </div>
-
-                        <Button
-                          disabled={approximateCalculationDisabled}
-                          className={classNames.approximateCalculationButton}
-                          onClick={onClickApproximateCalculations}
-                        >
-                          {t(TranslationKey['View an oriented calculation'])}
-                        </Button>
+                        <Field
+                          label={t(TranslationKey['Referral fee, $'])}
+                          disabled={disableFields}
+                          inputProps={{ maxLength: 6 }}
+                          labelClasses={classNames.spanLabel}
+                          inputClasses={classNames.approximateCalculationInput}
+                          className={classNames.oneLineField}
+                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          value={formFields.approximatePrice}
+                          onChange={onChangeField('approximatePrice')}
+                        />
                       </div>
                     </div>
                   </div>
