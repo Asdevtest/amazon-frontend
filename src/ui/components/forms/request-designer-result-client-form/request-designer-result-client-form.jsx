@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
@@ -20,12 +20,14 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { DownloadArchiveIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
+import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
-import { downloadFile, downloadFileByLink } from '@utils/upload-files'
+import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './request-designer-result-client-form.style'
 
@@ -289,6 +291,13 @@ export const RequestDesignerResultClientForm = ({
     setFormFields(newFormFields)
   }
 
+  const onClickDownloadArchive = () => {
+    downloadArchive(
+      imagesForDownload,
+      `${reversedFormatDateWithoutTime(new Date(), true)}_${request?.request?.title?.replaceAll(' ', '_')}`,
+    )
+  }
+
   return (
     <div className={classNames.modalMainWrapper}>
       <div className={classNames.headerWrapper}>
@@ -417,6 +426,14 @@ export const RequestDesignerResultClientForm = ({
             onClick={onClickAllDownload}
           >
             <DownloadOutlinedIcon />
+          </Button>
+
+          <Button
+            disabled={!imagesForDownload.length}
+            className={cx(classNames.imagesModalBtn)}
+            onClick={onClickDownloadArchive}
+          >
+            <DownloadArchiveIcon />
           </Button>
         </div>
 

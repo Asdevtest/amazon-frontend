@@ -115,7 +115,14 @@ import {
   getTariffRateForBoxOrOrder,
   roundHalf,
 } from '@utils/calculation'
-import { checkIsPositiveNum, checkIsString, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
+import {
+  checkIsMoreNCharactersAfterDot,
+  checkIsMoreTwoCharactersAfterDot,
+  checkIsNumberWithDot,
+  checkIsPositiveNum,
+  checkIsString,
+  checkIsValidProposalStatusToShowResoult,
+} from '@utils/checks'
 import {
   formatDateForShowWithoutParseISO,
   formatDateTime,
@@ -165,7 +172,7 @@ export const UserCell = React.memo(
           <div className={classNames.sabUserRatingWrapper}>
             <Typography className={classNames.ratingScore}>{`Rating ${toFixed(rating, 1)}`}</Typography>
 
-            <Rating disabled className={classNames.sabUserRating} value={rating} />
+            <Rating readOnly className={classNames.sabUserRating} value={rating} />
           </div>
         </div>
       </div>
@@ -592,6 +599,7 @@ export const ManyUserLinkCell = React.memo(
             name={user?.name}
             userId={user?._id}
             customStyles={{ fontWeight: 400, fontSize: 14 }}
+            customRatingClass={{ opacity: 1 }}
           />
         ))}
       </div>
@@ -710,8 +718,12 @@ export const ChangeInputCell = React.memo(
           }
           onChange={e => {
             if (isInts) {
-              if (checkIsPositiveNum(e.target.value)) {
-                setValue(parseFloat(e.target.value))
+              if (
+                checkIsPositiveNum(e.target.value) &&
+                checkIsNumberWithDot(e.target.value) &&
+                !checkIsMoreNCharactersAfterDot(e.target.value, 2)
+              ) {
+                setValue(e.target.value)
               }
             } else {
               setValue(e.target.value)
@@ -768,9 +780,9 @@ export const ChangeInputCommentCell = React.memo(
             endAdornment={
               !!onClickSubmit && (
                 <InputAdornment position="start" className={classNames.commentControls}>
-                  {isShow && text !== value ? (
+                  {isShow ? (
                     <DoneIcon classes={{ root: classNames.doneIcon }} />
-                  ) : isEdited ? (
+                  ) : isEdited && text !== value ? (
                     <div className={classNames.iconWrapper}>
                       <SaveIcon
                         className={classNames.changeInputIcon}

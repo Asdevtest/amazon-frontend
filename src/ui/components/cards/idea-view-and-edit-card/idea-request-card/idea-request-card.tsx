@@ -35,7 +35,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
   const {
-    proposals,
+    // proposals,
     requestType,
     requestId,
     requestStatus,
@@ -87,6 +87,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
             userId={executor?._id}
             rating={executor?.rating}
             ratingSize={'small'}
+            customRatingClass={{ opacity: 1 }}
           />
         )}
 

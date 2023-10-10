@@ -50,14 +50,7 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = p
     >
       <Avatar src={getUserAvatarSrc(noticeItem?.user?._id)} className={classNames.avatarWrapper} />
       <div className={classNames.centerWrapper}>
-        <UserLink
-          name={noticeItem?.user?.name}
-          userId={noticeItem?.user?._id}
-          blackText={undefined}
-          withAvatar={undefined}
-          maxNameWidth={undefined}
-          customClassNames={undefined}
-        />
+        <UserLink name={noticeItem?.user?.name} userId={noticeItem?.user?._id} />
 
         {message ? (
           <Typography className={classNames.messageText}>

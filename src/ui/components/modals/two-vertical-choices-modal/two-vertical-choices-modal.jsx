@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Typography } from '@mui/material'
 
 import { Button } from '@components/shared/buttons/button'

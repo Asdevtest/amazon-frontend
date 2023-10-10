@@ -16,6 +16,8 @@ import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
 
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/data-grid'
 import { IProductIdeaNotification } from '@typings/product'
@@ -28,7 +30,7 @@ export class GeneralNotificationsViewModel {
   isArchive = false
   history: History | undefined = undefined
 
-  // * Pagination & Sort
+  // * Pagination & Sorting & Filtering
 
   rowCount = 0
   sortModel: Array<ISortModel> = []
@@ -37,6 +39,7 @@ export class GeneralNotificationsViewModel {
   columnVisibilityModel: IColumnVisibilityModel = {}
   filterModel: GridFilterModel = { items: [] }
   selectedRowIds: Array<string> = []
+  curNotificationType: string | number | null | undefined = undefined
 
   // * Table settings
 
@@ -128,6 +131,7 @@ export class GeneralNotificationsViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
         // storekeeperId: opts.storekeeperId,
+        filters: this.getFilter(),
       })
 
       runInAction(() => {
@@ -143,9 +147,7 @@ export class GeneralNotificationsViewModel {
   }
 
   getCurrentData() {
-    console.log(this.notificationsData)
-
-    if (this.searchValue) {
+    /* if (this.searchValue) {
       const searchValue = String(this.searchValue).toLowerCase()
 
       return this.notificationsData.filter((notification: any) => {
@@ -161,7 +163,9 @@ export class GeneralNotificationsViewModel {
       })
     } else {
       return this.notificationsData
-    }
+    } */
+
+    return this.notificationsData
   }
 
   setDataGridState() {
@@ -245,7 +249,7 @@ export class GeneralNotificationsViewModel {
           .open(
             `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/${
               isVacOrders ? 'free-orders' : 'all-orders'
-            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?._id : notification?.needConfirmOrders?.[0]?._id}`,
+            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?.id : notification?.needConfirmOrders?.[0]?.id}`,
           )
           ?.focus()
       }
@@ -261,5 +265,47 @@ export class GeneralNotificationsViewModel {
 
   onChangeSearchValue(value: string) {
     this.searchValue = value
+  }
+
+  onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.curNotificationType = notificationType
+
+      this.getUserNotifications()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (err) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.error(err)
+    }
+  }
+
+  getFilter() {
+    return objectToUrlQs(
+      dataGridFiltersConverter({}, this.searchValue, '', [], ['data'], {
+        ...(this.curNotificationType && {
+          type: {
+            $eq: this.curNotificationType,
+          },
+        }),
+      }),
+    )
+  }
+
+  onSearchSubmit(searchValue: string) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.searchValue = searchValue
+
+      this.getUserNotifications()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (err) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.error(err)
+    }
   }
 }

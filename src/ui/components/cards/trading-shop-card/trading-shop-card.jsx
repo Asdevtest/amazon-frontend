@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'

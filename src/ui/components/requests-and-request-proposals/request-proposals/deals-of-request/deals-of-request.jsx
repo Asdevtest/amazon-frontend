@@ -60,7 +60,7 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
                   </div>
 
                   <div className={classNames.userRatingWrapper}>
-                    <Rating disabled className={classNames.userRating} value={deal?.proposal?.createdBy?.rating} />
+                    <Rating readOnly className={classNames.userRating} value={deal?.proposal?.createdBy?.rating} />
                   </div>
                 </div>
 

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 

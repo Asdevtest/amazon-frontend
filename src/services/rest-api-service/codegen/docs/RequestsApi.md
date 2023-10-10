@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20084] apiV1RequestsCustomGet(opts)
+> [InlineResponse20086] apiV1RequestsCustomGet(opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20084]**](InlineResponse20084.md)
+[**[InlineResponse20086]**](InlineResponse20086.md)
 
 ### Authorization
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20085 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20087 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить уникальную заявку по его guid.
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20085**](InlineResponse20085.md)
+[**InlineResponse20087**](InlineResponse20087.md)
 
 ### Authorization
 
@@ -324,7 +324,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject134() // InlineObject134 | 
+  'body': new TestSwagger.InlineObject135() // InlineObject135 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject134**](InlineObject134.md)|  | [optional] 
+ **body** | [**InlineObject135**](InlineObject135.md)|  | [optional] 
 
 ### Return type
 
@@ -379,7 +379,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject133() // InlineObject133 | 
+  'body': new TestSwagger.InlineObject134() // InlineObject134 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -395,7 +395,7 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject133**](InlineObject133.md)|  | [optional] 
+ **body** | [**InlineObject134**](InlineObject134.md)|  | [optional] 
 
 ### Return type
 

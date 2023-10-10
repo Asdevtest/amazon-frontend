@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'

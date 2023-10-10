@@ -22,6 +22,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
+import { UserLink } from '@components/user/user-link'
 
 import { deepArrayCompare } from '@utils/array'
 import { checkIsFreelancer } from '@utils/checks'
@@ -183,6 +184,10 @@ export const AddOrEditUserPermissionsForm = observer(
 
     return (
       <div className={classNames.root}>
+        <div className={classNames.currentUserBlock}>
+          <p>{t(TranslationKey.User)}:</p>
+          <UserLink withAvatar name={sourceData?.name} userId={sourceData?._id} />
+        </div>
         <Tabs
           variant={'fullWidth'}
           classes={{
