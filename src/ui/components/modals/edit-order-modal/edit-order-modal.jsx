@@ -114,6 +114,7 @@ export const EditOrderModal = observer(
     hsCodeData,
     progressValue,
     volumeWeightCoefficient,
+    setCurrentOpenedBox,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
@@ -279,22 +280,22 @@ export const EditOrderModal = observer(
       const newOrderFieldsState = { ...orderFields }
 
       newOrderFieldsState.deliveryCostToTheWarehouse =
-        (orderFields.orderSupplier.batchDeliveryCostInYuan /
+        (orderFields?.orderSupplier?.batchDeliveryCostInYuan /
           orderFields?.yuanToDollarRate /
-          orderFields.orderSupplier.amount) *
-        orderFields.amount
+          orderFields?.orderSupplier?.amount) *
+        orderFields?.amount
 
       newOrderFieldsState.priceBatchDeliveryInYuan =
-        (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount
+        (orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) * orderFields?.amount
 
       newOrderFieldsState.priceInYuan =
-        (orderFields?.orderSupplier.priceInYuan +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        (orderFields?.orderSupplier?.priceInYuan +
+          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
         orderFields?.amount
 
       newOrderFieldsState.totalPriceChanged =
-        ((orderFields?.orderSupplier.priceInYuan +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        ((orderFields?.orderSupplier?.priceInYuan +
+          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
           orderFields?.amount) /
         orderFields?.yuanToDollarRate
 
@@ -1008,6 +1009,7 @@ export const EditOrderModal = observer(
               renderHeadRow={renderHeadRow()}
               mainProductId={order.product._id}
               userInfo={userInfo}
+              setCurrentOpenedBox={setCurrentOpenedBox}
               volumeWeightCoefficient={volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}

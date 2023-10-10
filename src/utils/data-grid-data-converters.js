@@ -64,7 +64,7 @@ export const feedBackDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const myRequestsDataConverter = data =>
+export const myRequestsDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -85,6 +85,7 @@ export const myRequestsDataConverter = data =>
     typeTask: item?.typeTask,
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
+    shopIds: shopsData?.find(el => el._id === item?.product?.shopIds?.[0])?.name || '',
   }))
 
 export const researcherCustomRequestsDataConverter = data =>

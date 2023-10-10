@@ -78,11 +78,29 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
     renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 160,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'shopIds',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Shop)}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
+    width: 90,
+    sortable: false,
+    filterable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },
 
   {

@@ -16,7 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { BoxArrow } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -214,12 +214,7 @@ export const EditTaskModal = observer(
               </div>
             ) : (
               <div className={classNames.imageAndFileInputWrapper}>
-                <PhotoAndFilesCarousel
-                  small
-                  direction={window.screen.width < 768 ? 'column' : 'row'}
-                  files={task.images}
-                  width="600px"
-                />
+                <PhotoAndFilesSlider customSlideHeight={140} files={task.images} />
               </div>
             )}
           </div>

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 
 import { MenuItem, Select } from '@mui/material'
@@ -21,7 +20,7 @@ interface PrioritySelectProps {
 }
 
 export const PrioritySelect = observer((props: PrioritySelectProps) => {
-  const { classes: styles } = usePrioritySelectStyles()
+  const { classes: styles, cx } = usePrioritySelectStyles()
 
   return (
     <>

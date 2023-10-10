@@ -9,6 +9,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
@@ -38,6 +39,7 @@ const filtersFields = [
   'createdAt',
   'announcementCreatedBy',
   'taskComplexity',
+  'shopIds',
 ]
 
 export class MyRequestsViewModel {
@@ -368,6 +370,7 @@ export class MyRequestsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      await this.getShops()
       await this.getCustomRequests()
 
       this.getDataGridState()
@@ -375,6 +378,21 @@ export class MyRequestsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      await ShopModel.getMyShopNames().then(result => {
+        runInAction(() => {
+          this.shopsData = result
+        })
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -496,7 +514,7 @@ export class MyRequestsViewModel {
       })
 
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result.rows)
+        this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
 
         this.rowCount = result.count
       })
@@ -551,6 +569,8 @@ export class MyRequestsViewModel {
 
     const taskComplexityFilter =
       exclusion !== 'taskComplexity' && this.columnMenuSettings?.taskComplexity?.currentFilterData?.join(',')
+    const shopIdsFilter =
+      exclusion !== 'shopIds' && this.columnMenuSettings?.shopIds?.currentFilterData?.map(item => item._id)?.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -618,6 +638,10 @@ export class MyRequestsViewModel {
 
       ...(taskComplexityFilter && {
         taskComplexity: { $eq: taskComplexityFilter },
+      }),
+
+      ...(shopIdsFilter && {
+        shopIds: { $eq: shopIdsFilter },
       }),
     })
 

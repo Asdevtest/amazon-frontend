@@ -473,6 +473,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersChangePasswordPatch**](docs/UserApi.md#apiV1UsersChangePasswordPatch) | **PATCH** /api/v1/users/change_password | Сменить пароль
 *TestSwagger.UserApi* | [**apiV1UsersCheckIsUniqueNameOrEmailPost**](docs/UserApi.md#apiV1UsersCheckIsUniqueNameOrEmailPost) | **POST** /api/v1/users/check_isUnique_name_or_email | Выдача массива объектов с ответом является ли уникальным name и/или email.
 *TestSwagger.UserApi* | [**apiV1UsersContactsGet**](docs/UserApi.md#apiV1UsersContactsGet) | **GET** /api/v1/users/contacts | Выдача массива перечень всех контактов пользователя.
+*TestSwagger.UserApi* | [**apiV1UsersDevicesGet**](docs/UserApi.md#apiV1UsersDevicesGet) | **GET** /api/v1/users/devices | # Получение всех устройств
 *TestSwagger.UserApi* | [**apiV1UsersEditMySubUsersGuidPatch**](docs/UserApi.md#apiV1UsersEditMySubUsersGuidPatch) | **PATCH** /api/v1/users/edit_my_sub-users/{guid} | Редактирование сабюзера мастер юзером.
 *TestSwagger.UserApi* | [**apiV1UsersFeedbackGuidDelete**](docs/UserApi.md#apiV1UsersFeedbackGuidDelete) | **DELETE** /api/v1/users/feedback/{guid} | Удалить отзыв
 *TestSwagger.UserApi* | [**apiV1UsersFeedbackGuidGet**](docs/UserApi.md#apiV1UsersFeedbackGuidGet) | **GET** /api/v1/users/feedback/{guid} | Получить отзывы оставленые юзеру по его гуиду
@@ -480,9 +481,11 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersFeedbackGuidPost**](docs/UserApi.md#apiV1UsersFeedbackGuidPost) | **POST** /api/v1/users/feedback/{guid} | Оставить юзеру отзыв
 *TestSwagger.UserApi* | [**apiV1UsersFeedbackMyGet**](docs/UserApi.md#apiV1UsersFeedbackMyGet) | **GET** /api/v1/users/feedback/my | Получить отзывы оставленые юзеру
 *TestSwagger.UserApi* | [**apiV1UsersForgotPasswordPost**](docs/UserApi.md#apiV1UsersForgotPasswordPost) | **POST** /api/v1/users/forgot_password | Запросить смену пароля
+*TestSwagger.UserApi* | [**apiV1UsersGetAccessTokenPost**](docs/UserApi.md#apiV1UsersGetAccessTokenPost) | **POST** /api/v1/users/get_access_token | # Получение токена авторизации.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGuidGet**](docs/UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
+*TestSwagger.UserApi* | [**apiV1UsersLogoutPost**](docs/UserApi.md#apiV1UsersLogoutPost) | **POST** /api/v1/users/logout | # Отозвать токены
 *TestSwagger.UserApi* | [**apiV1UsersMastersGet**](docs/UserApi.md#apiV1UsersMastersGet) | **GET** /api/v1/users/masters | Получить список мастеров
 *TestSwagger.UserApi* | [**apiV1UsersMePatch**](docs/UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 *TestSwagger.UserApi* | [**apiV1UsersMySubUsersGet**](docs/UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
@@ -643,6 +646,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject132](docs/InlineObject132.md)
  - [TestSwagger.InlineObject133](docs/InlineObject133.md)
  - [TestSwagger.InlineObject134](docs/InlineObject134.md)
+ - [TestSwagger.InlineObject135](docs/InlineObject135.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
  - [TestSwagger.InlineObject16](docs/InlineObject16.md)
@@ -871,7 +875,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20083](docs/InlineResponse20083.md)
  - [TestSwagger.InlineResponse20084](docs/InlineResponse20084.md)
  - [TestSwagger.InlineResponse20085](docs/InlineResponse20085.md)
- - [TestSwagger.InlineResponse20085Details](docs/InlineResponse20085Details.md)
+ - [TestSwagger.InlineResponse20086](docs/InlineResponse20086.md)
+ - [TestSwagger.InlineResponse20087](docs/InlineResponse20087.md)
+ - [TestSwagger.InlineResponse20087Details](docs/InlineResponse20087Details.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)
@@ -880,6 +886,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20112](docs/InlineResponse20112.md)
  - [TestSwagger.InlineResponse20113](docs/InlineResponse20113.md)
  - [TestSwagger.InlineResponse20114](docs/InlineResponse20114.md)
+ - [TestSwagger.InlineResponse20115](docs/InlineResponse20115.md)
  - [TestSwagger.InlineResponse2012](docs/InlineResponse2012.md)
  - [TestSwagger.InlineResponse2013](docs/InlineResponse2013.md)
  - [TestSwagger.InlineResponse2014](docs/InlineResponse2014.md)
