@@ -99,7 +99,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     ),
     renderCell: (params: GridCellParams) => <OrderCell withoutSku imageSize={'small'} product={params.value} />,
     width: 252,
-    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+    columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
   {
@@ -183,11 +183,11 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     width: 122,
     renderCell: (params: GridCellParams) => (
       <UserMiniCell
-        userName={params?.row?.originalData?.createdBy?.name}
-        userId={params?.row?.originalData?.createdBy?._id}
+        userName={params?.row?.originalData?.sub?.name || params?.row?.originalData?.createdBy?.name}
+        userId={params?.row?.originalData?.sub?._id || params?.row?.originalData?.createdBy?._id}
       />
     ),
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
   },
 
   {

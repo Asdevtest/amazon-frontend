@@ -92,7 +92,7 @@ export const styles = theme => ({
     color: `${theme.palette.primary.main} !important`,
   },
   searchInput: {
-    width: 320,
+    width: 380,
   },
 
   tablePanelSubWrapper: {

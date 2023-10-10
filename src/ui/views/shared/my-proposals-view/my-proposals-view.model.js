@@ -228,7 +228,11 @@ export class MyProposalsViewModel {
       this.selectedTaskType = taskType
     })
 
-    this.requests = this.getFilteredRequests()
+    const isAllTasks = taskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
+    this.onChangeFullFieldMenuItem(isAllTasks ? [] : [taskType], 'typeTask', true)
+
+    this.getRequestsProposalsPagMy()
   }
 
   onClickEditBtn(request, proposal) {
@@ -403,8 +407,6 @@ export class MyProposalsViewModel {
   }
 
   async onClickFilterBtn(column) {
-    console.log('column', column)
-
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
@@ -431,7 +433,13 @@ export class MyProposalsViewModel {
     }
   }
 
-  onChangeFullFieldMenuItem(value, field) {
+  onChangeFullFieldMenuItem(value, field, notResetTask) {
+    if (!notResetTask) {
+      runInAction(() => {
+        this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+      })
+    }
+
     runInAction(() => {
       this.columnMenuSettings = {
         ...this.columnMenuSettings,
@@ -493,6 +501,8 @@ export class MyProposalsViewModel {
 
   onClickResetFilters() {
     runInAction(() => {
+      this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
       this.columnMenuSettings = {
         ...this.columnMenuSettings,
         ...dataGridFiltersInitializer(filtersFields),
