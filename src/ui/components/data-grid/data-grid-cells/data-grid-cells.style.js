@@ -41,12 +41,15 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    paddingLeft: '10px',
+  },
+
+  priorityAndChinaDelivery: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
   },
 
   clockIcon: {
-    width: 5,
-    height: 5,
     color: theme.palette.primary.main,
   },
 
