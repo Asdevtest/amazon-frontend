@@ -539,7 +539,7 @@ const Box = observer(
                       label={t(TranslationKey['Track number'])}
                       labelClasses={classNames.label}
                       inputComponent={
-                        <Tooltip title={box.trackNumberText}>
+                        <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
                           <Typography className={classNames.trackNum}>
                             {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                               t(TranslationKey['Not available'])}
@@ -620,7 +620,7 @@ const Box = observer(
                     label={t(TranslationKey['Track number'])}
                     labelClasses={classNames.label}
                     inputComponent={
-                      <Tooltip title={box.trackNumberText}>
+                      <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
                         <Typography className={classNames.trackNum}>
                           {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                             t(TranslationKey['Not available'])}
