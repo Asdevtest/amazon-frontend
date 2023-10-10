@@ -95,13 +95,13 @@ export const IdeaViewAndEditCard = observer(
     )
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
-    const [images, setImages] = useState(formFields?.media || [])
+    const [images, setImages] = useState(formFields?.media || []) //
 
     useEffect(() => {
       if (formFields?.media) {
         setImages(formFields?.media)
       }
-    }, [formFields])
+    }, [formFields?.media])
 
     const isCurrentIdea = curIdea?._id === idea?._id
 
@@ -290,7 +290,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const disabledSubmit =
-      (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, idea?.linksToMediaFiles)) ||
+      (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, formFields?.media || [])) ||
       !formFields.productName
 
     const currentUserIsClient = checkIsClient(UserRoleCodeMap[curUser.role])

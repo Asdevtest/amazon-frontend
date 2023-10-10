@@ -34,6 +34,7 @@ interface Props {
   showPreviews?: boolean
   isEditable?: boolean
   photosTitles?: string[]
+  photosComments?: string[]
   withoutMakeMainImage?: boolean
   mainClasses?: string
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
@@ -58,6 +59,7 @@ interface Props {
  * @param {Boolean} showPreviews - adds a photo preview on the left side of the photo modal window.
  * @param {Boolean} isEditable - adds the ability to work with photos in the photo modal window (adds a panel with buttons).
  * @param {Array<string>} photosTitles - takes an array of strings with names for photos.
+ * @param {Array<string>} photosComments - takes an array of strings with comments for photos.
  * @param {Boolean} withoutMakeMainImage - removes the ability to select the main photo in the photo modal window.
  * @param {String} mainClasses - custom styles for the main wrapper.
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
@@ -81,6 +83,7 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
     showPreviews = false,
     isEditable = false,
     photosTitles,
+    photosComments,
     withoutMakeMainImage = false,
     mainClasses,
     onChangeImagesForLoad,
@@ -204,6 +207,7 @@ export const PhotoAndFilesSlider: FC<Props> = observer(
             imageList={photos}
             currentImageIndex={photoIndex}
             photosTitles={photosTitles}
+            photosComments={photosComments}
             handleOpenModal={onOpenImageModal}
             handleCurrentImageIndex={setPhotoIndex}
             onChangeImagesForLoad={onChangeImagesForLoad}

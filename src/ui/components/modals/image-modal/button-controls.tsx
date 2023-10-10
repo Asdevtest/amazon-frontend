@@ -10,7 +10,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useClassNames } from './photo-and-files-slider.styles'
+import { useImageModalStyles } from './image-modal.styles'
 
 interface Props {
   image: string | IUploadFile
@@ -32,7 +32,7 @@ export const ButtonControls: FC<Props> = observer(
     onUploadFile,
     onClickMakeMainImageObj,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: classNames, cx } = useImageModalStyles()
 
     return (
       <>

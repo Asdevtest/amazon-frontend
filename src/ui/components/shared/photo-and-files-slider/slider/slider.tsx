@@ -182,8 +182,6 @@ export const Slider: FC<Props> = observer(
               </button>
             </div>
 
-            {/* {filteredImagesTitles[index] && <p className={classNames.imageTitle}>{filteredImagesTitles[index]}</p>} */}
-
             {!isHideCounter && (
               <div
                 className={cx(classNames.currentSlideTitle, {

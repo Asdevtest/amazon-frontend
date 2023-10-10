@@ -9,7 +9,6 @@ import { useImageModalStyles } from '@components/modals/image-modal/image-modal.
 import { ZoomModal } from '@components/modals/zoom-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
-import { ButtonControls } from '@components/shared/photo-and-files-slider/button-controls'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
@@ -17,13 +16,7 @@ import { getShortenStringIfLongerThanCount } from '@utils/text'
 
 import { IUploadFile } from '@typings/upload-file'
 
-export interface ImageObjectType {
-  url: string
-  _id?: string
-  comment?: string
-  file?: unknown
-  title?: string
-}
+import { ButtonControls } from './button-controls'
 
 interface Props {
   isOpenModal: boolean
@@ -83,8 +76,6 @@ export const ImageModal: FC<Props> = observer(
         dialogContextClassName={styles.modalContainer}
       >
         <div className={styles.wrapper}>
-          {/* Image List */}
-
           {showPreviews && (
             <div className={styles.imagesList}>
               {photos?.map((photo, index) => {
@@ -107,22 +98,16 @@ export const ImageModal: FC<Props> = observer(
             </div>
           )}
 
-          {/* Slider */}
-
           <div className={styles.body}>
             {photosTitles?.length && <p className={styles.title}>{photosTitles[photoIndex]}</p>}
 
             <Slider bigSlider slides={photos} currentIndex={photoIndex} setCurrentIndex={setPhotoIndex} />
-
-            {/* Info */}
 
             {photosComments?.length && (
               <p className={cx(styles.title, styles.clientComment)}>
                 {getShortenStringIfLongerThanCount(photosComments[photoIndex], 200)}
               </p>
             )}
-
-            {/* Controls */}
 
             <div className={styles.controls}>
               <Button onClick={() => onClickDownloadPhoto(photos[photoIndex])}>
