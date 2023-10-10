@@ -959,7 +959,10 @@ export const supplierApproximateCalculationsDataConverter = (
         ) *
           fInalWeightOfUnit
 
-      const roi = ((product.amazon - calcTotalFbaForProduct(product) - costDeliveryToUsa) / costDeliveryToUsa) * 100
+      const roi =
+        (((product.amazon || product?.approximatePrice) - calcTotalFbaForProduct(product) - costDeliveryToUsa) /
+          costDeliveryToUsa) *
+        100
 
       return {
         originalData: item,
@@ -1001,7 +1004,10 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
 
         return {
           ...destinationVariation,
-          roi: ((product?.amazon - calcTotalFbaForProduct(product) - deliveryToUsa) / deliveryToUsa) * 100,
+          roi:
+            (((product?.amazon || product?.approximatePrice) - calcTotalFbaForProduct(product) - deliveryToUsa) /
+              deliveryToUsa) *
+            100,
           costDeliveryToUsa: deliveryToUsa,
         }
       })

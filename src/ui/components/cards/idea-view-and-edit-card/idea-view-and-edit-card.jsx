@@ -700,7 +700,7 @@ export const IdeaViewAndEditCard = observer(
                         disabled={!selectedSupplier}
                         tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                         className={classNames.iconBtn}
-                        onClick={() => onClickSupplierBtns('view')}
+                        onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
                       >
                         <VisibilityOutlinedIcon />
                       </Button>

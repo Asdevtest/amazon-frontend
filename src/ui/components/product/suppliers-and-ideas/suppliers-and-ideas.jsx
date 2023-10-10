@@ -13,7 +13,6 @@ import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
@@ -100,7 +99,6 @@ export const SuppliersAndIdeas = observer(
       showSelectionSupplierModal,
       currentData,
       languageTag,
-      showSupplierApproximateCalculationsModal,
       onClickToOrder,
       onClickSaveBarcode,
       onDoubleClickBarcode,
@@ -267,25 +265,29 @@ export const SuppliersAndIdeas = observer(
             </div>
           ))}
 
-        <Modal
-          missClickModalOn={!supplierModalReadOnly}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={onTriggerAddOrEditSupplierModal}
-        >
-          <AddOrEditSupplierModalContent
-            paymentMethods={paymentMethods}
-            onlyRead={supplierModalReadOnly}
-            requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={supplierData || selectedSupplier}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            onClickSaveBtn={onClickSaveSupplierBtn}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
-          />
-        </Modal>
+        {showAddOrEditSupplierModal && (
+          <Modal
+            missClickModalOn={!supplierModalReadOnly}
+            openModal={showAddOrEditSupplierModal}
+            setOpenModal={onTriggerAddOrEditSupplierModal}
+          >
+            <AddOrEditSupplierModalContent
+              product={curIdea}
+              storekeepersData={storekeepers}
+              paymentMethods={paymentMethods}
+              onlyRead={supplierModalReadOnly}
+              requestStatus={requestStatus}
+              sourceYuanToDollarRate={yuanToDollarRate}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              title={t(TranslationKey['Adding and editing a supplier'])}
+              supplier={supplierData || selectedSupplier}
+              showProgress={showProgress}
+              progressValue={progressValue}
+              onClickSaveBtn={onClickSaveSupplierBtn}
+              onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+            />
+          </Modal>
+        )}
 
         <ConfirmationModal
           isWarning={confirmModalSettings?.isWarning}
@@ -382,21 +384,6 @@ export const SuppliersAndIdeas = observer(
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
           />
         </Modal>
-
-        {showSupplierApproximateCalculationsModal && (
-          <Modal
-            openModal={showSupplierApproximateCalculationsModal}
-            setOpenModal={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
-          >
-            <SupplierApproximateCalculationsForm
-              volumeWeightCoefficient={volumeWeightCoefficient}
-              product={curIdea}
-              supplier={curIdea?.suppliers?.[0]}
-              storekeepers={storekeepers}
-              onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
-            />
-          </Modal>
-        )}
 
         {alertShieldSettings.alertShieldMessage && (
           <AlertShield
