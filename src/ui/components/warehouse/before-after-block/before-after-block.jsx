@@ -693,7 +693,7 @@ const Box = observer(
                       !box.lengthCmWarehouse ||
                       !box.heightCmWarehouse
                     }
-                    className={classNames.applyAllBtn}
+                    className={classNames.editBtn}
                     onClick={() => {
                       onClickApplyAllBtn(box)
                     }}
