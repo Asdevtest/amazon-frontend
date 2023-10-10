@@ -507,7 +507,7 @@ export class OwnerRequestDetailCustomViewModel {
   async getReviews(guid) {
     try {
       const result = await FeedbackModel.getFeedback(guid)
-      console.log(result)
+
       runInAction(() => {
         this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
