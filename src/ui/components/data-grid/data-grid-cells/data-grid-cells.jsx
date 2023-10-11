@@ -99,10 +99,12 @@ import {
   CubeIcon,
   EditIcon,
   EqualIcon,
+  FireIcon,
   ParentProductIcon,
   PlusIcon,
   SaveIcon,
   ShareLinkIcon,
+  TruckIcon,
   VariationProductIcon,
 } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
@@ -1682,18 +1684,11 @@ export const PriorityAndChinaDeliverCell = React.memo(
         )}
 
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
-        <div>
-          {isUrgent ? (
-            <div className={classNames.priority}>
-              <img src="/assets/icons/fire.svg" />
-            </div>
-          ) : null}
 
-          {chinaDelivery === true ? (
-            <div className={classNames.chinaDelivery}>
-              <img src="/assets/icons/truck.svg" />
-            </div>
-          ) : null}
+        <div className={classNames.priorityAndChinaDelivery}>
+          {isUrgent ? <FireIcon /> : null}
+
+          {chinaDelivery === true ? <TruckIcon /> : null}
         </div>
       </div>
     )
