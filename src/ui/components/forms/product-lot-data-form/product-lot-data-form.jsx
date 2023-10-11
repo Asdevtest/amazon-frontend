@@ -57,18 +57,16 @@ export const ProductLotDataForm = observer(
     const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
     useEffect(() => {
-      if (isTransfer && nameSearchValue) {
+      const searchFields = ['humanFriendlyId', 'fbaShipment']
+
+      if (nameSearchValue) {
         setBatches(
-          data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
+          data?.filter(el =>
+            searchFields.some(key => String(el[key]).toLowerCase().includes(nameSearchValue.toLowerCase())),
+          ),
         )
-      } else {
-        if (nameSearchValue) {
-          setBatches(
-            data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
-          )
-        } else {
-          setBatches(data)
-        }
+      } else if (!isTransfer) {
+        setBatches(data)
       }
     }, [nameSearchValue, data])
 

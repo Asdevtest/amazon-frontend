@@ -1,6 +1,3 @@
-import { isArray } from 'class-validator'
-import { toJS } from 'mobx'
-
 import { GridCellParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -52,7 +49,6 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
           image={params.row.product?.images?.slice()[0]}
           amazonTitle={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}
-          skusByClient={params.row.product?.skusByClient?.slice()[0]}
         />
       )
     },

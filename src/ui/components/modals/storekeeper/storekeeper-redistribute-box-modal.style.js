@@ -239,11 +239,4 @@ export const useClassNames = makeStyles()(theme => ({
     border: '3px solid #F5CF00',
     borderRadius: 4,
   },
-
-  applyAllBtn: {
-    transition: '.3s ease',
-    '&:hover:not(:active)': {
-      background: 'green',
-    },
-  },
 }))

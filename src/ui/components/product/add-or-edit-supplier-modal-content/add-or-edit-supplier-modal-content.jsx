@@ -47,6 +47,9 @@ export const AddOrEditSupplierModalContent = observer(
     outsideProduct,
     onClickPrevButton,
   }) => {
+    console.log('product', product)
+    console.log('storekeepersData', storekeepersData)
+
     const { classes: classNames } = useClassNames()
 
     const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
