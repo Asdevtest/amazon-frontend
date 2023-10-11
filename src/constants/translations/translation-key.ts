@@ -2132,6 +2132,6 @@ export enum TranslationKey {
   'Price without delivery' = 'Price without delivery',
   'Available request types' = 'Available request types',
   'Approximate price' = 'Approximate price',
-  'Final status (cannot be changed)' = 'Final status (cannot be changed)',
+  "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
