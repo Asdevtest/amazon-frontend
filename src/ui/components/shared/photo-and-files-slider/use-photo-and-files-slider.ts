@@ -53,22 +53,20 @@ export const usePhotoAndFilesSlider = (
     setPhotos(photoFiltering)
   }, [files])
 
-  const updateImagesForLoad = (newPhotos: Array<string | IUploadFile>) => {
+  const updateImagesForLoad = () => {
     if (onChangeImagesForLoad) {
-      onChangeImagesForLoad([...documents, ...newPhotos])
+      onChangeImagesForLoad([...documents, ...photos])
     }
   }
 
   const onClickEditImageSubmit = (image: string) => {
     const editingPhotos = photos.map((slide, index) => (index === photoIndex ? image : slide))
     setPhotos(editingPhotos)
-    updateImagesForLoad(editingPhotos)
   }
 
   const onClickRemoveImageObj = (imageIndex: number) => {
     const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
     setPhotos(filteringPhotos)
-    updateImagesForLoad(filteringPhotos)
 
     if (!filteringPhotos.length) {
       onOpenImageModal()
@@ -93,7 +91,6 @@ export const usePhotoAndFilesSlider = (
     const editingPhotos = photos.map((photo, index) => (index === imageIndex ? readyFilesArr[0] : photo))
 
     setPhotos(editingPhotos)
-    updateImagesForLoad(editingPhotos)
   }
 
   const onClickMakeMainImageObj = (image: string | IUploadFile, imageIndex: number) => {
@@ -101,7 +98,6 @@ export const usePhotoAndFilesSlider = (
     const editingPhotos = [image, ...filteringPhotos]
 
     setPhotos(editingPhotos)
-    updateImagesForLoad(editingPhotos)
     setPhotoIndex(0)
   }
 
@@ -129,5 +125,6 @@ export const usePhotoAndFilesSlider = (
     onClickRemoveImageObj,
     onClickEditImageSubmit,
     onClickDownloadPhoto,
+    updateImagesForLoad,
   }
 }

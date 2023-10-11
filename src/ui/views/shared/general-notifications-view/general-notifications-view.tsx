@@ -90,7 +90,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
               [classNames.searchInputFreelancer]: isCurrentUserFreelancer,
             })}
             value={viewModel.searchValue}
-            placeholder={`${t(TranslationKey['Search by SKU, ASIN, Title']) + searchPlaceholderText}`}
+            placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
             /* onChange={(e: ChangeEvent<HTMLInputElement>) => viewModel.onChangeSearchValue(e.target.value)} */
             onSubmit={viewModel.onSearchSubmit}
           />

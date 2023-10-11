@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './left-panel.style'
@@ -31,7 +32,9 @@ export const LeftPanel = ({
         <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
 
         <div className={classNames.productInfoWrapper}>
-          <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
+          <Typography className={classNames.amazonTitle}>
+            {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
+          </Typography>
           <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order?.product?.asin} />
           <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={order.product?.skusByClient?.[0]} />
         </div>

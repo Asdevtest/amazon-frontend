@@ -47,14 +47,14 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
 
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <PhotoAndFilesSlider withoutFiles files={request?.request?.media} />
+                <PhotoAndFilesSlider withoutFiles files={request?.request?.media?.map(el => el.fileLink)} />
               </div>
 
               <div>
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <PhotoAndFilesSlider withoutPhotos files={request?.request?.media} />
+                <PhotoAndFilesSlider withoutPhotos files={request?.request?.media?.map(el => el.fileLink)} />
               </div>
             </div>
 

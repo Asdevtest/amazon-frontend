@@ -62,6 +62,7 @@ export const ImageModal: FC<Props> = observer(
       onClickRemoveImageObj,
       onClickEditImageSubmit,
       onClickDownloadPhoto,
+      updateImagesForLoad,
     } = usePhotoAndFilesSlider(imageList, onChangeImagesForLoad, currentImageIndex)
 
     return (
@@ -70,6 +71,7 @@ export const ImageModal: FC<Props> = observer(
         setOpenModal={() => {
           handleOpenModal()
           handleCurrentImageIndex(photoIndex)
+          updateImagesForLoad()
         }}
         missClickModalOn={undefined}
         isWarning={false}
@@ -101,7 +103,7 @@ export const ImageModal: FC<Props> = observer(
           <div className={styles.body}>
             {photosTitles?.length && <p className={styles.title}>{photosTitles[photoIndex]}</p>}
 
-            <Slider bigSlider slides={photos} currentIndex={photoIndex} setCurrentIndex={setPhotoIndex} />
+            <Slider customSlideHeight={500} slides={photos} currentIndex={photoIndex} setCurrentIndex={setPhotoIndex} />
 
             {photosComments?.length && (
               <p className={cx(styles.title, styles.clientComment)}>

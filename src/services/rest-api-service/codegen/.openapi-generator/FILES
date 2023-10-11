@@ -929,4 +929,6 @@ src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
 test/model/InlineObject135.spec.js
+test/model/InlineResponse20087.spec.js
+test/model/InlineResponse20087Details.spec.js
 test/model/InlineResponse20115.spec.js

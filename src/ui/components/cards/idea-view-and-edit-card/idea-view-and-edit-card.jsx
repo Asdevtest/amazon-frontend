@@ -144,6 +144,8 @@ export const IdeaViewAndEditCard = observer(
       variation: idea?.variation || '',
       productName: idea?.productName || '',
       suppliers: idea?.suppliers || [],
+      approximatePrice: idea?.approximatePrice || '',
+      fbaFee: idea?.fbaFee || '',
     })
 
     const getFullIdea = () => ({
@@ -166,6 +168,8 @@ export const IdeaViewAndEditCard = observer(
       childProduct: curIdea?.childProduct || undefined,
       requestsOnCheck: curIdea?.requestsOnCheck || [],
       requestsOnFinished: curIdea?.requestsOnFinished || [],
+      approximatePrice: idea?.approximatePrice || '',
+      fbaFee: idea?.fbaFee || '',
     })
 
     const onChangeField = fieldName => event => {
@@ -293,8 +297,9 @@ export const IdeaViewAndEditCard = observer(
       (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, formFields?.media || [])) ||
       !formFields.productName
 
-    const currentUserIsClient = checkIsClient(UserRoleCodeMap[curUser.role])
-    const currentUserIsBuyer = checkIsBuyer(UserRoleCodeMap[curUser.role])
+    const userRole = UserRoleCodeMap[curUser.role]
+    const currentUserIsClient = checkIsClient(userRole)
+    const currentUserIsBuyer = checkIsBuyer(userRole)
     const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
 
     const isNewIdea = formFields?.status === ideaStatusByKey[ideaStatus.NEW]
@@ -442,7 +447,7 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.commentsWrapper}>
               <Field
                 multiline
-                disabled={disableFields || checkIsBuyer(UserRoleCodeMap[curUser.role])}
+                disabled={disableFields || currentUserIsBuyer}
                 className={classNames.сlientСomment}
                 containerClasses={classNames.noMarginContainer}
                 labelClasses={classNames.spanLabel}
@@ -597,55 +602,83 @@ export const IdeaViewAndEditCard = observer(
                       />
                     </div>
 
-                    <div className={classNames.sizesWrapper}>
-                      <div className={classNames.sizesSubWrapper}>
-                        <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
+                    <div className={classNames.shortFieldsSubWrapper}>
+                      <div className={classNames.sizesWrapper}>
+                        <div className={classNames.sizesSubWrapper}>
+                          <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
-                        <div>
-                          <CustomSwitcher
-                            condition={sizeSetting}
-                            switcherSettings={[
-                              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                            ]}
-                            changeConditionHandler={condition => handleChange(condition)}
+                          <div>
+                            <CustomSwitcher
+                              condition={sizeSetting}
+                              switcherSettings={[
+                                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                              ]}
+                              changeConditionHandler={condition => handleChange(condition)}
+                            />
+                          </div>
+                        </div>
+
+                        <div className={classNames.sizesBottomWrapper}>
+                          <Field
+                            disabled={disableFields}
+                            inputProps={{ maxLength: 6 }}
+                            labelClasses={classNames.spanLabel}
+                            inputClasses={classNames.sizesInput}
+                            className={classNames.oneLineField}
+                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            label={t(TranslationKey.Width)}
+                            value={formFields.width}
+                            onChange={onChangeField('width')}
+                          />
+                          <Field
+                            disabled={disableFields}
+                            inputProps={{ maxLength: 6 }}
+                            labelClasses={classNames.spanLabel}
+                            inputClasses={classNames.sizesInput}
+                            className={classNames.oneLineField}
+                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            label={t(TranslationKey.Height)}
+                            value={formFields.height}
+                            onChange={onChangeField('height')}
+                          />
+                          <Field
+                            disabled={disableFields}
+                            inputProps={{ maxLength: 6 }}
+                            labelClasses={classNames.spanLabel}
+                            inputClasses={classNames.sizesInput}
+                            className={classNames.oneLineField}
+                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            label={t(TranslationKey.Length)}
+                            value={formFields.length}
+                            onChange={onChangeField('length')}
                           />
                         </div>
                       </div>
 
-                      <div className={classNames.sizesBottomWrapper}>
+                      <div className={classNames.approximateCalculationFieldsWrapper}>
                         <Field
+                          label={t(TranslationKey['Referral fee, $'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
                           labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.sizesInput}
+                          inputClasses={classNames.approximateCalculationInput}
                           className={classNames.oneLineField}
-                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                          label={t(TranslationKey.Width)}
-                          value={formFields.width}
-                          onChange={onChangeField('width')}
+                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          value={formFields.fbaFee}
+                          onChange={onChangeField('fbaFee')}
                         />
+
                         <Field
+                          label={t(TranslationKey['Referral fee, $'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
                           labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.sizesInput}
+                          inputClasses={classNames.approximateCalculationInput}
                           className={classNames.oneLineField}
-                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                          label={t(TranslationKey.Height)}
-                          value={formFields.height}
-                          onChange={onChangeField('height')}
-                        />
-                        <Field
-                          disabled={disableFields}
-                          inputProps={{ maxLength: 6 }}
-                          labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.sizesInput}
-                          className={classNames.oneLineField}
-                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                          label={t(TranslationKey.Length)}
-                          value={formFields.length}
-                          onChange={onChangeField('length')}
+                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          value={formFields.approximatePrice}
+                          onChange={onChangeField('approximatePrice')}
                         />
                       </div>
                     </div>
@@ -662,13 +695,13 @@ export const IdeaViewAndEditCard = observer(
               containerClasses={classNames.noMarginContainer}
               inputComponent={
                 <div className={classNames.supplierActionsWrapper}>
-                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(UserRoleCodeMap[curUser.role])) && (
+                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
                         disabled={!selectedSupplier}
                         tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                         className={classNames.iconBtn}
-                        onClick={() => onClickSupplierBtns('view')}
+                        onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
                       >
                         <VisibilityOutlinedIcon />
                       </Button>
@@ -769,7 +802,7 @@ export const IdeaViewAndEditCard = observer(
               />
             )}
 
-            {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
+            {!checkIsAdmin(userRole) && (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
                 {currentUserIsBuyer && isSupplierSearch && (
                   <div className={classNames.supplierFoundWrapper}>

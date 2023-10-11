@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useImageModalStyles = makeStyles()(theme => ({
   modalContainer: {
-    maxHeight: '74vh',
+    maxHeight: '72vh',
     padding: 40,
 
     [theme.breakpoints.down(768)]: {
@@ -32,7 +32,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
     overflow: 'auto',
     gap: 25,
     paddingRight: 20,
-    maxHeight: 'calc(74vh - 80px)',
+    maxHeight: 'calc(72vh - 80px)',
 
     [theme.breakpoints.down(768)]: {
       maxHeight: '273px',
@@ -92,7 +92,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   body: {
-    padding: '0 100px',
+    padding: '0 50px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -115,13 +115,13 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   controls: {
+    width: '100%',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    display: 'flex',
-    marginTop: '-60px',
-    marginRight: '-200px',
-    width: '100%',
     gap: 30,
+    marginTop: '-70px',
+    marginRight: '-100px',
 
     button: {
       width: 40,
