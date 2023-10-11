@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
-import { ChangeEvent, FC, useState } from 'react'
+import { observer } from 'mobx-react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
+
+import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './payment-method-card.style'
 
@@ -24,9 +27,9 @@ interface PaymentMethod {
 
 interface Payments {
   paymentDetails: string
-  paymentImages: Array<string>
+  paymentImages: Array<string | IUploadFile>
   paymentMethod: PaymentMethod
-  photosForLoad: Array<string>
+  photosForLoad: Array<string | IUploadFile>
 }
 
 interface PaymentMethodCardProps {
@@ -35,10 +38,8 @@ interface PaymentMethodCardProps {
   onStateChange?: (newPaymentsFieldsState: Payments) => void
 }
 
-export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
+export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment, readOnly, onStateChange }) => {
   const { classes: classNames } = useClassNames()
-
-  const { payment, readOnly, onStateChange } = props
 
   const initialState = {
     paymentDetails: 'paymentDetails' in payment ? payment?.paymentDetails : '',
@@ -109,6 +110,14 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
       !!onStateChange && onStateChange(newPaymentsFieldsState)
     }
 
+  const handleChangeImagesForLoad = (changedImages: Array<string | IUploadFile>) => {
+    setPaymentsFields(state => ({ ...state, paymentImages: changedImages }))
+  }
+
+  useEffect(() => {
+    !!onStateChange && onStateChange(paymentsFields)
+  }, [paymentsFields.paymentImages])
+
   return (
     <div className={classNames.root}>
       <div className={classNames.paymentMethodTitleWrapper}>
@@ -167,29 +176,28 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput
             withoutTitle
-            disabled={readOnly} // @ts-ignore
-            dragAndDropBtnHeight={40} // @ts-ignore
-            maxHeight={90} // @ts-ignore
-            imageListWrapperStyles={classNames.imageListWrapperStyles} // @ts-ignore
+            disabled={readOnly}
+            dragAndDropBtnHeight={40}
+            maxHeight={90}
+            imageListWrapperStyles={classNames.imageListWrapperStyles}
             filesLength={paymentsFields?.paymentImages?.length}
             сontainerStyles={classNames.containerClasses}
             images={paymentsFields.photosForLoad}
             setImages={setFielData('photosForLoad')}
             maxNumber={50}
           />
-          {!!paymentsFields?.paymentImages?.length && ( // @ts-ignore
-            <PhotoAndFilesCarousel
-              small
+          {!!paymentsFields?.paymentImages?.length && (
+            <PhotoAndFilesSlider
+              smallSlider
+              showPreviews
               withoutMakeMainImage
               isEditable={!readOnly}
-              width="100%"
               files={paymentsFields?.paymentImages}
-              imagesForLoad={paymentsFields?.paymentImages}
-              onChangeImagesForLoad={setFielData('paymentImages')}
+              onChangeImagesForLoad={handleChangeImagesForLoad}
             />
           )}
         </div>
       </div>
     </div>
   )
-}
+})

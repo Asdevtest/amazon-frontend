@@ -568,13 +568,19 @@ export class BuyerMyOrdersViewModel {
     if (
       Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
-        OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
-      )
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     } else if (
       Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     } else if (
       this.orderStatusDataBase.some(
         status =>
@@ -583,12 +589,16 @@ export class BuyerMyOrdersViewModel {
       ) &&
       this.orderStatusDataBase.length === 2
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(
         [
           Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
           Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
         ].join(','),
       )
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     }
   }
 
@@ -620,7 +630,11 @@ export class BuyerMyOrdersViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    const response = await SupplierModel.getSuppliersPaymentMethods()
+
+    runInAction(() => {
+      this.paymentMethods = response
+    })
   }
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
