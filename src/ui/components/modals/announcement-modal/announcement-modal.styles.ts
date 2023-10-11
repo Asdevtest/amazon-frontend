@@ -83,8 +83,6 @@ export const useClassNames = makeStyles()(() => ({
   description: {
     width: 580,
     height: 377,
-    fontSize: 14,
-    lineHeight: '19px',
     overflow: 'auto',
   },
 
