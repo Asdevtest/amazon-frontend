@@ -212,12 +212,14 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => (
-      <ChangeInputCell
-        isInts
-        rowId={params.row.originalData._id}
-        text={params.value}
-        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
-      />
+      <div onDoubleClick={e => e.stopPropagation()}>
+        <ChangeInputCell
+          isInts
+          rowId={params.row.originalData._id}
+          text={params.value}
+          onClickSubmit={stockUsHandlers.onClickSaveStockUs}
+        />
+      </div>
     ),
     width: 150,
 
