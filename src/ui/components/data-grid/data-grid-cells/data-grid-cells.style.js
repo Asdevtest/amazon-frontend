@@ -61,20 +61,15 @@ export const styles = theme => ({
     gap: '10px',
   },
 
-  asinCell: {
-    padding: '12px 0px',
-    scope: 'row',
-    position: 'relative',
-    width: '100%',
-  },
   productCell: {
     padding: '20px 0px',
     height: '88px',
   },
   asinCellContainer: {
-    display: 'inline-flex',
-    alignItems: 'center',
     width: '100%',
+    padding: '10px 0px',
+    display: 'flex',
+    alignItems: 'flex-start',
   },
   csCodeTypoWrapper: {
     width: '100%',
