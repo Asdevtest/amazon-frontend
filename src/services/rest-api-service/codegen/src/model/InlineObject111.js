@@ -22,11 +22,11 @@ class InlineObject111 {
     /**
      * Constructs a new <code>InlineObject111</code>.
      * @alias module:model/InlineObject111
-     * @param priority {Number} Выставить приоритет задачи
+     * @param allowedSpec {Array.<Number>} Массив доступных специализаций фрилансера.
      */
-    constructor(priority) { 
+    constructor(allowedSpec) { 
         
-        InlineObject111.initialize(this, priority);
+        InlineObject111.initialize(this, allowedSpec);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj, allowedSpec) { 
+        obj['allowedSpec'] = allowedSpec;
     }
 
     /**
@@ -49,11 +49,8 @@ class InlineObject111 {
         if (data) {
             obj = obj || new InlineObject111();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('allowedSpec')) {
+                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
             }
         }
         return obj;
@@ -63,16 +60,10 @@ class InlineObject111 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * Массив доступных специализаций фрилансера.
+ * @member {Array.<Number>} allowedSpec
  */
-InlineObject111.prototype['priority'] = undefined;
-
-/**
- * Reason of high priority
- * @member {String} reason
- */
-InlineObject111.prototype['reason'] = undefined;
+InlineObject111.prototype['allowedSpec'] = undefined;
 
 
 

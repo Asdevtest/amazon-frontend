@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
+**userId** | **String** | Гуид саба | 
+**comment** | **String** | Заметка о сабе написаная мастером | 
 
 

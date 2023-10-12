@@ -22,10 +22,12 @@ class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
      * @alias module:model/InlineObject112
+     * @param userId {String} Гуид саба
+     * @param comment {String} Заметка о сабе написаная мастером
      */
-    constructor() { 
+    constructor(userId, comment) { 
         
-        InlineObject112.initialize(this);
+        InlineObject112.initialize(this, userId, comment);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject112 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userId, comment) { 
+        obj['userId'] = userId;
+        obj['comment'] = comment;
     }
 
     /**
@@ -47,8 +51,11 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -58,10 +65,16 @@ class InlineObject112 {
 }
 
 /**
- * Статус
- * @member {Number} status
+ * Гуид саба
+ * @member {String} userId
  */
-InlineObject112.prototype['status'] = undefined;
+InlineObject112.prototype['userId'] = undefined;
+
+/**
+ * Заметка о сабе написаная мастером
+ * @member {String} comment
+ */
+InlineObject112.prototype['comment'] = undefined;
 
 
 

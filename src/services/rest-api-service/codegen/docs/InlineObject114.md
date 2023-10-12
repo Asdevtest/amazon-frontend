@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperComment** | **String** |  | 
+**email** | **String** | Почта от аккаунта, пароль которого Вы забыли | 
 
 
