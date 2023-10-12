@@ -2,7 +2,6 @@ import { cx } from '@emotion/css'
 
 import { Typography } from '@mui/material'
 
-import { RequestStatus } from '@constants/requests/request-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,10 +9,8 @@ import { FreelanceRequestDetailsModalControls } from '@components/modals/freelan
 import { useFreelanceRequestDetailsModalStyles } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal.styles'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
-import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
