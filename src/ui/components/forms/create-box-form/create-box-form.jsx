@@ -119,10 +119,10 @@ const BlockOfNewBox = ({
           <Field
             inputProps={{ maxLength: 7 }}
             error={
-              currentSupplier.multiplicity &&
-              currentSupplier.boxProperties?.amountInBox &&
-              orderBox.items[0]?.amount % currentSupplier.boxProperties?.amountInBox !== 0 &&
-              ` ${t(TranslationKey['Value is not a multiple of'])} ${currentSupplier.boxProperties?.amountInBox}`
+              currentSupplier?.multiplicity &&
+              currentSupplier?.boxProperties?.amountInBox &&
+              orderBox.items[0]?.amount % currentSupplier?.boxProperties?.amountInBox !== 0 &&
+              ` ${t(TranslationKey['Value is not a multiple of'])} ${currentSupplier?.boxProperties?.amountInBox}`
             }
             label={t(TranslationKey['Products in a box'])}
             value={orderBox.items[0]?.amount}
@@ -134,8 +134,8 @@ const BlockOfNewBox = ({
       <div className={classNames.checkboxWithLabelWrapper}>
         <Checkbox
           color="primary"
-          disabled={!order.orderSupplier.boxProperties}
-          checked={orderBox.tmpUseCurrentSupplierDimensions}
+          disabled={!order.orderSupplier?.boxProperties}
+          checked={orderBox?.tmpUseCurrentSupplierDimensions}
           onChange={setDimensionsOfSupplierField(orderBoxIndex)}
         />
         <Field
@@ -271,12 +271,12 @@ export const CreateBoxForm = observer(
     }
 
     const disableSubmit =
-      formFieldsArr.length < 1 ||
+      formFieldsArr?.length < 1 ||
       formFieldsArr.some(
         el =>
-          el.items[0].amount < 1 ||
-          el.amount < 1 ||
-          (currentSupplier.multiplicity && el.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0),
+          el?.items?.[0]?.amount < 1 ||
+          el?.amount < 1 ||
+          (currentSupplier?.multiplicity && el?.items?.[0]?.amount % currentSupplier?.boxProperties?.amountInBox !== 0),
       )
 
     const handleChange = newAlignment => {
@@ -343,27 +343,27 @@ export const CreateBoxForm = observer(
 
         lengthCmSupplier: e.target.checked
           ? (sizeSetting === unitsOfChangeOptions.EU
-              ? toFixed(currentSupplier.boxProperties.boxLengthCm, 2)
-              : roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)) || 0
+              ? toFixed(currentSupplier?.boxProperties.boxLengthCm, 2)
+              : roundSafely(currentSupplier?.boxProperties.boxLengthCm / inchesCoefficient)) || 0
           : '',
 
         widthCmSupplier: e.target.checked
           ? (sizeSetting === unitsOfChangeOptions.EU
-              ? toFixed(currentSupplier.boxProperties.boxWidthCm, 2)
-              : roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)) || 0
+              ? toFixed(currentSupplier?.boxProperties.boxWidthCm, 2)
+              : roundSafely(currentSupplier?.boxProperties.boxWidthCm / inchesCoefficient)) || 0
           : '',
 
         heightCmSupplier: e.target.checked
           ? (sizeSetting === unitsOfChangeOptions.EU
-              ? toFixed(currentSupplier.boxProperties.boxHeightCm, 2)
-              : roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)) || 0
+              ? toFixed(currentSupplier?.boxProperties.boxHeightCm, 2)
+              : roundSafely(currentSupplier?.boxProperties.boxHeightCm / inchesCoefficient)) || 0
           : '',
 
-        weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier.boxProperties.boxWeighGrossKg) || 0 : '',
+        weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier?.boxProperties.boxWeighGrossKg) || 0 : '',
         items: [
           {
             ...newStateFormFields[orderBoxIndex].items[0],
-            amount: e.target.checked ? currentSupplier.boxProperties.amountInBox || 0 : formItem?.amount,
+            amount: e.target.checked ? currentSupplier?.boxProperties.amountInBox || 0 : formItem?.amount,
           },
         ],
       }

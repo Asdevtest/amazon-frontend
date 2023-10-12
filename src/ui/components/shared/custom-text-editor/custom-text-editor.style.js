@@ -41,6 +41,9 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0px !important',
     width: '100% !important',
   },
+  editorContainerReadOnly: {
+    padding: '0 !important',
+  },
   container: {
     width: '100%',
     height: '100%',
