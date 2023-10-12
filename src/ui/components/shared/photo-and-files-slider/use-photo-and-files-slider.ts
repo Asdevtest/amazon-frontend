@@ -1,29 +1,28 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { ImageObjectType } from '@components/modals/image-modal/image-modal'
-
 import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { IUploadFile } from '@typings/upload-file'
 
 export const usePhotoAndFilesSlider = (
   files: Array<string | IUploadFile> | undefined | null,
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void,
+  startPhotoIndex?: number,
 ) => {
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const onPhotosModalToggle = () => setShowPhotosModal(!showPhotosModal)
+  const [openImageModal, setOpenImageModal] = useState(false)
+  const [openImageEditModal, setOpenImageEditModal] = useState(false)
+  const [openImageZoomModal, setOpenImageZoomModal] = useState(false)
+  const onOpenImageModal = () => setOpenImageModal(!openImageModal)
+  const onOpenImageEditModal = () => setOpenImageEditModal(!openImageEditModal)
+  const onOpenImageZoomModal = () => setOpenImageZoomModal(!openImageZoomModal)
 
   const documents = (files || []).filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el.file.name))
   const [documentIndex, setDocumentIndex] = useState(0)
 
   const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
-  const [photoIndex, setPhotoIndex] = useState(0)
-  const [prevPhotoIndex, setPrevPhotoIndex] = useState(0)
-
-  useEffect(() => {
-    setPrevPhotoIndex(photoIndex)
-  }, [showPhotosModal])
+  const [photoIndex, setPhotoIndex] = useState(startPhotoIndex ?? 0)
 
   useEffect(() => {
     if (photos.length - 1 < photoIndex && photos.length > 0) {
@@ -54,25 +53,23 @@ export const usePhotoAndFilesSlider = (
     setPhotos(photoFiltering)
   }, [files])
 
-  const updateImagesForLoad = (newPhotos: Array<string | IUploadFile>) => {
+  const updateImagesForLoad = () => {
     if (onChangeImagesForLoad) {
-      onChangeImagesForLoad([...documents, ...newPhotos])
+      onChangeImagesForLoad([...documents, ...photos])
     }
   }
 
   const onClickEditImageSubmit = (image: string) => {
     const editingPhotos = photos.map((slide, index) => (index === photoIndex ? image : slide))
     setPhotos(editingPhotos)
-    updateImagesForLoad(editingPhotos)
   }
 
   const onClickRemoveImageObj = (imageIndex: number) => {
     const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
     setPhotos(filteringPhotos)
-    updateImagesForLoad(filteringPhotos)
 
     if (!filteringPhotos.length) {
-      onPhotosModalToggle()
+      onOpenImageModal()
     }
   }
 
@@ -94,28 +91,30 @@ export const usePhotoAndFilesSlider = (
     const editingPhotos = photos.map((photo, index) => (index === imageIndex ? readyFilesArr[0] : photo))
 
     setPhotos(editingPhotos)
-    updateImagesForLoad(editingPhotos)
   }
 
-  const onClickMakeMainImageObj = (imageIndex: number, image: string | ImageObjectType) => {
-    const selectedImage = image as string
+  const onClickMakeMainImageObj = (image: string | IUploadFile, imageIndex: number) => {
     const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
-    const editingPhotos = [selectedImage, ...filteringPhotos]
+    const editingPhotos = [image, ...filteringPhotos]
 
     setPhotos(editingPhotos)
-    updateImagesForLoad(editingPhotos)
     setPhotoIndex(0)
   }
 
+  const onClickDownloadPhoto = (photo: string | IUploadFile) =>
+    typeof photo === 'string' ? downloadFileByLink(photo) : downloadFile(photo.file)
+
   return {
-    showPhotosModal,
-    onPhotosModalToggle,
+    openImageModal,
+    onOpenImageModal,
+    openImageEditModal,
+    onOpenImageEditModal,
+    openImageZoomModal,
+    onOpenImageZoomModal,
 
     photos,
     photoIndex,
-    prevPhotoIndex,
     setPhotoIndex,
-    setPrevPhotoIndex,
 
     documents,
     documentIndex,
@@ -125,5 +124,7 @@ export const usePhotoAndFilesSlider = (
     onUploadFile,
     onClickRemoveImageObj,
     onClickEditImageSubmit,
+    onClickDownloadPhoto,
+    updateImagesForLoad,
   }
 }

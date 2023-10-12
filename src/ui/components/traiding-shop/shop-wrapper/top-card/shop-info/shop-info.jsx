@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
 import { Field } from '@components/shared/field/field'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -34,7 +34,7 @@ export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
     <Box className={classNames.shopInfoWrapper}>
       <div className={classNames.shopInfoTopWrapper}>
         <div className={classNames.photosWrapper}>
-          <PhotoCarousel files={data.files} />
+          <PhotoAndFilesSlider withoutFiles files={data.files} />
         </div>
         <div className={classNames.rightSideWrapper}>
           <div className={classNames.rightSideHeader}>

@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
@@ -9,192 +8,147 @@ import { ImageEditForm } from '@components/forms/image-edit-form'
 import { useImageModalStyles } from '@components/modals/image-modal/image-modal.styles'
 import { ZoomModal } from '@components/modals/zoom-modal'
 import { Button } from '@components/shared/buttons/button'
-import { CustomSlider } from '@components/shared/custom-slider'
 import { Modal } from '@components/shared/modal'
+import { Slider } from '@components/shared/photo-and-files-slider/slider'
+import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { checkIsImageLink } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
-import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-export interface ImageObjectType {
-  url: string
-  _id?: string
-  comment?: string
-  file?: unknown
-  title?: string
-}
+import { IUploadFile } from '@typings/upload-file'
+
+import { ButtonControls } from './button-controls'
 
 interface Props {
   isOpenModal: boolean
-  imageList: string[] | ImageObjectType[]
+  imageList: Array<string | IUploadFile>
   currentImageIndex: number
+  photosTitles?: string[]
+  photosComments?: string[]
   handleOpenModal: VoidFunction
   handleCurrentImageIndex: (index: number) => void
   showPreviews?: boolean
-  controls?: (index: number, image: string | ImageObjectType, onImageEditToggle?: VoidFunction) => ReactNode
-  onClickEditImageSubmit?: (image: string) => void
+  isEditable?: boolean
+  withoutMakeMainImage?: boolean
+  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
 }
 
 export const ImageModal: FC<Props> = observer(
   ({
     imageList,
     currentImageIndex,
+    photosTitles,
+    photosComments,
     isOpenModal,
     showPreviews,
-    controls,
+    isEditable,
+    withoutMakeMainImage,
     handleOpenModal,
     handleCurrentImageIndex,
-    onClickEditImageSubmit,
+    onChangeImagesForLoad,
   }) => {
-    const { classes: styles } = useImageModalStyles()
+    const { classes: styles, cx } = useImageModalStyles()
+    const {
+      openImageEditModal,
+      onOpenImageEditModal,
+      openImageZoomModal,
+      onOpenImageZoomModal,
 
-    const [isZoomActive, setIsZoomActive] = useState(false)
-    const [currentImage, setCurrentImage] = useState<string | ImageObjectType>('')
-    const [imageEditOpen, setImageEditOpen] = useState(false)
+      photos,
+      photoIndex,
+      setPhotoIndex,
 
-    const onImageEditToggle = () => setImageEditOpen(!imageEditOpen)
-
-    useEffect(() => {
-      setCurrentImage(imageList?.[currentImageIndex])
-    }, [currentImageIndex])
-
-    const onClickDownloadBtn = (image: string | ImageObjectType) => {
-      if (typeof image === 'string') {
-        downloadFileByLink(checkIsImageLink(image) ? image : getAmazonImageUrl(image))
-      } else if (image.file) {
-        downloadFile(image.file, image.title)
-      } else {
-        downloadFileByLink(checkIsImageLink(image.url) ? image.url : getAmazonImageUrl(image.url))
-      }
-    }
-
-    const currentSlideTitle = `${currentImageIndex + 1}/${imageList?.length || 0}`
-    const photos = imageList?.map(image => (typeof image === 'string' ? image : image?.url))
+      onClickMakeMainImageObj,
+      onUploadFile,
+      onClickRemoveImageObj,
+      onClickEditImageSubmit,
+      onClickDownloadPhoto,
+      updateImagesForLoad,
+    } = usePhotoAndFilesSlider(imageList, onChangeImagesForLoad, currentImageIndex)
 
     return (
       <Modal
         openModal={isOpenModal}
-        setOpenModal={() => handleOpenModal()}
+        setOpenModal={() => {
+          handleOpenModal()
+          handleCurrentImageIndex(photoIndex)
+          updateImagesForLoad()
+        }}
         missClickModalOn={undefined}
         isWarning={false}
         dialogContextClassName={styles.modalContainer}
       >
         <div className={styles.wrapper}>
-          {/* Image List */}
-
           {showPreviews && (
             <div className={styles.imagesList}>
-              {imageList?.length > 0 &&
-                imageList?.map((image, index) => {
-                  const imageUrl = image
-                    ? typeof image === 'string'
-                      ? getAmazonImageUrl(image, true)
-                      : image.url
-                    : '/assets/img/no-photo.jpg'
+              {photos?.map((photo, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={cx(styles.imagesListItem, {
+                      [styles.imagesListItemActive]: index === photoIndex,
+                    })}
+                    onClick={() => setPhotoIndex(index)}
+                  >
+                    <img src={typeof photo === 'string' ? photo : photo.data_url} alt={`Photo ${photoIndex}`} />
 
-                  return (
-                    <div
-                      key={index}
-                      className={cx(styles.imagesListItem, {
-                        [styles.imagesListItemActive]: index === currentImageIndex,
-                      })}
-                      onClick={() => handleCurrentImageIndex(index)}
-                    >
-                      <img
-                        src={imageUrl}
-                        alt="Image"
-                        onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
-                      />
-
-                      {typeof image !== 'string' && (
-                        <div>
-                          <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{image?.title}</p>
-
-                          {/* <p className={styles.imagesListItemComment}>
-                        {getShortenStringIfLongerThanCount(image?.comment, 24)}
-                      </p> */}
-                        </div>
-                      )}
-                    </div>
-                  )
-                })}
+                    {photosTitles?.length && (
+                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles[photoIndex]}</p>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           )}
 
-          {/* Slider */}
-
           <div className={styles.body}>
-            {typeof currentImage !== 'string' && <p className={styles.title}>{currentImage?.title}</p>}
+            {photosTitles?.length && <p className={styles.title}>{photosTitles[photoIndex]}</p>}
 
-            <div className={styles.slider}>
-              {imageList?.length > 0 && (
-                <CustomSlider
-                  isModal
-                  isHideCounter
-                  index={currentImageIndex}
-                  arrowSize="60px"
-                  onChangeIndex={handleCurrentImageIndex}
-                >
-                  {imageList?.map((el, index) => (
-                    <div key={index} className={cx(styles.sliderItem)}>
-                      <img
-                        src={
-                          el
-                            ? typeof el === 'string'
-                              ? getAmazonImageUrl(el, true)
-                              : el.url
-                            : '/assets/img/no-photo.jpg'
-                        }
-                        loading="lazy"
-                        alt={`Slide ${index + 1}`}
-                        onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
-                      />
-                    </div>
-                  ))}
-                </CustomSlider>
-              )}
-            </div>
+            <Slider customSlideHeight={500} slides={photos} currentIndex={photoIndex} setCurrentIndex={setPhotoIndex} />
 
-            {/* Info */}
-
-            <div className={styles.info}>
-              {typeof currentImage !== 'string' && (
-                <p className={cx(styles.title, styles.clientComment)}>
-                  {getShortenStringIfLongerThanCount(currentImage?.comment, 200)}
-                </p>
-              )}
-              <p className={styles.currentSlide}>{currentSlideTitle}</p>
-            </div>
-
-            {/* Controls */}
+            {photosComments?.length && (
+              <p className={cx(styles.title, styles.clientComment)}>
+                {getShortenStringIfLongerThanCount(photosComments[photoIndex], 200)}
+              </p>
+            )}
 
             <div className={styles.controls}>
-              <Button onClick={() => onClickDownloadBtn(currentImage)}>
+              <Button onClick={() => onClickDownloadPhoto(photos[photoIndex])}>
                 <DownloadOutlinedIcon />
               </Button>
 
-              <Button onClick={() => setIsZoomActive(true)}>
+              <Button onClick={onOpenImageZoomModal}>
                 <ZoomOutMapOutlinedIcon />
               </Button>
 
-              {controls ? controls(currentImageIndex, currentImage, onImageEditToggle) : null}
+              {isEditable ? (
+                <ButtonControls
+                  image={photos[photoIndex]}
+                  imageIndex={photoIndex}
+                  withoutMakeMainImage={withoutMakeMainImage}
+                  onClickMakeMainImageObj={onClickMakeMainImageObj}
+                  onImageEditToggle={onOpenImageEditModal}
+                  onUploadFile={onUploadFile}
+                  onClickRemoveImageObj={onClickRemoveImageObj}
+                />
+              ) : null}
             </div>
           </div>
         </div>
 
-        <ZoomModal
-          images={imageList}
-          currentImageIndex={currentImageIndex}
-          isOpenModal={isZoomActive}
-          setIsOpenModal={setIsZoomActive}
-          setCurrentImageIndex={handleCurrentImageIndex}
-        />
+        {openImageZoomModal ? (
+          <ZoomModal
+            images={photos}
+            currentImageIndex={photoIndex}
+            isOpenModal={openImageZoomModal}
+            setIsOpenModal={onOpenImageZoomModal}
+            setCurrentImageIndex={setPhotoIndex}
+          />
+        ) : null}
 
-        <Modal openModal={imageEditOpen} setOpenModal={onImageEditToggle}>
+        <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
           <ImageEditForm
-            item={photos?.[currentImageIndex] || null}
-            setOpenModal={onImageEditToggle}
+            item={photos[photoIndex]}
+            setOpenModal={onOpenImageEditModal}
             onSave={onClickEditImageSubmit}
           />
         </Modal>

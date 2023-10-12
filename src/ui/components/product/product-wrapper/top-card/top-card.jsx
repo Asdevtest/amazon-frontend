@@ -127,7 +127,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={product.images}
+                      files={imagesForLoad}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
