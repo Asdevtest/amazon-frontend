@@ -95,7 +95,7 @@ export const IdeaViewAndEditCard = observer(
     )
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
-    const [images, setImages] = useState(formFields?.media || []) //
+    const [images, setImages] = useState(formFields?.media || [])
 
     useEffect(() => {
       if (formFields?.media) {
