@@ -78,7 +78,8 @@ class RestApiService {
   handleAuthenticationError = require('superagent-intercept')(async (error, response) => {
     if (
       (response.status === 403 && response.statusText.includes('Forbidden')) ||
-      (response.status === 401 && response.statusText.includes('Forbidden'))
+      (response.status === 401 &&
+        (response.statusText.includes('Forbidden') || response.statusText.includes('Unauthorized')))
     ) {
       try {
         const userModel = SettingsModel.loadValue('UserModel')
