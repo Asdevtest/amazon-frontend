@@ -5,6 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -199,25 +200,25 @@ export class ClientExchangeViewModel {
     }
   }
 
-  // async getProductById(product) {
-  //   try {
-  //     const result = await ProductModel.getProductById(product._id)
+  async getProductById(productId) {
+    try {
+      const result = await ProductModel.getProductById(productId)
 
-  //     runInAction(() => {
-  //       this.product = result
+      runInAction(() => {
+        this.product = result
+        this.selectedProduct = result
 
-  //       // this.productBase = result
-  //       // updateProductAutoCalculatedFields.call(this)
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+        // this.productBase = result
+        // updateProductAutoCalculatedFields.call(this)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  onClickLaunchPrivateLabelBtn(product) {
+  async onClickLaunchPrivateLabelBtn(product) {
     runInAction(() => {
       this.selectedProduct = product
-      // this.getProductById(product)
       this.confirmModalSettings = {
         isWarning: false,
         confirmTitle: t(TranslationKey['Purchasing a product card']),
@@ -333,6 +334,7 @@ export class ClientExchangeViewModel {
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
         UserModel.getPlatformSettings(),
+        this.getProductById(this.selectedProduct._id),
       ])
 
       runInAction(() => {
@@ -341,6 +343,8 @@ export class ClientExchangeViewModel {
         this.destinations = destinations
 
         this.platformSettings = result
+
+        // this.selectedProduct = { product };
       })
 
       this.onTriggerOpenModal('showOrderModal')
