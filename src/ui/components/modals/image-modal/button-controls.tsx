@@ -6,18 +6,19 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 
-import { ImageObjectType } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 
-import { useClassNames } from './photo-and-files-slider.styles'
+import { IUploadFile } from '@typings/upload-file'
+
+import { useImageModalStyles } from './image-modal.styles'
 
 interface Props {
-  image: ImageObjectType | string
+  image: string | IUploadFile
   imageIndex: number
-  withoutMakeMainImage: boolean
+  withoutMakeMainImage?: boolean
   onClickRemoveImageObj: (imageIndex: number) => void
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => void
-  onClickMakeMainImageObj: (imageIndex: number, image: string | ImageObjectType) => void
+  onClickMakeMainImageObj: (image: string | IUploadFile, imageIndex: number) => void
   onImageEditToggle?: VoidFunction
 }
 
@@ -31,7 +32,7 @@ export const ButtonControls: FC<Props> = observer(
     onUploadFile,
     onClickMakeMainImageObj,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: classNames, cx } = useImageModalStyles()
 
     return (
       <>
@@ -45,13 +46,7 @@ export const ButtonControls: FC<Props> = observer(
               <Button
                 disabled={imageIndex === 0}
                 className={classNames.imagesModalBtn}
-                onClick={() => {
-                  if (typeof image === 'string') {
-                    onClickMakeMainImageObj(imageIndex, image)
-                  } else {
-                    onClickMakeMainImageObj(imageIndex, image.url)
-                  }
-                }}
+                onClick={() => onClickMakeMainImageObj(image, imageIndex)}
               >
                 <StarOutlinedIcon />
               </Button>

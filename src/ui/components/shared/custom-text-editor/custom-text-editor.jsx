@@ -124,7 +124,7 @@ export const CustomTextEditor = observer(props => {
               [classNames.verticalResize]: verticalResize,
               [classNames.editorBorder]: !readOnly,
             }),
-            editorContainer: classNames.editorContainer,
+            editorContainer: cx(classNames.editorContainer, { [classNames.editorContainerReadOnly]: readOnly }),
             placeHolder: classNames.placeHolder,
             toolbar: classNames.toolbar,
           }}

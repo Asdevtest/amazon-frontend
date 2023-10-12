@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useImageModalStyles = makeStyles()(theme => ({
   modalContainer: {
-    maxHeight: '74vh',
+    maxHeight: '72vh',
     padding: 40,
 
     [theme.breakpoints.down(768)]: {
@@ -32,7 +32,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
     overflow: 'auto',
     gap: 25,
     paddingRight: 20,
-    maxHeight: 'calc(74vh - 80px)',
+    maxHeight: 'calc(72vh - 80px)',
 
     [theme.breakpoints.down(768)]: {
       maxHeight: '273px',
@@ -80,14 +80,6 @@ export const useImageModalStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  imagesListItemComment: {
-    marginTop: 5,
-    fontSize: 12,
-    lineHeight: '16px',
-    color: theme.palette.text.second,
-    wordBreak: 'break-word',
-  },
-
   shortText: {
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
@@ -100,7 +92,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   body: {
-    padding: '0 100px',
+    padding: '0 50px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -122,52 +114,14 @@ export const useImageModalStyles = makeStyles()(theme => ({
     color: '#DF0C0C',
   },
 
-  slider: {
-    maxWidth: 720,
-
-    [theme.breakpoints.down(768)]: {
-      width: '37vh',
-    },
-  },
-
-  sliderItem: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: 'auto',
-
-    img: {
-      width: '100%',
-      height: 'auto',
-      maxHeight: '45vh',
-      objectFit: 'contain',
-    },
-  },
-
-  info: {
-    maxWidth: 620,
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    gap: 20,
-  },
-
-  currentSlide: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
-  },
-
   controls: {
+    width: '100%',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    display: 'flex',
-    marginTop: '-60px',
-    marginRight: '-200px',
-    width: '100%',
     gap: 30,
+    marginTop: '-70px',
+    marginRight: '-100px',
 
     button: {
       width: 40,
@@ -182,7 +136,28 @@ export const useImageModalStyles = makeStyles()(theme => ({
     },
   },
 
-  placeholder: {
-    width: '110px',
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
+  },
+
+  activeMainIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+    background: 'rgb(53, 112, 155)',
+    color: '#F5CF00',
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'pointer',
+    borderRadius: 10,
   },
 }))
