@@ -372,13 +372,13 @@ import InlineResponse20071 from './model/InlineResponse20071';
 import InlineResponse20072 from './model/InlineResponse20072';
 import InlineResponse20073 from './model/InlineResponse20073';
 import InlineResponse20074 from './model/InlineResponse20074';
-import InlineResponse20074Rows from './model/InlineResponse20074Rows';
 import InlineResponse20075 from './model/InlineResponse20075';
-import InlineResponse20075Rows from './model/InlineResponse20075Rows';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
+import InlineResponse20077Rows from './model/InlineResponse20077Rows';
 import InlineResponse20078 from './model/InlineResponse20078';
 import InlineResponse20079 from './model/InlineResponse20079';
+import InlineResponse20079Rows from './model/InlineResponse20079Rows';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse20080 from './model/InlineResponse20080';
 import InlineResponse20081 from './model/InlineResponse20081';
@@ -2669,22 +2669,10 @@ export {
     InlineResponse20074,
 
     /**
-     * The InlineResponse20074Rows model constructor.
-     * @property {module:model/InlineResponse20074Rows}
-     */
-    InlineResponse20074Rows,
-
-    /**
      * The InlineResponse20075 model constructor.
      * @property {module:model/InlineResponse20075}
      */
     InlineResponse20075,
-
-    /**
-     * The InlineResponse20075Rows model constructor.
-     * @property {module:model/InlineResponse20075Rows}
-     */
-    InlineResponse20075Rows,
 
     /**
      * The InlineResponse20076 model constructor.
@@ -2699,6 +2687,12 @@ export {
     InlineResponse20077,
 
     /**
+     * The InlineResponse20077Rows model constructor.
+     * @property {module:model/InlineResponse20077Rows}
+     */
+    InlineResponse20077Rows,
+
+    /**
      * The InlineResponse20078 model constructor.
      * @property {module:model/InlineResponse20078}
      */
@@ -2709,6 +2703,12 @@ export {
      * @property {module:model/InlineResponse20079}
      */
     InlineResponse20079,
+
+    /**
+     * The InlineResponse20079Rows model constructor.
+     * @property {module:model/InlineResponse20079Rows}
+     */
+    InlineResponse20079Rows,
 
     /**
      * The InlineResponse2008 model constructor.

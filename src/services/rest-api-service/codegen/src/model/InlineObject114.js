@@ -22,11 +22,11 @@ class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
      * @alias module:model/InlineObject114
-     * @param email {String} Почта от аккаунта, пароль которого Вы забыли
+     * @param storekeeperComment {String} 
      */
-    constructor(email) { 
+    constructor(storekeeperComment) { 
         
-        InlineObject114.initialize(this, email);
+        InlineObject114.initialize(this, storekeeperComment);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
-        obj['email'] = email;
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -60,10 +60,9 @@ class InlineObject114 {
 }
 
 /**
- * Почта от аккаунта, пароль которого Вы забыли
- * @member {String} email
+ * @member {String} storekeeperComment
  */
-InlineObject114.prototype['email'] = undefined;
+InlineObject114.prototype['storekeeperComment'] = undefined;
 
 
 

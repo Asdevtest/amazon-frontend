@@ -46,6 +46,8 @@ class RestApiService {
     }
     this.apiClient.plugins = [this.handleAuthenticationError]
 
+    console.log('this.apiClient.plugins', this.apiClient.plugins)
+
     this.administratorApi = new AdministratorApi(this.apiClient)
     this.announcementsApi = new AnnouncementsApi(this.apiClient)
     this.buyerApi = new BuyerApi(this.apiClient)
@@ -75,9 +77,8 @@ class RestApiService {
 
   handleAuthenticationError = require('superagent-intercept')(async (error, response) => {
     if (
-      response.status === 403 &&
-      (response.statusText.includes('Your ACCESS token is no longer valid') ||
-        response.statusText.includes('Forbidden'))
+      (response.status === 403 && response.statusText.includes('Forbidden')) ||
+      (response.status === 401 && response.statusText.includes('Forbidden'))
     ) {
       try {
         const userModel = SettingsModel.loadValue('UserModel')

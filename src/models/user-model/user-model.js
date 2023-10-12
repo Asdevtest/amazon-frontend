@@ -42,8 +42,8 @@ class UserModelStatic {
 
   signOut() {
     this.accessToken = undefined
-    this.userInfo = undefined
     this.refreshToken = undefined
+    this.userInfo = undefined
     this.userId = undefined
     this.masterUserId = undefined
     restApiService.removeAccessToken()
@@ -59,6 +59,8 @@ class UserModelStatic {
         password,
       },
     })
+
+    console.log('response', response)
 
     const accessToken = response.accessToken
     const refreshToken = response.refreshToken

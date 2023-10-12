@@ -22,11 +22,10 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
-     * @param refreshToken {String} 
      */
-    constructor(refreshToken) { 
+    constructor() { 
         
-        InlineObject110.initialize(this, refreshToken);
+        InlineObject110.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, refreshToken) { 
-        obj['refreshToken'] = refreshToken;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,17 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('refreshToken')) {
-                obj['refreshToken'] = ApiClient.convertToType(data['refreshToken'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
         }
         return obj;
@@ -60,9 +67,28 @@ class InlineObject110 {
 }
 
 /**
- * @member {String} refreshToken
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject110.prototype['refreshToken'] = undefined;
+InlineObject110.prototype['status'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject110.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject110.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineObject110.prototype['priority'] = undefined;
 
 
 
