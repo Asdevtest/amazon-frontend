@@ -33,7 +33,6 @@ interface Props {
   withoutFiles?: boolean
   customSlideHeight?: number
   onPhotosModalToggle?: VoidFunction
-  setPrevPhotoIndex?: Dispatch<SetStateAction<number>>
 }
 
 export const Slider: FC<Props> = observer(
@@ -50,7 +49,6 @@ export const Slider: FC<Props> = observer(
     isHideCounter = false,
     customSlideHeight,
     withoutFiles,
-    setPrevPhotoIndex,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -63,10 +61,6 @@ export const Slider: FC<Props> = observer(
           : (prevIndex + 1) % slides.length
 
       setCurrentIndex(updateIndex)
-
-      if (setPrevPhotoIndex) {
-        setPrevPhotoIndex(updateIndex)
-      }
     }
 
     const currentSlideTitle = `${currentIndex + 1}/${slides.length}`
@@ -187,8 +181,6 @@ export const Slider: FC<Props> = observer(
                 />
               </button>
             </div>
-
-            {/* {filteredImagesTitles[index] && <p className={classNames.imageTitle}>{filteredImagesTitles[index]}</p>} */}
 
             {!isHideCounter && (
               <div

@@ -46,6 +46,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
 
       return (
         <ProductAsinCell
+          withoutSku
           image={params.row.product?.images?.slice()[0]}
           amazonTitle={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}

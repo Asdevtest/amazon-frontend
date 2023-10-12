@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -8,6 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
+
+import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './payment-methods-form.style'
 
@@ -21,9 +22,9 @@ interface PaymentMethod {
 
 interface Payments {
   paymentDetails: string
-  paymentImages: Array<string>
+  paymentImages: Array<string | IUploadFile>
   paymentMethod: PaymentMethod
-  photosForLoad: Array<string>
+  photosForLoad: Array<string | IUploadFile>
 }
 
 interface PaymentMethodsFormProps {
