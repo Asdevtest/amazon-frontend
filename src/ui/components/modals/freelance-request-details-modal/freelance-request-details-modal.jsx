@@ -2,9 +2,11 @@ import { cx } from '@emotion/css'
 
 import { Typography } from '@mui/material'
 
+import { RequestStatus } from '@constants/requests/request-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FreelanceRequestDetailsModalControls } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal-controls'
 import { useFreelanceRequestDetailsModalStyles } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal.styles'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
@@ -20,7 +22,21 @@ import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const FreelanceRequestDetailsModal = props => {
-  const { request, details, isOpenModal, handleOpenModal, onClickSuggest, onClickOpenNewTab } = props
+  const {
+    request,
+    details,
+    isOpenModal,
+    handleOpenModal,
+    onClickSuggest,
+    onClickOpenNewTab,
+    onClickPublishBtn,
+    onClickEditBtn,
+    onClickCancelBtn,
+    onToggleUploadedToListing,
+    isRequestOwner,
+    onRecoverRequest,
+    onClickAbortBtn,
+  } = props
   const { classes: styles } = useFreelanceRequestDetailsModalStyles()
 
   return (
@@ -117,11 +133,23 @@ export const FreelanceRequestDetailsModal = props => {
           )}
         </div>
       </div>
-      <div className={styles.suggestDeal}>
-        <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+      {/* <div className={styles.suggestDeal}> */}
+      {/*   <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} /> */}
 
-        {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button> : <div />}
-      </div>
+      {/*   {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey["Suggest a deal"])}</Button> : <div />} */}
+      {/* </div> */}
+      <FreelanceRequestDetailsModalControls
+        isRequestOwner={isRequestOwner}
+        request={request}
+        onClickSuggest={onClickSuggest}
+        onClickOpenNewTab={onClickOpenNewTab}
+        onClickPublishBtn={onClickPublishBtn}
+        onClickEditBtn={onClickEditBtn}
+        onClickCancelBtn={onClickCancelBtn}
+        onToggleUploadedToListing={onToggleUploadedToListing}
+        onRecoverRequest={onRecoverRequest}
+        onClickAbortBtn={onClickAbortBtn}
+      />
     </Modal>
   )
 }
