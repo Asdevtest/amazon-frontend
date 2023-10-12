@@ -272,14 +272,14 @@ export const AsinCell = React.memo(
 
 export const ProductAsinCell = React.memo(
   withStyles(
-    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage }) => (
+    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage, withoutSku }) => (
       <div className={classNames.asinCellContainer}>
         {!withoutImage && <img src={getAmazonImageUrl(image)} alt="image" className={classNames.img} />}
 
         <div className={classNames.csCodeTypoWrapper}>
           <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
-          {asin ? <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} /> : null}
-          {skusByClient ? <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} /> : null}
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+          {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} />}
         </div>
       </div>
     ),
