@@ -60,5 +60,6 @@ export const columnnsKeys = {
     BATCHES_SHIPPING_DATE: 'BATCHES_SHIPPING_DATE',
     BATCHES_TRACKING: 'BATCHES_TRACKING',
     SECONDS: 'SECONDS',
+    TAGS: 'TAGS',
   },
 }
