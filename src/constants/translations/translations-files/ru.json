@@ -2134,5 +2134,6 @@
   "Price without delivery": "Цена без доставки",
   "Available request types": "Доступные типы заявок",
   "Approximate price": "Ориентировочная цена",
-  "Final Status. Can't be changed once it's set": "Финальный статус. Нельзя изменить после выставления"
+  "Final Status. Can't be changed once it's set": "Финальный статус. Нельзя изменить после выставления",
+  "Wish to set a destination?": "Желаете установить пункт назначения?"
 }
