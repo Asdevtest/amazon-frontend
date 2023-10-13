@@ -738,6 +738,7 @@ export const ObJectFieldMenuItem = React.memo(
       field,
       filterRequestStatus,
       addNullObj,
+      nullObjName,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
@@ -768,7 +769,7 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          [...filterData, ...[addNullObj && { name: t(TranslationKey['Without stores']), _id: 'null' }]]
+          [...filterData, ...[addNullObj && { name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }]]
             .filter(el => el)
             .sort(
               (a, b) =>
@@ -820,7 +821,7 @@ export const ObJectFieldMenuItem = React.memo(
                       />
                       {itemsForRender.map(obj => {
                         const value = obj?.title || obj?.name || t(TranslationKey.Empty)
-                        const valueChecked = choosenItems.some(item => item._id === obj._id)
+                        const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                         return (
                           obj && (
@@ -2624,13 +2625,14 @@ export const RedFlagsCellMenuItem = React.memo(
 
     return (
       <ObJectFieldMenuItem
+        addNullObj
         data={data}
         field={field}
         filterRequestStatus={filterRequestStatus}
         columnKey={columnnsKeys}
         rowContent={obj => (
           <div className={classNames.redFlagsCell}>
-            <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />
+            {obj.iconImage && <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />}
             <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
               {obj.title || t(TranslationKey.Empty)}
             </div>

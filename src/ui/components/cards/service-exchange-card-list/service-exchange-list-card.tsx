@@ -48,6 +48,7 @@ export const ServiceExchangeCardList: FC<Props> = ({ service, choose, order, pat
       <div className={classNames.cardWrapper}>
         <PhotoAndFilesSlider
           withoutFiles
+          showPreviews
           files={service.linksToMediaFiles}
           mainClasses={!service.linksToMediaFiles.length ? classNames.photosWrapper : ''}
         />

@@ -55,7 +55,7 @@ export const ServiceExchangeCard: FC<Props> = props => {
         {t(TranslationKey.Details)}
       </button>
 
-      <PhotoAndFilesSlider withoutFiles mediumSlider files={service?.linksToMediaFiles} />
+      <PhotoAndFilesSlider withoutFiles showPreviews mediumSlider files={service?.linksToMediaFiles} />
 
       {isNotMyServices ? (
         <div className={classNames.detailsWrapper}>

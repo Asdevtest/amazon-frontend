@@ -206,7 +206,7 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.TAGS,
   },
 
   {
