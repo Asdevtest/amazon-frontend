@@ -120,7 +120,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: 30,
-    marginTop: '-70px',
+    marginTop: '-60px',
     marginRight: '-100px',
 
     button: {
