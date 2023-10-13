@@ -318,7 +318,6 @@ export const Chat: FC<Props> = observer(
 
     return (
       <>
-        {chat._id}
         <div className={cx(classNames.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
