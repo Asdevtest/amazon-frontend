@@ -581,13 +581,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
   },
 
-  applyAllBtn: {
-    transition: '.3s ease',
-    '&:hover:not(:active)': {
-      background: 'green',
-    },
-  },
-
   countSuperBoxWrapper: {
     display: 'flex',
     alignItems: 'center',

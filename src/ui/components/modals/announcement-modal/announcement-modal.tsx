@@ -4,6 +4,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
@@ -99,7 +100,9 @@ export const AnnouncementModal: FC<Props> = ({
         <div className={styles.content}>
           <div className={styles.descriptionContainer}>
             <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
-            <p className={styles.description}>{service.description}</p>
+            <div className={styles.description}>
+              <CustomTextEditor readOnly conditions={service.description} />
+            </div>
           </div>
 
           {onClickButton && (choose || order) ? (

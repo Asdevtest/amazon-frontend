@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { showResultStatuses } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -207,10 +205,10 @@ export class SuppliersAndIdeasModel {
 
   async getIdea(ideaId) {
     try {
-      const result = await IdeaModel.getIdeaById(ideaId)
-
-      runInAction(() => {
-        this.curIdea = result
+      await IdeaModel.getIdeaById(ideaId).then(idea => {
+        runInAction(() => {
+          this.curIdea = idea
+        })
       })
     } catch (error) {
       console.log('error', error)
@@ -309,7 +307,7 @@ export class SuppliersAndIdeasModel {
       const submitData = {
         ...formFields,
         title: formFields.productName || '',
-        media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media,
+        media: this.readyFiles.length ? this.readyFiles : formFields.media,
         price: formFields.price || 0,
         quantity: Math.floor(formFields.quantity) || 0,
       }
@@ -659,7 +657,10 @@ export class SuppliersAndIdeasModel {
     if (callBack) {
       this.forceUpdateCallBack = callBack
     }
+
     this.getSuppliersPaymentMethods()
+    await this.getStorekeepersData()
+    await this.getIdea(ideaIdToCreateSupplier)
 
     switch (actionType) {
       case 'add':
@@ -784,17 +785,16 @@ export class SuppliersAndIdeasModel {
   async onClickToOrder(idea) {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      const [storekeepers, destinations, platformSettings] = await Promise.all([
-        StorekeeperModel.getStorekeepers(),
+      const [, destinations, platformSettings] = await Promise.all([
         ClientModel.getDestinations(),
         UserModel.getPlatformSettings(),
       ])
+      this.getStorekeepersData()
 
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
         this.productToOrder = result
-        this.storekeepers = storekeepers
         this.destinations = destinations
         this.platformSettings = platformSettings
       })
@@ -1003,6 +1003,18 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
+      console.log(error)
+    }
+  }
+
+  async getStorekeepersData() {
+    try {
+      StorekeeperModel.getStorekeepers().then(result => {
+        runInAction(() => {
+          this.storekeepers = result
+        })
+      })
+    } catch (error) {
       console.log(error)
     }
   }

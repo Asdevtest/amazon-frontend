@@ -104,10 +104,12 @@ import {
   CubeIcon,
   EditIcon,
   EqualIcon,
+  FireIcon,
   ParentProductIcon,
   PlusIcon,
   SaveIcon,
   ShareLinkIcon,
+  TruckIcon,
   VariationProductIcon,
 } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
@@ -275,16 +277,14 @@ export const AsinCell = React.memo(
 
 export const ProductAsinCell = React.memo(
   withStyles(
-    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage }) => (
-      <div className={classNames.asinCell}>
-        <div className={classNames.asinCellContainer}>
-          {!withoutImage && <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />}
+    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage, withoutSku }) => (
+      <div className={classNames.asinCellContainer}>
+        {!withoutImage && <img src={getAmazonImageUrl(image)} alt="image" className={classNames.img} />}
 
-          <div className={classNames.csCodeTypoWrapper}>
-            <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
-            <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} />
-          </div>
+        <div className={classNames.csCodeTypoWrapper}>
+          <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+          {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} />}
         </div>
       </div>
     ),
@@ -1691,18 +1691,11 @@ export const PriorityAndChinaDeliverCell = React.memo(
         )}
 
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
-        <div>
-          {isUrgent ? (
-            <div className={classNames.priority}>
-              <img src="/assets/icons/fire.svg" />
-            </div>
-          ) : null}
 
-          {chinaDelivery === true ? (
-            <div className={classNames.chinaDelivery}>
-              <img src="/assets/icons/truck.svg" />
-            </div>
-          ) : null}
+        <div className={classNames.priorityAndChinaDelivery}>
+          {isUrgent ? <FireIcon /> : null}
+
+          {chinaDelivery === true ? <TruckIcon /> : null}
         </div>
       </div>
     )

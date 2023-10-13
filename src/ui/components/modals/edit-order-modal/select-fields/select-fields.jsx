@@ -84,36 +84,9 @@ export const SelectFields = ({
       <Grid item>
         <div className={classNames.photoAndFieldsWrapper}>
           <div className={classNames.photoWrapper}>
-            {/* <PhotoCarousel isAmazonPhoto files={order.product.images} /> */}
-
             {!!order.product.images.length && (
               <div className={classNames.carouselWrapper}>
                 <PhotoAndFilesSlider mediumSlider withoutFiles files={order.product.images} />
-                {/* <CustomSlider>
-                  {order.product.images.map((imageHash, index) => (
-                    <img
-                      key={index}
-                      alt=""
-                      className={classNames.carouselImage}
-                      // src={getAmazonImageUrl(imageHash, true)}
-
-                      src={
-                        typeof imageHash === 'string'
-                          ? getAmazonImageUrl(imageHash, true)
-                          : imageHash?.file.type.includes('image')
-                          ? imageHash?.data_url
-                          : '/assets/icons/file.png'
-                      }
-                      onClick={() => {
-                        setShowImageModal(!showImageModal)
-                        setBigImagesOptions({
-                          images: order?.product?.images,
-                          imgIndex: index,
-                        })
-                      }}
-                    />
-                  ))}
-                </CustomSlider> */}
               </div>
             )}
           </div>

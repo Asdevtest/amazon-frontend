@@ -39,7 +39,6 @@ const Slot = ({
   showImageModal,
   setShowImageModal,
   index,
-  setCurImageId,
   imagesForDownload,
   onClickAddDownload,
 }) => {
@@ -100,7 +99,6 @@ const Slot = ({
               variant="square"
               onClick={() => {
                 if (checkIsImageLink(item.image?.file?.name || item.image)) {
-                  setCurImageId(item._id)
                   setShowImageModal(!showImageModal)
                 } else {
                   window.open(item.image?.data_url || item.image, '__blank')
@@ -203,7 +201,6 @@ export const RequestDesignerResultClientForm = ({
 
   const [showImageModal, setShowImageModal] = useState(false)
 
-  const [curImageId, setCurImageId] = useState(null)
   const [curImageIndex, setCurImageIndex] = useState(0)
 
   const [comment, setComment] = useState('')
@@ -371,10 +368,6 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
-            setCurImageId={id => {
-              setCurImageId(id)
-              setCurImageIndex(filteredImages.findIndex(el => el._id === id))
-            }}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
@@ -471,14 +464,18 @@ export const RequestDesignerResultClientForm = ({
         </Button>
       </div>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages}
-        currentImageIndex={curImageIndex}
-        handleCurrentImageIndex={index => setCurImageIndex(index)}
-      />
+      {showImageModal ? (
+        <ImageModal
+          showPreviews
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={filteredImages.map(el => el.fileLink)}
+          photosTitles={filteredImages.map(el => el.title)}
+          photosComments={filteredImages.map(el => el.comment)}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
+        />
+      ) : null}
     </div>
   )
 }

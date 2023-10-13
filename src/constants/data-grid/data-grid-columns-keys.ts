@@ -62,5 +62,6 @@ export const columnnsKeys = {
     BATCHES_TRACKING: 'BATCHES_TRACKING',
     SECONDS: 'SECONDS',
     TASK_COMPLEXITY: 'TASK_COMPLEXITY',
+    TAGS: 'TAGS',
   },
 }
