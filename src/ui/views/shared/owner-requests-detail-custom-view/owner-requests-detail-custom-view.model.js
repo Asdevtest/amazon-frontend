@@ -244,7 +244,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onToggleMuteCurrentChat() {
-    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.chats)
   }
 
   onToggleMuteAllChats() {

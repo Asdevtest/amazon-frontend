@@ -191,7 +191,7 @@ export const styles = theme => ({
     height: 'auto',
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
-    paddingLeft: 5,
+    padding: '0px 5px',
 
     '&::placeholder': {
       fontSize: 14,
@@ -1183,7 +1183,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '10px 0',
   },
 
   fourMonthesStockLabel: {
