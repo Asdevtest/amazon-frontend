@@ -307,6 +307,7 @@ export interface Chat {
   }
   users: ChatUser[]
   messages: ChatMessage[]
+  pagination: { limit: number; offset: number }
 }
 
 export interface WebsocketChatResponse<T> {

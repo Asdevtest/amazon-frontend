@@ -2,6 +2,8 @@ import { Manager, Socket } from 'socket.io-client'
 
 import { BACKEND_WEBSOCKET_CHAT_URL } from '@constants/keys/env'
 
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+
 import { ChatHandlerName, handlerToEventMapping } from './event-handler-mappings'
 import { EentToEmit } from './event-to-emit'
 import {
@@ -85,6 +87,26 @@ export class WebsocketChatService {
         // {crmItemId: null, crmItemType: null},
         { crmItemId, crmItemType },
         (getChatsResponse: WebsocketChatResponse<Chat[]>) => {
+          if (!getChatsResponse.success || !getChatsResponse.data) {
+            reject(getChatsResponse.error)
+          } else {
+            resolve(getChatsResponse.data)
+          }
+        },
+      )
+    })
+  }
+
+  public async getChatMessages(
+    chatId?: string | null,
+    offset?: number,
+    limit?: number,
+  ): Promise<ChatMessageContract[]> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.GET_CHAT_MESSAGES,
+        { chatId, offset, limit },
+        (getChatsResponse: WebsocketChatResponse<ChatMessageContract[]>) => {
           if (!getChatsResponse.success || !getChatsResponse.data) {
             reject(getChatsResponse.error)
           } else {

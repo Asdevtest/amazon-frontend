@@ -107,8 +107,53 @@ class ChatModelStatic {
       runInAction(() => {
         this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages,
+          messages: chat.messages.slice(chat.messages.length - 1, chat.messages.length),
+          pagination: {
+            limit: 20,
+            offset: 0,
+          },
+          isAllMessagesLoaded: false,
         }))
+      })
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  public async getChatMessages(): Promise<void> {
+    if (!this.websocketChatService) {
+      return
+    }
+    try {
+      const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === this.chatSelectedId)
+      const findSimpleChatIndexById = this.simpleChats.findIndex(
+        (chat: ChatContract) => chat._id === this.chatSelectedId,
+      )
+
+      if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+        return
+      }
+
+      const index = Math.max(findChatIndexById, findSimpleChatIndexById)
+      const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+
+      if (this[chatType][index].isAllMessagesLoaded) {
+        return
+      }
+
+      const { offset, limit } = this[chatType][index].pagination
+
+      const chatMessages = await this.websocketChatService.getChatMessages(this.chatSelectedId, offset, limit)
+      runInAction(() => {
+        this[chatType][index] = {
+          ...this[chatType][index],
+          messages: [...chatMessages, ...this[chatType][index].messages],
+          pagination: {
+            ...this[chatType][index].pagination,
+            offset: offset + limit,
+          },
+          isAllMessagesLoaded: chatMessages.length < limit,
+        }
       })
     } catch (error) {
       console.warn(error)
@@ -132,7 +177,12 @@ class ChatModelStatic {
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages,
+          messages: chat.messages.slice(chat.messages.length - 1, chat.messages.length),
+          pagination: {
+            limit: 20,
+            offset: 0,
+          },
+          isAllMessagesLoaded: false,
         }))
       })
     } catch (error) {
