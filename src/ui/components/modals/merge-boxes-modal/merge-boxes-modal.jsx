@@ -438,15 +438,6 @@ export const MergeBoxesModal = ({
                     <div className={classNames.imageFileInputWrapper}>
                       <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
                     </div>
-
-                    {/* <div className={classNames.boxPhotoWrapperS}>
-                      <div className={classNames.boxPhotoWrapper}>
-                        <Typography className={classNames.standartLabel}>
-                          {t(TranslationKey['Photos of the box taken at the warehouse:'])}
-                        </Typography>
-                        <PhotoCarousel files={boxBody.images} imageClass={classNames.boxImageClass} />
-                      </div>
-                    </div> */}
                   </div>
                 }
               />

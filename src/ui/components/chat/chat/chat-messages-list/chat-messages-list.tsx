@@ -125,6 +125,7 @@ export const ChatMessagesList: FC<Props> = observer(
     return (
       <div
         ref={messagesWrapperRef}
+        key={chatId}
         className={cx(classNames.messagesWrapper, { [classNames.messagesWrapperNone]: isShowChatInfo })}
       >
         {SettingsModel.languageTag &&

@@ -5,7 +5,7 @@ import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
@@ -165,14 +165,14 @@ export const BeforeAfterBox = ({ box, isCurrentBox, taskType, volumeWeightCoeffi
             {box.images && (
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Box photos:'])}</Typography>
-                <PhotoCarousel files={box.images} />
+                <PhotoAndFilesSlider withoutFiles files={box.images} />
               </div>
             )}
 
             {box.items[0].order.images && (
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Order photos:'])}</Typography>
-                <PhotoCarousel files={box.items[0].order.images} />
+                <PhotoAndFilesSlider withoutFiles files={box.items[0].order.images} />
               </div>
             )}
           </div>

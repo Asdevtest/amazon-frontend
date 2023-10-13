@@ -30,7 +30,7 @@ export class ManagementTabViewModel {
     clientId: '',
   }
   private productIdFromUrl: string | null = new URL(window.location.href).searchParams.get('product-id')
-  private isEmptyStore = false
+  // private isEmptyStore = false
   private dataIds: DataIdsType = this.initialDataIds
   private product: IProduct | undefined = undefined
 
@@ -205,9 +205,9 @@ export class ManagementTabViewModel {
   private updateDataIdsAndDisabledFlags() {
     this.dataIds = {
       productId: this.product?._id ?? '',
-      buyerId: this.buyer._id,
-      checkedById: this.supervisor._id,
-      clientId: this.client._id,
+      buyerId: this.buyer._id || null,
+      checkedById: this.supervisor._id || null,
+      clientId: this.client._id || null,
     }
 
     const foundResearcher = this.researchers?.find(member => member._id === this.product?.createdBy?._id)
