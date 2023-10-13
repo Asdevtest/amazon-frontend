@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { Dispatch, FC, SetStateAction } from 'react'
+import ImageZoom from 'react-image-zooom'
 
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
@@ -61,11 +62,7 @@ export const ZoomModal: FC<Props> = observer(
           >
             {images.map((image, index) => (
               <div key={index} className={styles.imageWrapper}>
-                <img
-                  src={typeof image === 'string' ? image : image.data_url}
-                  alt={`Slide ${index + 1}`}
-                  className={styles.image}
-                />
+                <ImageZoom src={typeof image === 'string' ? image : image.data_url} className={styles.image} />
               </div>
             ))}
           </div>
