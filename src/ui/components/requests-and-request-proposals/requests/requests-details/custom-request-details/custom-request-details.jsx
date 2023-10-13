@@ -1,8 +1,6 @@
 /* eslint-disable import/no-unresolved */
-
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
@@ -12,9 +10,8 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomImageGalleryList } from '@components/requests-and-request-proposals/custom-image-gallery-list'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { FilesCarousel } from '@components/shared/files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { t } from '@utils/translations'
 
@@ -50,14 +47,14 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
 
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <CustomImageGalleryList files={request?.request?.media} />
+                <PhotoAndFilesSlider withoutFiles files={request?.request?.media?.map(el => el.fileLink)} />
               </div>
 
               <div>
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <FilesCarousel files={request?.request?.media?.map(el => el.fileLink)} />
+                <PhotoAndFilesSlider withoutPhotos files={request?.request?.media?.map(el => el.fileLink)} />
               </div>
             </div>
 

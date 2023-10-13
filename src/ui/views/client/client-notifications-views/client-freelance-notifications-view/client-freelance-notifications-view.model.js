@@ -9,7 +9,7 @@ import { UserModel } from '@models/user-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns/client-freelance-notifications-columns'
+import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns'
 
 export class ClientFreelanceNotificationsViewModel {
   history = undefined

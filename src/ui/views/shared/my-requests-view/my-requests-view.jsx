@@ -177,18 +177,31 @@ export const MyRequestsViewRaw = props => {
       </Modal>
 
       <ConfirmationModal
-        isWarning
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to cancel the search request?'])}
+        message={viewModel.confirmModalSettings.message}
+        smallMessage={viewModel.confirmModalSettings.smallMessage}
         successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          viewModel.removeCustomSearchRequest()
-        }}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
+
+      <ConfirmationModal
+        withComment
+        asCommentModalDefault
+        openModal={viewModel.showConfirmWithCommentModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        title={t(TranslationKey['Suspend the acceptance of proposals?'])}
+        commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
+        successBtnText={t(TranslationKey.Ok)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.onSubmitAbortRequest}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
@@ -198,11 +211,18 @@ export const MyRequestsViewRaw = props => {
       )}
 
       <FreelanceRequestDetailsModal
+        isRequestOwner
         isOpenModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+        onClickAbortBtn={viewModel.onClickAbortBtn}
         onClickOpenNewTab={viewModel.onClickOpenInNewTab}
+        onClickPublishBtn={viewModel.onClickPublishBtn}
+        onClickEditBtn={viewModel.onClickEditBtn}
+        onRecoverRequest={viewModel.onRecoverRequest}
+        onClickCancelBtn={viewModel.onClickCancelBtn}
+        onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
       />
     </React.Fragment>
   )

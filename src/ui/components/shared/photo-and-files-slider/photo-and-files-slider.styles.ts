@@ -93,29 +93,4 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: 18,
     lineHeight: '25px',
   },
-
-  imagesModalBtn: {
-    width: 40,
-    height: 40,
-  },
-
-  activeMainIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    background: 'rgb(53, 112, 155)',
-    color: '#F5CF00',
-  },
-
-  pasteInput: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    opacity: 0,
-    cursor: 'pointer',
-    borderRadius: 10,
-  },
 }))

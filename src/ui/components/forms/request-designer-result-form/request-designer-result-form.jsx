@@ -1,17 +1,12 @@
 /* eslint-disable react/jsx-indent */
-
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
 
-import AutorenewIcon from '@mui/icons-material/Autorenew'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typography, Zoom } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,7 +15,6 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { Modal } from '@components/shared/modal'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -29,8 +23,6 @@ import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-designer-result-form.style'
-
-import { ImageEditForm } from '../image-edit-form'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -44,7 +36,6 @@ const Slot = ({
   index,
   imagesData,
   setImagesData,
-  setCurImageId,
   setShowImageModal,
   showImageModal,
   onPasteFiles,
@@ -150,9 +141,6 @@ const Slot = ({
                   variant="square"
                   onClick={() => {
                     if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
-                      // console.log('slot', slot)
-
-                      setCurImageId(slot._id)
                       setShowImageModal(!showImageModal)
                     } else {
                       window.open(slot.image?.data_url || slot.image, '__blank')
@@ -185,7 +173,6 @@ const Slot = ({
                   e.preventDefault()
 
                   if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
-                    setCurImageId(slot._id)
                     setShowImageModal(!showImageModal)
                   } else {
                     window.open(slot.image?.data_url || slot.image, '__blank')
@@ -233,8 +220,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const [showImageModal, setShowImageModal] = useState(false)
 
-  const [curImageId, setCurImageId] = useState(null)
-
   const [sourceLink, setSourceLink] = useState(proposal.proposal.sourceFiles?.[0]?.sourceFile || '')
 
   const [comment, setComment] = useState(proposal.details.result)
@@ -248,7 +233,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
       }))
     : [{ image: null, comment: '', commentByClient: '', _id: nanoid() }]
 
-  const [imageEditOpen, setImageEditOpen] = useState(false)
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -290,22 +274,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
     setImagesData(() => [...imagesData, { image: null, comment: '', commentByClient: '', _id: nanoid() }])
   }
 
-  const onClickRemoveImageObj = id => {
-    // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
-
-    setImagesData(() => imagesData.map(el => (el._id === id ? { ...el, image: null } : el)))
-
-    setCurImageId(() => null)
-  }
-
-  const onClickEditImageSubmit = image => {
-    setImagesData(() => imagesData.map(el => (el._id === curImageId ? { ...el, image } : el)))
-  }
-
-  const onClickEditImage = () => {
-    setImageEditOpen(!imageEditOpen)
-  }
-
   const onClickRemoveItem = slot => {
     if (slot.image) {
       setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, image: null } : el)))
@@ -329,7 +297,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map((el, i) => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
+      .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
 
     setImagesData([
       ...imagesData.map(el =>
@@ -359,7 +327,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
+        .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
 
       setImagesData([
         ...imagesData.map(el =>
@@ -476,10 +444,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
                 index={index}
                 imagesData={imagesData}
                 setImagesData={setImagesData}
-                setCurImageId={id => {
-                  setCurImageId(id)
-                  setCurImageIndex(filteredImages.findIndex(el => el._id === id))
-                }}
                 setShowImageModal={setShowImageModal}
                 showImageModal={showImageModal}
                 isRework={isRework}
@@ -530,44 +494,18 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      <Modal openModal={imageEditOpen} setOpenModal={() => setImageEditOpen(!imageEditOpen)}>
-        <ImageEditForm
-          item={imagesData.find(el => el._id === curImageId)?.image || null}
-          setOpenModal={() => setImageEditOpen(!imageEditOpen)}
-          onSave={onClickEditImageSubmit}
+      {showImageModal ? (
+        <ImageModal
+          showPreviews
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={filteredImages.map(el => el.fileLink)}
+          photosTitles={filteredImages.map(el => el.title)}
+          photosComments={filteredImages.map(el => el.comment)}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
         />
-      </Modal>
-
-      <ImageModal
-        showPreviews
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages}
-        currentImageIndex={curImageIndex}
-        handleCurrentImageIndex={index => setCurImageIndex(index)}
-        controls={(index, image) => (
-          <>
-            <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
-              <ModeOutlinedIcon />
-            </Button>
-
-            <Button className={cx(classNames.imagesModalBtn)}>
-              <AutorenewIcon />
-              <input
-                multiple
-                type={'file'}
-                className={classNames.pasteInput}
-                defaultValue={''}
-                onChange={onUploadFile(image?._id)}
-              />
-            </Button>
-
-            <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(image?.id)}>
-              <DeleteOutlineOutlinedIcon />
-            </Button>
-          </>
-        )}
-      />
+      ) : null}
     </div>
   )
 }

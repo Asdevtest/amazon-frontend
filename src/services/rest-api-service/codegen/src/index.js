@@ -157,6 +157,7 @@ import InlineObject131 from './model/InlineObject131';
 import InlineObject132 from './model/InlineObject132';
 import InlineObject133 from './model/InlineObject133';
 import InlineObject134 from './model/InlineObject134';
+import InlineObject135 from './model/InlineObject135';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -385,7 +386,9 @@ import InlineResponse20082 from './model/InlineResponse20082';
 import InlineResponse20083 from './model/InlineResponse20083';
 import InlineResponse20084 from './model/InlineResponse20084';
 import InlineResponse20085 from './model/InlineResponse20085';
-import InlineResponse20085Details from './model/InlineResponse20085Details';
+import InlineResponse20086 from './model/InlineResponse20086';
+import InlineResponse20087 from './model/InlineResponse20087';
+import InlineResponse20087Details from './model/InlineResponse20087Details';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
@@ -394,6 +397,7 @@ import InlineResponse20111 from './model/InlineResponse20111';
 import InlineResponse20112 from './model/InlineResponse20112';
 import InlineResponse20113 from './model/InlineResponse20113';
 import InlineResponse20114 from './model/InlineResponse20114';
+import InlineResponse20115 from './model/InlineResponse20115';
 import InlineResponse2012 from './model/InlineResponse2012';
 import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
@@ -1373,6 +1377,12 @@ export {
      * @property {module:model/InlineObject134}
      */
     InlineObject134,
+
+    /**
+     * The InlineObject135 model constructor.
+     * @property {module:model/InlineObject135}
+     */
+    InlineObject135,
 
     /**
      * The InlineObject14 model constructor.
@@ -2743,10 +2753,22 @@ export {
     InlineResponse20085,
 
     /**
-     * The InlineResponse20085Details model constructor.
-     * @property {module:model/InlineResponse20085Details}
+     * The InlineResponse20086 model constructor.
+     * @property {module:model/InlineResponse20086}
      */
-    InlineResponse20085Details,
+    InlineResponse20086,
+
+    /**
+     * The InlineResponse20087 model constructor.
+     * @property {module:model/InlineResponse20087}
+     */
+    InlineResponse20087,
+
+    /**
+     * The InlineResponse20087Details model constructor.
+     * @property {module:model/InlineResponse20087Details}
+     */
+    InlineResponse20087Details,
 
     /**
      * The InlineResponse2009 model constructor.
@@ -2795,6 +2817,12 @@ export {
      * @property {module:model/InlineResponse20114}
      */
     InlineResponse20114,
+
+    /**
+     * The InlineResponse20115 model constructor.
+     * @property {module:model/InlineResponse20115}
+     */
+    InlineResponse20115,
 
     /**
      * The InlineResponse2012 model constructor.

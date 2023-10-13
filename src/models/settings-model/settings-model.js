@@ -19,8 +19,9 @@ const persistProperties = [
   'chatMessageState',
   'uiTheme',
   'destinationsFavourites',
-  'mutedChats',
   'isMuteChats',
+  'mutedChats',
+  'originMutedChats',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -39,7 +40,7 @@ class SettingsModelStatic {
 
   isMuteChats = false
   mutedChats = []
-  numberAllChats = null
+  originMutedChats = []
 
   lastCrumbAdditionalText = ''
 
@@ -87,31 +88,33 @@ class SettingsModelStatic {
     localStorage.setItem(key, JSON.stringify(value))
   }
 
-  onToggleMuteCurrentChat(chatId) {
-    this.setMutedChat(chatId)
+  onToggleMuteCurrentChat(chatId, chats) {
+    this.setMutedChat(chatId, chats)
   }
 
-  onToggleMuteAllChats(allChats) {
-    this.setMutedChats(allChats)
+  onToggleMuteAllChats(chats) {
+    this.setMutedChats(chats)
     this.isMuteChats = !this.isMuteChats
   }
 
-  setMutedChat(chatId) {
+  setMutedChat(chatId, chats) {
     if (this.mutedChats.includes(chatId)) {
-      this.mutedChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+      const filteredChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+      this.originMutedChats = filteredChats
+      this.mutedChats = filteredChats
     } else {
+      this.originMutedChats.push(chatId)
       this.mutedChats.push(chatId)
     }
 
-    this.isMuteChats = this.numberAllChats === this.mutedChats.length ? true : false
+    this.isMuteChats = chats.length === this.mutedChats.length
   }
 
-  setMutedChats(allChats) {
+  setMutedChats(chats) {
     if (this.isMuteChats) {
-      this.mutedChats.length = 0
+      this.mutedChats = this.originMutedChats
     } else {
-      this.numberAllChats = allChats.length
-      this.mutedChats = [...allChats.map(chat => chat._id)]
+      this.mutedChats = chats.map(chat => chat._id)
     }
   }
 

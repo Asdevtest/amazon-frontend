@@ -58,7 +58,8 @@ class UserModelStatic {
       },
     })
 
-    const accessToken = response.token
+    const accessToken = response.accessToken
+    // const accessToken = response.refreshToken
     runInAction(() => {
       this.accessToken = accessToken
     })
@@ -101,6 +102,7 @@ class UserModelStatic {
   async getUserInfo() {
     try {
       const response = await restApiService.userApi.apiV1UsersInfoGet()
+
       runInAction(() => {
         this.userInfo = response
         this.userId = response._id

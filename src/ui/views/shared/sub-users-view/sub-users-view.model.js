@@ -14,7 +14,8 @@ import { ShopModel } from '@models/shop-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
-import { subUsersColumns } from '@components/table/table-columns/sub-users-columns/sub-users-columns'
+import { subUsersColumns } from '@components/table/table-columns/sub-users-columns'
+import { subUsersFreelancerColumns } from '@components/table/table-columns/sub-users-freelancer-columns'
 
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
@@ -71,7 +72,9 @@ export class SubUsersViewModel {
   constructor({ history }) {
     runInAction(() => {
       this.history = history
+      this.setColumnsModel()
     })
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -89,6 +92,13 @@ export class SubUsersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+  }
+
+  setColumnsModel() {
+    this.columnsModel =
+      this.history.location.pathname === '/freelancer/users/sub-users'
+        ? subUsersFreelancerColumns(this.rowHandlers)
+        : subUsersColumns(this.rowHandlers)
   }
 
   onChangeFilterModel(model) {
@@ -225,16 +235,19 @@ export class SubUsersViewModel {
 
   async getUsers() {
     try {
-      await UserModel.getMySubUsers().then(result => {
-        runInAction(() => {
-          this.subUsersData = addIdDataConverter(result)
-        })
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await UserModel.getMySubUsers()
+
+      runInAction(() => {
+        this.subUsersData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

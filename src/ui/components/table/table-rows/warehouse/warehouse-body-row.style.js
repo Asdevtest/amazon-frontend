@@ -29,6 +29,7 @@ export const styles = theme => ({
   button: {
     width: '100%',
     display: 'flex',
+    height: 30,
   },
 
   textEllipsis: {

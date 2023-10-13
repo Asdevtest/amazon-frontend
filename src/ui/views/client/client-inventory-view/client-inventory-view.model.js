@@ -382,7 +382,7 @@ export class ClientInventoryViewModel {
   }
 
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId${id}`, '_blank')
+    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')
     win.focus()
   }
 
@@ -997,11 +997,11 @@ export class ClientInventoryViewModel {
       }),
 
       ...(tagsFilter && {
-        tags: { $eq: tagsFilter },
+        tags: { $any: tagsFilter },
       }),
 
       ...(redFlagsFilter && {
-        redFlags: { $eq: redFlagsFilter },
+        redFlags: { $any: redFlagsFilter },
       }),
     })
 
@@ -1182,7 +1182,10 @@ export class ClientInventoryViewModel {
         confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
           ? t(TranslationKey['Pending order will be created'])
           : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showConfirmModal')
+          this.onSubmitOrderProductModal()
+        },
       }
     })
 
@@ -1194,7 +1197,9 @@ export class ClientInventoryViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.error = undefined
+        this.showProgress = true
       })
+
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
@@ -1214,6 +1219,10 @@ export class ClientInventoryViewModel {
 
         await this.createOrder(orderObject)
       }
+
+      runInAction(() => {
+        this.showProgress = false
+      })
 
       if (!this.error) {
         runInAction(() => {
@@ -1237,8 +1246,7 @@ export class ClientInventoryViewModel {
           }, 3000)
         })
       }
-      this.onTriggerOpenModal('showConfirmModal')
-      // this.onTriggerOpenModal('showOrderModal')
+
       const noProductBaseUpdate = true
       await this.getProductsMy(noProductBaseUpdate)
 

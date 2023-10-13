@@ -20,11 +20,7 @@ import { useClassNames } from './servant-general-request-info.style'
 export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
   const { classes: classNames, cx } = useClassNames()
 
-  console.log('request', request)
-  console.log('requestProposals', requestProposals)
-
   const buttonDisabled =
-    (request?.request.restrictMoreThanOneProposalFromOneAssignee && requestProposals.length) ||
     requestProposals.some(
       el =>
         el.proposal?.status === RequestProposalStatus?.CREATED ||
@@ -40,7 +36,16 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
     ) ||
     (!!request?.request?.sub &&
       requestProposals?.some(el => el.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CLIENT)) ||
-    (!!requestProposals.length && request?.request?.restrictMoreThanOneProposalFromOneAssignee)
+    (requestProposals?.some(el =>
+      [
+        RequestProposalStatus.CREATED,
+        RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
+        RequestProposalStatus.TO_CORRECT,
+        RequestProposalStatus.CORRECTED,
+        RequestProposalStatus.READY_TO_VERIFY,
+      ].includes(el.proposal?.status),
+    ) &&
+      request?.request?.restrictMoreThanOneProposalFromOneAssignee)
 
   const getMainInfos = () => (
     <div className={classNames.mainInfosWrapper}>
