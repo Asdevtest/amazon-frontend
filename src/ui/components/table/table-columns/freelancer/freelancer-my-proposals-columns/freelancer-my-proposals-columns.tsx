@@ -24,9 +24,9 @@ import {
 import { t } from '@utils/translations'
 
 interface IHandlers {
-  onClickDeleteButton: (proposal: any) => void
-  onClickEditButton: (request: any, proposal: any) => void
-  onClickResultButton: (request: any, proposalId: any) => void
+  onClickDeleteButton: (proposalId: string, proposalStatus: string) => void
+  onClickEditButton: (requestId: string, proposalId: string) => void
+  onClickResultButton: (requestId: string, proposalId: string) => void
   onClickOpenButton: (request: any) => void
 }
 
@@ -47,7 +47,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       <PriorityAndChinaDeliverCell
         isRequest
         priority={params.value}
-        onClickOpenInNewTab={() => handlers.onClickOpenButton(params.row.originalData.request)}
+        onClickOpenInNewTab={() => handlers.onClickOpenButton(params.row?.originalData?.request?._id)}
       />
     ),
 
@@ -208,10 +208,14 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <FreelancerMyProposalsActions
         status={params.row.originalData.status}
-        onClickDeleteButton={() => handlers.onClickDeleteButton(params.row.originalData)}
-        onClickEditButton={() => handlers.onClickEditButton(params.row.originalData.request, params.row.originalData)}
+        onClickDeleteButton={() =>
+          handlers.onClickDeleteButton(params.row.originalData?._id, params.row.originalData?.status)
+        }
+        onClickEditButton={() =>
+          handlers.onClickEditButton(params.row.originalData?.request?._id, params.row.originalData?._id)
+        }
         onClickResultButton={() =>
-          handlers.onClickResultButton(params.row.originalData.request, params.row.originalData._id)
+          handlers.onClickResultButton(params.row.originalData.request?._id, params.row.originalData._id)
         }
       />
     ),

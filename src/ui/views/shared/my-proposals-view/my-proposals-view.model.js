@@ -10,8 +10,10 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GeneralModel } from '@models/general-model'
+import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -21,6 +23,7 @@ import { FreelancerMyProposalsColumns } from '@components/table/table-columns/fr
 import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
 // * Список полей для фильтраций
 
@@ -52,6 +55,7 @@ export class MyProposalsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   filterModel = { items: [] }
   selectedRowIds = []
+  pageSizeOptions = [15, 25, 50, 100]
 
   // * Table settings
 
@@ -59,9 +63,9 @@ export class MyProposalsViewModel {
 
   columnVisibilityModel = {}
   rowHandlers = {
-    onClickDeleteButton: proposal => this.onClickDeleteBtn(proposal),
-    onClickEditButton: (request, proposal) => this.onClickEditBtn(request, proposal),
-    onClickResultButton: (request, proposalId) => this.onClickResultBtn(request, proposalId),
+    onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
+    onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
+    onClickResultButton: (requestId, proposalId) => this.onClickResultBtn(requestId, proposalId),
     onClickOpenButton: request => this.onClickOpenBtn(request),
   }
 
@@ -113,6 +117,13 @@ export class MyProposalsViewModel {
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   get user() {
     return UserModel.userInfo
   }
@@ -121,18 +132,10 @@ export class MyProposalsViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-
-    if (location.state) {
-      this.onClickOpenBtn(location.state?.request)
-
-      const state = { ...history.location.state }
-      delete state.task
-      history.replace({ ...history.location, state })
-    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -179,12 +182,38 @@ export class MyProposalsViewModel {
     return toJS(this.requests)
   }
 
-  onClickDeleteBtn(item) {
+  onClickDeleteBtn(proposalId, proposalStatus) {
     runInAction(() => {
-      this.selectedProposal = item
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmTitle: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Are you sure you want to cancel the proposal?']),
+        onClickConfirm: () => {
+          this.cancelProposalHandler(proposalId, proposalStatus)
+          this.onTriggerOpenModal('showConfirmModal')
+        },
+      }
     })
 
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async cancelProposalHandler(proposalId, proposalStatus) {
+    try {
+      if (
+        proposalStatus === RequestProposalStatus.CREATED ||
+        proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
+      ) {
+        await RequestProposalModel.requestProposalCancelBeforDeal(proposalId)
+      } else {
+        await RequestProposalModel.requestProposalCancel(proposalId)
+      }
+
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   setDataGridState() {
@@ -235,25 +264,12 @@ export class MyProposalsViewModel {
     this.getRequestsProposalsPagMy()
   }
 
-  onClickEditBtn(request, proposal) {
-    const convertedRequest = {
-      createdById: request.createdById,
-      maxAmountOfProposals: request.maxAmountOfProposals,
-      createdBy: {
-        name: request.createdBy.name,
-        rating: request.createdBy.rating,
-        _id: request.createdBy._id,
-      },
-      details: { conditions: request?.detailsCustom?.conditions },
-      request: {
-        price: request.price,
-        timeoutAt: request.timeoutAt,
-      },
-    }
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/edit-proposal`, {
-      request: toJS(convertedRequest),
-      proposalToEdit: toJS(proposal),
-    })
+  onClickEditBtn(requestId, proposalId) {
+    this.history.push(
+      `/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/my-proposals/edit-proposal?proposalId=${proposalId}&requestId=${requestId}`,
+    )
   }
 
   onClickOpenBtn(request) {
@@ -262,25 +278,6 @@ export class MyProposalsViewModel {
         request._id
       }`,
     )
-  }
-
-  async onSubmitDeleteProposal() {
-    try {
-      if (
-        this.selectedProposal.status === RequestProposalStatus.CREATED ||
-        this.selectedProposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        this.selectedProposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
-      ) {
-        await RequestProposalModel.requestProposalCancelBeforDeal(this.selectedProposal._id)
-      } else {
-        await RequestProposalModel.requestProposalCancel(this.selectedProposal._id)
-      }
-      this.onTriggerOpenModal('showConfirmModal')
-
-      await this.loadData()
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   getUserInfo() {
@@ -333,26 +330,31 @@ export class MyProposalsViewModel {
 
   async getProposalById(proposalId) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
-
-      runInAction(() => {
-        this.currentProposal = result
+      await RequestProposalModel.getRequestProposalsCustom(proposalId).then(response => {
+        runInAction(() => {
+          this.currentProposal = response
+        })
       })
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onClickResultBtn(request, proposalId) {
-    runInAction(() => {
-      this.currentRequest = request
+  async getRequestById(requestId) {
+    await RequestModel.getCustomRequestById(requestId).then(response => {
+      runInAction(() => {
+        this.currentRequest = response
+      })
     })
+  }
 
+  async onClickResultBtn(requestId, proposalId) {
+    await this.getRequestById(requestId)
     await this.getProposalById(proposalId)
 
-    if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.DESIGNER) {
+    if (freelanceRequestTypeByCode[this.currentRequest?.request.typeTask] === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.BLOGGER) {
+    } else if (freelanceRequestTypeByCode[this.currentRequest?.request.typeTask] === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showRequestStandartResultModal')

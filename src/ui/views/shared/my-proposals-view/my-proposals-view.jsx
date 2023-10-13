@@ -144,7 +144,7 @@ export const MyProposalsViewRaw = props => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            // pageSizeOptions={pageSizeOptions}
+            pageSizeOptions={viewModel.pageSizeOptions}
             rows={viewModel.currentData}
             rowHeight={87}
             slots={{
@@ -176,6 +176,7 @@ export const MyProposalsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row?.originalData?.request?._id)}
           />
         </div>
         {/* ) : (
@@ -207,44 +208,44 @@ export const MyProposalsViewRaw = props => {
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to cancel the proposal?'])}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onSubmitDeleteProposal}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      {viewModel.currentRequest && viewModel.currentProposal && (
+      {viewModel.currentRequest && viewModel.currentProposal && viewModel.showRequestDesignerResultClientModal && (
         <Modal
           openModal={viewModel.showRequestDesignerResultClientModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
         >
           <RequestDesignerResultClientForm
             userInfo={viewModel.userInfo}
-            request={{ request: viewModel.currentRequest }}
+            request={viewModel.currentRequest}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
           />
         </Modal>
       )}
 
-      {viewModel.currentRequest && viewModel.currentProposal && (
+      {viewModel.currentRequest && viewModel.currentProposal && viewModel.showRequestStandartResultModal && (
         <Modal
           openModal={viewModel.showRequestStandartResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
         >
           <RequestStandartResultForm
-            request={{ request: viewModel.currentRequest }}
+            request={viewModel.currentRequest}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
           />
         </Modal>
       )}
 
-      {viewModel.currentRequest && viewModel.currentProposal && (
+      {viewModel.currentRequest && viewModel.currentProposal && viewModel.showRequestResultModal && (
         <RequestResultModal
-          request={{ request: viewModel.currentRequest }}
+          request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
