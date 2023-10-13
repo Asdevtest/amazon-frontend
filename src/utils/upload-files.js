@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import JSZip from 'jszip'
+import { runInAction } from 'mobx'
 
 import { Errors } from '@constants/errors'
 import { BACKEND_API_URL } from '@constants/keys/env'
@@ -78,7 +79,9 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
   const loadingStep = 100 / images.length
 
   if (!withoutShowProgress) {
-    this.showProgress = true
+    runInAction(() => {
+      this.showProgress = true
+    })
   }
 
   for (let i = 0; i < images.length; i++) {
@@ -96,13 +99,20 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
       this[type].push(res)
     }
 
-    this.progressValue = this.progressValue + loadingStep
+    runInAction(() => {
+      this.progressValue = this.progressValue + loadingStep
+    })
   }
 
   if (!withoutShowProgress) {
-    this.showProgress = false
+    runInAction(() => {
+      this.showProgress = false
+    })
   }
-  this.progressValue = 0
+
+  runInAction(() => {
+    this.progressValue = 0
+  })
 }
 
 export const downloadFile = async (file, fileName) => {

@@ -5,23 +5,35 @@ import { Typography } from '@mui/material'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FreelanceRequestDetailsModalControls } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal-controls'
 import { useFreelanceRequestDetailsModalStyles } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal.styles'
-import { CustomImageGalleryList } from '@components/requests-and-request-proposals/custom-image-gallery-list'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { FilesCarousel } from '@components/shared/files-carousel'
 import { Modal } from '@components/shared/modal'
-import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const FreelanceRequestDetailsModal = props => {
-  const { request, details, isOpenModal, handleOpenModal, onClickSuggest, onClickOpenNewTab } = props
+  const {
+    request,
+    details,
+    isOpenModal,
+    handleOpenModal,
+    onClickSuggest,
+    onClickOpenNewTab,
+    onClickPublishBtn,
+    onClickEditBtn,
+    onClickCancelBtn,
+    onToggleUploadedToListing,
+    isRequestOwner,
+    onRecoverRequest,
+    onClickAbortBtn,
+  } = props
   const { classes: styles } = useFreelanceRequestDetailsModalStyles()
 
   return (
@@ -90,11 +102,11 @@ export const FreelanceRequestDetailsModal = props => {
             <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
             <div className={styles.filesItem}>
               <Typography>{t(TranslationKey.Photos)}</Typography>
-              <CustomImageGalleryList height={145} files={request?.media} />
+              <PhotoAndFilesSlider withoutFiles files={request?.media} />
             </div>
             <div className={cx(styles.filesList)}>
               <Typography>{t(TranslationKey.Files)}</Typography>
-              <FilesCarousel files={request?.media?.map(el => el.fileLink)} />
+              <PhotoAndFilesSlider withoutPhotos files={request?.media} />
             </div>
           </div>
         </div>
@@ -118,11 +130,23 @@ export const FreelanceRequestDetailsModal = props => {
           )}
         </div>
       </div>
-      <div className={styles.suggestDeal}>
-        <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+      {/* <div className={styles.suggestDeal}> */}
+      {/*   <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} /> */}
 
-        {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button> : <div />}
-      </div>
+      {/*   {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey["Suggest a deal"])}</Button> : <div />} */}
+      {/* </div> */}
+      <FreelanceRequestDetailsModalControls
+        isRequestOwner={isRequestOwner}
+        request={request}
+        onClickSuggest={onClickSuggest}
+        onClickOpenNewTab={onClickOpenNewTab}
+        onClickPublishBtn={onClickPublishBtn}
+        onClickEditBtn={onClickEditBtn}
+        onClickCancelBtn={onClickCancelBtn}
+        onToggleUploadedToListing={onToggleUploadedToListing}
+        onRecoverRequest={onRecoverRequest}
+        onClickAbortBtn={onClickAbortBtn}
+      />
     </Modal>
   )
 }

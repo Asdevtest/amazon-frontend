@@ -4,6 +4,7 @@ import {
   CommentUsersCell,
   EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   UserCell,
   UserRolesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -70,5 +71,13 @@ export const subUsersColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: params => <NormDateCell value={params.value} />,
+    width: 100,
   },
 ]

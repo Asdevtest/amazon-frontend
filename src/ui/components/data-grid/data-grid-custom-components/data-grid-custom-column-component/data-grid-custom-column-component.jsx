@@ -1,6 +1,9 @@
 import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
 
 import {
   BatchShippingDateCellMenuItem,
@@ -198,14 +201,18 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.INVENTORY_SHOPS,
       columnnsKeys.shared.OBJECT,
       columnnsKeys.shared.PAYMENTS,
+      columnnsKeys.shared.TAGS,
     ].includes(currentColumn.columnKey)
   ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ObJectFieldMenuItem
-          addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
-            currentColumn.columnKey,
-          )}
+          addNullObj={[
+            columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+            columnnsKeys.client.INVENTORY_SHOPS,
+            columnnsKeys.shared.TAGS,
+          ].includes(currentColumn.columnKey)}
+          nullObjName={[columnnsKeys.shared.TAGS].includes(currentColumn.columnKey) && t(TranslationKey.Empty)}
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}

@@ -9,6 +9,7 @@ import {
   EditOrRemoveBtnsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   UserCell,
   UserRolesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -99,5 +100,13 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     ),
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: (params: GridRowParams) => <NormDateCell value={params.row.originalData.updatedAt} />,
+    width: 100,
   },
 ]

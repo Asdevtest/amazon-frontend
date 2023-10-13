@@ -13,6 +13,7 @@ import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -242,7 +243,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onToggleMuteCurrentChat() {
-    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.chats)
   }
 
   onToggleMuteAllChats() {
@@ -506,8 +507,9 @@ export class OwnerRequestDetailCustomViewModel {
   async getReviews(guid) {
     try {
       const result = await FeedbackModel.getFeedback(guid)
+
       runInAction(() => {
-        this.currentReviews = result
+        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       console.log(error)
