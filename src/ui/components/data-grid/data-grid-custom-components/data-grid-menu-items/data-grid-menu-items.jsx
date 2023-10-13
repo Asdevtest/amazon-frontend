@@ -821,7 +821,7 @@ export const ObJectFieldMenuItem = React.memo(
                       />
                       {itemsForRender.map(obj => {
                         const value = obj?.title || obj?.name || t(TranslationKey.Empty)
-                        const valueChecked = choosenItems.some(item => item._id === obj._id)
+                        const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                         return (
                           obj && (
