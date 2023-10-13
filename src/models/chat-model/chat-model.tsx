@@ -120,15 +120,13 @@ class ChatModelStatic {
     }
   }
 
-  public async getChatMessages(): Promise<void> {
+  public async getChatMessages(chatId: string): Promise<void> {
     if (!this.websocketChatService) {
       return
     }
     try {
-      const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === this.chatSelectedId)
-      const findSimpleChatIndexById = this.simpleChats.findIndex(
-        (chat: ChatContract) => chat._id === this.chatSelectedId,
-      )
+      const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
+      const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
 
       if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
         return
@@ -143,7 +141,7 @@ class ChatModelStatic {
 
       const { offset, limit } = this[chatType][index].pagination
 
-      const chatMessages = await this.websocketChatService.getChatMessages(this.chatSelectedId, offset, limit)
+      const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit)
       runInAction(() => {
         this[chatType][index] = {
           ...this[chatType][index],

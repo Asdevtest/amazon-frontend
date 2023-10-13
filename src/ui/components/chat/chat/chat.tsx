@@ -136,7 +136,7 @@ export const Chat: FC<Props> = observer(
 
       if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
         messagesLoadingStatus.current = true
-        ChatModel.getChatMessages?.().finally(() => {
+        ChatModel.getChatMessages?.(chat?._id).finally(() => {
           const scrollOffset = target.scrollHeight - (target.scrollTop + target.clientHeight)
 
           setCurrentScrollFromBottom(scrollOffset)
@@ -168,7 +168,13 @@ export const Chat: FC<Props> = observer(
       if (messagesWrapperRef.current) {
         messagesWrapperRef.current.onscroll = handleScroll
       }
-    }, [])
+
+      return () => {
+        if (messagesWrapperRef.current) {
+          messagesWrapperRef.current.onscroll = null
+        }
+      }
+    }, [chat?._id])
 
     const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
       message: '',
@@ -224,7 +230,7 @@ export const Chat: FC<Props> = observer(
     }, [messages?.length])
 
     useEffect(() => {
-      ChatModel.getChatMessages?.()
+      ChatModel.getChatMessages?.(chat?._id)
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
       setIsShowChatInfo(false)
@@ -312,6 +318,7 @@ export const Chat: FC<Props> = observer(
 
     return (
       <>
+        {chat._id}
         <div className={cx(classNames.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
