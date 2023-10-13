@@ -1,6 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
