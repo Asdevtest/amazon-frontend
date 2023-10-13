@@ -362,12 +362,14 @@ export const clientInventoryColumns = (
       />
     ),
     renderCell: params => (
-      <FourMonthesStockCell
-        rowId={params.row.originalData._id}
-        value={params.value}
-        fourMonthesStock={params.row.fourMonthesStock}
-        onClickSaveFourMonthsStock={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
-      />
+      <div onDoubleClick={e => e.stopPropagation()}>
+        <FourMonthesStockCell
+          rowId={params.row.originalData._id}
+          value={params.value}
+          fourMonthesStock={params.row.fourMonthesStock}
+          onClickSaveFourMonthsStock={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+        />
+      </div>
     ),
 
     width: 150,
