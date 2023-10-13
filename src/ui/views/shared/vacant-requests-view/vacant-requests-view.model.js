@@ -55,7 +55,7 @@ export class VacantRequestsViewModel {
   sortModel = []
   filterModel = { items: [] }
 
-  paginationModel = { page: 0, pageSize: 15 }
+  paginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel = {}
 
   searchMyRequestsIds = []

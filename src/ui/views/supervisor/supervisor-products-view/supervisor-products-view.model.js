@@ -447,11 +447,11 @@ export class SupervisorProductsViewModel {
       }),
 
       ...(tagsFilter && {
-        tags: { $eq: tagsFilter },
+        tags: { $any: tagsFilter },
       }),
 
       ...(redFlagsFilter && {
-        redFlags: { $eq: redFlagsFilter },
+        redFlags: { $any: redFlagsFilter },
       }),
     })
 

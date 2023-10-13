@@ -2,6 +2,7 @@ import { cx } from '@emotion/css'
 
 import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
 
+import { RequestStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -28,6 +29,8 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
+  const disableProposeDealButton = request?.request?.status === RequestStatus.EXPIRED
+
   return (
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
@@ -53,7 +56,13 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
             </Typography>
           </div>
 
-          <Button variant="contained" color="primary" className={classNames.dealBtn} onClick={onClickSuggestDealBtn}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disableProposeDealButton}
+            className={classNames.dealBtn}
+            onClick={onClickSuggestDealBtn}
+          >
             {t(TranslationKey['Suggest a deal'])}
           </Button>
         </div>

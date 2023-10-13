@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { t } from '@utils/translations'
 
@@ -63,7 +63,7 @@ export const TaskInfoModal = observer(({ openModal, setOpenModal, task, volumeWe
         {task.images && (
           <div className={classNames.photoWrapper}>
             <Typography className={classNames.subTitle}>{t(TranslationKey['Task photos']) + ':'}</Typography>
-            <PhotoCarousel files={task.images} />
+            <PhotoAndFilesSlider withoutFiles files={task.images} />
           </div>
         )}
 

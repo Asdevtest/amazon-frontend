@@ -595,6 +595,8 @@ export const ClientInventoryViewRaw = props => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
 }

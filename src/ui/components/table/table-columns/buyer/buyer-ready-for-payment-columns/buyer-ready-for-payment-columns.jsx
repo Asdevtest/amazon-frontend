@@ -29,6 +29,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
       renderCell: params => <MultilineTextCell text={params.row.idAndItem} />,
+      valueGetter: params => params.row.idAndItem,
+
       sortable: true,
       width: 100,
 
@@ -58,6 +60,10 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
       renderCell: params => <OrderCell product={params.row.originalData.product} />,
       sortable: false,
+      valueGetter: params =>
+        `ASIN: ${params.row.originalData.product.asin ?? ''}, SKU: ${
+          params.row.originalData.product.skusByClient ?? ''
+        }`,
       width: 280,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
@@ -110,6 +116,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
+      valueGetter: params => toFixedWithDollarSign(params.row.originalData.totalPrice, 2),
       width: 90,
       type: 'number',
 
@@ -154,6 +161,13 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           }
         />
       ),
+      valueGetter: params =>
+        toFixed(
+          params.row.originalData.partialPayment
+            ? params.row.originalData.partialPaymentAmountRmb
+            : params.row.originalData.priceInYuan,
+          2,
+        ) || '0',
       type: 'number',
       width: 115,
 
@@ -193,6 +207,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier?.productionTerm} />,
+      valueGetter: params => params.row.originalData.orderSupplier?.productionTerm ?? '',
       width: 120,
       sortable: false,
 
@@ -214,6 +229,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         ) : (
           <MultilineTextCell text={'-'} />
         ),
+      valueGetter: params => timeToDeadlineInHoursAndMins({ date: params.row.originalData.deadline }) ?? '',
       width: 100,
 
       columnKey: columnnsKeys.shared.DATE,
