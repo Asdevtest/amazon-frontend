@@ -1,6 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
@@ -173,7 +173,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 className={classNames.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
-                  onSubmit(null, null, null)
+                  onSubmit(null, null, null, null, null, true)
                 }}
               >
                 {t(TranslationKey.reset)}
