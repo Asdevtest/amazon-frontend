@@ -17,5 +17,3 @@ declare module 'react-highlight-words'
 declare module 'he'
 
 declare module '@opuscapita/react-markdown'
-
-declare module 'react-image-zooom'
