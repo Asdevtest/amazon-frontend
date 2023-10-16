@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { React, useState } from 'react'
+import { useState } from 'react'
 
 import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
 
@@ -14,8 +13,6 @@ import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
@@ -47,9 +44,6 @@ export const AddOrEditSupplierModalContent = observer(
     outsideProduct,
     onClickPrevButton,
   }) => {
-    console.log('product', product)
-    console.log('storekeepersData', storekeepersData)
-
     const { classes: classNames } = useClassNames()
 
     const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
