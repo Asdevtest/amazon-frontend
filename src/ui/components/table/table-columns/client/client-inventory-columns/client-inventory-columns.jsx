@@ -212,14 +212,12 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => (
-      <div onDoubleClick={e => e.stopPropagation()}>
-        <ChangeInputCell
-          isInts
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={stockUsHandlers.onClickSaveStockUs}
-        />
-      </div>
+      <ChangeInputCell
+        isInts
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
+      />
     ),
     width: 150,
 
@@ -362,14 +360,12 @@ export const clientInventoryColumns = (
       />
     ),
     renderCell: params => (
-      <div onDoubleClick={e => e.stopPropagation()}>
-        <FourMonthesStockCell
-          rowId={params.row.originalData._id}
-          value={params.value}
-          fourMonthesStock={params.row.fourMonthesStock}
-          onClickSaveFourMonthsStock={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
-        />
-      </div>
+      <FourMonthesStockCell
+        rowId={params.row.originalData._id}
+        value={params.value}
+        fourMonthesStock={params.row.fourMonthesStock}
+        onClickSaveFourMonthsStock={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+      />
     ),
 
     width: 150,
