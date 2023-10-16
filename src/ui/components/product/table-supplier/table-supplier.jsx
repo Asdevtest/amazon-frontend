@@ -168,7 +168,7 @@ export const TableSupplier = observer(
                       }}
                     >
                       <div className={classNames.filesWrapper}>
-                        <PhotoAndFilesSlider smallSlider files={supplier.images} />
+                        <PhotoAndFilesSlider smallSlider showPreviews files={supplier.images} />
                       </div>
                     </TableCell>
 
