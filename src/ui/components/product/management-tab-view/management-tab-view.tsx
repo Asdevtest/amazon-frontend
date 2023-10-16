@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,8 +17,7 @@ import { MemberSelect } from './member-select'
 export const ManagementTabView: FC = observer(() => {
   const { classes: classNames } = useClassNames()
 
-  const history = useHistory()
-  const [viewModel] = useState(() => new ManagementTabViewModel({ history }))
+  const [viewModel] = useState(() => new ManagementTabViewModel())
 
   useEffect(() => {
     viewModel.onComponentDidMount()
@@ -33,6 +31,7 @@ export const ManagementTabView: FC = observer(() => {
 
           <div className={classNames.selectsWrapper}>
             <MemberSelect
+              isEmptyMember
               title={t(TranslationKey.Client)}
               value={viewModel.client._id}
               disabled={!viewModel.isEditableClient}
@@ -53,6 +52,7 @@ export const ManagementTabView: FC = observer(() => {
             />
 
             <MemberSelect
+              isEmptyMember
               title={t(TranslationKey.Supervisor)}
               value={viewModel.supervisor._id}
               disabled={viewModel.isEditableSupervisor}
@@ -63,6 +63,7 @@ export const ManagementTabView: FC = observer(() => {
             />
 
             <MemberSelect
+              isEmptyMember
               title={t(TranslationKey.Researcher)}
               value={viewModel.researcher._id}
               disabled={!viewModel.isEditableResearcher}
