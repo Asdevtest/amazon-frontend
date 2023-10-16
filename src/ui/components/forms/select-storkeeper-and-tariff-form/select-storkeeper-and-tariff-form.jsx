@@ -173,7 +173,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 className={classNames.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
-                  onSubmit(null, null, null)
+                  onSubmit(null, null, null, null, null, true)
                 }}
               >
                 {t(TranslationKey.reset)}

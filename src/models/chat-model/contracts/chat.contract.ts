@@ -49,4 +49,8 @@ export class ChatContract implements TWebsocketChatService.Chat {
   public messages!: ChatMessageContract[]
   @IsOptional()
   public info?: { image: string; title: string; createdBy: string }
+  @IsNotEmpty()
+  public pagination!: { limit: number; offset: number }
+  @IsBoolean()
+  public isAllMessagesLoaded!: boolean
 }

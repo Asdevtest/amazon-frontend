@@ -26,10 +26,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-    cursor: 'pointer',
+    width: '100% !important',
+    backgroundColor: '#fff !important',
+
+    '&::before, ::after': {
+      display: 'none',
+    },
+
+    '& > img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
+    },
   },
 
   arrowIcon: {

@@ -133,6 +133,7 @@ export class OwnerRequestDetailCustomViewModel {
       () => {
         runInAction(() => {
           this.mesSearchValue = ''
+          ChatModel.onChangeChatSelectedId(this.chatSelectedId)
         })
       },
     )

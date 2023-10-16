@@ -1621,6 +1621,7 @@ export enum TranslationKey {
   'Boxes and the quantity of the selected product in them' = 'Boxes and the quantity of the selected product in them',
   'Watch the batch' = 'Watch the batch',
   'Lot number search' = 'Lot number search',
+  'Lot number and FBA search' = 'Lot number and FBA search',
   'Open warehouse management' = 'Open warehouse management',
   'Are you sure you want to move the tariff to the archive?' = 'Are you sure you want to move the tariff to the archive?',
   'Are you sure you want to restore the tariff?' = 'Are you sure you want to restore the tariff?',
@@ -2133,5 +2134,6 @@ export enum TranslationKey {
   'Available request types' = 'Available request types',
   'Approximate price' = 'Approximate price',
   "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
+  'Wish to set a destination?' = 'Wish to set a destination?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

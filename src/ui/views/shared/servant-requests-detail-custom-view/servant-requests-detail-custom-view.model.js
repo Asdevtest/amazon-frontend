@@ -77,6 +77,7 @@ export class RequestDetailCustomViewModel {
       () => {
         runInAction(() => {
           this.mesSearchValue = ''
+          ChatModel.onChangeChatSelectedId(this.chatSelectedId)
         })
       },
     )
