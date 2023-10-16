@@ -76,6 +76,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => (
         <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />
       ),
+      valueGetter: params => params.row.originalData.paymentDetailsAttached,
       width: 120,
       align: 'center',
 
@@ -138,6 +139,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
         />
       ),
+      valueGetter: params => params.row.originalData.payments.map(payment => payment.paymentMethod.title).join(', '),
       width: 180,
       sortable: false,
 
@@ -229,7 +231,10 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         ) : (
           <MultilineTextCell text={'-'} />
         ),
-      valueGetter: params => timeToDeadlineInHoursAndMins({ date: params.row.originalData.deadline }) ?? '',
+      valueGetter: params =>
+        params.row.originalData.deadline
+          ? timeToDeadlineInHoursAndMins({ date: params.row.originalData.deadline })
+          : '',
       width: 100,
 
       columnKey: columnnsKeys.shared.DATE,
@@ -257,6 +262,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           }
         />
       ),
+      valueGetter: params => formatDate(params.row.originalData.paymentDateToSupplier) ?? '',
       width: 115,
 
       columnKey: columnnsKeys.shared.DATE,
@@ -290,6 +296,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
+      valueGetter: params => params.row.originalData.destination?.name,
       width: 130,
       sortable: false,
 
