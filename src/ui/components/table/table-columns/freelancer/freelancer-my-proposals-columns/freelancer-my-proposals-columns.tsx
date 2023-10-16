@@ -2,6 +2,8 @@
 import { GridCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import {
   colorByDifficultyLevel,
   difficultyLevelByCode,
@@ -12,7 +14,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   FreelancerMyProposalsActions,
-  MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OrderCell,
@@ -162,7 +163,9 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.value} />,
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+    ),
     width: 161,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
