@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -27,7 +27,6 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 import { checkIsPositiveNum } from '@utils/checks'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-// import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './storekeeper-redistribute-box-modal.style'
@@ -351,6 +350,7 @@ const Box = ({
       >
         <SelectStorekeeperAndTariffForm
           showCheckbox
+          RemoveDestinationRestriction
           destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
