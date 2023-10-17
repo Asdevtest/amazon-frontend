@@ -74,7 +74,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   downloadButton: {
-    width: 216,
     height: 40,
     gap: 5,
   },
