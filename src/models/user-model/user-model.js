@@ -60,8 +60,6 @@ class UserModelStatic {
       },
     })
 
-    console.log('response', response)
-
     const accessToken = response.accessToken
     const refreshToken = response.refreshToken
     runInAction(() => {

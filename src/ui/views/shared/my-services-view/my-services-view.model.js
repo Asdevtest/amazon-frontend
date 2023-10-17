@@ -167,9 +167,7 @@ export class MyServicesViewModel {
   }
 
   onClickOpenButton(data) {
-    this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
-      data: data._id,
-    })
+    this.history.push(`/freelancer/freelance/my-services/service-detailds?serviceId=${data._id}`)
   }
 
   onTriggerOpenModal(modalState) {

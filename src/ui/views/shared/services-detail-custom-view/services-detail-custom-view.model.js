@@ -35,11 +35,10 @@ export class ServicesDetailCustomViewModel {
     runInAction(() => {
       this.history = history
 
-      if (location.state) {
-        // console.log(location.state)
-        this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
-      }
+      const url = new URL(window.location.href)
+
+      this.requestId = url.searchParams.get('requestId')
+      this.announcementId = url.searchParams.get('announcementId')
     })
     makeAutoObservable(this, undefined, { autoBind: true })
   }
