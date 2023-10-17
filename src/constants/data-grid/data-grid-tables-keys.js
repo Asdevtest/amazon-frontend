@@ -105,6 +105,7 @@ export const DataGridTablesKeys = {
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
   FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
+  FREELANCER_MY_PROPOSALS: 'freelancerMyProposalsDataGridState',
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
   OVERALL_SUB_USERS: 'overallSubUsersDataGridState',

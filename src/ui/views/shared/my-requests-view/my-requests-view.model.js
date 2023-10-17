@@ -40,6 +40,7 @@ const filtersFields = [
   'priority',
   'createdAt',
   'announcementCreatedBy',
+  'taskComplexity',
   'shopIds',
 ]
 
@@ -576,6 +577,8 @@ export class MyRequestsViewModel {
       exclusion !== 'announcementCreatedBy' &&
       this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
 
+    const taskComplexityFilter =
+      exclusion !== 'taskComplexity' && this.columnMenuSettings?.taskComplexity?.currentFilterData?.join(',')
     const shopIdsFilter =
       exclusion !== 'shopIds' && this.columnMenuSettings?.shopIds?.currentFilterData?.map(item => item._id)?.join(',')
 
@@ -641,6 +644,10 @@ export class MyRequestsViewModel {
 
       ...(announcementCreatedByFilter && {
         announcementCreatedBy: { $eq: announcementCreatedByFilter },
+      }),
+
+      ...(taskComplexityFilter && {
+        taskComplexity: { $eq: taskComplexityFilter },
       }),
 
       ...(shopIdsFilter && {

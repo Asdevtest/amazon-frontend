@@ -1,4 +1,9 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -41,6 +46,24 @@ export const FreelancerVacantRequestColumns = handlers => [
     sortable: false,
 
     // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+  },
+
+  {
+    field: 'taskComplexity',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
+    headerName: t(TranslationKey['Difficulty level']),
+
+    renderCell: params => (
+      <MultilineTextCell
+        text={difficultyLevelTranslate(difficultyLevelByCode[params.value])}
+        customTextStyles={{
+          color: colorByDifficultyLevel(difficultyLevelByCode[params.value]),
+          fontWeight: 600,
+        }}
+      />
+    ),
+    width: 95,
+    columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
   },
 
   {

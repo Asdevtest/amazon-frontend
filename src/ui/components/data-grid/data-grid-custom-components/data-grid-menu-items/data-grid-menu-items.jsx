@@ -1455,9 +1455,9 @@ export const ProductMenuItem = React.memo(
     }
 
     const [currentOption, setCurrentOption] = useState(
-      data.amazonTitle.currentFilterData.length
+      data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skusByClient.currentFilterData.length
+        : !withoutSku && data.skusByClient?.currentFilterData?.length
         ? 'skusByClient'
         : 'asin',
     )
@@ -2301,6 +2301,7 @@ export const NumberFieldMenuItem = React.memo(
           'ideasClosed',
           'ideasFinished',
           'fbaamount',
+          'reworkCounter',
         ]
         return whiteList.includes(field)
       }, [field])
