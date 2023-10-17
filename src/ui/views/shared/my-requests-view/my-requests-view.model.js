@@ -704,6 +704,16 @@ export class MyRequestsViewModel {
 
       await this.loadData()
 
+      runInAction(() => {
+        this.currentRequestDetails = {
+          ...this.currentRequestDetails,
+          request: {
+            ...this.currentRequestDetails.request,
+            uploadedToListing: !uploadedToListingState,
+          },
+        }
+      })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
