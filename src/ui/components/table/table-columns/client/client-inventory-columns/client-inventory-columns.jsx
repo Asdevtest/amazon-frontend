@@ -238,7 +238,7 @@ export const clientInventoryColumns = (
     renderCell: params => {
       return (
         <MultilineTextCell
-          text={params.value}
+          text={String(params.value)}
           onClickText={e => {
             e.stopPropagation()
 

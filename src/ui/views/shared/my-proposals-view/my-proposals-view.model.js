@@ -66,7 +66,7 @@ export class MyProposalsViewModel {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
     onClickResultButton: (requestId, proposalId) => this.onClickResultBtn(requestId, proposalId),
-    onClickOpenButton: request => this.onClickOpenBtn(request),
+    onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
   }
 
   columnsModel = FreelancerMyProposalsColumns(this.rowHandlers)
@@ -272,11 +272,11 @@ export class MyProposalsViewModel {
     )
   }
 
-  onClickOpenBtn(request) {
+  onClickOpenBtn(requestId) {
     this.history.push(
-      `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request?request-id=${
-        request._id
-      }`,
+      `/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
     )
   }
 

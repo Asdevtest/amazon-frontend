@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
   boxesFiltersWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginBottom: '15px',
   },
 
   button: {

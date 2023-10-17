@@ -497,6 +497,8 @@ export const EditOrderModal = observer(
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
 
+    const disableEditInPendingOrder = isPendingOrder && !isSupplierAcceptRevokeActive
+
     return (
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
@@ -787,7 +789,11 @@ export const EditOrderModal = observer(
                       ) : (
                         <>
                           <Button
-                            disabled={checkIsPlanningPrice && !isPendingOrder}
+                            tooltipAttentionContent={
+                              disableEditInPendingOrder &&
+                              t(TranslationKey['Editing is unavailable due to change of current supplier'])
+                            }
+                            disabled={(checkIsPlanningPrice && !isPendingOrder) || disableEditInPendingOrder}
                             className={classNames.iconBtn}
                             onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                           >
