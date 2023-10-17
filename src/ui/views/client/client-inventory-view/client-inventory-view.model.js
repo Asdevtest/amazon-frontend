@@ -138,9 +138,6 @@ export class ClientInventoryViewModel {
 
   hsCodeData = {}
 
-  existingOrders = []
-  checkPendingData = []
-
   curProduct = undefined
 
   // isNeedPurchaseFilter = null
@@ -150,6 +147,8 @@ export class ClientInventoryViewModel {
   productsToLaunch = []
   productVariations = []
   selectedProductToLaunch = undefined
+
+  existingProducts = []
 
   selectedRowId = undefined
   yuanToDollarRate = undefined
@@ -647,24 +646,27 @@ export class ClientInventoryViewModel {
         this.showCircularProgressModal = true
       })
 
-      const pendingOrders = []
-      const correctIds = []
+      const resultArray = []
 
       for await (const id of this.selectedRowIds) {
-        const res = await OrderModel.checkPendingOrderByProductGuid(id)
+        await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
+          if (result?.length) {
+            const currentProduct = this.currentData.find(product => product?.originalData?._id === id)
 
-        if (res.length > 0) {
-          correctIds.push(id)
-          pendingOrders.push(res)
-        }
+            const resultObject = {
+              asin: currentProduct?.originalData?.asin,
+              orders: result,
+            }
+
+            resultArray.push(resultObject)
+          }
+        })
       }
 
-      this.checkPendingData = pendingOrders
-
-      if (this.checkPendingData.length > 0) {
-        this.existingOrders = this.currentData
-          .filter(product => correctIds.includes(product.id))
-          .map(prod => prod.originalData)
+      if (resultArray?.length) {
+        runInAction(() => {
+          this.existingProducts = resultArray
+        })
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {

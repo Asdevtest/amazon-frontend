@@ -2140,5 +2140,6 @@ export enum TranslationKey {
   'Approximate price' = 'Approximate price',
   "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
   'Wish to set a destination?' = 'Wish to set a destination?',
+  'Pending orders already exist' = 'Pending orders already exist',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

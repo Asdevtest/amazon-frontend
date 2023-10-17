@@ -4,28 +4,22 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 485,
-    height: 'auto',
-    maxHeight: 900,
+    minHeight: '250px',
+    maxHeight: '900px',
     overflowY: 'auto',
-  },
-  productsWrapper: {
-    width: '100%',
-    height: 'auto',
-  },
-  warningWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
 
-    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'column',
   },
+
   warning: {
+    textAlign: 'center',
     fontWeight: 600,
     fontSize: '22px',
     lineHeight: '26px',
 
     color: theme.palette.general,
+    marginBottom: '15px',
   },
   text: {
     fontWeight: 400,
@@ -38,14 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
     color: theme.palette.primary.main,
   },
-  asinsAndOrderWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
 
-    marginBottom: 25,
-  },
   buttonGroup: {
     display: 'flex',
     justifyContent: 'center',
@@ -56,8 +43,8 @@ export const useClassNames = makeStyles()(theme => ({
   asinsWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-
     gap: 3,
+    marginBottom: '15px',
   },
   CancelBtn: {
     color: theme.palette.text.general,
