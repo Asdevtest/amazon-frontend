@@ -414,6 +414,13 @@ export class ClientIdeasViewModel {
   getFilters(exclusion) {
     const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
 
+    const commentsFilter =
+      exclusion !== 'comments' && this.columnMenuSettings.comments?.currentFilterData.map(item => `"${item}"`).join(',')
+
+    const buyerCommentFilter =
+      exclusion !== 'buyerComment' &&
+      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
+
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
@@ -434,6 +441,13 @@ export class ClientIdeasViewModel {
             status: {
               $eq: this.currentSettings.statuses.join(','),
             },
+          }),
+          ...(commentsFilter && {
+            comments: { $eq: commentsFilter },
+          }),
+
+          ...(buyerCommentFilter && {
+            buyerComment: { $eq: buyerCommentFilter },
           }),
         },
       ),
