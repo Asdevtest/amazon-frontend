@@ -124,8 +124,8 @@ export const Slider: FC<Props> = observer(
                 >
                   {slides.map((slide, index) => {
                     const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)
-                      .split('.')
-                      .slice(-1)[0]
+                      ?.split('.')
+                      ?.slice(-1)?.[0]
 
                     return (
                       <div key={index} className={classNames.slideWrapper}>
