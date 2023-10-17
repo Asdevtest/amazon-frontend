@@ -1,23 +1,20 @@
-/* eslint-disable no-unsafe-optional-chaining */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { Dispatch, FC, SetStateAction } from 'react'
-
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { FileIcon } from '@components/shared//file-icon/file-icon'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
+import { VideoPlayer } from '@components/shared/video-player'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './slider.style'
 
+import { Arrow } from './components'
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
 import { Arrows, ArrowsType } from './slider.type'
 
@@ -33,6 +30,7 @@ interface Props {
   isHideCounter?: boolean
   withoutFiles?: boolean
   customSlideHeight?: number
+  controls?: boolean
   onPhotosModalToggle?: VoidFunction
 }
 
@@ -50,8 +48,9 @@ export const Slider: FC<Props> = observer(
     isHideCounter = false,
     customSlideHeight,
     withoutFiles,
+    controls = false,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
 
     const handleArrowClick = (direction: ArrowsType) => {
       const updateIndex = (prevIndex: number) =>
@@ -73,6 +72,8 @@ export const Slider: FC<Props> = observer(
       !withoutFiles && slides?.every(slide => checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name))
     const isImageType = (slide: string | IUploadFile): boolean =>
       checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name)
+    const isVideoType = (slide: string | IUploadFile): boolean =>
+      checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
 
     return (
       <div
@@ -89,25 +90,14 @@ export const Slider: FC<Props> = observer(
                 [classNames.bigGap]: bigSlider,
               })}
             >
-              <button
-                disabled={isDisableArrowLeft}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowIconDisable]: isDisableArrowLeft,
-                  [classNames.smallArrow]: smallSlider,
-                  [classNames.mediumArrow]: mediumSlider,
-                  [classNames.bigArrow]: bigSlider,
-                })}
-                onClick={() => handleArrowClick(Arrows.LEFT)}
-              >
-                <ArrowLeftIcon
-                  className={cx(classNames.arrowIcon, {
-                    [classNames.arrowIconDisable]: isDisableArrowLeft,
-                    [classNames.smallArrow]: smallSlider,
-                    [classNames.mediumArrow]: mediumSlider,
-                    [classNames.bigArrow]: bigSlider,
-                  })}
-                />
-              </button>
+              <Arrow
+                direction={Arrows.LEFT}
+                isDisableArrow={isDisableArrowLeft}
+                smallSlider={smallSlider}
+                mediumSlider={mediumSlider}
+                bigSlider={bigSlider}
+                onClick={handleArrowClick}
+              />
 
               <div className={cx(classNames.slidesWrapper)}>
                 <div
@@ -126,16 +116,21 @@ export const Slider: FC<Props> = observer(
                     const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)
                       ?.split('.')
                       ?.slice(-1)?.[0]
+                    const currentSlide = typeof slide === 'string' ? slide : slide?.data_url
 
                     return (
                       <div key={index} className={classNames.slideWrapper}>
                         {isImageType(slide) ? (
-                          <img
-                            src={typeof slide === 'string' ? slide : slide?.data_url}
-                            alt={`Slide ${currentIndex}`}
-                            className={classNames.slide}
-                            onClick={onPhotosModalToggle}
-                          />
+                          isVideoType(slide) ? (
+                            <VideoPlayer videoSource={currentSlide} contrlols={controls} />
+                          ) : (
+                            <img
+                              src={currentSlide}
+                              alt={`Slide ${currentIndex}`}
+                              className={classNames.slide}
+                              onClick={onPhotosModalToggle}
+                            />
+                          )
                         ) : (
                           <div className={classNames.documentWrapper}>
                             <a href={typeof slide === 'string' ? slide : '/'} target="_blank" rel="noreferrer">
@@ -162,25 +157,14 @@ export const Slider: FC<Props> = observer(
                 </div>
               </div>
 
-              <button
-                disabled={isDisableArrowRight}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowIconDisable]: isDisableArrowRight,
-                  [classNames.smallArrow]: smallSlider,
-                  [classNames.mediumArrow]: mediumSlider,
-                  [classNames.bigArrow]: bigSlider,
-                })}
-                onClick={() => handleArrowClick(Arrows.RIGHT)}
-              >
-                <ArrowRightIcon
-                  className={cx(classNames.arrowIcon, {
-                    [classNames.arrowIconDisable]: isDisableArrowRight,
-                    [classNames.smallArrow]: smallSlider,
-                    [classNames.mediumArrow]: mediumSlider,
-                    [classNames.bigArrow]: bigSlider,
-                  })}
-                />
-              </button>
+              <Arrow
+                direction={Arrows.RIGHT}
+                isDisableArrow={isDisableArrowRight}
+                smallSlider={smallSlider}
+                mediumSlider={mediumSlider}
+                bigSlider={bigSlider}
+                onClick={handleArrowClick}
+              />
             </div>
 
             {!isHideCounter && (

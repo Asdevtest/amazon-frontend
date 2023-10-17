@@ -77,10 +77,49 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('xlsx') ||
   link?.endsWith('xls') ||
   link?.endsWith('txt') ||
-  link?.endsWith('mp4') ||
   (link?.includes('.com') && !link?.includes('placeimg.com'))
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
+
+export const checkIsVideoLink = link =>
+  link?.endsWith('.3g2') ||
+  link?.endsWith('.3gp') ||
+  link?.endsWith('.3gp2') ||
+  link?.endsWith('.3gpp') ||
+  link?.endsWith('.3gpp2') ||
+  link?.endsWith('.asf') ||
+  link?.endsWith('.asx') ||
+  link?.endsWith('.avi') ||
+  link?.endsWith('.bin') ||
+  link?.endsWith('.dat') ||
+  link?.endsWith('.drv') ||
+  link?.endsWith('.f4v') ||
+  link?.endsWith('.flv') ||
+  link?.endsWith('.gtp') ||
+  link?.endsWith('.h264') ||
+  link?.endsWith('.m4v') ||
+  link?.endsWith('.mkv') ||
+  link?.endsWith('.mod') ||
+  link?.endsWith('.moov') ||
+  link?.endsWith('.mov') ||
+  link?.endsWith('.mp4') ||
+  link?.endsWith('.mpeg') ||
+  link?.endsWith('.mpg') ||
+  link?.endsWith('.mts') ||
+  link?.endsWith('.rm') ||
+  link?.endsWith('.rmvb') ||
+  link?.endsWith('.spl') ||
+  link?.endsWith('.srt') ||
+  link?.endsWith('.stl') ||
+  link?.endsWith('.swf') ||
+  link?.endsWith('.ts') ||
+  link?.endsWith('.vcd') ||
+  link?.endsWith('.vid') ||
+  link?.endsWith('.vob') ||
+  link?.endsWith('.webm') ||
+  link?.endsWith('.wm') ||
+  link?.endsWith('.wmv') ||
+  link?.endsWith('.yuv')
 
 export const validateEmail = email =>
   String(email)

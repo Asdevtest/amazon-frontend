@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
@@ -32,8 +32,9 @@ export const usePhotoAndFilesSlider = (
 
   useEffect(() => {
     const photoFiltering = (files || []).reduce((result: Array<string | IUploadFile>, el) => {
-      const isImage = checkIsImageLink(typeof el === 'string' ? el : el?.file?.name)
-      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name)
+      const currentFile = typeof el === 'string' ? el : el?.file?.name
+      const isImage = checkIsImageLink(currentFile) || checkIsVideoLink(currentFile)
+      const isDocument = checkIsDocumentLink(currentFile)
 
       if (isImage) {
         result.push(el)
