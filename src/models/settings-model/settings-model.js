@@ -86,6 +86,7 @@ class SettingsModelStatic {
 
   saveValue(key, value) {
     localStorage.setItem(key, JSON.stringify(value))
+    console.log('JSON.stringify(value)', JSON.stringify(value))
   }
 
   onToggleMuteCurrentChat(chatId, chats) {

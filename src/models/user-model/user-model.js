@@ -9,12 +9,13 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { UserInfoContract } from './user-model.contracts'
 
-const persistProperties = ['accessToken', 'userInfo']
+const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
 
 const stateModelName = 'UserModel'
 
 class UserModelStatic {
   accessToken = undefined
+  refreshToken = undefined
   userInfo = undefined
   userId = undefined // не получилось обойти ошибку "Property '_Id' does not exist on type 'never'." в тайпскрипт, по этому создал отдельную переменнную
   masterUserId = undefined
@@ -41,6 +42,7 @@ class UserModelStatic {
 
   signOut() {
     this.accessToken = undefined
+    this.refreshToken = undefined
     this.userInfo = undefined
     this.userId = undefined
     this.masterUserId = undefined
@@ -58,10 +60,13 @@ class UserModelStatic {
       },
     })
 
+    console.log('response', response)
+
     const accessToken = response.accessToken
-    // const accessToken = response.refreshToken
+    const refreshToken = response.refreshToken
     runInAction(() => {
       this.accessToken = accessToken
+      this.refreshToken = refreshToken
     })
     restApiService.setAccessToken(accessToken)
 
