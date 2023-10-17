@@ -144,8 +144,8 @@ export const IdeaViewAndEditCard = observer(
       variation: idea?.variation || '',
       productName: idea?.productName || '',
       suppliers: idea?.suppliers || [],
-      approximatePrice: idea?.approximatePrice || '',
-      fbaFee: idea?.fbaFee || '',
+      approximatePrice: idea?.approximatePrice || 0,
+      fbaFee: idea?.fbaFee || 0,
     })
 
     const getFullIdea = () => ({
@@ -157,19 +157,19 @@ export const IdeaViewAndEditCard = observer(
       productName: curIdea?.productName || '',
       productLinks: curIdea?.productLinks || [],
       criteria: curIdea?.criteria || '',
-      quantity: curIdea?.quantity || '',
-      price: curIdea?.price || '',
-      width: curIdea?.width || '',
-      height: curIdea?.height || '',
-      length: curIdea?.length || '',
+      quantity: curIdea?.quantity || 0,
+      price: curIdea?.price || 0,
+      width: curIdea?.width || 0,
+      height: curIdea?.height || 0,
+      length: curIdea?.length || 0,
       suppliers: curIdea?.suppliers || [],
       _id: curIdea?._id || undefined,
       parentProduct: curIdea?.parentProduct || undefined,
       childProduct: curIdea?.childProduct || undefined,
       requestsOnCheck: curIdea?.requestsOnCheck || [],
       requestsOnFinished: curIdea?.requestsOnFinished || [],
-      approximatePrice: idea?.approximatePrice || '',
-      fbaFee: idea?.fbaFee || '',
+      approximatePrice: idea?.approximatePrice || 0,
+      fbaFee: idea?.fbaFee || 0,
     })
 
     const onChangeField = fieldName => event => {
