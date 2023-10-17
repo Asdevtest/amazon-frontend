@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
@@ -17,10 +16,7 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -122,10 +118,10 @@ export const EditBoxForm = observer(
 
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
-    const rowHandlers = {
+    /* const rowHandlers = {
       onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
       onSelectPhotos: setBigImagesOptions,
-    }
+    } */
 
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
 
@@ -772,6 +768,7 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            RemoveDestinationRestriction
             showCheckbox={showCheckbox}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
