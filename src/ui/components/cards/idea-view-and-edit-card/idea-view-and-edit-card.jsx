@@ -670,7 +670,7 @@ export const IdeaViewAndEditCard = observer(
                         />
 
                         <Field
-                          label={t(TranslationKey['Referral fee, $'])}
+                          label={t(TranslationKey['Approximate price'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
                           labelClasses={classNames.spanLabel}
