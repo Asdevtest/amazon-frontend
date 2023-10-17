@@ -54,15 +54,15 @@ export class ServiceDetailsViewModel {
     return SettingsModel.languageTag || {}
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     runInAction(() => {
+      const url = new URL(window.location.href)
+
       this.history = history
 
-      if (location.state) {
-        runInAction(() => {
-          this.announcementId = location.state.data
-        })
-      }
+      runInAction(() => {
+        this.announcementId = url.searchParams.get('serviceId')
+      })
     })
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -89,10 +89,11 @@ export class ServiceDetailsViewModel {
 
   async getAnnouncementsDataByGuid() {
     try {
-      const result = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
-      runInAction(() => {
-        this.announcementData = result
-        this.rowCount = result.length
+      await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId).then(result => {
+        runInAction(() => {
+          this.announcementData = result
+          this.rowCount = result.length
+        })
       })
     } catch (error) {
       this.error = error
@@ -126,10 +127,9 @@ export class ServiceDetailsViewModel {
   }
 
   onClickOpenBtn(id) {
-    this.history.push(`/freelancer/freelance/my-services/service-detailds/custom-service-type`, {
-      requestId: id,
-      announcementId: this.announcementId,
-    })
+    this.history.push(
+      `/freelancer/freelance/my-services/service-detailds/custom-service-type?requestId=${id}&announcementId=${this.announcementId}`,
+    )
   }
 
   onClickEditBtn() {

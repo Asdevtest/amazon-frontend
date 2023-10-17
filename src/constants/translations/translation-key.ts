@@ -2141,5 +2141,6 @@ export enum TranslationKey {
   "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
   'Wish to set a destination?' = 'Wish to set a destination?',
   'Editing is unavailable due to change of current supplier' = 'Editing is unavailable due to change of current supplier',
+  'Pending orders already exist' = 'Pending orders already exist',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
