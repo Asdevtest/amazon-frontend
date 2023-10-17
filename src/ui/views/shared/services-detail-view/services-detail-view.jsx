@@ -25,7 +25,6 @@ export const ServiceDetailsViewRaw = props => {
     () =>
       new ServiceDetailsViewModel({
         history: props.history,
-        location: props.location,
       }),
   )
   const { classes: classNames } = props
