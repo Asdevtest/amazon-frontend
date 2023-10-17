@@ -84,6 +84,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
     typeTask: item?.typeTask,
     uploadedToListing: item?.uploadedToListing,
+    taskComplexity: item?.taskComplexity,
     shopIds: shopsData?.find(el => el._id === item?.product?.shopIds?.[0])?.name || '',
   }))
 
@@ -1066,4 +1067,20 @@ export const notificationDataConverter = data =>
           },
 
     type: item?.type,
+  }))
+
+export const myProposalsDataConverter = data =>
+  data.map((item, index) => ({
+    _id: item.request._id,
+    title: item.request.title,
+    product: item.request.product,
+    priority: item.request.priority,
+    typeTask: item.request.typeTask,
+    timeoutAt: item.request.timeoutAt,
+    taskComplexity: item.request.taskComplexity,
+    status: item.status,
+    humanFriendlyId: item.request.humanFriendlyId,
+
+    originalData: item,
+    id: item._id ? item._id : index,
   }))

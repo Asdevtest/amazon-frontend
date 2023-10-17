@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
@@ -18,7 +18,7 @@ import { RequestStandartResultForm } from '@components/forms/request-standart-re
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -118,8 +118,7 @@ export const OwnerRequestProposalsCard = ({
             </div>
 
             <div className={classNames.photoWrapper}>
-              <PhotoCarousel files={item.proposal.linksToMediaFiles} />
-              {/* <PhotoCarousel files={item.proposal.media?.map(el => el.fileLink)} /> */}
+              <PhotoAndFilesSlider withoutFiles files={item.proposal.linksToMediaFiles} />
             </div>
           </div>
         </div>

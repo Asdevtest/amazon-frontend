@@ -212,14 +212,12 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => (
-      <div onDoubleClick={e => e.stopPropagation()}>
-        <ChangeInputCell
-          isInts
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={stockUsHandlers.onClickSaveStockUs}
-        />
-      </div>
+      <ChangeInputCell
+        isInts
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
+      />
     ),
     width: 150,
 
@@ -332,7 +330,7 @@ export const clientInventoryColumns = (
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.TAGS,
   },
 
   {

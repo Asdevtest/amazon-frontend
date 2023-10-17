@@ -1,4 +1,14 @@
 export const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
+  dataGridWrapper: {
+    height: 'calc(100vh - 190px)',
+  },
+
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -47,7 +57,6 @@ export const styles = theme => ({
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -83,15 +92,14 @@ export const styles = theme => ({
     color: `${theme.palette.primary.main} !important`,
   },
   searchInput: {
-    width: 320,
+    width: 380,
   },
 
   tablePanelSubWrapper: {
     display: 'flex',
-  },
-
-  proposalSelect: {
-    marginLeft: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '30px',
   },
 
   filterBtn: {
@@ -126,5 +134,14 @@ export const styles = theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     color: theme.palette.text.general,
+  },
+
+  cardsWrapper: {
+    width: '100%',
+    height: 'calc(100vh - 190px)',
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '30px',
+    overflow: 'auto',
   },
 })

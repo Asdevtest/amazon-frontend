@@ -17,6 +17,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'fit-content',
   },
 
+  searchWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 30,
+  },
+
   button: {
     marginBottom: 5,
     marginRight: '10px',
@@ -52,7 +58,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   clearBtnWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     margin: '15px 0 0',
   },
 
@@ -67,9 +73,5 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-  },
-
-  oneItemWrapper: {
-    justifyContent: 'flex-end',
   },
 }))

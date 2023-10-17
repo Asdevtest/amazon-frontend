@@ -46,8 +46,6 @@ class RestApiService {
     }
     this.apiClient.plugins = [this.handleAuthenticationError]
 
-    console.log('this.apiClient.plugins', this.apiClient.plugins)
-
     this.administratorApi = new AdministratorApi(this.apiClient)
     this.announcementsApi = new AnnouncementsApi(this.apiClient)
     this.buyerApi = new BuyerApi(this.apiClient)

@@ -62,7 +62,9 @@ export const ClientInventoryViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode']
+  const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
+
+  const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 
   const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
@@ -296,6 +298,11 @@ export const ClientInventoryViewRaw = props => {
                 event.stopPropagation()
               }
               event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+            }}
+            onCellDoubleClick={(params, event) => {
+              if (disableDoubleClickOnCells.includes(params.field)) {
+                event.stopPropagation()
+              }
             }}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
@@ -595,6 +602,8 @@ export const ClientInventoryViewRaw = props => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
 }

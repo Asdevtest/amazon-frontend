@@ -1,6 +1,9 @@
 import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
 
 import {
   BatchShippingDateCellMenuItem,
@@ -167,7 +170,12 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY) {
+  if (
+    [
+      columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
+    ].includes(currentColumn.columnKey)
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <CreatedByMenuItem
@@ -198,14 +206,18 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.INVENTORY_SHOPS,
       columnnsKeys.shared.OBJECT,
       columnnsKeys.shared.PAYMENTS,
+      columnnsKeys.shared.TAGS,
     ].includes(currentColumn.columnKey)
   ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ObJectFieldMenuItem
-          addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
-            currentColumn.columnKey,
-          )}
+          addNullObj={[
+            columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+            columnnsKeys.client.INVENTORY_SHOPS,
+            columnnsKeys.shared.TAGS,
+          ].includes(currentColumn.columnKey)}
+          nullObjName={[columnnsKeys.shared.TAGS].includes(currentColumn.columnKey) && t(TranslationKey.Empty)}
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
@@ -278,6 +290,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.ORDERS_STATUS,
       columnnsKeys.client.IDEAS_STATUS,
       columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+      columnnsKeys.shared.TASK_COMPLEXITY,
     ].includes(currentColumn.columnKey)
   ) {
     return (
@@ -331,7 +344,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.shared.BATCHES_PRODUCTS) {
+  if ([columnnsKeys.shared.BATCHES_PRODUCTS].includes(currentColumn.columnKey)) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ProductMenuItem

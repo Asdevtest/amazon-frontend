@@ -8,7 +8,6 @@ import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
 
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -35,15 +34,17 @@ export class CreateOrEditProposalViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
 
-      if (location.state) {
-        this.request = location.state.request
+      const url = new URL(window.location.href)
 
-        this.proposalToEdit = location.state.proposalToEdit
-      }
+      const requestId = url.searchParams.get('requestId')
+      const proposalId = url.searchParams.get('proposalId')
+
+      this.getRequestById(requestId)
+      this.getProposalById(proposalId)
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -61,7 +62,7 @@ export class CreateOrEditProposalViewModel {
 
       if (this.proposalToEdit.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED) {
         await RequestProposalModel.requestProposalCorrected(this.proposalToEdit._id, {
-          reason: data.comment,
+          reason: data?.comment,
           linksToMediaFiles: dataWithFiles.linksToMediaFiles,
         })
       }
@@ -135,16 +136,28 @@ export class CreateOrEditProposalViewModel {
   }
 
   goToMyRequest() {
-    this.history.push('/freelancer/freelance/my-proposals', {
-      request: getObjectFilteredByKeyArrayWhiteList(this.request.request, ['_id']),
-    })
-
-    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.history.push(`/freelancer/freelance/my-proposals/custom-search-request?request-id=${this.request.request._id}`)
   }
 
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  async getProposalById(proposalId) {
+    await RequestProposalModel.getRequestProposalsCustom(proposalId).then(response => {
+      runInAction(() => {
+        this.proposalToEdit = response?.proposal
+      })
+    })
+  }
+
+  async getRequestById(requestId) {
+    await RequestModel.getCustomRequestById(requestId).then(response => {
+      runInAction(() => {
+        this.request = response
+      })
     })
   }
 }

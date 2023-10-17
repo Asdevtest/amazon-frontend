@@ -28,6 +28,7 @@ import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { PlusIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { deepArrayCompare } from '@utils/array'
 import { roundSafely } from '@utils/calculation'
 import {
   checkIsAdmin,
@@ -85,7 +86,6 @@ export const IdeaViewAndEditCard = observer(
     const linkListRef = useRef(null)
 
     const [linkLine, setLinkLine] = useState('')
-    const [images, setImages] = useState([])
     const [showFullCard, setShowFullCard] = useState(false)
 
     const [formFields, setFormFields] = useState({})
@@ -95,6 +95,13 @@ export const IdeaViewAndEditCard = observer(
     )
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
+    const [images, setImages] = useState(formFields?.media || [])
+
+    useEffect(() => {
+      if (formFields?.media) {
+        setImages(formFields?.media)
+      }
+    }, [formFields?.media])
 
     const isCurrentIdea = curIdea?._id === idea?._id
 
@@ -286,10 +293,11 @@ export const IdeaViewAndEditCard = observer(
       return res
     }
 
+    const disabledSubmit =
+      (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, formFields?.media || [])) ||
+      !formFields.productName
+
     const userRole = UserRoleCodeMap[curUser.role]
-
-    const disabledSubmit = (objectDeepCompare(formFields, getFullIdea()) && !images.length) || !formFields.productName
-
     const currentUserIsClient = checkIsClient(userRole)
     const currentUserIsBuyer = checkIsBuyer(userRole)
     const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
@@ -364,7 +372,14 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.mediaBlock}>
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
-                  <PhotoAndFilesSlider bigSlider showPreviews isEditable withoutFiles files={formFields?.media} />
+                  <PhotoAndFilesSlider
+                    bigSlider
+                    showPreviews
+                    withoutFiles
+                    isEditable={inEdit}
+                    files={images}
+                    onChangeImagesForLoad={setImages}
+                  />
                 </div>
               )}
 

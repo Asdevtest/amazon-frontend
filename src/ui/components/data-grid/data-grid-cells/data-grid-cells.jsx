@@ -9,6 +9,7 @@ import { useReactToPrint } from 'react-to-print'
 import { withStyles } from 'tss-react/mui'
 
 import ClearIcon from '@mui/icons-material/Clear'
+import CloseIcon from '@mui/icons-material/Close'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -59,7 +60,7 @@ import {
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
-import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
+import { RequestStatus, colorByStatus, showResultStatuses } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { BoxStatus } from '@constants/statuses/box-status'
 import {
@@ -81,6 +82,10 @@ import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
+import {
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
+} from '@components/cards/my-proposals-list-card/my-proposals-list-card.constants'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
@@ -272,14 +277,14 @@ export const AsinCell = React.memo(
 
 export const ProductAsinCell = React.memo(
   withStyles(
-    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage }) => (
+    ({ classes: classNames, image, amazonTitle, asin, skusByClient, withoutImage, withoutSku }) => (
       <div className={classNames.asinCellContainer}>
         {!withoutImage && <img src={getAmazonImageUrl(image)} alt="image" className={classNames.img} />}
 
         <div className={classNames.csCodeTypoWrapper}>
           <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
-          {asin ? <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} /> : null}
-          {skusByClient ? <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} /> : null}
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+          {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} />}
         </div>
       </div>
     ),
@@ -1637,28 +1642,30 @@ export const MultilineTextHeaderCell = React.memo(
       color,
       withTooltip,
       tooltipText,
-    }) => (
-      <div
-        className={cx(classNames.multilineTextHeaderWrapper, {
-          [classNames.multilineTextHeaderCenter]: textCenter,
-          [classNames.multilineTextHeaderSpaceBetween]: component,
-        })}
-      >
-        <Tooltip title={withTooltip ? tooltipText || text : ''}>
-          <Typography className={classNames.multilineHeaderText} style={color && { color }}>
-            {text}
-          </Typography>
-        </Tooltip>
-        {component}
-        {withIcon || isShowIconOnHover || isFilterActive ? (
-          <FilterAltOutlinedIcon
-            className={cx(classNames.headerIcon, {
-              [classNames.headerIconBlue]: isFilterActive,
-            })}
-          />
-        ) : null}
-      </div>
-    ),
+    }) => {
+      return (
+        <div
+          className={cx(classNames.multilineTextHeaderWrapper, {
+            [classNames.multilineTextHeaderCenter]: textCenter,
+            [classNames.multilineTextHeaderSpaceBetween]: component,
+          })}
+        >
+          <Tooltip title={withTooltip ? tooltipText || text : ''}>
+            <Typography className={classNames.multilineHeaderText} style={color && { color }}>
+              {text}
+            </Typography>
+          </Tooltip>
+          {component}
+          {withIcon || isShowIconOnHover || isFilterActive ? (
+            <FilterAltOutlinedIcon
+              className={cx(classNames.headerIcon, {
+                [classNames.headerIconBlue]: isFilterActive,
+              })}
+            />
+          ) : null}
+        </div>
+      )
+    },
     styles,
   ),
 )
@@ -3716,6 +3723,37 @@ export const MultipleAsinCell = React.memo(
         {asinList.map((asin, index) => (
           <AsinOrSkuLink key={index} withCopyValue asin={asin} />
         ))}
+      </div>
+    )
+  }, styles),
+)
+
+export const FreelancerMyProposalsActions = React.memo(
+  withStyles(props => {
+    const { classes: styles, status, onClickDeleteButton, onClickEditButton, onClickResultButton } = props
+
+    return (
+      <div className={styles.proposalsActions}>
+        <Button
+          danger
+          disabled={disabledCancelBtnStatuses.includes(status)}
+          className={styles.freelancerMyProposalsButton}
+          onClick={onClickDeleteButton}
+        >
+          <CloseIcon />
+        </Button>
+
+        <Button
+          className={styles.freelancerMyProposalsButton}
+          disabled={!noDisabledEditBtnStatuses.includes(status)}
+          onClick={onClickEditButton}
+        >
+          <EditOutlinedIcon />
+        </Button>
+
+        <Button success disabled={!showResultStatuses.includes(status)} onClick={onClickResultButton}>
+          {t(TranslationKey.Result)}
+        </Button>
       </div>
     )
   }, styles),

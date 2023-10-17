@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { Dispatch, FC, SetStateAction } from 'react'
+import ImageZoom from 'react-image-zooom'
 
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
@@ -8,12 +9,12 @@ import { Modal } from '@components/shared/modal'
 import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
 import { Arrows, ArrowsType } from '@components/shared/photo-and-files-slider/slider/slider.type'
 
+import { IUploadFile } from '@typings/upload-file'
+
 import { useStyles } from './zoom-modal.styles'
 
-import { ImageObjectType } from '../image-modal/image-modal'
-
 interface Props {
-  images: string[] | ImageObjectType[]
+  images: Array<string | IUploadFile>
   currentImageIndex: number
   isOpenModal: boolean
   setIsOpenModal: Dispatch<SetStateAction<boolean>>
@@ -61,11 +62,7 @@ export const ZoomModal: FC<Props> = observer(
           >
             {images.map((image, index) => (
               <div key={index} className={styles.imageWrapper}>
-                <img
-                  src={typeof image === 'string' ? image : image.url}
-                  alt={`Slide ${index + 1}`}
-                  className={styles.image}
-                />
+                <ImageZoom src={typeof image === 'string' ? image : image.data_url} className={styles.image} />
               </div>
             ))}
           </div>

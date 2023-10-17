@@ -74,7 +74,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
-    width: 220,
+    width: 240,
     sortable: false,
     filterable: false,
   },

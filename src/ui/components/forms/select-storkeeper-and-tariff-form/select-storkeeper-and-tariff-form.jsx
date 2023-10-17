@@ -1,6 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
@@ -36,9 +36,9 @@ export const SelectStorekeeperAndTariffForm = observer(
     currentDestinationId,
     RemoveDestinationRestriction,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: classNames } = useClassNames()
 
-    const [tabIndex, setTabIndex] = React.useState(0)
+    const [tabIndex, setTabIndex] = useState(0)
     const [nameSearchValue, setNameSearchValue] = useState('')
     const [curStorekeeper, setCurStorekeeper] = useState(
       curStorekeeperId
@@ -93,12 +93,24 @@ export const SelectStorekeeperAndTariffForm = observer(
           />
         </div>
 
-        <SearchInput
-          inputClasses={classNames.searchInput}
-          value={nameSearchValue}
-          placeholder={t(TranslationKey.search)}
-          onChange={e => setNameSearchValue(e.target.value)}
-        />
+        <div className={classNames.searchWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            value={nameSearchValue}
+            placeholder={t(TranslationKey.search)}
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
+
+          {RemoveDestinationRestriction && (
+            <div className={classNames.checkboxWrapper}>
+              <Checkbox
+                checked={isRemovedDestinationRestriction}
+                onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
+              />
+              <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
+            </div>
+          )}
+        </div>
 
         <div className={classNames.tabsWrapper}>
           <CustomSwitcher
@@ -153,19 +165,7 @@ export const SelectStorekeeperAndTariffForm = observer(
             />
           </div>
           {!inNotifications && (
-            <div
-              className={cx(classNames.clearBtnWrapper, { [classNames.oneItemWrapper]: !RemoveDestinationRestriction })}
-            >
-              {RemoveDestinationRestriction && (
-                <div className={classNames.checkboxWrapper}>
-                  <Checkbox
-                    checked={isRemovedDestinationRestriction}
-                    onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
-                  />
-                  <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
-                </div>
-              )}
-
+            <div className={classNames.clearBtnWrapper}>
               <Button
                 disableElevation
                 color="primary"
@@ -173,7 +173,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 className={classNames.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
-                  onSubmit(null, null, null)
+                  onSubmit(null, null, null, null, null, true)
                 }}
               >
                 {t(TranslationKey.reset)}

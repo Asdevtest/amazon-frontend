@@ -77,6 +77,7 @@ export class RequestDetailCustomViewModel {
       () => {
         runInAction(() => {
           this.mesSearchValue = ''
+          ChatModel.onChangeChatSelectedId(this.chatSelectedId)
         })
       },
     )
@@ -140,7 +141,7 @@ export class RequestDetailCustomViewModel {
   }
 
   onToggleMuteCurrentChat() {
-    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.chats)
   }
 
   onToggleMuteAllChats() {

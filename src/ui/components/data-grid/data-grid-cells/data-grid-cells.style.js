@@ -191,7 +191,7 @@ export const styles = theme => ({
     height: 'auto',
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
-    paddingLeft: 5,
+    padding: '0px 5px',
 
     '&::placeholder': {
       fontSize: 14,
@@ -1183,7 +1183,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '10px 0',
   },
 
   fourMonthesStockLabel: {
@@ -2057,5 +2056,25 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+  },
+
+  proposalsActions: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
+
+    button: {
+      height: '30px',
+    },
+
+    svg: {
+      width: '20px !important',
+      height: '20px !important',
+    },
+  },
+
+  freelancerMyProposalsButton: {
+    width: '30px',
   },
 })

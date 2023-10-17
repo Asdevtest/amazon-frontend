@@ -149,7 +149,7 @@ export class MessagesViewModel {
   }
 
   onToggleMuteCurrentChat() {
-    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.simpleChats)
   }
 
   onToggleMuteAllChats() {

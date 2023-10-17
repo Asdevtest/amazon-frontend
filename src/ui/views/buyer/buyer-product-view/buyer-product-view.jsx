@@ -23,7 +23,6 @@ export const BuyerProductView = observer(props => {
         location: props.location,
       }),
   )
-  // const { classes: classNames } = props;
 
   useEffect(() => {
     viewModel.loadData()

@@ -136,7 +136,7 @@ export const ProductLotDataForm = observer(
             <SearchInput
               value={nameSearchValue}
               inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Lot number search'])}
+              placeholder={t(TranslationKey['Lot number and FBA search'])}
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>

@@ -205,7 +205,6 @@
   "Terms & Conditions": "Положения и условия",
   "passwords dont match": "пароли не совпадают",
   "Enter the email of the user you want to add": "Введите электронную почту пользователя, которого хотите добавить",
-
   "Withdraw money": "Снять деньги",
   "Add money": "Внести деньги",
   "Freeze": "Заморожено",
@@ -410,7 +409,6 @@
   "Enter the offer price": "Введите цену предложения $*",
   "Time to complete, min*": "Время на выполнение, мин*",
   "Time to complete": "Время на выполнение",
-
   "Suggest": "Предложить",
   "The number of total successful transactions:": "Кол-во общих успешных сделок:",
   "Proposal Description": "Описание предложения",
@@ -801,7 +799,6 @@
   "Canceled by Admin": "Отменена Администратором",
   "Ready to verify by Supervisor": "Готова к проверке Супервизором",
   "To correct by Supervisor": "На доработке по решению Супервизора",
-
   "Product paid": "Товар оплачен",
   "Order successfully created!": "Заказ успешно создан!",
   "This item has been moved to Inventory": "Этот товар перемещён в Инвентарь",
@@ -1049,7 +1046,6 @@
   "Length must be a number conforming to the specified constraints": "Длина должна быть числом, соответствующим указанным ограничениям",
   "Weight must be a number conforming to the specified constraints": "Вес должен быть числом, соответствующим указанным ограничениям",
   "Fbafee must be a number conforming to the specified constraints": "Fbafee должено быть числом, соответствующим указанным ограничениям",
-
   "Money transfer is possible with the administrator at the link below:": "Перевод средств возможен при помощи администратора по ссылке ниже:",
   "Money transfer link": "Ссылка на перевод денежных средств",
   "Requests and proposals for them": "Заявки и предложения по ним",
@@ -1430,7 +1426,6 @@
   "Supplier was not found": "Поставщик не был найден",
   "Supplier was not found (сhecked)": "Поставщик не был найден (проверено)",
   "Supplier price does not fit (сhecked)": "Цена поставщика не подходит (проверено)",
-
   "Supplier price does not fit": "Цена поставщика не подходит",
   "Search complete": "Поиск завершен",
   "Product purchased": "Товар куплен",
@@ -1623,6 +1618,7 @@
   "Boxes and the quantity of the selected product in them": "Коробки и количество выбранного товара в них",
   "Watch the batch": "Смотреть партию",
   "Lot number search": "Поиск по номеру партии",
+  "Lot number and FBA search": "Поиск по номеру партии и FBA",
   "Open warehouse management": "Открыть управление складом",
   "Are you sure you want to move the tariff to the archive?": "Вы уверены, что хотите переместить тариф в архив?",
   "Are you sure you want to restore the tariff?": "Вы уверены, что хотите восстановить тариф?",
@@ -2128,11 +2124,17 @@
   "Status changed": "Статус изменен",
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
+  "Number of rework": "Кол-во доработок",
+  "Difficulty level": "Уровень сложности",
+  "Easy": "Просто",
+  "Normal": "Средне",
+  "Hard": "Сложно",
   "Are you sure?": "Вы уверены?",
   "Remove destination restriction": "Снять ограничение по пункту назначения",
   "Wish to change a destination?": "Желаете изменить пункт назначения?",
   "Price without delivery": "Цена без доставки",
   "Available request types": "Доступные типы заявок",
   "Approximate price": "Ориентировочная цена",
-  "Final status (cannot be changed)": "Финальный статус (изменить нельзя)"
+  "Final Status. Can't be changed once it's set": "Финальный статус. Нельзя изменить после выставления",
+  "Wish to set a destination?": "Желаете установить пункт назначения?"
 }

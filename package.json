@@ -70,6 +70,7 @@
     "react-dom": "^18.2.0",
     "react-favicon-notification": "^1.0.28",
     "react-highlight-words": "^0.18.0",
+    "react-image-zooom": "^1.2.0",
     "react-images-uploading-alex76457-version": "git+https://github.com/Alex76456/react-images-uploading-alex76456-version.git",
     "react-linkify-always-blank": "^1.4.0-alpha",
     "react-material-ui-carousel": "^3.4.2",

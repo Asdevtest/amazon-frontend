@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Chip, Typography } from '@mui/material'
 
@@ -438,15 +438,6 @@ export const MergeBoxesModal = ({
                     <div className={classNames.imageFileInputWrapper}>
                       <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
                     </div>
-
-                    {/* <div className={classNames.boxPhotoWrapperS}>
-                      <div className={classNames.boxPhotoWrapper}>
-                        <Typography className={classNames.standartLabel}>
-                          {t(TranslationKey['Photos of the box taken at the warehouse:'])}
-                        </Typography>
-                        <PhotoCarousel files={boxBody.images} imageClass={classNames.boxImageClass} />
-                      </div>
-                    </div> */}
                   </div>
                 }
               />
@@ -526,6 +517,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          RemoveDestinationRestriction
           showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
