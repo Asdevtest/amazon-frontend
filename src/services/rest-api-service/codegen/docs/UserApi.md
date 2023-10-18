@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**apiV1UsersFeedbackMyGet**](UserApi.md#apiV1UsersFeedbackMyGet) | **GET** /api/v1/users/feedback/my | Получить отзывы оставленые юзеру
 [**apiV1UsersForgotPasswordPost**](UserApi.md#apiV1UsersForgotPasswordPost) | **POST** /api/v1/users/forgot_password | Запросить смену пароля
 [**apiV1UsersGetAccessTokenPost**](UserApi.md#apiV1UsersGetAccessTokenPost) | **POST** /api/v1/users/get_access_token | # Получение токена авторизации.
+[**apiV1UsersInfoCountersGet**](UserApi.md#apiV1UsersInfoCountersGet) | **GET** /api/v1/users/info-counters | Получить счетчики-информации пользователя.
 [**apiV1UsersInfoGet**](UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 [**apiV1UsersInfoGuidGet**](UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 [**apiV1UsersLinkSubUserPatch**](UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
@@ -727,6 +728,58 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1UsersInfoCountersGet
+
+> UserInfoSchema apiV1UsersInfoCountersGet(opts)
+
+Получить счетчики-информации пользователя.
+
+## Получить счетчики-информации пользователя.  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1UsersInfoCountersGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**UserInfoSchema**](UserInfoSchema.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

@@ -735,6 +735,53 @@ export default class UserApi {
 
 
     /**
+     * Получить счетчики-информации пользователя.
+     * ## Получить счетчики-информации пользователя.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserInfoSchema} and HTTP response
+     */
+    apiV1UsersInfoCountersGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = UserInfoSchema;
+      return this.apiClient.callApi(
+        '/api/v1/users/info-counters', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить счетчики-информации пользователя.
+     * ## Получить счетчики-информации пользователя.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserInfoSchema}
+     */
+    apiV1UsersInfoCountersGet(opts) {
+      return this.apiV1UsersInfoCountersGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Получить информацию от текущем пользователе.
      * ## Получить информацию от текущем пользователе.   
      * @param {Object} opts Optional parameters
