@@ -105,12 +105,29 @@ class UserModelStatic {
   async getUserInfo() {
     try {
       const response = await restApiService.userApi.apiV1UsersInfoGet()
+      const counters = await this.getUsersInfoCounters()
 
       runInAction(() => {
-        this.userInfo = response
+        this.userInfo = { ...response, ...counters }
         this.userId = response._id
         this.masterUserId = response.masterUser?._id
       })
+      return response
+    } catch (error) {
+      this.accessToken = undefined
+      this.userInfo = undefined
+      this.userId = undefined
+      this.masterUserId = undefined
+      ChatModel.disconnect()
+
+      SettingsModel.setBreadcrumbsForProfile(null)
+    }
+  }
+
+  async getUsersInfoCounters() {
+    try {
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+
       return response
     } catch (error) {
       this.accessToken = undefined
