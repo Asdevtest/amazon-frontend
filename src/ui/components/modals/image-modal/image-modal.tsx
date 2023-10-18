@@ -82,7 +82,7 @@ export const ImageModal: FC<Props> = observer(
             <div className={styles.imagesList}>
               {photos?.map((photo, index) => {
                 const currentPhoto = typeof photo === 'string' ? photo : photo?.data_url
-                const isVideoType = checkIsVideoLink(currentPhoto)
+                const isVideoType = checkIsVideoLink(typeof photo === 'string' ? photo : photo?.file?.name)
 
                 return (
                   <div

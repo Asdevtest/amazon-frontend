@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { Dispatch, FC, SetStateAction } from 'react'
 
+import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { FileIcon } from '@components/shared//file-icon/file-icon'
@@ -117,12 +119,22 @@ export const Slider: FC<Props> = observer(
                       ?.split('.')
                       ?.slice(-1)?.[0]
                     const currentSlide = typeof slide === 'string' ? slide : slide?.data_url
+                    const i = index === currentIndex
 
                     return (
                       <div key={index} className={classNames.slideWrapper}>
                         {isImageType(slide) ? (
                           isVideoType(slide) ? (
-                            <VideoPlayer videoSource={currentSlide} contrlols={controls} />
+                            controls ? (
+                              <VideoPlayer videoSource={currentSlide} controls={controls} i={i} />
+                            ) : (
+                              <div className={classNames.preloaderContainer} onClick={onPhotosModalToggle}>
+                                <VideoPlayer videoSource={currentSlide} />
+                                <div className={classNames.preloader}>
+                                  <PlayCircleFilledWhiteOutlinedIcon className={classNames.preloaderIcon} />
+                                </div>
+                              </div>
+                            )
                           ) : (
                             <img
                               src={currentSlide}
