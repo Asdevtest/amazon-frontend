@@ -4,10 +4,7 @@ import { makePersistable } from 'mobx-persist-store'
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 
-import { ApiClient } from '@services/rest-api-service/codegen/src'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
-
-import { UserInfoContract } from './user-model.contracts'
 
 const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
 
@@ -53,22 +50,23 @@ class UserModelStatic {
   }
 
   async signIn(email, password) {
-    const response = await restApiService.userApi.apiV1UsersSignInPost({
-      body: {
+    await restApiService.userApi
+      .apiV1UsersSignInPost(undefined, {
         email,
         password,
-      },
-    })
+      })
+      .then(responseData => {
+        const response = responseData.data
+        const accessToken = response.accessToken
+        const refreshToken = response.refreshToken
+        runInAction(() => {
+          this.accessToken = accessToken
+          this.refreshToken = refreshToken
+        })
+        restApiService.setAccessToken(accessToken)
 
-    const accessToken = response.accessToken
-    const refreshToken = response.refreshToken
-    runInAction(() => {
-      this.accessToken = accessToken
-      this.refreshToken = refreshToken
-    })
-    restApiService.setAccessToken(accessToken)
-
-    return accessToken
+        return accessToken
+      })
   }
 
   async signUp({ name, email, password }) {
@@ -79,7 +77,7 @@ class UserModelStatic {
         password,
       },
     })
-    this.userInfo = ApiClient.convertToType(response, UserInfoContract)
+    this.userInfo = response
   }
 
   async isCheckUniqueUser({ name, email }) {
@@ -104,7 +102,8 @@ class UserModelStatic {
 
   async getUserInfo() {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoGet()
+      const responseData = await restApiService.userApi.apiV1UsersInfoGet()
+      const response = responseData.data
 
       runInAction(() => {
         this.userInfo = response

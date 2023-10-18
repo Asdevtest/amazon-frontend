@@ -4,73 +4,76 @@ import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { Configuration } from './codegen'
 import {
-  ApiClient,
+  AdministratorApi,
+  AnnouncementsApi,
+  BatchesApi,
   BoxesApi,
+  BuyerApi,
   ChatsApi,
+  ClientApi,
+  DashboardApi,
+  FreelancerApi,
   GeneralApi,
   IdeaApi,
   IntegrationsApi,
   OrderApi,
+  OtherApi,
   PermissionsApi,
+  ProductApi,
   RequestProposalsApi,
   RequestsApi,
+  ResearcherApi,
   ShopApi,
   ShopSellApi,
-} from './codegen/src'
-import AdministratorApi from './codegen/src/api/AdministratorApi'
-import AnnouncementsApi from './codegen/src/api/AnnouncementsApi'
-import BatchesApi from './codegen/src/api/BatchesApi'
-import BuyerApi from './codegen/src/api/BuyerApi'
-import ClientApi from './codegen/src/api/ClientApi'
-import DashboardApi from './codegen/src/api/DashboardApi'
-import FreelancerApi from './codegen/src/api/FreelancerApi'
-import OtherApi from './codegen/src/api/OtherApi'
-import Product from './codegen/src/api/ProductApi'
-import ResearcherApi from './codegen/src/api/ResearcherApi'
-import StorekeepersApi from './codegen/src/api/StorekeepersApi'
-import SupervisorApi from './codegen/src/api/SupervisorApi'
-import SupplierApi from './codegen/src/api/SupplierApi'
-import UserApi from './codegen/src/api/UserApi'
+  StorekeepersApi,
+  SupervisorApi,
+  SupplierApi,
+  UserApi,
+} from './codegen/api'
 
 const apiKeyPrefix = 'Bearer'
 
 class RestApiService {
-  apiClient = undefined
+  openapiConfig = new Configuration()
 
   constructor() {
-    this.apiClient = new ApiClient()
+    this.openapiConfig.basePath = BACKEND_API_URL
+
+    this.apiClient = new ClientApi()
     this.apiClient.basePath = BACKEND_API_URL
     this.apiClient.defaultHeaders = {
       'Access-Control-Allow-Origin': 'null',
     }
     this.apiClient.plugins = [this.handleAuthenticationError]
 
-    this.administratorApi = new AdministratorApi(this.apiClient)
-    this.announcementsApi = new AnnouncementsApi(this.apiClient)
-    this.buyerApi = new BuyerApi(this.apiClient)
-    this.clientApi = new ClientApi(this.apiClient)
-    this.product = new Product(this.apiClient)
-    this.researcherApi = new ResearcherApi(this.apiClient)
-    this.storkeepersApi = new StorekeepersApi(this.apiClient)
-    this.freelancerApi = new FreelancerApi(this.apiClient)
-    this.supervisorApi = new SupervisorApi(this.apiClient)
-    this.supplierApi = new SupplierApi(this.apiClient)
-    this.userApi = new UserApi(this.apiClient)
-    this.boxesApi = new BoxesApi(this.apiClient)
-    this.batchesApi = new BatchesApi(this.apiClient)
-    this.otherApi = new OtherApi(this.apiClient)
-    this.permissionsApi = new PermissionsApi(this.apiClient)
-    this.integrationsApi = new IntegrationsApi(this.apiClient)
-    this.dashboardApi = new DashboardApi(this.apiClient)
-    this.SearchRequestApi = new RequestsApi(this.apiClient)
-    this.RequestProposalsApi = new RequestProposalsApi(this.apiClient)
-    this.shopApi = new ShopApi(this.apiClient)
-    this.shopSellApi = new ShopSellApi(this.apiClient)
-    this.ideaApi = new IdeaApi(this.apiClient)
-    this.chatsApi = new ChatsApi(this.apiClient)
-    this.orderApi = new OrderApi(this.apiClient)
-    this.generalApi = new GeneralApi(this.apiClient)
+    this.administratorApi = new AdministratorApi(this.openapiConfig)
+    this.announcementsApi = new AnnouncementsApi(this.openapiConfig)
+    this.buyerApi = new BuyerApi(this.openapiConfig)
+    this.clientApi = new ClientApi(this.openapiConfig)
+    this.product = new ProductApi(this.openapiConfig)
+    this.researcherApi = new ResearcherApi(this.openapiConfig)
+    this.storkeepersApi = new StorekeepersApi(this.openapiConfig)
+    this.freelancerApi = new StorekeepersApi(this.openapiConfig)
+    // this.freelancerApi = new FreelancerApi(this.apiClient)
+    this.supervisorApi = new SupervisorApi(this.openapiConfig)
+    this.supplierApi = new SupplierApi(this.openapiConfig)
+    this.userApi = new UserApi(this.openapiConfig)
+    this.boxesApi = new BoxesApi(this.openapiConfig)
+    this.batchesApi = new BatchesApi(this.openapiConfig)
+    this.otherApi = new OtherApi(this.openapiConfig)
+    this.permissionsApi = new PermissionsApi(this.openapiConfig)
+    this.integrationsApi = new IntegrationsApi(this.openapiConfig)
+    this.dashboardApi = new DashboardApi(this.openapiConfig)
+    this.SearchRequestApi = new RequestsApi(this.openapiConfig)
+    this.RequestProposalsApi = new RequestProposalsApi(this.openapiConfig)
+    this.shopApi = new ShopApi(this.openapiConfig)
+    this.shopSellApi = new ShopSellApi(this.openapiConfig)
+    this.ideaApi = new IdeaApi(this.openapiConfig)
+    this.chatsApi = new ChatsApi(this.openapiConfig)
+    this.orderApi = new OrderApi(this.openapiConfig)
+    this.generalApi = new GeneralApi(this.openapiConfig)
   }
 
   handleAuthenticationError = require('superagent-intercept')(async (error, response) => {
@@ -105,14 +108,17 @@ class RestApiService {
   }
 
   setAccessToken = accessToken => {
-    this.apiClient.authentications = {
-      AccessTokenBearer: { ...this.apiClient.authentications.AccessTokenBearer, apiKeyPrefix, apiKey: accessToken },
+    this.openapiConfig.baseOptions = {
+      headers: { Authorization: `${apiKeyPrefix} ${accessToken}` },
     }
+    this.openapiConfig.accessToken = `${apiKeyPrefix} ${accessToken}`
   }
 
   removeAccessToken = () => {
-    delete this.apiClient.authentications.AccessTokenBearer.apiKeyPrefix
-    delete this.apiClient.authentications.AccessTokenBearer.apiKey
+    this.openapiConfig.baseOptions = {
+      headers: { Authorization: '' },
+    }
+    this.openapiConfig.accessToken = ''
   }
 }
 
