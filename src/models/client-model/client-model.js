@@ -32,30 +32,8 @@ class ClientModelStatic {
 
   getProductsMyFilteredByShopIdWithPag = async data => {
     const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(data)
-    return response
 
-    // console.log(`REQUEST_ START ${Date.now()}`)
-    // const st = Date.now()
-
-    // const response = await axios({
-    //   method: 'get',
-    //   url: `${BACKEND_API_URL}/api/v1/clients/products/my_with_pag`,
-    //   params: {
-    //     ...data,
-    //   },
-    //   headers: {
-    //     Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
-    //   },
-    // })
-    // console.log(`REQUEST_ END ${st - Date.now()}`)
-
-    // return response.data
-
-    // const res = await fetch(`${BACKEND_API_URL}/api/v1/clients/products/my_with_pag?limit=100&offset=0`, {
-    //   headers: {
-    //     authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
-    //   },
-    // }).then(resp => resp.json())
+    return response.data
   }
 
   makePayments = async productIds => {

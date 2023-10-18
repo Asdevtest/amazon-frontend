@@ -51,9 +51,11 @@ class UserModelStatic {
 
   async signIn(email, password) {
     await restApiService.userApi
-      .apiV1UsersSignInPost(undefined, {
-        email,
-        password,
+      .apiV1UsersSignInPost({
+        body: {
+          email,
+          password,
+        },
       })
       .then(responseData => {
         const response = responseData.data
@@ -77,7 +79,7 @@ class UserModelStatic {
         password,
       },
     })
-    this.userInfo = response
+    this.userInfo = response.data
   }
 
   async isCheckUniqueUser({ name, email }) {
@@ -104,13 +106,31 @@ class UserModelStatic {
     try {
       const responseData = await restApiService.userApi.apiV1UsersInfoGet()
       const response = responseData.data
+      const countersData = await this.getUsersInfoCounters()
+      const counters = countersData.data
 
       runInAction(() => {
-        this.userInfo = response
+        this.userInfo = { ...response, ...counters }
         this.userId = response._id
         this.masterUserId = response.masterUser?._id
       })
       return response
+    } catch (error) {
+      this.accessToken = undefined
+      this.userInfo = undefined
+      this.userId = undefined
+      this.masterUserId = undefined
+      ChatModel.disconnect()
+
+      SettingsModel.setBreadcrumbsForProfile(null)
+    }
+  }
+
+  async getUsersInfoCounters() {
+    try {
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+
+      return response.data
     } catch (error) {
       this.accessToken = undefined
       this.userInfo = undefined

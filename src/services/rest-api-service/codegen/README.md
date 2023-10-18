@@ -482,6 +482,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersFeedbackMyGet**](docs/UserApi.md#apiV1UsersFeedbackMyGet) | **GET** /api/v1/users/feedback/my | Получить отзывы оставленые юзеру
 *TestSwagger.UserApi* | [**apiV1UsersForgotPasswordPost**](docs/UserApi.md#apiV1UsersForgotPasswordPost) | **POST** /api/v1/users/forgot_password | Запросить смену пароля
 *TestSwagger.UserApi* | [**apiV1UsersGetAccessTokenPost**](docs/UserApi.md#apiV1UsersGetAccessTokenPost) | **POST** /api/v1/users/get_access_token | # Получение токена авторизации.
+*TestSwagger.UserApi* | [**apiV1UsersInfoCountersGet**](docs/UserApi.md#apiV1UsersInfoCountersGet) | **GET** /api/v1/users/info-counters | Получить счетчики-информации пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGuidGet**](docs/UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.

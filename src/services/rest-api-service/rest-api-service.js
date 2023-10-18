@@ -1,5 +1,3 @@
-import superagent from 'superagent'
-
 import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { SettingsModel } from '@models/settings-model'
@@ -46,7 +44,6 @@ class RestApiService {
     this.apiClient.defaultHeaders = {
       'Access-Control-Allow-Origin': 'null',
     }
-    this.apiClient.plugins = [this.handleAuthenticationError]
 
     this.administratorApi = new AdministratorApi(this.openapiConfig)
     this.announcementsApi = new AnnouncementsApi(this.openapiConfig)
@@ -74,37 +71,6 @@ class RestApiService {
     this.chatsApi = new ChatsApi(this.openapiConfig)
     this.orderApi = new OrderApi(this.openapiConfig)
     this.generalApi = new GeneralApi(this.openapiConfig)
-  }
-
-  handleAuthenticationError = require('superagent-intercept')(async (error, response) => {
-    if (
-      (response?.status === 403 && response?.statusText?.includes('Forbidden')) ||
-      (response?.status === 401 &&
-        (response?.statusText?.includes('Forbidden') || response?.statusText?.includes('Unauthorized')))
-    ) {
-      try {
-        const userModel = SettingsModel.loadValue('UserModel')
-        const { refreshToken } = userModel
-        await this.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } }).then(tokenResponse => {
-          this.setAccessToken(tokenResponse?.accessToken)
-          SettingsModel.saveValue('UserModel', { ...userModel, accessToken: tokenResponse?.accessToken })
-          this.retryRequestHandler(response?.req, tokenResponse?.accessToken)
-        })
-      } catch (error) {
-        console.log('Error while getting access token:', error)
-      }
-    }
-  })
-
-  async retryRequestHandler(request, token) {
-    const { method, url, header, body } = request
-
-    const validHeader = {
-      ...header,
-      Authorization: `${apiKeyPrefix} ${token}`,
-    }
-
-    await superagent(method, url).set(validHeader).send(body)
   }
 
   setAccessToken = accessToken => {

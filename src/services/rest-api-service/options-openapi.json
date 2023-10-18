@@ -2,5 +2,8 @@
   "modelPropertyNaming": "original",
   "useES6": true,
   "useInheritance": true,
-  "usePromises": true
+  "usePromises": true,
+  "useSingleRequestParameter": true,
+  "generatorName": "typescript-axios",
+  "prependFormOrBodyParameters": true
 }
