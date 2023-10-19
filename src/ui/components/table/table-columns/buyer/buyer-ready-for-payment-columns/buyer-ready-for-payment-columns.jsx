@@ -231,10 +231,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         ) : (
           <MultilineTextCell text={'-'} />
         ),
-      valueGetter: params =>
-        params.row.originalData.deadline
-          ? timeToDeadlineInHoursAndMins({ date: params.row.originalData.deadline })
-          : '',
+      valueGetter: params => (params.row.originalData.deadline ? formatDate(params.row.originalData.deadline) : ''),
       width: 100,
 
       columnKey: columnnsKeys.shared.DATE,
