@@ -75,13 +75,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         onMouseOut={handleMouseOut}
       />
 
-      <Header
-        shortNavbar={shortNavbar}
-        title={currentPageInfo.title}
-        onToggleModal={handleToggleModal}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      />
+      <Header title={currentPageInfo.title} onToggleModal={handleToggleModal} />
 
       <main className={classNames.main}>
         <BreadCrumbsLine />

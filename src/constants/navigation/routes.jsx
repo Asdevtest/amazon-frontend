@@ -493,12 +493,12 @@ const UserProfileView = lazy(() =>
   import('@views/shared/user-profile-view/user-profile-view').then(module => ({ default: module.UserProfileView })),
 )
 const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({ default: module.UsersView })))
-const VacantDealsDetailsView = lazy(() =>
+/* const VacantDealsDetailsView = lazy(() =>
   import('@views/shared/vacant-deals-details-view').then(module => ({ default: module.VacantDealsDetailsView })),
 )
 const VacantDealsView = lazy(() =>
   import('@views/shared/vacant-deals-view').then(module => ({ default: module.VacantDealsView })),
-)
+) */
 const VacantRequestsView = lazy(() =>
   import('@views/shared/vacant-requests-view/vacant-requests-view').then(module => ({
     default: module.VacantRequestsView,

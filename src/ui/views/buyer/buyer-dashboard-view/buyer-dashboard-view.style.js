@@ -15,6 +15,7 @@ export const styles = theme => ({
   cardImg: {
     width: '145px',
     height: '145px',
+    borderRadius: '50%',
   },
   userInfoLeftWrapper: {
     display: 'flex',
