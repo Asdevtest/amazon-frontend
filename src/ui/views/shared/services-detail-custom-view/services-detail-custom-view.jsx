@@ -7,9 +7,11 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ReviewsForm } from '@components/forms/reviews-form'
 import { MyServicesInfoCustom } from '@components/my-services/my-services-info-custom'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -44,6 +46,7 @@ export const ServicesDetailCustomViewRaw = props => {
           <MyServicesInfoCustom
             request={viewModel.request}
             announcementData={viewModel.announcementData}
+            onClickReview={viewModel.onClickReview}
             onClickSuggestDealBtn={viewModel.onClickSuggestDealBtn}
           />
         </div>
@@ -77,6 +80,14 @@ export const ServicesDetailCustomViewRaw = props => {
           onClickSuccessBtn={onClickCancelRequestProposal}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         /> */}
+
+      <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
+        <ReviewsForm
+          reviews={viewModel.currentReviews}
+          user={viewModel.currentReviewModalUser}
+          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+        />
+      </Modal>
     </React.Fragment>
   )
 }

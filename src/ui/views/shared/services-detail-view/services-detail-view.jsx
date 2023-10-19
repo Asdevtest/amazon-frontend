@@ -9,9 +9,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyServicesInfo } from '@components/my-services/my-services-info'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -38,6 +40,7 @@ export const ServiceDetailsViewRaw = props => {
       <div>
         <MyServicesInfo
           announcementData={viewModel.announcementData}
+          onClickReview={viewModel.onClickReview}
           onClickEditBtn={viewModel.onClickEditBtn}
           onClickBackBtn={viewModel.onClickBackBtn}
           onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
@@ -106,6 +109,14 @@ export const ServiceDetailsViewRaw = props => {
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
+
+      <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
+        <ReviewsForm
+          reviews={viewModel.currentReviews}
+          user={viewModel.currentReviewModalUser}
+          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+        />
+      </Modal>
     </React.Fragment>
   )
 }
