@@ -5,5 +5,8 @@
   "usePromises": true,
   "useSingleRequestParameter": true,
   "generatorName": "typescript-axios",
-  "prependFormOrBodyParameters": true
+  "prependFormOrBodyParameters": true,
+  "withSeparateModelsAndApi": true,
+  "apiPackage": "api",
+  "modelPackage": "models"
 }

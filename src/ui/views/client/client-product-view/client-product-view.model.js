@@ -336,7 +336,7 @@ export class ClientProductViewModel {
   async getProductById() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await ProductModel.getProductById(this.productId)
+      const result = await ProductModel.getProductById({ guid: this.productId })
 
       runInAction(() => {
         this.product = result

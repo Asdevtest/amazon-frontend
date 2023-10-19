@@ -13,7 +13,7 @@ class ShopModelStatic {
 
   getMyShopNames = async () => {
     const response = await restApiService.shopApi.apiV1ShopsNamesGet()
-    return response
+    return response.data
   }
 
   editShop = async (id, data) => {

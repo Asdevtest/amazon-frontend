@@ -194,9 +194,7 @@ export class AdminExchangeViewModel {
 
   async getProductsByStatus() {
     try {
-      const result = await AdministratorModel.getProductsByStatus({
-        status: productsStatusBySubCategory[this.activeSubCategory],
-      })
+      const result = await AdministratorModel.getProductsByStatus(productsStatusBySubCategory[this.activeSubCategory])
 
       const productsData = adminProductsDataConverter(result)
 

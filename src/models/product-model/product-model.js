@@ -8,7 +8,7 @@ class ProductModelStatic {
 
   getProductById = async id => {
     const response = await restApiService.product.apiV1ProductsGuidGet(id)
-    return response
+    return response.data
   }
 
   updateProduct = async (id, data) => {

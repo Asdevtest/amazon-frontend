@@ -3,80 +3,87 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 export class BatchesModelStatic {
   getBatches = async status => {
     const response = await restApiService.batchesApi.apiV1BatchesGet({ status })
-    return response
+    return response.data
   }
 
   calculateBoxDeliveryCostsInBatch = async boxesIds => {
     const response = await restApiService.batchesApi.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost({
       body: { boxesIds },
     })
-    return response
+    return response.data
   }
 
   requestSendBoxToBatch = async boxesIds => {
     const response = await restApiService.batchesApi.apiV1BatchesRequestSendBoxesToBatchPost({
       body: { cancel: false, boxesIds },
     })
-    return response
+    return response.data
   }
 
-  createBatch = async data => {
+  createBatch = async body => {
     const response = await restApiService.batchesApi.apiV1BatchesPost({
-      body: data,
+      body,
     })
-    return response
+    return response.data
   }
 
-  changeBatch = async (id, data) => {
-    const response = await restApiService.batchesApi.apiV1BatchesGuidPatch(id, {
-      body: data,
+  changeBatch = async (guid, body) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  removeBoxFromBatch = async (id, boxesIds) => {
-    const response = await restApiService.batchesApi.apiV1BatchesGuidRemoveBoxesPatch(id, {
+  removeBoxFromBatch = async (guid, boxesIds) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidRemoveBoxesPatch({
+      guid,
       body: { boxesIds },
     })
-    return response
+    return response.data
   }
 
-  addBoxToBatch = async (id, boxesIds) => {
-    const response = await restApiService.batchesApi.apiV1BatchesGuidAddBoxesPatch(id, {
+  addBoxToBatch = async (guid, boxesIds) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidAddBoxesPatch({
+      guid,
       body: { boxesIds },
     })
-    return response
+    return response.data
   }
 
-  confirmSentToBatch = async id => {
-    const response = await restApiService.batchesApi.apiV1BatchesGuidBatchHasDispatchedPatch(id)
-    return response
+  confirmSentToBatch = async guid => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidBatchHasDispatchedPatch({ guid })
+    return response.data
   }
 
-  editAttachedDocuments = async (id, data) => {
-    const response = await restApiService.batchesApi.apiV1BatchesGuidEditAttachedDocumentsPatch(id, {
+  editAttachedDocuments = async (guid, data) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidEditAttachedDocumentsPatch({
+      guid,
       body: { attachedDocuments: data },
     })
-    return response
+    return response.data
   }
 
-  getBatchesbyProduct = async (id, data) => {
-    const response = await restApiService.batchesApi.apiV1BatchesByProductGuidGet(id, data)
-    return response
+  getBatchesbyProduct = async (guid, archive) => {
+    const response = await restApiService.batchesApi.apiV1BatchesByProductGuidGet({
+      guid,
+      archive,
+    })
+    return response.data
   }
 
-  getBatchesByGuid = async id => {
-    const response = await restApiService.batchesApi.apiV1BatchesGuidGet(id)
-    return response
+  getBatchesByGuid = async guid => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidGet({ guid })
+    return response.data
   }
 
-  getBatchesWithFiltersPag = async data => {
-    const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet(data.status, data.options)
+  getBatchesWithFiltersPag = async body => {
+    const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet({ body })
     return response
   }
-  editUpdateBatches = async data => {
+  editUpdateBatches = async body => {
     const response = await restApiService.batchesApi.apiV1BatchesArchivePatch({
-      body: data,
+      body,
     })
     return response
   }
