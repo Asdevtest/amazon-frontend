@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
 
@@ -78,25 +78,34 @@ export const NavbarDrawerContent: FC<Props> = observer(
     showConfirmModal,
   }) => {
     const { classes: classNames } = useClassNames()
+    const [filteredCategories] = useState(() =>
+      curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(
+        el => !el.route?.includes('/messages'),
+      ),
+    )
+    const [filteredBottomCategories] = useState(() =>
+      curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(el =>
+        el.route?.includes('/messages'),
+      ),
+    )
 
     return (
       <div className={classNames.mainSubWrapper}>
         <List className={classNames.categoriesWrapper}>
-          {curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar]
-            .filter(el => !el.route?.includes('/messages'))
-            .map((category, index) =>
-              category.checkHideBlock(userInfo) ? (
-                <React.Fragment key={index}>
-                  <NavbarCategory
-                    classes=""
-                    isSelected={category.key === activeCategory}
-                    shortNavbar={shortNavbar}
-                    userInfo={userInfo}
-                    category={category}
-                    badge={getCategoryBadge(category, userInfo)}
-                    onToggleModal={onToggleModal}
-                  />
+          {filteredCategories.map((category, index) =>
+            category.checkHideBlock(userInfo) ? (
+              <React.Fragment key={index}>
+                <NavbarCategory
+                  classes=""
+                  isSelected={category.key === activeCategory}
+                  shortNavbar={shortNavbar}
+                  userInfo={userInfo}
+                  category={category}
+                  badge={getCategoryBadge(category, userInfo)}
+                  onToggleModal={onToggleModal}
+                />
 
+                {category.key === activeCategory && (
                   <NavbarCollapse
                     showHighPriorityNotification
                     shortNavbar={shortNavbar}
@@ -107,29 +116,28 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     userInfo={userInfo}
                     currentViewModel={viewModel}
                   />
-                </React.Fragment>
-              ) : null,
-            )}
+                )}
+              </React.Fragment>
+            ) : null,
+          )}
         </List>
 
         <div className={classNames.bottomCategories}>
-          {curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar]
-            .filter(el => el.route?.includes('/messages'))
-            .map((category, index) =>
-              category.checkHideBlock(userInfo) ? (
-                <React.Fragment key={index}>
-                  <NavbarCategory
-                    classes=""
-                    shortNavbar={shortNavbar}
-                    isSelected={category.key === activeCategory}
-                    userInfo={userInfo}
-                    category={category}
-                    badge={category.route?.includes('/messages') && viewModel.unreadMessages}
-                    onToggleModal={onToggleModal}
-                  />
-                </React.Fragment>
-              ) : null,
-            )}
+          {filteredBottomCategories.map((category, index) =>
+            category.checkHideBlock(userInfo) ? (
+              <React.Fragment key={index}>
+                <NavbarCategory
+                  classes=""
+                  shortNavbar={shortNavbar}
+                  isSelected={category.key === activeCategory}
+                  userInfo={userInfo}
+                  category={category}
+                  badge={category.route?.includes('/messages') && viewModel.unreadMessages}
+                  onToggleModal={onToggleModal}
+                />
+              </React.Fragment>
+            ) : null,
+          )}
 
           {!checkIsAdmin(UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap]) ? (
             <div

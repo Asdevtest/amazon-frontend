@@ -304,7 +304,6 @@ export const NavbarCollapse = ({
       )}
 
       <Menu
-        keepMounted
         id="simple-menu"
         anchorEl={menuAnchor}
         autoFocus={false}
