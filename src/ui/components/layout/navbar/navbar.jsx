@@ -18,17 +18,7 @@ import { useClassNames } from './navbar.styles'
 import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
-  ({
-    shortNavbar,
-    activeCategory,
-    isHovering,
-    activeSubCategory,
-    isOpenModal,
-    onMouseOver,
-    onMouseOut,
-    onShowNavbar,
-    onToggleModal,
-  }) => {
+  ({ shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal }) => {
     const { classes: classNames } = useClassNames()
 
     const viewModel = useRef(new NavbarModel())
@@ -52,25 +42,24 @@ export const Navbar = observer(
     }, [SettingsModel.languageTag])
 
     return (
-      <div className={classNames.navbar} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+      <div className={classNames.navbar}>
         <div className={classNames.logoWrapper}>
           {shortNavbar ? (
             <ShortLogoIcon className={classNames.logoIconShort} />
           ) : (
             <LogoIcon className={classNames.logoIcon} />
           )}
-          {isHovering && (
-            <div
-              className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
-              onClick={onShowNavbar}
-            >
-              {shortNavbar ? (
-                <ArrowForwardIosIcon className={classNames.arrowIcon} />
-              ) : (
-                <ArrowBackIosIcon className={classNames.arrowIcon} />
-              )}
-            </div>
-          )}
+          <div
+            id="hideAndShowIcon"
+            className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
+            onClick={onShowNavbar}
+          >
+            {shortNavbar ? (
+              <ArrowForwardIosIcon className={classNames.arrowIcon} />
+            ) : (
+              <ArrowBackIosIcon className={classNames.arrowIcon} />
+            )}
+          </div>
         </div>
 
         <DrawerModal open={isOpenModal} onClose={onToggleModal}>
