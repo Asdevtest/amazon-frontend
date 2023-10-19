@@ -13,7 +13,6 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import { Avatar, Divider } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import Tooltip from '@mui/material/Tooltip'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -38,7 +37,6 @@ import { useClassNames } from './header.styles'
 import { HeaderModel } from './header.model'
 
 interface Props {
-  shortNavbar: boolean
   title: string
   onToggleModal: VoidFunction
 }
@@ -252,12 +250,10 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
+          <img className={classNames.avatar} src={getUserAvatarSrc(userId)} />
 
           <div className={classNames.userNameAndBalanceWrapper}>
-            <Tooltip title={userName}>
-              <p className={classNames.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
-            </Tooltip>
+            <p className={classNames.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
 
             {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
               <p className={classNames.balance}>{toFixedWithDollarSign(balance, 2)}</p>
@@ -267,78 +263,80 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
         </div>
       </div>
 
-      <DialogModal open={Boolean(anchorEl)} onClose={handleClose}>
-        <Menu
-          keepMounted
-          id="simple-menu"
-          anchorEl={anchorEl}
-          autoFocus={false}
-          open={Boolean(anchorEl)}
-          classes={{ root: classNames.menu, list: classNames.list }}
-          onClose={handleClose}
-        >
-          <MenuItem className={classNames.menuClientInfoWrapper} onClick={handleClose}>
-            <div className={classNames.menuClientInfo}>
-              <p className={classNames.menuClientInfoText}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
+      {Boolean(anchorEl) && (
+        <DialogModal open={Boolean(anchorEl)} onClose={handleClose}>
+          <Menu
+            keepMounted
+            id="simple-menu"
+            anchorEl={anchorEl}
+            autoFocus={false}
+            open={Boolean(anchorEl)}
+            classes={{ root: classNames.menu, list: classNames.list }}
+            onClose={handleClose}
+          >
+            <MenuItem className={classNames.menuClientInfoWrapper} onClick={handleClose}>
+              <div className={classNames.menuClientInfo}>
+                <p className={classNames.menuClientInfoText}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
 
-              {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-                <p className={classNames.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</p>
+                {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
+                  <p className={classNames.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</p>
+                )}
+              </div>
+
+              <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
+            </MenuItem>
+            <MenuItem className={classNames.mobileAllowedRolesWrapper} onClick={handleClose}>
+              <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
+              {allowedRolesWithoutCandidate?.length > 1 ? (
+                <div className={classNames.allowedRolesWrapper}>
+                  {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                    <div key={roleCode} className={classNames.userRoleWrapper}>
+                      {roleCode === role ? <span className={classNames.indicator}></span> : null}
+
+                      <p
+                        className={cx(classNames.userRole, {
+                          [classNames.currentAllowedRolesItem]: roleCode === role,
+                        })}
+                        onClick={() => onChangeUserInfo(roleCode)}
+                      >
+                        {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={classNames.userRoleWrapper}>
+                  <span className={classNames.indicator}></span>
+                  <p className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
+                    {(UserRoleCodeMap as { [key: number]: string })[role]}
+                  </p>
+                </div>
               )}
-            </div>
+            </MenuItem>
 
-            <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
-          </MenuItem>
-          <MenuItem className={classNames.mobileAllowedRolesWrapper} onClick={handleClose}>
-            <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
-            {allowedRolesWithoutCandidate?.length > 1 ? (
-              <div className={classNames.allowedRolesWrapper}>
-                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                  <div key={roleCode} className={classNames.userRoleWrapper}>
-                    {roleCode === role ? <span className={classNames.indicator}></span> : null}
-
-                    <p
-                      className={cx(classNames.userRole, {
-                        [classNames.currentAllowedRolesItem]: roleCode === role,
-                      })}
-                      onClick={() => onChangeUserInfo(roleCode)}
-                    >
-                      {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className={classNames.userRoleWrapper}>
-                <span className={classNames.indicator}></span>
-                <p className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
-                  {(UserRoleCodeMap as { [key: number]: string })[role]}
-                </p>
-              </div>
-            )}
-          </MenuItem>
-
-          <MenuItem
-            className={classNames.menuItem}
-            onClick={() => {
-              onClickProfile()
-              handleClose()
-            }}
-          >
-            <PersonIcon className={classNames.icon} />
-            {t(TranslationKey.Profile)}
-          </MenuItem>
-          <MenuItem
-            className={classNames.menuItem}
-            onClick={() => {
-              onClickExit()
-              handleClose()
-            }}
-          >
-            <ExitIcon className={classNames.icon} />
-            {t(TranslationKey.Exit)}
-          </MenuItem>
-        </Menu>
-      </DialogModal>
+            <MenuItem
+              className={classNames.menuItem}
+              onClick={() => {
+                onClickProfile()
+                handleClose()
+              }}
+            >
+              <PersonIcon className={classNames.icon} />
+              {t(TranslationKey.Profile)}
+            </MenuItem>
+            <MenuItem
+              className={classNames.menuItem}
+              onClick={() => {
+                onClickExit()
+                handleClose()
+              }}
+            >
+              <ExitIcon className={classNames.icon} />
+              {t(TranslationKey.Exit)}
+            </MenuItem>
+          </Menu>
+        </DialogModal>
+      )}
     </div>
   )
 })

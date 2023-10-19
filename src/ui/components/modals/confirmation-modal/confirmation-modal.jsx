@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -79,7 +79,7 @@ export const ConfirmationModal = props => {
   }, [])
 
   return (
-    <Modal /* isWarning={isWarning}*/ openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div
         className={cx({
           [classNames.warningModalMessageWrapper]: isWarning,

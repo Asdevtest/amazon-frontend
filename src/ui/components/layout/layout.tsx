@@ -69,7 +69,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         onShowNavbar={handleShowNavbar}
       />
 
-      <Header shortNavbar={shortNavbar} title={currentPageInfo.title} onToggleModal={handleToggleModal} />
+      <Header title={currentPageInfo.title} onToggleModal={handleToggleModal} />
 
       <main className={classNames.main}>
         <BreadCrumbsLine />
