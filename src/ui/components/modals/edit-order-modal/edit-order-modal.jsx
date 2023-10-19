@@ -1124,9 +1124,9 @@ export const EditOrderModal = observer(
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
           <SupplierPaymentForm
-            item={orderFields}
             uploadedFiles={paymentDetailsPhotosToLoad}
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
+            setEditPaymentDetailsPhotos={setEditPaymentDetailsPhotos}
             onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
