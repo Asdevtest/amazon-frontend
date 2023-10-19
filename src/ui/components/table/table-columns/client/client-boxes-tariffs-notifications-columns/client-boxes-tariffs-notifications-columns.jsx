@@ -55,17 +55,14 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
 
     width: 400,
     renderCell: params => {
-      return (
-        // console.log(params.row),
-        params.row.originalData.items.length > 1 ? (
-          <OrderManyItemsCell box={params.row.originalData} />
-        ) : (
-          <OrderCell
-            product={params.row.originalData.items[0].product}
-            superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-            box={params.row.originalData}
-          />
-        )
+      return params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row.originalData} />
+      ) : (
+        <OrderCell
+          product={params.row.originalData.items[0].product}
+          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          box={params.row.originalData}
+        />
       )
     },
     filterable: false,
