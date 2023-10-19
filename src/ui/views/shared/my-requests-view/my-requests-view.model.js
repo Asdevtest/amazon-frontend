@@ -414,7 +414,7 @@ export class MyRequestsViewModel {
     this.history.push(`/client/freelance/my-requests/create-request`)
   }
 
-  onClickEditBtn(row) {
+  onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
       { requestId: this.currentRequestDetails.request._id },

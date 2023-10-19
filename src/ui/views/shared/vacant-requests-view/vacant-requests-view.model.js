@@ -232,7 +232,11 @@ export class VacantRequestsViewModel {
             : this.selectedTaskType,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length
+          ? this.sortModel[0].field === 'deadline'
+            ? 'timeoutAt'
+            : this.sortModel[0].field
+          : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 

@@ -141,15 +141,13 @@ export const ImageModal: FC<Props> = observer(
           </div>
         </div>
 
-        {openImageZoomModal ? (
-          <ZoomModal
-            images={photos}
-            currentImageIndex={photoIndex}
-            isOpenModal={openImageZoomModal}
-            setIsOpenModal={onOpenImageZoomModal}
-            setCurrentImageIndex={setPhotoIndex}
-          />
-        ) : null}
+        <ZoomModal
+          images={photos}
+          currentImageIndex={photoIndex}
+          isOpenModal={openImageZoomModal}
+          setIsOpenModal={onOpenImageZoomModal}
+          setCurrentImageIndex={setPhotoIndex}
+        />
 
         <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
           <ImageEditForm

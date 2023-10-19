@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
@@ -35,7 +34,6 @@ import {
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
-import { checkIsImageLink } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
@@ -50,7 +48,7 @@ export const BatchInfoModal = observer(
     openModal,
     setOpenModal,
     batch,
-    volumeWeightCoefficient,
+    // volumeWeightCoefficient,
     userInfo,
     onSubmitChangeBoxFields,
     onClickHsCode,
@@ -243,7 +241,6 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.headerSubWrapper}>
-            {/* <div className={classNames.datesWrapper}> */}
             <Field
               disabled
               classes={{ disabled: classNames.disabled }}
@@ -338,7 +335,6 @@ export const BatchInfoModal = observer(
                 />
               }
             />
-            {/* </div> */}
 
             <SearchInput
               inputClasses={classNames.searchInput}
@@ -360,7 +356,7 @@ export const BatchInfoModal = observer(
                 {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
               </Typography>
             </div>
-            {/* <div style={{flexGrow: 1}}> */}
+
             <MemoDataGrid
               // hideFooter
               // autoHeight

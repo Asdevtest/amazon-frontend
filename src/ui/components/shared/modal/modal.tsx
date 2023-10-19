@@ -3,7 +3,7 @@ import { ClassNamesArg } from '@emotion/react'
 import React, { FC, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import { Breakpoint, Dialog, DialogContent } from '@mui/material'
+import { Dialog, DialogContent } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
