@@ -85,7 +85,7 @@ export class BatchesModelStatic {
     const response = await restApiService.batchesApi.apiV1BatchesArchivePatch({
       body,
     })
-    return response
+    return response.data
   }
 }
 
