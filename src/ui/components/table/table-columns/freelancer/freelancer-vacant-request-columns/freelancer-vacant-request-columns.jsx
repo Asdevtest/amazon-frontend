@@ -77,7 +77,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
