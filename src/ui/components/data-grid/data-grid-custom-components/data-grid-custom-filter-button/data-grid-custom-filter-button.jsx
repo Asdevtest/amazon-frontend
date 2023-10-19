@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { t } from 'i18n-js'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Menu, Typography } from '@mui/material'
@@ -14,7 +13,7 @@ import { useClassNames } from './data-grid-custom-filter-button.style'
 
 export const DataGridCustomFilterButton = props => {
   const { classes: classNames } = useClassNames()
-  const { className, ...other } = props
+  const { className } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -36,16 +35,11 @@ export const DataGridCustomFilterButton = props => {
         </div>
       </Button>
 
-      <Menu
-        keepMounted
-        anchorEl={menuAnchor}
-        autoFocus={false}
-        open={Boolean(menuAnchor)}
-        // classes={{paper: classNames.menu, list: classNames.list}}
-        onClose={handleClose}
-      >
-        <div style={{ /* background: 'green', */ width: '2000px', height: 200 }}></div>
-      </Menu>
+      {Boolean(menuAnchor) && (
+        <Menu keepMounted anchorEl={menuAnchor} autoFocus={false} open={Boolean(menuAnchor)} onClose={handleClose}>
+          <div style={{ width: '2000px', height: 200 }}></div>
+        </Menu>
+      )}
     </div>
   )
 }

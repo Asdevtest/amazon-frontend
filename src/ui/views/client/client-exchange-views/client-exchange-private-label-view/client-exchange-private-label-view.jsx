@@ -66,21 +66,6 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         />
       </Modal>
 
-      {/* <ConfirmationModal
-          openModal={viewModel.showConfirmPayModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
-          title={t(TranslationKey['You buy a product card, are you sure?'])}
-          message={`${t(TranslationKey['You will be charged'])} (${
-            productToPay && toFixedWithDollarSign(productToPay.priceForClient, 2)
-          })`}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={() => {
-            onClickBuyProductBtn(productToPay)
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
-        /> */}
-
       <SuccessInfoModal
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}

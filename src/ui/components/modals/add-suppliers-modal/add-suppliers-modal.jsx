@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Container, Link, Typography } from '@mui/material'
 
@@ -12,11 +12,6 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {Button} from '@components/buttons/button'
-// import {Field} from '@components/field'
-// import {checkIsPositiveNum} from '@utils/checks'
-// import {t} from '@utils/translations'
 import { useClassNames } from './add-suppliers-modal.style'
 
 import Template from './template.xlsx'

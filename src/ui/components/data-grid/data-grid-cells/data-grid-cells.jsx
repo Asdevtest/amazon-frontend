@@ -431,40 +431,42 @@ export const StringListCell = React.memo(
             </Button>
           ) : null}
 
-          <Menu
-            keepMounted
-            anchorEl={menuAnchor}
-            autoFocus={false}
-            open={Boolean(menuAnchor)}
-            // classes={{paper: classNames.menu, list: classNames.list}}
-            transformOrigin={{ horizontal: 'center', vertical: 'top' }}
-            anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-            onClose={handleClose}
-          >
-            <div className={classNames.stringListMenuWrapper}>
-              <div className={classNames.searchInputWrapper}>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey.Search)}
-                  onChange={e => {
-                    setNameSearchValue(e.target.value)
-                  }}
-                />
-              </div>
-              <div className={classNames.shopsWrapper}>
-                <div className={classNames.shopsBody}>
-                  {itemsForRender?.map((item, i) => (
-                    <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                      <Typography className={classNames.shopOrderText}>
-                        {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                      </Typography>
-                      {withCopy && <CopyValue text={item} />}
-                    </div>
-                  ))}
+          {Boolean(menuAnchor) && (
+            <Menu
+              keepMounted
+              anchorEl={menuAnchor}
+              autoFocus={false}
+              open={Boolean(menuAnchor)}
+              // classes={{paper: classNames.menu, list: classNames.list}}
+              transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+              onClose={handleClose}
+            >
+              <div className={classNames.stringListMenuWrapper}>
+                <div className={classNames.searchInputWrapper}>
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    placeholder={t(TranslationKey.Search)}
+                    onChange={e => {
+                      setNameSearchValue(e.target.value)
+                    }}
+                  />
+                </div>
+                <div className={classNames.shopsWrapper}>
+                  <div className={classNames.shopsBody}>
+                    {itemsForRender?.map((item, i) => (
+                      <div key={i} className={classNames.multilineTextHeaderWrapper}>
+                        <Typography className={classNames.shopOrderText}>
+                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                        </Typography>
+                        {withCopy && <CopyValue text={item} />}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Menu>
+            </Menu>
+          )}
         </div>
       )
     },
