@@ -48,7 +48,6 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   }, [])
 
   const handleShowNavbar = () => {
-    console.log(1)
     setShortNavbar(!shortNavbar)
   }
 
