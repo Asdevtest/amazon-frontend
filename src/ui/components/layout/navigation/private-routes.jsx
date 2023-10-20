@@ -34,7 +34,7 @@ export const PrivateRoutes = observer(() => {
     } else if (location.pathname === targetRoute) {
       setTargetRoute('')
     } else if (UserModel.isAuthenticated()) {
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
     }
   }, [location.pathname])
 

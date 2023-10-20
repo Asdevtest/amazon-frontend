@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-indent */
 import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
 import { useCallback, useEffect, useState } from 'react'
@@ -359,7 +358,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           <Accordion
             disableGutters
             classes={{ root: classNames.accordionMain }}
-            // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
             expanded={showDetails}
             onChange={onClickToShowDetails}
           >
@@ -371,7 +369,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
                 expandIconWrapper: classNames.expandIconWrapper,
               }}
             >
-              <Typography className={cx(classNames.headerLabel /* , classNames.labelMargin */)}>
+              <Typography className={classNames.headerLabel}>
                 {showDetails ? t(TranslationKey['Hide image guidelines']) : t(TranslationKey['Show image guidelines'])}
               </Typography>
             </AccordionSummary>
@@ -414,9 +412,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
             label={t(TranslationKey['Time till deadline'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {minsToTime(proposal.proposal.execution_time)}
-              </Typography>
+              <Typography className={classNames.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</Typography>
             }
           />
 
@@ -494,18 +490,16 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      {showImageModal ? (
-        <ImageModal
-          showPreviews
-          isOpenModal={showImageModal}
-          handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={filteredImages.map(el => el.fileLink)}
-          photosTitles={filteredImages.map(el => el.title)}
-          photosComments={filteredImages.map(el => el.comment)}
-          currentImageIndex={curImageIndex}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
-        />
-      ) : null}
+      <ImageModal
+        showPreviews
+        isOpenModal={showImageModal}
+        handleOpenModal={() => setShowImageModal(!showImageModal)}
+        imageList={filteredImages.map(el => el.fileLink)}
+        photosTitles={filteredImages.map(el => el.title)}
+        photosComments={filteredImages.map(el => el.comment)}
+        currentImageIndex={curImageIndex}
+        handleCurrentImageIndex={index => setCurImageIndex(index)}
+      />
     </div>
   )
 }

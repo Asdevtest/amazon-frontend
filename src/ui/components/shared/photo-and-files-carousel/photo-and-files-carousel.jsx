@@ -111,8 +111,6 @@ export const PhotoAndFilesCarousel = props => {
   }
 
   const onClickEditImageSubmit = image => {
-    console.log(image)
-    console.log(bigImagesOptions)
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,

@@ -303,25 +303,27 @@ export const NavbarCollapse = ({
         </>
       )}
 
-      <Menu
-        keepMounted
-        id="simple-menu"
-        anchorEl={menuAnchor}
-        autoFocus={false}
-        open={Boolean(menuAnchor)}
-        classes={{ paper: classNames.menu, list: classNames.list }}
-        onClose={handleClose}
-      >
-        <List disablePadding>
-          {category.subtitles?.map((subCategory, subIndex) =>
-            subCategory.checkHideSubBlock
-              ? subCategory.checkHideSubBlock(userInfo)
-                ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
-                : null
-              : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),
-          )}
-        </List>
-      </Menu>
+      {Boolean(menuAnchor) && (
+        <Menu
+          keepMounted
+          id="simple-menu"
+          anchorEl={menuAnchor}
+          autoFocus={false}
+          open={Boolean(menuAnchor)}
+          classes={{ paper: classNames.menu, list: classNames.list }}
+          onClose={handleClose}
+        >
+          <List disablePadding>
+            {category.subtitles?.map((subCategory, subIndex) =>
+              subCategory.checkHideSubBlock
+                ? subCategory.checkHideSubBlock(userInfo)
+                  ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
+                  : null
+                : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),
+            )}
+          </List>
+        </Menu>
+      )}
     </Collapse>
   )
 }

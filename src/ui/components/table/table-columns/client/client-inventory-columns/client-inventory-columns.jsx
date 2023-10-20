@@ -131,7 +131,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -148,7 +148,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -165,7 +165,8 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    // renderCell: params => <MultilineTextCell text={String(params.value)} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
 

@@ -85,7 +85,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => (
       <MultilineTextHeaderCell
@@ -98,7 +98,9 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         text={t(TranslationKey.Product)}
       />
     ),
-    renderCell: (params: GridCellParams) => <OrderCell withoutSku imageSize={'small'} product={params.value} />,
+    renderCell: (params: GridCellParams) => (
+      <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
+    ),
     width: 252,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },

@@ -11,7 +11,6 @@ import { RequestTermsList } from '@components/requests-and-request-proposals/req
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
@@ -35,6 +34,9 @@ export const FreelanceRequestDetailsModal = props => {
     onClickAbortBtn,
   } = props
   const { classes: styles } = useFreelanceRequestDetailsModalStyles()
+  const requestMedia = request?.media?.map(el => el.fileLink)
+  const requestTitles = request?.media?.map(el => el.commentByPerformer)
+  const requestComments = request?.media?.map(el => el.commentByClient)
 
   return (
     <Modal
@@ -77,18 +79,13 @@ export const FreelanceRequestDetailsModal = props => {
       <div className={styles.content}>
         <div className={styles.productInfo}>
           <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
-          {request?.product.images && (
-            <div className={styles.productImages}>
-              <PhotoAndFilesCarousel
-                withoutFiles
-                mediumSlider
-                isHideCounter
-                files={request?.product.images}
-                customAvatarStyles={{ width: '211px', height: '215px !important' }}
-                customImgStyles={{ width: '100%', height: '100%' }}
-              />
-            </div>
-          )}
+          <PhotoAndFilesSlider
+            withoutFiles
+            isHideCounter
+            showPreviews
+            customSlideHeight={215}
+            files={request?.product?.images}
+          />
           <div className={styles.category}>
             {request?.product.asin && (
               <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={request?.product.asin} />
@@ -102,11 +99,17 @@ export const FreelanceRequestDetailsModal = props => {
             <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
             <div className={styles.filesItem}>
               <Typography>{t(TranslationKey.Photos)}</Typography>
-              <PhotoAndFilesSlider withoutFiles files={request?.media} />
+              <PhotoAndFilesSlider
+                withoutFiles
+                showPreviews
+                files={requestMedia}
+                photosTitles={requestTitles}
+                photosComments={requestComments}
+              />
             </div>
             <div className={cx(styles.filesList)}>
               <Typography>{t(TranslationKey.Files)}</Typography>
-              <PhotoAndFilesSlider withoutPhotos files={request?.media} />
+              <PhotoAndFilesSlider withoutPhotos files={requestMedia} />
             </div>
           </div>
         </div>
