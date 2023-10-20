@@ -35,75 +35,11 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const fieldsOfProductAllowedToUpdate = [
-  'dirdecision',
-  'researcherFine',
-  'researcherFineComment',
-  'supervisorFine',
-  'supervisorFineComment',
-  'barCode',
-  'clientComment',
-]
-
-const fieldsOfProductAllowedToCreate = [
-  'lamazon',
-  'lsupplier',
-  'bsr',
-  'status',
-  'amazon',
-  'fbafee',
-  'reffee',
-  'delivery',
-  'icomment',
-  'fba',
-  'profit',
-  'margin',
-  'images',
-  'width',
-  'height',
-  'length',
-  'amazonTitle',
-  'amazonDetail',
-  'amazonDescription',
-  'category',
-  'weight',
-  'minpurchase',
-  'fbaamount',
-  'strategyStatus',
-  'currentSupplierId',
-  'asin',
-]
-
-const filtersFields = [
-  'shopIds',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'strategyStatus',
-  'amountInOrders',
-  'inTransfer',
-  'stockUSA',
-  'boxAmounts',
-  'sumStock',
-  'amazon',
-  'createdAt',
-  'updatedAt',
-  'profit',
-  'fbafee',
-  'status',
-  'reservedSum',
-  'sentToFbaSum',
-  'fbaFbmStockSum',
-  'ideasOnCheck',
-  'stockCost',
-  'purchaseQuantity',
-  'ideasClosed',
-  'ideasFinished',
-  'tags',
-  'redFlags',
-]
-
-// const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
+import {
+  fieldsOfProductAllowedToCreate,
+  fieldsOfProductAllowedToUpdate,
+  filtersFields,
+} from './client-inventory-view.constants'
 
 export class ClientInventoryViewModel {
   history = undefined

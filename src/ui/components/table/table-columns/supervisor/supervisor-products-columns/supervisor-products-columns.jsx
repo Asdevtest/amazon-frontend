@@ -61,6 +61,7 @@ export const supervisorProductsViewColumns = handlers => [
     width: 150,
     renderCell: params => (
       <MultilineTextCell
+        maxLength={48}
         text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
