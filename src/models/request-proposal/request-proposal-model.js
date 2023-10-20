@@ -157,8 +157,8 @@ class RequestProposalModelStatic {
     return response
   }
 
-  deleteFreelanceSourceFilesByGuid = async id => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidDelete(id)
+  getRequestProposalsPagMy = async opts => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(opts)
     return response
   }
 }

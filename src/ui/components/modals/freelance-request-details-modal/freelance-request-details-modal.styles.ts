@@ -74,13 +74,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     width: '380px',
   },
 
-  productImages: {
-    marginTop: '-10px',
-    '& > div > div': {
-      paddingTop: '0px',
-    },
-  },
-
   category: {
     display: 'flex',
     gap: '2px',

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Avatar, Paper, Typography } from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { getResearcherDashboardCardConfig } from '@constants/navigation/dashboard-configs'
@@ -39,7 +39,7 @@ export const ResearcherDashboardViewRaw = props => {
       <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
-            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
             {!checkIsResearcher(UserRoleCodeMap[viewModel.userInfo.role]) && (
               <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />

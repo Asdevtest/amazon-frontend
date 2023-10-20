@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AnnouncementModal } from '@components/modals/announcement-modal/announcement-modal'
+import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { UserLink } from '@components/user/user-link'

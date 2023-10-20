@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Avatar, Paper, Typography } from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 
 import { getWarehouseDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -41,7 +41,7 @@ export const WarehouseDashboardViewRaw = props => {
       <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
-            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
             <div>
               <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />

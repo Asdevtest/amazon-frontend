@@ -33,7 +33,6 @@ const updateOrderKeys = [
   'images',
   'item',
   'orderSupplierId',
-  'priceInYuan',
   'totalPrice',
   'priceBatchDeliveryInYuan',
 ]

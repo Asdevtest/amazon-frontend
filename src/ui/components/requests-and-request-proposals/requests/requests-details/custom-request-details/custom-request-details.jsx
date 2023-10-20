@@ -28,14 +28,13 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
     setShowDetails(!showDetails)
   }
 
+  const requestMedia = request?.request?.media?.map(el => el.fileLink)
+  const requestTitles = request?.request?.media?.map(el => el.commentByPerformer)
+  const requestComments = request?.request?.media?.map(el => el.commentByClient)
+
   return (
     <div className={classNames.root}>
-      <Accordion
-        classes={{ root: classNames.accordion }}
-        // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
-        expanded={showDetails}
-        onChange={onClickToShowDetails}
-      >
+      <Accordion classes={{ root: classNames.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
         </AccordionSummary>
@@ -47,14 +46,20 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
 
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <PhotoAndFilesSlider withoutFiles files={request?.request?.media?.map(el => el.fileLink)} />
+                <PhotoAndFilesSlider
+                  withoutFiles
+                  showPreviews
+                  files={requestMedia}
+                  photosTitles={requestTitles}
+                  photosComments={requestComments}
+                />
               </div>
 
               <div>
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <PhotoAndFilesSlider withoutPhotos files={request?.request?.media?.map(el => el.fileLink)} />
+                <PhotoAndFilesSlider withoutPhotos files={requestMedia} />
               </div>
             </div>
 

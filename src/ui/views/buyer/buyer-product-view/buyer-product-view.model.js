@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'

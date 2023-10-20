@@ -1,5 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'tss-react/mui'
 
@@ -15,15 +16,17 @@ import { styles } from './navbar-category.style'
 
 const NavBarCategoryRaw = observer(
   ({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
-    const subRoutes = category.subtitles
-      ?.map(subCategory =>
-        subCategory.checkHideSubBlock
-          ? subCategory.checkHideSubBlock(userInfo)
-            ? subCategory.subRoute
-            : null
-          : subCategory.subRoute,
-      )
-      .filter(el => el !== null)
+    const [subRoutes] = useState(() =>
+      category.subtitles
+        ?.map(subCategory =>
+          subCategory.checkHideSubBlock
+            ? subCategory.checkHideSubBlock(userInfo)
+              ? subCategory.subRoute
+              : null
+            : subCategory.subRoute,
+        )
+        .filter(el => el !== null),
+    )
 
     const isRedBadge = category.route?.includes('/buyer/free-orders')
 
@@ -84,7 +87,7 @@ const NavBarCategoryRaw = observer(
               <div className={cx(classNames.badge, { [classNames.redBadge]: isRedBadge })}>{badge}</div>
             ) : undefined}
           </ListItemIcon>
-          {!shortNavbar && ( // убрать условие если нужно вернуть старый вид
+          {!shortNavbar && (
             <ListItemText
               disableTypography
               className={cx({ [classNames.listItemSelected]: isSelected })}
@@ -97,7 +100,7 @@ const NavBarCategoryRaw = observer(
               <HighPriorityValue value={highPriorityValue} />
             </Box>
           )}
-          {/* {subRoutes?.[0] || category.route} */}
+
           {!shortNavbar && (
             <div className={cx({ [classNames.bigBadgePadding]: category.title })}>
               {getBigBadge(subRoutes?.[0] || category.route)}

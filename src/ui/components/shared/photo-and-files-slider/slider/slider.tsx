@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { Dispatch, FC, SetStateAction } from 'react'
@@ -56,22 +57,22 @@ export const Slider: FC<Props> = observer(
       const updateIndex = (prevIndex: number) =>
         direction === Arrows.LEFT
           ? prevIndex === 0
-            ? slides.length - 1
+            ? slides?.length - 1
             : prevIndex - 1
-          : (prevIndex + 1) % slides.length
+          : (prevIndex + 1) % slides?.length
 
       setCurrentIndex(updateIndex)
     }
 
-    const currentSlideTitle = `${currentIndex + 1}/${slides.length}`
+    const currentSlideTitle = `${currentIndex + 1}/${slides?.length}`
     const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
-    const isDisableArrowRight = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === slides.length - 1
-    const isDisableArrowLeft = slides.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
-    const isNotElements = slides.length === 0
+    const isDisableArrowRight = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === slides?.length - 1
+    const isDisableArrowLeft = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
+    const isNotElements = slides?.length === 0
     const isImagesType =
-      !withoutFiles && slides.every(slide => checkIsImageLink(typeof slide === 'string' ? slide : slide.file.name))
+      !withoutFiles && slides?.every(slide => checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name))
     const isImageType = (slide: string | IUploadFile): boolean =>
-      checkIsImageLink(typeof slide === 'string' ? slide : slide.file.name)
+      checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name)
 
     return (
       <div
@@ -122,15 +123,15 @@ export const Slider: FC<Props> = observer(
                   }}
                 >
                   {slides.map((slide, index) => {
-                    const elementExtension = (typeof slide === 'string' ? slide : slide.file.name)
-                      .split('.')
-                      .slice(-1)[0]
+                    const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)
+                      ?.split('.')
+                      ?.slice(-1)?.[0]
 
                     return (
                       <div key={index} className={classNames.slideWrapper}>
                         {isImageType(slide) ? (
                           <img
-                            src={typeof slide === 'string' ? slide : slide.data_url}
+                            src={typeof slide === 'string' ? slide : slide?.data_url}
                             alt={`Slide ${currentIndex}`}
                             className={classNames.slide}
                             onClick={onPhotosModalToggle}
@@ -151,7 +152,7 @@ export const Slider: FC<Props> = observer(
                                 [classNames.bigText]: bigSlider,
                               })}
                             >
-                              {typeof slide === 'string' ? slide : slide.file.name}
+                              {typeof slide === 'string' ? slide : slide?.file?.name}
                             </a>
                           </div>
                         )}

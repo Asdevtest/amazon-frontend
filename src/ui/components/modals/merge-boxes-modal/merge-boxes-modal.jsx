@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Chip, Typography } from '@mui/material'
 
@@ -517,6 +517,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          RemoveDestinationRestriction
           showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}

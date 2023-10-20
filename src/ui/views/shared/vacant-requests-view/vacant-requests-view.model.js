@@ -32,6 +32,7 @@ const filtersFields = [
   'subUsers',
   'priceAmazon',
   'withoutConfirmation',
+  'taskComplexity',
 ]
 
 export class VacantRequestsViewModel {
@@ -231,7 +232,11 @@ export class VacantRequestsViewModel {
             : this.selectedTaskType,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length
+          ? this.sortModel[0].field === 'deadline'
+            ? 'timeoutAt'
+            : this.sortModel[0].field
+          : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
@@ -280,6 +285,9 @@ export class VacantRequestsViewModel {
 
     const withoutConfirmationFilter =
       exclusion !== 'withoutConfirmation' && this.columnMenuSettings.withoutConfirmation.currentFilterData.join(',')
+
+    const taskComplexityFilter =
+      exclusion !== 'taskComplexity' && this.columnMenuSettings.taskComplexity.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -337,6 +345,9 @@ export class VacantRequestsViewModel {
       ...(withoutConfirmationFilter && {
         withoutConfirmation: { $eq: withoutConfirmationFilter },
       }),
+      ...(taskComplexityFilter && {
+        taskComplexity: { $eq: taskComplexityFilter },
+      }),
     })
 
     return filter
@@ -373,6 +384,7 @@ export class VacantRequestsViewModel {
       this.columnVisibilityModel = model
     })
 
+    this.setTableModeState()
     this.getRequestsVacant()
   }
 

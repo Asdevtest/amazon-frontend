@@ -1,5 +1,6 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import {
@@ -9,16 +10,82 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
-import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
+import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { FreelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
+
+import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+
+// * Список полей для фильтраций
+
+const filtersFields = [
+  'status',
+  'createdBy',
+  'sub',
+  'updatedAt',
+  'humanFriendlyId',
+  'priority',
+  'title',
+  'maxAmountOfProposals',
+  'timeoutAt',
+  'requestCreatedBy',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'taskComplexity',
+  'typeTask',
+  'reworkCounter',
+]
 
 export class MyProposalsViewModel {
+  // * Pagination & Sort
+
+  rowCount = 0
+  sortModel = []
+  densityModel = 'compact'
+  paginationModel = { page: 0, pageSize: 15 }
+  filterModel = { items: [] }
+  selectedRowIds = []
+  pageSizeOptions = [15, 25, 50, 100]
+
+  // * Table settings
+
+  currentSettings = undefined
+
+  columnVisibilityModel = {}
+  rowHandlers = {
+    onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
+    onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
+    onClickResultButton: (requestId, proposalId) => this.onClickResultBtn(requestId, proposalId),
+    onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
+  }
+
+  columnsModel = FreelancerMyProposalsColumns(this.rowHandlers)
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getRequestsProposalsPagMy()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  currentSearchValue = ''
+
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -31,15 +98,12 @@ export class MyProposalsViewModel {
 
   searchMyRequestsIds = []
   requests = []
-  requestsBase = []
   selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
     name: RequestProposalStatusTranslate(el),
     _id: el,
   }))
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-
-  nameSearchValue = ''
 
   userInfo = []
   userRole = undefined
@@ -50,25 +114,28 @@ export class MyProposalsViewModel {
   showRequestResultModal = false
   selectedProposal = undefined
 
-  viewMode = tableViewMode.LIST
+  viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
 
   get user() {
     return UserModel.userInfo
   }
 
-  constructor({ history, location }) {
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-
-    if (location.state) {
-      this.onClickOpenBtn(location.state?.request)
-
-      const state = { ...history.location.state }
-      delete state.task
-      history.replace({ ...history.location, state })
-    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -80,18 +147,11 @@ export class MyProposalsViewModel {
         })
       },
     )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
   }
 
@@ -119,49 +179,63 @@ export class MyProposalsViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.requests).filter(
-        el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.proposals?.some(item =>
-            item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.proposals.some(
-            el =>
-              el.sub?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-              el.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ),
-        // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.requests)
-    }
+    return toJS(this.requests)
   }
 
-  onClickDeleteBtn(item) {
+  onClickDeleteBtn(proposalId, proposalStatus) {
     runInAction(() => {
-      this.selectedProposal = item
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmTitle: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Are you sure you want to cancel the proposal?']),
+        onClickConfirm: () => {
+          this.cancelProposalHandler(proposalId, proposalStatus)
+          this.onTriggerOpenModal('showConfirmModal')
+        },
+      }
     })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  setTableModeState() {
-    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
+  async cancelProposalHandler(proposalId, proposalStatus) {
+    try {
+      if (
+        proposalStatus === RequestProposalStatus.CREATED ||
+        proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
+      ) {
+        await RequestProposalModel.requestProposalCancelBeforDeal(proposalId)
+      } else {
+        await RequestProposalModel.requestProposalCancel(proposalId)
+      }
 
-    SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_PROPOSALS)
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  getTableModeState() {
-    const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.MY_PROPOSALS]
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.FREELANCER_MY_PROPOSALS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.FREELANCER_MY_PROPOSALS]
 
     runInAction(() => {
       if (state) {
-        this.viewMode = state.viewMode
-        this.sortMode = state.sortMode
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -175,23 +249,7 @@ export class MyProposalsViewModel {
       }
     })
 
-    this.setTableModeState()
-  }
-
-  getFilteredRequests() {
-    let res
-
-    if (Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])) {
-      res = this.requestsBase
-    } else {
-      res = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
-    }
-
-    const selectedStatuses = this.selectedProposalFilters.map(el => el._id)
-
-    res = res.filter(el => el.proposals.some(e => selectedStatuses.includes(e.status)))
-
-    return res
+    this.setDataGridState()
   }
 
   onClickTaskType(taskType) {
@@ -199,63 +257,31 @@ export class MyProposalsViewModel {
       this.selectedTaskType = taskType
     })
 
-    this.requests = this.getFilteredRequests()
+    const isAllTasks = taskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
+    this.onChangeFullFieldMenuItem(isAllTasks ? [] : [taskType], 'typeTask', true)
+
+    this.getRequestsProposalsPagMy()
   }
 
-  onClickEditBtn(request, proposal) {
-    const convertedRequest = {
-      createdById: request.createdById,
-      maxAmountOfProposals: request.maxAmountOfProposals,
-      createdBy: {
-        name: request.createdBy.name,
-        rating: request.createdBy.rating,
-        _id: request.createdBy._id,
-      },
-      details: { conditions: request.detailsCustom.conditions },
-      request: {
-        price: request.price,
-        timeoutAt: request.timeoutAt,
-      },
-    }
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/edit-proposal`, {
-      request: toJS(convertedRequest),
-      proposalToEdit: toJS(proposal),
-    })
-  }
-
-  onClickOpenBtn(request) {
-    // this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request`, {
-    //   requestId: request._id,
-    // })
-
+  onClickEditBtn(requestId, proposalId) {
     this.history.push(
-      `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request?request-id=${
-        request._id
-      }`,
+      `/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/my-proposals/edit-proposal?proposalId=${proposalId}&requestId=${requestId}`,
     )
   }
 
-  async onSubmitDeleteProposal() {
-    try {
-      if (
-        this.selectedProposal.status === RequestProposalStatus.CREATED ||
-        this.selectedProposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        this.selectedProposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
-      ) {
-        await RequestProposalModel.requestProposalCancelBeforDeal(this.selectedProposal._id)
-      } else {
-        await RequestProposalModel.requestProposalCancel(this.selectedProposal._id)
-      }
-      this.onTriggerOpenModal('showConfirmModal')
-
-      await this.loadData()
-    } catch (error) {
-      console.log(error)
-    }
+  onClickOpenBtn(requestId) {
+    this.history.push(
+      `/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
+    )
   }
 
-  async getUserInfo() {
-    const result = await UserModel.userInfo
+  getUserInfo() {
+    const result = UserModel.userInfo
 
     runInAction(() => {
       this.userInfo = result
@@ -267,8 +293,8 @@ export class MyProposalsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserInfo()
-      await this.getRequestsCustom()
-      this.getTableModeState()
+      await this.getRequestsProposalsPagMy()
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -276,25 +302,23 @@ export class MyProposalsViewModel {
     }
   }
 
-  async getRequestsCustom() {
+  async getRequestsProposalsPagMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await RequestModel.getRequestsCustom(this.user._id)
-
-      runInAction(() => {
-        this.requestsBase = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-        this.requests = result
-          .filter(el => {
-            if (this.selectedTaskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]) {
-              return el
-            } else {
-              return Number(el.typeTask) === Number(this.selectedTaskType)
-            }
-          })
-          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+      await RequestProposalModel.getRequestProposalsPagMy({
+        filters: this.getFilters(),
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      }).then(response => {
+        runInAction(() => {
+          this.requests = myProposalsDataConverter(response.rows) || []
+          this.rowCount = response.count
+        })
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -304,35 +328,126 @@ export class MyProposalsViewModel {
 
   async getProposalById(proposalId) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
-
-      runInAction(() => {
-        this.currentProposal = result
+      await RequestProposalModel.getRequestProposalsCustom(proposalId).then(response => {
+        runInAction(() => {
+          this.currentProposal = response
+        })
       })
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onClickResultBtn(request, proposalId) {
-    runInAction(() => {
-      this.currentRequest = request
+  async getRequestById(requestId) {
+    await RequestModel.getCustomRequestById(requestId).then(response => {
+      runInAction(() => {
+        this.currentRequest = response
+      })
     })
+  }
 
+  async onClickResultBtn(requestId, proposalId) {
+    await this.getRequestById(requestId)
     await this.getProposalById(proposalId)
 
-    if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.DESIGNER) {
+    if (freelanceRequestTypeByCode[this.currentRequest?.request.typeTask] === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.BLOGGER) {
+    } else if (freelanceRequestTypeByCode[this.currentRequest?.request.typeTask] === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showRequestStandartResultModal')
     }
   }
 
-  onChangeNameSearchValue(e) {
+  onChangeSearchValue(value) {
+    this.currentSearchValue = value
+    this.getRequestsProposalsPagMy()
+  }
+
+  getFilters(exclusion) {
+    // const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
+
+    return objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.currentSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'amazonTitle', 'createdBy', 'sub', 'requestCreatedBy'],
+        // {
+        //   ...(!statusFilterData.length && {
+        //     status: {
+        //       $eq: this.currentSettings.statuses.join(','),
+        //     },
+        //   }),
+        // },
+      ),
+    )
+  }
+
+  getTableByColumn(column) {
+    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter'].includes(column)) {
+      return 'proposals'
+    } else if (
+      [
+        'humanFriendlyId',
+        'priority',
+        'title',
+        'maxAmountOfProposals',
+        'timeoutAt',
+        'requestCreatedBy',
+        'taskComplexity',
+        'typeTask',
+      ].includes(column)
+    ) {
+      return 'requests'
+    } else if (['asin', 'skusByClient', 'amazonTitle'].includes(column)) {
+      return 'products'
+    }
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      const data = await GeneralModel.getDataForColumn(
+        this.getTableByColumn(column),
+        column,
+        `request-proposals/pag/my?filters=${this.getFilters(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field, notResetTask) {
+    if (!notResetTask) {
+      runInAction(() => {
+        this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+      })
+    }
+
     runInAction(() => {
-      this.nameSearchValue = e.target.value
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
     })
   }
 
@@ -351,6 +466,61 @@ export class MyProposalsViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
+    })
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.getRequestsProposalsPagMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+      this.currentData = this.getCurrentData()
+    })
+    this.setDataGridState()
+  }
+
+  onChangeFilterModel(model) {
+    runInAction(() => {
+      this.filterModel = model
+    })
+  }
+
+  onChangeSortingModel(sortModel) {
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
+    this.setDataGridState()
+    this.getRequestsProposalsPagMy()
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        ...dataGridFiltersInitializer(filtersFields),
+      }
+    })
+    this.getRequestsProposalsPagMy()
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
     })
   }
 }

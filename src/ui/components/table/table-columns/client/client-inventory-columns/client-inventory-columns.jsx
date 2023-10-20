@@ -131,7 +131,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -148,7 +148,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -165,7 +165,8 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    // renderCell: params => <MultilineTextCell text={String(params.value)} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
 
@@ -212,14 +213,12 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => (
-      <div onDoubleClick={e => e.stopPropagation()}>
-        <ChangeInputCell
-          isInts
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={stockUsHandlers.onClickSaveStockUs}
-        />
-      </div>
+      <ChangeInputCell
+        isInts
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
+      />
     ),
     width: 150,
 
@@ -240,7 +239,7 @@ export const clientInventoryColumns = (
     renderCell: params => {
       return (
         <MultilineTextCell
-          text={params.value}
+          text={String(params.value)}
           onClickText={e => {
             e.stopPropagation()
 

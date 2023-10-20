@@ -89,10 +89,10 @@ export const ImageModal: FC<Props> = observer(
                     })}
                     onClick={() => setPhotoIndex(index)}
                   >
-                    <img src={typeof photo === 'string' ? photo : photo.data_url} alt={`Photo ${photoIndex}`} />
+                    <img src={typeof photo === 'string' ? photo : photo?.data_url} alt={`Photo ${photoIndex}`} />
 
-                    {photosTitles?.length && (
-                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles[photoIndex]}</p>
+                    {photosTitles?.[photoIndex] && (
+                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[photoIndex]}</p>
                     )}
                   </div>
                 )
@@ -101,18 +101,24 @@ export const ImageModal: FC<Props> = observer(
           )}
 
           <div className={styles.body}>
-            {photosTitles?.length && <p className={styles.title}>{photosTitles[photoIndex]}</p>}
+            {photosTitles?.[photoIndex] && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
 
-            <Slider customSlideHeight={500} slides={photos} currentIndex={photoIndex} setCurrentIndex={setPhotoIndex} />
+            <Slider
+              isHideCounter
+              customSlideHeight={500}
+              slides={photos}
+              currentIndex={photoIndex}
+              setCurrentIndex={setPhotoIndex}
+            />
 
-            {photosComments?.length && (
+            {photosComments?.[photoIndex] && (
               <p className={cx(styles.title, styles.clientComment)}>
-                {getShortenStringIfLongerThanCount(photosComments[photoIndex], 200)}
+                {getShortenStringIfLongerThanCount(photosComments?.[photoIndex], 200)}
               </p>
             )}
 
             <div className={styles.controls}>
-              <Button onClick={() => onClickDownloadPhoto(photos[photoIndex])}>
+              <Button onClick={() => onClickDownloadPhoto(photos?.[photoIndex])}>
                 <DownloadOutlinedIcon />
               </Button>
 
@@ -122,7 +128,7 @@ export const ImageModal: FC<Props> = observer(
 
               {isEditable ? (
                 <ButtonControls
-                  image={photos[photoIndex]}
+                  image={photos?.[photoIndex]}
                   imageIndex={photoIndex}
                   withoutMakeMainImage={withoutMakeMainImage}
                   onClickMakeMainImageObj={onClickMakeMainImageObj}
@@ -135,19 +141,17 @@ export const ImageModal: FC<Props> = observer(
           </div>
         </div>
 
-        {openImageZoomModal ? (
-          <ZoomModal
-            images={photos}
-            currentImageIndex={photoIndex}
-            isOpenModal={openImageZoomModal}
-            setIsOpenModal={onOpenImageZoomModal}
-            setCurrentImageIndex={setPhotoIndex}
-          />
-        ) : null}
+        <ZoomModal
+          images={photos}
+          currentImageIndex={photoIndex}
+          isOpenModal={openImageZoomModal}
+          setIsOpenModal={onOpenImageZoomModal}
+          setCurrentImageIndex={setPhotoIndex}
+        />
 
         <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
           <ImageEditForm
-            item={photos[photoIndex]}
+            item={photos?.[photoIndex]}
             setOpenModal={onOpenImageEditModal}
             onSave={onClickEditImageSubmit}
           />

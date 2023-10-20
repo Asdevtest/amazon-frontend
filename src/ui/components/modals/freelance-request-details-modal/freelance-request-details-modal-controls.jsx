@@ -40,9 +40,9 @@ export const FreelanceRequestDetailsModalControls = props => {
             <Button
               border
               className={styles.listingButton}
-              onClick={() => onToggleUploadedToListing(request._id, request.uploadedToListing)}
+              onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
             >
-              <Checkbox color="primary" checked={request.uploadedToListing} className={styles.listingCheckbox} />
+              <Checkbox color="primary" checked={request?.uploadedToListing} className={styles.listingCheckbox} />
               <Typography className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
             </Button>
             {request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED) && (

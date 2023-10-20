@@ -7,6 +7,10 @@ export const useClassNames = makeStyles()(theme => ({
     gridTemplateRows: '60px 1fr',
     backgroundColor: theme.palette.background.general,
 
+    '&:hover #hideAndShowIcon': {
+      display: 'flex !important',
+    },
+
     [theme.breakpoints.down(1024)]: {
       gridTemplateRows: '1fr',
     },
@@ -52,7 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
-    display: 'flex',
+    display: 'none',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: '50%',

@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -14,7 +13,6 @@ import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-gr
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -72,7 +70,7 @@ export const Freelance = observer(({ productId, modal }) => {
             condition={Number(selectedTaskType)}
             switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
               value: Number(taskType),
-              label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType]),
+              label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType], true),
             }))}
             changeConditionHandler={onClickTaskType}
           />

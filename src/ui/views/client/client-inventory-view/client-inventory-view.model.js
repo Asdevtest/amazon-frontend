@@ -35,75 +35,11 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const fieldsOfProductAllowedToUpdate = [
-  'dirdecision',
-  'researcherFine',
-  'researcherFineComment',
-  'supervisorFine',
-  'supervisorFineComment',
-  'barCode',
-  'clientComment',
-]
-
-const fieldsOfProductAllowedToCreate = [
-  'lamazon',
-  'lsupplier',
-  'bsr',
-  'status',
-  'amazon',
-  'fbafee',
-  'reffee',
-  'delivery',
-  'icomment',
-  'fba',
-  'profit',
-  'margin',
-  'images',
-  'width',
-  'height',
-  'length',
-  'amazonTitle',
-  'amazonDetail',
-  'amazonDescription',
-  'category',
-  'weight',
-  'minpurchase',
-  'fbaamount',
-  'strategyStatus',
-  'currentSupplierId',
-  'asin',
-]
-
-const filtersFields = [
-  'shopIds',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'strategyStatus',
-  'amountInOrders',
-  'inTransfer',
-  'stockUSA',
-  'boxAmounts',
-  'sumStock',
-  'amazon',
-  'createdAt',
-  'updatedAt',
-  'profit',
-  'fbafee',
-  'status',
-  'reservedSum',
-  'sentToFbaSum',
-  'fbaFbmStockSum',
-  'ideasOnCheck',
-  'stockCost',
-  'purchaseQuantity',
-  'ideasClosed',
-  'ideasFinished',
-  'tags',
-  'redFlags',
-]
-
-// const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
+import {
+  fieldsOfProductAllowedToCreate,
+  fieldsOfProductAllowedToUpdate,
+  filtersFields,
+} from './client-inventory-view.constants'
 
 export class ClientInventoryViewModel {
   history = undefined
@@ -138,9 +74,6 @@ export class ClientInventoryViewModel {
 
   hsCodeData = {}
 
-  existingOrders = []
-  checkPendingData = []
-
   curProduct = undefined
 
   // isNeedPurchaseFilter = null
@@ -150,6 +83,8 @@ export class ClientInventoryViewModel {
   productsToLaunch = []
   productVariations = []
   selectedProductToLaunch = undefined
+
+  existingProducts = []
 
   selectedRowId = undefined
   yuanToDollarRate = undefined
@@ -647,24 +582,27 @@ export class ClientInventoryViewModel {
         this.showCircularProgressModal = true
       })
 
-      const pendingOrders = []
-      const correctIds = []
+      const resultArray = []
 
       for await (const id of this.selectedRowIds) {
-        const res = await OrderModel.checkPendingOrderByProductGuid(id)
+        await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
+          if (result?.length) {
+            const currentProduct = this.currentData.find(product => product?.originalData?._id === id)
 
-        if (res.length > 0) {
-          correctIds.push(id)
-          pendingOrders.push(res)
-        }
+            const resultObject = {
+              asin: currentProduct?.originalData?.asin,
+              orders: result,
+            }
+
+            resultArray.push(resultObject)
+          }
+        })
       }
 
-      this.checkPendingData = pendingOrders
-
-      if (this.checkPendingData.length > 0) {
-        this.existingOrders = this.currentData
-          .filter(product => correctIds.includes(product.id))
-          .map(prod => prod.originalData)
+      if (resultArray?.length) {
+        runInAction(() => {
+          this.existingProducts = resultArray
+        })
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
@@ -1137,7 +1075,6 @@ export class ClientInventoryViewModel {
   async onClickHsCode(item) {
     this.setSelectedProduct(item)
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
-    // console.log(this.hsCodeData)
 
     this.onTriggerOpenModal('showEditHSCodeModal')
   }

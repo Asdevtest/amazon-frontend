@@ -424,14 +424,18 @@ export const useClassNames = makeStyles()(theme => ({
     width: '8px !important',
   },
   nameFieldContainer: {
-    width: '308px !important',
+    width: '100% !important',
   },
   requestTypeContainer: {
-    width: '251px !important',
+    width: '215px !important',
+  },
+
+  difficultylevelContainer: {
+    width: '224px !important',
   },
 
   asinContainer: {
-    width: '185px !important',
+    width: '305px !important',
   },
 
   executorContainer: {
@@ -560,7 +564,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   customSubMainWrapperAsin: {
     padding: '10px 10px !important',
-    width: '260px !important',
+    width: '305px !important',
   },
 
   customSubMainWrapper: {

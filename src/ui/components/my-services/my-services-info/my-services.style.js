@@ -50,8 +50,10 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-
+    cursor: 'pointer',
     color: theme.palette.primary.main,
+    padding: 0,
+    height: 'auto !important',
   },
 
   announcementText: {

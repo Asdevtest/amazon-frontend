@@ -229,19 +229,6 @@ export const StockReportRaw = props => {
         }}
       />
 
-      {/* <ConfirmationModal
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            onSubmitSeekSupplier()
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        /> */}
-
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
