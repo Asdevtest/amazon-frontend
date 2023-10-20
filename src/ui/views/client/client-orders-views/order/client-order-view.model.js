@@ -392,7 +392,6 @@ export class ClientOrderViewModel {
           'logicsTariffId',
         ],
       )
-      console.log(dataToRequest)
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)
 
