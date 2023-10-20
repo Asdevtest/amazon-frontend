@@ -384,6 +384,7 @@ export class VacantRequestsViewModel {
       this.columnVisibilityModel = model
     })
 
+    this.setTableModeState()
     this.getRequestsVacant()
   }
 
