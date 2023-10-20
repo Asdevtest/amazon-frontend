@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,21 +22,18 @@ export const CreateOrEditProposalViewRaw = props => {
         location: props.location,
       }),
   )
-  const { classes: classNames } = props
 
   return (
     <React.Fragment>
-      <div>
-        <CreateOrEditProposalContent
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          request={viewModel.request}
-          proposalToEdit={viewModel.proposalToEdit}
-          onClickBackBtn={viewModel.onClickBackBtn}
-          onCreateSubmit={viewModel.onSubmitCreateProposal}
-          onEditSubmit={viewModel.onSubmitEditProposal}
-        />
-      </div>
+      <CreateOrEditProposalContent
+        progressValue={viewModel.progressValue}
+        showProgress={viewModel.showProgress}
+        request={viewModel.request}
+        proposalToEdit={viewModel.proposalToEdit}
+        onClickBackBtn={viewModel.onClickBackBtn}
+        onCreateSubmit={viewModel.onSubmitCreateProposal}
+        onEditSubmit={viewModel.onSubmitEditProposal}
+      />
 
       <TwoVerticalChoicesModal
         openModal={viewModel.showResultModal}

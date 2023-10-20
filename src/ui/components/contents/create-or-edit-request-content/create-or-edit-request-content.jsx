@@ -220,8 +220,6 @@ export const CreateOrEditRequestContent = observer(
 
     const [formFields, setFormFields] = useState(getSourceFormFields())
 
-    console.log('formFields', formFields)
-
     const [requestIds, setRequestIds] = useState([])
 
     useEffect(() => {

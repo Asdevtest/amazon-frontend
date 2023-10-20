@@ -54,8 +54,6 @@ export const CreateOrEditProposalContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('formFields', formFields)
-
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
     if (['execution_time'].includes(fieldName)) {
@@ -150,7 +148,7 @@ export const CreateOrEditProposalContent = ({
                 userId={request?.request?.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
-                <Rating readOnly value={request?.request?.createdBy?.rating || request?.createdBy?.rating} />
+                <Rating readOnly value={request?.request?.createdBy?.rating || request?.createdBy?.rating || 0} />
               </div>
             </div>
           </div>

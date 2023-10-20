@@ -1139,7 +1139,6 @@ export class ClientInventoryViewModel {
   async onClickHsCode(item) {
     this.setSelectedProduct(item)
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
-    // console.log(this.hsCodeData)
 
     this.onTriggerOpenModal('showEditHSCodeModal')
   }

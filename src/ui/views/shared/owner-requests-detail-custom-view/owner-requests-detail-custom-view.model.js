@@ -295,7 +295,6 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
-    console.log(this.findRequestProposalForCurChat)
     runInAction(() => {
       this.acceptProposalResultSetting = {
         onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
