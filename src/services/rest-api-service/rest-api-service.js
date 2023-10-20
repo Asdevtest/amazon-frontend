@@ -1,6 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-import { axiosInstance } from '../axios-instance'
+import { getAxiosInstance } from '@services/axios-instance'
 
 import { Configuration } from './codegen'
 import { AdministratorApi } from './codegen/api/administrator-api'
@@ -36,31 +36,31 @@ class RestApiService {
   constructor() {
     this.openapiConfig.basePath = BACKEND_API_URL
 
-    this.administratorApi = new AdministratorApi(this.openapiConfig, undefined, axiosInstance)
-    this.announcementsApi = new AnnouncementsApi(this.openapiConfig, undefined, axiosInstance)
-    this.buyerApi = new BuyerApi(this.openapiConfig, undefined, axiosInstance)
-    this.clientApi = new ClientApi(this.openapiConfig, undefined, axiosInstance)
-    this.product = new ProductApi(this.openapiConfig, undefined, axiosInstance)
-    this.researcherApi = new ResearcherApi(this.openapiConfig, undefined, axiosInstance)
-    this.storkeepersApi = new StorekeepersApi(this.openapiConfig, undefined, axiosInstance)
-    // this.freelancerApi = new StorekeepersApi(this.openapiConfig)
-    this.supervisorApi = new SupervisorApi(this.openapiConfig, undefined, axiosInstance)
-    this.supplierApi = new SupplierApi(this.openapiConfig, undefined, axiosInstance)
-    this.userApi = new UserApi(this.openapiConfig, undefined, axiosInstance)
-    this.boxesApi = new BoxesApi(this.openapiConfig, undefined, axiosInstance)
-    this.batchesApi = new BatchesApi(this.openapiConfig, undefined, axiosInstance)
-    this.otherApi = new OtherApi(this.openapiConfig, undefined, axiosInstance)
-    this.permissionsApi = new PermissionsApi(this.openapiConfig, undefined, axiosInstance)
-    this.integrationsApi = new IntegrationsApi(this.openapiConfig, undefined, axiosInstance)
-    this.dashboardApi = new DashboardApi(this.openapiConfig, undefined, axiosInstance)
-    this.SearchRequestApi = new RequestsApi(this.openapiConfig, undefined, axiosInstance)
-    this.RequestProposalsApi = new RequestProposalsApi(this.openapiConfig, undefined, axiosInstance)
-    this.shopApi = new ShopApi(this.openapiConfig, undefined, axiosInstance)
-    this.shopSellApi = new ShopSellApi(this.openapiConfig, undefined, axiosInstance)
-    this.ideaApi = new IdeaApi(this.openapiConfig, undefined, axiosInstance)
-    this.chatsApi = new ChatsApi(this.openapiConfig, undefined, axiosInstance)
-    this.orderApi = new OrderApi(this.openapiConfig, undefined, axiosInstance)
-    this.generalApi = new GeneralApi(this.openapiConfig, undefined, axiosInstance)
+    this.axiosInstance = getAxiosInstance()
+    this.administratorApi = new AdministratorApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.announcementsApi = new AnnouncementsApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.buyerApi = new BuyerApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.clientApi = new ClientApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.product = new ProductApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.researcherApi = new ResearcherApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.storkeepersApi = new StorekeepersApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.supervisorApi = new SupervisorApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.supplierApi = new SupplierApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.userApi = new UserApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.boxesApi = new BoxesApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.batchesApi = new BatchesApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.otherApi = new OtherApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.permissionsApi = new PermissionsApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.integrationsApi = new IntegrationsApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.dashboardApi = new DashboardApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.SearchRequestApi = new RequestsApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.RequestProposalsApi = new RequestProposalsApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.shopApi = new ShopApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.shopSellApi = new ShopSellApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.ideaApi = new IdeaApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.chatsApi = new ChatsApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.orderApi = new OrderApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.generalApi = new GeneralApi(this.openapiConfig, undefined, this.axiosInstance)
   }
 
   setAccessToken = accessToken => {

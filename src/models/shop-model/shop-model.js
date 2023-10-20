@@ -1,14 +1,14 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ShopModelStatic {
-  createShop = async data => {
-    const response = await restApiService.shopApi.apiV1ShopsPost({ body: data })
-    return response
+  createShop = async body => {
+    const response = await restApiService.shopApi.apiV1ShopsPost({ body })
+    return response.data
   }
 
   getMyShops = async () => {
     const response = await restApiService.shopApi.apiV1ShopsGet()
-    return response
+    return response.data
   }
 
   getMyShopNames = async () => {
@@ -16,14 +16,14 @@ class ShopModelStatic {
     return response.data
   }
 
-  editShop = async (id, data) => {
-    const response = await restApiService.shopApi.apiV1ShopsGuidPatch(id, { body: data })
-    return response
+  editShop = async (guid, body) => {
+    const response = await restApiService.shopApi.apiV1ShopsGuidPatch({ guid, body })
+    return response.data
   }
 
-  removeShopById = async id => {
-    const response = await restApiService.shopApi.apiV1ShopsGuidDelete(id)
-    return response
+  removeShopById = async guid => {
+    const response = await restApiService.shopApi.apiV1ShopsGuidDelete({ guid })
+    return response.data
   }
 }
 

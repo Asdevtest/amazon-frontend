@@ -1,78 +1,65 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ProductModelStatic {
-  createProduct = async data => {
-    const response = await restApiService.product.apiV1ProductsPost(data)
-    return response
-  }
-
-  getProductById = async id => {
-    const response = await restApiService.product.apiV1ProductsGuidGet(id)
+  getProductById = async guid => {
+    const response = await restApiService.product.apiV1ProductsGuidGet({ guid })
     return response.data
   }
 
-  updateProduct = async (id, data) => {
-    const response = await restApiService.product.apiV1ProductsIdPatch(id, { body: data })
-    return response
-  }
-
-  removeProduct = async id => {
-    const response = await restApiService.product.apiV1ProductsIdDelete(id)
-    return response
-  }
-
-  addSuppliersToProduct = async (id, supplier) => {
-    const response = await restApiService.product.apiV1ProductsAddSuppliersGuidPost(id, {
+  addSuppliersToProduct = async (guid, supplier) => {
+    const response = await restApiService.product.apiV1ProductsAddSuppliersGuidPost({
+      guid,
       body: { suppliersIds: supplier },
     })
-    return response
+    return response.data
   }
 
-  removeSuppliersFromProduct = async (id, supplier) => {
-    const response = await restApiService.product.apiV1ProductsRemoveSuppliersGuidPost(id, {
+  removeSuppliersFromProduct = async (guid, supplier) => {
+    const response = await restApiService.product.apiV1ProductsRemoveSuppliersGuidPost({
+      guid,
       body: { suppliersIds: supplier },
     })
-    return response
+    return response.data
   }
 
   parseAmazon = async id => {
-    const response = await restApiService.product.apiV1ProductsParseAmazonIdGet(id)
-    return response
+    const response = await restApiService.product.apiV1ProductsParseAmazonIdGet({ id })
+    return response.data
   }
 
-  parseParseSellerCentral = async (asin, data) => {
-    const response = await restApiService.product.apiV1ProductsParseSellercentralGet(asin, data)
-    return response
+  parseParseSellerCentral = async (asin, price) => {
+    const response = await restApiService.product.apiV1ProductsParseSellercentralGet({ asin, price })
+    return response.data
   }
 
-  editProductsHsCods = async data => {
-    const response = await restApiService.product.apiV1ProductsEditHsCodePatch({ body: data })
-    return response
+  editProductsHsCods = async body => {
+    const response = await restApiService.product.apiV1ProductsEditHsCodePatch({ body })
+    return response.data
   }
 
-  getVacProductByUserId = async id => {
-    const response = await restApiService.product.apiV1ProductsByCreatorGuidGet(id)
-    return response
+  getVacProductByUserId = async guid => {
+    const response = await restApiService.product.apiV1ProductsByCreatorGuidGet({ guid })
+    return response.data
   }
 
-  getProductsHsCodeByGuid = async id => {
-    const response = await restApiService.product.apiV1ProductsHsCodeGuidGet(id)
-    return response
+  getProductsHsCodeByGuid = async guid => {
+    const response = await restApiService.product.apiV1ProductsHsCodeGuidGet({ guid })
+    return response.data
   }
 
   getProductRedFlags = async () => {
     const response = await restApiService.product.apiV1ProductsRedFlagsGet()
-    return response
+    return response.data
   }
 
-  getProductsVariationsByGuid = async id => {
-    const response = await restApiService.product.apiV1ProductsVariationsGuidGet(id)
-    return response
+  getProductsVariationsByGuid = async guid => {
+    const response = await restApiService.product.apiV1ProductsVariationsGuidGet({ guid })
+    return response.data
   }
 
-  unbindProducts = async data => {
-    const response = await restApiService.product.apiV1ProductsParentPatch({ body: data })
-    return response
+  unbindProducts = async body => {
+    const response = await restApiService.product.apiV1ProductsParentPatch({ body })
+    return response.data
   }
 }
 

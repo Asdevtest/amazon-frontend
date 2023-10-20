@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 api/administrator-api.ts
 api/announcements-api.ts

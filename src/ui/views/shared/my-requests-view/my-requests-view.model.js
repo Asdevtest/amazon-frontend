@@ -414,7 +414,7 @@ export class MyRequestsViewModel {
     this.history.push(`/client/freelance/my-requests/create-request`)
   }
 
-  onClickEditBtn(row) {
+  onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
       { requestId: this.currentRequestDetails.request._id },
@@ -451,7 +451,7 @@ export class MyRequestsViewModel {
 
   async editCustomSearchRequest(data, requestId) {
     try {
-      await RequestModel.updateCustomRequest(requestId, data)
+      await RequestModel.editRequest(requestId, data)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -469,7 +469,7 @@ export class MyRequestsViewModel {
 
   async createCustomSearchRequest(data) {
     try {
-      await RequestModel.createCustomSearchRequest(data)
+      await RequestModel.createRequest(data)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -486,21 +486,6 @@ export class MyRequestsViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async removeCustomSearchRequest() {
-    try {
-      await RequestModel.removeCustomRequests(this.currentRequestDetails.request._id)
-
-      this.onTriggerOpenModal('showConfirmModal')
-
-      this.getCustomRequests()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
   async getCustomRequests() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -510,7 +495,8 @@ export class MyRequestsViewModel {
           ? ''
           : `;uploadedToListing[$eq]=${listingFilters?.onListing}`
 
-      const result = await RequestModel.getRequests(RequestSubType.MY, {
+      const result = await RequestModel.getRequests({
+        kind: RequestSubType.MY,
         filters: this.getFilter() + additionalFilters,
 
         limit: this.paginationModel.pageSize,

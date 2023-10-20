@@ -89,7 +89,7 @@ class UserModelStatic {
         email,
       },
     })
-    return response
+    return response.data
   }
 
   async changeUserPassword({ oldPassword, newPassword }) {
@@ -99,7 +99,7 @@ class UserModelStatic {
         newPassword,
       },
     })
-    return response
+    return response.data
   }
 
   async getUserInfo() {
@@ -144,66 +144,57 @@ class UserModelStatic {
 
   async getPlatformSettings() {
     const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-
-    return response
+    return response.data
   }
 
-  async getUserInfoById(id) {
+  async getUserInfoById(guid) {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoGuidGet(id)
-
-      return response
+      const response = await restApiService.userApi.apiV1UsersInfoGuidGet({ guid })
+      return response.data
     } catch (error) {
       console.log(error)
     }
   }
 
-  async changeUserInfo(data) {
-    const response = await restApiService.userApi.apiV1UsersMePatch({ body: data })
-
-    return response
+  async changeUserInfo(body) {
+    const response = await restApiService.userApi.apiV1UsersMePatch({ body })
+    return response.data
   }
 
-  async linkSubUser(data) {
-    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch({ body: data })
-
-    return response
+  async linkSubUser(body) {
+    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch({ body })
+    return response.data
   }
 
-  async unlinkSubUser(data) {
-    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch({ body: data })
-
-    return response
+  async unlinkSubUser(body) {
+    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch({ body })
+    return response.data
   }
 
   async getMySubUsers() {
     const response = await restApiService.userApi.apiV1UsersMySubUsersGet()
-
-    return response
+    console.log('getMySubUsers', response)
+    return response.data
   }
 
   async getUserSettingsMy() {
     const response = await restApiService.userApi.apiV1UsersUserSettingsMyGet()
-
-    return response
+    return response.data
   }
 
   async createUserSettings(data) {
     const response = await restApiService.userApi.apiV1UsersUserSettingsPost({ body: data })
-
-    return response
+    return response.data
   }
 
-  async editUserSettings(id, data) {
-    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch(id, { body: data })
-
+  async editUserSettings(guid, body) {
+    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch({ guid, body })
     return response
   }
 
   async getUserSettingsAvailable() {
     const response = await restApiService.userApi.apiV1UsersUserSettingsAvailableGet()
-
-    return response
+    return response.data
   }
 
   async patchSubNote(id, comment) {
@@ -214,31 +205,27 @@ class UserModelStatic {
       },
     })
 
-    return response
+    return response.data
   }
 
   async getMasterUsers(role, id, specs) {
-    const response = await restApiService.userApi.apiV1UsersMastersGet(role, id, specs)
-
-    return response
+    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, id, specs })
+    return response.data
   }
 
   async getUsersNotificationsPagMy(data) {
     const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(data)
-
-    return response
+    return response.data
   }
 
-  async addNotificationsToArchive(data) {
-    const response = await restApiService.userApi.apiV1UsersNotificationsArchivePatch({ body: data })
-
-    return response
+  async addNotificationsToArchive(body) {
+    const response = await restApiService.userApi.apiV1UsersNotificationsArchivePatch({ body })
+    return response.data
   }
 
   async changeSubUserSpec(guid, data) {
-    const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost(guid, { body: data })
-
-    return response
+    const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost({ guid, data })
+    return response.data
   }
 }
 

@@ -1,57 +1,44 @@
 import axios from 'axios'
 
+import { BACKEND_API_URL } from '@constants/keys/env'
+
 import { SettingsModel } from '@models/settings-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-export const axiosInstance = axios.create()
+export const getAxiosInstance = () => {
+  const axiosInstance = axios.create({
+    baseURL: BACKEND_API_URL,
+  })
 
-// axiosInstance.interceptors.request.use(
-//   config => config,
-//   error => Promise.reject(error),
-// )
+  axiosInstance.interceptors.response.use(
+    response => {
+      return response
+    },
 
-axiosInstance.interceptors.response.use(
-  response => {
-    return response
-  },
-
-  async error => {
-    const originalConfig = error.config
-    if ((error.response.status === 403 || error.response.status === 401) && !originalConfig._retry) {
-      originalConfig._retry = true
-      console.log('Token expired')
-
-      const userModel = SettingsModel.loadValue('UserModel')
-      const { refreshToken } = userModel
-      await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } }).then(tokenResponse => {
+    async error => {
+      const originalConfig = error.config
+      if ((error.response.status === 403 || error.response.status === 401) && !originalConfig._retry) {
+        originalConfig._retry = true
+        const userModel = SettingsModel.loadValue('UserModel')
+        const { refreshToken } = userModel
+        const tokenResponse = await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } })
         const accessToken = tokenResponse?.data?.accessToken
         restApiService.setAccessToken(accessToken)
         SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
-        axiosInstance(originalConfig)
-      })
-    } else {
-      return Promise.reject(error)
-    }
-  },
-)
+        const data = await axiosInstance({
+          ...originalConfig,
+          headers: {
+            ...originalConfig.headers,
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        return data
+      } else {
+        return Promise.reject(error)
+      }
+    },
+  )
 
-// handleAuthenticationError = require('superagent-intercept')(async (error, response) => {
-//   if (
-//     (response?.status === 403 && response?.statusText?.includes('Forbidden')) ||
-//     (response?.status === 401 &&
-//       (response?.statusText?.includes('Forbidden') || response?.statusText?.includes('Unauthorized')))
-//   ) {
-//     try {
-//       const userModel = SettingsModel.loadValue('UserModel')
-//       const { refreshToken } = userModel
-//       await this.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } }).then(tokenResponse => {
-//         this.setAccessToken(tokenResponse?.accessToken)
-//         SettingsModel.saveValue('UserModel', { ...userModel, accessToken: tokenResponse?.accessToken })
-//         this.retryRequestHandler(response?.req, tokenResponse?.accessToken)
-//       })
-//     } catch (error) {
-//       console.log('Error while getting access token:', error)
-//     }
-//   }
-// })
+  return axiosInstance
+}

@@ -1,1 +1,1 @@
-export { axiosInstance } from './axios-instance'
+export { getAxiosInstance } from './axios-instance'
