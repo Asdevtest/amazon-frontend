@@ -3,12 +3,14 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { FreelancerFreelanceColumns } from '@components/table/table-columns/freelancer/freelancer-freelance-columns'
 
 import { freelancerServiceDetaildsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 export class ServiceDetailsViewModel {
@@ -27,6 +29,10 @@ export class ServiceDetailsViewModel {
   filterModel = { items: [] }
 
   showConfirmModal = false
+  showReviewModal = false
+
+  currentReviews = []
+  currentReviewModalUser = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -180,5 +186,26 @@ export class ServiceDetailsViewModel {
     runInAction(() => {
       this.requestStatus = requestStatus
     })
+  }
+
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+
+      runInAction(() => {
+        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    this.currentReviewModalUser = user
+    this.onTriggerOpenModal('showReviewModal')
   }
 }
