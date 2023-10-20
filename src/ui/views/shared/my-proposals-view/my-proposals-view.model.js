@@ -386,7 +386,7 @@ export class MyProposalsViewModel {
   }
 
   getTableByColumn(column) {
-    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter'].includes(column)) {
+    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter', 'requestCreatedBy'].includes(column)) {
       return 'proposals'
     } else if (
       [
