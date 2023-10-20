@@ -282,7 +282,7 @@ export const EditBoxTasksModal = ({
             withoutLinks
             fullWidth
             dragAndDropBtnHeight={67}
-            images={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images}
+            images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
             setImages={setImagesOfBox}
             maxNumber={50}
           />
@@ -292,7 +292,10 @@ export const EditBoxTasksModal = ({
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <PhotoAndFilesSlider smallSlider files={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images} />
+        <PhotoAndFilesSlider
+          smallSlider
+          files={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
+        />
       </div>
 
       <div className={classNames.buttonsWrapper}>
