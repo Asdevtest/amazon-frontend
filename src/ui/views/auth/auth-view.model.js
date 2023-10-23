@@ -84,6 +84,7 @@ export class AuthViewModel {
       })
       await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
+      await UserModel.getUsersInfoCounters()
       if (UserModel.accessToken) {
         runInAction(() => {
           this.requestStatus = loadingStatuses.success
