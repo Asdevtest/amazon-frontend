@@ -497,7 +497,7 @@ export const EditOrderModal = observer(
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
 
-    const disableEditInPendingOrder = isPendingOrder && !isSupplierAcceptRevokeActive
+    const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
 
     return (
       <Box className={classNames.modalWrapper}>
