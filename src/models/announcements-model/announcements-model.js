@@ -7,7 +7,7 @@ export class AnnouncementsModelStatic {
   }
 
   getVacAnnouncements = async type => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet({ type })
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet(type ? { type } : undefined)
     return response.data
   }
 

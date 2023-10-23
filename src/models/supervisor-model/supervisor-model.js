@@ -1,5 +1,7 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class SupervisorModelStatic {
   getProductsVacant = async isCreatedByClient => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet({ isCreatedByClient })
@@ -7,7 +9,7 @@ class SupervisorModelStatic {
   }
 
   getProductsMyPag = async options => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsPagMyGet(options)
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsPagMyGet(filterNullValues(options))
     return response.data
   }
 

@@ -1,5 +1,7 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 export class BatchesModelStatic {
   getBatches = async status => {
     const response = await restApiService.batchesApi.apiV1BatchesGet({ status })
@@ -78,7 +80,7 @@ export class BatchesModelStatic {
   }
 
   getBatchesWithFiltersPag = async body => {
-    const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet(body)
+    const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet(filterNullValues(body))
     return response.data
   }
   editUpdateBatches = async body => {

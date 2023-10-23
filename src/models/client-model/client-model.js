@@ -2,6 +2,8 @@
 // import {BACKEND_API_URL} from '@constants/env'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class ClientModelStatic {
   getProductsVacant = async () => {
     const response = await restApiService.clientApi.apiV1ClientsProductsVacGet()
@@ -27,7 +29,7 @@ class ClientModelStatic {
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(data)
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(filterNullValues(data))
     return response.data
   }
 
@@ -54,7 +56,7 @@ class ClientModelStatic {
   }
 
   getOrdersPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(data)
+    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(filterNullValues(data))
     return response.data
   }
 
@@ -77,7 +79,7 @@ class ClientModelStatic {
   }
 
   getTasks = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(data)
+    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(filterNullValues(data))
     return response.data
   }
 

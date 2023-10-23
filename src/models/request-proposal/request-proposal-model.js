@@ -4,6 +4,8 @@ import { OtherModel } from '@models/other-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class RequestProposalModelStatic {
   async onPostFile(fileData) {
     const formData = new FormData()
@@ -137,7 +139,7 @@ class RequestProposalModelStatic {
   }
 
   getRequestProposalsPagMy = async opts => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(opts)
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(filterNullValues(opts))
     return response.data
   }
 }
