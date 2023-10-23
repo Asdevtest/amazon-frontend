@@ -165,7 +165,7 @@ export const navbarConfig = () => ({
     {
       icon: ExchangeIcon,
       title: t(TranslationKey['Commodity exchange']),
-      route: '/client/product-exchange/forks-exchange',
+      route: '/client/product-exchange',
       subtitles: [
         { subtitle: t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange' },
         { subtitle: 'Private Label', subRoute: '/client/product-exchange/private-label' },

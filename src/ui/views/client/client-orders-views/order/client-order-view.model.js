@@ -349,7 +349,6 @@ export class ClientOrderViewModel {
 
         this.order = result
       })
-      // SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
     } catch (error) {
       console.log(error)
     }
@@ -404,6 +403,8 @@ export class ClientOrderViewModel {
           title: t(TranslationKey['Data saved successfully']),
         }
       })
+
+      await this.getOrderById()
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
