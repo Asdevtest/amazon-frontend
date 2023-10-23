@@ -129,7 +129,7 @@ export class MyRequestsViewModel {
     () => this.onHover,
   )
 
-  paginationModel = { page: 0, pageSize: 15 }
+  paginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel = {}
 
   columnMenuSettings = {
