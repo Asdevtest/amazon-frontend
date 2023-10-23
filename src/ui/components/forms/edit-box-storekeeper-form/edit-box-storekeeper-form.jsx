@@ -30,6 +30,7 @@ import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -259,14 +260,15 @@ export const EditBoxStorekeeperForm = observer(
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
+      const currentValue = e.target.value
 
       if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
           return
         }
       }
 
-      newFormFields[fieldName] = e.target.value
+      newFormFields[fieldName] = currentValue
 
       setBoxFields(newFormFields)
     }
@@ -307,25 +309,19 @@ export const EditBoxStorekeeperForm = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = newCondition => {
-      setSizeSetting(newCondition)
+    const handleChange = newAlignment => {
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (newCondition === unitsOfChangeOptions.US) {
         setBoxFields({
           ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / multiplier, 2),
         })
-      } else {
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 
