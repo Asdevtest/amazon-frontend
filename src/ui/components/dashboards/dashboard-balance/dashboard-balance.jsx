@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'

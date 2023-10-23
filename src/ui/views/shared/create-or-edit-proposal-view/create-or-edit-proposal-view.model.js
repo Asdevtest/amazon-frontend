@@ -38,10 +38,8 @@ export class CreateOrEditProposalViewModel {
     runInAction(() => {
       this.history = history
 
-      const url = new URL(window.location.href)
-
-      const requestId = url.searchParams.get('requestId')
-      const proposalId = url.searchParams.get('proposalId')
+      const requestId = history.location.state.request.request._id
+      const proposalId = history.location.state.request.request._id
 
       this.getRequestById(requestId)
       this.getProposalById(proposalId)
@@ -146,18 +144,26 @@ export class CreateOrEditProposalViewModel {
   }
 
   async getProposalById(proposalId) {
-    await RequestProposalModel.getRequestProposalsCustom(proposalId).then(response => {
+    try {
+      const response = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+
       runInAction(() => {
         this.proposalToEdit = response?.proposal
       })
-    })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   async getRequestById(requestId) {
-    await RequestModel.getCustomRequestById(requestId).then(response => {
+    try {
+      const response = await RequestModel.getCustomRequestById(requestId)
+
       runInAction(() => {
         this.request = response
       })
-    })
+    } catch (err) {
+      console.error(err)
+    }
   }
 }

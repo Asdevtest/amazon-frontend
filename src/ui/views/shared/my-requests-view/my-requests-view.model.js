@@ -290,34 +290,11 @@ export class MyRequestsViewModel {
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
-    const clientSortColumn = sortModel.find(column => column.field === 'waitedProposals')
+    this.setDataGridState()
 
-    if (clientSortColumn) {
-      const isAscending = clientSortColumn?.sort === 'asc'
-
-      const sortedData = [...this.currentData]?.sort((a, b) => {
-        const valueA = a?.waitedProposals
-        const valueB = b?.waitedProposals
-
-        return isAscending ? valueA - valueB : valueB - valueA
-      })
-
-      runInAction(() => {
-        this.currentData = sortedData
-      })
-
-      this.setDataGridState()
-    } else {
-      this.requestStatus = loadingStatuses.isLoading
-
-      this.getCustomRequests().then(() => {
-        this.requestStatus = loadingStatuses.success
-      })
-    }
+    this.getCustomRequests()
   }
 
   getCurrentData() {
@@ -414,7 +391,7 @@ export class MyRequestsViewModel {
     this.history.push(`/client/freelance/my-requests/create-request`)
   }
 
-  onClickEditBtn(row) {
+  onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
       { requestId: this.currentRequestDetails.request._id },
@@ -516,10 +493,7 @@ export class MyRequestsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField:
-          this.sortModel?.length && this.sortModel[0]?.field !== 'waitedProposals'
-            ? this.sortModel[0]?.field
-            : 'updatedAt',
+        sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'updatedAt',
         sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 

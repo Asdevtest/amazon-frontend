@@ -77,7 +77,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
@@ -97,10 +97,10 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'name',
+    field: 'createdBy',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 112,
+    width: 145,
     renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
   },
 
@@ -122,7 +122,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 120,
+    width: 100,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },

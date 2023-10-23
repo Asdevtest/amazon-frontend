@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-// import {mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'

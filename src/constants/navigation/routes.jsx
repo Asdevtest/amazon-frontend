@@ -324,9 +324,6 @@ const ClientOrderView = lazy(() =>
 const ClientOrdersView = lazy(() =>
   import('@views/client/client-orders-views/orders').then(module => ({ default: module.ClientOrdersView })),
 )
-const ClientProductExchangeView = lazy(() =>
-  import('@views/client/client-product-exchange-view').then(module => ({ default: module.ClientProductExchangeView })),
-)
 const ClientProductView = lazy(() =>
   import('@views/client/client-product-view').then(module => ({ default: module.ClientProductView })),
 )
@@ -493,12 +490,12 @@ const UserProfileView = lazy(() =>
   import('@views/shared/user-profile-view/user-profile-view').then(module => ({ default: module.UserProfileView })),
 )
 const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({ default: module.UsersView })))
-const VacantDealsDetailsView = lazy(() =>
+/* const VacantDealsDetailsView = lazy(() =>
   import('@views/shared/vacant-deals-details-view').then(module => ({ default: module.VacantDealsDetailsView })),
 )
 const VacantDealsView = lazy(() =>
   import('@views/shared/vacant-deals-view').then(module => ({ default: module.VacantDealsView })),
-)
+) */
 const VacantRequestsView = lazy(() =>
   import('@views/shared/vacant-requests-view/vacant-requests-view').then(module => ({
     default: module.VacantRequestsView,
@@ -1535,7 +1532,8 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/product-exchange',
-    component: ClientProductExchangeView,
+    // component: ClientProductExchangeView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.CLIENT],
 

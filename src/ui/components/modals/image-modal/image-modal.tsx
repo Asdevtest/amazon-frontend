@@ -103,7 +103,7 @@ export const ImageModal: FC<Props> = observer(
                       <img src={currentPhoto} alt={`Photo ${photoIndex}`} />
                     )}
 
-                    {photosTitles?.length && (
+                    {photosTitles?.[photoIndex] && (
                       <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[photoIndex]}</p>
                     )}
                   </div>
@@ -113,17 +113,18 @@ export const ImageModal: FC<Props> = observer(
           )}
 
           <div className={styles.body}>
-            {photosTitles?.length && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
+            {photosTitles?.[photoIndex] && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
 
             <Slider
               controls
+              isHideCounter
               customSlideHeight={500}
               slides={photos}
               currentIndex={photoIndex}
               setCurrentIndex={setPhotoIndex}
             />
 
-            {photosComments?.length && (
+            {photosComments?.[photoIndex] && (
               <p className={cx(styles.title, styles.clientComment)}>
                 {getShortenStringIfLongerThanCount(photosComments?.[photoIndex], 200)}
               </p>
@@ -146,15 +147,13 @@ export const ImageModal: FC<Props> = observer(
           </div>
         </div>
 
-        {openImageZoomModal ? (
-          <ZoomModal
-            images={photos}
-            currentImageIndex={photoIndex}
-            isOpenModal={openImageZoomModal}
-            setIsOpenModal={onOpenImageZoomModal}
-            setCurrentImageIndex={setPhotoIndex}
-          />
-        ) : null}
+        <ZoomModal
+          images={photos}
+          currentImageIndex={photoIndex}
+          isOpenModal={openImageZoomModal}
+          setIsOpenModal={onOpenImageZoomModal}
+          setCurrentImageIndex={setPhotoIndex}
+        />
 
         <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
           <ImageEditForm

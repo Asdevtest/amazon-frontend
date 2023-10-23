@@ -170,9 +170,12 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['To correct'])
     case MyRequestStatus.OFFER_CONDITIONS_REJECTED:
       return t(TranslationKey['Proposal conditions rejected'])
-
     case MyRequestStatus.OFFER_CONDITIONS_CORRECTED:
       return t(TranslationKey['Proposal conditions corrected'])
+    case RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED:
+      return t(TranslationKey['Proposal conditions accepted'])
+    case RequestProposalStatus.CREATED:
+      return t(TranslationKey.Created)
   }
 }
 

@@ -86,7 +86,7 @@ export const SelectFields = ({
           <div className={classNames.photoWrapper}>
             {!!order.product.images.length && (
               <div className={classNames.carouselWrapper}>
-                <PhotoAndFilesSlider mediumSlider withoutFiles files={order.product.images} />
+                <PhotoAndFilesSlider mediumSlider withoutFiles showPreviews files={order.product.images} />
               </div>
             )}
           </div>

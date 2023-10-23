@@ -232,22 +232,17 @@ export const IdeaViewAndEditCard = observer(
     }, [])
 
     const handleChange = newAlignment => {
-      setSizeSetting(newAlignment)
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (newAlignment === unitsOfChangeOptions.US) {
         setFormFields({
           ...formFields,
-          width: toFixed(formFields.width / inchesCoefficient, 2) || '',
-          height: toFixed(formFields.height / inchesCoefficient, 2) || '',
-          length: toFixed(formFields.length / inchesCoefficient, 2) || '',
+          width: toFixed(formFields.width / multiplier, 2) || 0,
+          height: toFixed(formFields.height / multiplier, 2) || 0,
+          length: toFixed(formFields.length / multiplier, 2) || 0,
         })
-      } else {
-        setFormFields({
-          ...formFields,
-          width: toFixed(roundSafely(formFields.width * inchesCoefficient), 2) || '',
-          height: toFixed(roundSafely(formFields.height * inchesCoefficient), 2) || '',
-          length: toFixed(roundSafely(formFields.length * inchesCoefficient), 2) || '',
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 
