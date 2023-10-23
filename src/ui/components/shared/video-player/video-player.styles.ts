@@ -8,7 +8,9 @@ export const useClassNames = makeStyles()(() => ({
     justifyContent: 'center',
   },
 
-  video: {
-    width: '100%',
+  videoPlayer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }))

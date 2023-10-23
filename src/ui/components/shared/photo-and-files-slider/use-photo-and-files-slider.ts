@@ -24,6 +24,8 @@ export const usePhotoAndFilesSlider = (
   const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
   const [photoIndex, setPhotoIndex] = useState(startPhotoIndex ?? 0)
 
+  const [isPlaying, setIsPlaying] = useState(false) // for video player
+
   useEffect(() => {
     if (photos?.length - 1 < photoIndex && photos?.length > 0) {
       setPhotoIndex(photos?.length - 1)
@@ -120,6 +122,9 @@ export const usePhotoAndFilesSlider = (
     documents,
     documentIndex,
     setDocumentIndex,
+
+    isPlaying,
+    setIsPlaying,
 
     onClickMakeMainImageObj,
     onUploadFile,

@@ -57,6 +57,9 @@ export const ImageModal: FC<Props> = observer(
       photoIndex,
       setPhotoIndex,
 
+      isPlaying,
+      setIsPlaying,
+
       onClickMakeMainImageObj,
       onUploadFile,
       onClickRemoveImageObj,
@@ -90,7 +93,10 @@ export const ImageModal: FC<Props> = observer(
                     className={cx(styles.imagesListItem, {
                       [styles.imagesListItemActive]: index === photoIndex,
                     })}
-                    onClick={() => setPhotoIndex(index)}
+                    onClick={() => {
+                      setPhotoIndex(index)
+                      setIsPlaying(false)
+                    }}
                   >
                     {isVideoType ? (
                       <div className={styles.preloaderContainer}>
@@ -122,6 +128,8 @@ export const ImageModal: FC<Props> = observer(
               slides={photos}
               currentIndex={photoIndex}
               setCurrentIndex={setPhotoIndex}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
             />
 
             {photosComments?.[photoIndex] && (
