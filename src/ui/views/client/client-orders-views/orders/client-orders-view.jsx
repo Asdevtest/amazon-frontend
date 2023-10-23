@@ -174,10 +174,9 @@ export const ClientOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
         <CheckPendingOrderForm
-          existingOrders={viewModel.existingOrders}
-          checkPendingData={viewModel.checkPendingData}
+          existingProducts={viewModel.existingProducts}
           onClickPandingOrder={viewModel.onClickPandingOrder}
-          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.isOrder)}
+          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
         />
       </Modal>

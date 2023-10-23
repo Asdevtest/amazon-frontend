@@ -4,7 +4,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 485,
-    minHeight: '250px',
+    minHeight: '150px',
     maxHeight: '900px',
     overflowY: 'auto',
 
