@@ -83,7 +83,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
     width: 256,
 
-    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+    columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },
 
   {
