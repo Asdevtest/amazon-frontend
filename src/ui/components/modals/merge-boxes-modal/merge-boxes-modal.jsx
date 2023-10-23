@@ -219,28 +219,21 @@ export const MergeBoxesModal = ({
     }, {}),
   )
 
-  // Добавил
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-  const handleChange = condition => {
-    setSizeSetting(condition)
+  const handleChange = newAlignment => {
+    if (newAlignment !== sizeSetting) {
+      const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-    if (condition === unitsOfChangeOptions.US) {
       setBoxBody({
         ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / multiplier, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / multiplier, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / multiplier, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / multiplier, 2),
       })
-    } else {
-      setBoxBody({
-        ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-      })
+
+      setSizeSetting(newAlignment)
     }
   }
 
