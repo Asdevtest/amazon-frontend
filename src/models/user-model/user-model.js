@@ -131,7 +131,7 @@ class UserModelStatic {
       const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
       runInAction(() => {
-        this.userInfo = { ...this.userInfo, ...response }
+        this.userInfo = { ...this.userInfo, ...response.data }
       })
     } catch (error) {
       this.accessToken = undefined
