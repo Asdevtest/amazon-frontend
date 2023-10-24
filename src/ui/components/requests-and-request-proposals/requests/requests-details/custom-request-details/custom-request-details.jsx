@@ -13,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-request-details.style'
@@ -28,9 +29,11 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
     setShowDetails(!showDetails)
   }
 
-  const requestMedia = request?.request?.media?.map(el => el.fileLink)
-  const requestTitles = request?.request?.media?.map(el => el.commentByPerformer)
-  const requestComments = request?.request?.media?.map(el => el.commentByClient)
+  const requestMedia = request?.request?.media?.filter(el => checkIsImageLink(el.fileLink))
+  const requestPhotos = requestMedia?.map(el => el.fileLink)
+  const requestTitles = requestMedia?.map(el => el.commentByPerformer)
+  const requestComments = requestMedia?.map(el => el.commentByClient)
+  const requestDocuments = request?.request?.media.map(el => el.fileLink)
 
   return (
     <div className={classNames.root}>
@@ -49,7 +52,7 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
                 <PhotoAndFilesSlider
                   withoutFiles
                   showPreviews
-                  files={requestMedia}
+                  files={requestPhotos}
                   photosTitles={requestTitles}
                   photosComments={requestComments}
                 />
@@ -59,7 +62,7 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <PhotoAndFilesSlider withoutPhotos files={requestMedia} />
+                <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
               </div>
             </div>
 

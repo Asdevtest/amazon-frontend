@@ -311,7 +311,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
   async getBoxes() {
     try {
       const [result, platformSettings] = await Promise.all([
-        BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF),
+        BoxesModel.getBoxesForCurClient({ status: BoxStatus.NEED_TO_UPDATE_THE_TARIFF }),
         UserModel.getPlatformSettings(),
       ])
 

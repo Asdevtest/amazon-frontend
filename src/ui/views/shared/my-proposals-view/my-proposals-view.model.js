@@ -273,11 +273,14 @@ export class MyProposalsViewModel {
   }
 
   onClickOpenBtn(requestId) {
-    this.history.push(
-      `/${
+    const win = window.open(
+      `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.user.role]
       }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
+      '_blank',
     )
+
+    win?.focus()
   }
 
   getUserInfo() {
@@ -386,7 +389,7 @@ export class MyProposalsViewModel {
   }
 
   getTableByColumn(column) {
-    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter'].includes(column)) {
+    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter', 'requestCreatedBy'].includes(column)) {
       return 'proposals'
     } else if (
       [

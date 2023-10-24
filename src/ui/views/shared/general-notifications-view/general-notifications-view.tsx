@@ -65,24 +65,22 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
         { label: () => t(TranslationKey.Order), value: NotificationTypes.order },
         { label: () => t(TranslationKey.All), value: undefined },
       ]
-    : isCurrentUserFreelancer
-    ? [
-        { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
-        { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
-        { label: () => t(TranslationKey.All), value: undefined },
-      ]
     : [{ label: () => t(TranslationKey.All), value: undefined }]
 
   return (
     viewModel.languageTag && (
       <div className={classNames.root}>
         <div className={classNames.actionPanelWrapper}>
-          <CustomSwitcher
-            switchMode={'medium'}
-            condition={viewModel.curNotificationType}
-            switcherSettings={currentSwitcherSettings}
-            changeConditionHandler={viewModel.onClickToChangeNotificationType}
-          />
+          {!isCurrentUserFreelancer ? (
+            <CustomSwitcher
+              switchMode={'medium'}
+              condition={viewModel.curNotificationType}
+              switcherSettings={currentSwitcherSettings}
+              changeConditionHandler={viewModel.onClickToChangeNotificationType}
+            />
+          ) : (
+            <div />
+          )}
 
           <SearchInput
             inputClasses={cx(classNames.searchInput, {

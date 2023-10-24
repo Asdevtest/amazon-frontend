@@ -671,7 +671,7 @@ export class ClientIdeasViewModel {
       await method(id)
 
       if (addSupliersToParentProductData) {
-        ProductModel.addSuppliersToProduct(
+        await ProductModel.addSuppliersToProduct(
           addSupliersToParentProductData?.parentProduct?._id,
           addSupliersToParentProductData?.suppliers?.map(supplier => supplier._id),
         )
@@ -679,7 +679,7 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -1070,7 +1070,8 @@ export class ClientIdeasViewModel {
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
       const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
 
-      const result = await RequestModel.getRequestsByProductLight(currentProductId, {
+      const result = await RequestModel.getRequestsByProductLight({
+        guid: currentProductId,
         status: 'DRAFT, PUBLISHED',
         excludeIdeaId: idea._id,
       })

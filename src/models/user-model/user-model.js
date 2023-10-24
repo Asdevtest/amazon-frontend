@@ -4,10 +4,9 @@ import { makePersistable } from 'mobx-persist-store'
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 
-import { ApiClient } from '@services/rest-api-service/codegen/src'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { UserInfoContract } from './user-model.contracts'
+import { filterNullValues } from '@utils/object'
 
 const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
 
@@ -53,22 +52,25 @@ class UserModelStatic {
   }
 
   async signIn(email, password) {
-    const response = await restApiService.userApi.apiV1UsersSignInPost({
-      body: {
-        email,
-        password,
-      },
-    })
+    await restApiService.userApi
+      .apiV1UsersSignInPost({
+        body: {
+          email,
+          password,
+        },
+      })
+      .then(responseData => {
+        const response = responseData.data
+        const accessToken = response.accessToken
+        const refreshToken = response.refreshToken
+        runInAction(() => {
+          this.accessToken = accessToken
+          this.refreshToken = refreshToken
+        })
+        restApiService.setAccessToken(accessToken)
 
-    const accessToken = response.accessToken
-    const refreshToken = response.refreshToken
-    runInAction(() => {
-      this.accessToken = accessToken
-      this.refreshToken = refreshToken
-    })
-    restApiService.setAccessToken(accessToken)
-
-    return accessToken
+        return accessToken
+      })
   }
 
   async signUp({ name, email, password }) {
@@ -79,7 +81,7 @@ class UserModelStatic {
         password,
       },
     })
-    this.userInfo = ApiClient.convertToType(response, UserInfoContract)
+    this.userInfo = response.data
   }
 
   async isCheckUniqueUser({ name, email }) {
@@ -89,7 +91,7 @@ class UserModelStatic {
         email,
       },
     })
-    return response
+    return response.data
   }
 
   async changeUserPassword({ oldPassword, newPassword }) {
@@ -99,16 +101,16 @@ class UserModelStatic {
         newPassword,
       },
     })
-    return response
+    return response.data
   }
 
   async getUserInfo() {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoGet()
-      const counters = await this.getUsersInfoCounters()
+      const responseData = await restApiService.userApi.apiV1UsersInfoGet()
+      const response = responseData.data
 
       runInAction(() => {
-        this.userInfo = { ...response, ...counters }
+        this.userInfo = { ...this.userInfo, ...response }
         this.userId = response._id
         this.masterUserId = response.masterUser?._id
       })
@@ -128,7 +130,9 @@ class UserModelStatic {
     try {
       const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
-      return response
+      runInAction(() => {
+        this.userInfo = { ...this.userInfo, ...response }
+      })
     } catch (error) {
       this.accessToken = undefined
       this.userInfo = undefined
@@ -142,66 +146,57 @@ class UserModelStatic {
 
   async getPlatformSettings() {
     const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-
-    return response
+    return response.data
   }
 
-  async getUserInfoById(id) {
+  async getUserInfoById(guid) {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoGuidGet(id)
-
-      return response
+      const response = await restApiService.userApi.apiV1UsersInfoGuidGet({ guid })
+      return response.data
     } catch (error) {
       console.log(error)
     }
   }
 
-  async changeUserInfo(data) {
-    const response = await restApiService.userApi.apiV1UsersMePatch({ body: data })
-
-    return response
+  async changeUserInfo(body) {
+    const response = await restApiService.userApi.apiV1UsersMePatch({ body })
+    return response.data
   }
 
-  async linkSubUser(data) {
-    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch({ body: data })
-
-    return response
+  async linkSubUser(body) {
+    const response = await restApiService.userApi.apiV1UsersLinkSubUserPatch({ body })
+    return response.data
   }
 
-  async unlinkSubUser(data) {
-    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch({ body: data })
-
-    return response
+  async unlinkSubUser(body) {
+    const response = await restApiService.userApi.apiV1UsersUnlinkSubUserPatch({ body })
+    return response.data
   }
 
   async getMySubUsers() {
     const response = await restApiService.userApi.apiV1UsersMySubUsersGet()
-
-    return response
+    console.log('getMySubUsers', response)
+    return response.data
   }
 
   async getUserSettingsMy() {
     const response = await restApiService.userApi.apiV1UsersUserSettingsMyGet()
-
-    return response
+    return response.data
   }
 
   async createUserSettings(data) {
     const response = await restApiService.userApi.apiV1UsersUserSettingsPost({ body: data })
-
-    return response
+    return response.data
   }
 
-  async editUserSettings(id, data) {
-    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch(id, { body: data })
-
+  async editUserSettings(guid, body) {
+    const response = await restApiService.userApi.apiV1UsersUserSettingsMyPatch({ guid, body })
     return response
   }
 
   async getUserSettingsAvailable() {
     const response = await restApiService.userApi.apiV1UsersUserSettingsAvailableGet()
-
-    return response
+    return response.data
   }
 
   async patchSubNote(id, comment) {
@@ -212,31 +207,27 @@ class UserModelStatic {
       },
     })
 
-    return response
+    return response.data
   }
 
   async getMasterUsers(role, id, specs) {
-    const response = await restApiService.userApi.apiV1UsersMastersGet(role, id, specs)
-
-    return response
+    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, id, specs })
+    return response.data
   }
 
   async getUsersNotificationsPagMy(data) {
-    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(data)
-
-    return response
+    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(filterNullValues(data))
+    return response.data
   }
 
-  async addNotificationsToArchive(data) {
-    const response = await restApiService.userApi.apiV1UsersNotificationsArchivePatch({ body: data })
-
-    return response
+  async addNotificationsToArchive(body) {
+    const response = await restApiService.userApi.apiV1UsersNotificationsArchivePatch({ body })
+    return response.data
   }
 
   async changeSubUserSpec(guid, data) {
-    const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost(guid, { body: data })
-
-    return response
+    const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost({ guid, data })
+    return response.data
   }
 }
 

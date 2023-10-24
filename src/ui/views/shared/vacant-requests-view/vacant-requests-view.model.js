@@ -224,7 +224,8 @@ export class VacantRequestsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await RequestModel.getRequests(RequestSubType.VACANT, {
+      const result = await RequestModel.getRequests({
+        kind: RequestSubType.VACANT,
         filters: this.getFilter(),
         typeTask:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
@@ -384,6 +385,7 @@ export class VacantRequestsViewModel {
       this.columnVisibilityModel = model
     })
 
+    this.setTableModeState()
     this.getRequestsVacant()
   }
 

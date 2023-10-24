@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, useEffect, useState } from 'react'
 
 import { Box, Checkbox, FormControlLabel } from '@mui/material'
@@ -29,6 +30,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
 
   useEffect(() => {
     if (isEditMode) {
+      // @ts-ignore
       ProductModel.getProductRedFlags().then(value => setFlags(value))
     }
   }, [])

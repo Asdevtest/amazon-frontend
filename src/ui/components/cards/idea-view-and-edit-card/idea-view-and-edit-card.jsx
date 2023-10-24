@@ -250,6 +250,8 @@ export const IdeaViewAndEditCard = observer(
       const res = {
         ...formFields,
 
+        approximatePrice: formFields?.approximatePrice || 0,
+        fbaFee: formFields?.fbaFee || 0,
         width:
           (sizeSetting === unitsOfChangeOptions.US
             ? roundSafely(formFields.width * inchesCoefficient)
@@ -271,6 +273,8 @@ export const IdeaViewAndEditCard = observer(
       const res = {
         ...formFields,
 
+        approximatePrice: formFields?.approximatePrice || 0,
+        fbaFee: formFields?.fbaFee || 0,
         width:
           (sizeSetting === unitsOfChangeOptions.EU
             ? roundSafely(formFields.width / inchesCoefficient)
