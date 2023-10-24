@@ -273,11 +273,14 @@ export class MyProposalsViewModel {
   }
 
   onClickOpenBtn(requestId) {
-    this.history.push(
-      `/${
+    const win = window.open(
+      `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.user.role]
       }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
+      '_blank',
     )
+
+    win?.focus()
   }
 
   getUserInfo() {
