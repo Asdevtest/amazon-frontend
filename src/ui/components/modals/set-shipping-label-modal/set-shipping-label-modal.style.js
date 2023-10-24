@@ -4,40 +4,41 @@ export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '100%',
   },
+
   modalTitle: {
-    color: theme.palette.text.general,
+    marginBottom: 30,
     fontSize: '18px',
     fontWeight: 600,
-    lineHeight: '140%',
-    marginBottom: '30px',
-  },
-
-  boxCode: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '48px 0px',
-  },
-
-  input: {
-    width: '400px',
-  },
-  saveBox: {
-    marginTop: '16px',
-    display: 'flex',
-    gap: '10px',
-    justifyContent: 'space-between',
-  },
-  actionButton: {
-    width: '179px',
-    height: '40px',
+    lineHeight: '25px',
+    color: theme.palette.text.general,
   },
 
   linkWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
+
   link: {
-    width: '660px',
+    width: 350,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  saveBox: {
+    marginTop: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+
+  actionButton: {
+    width: 170,
+    height: 40,
   },
 }))
