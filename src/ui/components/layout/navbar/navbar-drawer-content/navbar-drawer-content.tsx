@@ -6,6 +6,7 @@ import { List, Typography } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { NavbarCategory } from '@components/layout/navbar'
@@ -59,6 +60,8 @@ interface Props {
   showConfirmModal: boolean
 }
 
+const alwaysShowSubCategoryKeys = [navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS]
+
 export const NavbarDrawerContent: FC<Props> = observer(
   ({
     shortNavbar,
@@ -105,7 +108,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                   onToggleModal={onToggleModal}
                 />
 
-                {category.key === activeCategory && (
+                {(category.key === activeCategory || alwaysShowSubCategoryKeys.includes(category.key)) && (
                   <NavbarCollapse
                     showHighPriorityNotification
                     shortNavbar={shortNavbar}
