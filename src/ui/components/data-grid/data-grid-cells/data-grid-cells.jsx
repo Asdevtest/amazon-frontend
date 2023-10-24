@@ -751,7 +751,6 @@ export const ChangeInputCommentCell = React.memo(
   withStyles(
     ({
       classes: classNames,
-      id,
       onClickSubmit,
       onChangeText,
       text,
@@ -762,26 +761,25 @@ export const ChangeInputCommentCell = React.memo(
       placeholder,
       disableMultiline,
     }) => {
-      const [value, setValue] = useState(text)
+      const [value, setValue] = useState('')
       const [isEdited, setIsEdited] = useState(false)
+      const [isShow, setShow] = useState(false)
 
       useEffect(() => {
         setValue(text)
       }, [text])
 
-      const [isShow, setShow] = useState(false)
-
       return (
-        <div className={classNames.ChangeInputCommentCellWrapper}>
+        <div className={classNames.changeInputCommentCellWrapper}>
           <Input
             multiline={!disableMultiline}
             autoFocus={false}
-            // minRows={rowsCount ?? 2}
-            // maxRows={rowsCount ?? 2}
+            // minRows={rowsCount || 2}
+            // maxRows={rowsCount || 2}
             inputProps={{ maxLength: maxLength ? maxLength : 256 }}
             placeholder={placeholder ?? t(TranslationKey.Comment)}
             disabled={disabled}
-            className={classNames.changeInputComment}
+            className={classNames.changeInputCommentRoot}
             classes={{ input: classNames.changeInputComment }}
             value={value}
             endAdornment={
@@ -799,7 +797,7 @@ export const ChangeInputCommentCell = React.memo(
                             setShow(false)
                             setIsEdited(false)
                           }, 2000)
-                          onClickSubmit(id, value)
+                          onClickSubmit()
                         }}
                       />
                       <ClearIcon

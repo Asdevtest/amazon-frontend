@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -159,15 +158,13 @@ export class SourceFilesViewModel {
     try {
       const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comments'])
 
-      if (this.editField._id === row.originalData._id) {
-        await RequestProposalModel.patchFreelanceSourceFilesByGuid(this.editField._id, saveData)
+      await RequestProposalModel.patchFreelanceSourceFilesByGuid(row._id, saveData)
 
-        runInAction(() => {
-          this.editField = undefined
-        })
+      runInAction(() => {
+        this.editField = undefined
+      })
 
-        this.getSourceFiles()
-      }
+      this.getSourceFiles()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -206,6 +203,7 @@ export class SourceFilesViewModel {
 
   onChangeText = fieldName => value => {
     const newFormFields = { ...this.editField }
+
     newFormFields[fieldName] = value
 
     runInAction(() => {
