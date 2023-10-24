@@ -1,168 +1,153 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class BuyerModelStatic {
   getProductsVacant = async isCreatedByClient => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet({ isCreatedByClient })
-    return response
+    return response.data
   }
 
   getProductsMy = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsMyGet()
-    return response
+    return response.data
   }
 
   getProductsMyPag = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(data)
-    return response
+    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(filterNullValues(data))
+    return response.data
   }
 
   getProductsMyLight = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsLightGet()
-    return response
+    return response.data
   }
 
-  updateProduct = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsGuidPatch(id, {
+  updateProduct = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsGuidPatch({
+      guid,
       body: data,
     })
-    return response
+    return response.data
   }
 
-  pickupProduct = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsPickupGuidPost(id)
-    return response
-  }
-
-  getBalance = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersPaymentsMyBalanceGet()
-    return response
+  pickupProduct = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsPickupGuidPost({ guid })
+    return response.data
   }
 
   getOrdersVacant = async () => {
-    const createdWithOutBuyersProducts = true // Добавить ордеры с продуктами в которых не участвовали байеры
-
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet(createdWithOutBuyersProducts)
-    return response
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet()
+    return response.data
   }
 
-  getOrder = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidGet(id)
-    return response
+  getOrder = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidGet({ guid })
+    return response.data
   }
 
-  updateOrder = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPatch(id, {
-      body: data,
-    })
-    return response
-  }
-
-  pickupOrder = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPickupGuidPost(id)
-    return response
+  pickupOrder = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPickupGuidPost({ guid })
+    return response.data
   }
 
   getOrdersMy = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersMyGet()
-    return response
+    return response.data
   }
 
   getOrdersMyPag = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPagMyGet(data)
-    return response
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPagMyGet(filterNullValues(data))
+    return response.data
   }
 
   getPaymentsMy = async () => {
     const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
-    return response
-  }
-
-  getBatches = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersBatchesGet()
-
-    return response
+    return response.data
   }
 
   postTask = async data => {
     const response = await restApiService.buyerApi.apiV1BuyersTasksPost({ body: data })
-    return response
+    return response.data
   }
 
   getTasksMy = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersTasksGet()
-
-    return response
+    return response.data
   }
 
-  editOrder = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidEditPatch(id, {
+  editOrder = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidEditPatch({
+      guid,
       body: data,
     })
-    return response
+    return response.data
   }
 
-  setOrderTotalPriceChanged = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(id, {
+  setOrderTotalPriceChanged = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch({
+      guid,
       body: data,
     })
-    return response
+    return response.data
   }
 
-  orderPayToSupplier = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPayToSupplierPatch(id)
-    return response
+  orderPayToSupplier = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidPayToSupplierPatch({ guid })
+    return response.data
   }
 
-  orderReadyForPayment = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersReadyForPaymentGuidPatch(id, { body: data })
-    return response
+  orderReadyForPayment = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersReadyForPaymentGuidPatch({ guid, body: data })
+    return response.data
   }
 
-  orderPartiallyPaid = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPartiallyPaidGuidPatch(id)
-    return response
+  orderPartiallyPaid = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPartiallyPaidGuidPatch({ guid })
+    return response.data
   }
 
-  orderTrackNumberIssued = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidTrackNumberIssuedPatch(id)
-    return response
+  orderTrackNumberIssued = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidTrackNumberIssuedPatch({ guid })
+    return response.data
   }
 
-  orderSetInStock = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersSetInStockGuidPatch(id, { body: data })
-    return response
+  orderSetInStock = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersSetInStockGuidPatch({ guid, body: data })
+    return response.data
   }
 
-  returnOrder = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidReturnOrderPatch(id, {
+  returnOrder = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidReturnOrderPatch({
+      guid,
       body: data,
     })
-    return response
+    return response.data
   }
 
-  getOrderById = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidGet(id)
-    return response
+  getOrderById = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidGet({ guid })
+    return response.data
   }
 
-  changeOrderItem = async (id, item) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidEditItemItemPatch(id, item)
-    return response
+  changeOrderItem = async (guid, item) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidEditItemItemPatch({ guid, item })
+    return response.data
   }
 
-  setOrdersAtProcess = async id => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersAtProcessGuidPatch(id)
-    return response
+  setOrdersAtProcess = async guid => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersAtProcessGuidPatch({ guid })
+    return response.data
   }
 
   getBuyersOrdersPaymentByStatus = async status => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentAmountGet(status)
-    return response
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentAmountGet({ status })
+    return response.data
   }
 
-  PatchBuyersOrdersPaymentByGuid = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentGuidPatch(id, { body: data })
-    return response
+  PatchBuyersOrdersPaymentByGuid = async (guid, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentGuidPatch({ guid, body: data })
+    return response.data
   }
 }
 

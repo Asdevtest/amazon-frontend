@@ -336,7 +336,7 @@ export class ClientProductViewModel {
   async getProductById() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await ProductModel.getProductById(this.productId)
+      const result = await ProductModel.getProductById({ guid: this.productId })
 
       runInAction(() => {
         this.product = result
@@ -937,9 +937,7 @@ export class ClientProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         })
 
-        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
-          price: amazonResult.price,
-        })
+        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
         this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
         if (!sellerCentralResult.amazonFee) {

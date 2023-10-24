@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -62,6 +64,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       handleSaveTags(newValue)
     } else {
       GeneralModel.createTag(selectValue!.title).then(res => {
+        // @ts-ignore
         newValue = [...selectedTags, { title: selectValue?.title, _id: res._id } as Tag]
         setSelectedTags(newValue)
         handleSaveTags(newValue)
