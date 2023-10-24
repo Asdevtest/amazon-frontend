@@ -344,7 +344,11 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if ([columnnsKeys.shared.BATCHES_PRODUCTS].includes(currentColumn.columnKey)) {
+  if (
+    [columnnsKeys.shared.BATCHES_PRODUCTS, columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT].includes(
+      currentColumn.columnKey,
+    )
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ProductMenuItem
