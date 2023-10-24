@@ -671,7 +671,7 @@ export class ClientIdeasViewModel {
       await method(id)
 
       if (addSupliersToParentProductData) {
-        ProductModel.addSuppliersToProduct(
+        await ProductModel.addSuppliersToProduct(
           addSupliersToParentProductData?.parentProduct?._id,
           addSupliersToParentProductData?.suppliers?.map(supplier => supplier._id),
         )
@@ -679,7 +679,7 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
