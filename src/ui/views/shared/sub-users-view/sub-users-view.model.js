@@ -291,7 +291,7 @@ export class SubUsersViewModel {
       const methodByRole = () => {
         switch (UserRoleCodeMap[this.userInfo.role]) {
           case UserRole.CLIENT:
-            return ClientModel.getProductPermissionsData()
+            return ClientModel.getProductPermissionsData({})
 
           case UserRole.BUYER:
             return BuyerModel.getProductsMyLight()

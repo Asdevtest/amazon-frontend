@@ -38,11 +38,15 @@ export class CreateOrEditProposalViewModel {
     runInAction(() => {
       this.history = history
 
-      const requestId = history.location.state.request.request._id
-      const proposalId = history.location.state.request.request._id
+      const url = new URL(window.location.href)
+
+      const requestId = url.searchParams.get('requestId')
+      const proposalId = url.searchParams.get('proposalId')
 
       this.getRequestById(requestId)
-      this.getProposalById(proposalId)
+      if (proposalId) {
+        this.getProposalById(proposalId)
+      }
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })

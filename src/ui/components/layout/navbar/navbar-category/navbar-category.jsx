@@ -57,7 +57,7 @@ const NavBarCategoryRaw = observer(
     return (
       <Button
         tooltipPosition="center"
-        tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title, userInfo.role)}
+        tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
         className={classNames.menuItem}
         onClick={onToggleModal}
       >
@@ -91,7 +91,7 @@ const NavBarCategoryRaw = observer(
             <ListItemText
               disableTypography
               className={cx({ [classNames.listItemSelected]: isSelected })}
-              primary={category.title}
+              primary={category.title()}
             />
           )}
 

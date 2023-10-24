@@ -949,7 +949,7 @@ export class BuyerMyOrdersViewModel {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
         buyerComment: this.dataToCancelOrder.buyerComment,
       })
-      await UserModel.getUserInfo()
+      await UserModel.getUsersInfoCounters()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
@@ -1213,6 +1213,7 @@ export class BuyerMyOrdersViewModel {
         })
         this.onTriggerOpenModal('showOrderModal')
         UserModel.getUserInfo()
+        UserModel.getUsersInfoCounters()
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
 
