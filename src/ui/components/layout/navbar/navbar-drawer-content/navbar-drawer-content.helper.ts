@@ -1,8 +1,7 @@
+import { NavbarConfigTypes } from '@typings/navbar-config'
 import { IUser } from '@typings/user'
 
-import { CurNavbarType } from './navbar-drawer-content'
-
-export const getCategoryBadge = (category: CurNavbarType, userInfo: IUser) => {
+export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IUser) => {
   if (category.route?.includes('/client/notifications')) {
     return (
       userInfo?.needConfirmPriceChange?.boxes +

@@ -30,12 +30,14 @@ import {
 import { isHaveMasterUser } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { NavbarConfigTypes } from '@typings/navbar-config'
+
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
 
 import { navBarActiveCategory, navBarActiveSubCategory } from './navbar-active-category'
 
-export const navbarConfig = () => ({
+export const navbarConfig = {
   [UserRole.CLIENT]: [
     {
       icon: DashboardIcon,
@@ -159,7 +161,7 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(item => Object.values(permissionsKeys.client.ideas).includes(item.key)),
+        user?.permissions?.some(item => Object.values(permissionsKeys.client.ideas).includes(item.key as string)),
     },
 
     {
@@ -1050,7 +1052,7 @@ export const navbarConfig = () => ({
     {
       icon: UsersPermissionsIcon,
       title: () => t(TranslationKey['User permissions']),
-      route: '/admin/permissions',
+      route: '/adminpermissions',
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
       checkHideBlock: () => true,
     },
@@ -1080,7 +1082,6 @@ export const navbarConfig = () => ({
       checkHideBlock: () => true,
     },
   ],
-
   [UserRole.MODERATOR]: [
     {
       icon: DashboardIcon,
@@ -1159,4 +1160,4 @@ export const navbarConfig = () => ({
       checkHideBlock: () => true,
     },
   ],
-})
+} as NavbarConfigTypes.RootObject

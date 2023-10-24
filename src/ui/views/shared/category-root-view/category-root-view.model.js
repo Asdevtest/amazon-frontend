@@ -24,7 +24,7 @@ export class CategoryRootViewModel {
   }
 
   setSubRoutes() {
-    const category = navbarConfig()[UserRoleCodeMap[UserModel?.userInfo?.role]]?.find(
+    const category = navbarConfig[UserRoleCodeMap[UserModel?.userInfo?.role]]?.find(
       el => el.route === this.history.location.pathname,
     )
     runInAction(() => {
