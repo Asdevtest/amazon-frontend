@@ -252,9 +252,4 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 30,
   },
-
-  toolbarContainer: {
-    height: 52,
-    gap: 30,
-  },
 }))

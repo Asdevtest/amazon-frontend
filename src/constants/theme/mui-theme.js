@@ -94,7 +94,7 @@ export const lightTheme = createTheme({
           height: 14,
         },
 
-        /* columnHeaderDraggableContainer: {
+        columnHeaderDraggableContainer: {
           position: 'relative',
           paddingRight: 20,
           flexDirection: 'row !important',
@@ -131,7 +131,7 @@ export const lightTheme = createTheme({
 
         iconSeparator: {
           padding: '0 1px',
-        }, */
+        },
       },
     },
 
@@ -392,7 +392,7 @@ export const darkTheme = createTheme({
           height: 14,
         },
 
-        /* columnSeparator: {
+        columnSeparator: {
           color: 'rgba(81, 81, 81, 1)',
         },
 
@@ -454,7 +454,7 @@ export const darkTheme = createTheme({
 
         iconSeparator: {
           padding: '0 1px',
-        }, */
+        },
       },
     },
 
