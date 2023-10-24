@@ -237,10 +237,10 @@ export class SubUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await UserModel.getMySubUsers()
-
-      runInAction(() => {
-        this.subUsersData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+      await UserModel.getMySubUsers().then(result => {
+        runInAction(() => {
+          this.subUsersData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        })
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -349,7 +349,6 @@ export class SubUsersViewModel {
           title: t(TranslationKey['User permissions were changed']),
         }
       })
-      console.log('currentSpec', currentSpec)
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
