@@ -15,7 +15,7 @@ export const styles = theme => ({
 
   tasksWrapper: {
     marginTop: 20,
-    height: 'calc(100vh - 250px)',
+    height: '74vh',
   },
 
   headerWrapper: {

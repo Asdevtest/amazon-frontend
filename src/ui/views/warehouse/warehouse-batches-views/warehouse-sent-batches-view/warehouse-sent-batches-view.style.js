@@ -16,6 +16,7 @@ export const styles = theme => ({
     fontSize: '16px',
     paddingLeft: '7px',
   },
+
   datagridWrapper: {
     marginTop: '20px',
     height: '79vh',

@@ -1,1 +1,5 @@
-export const styles = () => ({})
+export const styles = () => ({
+  tableWrapper: {
+    height: '85vh',
+  },
+})

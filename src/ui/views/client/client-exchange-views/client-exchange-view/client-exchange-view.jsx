@@ -22,6 +22,7 @@ import { ClientExchangeViewModel } from './client-exchange-view.model'
 
 export const ClientExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -30,7 +31,7 @@ export const ClientExchangeViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}

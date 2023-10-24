@@ -25,40 +25,38 @@ export const ClientOrdersNotificationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
-            rowHeight={140}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+      <div className={classNames.tableWrapper}>
+        <MemoDataGrid
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          rowHeight={140}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
+            },
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </div>
 
       <ConfirmationModal

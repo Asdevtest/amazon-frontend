@@ -12,4 +12,8 @@ export const styles = theme => ({
     height: 36,
     overflow: 'visible',
   },
+
+  tableWrapper: {
+    height: '80vh',
+  },
 })

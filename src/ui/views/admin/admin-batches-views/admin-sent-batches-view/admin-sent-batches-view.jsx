@@ -27,14 +27,14 @@ export const AdminSentBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by ASIN, Title'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
+      <div className={classNames.topHeaderBtnsWrapper}>
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          placeholder={t(TranslationKey['Search by ASIN, Title'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}

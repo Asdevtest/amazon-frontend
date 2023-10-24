@@ -16,4 +16,8 @@ export const styles = createStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
+
+  tableWrapper: {
+    height: '82vh',
+  },
 }))

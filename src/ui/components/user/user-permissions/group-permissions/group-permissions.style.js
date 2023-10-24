@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(() => ({
     marginTop: 10,
     flexDirection: 'column',
   },
+
   placeAddBtnWrapper: {
     width: '100%',
     display: 'flex',

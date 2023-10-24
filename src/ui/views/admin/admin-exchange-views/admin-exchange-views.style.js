@@ -9,6 +9,7 @@ export const styles = theme => ({
     marginBottom: '5px',
     fontSize: '16px',
     transition: '.15s ease-in-out',
+
     '&:hover': {
       color: theme.palette.primary.main,
       transform: 'scale(1.01)',

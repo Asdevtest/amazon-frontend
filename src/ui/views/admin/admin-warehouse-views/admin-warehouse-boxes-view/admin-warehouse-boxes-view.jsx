@@ -27,14 +27,15 @@ export const AdminWarehouseBoxesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
+      <div className={classNames.topHeaderBtnsWrapper}>
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}

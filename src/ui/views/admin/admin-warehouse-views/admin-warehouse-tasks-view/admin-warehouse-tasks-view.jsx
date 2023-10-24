@@ -18,6 +18,7 @@ import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model
 
 export const AdminWarehouseTasksViewRaw = props => {
   const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -25,7 +26,7 @@ export const AdminWarehouseTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -56,6 +57,7 @@ export const AdminWarehouseTasksViewRaw = props => {
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
+
       <Modal
         openModal={viewModel.showTaskInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}

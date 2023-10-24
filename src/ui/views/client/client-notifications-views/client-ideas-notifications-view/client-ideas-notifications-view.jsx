@@ -25,45 +25,43 @@ export const ClientIdeasNotificationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
-          {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-        </Button>
+      <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+        {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+      </Button>
 
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
-            rowHeight={120}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+      <div className={classNames.tableWrapper}>
+        <MemoDataGrid
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          rowHeight={120}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </div>
     </React.Fragment>
   )

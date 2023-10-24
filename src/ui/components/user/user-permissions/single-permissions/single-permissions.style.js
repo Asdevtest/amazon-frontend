@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(() => ({
     marginTop: 10,
     flexDirection: 'column',
   },
+
   placeAddBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -18,6 +19,7 @@ export const useClassNames = makeStyles()(() => ({
     width: '149px',
     height: '40px',
   },
+
   datagridWrapper: {
     height: '75vh',
   },

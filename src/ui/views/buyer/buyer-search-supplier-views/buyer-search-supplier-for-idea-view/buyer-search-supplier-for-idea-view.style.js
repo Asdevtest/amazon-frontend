@@ -5,7 +5,6 @@ export const styles = () => ({
   },
 
   datagridWrapper: {
-    marginTop: '20px',
     height: '81vh',
   },
 })

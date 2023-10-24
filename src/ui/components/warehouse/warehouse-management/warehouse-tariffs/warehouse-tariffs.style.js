@@ -14,6 +14,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     paddingRight: '5px',
+
     [theme.breakpoints.down(768)]: {
       paddingRight: '10px',
     },
@@ -22,6 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
   placeAddBtn: {
     width: '159px',
     height: '40px',
+
     [theme.breakpoints.down(768)]: {
       width: '91px',
     },

@@ -42,7 +42,6 @@ export const styles = theme => ({
 
   button: {
     marginBottom: 5,
-
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',

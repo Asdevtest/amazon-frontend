@@ -144,7 +144,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     width: 270,
     height: 40,
-
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -168,13 +167,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subFieldLabel: {
     color: theme.palette.text.second,
-
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
-
     whiteSpace: 'pre-wrap',
-
     marginBottom: '5px !important',
 
     [theme.breakpoints.down(768)]: {
@@ -185,7 +181,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   infoField: {
     height: 40,
-
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
@@ -195,7 +190,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
       minWidth: '280px',
-
       display: 'flex',
       justifyContent: 'center',
     },
@@ -205,9 +199,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     width: '100%',
     position: 'relative',
-    border: `1px solid  ${theme.palette.background.second}`,
-    boxShadow: theme.palette.boxShadow.paper,
-    borderRadius: 7,
   },
 
   virtualScroller: {

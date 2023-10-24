@@ -6,7 +6,6 @@ export const styles = theme => ({
 
   tableWrapper: {
     marginTop: '20px',
-    width: '100%',
     height: '48vh',
   },
 })

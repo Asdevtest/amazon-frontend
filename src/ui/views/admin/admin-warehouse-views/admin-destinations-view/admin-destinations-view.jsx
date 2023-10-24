@@ -34,13 +34,13 @@ export const AdminDestinationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.placeAddBtnWrapper}>
-          <Button success onClick={() => viewModel.onClickAddBtn()}>
-            {t(TranslationKey['Add a destination'])}
-          </Button>
-        </div>
+      <div className={classNames.placeAddBtnWrapper}>
+        <Button success onClick={() => viewModel.onClickAddBtn()}>
+          {t(TranslationKey['Add a destination'])}
+        </Button>
+      </div>
 
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -59,31 +59,31 @@ export const AdminDestinationsViewRaw = props => {
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-
-        <Modal
-          openModal={viewModel.showAddOrEditDestinationModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
-        >
-          <AddOrEditDestinationForm
-            destinationToEdit={viewModel.destinationToEdit}
-            onCloseModal={() => viewModel.onClickCancelBtn()}
-            onCreateSubmit={viewModel.onSubmitCreateDestination}
-            onEditSubmit={viewModel.onSubmitEditDestination}
-          />
-        </Modal>
-
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
       </div>
+
+      <Modal
+        openModal={viewModel.showAddOrEditDestinationModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
+      >
+        <AddOrEditDestinationForm
+          destinationToEdit={viewModel.destinationToEdit}
+          onCloseModal={() => viewModel.onClickCancelBtn()}
+          onCreateSubmit={viewModel.onSubmitCreateDestination}
+          onEditSubmit={viewModel.onSubmitEditDestination}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
     </React.Fragment>
   )
 }

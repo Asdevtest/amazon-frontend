@@ -5,4 +5,8 @@ export const styles = () => ({
     justifyContent: 'flex-end',
     margin: '15px 0',
   },
+
+  tableWrapper: {
+    height: '80vh',
+  },
 })

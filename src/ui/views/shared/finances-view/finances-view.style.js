@@ -6,4 +6,8 @@ export const styles = theme => ({
   greenRow: {
     color: theme.palette.text.green,
   },
+
+  tableWrapper: {
+    height: '88vh',
+  },
 })

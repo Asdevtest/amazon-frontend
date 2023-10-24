@@ -5,6 +5,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -17,7 +18,6 @@ export const styles = theme => ({
 
   dataGridWrapper: {
     height: '72vh',
-    overflow: 'auto',
   },
 
   btnsWrapper: {

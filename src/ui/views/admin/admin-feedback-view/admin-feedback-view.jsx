@@ -27,16 +27,16 @@ export const AdminFeedbackViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.headerWrapper}>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by name, email'])}
-            value={viewModel.nameSearchValue}
-            onChange={viewModel.onChangeNameSearchValue}
-          />
-        </div>
+      <div className={classNames.headerWrapper}>
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          placeholder={t(TranslationKey['Search by name, email'])}
+          value={viewModel.nameSearchValue}
+          onChange={viewModel.onChangeNameSearchValue}
+        />
+      </div>
 
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}

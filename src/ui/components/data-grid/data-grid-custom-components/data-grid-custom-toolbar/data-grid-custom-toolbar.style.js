@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   toolbar: {
-    padding: '5px 8px 0',
+    padding: '5px 5px 0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

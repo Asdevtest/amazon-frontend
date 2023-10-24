@@ -26,7 +26,7 @@ export const FinancesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
