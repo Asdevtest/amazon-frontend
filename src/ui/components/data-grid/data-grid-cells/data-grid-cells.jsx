@@ -776,8 +776,8 @@ export const ChangeInputCommentCell = React.memo(
           <Input
             multiline={!disableMultiline}
             autoFocus={false}
-            minRows={rowsCount ?? 2}
-            maxRows={rowsCount ?? 2}
+            // minRows={rowsCount ?? 2}
+            // maxRows={rowsCount ?? 2}
             inputProps={{ maxLength: maxLength ? maxLength : 256 }}
             placeholder={placeholder ?? t(TranslationKey.Comment)}
             disabled={disabled}

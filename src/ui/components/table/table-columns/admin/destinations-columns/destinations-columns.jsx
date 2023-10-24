@@ -4,11 +4,26 @@ import {
   EditOrRemoveIconBtnsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
 
 export const destinationsColumns = handlers => [
+  {
+    field: 'storekeeper',
+    headerName: t(TranslationKey.Account),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Account)} />,
+
+    width: 150,
+    renderCell: params => (
+      <UserLinkCell
+        name={params?.row?.originalData?.storekeeper?.name}
+        userId={params?.row?.originalData?.storekeeper?._id}
+      />
+    ),
+  },
+
   {
     field: 'name',
     headerName: t(TranslationKey.Title),

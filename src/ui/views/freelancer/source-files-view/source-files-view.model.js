@@ -6,7 +6,6 @@ import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
 
 import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
