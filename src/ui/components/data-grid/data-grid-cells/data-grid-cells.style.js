@@ -1619,12 +1619,8 @@ export const styles = theme => ({
 
   changeInputCommentCellWrapper: {
     width: '100%',
-<<<<<<< HEAD
     height: '100%',
     padding: '10px',
-=======
-    padding: '10px 0',
->>>>>>> dev
   },
 
   menuItem: {
