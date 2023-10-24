@@ -3,11 +3,6 @@ export const styles = theme => ({
     marginRight: '24px',
   },
 
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
-
   btnsWrapper: {
     width: '100%',
 
@@ -21,27 +16,6 @@ export const styles = theme => ({
   btnsSubWrapper: {
     display: 'flex',
     gap: 30,
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    height: '52px',
   },
 
   datagridWrapper: {
@@ -82,7 +56,6 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
 
@@ -94,14 +67,12 @@ export const styles = theme => ({
   rightSideWrapper: {
     display: 'flex',
     alignItems: 'end',
-
     gap: 30,
   },
 
   rightSideButtonsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-
     gap: 10,
   },
 

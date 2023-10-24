@@ -22,11 +22,6 @@ export const styles = theme => ({
     width: 'fit-content',
   },
 
-  row: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-  },
-
   dashboardCardWrapper: {
     width: '100%',
     display: 'flex',
@@ -54,6 +49,7 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -86,11 +82,10 @@ export const styles = theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
     borderBottom: theme.palette.other.tableActiveFilterBtn,
-
     color: `${theme.palette.primary.main} !important`,
   },
+
   searchInput: {
     width: 380,
   },

@@ -35,11 +35,6 @@ export const styles = theme => ({
     },
   },
 
-  row: {
-    cursor: 'pointer',
-    transition: '0.3s ease',
-  },
-
   openArchiveBtn: {
     width: 230,
     color: theme.palette.primary.main,
