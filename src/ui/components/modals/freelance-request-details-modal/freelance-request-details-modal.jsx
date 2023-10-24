@@ -14,6 +14,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
+import { checkIsImageLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -34,9 +35,11 @@ export const FreelanceRequestDetailsModal = props => {
     onClickAbortBtn,
   } = props
   const { classes: styles } = useFreelanceRequestDetailsModalStyles()
-  const requestMedia = request?.media?.map(el => el.fileLink)
-  const requestTitles = request?.media?.map(el => el.commentByPerformer)
-  const requestComments = request?.media?.map(el => el.commentByClient)
+  const requestMedia = request?.media?.filter(el => checkIsImageLink(el.fileLink))
+  const requestPhotos = requestMedia?.map(el => el.fileLink)
+  const requestTitles = requestMedia?.map(el => el.commentByPerformer)
+  const requestComments = requestMedia?.map(el => el.commentByClient)
+  const requestDocuments = request?.media.map(el => el.fileLink)
 
   return (
     <Modal
@@ -102,14 +105,14 @@ export const FreelanceRequestDetailsModal = props => {
               <PhotoAndFilesSlider
                 withoutFiles
                 showPreviews
-                files={requestMedia}
+                files={requestPhotos}
                 photosTitles={requestTitles}
                 photosComments={requestComments}
               />
             </div>
             <div className={cx(styles.filesList)}>
               <Typography>{t(TranslationKey.Files)}</Typography>
-              <PhotoAndFilesSlider withoutPhotos files={requestMedia} />
+              <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
             </div>
           </div>
         </div>
