@@ -826,7 +826,7 @@ export const EditOrderModal = observer(
                         danger={isSupplierAcceptRevokeActive}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
+                        className={cx(classNames.iconBtn, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
                         onClick={() => {
