@@ -1215,9 +1215,9 @@ export const NormalFieldMenuItem = React.memo(
                       return (
                         <div key={index} className={classNames.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                          <div title={value} className={classNames.shopName}>
+                          <p title={value} className={classNames.shopName}>
                             {value}
-                          </div>
+                          </p>
                         </div>
                       )
                     })}
