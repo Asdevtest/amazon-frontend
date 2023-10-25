@@ -64,17 +64,19 @@ class RestApiService {
   }
 
   setAccessToken = accessToken => {
-    this.openapiConfig.baseOptions = {
-      headers: { Authorization: `${apiKeyPrefix} ${accessToken}` },
-    }
-    this.openapiConfig.accessToken = `${accessToken}`
+    // this.openapiConfig.baseOptions = {
+    //   headers: { Authorization: `${apiKeyPrefix} ${accessToken}` },
+    // }
+    // this.openapiConfig.accessToken = `${accessToken}`
+    this.axiosInstance.defaults.headers.Authorization = `${apiKeyPrefix} ${accessToken}`
   }
 
   removeAccessToken = () => {
-    this.openapiConfig.baseOptions = {
-      headers: { Authorization: '' },
-    }
-    this.openapiConfig.accessToken = ''
+    // this.openapiConfig.baseOptions = {
+    //   headers: { Authorization: '' },
+    // }
+    // this.openapiConfig.accessToken = ''
+    this.axiosInstance.defaults.headers.Authorization = `${apiKeyPrefix}`
   }
 }
 

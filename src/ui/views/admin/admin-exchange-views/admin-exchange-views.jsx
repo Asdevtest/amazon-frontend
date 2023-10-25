@@ -3,14 +3,12 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Grid } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
@@ -49,15 +47,7 @@ export const AdminExchangeViewsRaw = props => {
         </Grid>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            pagination
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -65,10 +55,6 @@ export const AdminExchangeViewsRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={100}
             rows={viewModel.currentData}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

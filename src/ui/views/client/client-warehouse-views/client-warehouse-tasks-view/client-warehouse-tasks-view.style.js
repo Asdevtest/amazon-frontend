@@ -5,7 +5,6 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
 
@@ -16,27 +15,7 @@ export const styles = theme => ({
 
   tasksWrapper: {
     marginTop: 20,
-    height: 'calc(100vh - 250px)',
-  },
-
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
+    height: '74vh',
   },
 
   headerWrapper: {

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useClassNames = makeStyles()(() => ({
   wrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -13,26 +13,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   datagridWrapper: {
-    width: '100%',
     height: '70vh',
-    borderRadius: 4,
-    boxShadow: theme.palette.boxShadow.paper,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 5,
-    right: 5,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    padding: '10px 15px',
-    height: 64,
   },
 }))

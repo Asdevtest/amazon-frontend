@@ -43,7 +43,10 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell
+        twoLines
+        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
+      />
     ),
     width: 100,
     sortable: false,
