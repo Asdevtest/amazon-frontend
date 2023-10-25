@@ -13,6 +13,8 @@ export const RequestStatus = {
   CANCELED_BY_CREATOR: 'CANCELED_BY_CREATOR',
   OFFER_CONDITIONS_REJECTED: 'OFFER_CONDITIONS_REJECTED',
   OFFER_CONDITIONS_CORRECTED: 'OFFER_CONDITIONS_CORRECTED',
+  CREATED: 'CREATED',
+  OFFER_CONDITIONS_ACCEPTED: 'OFFER_CONDITIONS_ACCEPTED',
 
   EXPIRED: 'EXPIRED',
 
@@ -76,6 +78,8 @@ export const colorByStatus = status => {
       RequestStatus.ACCEPTED_BY_SUPERVISOR,
       RequestStatus.ACCEPTED_BY_CLIENT,
       RequestStatus.CORRECTED,
+      RequestStatus.CREATED,
+      RequestStatus.OFFER_CONDITIONS_ACCEPTED,
       RequestStatus.OFFER_CONDITIONS_CORRECTED,
     ].includes(status)
   ) {
