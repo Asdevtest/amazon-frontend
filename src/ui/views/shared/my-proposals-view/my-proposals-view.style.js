@@ -7,6 +7,7 @@ export const styles = () => ({
 
   dataGridWrapper: {
     height: 'calc(100vh - 190px)',
+    width: '100%',
   },
 
   tablePanelWrapper: {

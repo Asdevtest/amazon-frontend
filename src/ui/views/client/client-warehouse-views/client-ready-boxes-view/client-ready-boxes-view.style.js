@@ -35,6 +35,7 @@ export const styles = theme => ({
   datagridWrapper: {
     marginTop: 20,
     height: '74vh',
+    width: '100%',
   },
 
   searchInput: {

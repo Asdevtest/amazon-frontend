@@ -9,5 +9,6 @@ export const styles = theme => ({
 
   tableWrapper: {
     height: '88vh',
+    width: '100%',
   },
 })
