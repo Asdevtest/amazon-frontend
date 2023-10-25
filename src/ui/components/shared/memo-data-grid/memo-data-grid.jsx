@@ -9,45 +9,23 @@ import { SettingsModel } from '@models/settings-model'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 
-export const MemoDataGrid = observer(({ ...restProps }) => {
-  const result = useMemo(
-    () => (
-      <DataGrid
-        key={SettingsModel.languageTag}
-        pagination
-        hideFooter
-        disableVirtualization
-        sortingMode="server"
-        paginationMode="server"
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-          columnMenu: DataGridCustomColumnMenuComponent,
-        }}
-        {...restProps}
-      />
-    ),
+export const MemoDataGrid = ({ ...restProps }) => {
+  console.log('Render MemoDataGrid')
 
-    [
-      SettingsModel.uiTheme,
-      SettingsModel.languageTag,
-      restProps.rows,
-      restProps.columns,
-      restProps.loading,
-      restProps.density,
-      restProps.paginationModel?.pageSize,
-      restProps.paginationModel?.page,
-      restProps.sortModel,
-      restProps.filterModel,
-      restProps.rowSelectionModel,
-      restProps.slotProps?.columnMenu,
-      restProps.propsToRerender?.onHover,
-      restProps.propsToRerender?.unitsOption,
-      restProps.propsToRerender?.isArchive,
-      restProps.propsToRerender?.currentData,
-      restProps.propsToRerender?.productViewMode,
-    ],
+  return (
+    <DataGrid
+      key={SettingsModel.languageTag}
+      pagination
+      hideFooter
+      disableVirtualization
+      sortingMode="server"
+      paginationMode="server"
+      slots={{
+        toolbar: DataGridCustomToolbar,
+        columnMenuIcon: FilterAltOutlinedIcon,
+        columnMenu: DataGridCustomColumnMenuComponent,
+      }}
+      {...restProps}
+    />
   )
-
-  return <>{result}</>
-})
+}
