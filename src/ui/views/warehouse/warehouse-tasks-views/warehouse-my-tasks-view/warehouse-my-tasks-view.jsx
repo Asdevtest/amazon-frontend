@@ -3,13 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -84,21 +82,9 @@ export const WarehouseMyTasksViewRaw = props => {
         </div>
         <div className={classNames.tableWrapper}>
           <MemoDataGrid
-            pagination
             checkboxSelection
-            disableVirtualization
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
             getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -107,10 +93,6 @@ export const WarehouseMyTasksViewRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 147}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

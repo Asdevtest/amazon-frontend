@@ -2,7 +2,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 export class AnnouncementsModelStatic {
   getMyAnnouncements = async type => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsMyGet({ type })
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsMyGet(type ? { type } : undefined)
     return response.data
   }
 

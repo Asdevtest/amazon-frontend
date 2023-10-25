@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -32,7 +32,7 @@ export const SupplierApproximateCalculationsForm = observer(
   ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient, destinationData }) => {
     const { classes: classNames } = useClassNames()
 
-    const [tabIndex, setTabIndex] = React.useState(tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF)
+    const [tabIndex, setTabIndex] = useState(tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF)
 
     const [curStorekeeper, setCurStorekeeper] = useState(
       storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
@@ -79,7 +79,6 @@ export const SupplierApproximateCalculationsForm = observer(
         <TabPanel value={tabIndex} index={tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
-              hideFooter
               rows={
                 curStorekeeper.tariffLogistics?.length
                   ? supplierWeightBasedApproximateCalculationsDataConverter(
@@ -99,7 +98,6 @@ export const SupplierApproximateCalculationsForm = observer(
         <TabPanel value={tabIndex} index={tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
-              hideFooter
               rows={
                 curStorekeeper.tariffLogistics?.length
                   ? supplierApproximateCalculationsDataConverter(

@@ -3,12 +3,9 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -142,19 +139,8 @@ export const ClientReadyBoxesViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
-            // useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            // isRowSelectable={params => params.row.isDraft === false}
             getRowClassName={getRowClassName}
             rowSelectionModel={viewModel.selectedBoxes}
             sortModel={viewModel.sortModel}
@@ -163,12 +149,7 @@ export const ClientReadyBoxesViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData || []}
-            // rowHeight={150}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

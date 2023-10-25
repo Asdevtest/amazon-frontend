@@ -30,14 +30,6 @@ export const MyServicesViewRaw = ({ classes: classNames, history, location }) =>
     viewModel.loadData()
   }, [])
 
-  /* const whiteList =
-    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
-      ? [
-          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-          ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
-        ]
-      : Object.keys(freelanceRequestTypeByCode) */
-
   return (
     <React.Fragment>
       <div>

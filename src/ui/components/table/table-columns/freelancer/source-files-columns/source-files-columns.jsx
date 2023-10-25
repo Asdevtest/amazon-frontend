@@ -18,7 +18,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell leftAlign text={params.value || '-'} />,
+    renderCell: params => <MultilineTextCell leftAlign twoLines maxLength={52} text={params.value || '-'} />,
     width: 205,
   },
 
@@ -44,7 +44,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'performer',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 137,
+    width: 220,
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
@@ -87,19 +87,12 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 240,
-    // renderCell: params => (
-    //   <ChangeInputCommentCell
-    //     text={params?.value}
-    //     disabled={params?.row?.originalData?._id !== getEditField()?._id}
-    //     onChangeText={rowHandlers.onChangeText}
-    //   />
-    // ),
     renderCell: params => (
       <ChangeInputCommentCell
-        rowsCount={1}
-        text={params.row.originalData.reason}
-        id={params.row.originalData._id}
-        onClickSubmit={rowHandlers.onChangeText}
+        rowsCount={2}
+        text={params.row.originalData.comments}
+        onChangeText={rowHandlers.onChangeText}
+        onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
       />
     ),
   },
