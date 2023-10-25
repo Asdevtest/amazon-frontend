@@ -4,7 +4,6 @@ import { withStyles } from 'tss-react/mui'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Box, Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -13,8 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -131,19 +128,8 @@ export const VacantRequestsViewRaw = props => {
         ) : viewModel.viewMode === tableViewMode.TABLE ? (
           <div className={classNames.dataGridWrapper}>
             <MemoDataGrid
-              disableVirtualization
-              pagination
               useResizeContainer
               localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              sortingMode="server"
-              paginationMode="server"
               rowCount={viewModel.rowCount}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
@@ -152,11 +138,6 @@ export const VacantRequestsViewRaw = props => {
               pageSizeOptions={pageSizeOptions}
               rows={viewModel.currentData}
               rowHeight={75}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-                columnMenu: DataGridCustomColumnMenuComponent,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),

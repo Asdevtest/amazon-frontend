@@ -15,17 +15,8 @@ export const ModeratorMyProductsViewRaw = props => {
       <div>
         <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
         {/* <MemoDataGrid
-                pagination
                 useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: theme.palette.background.general,
-                }}
                 localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                }}
                 getRowClassName={getRowClassName}
                 sortModel={sortModel}
                 filterModel={filterModel}
@@ -34,9 +25,6 @@ export const ModeratorMyProductsViewRaw = props => {
                 pageSizeOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
                 rowHeight={100}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}

@@ -3,13 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import AddIcon from '@mui/icons-material/Add'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -61,17 +59,9 @@ export const SubUsersViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            pagination
             disableEnforceFocus
             useResizeContainer
             disableRowSelectionOnClick
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -80,10 +70,6 @@ export const SubUsersViewRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

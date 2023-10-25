@@ -3,14 +3,11 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -71,26 +68,14 @@ export const Integrations = observer(({ productId, modal }) => {
       )}
 
       <MemoDataGrid
-        pagination
         useResizeContainer
         checkboxSelection
         localeText={getLocalizationByLanguageTag()}
-        classes={{
-          row: classNames.row,
-          root: classNames.root,
-          footerContainer: classNames.footerContainer,
-          footerCell: classNames.footerCell,
-          toolbarContainer: classNames.toolbarContainer,
-        }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
         pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-        }}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

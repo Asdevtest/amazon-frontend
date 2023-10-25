@@ -5,6 +5,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -17,26 +18,6 @@ export const styles = theme => ({
 
   dataGridWrapper: {
     height: '72vh',
-    overflow: 'auto',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
   },
 
   btnsWrapper: {

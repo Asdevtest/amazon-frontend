@@ -1,14 +1,11 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -76,13 +73,7 @@ export const UserBalance = observer(({ userId }) => {
       </div>
       <div className={classNames.tableWrapper}>
         <MemoDataGrid
-          pagination
           useResizeContainer
-          // sx={{
-          //   border: 0,
-          //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-          //   backgroundColor: theme.palette.background.general,
-          // }}
           getRowClassName={getRowClassName}
           sortModel={sortModel}
           filterModel={filterModel}
@@ -91,10 +82,6 @@ export const UserBalance = observer(({ userId }) => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={75}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

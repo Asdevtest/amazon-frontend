@@ -2,12 +2,9 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -38,17 +35,8 @@ export const SourceFilesViewRaw = ({ classes: classNames, history, location }) =
 
       <div className={classNames.dataGridWrapper}>
         <MemoDataGrid
-          disableVirtualization
-          pagination
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -57,10 +45,6 @@ export const SourceFilesViewRaw = ({ classes: classNames, history, location }) =
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

@@ -2,12 +2,9 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -73,17 +70,9 @@ export const GoodsDaysReportRaw = props => {
 
         <div className={className.dataGridWrapper}>
           <MemoDataGrid
-            pagination
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: className.row,
-              root: className.root,
-              footerContainer: className.footerContainer,
-              footerCell: className.footerCell,
-              toolbarContainer: className.toolbarContainer,
-            }}
             rowSelectionModel={viewModel.selectedRows}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -91,12 +80,7 @@ export const GoodsDaysReportRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            // rowHeight={100}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

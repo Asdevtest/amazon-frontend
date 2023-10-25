@@ -1,14 +1,12 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -112,17 +110,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
       </div>
 
       <MemoDataGrid
-        disableVirtualization
-        pagination
         useResizeContainer
         propsToRerender={{ isArchive }}
-        classes={{
-          root: classNames.root,
-          footerContainer: classNames.footerContainer,
-          footerCell: classNames.footerCell,
-          toolbarContainer: classNames.toolbarContainer,
-          filterForm: classNames.filterForm,
-        }}
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
@@ -130,10 +119,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         pageSizeOptions={[15, 25, 50, 100]}
         rows={currentData}
         getRowHeight={() => 'auto'}
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-        }}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
@@ -12,8 +11,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -120,20 +117,9 @@ export const BuyerMyOrdersViewRaw = props => {
 
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -141,13 +127,7 @@ export const BuyerMyOrdersViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            // rowHeight={100}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

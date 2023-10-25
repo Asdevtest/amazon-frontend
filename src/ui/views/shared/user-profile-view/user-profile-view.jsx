@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -10,7 +9,6 @@ import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
@@ -71,15 +69,7 @@ export const UserProfileViewRaw = props => {
             </Typography>
 
             <MemoDataGrid
-              pagination
               useResizeContainer
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
               localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
@@ -88,10 +78,6 @@ export const UserProfileViewRaw = props => {
               pageSizeOptions={[15, 25, 50, 100]}
               rows={viewModel.getCurrentData()}
               rowHeight={100}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
