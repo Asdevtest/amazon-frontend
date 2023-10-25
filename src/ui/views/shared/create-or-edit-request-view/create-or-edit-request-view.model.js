@@ -278,9 +278,7 @@ export class CreateOrEditRequestViewModel {
   }
 
   async onClickChoosePerformer(typeTask) {
-    this.announcements = await AnnouncementsModel.getVacAnnouncements({
-      type: typeTask,
-    })
+    this.announcements = await AnnouncementsModel.getVacAnnouncements(typeTask)
   }
 
   async getCustomRequestCur() {

@@ -59,6 +59,8 @@ import {
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
 } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus, showResultStatuses } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
@@ -82,10 +84,6 @@ import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
-import {
-  disabledCancelBtnStatuses,
-  noDisabledEditBtnStatuses,
-} from '@components/cards/my-proposals-list-card/my-proposals-list-card.constants'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
@@ -751,7 +749,6 @@ export const ChangeInputCommentCell = React.memo(
   withStyles(
     ({
       classes: classNames,
-      id,
       onClickSubmit,
       onChangeText,
       text,
@@ -762,26 +759,25 @@ export const ChangeInputCommentCell = React.memo(
       placeholder,
       disableMultiline,
     }) => {
-      const [value, setValue] = useState(text)
+      const [value, setValue] = useState('')
       const [isEdited, setIsEdited] = useState(false)
+      const [isShow, setShow] = useState(false)
 
       useEffect(() => {
         setValue(text)
       }, [text])
 
-      const [isShow, setShow] = useState(false)
-
       return (
-        <div className={classNames.ChangeInputCommentCellWrapper}>
+        <div className={classNames.changeInputCommentCellWrapper}>
           <Input
             multiline={!disableMultiline}
             autoFocus={false}
-            minRows={rowsCount ?? 2}
-            maxRows={rowsCount ?? 2}
+            // minRows={rowsCount || 2}
+            // maxRows={rowsCount || 2}
             inputProps={{ maxLength: maxLength ? maxLength : 256 }}
             placeholder={placeholder ?? t(TranslationKey.Comment)}
             disabled={disabled}
-            className={classNames.changeInputComment}
+            className={classNames.changeInputCommentRoot}
             classes={{ input: classNames.changeInputComment }}
             value={value}
             endAdornment={
@@ -799,7 +795,7 @@ export const ChangeInputCommentCell = React.memo(
                             setShow(false)
                             setIsEdited(false)
                           }, 2000)
-                          onClickSubmit(id, value)
+                          onClickSubmit()
                         }}
                       />
                       <ClearIcon

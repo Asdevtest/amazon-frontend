@@ -957,7 +957,7 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero =
         this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
         this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? null
+          ? false
           : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
@@ -1413,7 +1413,7 @@ export class ClientInventoryViewModel {
 
   async onClickProductLotDataBtn() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], { archive: false })
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], false)
       runInAction(() => {
         this.isTransfer = false
         this.batchesData = result
@@ -1430,7 +1430,7 @@ export class ClientInventoryViewModel {
 
   async onClickToggleArchiveProductLotData(isArchive) {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], { archive: isArchive })
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], isArchive)
       runInAction(() => {
         this.batchesData = result
       })

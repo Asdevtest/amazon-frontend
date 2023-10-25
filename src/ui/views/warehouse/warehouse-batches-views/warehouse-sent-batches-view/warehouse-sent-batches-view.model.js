@@ -301,17 +301,16 @@ export class WarehouseSentBatchesViewModel {
     try {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
-        options: {
-          archive: this.isArchive,
-          limit: this.paginationModel.pageSize,
-          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        archive: this.isArchive,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          filters: this.getFilter(),
-          storekeeperId: null,
-        },
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        filters: this.getFilter(),
+        storekeeperId: null,
       })
 
       const res = await UserModel.getPlatformSettings()

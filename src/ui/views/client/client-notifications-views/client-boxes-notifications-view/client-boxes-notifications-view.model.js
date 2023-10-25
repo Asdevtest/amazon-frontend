@@ -257,7 +257,9 @@ export class ClientBoxesNotificationsViewModel {
 
   async getBoxes() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
+      const result = await BoxesModel.getBoxesForCurClient({
+        status: BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+      })
 
       const volumeWeightCoefficient = await UserModel.getPlatformSettings()
 

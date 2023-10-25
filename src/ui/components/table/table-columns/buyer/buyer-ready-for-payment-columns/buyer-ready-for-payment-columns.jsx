@@ -220,17 +220,20 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'deadline',
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-      renderCell: params =>
-        params.row.originalData.status < 20 ? (
+      renderCell: params => {
+        const deadline = params.row.originalData.deadline
+
+        return params.row.originalData.status < 20 ? (
           <MultilineTextCell
             withLineBreaks
-            tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-            color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-            text={params.value ? formatDate(params.value) : ''}
+            tooltipText={deadline ? timeToDeadlineInHoursAndMins({ date: deadline }) : ''}
+            color={deadline && getDistanceBetweenDatesInSeconds(deadline) < 86400 ? '#FF1616' : null}
+            text={deadline ? formatDate(deadline) : ''}
           />
         ) : (
           <MultilineTextCell text={'-'} />
-        ),
+        )
+      },
       valueGetter: params => (params.row.originalData.deadline ? formatDate(params.row.originalData.deadline) : ''),
       width: 100,
 

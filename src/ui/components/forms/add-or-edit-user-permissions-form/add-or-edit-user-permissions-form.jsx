@@ -264,6 +264,7 @@ export const AddOrEditUserPermissionsForm = observer(
                 <Typography className={classNames.rightSideTitle}>{rightSide?.title}</Typography>
 
                 {rightSide?.permissions
+                  ?.slice()
                   ?.sort((a, b) => a.hierarchy - b.hierarchy)
                   .map(item => (
                     <Tooltip

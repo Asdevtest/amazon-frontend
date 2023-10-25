@@ -1,191 +1,97 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class RequestModelStatic {
-  createProductSearchRequest = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchProductsPost({
-      body: data,
-    })
-    return response
+  createRequest = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomPost({ body })
+    return response.data
   }
 
-  getProductSearchRequests = async () => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchProductsGet()
-    return response
+  editRequest = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidPatch({ guid, body })
+    return response.data
   }
 
-  updateProductSearchRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchProductsGuidPatch(id, {
-      body: data,
-    })
-    return response
+  deleteRequest = async guid => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidDelete({ guid })
+    return response.data
   }
 
-  removeProductSearchRequests = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchProductsGuidDelete(id, { body: {} })
-    return response
+  getRequests = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(filterNullValues(data))
+    return response.data
   }
 
-  createNicheSearchRequest = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchNichePost({
-      body: data,
-    })
-    return response
+  getCustomRequestById = async guid => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet({ guid })
+    return response.data
   }
 
-  getNicheSearchRequests = async () => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchNicheGet()
-    return response
+  pickupRequestById = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost({ guid, body })
+    return response.data
   }
 
-  updateNicheSearchRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchNicheGuidPatch(id, {
-      body: data,
-    })
-    return response
+  calculateRequestCost = async guid => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCalculateRequestCostGuidGet({ guid })
+    return response.data
   }
 
-  removeNicheSearchRequests = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchNicheGuidDelete(id, {
-      body: {},
-    })
-    return response
+  toPublishRequest = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidToPublishPatch({ guid, body })
+    return response.data
   }
 
-  createCustomSearchRequest = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomPost({
-      body: data,
-    })
-    return response
+  abortRequest = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidAbortPatch({ guid, body })
+    return response.data
   }
 
-  getRequestProposalsCustomByRequestId = async requestId => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidProposalsGet(requestId)
-    return response
+  editRequestsMediaMany = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({ body })
+    return response.data
   }
 
-  updateCustomRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidPatch(id, {
-      body: data,
-    })
-    return response
-  }
-
-  removeCustomRequests = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidDelete(id, {
-      body: {},
-    })
-    return response
-  }
-
-  completeRequest = async (requestId, requestProposalIds) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidCompletePost(requestId, {
-      body: { requestProposalIds },
-    })
-    return response
-  }
-
-  // НОВЫЕ -------------------------------------------------------------- 11.02.2022
-  createRequest = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomPost({
-      body: data,
-    })
-    return response
-  }
-
-  editRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidPatch(id, {
-      body: data,
-    })
-    return response
-  }
-
-  deleteRequest = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidDelete(id)
-    return response
-  }
-
-  getRequests = async (type, opts) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, opts)
-    return response
-  }
-
-  getRequestsCustom = async userId => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGet(userId)
-    return response
-  }
-
-  getCustomRequestById = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet(id)
-    return response
-  }
-
-  pickupRequestById = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost(id, { body: data })
-    return response
-  }
-
-  calculateRequestCost = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCalculateRequestCostGuidGet(id)
-    return response
-  }
-
-  toPublishRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidToPublishPatch(id, { body: data })
-    return response
-  }
-
-  abortRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidAbortPatch(id, {
-      body: data,
-    })
-    return response
-  }
-
-  createSimpleChatByUserId = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1ChatsGuidPost(id)
-    return response
-  }
-
-  editRequestsMediaMany = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({ body: data })
-    return response
-  }
-
-  updateDeadline = async (id, timeoutAt, maxAmountOfProposals) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidUpdateDeadlinePatch(id, {
+  updateDeadline = async (guid, timeoutAt, maxAmountOfProposals) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidUpdateDeadlinePatch({
+      guid,
       body: {
         timeoutAt,
         maxAmountOfProposals,
       },
     })
-    return response
+    return response.data
   }
 
-  getExistingRequestsTypeRequests = async (typeTask, id) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGetExistingRequestsTypeTaskGuidGet(id, typeTask)
-    return response
-  }
-
-  patchRequestsUploadedToListing = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsUploadedToListingPatch({
-      body: data,
+  getExistingRequestsTypeRequests = async (typeTask, guid) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGetExistingRequestsTypeTaskGuidGet({
+      guid,
+      typeTask,
     })
-    return response
+    return response.data
   }
 
-  getRequestsByProductLight = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(id, data)
-    return response
+  patchRequestsUploadedToListing = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsUploadedToListingPatch({
+      body,
+    })
+    return response.data
   }
 
-  bindIdeaToRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsIdeasGuidPatch(id, { body: data })
-    return response
+  getRequestsByProductLight = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(filterNullValues(data))
+    return response.data
   }
 
-  manualCompletedRequest = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCompletedGuidPatch(id)
-    return response
+  bindIdeaToRequest = async (guid, data) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsIdeasGuidPatch({ guid, body: data })
+    return response.data
+  }
+
+  manualCompletedRequest = async guid => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCompletedGuidPatch({ guid })
+    return response.data
   }
 }
 

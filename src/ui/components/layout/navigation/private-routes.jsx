@@ -42,6 +42,7 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
       ChatModel.getSimpleChats()
+      ChatModel.getUnreadMessagesCount()
     }
   }, [])
 
@@ -50,18 +51,18 @@ export const PrivateRoutes = observer(() => {
   const redirectToAuth = <Redirect to={'/auth'} />
 
   const generateAllowedRoutes = () => {
-    const allowedRoutes = overallRoutesConfigs.concat(
+    const allowedRoutes = overallRoutesConfigs?.concat(
       privateRoutesConfigs
-        .filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))
-        .filter(
+        ?.filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))
+        ?.filter(
           route =>
             !isHaveMasterUser(userInfo) ||
             !route?.permissionKey ||
-            userInfo?.permissions.some(item => item.key === route?.permissionKey),
+            userInfo?.permissions?.some(item => item.key === route?.permissionKey),
         ),
     )
 
-    const notAllowedRoute = !allowedRoutes.some(elem => elem.routePath === location.pathname)
+    const notAllowedRoute = !allowedRoutes?.some(elem => elem?.routePath === location.pathname)
 
     return (
       <>

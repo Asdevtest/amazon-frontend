@@ -35,7 +35,7 @@ export const CategoryRootView = observer(props => {
             onClick={() => viewModel.onClickCategory(el.subRoute)}
           >
             <div className={styles.btnTextWrapper}>
-              <Typography className={styles.btnText}>{el.subtitle}</Typography>
+              <Typography className={styles.btnText}>{el.subtitle()}</Typography>
               <ArrowRightAltIcon color="primary" />
             </div>
           </Button>

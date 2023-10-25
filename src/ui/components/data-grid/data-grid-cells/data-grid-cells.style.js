@@ -186,15 +186,23 @@ export const styles = theme => ({
     padding: 0,
   },
 
+  changeInputCommentRoot: {
+    height: 'auto',
+    padding: 5,
+  },
+
   changeInputComment: {
     width: '100%',
-    height: 'auto',
+    height: '100% !important',
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
-    padding: '0px 5px',
+    fontSize: 14,
+    lineHeight: '19px',
+    padding: 0,
 
     '&::placeholder': {
       fontSize: 14,
+      lineHeight: '19px',
     },
   },
 
@@ -1404,6 +1412,7 @@ export const styles = theme => ({
   },
   iconWrapper: {
     display: 'flex',
+    alignItems: 'center',
     gap: 5,
   },
   destinationAndTariffWrapper: {
@@ -1607,10 +1616,11 @@ export const styles = theme => ({
       height: 22,
     },
   },
-  ChangeInputCommentCellWrapper: {
-    display: 'flex',
+
+  changeInputCommentCellWrapper: {
     width: '100%',
-    padding: '20px 10px',
+    height: '100%',
+    padding: '10px',
   },
 
   menuItem: {
@@ -1752,8 +1762,8 @@ export const styles = theme => ({
     alignItems: 'center',
   },
   commentControls: {
-    alignSelf: 'flex-end',
-    paddingBottom: 20,
+    marginLeft: 5,
+    marginRight: 0,
   },
 
   arrivalDateIcon: {

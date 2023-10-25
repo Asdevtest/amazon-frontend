@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -54,12 +54,6 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
 
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
-              hideFooter
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
               rows={toJS(filteredBatches)}
               columns={moveBoxToBatchFormColumns({ onClickRowRadioBtn }, selectedBatch)}
               rowHeight={80}

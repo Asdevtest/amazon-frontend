@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -84,10 +84,6 @@ export class RequestDetailCustomViewModel {
 
     runInAction(() => {
       this.history = history
-
-      // if (location.state) {
-      //   this.requestId = location.state.requestId
-      // }
 
       if (location?.state?.chatId) {
         this.chatSelectedId = location.state.chatId
@@ -299,27 +295,6 @@ export class RequestDetailCustomViewModel {
         })
       }
 
-      // await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-      //   result: message,
-      //   media: this.loadedFiles.map((el, i) => ({
-      //     fileLink: el,
-      //     commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-      //     _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
-      //       ? files[i]?._id
-      //       : null,
-      //   })),
-      //   ...(amazonOrderId && {amazonOrderId}),
-      //   ...(publicationLinks && {publicationLinks}),
-      //   ...(sourceLink && {
-      //     sourceFiles: [
-      //       {
-      //         sourceFile: sourceLink,
-      //         comments: '',
-      //       },
-      //     ],
-      //   }),
-      // })
-
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
           reason: message,
@@ -446,40 +421,11 @@ export class RequestDetailCustomViewModel {
     this.history.push(
       `/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/vacant-requests/custom-search-request/create-proposal`,
-      { request: toJS(this.request) },
+      }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${this.request.request._id}`,
     )
   }
 
   resetChats() {
     ChatModel.resetChats()
   }
-
-  // async onSubmitRequestProposalForm(formFields) {
-  //   try {
-  //     const result = this.requestProposal
-  //       ? await RequestProposalModel.updateRequestProposalCustom(this.requestProposal.proposal._id, formFields)
-  //       : await RequestProposalModel.createRequestProposalCustom(this.request.request._id, formFields)
-
-  //     this.getCustomRequestProposalsByRequestId(result?.guid || this.requestProposal.proposal._id)
-
-  //     this.warningInfoModalSettings = {
-  //       isWarning: false,
-  //       title: '',
-  //     }
-
-  //     this.onTriggerOpenModal('showWarningModal')
-  //     // this.history.goBack()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-
-  //     this.warningInfoModalSettings = {
-  //       isWarning: true,
-  //       title: '',
-  //     }
-
-  //     this.onTriggerOpenModal('showWarningModal')
-  //   }
-  // }
 }

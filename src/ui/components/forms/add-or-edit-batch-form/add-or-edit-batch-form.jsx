@@ -3,7 +3,6 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -16,7 +15,6 @@ import {
 } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field/field'
@@ -486,25 +484,14 @@ export const AddOrEditBatchForm = observer(
             </div>
 
             <MemoDataGrid
-              pagination
               checkboxSelection
-              hideFooterSelectedRowCount
               initialState={{
                 sorting: {
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
                 },
               }}
-              classes={{
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
               localeText={getLocalizationByLanguageTag()}
               pageSizeOptions={[50, 100]}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
@@ -516,10 +503,6 @@ export const AddOrEditBatchForm = observer(
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
                 },
-              }}
-              sx={{
-                border: `1px solid  #EBEBEB !important`,
-                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               rows={toJS(boxesToAddData)}
@@ -598,25 +581,10 @@ export const AddOrEditBatchForm = observer(
               </Typography>
             </div>
             <MemoDataGrid
-              pagination
               checkboxSelection
-              hideFooterSelectedRowCount
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
-              classes={{
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              sx={{
-                boxShadow: '0px 2px 10px 2px #EBEBEB',
-                border: `1px solid  #EBEBEB !important`,
-              }}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),

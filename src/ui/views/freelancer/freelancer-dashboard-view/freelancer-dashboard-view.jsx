@@ -28,7 +28,7 @@ export const FreelancerDashboardViewRaw = props => {
   }, [])
 
   const freelancerButtonsRoutes = {
-    notifications: 'notifications',
+    notifications: 'notifications/freelance-notifications',
     messages: 'messages',
   }
 
