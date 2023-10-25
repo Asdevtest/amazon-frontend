@@ -370,18 +370,17 @@ export class ClientSentBatchesViewModel {
     try {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
-        options: {
-          limit: this.paginationModel.pageSize,
-          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          archive: this.isArchive,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        archive: this.isArchive,
 
-          filters: this.getFilter(),
-          storekeeperId: this.currentStorekeeperId,
-        },
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        filters: this.getFilter(),
+        storekeeperId: this.currentStorekeeperId,
       })
 
       const res = await UserModel.getPlatformSettings()

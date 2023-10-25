@@ -659,9 +659,7 @@ export class ResearcherProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         })
 
-        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
-          price: amazonResult.price,
-        })
+        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
         this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
         if (!sellerCentralResult.amazonFee) {
@@ -710,67 +708,6 @@ export class ResearcherProductViewModel {
       this.onTriggerOpenModal('showWarningModal')
     }
   }
-
-  // async onClickParseProductData(productDataParser, product) {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     runInAction(() => {
-  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     })
-  //     const parseResult = await (() => {
-  //       switch (productDataParser) {
-  //         case ProductDataParser.AMAZON:
-  //           return ProductModel.parseAmazon(product.asin)
-  //         case ProductDataParser.SELLCENTRAL:
-  //           return ProductModel.parseParseSellerCentral(product.asin)
-  //       }
-  //     })()
-
-  //     switch (productDataParser) {
-  //       case ProductDataParser.AMAZON:
-  //         this.weightParserAmazon = parseResult.weight || 0
-  //         break
-  //       case ProductDataParser.SELLCENTRAL:
-  //         this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-  //         break
-  //     }
-
-  //     runInAction(() => {
-  //       if (Object.keys(parseResult).length > 5) {
-  //         // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-  //         this.product = {
-  //           ...this.product,
-  //           ...parseFieldsAdapter(parseResult, productDataParser),
-  //           weight:
-  //             this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-  //               ? this.product.weight
-  //               : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-  //           // Вернуть старый вариант парса
-  //           // weight:
-  //           //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-  //           //     ? this.product.weight
-  //           //     : parseResult.weight * poundsWeightCoefficient,
-
-  //           amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-  //           amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-  //           fbafee: this.product.fbafee,
-  //         }
-  //       }
-  //       updateProductAutoCalculatedFields.call(this)
-  //     })
-
-  //     this.setActionStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     runInAction(() => {
-  //       if (error.body && error.body.message) {
-  //         this.error = error.body.message
-  //       }
-  //     })
-  //   }
-  // }
 
   onChangeImagesForLoad(value) {
     runInAction(() => {

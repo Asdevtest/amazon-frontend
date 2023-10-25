@@ -193,7 +193,7 @@ export class BuyerFreeOrdersViewModel {
 
       this.loadData()
 
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
     } catch (error) {
       this.warningTitle = t(TranslationKey['Not found'])
 
@@ -219,7 +219,7 @@ export class BuyerFreeOrdersViewModel {
       this.warningTitle = t(TranslationKey['Taken to Work'])
 
       this.onTriggerOpenModal('showWarningModal')
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -228,6 +228,7 @@ export class BuyerFreeOrdersViewModel {
       }
     }
   }
+
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     this.loadData()

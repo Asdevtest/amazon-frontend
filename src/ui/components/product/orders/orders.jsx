@@ -3,13 +3,9 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -66,26 +62,13 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   return (
     <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       <MemoDataGrid
-        pagination
         useResizeContainer
-        disableVirtualization
         localeText={getLocalizationByLanguageTag()}
-        classes={{
-          row: classNames.row,
-          footerContainer: classNames.footerContainer,
-          footerCell: classNames.footerCell,
-          toolbarContainer: classNames.toolbarContainer,
-        }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}
         paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-          columnMenu: DataGridCustomColumnMenuComponent,
-        }}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

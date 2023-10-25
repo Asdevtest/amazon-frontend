@@ -2,12 +2,9 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -30,25 +27,18 @@ export const AdminWarehouseBoxesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
+      <div className={classNames.topHeaderBtnsWrapper}>
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+
+      <div className={classNames.tableWrapper}>
         <MemoDataGrid
-          pagination
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -59,10 +49,6 @@ export const AdminWarehouseBoxesViewRaw = props => {
           columns={viewModel.columnsModel}
           rowHeight={130}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

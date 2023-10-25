@@ -143,7 +143,6 @@ export const ProductLotDataForm = observer(
         </div>
         <div className={classNames.tableWrapper}>
           <MemoDataGrid
-            hideFooter
             localeText={getLocalizationByLanguageTag()}
             getRowId={batches => batches?._id}
             columns={

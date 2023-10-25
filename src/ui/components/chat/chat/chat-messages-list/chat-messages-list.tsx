@@ -145,7 +145,8 @@ export const ChatMessagesList: FC<Props> = observer(
 
               const unReadMessage = !messageItem.isRead
 
-              const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
+              const showName =
+                (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
               const isReply = messageItem?.replyMessageId
 

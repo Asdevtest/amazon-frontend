@@ -3,13 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import AddIcon from '@mui/icons-material/Add'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -100,20 +97,9 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             checkboxSelection
-            pagination
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
             rowSelectionModel={viewModel.selectedBatches}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -125,11 +111,6 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               columnMenu: viewModel.columnMenuSettings,
 

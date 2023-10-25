@@ -212,11 +212,6 @@ export class ProfileViewModel {
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        // const [isUniqueProfileData] = await Promise.all([
-        //   this.changeUserNameOrEmail(data),
-        //   this.changeUserPassword(data),
-        // ])
-
         const { name, email, oldPassword, newPassword } = data
 
         if (name || email) {

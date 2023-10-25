@@ -115,12 +115,11 @@ export class MyServicesViewModel {
 
   async getMyAnnouncementsData() {
     try {
-      const result = await AnnouncementsModel.getMyAnnouncements({
-        type:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? null
-            : this.selectedTaskType,
-      })
+      const result = await AnnouncementsModel.getMyAnnouncements(
+        Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+          ? null
+          : this.selectedTaskType,
+      )
       runInAction(() => {
         this.announcements = result
       })

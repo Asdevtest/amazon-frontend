@@ -2,7 +2,7 @@ import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -166,13 +166,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
 
         <div className={classNames.tableWrapper}>
           <MemoDataGrid
-            hideFooter
             checkboxSelection
-            // sx={{
-            //   border: 0,
-            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.general,
-            // }}
             rows={toJS(stockData)}
             columns={sourceColumns()}
             rowHeight={60}
@@ -197,17 +191,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
         </Typography>
 
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            hideFooter
-            // sx={{
-            //   border: 0,
-            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.general,
-            // }}
-            rows={chosenGoods || []}
-            columns={chosenGoodsColumns({ onClickTrash })}
-            rowHeight={60}
-          />
+          <MemoDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
         </div>
 
         <div className={classNames.btnsWrapper}>

@@ -67,9 +67,7 @@ export class ClientOrdersViewModel {
   showConfirmModal = false
   showCheckPendingOrderFormModal = false
 
-  isOrder = []
-  existingOrders = []
-  checkPendingData = []
+  existingProducts = []
   shopsData = []
 
   alertShieldSettings = {
@@ -657,24 +655,18 @@ export class ClientOrdersViewModel {
   async onClickReorder(item) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const pendingOrders = []
-      const correctIds = []
-
       const res = await OrderModel.checkPendingOrderByProductGuid(item.product._id)
 
-      if (res.length > 0) {
-        correctIds.push(item.product._id)
-        pendingOrders.push(res.filter(el => el.id !== item.id))
-      }
-
-      this.checkPendingData = pendingOrders
-
-      if (this.checkPendingData.length > 0 && this.checkPendingData[0].length > 0) {
-        this.existingOrders = await this.currentData
-          .filter(product => correctIds.includes(product.originalData.product._id))
-          .map(prod => prod.originalData.product)
-
-        this.isOrder = item
+      if (res?.length) {
+        runInAction(() => {
+          this.existingProducts = [
+            {
+              _id: item?.product._id,
+              asin: item?.product?.asin,
+              orders: res,
+            },
+          ]
+        })
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
@@ -688,6 +680,7 @@ export class ClientOrdersViewModel {
   }
 
   async onClickContinueBtn(item) {
+    console.log('item', item)
     try {
       const [storekeepers, destinations, result, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),

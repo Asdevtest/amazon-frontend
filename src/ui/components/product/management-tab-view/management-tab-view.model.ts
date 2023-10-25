@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeAutoObservable, runInAction } from 'mobx'
 
@@ -75,9 +77,13 @@ export class ManagementTabViewModel {
       const [clients, supervisors, researchers, buyers] = results
 
       runInAction(() => {
+        // @ts-ignore
         this.clients = clients
+        // @ts-ignore
         this.supervisors = supervisors
+        // @ts-ignore
         this.researchers = researchers
+        // @ts-ignore
         this.buyers = buyers
 
         this.client = this.findMemberByIdOrPickDefailtMember(this.clients, this.product?.client?._id, this.client)
@@ -109,6 +115,7 @@ export class ManagementTabViewModel {
       const result = await ProductModel.getProductById(id)
 
       runInAction(() => {
+        // @ts-ignore
         this.product = result
 
         const currentProductStatus = Number(this.product?.status)

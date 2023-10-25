@@ -203,12 +203,10 @@ export const AccessToProductForm = React.memo(
               {selectedShop === shop?._id ? (
                 <div className={classNames.tableWrapper}>
                   <MemoDataGrid
-                    disableVirtualization
                     keepNonExistentRowsSelected
                     checkboxSelection
                     disableRowSelectionOnClick
                     disableColumnMenu
-                    hideFooterSelectedRowCount
                     isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                     rows={toJS(
                       curProdutsData

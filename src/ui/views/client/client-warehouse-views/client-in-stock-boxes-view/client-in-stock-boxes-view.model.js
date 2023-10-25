@@ -1923,25 +1923,17 @@ export class ClientInStockBoxesViewModel {
         ? this.columnMenuSettings.status.currentFilterData.join(',')
         : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
 
-      const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
+      const result = await BoxesModel.getBoxesForCurClientLightPag({
+        status: curStatus,
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
-
         storekeeperId: this.currentStorekeeperId,
-
-        // storekeeperId: 'add51a2a-3f0b-4796-9497-73eaa992de24,402b6b17-280f-4a3a-a04c-543b17a10c28',
-
         destinationId: this.curDestinationId,
-
         shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
-
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
         hasBatch: false,
       })
 

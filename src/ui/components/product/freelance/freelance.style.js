@@ -37,30 +37,12 @@ export const useClassNames = makeStyles()(theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
     borderBottom: theme.palette.other.tableActiveFilterBtn,
-
     color: `${theme.palette.primary.main} !important`,
   },
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    height: '52px',
   },
 }))

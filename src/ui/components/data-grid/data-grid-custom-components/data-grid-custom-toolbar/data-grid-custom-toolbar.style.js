@@ -1,16 +1,22 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  toolbarContainer: {
+export const useClassNames = makeStyles()(() => ({
+  toolbar: {
+    padding: '5px 5px 0',
     display: 'flex',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: 40,
-    height: 65,
+    justifyContent: 'space-between',
   },
-  toolbarText: {
+
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 30,
+  },
+
+  text: {
     fontSize: 16,
+    lineHeight: '22px',
     fontWeight: 600,
   },
 }))

@@ -135,7 +135,9 @@ export class GeneralNotificationsViewModel {
       })
 
       runInAction(() => {
+        // @ts-ignore
         this.notificationsData = notificationDataConverter(response.rows) || []
+        // @ts-ignore
         this.rowCount = response.count
       })
 

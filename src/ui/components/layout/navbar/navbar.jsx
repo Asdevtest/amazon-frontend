@@ -1,13 +1,11 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import { navbarConfig } from '@constants/navigation/navbar'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
 import { DrawerModal } from '@components/shared/drawer-modal'
@@ -35,11 +33,7 @@ export const Navbar = observer(
       onClickVersion,
     } = viewModel.current
 
-    const [curNavbar, setCurNavbar] = useState(navbarConfig())
-
-    useEffect(() => {
-      setCurNavbar(navbarConfig())
-    }, [SettingsModel.languageTag])
+    const [curNavbar] = useState(navbarConfig)
 
     return (
       <div className={classNames.navbar}>

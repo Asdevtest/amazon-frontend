@@ -2,13 +2,9 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -39,16 +35,6 @@ export const MyProposalsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  // const getSortedData = mode => {
-  //   switch (mode) {
-  //     case tableSortMode.DESK:
-  //       return sortObjectsArrayByArrayObjectFiledDateWithParseISO(viewModel.currentData, 'updatedAt', 'proposals')
-
-  //     case tableSortMode.ASC:
-  //       return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(viewModel.currentData, 'updatedAt', 'proposals')
-  //   }
-  // }
-
   return (
     <React.Fragment>
       <div className={classNames.root}>
@@ -60,85 +46,20 @@ export const MyProposalsViewRaw = props => {
 
           <SearchInput
             inputClasses={classNames.searchInput}
-            placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
-              TranslationKey.Title,
-            )}, User, ${t(TranslationKey.ID)}`}
+            placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(
+              TranslationKey.ID,
+            )}`}
             value={viewModel.currentSearchValue}
             onSubmit={viewModel.onChangeSearchValue}
           />
 
           <div />
-
-          {/* <div className={classNames.tablePanelSubWrapper}>
-            <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-              {viewModel.sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
-              ) : (
-                <ArrowDropUpIcon color="primary" />
-              )}
-            </div>
-
-            <WithSearchSelect
-              isWithoutItemsTooltip
-              checkbox
-              notCloseOneClick
-              width={350}
-              widthPopover={350}
-              firstItems={
-                <Button
-                  className={classNames.filterBtn}
-                  variant="text"
-                  onClick={viewModel.handleSelectAllProposalStatuses}
-                >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={viewModel.selectedProposalFilters.length === Object.keys(RequestProposalStatus).length}
-                        color="primary"
-                      />
-                      <Typography className={classNames.fieldName}>
-                        {t(TranslationKey['All proposal statuses'])}
-                      </Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              currentShops={viewModel.selectedProposalFilters}
-              data={Object.keys(RequestProposalStatus).map(el => ({
-                name: RequestProposalStatusTranslate(el),
-                _id: el,
-              }))}
-              searchFields={['name']}
-              selectedItemName={t(TranslationKey['All proposal statuses'])}
-              changeColorById={RequestProposalStatusColor}
-              onClickSelect={viewModel.onSelectProposalFilter}
-            />
-
-            <ViewCardsSelect
-              withTabelView
-              withoutBlockCardView
-              viewMode={viewModel.viewMode}
-              onChangeViewMode={viewModel.onChangeViewMode}
-            />
-          </div> */}
         </div>
 
-        {/* {viewModel.requestStatus === loadingStatuses.isLoading ? (
-          <div className={classNames.loadingWrapper}>
-            <CircularProgressWithLabel />
-          </div>
-        ) : viewModel.currentData?.length ? (
-          viewModel.viewMode === tableViewMode.TABLE ? ( */}
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -147,11 +68,6 @@ export const MyProposalsViewRaw = props => {
             pageSizeOptions={viewModel.pageSizeOptions}
             rows={viewModel.currentData}
             rowHeight={87}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -179,29 +95,6 @@ export const MyProposalsViewRaw = props => {
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row?.originalData?.request?._id)}
           />
         </div>
-        {/* ) : (
-            <div className={classNames.cardsWrapper}>
-              {getSortedData(viewModel.sortMode)?.map((item, index) => (
-                <MyProposalsListCard
-                  key={item._id}
-                  isFirst={index === 0}
-                  item={item?.originalData?.request}
-                  onClickEditBtn={viewModel.onClickEditBtn}
-                  onClickDeleteBtn={viewModel.onClickDeleteBtn}
-                  onClickOpenBtn={viewModel.onClickOpenBtn}
-                  onClickResultBtn={viewModel.onClickResultBtn}
-                />
-              ))}
-            </div>
-          )
-        ) : (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey['No suggestions'])}
-            </Typography>
-          </div>
-        )} */}
       </div>
 
       <ConfirmationModal

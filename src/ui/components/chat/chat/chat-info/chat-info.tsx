@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
+/* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react'
 
 import { Tabs, Typography } from '@mui/material'
@@ -77,6 +80,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
 
   useEffect(() => {
     ChatsModel.getChatMedia(chat._id)
+      // @ts-ignore
       .then((res: ChatAttachmentsType) => {
         const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
           file.images?.forEach(el => {

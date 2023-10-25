@@ -12,8 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    marginTop: '24px',
-    width: '100%',
+    marginTop: '20px',
     height: '68vh',
   },
 

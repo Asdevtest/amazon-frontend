@@ -172,6 +172,7 @@ export const SuppliersAndIdeas = observer(
             onSetCurIdea={onSetCurIdea}
             onClickSupplierBtns={onClickSupplierButtons}
             onClickSupplier={onChangeSelectedSupplier}
+            onClickOpenProduct={onClickOpenProduct}
           />
         )}
 

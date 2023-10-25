@@ -45,18 +45,14 @@ class ChatModelStatic {
 
   public chatSelectedId: string | undefined = undefined
 
+  private unreadMessagesCount = 0
+
   get userId() {
     return UserModel.userId
   }
 
   get unreadMessages() {
-    return this.simpleChats.reduce(
-      (ac, cur) =>
-        (ac += cur.messages?.length
-          ? cur.messages.reduce((a, c) => (a += !c.isRead && c.user?._id !== this.userId ? 1 : 0), 0)
-          : 0),
-      0,
-    )
+    return this.unreadMessagesCount
   }
 
   get mutedChats() {
@@ -145,12 +141,12 @@ class ChatModelStatic {
       runInAction(() => {
         this[chatType][index] = {
           ...this[chatType][index],
-          messages: [...chatMessages, ...this[chatType][index].messages],
+          messages: [...chatMessages.rows, ...this[chatType][index].messages],
           pagination: {
             ...this[chatType][index].pagination,
             offset: offset + limit,
           },
-          isAllMessagesLoaded: chatMessages.length < limit,
+          isAllMessagesLoaded: chatMessages.rows.length < limit,
         }
       })
     } catch (error) {
@@ -171,6 +167,7 @@ class ChatModelStatic {
       return
     }
     try {
+      this.getUnreadMessagesCount()
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
@@ -182,6 +179,21 @@ class ChatModelStatic {
           },
           isAllMessagesLoaded: false,
         }))
+      })
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  public async getUnreadMessagesCount(): Promise<void> {
+    if (!this.websocketChatService) {
+      return
+    }
+    try {
+      const count = await this.websocketChatService.getUnreadMessagesCount()
+
+      runInAction(() => {
+        this.unreadMessagesCount = count
       })
     } catch (error) {
       console.warn(error)
@@ -305,6 +317,7 @@ class ChatModelStatic {
     }
 
     await this.websocketChatService.readMessage(messageIds)
+    await this.getUnreadMessagesCount()
   }
 
   private onConnectionError(error: Error) {
@@ -383,6 +396,8 @@ class ChatModelStatic {
         })
       }
     }
+
+    this.getUnreadMessagesCount()
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
@@ -415,6 +430,8 @@ class ChatModelStatic {
         ]
       })
     }
+
+    this.getUnreadMessagesCount()
   }
 
   private removeTypingUser(chatId: string, userId: string) {
