@@ -41,6 +41,8 @@ import {
   filtersFields,
 } from './client-inventory-view.constants'
 
+const defaultHiddenColumns = ['stockUSA', 'strategyStatus', 'fbafee', 'profit', 'amazon']
+
 export class ClientInventoryViewModel {
   history = undefined
   requestStatus = undefined
@@ -368,6 +370,10 @@ export class ClientInventoryViewModel {
         this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
+
+      defaultHiddenColumns.forEach(el => {
+        this.columnVisibilityModel[el] = false
+      })
     })
   }
 
