@@ -5,9 +5,11 @@ import React, { FC, useState } from 'react'
 import { List, Typography } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { UserInfoSchema } from '@services/rest-api-service/codegen'
 
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
@@ -21,34 +23,20 @@ import { Feedback } from '@components/shared/svg-icons'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { NavbarConfigTypes } from '@typings/navbar-config'
 import { IUser } from '@typings/user'
 
 import { useClassNames } from './navbar-drawer-content.styles'
 
 import { getCategoryBadge } from './navbar-drawer-content.helper'
 
-interface Subtitles {
-  subtitle: string
-  subRoute: string
-  key: string
-}
-
-export interface CurNavbarType {
-  icon: React.ReactNode
-  title: string
-  route: string
-  subtitles: null | Subtitles
-  key: string
-  checkHideBlock: (user: unknown) => boolean
-}
-
 interface Props {
   shortNavbar: boolean
   onToggleModal: VoidFunction
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
-  curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
-  userInfo: IUser
+  curNavbar: NavbarConfigTypes.RootObject
+  userInfo: UserInfoSchema
   activeCategory: string
   viewModel: NavbarModel
   onClickVersion: NavbarModel['onClickVersion']
@@ -104,7 +92,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                   shortNavbar={shortNavbar}
                   userInfo={userInfo}
                   category={category}
-                  badge={getCategoryBadge(category, userInfo)}
+                  badge={getCategoryBadge(category, userInfo as unknown as IUser)}
                   onToggleModal={onToggleModal}
                 />
 
