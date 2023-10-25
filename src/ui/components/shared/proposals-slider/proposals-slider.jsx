@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { RequestProposalStatusColor, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
+import {
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
+} from '@constants/requests/request-proposal-status'
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  disabledCancelBtnStatuses,
-  noDisabledEditBtnStatuses,
-} from '@components/cards/my-proposals-list-card/my-proposals-list-card.constants'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'
 

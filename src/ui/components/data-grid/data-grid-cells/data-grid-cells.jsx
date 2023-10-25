@@ -59,6 +59,8 @@ import {
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
 } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus, showResultStatuses } from '@constants/requests/request-status'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
@@ -82,10 +84,6 @@ import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
-import {
-  disabledCancelBtnStatuses,
-  noDisabledEditBtnStatuses,
-} from '@components/cards/my-proposals-list-card/my-proposals-list-card.constants'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
