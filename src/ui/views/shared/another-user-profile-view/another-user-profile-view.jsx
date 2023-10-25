@@ -2,14 +2,12 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -72,14 +70,7 @@ export const AnotherUserProfileViewRaw = props => {
             </Typography>
 
             <MemoDataGrid
-              pagination
               useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
               localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
@@ -88,10 +79,6 @@ export const AnotherUserProfileViewRaw = props => {
               pageSizeOptions={[15, 25, 50, 100]}
               rows={viewModel.getCurrentData()}
               rowHeight={100}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),

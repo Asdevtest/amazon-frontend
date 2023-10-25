@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useRef } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
@@ -108,17 +105,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
             checkboxSelection
             useResizeContainer
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -128,10 +116,6 @@ export const SupervisorSettingsContent = observer(() => {
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -179,17 +163,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
             useResizeContainer
             checkboxSelection
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -199,10 +174,6 @@ export const SupervisorSettingsContent = observer(() => {
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -250,17 +221,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
             useResizeContainer
             checkboxSelection
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -270,10 +232,6 @@ export const SupervisorSettingsContent = observer(() => {
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -321,17 +279,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
-            disableVirtualization
-            pagination
             useResizeContainer
             checkboxSelection
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -341,10 +290,6 @@ export const SupervisorSettingsContent = observer(() => {
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

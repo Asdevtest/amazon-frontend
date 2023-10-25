@@ -127,7 +127,6 @@ export const SelectStorekeeperAndTariffForm = observer(
         <TabPanel value={tabIndex} index={0}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
-              hideFooter
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper?.tariffLogistics?.length
@@ -184,7 +183,6 @@ export const SelectStorekeeperAndTariffForm = observer(
         <TabPanel value={tabIndex} index={2}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
-              hideFooter
               rows={
                 curStorekeeper?.tariffWarehouses?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))

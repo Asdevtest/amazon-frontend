@@ -222,21 +222,4 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'center',
     },
   },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 5,
-    right: 5,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    padding: '10px 15px',
-    height: 64,
-  },
 }))

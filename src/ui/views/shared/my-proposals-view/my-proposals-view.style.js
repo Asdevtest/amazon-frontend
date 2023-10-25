@@ -14,7 +14,6 @@ export const styles = () => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   searchInput: {
     width: 350,
   },

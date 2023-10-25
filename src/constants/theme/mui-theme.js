@@ -75,45 +75,18 @@ export const lightTheme = createTheme({
     },
 
     MuiDataGrid: {
-      // Убрать
-      defaultProps: {
-        headerHeight: 65,
-      },
-
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
-          border: '0 !important',
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
-          // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
+          border: 'none',
+          boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
           color: '#001029',
-          borderRadius: '20px',
+          borderRadius: 20,
         },
 
         row: {
           cursor: 'pointer',
           transition: '0.3s ease',
-        },
-
-        footerContainer: {
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          borderTop: 'none !important',
-        },
-
-        footerCell: {
-          padding: 0,
-          margin: 0,
-        },
-
-        toolbarContainer: {
-          height: '52px',
-        },
-
-        // Убрать
-        columnHeaders: {
-          height: 65,
         },
 
         sortIcon: {
@@ -192,14 +165,6 @@ export const lightTheme = createTheme({
         },
       },
     },
-
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#001029',
-    //     },
-    //   },
-    // },
 
     MuiSvgIcon: {
       styleOverrides: {
@@ -400,20 +365,13 @@ export const darkTheme = createTheme({
     },
 
     MuiDataGrid: {
-      // Убрать
-      defaultProps: {
-        headerHeight: 65,
-      },
-
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
-          border: '0 !important',
-          // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
-          boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6) !important', // Новый вид
+          border: 'none',
+          boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#fff',
-
-          // border: '1px solid rgba(81, 81, 81, 1) !important',
+          borderRadius: 20,
         },
 
         row: {
@@ -428,21 +386,10 @@ export const darkTheme = createTheme({
           },
         },
 
-        footerContainer: {
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          borderTop: 'none !important',
-        },
-
-        footerCell: {
-          padding: 0,
-          margin: 0,
-        },
-
-        toolbarContainer: {
-          height: '52px',
-          borderRadius: '20px',
+        sortIcon: {
+          color: '#fff',
+          width: 14,
+          height: 14,
         },
 
         columnSeparator: {
@@ -462,14 +409,7 @@ export const darkTheme = createTheme({
         },
 
         menu: {
-          // backgroundColor: '#2B2B34',
           color: '#fff',
-        },
-
-        sortIcon: {
-          color: '#fff !important',
-          width: 14,
-          height: 14,
         },
 
         cell: {
@@ -515,7 +455,6 @@ export const darkTheme = createTheme({
         iconSeparator: {
           padding: '0 1px',
         },
-        //
       },
     },
 
@@ -796,7 +735,7 @@ export const darkTheme = createTheme({
 
       boxShadow: {
         general: 'rgba(31, 31, 31, 0.6)',
-        paper: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
+        paper: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
         yellow:
           'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
         red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',

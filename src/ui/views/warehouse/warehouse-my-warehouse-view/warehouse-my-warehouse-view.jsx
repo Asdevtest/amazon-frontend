@@ -3,16 +3,10 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
 import { BoxViewForm } from '@components/forms/box-view-form'
@@ -99,28 +93,15 @@ export const WarehouseMyWarehouseViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            key={SettingsModel.languageTag}
-            disableVirtualization
             checkboxSelection
-            pagination
             localeText={getLocalizationByLanguageTag()}
             propsToRerender={{ unitsOption: viewModel.unitsOption }}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
             isRowSelectable={params =>
               params.row.isDraft === false &&
               params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
               params.row.originalData.status !== BoxStatus.IN_BATCH
             }
             getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             rowSelectionModel={viewModel.selectedBoxes}
             sortModel={viewModel.sortModel}
@@ -130,11 +111,6 @@ export const WarehouseMyWarehouseViewRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

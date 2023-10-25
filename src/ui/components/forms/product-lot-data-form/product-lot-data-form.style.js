@@ -86,6 +86,5 @@ export const useClassNames = makeStyles()(theme => ({
 
   tableWrapper: {
     height: '630px',
-    width: '100%',
   },
 }))

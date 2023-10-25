@@ -3,7 +3,6 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import {
@@ -15,7 +14,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -358,31 +356,10 @@ export const BatchInfoModal = observer(
             </div>
 
             <MemoDataGrid
-              // hideFooter
-              // autoHeight
-              pagination
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
-              classes={{
-                toolbarContainer: classNames.toolbarContainer,
-                // virtualScroller: classNames.virtualScroller,
-              }}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-                // Footer: () => (
-                //   <div className={classNames.boxCounterWrapper}>
-                //     <Typography className={classNames.boxCounterText}>
-                //       {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-                //     </Typography>
-                //     <Typography className={classNames.boxCounterCount}>
-                //       {batch.boxes.reduce((ac, cur) => (ac += cur.amount), 0)}
-                //     </Typography>
-                //   </div>
-                // ),
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
