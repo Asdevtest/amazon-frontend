@@ -162,7 +162,7 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
           updateData={() => {
             viewModel.getIdeaList()
-            UserModel.getUserInfo()
+            UserModel.getUsersInfoCounters()
           }}
           product={viewModel.currentProduct}
           productId={viewModel.productId}
