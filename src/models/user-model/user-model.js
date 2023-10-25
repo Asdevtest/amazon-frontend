@@ -81,7 +81,10 @@ class UserModelStatic {
         password,
       },
     })
-    this.userInfo = response.data
+
+    runInAction(() => {
+      this.userInfo = response.data
+    })
   }
 
   async isCheckUniqueUser({ name, email }) {
