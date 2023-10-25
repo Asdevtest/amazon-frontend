@@ -11,8 +11,8 @@ import { UserModel } from '@models/user-model'
 
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher, ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
@@ -112,7 +112,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
         </div>
 
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}

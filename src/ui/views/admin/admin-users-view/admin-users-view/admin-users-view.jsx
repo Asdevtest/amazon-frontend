@@ -6,7 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { AdminContentModal } from '@components/user/users-views/sub-users-view/admin-content-modal'
@@ -37,7 +37,7 @@ export const AdminUsersViewRaw = props => {
         />
 
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}

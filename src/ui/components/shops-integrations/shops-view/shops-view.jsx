@@ -12,7 +12,7 @@ import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
@@ -84,7 +84,7 @@ export const ShopsViewRaw = props => {
       </Box>
 
       <div className={className.datagridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           checkboxSelection
           localeText={getLocalizationByLanguageTag()}

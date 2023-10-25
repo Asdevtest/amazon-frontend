@@ -9,8 +9,8 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
@@ -104,7 +104,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
@@ -162,7 +162,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
@@ -220,7 +220,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
@@ -278,7 +278,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}

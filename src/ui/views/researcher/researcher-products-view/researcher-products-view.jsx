@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ResearcherAddProductForm } from '@components/forms/reasearcher-add-product-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -48,7 +48,7 @@ export const ResearcherProductsViewRaw = props => {
           />
         </Paper>
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}

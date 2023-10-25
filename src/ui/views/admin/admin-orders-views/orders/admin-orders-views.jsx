@@ -10,7 +10,7 @@ import { adminOrdersBtnsConfig } from '@constants/table/tables-filter-btns-confi
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -54,7 +54,7 @@ export const AdminOrdersViewsRaw = props => {
           ))}
         </Grid>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}

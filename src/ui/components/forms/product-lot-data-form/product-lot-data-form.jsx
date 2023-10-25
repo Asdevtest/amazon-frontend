@@ -11,7 +11,7 @@ import { BatchesModel } from '@models/batches-model'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -142,7 +142,7 @@ export const ProductLotDataForm = observer(
           </div>
         </div>
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             localeText={getLocalizationByLanguageTag()}
             getRowId={batches => batches?._id}
             columns={

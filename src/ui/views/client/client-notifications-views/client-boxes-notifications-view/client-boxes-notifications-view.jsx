@@ -9,7 +9,7 @@ import { BoxViewForm } from '@components/forms/box-view-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -30,7 +30,7 @@ export const ClientBoxesNotificationsViewRaw = props => {
   return (
     <React.Fragment>
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}

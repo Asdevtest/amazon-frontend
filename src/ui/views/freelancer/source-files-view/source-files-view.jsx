@@ -6,7 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -34,7 +34,7 @@ export const SourceFilesViewRaw = ({ classes: classNames, history, location }) =
       </div>
 
       <div className={classNames.dataGridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}

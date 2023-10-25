@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -39,7 +39,7 @@ export const BuyerFreeOrdersViewRaw = props => {
           </Button>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}

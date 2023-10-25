@@ -8,7 +8,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -63,7 +63,7 @@ export const BuyerMyProductsViewRaw = props => {
         </div>
 
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}

@@ -12,7 +12,7 @@ import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -67,7 +67,7 @@ export const Integrations = observer(({ productId, modal }) => {
         </div>
       )}
 
-      <MemoDataGrid
+      <CustomDataGrid
         useResizeContainer
         checkboxSelection
         localeText={getLocalizationByLanguageTag()}

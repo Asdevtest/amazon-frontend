@@ -7,8 +7,8 @@ import Checkbox from '@mui/material/Checkbox'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
 
@@ -126,7 +126,7 @@ export const SelectStorekeeperAndTariffForm = observer(
 
         <TabPanel value={tabIndex} index={0}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper?.tariffLogistics?.length
@@ -182,7 +182,7 @@ export const SelectStorekeeperAndTariffForm = observer(
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               rows={
                 curStorekeeper?.tariffWarehouses?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))

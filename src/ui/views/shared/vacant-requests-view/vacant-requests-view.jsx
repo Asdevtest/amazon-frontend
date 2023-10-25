@@ -13,8 +13,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
@@ -127,7 +127,7 @@ export const VacantRequestsViewRaw = props => {
           </Box>
         ) : viewModel.viewMode === tableViewMode.TABLE ? (
           <div className={classNames.dataGridWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               useResizeContainer
               localeText={getLocalizationByLanguageTag()}
               rowCount={viewModel.rowCount}

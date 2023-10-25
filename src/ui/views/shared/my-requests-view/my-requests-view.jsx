@@ -13,8 +13,8 @@ import { CustomSearchRequestForm } from '@components/requests-and-request-propos
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -95,7 +95,7 @@ export const MyRequestsViewRaw = props => {
 
         <div className={classNames.datagridWrapper}>
           {viewModel.loadTableStatus === loadingStatuses.success ? (
-            <MemoDataGrid
+            <CustomDataGrid
               propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
               localeText={getLocalizationByLanguageTag()}
               getCellClassName={getCellClassName}

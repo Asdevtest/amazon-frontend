@@ -14,7 +14,7 @@ import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -95,7 +95,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
           </Button>
         </div>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}

@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
@@ -102,7 +102,7 @@ export const WarehouseVacantTasksViewRaw = props => {
         </div>
 
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
