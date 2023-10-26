@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 450,
+    width: '100%',
   },
 
   checkbox: {
@@ -43,6 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 10,
   },
 
   deadlineWrapper: {
@@ -69,7 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     color: theme.palette.text.general,
-    margin: 0,
+    marginBottom: 5,
   },
 
   buyerWrapper: {

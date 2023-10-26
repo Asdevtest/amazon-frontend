@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    width: '537px',
+    width: '100%',
   },
 
   label: {
@@ -26,12 +26,6 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  photoCarousel: {
-    height: '150px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
   subTitleWrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -46,7 +40,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photoWrapper: {
-    width: '40%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
