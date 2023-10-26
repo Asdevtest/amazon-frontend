@@ -53,4 +53,5 @@ export class ChatContract implements TWebsocketChatService.Chat {
   public pagination!: { limit: number; offset: number }
   @IsBoolean()
   public isAllMessagesLoaded!: boolean
+  public lastMessage?: ChatMessageContract
 }

@@ -40,13 +40,13 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
     requestProposal => requestProposal?.proposal?.chatId === chat?._id,
   )
 
-  const { messages, users } = chat
+  const { messages, users, lastMessage } = chat
 
-  const lastMessage = messages[messages.length - 1] || {}
+  // const lastMessage = messages[messages.length - 1] || {}
 
   const isGroupChat = chat.type === chatsType.GROUP
 
-  const isCurrentUser = lastMessage.user?._id === userId
+  const isCurrentUser = lastMessage?.user?._id === userId
 
   const oponentUser = users.filter(
     (user: ChatUserContract) =>
@@ -68,9 +68,9 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const unReadMessages = messages.filter(el => !el.isRead && el.user?._id !== userId)
 
-  const message = lastMessage.text
+  const message = lastMessage?.text
     ? (() => {
-        switch (lastMessage.text) {
+        switch (lastMessage?.text) {
           case ChatMessageType.CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION:
             return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION:
