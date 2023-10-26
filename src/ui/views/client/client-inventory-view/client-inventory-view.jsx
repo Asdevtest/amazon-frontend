@@ -72,7 +72,7 @@ export const ClientInventoryViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <>
         <div className={classNames.headerWrapper}>
           <div className={classNames.addProductBtnsWrapper}>
             <div className={classNames.shopsFiltersWrapper}>
@@ -282,7 +282,7 @@ export const ClientInventoryViewRaw = props => {
             onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
           />
         </div>
-      </div>
+      </>
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
 
