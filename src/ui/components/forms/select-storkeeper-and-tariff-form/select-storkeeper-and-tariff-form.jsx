@@ -180,7 +180,7 @@ export const SelectStorekeeperAndTariffForm = observer(
             </div>
           )}
         </TabPanel>
-        <TabPanel value={tabIndex} index={2}>
+        <TabPanel value={tabIndex} index={1}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               rows={
