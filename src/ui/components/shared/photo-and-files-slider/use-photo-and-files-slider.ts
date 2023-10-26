@@ -44,7 +44,7 @@ export const usePhotoAndFilesSlider = (
 
       if (!isImage && !isDocument) {
         if (typeof el === 'string') {
-          result.push(getAmazonImageUrl(el, true))
+          result.push(getAmazonImageUrl(el))
         } else {
           result.push(el)
         }
