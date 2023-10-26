@@ -5,6 +5,8 @@ import 'react-18-image-lightbox/style.css'
 
 import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
 
+import { checkIsVideoLink } from '@utils/checks'
+
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './zoom-modal.styles'
@@ -21,9 +23,12 @@ export const ZoomModal: FC<Props> = observer(
   ({ images, currentImageIndex, isOpenModal, setIsOpenModal, setCurrentImageIndex }) => {
     const { classes: styles } = useStyles()
 
-    const currentImages = images?.map(image => (typeof image === 'string' ? image : image?.data_url)) || []
-    const nextImageIndex = (currentImageIndex + 1) % currentImages?.length
-    const prevImageIndex = (currentImageIndex + currentImages?.length - 1) % currentImages?.length
+    const currentImages =
+      images
+        .map(image => (typeof image === 'string' ? image : image.data_url))
+        .filter(item => !checkIsVideoLink(item)) || []
+    const nextImageIndex = (currentImageIndex + 1) % currentImages.length
+    const prevImageIndex = (currentImageIndex + currentImages.length - 1) % currentImages.length
     const isDisableArrowRight =
       currentImages?.length <= MIN_FILES_IN_ARRAY || currentImageIndex === currentImages?.length - 1
     const isDisableArrowLeft = currentImages?.length <= MIN_FILES_IN_ARRAY || currentImageIndex === 0

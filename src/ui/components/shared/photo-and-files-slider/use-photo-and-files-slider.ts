@@ -24,6 +24,8 @@ export const usePhotoAndFilesSlider = (
   const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
   const [photoIndex, setPhotoIndex] = useState(startPhotoIndex ?? 0)
 
+  const [isPlaying, setIsPlaying] = useState(false) // for video player
+
   useEffect(() => {
     if (photos?.length - 1 < photoIndex && photos?.length > 0) {
       setPhotoIndex(photos?.length - 1)
@@ -32,8 +34,9 @@ export const usePhotoAndFilesSlider = (
 
   useEffect(() => {
     const photoFiltering = (files || []).reduce((result: Array<string | IUploadFile>, el) => {
-      const isImage = checkIsImageLink(typeof el === 'string' ? el : el?.file?.name)
-      const isDocument = checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name)
+      const currentFile = typeof el === 'string' ? el : el?.file?.name
+      const isImage = checkIsImageLink(currentFile)
+      const isDocument = checkIsDocumentLink(currentFile)
 
       if (isImage) {
         result.push(el)
@@ -119,6 +122,9 @@ export const usePhotoAndFilesSlider = (
     documents,
     documentIndex,
     setDocumentIndex,
+
+    isPlaying,
+    setIsPlaying,
 
     onClickMakeMainImageObj,
     onUploadFile,
