@@ -382,26 +382,28 @@ export const Chat: FC<Props> = observer(
         {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
         <div className={classNames.bottomPartWrapper}>
-          {isShowEmojis ? (
-            <ClickAwayListener
-              mouseEvent="onMouseDown"
-              onClickAway={event => {
-                if ((event.target as HTMLElement).id !== 'emoji-icon') {
-                  setIsShowEmojis(false)
-                }
-              }}
-            >
-              <div className={classNames.emojisWrapper}>
-                <Picker
-                  data={data}
-                  perLine={isTabletResolution ? 7 : 9}
-                  theme={SettingsModel.uiTheme}
-                  locale={SettingsModel.languageTag}
-                  onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
-                />
-              </div>
-            </ClickAwayListener>
-          ) : null}
+          <div key={SettingsModel.languageTag}>
+            {isShowEmojis && (
+              <ClickAwayListener
+                mouseEvent="onMouseDown"
+                onClickAway={event => {
+                  if ((event.target as HTMLElement).id !== 'emoji-icon') {
+                    setIsShowEmojis(false)
+                  }
+                }}
+              >
+                <div className={classNames.emojisWrapper}>
+                  <Picker
+                    data={data}
+                    perLine={isTabletResolution ? 7 : 9}
+                    theme={SettingsModel.uiTheme}
+                    locale={SettingsModel.languageTag}
+                    onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
+                  />
+                </div>
+              </ClickAwayListener>
+            )}
+          </div>
 
           <div className={classNames.inputWrapper}>
             <TextField
