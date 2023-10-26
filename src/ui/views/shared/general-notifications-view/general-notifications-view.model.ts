@@ -35,7 +35,7 @@ export class GeneralNotificationsViewModel {
   rowCount = 0
   sortModel: Array<ISortModel> = []
   densityModel = 'compact'
-  paginationModel: IPaginationModel = { page: 0, pageSize: 15 }
+  paginationModel: IPaginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel: IColumnVisibilityModel = {}
   filterModel: GridFilterModel = { items: [] }
   selectedRowIds: Array<string> = []
@@ -135,7 +135,9 @@ export class GeneralNotificationsViewModel {
       })
 
       runInAction(() => {
+        // @ts-ignore
         this.notificationsData = notificationDataConverter(response.rows) || []
+        // @ts-ignore
         this.rowCount = response.count
       })
 

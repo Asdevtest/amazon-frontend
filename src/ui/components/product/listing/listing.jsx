@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Divider, Paper, Typography } from '@mui/material'
@@ -12,7 +11,7 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserBalanceHistory } from '@components/user/user-balance-history'
 
@@ -147,7 +146,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
                 </Typography>
 
                 <div className={classNames.carouselWrapper}>
-                  <PhotoCarousel small files={imagesFromBoxes} />
+                  <PhotoAndFilesSlider withoutFiles smallSlider files={imagesFromBoxes} />
                 </div>
               </div>
 
@@ -155,7 +154,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
                 <div className={classNames.carouselWrapper}>
-                  <PhotoCarousel small files={listingProduct.listingImages} />
+                  <PhotoAndFilesSlider withoutFiles smallSlider files={listingProduct.listingImages} />
                 </div>
               </div>
             </div>

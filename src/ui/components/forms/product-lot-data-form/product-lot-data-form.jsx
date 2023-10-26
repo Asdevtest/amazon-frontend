@@ -57,18 +57,16 @@ export const ProductLotDataForm = observer(
     const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
     useEffect(() => {
-      if (isTransfer && nameSearchValue) {
+      const searchFields = ['humanFriendlyId', 'fbaShipment']
+
+      if (nameSearchValue) {
         setBatches(
-          data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
+          data?.filter(el =>
+            searchFields.some(key => String(el[key]).toLowerCase().includes(nameSearchValue.toLowerCase())),
+          ),
         )
-      } else {
-        if (nameSearchValue) {
-          setBatches(
-            data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
-          )
-        } else {
-          setBatches(data)
-        }
+      } else if (!isTransfer) {
+        setBatches(data)
       }
     }, [nameSearchValue, data])
 
@@ -138,14 +136,13 @@ export const ProductLotDataForm = observer(
             <SearchInput
               value={nameSearchValue}
               inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Lot number search'])}
+              placeholder={t(TranslationKey['Lot number and FBA search'])}
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
         </div>
         <div className={classNames.tableWrapper}>
           <MemoDataGrid
-            hideFooter
             localeText={getLocalizationByLanguageTag()}
             getRowId={batches => batches?._id}
             columns={

@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
-import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'

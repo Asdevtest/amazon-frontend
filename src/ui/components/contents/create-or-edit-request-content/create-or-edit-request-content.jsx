@@ -17,6 +17,7 @@ import {
   Typography,
 } from '@mui/material'
 
+import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -40,6 +41,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -208,6 +210,7 @@ export const CreateOrEditRequestContent = observer(
               2,
             )
           : 0,
+        taskComplexity: requestToEdit?.request?.taskComplexity || 20,
       },
       details: {
         conditions: requestToEdit?.details?.conditions || '',
@@ -418,16 +421,43 @@ export const CreateOrEditRequestContent = observer(
             {curStep === stepVariant.STEP_ONE && (
               <div className={classNames.mainSubRightWrapper}>
                 <div className={classNames.middleWrapper}>
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    inputProps={{ maxLength: 100 }}
+                    placeholder={t(TranslationKey['Request title'])}
+                    label={t(TranslationKey['Request title']) + '*'}
+                    className={classNames.nameField}
+                    containerClasses={classNames.nameFieldContainer}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.request.title}
+                    onChange={onChangeField('request')('title')}
+                  />
+
                   <div className={classNames.nameFieldWrapper}>
                     <Field
-                      tooltipInfoContent={t(TranslationKey['Future request title'])}
-                      inputProps={{ maxLength: 100 }}
-                      label={t(TranslationKey['Request title']) + '*'}
-                      className={classNames.nameField}
-                      containerClasses={classNames.nameFieldContainer}
+                      label={t(TranslationKey['Difficulty level'])}
                       labelClasses={classNames.spanLabelSmall}
-                      value={formFields.request.title}
-                      onChange={onChangeField('request')('title')}
+                      tooltipInfoContent={t(TranslationKey['Difficulty level'])}
+                      containerClasses={classNames.difficultylevelContainer}
+                      inputComponent={
+                        <Select
+                          displayEmpty
+                          value={formFields.request.taskComplexity}
+                          className={classNames.requestTypeField}
+                          input={<Input startAdornment={<InputAdornment position="start" />} />}
+                          onChange={onChangeField('request')('taskComplexity')}
+                        >
+                          <MenuItem disabled value={null}>
+                            {t(TranslationKey['Select from the list'])}
+                          </MenuItem>
+
+                          {Object.keys(difficultyLevelByCode).map((difficultyLevel, difficultyLevelIndex) => (
+                            <MenuItem key={difficultyLevelIndex} value={difficultyLevel}>
+                              {difficultyLevelTranslate(difficultyLevelByCode[difficultyLevel])}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      }
                     />
 
                     <Field
@@ -438,13 +468,13 @@ export const CreateOrEditRequestContent = observer(
                       className={classNames.nameField}
                       inputComponent={
                         <WithSearchSelect
-                          asinSelect
                           grayBorder
                           blackSelectedItem
                           darkIcon
                           chosenItemNoHover
+                          CustomButton={componentProps => <SelectProductButton {...componentProps} />}
                           data={permissionsData}
-                          width={185}
+                          width={'100%'}
                           searchOnlyFields={['asin', 'skusByClient']}
                           customSubMainWrapper={classNames.customSubMainWrapperAsin}
                           customSearchInput={classNames.customSearchInput}

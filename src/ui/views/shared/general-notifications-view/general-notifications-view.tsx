@@ -2,8 +2,6 @@ import { History } from 'history'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { NotificationTypes } from '@constants/notifications/notification-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -11,8 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher, ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
@@ -65,24 +61,22 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
         { label: () => t(TranslationKey.Order), value: NotificationTypes.order },
         { label: () => t(TranslationKey.All), value: undefined },
       ]
-    : isCurrentUserFreelancer
-    ? [
-        { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
-        { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
-        { label: () => t(TranslationKey.All), value: undefined },
-      ]
     : [{ label: () => t(TranslationKey.All), value: undefined }]
 
   return (
     viewModel.languageTag && (
       <div className={classNames.root}>
         <div className={classNames.actionPanelWrapper}>
-          <CustomSwitcher
-            switchMode={'medium'}
-            condition={viewModel.curNotificationType}
-            switcherSettings={currentSwitcherSettings}
-            changeConditionHandler={viewModel.onClickToChangeNotificationType}
-          />
+          {!isCurrentUserFreelancer ? (
+            <CustomSwitcher
+              switchMode={'medium'}
+              condition={viewModel.curNotificationType}
+              switcherSettings={currentSwitcherSettings}
+              changeConditionHandler={viewModel.onClickToChangeNotificationType}
+            />
+          ) : (
+            <div />
+          )}
 
           <SearchInput
             inputClasses={cx(classNames.searchInput, {
@@ -90,7 +84,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
               [classNames.searchInputFreelancer]: isCurrentUserFreelancer,
             })}
             value={viewModel.searchValue}
-            placeholder={`${t(TranslationKey['Search by SKU, ASIN, Title']) + searchPlaceholderText}`}
+            placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
             /* onChange={(e: ChangeEvent<HTMLInputElement>) => viewModel.onChangeSearchValue(e.target.value)} */
             onSubmit={viewModel.onSearchSubmit}
           />
@@ -120,12 +114,9 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             checkboxSelection
-            pagination
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedRowIds}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -137,11 +128,6 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             getRowHeight={() => 'auto'}
             density="compact"
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               // columnMenu: viewModel.columnMenuSettings,
               toolbar: {

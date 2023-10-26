@@ -1,13 +1,11 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import { navbarConfig } from '@constants/navigation/navbar'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
 import { DrawerModal } from '@components/shared/drawer-modal'
@@ -18,17 +16,7 @@ import { useClassNames } from './navbar.styles'
 import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
-  ({
-    shortNavbar,
-    activeCategory,
-    isHovering,
-    activeSubCategory,
-    isOpenModal,
-    onMouseOver,
-    onMouseOut,
-    onShowNavbar,
-    onToggleModal,
-  }) => {
+  ({ shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal }) => {
     const { classes: classNames } = useClassNames()
 
     const viewModel = useRef(new NavbarModel())
@@ -45,32 +33,27 @@ export const Navbar = observer(
       onClickVersion,
     } = viewModel.current
 
-    const [curNavbar, setCurNavbar] = useState(navbarConfig())
-
-    useEffect(() => {
-      setCurNavbar(navbarConfig())
-    }, [SettingsModel.languageTag])
+    const [curNavbar] = useState(navbarConfig)
 
     return (
-      <div className={classNames.navbar} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+      <div className={classNames.navbar}>
         <div className={classNames.logoWrapper}>
           {shortNavbar ? (
             <ShortLogoIcon className={classNames.logoIconShort} />
           ) : (
             <LogoIcon className={classNames.logoIcon} />
           )}
-          {isHovering && (
-            <div
-              className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
-              onClick={onShowNavbar}
-            >
-              {shortNavbar ? (
-                <ArrowForwardIosIcon className={classNames.arrowIcon} />
-              ) : (
-                <ArrowBackIosIcon className={classNames.arrowIcon} />
-              )}
-            </div>
-          )}
+          <div
+            id="hideAndShowIcon"
+            className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
+            onClick={onShowNavbar}
+          >
+            {shortNavbar ? (
+              <ArrowForwardIosIcon className={classNames.arrowIcon} />
+            ) : (
+              <ArrowBackIosIcon className={classNames.arrowIcon} />
+            )}
+          </div>
         </div>
 
         <DrawerModal open={isOpenModal} onClose={onToggleModal}>

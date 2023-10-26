@@ -45,18 +45,14 @@ class ChatModelStatic {
 
   public chatSelectedId: string | undefined = undefined
 
+  private unreadMessagesCount = 0
+
   get userId() {
     return UserModel.userId
   }
 
   get unreadMessages() {
-    return this.simpleChats.reduce(
-      (ac, cur) =>
-        (ac += cur.messages?.length
-          ? cur.messages.reduce((a, c) => (a += !c.isRead && c.user?._id !== this.userId ? 1 : 0), 0)
-          : 0),
-      0,
-    )
+    return this.unreadMessagesCount
   }
 
   get mutedChats() {
@@ -107,8 +103,56 @@ class ChatModelStatic {
       runInAction(() => {
         this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages,
+          messages: [],
+          lastMessage: chat.messages[chat.messages.length - 1],
+          pagination: {
+            limit: 20,
+            offset: 0,
+          },
+          isAllMessagesLoaded: false,
         }))
+      })
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  public async getChatMessages(chatId: string): Promise<void> {
+    if (!this.websocketChatService) {
+      return
+    }
+    try {
+      const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
+      const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
+
+      if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+        return
+      }
+
+      const index = Math.max(findChatIndexById, findSimpleChatIndexById)
+      const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+
+      if (this[chatType][index].isAllMessagesLoaded) {
+        return
+      }
+
+      const { offset, limit } = this[chatType][index].pagination
+
+      const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit)
+      runInAction(() => {
+        this[chatType][index] = {
+          ...this[chatType][index],
+          messages: [...chatMessages.rows, ...this[chatType][index].messages],
+          pagination: {
+            ...this[chatType][index].pagination,
+            offset: offset + limit,
+          },
+          isAllMessagesLoaded: chatMessages.rows.length < limit,
+        }
+        // * Удалить после окончательного переделывания чата
+        // if (offset === 0) {
+        //   this[chatType][index].lastMessage = chatMessages.rows[chatMessages.rows.length - 1]
+        // }
       })
     } catch (error) {
       console.warn(error)
@@ -132,8 +176,29 @@ class ChatModelStatic {
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages,
+          messages: [],
+          pagination: {
+            limit: 20,
+            offset: 0,
+          },
+          lastMessage: chat.messages[chat.messages.length - 1],
+          isAllMessagesLoaded: false,
         }))
+      })
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  public async getUnreadMessagesCount(): Promise<void> {
+    if (!this.websocketChatService) {
+      return
+    }
+    try {
+      const count = await this.websocketChatService.getUnreadMessagesCount()
+
+      runInAction(() => {
+        this.unreadMessagesCount = count
       })
     } catch (error) {
       console.warn(error)
@@ -257,6 +322,7 @@ class ChatModelStatic {
     }
 
     await this.websocketChatService.readMessage(messageIds)
+    await this.getUnreadMessagesCount()
   }
 
   private onConnectionError(error: Error) {
@@ -301,40 +367,38 @@ class ChatModelStatic {
     }
 
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
-
-    if (findChatIndexById !== -1) {
-      runInAction(() => {
-        this.chats[findChatIndexById].messages = [
-          ...this.chats[findChatIndexById].messages.filter(mes => mes._id !== message._id),
-          message,
-        ]
-      })
-    }
-
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
-    if (findSimpleChatIndexById !== -1) {
-      runInAction(() => {
-        this.simpleChats[findSimpleChatIndexById].messages = [
-          ...this.simpleChats[findSimpleChatIndexById].messages.filter(mes => mes._id !== message._id),
-          message,
-        ]
-      })
-
-      this.removeTypingUser(message.chatId, message.userId)
-
-      if (
-        checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
-        this.userId &&
-        message.data?.users?.map(el => el._id).includes(this.userId)
-      ) {
-        runInAction(() => {
-          this.chatSelectedId = undefined
-
-          this.simpleChats = this.simpleChats.filter(el => el._id !== message.chatId)
-        })
-      }
+    if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+      return
     }
+
+    const index = Math.max(findChatIndexById, findSimpleChatIndexById)
+    const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messages: [...this[chatType][index].messages.filter(mes => mes._id !== message._id), message],
+        lastMessage: message,
+      }
+    })
+
+    this.removeTypingUser(message.chatId, message.userId)
+
+    if (
+      checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
+      this.userId &&
+      message.data?.users?.map(el => el._id).includes(this.userId)
+    ) {
+      runInAction(() => {
+        this.chatSelectedId = undefined
+
+        this.simpleChats = this.simpleChats.filter(el => el._id !== message.chatId)
+      })
+    }
+
+    this.getUnreadMessagesCount()
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
@@ -367,6 +431,8 @@ class ChatModelStatic {
         ]
       })
     }
+
+    this.getUnreadMessagesCount()
   }
 
   private removeTypingUser(chatId: string, userId: string) {

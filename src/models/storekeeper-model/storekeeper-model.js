@@ -1,178 +1,142 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class StorekeeperModelStatic {
   getTasksVacant = async () => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksVacGet()
-    return response
+    return response.data
   }
 
   getLightTasksVacant = async () => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightVacGet()
-    return response
+    return response.data
   }
 
   getLightTasksVacantPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagVacGet(data)
-    return response
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagVacGet(filterNullValues(data))
+    return response.data
   }
 
   getLightTasksWithPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet(data)
-    return response
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet(filterNullValues(data))
+    return response.data
   }
 
-  pickupTask = async id => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupGuidPost(id)
-    return response
+  pickupTask = async guid => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupGuidPost({ guid })
+    return response.data
   }
 
-  pickupManyTasks = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupManyPost({ body: data })
-    return response
+  pickupManyTasks = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupManyPost({ body })
+    return response.data
   }
 
-  getTasksMy = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksMyGet(data)
-    return response
-  }
-
-  getLightTasksMy = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightMyGet(data)
-    return response
-  }
-
-  getPaymentsMy = async () => {
-    const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
-    return response
-  }
-
-  updateTask = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksGuidPatch(id, { body: data })
-    return response
-  }
-
-  getBatches = async () => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersBatchesGet()
-    return response
-  }
-
-  getBalance = async () => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersPaymentsMyBalanceGet()
-    return response
-  }
-
-  getBoxesMy = async () => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGet()
-    return response
+  updateTask = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksGuidPatch({ guid, body })
+    return response.data
   }
 
   getBoxesMyPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersPagBoxesGet(data)
-    return response
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersPagBoxesGet(filterNullValues(data))
+    return response.data
   }
 
-  updateStatusInOrder = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersOrdersSetStatusGuidPatch(id, {
-      body: data,
-    })
-    return response
+  updateStatusInOrder = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersOrdersSetStatusGuidPatch({ guid, body })
+    return response.data
   }
 
-  resolveTask = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, { body: data })
-    return response
+  resolveTask = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksDoneGuidPost({ guid, body })
+    return response.data
   }
 
-  getTaskById = async id => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTaskLightGuidGet(id)
-    return response
+  getTaskById = async guid => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTaskLightGuidGet({ guid })
+    return response.data
   }
 
   getStorekeepers = async (boxStatus, tariffType) => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersGet({ boxStatus, tariffType })
-    return response
+    return response.data
   }
 
   getLogisticsTariffs = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsMyGet(data)
-    return response
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsMyGet(filterNullValues(data))
+    return response.data
   }
 
-  createLogisticTariff = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsPost({ body: data })
-    return response
+  createLogisticTariff = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsPost({ body })
+    return response.data
   }
 
-  editLogisticTariff = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsGuidPatch(id, { body: data })
-    return response
+  editLogisticTariff = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsGuidPatch({ guid, body })
+    return response.data
   }
 
-  removeLogisticTariff = async id => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsGuidDelete(id)
-    return response
+  removeLogisticTariff = async guid => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsGuidDelete({ guid })
+    return response.data
   }
 
   getWarehouseTariffs = async () => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseMyGet()
-    return response
+    return response.data
   }
 
-  createWarehouseTariff = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehousesPost({ body: data })
-    return response
+  createWarehouseTariff = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehousesPost({ body })
+    return response.data
   }
 
-  editWarehouseTariff = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseGuidPatch(id, { body: data })
-    return response
+  editWarehouseTariff = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseGuidPatch({ guid, body })
+    return response.data
   }
 
-  removeWarehouseTariff = async id => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseGuidDelete(id)
-    return response
+  removeWarehouseTariff = async guid => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseGuidDelete({ guid })
+    return response.data
   }
 
-  editProductsHsCods = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersProductsEditHsCodePatch({ body: data })
-    return response
+  editStorekeperDestination = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersDestinationPost({ body })
+    return response.data
   }
 
-  editStorekeperDestination = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersDestinationPost({ body: data })
-    return response
+  confirmSendToStorekeeper = async guid => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersDestructBatchGuidPost({ guid })
+    return response.data
   }
 
-  confirmSendToStorekeeper = async id => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersDestructBatchGuidPost(id)
-    return response
+  editBox = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGuidPatch({ guid, body })
+    return response.data
   }
 
-  editBox = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGuidPatch(id, { body: data })
-    return response
+  updateBoxComment = async (guid, body) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesCommentGuidPatch({ guid, body })
+    return response.data
   }
 
-  updateBoxComment = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesCommentGuidPatch(id, {
-      body: data,
-    })
-    return response
+  getTaskReport = async guid => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksReportGuidGet({ guid })
+    return response.data
   }
 
-  getTaskReport = async id => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksReportGuidGet(id)
-    return response
-  }
-
-  updateTaskPriority = async (taskId, priority, reason) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPriorityGuidPatchWithHttpInfo(taskId, {
+  updateTaskPriority = async (guid, priority, reason) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPriorityGuidPatchWithHttpInfo({
+      guid,
       body: {
         priority,
         reason,
       },
     })
-    return response
+    return response.data
   }
 }
 

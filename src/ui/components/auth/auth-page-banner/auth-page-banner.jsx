@@ -1,3 +1,5 @@
+import { observer } from 'mobx-react'
+
 import { Typography } from '@mui/material'
 
 import { UiTheme } from '@constants/theme/themes'
@@ -9,7 +11,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './auth-page-banner.style'
 
-export const AuthPageBanner = () => {
+export const AuthPageBanner = observer(() => {
   const { classes: classNames } = useClassNames()
 
   return (
@@ -32,4 +34,4 @@ export const AuthPageBanner = () => {
       <div className={classNames.footer}></div>
     </div>
   )
-}
+})

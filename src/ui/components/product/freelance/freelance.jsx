@@ -1,20 +1,14 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { Button } from '@components/shared/buttons/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -72,7 +66,7 @@ export const Freelance = observer(({ productId, modal }) => {
             condition={Number(selectedTaskType)}
             switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
               value: Number(taskType),
-              label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType]),
+              label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType], true),
             }))}
             changeConditionHandler={onClickTaskType}
           />
@@ -87,27 +81,13 @@ export const Freelance = observer(({ productId, modal }) => {
       </div>
       <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
         <MemoDataGrid
-          disableVirtualization
-          pagination
           localeText={getLocalizationByLanguageTag()}
           propsToRerender={{ onHover }}
           rowCount={rowCount}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
           pageSizeOptions={[15, 25, 50, 100]}
           paginationModel={paginationModel}
           rows={getCurrentData()}
           rowHeight={100}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-            columnMenu: DataGridCustomColumnMenuComponent,
-          }}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -126,12 +106,6 @@ export const Freelance = observer(({ productId, modal }) => {
               },
             },
           }}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
-          }}
-          sortingMode="server"
-          paginationMode="server"
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}

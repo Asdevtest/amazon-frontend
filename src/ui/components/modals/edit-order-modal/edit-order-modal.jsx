@@ -497,6 +497,8 @@ export const EditOrderModal = observer(
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
 
+    const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
+
     return (
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
@@ -787,7 +789,11 @@ export const EditOrderModal = observer(
                       ) : (
                         <>
                           <Button
-                            disabled={checkIsPlanningPrice && !isPendingOrder}
+                            tooltipAttentionContent={
+                              disableEditInPendingOrder &&
+                              t(TranslationKey['Editing is unavailable due to change of current supplier'])
+                            }
+                            disabled={(checkIsPlanningPrice && !isPendingOrder) || disableEditInPendingOrder}
                             className={classNames.iconBtn}
                             onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                           >
@@ -820,7 +826,7 @@ export const EditOrderModal = observer(
                         danger={isSupplierAcceptRevokeActive}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
+                        className={cx(classNames.iconBtn, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
                         onClick={() => {
@@ -1118,9 +1124,9 @@ export const EditOrderModal = observer(
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
           <SupplierPaymentForm
-            item={orderFields}
             uploadedFiles={paymentDetailsPhotosToLoad}
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
+            setEditPaymentDetailsPhotos={setEditPaymentDetailsPhotos}
             onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />

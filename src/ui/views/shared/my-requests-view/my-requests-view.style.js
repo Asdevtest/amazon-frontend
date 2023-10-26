@@ -25,37 +25,9 @@ export const styles = theme => ({
     paddingRight: '5px',
   },
 
-  row: {
-    whiteSpace: 'normal',
-    cursor: 'pointer',
-    transition: '0.3s ease',
-  },
-
-  root: {
-    boxShadow: theme.palette.boxShadow.paper,
-    backgroundColor: theme.palette.background.general,
-
-    // '.MuiTypography-root': {
-    //   fontSize: 14,
-    //   fontFamily: 'Regular, sans-serif',
-    // },
-  },
-
   datagridWrapper: {
     height: '72vh',
-  },
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
+    width: '100%',
   },
 
   acceptMessageWrapper: {

@@ -12,12 +12,13 @@ import { useClassNames } from './view-cards-select.styles'
 
 interface FreelanceTypeTaskSelectProps {
   withTabelView?: boolean
+  withoutBlockCardView?: boolean
   viewMode: string
   onChangeViewMode: (value: string) => void
 }
 
 export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = props => {
-  const { withTabelView, viewMode, onChangeViewMode } = props
+  const { withTabelView, withoutBlockCardView, viewMode, onChangeViewMode } = props
   const { classes: classNames, cx } = useClassNames()
 
   return (
@@ -36,7 +37,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = props => {
           ),
           value: tableViewMode.TABLE,
         },
-        {
+        !withoutBlockCardView && {
           icon: (
             <ViewCartsBlock
               className={cx(classNames.viewCart, {

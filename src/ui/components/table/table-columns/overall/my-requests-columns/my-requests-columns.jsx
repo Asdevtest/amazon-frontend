@@ -1,4 +1,9 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -41,9 +46,42 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
 
     filterable: false,
     sortable: false,
-    align: 'center',
 
     columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+  },
+
+  {
+    field: 'taskComplexity',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
+    headerName: t(TranslationKey['Difficulty level']),
+
+    renderCell: params => (
+      <MultilineTextCell
+        text={difficultyLevelTranslate(difficultyLevelByCode[params.value])}
+        customTextStyles={{
+          color: colorByDifficultyLevel(difficultyLevelByCode[params.value]),
+          fontWeight: 600,
+        }}
+      />
+    ),
+    width: 95,
+    columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
+  },
+
+  {
+    field: 'title',
+    headerName: t(TranslationKey.Title),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Title)}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    width: 160,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -229,23 +267,6 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     sortable: false,
 
     columnKey: columnnsKeys.shared.OBJECT,
-  },
-
-  {
-    field: 'title',
-    headerName: t(TranslationKey.Title),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Title)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-    width: 228,
-
-    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

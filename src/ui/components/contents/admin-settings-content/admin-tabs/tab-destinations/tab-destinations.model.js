@@ -66,10 +66,10 @@ export class AdminSettingsDestinationsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await ClientModel.getDestinations()
-
-      runInAction(() => {
-        this.destinations = addIdDataConverter(result)
+      await ClientModel.getDestinations().then(result => {
+        runInAction(() => {
+          this.destinations = addIdDataConverter(result)
+        })
       })
 
       this.setRequestStatus(loadingStatuses.success)

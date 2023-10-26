@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AnnouncementModal } from '@components/modals/announcement-modal/announcement-modal'
+import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
@@ -55,7 +55,7 @@ export const ServiceExchangeCard: FC<Props> = props => {
         {t(TranslationKey.Details)}
       </button>
 
-      <PhotoAndFilesSlider withoutFiles mediumSlider files={service?.linksToMediaFiles} />
+      <PhotoAndFilesSlider withoutFiles showPreviews mediumSlider files={service?.linksToMediaFiles} />
 
       {isNotMyServices ? (
         <div className={classNames.detailsWrapper}>

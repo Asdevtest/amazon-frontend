@@ -1,9 +1,4 @@
 export const styles = theme => ({
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
-
   filterBtnWrapper: {
     marginBottom: '10px',
     paddingLeft: '8px',
@@ -13,7 +8,6 @@ export const styles = theme => ({
     marginLeft: '10px',
     color: theme.palette.primary.main,
     marginBottom: '5px',
-
     fontSize: '16px',
     transition: '.15s ease-in-out',
     '&:hover': {
@@ -26,38 +20,22 @@ export const styles = theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
     fontWeight: 'bold',
     marginBottom: '0',
-
     borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
+
   datagridWrapper: {
     marginTop: '10px',
     height: '70vh',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
+    width: '100%',
   },
 
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
-  },
   topHeaderBtnsWrapper: {
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
     marginBottom: 20,
   },
+
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',

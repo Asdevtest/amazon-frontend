@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -233,20 +232,8 @@ export class ClientBoxesTariffsNotificationsViewModel {
   async onClickConfirmTarrifChangeBtn(storekeeperId, tariffId, variationTariffId) {
     try {
       const platformSettings = await UserModel.getPlatformSettings()
-
       const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings?.volumeWeightCoefficient)
-
-      const curStorekeeper = this.storekeepersData.find(el => el._id === this.curBox?.storekeeper._id)
-
-      const firstNumOfCode = this.curBox.destination.zipCode[0]
-
-      const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-      const tariffRate = curStorekeeper.tariffLogistics.find(el => el._id === tariffId)?.conditionsByRegion[
-        regionOfDeliveryName
-      ]?.rate
-
-      const finalSum = curBoxFinalWeight * tariffRate
+      const finalSum = curBoxFinalWeight * this.curBox.variationTariff.pricePerKgUsd
 
       runInAction(() => {
         this.confirmModalSettings = {
@@ -324,7 +311,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
   async getBoxes() {
     try {
       const [result, platformSettings] = await Promise.all([
-        BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF),
+        BoxesModel.getBoxesForCurClient({ status: BoxStatus.NEED_TO_UPDATE_THE_TARIFF }),
         UserModel.getPlatformSettings(),
       ])
 

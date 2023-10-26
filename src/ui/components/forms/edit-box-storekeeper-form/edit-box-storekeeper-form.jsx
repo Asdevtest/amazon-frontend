@@ -1,32 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Avatar, Checkbox, Chip, Divider, Typography } from '@mui/material'
+import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
 import {
   getConversion,
-  getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
@@ -34,12 +26,12 @@ import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -268,14 +260,15 @@ export const EditBoxStorekeeperForm = observer(
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
+      const currentValue = e.target.value
 
       if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
           return
         }
       }
 
-      newFormFields[fieldName] = e.target.value
+      newFormFields[fieldName] = currentValue
 
       setBoxFields(newFormFields)
     }
@@ -316,25 +309,19 @@ export const EditBoxStorekeeperForm = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = newCondition => {
-      setSizeSetting(newCondition)
+    const handleChange = newAlignment => {
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (newCondition === unitsOfChangeOptions.US) {
         setBoxFields({
           ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / multiplier, 2),
         })
-      } else {
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 
@@ -980,6 +967,7 @@ export const EditBoxStorekeeperForm = observer(
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
+            RemoveDestinationRestriction
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}

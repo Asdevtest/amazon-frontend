@@ -8,4 +8,6 @@ export enum EentToEmit {
   ADD_USERS_TO_GROUP_CHAT_BY_ADMIN = 'Chat:user:add-users-to-group-chat',
   REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN = 'Chat:user:remove-users-from-group-chat',
   PATCH_CHAT_INFO = 'Chat:user:patch-info',
+  GET_CHAT_MESSAGES = 'Chat:user:get-chat-messages',
+  GET_UNREAD_MESSAGES_COUNT = 'Chat:user:get-unread-messages',
 }

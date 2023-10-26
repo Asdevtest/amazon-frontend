@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Checkbox, Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,8 +17,6 @@ import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constan
 import { TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -239,30 +235,14 @@ export const ClientWarehouseTasksViewRaw = props => {
 
         <div className={classNames.tasksWrapper}>
           <MemoDataGrid
-            // disableVirtualization
-            // key={SettingsModel.languageTag}
             checkboxSelection
-            pagination
             disableRowSelectionOnClick
-            // propsToRerender={{ onHover: viewModel.onHover }}
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
             localeText={getLocalizationByLanguageTag()}
             pageSizeOptions={[15, 25, 50, 100]}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            sortingMode="server"
             rows={viewModel.getCurrentTaskData()}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -279,7 +259,6 @@ export const ClientWarehouseTasksViewRaw = props => {
             }}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             columns={viewModel.columnsModel}
-            paginationMode="server"
             rowCount={viewModel.rowsCount}
             onRowHover={viewModel.onHover}
             onRowSelectionModelChange={viewModel.onSelectionModel}

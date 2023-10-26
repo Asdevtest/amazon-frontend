@@ -37,6 +37,7 @@ export class AdminUsersViewModel {
     onClickUser: item => this.onClickUser(item),
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -130,10 +131,11 @@ export class AdminUsersViewModel {
       })
       const result = await AdministratorModel.getUsers()
 
-      const usersData = adminUsersDataConverter(result)
+      const usersData = adminUsersDataConverter(result?.data)
 
       runInAction(() => {
         this.users = usersData
+        this.rowCount = usersData?.length
       })
 
       this.setRequestStatus(loadingStatuses.success)

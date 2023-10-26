@@ -1,21 +1,21 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class FeedbackModelStatic {
-  sendFeedback = async (guid, feedback) => {
-    const response = await restApiService.userApi.apiV1UsersFeedbackGuidPost(guid, {
-      body: feedback,
+  sendFeedback = async (guid, body) => {
+    await restApiService.userApi.apiV1UsersFeedbackGuidPost({
+      guid,
+      body,
     })
-    return response
   }
 
   getFeedback = async guid => {
-    const response = await restApiService.userApi.apiV1UsersFeedbackGuidGet(guid)
-    return response
+    const response = await restApiService.userApi.apiV1UsersFeedbackGuidGet({ guid })
+    return response.data
   }
 
   getMyFeedback = async () => {
     const response = await restApiService.userApi.apiV1UsersFeedbackMyGet()
-    return response
+    return response.data
   }
 }
 

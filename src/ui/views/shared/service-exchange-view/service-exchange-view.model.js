@@ -86,12 +86,11 @@ export class ServiceExchangeViewModel {
 
   async getVacAnnouncementsData() {
     try {
-      const result = await AnnouncementsModel.getVacAnnouncements({
-        type:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? null
-            : this.selectedTaskType,
-      })
+      const result = await AnnouncementsModel.getVacAnnouncements(
+        Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+          ? null
+          : this.selectedTaskType,
+      )
       runInAction(() => {
         this.announcements = result
       })

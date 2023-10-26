@@ -172,6 +172,7 @@ export const SuppliersAndIdeas = observer(
             onSetCurIdea={onSetCurIdea}
             onClickSupplierBtns={onClickSupplierButtons}
             onClickSupplier={onChangeSelectedSupplier}
+            onClickOpenProduct={onClickOpenProduct}
           />
         )}
 
@@ -262,25 +263,29 @@ export const SuppliersAndIdeas = observer(
             </div>
           ))}
 
-        <Modal
-          missClickModalOn={!supplierModalReadOnly}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={onTriggerAddOrEditSupplierModal}
-        >
-          <AddOrEditSupplierModalContent
-            paymentMethods={paymentMethods}
-            onlyRead={supplierModalReadOnly}
-            requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={supplierData || selectedSupplier}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            onClickSaveBtn={onClickSaveSupplierBtn}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
-          />
-        </Modal>
+        {showAddOrEditSupplierModal && (
+          <Modal
+            missClickModalOn={!supplierModalReadOnly}
+            openModal={showAddOrEditSupplierModal}
+            setOpenModal={onTriggerAddOrEditSupplierModal}
+          >
+            <AddOrEditSupplierModalContent
+              product={curIdea}
+              storekeepersData={storekeepers}
+              paymentMethods={paymentMethods}
+              onlyRead={supplierModalReadOnly}
+              requestStatus={requestStatus}
+              sourceYuanToDollarRate={yuanToDollarRate}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              title={t(TranslationKey['Adding and editing a supplier'])}
+              supplier={supplierData || selectedSupplier}
+              showProgress={showProgress}
+              progressValue={progressValue}
+              onClickSaveBtn={onClickSaveSupplierBtn}
+              onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+            />
+          </Modal>
+        )}
 
         <ConfirmationModal
           isWarning={confirmModalSettings?.isWarning}

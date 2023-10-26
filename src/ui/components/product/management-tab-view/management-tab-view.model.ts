@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { History } from 'history'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
@@ -12,14 +13,12 @@ import { ProductModel } from '@models/product-model'
 
 import { t } from '@utils/translations'
 
-import { IHistory } from '@typings/history'
 import { IProduct } from '@typings/product'
 
 import { roles } from './management-tab-view-constants'
 import { DataIdsType, MemberType, Members } from './management-tab-view.types'
 
 export class ManagementTabViewModel {
-  history: History<unknown>
   requestStatus: string | undefined = undefined
 
   private initialMember: MemberType = { _id: '', name: '' }
@@ -30,7 +29,7 @@ export class ManagementTabViewModel {
     clientId: '',
   }
   private productIdFromUrl: string | null = new URL(window.location.href).searchParams.get('product-id')
-  private isEmptyStore = false
+  // private isEmptyStore = false
   private dataIds: DataIdsType = this.initialDataIds
   private product: IProduct | undefined = undefined
 
@@ -56,9 +55,7 @@ export class ManagementTabViewModel {
   isEditableSupervisor = false
   isEditableResearcher = false
 
-  constructor({ history }: IHistory) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -80,9 +77,13 @@ export class ManagementTabViewModel {
       const [clients, supervisors, researchers, buyers] = results
 
       runInAction(() => {
+        // @ts-ignore
         this.clients = clients
+        // @ts-ignore
         this.supervisors = supervisors
+        // @ts-ignore
         this.researchers = researchers
+        // @ts-ignore
         this.buyers = buyers
 
         this.client = this.findMemberByIdOrPickDefailtMember(this.clients, this.product?.client?._id, this.client)
@@ -114,6 +115,7 @@ export class ManagementTabViewModel {
       const result = await ProductModel.getProductById(id)
 
       runInAction(() => {
+        // @ts-ignore
         this.product = result
 
         const currentProductStatus = Number(this.product?.status)
@@ -166,19 +168,19 @@ export class ManagementTabViewModel {
 
     switch (memberType) {
       case Members.Client:
-        this.client = this.findMemberByIdOrPickDefailtMember(this.clients, selectedMemberId, this.client)
+        this.client = this.findMemberByIdOrPickDefailtMember(this.clients, selectedMemberId, this.initialMember)
         this.updateDataIdsAndDisabledFlags()
         break
       case Members.Buyer:
-        this.buyer = this.findMemberByIdOrPickDefailtMember(this.buyers, selectedMemberId, this.buyer)
+        this.buyer = this.findMemberByIdOrPickDefailtMember(this.buyers, selectedMemberId, this.initialMember)
         this.updateDataIdsAndDisabledFlags()
         break
       case Members.Supervisor:
-        this.supervisor = this.findMemberByIdOrPickDefailtMember(this.supervisors, selectedMemberId, this.supervisor)
+        this.supervisor = this.findMemberByIdOrPickDefailtMember(this.supervisors, selectedMemberId, this.initialMember)
         this.updateDataIdsAndDisabledFlags()
         break
       case Members.Researcher:
-        this.researcher = this.findMemberByIdOrPickDefailtMember(this.researchers, selectedMemberId, this.researcher)
+        this.researcher = this.findMemberByIdOrPickDefailtMember(this.researchers, selectedMemberId, this.initialMember)
         this.updateDataIdsAndDisabledFlags()
         break
       default:
@@ -205,9 +207,9 @@ export class ManagementTabViewModel {
   private updateDataIdsAndDisabledFlags() {
     this.dataIds = {
       productId: this.product?._id ?? '',
-      buyerId: this.buyer._id,
-      checkedById: this.supervisor._id,
-      clientId: this.client._id,
+      buyerId: this.buyer._id || null,
+      checkedById: this.supervisor._id || null,
+      clientId: this.client._id || null,
     }
 
     const foundResearcher = this.researchers?.find(member => member._id === this.product?.createdBy?._id)

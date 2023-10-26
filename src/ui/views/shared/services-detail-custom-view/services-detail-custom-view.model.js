@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AnnouncementsModel } from '@models/announcements-model'
-import { ChatModel } from '@models/chat-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
-import { RequestProposalModel } from '@models/request-proposal'
+
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class ServicesDetailCustomViewModel {
   history = undefined
@@ -23,6 +23,10 @@ export class ServicesDetailCustomViewModel {
   requestProposals = undefined
   showWarningModal = false
   showConfirmModal = false
+  showReviewModal = false
+
+  currentReviews = []
+  currentReviewModalUser = undefined
 
   loadedFiles = []
 
@@ -35,11 +39,10 @@ export class ServicesDetailCustomViewModel {
     runInAction(() => {
       this.history = history
 
-      if (location.state) {
-        // console.log(location.state)
-        this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
-      }
+      const url = new URL(window.location.href)
+
+      this.requestId = url.searchParams.get('requestId')
+      this.announcementId = url.searchParams.get('announcementId')
     })
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -103,5 +106,26 @@ export class ServicesDetailCustomViewModel {
     this.history.push('/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal', {
       request: toJS(this.request),
     })
+  }
+
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+
+      runInAction(() => {
+        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    this.currentReviewModalUser = user
+    this.onTriggerOpenModal('showReviewModal')
   }
 }

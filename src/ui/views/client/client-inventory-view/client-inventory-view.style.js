@@ -35,11 +35,6 @@ export const styles = theme => ({
     },
   },
 
-  row: {
-    cursor: 'pointer',
-    transition: '0.3s ease',
-  },
-
   openArchiveBtn: {
     width: 230,
     color: theme.palette.primary.main,
@@ -47,7 +42,6 @@ export const styles = theme => ({
 
   button: {
     marginBottom: 5,
-
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
@@ -107,11 +101,7 @@ export const styles = theme => ({
   datagridWrapper: {
     marginTop: '20px',
     height: '75vh',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
+    width: '100%',
   },
 
   clickableCell: {
@@ -122,20 +112,6 @@ export const styles = theme => ({
       boxShadow: 'inset 0 0 10px rgba(247, 179, 7, .8)',
       transform: 'scale(0.98)',
     },
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
   },
 
   ideaRowGreen: {

@@ -1,71 +1,70 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class SellerBoardModelStatic {
-  getMyDailyReports = async () => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseReportsDailyGet()
-    return response
-  }
-
   getMyDailyReportsLast30Days = async shopId => {
     const response =
-      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(shopId)
-    return response
+      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet({
+        shopId,
+      })
+    return response.data
   }
 
   getStockGoods = async shopId => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGet(shopId)
-    return response
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGet({ shopId })
+    return response.data
   }
 
   getStockGoodsByFilters = async filters => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsWarehouseReportGet({ filters })
-    return response
+    return response.data
   }
 
-  bindStockProductsBySku = async data => {
+  bindStockProductsBySku = async body => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch({
-      body: data,
+      body,
     })
-    return response
+    return response.data
   }
 
-  getProductsWithSkuById = async id => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsGetSkusByProductIdGuidGet(id)
-    return response
+  getProductsWithSkuById = async guid => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsGetSkusByProductIdGuidGet({ guid })
+    return response.data
   }
 
-  createAndLinkSkuProducts = async data => {
+  createAndLinkSkuProducts = async body => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsCreateAndLinkSkuProductsPost({
-      body: data,
+      body,
     })
-    return response
+    return response.data
   }
 
-  refreshProducts = async data => {
+  refreshProducts = async body => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsRefreshProductsPatch({
-      body: data,
+      body,
     })
-    return response
+    return response.data
   }
 
-  unlinkSkuProduct = async data => {
+  unlinkSkuProduct = async body => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch({
-      body: data,
+      body,
     })
-    return response
+    return response.data
   }
 
-  deleteStockGoodsById = async id => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGuidDelete(id)
-    return response
+  deleteStockGoodsById = async guid => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGuidDelete({
+      guid,
+    })
+    return response.data
   }
 
-  deleteMyDailyReportsLast30DaysById = async id => {
+  deleteMyDailyReportsLast30DaysById = async guid => {
     const response =
       await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGuidDelete(
-        id,
+        { guid },
       )
-    return response
+    return response.data
   }
 }
 

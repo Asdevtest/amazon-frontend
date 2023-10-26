@@ -136,7 +136,7 @@ export const EditBoxTasksModal = ({
     if (fieldName === 'fitsInitialDimensions') {
       newFormFields[fieldName] = e.target.checked
     } else {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
       }
 
@@ -222,25 +222,19 @@ export const EditBoxTasksModal = ({
 
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
 
-  const handleChange = condition => {
-    setSizeSetting(condition)
+  const handleChange = newAlignment => {
+    if (newAlignment !== sizeSetting) {
+      const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-    if (condition === unitsOfChangeOptions.US) {
       setEditingBox({
         ...editingBox,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
+        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / multiplier, 2),
+        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / multiplier, 2),
+        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / multiplier, 2),
+        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse / multiplier, 2),
       })
-    } else {
-      setEditingBox({
-        ...editingBox,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-      })
+
+      setSizeSetting(newAlignment)
     }
   }
 
@@ -282,7 +276,7 @@ export const EditBoxTasksModal = ({
             withoutLinks
             fullWidth
             dragAndDropBtnHeight={67}
-            images={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images}
+            images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
             setImages={setImagesOfBox}
             maxNumber={50}
           />
@@ -292,7 +286,10 @@ export const EditBoxTasksModal = ({
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <PhotoAndFilesSlider smallSlider files={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images} />
+        <PhotoAndFilesSlider
+          smallSlider
+          files={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
+        />
       </div>
 
       <div className={classNames.buttonsWrapper}>

@@ -1,67 +1,59 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class PermissionsModelStatic {
-  createSinglePermission = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsPost({ body: data })
-    return response
+  createSinglePermission = async body => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsPost({ body })
+    return response.data
   }
 
   getSinglePermissions = async role => {
     const response = await restApiService.permissionsApi.apiV1PermissionsGet({ role })
-    return response
+    return response.data
   }
 
-  updateSinglePermission = async (id, data) => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGuidPatch(id, {
-      body: data,
-    })
-    return response
+  updateSinglePermission = async (guid, body) => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGuidPatch({ guid, body })
+    return response.data
   }
 
-  removeSinglePermission = async id => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGuidDelete(id)
-    return response
+  removeSinglePermission = async guid => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGuidDelete({ guid })
+    return response.data
   }
 
-  createGroupPermission = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsPost({ body: data })
-    return response
+  createGroupPermission = async body => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsPost({ body })
+    return response.data
   }
 
   getGroupPermissions = async role => {
     const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet({ role })
-    return response
+    return response.data
   }
 
-  updateGroupPermission = async (id, data) => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidPatch(id, {
-      body: data,
-    })
-    return response
+  updateGroupPermission = async (guid, body) => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidPatch({ guid, body })
+    return response.data
   }
 
-  removeGroupPermission = async id => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidDelete(id)
-    return response
+  removeGroupPermission = async guid => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGuidDelete({ guid })
+    return response.data
   }
 
-  setPermissionsForUser = async (guid, data) => {
-    const response = await restApiService.userApi.apiV1UsersEditMySubUsersGuidPatch(guid, {
-      body: data,
-    })
-    return response
+  setPermissionsForUser = async (guid, body) => {
+    const response = await restApiService.userApi.apiV1UsersEditMySubUsersGuidPatch({ body, guid })
+    return response.data
   }
 
-  setProductsPermissionsForUser = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsProductsPatch({
-      body: data,
-    })
-    return response
+  setProductsPermissionsForUser = async body => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsProductsPatch({ body })
+    return response.data
   }
 
   getProductsPermissionsForUserById = async guid => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsProductsGuidGet(guid)
-    return response
+    const response = await restApiService.permissionsApi.apiV1PermissionsProductsGuidGet({ guid })
+    return response.data
   }
 }
 

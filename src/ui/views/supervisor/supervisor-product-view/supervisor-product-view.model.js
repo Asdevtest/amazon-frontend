@@ -658,9 +658,7 @@ export class SupervisorProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         })
 
-        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
-          price: amazonResult.price,
-        })
+        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
         this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
         if (!sellerCentralResult.amazonFee) {

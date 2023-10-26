@@ -74,13 +74,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     width: '380px',
   },
 
-  productImages: {
-    marginTop: '-10px',
-    '& > div > div': {
-      paddingTop: '0px',
-    },
-  },
-
   category: {
     display: 'flex',
     gap: '2px',
@@ -100,8 +93,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   suggestDeal: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    overflow: 'auto',
+    alignItems: 'flex-end',
 
     '& > div': {
       height: 'fit-content',
@@ -116,5 +108,37 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   editorWrapper: {
     maxHeight: '400px !important',
     maxWidth: '796px',
+  },
+
+  controlsWrapper: {
+    flexWrap: 'nowrap',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+  },
+
+  listingCheckbox: {
+    color: theme.palette.primary.main,
+  },
+
+  listingText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
+  listingButton: {
+    width: '100%',
+  },
+
+  stopBtn: {
+    width: '100%',
+    background: '#F3AF00',
+    color: '#001029',
+    '&:hover': {
+      opacity: '0.8',
+      background: '#F3AF00',
+    },
   },
 }))

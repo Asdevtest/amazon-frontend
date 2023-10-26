@@ -131,7 +131,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -148,7 +148,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -165,7 +165,8 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    // renderCell: params => <MultilineTextCell text={String(params.value)} />,
+    renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
     type: 'number',
     width: 85,
 
@@ -238,7 +239,7 @@ export const clientInventoryColumns = (
     renderCell: params => {
       return (
         <MultilineTextCell
-          text={params.value}
+          text={String(params.value)}
           onClickText={e => {
             e.stopPropagation()
 
@@ -330,7 +331,7 @@ export const clientInventoryColumns = (
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.TAGS,
   },
 
   {

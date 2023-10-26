@@ -127,6 +127,7 @@ export const OrderModalBodyRow = ({
     variationTariffId,
     destinationId,
     isSelectedDestinationNotValid,
+    isReset,
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
@@ -173,20 +174,72 @@ export const OrderModalBodyRow = ({
 
       setShowConfirmationModal(true)
     } else {
-      setDestinationId(destinationId)
-      onChangeInput(
-        {
-          target: {
-            value: {
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
+      if (item?.destinationId || isReset) {
+        setDestinationId(destinationId)
+        onChangeInput(
+          {
+            target: {
+              value: {
+                storekeeperId,
+                logicsTariffId: tariffId,
+                variationTariffId,
+              },
             },
           },
-        },
-        'tariff',
-      )
-      setShowSelectionStorekeeperAndTariffModal(false)
+          'tariff',
+        )
+        setShowSelectionStorekeeperAndTariffModal(false)
+      } else {
+        setConfirmModalSettings({
+          isWarning: true,
+          title: t(TranslationKey.Attention),
+          confirmMessage: t(TranslationKey['Wish to set a destination?']),
+          onClickConfirm: () => {
+            const validDestinationId =
+              destinationId ||
+              storekeepers
+                .find(storekeeper => storekeeper._id === storekeeperId)
+                ?.tariffLogistics?.find(tariff => tariff?._id === tariffId)
+                .destinationVariations.find(dest => dest._id === variationTariffId).destination?._id
+
+            setDestinationId(validDestinationId)
+            onChangeInput(
+              {
+                target: {
+                  value: {
+                    storekeeperId,
+                    logicsTariffId: tariffId,
+                    variationTariffId,
+                    destinationId: validDestinationId,
+                  },
+                },
+              },
+              'tariff',
+            )
+            setShowConfirmationModal(false)
+            setShowSelectionStorekeeperAndTariffModal(false)
+          },
+          onClickCancelBtn: () => {
+            setDestinationId(destinationId)
+            onChangeInput(
+              {
+                target: {
+                  value: {
+                    storekeeperId,
+                    logicsTariffId: tariffId,
+                    variationTariffId,
+                  },
+                },
+              },
+              'tariff',
+            )
+            setShowConfirmationModal(false)
+            setShowSelectionStorekeeperAndTariffModal(false)
+          },
+        })
+
+        setShowConfirmationModal(true)
+      }
     }
   }
 
@@ -435,7 +488,6 @@ export const OrderModalBodyRow = ({
           <SelectStorekeeperAndTariffForm
             showCheckbox
             RemoveDestinationRestriction
-            destinationsData={destinations}
             storekeepers={storekeepers}
             curStorekeeperId={item.storekeeperId}
             curTariffId={item.logicsTariffId}

@@ -3,14 +3,10 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -62,7 +58,9 @@ export const ClientInventoryViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode']
+  const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
+
+  const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 
   const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
@@ -225,29 +223,12 @@ export const ClientInventoryViewRaw = props => {
 
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            pagination
-            disableVirtualization
             checkboxSelection
             disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sx={{
-              '.MuiDataGrid-sortIcon': {
-                width: 14,
-                height: 14,
-              },
-            }}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -257,11 +238,6 @@ export const ClientInventoryViewRaw = props => {
             rows={viewModel.currentData}
             columnHeaderHeight={65}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -296,6 +272,11 @@ export const ClientInventoryViewRaw = props => {
                 event.stopPropagation()
               }
               event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+            }}
+            onCellDoubleClick={(params, event) => {
+              if (disableDoubleClickOnCells.includes(params.field)) {
+                event.stopPropagation()
+              }
             }}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
@@ -370,8 +351,7 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
         <CheckPendingOrderForm
-          existingOrders={viewModel.existingOrders}
-          checkPendingData={viewModel.checkPendingData}
+          existingProducts={viewModel.existingProducts}
           onClickPandingOrder={viewModel.onClickPandingOrder}
           onClickContinueBtn={viewModel.onClickContinueBtn}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
@@ -595,6 +575,8 @@ export const ClientInventoryViewRaw = props => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
 }

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import LockIcon from '@mui/icons-material/Lock'
@@ -20,27 +21,19 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
   const onSubmitForm = event => {
     event.preventDefault()
     setIsSubmit(true)
-    !emptyEmail && !emptyPassword && onSubmit()
+
+    if (formFields.email === '' || formFields.password === '') {
+      setTimeout(() => {
+        setIsSubmit(false)
+      }, 3000)
+
+      return
+    }
+
+    onSubmit()
   }
 
-  useEffect(() => {
-    if (formFields.email === '') {
-      setEmptyEmail(true)
-    }
-    if (formFields.password === '') {
-      setEmptyPassword(true)
-    }
-    if (formFields.email !== '') {
-      setEmptyEmail(false)
-    }
-    if (formFields.password !== '') {
-      setEmptyPassword(false)
-    }
-  }, [formFields.email, formFields.password])
-
   const [visibilityPass, setVisibilityPass] = useState(false)
-  const [emptyEmail, setEmptyEmail] = useState(false)
-  const [emptyPassword, setEmptyPassword] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
 
   return (
@@ -48,7 +41,8 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
       <form className={classNames.formFields} onSubmit={onSubmitForm}>
         <Field
           withIcon
-          error={isSubmit && emptyEmail && t(TranslationKey['The field must be filled in'])}
+          autoComplete="username"
+          error={isSubmit && formFields.email === '' && t(TranslationKey['The field must be filled in'])}
           containerClasses={classNames.field}
           inputClasses={classNames.input}
           label={t(TranslationKey.Email)}
@@ -66,12 +60,13 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
         <div className={classNames.field}>
           <Field
             withIcon
-            error={isSubmit && emptyPassword && t(TranslationKey['The field must be filled in'])}
+            autoComplete="current-password"
+            error={isSubmit && formFields.password === '' && t(TranslationKey['The field must be filled in'])}
             label={t(TranslationKey.Password)}
             labelClasses={classNames.labelField}
             inputClasses={classNames.input}
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            type={visibilityPass ? 'text' : 'password'}
             value={formFields.password}
             startAdornment={
               <InputAdornment position="end" className={classNames.inputAdornment}>
@@ -109,4 +104,4 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
     </div>
   )
 }
-export const AuthForm = withStyles(AuthFormRaw, styles)
+export const AuthForm = withStyles(observer(AuthFormRaw), styles)

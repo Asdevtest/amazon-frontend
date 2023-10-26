@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -10,8 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
@@ -78,18 +74,8 @@ export const ClientIdeasView = observer(props => {
 
       <div className={styles.datagridWrapper}>
         <MemoDataGrid
-          pagination
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: styles.row,
-            root: styles.root,
-            footerContainer: styles.footerContainer,
-            footerCell: styles.footerCell,
-            toolbarContainer: styles.toolbarContainer,
-          }}
-          sortingMode="server"
-          paginationMode="server"
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -101,11 +87,6 @@ export const ClientIdeasView = observer(props => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-            columnMenu: DataGridCustomColumnMenuComponent,
-          }}
           slotProps={{
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
@@ -162,7 +143,7 @@ export const ClientIdeasView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
           updateData={() => {
             viewModel.getIdeaList()
-            UserModel.getUserInfo()
+            UserModel.getUsersInfoCounters()
           }}
           product={viewModel.currentProduct}
           productId={viewModel.productId}

@@ -127,7 +127,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={product.images}
+                      files={imagesForLoad ?? product?.images}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
@@ -309,7 +309,9 @@ export const TopCard = observer(
                                     ? t(TranslationKey['Remove the current supplier'])
                                     : t(TranslationKey['Select a supplier as the current supplier'])
                                 }
-                                className={classNames.iconBtn}
+                                className={cx(classNames.iconBtn, {
+                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                                })}
                                 onClick={() =>
                                   isSupplierAcceptRevokeActive
                                     ? onClickSupplierBtns('acceptRevoke')

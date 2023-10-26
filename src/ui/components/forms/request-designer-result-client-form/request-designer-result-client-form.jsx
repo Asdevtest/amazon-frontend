@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-indent */
-
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
 import { useEffect, useRef, useState } from 'react'
@@ -39,7 +36,6 @@ const Slot = ({
   showImageModal,
   setShowImageModal,
   index,
-  setCurImageId,
   imagesForDownload,
   onClickAddDownload,
 }) => {
@@ -60,9 +56,9 @@ const Slot = ({
           onClick={() => onClickAddDownload(item)}
         />
 
-        <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>{index + 1}</Typography>
+        <Typography className={classNames.imageObjIndex}>{index + 1}</Typography>
 
-        <Typography className={cx(classNames.imageObjTitle /* , classNames.textMargin */)}>
+        <Typography className={classNames.imageObjTitle}>
           {getShortenStringIfLongerThanCount(item.comment, 20)}
         </Typography>
       </div>
@@ -100,7 +96,6 @@ const Slot = ({
               variant="square"
               onClick={() => {
                 if (checkIsImageLink(item.image?.file?.name || item.image)) {
-                  setCurImageId(item._id)
                   setShowImageModal(!showImageModal)
                 } else {
                   window.open(item.image?.data_url || item.image, '__blank')
@@ -143,27 +138,29 @@ const Slot = ({
                 <ArrowDropUpIcon />
               </div>
 
-              <Menu
-                open
-                anchorEl={menuAnchor.current}
-                autoFocus={false}
-                classes={{ /* paper: classNames.menu, */ list: classNames.list }}
-                onClose={handleClose}
-              >
-                <Input
-                  autoFocus
-                  multiline
-                  type="text"
-                  inputProps={{ maxLength: 500 }}
-                  minRows={5}
-                  maxRows={10}
-                  variant="filled"
-                  className={classNames.imageObjInput}
-                  classes={{ input: classNames.subImageObjInput }}
-                  value={item.commentByClient}
-                  onChange={onChangeImageFileds('commentByClient', item._id)}
-                />
-              </Menu>
+              {Boolean(menuAnchor) && (
+                <Menu
+                  open
+                  anchorEl={menuAnchor.current}
+                  autoFocus={false}
+                  classes={{ list: classNames.list }}
+                  onClose={handleClose}
+                >
+                  <Input
+                    autoFocus
+                    multiline
+                    type="text"
+                    inputProps={{ maxLength: 500 }}
+                    minRows={5}
+                    maxRows={10}
+                    variant="filled"
+                    className={classNames.imageObjInput}
+                    classes={{ input: classNames.subImageObjInput }}
+                    value={item.commentByClient}
+                    onChange={onChangeImageFileds('commentByClient', item._id)}
+                  />
+                </Menu>
+              )}
             </div>
           </ClickAwayListener>
         )}
@@ -203,7 +200,6 @@ export const RequestDesignerResultClientForm = ({
 
   const [showImageModal, setShowImageModal] = useState(false)
 
-  const [curImageId, setCurImageId] = useState(null)
   const [curImageIndex, setCurImageIndex] = useState(0)
 
   const [comment, setComment] = useState('')
@@ -331,18 +327,14 @@ export const RequestDesignerResultClientForm = ({
             labelClasses={classNames.fieldLabel}
             label={t(TranslationKey['Time to check'])}
             containerClasses={classNames.containerField}
-            inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {minsToTime(1440)}
-              </Typography>
-            }
+            inputComponent={<Typography className={classNames.simpleSpan}>{minsToTime(1440)}</Typography>}
           />
           <Field
             labelClasses={classNames.fieldLabel}
             label={t(TranslationKey['Number of illustrations'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
+              <Typography className={classNames.simpleSpan}>
                 {(curResultMedia ?? proposal.proposal.media).length}
               </Typography>
             }
@@ -371,10 +363,6 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
-            setCurImageId={id => {
-              setCurImageId(id)
-              setCurImageIndex(filteredImages.findIndex(el => el._id === id))
-            }}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
@@ -440,12 +428,12 @@ export const RequestDesignerResultClientForm = ({
         {!noShowActions && (
           <>
             <Button
-              // disabled /* ={disableSubmit} */
+              // disabled={disableSubmit}
               className={cx(classNames.button)}
               onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
-                  timeLimitInMinutes: formFields.execution_time /* .filter(el => el.image) */,
+                  timeLimitInMinutes: formFields.execution_time,
                   imagesData,
                 })
               }
@@ -454,7 +442,7 @@ export const RequestDesignerResultClientForm = ({
             </Button>
             <Button
               success
-              // disabled /* ={disableSubmit} */
+              // disabled={disableSubmit}
               className={cx(classNames.button)}
               onClick={() => {
                 onClickProposalResultAccept(proposal.proposal._id)
@@ -475,7 +463,9 @@ export const RequestDesignerResultClientForm = ({
         showPreviews
         isOpenModal={showImageModal}
         handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages}
+        imageList={filteredImages.map(el => el.fileLink)}
+        photosTitles={filteredImages.map(el => el.title)}
+        photosComments={filteredImages.map(el => el.comment)}
         currentImageIndex={curImageIndex}
         handleCurrentImageIndex={index => setCurImageIndex(index)}
       />

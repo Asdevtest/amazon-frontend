@@ -1,19 +1,18 @@
 import { observer } from 'mobx-react'
 import { Dispatch, FC, SetStateAction } from 'react'
+import Lightbox from 'react-18-image-lightbox'
+import 'react-18-image-lightbox/style.css'
 
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-
-import { Modal } from '@components/shared/modal'
 import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
-import { Arrows, ArrowsType } from '@components/shared/photo-and-files-slider/slider/slider.type'
+
+import { checkIsVideoLink } from '@utils/checks'
+
+import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './zoom-modal.styles'
 
-import { ImageObjectType } from '../image-modal/image-modal'
-
 interface Props {
-  images: string[] | ImageObjectType[]
+  images: Array<string | IUploadFile>
   currentImageIndex: number
   isOpenModal: boolean
   setIsOpenModal: Dispatch<SetStateAction<boolean>>
@@ -22,63 +21,28 @@ interface Props {
 
 export const ZoomModal: FC<Props> = observer(
   ({ images, currentImageIndex, isOpenModal, setIsOpenModal, setCurrentImageIndex }) => {
-    const { classes: styles, cx } = useStyles()
+    const { classes: styles } = useStyles()
 
-    const handleArrowClick = (direction: ArrowsType) => {
-      const currentIndex =
-        direction === Arrows.LEFT
-          ? currentImageIndex === 0
-            ? images.length - 1
-            : currentImageIndex - 1
-          : (currentImageIndex + 1) % images.length
+    const currentImages =
+      images
+        .map(image => (typeof image === 'string' ? image : image.data_url))
+        .filter(item => !checkIsVideoLink(item)) || []
+    const nextImageIndex = (currentImageIndex + 1) % currentImages.length
+    const prevImageIndex = (currentImageIndex + currentImages.length - 1) % currentImages.length
+    const isDisableArrowRight =
+      currentImages?.length <= MIN_FILES_IN_ARRAY || currentImageIndex === currentImages?.length - 1
+    const isDisableArrowLeft = currentImages?.length <= MIN_FILES_IN_ARRAY || currentImageIndex === 0
 
-      setCurrentImageIndex(currentIndex)
-    }
-
-    const isDisableArrowRight = images.length <= MIN_FILES_IN_ARRAY || currentImageIndex === images.length - 1
-    const isDisableArrowLeft = images.length <= MIN_FILES_IN_ARRAY || currentImageIndex === 0
-
-    return (
-      <Modal
-        openModal={isOpenModal}
-        setOpenModal={() => setIsOpenModal(!isOpenModal)}
-        dialogContextClassName={styles.modal}
-      >
-        <button disabled={isDisableArrowLeft} onClick={() => handleArrowClick(Arrows.LEFT)}>
-          <ArrowLeftIcon
-            className={cx(styles.arrowIcon, {
-              [styles.arrowIconDisable]: isDisableArrowLeft,
-            })}
-          />
-        </button>
-
-        <div className={styles.imagesWrapper}>
-          <div
-            className={styles.images}
-            style={{
-              transform: `translateX(-${currentImageIndex * 100}%)`,
-            }}
-          >
-            {images.map((image, index) => (
-              <div key={index} className={styles.imageWrapper}>
-                <img
-                  src={typeof image === 'string' ? image : image.url}
-                  alt={`Slide ${index + 1}`}
-                  className={styles.image}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <button disabled={isDisableArrowRight} onClick={() => handleArrowClick(Arrows.RIGHT)}>
-          <ArrowRightIcon
-            className={cx(styles.arrowIcon, {
-              [styles.arrowIconDisable]: isDisableArrowRight,
-            })}
-          />
-        </button>
-      </Modal>
-    )
+    return isOpenModal ? (
+      <Lightbox
+        mainSrc={currentImages[currentImageIndex]}
+        nextSrc={!isDisableArrowRight ? currentImages?.[nextImageIndex] : undefined}
+        prevSrc={!isDisableArrowLeft ? currentImages?.[prevImageIndex] : undefined}
+        wrapperClassName={styles.wrapper}
+        onCloseRequest={() => setIsOpenModal(!isOpenModal)}
+        onMovePrevRequest={() => setCurrentImageIndex(prevImageIndex)}
+        onMoveNextRequest={() => setCurrentImageIndex(nextImageIndex)}
+      />
+    ) : null
   },
 )

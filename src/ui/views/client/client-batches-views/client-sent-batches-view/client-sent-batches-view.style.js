@@ -3,32 +3,10 @@ export const styles = theme => ({
     marginRight: '24px',
   },
 
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
-  },
   datagridWrapper: {
     marginTop: '20px',
     height: '73vh',
+    width: '100%',
   },
 
   searchInput: {
@@ -47,9 +25,9 @@ export const styles = theme => ({
   openArchiveBtn: {
     minWidth: 230,
     padding: '0 30px 0 30px',
-
     color: theme.palette.text.general,
   },
+
   archiveAddBtn: {
     width: 230,
     display: 'flex',
@@ -85,9 +63,7 @@ export const styles = theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
     borderBottom: theme.palette.other.tableActiveFilterBtn,
-
     color: `${theme.palette.primary.main} !important`,
   },
 
@@ -97,7 +73,6 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
 

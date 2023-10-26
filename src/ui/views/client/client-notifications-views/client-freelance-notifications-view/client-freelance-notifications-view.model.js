@@ -44,7 +44,8 @@ export class ClientFreelanceNotificationsViewModel {
   async loadData() {
     try {
       this.loadingStatus = loadingStatuses.isLoading
-      const response = await restApiService.userApi.apiV1UsersInfoGet()
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+
       runInAction(() => {
         this.notifications = response.freelanceNotices.map(el => {
           return {
@@ -53,6 +54,7 @@ export class ClientFreelanceNotificationsViewModel {
           }
         })
       })
+
       this.loadingStatus = loadingStatuses.success
     } catch (error) {
       runInAction(() => {

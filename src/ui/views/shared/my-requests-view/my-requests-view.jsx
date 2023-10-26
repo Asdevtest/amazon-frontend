@@ -1,17 +1,12 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
@@ -101,21 +96,10 @@ export const MyRequestsViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           {viewModel.loadTableStatus === loadingStatuses.success ? (
             <MemoDataGrid
-              disableVirtualization
-              pagination
-              sortingMode="server"
-              paginationMode="server"
               propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
               localeText={getLocalizationByLanguageTag()}
               getCellClassName={getCellClassName}
               getRowClassName={getRowClassName}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
@@ -124,11 +108,6 @@ export const MyRequestsViewRaw = props => {
               rows={viewModel.currentData}
               pageSizeOptions={[15, 25, 50, 100]}
               rowHeight={130}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-                columnMenu: DataGridCustomColumnMenuComponent,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
@@ -177,18 +156,31 @@ export const MyRequestsViewRaw = props => {
       </Modal>
 
       <ConfirmationModal
-        isWarning
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to cancel the search request?'])}
+        message={viewModel.confirmModalSettings.message}
+        smallMessage={viewModel.confirmModalSettings.smallMessage}
         successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          viewModel.removeCustomSearchRequest()
-        }}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
+
+      <ConfirmationModal
+        withComment
+        asCommentModalDefault
+        openModal={viewModel.showConfirmWithCommentModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        title={t(TranslationKey['Suspend the acceptance of proposals?'])}
+        commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
+        successBtnText={t(TranslationKey.Ok)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.onSubmitAbortRequest}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
@@ -198,11 +190,18 @@ export const MyRequestsViewRaw = props => {
       )}
 
       <FreelanceRequestDetailsModal
+        isRequestOwner
         isOpenModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+        onClickAbortBtn={viewModel.onClickAbortBtn}
         onClickOpenNewTab={viewModel.onClickOpenInNewTab}
+        onClickPublishBtn={viewModel.onClickPublishBtn}
+        onClickEditBtn={viewModel.onClickEditBtn}
+        onRecoverRequest={viewModel.onRecoverRequest}
+        onClickCancelBtn={viewModel.onClickCancelBtn}
+        onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
       />
     </React.Fragment>
   )

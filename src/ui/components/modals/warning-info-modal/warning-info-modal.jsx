@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { Typography } from '@mui/material'
 

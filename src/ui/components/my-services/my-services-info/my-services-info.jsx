@@ -14,7 +14,13 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './my-services.style'
 
-export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn }) => {
+export const MyServicesInfo = ({
+  announcementData,
+  onClickEditBtn,
+  onClickBackBtn,
+  onClickCloseAnnouncementBtn,
+  onClickReview,
+}) => {
   const { classes: classNames, cx } = useClassNames()
   const descriptionRef = useRef()
 
@@ -47,7 +53,13 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
                 userId={announcementData?.createdBy?._id}
               />
               <div className={classNames.userRatingWrapper}>
-                <Typography className={classNames.reviewText}>{t(TranslationKey.Reviews)}</Typography>
+                <Button
+                  variant="text"
+                  className={classNames.reviewText}
+                  onClick={() => onClickReview(announcementData?.createdBy)}
+                >
+                  {t(TranslationKey.Reviews)}
+                </Button>
                 <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />
               </div>
             </div>

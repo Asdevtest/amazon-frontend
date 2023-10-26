@@ -146,3 +146,8 @@ button::-moz-focus-inner {
 label {
   cursor: pointer;
 }
+
+/* zoomModal styles, until unnecessary modals are removed */
+.ReactModalPortal > div {
+  z-index: 2000 !important;
+}

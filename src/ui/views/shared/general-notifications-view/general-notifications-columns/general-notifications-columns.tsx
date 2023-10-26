@@ -1,9 +1,9 @@
-import { isArray } from 'class-validator'
-import { toJS } from 'mobx'
-
 import { GridCellParams } from '@mui/x-data-grid'
 
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { UserModel } from '@models/user-model'
 
 import {
   MultilineTextCell,
@@ -46,13 +46,15 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
       //   notification?.request?.product ||
       //   notification?.items?.[0]?.product ||
       //   notification?.parentProduct
-
       return (
         <ProductAsinCell
+          withoutSku={UserRoleCodeMap[(UserModel?.userInfo as any).role] === UserRole.FREELANCER}
+          skusByClient={
+            params.row.product?.skusByClient?.slice()[0] || params.row.parentProduct?.skusByClient?.slice()[0]
+          }
           image={params.row.product?.images?.slice()[0]}
           amazonTitle={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}
-          skusByClient={params.row.product?.skusByClient?.slice()[0]}
         />
       )
     },

@@ -41,12 +41,15 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    paddingLeft: '10px',
+  },
+
+  priorityAndChinaDelivery: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
   },
 
   clockIcon: {
-    width: 5,
-    height: 5,
     color: theme.palette.primary.main,
   },
 
@@ -61,20 +64,15 @@ export const styles = theme => ({
     gap: '10px',
   },
 
-  asinCell: {
-    padding: '12px 0px',
-    scope: 'row',
-    position: 'relative',
-    width: '100%',
-  },
   productCell: {
     padding: '20px 0px',
     height: '88px',
   },
   asinCellContainer: {
-    display: 'inline-flex',
-    alignItems: 'center',
     width: '100%',
+    padding: '10px 0px',
+    display: 'flex',
+    alignItems: 'flex-start',
   },
   csCodeTypoWrapper: {
     width: '100%',
@@ -188,15 +186,23 @@ export const styles = theme => ({
     padding: 0,
   },
 
+  changeInputCommentRoot: {
+    height: 'auto',
+    padding: 5,
+  },
+
   changeInputComment: {
     width: '100%',
-    height: 'auto',
+    height: '100% !important',
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
-    paddingLeft: 5,
+    fontSize: 14,
+    lineHeight: '19px',
+    padding: 0,
 
     '&::placeholder': {
       fontSize: 14,
+      lineHeight: '19px',
     },
   },
 
@@ -1185,7 +1191,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '10px 0',
   },
 
   fourMonthesStockLabel: {
@@ -1407,6 +1412,7 @@ export const styles = theme => ({
   },
   iconWrapper: {
     display: 'flex',
+    alignItems: 'center',
     gap: 5,
   },
   destinationAndTariffWrapper: {
@@ -1610,10 +1616,11 @@ export const styles = theme => ({
       height: 22,
     },
   },
-  ChangeInputCommentCellWrapper: {
-    display: 'flex',
+
+  changeInputCommentCellWrapper: {
     width: '100%',
-    padding: '20px 10px',
+    height: '100%',
+    padding: '10px',
   },
 
   menuItem: {
@@ -1755,8 +1762,8 @@ export const styles = theme => ({
     alignItems: 'center',
   },
   commentControls: {
-    alignSelf: 'flex-end',
-    paddingBottom: 20,
+    marginLeft: 5,
+    marginRight: 0,
   },
 
   arrivalDateIcon: {
@@ -2059,5 +2066,25 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+  },
+
+  proposalsActions: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
+
+    button: {
+      height: '30px',
+    },
+
+    svg: {
+      width: '20px !important',
+      height: '20px !important',
+    },
+  },
+
+  freelancerMyProposalsButton: {
+    width: '30px',
   },
 })

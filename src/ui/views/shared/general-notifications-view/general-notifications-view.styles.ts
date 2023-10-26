@@ -24,6 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   datagridWrapper: {
     height: 'calc(100vh - 190px)',
+    width: '100%',
   },
 
   actionPanelWrapper: {
