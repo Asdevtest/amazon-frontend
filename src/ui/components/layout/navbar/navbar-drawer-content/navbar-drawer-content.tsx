@@ -92,7 +92,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                   shortNavbar={shortNavbar}
                   userInfo={userInfo}
                   category={category}
-                  badge={getCategoryBadge(category, userInfo as unknown as IUser)}
+                  badge={getCategoryBadge(category, userInfo as unknown as IUser) || 0}
                   onToggleModal={onToggleModal}
                 />
 
