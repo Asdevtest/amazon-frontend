@@ -1,20 +1,65 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { adminExchangeStatusesByCategory } from '@constants/table/tables-filter-btns-configs'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 
 import { exchangeInventoryColumns } from '@components/table/table-columns/admin/inventory-columns'
 
 import { adminProductsDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+const statuses = [
+  ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+  ProductStatusByKey[ProductStatus.SUPPLIER_FOUND],
+]
+
+const filtersFields = [
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'strategyStatus',
+  'amazon',
+  'createdBy',
+  'checkedBy',
+  'buyer',
+  'profit',
+  'profit',
+  'margin',
+  'bsr',
+  'fbafee',
+  'fbaamount',
+  'updatedAt',
+  'createdAt',
+  'checkednotes',
+  'client',
+  'currentSupplier',
+  'status',
+]
 
 export class AdminInventoryViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  productCardModal = false
 
   nameSearchValue = ''
 
@@ -22,6 +67,7 @@ export class AdminInventoryViewModel {
   products = []
 
   currentData = []
+  currentSearchValue = ''
 
   rowSelectionModel = undefined
 
@@ -34,6 +80,22 @@ export class AdminInventoryViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = exchangeInventoryColumns()
+
+  rowsCount = 0
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getProducts()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
 
   constructor({ history }) {
     runInAction(() => {
@@ -50,20 +112,13 @@ export class AdminInventoryViewModel {
     )
   }
 
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
-    this.setDataGridState()
-  }
-
   onChangePaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
 
     this.setDataGridState()
+    this.getProducts()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -97,16 +152,6 @@ export class AdminInventoryViewModel {
     })
   }
 
-  // onClickTableRow(product) {
-  //   this.history.push(
-  //     {
-  //       pathname: '/admin/inventory/product',
-  //       search: product.originalData._id,
-  //     },
-  //     { inInventory: true },
-  //   )
-  // }
-
   onClickTableRow(product) {
     const url = `/admin/inventory/product?product-id=${product.originalData._id}`
 
@@ -118,40 +163,36 @@ export class AdminInventoryViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
-
+    this.getProducts()
     this.setDataGridState()
   }
 
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
-
-    if (this.nameSearchValue) {
-      runInAction(() => {
-        this.products = this.productsBase.filter(
-          item =>
-            item.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            item.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            item.originalData.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        )
-      })
-    } else {
-      runInAction(() => {
-        this.products = this.productsBase
-      })
-    }
+    this.getProducts()
   }
 
   async getProducts() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await AdministratorModel.getProductsPaid()
 
-      const productsData = adminProductsDataConverter(result)
+      const result = await AdministratorModel.getProductsPag({
+        status: statuses.join(),
+
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        filters: this.getFilters(),
+      })
 
       runInAction(() => {
-        this.products = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-        this.productsBase = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.rowsCount = result.count
+        this.products = result.rows
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -177,6 +218,120 @@ export class AdminInventoryViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
+    })
+  }
+
+  onTriggerOpenModal(modalState) {
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
+  }
+
+  onClickShowProduct(id) {
+    const win = window.open(`${window.location.origin}/admin/inventory/product?product-id=${id}`, '_blank')
+
+    win.focus()
+  }
+
+  onClickProductModal(row) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    if (row) {
+      this.history.push(`/admin/inventory?product-id=${row._id}`)
+    } else {
+      this.history.push(`/admin/inventory`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
+  // * Filtration
+
+  getFilters(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'asin',
+        'skusByClient',
+        'amazonTitle',
+      ]),
+    )
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  onChangeFilterModel(model) {
+    runInAction(() => {
+      this.filterModel = model
+    })
+    this.setDataGridState()
+    this.getProducts()
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        ...dataGridFiltersInitializer(filtersFields),
+      }
+    })
+
+    this.getProducts()
+    this.getDataGridState()
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'products'),
+        column,
+
+        `admins/products/pag?filters=${this.getFilters(column)}&status=${statuses.join()}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
     })
   }
 }

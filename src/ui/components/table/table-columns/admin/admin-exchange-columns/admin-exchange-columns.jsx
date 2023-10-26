@@ -6,22 +6,18 @@ import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@const
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  DownloadAndCopyBtnsCell,
-  FeesValuesWithCalculateBtnCell,
-  MultilineStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
   ProductAsinCell,
-  SupplierCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const exchangeInventoryColumns = () => [
+export const adminExchangeColumns = () => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -53,25 +49,7 @@ export const exchangeInventoryColumns = () => [
       )
     },
     width: 300,
-
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-    sortable: false,
-  },
-
-  {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-
-    renderCell: params => (
-      <MultilineTextCell
-        color={colorByProductStatus(ProductStatusByCode[params.value])}
-        text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
-      />
-    ),
-
-    width: 250,
-    columnKey: columnnsKeys.client.INVENTORY_STATUS,
     sortable: false,
   },
 
@@ -90,56 +68,15 @@ export const exchangeInventoryColumns = () => [
   },
 
   {
-    field: 'fees-net',
-    headerName: t(TranslationKey['Fees & Net']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
-
-    renderCell: params => (
-      <FeesValuesWithCalculateBtnCell
-        noCalculate
-        fbafee={params.row.fbafee}
-        reffee={params.row.reffee}
-        productId={params.row._id}
-      />
-    ),
-    width: 200,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
     field: 'amazon',
     headerName: t(TranslationKey.Price),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    width: 150,
     type: 'number',
-    width: 150,
+
     columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'barCode',
-    headerName: t(TranslationKey.BarCode),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
-    width: 150,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
-
-    sortable: false,
-    filterable: false,
-  },
-
-  {
-    field: 'client',
-    headerName: t(TranslationKey.Client),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-
-    renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
-    width: 200,
-
-    columnKey: columnnsKeys.shared.OBJECT,
-    sortable: false,
   },
 
   {
@@ -147,18 +84,19 @@ export const exchangeInventoryColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
-    width: 250,
-    columnKey: columnnsKeys.shared.OBJECT,
-    sortable: false,
-  },
+    renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
+    width: 200,
 
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
   {
     field: 'checkedBy',
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.row.checkedBy?.name} userId={params.row.checkedBy?._id} />
+    ),
     width: 200,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -178,15 +116,15 @@ export const exchangeInventoryColumns = () => [
   },
 
   {
-    field: 'currentSupplier',
-    headerName: t(TranslationKey.Supplier),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
+    field: 'checkednotes',
+    headerName: t(TranslationKey['Supervisor comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supervisor comment'])} />,
 
-    renderCell: params => <SupplierCell supplierName={params.value?.name} supplierLink={params.value?.link} />,
-    width: 170,
-
-    columnKey: columnnsKeys.shared.OBJECT,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    width: 200,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -197,9 +135,9 @@ export const exchangeInventoryColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
     columnKey: columnnsKeys.shared.QUANTITY,
   },
-
   {
     field: 'margin',
     headerName: t(TranslationKey.Margin),
@@ -208,9 +146,9 @@ export const exchangeInventoryColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
     columnKey: columnnsKeys.shared.QUANTITY,
   },
-
   {
     field: 'bsr',
     headerName: t(TranslationKey.BSR),
@@ -219,9 +157,9 @@ export const exchangeInventoryColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
     type: 'number',
+
     columnKey: columnnsKeys.shared.QUANTITY,
   },
-
   {
     field: 'fbafee',
     headerName: t(TranslationKey['FBA fee , $']),
@@ -230,9 +168,9 @@ export const exchangeInventoryColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
+
     columnKey: columnnsKeys.shared.QUANTITY,
   },
-
   {
     field: 'fbaamount',
     headerName: t(TranslationKey['FBA Amount']),
@@ -241,18 +179,8 @@ export const exchangeInventoryColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
     type: 'number',
+
     columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
-
-    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -262,6 +190,17 @@ export const exchangeInventoryColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
+
+    columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+    renderCell: params => <NormDateCell value={params?.value} />,
+    width: 120,
 
     columnKey: columnnsKeys.shared.DATE,
   },

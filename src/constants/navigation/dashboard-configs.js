@@ -973,7 +973,7 @@ export const getSupervisorDashboardCardConfig = () => [
 
       {
         dataKey: SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS,
-        title: t(TranslationKey['In the work of a Bayer']),
+        title: t(TranslationKey['In the work of a Buyer']),
 
         route: '/supervisor/products',
         dataGridFilter: {
