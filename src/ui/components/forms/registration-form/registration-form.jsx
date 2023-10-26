@@ -137,6 +137,7 @@ export const RegistrationFormRaw = ({
             />
             <Field
               withIcon
+              autoComplete="username"
               inputProps={{ maxLength: 30 }}
               inputClasses={classNames.input}
               containerClasses={classNames.field}
@@ -198,6 +199,7 @@ export const RegistrationFormRaw = ({
 
         <div className={classNames.field}>
           <Field
+            autoComplete="new-password"
             disabled={isRecoverPassword}
             withIcon={!isRecoverPassword}
             inputProps={{ maxLength: 128 }}
@@ -247,6 +249,7 @@ export const RegistrationFormRaw = ({
         </div>
         <div className={classNames.field}>
           <Field
+            autoComplete="new-password"
             disabled={isRecoverPassword}
             withIcon={!isRecoverPassword}
             inputProps={{ maxLength: 128 }}
