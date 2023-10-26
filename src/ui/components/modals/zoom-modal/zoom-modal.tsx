@@ -25,17 +25,17 @@ export const ZoomModal: FC<Props> = observer(
 
     const currentImages =
       images
-        .map(image => (typeof image === 'string' ? image : image.data_url))
+        .map(image => (typeof image === 'string' ? image : image?.data_url))
         .filter(item => !checkIsVideoLink(item)) || []
-    const nextImageIndex = (currentImageIndex + 1) % currentImages.length
-    const prevImageIndex = (currentImageIndex + currentImages.length - 1) % currentImages.length
+    const nextImageIndex = (currentImageIndex + 1) % currentImages?.length
+    const prevImageIndex = (currentImageIndex + currentImages?.length - 1) % currentImages?.length
     const isDisableArrowRight =
       currentImages?.length <= MIN_FILES_IN_ARRAY || currentImageIndex === currentImages?.length - 1
     const isDisableArrowLeft = currentImages?.length <= MIN_FILES_IN_ARRAY || currentImageIndex === 0
 
     return isOpenModal ? (
       <Lightbox
-        mainSrc={currentImages[currentImageIndex]}
+        mainSrc={currentImages?.[currentImageIndex]}
         nextSrc={!isDisableArrowRight ? currentImages?.[nextImageIndex] : undefined}
         prevSrc={!isDisableArrowLeft ? currentImages?.[prevImageIndex] : undefined}
         wrapperClassName={styles.wrapper}
