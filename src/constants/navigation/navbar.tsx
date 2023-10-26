@@ -170,7 +170,7 @@ export const navbarConfig = {
       route: '/client/product-exchange',
       subtitles: [
         { subtitle: () => t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange' },
-        { subtitle: 'Private Label', subRoute: '/client/product-exchange/private-label' },
+        { subtitle: () => 'Private Label', subRoute: '/client/product-exchange/private-label' },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>

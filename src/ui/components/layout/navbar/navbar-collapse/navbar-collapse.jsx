@@ -250,8 +250,8 @@ export const NavbarCollapse = ({
         key={subIndex}
         tooltipPosition="center"
         className={cx(classNames.menuItem, { [classNames.selected]: subIndex === activeSubCategory })}
-        tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory.subtitle(), userInfo.role)}
-        tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory.subtitle(), userInfo.role)}
+        tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
+        tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory?.subtitle(), userInfo.role)}
       >
         <NavbarSubCategory
           button
@@ -266,7 +266,7 @@ export const NavbarCollapse = ({
           <ListItemText
             disableTypography
             className={cx(classNames.listItemText, { [classNames.selected]: subIndex === activeSubCategory })}
-            primary={subCategory.subtitle()}
+            primary={subCategory?.subtitle()}
           />
           {!!highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
           {!shortNavbar && getBigBadge(subCategory.subRoute)}
