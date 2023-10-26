@@ -1,5 +1,8 @@
 export const columnnsKeys = {
   supervisor: {},
+  admin: {
+    STRATEGY_STATUS: 'STRATEGY_STATUS',
+  },
   buyer: {
     MY_ORDERS_STATUS: 'MY_ORDERS_STATUS',
     ORDERS_PRIORITY: 'ORDERS_PRIORITY',

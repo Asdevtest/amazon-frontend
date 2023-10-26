@@ -270,11 +270,19 @@ export const getTableByColumn = (column, hint) => {
       'buyer',
       'childProductShopIds',
       'parentProductShopIds',
+      'supervisor',
+      'margin',
+      'checkedBy',
+      'checkednotes',
+      'currentSupplier',
+      'weight',
+      'createdAt',
+      'updatedAt',
     ].includes(column)
   ) {
-    // if (hint === 'requests') {
-    //   return 'requests'
-    // } else {
+    if (['buyer'].includes(column) && hint === 'orders') {
+      return 'orders'
+    }
     return 'products'
     // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
@@ -364,6 +372,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
 
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
+    case columnnsKeys.admin.STRATEGY_STATUS:
+      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
 
     case columnnsKeys.shared.TASK_COMPLEXITY:
       return difficultyLevelTranslate(difficultyLevelByCode[status])

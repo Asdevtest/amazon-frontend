@@ -1,15 +1,12 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
-
-import { Grid } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { adminOrdersBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -38,24 +35,19 @@ export const AdminOrdersViewsRaw = props => {
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <Grid container spacing={1} className={classNames.filterBtnWrapper}>
-          {adminOrdersBtnsConfig()?.map((buttonConfig, index) => (
-            <Grid key={index} item>
-              <Button
-                variant={'text'}
-                className={cx(classNames.filterBtn, {
-                  [classNames.currentFilterBtn]: viewModel.activeSubCategory === index,
-                })}
-                onClick={() => viewModel.onChangeSubCategory(index)}
-              >
-                {buttonConfig.label}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
+        <div className={classNames.filterBtnWrapper}>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.activeSubCategory}
+            switcherSettings={adminOrdersBtnsConfig}
+            changeConditionHandler={viewModel.onChangeSubCategory}
+          />
+        </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             useResizeContainer
+            sortingMode="server"
+            paginationMode="server"
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -63,12 +55,21 @@ export const AdminOrdersViewsRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
+            rowCount={viewModel.rowsCount}
+            getRowId={row => row._id}
             rowHeight={100}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
