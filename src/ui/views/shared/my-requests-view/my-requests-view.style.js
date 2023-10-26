@@ -27,6 +27,7 @@ export const styles = theme => ({
 
   datagridWrapper: {
     height: '72vh',
+    width: '100%',
   },
 
   acceptMessageWrapper: {

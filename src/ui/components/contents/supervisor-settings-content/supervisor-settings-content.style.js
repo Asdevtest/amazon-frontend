@@ -10,6 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
   dataGridWrapper: {
     marginTop: '20px',
     height: '74vh',
+    width: '100%',
   },
 
   searchInput: {

@@ -14,6 +14,7 @@ const ani = keyframes`
 export const styles = theme => ({
   tableWrapper: {
     height: '72vh',
+    width: '100%',
   },
 
   headerWrapper: {

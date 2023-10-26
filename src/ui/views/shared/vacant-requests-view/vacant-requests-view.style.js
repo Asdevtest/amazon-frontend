@@ -1,6 +1,7 @@
 export const styles = theme => ({
   dataGridWrapper: {
     height: '78vh',
+    width: '100%',
   },
 
   taskTypeWrapper: {
