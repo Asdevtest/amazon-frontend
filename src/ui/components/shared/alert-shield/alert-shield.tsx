@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ClassNamesArg, cx } from '@emotion/css'
-import React, { FC } from 'react'
+import { observer } from 'mobx-react'
+import { FC } from 'react'
 
 import Alert from '@mui/material/Alert'
 
@@ -10,12 +10,13 @@ interface AlertShieldProps {
   acceptMessage?: string
   showAcceptMessage?: boolean
   alertShieldWrapperStyle?: ClassNamesArg
+  error?: boolean
 }
 
-export const AlertShield: FC<AlertShieldProps> = React.memo(props => {
+export const AlertShield: FC<AlertShieldProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { acceptMessage, showAcceptMessage, alertShieldWrapperStyle, ...rest } = props
+  const { acceptMessage, showAcceptMessage, alertShieldWrapperStyle, error = false, ...rest } = props
 
   return (
     <div
@@ -24,7 +25,11 @@ export const AlertShield: FC<AlertShieldProps> = React.memo(props => {
         [classNames.fadeOutAnimation]: !showAcceptMessage && !!acceptMessage,
       })}
     >
-      <Alert classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }} {...rest}>
+      <Alert
+        severity={error ? 'error' : 'success'}
+        classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }}
+        {...rest}
+      >
         {acceptMessage}
       </Alert>
     </div>

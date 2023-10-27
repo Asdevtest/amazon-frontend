@@ -264,6 +264,7 @@ export class CreateOrEditRequestViewModel {
       this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
+        error: true,
       })
 
       runInAction(() => {
