@@ -2685,6 +2685,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       isArchive,
       isSave,
       isShowButtonText = true,
+      tooltipArchiveButton,
     }) => {
       return (
         <div className={classNames.editOrRemoveIconBtnsCell}>
@@ -2713,7 +2714,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
           {handlers?.onTriggerArchive && (
             <Button
               success={isArchive}
-              // tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              tooltipInfoContent={tooltipArchiveButton && t(TranslationKey['Move to archive'])}
               disabled={disableActionBtn}
               className={classNames.removeOrEditBtn}
               onClick={() => handlers?.onTriggerArchive(row)}

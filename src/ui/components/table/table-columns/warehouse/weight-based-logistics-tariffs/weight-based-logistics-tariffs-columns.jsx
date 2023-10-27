@@ -120,6 +120,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     width: 160,
     renderCell: params => (
       <EditOrRemoveIconBtnsCell
+        tooltipArchiveButton
         tooltipFirstButton={t(TranslationKey.Edit)}
         tooltipSecondButton={t(TranslationKey.Remove)}
         handlers={handlers}
