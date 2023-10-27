@@ -6,10 +6,13 @@ import { FC, useContext } from 'react'
 import { Avatar } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
+import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
+import { UserModel } from '@models/user-model'
 
+import { UserInfoSchema } from '@services/rest-api-service/codegen'
 import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
@@ -49,19 +52,40 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
   const isCurrentUser = lastMessage?.user?._id === userId
 
   const oponentUser = users.filter(
-    (user: ChatUserContract) =>
-      // user._id !== userId &&
-      // ((user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-      //   userId !== currentProposal?.proposal?.createdBy?._id) ||
-      //   (user._id !== currentProposal?.proposal?.sub?._id &&
-      //     userId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id)),
+    (user: ChatUserContract) => {
+      const isOwnerUser = user._id === userId
+      const isRequestAndProposalSub = user._id === chatRequestAndRequestProposal.request?.request?.sub?._id
+      const isRequestAndProposalCreator = user._id === chatRequestAndRequestProposal.request?.request?.createdBy?._id
+      const isCurrentProposalSub = user._id === currentProposal?.proposal?.sub?._id
+      const isCurrentProposalCreator = user._id === currentProposal?.proposal?.createdBy?._id
+      const isOwnerUserSub = userId === chatRequestAndRequestProposal.request?.request?.sub?._id
+      const isMasterUser =
+        UserRoleCodeMap[(UserModel.userInfo as unknown as UserInfoSchema)!.role!] === UserRole.FREELANCER
+          ? user.role === mapUserRoleEnumToKey[UserRole.FREELANCER as keyof typeof mapUserRoleEnumToKey] &&
+            !user.masterUser
+          : user.role === mapUserRoleEnumToKey[UserRole.CLIENT as keyof typeof mapUserRoleEnumToKey] && !user.masterUser
+      console.log(user)
+      const result =
+        !isOwnerUser &&
+        !isRequestAndProposalSub &&
+        !isCurrentProposalSub &&
+        (isOwnerUserSub ? !isRequestAndProposalCreator : !isCurrentProposalCreator)
 
-      user._id !== userId &&
-      user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-      user._id !== currentProposal?.proposal?.sub?._id &&
-      (userId === chatRequestAndRequestProposal.request?.request?.sub?._id
-        ? user._id !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
-        : user._id !== currentProposal?.proposal?.createdBy?._id),
+      return result
+      // return (
+      //   user._id !== userId &&
+      //   user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
+      //   user._id !== currentProposal?.proposal?.sub?._id &&
+      //   (userId === chatRequestAndRequestProposal.request?.request?.sub?._id
+      //     ? user._id !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
+      //     : user._id !== currentProposal?.proposal?.createdBy?._id)
+      // )
+    },
+    // user._id !== userId &&
+    // ((user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
+    //   userId !== currentProposal?.proposal?.createdBy?._id) ||
+    //   (user._id !== currentProposal?.proposal?.sub?._id &&
+    //     userId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id)),
   )?.[0]
 
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])

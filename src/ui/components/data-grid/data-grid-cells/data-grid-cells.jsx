@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { fromUnixTime } from 'date-fns'
-import { toJS } from 'mobx'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { NavLink, useHistory } from 'react-router-dom'
@@ -23,7 +22,6 @@ import {
   Box,
   Checkbox,
   Chip,
-  Grid,
   IconButton,
   InputAdornment,
   Link,
@@ -56,7 +54,6 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
 import {
   MyRequestStatusTranslate,
-  RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
   disabledCancelBtnStatuses,
@@ -122,7 +119,6 @@ import {
 } from '@utils/calculation'
 import {
   checkIsMoreNCharactersAfterDot,
-  checkIsMoreTwoCharactersAfterDot,
   checkIsNumberWithDot,
   checkIsPositiveNum,
   checkIsString,
@@ -135,7 +131,6 @@ import {
   formatNormDateTime,
   formatNormDateTimeWithParseISO,
   formatShortDateTime,
-  getDistanceBetweenDatesInSeconds,
 } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -1682,7 +1677,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
         {onClickOpenInNewTab && (
           <OpenInNewTabCell
             onClickOpenInNewTab={e => {
-              e.stopPropagation()
+              // e.stopPropagation()
               onClickOpenInNewTab()
             }}
           />
