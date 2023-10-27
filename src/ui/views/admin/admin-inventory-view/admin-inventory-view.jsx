@@ -5,6 +5,7 @@ import { withStyles } from 'tss-react/mui'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -24,6 +25,8 @@ export const AdminInventoryViewRaw = props => {
     viewModel.getDataGridState()
   }, [])
 
+  console.log(viewModel.columnMenuSettings)
+
   return (
     <React.Fragment>
       <div>
@@ -37,6 +40,8 @@ export const AdminInventoryViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <CustomDataGrid
             useResizeContainer
+            sortingMode="server"
+            paginationMode="server"
             localeText={getLocalizationByLanguageTag()}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
@@ -51,7 +56,15 @@ export const AdminInventoryViewRaw = props => {
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -59,15 +72,28 @@ export const AdminInventoryViewRaw = props => {
                 },
               },
             }}
+            getRowId={row => row._id}
+            rowCount={viewModel.rowsCount}
             rows={viewModel.currentData}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            // onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
       </div>
+
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          updateDataHandler={() => viewModel.getProducts()}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
     </React.Fragment>
   )
 }

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import { useFaviconNotification } from 'react-favicon-notification'
 
@@ -18,70 +19,75 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './auth-form-wrapper.style.js'
 
-export const AuthFormWrapper = ({
-  redirect,
-  title,
-  showConfirmModal,
-  confirmModalSettings,
-  children,
-  onClickThemeIcon,
-  onClickRedirect,
-  onToggleModal,
-  onClickVersion,
-}) => {
-  const { classes: classNames } = useClassNames()
+export const AuthFormWrapper = observer(
+  ({
+    redirect,
+    title,
+    showConfirmModal = false,
+    confirmModalSettings,
+    children,
+    onClickThemeIcon,
+    onClickRedirect,
+    onToggleModal,
+    onClickVersion,
+  }) => {
+    const { classes: classNames } = useClassNames()
 
-  const [config, setConfig] = useFaviconNotification()
+    const [config, setConfig] = useFaviconNotification()
 
-  useEffect(() => {
-    setConfig({ ...config, show: false })
-  }, []) // при разлогине скидывает счетчик уведомлений в иконке во вкладке браузера
+    useEffect(() => {
+      setConfig({ ...config, show: false })
+    }, []) // при разлогине скидывает счетчик уведомлений в иконке во вкладке браузера
 
-  return (
-    <>
-      <div className={classNames.rightPanel}>
-        <div className={classNames.formWrapper}>
-          <div className={classNames.formHeader}>
-            <Typography className={classNames.title}>{title}</Typography>
-            <div className={classNames.redirectWrapper}>
-              <Typography className={classNames.redirect} onClick={onClickRedirect}>
-                {redirect}
-              </Typography>
+    return (
+      <>
+        <div className={classNames.rightPanel}>
+          <div className={classNames.formWrapper}>
+            <div className={classNames.formHeader}>
+              <Typography className={classNames.title}>{title}</Typography>
+              <div className={classNames.redirectWrapper}>
+                <Typography className={classNames.redirect} onClick={onClickRedirect}>
+                  {redirect}
+                </Typography>
 
-              <div className={classNames.selectorsWrapper}>
-                {SettingsModel.uiTheme === UiTheme.light ? (
-                  <WbSunnyRoundedIcon className={classNames.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
-                ) : (
-                  <Brightness3RoundedIcon
-                    className={classNames.themeIcon}
-                    onClick={() => onClickThemeIcon(UiTheme.light)}
-                  />
-                )}
+                <div className={classNames.selectorsWrapper}>
+                  {SettingsModel.uiTheme === UiTheme.light ? (
+                    <WbSunnyRoundedIcon
+                      className={classNames.themeIcon}
+                      onClick={() => onClickThemeIcon(UiTheme.dark)}
+                    />
+                  ) : (
+                    <Brightness3RoundedIcon
+                      className={classNames.themeIcon}
+                      onClick={() => onClickThemeIcon(UiTheme.light)}
+                    />
+                  )}
 
-                <LanguageSelector />
+                  <LanguageSelector />
+                </div>
               </div>
             </div>
+            <Divider className={classNames.divider} />
+            {children}
           </div>
-          <Divider className={classNames.divider} />
-          {children}
+
+          <Typography className={classNames.version} onClick={onClickVersion}>
+            {appVersion}
+          </Typography>
         </div>
 
-        <Typography className={classNames.version} onClick={onClickVersion}>
-          {appVersion}
-        </Typography>
-      </div>
-
-      <ConfirmationModal
-        openModal={showConfirmModal}
-        setOpenModal={onToggleModal}
-        isWarning={confirmModalSettings?.isWarning}
-        title={confirmModalSettings?.confirmTitle}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={onToggleModal}
-      />
-    </>
-  )
-}
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={onToggleModal}
+          isWarning={confirmModalSettings?.isWarning}
+          title={confirmModalSettings?.confirmTitle}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={onToggleModal}
+        />
+      </>
+    )
+  },
+)

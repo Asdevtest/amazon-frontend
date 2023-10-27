@@ -1,16 +1,14 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Grid } from '@mui/material'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
+import { AdminExchangeStatusesCategories, adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -30,21 +28,18 @@ export const AdminExchangeViewsRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <Grid container spacing={2} className={classNames.filterBtnWrapper}>
-          {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
-            <Grid key={index} item>
-              <Button
-                variant={'text'}
-                className={cx(classNames.filterBtn, {
-                  [classNames.currentFilterBtn]: viewModel.activeSubCategory === index,
-                })}
-                onClick={() => viewModel.onChangeSubCategory(index)}
-              >
-                {buttonConfig.label}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
+        <div className={classNames.filterBtnWrapper}>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.activeCategory}
+            switcherSettings={[
+              ...adminExchangeBtnsConfig,
+              { label: () => t(TranslationKey.All), value: AdminExchangeStatusesCategories.all },
+            ]}
+            changeConditionHandler={viewModel.onChangeSubCategory}
+          />
+        </div>
+
         <div className={classNames.datagridWrapper}>
           <CustomDataGrid
             localeText={getLocalizationByLanguageTag()}
@@ -55,11 +50,21 @@ export const AdminExchangeViewsRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={100}
             rows={viewModel.currentData}
+            rowCount={viewModel.rowsCount}
+            getRowId={row => row._id}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -73,11 +78,22 @@ export const AdminExchangeViewsRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            // onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
       </div>
+
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          updateDataHandler={() => viewModel.getProductsByStatus()}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
     </React.Fragment>
   )
 }

@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-const AuthorizationValue = restApiService?.openapiConfig?.baseOptions?.headers?.Authorization
-
 class OtherModelStatic {
   getImage = async guid => {
     const response = await restApiService.axiosInstance({
@@ -9,7 +7,6 @@ class OtherModelStatic {
       url: `/api/v1/other/img/${guid}`,
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-        Authorization: AuthorizationValue,
       },
     })
     return response.data
@@ -23,11 +20,10 @@ class OtherModelStatic {
 
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-        Authorization: AuthorizationValue,
       },
     })
 
-    return response.data.data.fileName
+    return response.data.fileName
   }
 
   postAvatar = async dataForm => {
@@ -38,7 +34,6 @@ class OtherModelStatic {
 
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-        Authorization: AuthorizationValue,
       },
     })
 
@@ -58,7 +53,6 @@ class OtherModelStatic {
 
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-        Authorization: AuthorizationValue,
       },
     })
 
@@ -76,7 +70,6 @@ class OtherModelStatic {
         },
         headers: {
           'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-          Authorization: AuthorizationValue,
         },
       })
       .then(res => {
@@ -104,7 +97,6 @@ class OtherModelStatic {
         },
         headers: {
           'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-          Authorization: AuthorizationValue,
         },
       })
       .then(res => {
@@ -127,7 +119,6 @@ class OtherModelStatic {
       url: `/images/`,
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-        Authorization: AuthorizationValue,
       },
     })
 

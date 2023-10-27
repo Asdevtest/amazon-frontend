@@ -69,7 +69,6 @@ export const DeliveryParameters = ({
 
       <Field
         labelClasses={classNames.fieldLabel}
-        containerClasses={classNames.parameterTableCellWrapper}
         label={t(TranslationKey.Destination)}
         tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
         inputComponent={
@@ -91,7 +90,6 @@ export const DeliveryParameters = ({
 
       <Field
         labelClasses={classNames.fieldLabel}
-        containerClasses={classNames.parameterTableCellWrapper}
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
         error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={

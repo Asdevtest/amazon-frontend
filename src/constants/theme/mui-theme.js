@@ -55,6 +55,9 @@ export const globalStyles = theme => ({
   '::-webkit-scrollbar-corner': {
     backgroundColor: 'transparent !important',
   },
+  '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
+    visibility: 'visible !important',
+  },
 })
 
 export const lightTheme = createTheme({

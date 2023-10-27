@@ -25,25 +25,22 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           >
             {t(TranslationKey['Order photos:'])}
           </Text>
-          <div className={classNames.photoCarousel}>
-            <PhotoAndFilesSlider withoutFiles files={order?.images} />
-          </div>
+
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order?.images} />
         </div>
         <div className={classNames.photoWrapper}>
           <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
           </Text>
-          <div className={classNames.photoCarousel}>
-            <PhotoAndFilesSlider withoutFiles files={order.orderSupplier?.images} />
-          </div>
+
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order.orderSupplier?.images} />
         </div>
         <div className={classNames.photoWrapper}>
           <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
             {t(TranslationKey['Supplier payment']) + ':'}
           </Text>
-          <div className={classNames.photoCarousel}>
-            <PhotoAndFilesSlider withoutFiles files={order?.paymentDetails} />
-          </div>
+
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order?.paymentDetails} />
         </div>
       </div>
 

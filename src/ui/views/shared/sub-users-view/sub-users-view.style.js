@@ -34,6 +34,7 @@ export const styles = theme => ({
   datagridWrapper: {
     marginTop: '20px',
     height: '79vh',
+    width: '100%',
   },
 
   buttonWrapper: {

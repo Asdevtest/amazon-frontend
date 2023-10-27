@@ -1212,7 +1212,6 @@ export class BuyerMyOrdersViewModel {
           this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         })
         this.onTriggerOpenModal('showOrderModal')
-        UserModel.getUserInfo()
         UserModel.getUsersInfoCounters()
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }

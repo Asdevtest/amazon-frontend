@@ -3,7 +3,7 @@ import { cx } from '@emotion/css'
 import { useEffect, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
-import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
+import { Avatar, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -190,9 +190,10 @@ export const CreateOrEditProposalContent = ({
             </>
           )}
 
-          <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${
-            request?.request?.maxAmountOfProposals || request?.maxAmountOfProposals
-          } ${t(TranslationKey['suggestions left'])}`}</Typography>
+          {/* <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${*/}
+          {/*  request?.request?.maxAmountOfProposals || request?.maxAmountOfProposals*/}
+          {/* } ${t(TranslationKey['suggestions left'])}`}</Typography>*/}
+          <Typography className={classNames.subTitle} />
 
           <div className={classNames.requestTitleAndInfo}>
             <div className={cx(classNames.blockInfoWrapper)}>

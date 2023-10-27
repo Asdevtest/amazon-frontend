@@ -812,7 +812,7 @@ export const ObJectFieldMenuItem = React.memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender.length > 0 ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -820,8 +820,8 @@ export const ObJectFieldMenuItem = React.memo(
                         setChoosenItems={setChoosenItems}
                       />
                       {itemsForRender.map(obj => {
-                        const value = obj.title || obj.name || t(TranslationKey.Empty)
-                        const valueChecked = choosenItems.some(item => item._id === obj._id)
+                        const value = obj?.title || obj?.name || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                         return (
                           obj && (
@@ -1215,9 +1215,9 @@ export const NormalFieldMenuItem = React.memo(
                       return (
                         <div key={index} className={classNames.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                          <div title={value} className={classNames.shopName}>
+                          <p title={value} className={classNames.shopName}>
                             {value}
-                          </div>
+                          </p>
                         </div>
                       )
                     })}
@@ -2301,6 +2301,7 @@ export const NumberFieldMenuItem = React.memo(
           'ideasClosed',
           'ideasFinished',
           'fbaamount',
+          'id',
           'reworkCounter',
         ]
         return whiteList.includes(field)

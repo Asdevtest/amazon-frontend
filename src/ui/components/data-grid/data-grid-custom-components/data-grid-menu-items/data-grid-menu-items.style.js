@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export const styles = theme => ({
   isFormedWrapper: {
     padding: '10px 20px',
@@ -189,8 +188,8 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: 300,
-    padding: '20px 21px',
+    width: 350,
+    padding: 20,
     gap: 20,
   },
 

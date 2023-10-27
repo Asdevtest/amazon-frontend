@@ -8,5 +8,6 @@ export const styles = () => ({
 
   tableWrapper: {
     height: '80vh',
+    width: '100%',
   },
 })

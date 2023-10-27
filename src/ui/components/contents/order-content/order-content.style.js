@@ -42,7 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
   panelsWrapper: {
     display: 'flex',
     justifyContent: 'space-beetwen',
-    gap: 45,
+    gap: 30,
     padding: '30px 50px',
   },
 

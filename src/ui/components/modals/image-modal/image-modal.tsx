@@ -1,17 +1,17 @@
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
+import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
 import { useImageModalStyles } from '@components/modals/image-modal/image-modal.styles'
 import { ZoomModal } from '@components/modals/zoom-modal'
-import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
+import { VideoPlayer } from '@components/shared/video-player'
 
+import { checkIsVideoLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 
 import { IUploadFile } from '@typings/upload-file'
@@ -57,6 +57,9 @@ export const ImageModal: FC<Props> = observer(
       photoIndex,
       setPhotoIndex,
 
+      isPlaying,
+      setIsPlaying,
+
       onClickMakeMainImageObj,
       onUploadFile,
       onClickRemoveImageObj,
@@ -81,15 +84,30 @@ export const ImageModal: FC<Props> = observer(
           {showPreviews && (
             <div className={styles.imagesList}>
               {photos?.map((photo, index) => {
+                const currentPhoto = typeof photo === 'string' ? photo : photo?.data_url
+                const isVideoType = checkIsVideoLink(typeof photo === 'string' ? photo : photo?.file?.name)
+
                 return (
                   <div
                     key={index}
                     className={cx(styles.imagesListItem, {
                       [styles.imagesListItemActive]: index === photoIndex,
                     })}
-                    onClick={() => setPhotoIndex(index)}
+                    onClick={() => {
+                      setPhotoIndex(index)
+                      setIsPlaying(false)
+                    }}
                   >
-                    <img src={typeof photo === 'string' ? photo : photo?.data_url} alt={`Photo ${photoIndex}`} />
+                    {isVideoType ? (
+                      <div className={styles.preloaderContainer}>
+                        <VideoPlayer videoSource={currentPhoto} />
+                        <div className={styles.preloader}>
+                          <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
+                        </div>
+                      </div>
+                    ) : (
+                      <img src={currentPhoto} alt={`Photo ${photoIndex}`} />
+                    )}
 
                     {photosTitles?.[photoIndex] && (
                       <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[photoIndex]}</p>
@@ -104,11 +122,14 @@ export const ImageModal: FC<Props> = observer(
             {photosTitles?.[photoIndex] && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
 
             <Slider
+              controls
               isHideCounter
               customSlideHeight={500}
               slides={photos}
               currentIndex={photoIndex}
               setCurrentIndex={setPhotoIndex}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
             />
 
             {photosComments?.[photoIndex] && (
@@ -118,25 +139,18 @@ export const ImageModal: FC<Props> = observer(
             )}
 
             <div className={styles.controls}>
-              <Button onClick={() => onClickDownloadPhoto(photos?.[photoIndex])}>
-                <DownloadOutlinedIcon />
-              </Button>
-
-              <Button onClick={onOpenImageZoomModal}>
-                <ZoomOutMapOutlinedIcon />
-              </Button>
-
-              {isEditable ? (
-                <ButtonControls
-                  image={photos?.[photoIndex]}
-                  imageIndex={photoIndex}
-                  withoutMakeMainImage={withoutMakeMainImage}
-                  onClickMakeMainImageObj={onClickMakeMainImageObj}
-                  onImageEditToggle={onOpenImageEditModal}
-                  onUploadFile={onUploadFile}
-                  onClickRemoveImageObj={onClickRemoveImageObj}
-                />
-              ) : null}
+              <ButtonControls
+                isEditable={isEditable}
+                image={photos?.[photoIndex]}
+                imageIndex={photoIndex}
+                withoutMakeMainImage={withoutMakeMainImage}
+                onClickMakeMainImageObj={onClickMakeMainImageObj}
+                onImageEditToggle={onOpenImageEditModal}
+                onUploadFile={onUploadFile}
+                onClickRemoveImageObj={onClickRemoveImageObj}
+                onClickDownloadPhoto={onClickDownloadPhoto}
+                onOpenImageZoomModal={onOpenImageZoomModal}
+              />
             </div>
           </div>
         </div>

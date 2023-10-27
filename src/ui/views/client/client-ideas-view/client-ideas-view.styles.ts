@@ -9,6 +9,7 @@ export const useClientIdeasViewStyles = makeStyles()(theme => ({
   datagridWrapper: {
     marginTop: '20px',
     height: '78vh',
+    width: '100%',
   },
 
   controls: {

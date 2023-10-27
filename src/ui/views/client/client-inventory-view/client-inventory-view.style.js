@@ -101,6 +101,7 @@ export const styles = theme => ({
   datagridWrapper: {
     marginTop: '20px',
     height: '75vh',
+    width: '100%',
   },
 
   clickableCell: {

@@ -103,7 +103,8 @@ class ChatModelStatic {
       runInAction(() => {
         this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages.slice(chat.messages.length - 1, chat.messages.length),
+          messages: [],
+          lastMessage: chat.messages[chat.messages.length - 1],
           pagination: {
             limit: 20,
             offset: 0,
@@ -148,6 +149,10 @@ class ChatModelStatic {
           },
           isAllMessagesLoaded: chatMessages.rows.length < limit,
         }
+        // * Удалить после окончательного переделывания чата
+        // if (offset === 0) {
+        //   this[chatType][index].lastMessage = chatMessages.rows[chatMessages.rows.length - 1]
+        // }
       })
     } catch (error) {
       console.warn(error)
@@ -167,16 +172,16 @@ class ChatModelStatic {
       return
     }
     try {
-      this.getUnreadMessagesCount()
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
-          messages: chat.messages.slice(chat.messages.length - 1, chat.messages.length),
+          messages: [],
           pagination: {
             limit: 20,
             offset: 0,
           },
+          lastMessage: chat.messages[chat.messages.length - 1],
           isAllMessagesLoaded: false,
         }))
       })
@@ -362,39 +367,35 @@ class ChatModelStatic {
     }
 
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
-
-    if (findChatIndexById !== -1) {
-      runInAction(() => {
-        this.chats[findChatIndexById].messages = [
-          ...this.chats[findChatIndexById].messages.filter(mes => mes._id !== message._id),
-          message,
-        ]
-      })
-    }
-
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
-    if (findSimpleChatIndexById !== -1) {
-      runInAction(() => {
-        this.simpleChats[findSimpleChatIndexById].messages = [
-          ...this.simpleChats[findSimpleChatIndexById].messages.filter(mes => mes._id !== message._id),
-          message,
-        ]
-      })
+    if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+      return
+    }
 
-      this.removeTypingUser(message.chatId, message.userId)
+    const index = Math.max(findChatIndexById, findSimpleChatIndexById)
+    const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
 
-      if (
-        checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
-        this.userId &&
-        message.data?.users?.map(el => el._id).includes(this.userId)
-      ) {
-        runInAction(() => {
-          this.chatSelectedId = undefined
-
-          this.simpleChats = this.simpleChats.filter(el => el._id !== message.chatId)
-        })
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messages: [...this[chatType][index].messages.filter(mes => mes._id !== message._id), message],
+        lastMessage: message,
       }
+    })
+
+    this.removeTypingUser(message.chatId, message.userId)
+
+    if (
+      checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
+      this.userId &&
+      message.data?.users?.map(el => el._id).includes(this.userId)
+    ) {
+      runInAction(() => {
+        this.chatSelectedId = undefined
+
+        this.simpleChats = this.simpleChats.filter(el => el._id !== message.chatId)
+      })
     }
 
     this.getUnreadMessagesCount()

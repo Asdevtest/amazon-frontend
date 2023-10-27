@@ -29,6 +29,8 @@ export const AdminWarehouseTasksViewRaw = props => {
       <div className={classNames.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
+          sortingMode="server"
+          paginationMode="server"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -36,12 +38,21 @@ export const AdminWarehouseTasksViewRaw = props => {
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
+          rowCount={viewModel.rowsCount}
+          getRowId={row => row._id}
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,

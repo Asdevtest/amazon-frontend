@@ -18,9 +18,8 @@ import { styles } from './admin-users-view.style'
 
 import { AdminUsersViewModel } from './admin-users-view.model'
 
-export const AdminUsersViewRaw = props => {
-  const [viewModel] = useState(() => new AdminUsersViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const AdminUsersViewRaw = ({ classes: classNames, history }) => {
+  const [viewModel] = useState(() => new AdminUsersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -28,7 +27,7 @@ export const AdminUsersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <div className={classNames.searchWrapper}>
         <SearchInput
           inputClasses={classNames.searchInput}
           value={viewModel.nameSearchValue}
@@ -46,6 +45,7 @@ export const AdminUsersViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={80}
+            rowCount={viewModel.rowCount}
             rows={viewModel.getCurrentData()}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
@@ -69,6 +69,7 @@ export const AdminUsersViewRaw = props => {
           />
         </div>
       </div>
+
       <Modal
         openModal={viewModel.showEditUserModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditUserModal')}

@@ -14,5 +14,6 @@ export const styles = theme => ({
 
   tableWrapper: {
     height: '80vh',
+    width: '100%',
   },
 })

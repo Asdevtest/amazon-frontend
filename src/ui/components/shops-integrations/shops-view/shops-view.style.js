@@ -14,6 +14,7 @@ export const styles = theme => ({
   datagridWrapper: {
     marginTop: '20px',
     height: '74vh',
+    width: '100%',
   },
 
   filterBtn: {

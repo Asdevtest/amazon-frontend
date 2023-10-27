@@ -1,6 +1,7 @@
 export const styles = theme => ({
   datagridWrapper: {
     height: '82vh',
+    width: '100%',
   },
 
   topHeaderBtnsWrapper: {

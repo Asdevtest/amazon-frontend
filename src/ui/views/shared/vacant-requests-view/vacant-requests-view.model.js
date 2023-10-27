@@ -544,8 +544,9 @@ export class VacantRequestsViewModel {
     this.history.push(
       `/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/vacant-requests/custom-search-request/create-proposal`,
-      { request: toJS(this.currentRequestDetails) },
+      }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${
+        this.currentRequestDetails.request._id
+      }`,
     )
   }
 

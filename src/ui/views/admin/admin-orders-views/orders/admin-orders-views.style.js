@@ -1,6 +1,7 @@
 export const styles = theme => ({
   filterBtnWrapper: {
     marginBottom: '10px',
+    paddingLeft: '8px',
   },
 
   filterBtn: {
@@ -25,6 +26,7 @@ export const styles = theme => ({
   datagridWrapper: {
     marginTop: '10px',
     height: '70vh',
+    width: '100%',
   },
 
   topHeaderBtnsWrapper: {
