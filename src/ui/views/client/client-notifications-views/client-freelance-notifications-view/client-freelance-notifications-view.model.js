@@ -47,7 +47,7 @@ export class ClientFreelanceNotificationsViewModel {
       const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
       runInAction(() => {
-        this.notifications = response.freelanceNotices.map(el => {
+        this.notifications = response.data.freelanceNotices.map(el => {
           return {
             ...el.request,
             unreadMessages: el.unreadMessages,
