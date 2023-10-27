@@ -226,7 +226,7 @@ export class ClientInventoryViewModel {
     () => this.columnMenuSettings,
     () => this.onHover,
   )
-  paginationModel = { page: 0, pageSize: 15 }
+  paginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel = {}
 
   get userInfo() {
@@ -973,8 +973,8 @@ export class ClientInventoryViewModel {
 
         purchaseQuantityAboveZero,
 
-        limit: /* this.paginationModel.pageSize */ 100,
-        offset: this.paginationModel.page * /* this.paginationModel.pageSize */ 100,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

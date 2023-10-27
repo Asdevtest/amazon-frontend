@@ -73,7 +73,7 @@ export const ClientInventoryViewRaw = props => {
   return (
     <React.Fragment>
       <>
-        <div className={classNames.headerWrapper}>
+        {/* <div className={classNames.headerWrapper}>
           <div className={classNames.addProductBtnsWrapper}>
             <div className={classNames.shopsFiltersWrapper}>
               <SearchInput
@@ -219,7 +219,7 @@ export const ClientInventoryViewRaw = props => {
               ) : null}
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={classNames.datagridWrapper}>
           <CustomDataGrid
@@ -284,9 +284,9 @@ export const ClientInventoryViewRaw = props => {
         </div>
       </>
 
-      {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
+      {/* {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null} */}
 
-      <Modal
+      {/* <Modal
         openModal={viewModel.showSendOwnProductModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
       >
@@ -576,7 +576,7 @@ export const ClientInventoryViewRaw = props => {
         />
       )}
 
-      {viewModel.showProgress && <CircularProgressWithLabel />}
+      {viewModel.showProgress && <CircularProgressWithLabel />} */}
     </React.Fragment>
   )
 }
