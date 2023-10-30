@@ -49,7 +49,7 @@ export class ClientFreelanceNotificationsViewModel {
 
       runInAction(() => {
         this.rowCount = response?.data?.freelanceNotices?.length
-        this.notifications = response?.data?.freelanceNotices.map(el => {
+        this.notifications = response.data.freelanceNotices.map(el => {
           return {
             ...el.request,
             unreadMessages: el.unreadMessages,
