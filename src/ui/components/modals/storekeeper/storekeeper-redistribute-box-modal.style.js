@@ -54,11 +54,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   img: {
-    width: '66px',
-    height: '66px',
-
+    width: '60px',
+    height: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
+    marginRight: 20,
   },
   sectionTitle: {
     color: theme.palette.text.general,
@@ -169,7 +169,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   icon: {
-    padding: 4,
+    padding: 8,
   },
   button: {
     height: '40px',
@@ -181,9 +181,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   bottomBlockWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 10,
   },
   incomingBtnWrapper: {
+    width: 105,
     display: 'flex',
     justifyContent: 'end',
   },
@@ -228,7 +231,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '20px',
   },
   editBtn: {
-    width: '183px',
+    padding: '0 15px',
     height: '40px',
     display: 'flex',
   },
@@ -236,7 +239,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   editBtnYellow: {
-    border: '3px solid #F5CF00',
+    border: '2px solid #F5CF00',
     borderRadius: 4,
   },
 }))
