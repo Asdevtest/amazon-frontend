@@ -65,7 +65,6 @@ const Slot = ({
       <div
         className={cx(
           classNames.imageWrapper,
-
           { [classNames.isHaveImage]: !!item.image },
           { [classNames.mainImageWrapper]: index === 0 },
         )}
@@ -108,12 +107,7 @@ const Slot = ({
 
       <div ref={menuAnchor}>
         {!item.isEditCommentOpen && !noShowActions && (
-          <Button
-            className={cx(classNames.commentBtn)}
-            onClick={() => {
-              onClickCommentBtn(item._id)
-            }}
-          >
+          <Button className={classNames.commentBtn} onClick={() => onClickCommentBtn(item._id)}>
             {t(TranslationKey.Comment)}
             <img
               src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
@@ -127,7 +121,6 @@ const Slot = ({
             mouseEvent="onMouseDown"
             onClickAway={() => {
               handleClose()
-
               onClickCommentBtn(item._id)
             }}
           >
@@ -463,7 +456,7 @@ export const RequestDesignerResultClientForm = ({
         showPreviews
         isOpenModal={showImageModal}
         handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages.map(el => el.fileLink)}
+        imageList={filteredImages.map(el => el.url)}
         photosTitles={filteredImages.map(el => el.title)}
         photosComments={filteredImages.map(el => el.comment)}
         currentImageIndex={curImageIndex}
