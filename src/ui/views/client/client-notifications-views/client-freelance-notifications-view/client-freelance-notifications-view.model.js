@@ -18,6 +18,7 @@ export class ClientFreelanceNotificationsViewModel {
   error = undefined
   loadingStatus = undefined
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -47,6 +48,7 @@ export class ClientFreelanceNotificationsViewModel {
       const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
       runInAction(() => {
+        this.rowCount = response?.data?.freelanceNotices?.length
         this.notifications = response.data.freelanceNotices.map(el => {
           return {
             ...el.request,

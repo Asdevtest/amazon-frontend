@@ -44,7 +44,8 @@ export const SupplierApproximateCalculationsForm = observer(
 
         <div className={classNames.boxesFiltersWrapper}>
           <CustomSwitcher
-            switchMode={'medium'}
+            fullWidth
+            switchMode={'small'}
             condition={curStorekeeper?._id}
             switcherSettings={[...storekeepers]
               .sort((a, b) => a.name.localeCompare(b.name))

@@ -36,6 +36,7 @@ export const ClientFreelanceNotificationsViewRaw = props => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={120}
+          rowCount={viewModel.rowCount}
           getRowId={row => row._id}
           slotProps={{
             baseTooltip: {

@@ -228,6 +228,7 @@ export class SuppliersAndIdeasModel {
             } else {
               this.onTriggerOpenModal('showSuccessModal')
             }
+            this.updateData()
           },
         }
 
