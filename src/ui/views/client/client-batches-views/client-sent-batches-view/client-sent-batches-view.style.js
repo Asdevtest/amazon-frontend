@@ -23,9 +23,8 @@ export const styles = theme => ({
     justifyContent: 'space-between',
   },
   openArchiveBtn: {
-    minWidth: 230,
-    padding: '0 30px 0 30px',
-    color: theme.palette.text.general,
+    width: 230,
+    color: theme.palette.primary.main,
   },
 
   archiveAddBtn: {
