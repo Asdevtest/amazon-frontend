@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useDataGridCellsStyles = makeStyles()(theme => ({
   img: {
     height: '58px',
     width: '58px',
@@ -2087,4 +2089,4 @@ export const styles = theme => ({
   freelancerMyProposalsButton: {
     width: '30px',
   },
-})
+}))

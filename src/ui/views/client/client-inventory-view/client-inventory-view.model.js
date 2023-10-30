@@ -522,14 +522,11 @@ export class ClientInventoryViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
       await Promise.all([this.getShops(), this.getProductsMy()])
 
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)

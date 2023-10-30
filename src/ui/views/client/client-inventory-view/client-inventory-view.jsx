@@ -259,7 +259,7 @@ export const ClientInventoryViewRaw = props => {
             rowSelectionModel={viewModel.selectedRowIds}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            // loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onRowSelectionModelChange={viewModel.onSelectionModel}
