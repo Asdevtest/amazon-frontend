@@ -27,6 +27,7 @@ export const ClientFreelanceNotificationsViewRaw = props => {
       <div className={classNames.tableWrapper}>
         <MemoDataGrid
           useResizeContainer
+          paginationMode="client"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -35,6 +36,7 @@ export const ClientFreelanceNotificationsViewRaw = props => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={120}
+          rowCount={viewModel.rowCount}
           getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
