@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridCellParams } from '@mui/x-data-grid'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -15,34 +16,42 @@ export const bindIdeaToRequestColumns = () => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     width: 70,
+    // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.value} />,
   },
 
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     width: 161,
+    // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineRequestStatusCell leftAlign status={params.value} />,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
     width: 228,
+    // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.value} />,
   },
 
   {
     field: 'typeTask',
     headerName: t(TranslationKey['Request type']),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     width: 110,
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell
+        // @ts-ignore
         leftAlign
         text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value as number])}
       />

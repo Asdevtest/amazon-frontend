@@ -61,6 +61,12 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
   },
 
+  statusText: {
+    fontSize: 16,
+    lineHeight: '22px',
+    fontWeight: 400,
+  },
+
   noOptionText: {
     color: theme.palette.text.second,
     padding: '10px 0',

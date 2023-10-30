@@ -95,7 +95,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
                   </div>
                 ) : null}
 
-                {isShowButton && (
+                {isShowButton && handlers.onClickReworkProposal && (
                   <Button
                     className={cx(classNames.actionButton /* , classNames.editBtn */)}
                     onClick={handlers.onClickReworkProposal}

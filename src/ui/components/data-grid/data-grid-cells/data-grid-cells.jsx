@@ -798,7 +798,7 @@ export const ChangeChipCell = React.memo(
 
     return (
       <>
-        {label ? <Typography className={styles.changeChipCellLabel}>{label}</Typography> : null}
+        {label ? <p className={styles.changeChipCellLabel}>{label}</p> : null}
         <Chip
           disabled={disabled}
           classes={{
@@ -843,23 +843,17 @@ export const PhotoAndFilesCell = React.memo(({ files }) => {
   )
 })
 
-// export const NormDateCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value }) => (
-//       <Typography className={styles.normDateCellTypo}>{value ? formatNormDateTime(value) : '-'}</Typography>
-//     ),
-//     styles,
-//   ),
-// )
+export const NormDateCell = React.memo(({ value }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const NormDateWithoutTimeCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value }) => (
-//       <Typography className={styles.normDateCellTypo}>{!value ? '-' : formatDateWithoutTime(value)}</Typography>
-//     ),
-//     styles,
-//   ),
-// )
+  return <p className={styles.normDateCellTypo}>{value ? formatNormDateTime(value) : '-'}</p>
+})
+
+export const NormDateWithoutTimeCell = React.memo(({ value }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+
+  return <p className={styles.normDateCellTypo}>{!value ? '-' : formatDateWithoutTime(value)}</p>
+})
 
 export const ShortDateCell = React.memo(({ value }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -867,529 +861,532 @@ export const ShortDateCell = React.memo(({ value }) => {
   return <p className={styles.shortDateCellTypo}>{!value ? '-' : formatShortDateTime(value)}</p>
 })
 
-// export const NormDateFromUnixCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value }) => (
-//       <Typography className={styles.normDateCellTypo}>
-//         {!value ? '-' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
-//       </Typography>
-//     ),
-//     styles,
-//   ),
-// )
+export const NormDateFromUnixCell = React.memo(({ value }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const NormDateWithParseISOCell = React.memo(
-//   withStyles(({ value }) => <Typography>{!value ? '-' : formatNormDateTimeWithParseISO(value)}</Typography>, styles),
-// )
+  return (
+    <p className={styles.normDateCellTypo}>{!value ? '-' : formatDateForShowWithoutParseISO(fromUnixTime(value))}</p>
+  )
+})
 
-// export const OrderCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity, imageSize }) => (
-//       <div className={styles.order}>
-//         <img
-//           src={getAmazonImageUrl(product?.images[0])}
-//           alt="product"
-//           className={cx(styles.orderImg, {
-//             [styles.orderImageBig]: imageSize === 'big',
-//             [styles.orderImageSmall]: imageSize === 'small',
-//           })}
-//         />
-//         <div>
-//           <Typography className={styles.orderTitle}>{product?.amazonTitle}</Typography>
-//           <div className={styles.copyAsin}>
-//             <Typography className={styles.orderText}>
-//               <span className={styles.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-//               {product?.asin ? (
-//                 <a
-//                   target="_blank"
-//                   rel="noreferrer"
-//                   href={`https://www.amazon.com/dp/${product.asin}`}
-//                   className={styles.normalizeLink}
-//                   onClick={e => e.stopPropagation()}
-//                 >
-//                   <span className={styles.linkSpan}>{shortAsin(product.asin)}</span>
-//                 </a>
-//               ) : (
-//                 <span className={styles.typoSpan}>{t(TranslationKey.Missing)}</span>
-//               )}
-//             </Typography>
-//             {product?.asin ? <CopyValue text={product.asin} /> : null}
-//           </div>
+export const NormDateWithParseISOCell = React.memo(({ value }) => (
+  <p>{!value ? '-' : formatNormDateTimeWithParseISO(value)}</p>
+))
 
-//           {!withoutSku && (
-//             <div className={styles.copyAsin}>
-//               <Typography className={styles.orderText}>
-//                 <span className={styles.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
-//                 {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
-//               </Typography>
-//               {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
-//             </div>
-//           )}
+export const OrderCell = React.memo(
+  ({ product, superbox, box, error, withoutSku, itemAmount, withQuantity, imageSize }) => {
+    const { classes: styles } = useDataGridCellsStyles()
 
-//           {withQuantity ? (
-//             <div className={styles.copyAsin}>
-//               <Typography className={styles.orderText}>
-//                 <span className={styles.orderTextSpan}>{t(TranslationKey.Quantity) + ': '}</span>
-//                 {itemAmount ? itemAmount : box?.items?.[0].amount}
-//               </Typography>
-//             </div>
-//           ) : null}
+    return (
+      <div className={styles.order}>
+        <img
+          src={getAmazonImageUrl(product?.images[0])}
+          alt="product"
+          className={cx(styles.orderImg, {
+            [styles.orderImageBig]: imageSize === 'big',
+            [styles.orderImageSmall]: imageSize === 'small',
+          })}
+        />
+        <div>
+          <p className={styles.orderTitle}>{product?.amazonTitle}</p>
+          <div className={styles.copyAsin}>
+            <p className={styles.orderText}>
+              <span className={styles.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+              {product?.asin ? (
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.amazon.com/dp/${product.asin}`}
+                  className={styles.normalizeLink}
+                  onClick={e => e.stopPropagation()}
+                >
+                  <span className={styles.linkSpan}>{shortAsin(product.asin)}</span>
+                </a>
+              ) : (
+                <span className={styles.typoSpan}>{t(TranslationKey.Missing)}</span>
+              )}
+            </p>
+            {product?.asin ? <CopyValue text={product.asin} /> : null}
+          </div>
 
-//           {superbox && (
-//             <div className={styles.superboxWrapper}>
-//               <Typography className={styles.superboxTypo}>{`SB x ${superbox}`}</Typography>
-//               {/* <Typography className={styles.superboxTypo}>{`x ${box?.items?.[0].amount}`}</Typography>{' '} */}
-//             </div>
-//           )}
+          {!withoutSku && (
+            <div className={styles.copyAsin}>
+              <p className={styles.orderText}>
+                <span className={styles.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+                {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
+              </p>
+              {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
+            </div>
+          )}
 
-//           {((box && box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0) ||
-//             box?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) && (
-//             <span className={styles.needPay}>{`${t(
-//               TranslationKey['Extra payment required!'],
-//             )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-//           )}
+          {withQuantity ? (
+            <div className={styles.copyAsin}>
+              <p className={styles.orderText}>
+                <span className={styles.orderTextSpan}>{t(TranslationKey.Quantity) + ': '}</span>
+                {itemAmount ? itemAmount : box?.items?.[0].amount}
+              </p>
+            </div>
+          ) : null}
 
-//           {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-//             <span className={styles.needPay}>
-//               {t(TranslationKey['The tariff is invalid or has been removed!'])}
-//             </span>
-//           )}
+          {superbox && (
+            <div className={styles.superboxWrapper}>
+              <p className={styles.superboxTypo}>{`SB x ${superbox}`}</p>
+            </div>
+          )}
 
-//           {error && <span className={styles.OrderCellError}>{error}</span>}
-//         </div>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+          {((box && box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0) ||
+            box?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) && (
+            <span className={styles.needPay}>{`${t(TranslationKey['Extra payment required!'])} (${toFixedWithDollarSign(
+              box.deliveryTotalPriceChanged - box.deliveryTotalPrice,
+              2,
+            )})`}</span>
+          )}
 
-// export const DownloadAndPrintFilesCell = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, files } = props
-//     const imageRef = useRef(null)
-//     const [isOpenModal, setIsOpenModal] = useState(false)
-//     const [selectedImage, setSelectedImage] = useState({})
+          {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+            <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+          )}
 
-//     const handlePrint = useReactToPrint({
-//       content: () => imageRef.current,
-//       documentTitle: 'AwesomeFileName',
-//       removeAfterPrint: true,
-//     })
+          {error && <span className={styles.OrderCellError}>{error}</span>}
+        </div>
+      </div>
+    )
+  },
+)
 
-//     const handleImagePreview = el => {
-//       if (!imageTypes.includes(el.fileType)) {
-//         window.open(el.fileUrl, '_blank')
-//         return
-//       }
-//       setSelectedImage(el)
-//       setIsOpenModal(true)
-//     }
+export const DownloadAndPrintFilesCell = React.memo(props => {
+  const { classes: styles } = useDataGridCellsStyles()
+  const { files } = props
+  const imageRef = useRef(null)
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [selectedImage, setSelectedImage] = useState({})
 
-//     const printFile = el => {
-//       if (!imageTypes.includes(el.fileType)) {
-//         window.open(el.fileUrl, '_blank')
-//         return
-//       }
-//       flushSync(() => setSelectedImage(el))
-//       handlePrint()
-//     }
+  const handlePrint = useReactToPrint({
+    content: () => imageRef.current,
+    documentTitle: 'AwesomeFileName',
+    removeAfterPrint: true,
+  })
 
-//     return (
-//       <>
-//         <Box display="flex" flexDirection="column" gap="10px" py="14px">
-//           {files.map((el, index) => (
-//             <div key={index}>
-//               <Typography className={styles.dapTitle}>{el.title}</Typography>
-//               {el.fileUrl && (
-//                 <Box display="flex" gap="8px" alignItems="center">
-//                   <Button
-//                     className={styles.dapBtn}
-//                     onClick={e => {
-//                       e.stopPropagation()
-//                       handleImagePreview(el)
-//                     }}
-//                   >
-//                     <span>{el.fileName}</span>.{el.fileType}
-//                   </Button>
+  const handleImagePreview = el => {
+    if (!imageTypes.includes(el.fileType)) {
+      window.open(el.fileUrl, '_blank')
+      return
+    }
+    setSelectedImage(el)
+    setIsOpenModal(true)
+  }
 
-//                   <IconButton
-//                     sx={{ color: '#0164F4' }}
-//                     onClick={e => {
-//                       e.stopPropagation()
-//                       printFile(el)
-//                     }}
-//                   >
-//                     <PrintIcon
-//                       classes={{
-//                         root: styles.printIcon,
-//                       }}
-//                     />
-//                   </IconButton>
-//                 </Box>
-//               )}
-//               {!el.fileUrl && (
-//                 <Typography sx={{ marginLeft: '25px', width: 'fit-content' }}>
-//                   {t(TranslationKey['Not added'])}
-//                 </Typography>
-//               )}
-//             </div>
-//           ))}
-//         </Box>
+  const printFile = el => {
+    if (!imageTypes.includes(el.fileType)) {
+      window.open(el.fileUrl, '_blank')
+      return
+    }
+    flushSync(() => setSelectedImage(el))
+    handlePrint()
+  }
 
-//         <Box display="none">
-//           <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
-//         </Box>
+  return (
+    <>
+      <Box display="flex" flexDirection="column" gap="10px" py="14px">
+        {files.map((el, index) => (
+          <div key={index}>
+            <p className={styles.dapTitle}>{el.title}</p>
+            {el.fileUrl && (
+              <Box display="flex" gap="8px" alignItems="center">
+                <Button
+                  className={styles.dapBtn}
+                  onClick={e => {
+                    e.stopPropagation()
+                    handleImagePreview(el)
+                  }}
+                >
+                  <span>{el.fileName}</span>.{el.fileType}
+                </Button>
 
-//         <ImageModal
-//           isOpenModal={isOpenModal}
-//           handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
-//           imageList={[selectedImage.fileUrl]}
-//           currentImageIndex={0}
-//           handleCurrentImageIndex={() => null}
-//           controls={() => (
-//             <>
-//               <Button onClick={() => handlePrint()}>
-//                 <PrintIcon
-//                   classes={{
-//                     root: styles.printIconModal,
-//                   }}
-//                 />
-//               </Button>
-//             </>
-//           )}
-//         />
-//       </>
-//     )
-//   }, styles),
-// )
+                <IconButton
+                  sx={{ color: '#0164F4' }}
+                  onClick={e => {
+                    e.stopPropagation()
+                    printFile(el)
+                  }}
+                >
+                  <PrintIcon
+                    classes={{
+                      root: styles.printIcon,
+                    }}
+                  />
+                </IconButton>
+              </Box>
+            )}
+            {!el.fileUrl && (
+              <Typography sx={{ marginLeft: '25px', width: 'fit-content' }}>
+                {t(TranslationKey['Not added'])}
+              </Typography>
+            )}
+          </div>
+        ))}
+      </Box>
 
-// export const OrderBoxesCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, superbox, superboxQty, qty, box, product, withoutSku, withQuantity }) =>
-//       superbox ? (
-//         <div className={styles.orderBoxesWrapper}>
-//           <SuperboxQtyCell qty={qty} superbox={superboxQty} />
-//           <OrderManyItemsCell box={box} withoutSku={withoutSku} withQuantity={withQuantity} />
-//         </div>
-//       ) : (
-//         <div className={styles.orderBoxesWrapper}>
-//           {/* <div className={styles.fixedTextWidth}>
-//             <MultilineTextCell text={`x${qty}`} />
-//           </div> */}
-//           <OrderCell
-//             product={product}
-//             superbox={superboxQty}
-//             box={box}
-//             withoutSku={withoutSku}
-//             withQuantity={withQuantity}
-//           />
-//         </div>
-//       ),
-//     styles,
-//   ),
-// )
+      <Box display="none">
+        <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
+      </Box>
 
-// export const renderFieldValueCell = value => (!value && value !== 0 ? '-' : value)
+      <ImageModal
+        isOpenModal={isOpenModal}
+        handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
+        imageList={[selectedImage.fileUrl]}
+        currentImageIndex={0}
+        handleCurrentImageIndex={() => null}
+        controls={() => (
+          <>
+            <Button onClick={() => handlePrint()}>
+              <PrintIcon
+                classes={{
+                  root: styles.printIconModal,
+                }}
+              />
+            </Button>
+          </>
+        )}
+      />
+    </>
+  )
+})
 
-// export const WarehouseTariffDestinationCell = React.memo(
-//   withStyles(
-//     () => (
-//       <div>
-//         <Typography>{'US West Coast'}</Typography>
-//         <Typography>{'US Central '}</Typography>
-//         <Typography>{'US East Coast '}</Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const OrderBoxesCell = React.memo(({ superbox, superboxQty, qty, box, product, withoutSku, withQuantity }) => {
+  const styles = useDataGridCellsStyles()
 
-// export const WarehouseTariffRatesCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, conditionsByRegion, inYuans }) => (
-//       <div className={styles.tariffRatesWrapper}>
-//         <Typography>
-//           {toFixed(
-//             inYuans
-//               ? roundHalf(conditionsByRegion.west.rate * conditionsByRegion.yuanToDollarRate)
-//               : conditionsByRegion.west.rate,
-//             2,
-//           ) || '-'}
-//         </Typography>
-//         <Typography>
-//           {toFixed(
-//             inYuans
-//               ? roundHalf(conditionsByRegion.central.rate * conditionsByRegion.yuanToDollarRate)
-//               : conditionsByRegion.central.rate,
-//             2,
-//           ) || '-'}
-//         </Typography>
-//         <Typography>
-//           {toFixed(
-//             inYuans
-//               ? roundHalf(conditionsByRegion.east.rate * conditionsByRegion.yuanToDollarRate)
-//               : conditionsByRegion.east.rate,
-//             2,
-//           ) || '-'}
-//         </Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return superbox ? (
+    <div className={styles.orderBoxesWrapper}>
+      <SuperboxQtyCell qty={qty} superbox={superboxQty} />
+      <OrderManyItemsCell box={box} withoutSku={withoutSku} withQuantity={withQuantity} />
+    </div>
+  ) : (
+    <div className={styles.orderBoxesWrapper}>
+      {/* <div className={styles.fixedTextWidth}>
+              <MultilineTextCell text={`x${qty}`} />
+            </div> */}
+      <OrderCell
+        product={product}
+        superbox={superboxQty}
+        box={box}
+        withoutSku={withoutSku}
+        withQuantity={withQuantity}
+      />
+    </div>
+  )
+})
 
-// export const WarehouseTariffDatesCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, cls, etd, eta }) => (
-//       <div>
-//         <div className={styles.warehouseTariffDatesItem}>
-//           <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
-//           <Typography>{!cls ? '-' : formatDateWithoutTime(cls)}</Typography>
-//         </div>
+export const renderFieldValueCell = React.memo(value => (!value && value !== 0 ? '-' : value))
 
-//         <div className={styles.warehouseTariffDatesItem}>
-//           <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
-//           <Typography>{!etd ? '-' : formatDateWithoutTime(etd)}</Typography>
-//         </div>
+export const WarehouseTariffDestinationCell = React.memo(() => (
+  <div>
+    <Typography>{'US West Coast'}</Typography>
+    <Typography>{'US Central '}</Typography>
+    <Typography>{'US East Coast '}</Typography>
+  </div>
+))
 
-//         <div className={styles.warehouseTariffDatesItem}>
-//           <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
-//           <Typography>{!eta ? '-' : formatDateWithoutTime(eta)}</Typography>
-//         </div>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const WarehouseTariffRatesCell = React.memo(({ conditionsByRegion, inYuans }) => {
+  const styles = useDataGridCellsStyles()
 
-// export const TaskPriorityCell =
-//   /* React.memo( */
-//   withStyles(
-//     ({ classes: classNames, curPriority, onChangePriority, taskId, disabled }) => (
-//       <PrioritySelect
-//         setCurrentPriority={priority => onChangePriority(taskId, priority)}
-//         currentPriority={curPriority}
-//         disabled={disabled}
-//       />
-//     ),
-//     styles,
-//   )
-// /* ) */
+  return (
+    <div className={styles.tariffRatesWrapper}>
+      <Typography>
+        {toFixed(
+          inYuans
+            ? roundHalf(conditionsByRegion.west.rate * conditionsByRegion.yuanToDollarRate)
+            : conditionsByRegion.west.rate,
+          2,
+        ) || '-'}
+      </Typography>
+      <Typography>
+        {toFixed(
+          inYuans
+            ? roundHalf(conditionsByRegion.central.rate * conditionsByRegion.yuanToDollarRate)
+            : conditionsByRegion.central.rate,
+          2,
+        ) || '-'}
+      </Typography>
+      <Typography>
+        {toFixed(
+          inYuans
+            ? roundHalf(conditionsByRegion.east.rate * conditionsByRegion.yuanToDollarRate)
+            : conditionsByRegion.east.rate,
+          2,
+        ) || '-'}
+      </Typography>
+    </div>
+  )
+})
 
-// export const WarehouseDestinationAndTariffCell = React.memo(
-//   withStyles(
-//     ({
-//       classes: classNames,
-//       boxesMy,
-//       destinations,
-//       destinationsFavourites,
-//       setDestinationsFavouritesItem,
-//       storekeepers,
-//       onSelectDestination,
-//       setShowSelectionStorekeeperAndTariffModal,
-//       onClickSetTariff,
-//       disabled,
-//     }) => {
-//       const currentStorekeeper = storekeepers?.find(el => el._id === boxesMy?.storekeeper?._id)
-//       const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)
+export const WarehouseTariffDatesCell = React.memo(({ cls, etd, eta }) => {
+  const styles = useDataGridCellsStyles()
 
-//       const tariffName = currentTariff?.name
+  return (
+    <div>
+      <div className={styles.warehouseTariffDatesItem}>
+        <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
+        <Typography>{!cls ? '-' : formatDateWithoutTime(cls)}</Typography>
+      </div>
 
-//       const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
+      <div className={styles.warehouseTariffDatesItem}>
+        <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
+        <Typography>{!etd ? '-' : formatDateWithoutTime(etd)}</Typography>
+      </div>
+      <div className={styles.warehouseTariffDatesItem}>
+        <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
+        <Typography>{!eta ? '-' : formatDateWithoutTime(eta)}</Typography>
+      </div>
+    </div>
+  )
+})
 
-//       const firstNumOfCode = curDestination?.zipCode?.[0]
+export const EditOrRemoveIconBtnsCell = React.memo(
+  ({
+    row,
+    handlers,
+    isSubUsersTable,
+    disableActionBtn,
+    tooltipFirstButton,
+    isFirstRow,
+    isArchive,
+    isSave,
+    tooltipArchiveButton,
+  }) => {
+    const { classes: styles } = useDataGridCellsStyles()
 
-//       const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
+    return (
+      <div className={styles.editOrRemoveIconBtnsCell}>
+        {!isSave && (
+          <Button
+            tooltipInfoContent={isFirstRow && tooltipFirstButton}
+            disabled={disableActionBtn}
+            className={styles.removeOrEditBtn}
+            onClick={() => handlers && handlers.onClickEditBtn(row)}
+          >
+            {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+          </Button>
+        )}
 
-//       const tariffRate =
-//         currentTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-//         currentTariff?.destinationVariations?.find(el => el._id === boxesMy?.variationTariff?._id)?.pricePerKgUsd
+        {handlers?.onTriggerArchive && (
+          <Button
+            success={isArchive}
+            tooltipInfoContent={tooltipArchiveButton && t(TranslationKey['Move to archive'])}
+            disabled={disableActionBtn}
+            className={styles.removeOrEditBtn}
+            onClick={() => handlers?.onTriggerArchive(row)}
+          >
+            <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
+          </Button>
+        )}
+      </div>
+    )
+  },
+)
 
-//       return (
-//         <div className={styles.destinationAndTariffWrapper}>
-//           <WithSearchSelect
-//             disabled={disabled}
-//             width={160}
-//             selectedItemName={
-//               destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
-//             }
-//             data={
-//               boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-//                 ? destinations
-//                     // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-//                     // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
-//                     .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
-//                 : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-//             }
-//             searchFields={['name']}
-//             favourites={destinationsFavourites}
-//             onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-//             onClickNotChosen={() =>
-//               onSelectDestination(boxesMy?._id, {
-//                 destinationId: null,
-//               })
-//             }
-//             onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
-//           />
-//           <Button
-//             disableElevation
-//             disabled={disabled}
-//             className={styles.storekeeperBtn}
-//             onClick={e => {
-//               e.stopPropagation()
-//               onClickSetTariff(boxesMy)
-//               setShowSelectionStorekeeperAndTariffModal()
-//             }}
-//           >
-//             {/* {boxesMy?.storekeeper?._id
-//                 ? `${
-//                     storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name ||
-//                     t(TranslationKey['Not available'])
-//                   } /
-//                         ${
-//                           boxesMy?.storekeeper?._id
-//                             ? `${tariffName ? tariffName + ' / ' : ''}${
-//                                 regionOfDeliveryName ? regionOfDeliveryName : ''
-//                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-//                             : 'none'
-//                         }`
-//                 : t(TranslationKey.Select)} */}
-//             {boxesMy?.storekeeper?._id
-//               ? `${
-//                   boxesMy?.storekeeper?._id
-//                     ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-//                     : 'none'
-//                 }`
-//               : t(TranslationKey.Select)}
-//           </Button>
-//         </div>
-//       )
-//     },
-//     styles,
-//   ),
-// )
+export const TaskPriorityCell = React.memo(({ curPriority, onChangePriority, taskId, disabled }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const CheckboxCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, checked, disabled, onClick }) => (
-//       <div className={styles.checkboxWrapper}>
-//         <Checkbox
-//           disabled={disabled}
-//           checked={checked}
-//           onClick={e => {
-//             e.stopPropagation()
+  return (
+    <PrioritySelect
+      setCurrentPriority={priority => onChangePriority(taskId, priority)}
+      currentPriority={curPriority}
+      disabled={disabled}
+    />
+  )
+})
 
-//             onClick()
-//           }}
-//         />
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const WarehouseDestinationAndTariffCell = React.memo(
+  ({
+    boxesMy,
+    destinations,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+    storekeepers,
+    onSelectDestination,
+    setShowSelectionStorekeeperAndTariffModal,
+    onClickSetTariff,
+    disabled,
+  }) => {
+    const { classes: styles } = useDataGridCellsStyles()
 
-// export const RenderFieldValueCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value }) => (
-//       <Typography className={styles.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
-//     ),
-//     styles,
-//   ),
-// )
+    const currentStorekeeper = storekeepers?.find(el => el._id === boxesMy?.storekeeper?._id)
+    const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)
 
-// export const BatchTrackingCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => (
-//       <div className={styles.batchTrackingWrapper}>
-//         <Field
-//           containerClasses={styles.batchTrackingContainer}
-//           label={t(TranslationKey['Track number'])}
-//           labelClasses={styles.batchTrackingTitle}
-//           inputComponent={
-//             <ChangeInputCommentCell
-//               disableMultiline={disableMultilineForTrack}
-//               disabled={disabled}
-//               id={id}
-//               rowsCount={1}
-//               maxLength={64}
-//               placeholder={t(TranslationKey['Enter track number'])}
-//               text={trackingNumber}
-//               onClickSubmit={rowHandlers?.onClickSaveTrackingNumber}
-//             />
-//           }
-//         />
+    const tariffName = currentTariff?.name
 
-//         <Field
-//           containerClasses={styles.batchTrackingContainer}
-//           label={t(TranslationKey['Arrival date'])}
-//           labelClasses={styles.batchTrackingTitle}
-//           inputComponent={
-//             <DatePickerCell
-//               disabled={disabled}
-//               id={id}
-//               arrivalDate={arrivalDate}
-//               onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}
-//             />
-//           }
-//         />
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+    const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
 
-// export const DatePickerCell = React.memo(
-//   withStyles(({ classes: classNames, id, arrivalDate, onClickSaveArrivalDate, disabled }) => {
-//     const [value, setValue] = useState(arrivalDate || '')
+    const firstNumOfCode = curDestination?.zipCode?.[0]
+    const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
 
-//     useEffect(() => {
-//       setValue(arrivalDate)
-//     }, [arrivalDate])
+    const tariffRate =
+      currentTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+      currentTariff?.destinationVariations?.find(el => el._id === boxesMy?.variationTariff?._id)?.pricePerKgUsd
 
-//     const [isShow, setShow] = useState(false)
+    return (
+      <div className={styles.destinationAndTariffWrapper}>
+        <WithSearchSelect
+          disabled={disabled}
+          width={160}
+          selectedItemName={
+            destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
+          }
+          data={
+            boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+              ? destinations.filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
+              : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+          }
+          searchFields={['name']}
+          favourites={destinationsFavourites}
+          onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+          onClickNotChosen={() =>
+            onSelectDestination(boxesMy?._id, {
+              destinationId: null,
+            })
+          }
+          onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
+        />
+        <Button
+          disableElevation
+          disabled={disabled}
+          className={styles.storekeeperBtn}
+          onClick={e => {
+            e.stopPropagation()
+            onClickSetTariff(boxesMy)
+            setShowSelectionStorekeeperAndTariffModal()
+          }}
+        >
+          {boxesMy?.storekeeper?._id
+            ? `${
+                boxesMy?.storekeeper?._id
+                  ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
+                  : 'none'
+              }`
+            : t(TranslationKey.Select)}
+        </Button>
+      </div>
+    )
+  },
+)
 
-//     return (
-//       <div className={styles.arrivalDateWrapper}>
-//         <NewDatePicker
-//           disabled={disabled}
-//           className={styles.dateField}
-//           value={value}
-//           onChange={e => {
-//             setValue(e)
-//           }}
-//         />
-//         {!!onClickSaveArrivalDate && (
-//           <div className={styles.arrivalDateControlWrapper}>
-//             {isShow && arrivalDate !== value ? (
-//               <DoneIcon classes={{ root: cx(styles.doneIcon, styles.arrivalDateIcon) }} />
-//             ) : arrivalDate !== value ? (
-//               <div className={cx(styles.iconWrapper, styles.iconWrapperArrivalDate)}>
-//                 <SaveIcon
-//                   className={cx(styles.changeInputIcon, styles.arrivalDateIcon)}
-//                   onClick={() => {
-//                     setShow(true)
-//                     setTimeout(() => {
-//                       setShow(false)
-//                     }, 2000)
-//                     onClickSaveArrivalDate(id, value)
-//                   }}
-//                 />
-//                 <ClearIcon
-//                   classes={{ root: cx(styles.clearIcon, styles.arrivalDateIcon) }}
-//                   onClick={() => setValue(arrivalDate)}
-//                 />
-//               </div>
-//             ) : null}
-//           </div>
-//         )}
-//       </div>
-//     )
-//   }, styles),
-// )
+export const CheckboxCell = React.memo(({ checked, disabled, onClick }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+
+  return (
+    <div className={styles.checkboxWrapper}>
+      <Checkbox
+        disabled={disabled}
+        checked={checked}
+        onClick={e => {
+          e.stopPropagation()
+
+          onClick()
+        }}
+      />
+    </div>
+  )
+})
+
+export const RenderFieldValueCell = React.memo(({ value }) => {
+  const { styles } = useDataGridCellsStyles()
+
+  return <Typography className={styles.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
+})
+
+export const BatchTrackingCell = React.memo(
+  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => {
+    const { classes: styles } = useDataGridCellsStyles()
+
+    return (
+      <div className={styles.batchTrackingWrapper}>
+        <Field
+          containerClasses={styles.batchTrackingContainer}
+          label={t(TranslationKey['Track number'])}
+          labelClasses={styles.batchTrackingTitle}
+          inputComponent={
+            <ChangeInputCommentCell
+              disableMultiline={disableMultilineForTrack}
+              disabled={disabled}
+              id={id}
+              rowsCount={1}
+              maxLength={64}
+              placeholder={t(TranslationKey['Enter track number'])}
+              text={trackingNumber}
+              onClickSubmit={rowHandlers?.onClickSaveTrackingNumber}
+            />
+          }
+        />
+
+        <Field
+          containerClasses={styles.batchTrackingContainer}
+          label={t(TranslationKey['Arrival date'])}
+          labelClasses={styles.batchTrackingTitle}
+          inputComponent={
+            <DatePickerCell
+              disabled={disabled}
+              id={id}
+              arrivalDate={arrivalDate}
+              onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}
+            />
+          }
+        />
+      </div>
+    )
+  },
+)
+
+export const DatePickerCell = React.memo(({ id, arrivalDate, onClickSaveArrivalDate, disabled }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+  const [value, setValue] = useState(arrivalDate || '')
+
+  useEffect(() => {
+    setValue(arrivalDate)
+  }, [arrivalDate])
+
+  const [isShow, setShow] = useState(false)
+
+  return (
+    <div className={styles.arrivalDateWrapper}>
+      <NewDatePicker
+        disabled={disabled}
+        className={styles.dateField}
+        value={value}
+        onChange={e => {
+          setValue(e)
+        }}
+      />
+      {!!onClickSaveArrivalDate && (
+        <div className={styles.arrivalDateControlWrapper}>
+          {isShow && arrivalDate !== value ? (
+            <DoneIcon classes={{ root: cx(styles.doneIcon, styles.arrivalDateIcon) }} />
+          ) : arrivalDate !== value ? (
+            <div className={cx(styles.iconWrapper, styles.iconWrapperArrivalDate)}>
+              <SaveIcon
+                className={cx(styles.changeInputIcon, styles.arrivalDateIcon)}
+                onClick={() => {
+                  setShow(true)
+                  setTimeout(() => {
+                    setShow(false)
+                  }, 2000)
+                  onClickSaveArrivalDate(id, value)
+                }}
+              />
+              <ClearIcon
+                classes={{ root: cx(styles.clearIcon, styles.arrivalDateIcon) }}
+                onClick={() => setValue(arrivalDate)}
+              />
+            </div>
+          ) : null}
+        </div>
+      )}
+    </div>
+  )
+})
 
 export const MultilineTextCell = React.memo(
   ({
-    text,
+    text = '',
     noText,
     color,
     withTooltip,
@@ -1444,51 +1441,46 @@ export const MultilineTextCell = React.memo(
   },
 )
 
-// export const VacantRequestPriceCell = React.memo(
-//   withStyles(({ classes: classNames, price, cashBackInPercent, AlignLeft }) => {
-//     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
+export const VacantRequestPriceCell = React.memo(({ price, cashBackInPercent, AlignLeft }) => {
+  const { styles } = useDataGridCellsStyles()
+  const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
 
-//     return (
-//       <div className={cx(styles.priceCellWrapper, { [styles.priceCellWrapperAlignLeft]: AlignLeft })}>
-//         {discountedPrice && cashBackInPercent ? (
-//           <Typography
-//             className={cx(styles.priceText, {
-//               [styles.newPrice]: discountedPrice && cashBackInPercent,
-//             })}
-//           >
-//             {'$ ' + toFixed(discountedPrice, 2)}
-//           </Typography>
-//         ) : null}
+  return (
+    <div className={cx(styles.priceCellWrapper, { [styles.priceCellWrapperAlignLeft]: AlignLeft })}>
+      {discountedPrice && cashBackInPercent ? (
+        <Typography
+          className={cx(styles.priceText, {
+            [styles.newPrice]: discountedPrice && cashBackInPercent,
+          })}
+        >
+          {'$ ' + toFixed(discountedPrice, 2)}
+        </Typography>
+      ) : null}
 
-//         <Typography
-//           className={cx(styles.priceText, {
-//             [styles.oldPrice]: discountedPrice && cashBackInPercent,
-//           })}
-//         >
-//           {'$ ' + toFixed(price, 2)}
-//         </Typography>
-//       </div>
-//     )
-//   }, styles),
-// )
+      <Typography
+        className={cx(styles.priceText, {
+          [styles.oldPrice]: discountedPrice && cashBackInPercent,
+        })}
+      >
+        {'$ ' + toFixed(price, 2)}
+      </Typography>
+    </div>
+  )
+})
 
-// export const OrdersIdsItemsCell = React.memo(
-//   withStyles(({ classes: classNames, value }) => {
-//     const sortedValue = value?.split('item')
+export const OrdersIdsItemsCell = React.memo(({ value }) => {
+  const { styles } = useDataGridCellsStyles()
+  const sortedValue = value?.split('item')
+  const orderIds = sortedValue[0]
+  const ordersItems = 'item' + sortedValue[1]
 
-//     const orderIds = sortedValue[0]
-
-//     const ordersItems = 'item' + sortedValue[1]
-
-//     return (
-//       <div className={styles.orderIdsItemsWrapper}>
-//         <MultilineTextCell text={orderIds} />
-
-//         <MultilineTextCell text={ordersItems} />
-//       </div>
-//     )
-//   }, styles),
-// )
+  return (
+    <div className={styles.orderIdsItemsWrapper}>
+      <MultilineTextCell text={orderIds} />
+      <MultilineTextCell text={ordersItems} />
+    </div>
+  )
+})
 
 export const CommentOfSbCell = React.memo(({ productsInWarehouse }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -1526,63 +1518,68 @@ export const CommentOfSbCell = React.memo(({ productsInWarehouse }) => {
   )
 })
 
-// export const MultilineTextAlignLeftCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, text, withTooltip, isAsin, pointer, fourLines }) =>
-//       withTooltip ? (
-//         <Tooltip title={text}>
-//           <div className={styles.multilineTextAlignLeftWrapper}>
-//             <Typography
-//               // disabled
-//               className={cx(
-//                 styles.multilineTextAlignLeft,
-//                 { [styles.cursorPointer]: pointer },
-//                 { [styles.fourLinesTextAlignLeft]: fourLines },
-//               )}
-//             >
-//               {getShortenStringIfLongerThanCount(text, 150)}
-//             </Typography>
-//           </div>
-//         </Tooltip>
-//       ) : (
-//         <div className={styles.multilineTextAlignLeftWrapper}>
-//           {isAsin ? (
-//             <Typography
-//               className={cx(styles.multilineAsinTextAlignLeft, { [styles.fourLinesTextAlignLeft]: fourLines })}
-//             >
-//               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-//             </Typography>
-//           ) : (
-//             <Typography
-//               className={cx(styles.multilineTextAlignLeft, {
-//                 [styles.multilineTextAlignLeftSub]: isAsin,
-//                 [styles.cursorPointer]: pointer,
-//                 [styles.fourLinesTextAlignLeft]: fourLines,
-//               })}
-//             >
-//               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-//             </Typography>
-//           )}
-//           {isAsin ? <CopyValue text={text} /> : null}
-//         </div>
-//       ),
-//     styles,
-//   ),
-// )
+export const MultilineTextAlignLeftCell = React.memo(({ text, withTooltip, isAsin, pointer, fourLines }) => {
+  const { styles } = useDataGridCellsStyles()
 
-// export const MultilineTextAlignLeftHeaderCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, text }) => (
-//       <div className={styles.multilineTextAlignLeftHeaderWrapper}>
-//         <Typography className={styles.multilineTextAlignLeftHeader}>{text}</Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return withTooltip ? (
+    <Tooltip title={text}>
+      <div className={styles.multilineTextAlignLeftWrapper}>
+        <Typography
+          // disabled
+          className={cx(
+            styles.multilineTextAlignLeft,
+            { [styles.cursorPointer]: pointer },
+            { [styles.fourLinesTextAlignLeft]: fourLines },
+          )}
+        >
+          {getShortenStringIfLongerThanCount(text, 150)}
+        </Typography>
+      </div>
+    </Tooltip>
+  ) : (
+    <div className={styles.multilineTextAlignLeftWrapper}>
+      {isAsin ? (
+        <Typography className={cx(styles.multilineAsinTextAlignLeft, { [styles.fourLinesTextAlignLeft]: fourLines })}>
+          {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+        </Typography>
+      ) : (
+        <Typography
+          className={cx(styles.multilineTextAlignLeft, {
+            [styles.multilineTextAlignLeftSub]: isAsin,
+            [styles.cursorPointer]: pointer,
+            [styles.fourLinesTextAlignLeft]: fourLines,
+          })}
+        >
+          {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+        </Typography>
+      )}
+      {isAsin ? <CopyValue text={text} /> : null}
+    </div>
+  )
+})
+
+export const MultilineTextAlignLeftHeaderCell = React.memo(({ text }) => {
+  const { styles } = useDataGridCellsStyles()
+
+  return (
+    <div className={styles.multilineTextAlignLeftHeaderWrapper}>
+      <Typography className={styles.multilineTextAlignLeftHeader}>{text}</Typography>
+    </div>
+  )
+})
 
 export const MultilineTextHeaderCell = React.memo(
-  ({ text, withIcon, isShowIconOnHover, isFilterActive, component, textCenter, color, withTooltip, tooltipText }) => {
+  ({
+    text = '',
+    withIcon,
+    isShowIconOnHover,
+    isFilterActive,
+    component,
+    textCenter,
+    color,
+    withTooltip,
+    tooltipText,
+  }) => {
     const { classes: styles } = useDataGridCellsStyles()
 
     return (
@@ -1610,79 +1607,68 @@ export const MultilineTextHeaderCell = React.memo(
   },
 )
 
-// export const IconHeaderCell = React.memo(withStyles(({ classes: classNames, url }) => <img src={url} />, styles))
+export const IconHeaderCell = React.memo(({ url }) => <img src={url} />)
 
-// export const PriorityAndChinaDeliverCell = React.memo(
-//   withStyles(({ classes: classNames, priority, chinaDelivery, status, isRequest, onClickOpenInNewTab }) => {
-//     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
-//     const isUrgent =
-//       Number(priority) === orderPriority.urgentPriority ||
-//       (isRequest && Number(priority) === requestPriority.urgentPriority)
+export const PriorityAndChinaDeliverCell = React.memo(
+  ({ priority, chinaDelivery, status, isRequest, onClickOpenInNewTab }) => {
+    const { styles } = useDataGridCellsStyles()
+    const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+    const isUrgent =
+      Number(priority) === orderPriority.urgentPriority ||
+      (isRequest && Number(priority) === requestPriority.urgentPriority)
 
-//     return (
-//       <div className={styles.priorityAndChinaDeliveryWrapper}>
-//         {onClickOpenInNewTab && (
-//           <OpenInNewTabCell
-//             onClickOpenInNewTab={e => {
-//               e.stopPropagation()
-//               onClickOpenInNewTab()
-//             }}
-//           />
-//         )}
+    return (
+      <div className={styles.priorityAndChinaDeliveryWrapper}>
+        {onClickOpenInNewTab && (
+          <OpenInNewTabCell
+            onClickOpenInNewTab={e => {
+              e.stopPropagation()
+              onClickOpenInNewTab()
+            }}
+          />
+        )}
 
-//         {isPendingOrder ? <ClockIcon className={styles.clockIcon} /> : null}
+        {isPendingOrder ? <ClockIcon className={styles.clockIcon} /> : null}
 
-//         <div className={styles.priorityAndChinaDelivery}>
-//           {isUrgent ? <FireIcon /> : null}
+        <div className={styles.priorityAndChinaDelivery}>
+          {isUrgent ? <FireIcon /> : null}
 
-//           {chinaDelivery === true ? <TruckIcon /> : null}
-//         </div>
-//       </div>
-//     )
-//   }, styles),
-// )
+          {chinaDelivery === true ? <TruckIcon /> : null}
+        </div>
+      </div>
+    )
+  },
+)
 
-// export const BoxesAndQuantity = React.memo(
-//   withStyles(({ classes: classNames, boxesData }) => {
-//     if (Array.isArray(boxesData)) {
-//       const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
-//       const filteredBoxes = [...new Set(mergedBoxes)]
-//       const count = mergedBoxes.reduce((acc, el) => {
-//         acc[el] = (acc[el] || 0) + 1
-//         return acc
-//       }, {})
-//       const boxes = filteredBoxes.map((item, i) =>
-//         item ? (
-//           <Typography key={i} className={styles.boxesAndQuantityText}>
-//             {item}
-//             {count[item] !== 1 ? ` x ${count[item]}` : ''}
-//             {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
-//           </Typography>
-//         ) : null,
-//       )
-//       return <div className={styles.boxesAndQuantityWrapper}>{boxes}</div>
-//     } else {
-//       return (
-//         <div className={styles.boxesAndQuantityWrapper}>
-//           <Typography className={styles.boxesAndQuantityText}>
-//             {`${boxesData.amount}x${boxesData.items[0].amount}`}
-//           </Typography>
-//         </div>
-//       )
-//     }
-//   }, styles),
-// )
-
-// export const TextHeaderCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, text }) => (
-//       <div className={styles.textHeaderWrapper}>
-//         <Typography className={styles.headerText}>{text}</Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const BoxesAndQuantity = React.memo(({ boxesData }) => {
+  const { styles } = useDataGridCellsStyles()
+  if (Array.isArray(boxesData)) {
+    const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
+    const filteredBoxes = [...new Set(mergedBoxes)]
+    const count = mergedBoxes.reduce((acc, el) => {
+      acc[el] = (acc[el] || 0) + 1
+      return acc
+    }, {})
+    const boxes = filteredBoxes.map((item, i) =>
+      item ? (
+        <Typography key={i} className={styles.boxesAndQuantityText}>
+          {item}
+          {count[item] !== 1 ? ` x ${count[item]}` : ''}
+          {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
+        </Typography>
+      ) : null,
+    )
+    return <div className={styles.boxesAndQuantityWrapper}>{boxes}</div>
+  } else {
+    return (
+      <div className={styles.boxesAndQuantityWrapper}>
+        <Typography className={styles.boxesAndQuantityText}>
+          {`${boxesData.amount}x${boxesData.items[0].amount}`}
+        </Typography>
+      </div>
+    )
+  }
+})
 
 export const MultilineStatusCell = React.memo(({ status, leftAlign }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -1696,275 +1682,229 @@ export const MultilineStatusCell = React.memo(({ status, leftAlign }) => {
   )
 })
 
-// export const TaskStatusCell = React.memo(
-//   withStyles(({ classes: classNames, status }) => {
-//     const colorByStatus = () => {
-//       if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
-//         return '#F3AF00'
-//       } else if ([TaskStatus.SOLVED].includes(status)) {
-//         return '#00B746'
-//       } else if ([TaskStatus.NOT_SOLVED].includes(status)) {
-//         return '#FF1616'
-//       } else {
-//         return '#black'
-//       }
-//     }
+export const TaskStatusCell = React.memo(({ status }) => {
+  const { styles } = useDataGridCellsStyles()
 
-//     const colorStatus = colorByStatus()
+  const colorByStatus = () => {
+    if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
+      return '#F3AF00'
+    } else if ([TaskStatus.SOLVED].includes(status)) {
+      return '#00B746'
+    } else if ([TaskStatus.NOT_SOLVED].includes(status)) {
+      return '#FF1616'
+    } else {
+      return '#black'
+    }
+  }
 
-//     return (
-//       <div className={styles.statusWrapper}>
-//         <Typography className={styles.orderStatusText} style={{ color: colorStatus }}>
-//           {TaskStatusTranslate(status)}
-//         </Typography>
-//       </div>
-//     )
-//   }, styles),
-// )
+  const colorStatus = colorByStatus()
 
-// export const RequestStatusCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, status, isChat, styles, languageTag }) => (
-//       <div className={styles.statusWrapper}>
-//         <Typography
-//           className={cx(styles.statusText, { [styles.statusTextChat]: isChat })}
-//           style={{ ...styles, color: colorByStatus(status) }}
-//         >
-//           {MyRequestStatusTranslate(status)}
-//         </Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return (
+    <div className={styles.statusWrapper}>
+      <Typography className={styles.orderStatusText} style={{ color: colorStatus }}>
+        {TaskStatusTranslate(status)}
+      </Typography>
+    </div>
+  )
+})
 
-// export const MultilineRequestStatusCell = React.memo(
-//   withStyles(({ classes: classNames, status, fontSize = '14px', leftAlign }) => {
-//     // const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
+export const RequestStatusCell = React.memo(({ status, isChat, styles }) => {
+  const { style } = useDataGridCellsStyles()
 
-//     // useEffect(() => {
-//     //   setStatusTranslate(MyRequestStatusTranslate(status))
-//     // }, [languageTag])
+  return (
+    <div className={style.statusWrapper}>
+      <Typography
+        className={cx(style.statusText, { [style.statusTextChat]: isChat })}
+        style={{ ...styles, color: colorByStatus(status) }}
+      >
+        {MyRequestStatusTranslate(status)}
+      </Typography>
+    </div>
+  )
+})
 
-//     const colorByStatus = () => {
-//       if ([RequestStatus.DRAFT].includes(status)) {
-//         return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
-//       } else if (
-//         [
-//           RequestStatus.CANCELED_BY_CREATOR,
-//           RequestStatus.FORBID_NEW_PROPOSALS,
-//           RequestStatus.CANCELED_BY_ADMIN,
-//         ].includes(status)
-//       ) {
-//         return '#FF1616'
-//       } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
-//         return '#00B746'
-//       } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
-//         return '#F3AF00'
-//       } else if ([RequestStatus.EXPIRED].includes(status)) {
-//         return '#C4C4C4'
-//       } else {
-//         return 'black'
-//       }
-//     }
+export const MultilineRequestStatusCell = React.memo(({ status, fontSize = '14px' }) => {
+  const { styles } = useDataGridCellsStyles()
 
-//     const colorStatus = colorByStatus()
+  const colorByStatus = () => {
+    if ([RequestStatus.DRAFT].includes(status)) {
+      return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
+    } else if (
+      [RequestStatus.CANCELED_BY_CREATOR, RequestStatus.FORBID_NEW_PROPOSALS, RequestStatus.CANCELED_BY_ADMIN].includes(
+        status,
+      )
+    ) {
+      return '#FF1616'
+    } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
+      return '#00B746'
+    } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
+      return '#F3AF00'
+    } else if ([RequestStatus.EXPIRED].includes(status)) {
+      return '#C4C4C4'
+    } else {
+      return 'black'
+    }
+  }
 
-//     return (
-//       <div className={styles.multilineTextWrapper}>
-//         <Typography className={styles.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-//           {MyRequestStatusTranslate(status)}
-//         </Typography>
-//       </div>
-//     )
-//   }, styles),
-// )
+  const colorStatus = colorByStatus()
 
-// export const TaskTypeCell = React.memo(
-//   withStyles(({ classes: classNames, operationType }) => {
-//     const renderTaskDescription = type => {
-//       switch (type) {
-//         case TaskOperationType.MERGE:
-//           return t(TranslationKey.Merge)
-//         case TaskOperationType.SPLIT:
-//           return t(TranslationKey.Split)
-//         case TaskOperationType.RECEIVE:
-//           return t(TranslationKey.Receive)
-//         case TaskOperationType.EDIT:
-//           return t(TranslationKey.Edit)
-//         case TaskOperationType.EDIT_BY_STOREKEEPER:
-//           return t(TranslationKey['Storekeeper edit'])
-//       }
-//     }
+  return (
+    <div className={styles.multilineTextWrapper}>
+      <Typography className={styles.multilineStatusText} style={{ color: colorStatus, fontSize }}>
+        {MyRequestStatusTranslate(status)}
+      </Typography>
+    </div>
+  )
+})
 
-//     return (
-//       <div className={styles.taskDescriptionScrollWrapper}>
-//         <Typography className={styles.operationTypeText}>{renderTaskDescription(operationType)}</Typography>
-//       </div>
-//     )
-//   }, styles),
-// )
+export const TaskTypeCell = React.memo(({ operationType }) => {
+  const { styles } = useDataGridCellsStyles()
+  const renderTaskDescription = type => {
+    switch (type) {
+      case TaskOperationType.MERGE:
+        return t(TranslationKey.Merge)
+      case TaskOperationType.SPLIT:
+        return t(TranslationKey.Split)
+      case TaskOperationType.RECEIVE:
+        return t(TranslationKey.Receive)
+      case TaskOperationType.EDIT:
+        return t(TranslationKey.Edit)
+      case TaskOperationType.EDIT_BY_STOREKEEPER:
+        return t(TranslationKey['Storekeeper edit'])
+    }
+  }
 
-// export const TaskDescriptionCell = React.memo(
-//   withStyles(({ classes: classNames, task }) => {
-//     const renderProductImages = (product, key, box) => (
-//       <div key={key && key} className={styles.imgWrapper}>
-//         <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={styles.taskDescriptionImg} />
+  return (
+    <div className={styles.taskDescriptionScrollWrapper}>
+      <p className={styles.operationTypeText}>{renderTaskDescription(operationType)}</p>
+    </div>
+  )
+})
 
-//         <div className={styles.taskDescriptionCountWrapper}>
-//           {box?.amount > 1 && (
-//             <Typography className={styles.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>
-//           )}
+export const TaskDescriptionCell = React.memo(({ task }) => {
+  const { styles } = useDataGridCellsStyles()
+  const renderProductImages = (product, key, box) => (
+    <div key={key && key} className={styles.imgWrapper}>
+      <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={styles.taskDescriptionImg} />
 
-//           <Typography className={styles.imgNum}>{product?.amount}</Typography>
-//         </div>
-//       </div>
-//     )
+      <div className={styles.taskDescriptionCountWrapper}>
+        {box?.amount > 1 && <Typography className={styles.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>}
 
-//     const renderBox = (box, key, isOneBox) => (
-//       <div key={key && key} className={styles.imagesWrapper}>
-//         <div className={cx(styles.standartBoxWrapper)}>
-//           {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex, box))}
-//         </div>
-//       </div>
-//     )
+        <Typography className={styles.imgNum}>{product?.amount}</Typography>
+      </div>
+    </div>
+  )
 
-//     const renderBlockProductsImages = (
-//       <div className={styles.blockProductsImagesWrapper}>
-//         {task.boxesBefore && (
-//           <div className={styles.sideWrapper}>
-//             {task.boxesBefore.map((box, index) =>
-//               index !== task.boxesBefore.length - 1 ? (
-//                 <div key={index} className={styles.renderBoxWrapper}>
-//                   {renderBox(box, index)}
-//                   <PlusIcon className={styles.taskDescriptionIcon} />
-//                 </div>
-//               ) : (
-//                 renderBox(box, index, task.boxesBefore.length === 1)
-//               ),
-//             )}
-//           </div>
-//         )}
+  const renderBox = (box, key, isOneBox) => (
+    <div key={key && key} className={styles.imagesWrapper}>
+      <div className={cx(styles.standartBoxWrapper)}>
+        {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex, box))}
+      </div>
+    </div>
+  )
 
-//         <EqualIcon className={styles.taskDescriptionIcon} />
+  const renderBlockProductsImages = (
+    <div className={styles.blockProductsImagesWrapper}>
+      {task.boxesBefore && (
+        <div className={styles.sideWrapper}>
+          {task.boxesBefore.map((box, index) =>
+            index !== task.boxesBefore.length - 1 ? (
+              <div key={index} className={styles.renderBoxWrapper}>
+                {renderBox(box, index)}
+                <PlusIcon className={styles.taskDescriptionIcon} />
+              </div>
+            ) : (
+              renderBox(box, index, task.boxesBefore.length === 1)
+            ),
+          )}
+        </div>
+      )}
 
-//         <div className={styles.sideWrapper}>
-//           {task.boxes?.map((box, index) =>
-//             index !== task.boxes.length - 1 ? (
-//               <div key={index} className={styles.renderBoxWrapper}>
-//                 {renderBox(box, index)}
-//                 <PlusIcon className={styles.taskDescriptionIcon} />
-//               </div>
-//             ) : (
-//               renderBox(box, index, task.boxes.length === 1)
-//             ),
-//           )}
-//         </div>
-//       </div>
-//     )
+      <EqualIcon className={styles.taskDescriptionIcon} />
 
-//     const taskMergeDescription = () => <div className={styles.taskTableCell}>{renderBlockProductsImages}</div>
+      <div className={styles.sideWrapper}>
+        {task.boxes?.map((box, index) =>
+          index !== task.boxes.length - 1 ? (
+            <div key={index} className={styles.renderBoxWrapper}>
+              {renderBox(box, index)}
+              <PlusIcon className={styles.taskDescriptionIcon} />
+            </div>
+          ) : (
+            renderBox(box, index, task.boxes.length === 1)
+          ),
+        )}
+      </div>
+    </div>
+  )
 
-//     const taskDivideDescription = () => <div className={styles.taskTableCell}>{renderBlockProductsImages}</div>
+  const taskMergeDescription = () => <div className={styles.taskTableCell}>{renderBlockProductsImages}</div>
 
-//     const taskReceiveDescription = () => (
-//       <div className={styles.blockProductsImagesWrapper}>
-//         <div className={styles.receiveOrEditWrapper}>
-//           <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} alt="big-box" />
-//           <BoxArrow className={styles.boxArrowSvg} />
+  const taskDivideDescription = () => <div className={styles.taskTableCell}>{renderBlockProductsImages}</div>
 
-//           <div className={styles.gridBoxesWrapper}>
-//             {task.boxesBefore.map((el, i) => (
-//               <div key={i} className={styles.gridBoxWrapper}>
-//                 {el.amount > 1 && (
-//                   <div className={styles.superboxWrapper}>
-//                     <CubeIcon className={styles.cubeIconSvg} />
-//                     <Typography className={styles.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
-//                   </div>
-//                 )}
-//                 <div className={styles.gridEditWrapper}>
-//                   {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     )
+  const taskReceiveDescription = () => (
+    <div className={styles.blockProductsImagesWrapper}>
+      <div className={styles.receiveOrEditWrapper}>
+        <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} alt="big-box" />
+        <BoxArrow className={styles.boxArrowSvg} />
 
-//     const taskEditDescription = () => (
-//       <div className={styles.blockProductsImagesWrapper}>
-//         <div className={styles.receiveOrEditWrapper}>
-//           <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
-//           <EditIcon className={styles.boxEditSvg} />
+        <div className={styles.gridBoxesWrapper}>
+          {task.boxesBefore.map((el, i) => (
+            <div key={i} className={styles.gridBoxWrapper}>
+              {el.amount > 1 && (
+                <div className={styles.superboxWrapper}>
+                  <CubeIcon className={styles.cubeIconSvg} />
+                  <Typography className={styles.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
+                </div>
+              )}
+              <div className={styles.gridEditWrapper}>
+                {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
 
-//           {task.boxesBefore[0]?.amount > 1 && (
-//             <div className={styles.superboxWrapper}>
-//               <CubeIcon className={styles.cubeIconSvg} />
-//               <Typography className={styles.imgNum}>
-//                 {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
-//               </Typography>
-//             </div>
-//           )}
+  const taskEditDescription = () => (
+    <div className={styles.blockProductsImagesWrapper}>
+      <div className={styles.receiveOrEditWrapper}>
+        <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
+        <EditIcon className={styles.boxEditSvg} />
 
-//           <div className={styles.gridEditWrapper}>
-//             {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-//           </div>
-//         </div>
-//       </div>
-//     )
+        {task.boxesBefore[0]?.amount > 1 && (
+          <div className={styles.superboxWrapper}>
+            <CubeIcon className={styles.cubeIconSvg} />
+            <Typography className={styles.imgNum}>
+              {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
+            </Typography>
+          </div>
+        )}
 
-//     const renderTaskDescription = type => {
-//       switch (type) {
-//         case TaskOperationType.MERGE:
-//           return <>{taskMergeDescription()}</>
-//         case TaskOperationType.SPLIT:
-//           return <>{taskDivideDescription()}</>
-//         case TaskOperationType.RECEIVE:
-//           return <>{taskReceiveDescription()}</>
-//         case TaskOperationType.EDIT:
-//           return <>{taskEditDescription()}</>
-//         case TaskOperationType.EDIT_BY_STOREKEEPER:
-//           return <>{taskEditDescription()}</>
-//       }
-//     }
+        <div className={styles.gridEditWrapper}>
+          {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
+        </div>
+      </div>
+    </div>
+  )
 
-//     return <div className={styles.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
-//   }, styles),
-// )
+  const renderTaskDescription = type => {
+    switch (type) {
+      case TaskOperationType.MERGE:
+        return <>{taskMergeDescription()}</>
+      case TaskOperationType.SPLIT:
+        return <>{taskDivideDescription()}</>
+      case TaskOperationType.RECEIVE:
+        return <>{taskReceiveDescription()}</>
+      case TaskOperationType.EDIT:
+        return <>{taskEditDescription()}</>
+      case TaskOperationType.EDIT_BY_STOREKEEPER:
+        return <>{taskEditDescription()}</>
+    }
+  }
 
-// export const IdCell = React.memo(
-//   withStyles(
-//     ({ id }) => (
-//       <React.Fragment>
-//         <Typography>{`id: ${id}`}</Typography>
-//       </React.Fragment>
-//     ),
-//     styles,
-//   ),
-// )
-
-// export const NoActiveBarcodeCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, barCode }) => (
-//       <React.Fragment>
-//         <Typography className={styles.noActivebarCode}>{barCode || '-'}</Typography>
-//       </React.Fragment>
-//     ),
-//     styles,
-//   ),
-// )
-
-// export const ShowBarcodeOrHscodeCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, barCode, hsCode, handlers }) => (
-//       <div className={styles.showButton}>
-//         <Button onClick={() => handlers.showBarcodeOrHscode(barCode, hsCode)}>{t(TranslationKey.View)}</Button>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return <div className={styles.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
+})
 
 export const FourMonthesStockCell = React.memo(({ onClickSaveFourMonthsStock, rowId, fourMonthesStock, value }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -1986,138 +1926,127 @@ export const FourMonthesStockCell = React.memo(({ onClickSaveFourMonthsStock, ro
   )
 })
 
-// export const CommentUsersCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, handler, id, comment, maxLength }) => (
-//       <div className={styles.CommentUsersCellWrapper}>
-//         <ChangeInputCommentCell id={id} text={comment} maxLength={maxLength || 128} onClickSubmit={handler} />
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const CommentUsersCell = React.memo(({ handler, id, comment, maxLength }) => {
+  const { styles } = useDataGridCellsStyles()
 
-// export const ActualCostWithDelivery = React.memo(
-//   withStyles(
-//     ({
-//       classes: classNames,
-//       actualShippingCost,
-//       rowMemo,
-//       calculationMethod,
-//       isActualGreaterTheVolume,
-//       volumeWeightCoefficient,
-//       finalWeight,
-//     }) => {
-//       const getTotalCost = item => {
-//         const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
-//           rowMemo,
-//           item,
-//           volumeWeightCoefficient,
-//           finalWeight,
-//           calculationMethod,
-//           isActualGreaterTheVolume,
-//           actualShippingCost,
-//         )
-//         return itemsQuantity * singleProductPrice + shippingCost
-//       }
+  return (
+    <div className={styles.CommentUsersCellWrapper}>
+      <ChangeInputCommentCell id={id} text={comment} maxLength={maxLength || 128} onClickSubmit={handler} />
+    </div>
+  )
+})
 
-//       return (
-//         <div className={styles.pricesWrapper}>
-//           {rowMemo.items.map((el, i) => (
-//             <Typography key={i} className={styles.multilineText}>
-//               {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
-//             </Typography>
-//           ))}
-//         </div>
-//       )
-//     },
-//     styles,
-//   ),
-// )
+export const ActualCostWithDelivery = React.memo(
+  ({
+    actualShippingCost,
+    rowMemo,
+    calculationMethod,
+    isActualGreaterTheVolume,
+    volumeWeightCoefficient,
+    finalWeight,
+  }) => {
+    const { styles } = useDataGridCellsStyles()
 
-// export const ActualCostWithDeliveryPerUnit = React.memo(
-//   withStyles(
-//     ({
-//       classes: classNames,
-//       actualShippingCost,
-//       rowMemo,
-//       calculationMethod,
-//       isActualGreaterTheVolume,
-//       volumeWeightCoefficient,
-//       finalWeight,
-//     }) => {
-//       const getTotalCost = item => {
-//         const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
-//           rowMemo,
-//           item,
-//           volumeWeightCoefficient,
-//           finalWeight,
-//           calculationMethod,
-//           isActualGreaterTheVolume,
-//           actualShippingCost,
-//         )
+    const getTotalCost = item => {
+      const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
+        rowMemo,
+        item,
+        volumeWeightCoefficient,
+        finalWeight,
+        calculationMethod,
+        isActualGreaterTheVolume,
+        actualShippingCost,
+      )
+      return itemsQuantity * singleProductPrice + shippingCost
+    }
 
-//         const fullBatchPrice = itemsQuantity * singleProductPrice + shippingCost
+    return (
+      <div className={styles.pricesWrapper}>
+        {rowMemo.items.map((el, i) => (
+          <Typography key={i} className={styles.multilineText}>
+            {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
+          </Typography>
+        ))}
+      </div>
+    )
+  },
+)
 
-//         return fullBatchPrice / itemsQuantity
-//       }
+export const ActualCostWithDeliveryPerUnit = React.memo(
+  ({
+    actualShippingCost,
+    rowMemo,
+    calculationMethod,
+    isActualGreaterTheVolume,
+    volumeWeightCoefficient,
+    finalWeight,
+  }) => {
+    const { styles } = useDataGridCellsStyles()
+    const getTotalCost = item => {
+      const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
+        rowMemo,
+        item,
+        volumeWeightCoefficient,
+        finalWeight,
+        calculationMethod,
+        isActualGreaterTheVolume,
+        actualShippingCost,
+      )
 
-//       return (
-//         <div className={styles.pricesWrapper}>
-//           {rowMemo.items.map((el, i) => (
-//             <Typography key={i} className={styles.multilineText}>
-//               {(!!actualShippingCost && toFixedWithDollarSign(getTotalCost(el), 2)) || '-'}
-//             </Typography>
-//           ))}
-//         </div>
-//       )
-//     },
-//     styles,
-//   ),
-// )
+      const fullBatchPrice = itemsQuantity * singleProductPrice + shippingCost
 
-// export const ActiveBarcodeCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, barCode }) => (
-//       <React.Fragment>
-//         {/* <Typography className={styles.noActivebarCode}>{barCode || '-'}</Typography> */}
+      return fullBatchPrice / itemsQuantity
+    }
 
-//         {barCode ? (
-//           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
-//             <Typography className={styles.noActivebarCode}>{barCode}</Typography>
-//           </Link>
-//         ) : (
-//           <Typography className={styles.noActivebarCode}>{'-'}</Typography>
-//         )}
-//       </React.Fragment>
-//     ),
-//     styles,
-//   ),
-// )
+    return (
+      <div className={styles.pricesWrapper}>
+        {rowMemo.items.map((el, i) => (
+          <Typography key={i} className={styles.multilineText}>
+            {(!!actualShippingCost && toFixedWithDollarSign(getTotalCost(el), 2)) || '-'}
+          </Typography>
+        ))}
+      </div>
+    )
+  },
+)
 
-// export const ToFixedWithKgSignCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value, fix, amount }) => (
-//       <div className={styles.multilineTextWrapper}>
-//         <Typography className={styles.multilineText}>
-//           {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}
-//         </Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const ActiveBarcodeCell = React.memo(({ barCode }) => {
+  const { styles } = useDataGridCellsStyles()
 
-// export const SmallRowImageCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, image }) => (
-//       <div className={styles.smallRowImgWrapper}>
-//         <img alt="" className={styles.img} src={getAmazonImageUrl(image)} />
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return (
+    <>
+      {barCode ? (
+        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
+          <Typography className={styles.noActivebarCode}>{barCode}</Typography>
+        </Link>
+      ) : (
+        <Typography className={styles.noActivebarCode}>{'-'}</Typography>
+      )}
+    </>
+  )
+})
+
+export const ToFixedWithKgSignCell = React.memo(({ value, fix, amount }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+
+  return (
+    <div className={styles.multilineTextWrapper}>
+      <Typography className={styles.multilineText}>
+        {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}
+      </Typography>
+    </div>
+  )
+})
+
+export const SmallRowImageCell = React.memo(({ image }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+
+  return (
+    <div className={styles.smallRowImgWrapper}>
+      <img alt="" className={styles.img} src={getAmazonImageUrl(image)} />
+    </div>
+  )
+})
 
 export const ToFixedCell = React.memo(({ value, fix }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -2129,805 +2058,652 @@ export const ToFixedCell = React.memo(({ value, fix }) => {
   )
 })
 
-// export const ToFixedWithDollarSignCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value, fix, leftAlign }) => (
-//       <div className={styles.multilineTextWrapper}>
-//         <Typography className={cx(styles.multilineText, { [styles.multilineLeftAlignText]: leftAlign })}>
-//           {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
-//         </Typography>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const ToFixedWithDollarSignCell = React.memo(({ value, fix, leftAlign }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const SuccessActionBtnCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
-//       <Button
-//         success
-//         tooltipInfoContent={isFirstRow && tooltipText}
-//         className={styles.actionBtn}
-//         onClick={onClickOkBtn}
-//       >
-//         {bTnText}
-//       </Button>
-//     ),
-//     styles,
-//   ),
-// )
+  return (
+    <div className={styles.multilineTextWrapper}>
+      <p className={cx(styles.multilineText, { [styles.multilineLeftAlignText]: leftAlign })}>
+        {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
+      </p>
+    </div>
+  )
+})
 
-// export const NormalActionBtnCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow }) => (
-//       <Button
-//         disabled={disabled}
-//         tooltipInfoContent={isFirstRow && tooltipText}
-//         variant="contained"
-//         color="primary"
-//         className={styles.actionBtn}
-//         onClick={onClickOkBtn}
-//       >
-//         {bTnText}
-//       </Button>
-//     ),
-//     styles,
-//   ),
-// )
+export const SuccessActionBtnCell = React.memo(({ onClickOkBtn, bTnText, tooltipText, isFirstRow }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const WarehouseMyTasksBtnsCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, handlers, isFirstRow, operationType, rowId, boxId }) => (
-//       <div className={styles.warehouseMyTasksBtnsWrapper}>
-//         <Button
-//           success
-//           tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
-//           className={styles.warehouseMyTasksSuccessBtn}
-//           onClick={() => handlers.onClickResolveBtn(rowId)}
-//         >
-//           {t(TranslationKey.Resolve)}
-//         </Button>
+  return (
+    <Button success tooltipInfoContent={isFirstRow && tooltipText} className={styles.actionBtn} onClick={onClickOkBtn}>
+      {bTnText}
+    </Button>
+  )
+})
 
-//         {operationType !== TaskOperationType.RECEIVE && (
-//           <Button
-//             danger
-//             tooltipInfoContent={
-//               isFirstRow && t(TranslationKey['The task will be canceled, the box will keep its previous state'])
-//             }
-//             className={cx(styles.rowCancelBtn, styles.warehouseMyTasksCancelBtn)}
-//             onClick={() => {
-//               handlers.onClickCancelTask(boxId, rowId, operationType)
-//             }}
-//           >
-//             {t(TranslationKey.Cancel)}
-//           </Button>
-//         )}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const NormalActionBtnCell = React.memo(({ onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const ClientTasksActionBtnsCell = React.memo(
-//   withStyles(({ classes: classNames, row, handlers }) => {
-//     const checkIfTaskCouldBeCanceled = status => {
-//       if (status === mapTaskStatusEmumToKey[TaskStatus.NEW]) {
-//         return true
-//       }
-//       return false
-//     }
+  return (
+    <Button
+      disabled={disabled}
+      tooltipInfoContent={isFirstRow && tooltipText}
+      variant="contained"
+      color="primary"
+      className={styles.actionBtn}
+      onClick={onClickOkBtn}
+    >
+      {bTnText}
+    </Button>
+  )
+})
 
-//     const renderTaskInfoBtn = () => (
-//       <Button
-//         variant="contained"
-//         color="primary"
-//         className={styles.infoBtn}
-//         onClick={() => handlers.onClickTaskInfo(row)}
-//       >
-//         {t(TranslationKey.Details)}
-//       </Button>
-//     )
+export const WarehouseMyTasksBtnsCell = React.memo(({ handlers, isFirstRow, operationType, rowId, boxId }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     const renderHistoryItem = () => {
-//       switch (mapTaskOperationTypeKeyToEnum[row.operationType]) {
-//         case TaskOperationType.MERGE:
-//           return (
-//             <React.Fragment>
-//               {renderTaskInfoBtn()}
-//               {checkIfTaskCouldBeCanceled(row.status) && (
-//                 <Button
-//                   danger
-//                   className={styles.cancelTaskBtn}
-//                   onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
-//                 >
-//                   {t(TranslationKey.Cancel)}
-//                 </Button>
-//               )}
-//             </React.Fragment>
-//           )
-//         case TaskOperationType.SPLIT:
-//           return (
-//             <React.Fragment>
-//               {renderTaskInfoBtn()}
-//               {checkIfTaskCouldBeCanceled(row.status) && (
-//                 <Button
-//                   danger
-//                   className={styles.cancelTaskBtn}
-//                   onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
-//                 >
-//                   {t(TranslationKey.Cancel)}
-//                 </Button>
-//               )}
-//             </React.Fragment>
-//           )
-//         case TaskOperationType.RECEIVE:
-//           return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
-//         case TaskOperationType.EDIT_BY_STOREKEEPER:
-//         case TaskOperationType.EDIT:
-//           return (
-//             <React.Fragment>
-//               {renderTaskInfoBtn()}
-//               {checkIfTaskCouldBeCanceled(row.status) && (
-//                 <Button
-//                   danger
-//                   className={styles.cancelTaskBtn}
-//                   onClick={() => {
-//                     handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
-//                   }}
-//                 >
-//                   {t(TranslationKey.Cancel)}
-//                 </Button>
-//               )}
-//             </React.Fragment>
-//           )
-//       }
-//     }
+  return (
+    <div className={styles.warehouseMyTasksBtnsWrapper}>
+      <Button
+        success
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
+        className={styles.warehouseMyTasksSuccessBtn}
+        onClick={() => handlers.onClickResolveBtn(rowId)}
+      >
+        {t(TranslationKey.Resolve)}
+      </Button>
 
-//     return <div className={styles.clientTasksActionBtnsWrapper}>{renderHistoryItem()}</div>
-//   }, styles),
-// )
+      {operationType !== TaskOperationType.RECEIVE && (
+        <Button
+          danger
+          tooltipInfoContent={
+            isFirstRow && t(TranslationKey['The task will be canceled, the box will keep its previous state'])
+          }
+          className={cx(styles.rowCancelBtn, styles.warehouseMyTasksCancelBtn)}
+          onClick={() => {
+            handlers.onClickCancelTask(boxId, rowId, operationType)
+          }}
+        >
+          {t(TranslationKey.Cancel)}
+        </Button>
+      )}
+    </div>
+  )
+})
 
-// export const ClientNotificationsBtnsCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, row, handlers, disabled }) => (
-//       <div className={styles.notificationBtnsWrapper}>
-//         <Button
-//           disabled={disabled}
-//           variant="contained"
-//           color="primary"
-//           className={styles.notificationBtn}
-//           onClick={() => handlers.onTriggerOpenConfirmModal(row)}
-//         >
-//           {t(TranslationKey.Confirm)}
-//         </Button>
-//         <Button
-//           danger
-//           disabled={disabled}
-//           className={styles.notificationBtn}
-//           onClick={() => {
-//             handlers.onTriggerOpenRejectModal(row)
-//           }}
-//         >
-//           {t(TranslationKey.Reject)}
-//         </Button>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const ClientTasksActionBtnsCell = React.memo(({ row, handlers }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const ProductMyRequestsBtnsCell =
-//   //  React.memo(
-//   withStyles(({ classes: classNames, rowId, row, handlers }) => {
-//     const disableOpenResultBtn =
-//       !row.countProposalsByStatuses.acceptedProposals &&
-//       !row.countProposalsByStatuses.atWorkProposals &&
-//       !row.countProposalsByStatuses.verifyingProposals
+  const checkIfTaskCouldBeCanceled = status => {
+    if (status === mapTaskStatusEmumToKey[TaskStatus.NEW]) {
+      return true
+    }
+    return false
+  }
 
-//     return (
-//       <div className={styles.productMyRequestsBtnsWrapper}>
-//         <Button
-//           variant="contained"
-//           color="primary"
-//           className={styles.productMyRequestsBtn}
-//           onClick={() => handlers.onClickOpenRequest(rowId)}
-//         >
-//           {t(TranslationKey['Open a request'])}
-//         </Button>
-//         <Button
-//           success
-//           disabled={disableOpenResultBtn}
-//           className={styles.productMyRequestsBtn}
-//           onClick={() => handlers.onClickOpenResult(rowId)}
-//         >
-//           {t(TranslationKey['Open result'])}
-//         </Button>
-//       </div>
-//     )
-//   }, styles)
-// // )
+  const renderTaskInfoBtn = () => (
+    <Button
+      variant="contained"
+      color="primary"
+      className={styles.infoBtn}
+      onClick={() => handlers.onClickTaskInfo(row)}
+    >
+      {t(TranslationKey.Details)}
+    </Button>
+  )
 
-// export const SuperboxQtyCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, qty, superbox }) => (
-//       <div className={styles.superBoxQtyWrapper}>
-//         <Typography>{qty * superbox}</Typography>
-//         {/* <Typography className={styles.superboxTypo}>{` x ${superbox}`}</Typography> */}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  const renderHistoryItem = () => {
+    switch (mapTaskOperationTypeKeyToEnum[row.operationType]) {
+      case TaskOperationType.MERGE:
+        return (
+          <React.Fragment>
+            {renderTaskInfoBtn()}
+            {checkIfTaskCouldBeCanceled(row.status) && (
+              <Button
+                danger
+                className={styles.cancelTaskBtn}
+                onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
+              >
+                {t(TranslationKey.Cancel)}
+              </Button>
+            )}
+          </React.Fragment>
+        )
+      case TaskOperationType.SPLIT:
+        return (
+          <React.Fragment>
+            {renderTaskInfoBtn()}
+            {checkIfTaskCouldBeCanceled(row.status) && (
+              <Button
+                danger
+                className={styles.cancelTaskBtn}
+                onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
+              >
+                {t(TranslationKey.Cancel)}
+              </Button>
+            )}
+          </React.Fragment>
+        )
+      case TaskOperationType.RECEIVE:
+        return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
+      case TaskOperationType.EDIT_BY_STOREKEEPER:
+      case TaskOperationType.EDIT:
+        return (
+          <React.Fragment>
+            {renderTaskInfoBtn()}
+            {checkIfTaskCouldBeCanceled(row.status) && (
+              <Button
+                danger
+                className={styles.cancelTaskBtn}
+                onClick={() => {
+                  handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
+                }}
+              >
+                {t(TranslationKey.Cancel)}
+              </Button>
+            )}
+          </React.Fragment>
+        )
+    }
+  }
 
-// export const OrderManyItemsCell = React.memo(
-//   withStyles(({ classes: classNames, box, error, withoutSku, imageSize }) => {
-//     const isEqualsItems = box.items.every(el => el.product._id === box.items[0].product._id)
+  return <div className={styles.clientTasksActionBtnsWrapper}>{renderHistoryItem()}</div>
+})
 
-//     const renderProductInfo = () => (
-//       <div className={styles.manyItemsOrderWrapper}>
-//         {box.items.map((item, itemIndex) => (
-//           <div key={itemIndex} className={styles.order}>
-//             <img
-//               alt=""
-//               src={item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
-//               className={cx(styles.orderImg, {
-//                 [styles.orderImageBig]: imageSize === 'big',
-//               })}
-//             />
-//             <div>
-//               <Typography className={styles.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
-//               <Typography className={styles.orderText}>
-//                 <span className={styles.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-//                 {item.product.asin}
-//               </Typography>
+export const ClientNotificationsBtnsCell = React.memo(({ row, handlers, disabled }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//               {!withoutSku ? (
-//                 <Typography className={styles.orderText}>
-//                   <span className={styles.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
-//                   {item.product.skusByClient?.length ? item.product.skusByClient.join(',') : t(TranslationKey.Missing)}
-//                 </Typography>
-//               ) : null}
+  return (
+    <div className={styles.notificationBtnsWrapper}>
+      <Button
+        disabled={disabled}
+        variant="contained"
+        color="primary"
+        className={styles.notificationBtn}
+        onClick={() => handlers.onTriggerOpenConfirmModal(row)}
+      >
+        {t(TranslationKey.Confirm)}
+      </Button>
+      <Button
+        danger
+        disabled={disabled}
+        className={styles.notificationBtn}
+        onClick={() => {
+          handlers.onTriggerOpenRejectModal(row)
+        }}
+      >
+        {t(TranslationKey.Reject)}
+      </Button>
+    </div>
+  )
+})
 
-//               {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
-//                 item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
-//                 itemIndex === 0 && (
-//                   <span className={styles.needPay}>{`${t(
-//                     TranslationKey['Extra payment required!'],
-//                   )} (${toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)})`}</span>
-//                 )}
+export const ProductMyRequestsBtnsCell = React.memo(({ rowId, row, handlers }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//               {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-//                 <span className={styles.needPay}>
-//                   {t(TranslationKey['The tariff is invalid or has been removed!'])}
-//                 </span>
-//               )}
-//             </div>
-//           </div>
-//         ))}
+  const disableOpenResultBtn =
+    !row.countProposalsByStatuses.acceptedProposals &&
+    !row.countProposalsByStatuses.atWorkProposals &&
+    !row.countProposalsByStatuses.verifyingProposals
 
-//         {error && <span className={styles.OrderCellError}>{error}</span>}
-//       </div>
-//     )
+  return (
+    <div className={styles.productMyRequestsBtnsWrapper}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={styles.productMyRequestsBtn}
+        onClick={() => handlers.onClickOpenRequest(rowId)}
+      >
+        {t(TranslationKey['Open a request'])}
+      </Button>
+      <Button
+        success
+        disabled={disableOpenResultBtn}
+        className={styles.productMyRequestsBtn}
+        onClick={() => handlers.onClickOpenResult(rowId)}
+      >
+        {t(TranslationKey['Open result'])}
+      </Button>
+    </div>
+  )
+})
 
-//     return (
-//       <div className={styles.manyItemsMainWrapper}>
-//         <Tooltip title={renderProductInfo()} classes={{ popper: styles.manyItemsMainWrapperTooltip }}>
-//           <div>
-//             <div className={styles.manyItemsImagesWrapper}>
-//               {box.items.map((product, productIndex) => (
-//                 <div key={productIndex} className={styles.manyItemsImgWrapper}>
-//                   <img
-//                     alt=""
-//                     className={styles.ordersImg}
-//                     src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-//                   />
-//                   <Typography className={styles.imgNum}>{`x ${product.amount}`}</Typography>
-//                 </div>
-//               ))}
-//             </div>
-//             {error && <span className={styles.OrderCellError}>{error}</span>}
-//           </div>
-//         </Tooltip>
+export const SuperboxQtyCell = React.memo(({ qty, superbox }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//         {isEqualsItems ? (
-//           <OrderCell box={box} product={box.items[0].product} superbox={box?.amount > 1 && box?.amount} />
-//         ) : null}
-//       </div>
-//     )
-//   }, styles),
-// )
+  return (
+    <div className={styles.superBoxQtyWrapper}>
+      <p>{qty * superbox}</p>
+    </div>
+  )
+})
 
-// export const ScrollingCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value, fontSize }) => (
-//       <React.Fragment>
-//         <Typography style={{ fontSize }} className={styles.scrollingValue}>
-//           {value || '-'}
-//         </Typography>
-//       </React.Fragment>
-//     ),
-//     styles,
-//   ),
-// )
+export const OrderManyItemsCell = React.memo(({ box, error, withoutSku, imageSize }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const ManyItemsPriceCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, params, withoutSku, withQuantity }) => {
-//       const cell = params?.items?.map((el, itemIndex) => (
-//         <OrderCell
-//           key={itemIndex}
-//           withoutSku={withoutSku}
-//           withQuantity={withQuantity}
-//           box={params}
-//           product={el?.product}
-//           superbox={params.amount > 1 && params.amount}
-//           superboxProductAmount={params}
-//           itemAmount={el.amount}
-//         />
-//       ))
+  const isEqualsItems = box.items.every(el => el.product._id === box.items[0].product._id)
 
-//       return <div className={styles.ManyItemsPriceCellMainWrapper}>{cell}</div>
-//     },
+  const renderProductInfo = () => (
+    <div className={styles.manyItemsOrderWrapper}>
+      {box.items.map((item, itemIndex) => (
+        <div key={itemIndex} className={styles.order}>
+          <img
+            alt=""
+            src={item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
+            className={cx(styles.orderImg, {
+              [styles.orderImageBig]: imageSize === 'big',
+            })}
+          />
+          <div>
+            <Typography className={styles.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
+            <Typography className={styles.orderText}>
+              <span className={styles.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+              {item.product.asin}
+            </Typography>
 
-//     styles,
-//   ),
-// )
+            {!withoutSku ? (
+              <Typography className={styles.orderText}>
+                <span className={styles.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+                {item.product.skusByClient?.length ? item.product.skusByClient.join(',') : t(TranslationKey.Missing)}
+              </Typography>
+            ) : null}
 
-// export const PricePerUnitCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, item }) => (
-//       <div className={styles.pricesWrapper}>
-//         {item.items.map((el, i) => (
-//           <Typography key={i} className={styles.multilineText}>
-//             {/* {toFixedWithDollarSign(calcSupplierPriceForUnit(el.order.orderSupplier), 2)} */}
-//             {toFixedWithDollarSign(el.order.totalPrice / el.order.amount, 2)}
-//           </Typography>
-//         ))}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+            {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
+              item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
+              itemIndex === 0 && (
+                <span className={styles.needPay}>{`${t(
+                  TranslationKey['Extra payment required!'],
+                )} (${toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)})`}</span>
+              )}
 
-// export const FinalPricePerUnitCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, box, boxFinalWeight }) => (
-//       <div className={styles.pricesWrapper}>
-//         {box.items.map((el, i) => (
-//           <Typography key={i} className={styles.multilineText}>
-//             {toFixedWithDollarSign(
-//               // calcSupplierPriceForUnit(el.order.orderSupplier)
+            {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+              <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+            )}
+          </div>
+        </div>
+      ))}
 
-//               el.order.totalPrice / el.order.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
-//               // calculateDeliveryCostPerPcs({
-//               //   itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
-//               //   deliveryCost: box.deliveryTotalPrice,
-//               //   itemAmount: el.amount,
-//               //   itemSupplierAmountInBox: el.order.orderSupplier.boxProperties?.amountInBox,
-//               //   boxFinalWeight,
-//               //   box,
-//               // })
+      {error && <span className={styles.OrderCellError}>{error}</span>}
+    </div>
+  )
 
-//               2,
-//             )}
-//           </Typography>
-//         ))}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return (
+    <div className={styles.manyItemsMainWrapper}>
+      <Tooltip title={renderProductInfo()} classes={{ popper: styles.manyItemsMainWrapperTooltip }}>
+        <div>
+          <div className={styles.manyItemsImagesWrapper}>
+            {box.items.map((product, productIndex) => (
+              <div key={productIndex} className={styles.manyItemsImgWrapper}>
+                <img
+                  alt=""
+                  className={styles.ordersImg}
+                  src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+                />
+                <Typography className={styles.imgNum}>{`x ${product.amount}`}</Typography>
+              </div>
+            ))}
+          </div>
+          {error && <span className={styles.OrderCellError}>{error}</span>}
+        </div>
+      </Tooltip>
 
-// export const CopyAndEditLinkCell = React.memo(
-//   withStyles(({ classes: classNames, link, isEdit, onChangeText }) => {
-//     const [value, setValue] = useState(link)
+      {isEqualsItems ? (
+        <OrderCell box={box} product={box.items[0].product} superbox={box?.amount > 1 && box?.amount} />
+      ) : null}
+    </div>
+  )
+})
 
-//     useEffect(() => {
-//       setValue(link)
-//     }, [link])
+export const ScrollingCell = React.memo(({ value, fontSize }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+  return (
+    <p style={{ fontSize }} className={styles.scrollingValue}>
+      {value || '-'}
+    </p>
+  )
+})
 
-//     return (
-//       <React.Fragment>
-//         {isEdit ? (
-//           <div className={styles.ChangeInputCommentCellWrapper}>
-//             <Input
-//               autoFocus={false}
-//               inputProps={256}
-//               placeholder={t(TranslationKey.Comment)}
-//               className={styles.changeInputComment}
-//               classes={{ input: styles.changeInputComment }}
-//               value={value}
-//               onChange={e => {
-//                 setValue(e.target.value)
+export const ManyItemsPriceCell = React.memo(({ params, withoutSku, withQuantity }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//                 if (onChangeText) {
-//                   onChangeText('sourceFile')(e.target.value)
-//                 }
-//               }}
-//               onKeyDown={event => {
-//                 event.stopPropagation()
-//               }}
-//             />
-//           </div>
-//         ) : value ? (
-//           <div className={styles.CopyLinkWrapper}>
-//             <Link target="_blank" rel="noopener" className={styles.linkText} href={checkAndMakeAbsoluteUrl(value)}>
-//               <Typography className={styles.linkTextClass}>{value}</Typography>
-//             </Link>
+  const cell = params?.items?.map((el, itemIndex) => (
+    <OrderCell
+      key={itemIndex}
+      withoutSku={withoutSku}
+      withQuantity={withQuantity}
+      box={params}
+      product={el?.product}
+      superbox={params.amount > 1 && params.amount}
+      superboxProductAmount={params}
+      itemAmount={el.amount}
+    />
+  ))
 
-//             <CopyValue text={value} />
-//           </div>
-//         ) : (
-//           <Typography className={styles.missingLinkText}>{t(TranslationKey.Missing)}</Typography>
-//         )}
-//       </React.Fragment>
-//     )
-//   }, styles),
-// )
+  return <div className={styles.ManyItemsPriceCellMainWrapper}>{cell}</div>
+})
 
-// export const EditOrRemoveBtnsCell = React.memo(
-//   withStyles(
-//     ({
-//       classes: classNames,
-//       row,
-//       handlers,
-//       isSubUsersTable,
-//       disableActionBtn,
-//       tooltipFirstButton,
-//       tooltipSecondButton,
+export const PricePerUnitCell = React.memo(({ item }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//       isFirstRow,
-//     }) => (
-//       <div className={styles.editOrRemoveBtnsCell}>
-//         <Button
-//           tooltipInfoContent={isFirstRow && tooltipFirstButton}
-//           variant="contained"
-//           color="primary"
-//           disabled={disableActionBtn}
-//           className={[styles.rowCancelBtn, styles.addPermissionBtn]}
-//           onClick={() => handlers.onClickEditBtn(row)}
-//         >
-//           {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
-//         </Button>
+  return (
+    <div className={styles.pricesWrapper}>
+      {item.items.map((el, i) => (
+        <p key={i} className={styles.multilineText}>
+          {toFixedWithDollarSign(el.order.totalPrice / el.order.amount, 2)}
+        </p>
+      ))}
+    </div>
+  )
+})
 
-//         <Button
-//           danger
-//           tooltipInfoContent={isFirstRow && tooltipSecondButton}
-//           disabled={disableActionBtn}
-//           className={styles.rowCancelBtn}
-//           onClick={() => {
-//             handlers.onClickRemoveBtn(row)
-//           }}
-//         >
-//           {t(TranslationKey.Remove)}
-//         </Button>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const FinalPricePerUnitCell = React.memo(({ box, boxFinalWeight }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const EditOrRemoveIconBtnsCell = React.memo(
-//   withStyles(
-//     ({
-//       classes: classNames,
-//       row,
-//       handlers,
-//       isSubUsersTable,
-//       disableActionBtn,
-//       tooltipFirstButton,
-//       tooltipSecondButton,
-//       isFirstRow,
-//       isArchive,
-//       isSave,
-//       isShowButtonText = true,
-//     }) => {
-//       return (
-//         <div className={styles.editOrRemoveIconBtnsCell}>
-//           {!isSave && (
-//             <Button
-//               tooltipInfoContent={isFirstRow && tooltipFirstButton}
-//               disabled={disableActionBtn}
-//               className={styles.removeOrEditBtn}
-//               onClick={() => handlers && handlers.onClickEditBtn(row)}
-//             >
-//               {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
-//             </Button>
-//           )}
+  return (
+    <div className={styles.pricesWrapper}>
+      {box.items.map((el, i) => (
+        <Typography key={i} className={styles.multilineText}>
+          {toFixedWithDollarSign(
+            el.order.totalPrice / el.order.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
 
-//           {isSave && (
-//             <Button
-//               tooltipInfoContent={isFirstRow && tooltipFirstButton}
-//               disabled={disableActionBtn}
-//               className={styles.removeOrEditBtn}
-//               onClick={() => handlers.onClickSaveBtn(row)}
-//             >
-//               {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
-//             </Button>
-//           )}
+            2,
+          )}
+        </Typography>
+      ))}
+    </div>
+  )
+})
 
-//           {handlers?.onTriggerArchive && (
-//             <Button
-//               success={isArchive}
-//               // tooltipInfoContent={isFirstRow && tooltipFirstButton}
-//               disabled={disableActionBtn}
-//               className={styles.removeOrEditBtn}
-//               onClick={() => handlers?.onTriggerArchive(row)}
-//             >
-//               <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
-//             </Button>
-//           )}
+export const CopyAndEditLinkCell = React.memo(({ link, isEdit, onChangeText }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//           {isArchive || isArchive === undefined ? (
-//             <Button
-//               danger
-//               tooltipInfoContent={isFirstRow && tooltipSecondButton}
-//               disabled={disableActionBtn}
-//               className={styles.removeOrEditBtn}
-//               onClick={() => {
-//                 handlers && handlers.onClickRemoveBtn(row)
-//               }}
-//             >
-//               <DeleteOutlineOutlinedIcon />
-//             </Button>
-//           ) : null}
-//         </div>
-//       )
-//     },
-//     styles,
-//   ),
-// )
+  const [value, setValue] = useState(link)
 
-// export const BatchBoxesCell = React.memo(
-//   withStyles(({ classes: classNames, boxes, productViewMode }) => {
-//     const isAbbreviatedView = productViewMode === tableProductViewMode.ABBREVIATED
+  useEffect(() => {
+    setValue(link)
+  }, [link])
 
-//     const simpleBoxes = boxes.map(box => ({
-//       amount: box.amount,
-//       deliveryTotalPrice: box.deliveryTotalPrice,
-//       deliveryTotalPriceChanged: box.deliveryTotalPriceChanged,
-//       items: box.items.map(item => ({
-//         image: item.product.images[0],
-//         amazonTitle: item.product.amazonTitle,
-//         asin: item.product.asin,
-//         amount: item.amount,
-//       })),
-//       status: box.status,
-//     }))
+  return (
+    <>
+      {isEdit ? (
+        <div className={styles.ChangeInputCommentCellWrapper}>
+          <Input
+            autoFocus={false}
+            inputProps={256}
+            placeholder={t(TranslationKey.Comment)}
+            className={styles.changeInputComment}
+            classes={{ input: styles.changeInputComment }}
+            value={value}
+            onChange={e => {
+              setValue(e.target.value)
 
-//     const object = {}
-//     simpleBoxes.forEach(box => {
-//       const boxStr = JSON.stringify(
-//         getObjectFilteredByKeyArrayBlackList(box, ['deliveryTotalPrice', 'deliveryTotalPriceChanged']),
-//       )
+              if (onChangeText) {
+                onChangeText('sourceFile')(e.target.value)
+              }
+            }}
+            onKeyDown={event => {
+              event.stopPropagation()
+            }}
+          />
+        </div>
+      ) : value ? (
+        <div className={styles.CopyLinkWrapper}>
+          <Link target="_blank" rel="noopener" className={styles.linkText} href={checkAndMakeAbsoluteUrl(value)}>
+            <Typography className={styles.linkTextClass}>{value}</Typography>
+          </Link>
 
-//       const extraPay = box.deliveryTotalPriceChanged - box.deliveryTotalPrice
-//       if (extraPay > 0) {
-//         object[`${boxStr}${extraPay}`] = object[`${boxStr}${extraPay}`]
-//           ? [...object[`${boxStr}${extraPay}`], box]
-//           : [box]
-//       } else {
-//         object[boxStr] = object[boxStr] ? [...object[boxStr], box] : [box]
-//       }
-//     })
-//     const filteredBoxes = Object.values(object)
+          <CopyValue text={value} />
+        </div>
+      ) : (
+        <Typography className={styles.missingLinkText}>{t(TranslationKey.Missing)}</Typography>
+      )}
+    </>
+  )
+})
 
-//     return (
-//       <div
-//         className={cx(styles.batchBoxesWrapper, {
-//           [styles.withScrollBatchBoxesWrapper]: isAbbreviatedView,
-//         })}
-//       >
-//         {filteredBoxes.map((boxes, i) => (
-//           <Fragment key={i}>
-//             {isAbbreviatedView ? (
-//               <ProductInfoAbbreviated box={boxes[0]} boxesLength={boxes.length} />
-//             ) : (
-//               <ProductInfoExtended box={boxes[0]} boxesLength={boxes.length} />
-//             )}
-//           </Fragment>
-//         ))}
-//       </div>
-//     )
-//   }, styles),
-// )
+export const EditOrRemoveBtnsCell = React.memo(
+  ({ row, handlers, isSubUsersTable, disableActionBtn, tooltipFirstButton, tooltipSecondButton, isFirstRow }) => {
+    const { classes: styles } = useDataGridCellsStyles()
 
-// export const TrashCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, onClick, tooltipText, isFirstRow }) => (
-//       <Button tooltipInfoContent={isFirstRow && tooltipText} className={styles.trashWrapper}>
-//         <img className={styles.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
-//       </Button>
-//     ),
-//     styles,
-//   ),
-// )
+    return (
+      <div className={styles.editOrRemoveBtnsCell}>
+        <Button
+          tooltipInfoContent={isFirstRow && tooltipFirstButton}
+          variant="contained"
+          color="primary"
+          disabled={disableActionBtn}
+          className={[styles.rowCancelBtn, styles.addPermissionBtn]}
+          onClick={() => handlers.onClickEditBtn(row)}
+        >
+          {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
+        </Button>
 
-// export const WarehouseBoxesBtnsCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, row, handlers, isFirstRow }) => (
-//       <div className={styles.warehouseBoxesBtnsWrapper}>
-//         {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-//           <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
-//         )}
+        <Button
+          danger
+          tooltipInfoContent={isFirstRow && tooltipSecondButton}
+          disabled={disableActionBtn}
+          className={styles.rowCancelBtn}
+          onClick={() => {
+            handlers.onClickRemoveBtn(row)
+          }}
+        >
+          {t(TranslationKey.Remove)}
+        </Button>
+      </div>
+    )
+  },
+)
 
-//         {row.batchId &&
-//           row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
-//           row.status !== BoxStatus.NEW && (
-//             <Button
-//               tooltipAttentionContent={
-//                 row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
-//                 t(TranslationKey['The tariff is invalid or has been removed!'])
-//               }
-//               tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
-//               disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
-//               className={styles.warehouseBoxesBtn}
-//               onClick={() => handlers.moveBox(row)}
-//             >
-//               {t(TranslationKey['Move box'])}
-//             </Button>
-//           )}
+export const BatchBoxesCell = React.memo(({ boxes, productViewMode }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//         {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-//           <Button
-//             success
-//             disabled={row.isDraft}
-//             tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
-//             className={styles.warehouseBoxesBtn}
-//             onClick={() => handlers.moveBox(row)}
-//           >
-//             {t(TranslationKey['Add to batch'])}
-//           </Button>
-//         )}
+  const isAbbreviatedView = productViewMode === tableProductViewMode.ABBREVIATED
 
-//         {/* <Button disabled className={styles.warehouseBoxesBtn} onClick={() => handlers.onEditBox(row)}>
-//         {t(TranslationKey.Edit)}
-//       </Button>
+  const simpleBoxes = boxes.map(box => ({
+    amount: box.amount,
+    deliveryTotalPrice: box.deliveryTotalPrice,
+    deliveryTotalPriceChanged: box.deliveryTotalPriceChanged,
+    items: box.items.map(item => ({
+      image: item.product.images[0],
+      amazonTitle: item.product.amazonTitle,
+      asin: item.product.asin,
+      amount: item.amount,
+    })),
+    status: box.status,
+  }))
 
-//       <Button
-//         disabled={row.isDraft}
-//         className={styles.warehouseBoxesBtn}
-//         tooltipInfoContent={isFirstRow && t(TranslationKey['Code for Harmonized System Product Identification'])}
-//         onClick={() => handlers.setHsCode(row)}
-//       >
-//         {row.items.some(item => !item.product.hsCode)
-//           ? t(TranslationKey['Add HS Code'])
-//           : t(TranslationKey['Edit HS Code'])}
-//       </Button> */}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  const object = {}
+  simpleBoxes.forEach(box => {
+    const boxStr = JSON.stringify(
+      getObjectFilteredByKeyArrayBlackList(box, ['deliveryTotalPrice', 'deliveryTotalPriceChanged']),
+    )
 
-// export const ShopsReportBtnsCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value, onClickSeeMore, isFirstRow }) => (
-//       <div className={styles.shopsReportBtnsWrapper}>
-//         {/* <div className={styles.shopsReportBtnsSubWrapper}> */}
-//         <Text /* tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])} */>
-//           <a download target="_blank" rel="noreferrer" href={value} className={styles.downloadLink}>
-//             {t(TranslationKey.download)}
-//           </a>
-//         </Text>
-//         <Button
-//           /* tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])} */
-//           className={styles.copyImgButton}
-//         >
-//           <CopyValue text={value} />
-//         </Button>
-//         {/* </div> */}
+    const extraPay = box.deliveryTotalPriceChanged - box.deliveryTotalPrice
+    if (extraPay > 0) {
+      object[`${boxStr}${extraPay}`] = object[`${boxStr}${extraPay}`] ? [...object[`${boxStr}${extraPay}`], box] : [box]
+    } else {
+      object[boxStr] = object[boxStr] ? [...object[boxStr], box] : [box]
+    }
+  })
+  const filteredBoxes = Object.values(object)
 
-//         <Button
-//           /* tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])} */
-//           variant="contained"
-//           color="primary"
-//           className={styles.viewBtn}
-//           onClick={onClickSeeMore}
-//         >
-//           {t(TranslationKey.View)}
-//         </Button>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+  return (
+    <div
+      className={cx(styles.batchBoxesWrapper, {
+        [styles.withScrollBatchBoxesWrapper]: isAbbreviatedView,
+      })}
+    >
+      {filteredBoxes.map((boxes, i) => (
+        <Fragment key={i}>
+          {isAbbreviatedView ? (
+            <ProductInfoAbbreviated box={boxes[0]} boxesLength={boxes.length} />
+          ) : (
+            <ProductInfoExtended box={boxes[0]} boxesLength={boxes.length} />
+          )}
+        </Fragment>
+      ))}
+    </div>
+  )
+})
 
-// export const DownloadAndCopyBtnsCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, value, isFirstRow }) => (
-//       <>
-//         {value ? (
-//           <div className={styles.shopsReportBtnsWrapper}>
-//             <div className={cx({ [styles.tooltipWrapperMargin]: isFirstRow })}>
-//               <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-//                 <a
-//                   download
-//                   target="_blank"
-//                   rel="noreferrer"
-//                   href={value}
-//                   className={styles.downloadLink}
-//                   onClick={e => e.stopPropagation()}
-//                 >
-//                   {t(TranslationKey.View)}
-//                 </a>
-//               </Text>
-//             </div>
+export const TrashCell = React.memo(({ onClick, tooltipText, isFirstRow }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//             <Button
-//               tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
-//               className={styles.copyImgButton}
-//             >
-//               <CopyValue text={value} />
-//             </Button>
-//           </div>
-//         ) : (
-//           <Typography>{'-'}</Typography>
-//         )}
-//       </>
-//     ),
-//     styles,
-//   ),
-// )
+  return (
+    <Button tooltipInfoContent={isFirstRow && tooltipText} className={styles.trashWrapper}>
+      <img className={styles.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
+    </Button>
+  )
+})
 
-// export const ShortBoxDimensions = React.memo(
-//   withStyles(({ classes: classNames, box, volumeWeightCoefficient, curUser, handlers, unitsOption }) => {
-//     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+export const WarehouseBoxesBtnsCell = React.memo(({ row, handlers }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     const lengthConversion = getConversion(unitsOption, inchesCoefficient)
-//     const weightConversion = getConversion(unitsOption, poundsWeightCoefficient)
-//     const totalWeightConversion = getConversion(unitsOption, 12 / poundsWeightCoefficient, 12)
-//     const weightSizesType = getWeightSizesType(unitsOption)
+  return (
+    <div className={styles.warehouseBoxesBtnsWrapper}>
+      {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+        <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
+      )}
 
-//     return (
-//       <div className={styles.shortBoxDimensionsWrapper}>
-//         <Typography className={styles.shortBoxDimensionsText}>{`${toFixed(
-//           box.lengthCmWarehouse / lengthConversion,
-//           2,
-//         )}x${toFixed(box.widthCmWarehouse / lengthConversion, 2)}x${toFixed(
-//           box.heightCmWarehouse / lengthConversion,
-//           2,
-//         )}`}</Typography>
+      {row.batchId &&
+        row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+        row.status !== BoxStatus.NEW && (
+          <Button
+            tooltipAttentionContent={
+              row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
+              t(TranslationKey['The tariff is invalid or has been removed!'])
+            }
+            tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
+            disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
+            className={styles.warehouseBoxesBtn}
+            onClick={() => handlers.moveBox(row)}
+          >
+            {t(TranslationKey['Move box'])}
+          </Button>
+        )}
 
-//         <Typography className={styles.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixed(
-//           box.weighGrossKgWarehouse / weightConversion,
-//           2,
-//         )} ${weightSizesType}`}</Typography>
+      {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+        <Button
+          success
+          disabled={row.isDraft}
+          tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
+          className={styles.warehouseBoxesBtn}
+          onClick={() => handlers.moveBox(row)}
+        >
+          {t(TranslationKey['Add to batch'])}
+        </Button>
+      )}
+    </div>
+  )
+})
 
-//         <Typography className={styles.shortBoxDimensionsText}>{`${t(TranslationKey['Volume weight'])}: ${toFixed(
-//           calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion,
-//           2,
-//         )} ${weightSizesType}`}</Typography>
+export const ShopsReportBtnsCell = React.memo(({ value, onClickSeeMore }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//         <Typography
-//           className={cx(styles.shortBoxDimensionsText, {
-//             [styles.alertText]: !box.isDraft && finalWeight / weightConversion < totalWeightConversion,
-//           })}
-//         >{`${t(TranslationKey['Final weight'])}: ${toFixed(
-//           finalWeight / weightConversion,
-//           2,
-//         )} ${weightSizesType}!`}</Typography>
+  return (
+    <div className={styles.shopsReportBtnsWrapper}>
+      <a download target="_blank" rel="noreferrer" href={value} className={styles.downloadLink}>
+        {t(TranslationKey.download)}
+      </a>
+      <Button className={styles.copyImgButton}>
+        <CopyValue text={value} />
+      </Button>
 
-//         {!box.isDraft && finalWeight / weightConversion < totalWeightConversion && (
-//           <span className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
-//             totalWeightConversion,
-//             2,
-//           )} ${weightSizesType}!`}</span>
-//         )}
+      <Button variant="contained" color="primary" className={styles.viewBtn} onClick={onClickSeeMore}>
+        {t(TranslationKey.View)}
+      </Button>
+    </div>
+  )
+})
 
-//         {box.amount > 1 && (
-//           <Typography className={styles.shortBoxDimensionsText}>{`${t(
-//             TranslationKey['Total final weight'],
-//           )}: ${toFixed(
-//             (calcFinalWeightForBox(box, volumeWeightCoefficient) / weightConversion) * box.amount,
-//             2,
-//           )} ${weightSizesType}`}</Typography>
-//         )}
-//       </div>
-//     )
-//   }, styles),
-// )
+export const DownloadAndCopyBtnsCell = React.memo(({ value, isFirstRow }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+
+  return (
+    <>
+      {value ? (
+        <div className={styles.shopsReportBtnsWrapper}>
+          <div className={cx({ [styles.tooltipWrapperMargin]: isFirstRow })}>
+            <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+              <a
+                download
+                target="_blank"
+                rel="noreferrer"
+                href={value}
+                className={styles.downloadLink}
+                onClick={e => e.stopPropagation()}
+              >
+                {t(TranslationKey.View)}
+              </a>
+            </Text>
+          </div>
+
+          <Button
+            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
+            className={styles.copyImgButton}
+          >
+            <CopyValue text={value} />
+          </Button>
+        </div>
+      ) : (
+        <Typography>{'-'}</Typography>
+      )}
+    </>
+  )
+})
+
+export const ShortBoxDimensions = React.memo(({ box, volumeWeightCoefficient, unitsOption }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+  const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+
+  const lengthConversion = getConversion(unitsOption, inchesCoefficient)
+  const weightConversion = getConversion(unitsOption, poundsWeightCoefficient)
+  const totalWeightConversion = getConversion(unitsOption, 12 / poundsWeightCoefficient, 12)
+  const weightSizesType = getWeightSizesType(unitsOption)
+
+  return (
+    <div className={styles.shortBoxDimensionsWrapper}>
+      <Typography className={styles.shortBoxDimensionsText}>{`${toFixed(
+        box.lengthCmWarehouse / lengthConversion,
+        2,
+      )}x${toFixed(box.widthCmWarehouse / lengthConversion, 2)}x${toFixed(
+        box.heightCmWarehouse / lengthConversion,
+        2,
+      )}`}</Typography>
+
+      <Typography className={styles.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixed(
+        box.weighGrossKgWarehouse / weightConversion,
+        2,
+      )} ${weightSizesType}`}</Typography>
+
+      <Typography className={styles.shortBoxDimensionsText}>{`${t(TranslationKey['Volume weight'])}: ${toFixed(
+        calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion,
+        2,
+      )} ${weightSizesType}`}</Typography>
+
+      <Typography
+        className={cx(styles.shortBoxDimensionsText, {
+          [styles.alertText]: !box.isDraft && finalWeight / weightConversion < totalWeightConversion,
+        })}
+      >{`${t(TranslationKey['Final weight'])}: ${toFixed(
+        finalWeight / weightConversion,
+        2,
+      )} ${weightSizesType}!`}</Typography>
+
+      {!box.isDraft && finalWeight / weightConversion < totalWeightConversion && (
+        <span className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+          totalWeightConversion,
+          2,
+        )} ${weightSizesType}!`}</span>
+      )}
+
+      {box.amount > 1 && (
+        <Typography className={styles.shortBoxDimensionsText}>{`${t(TranslationKey['Total final weight'])}: ${toFixed(
+          (calcFinalWeightForBox(box, volumeWeightCoefficient) / weightConversion) * box.amount,
+          2,
+        )} ${weightSizesType}`}</Typography>
+      )}
+    </div>
+  )
+})
 
 export const RedFlagsCell = React.memo(({ flags }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -2980,21 +2756,20 @@ export const OrderIdAndAmountCountCell = React.memo(({ orderId, amount, onClickO
   )
 })
 
-// export const FormedCell = React.memo(
-//   withStyles(
-//     ({ classes: classNames, sub, onChangeIsFormedInBox, params }) => (
-//       <div className={styles.formedCell}>
-//         <CheckboxCell
-//           disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-//           checked={params.value}
-//           onClick={onChangeIsFormedInBox}
-//         />
-//         {sub?.name && <MultilineTextCell text={sub.name} />}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+export const FormedCell = React.memo(({ sub, onChangeIsFormedInBox, params }) => {
+  const { classes: styles } = useDataGridCellsStyles()
+
+  return (
+    <div className={styles.formedCell}>
+      <CheckboxCell
+        disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+        checked={params.value}
+        onClick={onChangeIsFormedInBox}
+      />
+      {sub?.name && <MultilineTextCell text={sub.name} />}
+    </div>
+  )
+})
 
 export const SelectRowCell = React.memo(
   ({ checkboxComponent, showVariationButton, isParentProduct, onClickShareIcon, onClickVariationButton }) => {
@@ -3029,413 +2804,385 @@ export const SelectRowCell = React.memo(
   },
 )
 
-// export const ProductInfoExtended = React.memo(
-//   withStyles(
-//     ({ classes: classNames, box, boxesLength }) => (
-//       <div className={styles.batchProductsWrapper}>
-//         {boxesLength > 1 ? (
-//           <Typography className={styles.batchProductsBoxesLength}>{`x${boxesLength}`}</Typography>
-//         ) : null}
+export const ProductInfoExtended = React.memo(({ box, boxesLength }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//         <div className={styles.batchProductsSubWrapper}>
-//           {box.items.map((item, itemIndex) => (
-//             <div key={itemIndex} className={styles.order}>
-//               <img alt="" src={getAmazonImageUrl(item.image)} className={styles.orderImg} />
-//               <div className={styles.batchProductInfoWrapper}>
-//                 <Typography className={styles.batchProductTitle}>{item.amazonTitle}</Typography>
-//                 <div className={styles.boxInfoWrapper}>
-//                   <Typography className={styles.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
-//                   <AsinOrSkuLink withCopyValue asin={item.asin} />
-//                 </div>
+  return (
+    <div className={styles.batchProductsWrapper}>
+      {boxesLength > 1 ? (
+        <Typography className={styles.batchProductsBoxesLength}>{`x${boxesLength}`}</Typography>
+      ) : null}
 
-//                 {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-//                   <Typography className={styles.productInfoText}>
-//                     <span className={styles.needPay}>{`${t(
-//                       TranslationKey['Extra payment required!'],
-//                     )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-//                   </Typography>
-//                 )}
+      <div className={styles.batchProductsSubWrapper}>
+        {box.items.map((item, itemIndex) => (
+          <div key={itemIndex} className={styles.order}>
+            <img alt="" src={getAmazonImageUrl(item.image)} className={styles.orderImg} />
+            <div className={styles.batchProductInfoWrapper}>
+              <Typography className={styles.batchProductTitle}>{item.amazonTitle}</Typography>
+              <div className={styles.boxInfoWrapper}>
+                <Typography className={styles.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
+                <AsinOrSkuLink withCopyValue asin={item.asin} />
+              </div>
 
-//                 <div className={styles.amountBoxesWrapper}>
-//                   <Typography className={styles.amountBoxesText}>{`x ${item.amount}`}</Typography>
-//                   {box.amount > 1 && (
-//                     <Typography className={styles.amountBoxesText}>{`Superbox x ${box.amount}`}</Typography>
-//                   )}
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
+              {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                <Typography className={styles.productInfoText}>
+                  <span className={styles.needPay}>{`${t(
+                    TranslationKey['Extra payment required!'],
+                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                </Typography>
+              )}
 
-//           {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-//             <span className={styles.needPay}>
-//               {t(TranslationKey['The tariff is invalid or has been removed!'])}
-//             </span>
-//           )}
-//         </div>
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+              <div className={styles.amountBoxesWrapper}>
+                <Typography className={styles.amountBoxesText}>{`x ${item.amount}`}</Typography>
+                {box.amount > 1 && (
+                  <Typography className={styles.amountBoxesText}>{`Superbox x ${box.amount}`}</Typography>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
 
-// export const ProductInfoAbbreviated = React.memo(
-//   withStyles(
-//     ({ classes: classNames, box, boxesLength }) => (
-//       <div
-//         className={cx(styles.abbreviatedBatchProductsWrapper, {
-//           [styles.abbreviatedWrapperDivider]: boxesLength > 1 && box.items.length > 1,
-//         })}
-//       >
-//         <div className={cx(styles.abbreviatedBatchProductsSubWrapper)}>
-//           {boxesLength > 1 && <Typography className={styles.amountBoxesText}>{`x${boxesLength}`}</Typography>}
+        {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+          <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+        )}
+      </div>
+    </div>
+  )
+})
 
-//           <div className={styles.abbreviatedBatchProductInfoMainWrapper}>
-//             {box.items.map((item, itemIndex) => (
-//               <>
-//                 <div key={itemIndex} className={styles.abbreviatedBatchProductInfoWrapper}>
-//                   <img alt="" src={getAmazonImageUrl(item.image)} className={styles.abbreviatedImg} />
+export const ProductInfoAbbreviated = React.memo(({ box, boxesLength }) => {
+  const { classes: styles } = useDataGridCellsStyles()
 
-//                   <div className={styles.div}>
-//                     <Typography className={styles.abbreviatedTitle}>{item.amazonTitle}</Typography>
+  return (
+    <div
+      className={cx(styles.abbreviatedBatchProductsWrapper, {
+        [styles.abbreviatedWrapperDivider]: boxesLength > 1 && box.items.length > 1,
+      })}
+    >
+      <div className={cx(styles.abbreviatedBatchProductsSubWrapper)}>
+        {boxesLength > 1 && <Typography className={styles.amountBoxesText}>{`x${boxesLength}`}</Typography>}
 
-//                     {box.amount > 1 && (
-//                       <Typography className={styles.amountBoxesText}>{`SBX${box.amount}`}</Typography>
-//                     )}
-//                   </div>
+        <div className={styles.abbreviatedBatchProductInfoMainWrapper}>
+          {box.items.map((item, itemIndex) => (
+            <>
+              <div key={itemIndex} className={styles.abbreviatedBatchProductInfoWrapper}>
+                <img alt="" src={getAmazonImageUrl(item.image)} className={styles.abbreviatedImg} />
 
-//                   <div className={styles.boxInfoWrapper}>
-//                     <Typography className={styles.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
-//                     <AsinOrSkuLink withCopyValue asin={item.asin} />
-//                   </div>
+                <div className={styles.div}>
+                  <Typography className={styles.abbreviatedTitle}>{item.amazonTitle}</Typography>
 
-//                   <Typography className={styles.amountBoxesText}>{`X${item.amount}`}</Typography>
-//                 </div>
-//                 {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-//                   <Typography className={styles.productInfoText}>
-//                     <span className={styles.needPay}>{`${t(
-//                       TranslationKey['Extra payment required!'],
-//                     )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-//                   </Typography>
-//                 )}
-//               </>
-//             ))}
-//           </div>
-//         </div>
+                  {box.amount > 1 && <Typography className={styles.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
+                </div>
 
-//         {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-//           <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
-//         )}
-//       </div>
-//     ),
-//     styles,
-//   ),
-// )
+                <div className={styles.boxInfoWrapper}>
+                  <Typography className={styles.asinText}>{t(TranslationKey.ASIN) + ': '}</Typography>
+                  <AsinOrSkuLink withCopyValue asin={item.asin} />
+                </div>
 
-// export const IdeaActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, onClickReject, onClickToCheck } = props
+                <Typography className={styles.amountBoxesText}>{`X${item.amount}`}</Typography>
+              </div>
+              {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                <Typography className={styles.productInfoText}>
+                  <span className={styles.needPay}>{`${t(
+                    TranslationKey['Extra payment required!'],
+                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                </Typography>
+              )}
+            </>
+          ))}
+        </div>
+      </div>
 
-//     return (
-//       <div className={styles.ideaActions}>
-//         <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
-//         <Button danger onClick={onClickReject}>
-//           {t(TranslationKey.Reject)}
-//         </Button>
-//       </div>
-//     )
-//   }, styles),
-// )
+      {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+        <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+      )}
+    </div>
+  )
+})
 
-// export const IdeaRequests = React.memo(
-//   withStyles(props => {
-//     const {
-//       classes: styles,
-//       onFinishedOnly,
-//       onClickCreateRequest,
-//       onClickLinkRequest,
-//       onClickResultButton,
-//       onClickRequestId,
-//       onClickUnbindButton,
-//       withoutControls,
-//       row,
-//     } = props
-//     const [requests, setRequests] = useState([])
+export const IdeaActions = React.memo(props => {
+  const { classes: styles } = useDataGridCellsStyles()
+  const { onClickReject, onClickToCheck } = props
 
-//     useEffect(() => {
-//       if (onFinishedOnly) {
-//         setRequests([...(row?.requestsOnFinished || [])])
-//       } else {
-//         setRequests([...(row?.requestsOnCheck || []), ...(row?.requestsOnFinished || [])])
-//       }
-//     }, [row?.requestsOnCheck, row?.requestsOnFinished])
+  return (
+    <div className={styles.ideaActions}>
+      <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
+      <Button danger onClick={onClickReject}>
+        {t(TranslationKey.Reject)}
+      </Button>
+    </div>
+  )
+})
 
-//     return (
-//       <div className={styles.ideaRequestsWrapper}>
-//         {requests?.map((request, requestIndex) => {
-//           return (
-//             <IdeaRequestCard
-//               key={requestIndex}
-//               requestType={request.typeTask}
-//               requestId={request.humanFriendlyId}
-//               requestStatus={request.status}
-//               executor={request.executor}
-//               proposals={request.proposals}
-//               disableSeeResultButton={
-//                 !request?.proposals?.some(proposal => checkIsValidProposalStatusToShowResoult(proposal.status))
-//               }
-//               onClickRequestId={() => onClickRequestId(request._id)}
-//               onClickResultButton={() => onClickResultButton(request)}
-//               onClickUnbindButton={() => onClickUnbindButton(request._id)}
-//             />
-//           )
-//         })}
-//         {!withoutControls && (
-//           <div className={styles.ideaRequestsControls}>
-//             <Button success onClick={onClickCreateRequest}>
-//               <PlusIcon /> {t(TranslationKey['Create a request'])}
-//             </Button>
-//             <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
-//           </div>
-//         )}
-//       </div>
-//     )
-//   }, styles),
-// )
+export const IdeaRequests = React.memo(props => {
+  const {
+    onFinishedOnly,
+    onClickCreateRequest,
+    onClickLinkRequest,
+    onClickResultButton,
+    onClickRequestId,
+    onClickUnbindButton,
+    withoutControls,
+    row,
+  } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const OnCheckingIdeaActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, onClickAccept, onClickReject, isAcceptDisabled } = props
+  const [requests, setRequests] = useState([])
 
-//     return (
-//       <div className={styles.ideaActions}>
-//         <Button success disabled={isAcceptDisabled} onClick={onClickAccept}>
-//           {t(TranslationKey.Accept)}
-//         </Button>
-//         <Button danger onClick={onClickReject}>
-//           {t(TranslationKey.Reject)}
-//         </Button>
-//       </div>
-//     )
-//   }, styles),
-// )
+  useEffect(() => {
+    if (onFinishedOnly) {
+      setRequests([...(row?.requestsOnFinished || [])])
+    } else {
+      setRequests([...(row?.requestsOnCheck || []), ...(row?.requestsOnFinished || [])])
+    }
+  }, [row?.requestsOnCheck, row?.requestsOnFinished])
 
-// export const IdeaSupplier = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, onClickAddSupplier, suppliers } = props
+  return (
+    <div className={styles.ideaRequestsWrapper}>
+      {requests?.map((request, requestIndex) => {
+        return (
+          <IdeaRequestCard
+            key={requestIndex}
+            requestType={request.typeTask}
+            requestId={request.humanFriendlyId}
+            requestStatus={request.status}
+            executor={request.executor}
+            proposals={request.proposals}
+            disableSeeResultButton={
+              !request?.proposals?.some(proposal => checkIsValidProposalStatusToShowResoult(proposal.status))
+            }
+            onClickRequestId={() => onClickRequestId(request._id)}
+            onClickResultButton={() => onClickResultButton(request)}
+            onClickUnbindButton={() => onClickUnbindButton(request._id)}
+          />
+        )
+      })}
+      {!withoutControls && (
+        <div className={styles.ideaRequestsControls}>
+          <Button success onClick={onClickCreateRequest}>
+            <PlusIcon /> {t(TranslationKey['Create a request'])}
+          </Button>
+          <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
+        </div>
+      )}
+    </div>
+  )
+})
 
-//     return (
-//       <div className={styles.ideaSupplier}>
-//         {!!suppliers.length && <Typography>{suppliers[0].name}</Typography>}
-//         {!suppliers.length && (
-//           <Button success className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
-//             <PlusIcon /> {t(TranslationKey.Add)}
-//           </Button>
-//         )}
-//       </div>
-//     )
-//   }, styles),
-// )
+export const OnCheckingIdeaActions = React.memo(props => {
+  const { onClickAccept, onClickReject, isAcceptDisabled } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const IdeaProduct = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, onClickCreateCard, onClickSelectSupplier, rowData } = props
+  return (
+    <div className={styles.ideaActions}>
+      <Button success disabled={isAcceptDisabled} onClick={onClickAccept}>
+        {t(TranslationKey.Accept)}
+      </Button>
+      <Button danger onClick={onClickReject}>
+        {t(TranslationKey.Reject)}
+      </Button>
+    </div>
+  )
+})
 
-//     return (
-//       <div className={styles.ideaWrapper}>
-//         {!rowData.childProduct && rowData.variation && (
-//           <Button
-//             success
-//             small
-//             className={styles.ideaProductActionButton}
-//             onClick={() => onClickCreateCard(rowData.originalData)}
-//           >
-//             {t(TranslationKey['Create a product card'])}
-//           </Button>
-//         )}
-//         {/* {((rowData.childProduct && !rowData.suppliers.length) || !rowData.variation) && (
-//           <Button small className={styles.ideaProductActionButton} onClick={() => onClickSelectSupplier(rowData)}>
-//             {t(TranslationKey['Set supplier to card'])}
-//           </Button>
-//         )} */}
+export const IdeaSupplier = React.memo(props => {
+  const { onClickAddSupplier, suppliers } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-//         {!!rowData.childProduct && (
-//           <ProductAsinCell
-//             withoutImage
-//             amazonTitle={rowData.childProduct?.amazonTitle}
-//             asin={rowData.childProduct?.asin}
-//             skusByClient={rowData.childProduct?.skusByClient?.slice()[0]}
-//           />
-//         )}
-//       </div>
-//     )
-//   }, styles),
-// )
+  return (
+    <div className={styles.ideaSupplier}>
+      {!!suppliers.length && <Typography>{suppliers[0].name}</Typography>}
+      {!suppliers.length && (
+        <Button success className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
+          <PlusIcon /> {t(TranslationKey.Add)}
+        </Button>
+      )}
+    </div>
+  )
+})
 
-// export const CreateCardIdeaActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, rowHandlers, row } = props
+export const IdeaProduct = React.memo(props => {
+  const { onClickCreateCard, rowData } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     return (
-//       <Button
-//         small
-//         success
-//         disabled={!row.childProduct && row.variation}
-//         onClick={() => rowHandlers.onClickAcceptOnCreatingProduct(row._id)}
-//       >
-//         {t(TranslationKey.Accept)}
-//       </Button>
-//     )
-//   }, styles),
-// )
+  return (
+    <div className={styles.ideaWrapper}>
+      {!rowData.childProduct && rowData.variation && (
+        <Button
+          success
+          small
+          className={styles.ideaProductActionButton}
+          onClick={() => onClickCreateCard(rowData.originalData)}
+        >
+          {t(TranslationKey['Create a product card'])}
+        </Button>
+      )}
 
-// export const AddAsinIdeaActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, rowHandlers, row } = props
+      {!!rowData.childProduct && (
+        <ProductAsinCell
+          withoutImage
+          amazonTitle={rowData.childProduct?.amazonTitle}
+          asin={rowData.childProduct?.asin}
+          skusByClient={rowData.childProduct?.skusByClient?.slice()[0]}
+        />
+      )}
+    </div>
+  )
+})
 
-//     return (
-//       <Box display={'flex'} gap={'5px'}>
-//         <Button
-//           success
-//           small
-//           disabled={
-//             row.originalData.variation
-//               ? !row?.originalData?.childProduct?.barCode
-//               : !row?.originalData?.parentProduct?.barCode
-//           }
-//           onClick={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
-//         >
-//           {t(TranslationKey.Accept)}
-//         </Button>
-//         {/* <Button small onClick={() => rowHandlers.onClickParseProductData(row.childProduct || row.parentProduct)}> */}
-//         {/*   {t(TranslationKey["Parse product data"])} */}
-//         {/* </Button> */}
-//       </Box>
-//     )
-//   }, styles),
-// )
+export const CreateCardIdeaActions = React.memo(props => {
+  const { rowHandlers, row } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-// export const RealizedIdeaActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, rowHandlers, row } = props
+  return (
+    <Button
+      small
+      success
+      disabled={!row.childProduct && row.variation}
+      onClick={() => rowHandlers.onClickAcceptOnCreatingProduct(row._id)}
+    >
+      {t(TranslationKey.Accept)}
+    </Button>
+  )
+})
 
-//     return (
-//       <>
-//         {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
-//           <Button
-//             small
-//             success
-//             onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}
-//           >
-//             {t(TranslationKey['To order'])}
-//           </Button>
-//         ) : (
-//           <Text>{t(TranslationKey.Ordered)}</Text>
-//         )}
-//       </>
-//     )
-//   }, styles),
-// )
+export const AddAsinIdeaActions = React.memo(props => {
+  const { rowHandlers, row } = props
 
-// export const ClosedIdeaActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, rowHandlers, row } = props
+  return (
+    <Box display={'flex'}>
+      <Button
+        success
+        small
+        disabled={
+          row.originalData.variation
+            ? !row?.originalData?.childProduct?.barCode
+            : !row?.originalData?.parentProduct?.barCode
+        }
+        onClick={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
+      >
+        {t(TranslationKey.Accept)}
+      </Button>
+    </Box>
+  )
+})
 
-//     return (
-//       <Box display="flex" gap="20px">
-//         <Button
-//           small
-//           success
-//           disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
-//           onClick={() => rowHandlers.onClickRestore(row._id)}
-//         >
-//           {t(TranslationKey.Restore)}
-//         </Button>
-//         <Button
-//           small
-//           danger
-//           disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
-//           onClick={() => rowHandlers.onClickClose(row._id)}
-//         >
-//           {t(TranslationKey.Close)}
-//         </Button>
-//       </Box>
-//     )
-//   }, styles),
-// )
+export const RealizedIdeaActions = React.memo(props => {
+  const { rowHandlers, row } = props
 
-// export const AllIdeasActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, row, rowHandlers } = props
-//     const status = row.status
+  return (
+    <>
+      {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
+        <Button
+          small
+          success
+          onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}
+        >
+          {t(TranslationKey['To order'])}
+        </Button>
+      ) : (
+        <Text>{t(TranslationKey.Ordered)}</Text>
+      )}
+    </>
+  )
+})
 
-//     return (
-//       <>
-//         {ideaStatusGroups[ideaStatusGroupsNames.NEW].includes(status) && (
-//           <IdeaActions
-//             onClickToCheck={() => rowHandlers.onClickToCheck(row._id)}
-//             onClickReject={() => rowHandlers.onClickReject(row._id)}
-//           />
-//         )}
-//         {ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING].includes(status) && (
-//           <OnCheckingIdeaActions
-//             onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(row._id)}
-//             onClickReject={() => rowHandlers.onClickReject(row._id)}
-//           />
-//         )}
-//         {ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS].includes(status) && (
-//           <OnCheckingIdeaActions
-//             isAcceptDisabled={row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
-//             onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(row._id)}
-//             onClickReject={() => rowHandlers.onClickReject(row._id)}
-//           />
-//         )}
-//         {ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD].includes(status) && (
-//           <CreateCardIdeaActions row={row} rowHandlers={rowHandlers} />
-//         )}
-//         {ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN].includes(status) && (
-//           <AddAsinIdeaActions rowHandlers={rowHandlers} row={row} />
-//         )}
-//         {ideaStatusGroups[ideaStatusGroupsNames.REALIZED].includes(status) && (
-//           <RealizedIdeaActions rowHandlers={rowHandlers} row={row} />
-//         )}
-//         {ideaStatusGroups[ideaStatusGroupsNames.CLOSED].includes(status) && (
-//           <ClosedIdeaActions row={row} rowHandlers={rowHandlers} />
-//         )}
-//       </>
-//     )
-//   }, styles),
-// )
+export const ClosedIdeaActions = React.memo(props => {
+  const { rowHandlers, row } = props
 
-// export const TimeFromSeconds = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, seconds, color } = props
-//     const time = secondsToTime(seconds)
+  return (
+    <Box display="flex" gap="20px">
+      <Button
+        small
+        success
+        disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
+        onClick={() => rowHandlers.onClickRestore(row._id)}
+      >
+        {t(TranslationKey.Restore)}
+      </Button>
+      <Button
+        small
+        danger
+        disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
+        onClick={() => rowHandlers.onClickClose(row._id)}
+      >
+        {t(TranslationKey.Close)}
+      </Button>
+    </Box>
+  )
+})
 
-//     return seconds >= 60 ? (
-//       <div className={styles.secondsTimeWrapper} style={color && { color }}>
-//         {time.days > 0 && (
-//           <Typography>
-//             {time.days} {t(TranslationKey.days)}
-//           </Typography>
-//         )}
+export const AllIdeasActions = React.memo(props => {
+  const { row, rowHandlers } = props
+  const status = row.status
 
-//         {time.hours > 0 && (
-//           <Typography>
-//             {time.hours} {t(TranslationKey.hour)}
-//           </Typography>
-//         )}
+  return (
+    <>
+      {ideaStatusGroups[ideaStatusGroupsNames.NEW].includes(status) && (
+        <IdeaActions
+          onClickToCheck={() => rowHandlers.onClickToCheck(row._id)}
+          onClickReject={() => rowHandlers.onClickReject(row._id)}
+        />
+      )}
+      {ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING].includes(status) && (
+        <OnCheckingIdeaActions
+          onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(row._id)}
+          onClickReject={() => rowHandlers.onClickReject(row._id)}
+        />
+      )}
+      {ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS].includes(status) && (
+        <OnCheckingIdeaActions
+          isAcceptDisabled={row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
+          onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(row._id)}
+          onClickReject={() => rowHandlers.onClickReject(row._id)}
+        />
+      )}
+      {ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD].includes(status) && (
+        <CreateCardIdeaActions row={row} rowHandlers={rowHandlers} />
+      )}
+      {ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN].includes(status) && (
+        <AddAsinIdeaActions rowHandlers={rowHandlers} row={row} />
+      )}
+      {ideaStatusGroups[ideaStatusGroupsNames.REALIZED].includes(status) && (
+        <RealizedIdeaActions rowHandlers={rowHandlers} row={row} />
+      )}
+      {ideaStatusGroups[ideaStatusGroupsNames.CLOSED].includes(status) && (
+        <ClosedIdeaActions row={row} rowHandlers={rowHandlers} />
+      )}
+    </>
+  )
+})
 
-//         {time.minutes > 0 && (
-//           <Typography>
-//             {time.minutes} {t(TranslationKey.minute)}
-//           </Typography>
-//         )}
-//       </div>
-//     ) : (
-//       <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : 0} />
-//     )
-//   }, styles),
-// )
+export const TimeFromSeconds = React.memo(props => {
+  const { seconds, color } = props
+  const { classes: styles } = useDataGridCellsStyles()
+
+  const time = secondsToTime(seconds)
+
+  return seconds >= 60 ? (
+    <div className={styles.secondsTimeWrapper} style={color && { color }}>
+      {time.days > 0 && (
+        <Typography>
+          {time.days} {t(TranslationKey.days)}
+        </Typography>
+      )}
+
+      {time.hours > 0 && (
+        <Typography>
+          {time.hours} {t(TranslationKey.hour)}
+        </Typography>
+      )}
+
+      {time.minutes > 0 && (
+        <Typography>
+          {time.minutes} {t(TranslationKey.minute)}
+        </Typography>
+      )}
+    </div>
+  ) : (
+    <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : 0} />
+  )
+})
 
 export const OpenInNewTabCell = React.memo(({ onClickOpenInNewTab, href }) => {
   const { classes: styles } = useDataGridCellsStyles()
@@ -3456,232 +3203,224 @@ export const OpenInNewTabCell = React.memo(({ onClickOpenInNewTab, href }) => {
   )
 })
 
-// const OrderNotificationMessage = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, navigateToHandler, notification } = props
+const OrderNotificationMessage = React.memo(props => {
+  const { navigateToHandler, notification } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     const onClickOrderId = () => {
-//       navigateToHandler(notification, NotificationType.Order)
-//     }
+  const onClickOrderId = () => {
+    navigateToHandler(notification, NotificationType.Order)
+  }
 
-//     const isVacOrders = !!notification?.vacOrders?.length
-//     const isNeedConfirmOrders = !!notification?.needConfirmOrders?.length
+  const isVacOrders = !!notification?.vacOrders?.length
+  const isNeedConfirmOrders = !!notification?.needConfirmOrders?.length
 
-//     return (
-//       <p>
-//         {isNeedConfirmOrders && (
-//           <>
-//             {`${t(TranslationKey.Order)} `}
-//             <a className={styles.notificationId} onClick={onClickOrderId}>
-//               {notification?.needConfirmOrders?.[0]?.id}
-//             </a>
-//             {` ${t(TranslationKey['needs to be confirmed'])}`}
-//           </>
-//         )}
+  return (
+    <p>
+      {isNeedConfirmOrders && (
+        <>
+          {`${t(TranslationKey.Order)} `}
+          <a className={styles.notificationId} onClick={onClickOrderId}>
+            {notification?.needConfirmOrders?.[0]?.id}
+          </a>
+          {` ${t(TranslationKey['needs to be confirmed'])}`}
+        </>
+      )}
 
-//         {isVacOrders && (
-//           <>
-//             {`${t(TranslationKey['New order available'])} `}
-//             <a className={styles.notificationId} onClick={onClickOrderId}>
-//               {notification?.vacOrders?.[0]?.id}
-//             </a>
-//           </>
-//         )}
+      {isVacOrders && (
+        <>
+          {`${t(TranslationKey['New order available'])} `}
+          <a className={styles.notificationId} onClick={onClickOrderId}>
+            {notification?.vacOrders?.[0]?.id}
+          </a>
+        </>
+      )}
 
-//         {!isVacOrders && !isNeedConfirmOrders && (
-//           <>
-//             {`${t(TranslationKey['Order redemption deadline'])} `}
-//             <a className={styles.notificationId} onClick={onClickOrderId}>
-//               {notification?.id}
-//             </a>
-//             {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
-//           </>
-//         )}
-//       </p>
-//     )
-//   }, styles),
-// )
+      {!isVacOrders && !isNeedConfirmOrders && (
+        <>
+          {`${t(TranslationKey['Order redemption deadline'])} `}
+          <a className={styles.notificationId} onClick={onClickOrderId}>
+            {notification?.id}
+          </a>
+          {` ${t(TranslationKey.expires)} ${formatNormDateTime(notification?.deadline)}`}
+        </>
+      )}
+    </p>
+  )
+})
 
-// const BoxNotificationMessage = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, navigateToHandler, notification } = props
-//     const history = useHistory()
+const BoxNotificationMessage = React.memo(props => {
+  const { navigateToHandler, notification } = props
+  const { classes: styles } = useDataGridCellsStyles()
+  const history = useHistory()
 
-//     const goToBox = boxId => {
-//       history.push(`/client/warehouse/in-stock?search-text=${boxId}`)
-//     }
+  const goToBox = boxId => {
+    history.push(`/client/warehouse/in-stock?search-text=${boxId}`)
+  }
 
-//     return (
-//       <p>
-//         {`${t(TranslationKey.Box)} № `}
-//         <a className={styles.notificationId} onClick={() => goToBox(notification?.humanFriendlyId)}>
-//           {notification?.humanFriendlyId}
-//         </a>{' '}
-//         {t(TranslationKey['accepted in stock'])}
-//       </p>
-//     )
-//   }, styles),
-// )
+  return (
+    <p>
+      {`${t(TranslationKey.Box)} № `}
+      <a className={styles.notificationId} onClick={() => goToBox(notification?.humanFriendlyId)}>
+        {notification?.humanFriendlyId}
+      </a>{' '}
+      {t(TranslationKey['accepted in stock'])}
+    </p>
+  )
+})
 
-// const RequestNotificationMessage = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, navigateToHandler, notification } = props
-//     const history = useHistory()
-//     const isStatusChanged = !!notification?.status
-//     const isDeadlineExpires = !!notification?.timeoutAt
+const RequestNotificationMessage = React.memo(props => {
+  const { navigateToHandler, notification } = props
+  const { classes: styles } = useDataGridCellsStyles()
+  const history = useHistory()
+  const isStatusChanged = !!notification?.status
+  const isDeadlineExpires = !!notification?.timeoutAt
 
-//     const getUrlToRequest = id => {
-//       if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
-//         return `/${
-//           UserRoleCodeMapForRoutes[UserModel.userInfo.role]
-//         }/freelance/my-proposals/custom-search-request?request-id=${id}`
-//       } else {
-//         return `/${
-//           UserRoleCodeMapForRoutes[UserModel.userInfo.role]
-//         }/freelance/my-requests/custom-request?request-id=${id}`
-//       }
-//     }
+  const getUrlToRequest = id => {
+    if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
+      return `/${
+        UserRoleCodeMapForRoutes[UserModel.userInfo.role]
+      }/freelance/my-proposals/custom-search-request?request-id=${id}`
+    } else {
+      return `/${
+        UserRoleCodeMapForRoutes[UserModel.userInfo.role]
+      }/freelance/my-requests/custom-request?request-id=${id}`
+    }
+  }
 
-//     return (
-//       <p>
-//         {isStatusChanged && !isDeadlineExpires && (
-//           <>
-//             {t(TranslationKey['Status of the proposal by request '])}{' '}
-//             <NavLink to={getUrlToRequest(notification?.request?._id)} className={styles.notificationId} target="_blank">
-//               {`"${notification?.request?.humanFriendlyId}" `}
-//             </NavLink>
-//             {t(TranslationKey['changed to'])}
-//             <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
-//               {' '}
-//               {RequestProposalStatusTranslate(notification?.status)}
-//             </span>
-//           </>
-//         )}
+  return (
+    <p>
+      {isStatusChanged && !isDeadlineExpires && (
+        <>
+          {t(TranslationKey['Status of the proposal by request '])}{' '}
+          <NavLink to={getUrlToRequest(notification?.request?._id)} className={styles.notificationId} target="_blank">
+            {`"${notification?.request?.humanFriendlyId}" `}
+          </NavLink>
+          {t(TranslationKey['changed to'])}
+          <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
+            {' '}
+            {RequestProposalStatusTranslate(notification?.status)}
+          </span>
+        </>
+      )}
 
-//         {isDeadlineExpires && (
-//           <>
-//             {t(TranslationKey['Deadline for request'])}{' '}
-//             <NavLink
-//               to={getUrlToRequest(notification?.request?._id || notification?._id)}
-//               className={styles.notificationId}
-//               target="_blank"
-//             >
-//               {`"${notification?.humanFriendlyId || notification?.request?.humanFriendlyId}" `}
-//             </NavLink>
-//             {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
-//           </>
-//         )}
-//       </p>
-//     )
-//   }, styles),
-// )
+      {isDeadlineExpires && (
+        <>
+          {t(TranslationKey['Deadline for request'])}{' '}
+          <NavLink
+            to={getUrlToRequest(notification?.request?._id || notification?._id)}
+            className={styles.notificationId}
+            target="_blank"
+          >
+            {`"${notification?.humanFriendlyId || notification?.request?.humanFriendlyId}" `}
+          </NavLink>
+          {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
+        </>
+      )}
+    </p>
+  )
+})
 
-// const IdeaNotificationMessage = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, navigateToHandler, notification } = props
+const IdeaNotificationMessage = React.memo(props => {
+  const { navigateToHandler, notification } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     const getIdeaMessageTextToRender = () => {
-//       switch (notification.type) {
-//         case NotificationIdeaStatus.Create:
-//           return t(TranslationKey['created the idea'])
+  const getIdeaMessageTextToRender = () => {
+    switch (notification.type) {
+      case NotificationIdeaStatus.Create:
+        return t(TranslationKey['created the idea'])
 
-//         case NotificationIdeaStatus.StatusChange:
-//           return t(TranslationKey['changed the status of the idea'])
+      case NotificationIdeaStatus.StatusChange:
+        return t(TranslationKey['changed the status of the idea'])
 
-//         case NotificationIdeaStatus.Patch:
-//           return t(TranslationKey['updated the data on the idea of'])
-//       }
-//     }
+      case NotificationIdeaStatus.Patch:
+        return t(TranslationKey['updated the data on the idea of'])
+    }
+  }
 
-//     return (
-//       <p>
-//         <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
-//           {notification?.creator?.name}
-//         </a>
-//         {` ${getIdeaMessageTextToRender()} `}
-//         <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
-//           {notification?.productName}
-//         </a>
-//         {notification.type === NotificationIdeaStatus.StatusChange && (
-//           <>
-//             {` ${t(TranslationKey.to)} `}
-//             <span style={{ color: colorByIdeaStatus(ideaStatusByCode[notification.status]) }}>
-//               {ideaStatusTranslate(ideaStatusByCode[notification.status])}
-//             </span>
-//           </>
-//         )}
-//       </p>
-//     )
-//   }, styles),
-// )
+  return (
+    <p>
+      <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
+        {notification?.creator?.name}
+      </a>
+      {` ${getIdeaMessageTextToRender()} `}
+      <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
+        {notification?.productName}
+      </a>
+      {notification.type === NotificationIdeaStatus.StatusChange && (
+        <>
+          {` ${t(TranslationKey.to)} `}
+          <span style={{ color: colorByIdeaStatus(ideaStatusByCode[notification.status]) }}>
+            {ideaStatusTranslate(ideaStatusByCode[notification.status])}
+          </span>
+        </>
+      )}
+    </p>
+  )
+})
 
-// export const NotificationMessage = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, notificationType, notification, navigateToHandler } = props
+export const NotificationMessage = React.memo(props => {
+  const { notificationType, notification, navigateToHandler } = props
 
-//     return (
-//       <>
-//         {notificationType === NotificationType.Order && (
-//           <OrderNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
-//         )}
+  return (
+    <>
+      {notificationType === NotificationType.Order && (
+        <OrderNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+      )}
 
-//         {notificationType === NotificationType.Box && (
-//           <BoxNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
-//         )}
+      {notificationType === NotificationType.Box && (
+        <BoxNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+      )}
 
-//         {notificationType === NotificationType.Idea && (
-//           <IdeaNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
-//         )}
+      {notificationType === NotificationType.Idea && (
+        <IdeaNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+      )}
 
-//         {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
-//           <RequestNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
-//         )}
-//       </>
-//     )
-//   }, styles),
-// )
+      {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
+        <RequestNotificationMessage navigateToHandler={navigateToHandler} notification={notification} />
+      )}
+    </>
+  )
+})
 
-// export const MultipleAsinCell = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, asinList } = props
+export const MultipleAsinCell = React.memo(props => {
+  const { asinList } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     return (
-//       <div className={styles.multipleAsinWrapper}>
-//         {asinList.map((asin, index) => (
-//           <AsinOrSkuLink key={index} withCopyValue asin={asin} />
-//         ))}
-//       </div>
-//     )
-//   }, styles),
-// )
+  return (
+    <div className={styles.multipleAsinWrapper}>
+      {asinList.map((asin, index) => (
+        <AsinOrSkuLink key={index} withCopyValue asin={asin} />
+      ))}
+    </div>
+  )
+})
 
-// export const FreelancerMyProposalsActions = React.memo(
-//   withStyles(props => {
-//     const { classes: styles, status, onClickDeleteButton, onClickEditButton, onClickResultButton } = props
+export const FreelancerMyProposalsActions = React.memo(props => {
+  const { status, onClickDeleteButton, onClickEditButton, onClickResultButton } = props
+  const { classes: styles } = useDataGridCellsStyles()
 
-//     return (
-//       <div className={styles.proposalsActions}>
-//         <Button
-//           danger
-//           disabled={disabledCancelBtnStatuses.includes(status)}
-//           className={styles.freelancerMyProposalsButton}
-//           onClick={onClickDeleteButton}
-//         >
-//           <CloseIcon />
-//         </Button>
+  return (
+    <div className={styles.proposalsActions}>
+      <Button
+        danger
+        disabled={disabledCancelBtnStatuses.includes(status)}
+        className={styles.freelancerMyProposalsButton}
+        onClick={onClickDeleteButton}
+      >
+        <CloseIcon />
+      </Button>
 
-//         <Button
-//           className={styles.freelancerMyProposalsButton}
-//           disabled={!noDisabledEditBtnStatuses.includes(status)}
-//           onClick={onClickEditButton}
-//         >
-//           <EditOutlinedIcon />
-//         </Button>
+      <Button
+        className={styles.freelancerMyProposalsButton}
+        disabled={!noDisabledEditBtnStatuses.includes(status)}
+        onClick={onClickEditButton}
+      >
+        <EditOutlinedIcon />
+      </Button>
 
-//         <Button success disabled={!showResultStatuses.includes(status)} onClick={onClickResultButton}>
-//           {t(TranslationKey.Result)}
-//         </Button>
-//       </div>
-//     )
-//   }, styles),
-// )
+      <Button success disabled={!showResultStatuses.includes(status)} onClick={onClickResultButton}>
+        {t(TranslationKey.Result)}
+      </Button>
+    </div>
+  )
+})
