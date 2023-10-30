@@ -1289,7 +1289,7 @@ export const CheckboxCell = React.memo(({ checked, disabled, onClick }) => {
 })
 
 export const RenderFieldValueCell = React.memo(({ value }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   return <Typography className={styles.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 })
@@ -1442,7 +1442,7 @@ export const MultilineTextCell = React.memo(
 )
 
 export const VacantRequestPriceCell = React.memo(({ price, cashBackInPercent, AlignLeft }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
   const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
 
   return (
@@ -1469,7 +1469,7 @@ export const VacantRequestPriceCell = React.memo(({ price, cashBackInPercent, Al
 })
 
 export const OrdersIdsItemsCell = React.memo(({ value }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
   const sortedValue = value?.split('item')
   const orderIds = sortedValue[0]
   const ordersItems = 'item' + sortedValue[1]
@@ -1519,7 +1519,7 @@ export const CommentOfSbCell = React.memo(({ productsInWarehouse }) => {
 })
 
 export const MultilineTextAlignLeftCell = React.memo(({ text, withTooltip, isAsin, pointer, fourLines }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   return withTooltip ? (
     <Tooltip title={text}>
@@ -1559,7 +1559,7 @@ export const MultilineTextAlignLeftCell = React.memo(({ text, withTooltip, isAsi
 })
 
 export const MultilineTextAlignLeftHeaderCell = React.memo(({ text }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   return (
     <div className={styles.multilineTextAlignLeftHeaderWrapper}>
@@ -1611,7 +1611,7 @@ export const IconHeaderCell = React.memo(({ url }) => <img src={url} />)
 
 export const PriorityAndChinaDeliverCell = React.memo(
   ({ priority, chinaDelivery, status, isRequest, onClickOpenInNewTab }) => {
-    const { styles } = useDataGridCellsStyles()
+    const { classes: styles } = useDataGridCellsStyles()
     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
     const isUrgent =
       Number(priority) === orderPriority.urgentPriority ||
@@ -1641,7 +1641,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
 )
 
 export const BoxesAndQuantity = React.memo(({ boxesData }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
   if (Array.isArray(boxesData)) {
     const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
     const filteredBoxes = [...new Set(mergedBoxes)]
@@ -1683,7 +1683,7 @@ export const MultilineStatusCell = React.memo(({ status, leftAlign }) => {
 })
 
 export const TaskStatusCell = React.memo(({ status }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   const colorByStatus = () => {
     if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
@@ -1724,7 +1724,7 @@ export const RequestStatusCell = React.memo(({ status, isChat, styles }) => {
 })
 
 export const MultilineRequestStatusCell = React.memo(({ status, fontSize = '14px' }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   const colorByStatus = () => {
     if ([RequestStatus.DRAFT].includes(status)) {
@@ -1758,7 +1758,7 @@ export const MultilineRequestStatusCell = React.memo(({ status, fontSize = '14px
 })
 
 export const TaskTypeCell = React.memo(({ operationType }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
   const renderTaskDescription = type => {
     switch (type) {
       case TaskOperationType.MERGE:
@@ -1782,7 +1782,7 @@ export const TaskTypeCell = React.memo(({ operationType }) => {
 })
 
 export const TaskDescriptionCell = React.memo(({ task }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
   const renderProductImages = (product, key, box) => (
     <div key={key && key} className={styles.imgWrapper}>
       <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={styles.taskDescriptionImg} />
@@ -1927,7 +1927,7 @@ export const FourMonthesStockCell = React.memo(({ onClickSaveFourMonthsStock, ro
 })
 
 export const CommentUsersCell = React.memo(({ handler, id, comment, maxLength }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   return (
     <div className={styles.CommentUsersCellWrapper}>
@@ -1945,7 +1945,7 @@ export const ActualCostWithDelivery = React.memo(
     volumeWeightCoefficient,
     finalWeight,
   }) => {
-    const { styles } = useDataGridCellsStyles()
+    const { classes: styles } = useDataGridCellsStyles()
 
     const getTotalCost = item => {
       const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
@@ -1981,7 +1981,7 @@ export const ActualCostWithDeliveryPerUnit = React.memo(
     volumeWeightCoefficient,
     finalWeight,
   }) => {
-    const { styles } = useDataGridCellsStyles()
+    const { classes: styles } = useDataGridCellsStyles()
     const getTotalCost = item => {
       const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
         rowMemo,
@@ -2011,7 +2011,7 @@ export const ActualCostWithDeliveryPerUnit = React.memo(
 )
 
 export const ActiveBarcodeCell = React.memo(({ barCode }) => {
-  const { styles } = useDataGridCellsStyles()
+  const { classes: styles } = useDataGridCellsStyles()
 
   return (
     <>
