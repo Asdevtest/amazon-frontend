@@ -68,6 +68,6 @@ export const clientFreelanceNotificationsColumns = handlers => [
     ),
 
     sortable: false,
-    width: 160,
+    width: 140,
   },
 ]
