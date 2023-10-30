@@ -47,7 +47,7 @@ export const uploadFileByUrl = async image => {
 
     return BACKEND_API_URL + '/uploads/' + result.fileName
   } catch (error) {
-    console.log(error)
+    console.log(error?.response?.data?.message)
     throw new Error(Errors.INVALID_IMAGE)
   }
 }
@@ -75,44 +75,50 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
 }
 
 export async function onSubmitPostImages({ images, type, withoutShowProgress }) {
-  this[type] = []
-  const loadingStep = 100 / images.length
+  try {
+    this[type] = []
 
-  if (!withoutShowProgress) {
-    runInAction(() => {
-      this.showProgress = true
-    })
-  }
+    const loadingStep = 100 / images.length
 
-  for (let i = 0; i < images.length; i++) {
-    const image = images[i]
+    if (!withoutShowProgress) {
+      runInAction(() => {
+        this.showProgress = true
+      })
+    }
 
-    if (typeof image === 'string' && image.includes(BACKEND_API_URL + '/uploads/')) {
-      this[type].push(image)
-    } else if (typeof image === 'string') {
-      const res = await uploadFileByUrl(image)
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i]
 
-      this[type].push(res)
-    } else {
-      const res = await onPostImage(image)
+      if (typeof image === 'string' && image.includes(BACKEND_API_URL + '/uploads/')) {
+        this[type].push(image)
+      } else if (typeof image === 'string') {
+        const res = await uploadFileByUrl(image)
 
-      this[type].push(res)
+        this[type].push(res)
+      } else {
+        const res = await onPostImage(image)
+
+        this[type].push(res)
+      }
+
+      runInAction(() => {
+        this.progressValue = this.progressValue + loadingStep
+      })
+    }
+
+    if (!withoutShowProgress) {
+      runInAction(() => {
+        this.showProgress = false
+      })
     }
 
     runInAction(() => {
-      this.progressValue = this.progressValue + loadingStep
+      this.progressValue = 0
     })
-  }
-
-  if (!withoutShowProgress) {
-    runInAction(() => {
-      this.showProgress = false
-    })
-  }
-
-  runInAction(() => {
+  } catch (error) {
     this.progressValue = 0
-  })
+    this.showProgress = false
+  }
 }
 
 export const downloadFile = async (file, fileName) => {
