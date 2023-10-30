@@ -390,6 +390,7 @@ export const ClientInStockBoxesViewRaw = props => {
       <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
         <SelectStorekeeperAndTariffForm
           showCheckbox
+          RemoveDestinationRestriction={!viewModel.isCurrentTarrifsButton}
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)

@@ -93,6 +93,7 @@ export class ClientInStockBoxesViewModel {
 
   curBox = undefined
   showBoxViewModal = false
+  isCurrentTarrifsButton = false
 
   selectedBoxes = []
   selectedRows = []
@@ -848,6 +849,7 @@ export class ClientInStockBoxesViewModel {
   openModalAndClear() {
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
     this.changeItem = null
+    this.isCurrentTarrifsButton = false
   }
 
   async getClientDestinations() {
@@ -1672,6 +1674,10 @@ export class ClientInStockBoxesViewModel {
     await ClientModel.getDestinations()
 
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    runInAction(() => {
+      this.isCurrentTarrifsButton = true
+    })
   }
 
   async editBox(box) {
