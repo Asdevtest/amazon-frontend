@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ClassNamesArg, cx } from '@emotion/css'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import Alert from '@mui/material/Alert'
 
@@ -12,7 +11,7 @@ interface AlertShieldProps {
   alertShieldWrapperStyle?: ClassNamesArg
 }
 
-export const AlertShield: FC<AlertShieldProps> = React.memo(props => {
+export const AlertShield: FC<AlertShieldProps> = memo(props => {
   const { classes: classNames } = useClassNames()
 
   const { acceptMessage, showAcceptMessage, alertShieldWrapperStyle, ...rest } = props

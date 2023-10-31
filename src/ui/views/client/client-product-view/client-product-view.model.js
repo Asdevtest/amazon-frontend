@@ -159,6 +159,7 @@ export class ClientProductViewModel {
   readyImages = []
   progressValue = 0
   showProgress = false
+  isValidLink = true
 
   formFields = { ...formFieldsDefault }
 
@@ -652,7 +653,13 @@ export class ClientProductViewModel {
       runInAction(() => {
         this.alertShieldSettings = {
           showAlertShield: true,
-          alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+          alertShieldMessage: this.isValidLink
+            ? t(TranslationKey['Data was successfully saved'])
+            : t(
+                TranslationKey[
+                  'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.'
+                ],
+              ),
         }
 
         setTimeout(() => {
@@ -673,6 +680,10 @@ export class ClientProductViewModel {
       // this.warningModalTitle = t(TranslationKey['Data was successfully saved'])
 
       // this.onTriggerOpenModal('showWarningModal')
+
+      runInAction(() => {
+        this.isValidLink = true
+      })
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)

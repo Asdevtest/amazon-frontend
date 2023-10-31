@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import JSZip from 'jszip'
 import { runInAction } from 'mobx'
 
@@ -114,10 +113,14 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
 
     runInAction(() => {
       this.progressValue = 0
+      this.isValidLink = true
     })
   } catch (error) {
-    this.progressValue = 0
-    this.showProgress = false
+    runInAction(() => {
+      this.progressValue = 0
+      this.showProgress = false
+      this.isValidLink = false
+    })
   }
 }
 
