@@ -410,7 +410,7 @@ export const RequestDesignerResultClientForm = ({
 
           <Button
             disabled={!imagesForDownload.length}
-            className={cx(classNames.imagesModalBtn)}
+            className={classNames.imagesModalBtn}
             onClick={onClickAllDownload}
           >
             <DownloadOutlinedIcon />
@@ -418,7 +418,7 @@ export const RequestDesignerResultClientForm = ({
 
           <Button
             disabled={!imagesForDownload.length}
-            className={cx(classNames.imagesModalBtn)}
+            className={classNames.imagesModalBtn}
             onClick={onClickDownloadArchive}
           >
             <DownloadArchiveIcon />
@@ -429,7 +429,7 @@ export const RequestDesignerResultClientForm = ({
           <>
             <Button
               // disabled={disableSubmit}
-              className={cx(classNames.button)}
+              className={classNames.button}
               onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
@@ -443,7 +443,7 @@ export const RequestDesignerResultClientForm = ({
             <Button
               success
               // disabled={disableSubmit}
-              className={cx(classNames.button)}
+              className={classNames.button}
               onClick={() => {
                 onClickProposalResultAccept(proposal.proposal._id)
                 setOpenModal()
