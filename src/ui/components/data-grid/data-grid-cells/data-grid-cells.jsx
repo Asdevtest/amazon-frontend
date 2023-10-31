@@ -1679,14 +1679,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
 
     return (
       <div className={classNames.priorityAndChinaDeliveryWrapper}>
-        {onClickOpenInNewTab && (
-          <OpenInNewTabCell
-            onClickOpenInNewTab={e => {
-              e.stopPropagation()
-              onClickOpenInNewTab()
-            }}
-          />
-        )}
+        {onClickOpenInNewTab && <OpenInNewTabCell onClickOpenInNewTab={onClickOpenInNewTab} />}
 
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
 
