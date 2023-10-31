@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { MenuItem, Select } from '@mui/material'
 
@@ -15,7 +14,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './create-or-edit-services-content.style'
 
-export const CreateOrEditServiceContent = observer(
+export const CreateOrEditServiceContent = memo(
   ({ data, pathname, onClickCreateBtn, onClickEditBtn, onClickBackBtn, userInfo }) => {
     const { classes: styles } = useStyles()
 

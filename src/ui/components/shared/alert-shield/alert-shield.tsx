@@ -1,6 +1,5 @@
 import { ClassNamesArg, cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import Alert from '@mui/material/Alert'
 
@@ -13,7 +12,7 @@ interface AlertShieldProps {
   error?: boolean
 }
 
-export const AlertShield: FC<AlertShieldProps> = observer(props => {
+export const AlertShield: FC<AlertShieldProps> = memo(props => {
   const { classes: classNames } = useClassNames()
 
   const { acceptMessage, showAcceptMessage, alertShieldWrapperStyle, error = false, ...rest } = props
