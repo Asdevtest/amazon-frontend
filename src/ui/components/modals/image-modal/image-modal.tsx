@@ -109,8 +109,8 @@ export const ImageModal: FC<Props> = observer(
                       <img src={currentPhoto} alt={`Photo ${photoIndex}`} />
                     )}
 
-                    {photosTitles?.[photoIndex] && (
-                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[photoIndex]}</p>
+                    {photosTitles?.[index] && (
+                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[index]}</p>
                     )}
                   </div>
                 )
