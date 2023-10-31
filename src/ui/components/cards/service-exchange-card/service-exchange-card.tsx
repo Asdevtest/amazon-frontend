@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,9 +12,9 @@ import { t } from '@utils/translations'
 
 import { IService } from '@typings/master-user'
 
-import { useClassNames } from './service-exchange-card.style'
+import { useStyles } from './service-exchange-card.style'
 
-interface Props {
+interface ServiceExchangeCardProps {
   service: IService
   choose?: boolean
   order?: boolean
@@ -22,9 +22,8 @@ interface Props {
   onClickButton: (service: IService) => void
 }
 
-export const ServiceExchangeCard: FC<Props> = props => {
-  const { classes: classNames, cx } = useClassNames()
-
+export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
+  const { classes: classNames, cx } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription =
@@ -98,14 +97,16 @@ export const ServiceExchangeCard: FC<Props> = props => {
         </Button>
       </div>
 
-      <AnnouncementModal
-        isOpenModal={isOpenModal}
-        service={service}
-        choose={choose}
-        order={order}
-        onOpenModal={handleToggleModal}
-        onClickButton={() => onClickButton(service)}
-      />
+      {isOpenModal && (
+        <AnnouncementModal
+          isOpenModal={isOpenModal}
+          service={service}
+          choose={choose}
+          order={order}
+          onOpenModal={handleToggleModal}
+          onClickButton={() => onClickButton(service)}
+        />
+      )}
     </div>
   )
-}
+})

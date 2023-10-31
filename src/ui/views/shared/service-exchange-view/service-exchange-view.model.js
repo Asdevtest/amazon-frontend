@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
@@ -7,24 +6,16 @@ import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-k
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
-import { UserModel } from '@models/user-model'
 
 export class ServiceExchangeViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   announcements = []
   currentData = []
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
-  showConfirmModal = false
-
   showImageModal = false
-
-  selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
@@ -32,10 +23,6 @@ export class ServiceExchangeViewModel {
   bigImagesOptions = {}
 
   nameSearchValue = undefined
-
-  get user() {
-    return UserModel.userInfo
-  }
 
   constructor({ history }) {
     runInAction(() => {
@@ -64,9 +51,6 @@ export class ServiceExchangeViewModel {
     try {
       await this.getVacAnnouncementsData()
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
       console.log(error)
     }
   }
@@ -95,9 +79,6 @@ export class ServiceExchangeViewModel {
         this.announcements = result
       })
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
       console.log(error)
     }
   }
@@ -148,7 +129,7 @@ export class ServiceExchangeViewModel {
     })
   }
 
-  onSearchSubmit(e) {
+  onSearchChange(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
     })
