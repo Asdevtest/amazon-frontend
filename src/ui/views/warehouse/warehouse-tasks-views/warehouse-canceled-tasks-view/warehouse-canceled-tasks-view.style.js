@@ -4,6 +4,13 @@ export const styles = theme => ({
     width: '100%',
   },
 
+  headerWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 405,
