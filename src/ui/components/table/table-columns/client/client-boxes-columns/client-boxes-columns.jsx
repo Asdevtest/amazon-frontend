@@ -142,7 +142,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    width: 400,
+    width: 300,
     renderCell: params => {
       return params.row.originalData ? (
         params.row.originalData?.items.length > 1 ? (
