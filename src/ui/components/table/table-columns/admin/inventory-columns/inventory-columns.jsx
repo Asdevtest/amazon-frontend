@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
@@ -8,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   DownloadAndCopyBtnsCell,
   FeesValuesWithCalculateBtnCell,
-  MultilineStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,

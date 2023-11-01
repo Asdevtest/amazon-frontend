@@ -48,7 +48,6 @@ export class MyRequestsViewModel {
   history = undefined
   requestStatus = undefined
   loadTableStatus = undefined
-  error = undefined
 
   showRequestForm = false
   showConfirmModal = false
@@ -371,16 +370,13 @@ export class MyRequestsViewModel {
 
   async getShops() {
     try {
-      await ShopModel.getMyShopNames().then(result => {
-        runInAction(() => {
-          this.shopsData = result
-        })
+      const response = await ShopModel.getMyShopNames()
+
+      runInAction(() => {
+        this.shopsData = response
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -403,9 +399,6 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -417,9 +410,6 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -428,9 +418,6 @@ export class MyRequestsViewModel {
       await RequestModel.editRequest(requestId, data)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -446,9 +433,6 @@ export class MyRequestsViewModel {
       await RequestModel.createRequest(data)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -491,9 +475,6 @@ export class MyRequestsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -652,9 +633,6 @@ export class MyRequestsViewModel {
       this.setRequestStatus(loadingStatuses.failed)
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -683,9 +661,6 @@ export class MyRequestsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -787,9 +762,6 @@ export class MyRequestsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -814,9 +786,6 @@ export class MyRequestsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -841,9 +810,6 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -872,9 +838,6 @@ export class MyRequestsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 }

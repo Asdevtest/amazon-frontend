@@ -8,7 +8,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
 
-const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
+const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken']
 
 const stateModelName = 'UserModel'
 
