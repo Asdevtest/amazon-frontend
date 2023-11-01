@@ -259,7 +259,7 @@ export class MyRequestsViewModel {
     const requestState = {
       sortModel: toJS(this.sortModel),
       filterModel: toJS(this.filterModel),
-      // paginationModel: toJS(this.paginationModel),
+      paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
@@ -273,7 +273,7 @@ export class MyRequestsViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        // this.paginationModel = toJS(state.paginationModel)
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
@@ -356,11 +356,11 @@ export class MyRequestsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
 
       await this.getShops()
       await this.getCustomRequests()
 
-      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
