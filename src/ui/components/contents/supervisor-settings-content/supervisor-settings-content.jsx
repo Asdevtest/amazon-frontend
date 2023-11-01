@@ -107,6 +107,7 @@ export const SupervisorSettingsContent = observer(() => {
           <MemoDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -165,6 +166,7 @@ export const SupervisorSettingsContent = observer(() => {
           <MemoDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -223,6 +225,7 @@ export const SupervisorSettingsContent = observer(() => {
           <MemoDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
@@ -281,6 +284,7 @@ export const SupervisorSettingsContent = observer(() => {
           <MemoDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}

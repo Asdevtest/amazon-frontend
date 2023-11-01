@@ -140,6 +140,7 @@ export const ClientReadyBoxesViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowSelectionModel={viewModel.selectedBoxes}

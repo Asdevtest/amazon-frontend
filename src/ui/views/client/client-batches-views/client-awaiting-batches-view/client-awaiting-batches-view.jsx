@@ -97,6 +97,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
           <MemoDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             propsToRerender={{ productViewMode: viewModel.productViewMode }}
             rowCount={viewModel.rowCount}

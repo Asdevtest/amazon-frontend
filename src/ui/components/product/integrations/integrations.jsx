@@ -70,6 +70,7 @@ export const Integrations = observer(({ productId, modal }) => {
       <MemoDataGrid
         useResizeContainer
         checkboxSelection
+        disableRowSelectionOnClick
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}

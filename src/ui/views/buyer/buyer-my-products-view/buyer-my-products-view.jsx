@@ -66,6 +66,7 @@ export const BuyerMyProductsViewRaw = props => {
           <MemoDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}

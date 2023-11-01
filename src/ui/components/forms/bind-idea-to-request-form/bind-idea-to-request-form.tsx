@@ -37,6 +37,7 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = observer(pr
       <div className={classNames.tableWrapper}>
         <MemoDataGrid
           checkboxSelection
+          disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           rows={requests}
           columns={bindIdeaToRequestColumns()}

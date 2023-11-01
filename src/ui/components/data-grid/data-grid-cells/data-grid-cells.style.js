@@ -193,7 +193,6 @@ export const styles = theme => ({
 
   changeInputComment: {
     width: '100%',
-    height: '100% !important',
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
     fontSize: 14,
@@ -1620,8 +1619,7 @@ export const styles = theme => ({
 
   changeInputCommentCellWrapper: {
     width: '100%',
-    height: '100%',
-    padding: '10px',
+    padding: '10px 0',
   },
 
   menuItem: {
