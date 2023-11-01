@@ -1941,7 +1941,7 @@ export const styles = theme => ({
       height: 30,
       display: 'flex',
       gap: 5,
-      minWidth: '155px !important',
+      minWidth: '170px !important',
 
       svg: {
         width: 12,
