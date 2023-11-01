@@ -213,8 +213,8 @@ class UserModelStatic {
     return response.data
   }
 
-  async getMasterUsers(role, id, specs) {
-    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, id, specs })
+  async getMasterUsers(role, guid, specs) {
+    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, guid, specs })
     return response.data
   }
 

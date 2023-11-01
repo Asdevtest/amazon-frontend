@@ -98,6 +98,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           inputComponent={
             // @ts-ignore
             <WithSearchSelect
+              // @ts-ignore
               darkIcon
               grayBorder
               masterUserSelect

@@ -678,7 +678,7 @@ export class ClientInStockBoxesViewModel {
         updateBoxWhiteList,
       )
 
-      const editBoxesResult = await this.editBox({ id: this.selectedBox._id, data: requestBox })
+      const editBoxesResult = await this.editBox(this.selectedBox._id, requestBox)
 
       await this.postTask({
         idsData: [editBoxesResult.guid],
@@ -1447,7 +1447,7 @@ export class ClientInStockBoxesViewModel {
           updateBoxWhiteList,
         )
 
-        const editBoxesResult = await this.editBox({ id, data: requestBox })
+        const editBoxesResult = await this.editBox(id, requestBox)
 
         await this.updateBarCodesInInventory(dataToBarCodeChange)
 
@@ -1680,9 +1680,9 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
-  async editBox(box) {
+  async editBox(guid, body) {
     try {
-      const result = await BoxesModel.editBox(box)
+      const result = await BoxesModel.editBox(guid, body)
 
       return result
     } catch (error) {

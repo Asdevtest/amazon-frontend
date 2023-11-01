@@ -349,6 +349,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               inputComponent={
                 /* @ts-ignore */
                 <WithSearchSelect
+                  // @ts-ignore
                   grayBorder
                   blackSelectedItem
                   darkIcon
@@ -558,6 +559,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
               inputComponent={
                 /* @ts-ignore */
                 <WithSearchSelect
+                  // @ts-ignore
                   grayBorder
                   blackSelectedItem
                   darkIcon

@@ -42,10 +42,10 @@ export const exchangeInventoryColumns = () => [
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skusByClient={product?.skusByClient?.[0]}
         />
       )
     },

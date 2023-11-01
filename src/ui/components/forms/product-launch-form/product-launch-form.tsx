@@ -90,6 +90,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
 
       {/* @ts-ignore */}
       <WithSearchSelect
+        // @ts-ignore
         asinSelect
         grayBorder
         blackSelectedItem
