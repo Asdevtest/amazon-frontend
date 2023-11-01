@@ -236,8 +236,8 @@ export const styles = theme => ({
   },
 
   orderImg: {
-    height: 64,
-    width: 64,
+    height: 60,
+    width: 60,
     // objectFit: 'cover',
     objectFit: 'contain',
     objectPosition: 'center',
@@ -258,7 +258,7 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 185,
+    maxWidth: 210,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -621,9 +621,10 @@ export const styles = theme => ({
   },
 
   OrderCellError: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
   },
 
   trashWrapper: {
