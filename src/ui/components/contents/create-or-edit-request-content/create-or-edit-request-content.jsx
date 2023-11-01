@@ -90,7 +90,7 @@ export const CreateOrEditRequestContent = observer(
     const [showScrollDown, setShowScrollDown] = useState(false)
     const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
-    const [announcementsData, setAnnouncementsData] = useState(announcements || [])
+    const [announcementsData, setAnnouncementsData] = useState([])
 
     const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
     const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
@@ -167,7 +167,9 @@ export const CreateOrEditRequestContent = observer(
     }, [])
 
     useEffect(() => {
-      setAnnouncementsData(announcements)
+      if (announcements?.length) {
+        setAnnouncementsData(announcements)
+      }
     }, [announcements])
 
     useEffect(() => {
