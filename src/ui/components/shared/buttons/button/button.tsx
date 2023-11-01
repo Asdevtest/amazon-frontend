@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import { observer } from 'mobx-react'
-import { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -31,112 +32,109 @@ interface Props extends PropsWithChildren {
   border?: boolean
   className?: string
   disabled?: boolean
-  onClick?: () => void
+  onClick?: (target?: any) => void
   disableElevation?: boolean
   btnWrapperStyle?: string | ClassNamesArg
   small?: boolean
   defaultButtonTooltip?: string
+  startIcon?: ReactElement
 }
 
-export const Button: FC<Props> = ({
-  defaultButtonTooltip,
-  tooltipAttentionContent,
-  tooltipInfoContent,
-  tooltipPosition,
-  variant,
-  color,
-  children,
-  success,
-  danger,
-  border,
-  className,
-  disabled,
-  btnWrapperStyle,
-  small,
-  ...restProps
-}) => {
-  const { classes: classNames } = useClassNames()
+export const Button: FC<Props> = React.memo(
+  ({
+    defaultButtonTooltip,
+    tooltipAttentionContent,
+    tooltipInfoContent,
+    tooltipPosition,
+    variant,
+    color,
+    children,
+    success,
+    danger,
+    border,
+    className,
+    disabled,
+    btnWrapperStyle,
+    small,
+    ...restProps
+  }) => {
+    const { classes: classNames } = useClassNames()
 
-  const [showHints, setShowHints] = useState(SettingsModel.showHints)
+    const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
-  const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
-  const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
+    const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
+    const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-  useEffect(() => {
-    setShowHints(SettingsModel.showHints)
-  }, [SettingsModel.showHints])
+    useEffect(() => {
+      setShowHints(SettingsModel.showHints)
+    }, [SettingsModel.showHints])
 
-  return (
-    <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
-      {/* @ts-ignore */}
-      <StyledButton
-        disableElevation
-        title={defaultButtonTooltip || ''}
-        color={color || 'primary'}
-        disabled={disabled}
-        variant={variant || 'contained'}
-        classes={{
-          root: cx(
-            classNames.root,
-            {
-              [classNames.success]: success,
-              [classNames.danger]: danger,
-              [classNames.border]: border,
-              [classNames.defaultButton]: !success && !danger && !variant,
-              [classNames.disabled]: disabled,
-              [classNames.small]: small,
-            },
-            className,
-          ),
-        }}
-        {...restProps}
-      >
-        {children}
-      </StyledButton>
-      {tooltipAttentionContent || tooltipInfoContent ? (
-        <div className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}>
-          {tooltipAttentionContent ? (
-            <Tooltip
-              arrow
-              open={openAttentionTooltip}
-              title={tooltipAttentionContent}
-              placement="top-end"
-              onClose={() => setOpenAttentionTooltip(false)}
-              onOpen={() => setOpenAttentionTooltip(true)}
-            >
-              {/* <img
-                  className={classNames.tooltip}
-                  src="/assets/icons/attention.svg"
-                  onClick={() => setOpenAttentionTooltip(true)}
-                /> */}
+    return (
+      <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
+        {/* @ts-ignore */}
+        <StyledButton
+          disableElevation
+          title={defaultButtonTooltip || ''}
+          color={color || 'primary'}
+          disabled={disabled}
+          variant={variant || 'contained'}
+          classes={{
+            root: cx(
+              classNames.root,
+              {
+                [classNames.success]: success,
+                [classNames.danger]: danger,
+                [classNames.border]: border,
+                [classNames.defaultButton]: !success && !danger && !variant,
+                [classNames.disabled]: disabled,
+                [classNames.small]: small,
+              },
+              className,
+            ),
+          }}
+          {...restProps}
+        >
+          {children}
+        </StyledButton>
+        {tooltipAttentionContent || tooltipInfoContent ? (
+          <div className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}>
+            {tooltipAttentionContent ? (
+              <Tooltip
+                arrow
+                open={openAttentionTooltip}
+                title={tooltipAttentionContent}
+                placement="top-end"
+                onClose={() => setOpenAttentionTooltip(false)}
+                onOpen={() => setOpenAttentionTooltip(true)}
+              >
+                <div>
+                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                </div>
+              </Tooltip>
+            ) : null}
 
-              <div>
-                <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
-              </div>
-            </Tooltip>
-          ) : null}
-
-          {tooltipInfoContent && showHints ? (
-            <Tooltip
-              arrow
-              open={openInfoTooltip}
-              title={tooltipInfoContent}
-              placement="top-end"
-              onClose={() => setOpenInfoTooltip(false)}
-              onOpen={() => setOpenInfoTooltip(true)}
-            >
-              <Box display="flex" alignItems="center">
-                <TooltipInfoIcon
-                  className={cx(classNames.tooltip, classNames.tooltipInfo)}
-                  // fontSize={'small'}
-                  viewBox={'0 0 18 18'}
-                  onClick={() => setOpenInfoTooltip(true)}
-                />
-              </Box>
-            </Tooltip>
-          ) : null}
-        </div>
-      ) : null}
-    </div>
-  )
-}
+            {tooltipInfoContent && showHints ? (
+              <Tooltip
+                arrow
+                open={openInfoTooltip}
+                title={tooltipInfoContent}
+                placement="top-end"
+                onClose={() => setOpenInfoTooltip(false)}
+                onOpen={() => setOpenInfoTooltip(true)}
+              >
+                <Box display="flex" alignItems="center">
+                  <TooltipInfoIcon
+                    className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                    // fontSize={'small'}
+                    viewBox={'0 0 18 18'}
+                    onClick={() => setOpenInfoTooltip(true)}
+                  />
+                </Box>
+              </Tooltip>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    )
+  },
+)

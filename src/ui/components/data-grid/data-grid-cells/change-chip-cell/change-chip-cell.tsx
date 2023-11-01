@@ -1,0 +1,59 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { FC } from 'react'
+
+import { Chip } from '@mui/material'
+
+import { trimBarcode } from '@utils/text'
+
+import { useDataGridCellStyles } from './change-chip-cell.style'
+
+interface ChangeChipCellProps {
+  row: any
+  value?: string
+  onClickChip: (row: any) => void
+  onDoubleClickChip: (row: any) => void
+  onDeleteChip: (row: any) => void
+  text?: string
+  disabled?: boolean
+  label?: string
+}
+
+export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
+  const { classes: styles, cx } = useDataGridCellStyles()
+  const { row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label } = props
+
+  return (
+    <>
+      {label ? <p className={styles.changeChipCellLabel}>{label}</p> : null}
+      <Chip
+        disabled={disabled}
+        classes={{
+          root: styles.barcodeChip,
+          clickable: styles.barcodeChipHover,
+          deletable: styles.barcodeChipHover,
+          deleteIcon: styles.barcodeChipIcon,
+        }}
+        className={cx(styles.chipStock, { [styles.barcodeChipNoExists]: !value })}
+        size="small"
+        label={value ? trimBarcode(value) : text}
+        onClick={e => {
+          e.stopPropagation()
+
+          onClickChip(row)
+        }}
+        onDoubleClick={e => {
+          e.stopPropagation()
+          onDoubleClickChip(row)
+        }}
+        onDelete={
+          !value
+            ? undefined
+            : e => {
+                e.stopPropagation()
+                onDeleteChip(row)
+              }
+        }
+      />
+    </>
+  )
+})

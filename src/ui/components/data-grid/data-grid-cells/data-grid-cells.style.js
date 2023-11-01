@@ -240,7 +240,6 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
   orderImg: {
     height: 64,
     width: 64,
-    // objectFit: 'cover',
     objectFit: 'contain',
     objectPosition: 'center',
     borderRadius: 4,
