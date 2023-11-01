@@ -21,6 +21,7 @@ export class MyServicesViewModel {
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
+    error: false,
   }
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
@@ -51,11 +52,13 @@ export class MyServicesViewModel {
       this.alertShieldSettings = {
         showAlertShield: location?.state?.showAcceptMessage,
         alertShieldMessage: location?.state?.acceptMessage,
+        error: location?.state?.error,
       }
 
       const state = { ...history.location.state }
       delete state.acceptMessage
       delete state.showAcceptMessage
+      delete state.error
       history.replace({ ...history.location, state })
     }
 
@@ -89,6 +92,7 @@ export class MyServicesViewModel {
             this.alertShieldSettings = {
               showAlertShield: false,
               alertShieldMessage: '',
+              error: false,
             }
           }, 1000)
         }, 3000)

@@ -106,8 +106,9 @@ export const MyServicesViewRaw = ({ classes: classNames, history, location }) =>
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+          showAcceptMessage={viewModel?.alertShieldSettings.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings.alertShieldMessage}
+          error={viewModel?.alertShieldSettings.error}
         />
       )}
     </React.Fragment>

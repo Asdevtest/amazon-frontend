@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -6,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AnnouncementsModel } from '@models/announcements-model'
 import { UserModel } from '@models/user-model'
 
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -23,9 +21,6 @@ export class CreateOrEditServicesViewModel {
 
   requestId = undefined
 
-  readyImages = []
-  progressValue = 0
-  showProgress = false
   userInfo = undefined
 
   constructor({ history, location }) {
@@ -45,14 +40,12 @@ export class CreateOrEditServicesViewModel {
     try {
       if (this.requestId) {
         const result = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+
         runInAction(() => {
           this.requestToEdit = result
         })
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
       console.log(error)
     }
   }
@@ -60,6 +53,7 @@ export class CreateOrEditServicesViewModel {
   async loadData() {
     try {
       await this.getAnnouncementsDataByGuid()
+
       runInAction(() => {
         this.userInfo = UserModel.userInfo
       })
@@ -94,11 +88,8 @@ export class CreateOrEditServicesViewModel {
 
       this.history.push('/freelancer/freelance/my-services', {
         showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['The request was not created']),
-      })
-
-      runInAction(() => {
-        this.error = error
+        acceptMessage: t(TranslationKey['The service was not created']),
+        error: true,
       })
     }
   }
@@ -121,14 +112,12 @@ export class CreateOrEditServicesViewModel {
         acceptMessage: t(TranslationKey['Service edited']),
       })
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-        console.log(error)
-      })
+      console.log(error)
 
       this.history.push('/freelancer/freelance/my-services', {
         showAcceptMessage: true,
         acceptMessage: t(TranslationKey['Service not edited']),
+        error: true,
       })
     }
   }
