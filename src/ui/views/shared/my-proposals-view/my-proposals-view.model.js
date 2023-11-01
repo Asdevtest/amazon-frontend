@@ -376,7 +376,7 @@ export class MyProposalsViewModel {
         this.currentSearchValue,
         exclusion,
         filtersFields,
-        ['asin', 'amazonTitle', 'humanFriendlyId'],
+        ['asin', 'title', 'humanFriendlyId'],
         // {
         //   ...(!statusFilterData.length && {
         //     status: {

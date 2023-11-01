@@ -1,9 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import isEqual from 'lodash.isequal'
-import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import React, { memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -19,11 +15,10 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { styles } from './with-search-select.style'
+import { useStyles } from './with-search-select.style'
 
-const WithSearchSelectRaw = observer(
+export const WithSearchSelect = memo(
   ({
-    classes: classNames,
     data,
     onClickSelect,
     selectedItemName,
@@ -61,6 +56,8 @@ const WithSearchSelectRaw = observer(
     onClickSubmitBtn,
     isWithoutItemsTooltip,
   }) => {
+    const { classes: styles, cx } = useStyles()
+
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     const [dataToRender, setDataToRender] = useState(data)
@@ -113,13 +110,13 @@ const WithSearchSelectRaw = observer(
 
     const dataToRenderSortedByFavourites = favourites
       ? dataToRender
-          .slice()
-          .sort(
+          ?.slice()
+          ?.sort(
             (a, b) =>
-              favourites.findIndex(favouriteItem =>
+              favourites?.findIndex(favouriteItem =>
                 isEqual(favouriteItem, !isFlat ? searchFields.map(searchField => b[searchField]) : b),
               ) -
-              favourites.findIndex(favouriteItem =>
+              favourites?.findIndex(favouriteItem =>
                 isEqual(favouriteItem, !isFlat ? searchFields.map(searchField => a[searchField]) : a),
               ),
           )
@@ -128,17 +125,17 @@ const WithSearchSelectRaw = observer(
     return (
       <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
         <div
-          className={cx(classNames.root, {
-            [classNames.selectHeight]: asinSelect,
-            [classNames.disableRoot]: disabled,
+          className={cx(styles.root, {
+            [styles.selectHeight]: asinSelect,
+            [styles.disableRoot]: disabled,
           })}
           style={width && { width }}
         >
-          <div className={cx(classNames.mainWrapper, { [classNames.grayBorder]: grayBorder })}>
+          <div className={cx(styles.mainWrapper, { [styles.grayBorder]: grayBorder })}>
             <div
-              className={cx(classNames.chosenItem, {
-                [classNames.disabledChosenItem]: disabled,
-                [classNames.chosenItemNoHover]: chosenItemNoHover,
+              className={cx(styles.chosenItem, {
+                [styles.disabledChosenItem]: disabled,
+                [styles.chosenItemNoHover]: chosenItemNoHover,
               })}
               onClick={e => {
                 e.stopPropagation()
@@ -146,18 +143,18 @@ const WithSearchSelectRaw = observer(
               }}
             >
               <Typography
-                className={cx(classNames.selectedItemName, {
-                  [classNames.disabledSelectedItemName]: disabled,
-                  [classNames.blackSelectedItem]: blackSelectedItem,
+                className={cx(styles.selectedItemName, {
+                  [styles.disabledSelectedItemName]: disabled,
+                  [styles.blackSelectedItem]: blackSelectedItem,
                 })}
               >
                 {selectedItemName}
               </Typography>
 
               {open ? (
-                <ArrowDropUpIcon className={cx(classNames.icon, { [classNames.darkIcon]: darkIcon })} />
+                <ArrowDropUpIcon className={cx(styles.icon, { [styles.darkIcon]: darkIcon })} />
               ) : (
-                <ArrowDropDownIcon className={cx(classNames.icon, { [classNames.darkIcon]: darkIcon })} />
+                <ArrowDropDownIcon className={cx(styles.icon, { [styles.darkIcon]: darkIcon })} />
               )}
             </div>
 
@@ -171,22 +168,22 @@ const WithSearchSelectRaw = observer(
               onClose={handleClose}
             >
               <div
-                className={cx(classNames.subMainWrapper, customSubMainWrapper)}
+                className={cx(styles.subMainWrapper, customSubMainWrapper)}
                 style={widthPopover && { width: widthPopover || width }}
               >
                 {!withoutSearch ? (
                   <SearchInput
-                    inputClasses={cx(classNames.searchInput, customSearchInput)}
+                    inputClasses={cx(styles.searchInput, customSearchInput)}
                     value={nameSearchValue}
                     placeholder={placeholder ? placeholder : t(TranslationKey.Search)}
                     onChange={e => setNameSearchValue(e.target.value)}
                   />
                 ) : null}
-                <div className={cx(classNames.itemsWrapper, customItemsWrapper)}>
+                <div className={cx(styles.itemsWrapper, customItemsWrapper)}>
                   {onClickNotChosen && (
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
-                        className={classNames.button}
+                        className={styles.button}
                         variant="text"
                         onClick={e => {
                           e.stopPropagation()
@@ -217,7 +214,7 @@ const WithSearchSelectRaw = observer(
                     ) : (
                       <Button
                         key={index}
-                        className={cx(classNames.button, buttonStyles)}
+                        className={cx(styles.button, buttonStyles)}
                         style={changeColorById && { color: changeColorById(el._id) }}
                         variant="text"
                         onClick={e => {
@@ -229,8 +226,8 @@ const WithSearchSelectRaw = observer(
                         }}
                       >
                         <div
-                          className={cx(classNames.fieldNamesWrapper, fieldNamesWrapperStyles, {
-                            [classNames.fieldNamesWrapperWithCheckbox]: checkbox,
+                          className={cx(styles.fieldNamesWrapper, fieldNamesWrapperStyles, {
+                            [styles.fieldNamesWrapperWithCheckbox]: checkbox,
                           })}
                         >
                           {searchFields?.map((fieldName, index) => (
@@ -240,12 +237,12 @@ const WithSearchSelectRaw = observer(
                               )}
                               {!isWithoutItemsTooltip ? (
                                 <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
-                                  <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
+                                  <Typography className={cx(styles.fieldName, fieldNameStyles)}>
                                     {getRowValue ? getRowValue(el) : el[fieldName]}
                                   </Typography>
                                 </Tooltip>
                               ) : (
-                                <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
+                                <Typography className={cx(styles.fieldName, fieldNameStyles)}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
                               )}
@@ -265,7 +262,7 @@ const WithSearchSelectRaw = observer(
                                 />
                               )}
                               <Tooltip key={index} followCursor title={getRowValue ? getRowValue(el) : el}>
-                                <Typography className={classNames.fieldName}>
+                                <Typography className={styles.fieldName}>
                                   {getRowValue ? getRowValue(el) : el}
                                 </Typography>
                               </Tooltip>
@@ -286,16 +283,16 @@ const WithSearchSelectRaw = observer(
 
                           {favourites ? (
                             <StarOutlinedIcon
-                              className={cx(classNames.setFavouriteBtn, {
-                                [classNames.setFavouriteBtnIsSelected]: favourites.find(favouriteItem =>
+                              className={cx(styles.setFavouriteBtn, {
+                                [styles.setFavouriteBtnIsSelected]: favourites?.find(favouriteItem =>
                                   isEqual(
                                     favouriteItem,
-                                    searchFields.map(searchField => el[searchField]),
+                                    searchFields?.map(searchField => el[searchField]),
                                   ),
                                 ),
                               })}
                               onClick={e => {
-                                onClickSetDestinationFavourite(searchFields.map(searchField => el[searchField]))
+                                onClickSetDestinationFavourite(searchFields?.map(searchField => el[searchField]))
                                 e.preventDefault()
                                 e.stopPropagation()
                               }}
@@ -308,9 +305,9 @@ const WithSearchSelectRaw = observer(
                 </div>
 
                 {(checkbox || onClickSubmitBtn) && (
-                  <div className={classNames.submitWrapper}>
+                  <div className={styles.submitWrapper}>
                     <Button
-                      className={classNames.apply}
+                      className={styles.apply}
                       onClick={() => {
                         if (onClickSubmitBtn) {
                           onClickSubmitBtn()
@@ -331,4 +328,3 @@ const WithSearchSelectRaw = observer(
     )
   },
 )
-export const WithSearchSelect = withStyles(WithSearchSelectRaw, styles)

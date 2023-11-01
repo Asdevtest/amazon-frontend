@@ -95,7 +95,11 @@ export class CreateOrEditRequestViewModel {
 
   async getProductPermissionsData() {
     try {
-      this.permissionsData = await ClientModel.getProductPermissionsData()
+      await ClientModel.getProductPermissionsData().then(result => {
+        runInAction(() => {
+          this.permissionsData = result.rows
+        })
+      })
     } catch (error) {
       runInAction(() => {
         this.error = error
@@ -106,7 +110,7 @@ export class CreateOrEditRequestViewModel {
 
   async getMasterUsersData(specsType) {
     try {
-      this.masterUsersData = await UserModel.getMasterUsers(35, '', { specs: specsType })
+      this.masterUsersData = await UserModel.getMasterUsers(35, '', specsType)
     } catch (error) {
       runInAction(() => {
         this.error = error
