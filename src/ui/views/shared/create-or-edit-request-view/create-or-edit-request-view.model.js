@@ -72,11 +72,6 @@ export class CreateOrEditRequestViewModel {
         this.announcementId = announcementId
       }
 
-      const executorId = url.searchParams.get('executorId')
-      if (executorId) {
-        this.getCurrentExecutor(executorId)
-      }
-
       if (location.state) {
         this.requestId = location.state.requestId
       }
@@ -109,20 +104,6 @@ export class CreateOrEditRequestViewModel {
           this.permissionsData = result.rows
         })
       })
-    } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
-      console.log(error)
-    }
-  }
-
-  async getCurrentExecutor(guid) {
-    try {
-      // Временное решение https://tracker.yandex.ru/AMAZONSERVICE-7933, задача на нид инфо
-      // Нужен геттер под определение текущего исполнителя
-      const result = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, '')
-      this.executor = result.find(executor => executor._id === guid)
     } catch (error) {
       runInAction(() => {
         this.error = error
@@ -327,9 +308,13 @@ export class CreateOrEditRequestViewModel {
   }
 
   async getAnnouncementData() {
-    const id = this.announcementId || this.requestToEdit?.request?.announcementId
-    if (id) {
-      this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(id)
+    const guid = this.announcementId || this.requestToEdit?.request?.announcementId
+    if (guid) {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+      runInAction(() => {
+        this.choosenAnnouncements = result
+        this.executor = result?.createdBy
+      })
     }
   }
 
