@@ -1052,7 +1052,7 @@ export const navbarConfig = {
     {
       icon: UsersPermissionsIcon,
       title: () => t(TranslationKey['User permissions']),
-      route: '/adminpermissions',
+      route: '/admin/permissions',
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
       checkHideBlock: () => true,
     },

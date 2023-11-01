@@ -875,15 +875,11 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-
-      await Promise.allSettled([
-        this.getStorekeepers(),
-        this.getDestinations(),
-        this.getClientDestinations(),
-        this.getShops(),
-        this.getBoxesMy(),
-      ])
-
+      await this.getStorekeepers()
+      this.getDestinations()
+      this.getClientDestinations()
+      this.getShops()
+      this.getBoxesMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

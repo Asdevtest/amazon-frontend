@@ -84,10 +84,9 @@ export class ServiceExchangeViewModel {
   }
 
   onClickOrderBtn(data) {
-    this.history.push('/client/freelance/my-requests/create-request', {
-      announcementId: data?._id,
-      executor: data?.createdBy,
-    })
+    this.history.push(
+      `/client/freelance/my-requests/create-request?announcementId=${data?._id}&executorId=${data?.createdBy?._id}`,
+    )
   }
 
   async onClickTaskType(taskType) {

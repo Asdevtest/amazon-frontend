@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -66,10 +67,18 @@ export class CreateOrEditRequestViewModel {
         asin: url.searchParams.get('asin'),
       }
 
+      const announcementId = url.searchParams.get('announcementId')
+      if (announcementId) {
+        this.announcementId = announcementId
+      }
+
+      const executorId = url.searchParams.get('executorId')
+      if (executorId) {
+        this.getCurrentExecutor(executorId)
+      }
+
       if (location.state) {
         this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
-        this.executor = location.state?.executor
       }
     })
 
@@ -108,9 +117,23 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async getMasterUsersData(specsType) {
+  async getCurrentExecutor(guid) {
     try {
-      this.masterUsersData = await UserModel.getMasterUsers(35, '', specsType)
+      // Временное решение https://tracker.yandex.ru/AMAZONSERVICE-7933, задача на нид инфо
+      // Нужен геттер под определение текущего исполнителя
+      const result = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, '')
+      this.executor = result.find(executor => executor._id === guid)
+    } catch (error) {
+      runInAction(() => {
+        this.error = error
+      })
+      console.log(error)
+    }
+  }
+
+  async getMasterUsersData(specsType, guid = '') {
+    try {
+      this.masterUsersData = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, specsType)
     } catch (error) {
       runInAction(() => {
         this.error = error
