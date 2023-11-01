@@ -3,9 +3,8 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
     height: 165,
-    width: 800,
+    width: '100%',
     padding: '20px 20px 20px 0',
-    marginBottom: 30,
     display: 'flex',
     justifyContent: 'space-between',
     boxShadow: theme.palette.boxShadow.paper,

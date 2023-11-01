@@ -13,9 +13,9 @@ import { t } from '@utils/translations'
 
 import { IService, ShortUserType } from '@typings/master-user'
 
-import { useClassNames } from './announcement-modal.styles'
+import { useStyles } from './announcement-modal.styles'
 
-interface Props {
+interface AnnouncementModalProps {
   isOpenModal: boolean
   service: IService
   onOpenModal: VoidFunction
@@ -26,17 +26,9 @@ interface Props {
   onClickSelectButton?: (selectedService?: IService, chosenExecutor?: ShortUserType) => void
 }
 
-export const AnnouncementModal: FC<Props> = ({
-  isOpenModal,
-  service,
-  choose,
-  order,
-  select,
-  onOpenModal,
-  onClickButton,
-  onClickSelectButton,
-}) => {
-  const { classes: styles, cx } = useClassNames()
+export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
+  const { isOpenModal, service, choose, order, select, onOpenModal, onClickButton, onClickSelectButton } = props
+  const { classes: styles, cx } = useStyles()
 
   const serviceType =
     service.type === 0

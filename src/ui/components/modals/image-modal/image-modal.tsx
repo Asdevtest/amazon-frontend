@@ -70,13 +70,13 @@ export const ImageModal: FC<Props> = observer(
 
     return (
       <Modal
+        missClickModalOn
         openModal={isOpenModal}
         setOpenModal={() => {
           handleOpenModal()
           handleCurrentImageIndex(photoIndex)
           updateImagesForLoad()
         }}
-        missClickModalOn={undefined}
         isWarning={false}
         dialogContextClassName={styles.modalContainer}
       >
