@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,18 +9,10 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
-import { styles } from './create-or-edit-proposal-view.style'
-
 import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
-export const CreateOrEditProposalViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new CreateOrEditProposalViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const CreateOrEditProposalView = observer(({ history, location }) => {
+  const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history, location }))
 
   return (
     <React.Fragment>
@@ -59,6 +50,4 @@ export const CreateOrEditProposalViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const CreateOrEditProposalView = withStyles(observer(CreateOrEditProposalViewRaw), styles)
+})
