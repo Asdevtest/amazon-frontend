@@ -44,7 +44,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
         days,
         hours,
         minutes,
-        totalTimeInMinute: duration || 0,
+        totalTimeInMinute: duration,
       })
     }
   }, [duration])
