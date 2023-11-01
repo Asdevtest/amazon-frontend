@@ -1,4 +1,5 @@
 import { keyframes } from '@emotion/react'
+import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
 0% {
@@ -11,7 +12,7 @@ const ani = keyframes`
   }
 `
 
-export const styles = theme => ({
+export const useStyles = makeStyles()(theme => ({
   field: {
     marginTop: theme.spacing(2.5),
   },
@@ -131,4 +132,4 @@ export const styles = theme => ({
       background: theme.palette.other.rejected,
     },
   },
-})
+}))

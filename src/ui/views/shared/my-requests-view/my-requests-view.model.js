@@ -236,10 +236,7 @@ export class MyRequestsViewModel {
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+    this.paginationModel = model
     this.getCustomRequests()
     this.setDataGridState()
   }
@@ -263,7 +260,7 @@ export class MyRequestsViewModel {
     const requestState = {
       sortModel: toJS(this.sortModel),
       filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
+      // paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
@@ -277,7 +274,7 @@ export class MyRequestsViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
+        // this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
@@ -487,9 +484,10 @@ export class MyRequestsViewModel {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
 
         this.rowCount = result.count
+
+        this.loadTableStatus = loadingStatuses.success
       })
       this.setRequestStatus(loadingStatuses.success)
-      this.loadTableStatus = loadingStatuses.success
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
