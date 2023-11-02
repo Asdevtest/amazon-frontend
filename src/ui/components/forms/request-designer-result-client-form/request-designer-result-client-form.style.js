@@ -28,11 +28,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
   },
 
-  titleWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
-
   simpleSpan: {
     fontWeight: '600 !important',
     fontSize: 14,
@@ -47,7 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'min-content !important',
+    width: '140px !important',
     marginBottom: '0 !important',
   },
 
@@ -131,7 +126,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   headerRightSubWrapper: {
     display: 'flex',
-    gap: 50,
+    gap: 30,
   },
 
   viewLinkWrapper: {
