@@ -788,6 +788,7 @@ export const styles = theme => ({
     justifyContent: 'start',
     flexWrap: 'no-wrap',
     wordBreak: 'break-all',
+    padding: '10px 0',
   },
 
   commentOfSbWrapper: {

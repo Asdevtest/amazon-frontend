@@ -1,24 +1,24 @@
-import { createStyles } from '@material-ui/core'
+import { makeStyles } from 'tss-react/mui'
 
-export const styles = createStyles(theme => ({
+export const useStyles = makeStyles()(theme => ({
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    marginBottom: 20,
     width: '290px',
     height: '40px',
+    border: `1px solid ${theme.palette.primary.main}`,
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
   },
 
-  headerWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   tableWrapper: {
     height: '82vh',
     width: '100%',
+    marginTop: 20,
   },
 }))
