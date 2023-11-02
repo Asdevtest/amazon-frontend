@@ -14,7 +14,6 @@ import { t } from '@utils/translations'
 
 export class SourceFilesViewModel {
   history = undefined
-  error = undefined
 
   nameSearchValue = ''
 
@@ -42,6 +41,7 @@ export class SourceFilesViewModel {
     onChangeText: fileName => value => this.onChangeText(fileName)(value),
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -60,6 +60,7 @@ export class SourceFilesViewModel {
 
   constructor({ history }) {
     this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -84,15 +85,11 @@ export class SourceFilesViewModel {
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   getCurrentData() {
@@ -108,15 +105,11 @@ export class SourceFilesViewModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
   }
 
   async loadData() {
@@ -133,25 +126,19 @@ export class SourceFilesViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerSortMode() {
-    runInAction(() => {
-      if (this.sortMode === tableSortMode.DESK) {
-        this.sortMode = tableSortMode.ASC
-      } else {
-        this.sortMode = tableSortMode.DESK
-      }
-    })
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+    } else {
+      this.sortMode = tableSortMode.DESK
+    }
   }
 
   onClickEditBtn(row) {
-    runInAction(() => {
-      this.editField = row
-    })
+    this.editField = row
   }
 
   async onClickSaveBtn(row) {
@@ -172,12 +159,14 @@ export class SourceFilesViewModel {
   }
 
   async onClickRemoveBtn(row) {
-    this.confirmModalSettings = {
-      isWarning: true,
-      title: t(TranslationKey.Attention),
-      message: t(TranslationKey['Do you want to delete the source file?']),
-      onClickSuccess: () => this.removeSourceData(row),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey.Attention),
+        message: t(TranslationKey['Do you want to delete the source file?']),
+        onClickSuccess: () => this.removeSourceData(row),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -206,9 +195,7 @@ export class SourceFilesViewModel {
 
     newFormFields[fieldName] = value
 
-    runInAction(() => {
-      this.editField = newFormFields
-    })
+    this.editField = newFormFields
   }
 
   async getSourceFiles() {
@@ -219,6 +206,7 @@ export class SourceFilesViewModel {
 
       runInAction(() => {
         this.sourceFiles = SourceFilesDataConverter(result)
+        this.rowCount = this.sourceFiles.length
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -229,9 +217,7 @@ export class SourceFilesViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onTriggerOpenModal(modal) {
