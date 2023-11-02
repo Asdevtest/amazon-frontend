@@ -28,7 +28,7 @@ export const BuyerDashboardViewRaw = props => {
   }, [])
 
   const buyerButtonsRoutes = {
-    notifications: 'notifications/ideas-notifications',
+    notifications: 'notifications/general-notifications-view',
     messages: 'messages',
   }
 
