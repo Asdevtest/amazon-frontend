@@ -2,35 +2,102 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   switcherWrapper: {
+    padding: 3,
     display: 'flex',
     alignItems: 'center',
-    padding: 2,
-    borderRadius: 4,
-    backgroundColor: theme.palette.input.customDisabled,
-    height: 28,
+    flexWrap: 'wrap',
+    gap: 5,
+    backgroundColor: theme.palette.customSwitcher.background,
+    borderRadius: '21px',
+  },
+
+  fullWidthWrapper: {
+    width: '100%',
+  },
+
+  headerStylesSwitcherWrapper: {
+    borderRadius: '24px',
+    backgroundColor: theme.palette.customSwitcher.headerBackground,
+  },
+
+  mediumGapWrapper: {
+    gap: 10,
+  },
+
+  optionWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+
+  headerOptionWrapper: {
+    height: 45,
+  },
+
+  mediumOptionWrapper: {
+    height: 40,
   },
 
   switcherOption: {
+    height: '100%',
+    width: '100%',
+    minWidth: 25,
+    padding: '0 5px',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    fontWeight: 400,
+    justifyContent: 'center',
+    gap: 5,
     fontSize: 14,
     lineHeight: '19px',
-    padding: '0 4px',
-    height: 24,
-    borderRadius: 4,
-    color: theme.palette.text.general,
-    background: 'none',
-    minWidth: '24px !important',
+    whiteSpace: 'nowrap',
+    transition: 'all .3s ease',
+    color: theme.palette.customSwitcher.text,
+    borderRadius: '21px',
 
-    '&:hover': {
-      color: '#fff',
+    '&:active': {
+      color: theme.palette.customSwitcher.text,
+      backgroundColor: theme.palette.customSwitcher.headerBackground,
     },
   },
 
+  headerOptionStyles: {
+    padding: '0 15px',
+    borderRadius: '24px',
+  },
+
   activeOption: {
-    background: theme.palette.primary.main,
+    cursor: 'unset',
+    fontWeight: 600,
+    transition: 'all .3s ease',
+    color: theme.palette.customSwitcher.activeText,
+    backgroundColor: theme.palette.customSwitcher.indicator,
+
+    '&:hover': {
+      color: theme.palette.customSwitcher.activeText,
+      backgroundColor: theme.palette.customSwitcher.indicator,
+    },
+  },
+
+  bigOptionStyles: {
+    fontSize: '18px',
+  },
+
+  mediumOptionStyles: {
+    padding: '0 15px',
+  },
+
+  headerActiveOptionStyles: {
     color: '#fff',
+    background: theme.palette.primary.main,
+
+    '&:hover': {
+      color: '#fff',
+      background: theme.palette.primary.main,
+    },
+  },
+
+  icon: {
+    color: theme.palette.primary.main,
   },
 }))

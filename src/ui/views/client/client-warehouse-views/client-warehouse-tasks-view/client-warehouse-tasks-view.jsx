@@ -1,27 +1,26 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Checkbox, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
+  TaskOperationType,
   mapTaskOperationTypeEnumToKey,
   mapTaskOperationTypeKeyToEnum,
-  TaskOperationType,
+  mapTaskOperationTypeToLabel,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
 import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
-import { mapTaskStatusKeyToEnum, TaskStatusTranslate } from '@constants/task/task-status'
+import { TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -30,15 +29,16 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 import { styles } from './client-warehouse-tasks-view.style'
-import { DownloadIcon } from '@components/shared/svg-icons'
+
+import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 
 export const ClientWarehouseTasksViewRaw = props => {
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history: props.history }))
@@ -55,13 +55,15 @@ export const ClientWarehouseTasksViewRaw = props => {
         viewModel.selectedBoxes?.length > 1 ||
         viewModel.tasksMy
           .filter(el => viewModel.selectedBoxes.includes(el.id))
-          .some(box => box.operationType !== taskOperationTypeTranslate(TaskOperationType.RECEIVE)),
+          .some(box => {
+            return box.operationType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
+          }),
     )
   }, [viewModel.selectedBoxes])
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <SearchInput
             // disabled
@@ -261,6 +263,9 @@ export const ClientWarehouseTasksViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: viewModel.columnMenuSettings,
 
               toolbar: {
@@ -283,7 +288,7 @@ export const ClientWarehouseTasksViewRaw = props => {
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showEditPriorityData}
@@ -323,7 +328,7 @@ export const ClientWarehouseTasksViewRaw = props => {
       />
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}

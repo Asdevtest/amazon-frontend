@@ -64,6 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '100%',
+    width: '100%',
   },
 
   headerCarouselDocumentsWrapper: {
@@ -75,7 +76,6 @@ export const useClassNames = makeStyles()(theme => ({
   numberOfFiles: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },
@@ -104,7 +104,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: '20px 0 20px 0',
   },
 
   imagesAndFilesWrapperMini: {
@@ -259,7 +258,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },

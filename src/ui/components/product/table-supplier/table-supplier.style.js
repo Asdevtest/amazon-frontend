@@ -1,29 +1,39 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  text: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '22px',
+  wrapper: {
+    borderRadius: 10,
+    border: '1px solid #E0E0E0',
+    padding: 2,
   },
 
   table: {
-    borderRadius: 10,
-    border: '1px solid rgb(224, 224, 224)',
+    maxHeight: 370,
+    overflow: 'auto',
+
     '& td': {
-      flexShrink: 0,
+      height: 150,
       borderBottom: 'none',
     },
+
     '& th': {
-      fontWeight: 700,
-      lineHeight: '15px',
-      fontSize: '15px',
-      padding: '8px',
+      fontSize: 12,
+      fontWeight: 600,
+      lineHeight: '140%',
+      padding: '0 8px',
+    },
+
+    '&::-webkit-scrollbar-button': {
+      borderRadius: 10,
+    },
+
+    '& > table > tbody': {
+      height: 160,
     },
   },
 
   tableHead: {
+    height: 50,
     position: 'sticky',
     top: 0,
     left: 0,
@@ -31,115 +41,114 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.second,
   },
 
-  tableBody: {
-    maxHeight: 450,
-    overflowY: 'scroll',
-    position: 'relative',
-  },
-
-  tableCellPadding: {
-    padding: '16px 24px',
-  },
-
-  alignCenter: {
-    textAlign: 'center',
-  },
-
-  alignCenterFiles: {
-    textAlign: 'center',
-    zIndex: 1,
+  tableRow: {
+    maxHeight: 150,
   },
 
   tableRowAcceptedSupplier: {
     backgroundColor: theme.palette.background.tableCurRow,
   },
+
   tableRowSelectedSupplier: {
     backgroundColor: 'rgba(245, 0, 87, 0.08)',
   },
 
-  linkWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    width: 'min-content',
-  },
-
-  link: {
-    fontSize: 12,
-    color: theme.palette.primary.main,
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
+  mainText: {
+    color: theme.palette.text.second,
+    fontSize: 14,
   },
 
   nameCell: {
     position: 'relative',
-    minWidth: 200,
+    width: 150,
   },
 
-  commentCell: {
-    minWidth: 250,
-  },
-
-  priceVariationsCell: {
-    minWidth: 200,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    margin: 'auto',
-  },
-
-  filesWrapper: {
-    height: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  createdByCell: {
-    width: '120px',
-    textAlign: 'center',
-  },
-  normDateCellTypo: {
-    fontSize: '10px',
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  StatsWrapper: {
+  statsWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 'auto',
-    height: 'auto',
   },
-  imgWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    width: 'auto',
-    height: 'auto',
+
+  primary: {
+    color: theme.palette.background.yellow,
   },
+
   multiplicityWrapper: {
     display: 'flex',
+    alignItems: 'center',
     gap: 5,
-    marginLeft: 5,
+    padding: 10,
   },
+
   multiplicityText: {
     color: theme.palette.text.second,
-    fontWeight: 400,
     fontSize: 12,
   },
+
   amountInBoxText: {
     color: theme.palette.primary.main,
     fontWeight: 600,
     fontSize: 12,
-    lineHeight: '140%',
   },
-  primary: {
-    color: theme.palette.background.yellow,
+
+  linkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  link: {
+    fontSize: 14,
+    color: theme.palette.primary.main,
+  },
+
+  linkIcon: {
+    transition: '0.3s ease',
+    cursor: 'pointer',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  priceVariationsCell: {
+    width: 160,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
+  commentCell: {
+    width: 200,
+  },
+
+  commentWrapper: {
+    display: '-webkit-box',
+    '-webkit-line-clamp': '3',
+    '-webkit-box-orient': 'vertical',
+    alignItems: 'center',
+    height: '60px !important',
+    wordBreak: 'break-word',
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+  },
+
+  tooltip: {
+    maxWidth: '650px',
+  },
+
+  filesWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 150,
+    width: 300,
+
+    '& > div': {
+      margin: 0,
+    },
   },
 }))

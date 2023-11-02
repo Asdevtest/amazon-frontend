@@ -1,7 +1,8 @@
+import { observer } from 'mobx-react'
 import React, { FC } from 'react'
 
-import { observer } from 'mobx-react'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+
 import {
   checkIsChatMessageAddUsersToGroupChatContract,
   checkIsChatMessageBloggerProposalResultEditedContract,
@@ -13,6 +14,7 @@ import {
   checkIsChatMessageDataProposalStatusChangedContract,
   checkIsChatMessageDesignerProposalResultEditedContract,
   checkIsChatMessagePatchInfoGroupChatContract,
+  checkIsChatMessageProposalEditedContract,
   checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
 
@@ -46,9 +48,11 @@ export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
 interface Props {
   isIncomming: boolean
   messageItem: ChatMessageContract
+  isShowChatInfo?: boolean
   unReadMessage: boolean
   showName: boolean
   isLastMessage: boolean
+  isLastResultMessage?: boolean
   handlers?: ChatMessageUniversalHandlers
   messagesFoundIds?: string[]
   searchPhrase?: string
@@ -58,20 +62,23 @@ export const ChatMessageByType: FC<Props> = observer(
   ({
     isIncomming,
     messageItem,
+    isShowChatInfo,
     unReadMessage,
     showName,
     isLastMessage,
+    isLastResultMessage,
     handlers,
     messagesFoundIds = [],
     searchPhrase,
   }) => {
     const renderMessageByType = () => {
       if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
-        return <ChatMessageRequest message={messageItem} />
+        return <ChatMessageRequest message={messageItem} isShowChatInfo={isShowChatInfo} />
       } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
         return (
           <ChatMessageProposal
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalAccept: handlers.onClickProposalAccept,
               onClickProposalRegect: handlers.onClickProposalRegect,
@@ -83,6 +90,7 @@ export const ChatMessageByType: FC<Props> = observer(
           <ChatMessageProposalStatusChanged
             isLastMessage={isLastMessage}
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
@@ -93,8 +101,9 @@ export const ChatMessageByType: FC<Props> = observer(
       } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
         return (
           <ChatMessageRequestProposalResultEdited
-            isLastMessage={isLastMessage}
             message={messageItem}
+            isLastResultMessage={isLastResultMessage}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
@@ -105,6 +114,7 @@ export const ChatMessageByType: FC<Props> = observer(
         return (
           <ChatMessageCreateNewBloggerProposal
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalAccept: handlers.onClickProposalAccept,
               onClickProposalRegect: handlers.onClickProposalRegect,
@@ -115,6 +125,7 @@ export const ChatMessageByType: FC<Props> = observer(
         return (
           <ChatMessageCreateNewDesignerProposal
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalAccept: handlers.onClickProposalAccept,
               onClickProposalRegect: handlers.onClickProposalRegect,
@@ -125,6 +136,7 @@ export const ChatMessageByType: FC<Props> = observer(
         return (
           <ChatMessageBloggerProposalEditedResult
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
@@ -135,6 +147,7 @@ export const ChatMessageByType: FC<Props> = observer(
         return (
           <ChatMessageDesignerProposalEditedResult
             message={messageItem}
+            isShowChatInfo={isShowChatInfo}
             handlers={{
               onClickOpenRequest: handlers.onClickOpenRequest,
             }}
@@ -146,6 +159,8 @@ export const ChatMessageByType: FC<Props> = observer(
         return <ChatMessageRemoveUsersFromGroupChat message={messageItem} />
       } else if (checkIsChatMessagePatchInfoGroupChatContract(messageItem)) {
         return <ChatMessagePatchInfoGroupChat message={messageItem} />
+      } else if (checkIsChatMessageProposalEditedContract(messageItem)) {
+        return
       } else {
         return (
           <ChatMessageBasicText

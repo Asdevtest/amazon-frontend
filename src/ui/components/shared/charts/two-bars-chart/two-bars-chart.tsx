@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Bar } from 'recharts'
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 interface Props {
   data: Array<Object>

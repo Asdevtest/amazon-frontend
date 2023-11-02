@@ -13,28 +13,12 @@ const ani = keyframes`
 
 export const styles = theme => ({
   tableWrapper: {
-    height: 'calc(100vh - 250px)',
-    [theme.breakpoints.down(1282)]: {
-      height: 'calc(100vh - 250px)',
-    },
+    height: '72vh',
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
-  },
-
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-  iconSeparator: {
-    padding: '0 1px',
   },
 
   headerWrapper: {
@@ -171,12 +155,6 @@ export const styles = theme => ({
     '&>disabled': {
       backgroundColor: 'inherit',
     },
-  },
-
-  boxesFiltersWrapper: {
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {

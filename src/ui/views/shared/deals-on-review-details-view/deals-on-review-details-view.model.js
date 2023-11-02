@@ -1,11 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
 
+import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 export class VacantDealsDetailsViewModel {
@@ -143,6 +145,19 @@ export class VacantDealsDetailsViewModel {
       this.proposalId = id
     })
     this.onTriggerOpenModal('showReworkModal')
+  }
+
+  onSubmitSendInForRework(id) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onClickReworkDealModal(id)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickRejectDealModal(id) {

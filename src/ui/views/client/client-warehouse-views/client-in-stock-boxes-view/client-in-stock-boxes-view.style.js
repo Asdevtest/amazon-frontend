@@ -4,8 +4,6 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: '0 0 10px',
-    marginTop: 10,
   },
   leftBtnsWrapper: {
     display: 'flex',
@@ -31,15 +29,12 @@ export const styles = theme => ({
   },
 
   tasksWrapper: {
-    marginTop: '30px',
+    marginTop: 20,
+    height: '65vh',
   },
 
   boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
+    marginBottom: '15px',
   },
 
   selectedBoxesBtn: {
@@ -65,7 +60,6 @@ export const styles = theme => ({
   },
 
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
@@ -90,35 +84,5 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
-  },
-
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-
-    position: 'relative',
-    paddingRight: 20,
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-  menuIconButton: {
-    zIndex: 1000,
-    position: 'absolute !important',
-    right: -7,
-    top: 13,
-    visibility: 'visible !important',
-
-    width: '18px !important',
-    height: '18px !important',
-
-    '.MuiSvgIcon-root': {
-      display: 'none',
-    },
-  },
-  iconSeparator: {
-    padding: '0 1px',
   },
 })

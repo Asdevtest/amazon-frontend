@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
+import { Checkbox, Typography } from '@mui/material'
 
+import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import {
@@ -18,28 +17,29 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
-import { AsinLink } from '@components/shared/asin-link'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './owner-general-request-info.style'
-import { Text } from '@components/shared/text'
 
 export const OwnerGeneralRequestInfo = ({
+  userInfo,
   request,
   requestProposals,
   requestAnnouncement,
   onClickPublishBtn,
   onClickEditBtn,
   onClickCancelBtn,
+  onClickMarkAsCompletedBtn,
   onClickAbortBtn,
   onRecoverRequest,
   onToggleUploadedToListing,
@@ -50,18 +50,31 @@ export const OwnerGeneralRequestInfo = ({
 
   const now = new Date()
 
-  const isDraft = request?.request?.status === RequestStatus.DRAFT
-
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
   const requestIsNotDraftAndPublished =
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
 
+  const isDisplayingMarkAsCompletedButton =
+    (request?.request.createdBy?._id === userInfo?._id || request?.request.sub?._id === userInfo?._id) &&
+    (request?.request.status === RequestStatus.EXPIRED || request?.request.status === RequestStatus.IN_PROCESS) &&
+    requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
+
   return (
     <div className={classNames.root}>
       <div className={cx(classNames.requestInformationWrapper, classNames.firstBlock)}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
+        <div className={classNames.priorityWrapper}>
+          <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
+
+          {Number(request?.request?.priority) === requestPriority.urgentPriority && (
+            <div className={classNames.prioritySubWrapper}>
+              <Typography className={classNames.sectionTitle}>{t(TranslationKey['Urgent request'])}</Typography>
+
+              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            </div>
+          )}
+        </div>
 
         <div className={classNames.requestInformationCardWrapper}>
           <div className={classNames.requestInformation}>
@@ -101,10 +114,11 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.moreInformationSection}>
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
 
-              <AsinLink
+              <AsinOrSkuLink
+                withCopyValue
                 asin={request?.request.asin}
-                linkSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
-                missingSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
+                textStyles={cx(classNames.sectionText, classNames.linkSpan)}
+                missingValueTextStyles={cx(classNames.sectionText, classNames.linkSpan)}
               />
             </div>
             <div className={classNames.moreInformationSection}>
@@ -195,19 +209,16 @@ export const OwnerGeneralRequestInfo = ({
             <div className={cx(classNames.blockInfoWrapper)}>
               <div className={classNames.blockInfoCell}>
                 <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
-                <div className={classNames.blockInfoCellText}>
-                  {
-                    <RequestStatusCell
-                      status={request?.request.status}
-                      styles={{
-                        fontWeight: 600,
-                        fontSize: 14,
-                        lineHeight: '19px',
-                        textAlign: 'left',
-                      }}
-                    />
-                  }
-                </div>
+                <RequestStatusCell
+                  status={request?.request.status}
+                  styles={{
+                    fontWeight: 600,
+                    fontSize: 14,
+                    lineHeight: '19px',
+                    textAlign: 'left',
+                    whiteSpace: 'pre-wrap',
+                  }}
+                />
               </div>
 
               <div className={classNames.blockInfoCell}>
@@ -283,6 +294,16 @@ export const OwnerGeneralRequestInfo = ({
           />
           <Typography className={cx(classNames.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
         </Button>
+        {isDisplayingMarkAsCompletedButton && (
+          <Button
+            success
+            // tooltipInfoContent={t(TranslationKey['Mark as completed'])}
+            className={classNames.publishBtn}
+            onClick={onClickMarkAsCompletedBtn}
+          >
+            {t(TranslationKey['Mark as completed'])}
+          </Button>
+        )}
         {request && request?.request.status === RequestStatus.DRAFT && (
           <div className={classNames.btnsWrapper}>
             <div className={classNames.btnsRow}>
@@ -316,33 +337,35 @@ export const OwnerGeneralRequestInfo = ({
         )}
         {request && request?.request.status !== RequestStatus.DRAFT && (
           <>
-            <div className={classNames.btnsWrapper}>
-              <div className={classNames.btnsRow}>
-                {requestIsNotDraftAndPublished && (
-                  <Button
-                    danger
-                    tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                    className={classNames.deleteBtn}
-                    onClick={onClickCancelBtn}
-                  >
-                    {t(TranslationKey.Delete)}
-                  </Button>
-                )}
+            {requestIsNotDraftAndPublished || (request && request?.request.status === RequestStatus.PUBLISHED) ? (
+              <div className={classNames.btnsWrapper}>
+                <div className={classNames.btnsRow}>
+                  {requestIsNotDraftAndPublished && (
+                    <Button
+                      danger
+                      tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+                      className={classNames.deleteBtn}
+                      onClick={onClickCancelBtn}
+                    >
+                      {t(TranslationKey.Delete)}
+                    </Button>
+                  )}
 
-                {request && request?.request.status === RequestStatus.PUBLISHED && (
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                    color="primary"
-                    className={cx(classNames.editBtn, {
-                      [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
-                    })}
-                    onClick={onClickEditBtn}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                )}
+                  {request && request?.request.status === RequestStatus.PUBLISHED && (
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+                      color="primary"
+                      className={cx(classNames.editBtn, {
+                        [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
+                      })}
+                      onClick={onClickEditBtn}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             {(request?.request.status === RequestStatus.IN_PROCESS ||
               request?.request.status === RequestStatus.EXPIRED ||

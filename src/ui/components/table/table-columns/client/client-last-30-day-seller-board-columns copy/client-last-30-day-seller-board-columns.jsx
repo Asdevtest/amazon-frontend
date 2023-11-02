@@ -3,11 +3,11 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  NormDateWithoutTimeCell,
   MultilineTextCell,
-  ScrollingCell,
+  MultilineTextHeaderCell,
   NormDateCell,
+  NormDateWithoutTimeCell,
+  ScrollingCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -26,7 +26,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 150,
   },
 

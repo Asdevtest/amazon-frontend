@@ -26,11 +26,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
-    borderRadius: '4px',
-
-    '&:hover': {},
+    maxHeight: 40,
+    maxWidth: 40,
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: 4,
   },
 
   InfoWrapper: {
@@ -109,6 +109,7 @@ export const useClassNames = makeStyles()(theme => ({
   deadlineWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
 
   hidden: {
@@ -125,7 +126,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deadlineText: {
-    marginLeft: 5,
+    fontSize: '14px',
+    lineHeight: '19px',
+    fontWeight: 600,
   },
 
   alertText: {
@@ -198,11 +201,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   amazonTitle: {
-    width: '210px',
+    width: '310px',
     color: theme.palette.text.general,
-    fontSize: '18px',
+    fontSize: '14px',
     fontWeight: 600,
-    lineHeight: '140%',
+    lineHeight: '19px',
     textAlign: 'left',
     height: 80,
 
@@ -263,17 +266,26 @@ export const useClassNames = makeStyles()(theme => ({
 
   orange: {
     color: '#F3AF00 !important',
+    WebkitTextFillColor: '#F3AF00 !important',
   },
 
   red: {
-    color: 'red !important',
+    color: `${theme.palette.orderStatus.red} !important`,
+    WebkitTextFillColor: `${theme.palette.orderStatus.red} !important`,
   },
 
   green: {
     color: `${theme.palette.text.green} !important`,
+    WebkitTextFillColor: `${theme.palette.text.green} !important`,
   },
+
+  blue: {
+    color: `${theme.palette.primary.main} !important`,
+    WebkitTextFillColor: `${theme.palette.primary.main} !important`,
+  },
+
   priorityWrapper: {
-    width: 210,
+    width: 150,
   },
 
   priorityTitle: {
@@ -285,7 +297,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   rushOrderWrapper: {
     display: 'flex',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   rushOrderImg: {
     marginRight: 10,
@@ -324,6 +336,11 @@ export const useClassNames = makeStyles()(theme => ({
 
     cursor: 'pointer',
   },
+
+  supplierCheckboxWrapperDisabled: {
+    cursor: 'unset',
+  },
+
   checkboxTitle: {
     fontWeight: 400,
     fontSize: 14,
@@ -341,5 +358,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  productCell: {
+    width: 225,
   },
 }))

@@ -7,36 +7,32 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: 200,
+    // height: 200,
 
     borderRadius: '4px',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
+    background: theme.palette.background.general,
 
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     padding: '30px',
-  },
-
-  nameWrapper: {
-    display: 'flex',
-
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: '60px',
-
-    marginLeft: '15px',
+    gap: '60px',
   },
 
   cardTitleBlockHeaderWrapper: {
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: '10px',
   },
 
   cardTitleBlockWrapper: {
-    width: '661px',
+    alignContent: 'space-between',
+    gap: '10px',
+    maxWidth: '661px',
+    width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -44,9 +40,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardTitle: {
-    // margin: '0 10px 0 20px',
     fontWeight: '600',
-    fontSize: '18px',
+    fontSize: '14px',
     lineHeight: '140%',
     color: theme.palette.text.general,
   },
@@ -56,25 +51,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.second,
-  },
 
-  userInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-
-    marginBottom: '30px',
-  },
-
-  cardImg: {
-    width: '60px',
-    height: '60px',
-    objectFit: 'contain',
-    objectPosition: 'center',
+    span: {
+      fontWeight: '600',
+    },
   },
 
   actionButton: {
-    width: '242px',
-    height: '40px',
+    width: 130,
+    height: 40,
   },
 
   updatedAtWrapper: {
@@ -100,7 +85,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonWrapper: {
     display: 'flex',
+    alignSelf: 'flex-end',
     justifyContent: 'end',
+    alignItems: 'center',
+    gap: '10px',
   },
 
   fieldLabel: {
@@ -121,13 +109,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainInfosWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'flex-end',
     width: '100%',
-    // margin: '0px auto',
     gap: '7%',
-    // height: 300,
-    paddingRight: 30,
   },
 
   priceAmazonWrapper: {
@@ -147,7 +132,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    // color: '#656565',
   },
 
   accentText: {
@@ -162,10 +146,29 @@ export const useClassNames = makeStyles()(theme => ({
 
   titleWrapper: {
     display: 'flex',
-
     overflowY: 'auto',
     width: '395px',
-    height: 80,
+  },
+
+  requestInfoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+
+  requestTermsWrapper: {
+    width: 'fit-content',
+    flex: '1 1 auto',
+
+    '& > div': {
+      justifyContent: 'flex-start',
+      gap: '20px 70px',
+    },
+  },
+
+  productInfo: {
+    width: 'fit-content',
+    minWidth: 256,
   },
 
   idTitle: {
@@ -178,5 +181,43 @@ export const useClassNames = makeStyles()(theme => ({
 
   idText: {
     color: `${theme.palette.text.second} !important`,
+  },
+
+  emptyDiv: {
+    width: 100,
+  },
+
+  priorityWrapper: {
+    height: 'fit-content',
+  },
+
+  priorityIcon: {
+    width: 20,
+    height: 20,
+  },
+
+  yellowBackground: {
+    background: `${theme.palette.background.yellowRow} !important`,
+    border: '2px solid #C69109',
+  },
+
+  redBackground: {
+    background: `${theme.palette.background.redRow} !important`,
+    border: '2px solid #D70D0D',
+  },
+
+  yellowColor: {
+    color: `#C69109`,
+  },
+
+  redColor: {
+    color: `#D70D0D`,
+  },
+
+  controls: {
+    height: '100%',
+    maxHeight: 107,
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 }))

@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { Modal } from '@components/shared/modal'
@@ -28,9 +26,10 @@ export const AdminProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.product ? (
           <ProductWrapper
+            platformSettings={viewModel.platformSettings}
             userRole={viewModel.userInfo.role}
             product={viewModel.product}
             selectedSupplier={viewModel.selectedSupplier}
@@ -41,7 +40,7 @@ export const AdminProductView = observer(props => {
             onChangeField={viewModel.onChangeProductFields}
           />
         ) : undefined}
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}

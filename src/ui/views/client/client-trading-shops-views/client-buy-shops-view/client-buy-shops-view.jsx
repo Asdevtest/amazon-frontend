@@ -1,10 +1,8 @@
-import React from 'react'
-
 import { observer } from 'mobx-react'
+import React from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { ClientBuyShopsContent } from '@components/contents/client-buy-shops-content'
-import { MainContent } from '@components/layout/main-content'
 
 import { styles } from './client-buy-shops-view.style'
 
@@ -13,9 +11,9 @@ export const ClientBuyShopsViewRaw = () => (
   // const {classes: classNames} = props
 
   <React.Fragment>
-    <MainContent>
+    <div>
       <ClientBuyShopsContent />
-    </MainContent>
+    </div>
   </React.Fragment>
 )
 

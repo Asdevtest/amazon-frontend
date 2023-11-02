@@ -1,5 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   Accordion,
@@ -13,11 +16,6 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -25,8 +23,9 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { sourceColumns } from '../access-to-products-columns'
 import { useClassNames } from './access-to-product-form.style'
+
+import { sourceColumns } from '../access-to-products-columns'
 
 const accessProductSettings = {
   ALL_PRODUCTS: 'ALL_PRODUCTS',
@@ -38,19 +37,24 @@ export const AccessToProductForm = React.memo(
     const { classes: classNames } = useClassNames()
 
     const [curProdutsData, setCurProdutsData] = useState(sourceData || null)
-
     const [searchInputValue, setSearchInputValue] = useState('')
-
     const [selectedAccess, setSelectedAccess] = useState(accessProductSettings.NEED_SELECT)
-
     const [chosenGoods, setChosenGoods] = useState(shop?.tmpProductsIds || [])
-
+    const [selectionModel, setSelectionModel] = useState(shop?.tmpProductsIds || [])
     const [chooseAllCheck, setChooseAllCheck] = useState(shop.tmpProductsIds.length === sourceData.length)
 
     const allProductsIds = sourceData?.map(product => product._id)
 
     const handleChangeRadio = value => {
       setSelectedAccess(value)
+
+      if (value === accessProductSettings.NEED_SELECT) {
+        setSelectionModel(chosenGoods)
+      }
+
+      if (value === accessProductSettings.ALL_PRODUCTS) {
+        setSelectionModel(allProductsIds)
+      }
     }
 
     useEffect(() => {
@@ -68,27 +72,23 @@ export const AccessToProductForm = React.memo(
     }, [searchInputValue])
 
     useEffect(() => {
+      let newDataToRender = [...shops]
+
       if (selectedAccess === accessProductSettings.NEED_SELECT) {
-        setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? { ...item, tmpProductsIds: chosenGoods } : item)),
+        newDataToRender = newDataToRender.map(item =>
+          item._id === shop._id ? { ...item, tmpProductsIds: chosenGoods } : item,
         )
-      }
-    }, [chosenGoods])
-
-    useEffect(() => {
-      if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
-        setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? { ...item, tmpProductsIds: allProductsIds } : item)),
+      } else if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
+        newDataToRender = newDataToRender.map(item =>
+          item._id === shop._id ? { ...item, tmpProductsIds: allProductsIds } : item,
         )
-
         setChooseAllCheck(true)
       } else {
-        setChosenGoods(shop?.tmpProductsIds || [])
-        // setShopDataToRender(shops.map(item => (item._id === traiding-shop._id ? {...item, tmpProductsIds: []} : item)))
         setChooseAllCheck(false)
       }
-      // setChosenGoods(traiding-shop?.tmpProductsIds || [])
-    }, [selectedAccess])
+
+      setShopDataToRender(newDataToRender)
+    }, [selectedAccess, chosenGoods])
 
     useEffect(() => {
       if (shop.tmpProductsIds.length && shop.tmpProductsIds.length === sourceData.length) {
@@ -96,22 +96,28 @@ export const AccessToProductForm = React.memo(
       } else {
         setChooseAllCheck(false)
       }
-
-      setChosenGoods(shop?.tmpProductsIds)
     }, [shop?.tmpProductsIds.length])
 
     const onClickChooseAllCheck = e => {
       e.stopPropagation()
+
       if (chooseAllCheck) {
         setSelectedAccess(accessProductSettings.NEED_SELECT)
-        setChosenGoods([])
+        setSelectionModel([])
         setChooseAllCheck(false)
       } else {
-        // setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
-
-        setChosenGoods(allProductsIds)
+        setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
+        setSelectionModel(allProductsIds)
         setChooseAllCheck(true)
       }
+    }
+
+    const handleSelectionModel = model => {
+      if (selectedAccess === accessProductSettings.NEED_SELECT) {
+        setChosenGoods(model)
+      }
+
+      setSelectionModel(model)
     }
 
     return (
@@ -154,7 +160,7 @@ export const AccessToProductForm = React.memo(
             </div>
           </AccordionSummary>
 
-          <AccordionDetails classes={{ root: classNames.details }}>
+          <AccordionDetails>
             <div className={classNames.detailsShopWrapper}>
               {curProdutsData ? (
                 <FormControl>
@@ -198,10 +204,12 @@ export const AccessToProductForm = React.memo(
                 <div className={classNames.tableWrapper}>
                   <MemoDataGrid
                     disableVirtualization
-                    hideFooter
-                    disableRowSelectionOnClick
                     keepNonExistentRowsSelected
-                    checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                    disableColumnMenu
+                    hideFooterSelectedRowCount
+                    isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                     rows={toJS(
                       curProdutsData
                         .slice()
@@ -209,8 +217,8 @@ export const AccessToProductForm = React.memo(
                     )}
                     columns={sourceColumns()}
                     rowHeight={65}
-                    rowSelectionModel={chosenGoods}
-                    onRowSelectionModelChange={setChosenGoods}
+                    rowSelectionModel={selectionModel}
+                    onRowSelectionModelChange={model => handleSelectionModel(model)}
                   />
                 </div>
               ) : null}

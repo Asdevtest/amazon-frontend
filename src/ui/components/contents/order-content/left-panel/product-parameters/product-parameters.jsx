@@ -1,8 +1,7 @@
-import { Typography, Link, Chip } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import clsx from 'clsx'
+import { useState } from 'react'
+
+import { Chip, Link, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -14,13 +13,14 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
-import { toFixed, checkAndMakeAbsoluteUrl, trimBarcode } from '@utils/text'
+// import { calcMaxDeliveryForProduct } from '@utils/calculation'
+import { checkAndMakeAbsoluteUrl, toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-parameters.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const ProductParameters = ({
   order,
@@ -38,6 +38,7 @@ export const ProductParameters = ({
   const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
   const weightSizesType = getWeightSizesType(sizeSetting)
+  // const maxDelivery = calcMaxDeliveryForProduct(order?.product)
 
   const OrderParameter = ({ label, value }) => (
     <Field
@@ -88,10 +89,11 @@ export const ProductParameters = ({
         }
       />
       <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
-      <OrderParameter
+      {/* <OrderParameter
         label={t(TranslationKey['Maximum delivery price per unit'])}
-        value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
-      />
+        value={toFixed(maxDelivery, 2)}
+        // value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
+      /> */}
       <Field
         oneLine
         label={t(TranslationKey.Dimensions)}
@@ -101,10 +103,10 @@ export const ProductParameters = ({
           <div className={classNames.sizesWrapper}>
             <CustomSwitcher
               condition={sizeSetting}
-              nameFirstArg={unitsOfChangeOptions.EU}
-              nameSecondArg={unitsOfChangeOptions.US}
-              firstArgValue={unitsOfChangeOptions.EU}
-              secondArgValue={unitsOfChangeOptions.US}
+              switcherSettings={[
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+              ]}
               changeConditionHandler={condition => setSizeSetting(condition)}
             />
 

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,8 +10,9 @@ import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices
 
 import { t } from '@utils/translations'
 
-import { UserEditModel } from './user-edit.model'
 import { useClassNames } from './user-edit.style'
+
+import { UserEditModel } from './user-edit.model'
 
 export const UserEdit = observer(({ user }) => {
   const { classes: classNames } = useClassNames()
@@ -57,7 +57,7 @@ export const UserEdit = observer(({ user }) => {
       ) : null}
 
       <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
+        isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}

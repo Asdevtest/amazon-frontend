@@ -2,13 +2,16 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
-    gap: '5px',
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
+    height: '100%',
+    width: '100%',
   },
 
   btnsWrapper: {
+    marginTop: 10,
+    padding: '0 50px',
     display: 'flex',
     justifyContent: 'flex-end',
   },

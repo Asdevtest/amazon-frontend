@@ -12,15 +12,18 @@ export const useClassNames = makeStyles()(theme => ({
   paymentMethodTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
-
     marginLeft: -12,
     marginBottom: 20,
+    gap: 10,
+  },
+  paymentMethodIcon: {
+    width: 19,
+    height: 19,
+    borderRadius: '50%',
   },
   paymentMethodTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.general,
   },
   commentInput: {

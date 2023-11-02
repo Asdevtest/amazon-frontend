@@ -7,6 +7,7 @@ export const DataGridTablesKeys = {
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
+  ADMIN_TAGS: 'adminTagsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
   ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',
@@ -91,6 +92,15 @@ export const DataGridTablesKeys = {
   CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
   CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
 
+  CLIENT_NEW_IDEAS: 'clientNewIdeasDataGridState',
+  CLIENT_ON_CHECKING_IDEAS: 'clientOnCheckingIdeasDataGridState',
+  CLIENT_SEARCH_SUPPLIERS_IDEAS: 'clientSearchSuppliersIdeasDataGridState',
+  CLIENT_CREATE_CARD_IDEAS: 'clientCreateCardIdeasDataGridState',
+  CLIENT_ADD_ASIN_IDEAS: 'clientAddAsinIdeasDataGridState',
+  CLIENT_REALIZED_IDEAS: 'clientRealizedIdeasDataGridState',
+  CLIENT_CLOSED_IDEAS: 'clientClosedIdeasDataGridState',
+  CLIENT_ALL_IDEAS: 'clientAllIdeasDataGridState',
+
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
@@ -105,4 +115,6 @@ export const DataGridTablesKeys = {
   PRODUCT_FREELANCE: 'productFreelanceDataGridState',
 
   SUB_WAREHOUSE_LOGISTICS_TARIFFS: 'subWarehouseLogisticsTariffsDataGridState',
+
+  GENERAL_NOTIFICATIONS: 'generalNotificationsDataGridState',
 }

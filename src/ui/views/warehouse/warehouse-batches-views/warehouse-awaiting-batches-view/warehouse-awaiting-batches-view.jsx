@@ -1,16 +1,16 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import AddIcon from '@mui/icons-material/Add'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
-import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -24,8 +24,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 import { styles } from './warehouse-awaiting-batches-view.style'
+
+import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 
 export const WarehouseAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
@@ -35,9 +36,16 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
     viewModel.loadData()
   }, [])
 
+  const selectedBatchesString =
+    '№ ' +
+    viewModel.currentData
+      .filter(batch => viewModel.selectedBatches.includes(batch._id))
+      .map(batch => batch.humanFriendlyId)
+      .join(', ')
+
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.btnsWrapper}>
           <div className={classNames.leftBtnsWrapper}>
             <Button
@@ -85,6 +93,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             className={classNames.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >
+            <AddIcon />
             {t(TranslationKey['Create a batch'])}
           </Button>
         </div>
@@ -119,9 +128,19 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -137,7 +156,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showAddOrEditBatchModal}
@@ -168,7 +187,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
-        message={t(TranslationKey.Send) + '?'}
+        message={`${t(TranslationKey['Send batch'])} ${selectedBatchesString}?`}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}

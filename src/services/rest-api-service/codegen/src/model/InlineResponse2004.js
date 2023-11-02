@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
-import ApiV1AdminsTasksLightStorekeeper from './ApiV1AdminsTasksLightStorekeeper';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 
 /**
  * The InlineResponse2004 model module.
@@ -53,34 +52,31 @@ class InlineResponse2004 {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('subUser')) {
+                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
             }
-            if (data.hasOwnProperty('isBarCodeAttached')) {
-                obj['isBarCodeAttached'] = ApiClient.convertToType(data['isBarCodeAttached'], 'Boolean');
+            if (data.hasOwnProperty('entityId')) {
+                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
             }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
             }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksLightBoxes]);
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -90,72 +86,145 @@ class InlineResponse2004 {
 }
 
 /**
- * GUID элемента
+ * GUID платежа
  * @member {String} _id
  */
 InlineResponse2004.prototype['_id'] = undefined;
 
 /**
  * Дата создания.
- * @member {Number} createdAt
+ * @member {Date} createdAt
  */
 InlineResponse2004.prototype['createdAt'] = undefined;
 
 /**
- * Дата обновления.
- * @member {Number} updatedAt
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
  */
-InlineResponse2004.prototype['updatedAt'] = undefined;
+InlineResponse2004.prototype['createdBy'] = undefined;
 
 /**
- * Тип операции
- * @member {String} operationType
+ * Роль пользователя на момент инициации платежа.
+ * @member {Number} role
  */
-InlineResponse2004.prototype['operationType'] = undefined;
+InlineResponse2004.prototype['role'] = undefined;
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
  */
-InlineResponse2004.prototype['status'] = undefined;
+InlineResponse2004.prototype['subUser'] = undefined;
 
 /**
- * Проклеены ли все баркоды в задаче
- * @member {Boolean} isBarCodeAttached
+ * GUID товара или услуги.
+ * @member {String} entityId
  */
-InlineResponse2004.prototype['isBarCodeAttached'] = undefined;
+InlineResponse2004.prototype['entityId'] = undefined;
 
 /**
- * Приоритет задачи
- * @member {Number} priority
+ * Тип платежа
+ * @member {module:model/InlineResponse2004.PaymentTypeEnum} paymentType
  */
-InlineResponse2004.prototype['priority'] = undefined;
+InlineResponse2004.prototype['paymentType'] = undefined;
 
 /**
- * reason of priority
- * @member {String} reason
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
  */
-InlineResponse2004.prototype['reason'] = undefined;
+InlineResponse2004.prototype['recipient'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
  */
-InlineResponse2004.prototype['storekeeper'] = undefined;
+InlineResponse2004.prototype['sum'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxes
+ * комментарий
+ * @member {String} comment
  */
-InlineResponse2004.prototype['boxes'] = undefined;
+InlineResponse2004.prototype['comment'] = undefined;
+
+
+
+
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxesBefore
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineResponse2004.prototype['boxesBefore'] = undefined;
+InlineResponse2004['PaymentTypeEnum'] = {
 
+    /**
+     * value: "PRODUCT"
+     * @const
+     */
+    "PRODUCT": "PRODUCT",
 
+    /**
+     * value: "ORDER"
+     * @const
+     */
+    "ORDER": "ORDER",
 
+    /**
+     * value: "BOX"
+     * @const
+     */
+    "BOX": "BOX",
+
+    /**
+     * value: "BATCH"
+     * @const
+     */
+    "BATCH": "BATCH",
+
+    /**
+     * value: "USER"
+     * @const
+     */
+    "USER": "USER",
+
+    /**
+     * value: "REQUEST-CUSTOM"
+     * @const
+     */
+    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+
+    /**
+     * value: "REQUEST-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+
+    /**
+     * value: "REQUEST-PROPOSAL-CUSTOM"
+     * @const
+     */
+    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
+
+    /**
+     * value: "OTHER"
+     * @const
+     */
+    "OTHER": "OTHER"
+};
 
 
 

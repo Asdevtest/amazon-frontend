@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
+import { observer } from 'mobx-react'
+import { useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,12 +26,25 @@ const exclusionWords = [
   '/moderator',
 ]
 
-export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCrumbAdditionalText }) => {
+export const BreadCrumbsLine = observer(() => {
   const { classes: classNames } = useClassNames()
-
-  const hostory = useHistory()
-
   const location = useLocation()
+  const history = useHistory()
+  const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
+  const breadcrumbsAdditionalText = SettingsModel.lastCrumbAdditionalText
+
+  useEffect(() => {
+    if (location.pathname !== '/profile') {
+      SettingsModel.setBreadcrumbsForProfile(location.pathname)
+    }
+  }, [location.pathname])
+
+  useEffect(() => {
+    if (breadcrumbsAdditionalText !== undefined) {
+      localStorage.setItem('lastBreadcrumbsText', breadcrumbsAdditionalText)
+    }
+  }, [breadcrumbsAdditionalText])
+
   const pathnames = SettingsModel.breadcrumbsForProfile
     ? SettingsModel.breadcrumbsForProfile.split('/').filter(x => x)
     : []
@@ -45,10 +55,9 @@ export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCru
 
   const onClickCrumb = (to, isPreLast, index) => {
     if (isPreLast && index !== 1) {
-      // hostory.goBack()
-      hostory.push(to)
+      history.push(to)
     } else {
-      hostory.push(to)
+      history.push(to)
     }
   }
   if (location.pathname === '/profile') {
@@ -56,12 +65,13 @@ export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCru
   }
 
   return (
-    <Breadcrumbs
-      aria-label="breadcrumb"
-      separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
-    >
-      {pathnames.length > 2 || location.pathname === '/profile'
-        ? pathnames.map((value, index) => {
+    <div className={classNames.breadCrumbsWrapper}>
+      {pathnames.length > 2 || location.pathname === '/profile' ? (
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
+        >
+          {pathnames.map((value, index) => {
             const last = index === pathnames.length - 1
             const isPreLast = index === pathnames.length - 2
 
@@ -74,21 +84,22 @@ export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCru
 
             return last ? (
               <Typography key={to} className={classNames.lastCrumb}>
-                {t(getCrumbNameKey(to)) + `${lastCrumbAdditionalText ? lastCrumbAdditionalText : ''}`}
+                {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
               </Typography>
             ) : (
               // <LinkRouter key={to} underline="hover" color="primary" to={to} state={{data: 'HELLO'}}>
               //   {t(getCrumbNameKey(to))}
               // </LinkRouter>
 
-              <Typography key={to} className={classNames.сrumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+              <Typography key={to} className={classNames.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
                 {getCrumbNameKey(to) === 'Order'
                   ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
                   : t(getCrumbNameKey(to))}
               </Typography>
             )
-          })
-        : null}
-    </Breadcrumbs>
+          })}
+        </Breadcrumbs>
+      ) : null}
+    </div>
   )
 })

@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
-
-import { DestinationVariationApproximateCalculationsType } from '../../types/destination'
+import { DestinationVariationApproximateCalculationsType } from '../../typings/destination'
 
 export const getGroupDataByDestinationId = (
   destinationVariations: Array<DestinationVariationApproximateCalculationsType>,

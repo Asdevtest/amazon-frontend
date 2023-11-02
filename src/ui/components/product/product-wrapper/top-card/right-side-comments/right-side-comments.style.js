@@ -1,5 +1,4 @@
 import { keyframes } from '@emotion/react'
-
 import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
@@ -34,6 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
+    width: '100%',
     justifyContent: 'flex-start',
   },
   heightFieldAuto: {
@@ -48,9 +48,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(4,auto)',
     justifyContent: 'flex-end',
-    gap: '10px',
+    gap: 20,
     marginBottom: '20px',
-    width: '33%',
+    width: '38%',
   },
 
   buttonWrapper: {
@@ -58,7 +58,6 @@ export const useClassNames = makeStyles()(theme => ({
     bottom: 50,
     right: 60,
     zIndex: 999,
-    marginBottom: '20px',
     width: '33%',
     display: 'grid',
   },
@@ -131,5 +130,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   acceptMessage: {
     color: '#00B746',
+  },
+
+  rightBoxCommentsWrapper: {
+    display: 'flex',
+    // flexDirection: 'column',
+    width: '50%',
+  },
+
+  alertShieldWrapperStyle: {
+    left: '44% !important',
   },
 }))

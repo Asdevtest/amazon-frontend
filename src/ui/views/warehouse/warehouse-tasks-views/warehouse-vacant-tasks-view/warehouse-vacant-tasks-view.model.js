@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
@@ -40,8 +40,10 @@ export class WarehouseVacantViewModel {
 
   rowCount = 0
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   volumeWeightCoefficient = undefined
 
@@ -226,14 +228,24 @@ export class WarehouseVacantViewModel {
       })
 
       runInAction(() => {
-        this.acceptMessage = t(TranslationKey['Taken on board'])
-        this.showAcceptMessage = true
-        if (this.showAcceptMessage) {
-          setTimeout(() => {
-            this.acceptMessage = ''
-            this.showAcceptMessage = false
-          }, 3000)
+        this.alertShieldSettings = {
+          showAlertShield: true,
+          alertShieldMessage: t(TranslationKey['Taken on board']),
         }
+
+        setTimeout(() => {
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
+        }, 3000)
       })
     } catch (error) {
       console.log(error)

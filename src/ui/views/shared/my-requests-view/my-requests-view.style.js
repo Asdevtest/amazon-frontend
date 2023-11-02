@@ -27,13 +27,12 @@ export const styles = theme => ({
 
   row: {
     whiteSpace: 'normal',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
   },
 
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
 
     // '.MuiTypography-root': {
@@ -43,7 +42,7 @@ export const styles = theme => ({
   },
 
   datagridWrapper: {
-    height: 'calc(100vh - 240px)',
+    height: '72vh',
   },
   footerContainer: {
     position: 'absolute',
@@ -81,29 +80,14 @@ export const styles = theme => ({
     color: '#00B746',
   },
 
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    overflow: 'visible',
-  },
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
-    zIndex: -1,
-  },
-  yellowBorder: {
-    background: theme.palette.boxShadow.yellow,
-  },
-  redBorder: {
-    background: theme.palette.boxShadow.red,
+    zIndex: 100,
   },
 
   switchButtonWrapper: {
     display: 'flex',
-
+    width: '100%',
     marginBottom: 20,
   },
 
@@ -136,16 +120,43 @@ export const styles = theme => ({
       background: theme.palette.primary.main,
     },
   },
-  menuIconButton: {
-    zIndex: 1000,
-    position: 'absolute !important',
-    right: -7,
-    top: 13,
-    visibility: 'visible !important',
-    width: '18px !important',
-    height: '18px !important',
-    '.MuiSvgIcon-root': {
-      display: 'none',
+
+  deadlineBorder: {
+    position: 'relative',
+
+    '&:after': {
+      content: '" "',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+
+      width: 5,
+      height: '98%',
+    },
+  },
+
+  yellowBorder: {
+    background: theme.palette.background.yellowRow,
+
+    '&:hover': {
+      background: theme.palette.background.yellowRow,
+    },
+
+    '&:after': {
+      background: '#C69109',
+    },
+  },
+
+  redBorder: {
+    background: theme.palette.background.redRow,
+
+    '&:hover': {
+      background: theme.palette.background.redRow,
+    },
+
+    '&:after': {
+      background: theme.palette.other.rejected,
     },
   },
 })

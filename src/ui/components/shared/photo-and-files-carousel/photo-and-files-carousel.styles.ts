@@ -64,6 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '100%',
+    width: '100%',
   },
 
   headerCarouselDocumentsWrapper: {
@@ -75,7 +76,6 @@ export const useClassNames = makeStyles()(theme => ({
   numberOfFiles: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },
@@ -104,7 +104,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: '20px 0 20px 0',
   },
 
   imagesAndFilesWrapperMini: {
@@ -137,14 +136,16 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
   },
 
+  fullImagesWrapper: {
+    width: '100%',
+    height: '100%',
+  },
+
   imageSubWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-
-  notToShowEmptyWrapper: {
-    width: '100%',
   },
 
   documentsWrapper: {
@@ -201,7 +202,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 140.99,
+    height: 'auto',
   },
 
   emptyIcon: {
@@ -214,10 +215,21 @@ export const useClassNames = makeStyles()(theme => ({
     height: '80px !important',
   },
 
+  noIconSmall: {
+    width: '40px !important',
+    height: '40px !important',
+  },
+
   noDocumentIcon: {
     width: '80px !important',
     height: '80px !important',
     color: '#E0E0E0',
+  },
+
+  noDocumentText: {
+    marginTop: 10,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   emptyIconMini: {
@@ -261,7 +273,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },
@@ -273,7 +284,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     textAlign: 'center',
     color: theme.palette.text.second,
-    marginTop: 15,
+    marginTop: 5,
   },
 
   imagesModalBtn: {

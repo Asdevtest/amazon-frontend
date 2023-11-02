@@ -26,10 +26,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   img: {
     width: '128px',
+    minWidth: '128px',
+    maxWidth: '128px',
     height: '128px',
     marginRight: '4px',
     objectFit: 'contain',
     objectPosition: 'center',
+
     [theme.breakpoints.down(768)]: {
       width: '85px',
       height: '85px',
@@ -232,6 +235,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
+    gap: '10px',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

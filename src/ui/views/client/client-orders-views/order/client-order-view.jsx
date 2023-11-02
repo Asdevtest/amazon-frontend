@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -20,9 +19,9 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ClientOrderViewModel } from './client-order-view.model'
 import { styles } from './client-order-view.style'
-import { useLocation } from 'react-router-dom'
+
+import { ClientOrderViewModel } from './client-order-view.model'
 
 export const ClientOrderViewRaw = props => {
   const { search } = useLocation()
@@ -43,7 +42,6 @@ export const ClientOrderViewRaw = props => {
   }, [])
 
   useEffect(() => {
-    console.log(search)
     const queries = new URLSearchParams(search)
     const orderId = queries.get('orderId')
 
@@ -58,7 +56,7 @@ export const ClientOrderViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backButtonWrapper}>
           <Button className={classNames.backButton} onClick={goBack}>
             {t(TranslationKey.Back)}
@@ -71,6 +69,7 @@ export const ClientOrderViewRaw = props => {
             destinations={viewModel.destinations}
             userInfo={viewModel.userInfo}
             volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+            platformSettings={viewModel.platformSettings}
             order={viewModel.order}
             boxes={viewModel.orderBoxes}
             selectedSupplier={viewModel.selectedSupplier}
@@ -85,7 +84,7 @@ export const ClientOrderViewRaw = props => {
             onClickHsCode={viewModel.onClickHsCode}
           />
         ) : null}
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn
@@ -132,7 +131,7 @@ export const ClientOrderViewRaw = props => {
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         title={viewModel.confirmModalSettings.confirmTitle}
         message={viewModel.confirmModalSettings.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}

@@ -1,6 +1,6 @@
-import { Avatar, Typography } from '@mui/material'
-
 import { FC } from 'react'
+
+import { Avatar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -56,7 +56,6 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = p
           blackText={undefined}
           withAvatar={undefined}
           maxNameWidth={undefined}
-          customStyles={undefined}
           customClassNames={undefined}
         />
 

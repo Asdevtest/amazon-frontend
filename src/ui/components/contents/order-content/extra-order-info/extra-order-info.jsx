@@ -1,12 +1,10 @@
 import { Typography } from '@mui/material'
 
-import React from 'react'
-
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -15,8 +13,6 @@ import { useClassNames } from './extra-order-info.style'
 
 export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) => {
   const { classes: classNames } = useClassNames()
-
-  // console.log('order', order)
 
   return (
     <div className={classNames.orderContainer}>

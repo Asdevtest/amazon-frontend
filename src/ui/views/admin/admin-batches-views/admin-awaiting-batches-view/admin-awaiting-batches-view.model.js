@@ -188,18 +188,22 @@ export class AdminAwaitingBatchesViewModel {
     }
   }
 
-  async setCurrentOpenedBatch(row) {
+  async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
-      runInAction(() => {
-        this.curBatch = row
-      })
+      const batch = await BatchesModel.getBatchesByGuid(id)
       const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.curBatch = batch
+      })
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
-      this.onTriggerOpenModal('showBatchInfoModal')
+      if (!notTriggerModal) {
+        this.onTriggerOpenModal('showBatchInfoModal')
+      }
     } catch (error) {
       console.log(error)
       runInAction(() => {

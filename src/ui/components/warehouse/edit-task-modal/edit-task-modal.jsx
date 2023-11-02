@@ -1,30 +1,31 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { BoxArrow } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { useClassNames } from './edit-task-modal.style'
+
 import { BeforeAfterBlock } from '../before-after-block'
 import { ReceiveBoxModal } from '../receive-box-modal'
-import { useClassNames } from './edit-task-modal.style'
 
 export const EditTaskModal = observer(
   ({
@@ -86,8 +87,6 @@ export const EditTaskModal = observer(
       switch (type) {
         case TaskOperationType.EDIT:
           return '/assets/img/edit.png'
-        case TaskOperationType.RECEIVE:
-          return '/assets/img/receive.png'
         case TaskOperationType.SPLIT:
           return '/assets/img/split.png'
         case TaskOperationType.MERGE:
@@ -140,7 +139,15 @@ export const EditTaskModal = observer(
 
           <div className={classNames.modalSubHeader}>
             <div className={classNames.typeTaskWrapper}>
-              <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
+              {task.operationType === TaskOperationType.RECEIVE ? (
+                <div className={classNames.boxSvgContainer}>
+                  <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+                  <BoxArrow className={classNames.boxArrowSvg} />
+                </div>
+              ) : (
+                <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
+              )}
+
               <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
               <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
             </div>
@@ -154,11 +161,9 @@ export const EditTaskModal = observer(
           </div>
         </div>
         <div className={classNames.form}>
-          <div>
-            <Typography paragraph className={classNames.subTitle}>
-              {t(TranslationKey['Receipt data'])}
-            </Typography>
-          </div>
+          <Typography paragraph className={classNames.subTitle}>
+            {t(TranslationKey['Receipt data'])}
+          </Typography>
 
           <div className={classNames.commentsAndFilesWrapper}>
             <div className={classNames.commentsWrapper}>

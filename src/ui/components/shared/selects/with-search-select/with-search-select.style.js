@@ -54,7 +54,7 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     height: 36,
     marginBottom: 10,
-    borderBottom: '1px solid #E0E0E0',
+    // borderBottom: '1px solid #E0E0E0',
     padding: '0 17px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
@@ -103,6 +103,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     height: 'auto !important',
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -116,6 +117,7 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     width: '100%',
   },
+
   fieldNamesWrapperWithCheckbox: {
     display: 'flex',
     justifyContent: 'flex-start',
@@ -145,6 +147,7 @@ export const styles = theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+    color: theme.palette.text.general,
   },
 
   selectedItemName: {
@@ -161,6 +164,8 @@ export const styles = theme => ({
   submitWrapper: {
     display: 'flex',
     justifyContent: 'center',
+    gap: '15px',
+    marginTop: '15px',
   },
 
   apply: {

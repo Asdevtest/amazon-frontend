@@ -1,25 +1,24 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Paper } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ResearcherAddProductForm } from '@components/forms/reasearcher-add-product-form'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ResearcherProductsViewModel } from './researcher-products-view.model'
 import { styles } from './researcher-products-view.style'
+
+import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
 export const ResearcherProductsViewRaw = props => {
   const [viewModel] = useState(
@@ -37,7 +36,7 @@ export const ResearcherProductsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.card}>
           <div className={classNames.formWrapper}>
             <ResearcherAddProductForm
@@ -79,6 +78,9 @@ export const ResearcherProductsViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -94,7 +96,7 @@ export const ResearcherProductsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         isWarning={viewModel.warningInfoModalSettings.isWarning}

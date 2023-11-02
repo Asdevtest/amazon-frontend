@@ -1,27 +1,26 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { routsPathes } from '@constants/navigation/routs-pathes'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -30,8 +29,9 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { styles } from './buyer-my-orders-view.style'
+
+import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
@@ -72,7 +72,7 @@ export const BuyerMyOrdersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div
           className={cx(classNames.headerWrapper, {
             [classNames.headerWrapperCenter]:
@@ -148,6 +148,9 @@ export const BuyerMyOrdersViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: { ...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData },
 
               toolbar: {
@@ -172,7 +175,7 @@ export const BuyerMyOrdersViewRaw = props => {
             onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn
@@ -215,7 +218,7 @@ export const BuyerMyOrdersViewRaw = props => {
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={viewModel.confirmModalSettings.title}
@@ -304,6 +307,10 @@ export const BuyerMyOrdersViewRaw = props => {
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
       </Modal>
+
+      {viewModel.savingOrderStatus === loadingStatuses.isLoading && (
+        <CircularProgressWithLabel wrapperClassName={classNames.loadingCircle} />
+      )}
     </React.Fragment>
   )
 }

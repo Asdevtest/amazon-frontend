@@ -15,10 +15,10 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject106 from '../model/InlineObject106';
 import InlineObject107 from '../model/InlineObject107';
-import InlineResponse20066 from '../model/InlineResponse20066';
-import InlineResponse20067 from '../model/InlineResponse20067';
+import InlineObject108 from '../model/InlineObject108';
+import InlineResponse20072 from '../model/InlineResponse20072';
+import InlineResponse20073 from '../model/InlineResponse20073';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -48,7 +48,7 @@ export default class ShopApi {
      * ## Получить все магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20066>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20072>} and HTTP response
      */
     apiV1ShopsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -67,7 +67,7 @@ export default class ShopApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20066];
+      let returnType = [InlineResponse20072];
       return this.apiClient.callApi(
         '/api/v1/shops/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -80,7 +80,7 @@ export default class ShopApi {
      * ## Получить все магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20066>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20072>}
      */
     apiV1ShopsGet(opts) {
       return this.apiV1ShopsGetWithHttpInfo(opts)
@@ -150,7 +150,7 @@ export default class ShopApi {
      * @param {String} guid GUID объекта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject107} opts.body 
+     * @param {module:model/InlineObject108} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ShopsGuidPatchWithHttpInfo(guid, opts) {
@@ -189,7 +189,7 @@ export default class ShopApi {
      * @param {String} guid GUID объекта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject107} opts.body 
+     * @param {module:model/InlineObject108} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ShopsGuidPatch(guid, opts) {
@@ -205,7 +205,7 @@ export default class ShopApi {
      * ## Получить все названия магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20067>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20073>} and HTTP response
      */
     apiV1ShopsNamesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -224,7 +224,7 @@ export default class ShopApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20067];
+      let returnType = [InlineResponse20073];
       return this.apiClient.callApi(
         '/api/v1/shops/names', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -237,7 +237,7 @@ export default class ShopApi {
      * ## Получить все названия магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20067>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20073>}
      */
     apiV1ShopsNamesGet(opts) {
       return this.apiV1ShopsNamesGetWithHttpInfo(opts)
@@ -252,7 +252,7 @@ export default class ShopApi {
      * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject106} opts.body 
+     * @param {module:model/InlineObject107} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1ShopsPostWithHttpInfo(opts) {
@@ -285,7 +285,7 @@ export default class ShopApi {
      * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject106} opts.body 
+     * @param {module:model/InlineObject107} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1ShopsPost(opts) {

@@ -1,15 +1,13 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -17,8 +15,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SupervisorReadyToCheckForIdeaViewModel } from './supervisor-ready-to-check-for-idea.model'
 import { styles } from './supervisor-ready-to-check-for-idea.style'
+
+import { SupervisorReadyToCheckForIdeaViewModel } from './supervisor-ready-to-check-for-idea.model'
 
 export const SupervisorReadyToCheckForIdeaViewRaw = props => {
   const [viewModel] = useState(() => new SupervisorReadyToCheckForIdeaViewModel({ history: props.history }))
@@ -30,7 +29,7 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.btnsWrapper}>
           <Button
             color="primary"
@@ -58,6 +57,9 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -77,7 +79,7 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
         </div>
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

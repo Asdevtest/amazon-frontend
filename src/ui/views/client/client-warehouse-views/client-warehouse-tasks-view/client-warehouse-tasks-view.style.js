@@ -15,8 +15,7 @@ export const styles = theme => ({
   },
 
   tasksWrapper: {
-    marginTop: '30px',
-
+    marginTop: 20,
     height: 'calc(100vh - 250px)',
   },
 
@@ -86,7 +85,7 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.general,
   },
 
   filters: {

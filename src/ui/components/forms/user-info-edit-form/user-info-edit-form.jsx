@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,8 +28,22 @@ const regExpNameCheking = /^(?! )(?!(?:.* ){1})/
 const regExpNameStartCheking = /^(?! )/
 
 export const UserInfoEditForm = observer(
-  ({ user, wrongPassword, onSubmit, onCloseModal, clearError, checkValidationNameOrEmail }) => {
+  ({
+    user,
+    wrongPassword,
+    onSubmit,
+    onCloseModal,
+    clearError,
+    checkValidationNameOrEmail,
+    resetProfileDataValidation,
+  }) => {
     const { classes: classNames } = useClassNames()
+
+    useEffect(() => {
+      return () => {
+        resetProfileDataValidation()
+      }
+    }, [])
 
     const sourceFields = {
       name: user?.name || '',

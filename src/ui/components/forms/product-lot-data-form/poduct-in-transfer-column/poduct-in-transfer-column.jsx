@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  WarehouseTariffDatesCell,
-  MultilineTextCell,
-  NormalActionBtnCell,
   BoxesAndQuantity,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
   StringListCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
@@ -32,7 +30,10 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={t(boxStatusTranslateKey(params.value))} otherStyles={colorByBoxStatus(params.value)} />
+      <MultilineTextCell
+        text={t(boxStatusTranslateKey(params.value))}
+        customTextStyles={colorByBoxStatus(params.value)}
+      />
     ),
     width: 80,
   },
@@ -67,6 +68,15 @@ export const productInTransferColumns = handlers => [
   },
 
   {
+    field: 'storekeeper',
+    headerName: t(TranslationKey.Storekeeper),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value.name} />,
+    width: 180,
+  },
+
+  {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
@@ -83,7 +93,7 @@ export const productInTransferColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={params.value} />
     ),
-    width: 160,
+    width: 165,
     sortable: false,
   },
 

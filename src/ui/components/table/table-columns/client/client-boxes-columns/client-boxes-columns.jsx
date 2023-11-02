@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-
-import React from 'react'
-
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,13 +16,12 @@ import {
   ShortBoxDimensions,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -64,7 +60,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 100,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
@@ -86,7 +82,7 @@ export const clientBoxesViewColumns = (
       <MultilineTextCell
         leftAlign
         text={t(boxStatusTranslateKey(params.value))}
-        otherStyles={colorByBoxStatus(params.value)}
+        customTextStyles={colorByBoxStatus(params.value)}
       />
     ),
 
@@ -186,7 +182,13 @@ export const clientBoxesViewColumns = (
   {
     field: 'isFormed',
     headerName: t(TranslationKey.Formed),
-    renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.Formed)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        withIcon
+        isFilterActive={getColumnMenuSettings()?.isFormedData?.isFormed !== null}
+        text={t(TranslationKey.Formed)}
+      />
+    ),
 
     renderCell: params => {
       return params.row.originalData ? (
@@ -260,6 +262,7 @@ export const clientBoxesViewColumns = (
     width: 215,
     filterable: false,
     sortable: false,
+    align: 'center',
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
   },
 
@@ -355,14 +358,16 @@ export const clientBoxesViewColumns = (
         text={t(TranslationKey.Dimensions)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         component={
-          <CustomSwitcher
-            condition={getUnitsOption()}
-            nameFirstArg={unitsOfChangeOptions.EU}
-            nameSecondArg={unitsOfChangeOptions.US}
-            firstArgValue={unitsOfChangeOptions.EU}
-            secondArgValue={unitsOfChangeOptions.US}
-            changeConditionHandler={handlers.onChangeUnitsOption}
-          />
+          <div>
+            <CustomSwitcher
+              condition={getUnitsOption()}
+              switcherSettings={[
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+              ]}
+              changeConditionHandler={handlers.onChangeUnitsOption}
+            />
+          </div>
         }
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />

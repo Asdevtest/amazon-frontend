@@ -1,27 +1,25 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
-
+import { isValid } from 'date-fns'
+import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
-import { isPast, isToday, isValid } from 'date-fns'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import dayjs from 'dayjs'
+import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery } from '@utils/calculation'
+import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
@@ -47,28 +45,20 @@ export const OrderModalBodyRow = ({
   onClickSetDestinationFavourite,
 }) => {
   const { classes: classNames } = useClassNames()
+
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
-
-  const onChangeInput = (event, nameInput) => {
-    if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(event)
-    } else {
-      setOrderStateFiled(nameInput)(event.target.value)
-    }
-  }
-
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
   const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
-
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
-    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-  }
-
+  const curDestination = destinations.find(el => el._id === orderState.destinationId)
+  const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
+  const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
+  const priceVariations = item.currentSupplier?.priceVariations
+  const firstNumOfCode = curDestination?.zipCode[0]
+  const tariffName = currentLogicsTariff?.name
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+  const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
     ? Math.max(
         Math.round(
@@ -81,28 +71,53 @@ export const OrderModalBodyRow = ({
         item.currentSupplier.boxProperties?.boxWeighGrossKg,
       ) / item.currentSupplier.boxProperties?.amountInBox
     : ''
-
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
-
-  const curDestination = destinations.find(el => el._id === orderState.destinationId)
-  const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
-  const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
-
-  const priceVariations = item.currentSupplier?.priceVariations
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const tariffName = currentLogicsTariff?.name
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  // const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
-
-  const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
-
-  const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
-    ?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const curTariffRate =
+    curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)?.conditionsByRegion[
+      regionOfDeliveryName
+    ]?.rate ||
+    curStorekeeper?.tariffLogistics
+      ?.find(el => el?._id === orderState?.logicsTariffId)
+      ?.destinationVariations?.find(el => el.destination?._id === curDestination?._id)?.pricePerKgUsd
 
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
+
+  const minDate = dayjs().add(2, 'day')
+  const [deadline, setDeadline] = useState(item.deadline ? new Date(item.deadline) : item.deadline)
+
+  const boxPropertiesIsFull =
+    item.currentSupplier?.boxProperties?.amountInBox &&
+    item.currentSupplier?.boxProperties?.boxLengthCm &&
+    item.currentSupplier?.boxProperties?.boxWidthCm &&
+    item.currentSupplier?.boxProperties?.boxHeightCm &&
+    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
+    item.currentSupplier?.amount &&
+    item.currentSupplier?.minlot &&
+    item.currentSupplier?.priceInYuan &&
+    item.currentSupplier?.price
+
+  const onChangeInput = (event, nameInput) => {
+    if (nameInput === 'deadline') {
+      setOrderStateFiled(nameInput)(isValid(event) ? event : null)
+      setDeadline(isValid(event) ? event : null)
+    } else {
+      setOrderStateFiled(nameInput)(event.target.value)
+    }
+  }
+
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
+    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
+    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  }
+
+  useEffect(() => {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+      setIsLocalPriseOutOfLimit(true)
+    } else {
+      setIsLocalPriseOutOfLimit(false)
+    }
+  }, [orderState.amount])
 
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
@@ -117,29 +132,6 @@ export const OrderModalBodyRow = ({
       setPerPriceUnit(t(TranslationKey['No data']))
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
-
-  const boxPropertiesIsFull =
-    item.currentSupplier?.boxProperties?.amountInBox &&
-    item.currentSupplier?.boxProperties?.boxLengthCm &&
-    item.currentSupplier?.boxProperties?.boxWidthCm &&
-    item.currentSupplier?.boxProperties?.boxHeightCm &&
-    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
-    item.currentSupplier?.amount &&
-    item.currentSupplier?.minlot &&
-    item.currentSupplier?.priceInYuan &&
-    item.currentSupplier?.price
-
-  const minDate = dayjs().add(2, 'day')
-
-  const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
-
-  React.useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
-      setIsLocalPriseOutOfLimit(true)
-    } else {
-      setIsLocalPriseOutOfLimit(false)
-    }
-  }, [orderState.amount])
 
   return (
     <React.Fragment>
@@ -159,7 +151,20 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
-          <div className={classNames.copyValueWrapper}>
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle={'asin'}
+            asin={item?.asin}
+            attributeTitleTextStyles={classNames.standartText}
+          />
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle={'sku'}
+            sku={item?.skusByClient?.[0]}
+            attributeTitleTextStyles={classNames.standartText}
+          />
+
+          {/* <div className={classNames.copyValueWrapper}>
             <Typography className={classNames.standartText}>{`ASIN: ${item.asin}`}</Typography>
             {item.asin ? <CopyValue text={item.asin} /> : null}
           </div>
@@ -168,7 +173,7 @@ export const OrderModalBodyRow = ({
               item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
             }`}</Typography>
             {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
-          </div>
+          </div> */}
 
           {!item.currentSupplier && (
             <Typography className={classNames.noCurrentSupplierText}>
@@ -194,14 +199,6 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          {/* <Input
-
-            inputProps={{maxLength: 6, min: 0}}
-            value={orderState.amount}
-            className={classNames.amountCell}
-            onChange={e => onChangeInput(e, 'amount')}
-          /> */}
-
           <Field
             containerClasses={classNames.containerField}
             inputClasses={cx(classNames.amountCell, {
@@ -294,17 +291,6 @@ export const OrderModalBodyRow = ({
             )}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {/* {item.storekeeperId
-              ? `${currentStorkeeper.name} / 
-                
-                ${
-                  item.logicsTariffId
-                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                        tariffRate ? ' / ' + tariffRate + ' $' : ''
-                      }`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)} */}
             {item.storekeeperId
               ? `                
                 ${item.logicsTariffId ? `${tariffName}` : 'none'}`
@@ -335,6 +321,7 @@ export const OrderModalBodyRow = ({
             maxRows={3}
             inputProps={{ maxLength: 500 }}
             className={classNames.commentInput}
+            classes={{ inputMultiline: classNames.inputMultiline }}
             onChange={e => onChangeInput(e, 'clientComment')}
           />
         </TableCell>
@@ -343,9 +330,9 @@ export const OrderModalBodyRow = ({
           <div className={classNames.datePickerWrapper}>
             <NewDatePicker
               disablePast
-              error={!isValid(item.deadline) || isPast(item.deadline) || isToday(item.deadline)}
+              // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
               minDate={minDate}
-              value={item.deadline}
+              value={deadline}
               onChange={e => onChangeInput(e, 'deadline')}
             />
           </div>

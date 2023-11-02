@@ -1,15 +1,13 @@
-import { Avatar, Tooltip, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Avatar, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
-import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
+import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -25,9 +23,12 @@ interface FilesObject {
   commentByPerformer: string
   _id: string
 }
+
 interface CustomImageGalleryListProps {
   files: (string | FilesObject)[]
   isAmazonPhoto: boolean
+  withoutFiles?: boolean
+  height?: number
 }
 
 interface BigImagesOptionsState {
@@ -38,13 +39,29 @@ interface BigImagesOptionsState {
 export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { files, isAmazonPhoto } = props
+  const { files, isAmazonPhoto, height, withoutFiles } = props
 
   const isObjectFiles = files?.some(el => typeof el === 'object')
 
   const [filesForRender, setFilesForRender] = useState(files)
 
   const [curImageId, setCurImageId] = useState<string | null>(null)
+  const [filteredFiles, setFilteredFiles] = useState<ImageObjectType[]>([])
+
+  useEffect(() => {
+    const images: ImageObjectType[] = files
+      ?.map(el => {
+        if (typeof el === 'object') {
+          return {
+            comment: el.commentByClient,
+            url: el.fileLink,
+            _id: el?._id,
+          }
+        }
+      })
+      .filter((el): el is Exclude<typeof el, undefined> => el !== undefined)
+    setFilteredFiles(images)
+  }, [files])
 
   // console.log('filesForRender', filesForRender)
 
@@ -66,7 +83,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
       })
 
   return !!filesForRender && filesForRender?.length ? (
-    <div className={classNames.imagesCarouselWrapper}>
+    <div className={classNames.imagesCarouselWrapper} style={{ height: height && height + 'px' }}>
       {notEmptyPhotos.map((photo: string | FilesObject, index: number) => (
         <div key={index} className={classNames.imageWrapper}>
           <Avatar
@@ -76,30 +93,30 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
             className={classNames.smallImage}
             classes={{ img: classNames.img }}
             onClick={() => {
-              if (isObjectFiles) {
-                setCurImageId(typeof photo === 'string' ? photo : photo._id)
-              } else {
-                setBigImagesOptions({
-                  images: isAmazonPhoto
-                    ? filesForRender?.map(el => getAmazonImageUrl(el, true))
-                    : filesForRender
-                        ?.filter(el => {
-                          if (typeof el === 'string') {
-                            return checkIsImageLink(el)
-                          } else {
-                            return checkIsImageLink(el?.fileLink)
-                          }
-                        })
-                        .map(el => {
-                          if (typeof el === 'string') {
-                            return el
-                          } else {
-                            return el?.fileLink
-                          }
-                        }),
-                  imgIndex: index,
-                })
-              }
+              setBigImagesOptions({
+                images: isAmazonPhoto
+                  ? filesForRender?.map(el => getAmazonImageUrl(el, true))
+                  : filesForRender
+                      ?.filter(el => {
+                        if (typeof el === 'string') {
+                          return checkIsImageLink(el)
+                        } else {
+                          return checkIsImageLink(el?.fileLink)
+                        }
+                      })
+                      .map(el => {
+                        if (typeof el === 'string') {
+                          return el
+                        } else {
+                          return el?.fileLink
+                        }
+                      }),
+                imgIndex: isObjectFiles
+                  ? typeof photo === 'string'
+                    ? index
+                    : filteredFiles.findIndex(el => el._id === photo._id)
+                  : index,
+              })
 
               setShowPhotosModal(!showPhotosModal)
             }}
@@ -113,24 +130,34 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
       ))}
 
       {isObjectFiles ? (
-        <BigObjectImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imagesData={files.map(
-            el => typeof el === 'object' && { ...el, image: el.fileLink, imageComment: el.commentByClient || '' },
-          )}
-          curImageId={curImageId}
-          setCurImageId={setCurImageId}
-          renderBtns={undefined}
-          isRedImageComment={undefined}
-        />
+        <>
+          <ImageModal
+            showPreviews
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={bigImagesOptions.images}
+            currentImageIndex={bigImagesOptions.imgIndex}
+            handleCurrentImageIndex={imgIndex =>
+              setBigImagesOptions(() => ({
+                ...bigImagesOptions,
+                imgIndex,
+              }))
+            }
+          />
+        </>
       ) : (
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          showPreviews
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex =>
+            setBigImagesOptions(() => ({
+              ...bigImagesOptions,
+              imgIndex,
+            }))
+          }
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          isOpenModal={showPhotosModal}
         />
       )}
     </div>

@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
   NormalActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 

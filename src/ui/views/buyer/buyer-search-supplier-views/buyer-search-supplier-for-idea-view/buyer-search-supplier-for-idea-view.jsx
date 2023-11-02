@@ -1,15 +1,13 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -17,8 +15,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerSearchSupplierForIdeaModel } from './buyer-search-supplier-for-idea-view.model'
 import { styles } from './buyer-search-supplier-for-idea-view.style'
+
+import { BuyerSearchSupplierForIdeaModel } from './buyer-search-supplier-for-idea-view.model'
 
 export const BuyerSearchSupplierForIdeaViewRaw = props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierForIdeaModel({ history: props.history }))
@@ -30,7 +29,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.btnsWrapper}>
           <Button
             color="primary"
@@ -57,6 +56,9 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -67,6 +69,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             localeText={getLocalizationByLanguageTag()}
+            paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={100}
@@ -74,9 +77,10 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
           />
         </div>
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

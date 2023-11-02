@@ -1,12 +1,12 @@
 export const styles = theme => ({
   root: {
     display: 'flex',
-
-    height: '100%',
+    width: '100%',
+    height: '100vh',
     flex: 1,
+
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
-      flex: 1,
       alignItems: 'center',
     },
   },

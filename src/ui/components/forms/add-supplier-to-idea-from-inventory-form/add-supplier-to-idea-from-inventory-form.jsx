@@ -1,19 +1,18 @@
 /* eslint-disable no-unused-vars */
-import { Typography, IconButton, Grid, Checkbox, NativeSelect, Link } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import { observer } from 'mobx-react'
+import { Checkbox, Grid, IconButton, Link, NativeSelect, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 

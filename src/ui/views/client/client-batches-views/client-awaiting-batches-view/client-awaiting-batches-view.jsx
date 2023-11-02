@@ -1,22 +1,22 @@
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
-import { MainContent } from '@components/layout/main-content'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -24,8 +24,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 import { styles } from './client-awaiting-batches-view.style'
+
+import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
 export const ClientAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history: props.history }))
@@ -37,7 +38,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={className.btnsWrapper}>
           <div className={className.btnsSubWrapper}>
             <Button
@@ -53,37 +54,19 @@ export const ClientAwaitingBatchesViewRaw = props => {
               {t(TranslationKey['Cancel Send'])}
             </Button>
 
-            <div className={className.boxesFiltersWrapper}>
-              {viewModel.storekeepersData
-                .slice()
-                .sort((a, b) => a.name?.localeCompare(b.name))
-                .map(storekeeper =>
-                  storekeeper.boxesCount !== 0 ? (
-                    <Button
-                      key={storekeeper._id}
-                      disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-                      className={cx(className.storekeeperButton, {
-                        [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-                      })}
-                      variant="text"
-                      onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-                    >
-                      {storekeeper.name}
-                    </Button>
-                  ) : null,
-                )}
-
-              <Button
-                disabled={!viewModel.currentStorekeeper?._id}
-                className={cx(className.storekeeperButton, {
-                  [className.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id,
-                })}
-                variant="text"
-                onClick={viewModel.onClickStorekeeperBtn}
-              >
-                {t(TranslationKey['All warehouses'])}
-              </Button>
-            </div>
+            <CustomSwitcher
+              switchMode={'medium'}
+              condition={viewModel.currentStorekeeperId}
+              switcherSettings={[
+                ...viewModel.storekeepersData
+                  .slice()
+                  .filter(storekeeper => storekeeper.boxesCount !== 0)
+                  .sort((a, b) => a.name?.localeCompare(b.name))
+                  .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
+                { label: () => t(TranslationKey['All warehouses']), value: undefined },
+              ]}
+              changeConditionHandler={viewModel.onClickStorekeeperBtn}
+            />
           </div>
 
           <div className={className.rightSideWrapper}>
@@ -121,6 +104,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
+            propsToRerender={{ productViewMode: viewModel.productViewMode }}
             classes={{
               row: className.row,
               root: className.root,
@@ -145,9 +129,19 @@ export const ClientAwaitingBatchesViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
+
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -163,7 +157,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showAddOrEditBatchModal}

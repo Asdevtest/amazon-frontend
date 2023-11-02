@@ -1,12 +1,14 @@
-import { t } from '@utils/translations'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import {
   AsinCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { Button } from '@components/shared/buttons/button'
+
+import { t } from '@utils/translations'
 
 export const clientFreelanceNotificationsColumns = handlers => [
   {
@@ -53,20 +55,16 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
-      <MultilineTextCell
-        text={
-          <Button
-            sx={{
-              height: '30px !important',
-            }}
-            onClick={() => {
-              handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
-            }}
-          >
-            {t(TranslationKey.Reply)}
-          </Button>
-        }
-      />
+      <Button
+        sx={{
+          height: '30px !important',
+        }}
+        onClick={() => {
+          handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
+        }}
+      >
+        {t(TranslationKey.Reply)}
+      </Button>
     ),
 
     sortable: false,

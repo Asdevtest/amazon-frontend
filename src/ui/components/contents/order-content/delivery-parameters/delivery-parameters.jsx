@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import dayjs from 'dayjs'
+import { useState } from 'react'
+
 import { Checkbox, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import dayjs from 'dayjs'
-
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -17,8 +14,6 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-// import {formatDateWithoutTime} from '@utils/date-time'
-// import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './delivery-parameters.style'
@@ -44,19 +39,9 @@ export const DeliveryParameters = ({
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
-  const curDestination = destinations?.find(el => el?._id === formFields.destinationId)
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
-
   const tariffName = storekeepers
     ?.find(el => el?._id === formFields?.storekeeperId)
     ?.tariffLogistics?.find(el => el?._id === formFields?.logicsTariffId)?.name
-
-  const tariffRate = storekeepers
-    ?.find(el => el._id === formFields.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === formFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const minDate = dayjs().add(2, 'day')
 
@@ -115,22 +100,11 @@ export const DeliveryParameters = ({
             disabled={!isCanChange}
             color="primary"
             variant={formFields.storekeeperId && 'text'}
-            className={cx({ [classNames.storekeeperBtn]: !formFields.storekeeperId })}
+            className={cx(classNames.chosenTariff, {
+              [classNames.notChosenTariff]: !formFields?.storekeeperId,
+            })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {/* {formFields?.storekeeperId
-              ? `${
-                  storekeepers?.find(el => el._id === formFields?.storekeeperId)?.name ||
-                  `${t(TranslationKey['Not available'])}`
-                } /  
-                        ${
-                          formFields?.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-              : t(TranslationKey.Select)} */}
             {formFields?.storekeeperId
               ? `${formFields?.storekeeperId ? `${tariffName ? tariffName : ''}` : 'none'}`
               : t(TranslationKey.Select)}

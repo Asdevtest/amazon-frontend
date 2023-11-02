@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -104,7 +103,7 @@ const filtersFields = [
   'redFlags',
 ]
 
-const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
+// const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
 
 export class ClientInventoryViewModel {
   history = undefined
@@ -148,6 +147,10 @@ export class ClientInventoryViewModel {
 
   nameSearchValue = ''
 
+  productsToLaunch = []
+  productVariations = []
+  selectedProductToLaunch = undefined
+
   selectedRowId = undefined
   yuanToDollarRate = undefined
   platformSettings = undefined
@@ -174,11 +177,14 @@ export class ClientInventoryViewModel {
   showProductLotDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
+  productCardModal = false
+  showProductLaunch = false
+  showIdeaModal = false
+  showProductVariationsForm = false
 
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
-  priceForSeekSupplier = 0
   currentBarcode = ''
   currentHscode = ''
   isModalOpen = false
@@ -187,8 +193,10 @@ export class ClientInventoryViewModel {
 
   isTransfer = false
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -251,6 +259,8 @@ export class ClientInventoryViewModel {
     onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
     onClickInTransfer: productId => this.onClickInTransfer(productId),
     onClickOrderCell: productId => this.onClickOrderCell(productId),
+    onClickShowProduct: row => this.onClickShowProduct(row),
+    onClickVariationButton: id => this.onClickVariationButton(id),
   }
 
   confirmModalSettings = {
@@ -343,7 +353,6 @@ export class ClientInventoryViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    console.log('model', model)
     runInAction(() => {
       this.columnVisibilityModel = model
     })
@@ -351,13 +360,25 @@ export class ClientInventoryViewModel {
     this.getProductsMy()
   }
 
-  onClickShowProduct(row) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${row.originalData._id}`,
-      '_blank',
-    )
+  onClickShowProduct(id) {
+    const win = window.open(`${window.location.origin}/client/inventory/product?product-id=${id}`, '_blank')
 
     win.focus()
+  }
+
+  onClickProductModal(row) {
+    if (window.getSelection().toString()) {
+      return
+    }
+    if (row) {
+      this.isArchive
+        ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)
+        : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
+    } else {
+      this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 
   onClickPandingOrder(id) {
@@ -415,6 +436,24 @@ export class ClientInventoryViewModel {
     })
   }
 
+  async onClickVariationButton(id) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await ProductModel.getProductsVariationsByGuid(id)
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.onTriggerOpenModal('showProductVariationsForm')
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -431,9 +470,7 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   getCurrentData() {
@@ -558,6 +595,52 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async onClickVariationRadioButton() {
+    try {
+      const result = await ClientModel.getProductPermissionsData({ isChild: false })
+      this.productsToLaunch = result
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async onClickProductLaunch() {
+    try {
+      const result = this.currentData?.find(
+        product => product?.originalData?._id === this.selectedRowIds?.[0] && !product?.originalData?.parentProductId,
+      )
+      runInAction(() => (this.selectedProductToLaunch = result))
+
+      this.onTriggerOpenModal('showProductLaunch')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickNextButton(chosenProduct) {
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct?.originalData || chosenProduct))
+
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+          this.onTriggerOpenModal('showProductLaunch')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.onTriggerOpenModal('showProductLaunch')
+      this.onTriggerOpenModal('showIdeaModal')
+    }
+  }
+
   async onClickOrderBtn() {
     try {
       runInAction(() => {
@@ -618,9 +701,6 @@ export class ClientInventoryViewModel {
 
   async getShops() {
     try {
-      // Старый метод
-      // const result = await ShopModel.getMyShops()
-
       const result = await ShopModel.getMyShopNames()
 
       runInAction(() => {
@@ -650,56 +730,6 @@ export class ClientInventoryViewModel {
       console.log(error)
     }
   }
-
-  // onClickShopBtn(shop) {
-  //   runInAction(() => {
-  //     if (shop) {
-  //       if (shop === 'ALL') {
-  //         this.currentShops = []
-  //       } else {
-  //         if (this.currentShops.some(item => item === shop)) {
-  //           this.currentShops = this.currentShops.filter(item => item !== shop)
-  //         } else {
-  //           this.currentShops.push(shop)
-  //         }
-  //       }
-  //     }
-  //   })
-
-  //   const noProductBaseUpdate = true
-  //   this.getProductsMy(noProductBaseUpdate)
-
-  //   runInAction(() => {
-  //     this.withoutProduct = false
-  //     this.withProduct = false
-  //   })
-  // }
-
-  // async onClickWithoutProductsShopBtn() {
-  //   runInAction(() => {
-  //     this.currentShops = []
-  //     this.withoutProduct = true
-  //     this.withProduct = false
-  //   })
-
-  //   await this.getProductsMy()
-  //   runInAction(() => {
-  //     this.productsMy = this.productsMy.filter(product => !product.originalData.shopIds?.length)
-  //   })
-  // }
-
-  // async onClickWithProductsShopBtn() {
-  //   runInAction(() => {
-  //     this.currentShops = []
-  //     this.withoutProduct = false
-  //     this.withProduct = true
-  //   })
-
-  //   await this.getProductsMy()
-  //   runInAction(() => {
-  //     this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
-  //   })
-  // }
 
   onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
     runInAction(() => {
@@ -757,14 +787,12 @@ export class ClientInventoryViewModel {
           ? ''
           : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
+          shopFilter ? `;&[shopIds][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 
@@ -1188,20 +1216,25 @@ export class ClientInventoryViewModel {
       }
 
       if (!this.error) {
-        // runInAction(() => {
-        //   this.successModalText = t(TranslationKey['The order has been created'])
-        // })
-        // this.onTriggerOpenModal('showSuccessModal')
-
         runInAction(() => {
-          this.acceptMessage = t(TranslationKey['The order has been created'])
-          this.showAcceptMessage = true
-          if (this.showAcceptMessage) {
-            setTimeout(() => {
-              this.acceptMessage = ''
-              this.showAcceptMessage = false
-            }, 3000)
+          this.alertShieldSettings = {
+            showAlertShield: true,
+            alertShieldMessage: t(TranslationKey['The order has been created']),
           }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              ...this.alertShieldSettings,
+              showAlertShield: false,
+            }
+
+            setTimeout(() => {
+              this.alertShieldSettings = {
+                showAlertShield: false,
+                alertShieldMessage: '',
+              }
+            }, 1000)
+          }, 3000)
         })
       }
       this.onTriggerOpenModal('showConfirmModal')
@@ -1380,6 +1413,8 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierBtn() {
     try {
+      this.selectedProductToLaunch = undefined
+
       if (this.checkIsNoEditProductSelected()) {
         runInAction(() => {
           this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
@@ -1465,14 +1500,12 @@ export class ClientInventoryViewModel {
 
   async onSubmitCalculateSeekSupplier(clientComment) {
     try {
-      runInAction(() => {
-        this.clientComment = clientComment
-      })
-
-      const result = await ClientModel.calculatePriceToSeekSupplier(this.selectedRowId)
+      const result = await ClientModel.calculatePriceToSeekSupplier(
+        this.selectedProductToLaunch?._id || this.selectedRowId,
+      )
 
       runInAction(() => {
-        this.priceForSeekSupplier = result.priceForClient
+        const priceForSeekSupplier = result.priceForClient
 
         this.confirmMessage = this.confirmModalSettings = {
           isWarning: false,
@@ -1481,7 +1514,7 @@ export class ClientInventoryViewModel {
             result.priceForClient,
             2,
           )}.\n ${t(TranslationKey['Apply?'])}`,
-          onClickConfirm: () => this.onSubmitSeekSupplier(),
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
         }
       })
 
@@ -1503,20 +1536,21 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onSubmitSeekSupplier() {
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
     try {
-      await ClientModel.sendProductToSeekSupplier(this.selectedRowId, {
-        clientComment: this.clientComment,
-        priceForClient: this.priceForSeekSupplier,
+      await ClientModel.sendProductToSeekSupplier(this.selectedProductToLaunch?._id || this.selectedRowId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
       })
 
       this.loadData()
 
       this.onTriggerOpenModal('showConfirmModal')
-
       this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
       console.log(error)
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
     }
   }
 

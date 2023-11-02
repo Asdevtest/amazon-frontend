@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
 import {
   BatchWeightCalculationMethodTranslateKey,
   getBatchWeightCalculationMethodForBox,
@@ -18,12 +18,17 @@ import { OtherModel } from '@models/other-model'
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
+import { DownloadIcon } from '@components/shared/svg-icons'
+
+import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 import {
   calcPriceForBox,
@@ -33,20 +38,12 @@ import {
 import { checkIsImageLink } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import {
-  getFullTariffTextForBoxOrOrder,
-  getNewTariffTextForBoxOrOrder,
-  getShortenStringIfLongerThanCount,
-  toFixed,
-} from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { BigImagesModal } from '../big-images-modal'
-import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
-import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
-import { DownloadIcon } from '@components/shared/svg-icons'
-import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
+
+import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
   ({
@@ -93,8 +90,6 @@ export const BatchInfoModal = observer(
 
     const [dataToRender, setDataToRender] = useState(sourceBoxes)
 
-    const [receivedFiles, setReceivedFiles] = useState(null)
-
     const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
       sourceBoxes,
       currentBatch.volumeWeightDivide,
@@ -122,6 +117,7 @@ export const BatchInfoModal = observer(
     const [curBox, setCurBox] = useState({})
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const openBoxView = box => {
       setShowBoxViewModal(!showBoxViewModal)
@@ -333,10 +329,15 @@ export const BatchInfoModal = observer(
               labelClasses={cx(classNames.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  disabled={!patchActualShippingCostBatch}
+                  // disabled={!patchActualShippingCostBatch}
                   rowId={currentBatch._id}
                   text={currentBatch.actualShippingCost}
-                  onClickSubmit={!!patchActualShippingCostBatch && patchActualShippingCostBatch}
+                  onClickSubmit={(id, cost) => {
+                    !!patchActualShippingCostBatch &&
+                      patchActualShippingCostBatch(id, cost).then(() => {
+                        setCurrentBatch(prevState => ({ ...prevState, actualShippingCost: cost || '0' }))
+                      })
+                  }}
                 />
               }
             />
@@ -367,19 +368,13 @@ export const BatchInfoModal = observer(
               // hideFooter
               // autoHeight
               pagination
+              disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               classes={{
-                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                row: classNames.row,
                 toolbarContainer: classNames.toolbarContainer,
                 // virtualScroller: classNames.virtualScroller,
-              }}
-              sx={{
-                border: `1px solid  #EBEBEB !important`,
-                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
               slots={{
                 toolbar: DataGridCustomToolbar,
@@ -396,13 +391,16 @@ export const BatchInfoModal = observer(
                 // ),
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: batchInfoModalColumn(
                       currentBatch.volumeWeightDivide,
                       currentBatch.calculationMethod,
                       isActualGreaterTheVolume,
-                      currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                      currentBatch.actualShippingCost,
                       currentBatch.finalWeight,
                     ),
                     columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -415,7 +413,7 @@ export const BatchInfoModal = observer(
                 currentBatch.volumeWeightDivide,
                 currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
-                currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                currentBatch.actualShippingCost,
                 currentBatch.finalWeight,
               )}
               rows={toJS(dataToRender)}
@@ -423,16 +421,14 @@ export const BatchInfoModal = observer(
               onRowDoubleClick={e => openBoxView(e.row)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
-            {/* </div> */}
           </div>
 
           <div className={classNames.filesAndButtonWrapper}>
             <div className={classNames.filesSubWrapper}>
-              <PhotoAndFilesCarouselMini
-                small
-                direction={window.innerWidth < 768 ? 'column' : 'row'}
+              <PhotoAndFilesSlider
+                smallSlider
+                column={window.innerWidth < 768}
                 files={currentBatch.attachedDocuments}
-                width="400px"
               />
             </div>
             <div className={classNames.buttonsWrapper}>
@@ -467,10 +463,12 @@ export const BatchInfoModal = observer(
             />
           </Modal>
 
-          <BigImagesModal
-            openModal={showPhotosModal}
-            setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            images={currentBatch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+          <ImageModal
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={currentBatch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+            currentImageIndex={curImageIndex}
+            handleCurrentImageIndex={index => setCurImageIndex(index)}
           />
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}

@@ -1,14 +1,13 @@
-import { Typography, Tooltip, IconButton, MenuItem, Select, Input } from '@mui/material'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
+import DeleteIcon from '@material-ui/icons/Delete'
+import { IconButton, Input, MenuItem, Select, Tooltip, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
 
-import React, { useState } from 'react'
-
-import DeleteIcon from '@material-ui/icons/Delete'
-import { observer } from 'mobx-react'
-
-import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -18,8 +17,9 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
 import { useClassNames } from './add-or-edit-group-permission-form.style'
+
+import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
 
 export const AddOrEditGroupPermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions }) => {

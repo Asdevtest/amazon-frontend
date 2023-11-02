@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20058 {
     /**
      * Constructs a new <code>InlineResponse20058</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20058
      */
     constructor() { 
@@ -48,11 +47,11 @@ class InlineResponse20058 {
         if (data) {
             obj = obj || new InlineResponse20058();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -62,16 +61,15 @@ class InlineResponse20058 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * @member {String} productId
  */
-InlineResponse20058.prototype['isExist'] = undefined;
+InlineResponse20058.prototype['productId'] = undefined;
 
 /**
- * Причина из таблицы с асинами
- * @member {String} reason
+ * Массив магазинов
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20058.prototype['reason'] = undefined;
+InlineResponse20058.prototype['shopIds'] = undefined;
 
 
 

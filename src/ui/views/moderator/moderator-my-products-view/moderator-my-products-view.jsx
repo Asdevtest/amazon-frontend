@@ -1,11 +1,8 @@
-import { Typography } from '@mui/material'
-
-import React from 'react'
-
 import { observer } from 'mobx-react'
+import React from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { MainContent } from '@components/layout/main-content'
+import { Typography } from '@mui/material'
 
 import { styles } from './moderator-my-products-view.style'
 
@@ -15,7 +12,7 @@ export const ModeratorMyProductsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
         {/* <MemoDataGrid
                 pagination
@@ -53,7 +50,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 onRowDoubleClick={e => onClickTableRow(e.row)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               /> */}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

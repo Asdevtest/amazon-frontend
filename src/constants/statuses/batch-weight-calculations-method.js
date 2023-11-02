@@ -4,10 +4,10 @@ import {
   calcVolumeWeightForBox,
 } from '@utils/calculation'
 import { objectFlip } from '@utils/object'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { TranslationKey } from '../translations/translation-key'
-import { toFixed } from '@utils/text'
 
 export const BatchWeightCalculationMethod = {
   BY_MORE_WEIGHT: 'BY_MORE_WEIGHT',

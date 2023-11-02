@@ -1,16 +1,14 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -19,8 +17,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 import { styles } from './admin-destinations-view.style'
+
+import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 
 export const AdminDestinationsViewRaw = props => {
   const [viewModel] = useState(
@@ -38,7 +37,7 @@ export const AdminDestinationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.placeAddBtnWrapper}>
           <Button success onClick={() => viewModel.onClickAddBtn()}>
             {t(TranslationKey['Add a destination'])}
@@ -88,7 +87,7 @@ export const AdminDestinationsViewRaw = props => {
         </Modal>
 
         <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings.isWarning}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
@@ -98,7 +97,7 @@ export const AdminDestinationsViewRaw = props => {
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

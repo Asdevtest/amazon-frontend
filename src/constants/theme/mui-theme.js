@@ -68,10 +68,45 @@ export const lightTheme = createTheme({
           // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#001029',
 
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
+          '& .MuiDataGrid-virtualScroller': {
+            '&::-webkit-scrollbar': {
+              // width: '8px',
+            },
+
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#DAE1E9',
+              borderRadius: '22px',
+              border: '2px solid #fff',
+            },
+
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: 'transparent',
+            },
           },
+          borderRadius: '20px',
         },
+
+        row: {
+          cursor: 'pointer',
+          transition: '0.3s ease',
+        },
+
+        footerContainer: {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          borderTop: 'none !important',
+        },
+
+        footerCell: {
+          padding: 0,
+          margin: 0,
+        },
+
+        toolbarContainer: {
+          height: '52px',
+        },
+
         // Убрать
         columnHeaders: {
           height: 65,
@@ -83,44 +118,43 @@ export const lightTheme = createTheme({
         },
 
         columnHeaderDraggableContainer: {
-          flexDirection: 'row !important',
-
           position: 'relative',
           paddingRight: 20,
+          flexDirection: 'row !important',
         },
+
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
-          display: 'flex !important',
-          alignItems: 'center !important',
-          overflow: 'visible',
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
         },
+
         menuIconButton: {
           zIndex: 1000,
           position: 'absolute !important',
           right: -7,
-          top: 13,
           // visibility: 'visible !important',
-
           width: '18px !important',
           height: '18px !important',
 
           '.MuiSvgIcon-root': {
-            // display: 'none',
             width: 14,
             height: 14,
           },
         },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
-
-        //
       },
     },
 
@@ -141,19 +175,17 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#001029',
-
           overflow: 'hidden',
-
           border: '1px solid #E0E0E0',
         },
+      },
+    },
 
-        // input: {
-        //   color: '#001029',
-        // },
-
-        // disabled: {
-        //   color: '#001029',
-        // },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
       },
     },
 
@@ -251,15 +283,17 @@ export const lightTheme = createTheme({
 
     primary: {
       main: '#007bff',
+      mainRgb: '0, 123, 255',
     },
+
     text: {
       general: '#001029',
       second: '#656565',
 
-      negativeMain: '#fff',
       gray: '#C4C4C4',
-      green: 'green',
       red: '#DD2121',
+      negativeMain: '#fff',
+      green: 'green',
     },
 
     button: {
@@ -271,13 +305,20 @@ export const lightTheme = createTheme({
       disabledDangerBackground: '#FEB9B9',
     },
 
+    orderStatus: {
+      red: '#FF1616',
+    },
+
     background: {
       general: '#fff',
       second: '#F8F8F8',
       third: '#f4f4f4',
+      fourth: '#E7F1FF',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
-
+      yellowRow: '#FFFDF3',
+      greenRow: 'rgba(0, 64, 0, 0.2)',
+      redRow: '#FFF3F3',
       searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
       red: '#FFC7C7',
@@ -288,43 +329,49 @@ export const lightTheme = createTheme({
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
+      activeChat: '#E7F1FF',
+      scrollThumb: '#AEAEAE',
+    },
+
+    customSwitcher: {
+      background: '#D9E0E8',
+      indicator: '#fff',
+      text: '#001029',
+      activeText: '#007bff',
+      headerBackground: '#F4F4F4',
     },
 
     linearGradient: {
       successDashboardCard: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%)',
       negativeDashboardCard: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%)',
-
       hoverSuccessDashboardCard: 'linear-gradient(157deg,#fff 50%, #d8fded 50%)',
       hoverNegativeDashboardCard: 'linear-gradient(157deg,#fff 50%, #f8dede 50%)',
     },
 
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
-
-      paper: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-
+      paper: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-
       red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-
       imageList: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+      filter: '0 -4px 13px 0 rgba(135, 135, 135, 0.15) inset',
     },
 
     input: {
       // disabled: 'rgba(0, 0, 0, 0.38)',
       // disabled: '#C4C4C4',
       customDisabled: '#EBEBEB',
-
       // disabled: 'normal',
       // disabled: 'rgba(0, 0, 0, 0.26)',
       customBorder: '#E0E0E0',
     },
 
     other: {
+      rejected: '#D70D0D',
+      succes: '#0B903E',
       tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
-
       ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
       ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
     },
@@ -363,9 +410,51 @@ export const darkTheme = createTheme({
           color: '#fff',
 
           // border: '1px solid rgba(81, 81, 81, 1) !important',
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
+
+          '& .MuiDataGrid-virtualScroller': {
+            '&::-webkit-scrollbar': {
+              // width: '8px',
+            },
+
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#45454d',
+              borderRadius: '22px',
+              border: '2px solid #25252D',
+            },
+
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: 'transparent',
+            },
           },
+        },
+
+        row: {
+          cursor: 'pointer',
+          transition: '0.3s ease',
+
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(76, 161, 222, 0.16)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          },
+        },
+
+        footerContainer: {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          borderTop: 'none !important',
+        },
+
+        footerCell: {
+          padding: 0,
+          margin: 0,
+        },
+
+        toolbarContainer: {
+          height: '52px',
+          borderRadius: '20px',
         },
 
         columnSeparator: {
@@ -379,15 +468,6 @@ export const darkTheme = createTheme({
           height: 65,
         },
 
-        row: {
-          '&.Mui-selected': {
-            backgroundColor: 'rgba(76, 161, 222, 0.16)',
-          },
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          },
-        },
-
         paper: {
           backgroundColor: '#2B2B34',
           color: '#fff',
@@ -398,64 +478,52 @@ export const darkTheme = createTheme({
           color: '#fff',
         },
 
-        menuIconButton: {
-          color: '#fff',
-
-          // Убрать
-          zIndex: 1000,
-          position: 'absolute !important',
-          right: -7,
-          top: 13,
-          // visibility: 'visible !important',
-
-          width: '18px !important',
-          height: '18px !important',
-
-          '.MuiSvgIcon-root': {
-            // display: 'none',
-            width: 14,
-            height: 14,
-          },
-        },
-
         sortIcon: {
-          // color: 'rgba(255, 255, 255, 1)',
           color: '#fff !important',
-          // color: 'red',
-
-          // '& > disabled': {
-          //   color: 'red',
-          // },
-
-          // Убрать
           width: 14,
           height: 14,
         },
 
         cell: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
-          // border: 'none',
         },
 
-        // Убрать
         columnHeaderDraggableContainer: {
           flexDirection: 'row !important',
-
           position: 'relative',
-          paddingRight: 20,
         },
+
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
-          display: 'flex !important',
-          alignItems: 'center !important',
-          overflow: 'visible',
+          paddingRight: 20,
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
         },
+
+        menuIconButton: {
+          color: '#fff',
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          // visibility: 'visible !important',
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            width: 14,
+            height: 14,
+          },
+        },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
@@ -486,7 +554,6 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
-          // background: 'red',
         },
       },
     },
@@ -528,6 +595,7 @@ export const darkTheme = createTheme({
     MuiList: {
       styleOverrides: {
         root: {
+          padding: 0,
           color: '#fff',
         },
       },
@@ -542,22 +610,17 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
-      //
-      defaultProps: {
-        // добавлен весь объект defaultProps, удалить если нужно вернуться к прошлому виду
-        sx: {
-          '& .MuiInputBase-input.Mui-disabled': {
-            backgroundColor: '#36363F',
-            WebkitTextFillColor: '#fff',
-          },
-        },
-      },
-      //
       styleOverrides: {
         root: {
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
+        },
+        input: {
+          '&.Mui-disabled': {
+            backgroundColor: '#36363F !important',
+            WebkitTextFillColor: '#fff !important',
+          },
         },
       },
     },
@@ -634,11 +697,11 @@ export const darkTheme = createTheme({
       styleOverrides: {
         '::-webkit-scrollbar': {
           backgroundColor: '#25252D',
-          cursor: 'pointer !important',
+          // cursor: 'pointer !important',
         },
         '::-webkit-scrollbar-thumb': {
           backgroundColor: '#53535B',
-          border: '2px solid #25252D',
+          border: '3px solid #25252D',
           borderTop: 'none',
           borderBottom: 'none',
 
@@ -656,20 +719,44 @@ export const darkTheme = createTheme({
           },
         },
 
-        '::-webkit-scrollbar-button:vertical:start:increment': {
-          display: 'none',
+        '::-webkit-scrollbar-button:vertical:start:decrement': {
+          background:
+            'linear-gradient(120deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(240deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(0deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
-        '::-webkit-scrollbar-button:vertical:end:decrement': {
-          display: 'none',
+        '::-webkit-scrollbar-button:vertical:end:increment': {
+          background:
+            'linear-gradient(300deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(60deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(180deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
-        '::-webkit-scrollbar-button:horizontal:start:increment': {
-          display: 'none',
+        '::-webkit-scrollbar-button:horizontal:start:decrement': {
+          background:
+            'linear-gradient(30deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(150deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(270deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
-        '::-webkit-scrollbar-button:horizontal:end:decrement': {
-          display: 'none',
+        '::-webkit-scrollbar-button:horizontal:end:increment': {
+          background:
+            'linear-gradient(210deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(330deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(90deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
+          backgroundColor: '#53535B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
+          },
         },
 
         '::-webkit-scrollbar-corner': {
@@ -710,14 +797,15 @@ export const darkTheme = createTheme({
       primary: {
         // main: '#008CF1',
         main: '#4CA1DE',
+        mainRgb: '76, 161, 222',
       },
+
       text: {
         general: '#fff',
         second: '#E1E1E1',
 
         gray: 'gray',
         red: '#DD2121',
-
         negativeMain: '#001029',
         green: '#2FE341',
         disabled: '#001029', // 'rgba(255, 255, 255, 0.5)',
@@ -731,7 +819,7 @@ export const darkTheme = createTheme({
         disabledBackground: '#2E4760',
         disabledSuccessText: '#41715A',
         disabledSuccessBackground: '#184831',
-        disabledDangerText: '#E5FFEF',
+        disabledDangerText: '#636369',
         disabledDangerBackground: '#451F27',
       },
 
@@ -740,15 +828,22 @@ export const darkTheme = createTheme({
         disabled: 'rgba(255, 255, 255, 0.3)',
       },
 
+      orderStatus: {
+        red: '#DD2121',
+      },
+
       background: {
         general: '#2B2B34',
         second: '#21212B',
-
+        third: '#25252D',
+        fourth: '#0A6FE8',
         searchSelectHover: '#25252D',
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
         darkBlue: '#4CA1DE',
-
+        yellowRow: '#2F2C23',
+        greenRow: 'rgba(0, 64, 0, 0.5)',
+        redRow: '#2F2329',
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
         green: '#001A15',
@@ -756,50 +851,52 @@ export const darkTheme = createTheme({
         yellow: '#FEF0A6',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
-
         default: '#121212',
         disabledDangerBtn: '#4F2026',
+        activeChat: '#384C68',
+        scrollThumb: '#45454d',
+      },
+
+      customSwitcher: {
+        background: '#272730',
+        indicator: '#31313A',
+        text: '#5C6A7A',
+        activeText: '#4CA1DE',
+        headerBackground: '#25252D',
       },
 
       linearGradient: {
         successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-
         // negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
         negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-
         hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
-
         // hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
         hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #8C0000 50%);',
       },
 
       boxShadow: {
         general: 'rgba(31, 31, 31, 0.6)',
-
         paper: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
-
         yellow:
           'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-
         red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-
         imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
+        filter: '-4px -4px 13px 0 rgba(1, 1, 1, 0.17) inset',
       },
 
       input: {
         // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
         customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду, если снова будешь исправлять скажи мне, больше не буду трогать это (18.01.23)
-
         // customDisabled: '#21212B',
         // customDisabled: '#EBEBEB', // макет
-
         customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
       },
 
       other: {
+        rejected: '#D70D0D',
+        succes: '#0B903E',
         tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
-
         ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
         ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
       },

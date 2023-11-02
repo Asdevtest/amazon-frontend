@@ -1,45 +1,32 @@
-import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Button } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
+  ProductStatusGroups,
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 import { styles } from './supervisor-products-view.style'
 
-const allowProductStatuses = [
-  `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]}`,
-  `${ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}`,
-  `${ProductStatusByKey[ProductStatus.SUPPLIER_FOUND]}`,
-  `${ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]}`,
-  `${ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]}`,
-  `${ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
-  `${ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]}`,
-  `${ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]}`,
-]
+import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
 const attentionStatuses = [
   ProductStatus.BUYER_FOUND_SUPPLIER,
@@ -55,6 +42,49 @@ const attentionStatuses = [
   ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
   ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
   ProductStatus.RESEARCHER_CREATED_PRODUCT,
+]
+
+const statusesList = [
+  {
+    userInfoKey: ProductStatusGroups.allProducts,
+    status: ProductStatusByKey[ProductStatus.DEFAULT],
+  },
+  {
+    userInfoKey: ProductStatusGroups.atTheBuyerInWork,
+    status: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
+  },
+  {
+    userInfoKey: ProductStatusGroups.buyerFoundSupplier,
+    status: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+  },
+  {
+    userInfoKey: ProductStatusGroups.paidByTheClient,
+    status: ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
+  },
+  {
+    userInfoKey: ProductStatusGroups.productIsAppropriate,
+    status: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+  },
+  {
+    userInfoKey: ProductStatusGroups.rejectedBySupervisor,
+    status: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+  },
+  {
+    userInfoKey: ProductStatusGroups.searchComplete,
+    status: ProductStatusByKey[ProductStatus.SUPPLIER_FOUND],
+  },
+  {
+    userInfoKey: ProductStatusGroups.supplierPriceDoesNotFit,
+    status: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+  },
+  {
+    userInfoKey: ProductStatusGroups.supplierWasNotFound,
+    status: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+  },
+  {
+    userInfoKey: ProductStatusGroups.onCheckWithSupervisor,
+    status: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+  },
 ]
 
 export const SupervisorProductsViewRaw = props => {
@@ -76,43 +106,52 @@ export const SupervisorProductsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
-        <div className={classNames.headerWrapper}>
-          {Object.keys({
-            ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
-          }).map((status, statusIndex) => {
-            const count = viewModel.getProductsCountByStatus(status)
+      <div>
+        <CustomSwitcher
+          switchMode={'medium'}
+          condition={viewModel.currentStatusGroup}
+          switcherSettings={[
+            ...statusesList.map(el => ({
+              icon: <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>,
+              label: () => t(productStatusTranslateKey(ProductStatusByCode[el.status])),
+              value: el.userInfoKey,
+            })),
+          ]}
+          changeConditionHandler={viewModel.onClickStatusFilterButton}
+        />
 
-            return (
-              <Button
-                key={statusIndex}
-                variant="text"
-                disabled={!count}
-                // disabled={Number(statusIndex) === Number(currentFilterStatus)}
-                className={cx(classNames.selectStatusFilterButton, {
-                  [classNames.selectedStatusFilterButton]: Number(status) === Number(viewModel.currentFilterStatus),
-                })}
-                onClick={() => viewModel.onClickStatusFilterButton(status)}
-              >
-                {t(productStatusTranslateKey(ProductStatusByCode[status]))}{' '}
-                {count >= 1 && <span className={classNames.badge}>{count}</span>}
-              </Button>
-            )
-          })}
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              value={viewModel.nameSearchValue}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-              onChange={viewModel.onChangeNameSearchValue}
-            />
-          </div>
+        {/* {statusesList.map(el => (
+            <Button
+              key={el.status}
+              variant="text"
+              disabled={!viewModel.userInfo[el.userInfoKey]}
+              // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+              className={cx(classNames.selectStatusFilterButton, {
+                [classNames.selectedStatusFilterButton]: el.userInfoKey === viewModel.currentStatusGroup,
+              })}
+              onClick={() => viewModel.onClickStatusFilterButton(el.userInfoKey)}
+            >
+              {t(productStatusTranslateKey(ProductStatusByCode[el.status]))}{' '}
+              <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>
+            </Button>
+          ))} */}
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            onChange={viewModel.onChangeNameSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
+          />
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
             pagination
             useResizeContainer
+            checkboxSelection
+            rowCount={viewModel.rowCount}
+            sortingMode="server"
+            paginationMode="server"
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -128,13 +167,23 @@ export const SupervisorProductsViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -148,11 +197,22 @@ export const SupervisorProductsViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+
+        {viewModel.productCardModal && (
+          <ProductCardModal
+            role={viewModel.userInfo.role}
+            history={viewModel.history}
+            openModal={viewModel.productCardModal}
+            setOpenModal={() => viewModel.onClickProductModal()}
+            updateDataHandler={() => viewModel.loadData()}
+            onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
+          />
+        )}
+      </div>
     </React.Fragment>
   )
 }

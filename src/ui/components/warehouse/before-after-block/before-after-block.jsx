@@ -1,19 +1,16 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Avatar, Checkbox, Divider, Link, Paper, Tooltip, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
-import { observer } from 'mobx-react'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { Checkbox, Divider, Link, Paper, Tooltip, Typography } from '@mui/material'
 
 import {
   getConversion,
   getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -22,34 +19,30 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { Text } from '@components/shared/text'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { BoxArrow } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import {
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBoxOrOrder,
   getNewTariffTextForBoxOrOrder,
   getShortenStringIfLongerThanCount,
   toFixed,
-  toFixedWithKg,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
 import { useClassNames } from './before-after-block.style'
+
+import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
+
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { calcVolumeWeightForBox } from '@utils/calculation'
 
 const Box = observer(
   ({
@@ -125,23 +118,6 @@ const Box = observer(
         (parseFloat(box.heightCmSupplier) || 0) *
         (parseFloat(box.widthCmSupplier) || 0)) /
       volumeWeightCoefficient
-
-    const renderImageInfo = (img, imgName) => (
-      <div className={classNames.tooltipWrapper}>
-        <Avatar
-          variant="square"
-          alt={imgName}
-          src={img ? img : '/assets/icons/file.png'}
-          className={classNames.tooltipImg}
-        />
-
-        {typeof img === 'string' ? (
-          <Typography className={classNames.linkTypo}>{imgName}</Typography>
-        ) : (
-          <Typography className={classNames.tooltipText}>{imgName}</Typography>
-        )}
-      </div>
-    )
 
     const needAccent =
       (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) && isNewBox
@@ -239,10 +215,10 @@ const Box = observer(
                 <div className={classNames.sizesSubWrapper}>
                   <CustomSwitcher
                     condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
+                    switcherSettings={[
+                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                    ]}
                     changeConditionHandler={condition => setSizeSetting(condition)}
                   />
                 </div>
@@ -362,55 +338,15 @@ const Box = observer(
                     <Typography className={classNames.photoAndFilesTitle}>{`${t(
                       TranslationKey['Photos and documents of the box'],
                     )}:`}</Typography>
-                    <div className={classNames.photoSubWrapper}>
-                      <PhotoAndFilesCarousel
-                        small
-                        direction={window.screen.width < 768 ? 'column' : 'row'}
-                        files={box.images}
-                        width={window.screen.width < 768 ? '375px' : '340px'}
-                      />
-                    </div>
-
                     {isNewBox && box.tmpImages?.length ? (
-                      <div>
-                        <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
-                          box.tmpImages?.length
-                        })`}</Typography>
-                        <CustomSlider>
-                          {box.tmpImages?.map((image, index) =>
-                            typeof image === 'string' ? (
-                              <div key={index} className={classNames.imageLinkListItem}>
-                                <Tooltip
-                                  title={renderImageInfo(image, image)}
-                                  classes={{ popper: classNames.imgTooltip }}
-                                >
-                                  <Avatar className={classNames.image} src={image} alt={image} variant="square" />
-                                </Tooltip>
-
-                                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
-                                  <Typography className={classNames.linkName}>{image}</Typography>
-                                </Link>
-                              </div>
-                            ) : (
-                              <div key={index} className={classNames.imageListItem}>
-                                <Tooltip
-                                  title={renderImageInfo(image.data_url, image.file.name)}
-                                  classes={{ popper: classNames.imgTooltip }}
-                                >
-                                  <img
-                                    className={classNames.image}
-                                    src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
-                                    alt={image.file.name}
-                                  />
-                                </Tooltip>
-
-                                <Typography className={classNames.fileName}>{image.file.name} </Typography>
-                              </div>
-                            ),
-                          )}
-                        </CustomSlider>
-                      </div>
+                      <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
+                        box.tmpImages?.length - box.images.length
+                      })`}</Typography>
                     ) : null}
+                    <PhotoAndFilesSlider
+                      smallSlider
+                      files={isNewBox && box.tmpImages?.length ? box.tmpImages : box.images}
+                    />
                   </div>
                 )}
 
@@ -419,14 +355,7 @@ const Box = observer(
                     <Typography className={classNames.photoAndFilesTitle}>{`${t(
                       TranslationKey['Photos and order documents'],
                     )}:`}</Typography>
-                    <div className={classNames.photoSubWrapper}>
-                      <PhotoAndFilesCarousel
-                        small
-                        direction={window.screen.width < 768 ? 'column' : 'row'}
-                        files={box.items[0].order.images}
-                        width={window.screen.width < 768 ? '380px' : '340px'}
-                      />
-                    </div>
+                    <PhotoAndFilesSlider smallSlider files={box.items[0].order.images} />
                   </div>
                 )}
 
@@ -621,26 +550,10 @@ const Box = observer(
 
                     <div className={classNames.trackNumberPhotoWrapper}>
                       {box.trackNumberFile.length ? (
-                        <CustomSlider>
-                          {box.trackNumberFile.map((el, index) => (
-                            <img
-                              key={index}
-                              className={classNames.trackNumberPhoto}
-                              src={box.trackNumberFile[index]}
-                              onClick={() => {
-                                setShowPhotosModal(!showPhotosModal)
-                                setBigImagesOptions({
-                                  ...bigImagesOptions,
-
-                                  images: box.trackNumberFile,
-                                })
-                              }}
-                            />
-                          ))}
-                        </CustomSlider>
+                        <PhotoAndFilesSlider smallSlider withoutPhotos files={box.trackNumberFile} />
                       ) : (
                         <Typography className={classNames.trackNumberNoPhotoText}>
-                          {'no photo track number...'}
+                          {`${t(TranslationKey['no photo track number'])}...`}
                         </Typography>
                       )}
                     </div>
@@ -718,26 +631,10 @@ const Box = observer(
 
                   <div className={classNames.trackNumberPhotoWrapper}>
                     {box.trackNumberFile.length ? (
-                      <CustomSlider>
-                        {box.trackNumberFile.map((el, index) => (
-                          <img
-                            key={index}
-                            className={classNames.trackNumberPhoto}
-                            src={box.trackNumberFile[index]}
-                            onClick={() => {
-                              setShowPhotosModal(!showPhotosModal)
-                              setBigImagesOptions({
-                                ...bigImagesOptions,
-
-                                images: box.trackNumberFile,
-                              })
-                            }}
-                          />
-                        ))}
-                      </CustomSlider>
+                      <PhotoAndFilesSlider smallSlider withoutFiles files={box.trackNumberFile} />
                     ) : (
                       <Typography className={classNames.trackNumberNoPhotoText}>
-                        {'no photo track number...'}
+                        {`${t(TranslationKey['no photo track number'])}...`}
                       </Typography>
                     )}
                   </div>
@@ -749,55 +646,15 @@ const Box = observer(
                   <Typography className={classNames.photoAndFilesTitle}>{`${t(
                     TranslationKey['Photos and documents of the box'],
                   )}:`}</Typography>
-                  <div className={classNames.photoSubWrapper}>
-                    <PhotoAndFilesCarousel
-                      small
-                      direction={window.screen.width < 768 ? 'column' : 'row'}
-                      files={box.images}
-                      width={window.screen.width < 768 ? '375px' : '340px'}
-                    />
-                  </div>
-
                   {isNewBox && box.tmpImages?.length ? (
-                    <div>
-                      <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
-                        box.tmpImages?.length
-                      })`}</Typography>
-                      <CustomSlider>
-                        {box.tmpImages?.map((image, index) =>
-                          typeof image === 'string' ? (
-                            <div key={index} className={classNames.imageLinkListItem}>
-                              <Tooltip
-                                title={renderImageInfo(image, image)}
-                                classes={{ popper: classNames.imgTooltip }}
-                              >
-                                <Avatar className={classNames.image} src={image} alt={image} variant="square" />
-                              </Tooltip>
-
-                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
-                                <Typography className={classNames.linkName}>{image}</Typography>
-                              </Link>
-                            </div>
-                          ) : (
-                            <div key={index} className={classNames.imageListItem}>
-                              <Tooltip
-                                title={renderImageInfo(image.data_url, image.file.name)}
-                                classes={{ popper: classNames.imgTooltip }}
-                              >
-                                <img
-                                  className={classNames.image}
-                                  src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
-                                  alt={image.file.name}
-                                />
-                              </Tooltip>
-
-                              <Typography className={classNames.fileName}>{image.file.name} </Typography>
-                            </div>
-                          ),
-                        )}
-                      </CustomSlider>
-                    </div>
+                    <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
+                      box.tmpImages?.length
+                    })`}</Typography>
                   ) : null}
+                  <PhotoAndFilesSlider
+                    smallSlider
+                    files={isNewBox && box.tmpImages?.length ? box.tmpImages : box.images}
+                  />
                 </div>
               )}
 
@@ -806,14 +663,7 @@ const Box = observer(
                   <Typography className={classNames.photoAndFilesTitle}>{`${t(
                     TranslationKey['Photos and order documents'],
                   )}:`}</Typography>
-                  <div className={classNames.photoSubWrapper}>
-                    <PhotoAndFilesCarousel
-                      small
-                      direction={window.screen.width < 768 ? 'column' : 'row'}
-                      files={box.items[0].order.images}
-                      width={window.screen.width < 768 ? '380px' : '340px'}
-                    />
-                  </div>
+                  <PhotoAndFilesSlider smallSlider files={box.items[0].order.images} />
                 </div>
               )}
             </div>
@@ -876,12 +726,12 @@ const Box = observer(
           </div>
         )}
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       </div>
     )
@@ -1018,7 +868,7 @@ export const BeforeAfterBlock = observer(
     }
 
     return (
-      <div className={classNames.boxesWrapper}>
+      <>
         <div className={classNames.currentBox}>
           <div className={classNames.titleWrapper}>
             <Text
@@ -1074,7 +924,7 @@ export const BeforeAfterBlock = observer(
           desiredBoxes.length === 0 &&
           incomingBoxes.length > 0 &&
           !readOnly && <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />}
-      </div>
+      </>
     )
   },
 )

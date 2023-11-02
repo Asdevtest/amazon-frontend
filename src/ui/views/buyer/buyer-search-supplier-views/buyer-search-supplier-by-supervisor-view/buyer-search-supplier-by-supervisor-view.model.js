@@ -24,6 +24,7 @@ export class BuyerSearchSupplierBySupervisorModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
+  paginationModel = { page: 0, pageSize: 15 }
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
   columnVisibilityModel = {}
 
@@ -48,7 +49,12 @@ export class BuyerSearchSupplierBySupervisorModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
-    // this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
   }
 
   async loadData() {

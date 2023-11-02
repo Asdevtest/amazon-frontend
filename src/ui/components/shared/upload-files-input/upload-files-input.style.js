@@ -1,5 +1,6 @@
-import { tooltipClasses } from '@mui/material/Tooltip'
 import { makeStyles } from 'tss-react/mui'
+
+import { tooltipClasses } from '@mui/material/Tooltip'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -7,12 +8,20 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '10px',
     paddingBottom: 3, // пробуеум фиксить поломку верстки при решении таски на прием
+
+    [theme.breakpoints.down(768)]: {
+      paddingBottom: 0,
+    },
   },
   mainSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     // maxWidth: 'max-content'
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: '100%',
+    },
   },
 
   controlsWrapper: {
@@ -27,13 +36,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   dragAndDropBtn: {
+    fontSize: 16,
+    lineHeight: '21px',
     minWidth: '250px',
     width: '100%',
     height: '100px',
-    border: ' 3px dashed rgba(0,123, 255, .7)',
+    border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '10px',
+    cursor: 'pointer',
+    borderRadius: '7px',
 
     color: theme.palette.text.general,
     backgroundColor: theme.palette.background.second,
@@ -42,6 +53,12 @@ export const useClassNames = makeStyles()(theme => ({
 
     '&:hover': {
       transform: 'scale(1.02)',
+    },
+
+    [theme.breakpoints.down(1024)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+      height: 80,
     },
   },
 
@@ -52,6 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 7,
     gap: 20,
     minWidth: 'unset',
     height: 40,
@@ -66,11 +84,11 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    borderRadius: '10px',
+    borderRadius: '7px',
     top: 0,
     left: 0,
     opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   actionBtnsWrapper: {
@@ -78,29 +96,15 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '250px',
     display: 'flex',
     justifyContent: 'space-between',
-  },
 
-  showImagesBtn: {
-    padding: '11px 14px 10px',
-    transition: '0.3s ease',
-    border: `1px solid ${theme.palette.primary.main}`,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '4px',
-    color: theme.palette.text.second,
-    background: 'none',
-    '&:hover': {
-      opacity: '0.7',
-    },
-    '&:disabled': {
-      cursor: 'auto',
-      borderColor: theme.palette.text.second,
+    [theme.breakpoints.down(1024)]: {
+      gap: 5,
     },
   },
 
   imagesCount: {
     fontSize: '12px',
     textAlign: 'center',
-
     color: theme.palette.text.second,
   },
 
@@ -110,20 +114,26 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  removeAllBtn: {
-    padding: '11px 14px 10px',
-    transition: '0.3s ease',
-    border: `1px solid ${theme.palette.primary.main}`,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '4px',
-    color: theme.palette.text.second,
+  buttonSecondary: {
     background: 'none',
+    color: theme.palette.text.second,
+    border: `1px solid ${theme.palette.primary.main}`,
+
     '&:hover': {
       opacity: '0.7',
+      background: 'none',
     },
+
     '&:disabled': {
       cursor: 'auto',
+      background: 'none',
+      color: theme.palette.text.second,
       borderColor: theme.palette.text.second,
+    },
+
+    [theme.breakpoints.down(1024)]: {
+      fontSize: 14,
+      padding: 10,
     },
   },
 
@@ -134,8 +144,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageListWrapper: {
     margin: '0 auto',
-    maxHeight: 300,
+    maxHeight: 154,
     overflowY: 'auto',
+
+    [theme.breakpoints.down(1024)]: {
+      gap: 10,
+
+      '& > div': {
+        padding: '0 !important',
+      },
+    },
   },
 
   image: {
@@ -143,7 +161,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 55,
     objectFit: 'contain',
     objectPosition: 'center',
-    borderRadius: 4,
+    borderRadius: 7,
   },
 
   tooltipImg: {
@@ -192,7 +210,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageListItem: {
     overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
-    borderRadius: '10px',
+    borderRadius: '7px',
     background: theme.palette.background.second,
     display: 'flex',
     flexDirection: 'column',
@@ -202,7 +220,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageLinkListItem: {
     overflow: 'hidden',
-    borderRadius: '10px',
+    borderRadius: '7px',
     padding: '3px',
     display: 'flex',
     alignItems: 'center',
@@ -233,7 +251,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   loadImageInput: {
     height: '40px',
-    borderRadius: '8px',
+    borderRadius: '7px',
     width: 'calc(100% - 182px)',
 
     border: `1px solid #424250`,
@@ -249,8 +267,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   loadBtn: {
     marginLeft: '10px',
-    borderRadius: '4px',
-    height: '40px',
     width: '172px',
     color: '#fff',
   },
@@ -286,18 +302,28 @@ export const useClassNames = makeStyles()(theme => ({
   imageObjInput: {
     width: 133,
     height: 55,
+    padding: '5px 0',
   },
 
   subImageObjInput: {
-    height: '55px !important',
+    height: '50px !important',
+    padding: '0 10px',
+    fontSize: 16,
+    lineHeight: '17px',
     overflowY: 'auto !important',
-    paddingLeft: 0,
-    marginLeft: '-5px',
+  },
+
+  inputIndexWrapper: {
+    marginRight: 0,
   },
 
   inputIndex: {
     fontWeight: 600,
     marginLeft: 5,
     height: 55,
+  },
+
+  label: {
+    margin: '0 !important',
   },
 }))

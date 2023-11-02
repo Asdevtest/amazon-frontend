@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**apiV1ProductsGuidGet**](ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 [**apiV1ProductsHsCodeGuidGet**](ProductApi.md#apiV1ProductsHsCodeGuidGet) | **GET** /api/v1/products/hs_code/{guid} | # Получить  “chinaTitle“, “material“ , “productUsage“, “hsCode“ по id.
 [**apiV1ProductsKeepaPost**](ProductApi.md#apiV1ProductsKeepaPost) | **POST** /api/v1/products/keepa | # Отфильтровать и получить данные  о продуктах через Keepa
-[**apiV1ProductsParentGuidPatch**](ProductApi.md#apiV1ProductsParentGuidPatch) | **PATCH** /api/v1/products/parent/{guid} | # Поменять/убрать родительский продукт
+[**apiV1ProductsParentPatch**](ProductApi.md#apiV1ProductsParentPatch) | **PATCH** /api/v1/products/parent | # Поменять/убрать родительский продукт у множества продуктов
 [**apiV1ProductsParseAmazonIdGet**](ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 [**apiV1ProductsParseSellercentralGet**](ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
 [**apiV1ProductsRedFlagsGet**](ProductApi.md#apiV1ProductsRedFlagsGet) | **GET** /api/v1/products/red_flags | # Получить красные флаги
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsByCreatorGuidGet
 
-> [InlineResponse20030] apiV1ProductsByCreatorGuidGet(guid, opts)
+> [InlineResponse20034] apiV1ProductsByCreatorGuidGet(guid, opts)
 
 Получение продуктов по ID создателя
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20030]**](InlineResponse20030.md)
+[**[InlineResponse20034]**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsKeepaPost
 
-> [InlineResponse20055] apiV1ProductsKeepaPost(opts)
+> [InlineResponse20060] apiV1ProductsKeepaPost(opts)
 
 # Отфильтровать и получить данные  о продуктах через Keepa
 
@@ -444,7 +444,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20055]**](InlineResponse20055.md)
+[**[InlineResponse20060]**](InlineResponse20060.md)
 
 ### Authorization
 
@@ -456,13 +456,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1ProductsParentGuidPatch
+## apiV1ProductsParentPatch
 
-> String apiV1ProductsParentGuidPatch(guid, opts)
+> String apiV1ProductsParentPatch(opts)
 
-# Поменять/убрать родительский продукт
+# Поменять/убрать родительский продукт у множества продуктов
 
-Поменять/убрать родительский продукт
+Поменять/убрать родительский продукт у множества продуктов, можно ставить null
 
 ### Example
 
@@ -476,12 +476,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.ProductApi();
-let guid = null; // String | id товара.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject82() // InlineObject82 | 
 };
-apiInstance.apiV1ProductsParentGuidPatch(guid, opts).then((data) => {
+apiInstance.apiV1ProductsParentPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -494,7 +493,6 @@ apiInstance.apiV1ProductsParentGuidPatch(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| id товара. | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject82**](InlineObject82.md)|  | [optional] 
 
@@ -568,7 +566,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20054 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20059 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -610,7 +608,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20054**](InlineResponse20054.md)
+[**InlineResponse20059**](InlineResponse20059.md)
 
 ### Authorization
 

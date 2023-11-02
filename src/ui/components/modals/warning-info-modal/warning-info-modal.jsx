@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import React, { useEffect } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'

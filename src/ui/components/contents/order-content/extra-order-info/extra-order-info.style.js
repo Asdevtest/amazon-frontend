@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    padding: '15px 0',
     width: '537px',
   },
 
@@ -34,7 +33,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   subTitleWrapper: {
-    // marginBottom: '28px',
     display: 'flex',
     justifyContent: 'center',
 

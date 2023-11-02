@@ -1,19 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, TableCell, TableRow, Typography, Table, TableBody, Tooltip } from '@mui/material'
-
 import React, { useState } from 'react'
-
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { withStyles } from 'tss-react/mui'
 
+import { Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
+
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
+import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Modal } from '@components/shared/modal'
@@ -42,6 +39,7 @@ const WarehouseBodyRowRaw = ({
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
+  const [curImageIndex, setCurImageIndex] = useState(0)
 
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
@@ -242,10 +240,12 @@ const WarehouseBodyRowRaw = ({
         />
       </Modal>
 
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={curImages}
+      <ImageModal
+        isOpenModal={showPhotosModal}
+        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        imageList={curImages}
+        handleCurrentImageIndex={index => setCurImageIndex(index)}
+        currentImageIndex={curImageIndex}
       />
     </>
   )

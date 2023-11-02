@@ -1,6 +1,5 @@
-import { Button, IconButton, InputAdornment, Select, Toolbar, Typography, MenuItem } from '@mui/material'
-
 import { FormatAlignLeft, Search } from '@material-ui/icons'
+import { Button, IconButton, InputAdornment, MenuItem, Select, Toolbar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

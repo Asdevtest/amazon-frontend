@@ -1,17 +1,15 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
-import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
@@ -24,8 +22,9 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AnotherProfileViewModel } from './another-user-profile-view.model'
 import { styles } from './another-user-profile-view.style'
+
+import { AnotherProfileViewModel } from './another-user-profile-view.model'
 
 export const AnotherUserProfileViewRaw = props => {
   const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))
@@ -37,7 +36,7 @@ export const AnotherUserProfileViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         {!viewModel.user &&
           (viewModel.requestStatus === loadingStatuses.success ||
             viewModel.requestStatus === loadingStatuses.failed) && (
@@ -91,6 +90,9 @@ export const AnotherUserProfileViewRaw = props => {
                 columnMenuIcon: FilterAltOutlinedIcon,
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
@@ -109,7 +111,7 @@ export const AnotherUserProfileViewRaw = props => {
             />
           </>
         ) : null}
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
@@ -142,7 +144,7 @@ export const AnotherUserProfileViewRaw = props => {
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         title={viewModel.confirmModalSettings.confirmTitle}
         message={viewModel.confirmModalSettings.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}

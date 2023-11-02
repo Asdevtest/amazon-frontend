@@ -1,15 +1,15 @@
 import { cx } from '@emotion/css'
+import { FC, ReactNode, useEffect, useState } from 'react'
+
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Typography } from '@mui/material'
 
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './custom-slider.style'
-import { nanoid } from 'nanoid'
-import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 interface CustomSliderProps {
   children: Array<ReactNode>
@@ -19,10 +19,22 @@ interface CustomSliderProps {
   arrowSize?: string
   index?: number
   onChangeIndex?: (index: number) => void
+  isHideCounter?: boolean
+  isModal?: boolean
 }
 
 export const CustomSlider: FC<CustomSliderProps> = props => {
-  const { title, view = 'simple', alignButtons = 'center', index, onChangeIndex, arrowSize, children } = props
+  const {
+    title,
+    view = 'simple',
+    alignButtons = 'center',
+    index,
+    onChangeIndex,
+    arrowSize,
+    children,
+    isHideCounter,
+    isModal = false,
+  } = props
   const { classes: classNames } = useClassNames()
   const [clides, setClides] = useState<ReactNode[]>([])
   const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
@@ -34,7 +46,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
 
   useEffect(() => {
     setClides(
-      children.map((child, indexChild) => (
+      children?.map((child, indexChild) => (
         <div
           key={indexChild}
           style={{
@@ -53,7 +65,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
   }, [SettingsModel.languageTag, children])
 
   useEffect(() => {
-    if (index) {
+    if (index !== undefined) {
       setSlideCount(index + 1)
       setOffset(-RIGHT_BLOCK_WIDTH * index)
     }
@@ -65,7 +77,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     }
   }, [slideCount])
 
-  const handleLeftArrowClick = () => {
+  const handleLeftArrowClick = (e: any) => {
+    e.stopPropagation()
     setOffset(currentOffset => {
       const newOffset = currentOffset + RIGHT_BLOCK_WIDTH
       return Math.min(newOffset, 0)
@@ -76,7 +89,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     }
   }
 
-  const handleRightArrowClick = () => {
+  const handleRightArrowClick = (e: any) => {
+    e.stopPropagation()
     setOffset(currentOffset => {
       const newOffset = currentOffset - RIGHT_BLOCK_WIDTH
       const maxOffset = -(RIGHT_BLOCK_WIDTH * (clides.length - 1))
@@ -92,7 +106,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     <div className={classNames.mainContainer}>
       {view === 'simple' && !!children?.length && (
         <div className={classNames.headerCarouselDocumentsWrapper}>
-          <div className={classNames.buttonDocumentsWrapper}>
+          <div className={cx(classNames.buttonDocumentsWrapper, { [classNames.modal]: isModal })}>
             {alignButtons === 'center' && (
               <ArrowLeftIcon
                 style={{
@@ -124,7 +138,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
           </div>
           {alignButtons === 'center' ? (
             <div className={classNames.numberOfFiles}>
-              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+              {!isHideCounter && <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>}
             </div>
           ) : (
             <div className={classNames.numberOfFilesFlex}>

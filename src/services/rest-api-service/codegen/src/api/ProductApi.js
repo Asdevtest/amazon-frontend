@@ -22,9 +22,9 @@ import InlineObject80 from '../model/InlineObject80';
 import InlineObject81 from '../model/InlineObject81';
 import InlineObject82 from '../model/InlineObject82';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20030 from '../model/InlineResponse20030';
-import InlineResponse20054 from '../model/InlineResponse20054';
-import InlineResponse20055 from '../model/InlineResponse20055';
+import InlineResponse20034 from '../model/InlineResponse20034';
+import InlineResponse20059 from '../model/InlineResponse20059';
+import InlineResponse20060 from '../model/InlineResponse20060';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -166,7 +166,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20030>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20034>} and HTTP response
      */
     apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -190,7 +190,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20030];
+      let returnType = [InlineResponse20034];
       return this.apiClient.callApi(
         '/api/v1/products/by_creator/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -204,7 +204,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20030>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20034>}
      */
     apiV1ProductsByCreatorGuidGet(guid, opts) {
       return this.apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts)
@@ -430,7 +430,7 @@ export default class ProductApi {
      *        ## На вход получает xlsx файл, в котором первая колонка заполнена асинами        Фильтруются продукты, критерии фильтра:        Амазон не продает этот товар        Первый продавец продукта сейчас не продает его        Возвращается xlsx файл с его данными из Keepa       
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20055>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20060>} and HTTP response
      */
     apiV1ProductsKeepaPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -449,7 +449,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20055];
+      let returnType = [InlineResponse20060];
       return this.apiClient.callApi(
         '/api/v1/products/keepa', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -462,7 +462,7 @@ export default class ProductApi {
      *        ## На вход получает xlsx файл, в котором первая колонка заполнена асинами        Фильтруются продукты, критерии фильтра:        Амазон не продает этот товар        Первый продавец продукта сейчас не продает его        Возвращается xlsx файл с его данными из Keepa       
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20055>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20060>}
      */
     apiV1ProductsKeepaPost(opts) {
       return this.apiV1ProductsKeepaPostWithHttpInfo(opts)
@@ -473,24 +473,18 @@ export default class ProductApi {
 
 
     /**
-     * # Поменять/убрать родительский продукт
-     * Поменять/убрать родительский продукт
-     * @param {String} guid id товара.
+     * # Поменять/убрать родительский продукт у множества продуктов
+     * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject82} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1ProductsParentGuidPatchWithHttpInfo(guid, opts) {
+    apiV1ProductsParentPatchWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsParentGuidPatch");
-      }
 
       let pathParams = {
-        'guid': guid
       };
       let queryParams = {
       };
@@ -505,23 +499,22 @@ export default class ProductApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/products/parent/{guid}', 'PATCH',
+        '/api/v1/products/parent', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * # Поменять/убрать родительский продукт
-     * Поменять/убрать родительский продукт
-     * @param {String} guid id товара.
+     * # Поменять/убрать родительский продукт у множества продуктов
+     * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject82} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1ProductsParentGuidPatch(guid, opts) {
-      return this.apiV1ProductsParentGuidPatchWithHttpInfo(guid, opts)
+    apiV1ProductsParentPatch(opts) {
+      return this.apiV1ProductsParentPatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -589,7 +582,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20054} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20059} and HTTP response
      */
     apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -614,7 +607,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20054;
+      let returnType = InlineResponse20059;
       return this.apiClient.callApi(
         '/api/v1/products/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -629,7 +622,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20054}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20059}
      */
     apiV1ProductsParseSellercentralGet(asin, opts) {
       return this.apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts)

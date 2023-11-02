@@ -11,7 +11,6 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
@@ -24,14 +23,16 @@ export class CreateOrEditRequestViewModel {
   platformSettingsData = null
 
   requestToEdit = undefined
+  createRequestForIdeaData = undefined
 
   uploadedFiles = []
 
   permissionsData = []
+  masterUsersData = []
 
   announcementId = undefined
   announcements = []
-  choosenAnnouncements = []
+  choosenAnnouncements = {}
 
   bigImagesOptions = {}
 
@@ -41,6 +42,9 @@ export class CreateOrEditRequestViewModel {
   readyImages = []
   progressValue = 0
   showProgress = false
+
+  requestId = undefined
+  executor = undefined
 
   showCheckRequestByTypeExists = false
 
@@ -53,12 +57,19 @@ export class CreateOrEditRequestViewModel {
   }
 
   constructor({ history, location }) {
+    const url = new URL(window.location.href)
     runInAction(() => {
       this.history = history
+
+      this.createRequestForIdeaData = {
+        productId: url.searchParams.get('parentProduct'),
+        asin: url.searchParams.get('asin'),
+      }
 
       if (location.state) {
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
+        this.executor = location.state?.executor
       }
     })
 
@@ -85,6 +96,17 @@ export class CreateOrEditRequestViewModel {
   async getProductPermissionsData() {
     try {
       this.permissionsData = await ClientModel.getProductPermissionsData()
+    } catch (error) {
+      runInAction(() => {
+        this.error = error
+      })
+      console.log(error)
+    }
+  }
+
+  async getMasterUsersData(specsType) {
+    try {
+      this.masterUsersData = await UserModel.getMasterUsers(35, '', { specs: specsType })
     } catch (error) {
       runInAction(() => {
         this.error = error
@@ -133,14 +155,17 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
+            executorId: data?.request?.executorId || null,
             announcementId: announcement?._id || null,
             linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
           },
           ['discountedPrice'],
+          undefined,
+          undefined,
+          true,
         ),
         details: {
           ...data.details,
-          // linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
         },
       }
 
@@ -157,7 +182,7 @@ export class CreateOrEditRequestViewModel {
               2,
             )} $. ${t(TranslationKey['Confirm the publication?'])}`,
             onSubmit: () => {
-              this.toPublishRequest(resp.guid, result.totalCost)
+              withPublish && this.toPublishRequest(resp.guid, result.totalCost)
               this.pushSuccess()
             },
 
@@ -174,15 +199,15 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['The request was not created'])
-      })
-
-      this.history.push('/client/freelance/my-requests', {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
-      })
+      if (error?.response?.error?.url?.includes('calculate_request_cost')) {
+        this.pushSuccess()
+      } else {
+        this.history.push('/client/freelance/my-requests', {
+          showAcceptMessage: true,
+          acceptMessage: t(TranslationKey['The request was not created']),
+          error: true,
+        })
+      }
 
       runInAction(() => {
         this.error = error
@@ -201,6 +226,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
+            executorId: data?.request?.executorId || null,
             announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
               ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
@@ -226,7 +252,6 @@ export class CreateOrEditRequestViewModel {
       this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
-        // request: this.requestToEdit.request,
       })
     } catch (error) {
       console.log(error)
@@ -239,13 +264,7 @@ export class CreateOrEditRequestViewModel {
       this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
-        // request: this.requestToEdit.request,
       })
-      // this.history.push('/client/freelance/my-requests/custom-request', {
-      //   showAcceptMessage: this.showAcceptMessage,
-      //   acceptMessage: this.acceptMessage,
-      //   request: this.requestToEdit.request,
-      // })
 
       runInAction(() => {
         this.error = error

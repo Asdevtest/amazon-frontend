@@ -1,19 +1,22 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import { Typography } from '@mui/material'
+import { FC, ReactNode } from 'react'
 
-import React, { FC } from 'react'
+import { Typography } from '@mui/material'
+import { CSSProperties } from '@mui/styles'
 
 import { useClassNames } from './label-value-pair-block.style'
 
 interface Props {
   bgColor?: 'white' | 'green' | 'yellow'
   label: string | undefined
-  value: string | undefined | React.ReactNode
+  value: string | undefined | ReactNode
   labelClasses?: ClassNamesArg | undefined
+  rootClasses?: ClassNamesArg | undefined
+  valueStyle?: CSSProperties
 }
 
-export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelClasses }) => {
+export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelClasses, rootClasses, valueStyle }) => {
   const { classes: classNames } = useClassNames()
   return (
     <div
@@ -21,14 +24,18 @@ export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelCla
         classNames.root,
         { [classNames.rootGreen]: bgColor === 'green' },
         { [classNames.rootYellow]: bgColor === 'yellow' },
+        rootClasses,
       )}
     >
-      {label && (
-        <div>
-          <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>
-        </div>
+      {label && <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>}
+
+      {typeof value === 'string' ? (
+        <Typography style={valueStyle} className={classNames.valueText}>
+          {value}
+        </Typography>
+      ) : (
+        value
       )}
-      <div>{typeof value === 'string' ? <Typography className={classNames.valueText}>{value}</Typography> : value}</div>
     </div>
   )
 }

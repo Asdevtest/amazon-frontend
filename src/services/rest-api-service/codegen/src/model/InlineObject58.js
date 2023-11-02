@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject58 model module.
@@ -22,11 +21,14 @@ import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject58
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor() { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject58.initialize(this);
+        InlineObject58.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -34,7 +36,9 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -48,14 +52,11 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -65,22 +66,16 @@ class InlineObject58 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject58.prototype['name'] = undefined;
+InlineObject58.prototype['boxId'] = undefined;
 
 /**
- * Название ОС
- * @member {String} os
- * @default 'mac'
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
  */
-InlineObject58.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject58.prototype['navigator'] = undefined;
+InlineObject58.prototype['logicsTariffId'] = undefined;
 
 
 

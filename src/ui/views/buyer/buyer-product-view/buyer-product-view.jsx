@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
@@ -32,14 +31,17 @@ export const BuyerProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.product ? (
           <ProductWrapper
+            platformSettings={viewModel.platformSettings}
             showTab={viewModel.showTab}
             user={viewModel.userInfo}
             userRole={viewModel.userInfo.role}
             product={viewModel.product}
             productBase={viewModel.productBase}
+            productVariations={viewModel.productVariations}
+            navigateToProduct={viewModel.navigateToProduct}
             selectedSupplier={viewModel.selectedSupplier}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
             handleSupplierButtons={viewModel.onClickSupplierButtons}
@@ -50,7 +52,7 @@ export const BuyerProductView = observer(props => {
             onClickHsCode={viewModel.onClickHsCode}
           />
         ) : undefined}
-      </MainContent>
+      </div>
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
         openModal={viewModel.showAddOrEditSupplierModal}
@@ -95,7 +97,7 @@ export const BuyerProductView = observer(props => {
       />
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
@@ -107,6 +109,14 @@ export const BuyerProductView = observer(props => {
           viewModel.onTriggerOpenModal('showConfirmModal')
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={viewModel.successModalTitle}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
     </React.Fragment>
   )

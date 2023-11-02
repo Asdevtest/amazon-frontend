@@ -1,13 +1,13 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
 
+import { Typography } from '@mui/material'
+
 import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
 import { useClassNames } from './confirmation-modal.style'
-import { Field } from '@components/shared/field'
 
 export const ConfirmationModal = props => {
   const {
@@ -62,7 +62,6 @@ export const ConfirmationModal = props => {
 
   const handleClose = () => {
     onClickCancelBtn()
-    setIsShowComment(false)
     setComment('')
   }
 

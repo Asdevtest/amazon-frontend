@@ -33,11 +33,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
 
     position: 'absolute',
-    top: 0,
-    right: 20,
-
-    // backgroundColor: 'red',
-    zIndex: 999,
+    top: 4,
+    right: 390,
+    zIndex: 100,
 
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
@@ -51,10 +49,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterText: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
   boxCounterCount: {
+    fontSize: 14,
+    lineHeight: '19px',
     fontWeight: 600,
     marginLeft: 5,
   },
@@ -219,5 +221,22 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'flex',
       justifyContent: 'center',
     },
+  },
+
+  footerContainer: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    borderTop: 'none !important',
+  },
+
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+
+  toolbarContainer: {
+    padding: '10px 15px',
+    height: 64,
   },
 }))

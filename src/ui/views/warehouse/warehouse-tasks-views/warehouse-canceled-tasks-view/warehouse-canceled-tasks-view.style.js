@@ -1,9 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    height: 'calc(100vh - 250px)',
-    [theme.breakpoints.down(1282)]: {
-      height: 'calc(100vh - 250px)',
-    },
+    height: '72vh',
   },
 
   root: {
@@ -95,14 +92,6 @@ export const styles = theme => ({
     '&>disabled': {
       backgroundColor: 'inherit',
     },
-  },
-
-  boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {

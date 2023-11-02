@@ -1,15 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-//
-
 export const useClassNames = makeStyles()(theme => ({
   root: {
     marginBottom: '20px',
     width: '100%',
+
+    [theme.breakpoints.down(768)]: {
+      marginBottom: 0,
+    },
   },
   rootOneLine: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
   label: {
     fontWeight: 400,
@@ -22,9 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
   labelOneLine: {
     marginBottom: 0,
   },
-  input: {
-    border: `1px solid ${theme.palette.input?.customBorder}`,
-  },
+
   errorText: {
     marginTop: '2px',
     color: 'red',

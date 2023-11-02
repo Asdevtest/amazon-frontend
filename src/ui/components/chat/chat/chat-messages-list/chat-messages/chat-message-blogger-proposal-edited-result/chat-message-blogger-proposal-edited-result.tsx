@@ -1,9 +1,4 @@
-import { cx } from '@emotion/css'
-import { Link, Typography } from '@mui/material'
-
-import React, { FC, useContext } from 'react'
-
-import Linkify from 'react-linkify-always-blank'
+import { FC, useContext } from 'react'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,6 +10,7 @@ import { UserModel } from '@models/user-model'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -22,8 +18,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -33,78 +30,73 @@ export interface ChatMessageRequestProposalResultEditedHandlers {
 interface Props {
   message: ChatMessageContract<ChatMessageDataBloggerProposalResultEditedContract>
   handlers: ChatMessageRequestProposalResultEditedHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, handlers }) => {
-  const { classes: classNames } = useClassNames()
+export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
+  const { classes: classNames, cx } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  const proposalStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
+  const isShowButtons =
+    curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+    chatRequestAndRequestProposal &&
+    (proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+      proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
+      proposalStatus === RequestProposalStatus.CORRECTED) &&
+    curUserId /* &&
+    message.data.needApproveBy?.includes(curUserId)  */
+  const files = chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)
+  const links = message.data.proposal.details.publicationLinks
 
   return (
     <div className={classNames.root}>
+      <div className={classNames.header}>
+        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+      </div>
+
       <div className={classNames.mainWrapper}>
-        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+        <p className={classNames.descriptionText}>{message.data.proposal.details.result}</p>
 
-        <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
+        <div className={cx(classNames.infosWrapper, { [classNames.infosWrapperShowChatInfo]: isShowChatInfo })}>
+          <PhotoAndFilesSlider
+            smallSlider={!isMobileResolution}
+            column={isShowChatInfo || isMobileResolution}
+            files={files}
+          />
 
-        <Linkify>
-          <Typography className={classNames.descriptionText}>{message.data.proposal.details.result}</Typography>
-        </Linkify>
-
-        <div className={classNames.infosWrapper}>
           <div className={classNames.infosSubWrapper}>
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey['Photos and documents'])}
-              inputComponent={
-                <PhotoAndFilesCarousel
-                  notToShowEmpty
-                  small
-                  // files={message.data.proposal.details.linksToMediaFiles}
-                  files={chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)}
-                  width="340px"
-                  withoutPhotos={undefined}
-                  whithoutFiles={undefined}
-                  imagesForLoad={undefined}
-                  isEditable={undefined}
-                  withoutMakeMainImage={undefined}
-                  onChangeImagesForLoad={undefined}
-                />
-              }
-            />
-          </div>
+            <div className={cx(classNames.fieldsRow, { [classNames.fieldsRowShowChatInfo]: isShowChatInfo })}>
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={'Amazon order ID'}
+                inputComponent={
+                  <div className={classNames.infoItemWrapper}>
+                    <p className={classNames.infoItemText}>
+                      {message.data.proposal.details.amazonOrderId || t(TranslationKey.Missing)}
+                    </p>
 
-          <div className={cx(classNames.infosSubWrapper, classNames.rightInfosSubWrapper)}>
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={'Amazon order ID'}
-              inputComponent={
-                <div className={cx(classNames.infoItemWrapper, classNames.amazonOrder)}>
-                  <Typography className={cx(classNames.infoItemText, classNames.amazonOrderText)}>
-                    {message.data.proposal.details.amazonOrderId || t(TranslationKey.Missing)}
-                  </Typography>
+                    {message.data.proposal.details.amazonOrderId && (
+                      <CopyValue text={message.data.proposal.details.amazonOrderId} />
+                    )}
+                  </div>
+                }
+              />
 
-                  {message.data.proposal.details.amazonOrderId && (
-                    <CopyValue text={message.data.proposal.details.amazonOrderId} />
-                  )}
-                </div>
-              }
-            />
-
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey['Time to check'])}
-              inputComponent={
-                <div className={cx(classNames.infoItemWrapper, classNames.timeInfoItemWrapper)}>
-                  <Typography className={classNames.infoItemText}>{'24 ч 00 м'}</Typography>
-                </div>
-              }
-            />
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey['Time to check'])}
+                inputComponent={
+                  <p className={classNames.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
+                }
+              />
+            </div>
 
             <Field
               labelClasses={classNames.fieldLabel}
@@ -112,26 +104,26 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
               label={t(TranslationKey['Link to publication'])}
               inputComponent={
                 <>
-                  {message.data.proposal.details.publicationLinks.length ? (
-                    <div className={cx(classNames.infoItemList, classNames.linkInfoItemList)}>
-                      {message.data.proposal.details.publicationLinks.map((el, index) => (
-                        <div key={index} className={classNames.infoLinksItemWrapper}>
-                          <Link
-                            target="_blank"
+                  {links.length ? (
+                    <div className={classNames.infoItemList}>
+                      {links.map((el, index) => (
+                        <div key={index} className={classNames.infoItemWrapper}>
+                          <a
                             href={checkAndMakeAbsoluteUrl(el)}
+                            target="_blank"
                             rel="noreferrer"
-                            className={cx(classNames.infoItemText, classNames.infoLinkText)}
+                            className={classNames.infoItemText}
                           >
                             {el}
-                          </Link>
+                          </a>
 
                           <CopyValue text={el} />
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className={cx(classNames.infoLinksItemWrapper, classNames.linkInfoItemList)}>
-                      <Typography className={classNames.infoItemText}>{t(TranslationKey.Missing)}</Typography>
+                    <div className={classNames.infoItemWrapper}>
+                      <p className={classNames.infoItemText}>{t(TranslationKey.Missing)}</p>
                     </div>
                   )}
                 </>
@@ -140,35 +132,28 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
           </div>
         </div>
       </div>
-      <div className={classNames.footerWrapper}>
-        {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-        chatRequestAndRequestProposal &&
-        (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED) &&
-        curUserId /* &&
-        message.data.needApproveBy?.includes(curUserId)  */ ? (
-          <div className={classNames.btnsWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
-              <Button
-                className={cx(classNames.actionButton, classNames.editButton)}
-                onClick={() => handlers.onClickProposalResultToCorrect(message.data.proposal._id)}
-              >
-                {t(TranslationKey['Send in for rework'])}
-              </Button>
-            )}
+
+      {isShowButtons ? (
+        <div className={cx(classNames.btnsWrapper, { [classNames.btnsWrapperShowChatInfo]: isShowChatInfo })}>
+          {proposalStatus !== RequestProposalStatus.TO_CORRECT && (
             <Button
-              success
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyleNotFirst)}
-              className={cx(classNames.actionButton, classNames.successBtn)}
-              onClick={() => handlers.onClickProposalResultAccept(message.data.proposal._id)}
+              btnWrapperStyle={cx(classNames.button, { [classNames.buttonShowChatInfo]: isShowChatInfo })}
+              className={cx(classNames.actionButton, classNames.editButton)}
+              onClick={() => handlers.onClickProposalResultToCorrect(message.data.proposal._id)}
             >
-              {t(TranslationKey.Receive)}
+              {t(TranslationKey['Send in for rework'])}
             </Button>
-          </div>
-        ) : undefined}
-      </div>
+          )}
+          <Button
+            success
+            btnWrapperStyle={classNames.button}
+            className={cx(classNames.actionButton, classNames.successBtn)}
+            onClick={() => handlers.onClickProposalResultAccept(message.data.proposal._id)}
+          >
+            {t(TranslationKey.Receive)}
+          </Button>
+        </div>
+      ) : null}
     </div>
   )
 }

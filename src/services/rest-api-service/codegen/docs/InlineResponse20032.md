@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20032Rows]**](InlineResponse20032Rows.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**_id** | **String** | GUID в базе данных | [optional] 
+**name** | **String** | Имя пользователя. | [optional] 
 
 

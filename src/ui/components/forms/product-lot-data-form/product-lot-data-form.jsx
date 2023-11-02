@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { Modal, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,12 +17,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin } from '@utils/text'
-// import {Button} from '@components/buttons/button'
 import { t } from '@utils/translations'
+
+import { useClassNames } from './product-lot-data-form.style'
 
 import { productInTransferColumns } from './poduct-in-transfer-column'
 import { productLotDataFormColumns } from './product-lot-data-form-column'
-import { useClassNames } from './product-lot-data-form.style'
 
 export const ProductLotDataForm = observer(
   ({ product, batchesData, isTransfer, userInfo, onClickToggleArchiveProductLotData }) => {

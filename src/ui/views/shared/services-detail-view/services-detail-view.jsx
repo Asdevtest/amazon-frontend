@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyServicesInfo } from '@components/my-services/my-services-info'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -19,8 +17,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ServiceDetailsViewModel } from './services-detail-view.model'
 import { styles } from './services-detail-view.style'
+
+import { ServiceDetailsViewModel } from './services-detail-view.model'
 
 export const ServiceDetailsViewRaw = props => {
   const [viewModel] = useState(
@@ -38,7 +37,7 @@ export const ServiceDetailsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <MyServicesInfo
           announcementData={viewModel.announcementData}
           onClickEditBtn={viewModel.onClickEditBtn}
@@ -58,10 +57,6 @@ export const ServiceDetailsViewRaw = props => {
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
-
-              iconSeparator: classNames.iconSeparator,
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
             rowCount={viewModel.rowCount}
             columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -79,6 +74,9 @@ export const ServiceDetailsViewRaw = props => {
               ColumnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -97,12 +95,12 @@ export const ServiceDetailsViewRaw = props => {
             // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         title={viewModel.confirmModalSettings.confirmTitle}
         message={viewModel.confirmModalSettings.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}

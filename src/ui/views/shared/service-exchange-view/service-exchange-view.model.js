@@ -105,7 +105,8 @@ export class ServiceExchangeViewModel {
 
   onClickOrderBtn(data) {
     this.history.push('/client/freelance/my-requests/create-request', {
-      announcementId: data._id,
+      announcementId: data?._id,
+      executor: data?.createdBy,
     })
   }
 
@@ -116,9 +117,9 @@ export class ServiceExchangeViewModel {
     await this.getVacAnnouncementsData()
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
     this.setTableModeState()
   }

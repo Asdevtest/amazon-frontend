@@ -1,8 +1,6 @@
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
-
-import { MainContent } from '@components/layout/main-content'
 import { UserInfoAndEdit } from '@components/user/user-info-and-edit'
 
 import { AdminUserViewModel } from './admin-user-view.model'
@@ -22,9 +20,9 @@ export const AdminUserView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <UserInfoAndEdit user={viewModel.user} />
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 })

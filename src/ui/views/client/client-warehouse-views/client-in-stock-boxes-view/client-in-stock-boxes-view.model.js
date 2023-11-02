@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -25,7 +25,6 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 const updateBoxWhiteList = [
   'amount',
@@ -99,13 +98,13 @@ export class ClientInStockBoxesViewModel {
   selectedRows = []
   curOpenedTask = {}
   toCancelData = {}
-  currentStorekeeper = undefined
+  currentStorekeeperId = undefined
   storekeepersData = []
   destinations = []
   clientDestinations = []
   // isFormed = null
 
-  curDestination = undefined
+  curDestinationId = undefined
   // curShops = []
 
   currentData = []
@@ -223,6 +222,7 @@ export class ClientInStockBoxesViewModel {
     isWarning: false,
     confirmMessage: '',
     onClickConfirm: () => {},
+    onClickCancelBtn: () => {},
   }
 
   rowCount = 0
@@ -276,7 +276,7 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.history = history
 
-      this.currentStorekeeper = { _id: url.searchParams.get('storekeeper-id') }
+      this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
       this.nameSearchValue = url.searchParams.get('search-text')
     })
 
@@ -295,7 +295,7 @@ export class ClientInStockBoxesViewModel {
     )
 
     reaction(
-      () => this.currentStorekeeper,
+      () => this.currentStorekeeperId,
       () => this.getClientDestinations(),
     )
   }
@@ -408,11 +408,11 @@ export class ClientInStockBoxesViewModel {
     return toJS(this.tasksMy)
   }
 
-  onClickStorekeeperBtn(storekeeper) {
+  onClickStorekeeperBtn(currentStorekeeperId) {
     runInAction(() => {
       this.selectedBoxes = []
 
-      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+      this.currentStorekeeperId = currentStorekeeperId
     })
 
     this.getBoxesMy()
@@ -425,9 +425,11 @@ export class ClientInStockBoxesViewModel {
       runInAction(() => {
         this.storekeepersData = result
 
-        this.currentStorekeeper = this.currentStorekeeper
-          ? this.currentStorekeeper
-          : result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
+        this.currentStorekeeperId = this.currentStorekeeperId
+          ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
+          : result
+              .filter(storekeeper => storekeeper.boxesCount !== 0)
+              .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
       })
 
       this.getDataGridState()
@@ -491,6 +493,7 @@ export class ClientInStockBoxesViewModel {
         isWarning: true,
         confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
         onClickConfirm: () => this.returnBoxesToStock(),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
 
@@ -624,6 +627,7 @@ export class ClientInStockBoxesViewModel {
             TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
           ),
           onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
+          onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
         }
       })
 
@@ -703,6 +707,7 @@ export class ClientInStockBoxesViewModel {
         } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
         onClickConfirm: () =>
           this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
   }
@@ -723,6 +728,7 @@ export class ClientInStockBoxesViewModel {
                 TranslationKey['to change the Box'],
               )} № ${boxData?.humanFriendlyId}`,
         onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
   }
@@ -737,6 +743,7 @@ export class ClientInStockBoxesViewModel {
           this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
         } ${t(TranslationKey['to merge boxes'])}`,
         onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
+        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
       }
     })
   }
@@ -819,9 +826,9 @@ export class ClientInStockBoxesViewModel {
     this.showSetShippingLabelModal = false
   }
 
-  onClickDestinationBtn(destination) {
+  onClickDestinationBtn(curDestinationId) {
     runInAction(() => {
-      this.curDestination = destination ? destination : undefined
+      this.curDestinationId = curDestinationId
     })
 
     this.requestStatus = loadingStatuses.isLoading
@@ -837,14 +844,17 @@ export class ClientInStockBoxesViewModel {
 
   async getClientDestinations() {
     try {
-      const clientDestinations = await ClientModel.getClientDestinations({
-        status: BoxStatus.IN_STOCK,
-        storekeeperId: this.currentStorekeeper ? this.currentStorekeeper._id : null,
-      })
+      if (this.currentStorekeeperId) {
+        const clientDestinations = await ClientModel.getClientDestinations({
+          status: BoxStatus.IN_STOCK,
+          storekeeperId: this.currentStorekeeperId,
+        })
 
-      runInAction(() => {
-        this.clientDestinations = clientDestinations
-      })
+        runInAction(() => {
+          this.clientDestinations = clientDestinations
+        })
+      }
+
       this.getDataGridState()
     } catch (error) {
       console.log(error)
@@ -1267,16 +1277,49 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async editTariff(id, boxData) {
+  async editTariff(id, boxData, isSelectedDestinationNotValid) {
     try {
-      await BoxesModel.editBoxAtClient(id, {
-        logicsTariffId: boxData.logicsTariffId,
-        variationTariffId: boxData.variationTariffId,
-      })
+      if (isSelectedDestinationNotValid) {
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey.Attention),
+            confirmMessage: t(TranslationKey['Wish to change a destination?']),
+            onClickConfirm: async () => {
+              await BoxesModel.editBoxAtClient(id, {
+                logicsTariffId: boxData.logicsTariffId,
+                variationTariffId: boxData.variationTariffId,
+                destinationId: boxData.destinationId,
+              })
+              this.onTriggerOpenModal('showConfirmModal')
+              await this.getBoxesMy()
+              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+            },
+            onClickCancelBtn: async () => {
+              await BoxesModel.editBoxAtClient(id, {
+                destinationId: null,
+              })
+              await BoxesModel.editBoxAtClient(id, {
+                logicsTariffId: boxData.logicsTariffId,
+                variationTariffId: boxData.variationTariffId,
+              })
+              this.onTriggerOpenModal('showConfirmModal')
+              await this.getBoxesMy()
+              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+            },
+          }
+        })
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        await BoxesModel.editBoxAtClient(id, {
+          logicsTariffId: boxData.logicsTariffId,
+          variationTariffId: boxData.variationTariffId,
+        })
 
-      await this.getBoxesMy()
+        await this.getBoxesMy()
 
-      this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+        this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+      }
     } catch (error) {
       console.log(error)
 
@@ -1876,11 +1919,11 @@ export class ClientInStockBoxesViewModel {
       const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
-        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        storekeeperId: this.currentStorekeeperId,
 
         // storekeeperId: 'add51a2a-3f0b-4796-9497-73eaa992de24,402b6b17-280f-4a3a-a04c-543b17a10c28',
 
-        destinationId: this.curDestination && this.curDestination._id,
+        destinationId: this.curDestinationId,
 
         shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 

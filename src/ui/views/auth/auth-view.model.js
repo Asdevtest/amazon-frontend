@@ -16,6 +16,14 @@ export class AuthViewModel {
   requestStatus = undefined
   error = undefined
 
+  showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   email = ''
   password = ''
   remember = false
@@ -96,5 +104,27 @@ export class AuthViewModel {
         this.error = error
       })
     }
+  }
+
+  onClickThemeIcon = theme => {
+    SettingsModel.setUiTheme(theme)
+  }
+
+  onClickVersion() {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey.Attention) + '!',
+      confirmMessage: t(TranslationKey['Temporary session data will be reset']),
+      onClickConfirm: () => {
+        SettingsModel.resetLocalStorageAndCach()
+        this.onToggleModal()
+      },
+    }
+
+    this.onToggleModal()
+  }
+
+  onToggleModal() {
+    this.showConfirmModal = !this.showConfirmModal
   }
 }

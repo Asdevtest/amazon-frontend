@@ -1,4 +1,7 @@
+import { NotificationType } from '@constants/keys/notifications'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import {
   ProductStatus,
   ProductStatusByCode,
@@ -6,8 +9,7 @@ import {
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,7 +26,6 @@ import {
 } from './calculation'
 import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
-import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const addIdDataConverter = data =>
   data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
@@ -183,6 +184,7 @@ export const buyerProductsDataConverter = data =>
     ideasOnCheck: item.ideasOnCheck,
     ideasVerified: item.ideasVerified,
     ideasClosed: item.ideasClosed,
+    ideasFinished: item?.ideasFinished,
 
     amazon: item.amazon,
     profit: item.profit,
@@ -239,6 +241,8 @@ export const buyerVacantOrdersDataConverter = data =>
     client: item.product.client?.name,
     needsResearch: item.needsResearch,
     deadline: item.deadline,
+    productionTerm: item?.orderSupplier?.productionTerm,
+    totalPrice: item?.totalPrice,
   }))
 
 export const clientProductsDataConverter = data =>
@@ -1010,3 +1014,49 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
       }
     })
 }
+
+export const notificationDataConverter = data =>
+  data.map(item => ({
+    ...item,
+    originalData: item,
+    id: item?._id,
+    product:
+      item.type === NotificationType.Idea
+        ? {
+            ...item?.data?.[0]?.parentProduct,
+            title: item?.data?.[0]?.productName,
+          }
+        : item.type === NotificationType.Order
+        ? item?.data?.[0]?.product
+          ? {
+              ...item?.data?.[0]?.product,
+              humanFriendlyId: item?.data?.[0]?.id,
+            }
+          : item?.data?.needConfirmOrders?.[0]?.product
+          ? {
+              ...item?.data?.needConfirmOrders?.[0]?.product,
+              humanFriendlyId: item?.data?.needConfirmOrders?.[0]?.id,
+            }
+          : {
+              ...item?.data?.vacOrders?.[0]?.product,
+              humanFriendlyId: item?.data?.vacOrders?.[0]?.id,
+            }
+        : item.type === NotificationType.Proposal
+        ? {
+            ...item?.data?.[0]?.request?.product,
+            humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
+            title: item?.data?.[0]?.request?.title,
+          }
+        : item.type === NotificationType.Request
+        ? {
+            ...item?.data?.[0]?.product,
+            humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
+            title: item?.data?.[0]?.title,
+          }
+        : {
+            ...item?.data?.items?.[0]?.product,
+            humanFriendlyId: item?.data?.humanFriendlyId,
+          },
+
+    type: item?.type,
+  }))

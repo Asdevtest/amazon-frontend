@@ -1,9 +1,7 @@
 import { cx } from '@emotion/css'
-import { Divider, Typography } from '@mui/material'
+import { FC, useContext } from 'react'
 
-import React, { FC, useContext } from 'react'
-
-import Linkify from 'react-linkify-always-blank'
+import { Divider } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,7 +11,8 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
+// import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -21,9 +20,11 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { LabelValuePairBlock } from '../label-value-pair-block'
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useClassNames } from './chat-message-create-new-designer-proposal.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+
+import { LabelValuePairBlock } from '../label-value-pair-block'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
@@ -33,151 +34,125 @@ export interface ChatMessageProposalHandlers {
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreateNewDesignerProposalContract>
   handlers: ChatMessageProposalHandlers
+  isShowChatInfo?: boolean
 }
 
-export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handlers }) => {
+export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-
-  // console.log('message', message)
-
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  const requestStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
+  const isShowButtons =
+    curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+    (requestStatus === RequestProposalStatus.CREATED ||
+      requestStatus === // этого условия не было
+        RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+      requestStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED)
+  const isRejectButton =
+    requestStatus !== RequestProposalStatus.TO_CORRECT &&
+    requestStatus !== // этого условия не было
+      RequestProposalStatus.OFFER_CONDITIONS_REJECTED
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.mainWrapper}>
-        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+      <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
+          <div className={classNames.header}>
+            <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
 
-        <div className={classNames.mainSubWrapper}>
-          <div className={classNames.massageHeaderWrapper}>
-            <Typography className={classNames.headerText}>{t(TranslationKey.Request)}</Typography>
-
-            {!!message.humanFriendlyId && (
+            {message.humanFriendlyId ? (
               <div className={classNames.idWrapper}>
-                <Typography className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</Typography>
-                <Typography className={classNames.idText}>{message.humanFriendlyId}</Typography>
+                <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
+                <p className={classNames.idText}>{message.humanFriendlyId}</p>
               </div>
-            )}
+            ) : null}
           </div>
 
-          <div className={classNames.paragraphWrapper}>
-            <Linkify>
-              {/* <Typography className={classNames.descriptionText}>{message.data.request?.details?.conditions}</Typography> */}
+          <p className={classNames.descriptionText}>{message.data.request?.title}</p>
 
-              <CustomTextEditor
+          {/* <CustomTextEditor
                 readOnly
                 conditions={message.data.request?.details?.conditions}
                 changeConditions={undefined}
                 editorMaxHeight={undefined}
                 verticalResize={undefined}
                 textToCheck={undefined}
-              />
-            </Linkify>
-          </div>
+              /> */}
 
           <div className={classNames.infosWrapper}>
-            <div className={classNames.labelValueBlockWrapper}>
-              <LabelValuePairBlock
-                label={t(TranslationKey.Deadline)}
-                value={formatNormDateTime(message.data.request?.timeoutAt)}
-                bgColor="green"
-              />
-            </div>
+            <LabelValuePairBlock
+              label={t(TranslationKey.Deadline)}
+              value={formatNormDateTime(message.data.request?.timeoutAt)}
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
 
-            <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Request price'])}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {toFixedWithDollarSign(message.data.request?.price, 2)}
-                  </Typography>
-                }
-                bgColor="green"
-              />
-            </div>
+            <LabelValuePairBlock
+              label={t(TranslationKey['Request price'])}
+              value={<p className={classNames.accentText}>{toFixedWithDollarSign(message.data.request?.price, 2)}</p>}
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
           </div>
 
-          <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
+          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
+          <PhotoAndFilesSlider
+            smallSlider={!isMobileResolution}
+            column={isShowChatInfo || isMobileResolution}
             files={message.data.request?.media?.map(el => el.fileLink)}
-            imagesTitles={message.data.request?.media?.map(el => el.commentByClient)}
-            width="340px"
-            withoutPhotos={undefined}
-            whithoutFiles={undefined}
-            imagesForLoad={undefined}
-            isEditable={undefined}
-            withoutMakeMainImage={undefined}
-            onChangeImagesForLoad={undefined}
           />
         </div>
 
-        <Divider orientation="vertical" className={classNames.divider} />
-        <div className={classNames.mainSubWrapper}>
-          <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
+        <Divider
+          orientation={isShowChatInfo ? 'horizontal' : 'vertical'}
+          className={cx(classNames.divider, { [classNames.dividerShowChatInfo]: isShowChatInfo })}
+        />
 
-          <div className={classNames.paragraphWrapper}>
-            <Linkify>
-              <Typography className={classNames.descriptionText}>{message.data.proposal?.comment}</Typography>
-            </Linkify>
-          </div>
-          <div className={classNames.infosProposalWrapper}>
-            <div className={classNames.labelValueBlockWrapper}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Time to complete'])}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {minsToTime(message.data.proposal?.execution_time)}
-                  </Typography>
-                }
-                bgColor="green"
-              />
-            </div>
+        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
+          <div className={classNames.header}>
+            <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
+            <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
           </div>
 
-          <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
+          <p className={classNames.descriptionText}>{message.data.proposal?.comment}</p>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
+          <div className={classNames.infosWrapper}>
+            <LabelValuePairBlock
+              label={t(TranslationKey['Time to complete'])}
+              value={<p className={classNames.accentText}>{minsToTime(message.data.proposal?.execution_time)}</p>}
+              bgColor="green"
+              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+            />
+          </div>
+
+          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
+
+          <PhotoAndFilesSlider
+            smallSlider={!isMobileResolution}
+            column={isShowChatInfo || isMobileResolution}
             files={message.data.proposal.linksToMediaFiles}
-            width="340px"
-            withoutPhotos={undefined}
-            whithoutFiles={undefined}
-            imagesForLoad={undefined}
-            isEditable={undefined}
-            withoutMakeMainImage={undefined}
-            onChangeImagesForLoad={undefined}
           />
         </div>
       </div>
 
-      <div className={classNames.footerWrapper}>
-        {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-        (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === // этого условия не было
-            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-            RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
-          <div className={classNames.btnsWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT &&
-              chatRequestAndRequestProposal.requestProposal?.proposal?.status !== // этого условия не было
-                RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
-                <Button
-                  danger
-                  className={cx(classNames.actionButton /* , classNames.editButton */)}
-                  onClick={() =>
-                    handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
-                  }
-                >
-                  {t(TranslationKey.Reject)}
-                </Button>
-              )}
+      {isShowButtons ? (
+        <div className={classNames.btnsWrapper}>
+          {isRejectButton && (
+            <Button
+              danger
+              className={classNames.actionButton}
+              onClick={() =>
+                handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
+              }
+            >
+              {t(TranslationKey.Reject)}
+            </Button>
+          )}
+          {requestStatus !== RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
             <Button
               success
               className={cx(classNames.actionButton /* , classNames.successBtn */)}
@@ -185,9 +160,9 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handl
             >
               {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
             </Button>
-          </div>
-        ) : undefined}
-      </div>
+          )}
+        </div>
+      ) : null}
     </div>
   )
 }

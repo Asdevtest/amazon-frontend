@@ -1,12 +1,11 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
-import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,7 +13,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -25,8 +23,9 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ProfileViewModel } from './user-profile-view.model'
 import { styles } from './user-profile-view.style'
+
+import { ProfileViewModel } from './user-profile-view.model'
 
 export const UserProfileViewRaw = props => {
   const [viewModel] = useState(() => new ProfileViewModel({ history: props.history }))
@@ -39,7 +38,7 @@ export const UserProfileViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         <UserProfile
           user={viewModel.user}
           timer={'14 минут'}
@@ -92,6 +91,9 @@ export const UserProfileViewRaw = props => {
                 columnMenuIcon: FilterAltOutlinedIcon,
               }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
@@ -110,7 +112,7 @@ export const UserProfileViewRaw = props => {
             />
           </>
         ) : null}
-      </MainContent>
+      </div>
       <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
         <ContentModal
           setOpenModal={viewModel.onTriggerShowTabModal}
@@ -134,6 +136,7 @@ export const UserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
       >
         <UserInfoEditForm
+          resetProfileDataValidation={viewModel.resetProfileDataValidation}
           user={viewModel.user}
           clearError={viewModel.clearError}
           wrongPassword={viewModel.wrongPassword}

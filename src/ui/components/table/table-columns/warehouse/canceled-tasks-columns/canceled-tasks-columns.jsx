@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
@@ -8,13 +6,14 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateFromUnixCell,
-  TaskDescriptionCell,
-  NormalActionBtnCell,
-  TaskTypeCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
+  MultipleAsinCell,
+  NormDateFromUnixCell,
+  NormalActionBtnCell,
   StringListCell,
-  MultilineTextCell, // AsinCopyCell, // WarehouseTasksBtnCell,
+  TaskDescriptionCell,
+  TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -78,9 +77,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
-    ),
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
     width: window.innerWidth < 1282 ? 101 : 160,
   },

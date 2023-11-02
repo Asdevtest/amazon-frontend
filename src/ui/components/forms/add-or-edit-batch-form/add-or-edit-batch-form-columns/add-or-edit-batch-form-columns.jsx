@@ -1,14 +1,15 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell, // OrderCell,
+  // OrderCell,
   // OrderManyItemsCell,
-  MultilineTextCell, // SuperboxQtyCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  OrderBoxesCell,
+  OrdersIdsItemsCell, // SuperboxQtyCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  OrderBoxesCell,
-  MultilineTextHeaderCell,
-  OrdersIdsItemsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -21,7 +22,7 @@ export const addOrEditBatchFormColumns = isClient => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 60,
+    width: 65,
   },
 
   {
@@ -30,13 +31,13 @@ export const addOrEditBatchFormColumns = isClient => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 160,
+    width: 150,
   },
 
   {
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
-    width: 330,
+    width: 295,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
@@ -71,7 +72,7 @@ export const addOrEditBatchFormColumns = isClient => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    width: 150,
   },
 
   {
@@ -79,7 +80,7 @@ export const addOrEditBatchFormColumns = isClient => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 170,
+    width: 150,
   },
 
   {
@@ -95,7 +96,7 @@ export const addOrEditBatchFormColumns = isClient => [
         userId={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
       />
     ),
-    width: 160,
+    width: 130,
     filterable: false,
     sortable: false,
   },
@@ -117,7 +118,7 @@ export const addOrEditBatchFormColumns = isClient => [
       <ToFixedWithKgSignCell amount={params.row.originalData.amount} value={params.value} fix={2} />
     ),
     // type: 'number',
-    width: 100,
+    width: 120,
   },
 
   {
@@ -125,7 +126,7 @@ export const addOrEditBatchFormColumns = isClient => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 100,
+    width: 120,
     // type: 'number',
   },
 ]

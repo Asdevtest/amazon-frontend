@@ -1,8 +1,6 @@
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'

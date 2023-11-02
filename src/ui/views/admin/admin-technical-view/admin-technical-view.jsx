@@ -1,13 +1,11 @@
-import { Paper, Typography } from '@mui/material'
-
-import { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -15,8 +13,9 @@ import { OnOffSelector } from '@components/shared/selectors/on-off-selector'
 
 import { t } from '@utils/translations'
 
-import { AdminTechnicalViewModel } from './admin-technical-view.model'
 import { styles } from './admin-technical-view.style'
+
+import { AdminTechnicalViewModel } from './admin-technical-view.model'
 
 export const AdminTechnicalViewRaw = props => {
   const [viewModel] = useState(
@@ -33,7 +32,7 @@ export const AdminTechnicalViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         <div className={classNames.mainWrapper}>
           <div className={classNames.btnsWrapper}>
             <Button className={classNames.backBtn} onClick={viewModel.onBackBtn}>
@@ -103,7 +102,7 @@ export const AdminTechnicalViewRaw = props => {
             </Paper>
           </div>
         </div>
-      </MainContent>
+      </div>
     </>
   )
 }

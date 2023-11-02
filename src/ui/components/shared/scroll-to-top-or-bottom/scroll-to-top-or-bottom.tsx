@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import { CSSProperties, FC } from 'react'
 
-import { FC, CSSProperties } from 'react'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 import { useClassNames } from './scroll-to-top-or-bottom.style'
 

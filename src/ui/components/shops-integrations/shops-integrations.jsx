@@ -1,33 +1,23 @@
-import { Box, Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { GoodsDaysReport } from './goods-days-report'
 import { useClassNames } from './shops-integrations.style'
+
+import { GoodsDaysReport } from './goods-days-report'
 import { ShopsView } from './shops-view'
 import { StockReport } from './stock-report/stock-report'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 const tabsValues = {
   SHOPS: 'SHOPS',
@@ -44,33 +34,17 @@ export const ShopsIntegrations = observer(({ openModal }) => {
 
   return (
     <div className={classNames.shopWrapper}>
-      {SettingsModel.languageTag && (
-        <Tabs
-          variant={'fullWidth'}
-          classes={{
-            root: classNames.root,
-            indicator: classNames.indicator,
-          }}
-          value={tabIndex}
-          onChange={(e, index) => setTabIndex(index)}
-        >
-          <ITab
-            tooltipInfoContent={t(TranslationKey['List of your stores'])}
-            label={t(TranslationKey.Shops)}
-            value={tabsValues.SHOPS}
-          />
-          <ITab
-            tooltipInfoContent={t(TranslationKey['Report for all stores'])}
-            label={t(TranslationKey['Warehouse report'])}
-            value={tabsValues.STOCK_REPORT}
-          />
-          <ITab
-            tooltipInfoContent={t(TranslationKey['History on products from the stores'])}
-            label={t(TranslationKey['Dashboard by goods/days'])}
-            value={tabsValues.GOODS_DAYS_REPORT}
-          />
-        </Tabs>
-      )}
+      <CustomSwitcher
+        fullWidth
+        switchMode={'big'}
+        condition={tabIndex}
+        switcherSettings={[
+          { label: () => t(TranslationKey.Shops), value: tabsValues.SHOPS },
+          { label: () => t(TranslationKey['Warehouse report']), value: tabsValues.STOCK_REPORT },
+          { label: () => t(TranslationKey['Dashboard by goods/days']), value: tabsValues.GOODS_DAYS_REPORT },
+        ]}
+        changeConditionHandler={setTabIndex}
+      />
 
       <TabPanel value={tabIndex} index={tabsValues.SHOPS}>
         <ShopsView

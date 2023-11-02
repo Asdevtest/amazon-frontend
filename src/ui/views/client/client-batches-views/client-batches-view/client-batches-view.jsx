@@ -1,20 +1,19 @@
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ClientBatchesViewModel } from './client-batches-view.model'
 import { styles } from './client-batches-view.style'
+
+import { ClientBatchesViewModel } from './client-batches-view.model'
 
 export const ClientBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientBatchesViewModel({ history: props.history }))
@@ -22,7 +21,7 @@ export const ClientBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div>
           <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
 
@@ -52,7 +51,7 @@ export const ClientBatchesViewRaw = props => {
             </Button>
           </div>
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

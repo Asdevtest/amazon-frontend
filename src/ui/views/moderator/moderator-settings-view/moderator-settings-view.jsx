@@ -1,8 +1,6 @@
-import { Typography } from '@mui/material'
-
 import { withStyles } from 'tss-react/mui'
 
-import { MainContent } from '@components/layout/main-content'
+import { Typography } from '@mui/material'
 
 import { styles } from './moderator-settings-view.style'
 
@@ -11,9 +9,9 @@ export const ModeratorSettingsViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
-      </MainContent>
+      </div>
     </>
   )
 }

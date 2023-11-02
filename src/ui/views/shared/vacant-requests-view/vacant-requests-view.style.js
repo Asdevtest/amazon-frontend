@@ -1,6 +1,6 @@
 export const styles = theme => ({
   dataGridWrapper: {
-    height: 'calc(100vh - 200px)',
+    height: '78vh',
   },
 
   taskTypeWrapper: {
@@ -8,13 +8,13 @@ export const styles = theme => ({
   },
 
   row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
+    background: theme.palette.background.general,
   },
   footerContainer: {
     position: 'absolute',
@@ -28,20 +28,6 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
-  },
-
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-    overflow: 'visible',
-  },
-
-  iconSeparator: {
-    padding: '0 1px',
   },
 
   card: {
@@ -135,17 +121,48 @@ export const styles = theme => ({
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 30,
+  },
+
+  deadlineBorder: {
+    position: 'relative',
+
+    '&:after': {
+      content: '" "',
+      display: 'block',
+      position: 'absolute',
+      left: 2,
+      top: 1,
+
+      width: 5,
+      height: 72,
+    },
   },
 
   yellowBorder: {
-    background:
-      'linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(234, 169, 1, 0) 17.27%, rgba(227, 164, 3, 0) 84.43%, rgba(224, 162, 3, 0.5) 100%)',
+    background: theme.palette.background.yellowRow,
+
+    '&:hover': {
+      background: theme.palette.background.yellowRow,
+    },
+
+    '&:after': {
+      background: '#C69109',
+    },
   },
+
   redBorder: {
-    background:
-      'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+    background: theme.palette.background.redRow,
+
+    '&:hover': {
+      background: theme.palette.background.redRow,
+    },
+
+    '&:after': {
+      background: theme.palette.other.rejected,
+    },
   },
+
   loadingWrapper: {
     display: 'flex',
     justifyContent: 'center',

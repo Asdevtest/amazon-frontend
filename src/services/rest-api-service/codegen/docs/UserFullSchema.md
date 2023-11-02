@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
 **note** | [**UserFullSchemaNote**](UserFullSchemaNote.md) |  | [optional] 
+**allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 

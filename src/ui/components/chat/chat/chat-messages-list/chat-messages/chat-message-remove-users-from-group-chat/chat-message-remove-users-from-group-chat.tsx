@@ -1,6 +1,4 @@
-import { Typography } from '@mui/material'
-
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,13 +26,12 @@ export const ChatMessageRemoveUsersFromGroupChat: FC<Props> = ({ message }) => {
         blackText={undefined}
         withAvatar={undefined}
         maxNameWidth={undefined}
-        customStyles={undefined}
         customClassNames={undefined}
       />
 
-      <Typography className={classNames.groupText}>{t(TranslationKey['deleted from group chat'])}</Typography>
+      <p className={classNames.groupText}>{t(TranslationKey['deleted from group chat'])}</p>
 
-      <Typography className={classNames.groupTitle}>{`${message.data?.title} :`}</Typography>
+      <p className={classNames.groupTitle}>{`${message.data?.title} :`}</p>
 
       <div className={classNames.usersWrapper}>
         {message.data.users.map((el: { _id: string; name: string }, index: number) => (
@@ -45,7 +42,6 @@ export const ChatMessageRemoveUsersFromGroupChat: FC<Props> = ({ message }) => {
             blackText={undefined}
             withAvatar={undefined}
             maxNameWidth={undefined}
-            customStyles={undefined}
             customClassNames={undefined}
           />
         ))}

@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -13,12 +12,12 @@ import {
   HsCodeCell,
   InStockCell,
   MultilineStatusCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OrderIdAndAmountCountCell,
   ProductAsinCell,
   RedFlagsCell,
+  SelectRowCell,
   ShortDateCell,
   TagsCell,
   ToFixedCell,
@@ -36,6 +35,24 @@ export const clientInventoryColumns = (
   getColumnMenuSettings,
   getOnHover,
 ) => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        showVariationButton={params.row?.originalData?.parentProductId || params.row?.originalData?.hasChildren}
+        isParentProduct={!params.row?.originalData?.parentProductId && params.row?.originalData?.hasChildren}
+        onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?.originalData?._id)}
+        onClickVariationButton={() =>
+          otherHandlers.onClickVariationButton(
+            params.row?.originalData?.parentProductId || params.row?.originalData?._id,
+          )
+        }
+      />
+    ),
+    width: 120,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -64,7 +81,6 @@ export const clientInventoryColumns = (
       )
     },
     width: 295,
-
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
@@ -79,7 +95,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
     filterable: false,
@@ -99,7 +115,7 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 140,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -255,7 +271,14 @@ export const clientInventoryColumns = (
         onClickInStock={otherHandlers.onClickInStock}
       />
     ),
-    width: 155,
+    valueGetter: params => {
+      return params.row.originalData.boxAmounts
+        .sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
+        .map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
+        .join(', ')
+    },
+    width: 145,
+
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
   },
@@ -572,7 +595,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 400,
     filterable: false,
     sortable: false,

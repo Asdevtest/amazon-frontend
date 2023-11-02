@@ -1,25 +1,24 @@
-import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useState } from 'react'
+import ImageUploading from 'react-images-uploading-alex76457-version'
+
+import AddIcon from '@material-ui/icons/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { Avatar, Box, Button, Grid, InputAdornment, Typography } from '@mui/material'
+import { Avatar, Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import ImageUploading from 'react-images-uploading-alex76457-version'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
-// import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './upload-files-input.style'
-import { Field } from '@components/shared/field'
-import AddIcon from '@material-ui/icons/Add'
 
 const regExpUriChecking =
   /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i
@@ -49,9 +48,10 @@ export const UploadFilesInput = observer(props => {
     isNotShowActionsBtns = false,
     requestWidth = false,
     fullWidth = false,
+    withoutDragAndDropTitle = false,
   } = props
 
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const [linkInput, setLinkInput] = useState('')
 
@@ -154,41 +154,6 @@ export const UploadFilesInput = observer(props => {
   return (
     SettingsModel.languageTag && (
       <div>
-        {/* {!withoutLinks ? ( */}
-        {/*   <Field */}
-        {/*     tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])} */}
-        {/*     label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])} */}
-        {/*     error={linkInputError && t(TranslationKey['Invalid link!'])} */}
-        {/*     containerClasses={cx(сontainerStyles)} */}
-        {/*     inputComponent={ */}
-        {/*       <div className={classNames.amazonLinkWrapper}> */}
-        {/*         <Input */}
-        {/*           disabled={disabled} */}
-        {/*           placeholder={t(TranslationKey.Link)} */}
-        {/*           classes={{ root: classNames.loadImageInput, input: classNames.inputColor }} */}
-        {/*           value={linkInput} */}
-        {/*           onChange={e => onChangeLinkInput(e.target.value)} */}
-        {/*           onPaste={onPasteFiles} */}
-        {/*         /> */}
-
-        {/*         <Button */}
-        {/*           disableElevation */}
-        {/*           tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])} */}
-        {/*           disabled={linkInput === '' || images?.length >= maxNumber} */}
-        {/*           className={classNames.loadBtn} */}
-        {/*           variant="contained" */}
-        {/*           color="primary" */}
-        {/*           onClick={() => onClickLoadBtn()} */}
-        {/*         > */}
-        {/*           {t(TranslationKey.Add)} */}
-        {/*         </Button> */}
-        {/*       </div> */}
-        {/*     } */}
-        {/*   /> */}
-        {/* ) : ( */}
-        {/*   <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography> */}
-        {/* )} */}
-
         <ImageUploading
           multiple
           acceptType={acceptType}
@@ -219,6 +184,7 @@ export const UploadFilesInput = observer(props => {
                     <Field
                       tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
                       label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
+                      labelClasses={classNames.label}
                       error={linkInputError && t(TranslationKey['Invalid link!'])}
                       containerClasses={cx(сontainerStyles)}
                       inputComponent={
@@ -240,7 +206,6 @@ export const UploadFilesInput = observer(props => {
                             tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
                             disabled={linkInput === '' || images?.length >= maxNumber}
                             className={classNames.loadBtn}
-                            variant="contained"
                             onClick={() => onClickLoadBtn()}
                           >
                             {t(TranslationKey.Load)}
@@ -250,7 +215,7 @@ export const UploadFilesInput = observer(props => {
                     />
                   )}
 
-                  {!minimized && !withoutLinks && (
+                  {!minimized && !withoutLinks && !withoutDragAndDropTitle && (
                     <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography>
                   )}
 
@@ -275,44 +240,31 @@ export const UploadFilesInput = observer(props => {
                     <input className={classNames.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
                   </button>
                 </div>
-                {/* <button */}
-                {/*   disabled={disabled} */}
-                {/*   className={cx(classNames.dragAndDropBtn, { */}
-                {/*   [classNames.dragingOnDropBtn]: isDragging, */}
-                {/*   [classNames.minimizedDragAndDropBtn]: minimized */}
-                {/* })} */}
-                {/*   style={dragAndDropBtnHeight && { height: dragAndDropBtnHeight }} */}
-                {/*   onClick={onImageUpload} */}
-                {/*   {...dragProps} */}
-                {/* > */}
-                {/*   {t(TranslationKey["Click or Drop here"])} */}
-                {/*   <input className={classNames.pasteInput} defaultValue={""} onPaste={onPasteFiles} /> */}
-                {/* </button> */}
 
                 {!isNotShowActionsBtns && (
                   <div className={classNames.actionBtnsWrapper}>
-                    <button
+                    <Button
                       disabled={images?.length === 0}
-                      className={classNames.showImagesBtn}
+                      className={classNames.buttonSecondary}
                       onClick={() => setShowImages(!showImages)}
                     >
                       {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
-                    </button>
+                    </Button>
                     <Typography className={classNames.imagesCount}>
                       {
-                        <span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${
-                          maxNumber - ((filesLength && filesLength) || 0)
+                        <span className={classNames.imagesCountSpan}>{`${images?.length ?? 0}/${
+                          maxNumber - ((filesLength && filesLength) ?? 0)
                         }`}</span>
                       }
                       {` ${t(TranslationKey.files)}`}
                     </Typography>
-                    <button
+                    <Button
                       disabled={images?.length === 0}
-                      className={classNames.removeAllBtn}
+                      className={classNames.buttonSecondary}
                       onClick={onImageRemoveAll}
                     >
                       {t(TranslationKey['Remove all'])}
-                    </button>
+                    </Button>
                   </div>
                 )}
               </Box>
@@ -340,7 +292,7 @@ export const UploadFilesInput = observer(props => {
                               multiline
                               inputProps={{ maxLength: 64 }}
                               startAdornment={
-                                <InputAdornment position="start">
+                                <InputAdornment position="start" className={classNames.inputIndexWrapper}>
                                   <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
                                 </InputAdornment>
                               }
@@ -389,7 +341,7 @@ export const UploadFilesInput = observer(props => {
                               multiline
                               inputProps={{ maxLength: 64 }}
                               startAdornment={
-                                <InputAdornment position="start">
+                                <InputAdornment position="start" className={classNames.inputIndexWrapper}>
                                   <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
                                 </InputAdornment>
                               }

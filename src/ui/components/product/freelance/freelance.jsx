@@ -1,32 +1,32 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
-import { SearchInput } from '@components/shared/search-input'
-import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
-export const Freelance = observer(({ productId }) => {
+import { FreelanceModel } from './freelance.model'
+
+export const Freelance = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const freelanceModel = useRef(new FreelanceModel({ history, productId }))
@@ -51,6 +51,8 @@ export const Freelance = observer(({ productId }) => {
     columnMenuSettings,
     columnVisibilityModel,
     rowCount,
+    paginationModel,
+    onChangePaginationModelChange,
     getCurrentData,
     onSearchSubmit,
     onClickTaskType,
@@ -58,7 +60,6 @@ export const Freelance = observer(({ productId }) => {
     onClickResetFilters,
     onColumnVisibilityModelChange,
     onChangeSortingModel,
-    onChangePaginationModelChange,
   } = freelanceModel.current
 
   return (
@@ -87,7 +88,7 @@ export const Freelance = observer(({ productId }) => {
           onSubmit={onSearchSubmit}
         />
       </div>
-      <div className={classNames.mainWrapper}>
+      <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
         <MemoDataGrid
           disableVirtualization
           pagination
@@ -100,11 +101,9 @@ export const Freelance = observer(({ productId }) => {
             footerContainer: classNames.footerContainer,
             footerCell: classNames.footerCell,
             toolbarContainer: classNames.toolbarContainer,
-
-            columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-            columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
           }}
           pageSizeOptions={[15, 25, 50, 100]}
+          paginationModel={paginationModel}
           rows={getCurrentData()}
           rowHeight={100}
           slots={{
@@ -113,6 +112,9 @@ export const Freelance = observer(({ productId }) => {
             columnMenu: DataGridCustomColumnMenuComponent,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             columnMenu: columnMenuSettings,
 
             toolbar: {

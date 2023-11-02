@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { tableViewMode, tableSortMode } from '@constants/table/table-view-modes'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { SettingsModel } from '@models/settings-model'

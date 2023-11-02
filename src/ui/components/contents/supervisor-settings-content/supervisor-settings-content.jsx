@@ -1,9 +1,8 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box, Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useRef } from 'react'
 
-import { observer } from 'mobx-react'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { Tabs } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,16 +13,19 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
 import { useClassNames } from './supervisor-settings-content.style'
+
+import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
 
 const tabsValues = {
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',
@@ -31,18 +33,6 @@ const tabsValues = {
   PRIVATE_LABEL: 'PRIVATE_LABEL',
   WHOLE_SALE_USA: 'WHOLE_SALE_USA',
 }
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 export const SupervisorSettingsContent = observer(() => {
   const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
@@ -84,25 +74,17 @@ export const SupervisorSettingsContent = observer(() => {
 
   return (
     <React.Fragment>
-      <Tabs
-        variant={'fullWidth'}
-        classes={{
-          root: classNames.row,
-          indicator: classNames.indicator,
-        }}
-        value={tabIndex}
-        onChange={(e, value) => {
-          setTabIndex(value)
-        }}
-      >
-        <ITab value={tabsValues.ONLINE_ARBITRAGE_CHINA} label={'ONLINE ARBITRAGE CHINA'} />
-
-        <ITab label={'DROPSHIPPING'} value={tabsValues.DROPSHIPPING} />
-
-        <ITab label={'PRIVATE LABEL'} value={tabsValues.PRIVATE_LABEL} />
-
-        <ITab label={'WHOLE SALE USA'} value={tabsValues.WHOLE_SALE_USA} />
-      </Tabs>
+      <CustomSwitcher
+        switchMode={'medium'}
+        condition={tabIndex}
+        switcherSettings={[
+          { label: () => 'ONLINE ARBITRAGE CHINA', value: tabsValues.ONLINE_ARBITRAGE_CHINA },
+          { label: () => 'DROPSHIPPING', value: tabsValues.DROPSHIPPING },
+          { label: () => 'PRIVATE LABEL', value: tabsValues.PRIVATE_LABEL },
+          { label: () => 'WHOLE SALE USA', value: tabsValues.WHOLE_SALE_USA },
+        ]}
+        changeConditionHandler={setTabIndex}
+      />
 
       <TabPanel value={tabIndex} index={tabsValues.ONLINE_ARBITRAGE_CHINA}>
         <div className={classNames.buttonWrapper}>
@@ -153,6 +135,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -221,6 +206,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -289,6 +277,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -357,6 +348,9 @@ export const SupervisorSettingsContent = observer(() => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -408,7 +402,7 @@ export const SupervisorSettingsContent = observer(() => {
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
       />
       <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
+        isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}

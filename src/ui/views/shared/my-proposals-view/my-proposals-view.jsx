@@ -1,50 +1,42 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Checkbox, Grid, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import {
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MyProposalsListCard } from '@components/cards/my-proposals-list-card'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { MainContent } from '@components/layout/main-content'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsFreelancer } from '@utils/checks'
 import {
   sortObjectsArrayByArrayObjectFiledDateWithParseISO,
   sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
 } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { MyProposalsViewModel } from './my-proposals-view.model'
 import { styles } from './my-proposals-view.style'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+
+import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsViewRaw = props => {
   const [viewModel] = useState(
@@ -60,7 +52,7 @@ export const MyProposalsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
-  const whiteList =
+  /* const whiteList =
     !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
       ? [
           String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
@@ -68,7 +60,7 @@ export const MyProposalsViewRaw = props => {
             ?.filter(spec => viewModel.requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
             ?.map(item => String(item)) || []),
         ]
-      : Object.keys(freelanceRequestTypeByCode)
+      : Object.keys(freelanceRequestTypeByCode) */
 
   const getSortedData = mode => {
     switch (mode) {
@@ -84,27 +76,12 @@ export const MyProposalsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.taskTypeWrapper}>
-            {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-              // freelanceRequestTypeByCode
-            }).map((taskType, taskIndex) => (
-              <Button
-                key={taskIndex}
-                variant="text"
-                disabled={taskType === viewModel.selectedTaskType}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={cx(classNames.button, {
-                  [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                })}
-                onClick={() => viewModel.onClickTaskType(taskType)}
-              >
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-              </Button>
-            ))}
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedTaskType={viewModel.selectedTaskType}
+            onClickTaskType={viewModel.onClickTaskType}
+          />
 
           <div>
             <SearchInput
@@ -130,6 +107,7 @@ export const MyProposalsViewRaw = props => {
 
             <div className={classNames.proposalSelect}>
               <WithSearchSelect
+                isWithoutItemsTooltip
                 checkbox
                 notCloseOneClick
                 width={350}
@@ -175,7 +153,7 @@ export const MyProposalsViewRaw = props => {
           </div>
         ) : getSortedData(viewModel.sortMode)?.length ? (
           <Grid
-            container
+            container="true"
             classes={{ root: classNames.dashboardCardWrapper }}
             // spacing={4}
             direction="row"
@@ -204,7 +182,7 @@ export const MyProposalsViewRaw = props => {
             </Typography>
           </div>
         )}
-      </MainContent>
+      </div>
 
       <ConfirmationModal
         isWarning
@@ -244,6 +222,15 @@ export const MyProposalsViewRaw = props => {
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
           />
         </Modal>
+      )}
+
+      {viewModel.currentRequest && viewModel.currentProposal && (
+        <RequestResultModal
+          request={{ request: viewModel.currentRequest }}
+          proposal={viewModel.currentProposal}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
       )}
     </React.Fragment>
   )

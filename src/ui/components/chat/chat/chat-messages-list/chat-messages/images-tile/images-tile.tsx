@@ -1,14 +1,14 @@
 import { cx } from '@emotion/css'
-import { Box } from '@mui/material'
-
 import React, { FC, useState } from 'react'
 
+import { Box } from '@mui/material'
+
 import { useClassNames } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal, ImageObjectType } from '@components/modals/image-modal/image-modal'
 
 interface ImagesTileProps {
   images: string[]
-  controls?: (imageIndex?: number, image?: string) => React.ReactNode
+  controls?: (imageIndex: number, image: string | ImageObjectType) => React.ReactNode
 }
 
 export const ImagesTile: FC<ImagesTileProps> = props => {
@@ -41,13 +41,13 @@ export const ImagesTile: FC<ImagesTileProps> = props => {
         )}
       </Box>
 
-      <BigImagesModal
+      <ImageModal
         showPreviews
-        openModal={isShowImagePreview}
-        setOpenModal={() => setIsShowImagePreview(prevState => !prevState)}
-        images={images}
-        imgIndex={selectedImage}
-        setImageIndex={setSelectedImage}
+        isOpenModal={isShowImagePreview}
+        handleOpenModal={() => setIsShowImagePreview(prevState => !prevState)}
+        imageList={images}
+        currentImageIndex={selectedImage}
+        handleCurrentImageIndex={setSelectedImage}
         controls={controls}
       />
     </>

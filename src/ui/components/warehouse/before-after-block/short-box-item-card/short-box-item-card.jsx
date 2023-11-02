@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
-
 import React from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'

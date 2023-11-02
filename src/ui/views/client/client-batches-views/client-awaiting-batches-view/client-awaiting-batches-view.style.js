@@ -34,16 +34,19 @@ export const styles = theme => ({
     right: 0,
     borderTop: 'none !important',
   },
+
   footerCell: {
     padding: 0,
     margin: 0,
   },
+
   toolbarContainer: {
     height: '52px',
   },
+
   datagridWrapper: {
-    marginTop: '10px',
-    height: 'calc(100vh - 230px)',
+    marginTop: '20px',
+    height: '73vh',
   },
 
   searchInput: {

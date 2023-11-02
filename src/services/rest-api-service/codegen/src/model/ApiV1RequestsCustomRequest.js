@@ -72,6 +72,9 @@ class ApiV1RequestsCustomRequest {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('taskComplexity')) {
+                obj['taskComplexity'] = ApiClient.convertToType(data['taskComplexity'], 'Number');
+            }
             if (data.hasOwnProperty('timeoutAt')) {
                 obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
@@ -108,6 +111,9 @@ class ApiV1RequestsCustomRequest {
             if (data.hasOwnProperty('announcementId')) {
                 obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
+            if (data.hasOwnProperty('executorId')) {
+                obj['executorId'] = ApiClient.convertToType(data['executorId'], 'String');
+            }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [ApiV1RequestsCustomRequestLinksToMediaFiles]);
             }
@@ -141,6 +147,12 @@ ApiV1RequestsCustomRequest.prototype['withoutConfirmation'] = undefined;
  * @member {Number} price
  */
 ApiV1RequestsCustomRequest.prototype['price'] = undefined;
+
+/**
+ * Уровень сложности задачи
+ * @member {Number} taskComplexity
+ */
+ApiV1RequestsCustomRequest.prototype['taskComplexity'] = undefined;
 
 /**
  * Время закрытия заявки.
@@ -213,6 +225,12 @@ ApiV1RequestsCustomRequest.prototype['cashBackInPercent'] = undefined;
  * @member {String} announcementId
  */
 ApiV1RequestsCustomRequest.prototype['announcementId'] = undefined;
+
+/**
+ * Гуид исполнителя
+ * @member {String} executorId
+ */
+ApiV1RequestsCustomRequest.prototype['executorId'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1RequestsCustomRequestLinksToMediaFiles>} linksToMediaFiles

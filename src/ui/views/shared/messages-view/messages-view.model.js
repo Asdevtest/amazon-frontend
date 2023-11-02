@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, reaction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -57,8 +57,20 @@ export class MessagesViewModel {
     return ChatModel.typingUsers || []
   }
 
-  get noticeOfSimpleChats() {
-    return SettingsModel.noticeOfSimpleChats
+  get isMuteChats() {
+    return SettingsModel.isMuteChats
+  }
+
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
+
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
+  get unreadMessages() {
+    return ChatModel.unreadMessages
   }
 
   constructor({ history, location }) {
@@ -135,6 +147,15 @@ export class MessagesViewModel {
       },
     )
   }
+
+  onToggleMuteCurrentChat() {
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+  }
+
+  onToggleMuteAllChats() {
+    SettingsModel.onToggleMuteAllChats(this.simpleChats)
+  }
+
   onChangeCurFoundedMessage(index) {
     runInAction(() => {
       this.curFoundedMessage = this.messagesFound[index]
@@ -272,8 +293,8 @@ export class MessagesViewModel {
     ChatModel.typingMessage({ chatId })
   }
 
-  onTriggerNoticeOfSimpleChats() {
-    SettingsModel.onTriggerNoticeOfSimpleChats()
+  muteChatHandler(chatId) {
+    SettingsModel.setMutedChat(chatId)
   }
 
   onClickChat(chat) {
@@ -306,9 +327,13 @@ export class MessagesViewModel {
     try {
       await ChatModel.sendMessage({
         chatId,
+        crmItemId: null,
         text: message,
         files: files?.map(item => item?.file),
-
+        user: {
+          name: UserModel.userInfo.name,
+          _id: UserModel.userInfo._id,
+        },
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {

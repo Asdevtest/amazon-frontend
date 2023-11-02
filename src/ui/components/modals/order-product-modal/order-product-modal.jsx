@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
+import { isPast, isToday, isTomorrow } from 'date-fns'
+import { useEffect, useState } from 'react'
+
 import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { isPast, isToday, isValid } from 'date-fns'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
@@ -13,7 +12,6 @@ import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -32,6 +30,7 @@ export const OrderProductModal = ({
   destinationsFavourites,
   setDestinationsFavouritesItem,
   isPendingOrdering,
+  isInventory,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -73,13 +72,22 @@ export const OrderProductModal = ({
             : '',
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          deadline: reorderOrder.deadline || '',
+          deadline:
+            isPendingOrdering &&
+            !(
+              isPast(new Date(reorderOrder.deadline)) ||
+              isToday(new Date(reorderOrder.deadline)) ||
+              isTomorrow(new Date(reorderOrder.deadline))
+            )
+              ? reorderOrder.deadline
+              : null,
         }))
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
           expressChinaDelivery: false,
           priority: '30',
+          deadline: null,
         })),
   )
 
@@ -88,7 +96,7 @@ export const OrderProductModal = ({
       ? reorderOrdersData.map(reorderOrder => ({
           amount: reorderOrder.amount,
           clientComment: '',
-          barCode: reorderOrder.product.barCode || '',
+          barCode: reorderOrder?.product?.barCode || '',
           productId: reorderOrder.product._id,
           images: [],
           tmpBarCode: [],
@@ -108,13 +116,21 @@ export const OrderProductModal = ({
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
           _id: reorderOrder._id,
-          deadline: reorderOrder.deadline || '',
-          // buyerId: reorderOrder.buyer?._id || null,
+          deadline:
+            isPendingOrdering &&
+            !(
+              isPast(new Date(reorderOrder.deadline)) ||
+              isToday(new Date(reorderOrder.deadline)) ||
+              isTomorrow(new Date(reorderOrder.deadline))
+            )
+              ? reorderOrder.deadline
+              : null,
+          buyerId: reorderOrder.buyer?._id || null,
         }))
       : selectedProductsData.map(product => ({
           amount: 1,
           clientComment: '',
-          barCode: product.barCode || '',
+          barCode: product?.barCode || '',
           productId: product._id,
           images: [],
           deadline: null,
@@ -126,7 +142,7 @@ export const OrderProductModal = ({
           logicsTariffId: '',
           expressChinaDelivery: false,
           priority: '30',
-          // buyerId: product.buyer?._id || null,
+          buyerId: product.buyer?._id || null,
         })),
   )
 
@@ -177,24 +193,19 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
-    const ordersData = orderState.map((el, i) =>
-      getObjectFilteredByKeyArrayBlackList(
-        {
-          ...el,
-          destinationId: el.destinationId ? el.destinationId : null,
-          totalPrice: productsForRender[i]?.currentSupplier?.price
-            ? (productsForRender[i]?.currentSupplier.price +
-                productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
-                  productsForRender[i]?.currentSupplier.amount) *
-              el?.amount
-            : 0,
+    const ordersData = orderState.map((el, i) => ({
+      ...el,
+      destinationId: el.destinationId ? el.destinationId : null,
+      totalPrice: productsForRender[i]?.currentSupplier?.price
+        ? (productsForRender[i]?.currentSupplier.price +
+            productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
+              productsForRender[i]?.currentSupplier.amount) *
+          el?.amount
+        : 0,
 
-          needsResearch: isResearchSupplier,
-          tmpIsPendingOrder: isPendingOrder,
-        },
-        el.deadline ? [] : ['deadline'],
-      ),
-    )
+      needsResearch: isResearchSupplier,
+      tmpIsPendingOrder: isPendingOrder,
+    }))
 
     onSubmit({
       ordersDataState: ordersData,
@@ -212,8 +223,10 @@ export const OrderProductModal = ({
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
 
   const disabledSubmit =
-    orderState.some(
-      (order, index) =>
+    orderState.some((order, index) => {
+      const isDeadlineTodayOrTomorrow = isPast(order.deadline) || isToday(order.deadline) || isTomorrow(order.deadline)
+
+      return (
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
@@ -222,11 +235,12 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))) ||
+        ((!!isInventory || !!reorderOrdersData?.length || !!isPendingOrdering) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
-    ) ||
+          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
+      )
+    }) ||
     storekeeperEqualsDestination ||
     // productsForRender.some(item => !item.currentSupplier) ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
@@ -240,15 +254,19 @@ export const OrderProductModal = ({
         <Table className={classNames.table}>
           <TableHead>
             <TableRow className={classNames.tableRow}>
-              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
+              <TableCell className={classNames.imgCell}>
+                <p className={classNames.cellText}>{t(TranslationKey.Image)}</p>
+              </TableCell>
+              <TableCell className={classNames.productCell}>
+                <p className={classNames.cellText}>{t(TranslationKey.Product)}</p>
+              </TableCell>
               <TableCell className={classNames.priceCell}>
                 <Button
                   disabled
                   className={classNames.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
-                  {t(TranslationKey['Price per unit.']) + ' $'}
+                  {t(TranslationKey['Price without delivery']) + ' $'}
                 </Button>
               </TableCell>
 
@@ -323,7 +341,9 @@ export const OrderProductModal = ({
                   {t(TranslationKey['Client comment'])}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.deadlineCell}>{'Deadline'}</TableCell>
+              <TableCell className={classNames.deadlineCell}>
+                <p className={classNames.cellText}>{'Deadline'}</p>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -369,13 +389,25 @@ export const OrderProductModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
-          <Checkbox checked={isResearchSupplier} color="primary" />
+          <Checkbox
+            checked={isResearchSupplier}
+            color="primary"
+            classes={{
+              root: classNames.checkbox,
+            }}
+          />
           <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
         </div>
 
         {!isPendingOrdering ? (
           <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
-            <Checkbox checked={isPendingOrder} color="primary" />
+            <Checkbox
+              checked={isPendingOrder}
+              color="primary"
+              classes={{
+                root: classNames.checkbox,
+              }}
+            />
             <Typography className={classNames.sumText}>{t(TranslationKey['Pending order'])}</Typography>
           </div>
         ) : null}

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -14,14 +13,18 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { ClientProductViewModel } from './client-product-view.model'
-import { useLocation } from 'react-router-dom'
 
 export const ClientProductView = observer(props => {
   const { search } = useLocation()
+
+  const queries = new URLSearchParams(search)
+  const productId = queries.get('product-id')
+
   const [viewModel] = useState(
     () =>
       new ClientProductViewModel({
         history: props.history,
+        productId,
       }),
   )
 
@@ -29,42 +32,43 @@ export const ClientProductView = observer(props => {
     viewModel.loadData()
   }, [])
 
-  useEffect(() => {
-    const queries = new URLSearchParams(search)
-    const productId = queries.get('product-id')
-
-    if (productId) {
-      viewModel.updateProductId(productId)
-    }
-  }, [search])
-
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.product ? (
           <ProductWrapper
             showTab={viewModel.showTab}
+            platformSettings={viewModel.platformSettings}
             user={viewModel.userInfo}
             userRole={viewModel.userInfo.role}
             imagesForLoad={viewModel.imagesForLoad}
             showProgress={viewModel.showProgress}
             progressValue={viewModel.progressValue}
             product={viewModel.getCurrentData()}
+            productVariations={viewModel.productVariations}
+            navigateToProduct={viewModel.navigateToProduct}
+            unbindProductHandler={viewModel.unbindProductHandler}
             shops={viewModel.shopsData}
-            acceptMessage={viewModel.acceptMessage}
+            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+            showBindProductModal={viewModel.showBindProductModal}
+            productsToBind={viewModel.productsToBind}
             actionStatus={viewModel.actionStatus}
             productBase={viewModel.productBase}
             selectedSupplier={viewModel.selectedSupplier}
             handleSupplierButtons={viewModel.onClickSupplierButtons}
             handleProductActionButtons={viewModel.handleProductActionButtons}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            onClickNextButton={viewModel.bindUnbindProducts}
+            onClickGetProductsToBind={viewModel.onClickGetProductsToBind}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onClickSupplier={viewModel.onChangeSelectedSupplier}
             onChangeField={viewModel.onChangeProductFields}
             onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
             onClickParseProductData={viewModel.onClickParseProductData}
           />
         ) : undefined}
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
@@ -99,7 +103,7 @@ export const ClientProductView = observer(props => {
       />
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={viewModel.confirmModalSettings.title}

@@ -2,42 +2,55 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { IconButton, Input, Link, Typography } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
+
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import IconButton from '@mui/material/IconButton'
+import Input from '@mui/material/Input'
+import Link from '@mui/material/Link'
+import Typography from '@mui/material/Typography'
 
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-result-modal.style'
 
-export const RequestResultModal = ({ openModal, setOpenModal, onClickSendAsResult, request }) => {
+export const RequestResultModal = ({
+  openModal,
+  setOpenModal,
+  onClickSendAsResult,
+  request,
+  proposal,
+  missClickModalOn,
+}) => {
   const { classes: classNames } = useClassNames()
 
   const [linkLine, setLinkLine] = useState('')
-
   const [images, setImages] = useState([])
 
   const disableFields = null
 
-  const sourceFormFields = {
-    amazonOrderId: '',
-    publicationLinks: [],
-    result: '',
-    // linksToMediaFiles: [],
-  }
+  const getSourceFormFields = () => ({
+    amazonOrderId: proposal?.details?.amazonOrderId || '',
+    publicationLinks: proposal?.details?.publicationLinks || [],
+    result: proposal?.details?.result || '',
+  })
 
-  const [formFields, setFormFields] = useState(sourceFormFields)
+  const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  useEffect(() => {
+    setFormFields(getSourceFormFields())
+  }, [proposal])
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
@@ -65,31 +78,18 @@ export const RequestResultModal = ({ openModal, setOpenModal, onClickSendAsResul
     (`${request?.request?.typeTask}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
       !formFields.result)
 
-  // useEffect(() => {
-  //   const listener = event => {
-  //     if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-  //       event.preventDefault()
-  //       onClickBtn()
-  //     }
-  //   }
-  //   document.addEventListener('keydown', listener)
-  //   return () => {
-  //     document.removeEventListener('keydown', listener)
-  //   }
-  // }, [openModal])
-
   return (
-    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn={missClickModalOn} openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMainWrapper}>
-        <Typography className={cx(classNames.modalTitle)}>{t(TranslationKey['Result of the request'])}</Typography>
+        <p className={classNames.modalTitle}>{t(TranslationKey['Result of the request'])}</p>
 
         {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
           <Field
+            disabled={proposal}
             inputProps={{ maxLength: 100 }}
             labelClasses={classNames.label}
             label={'Amazon order ID*'}
             className={classNames.input}
-            containerClasses={classNames.numberInputField}
             value={formFields.amazonOrderId}
             onChange={onChangeField('amazonOrderId')}
           />
@@ -99,47 +99,49 @@ export const RequestResultModal = ({ openModal, setOpenModal, onClickSendAsResul
           <Field
             labelClasses={classNames.label}
             label={t(TranslationKey['Link to publication']) + '*'}
-            // containerClasses={classNames.input}
             inputComponent={
               <div className={classNames.linksWrapper}>
-                <div className={classNames.inputWrapper}>
-                  <Input
-                    inputProps={{ maxLength: 512 }}
-                    value={linkLine}
-                    className={classNames.pubInput}
-                    onChange={e => setLinkLine(e.target.value)}
-                  />
-                  <Button
-                    disableElevation
-                    disabled={!linkLine || disableFields}
-                    className={classNames.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={onClickLinkBtn}
-                  >
-                    {t(TranslationKey.Add)}
-                  </Button>
-                </div>
-                {formFields?.publicationLinks?.length ? (
+                {!proposal && (
+                  <div className={classNames.inputWrapper}>
+                    <Input
+                      inputProps={{ maxLength: 512 }}
+                      value={linkLine}
+                      className={classNames.pubInput}
+                      onChange={e => setLinkLine(e.target.value)}
+                    />
+                    <Button
+                      disableElevation
+                      disabled={!linkLine || disableFields}
+                      className={classNames.button}
+                      variant="contained"
+                      color="primary"
+                      onClick={onClickLinkBtn}
+                    >
+                      {t(TranslationKey.Add)}
+                    </Button>
+                  </div>
+                )}
+                {!!formFields?.publicationLinks?.length && (
                   <div className={classNames.linksSubWrapper}>
                     {formFields?.publicationLinks.map((el, index) => (
                       <div key={index} className={classNames.linkWrapper}>
-                        <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                          <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                        <Link target="_blank" href={el} className={classNames.linkText}>
+                          {`${index + 1}. ${el}`}
                         </Link>
 
                         <div className={classNames.linksBtnsWrapper}>
                           <CopyValue text={el} />
-                          {!disableFields && (
-                            <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                              <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-                            </IconButton>
+                          {!disableFields && !proposal && (
+                            <DeleteOutlineOutlinedIcon
+                              className={classNames.deleteBtn}
+                              onClick={() => onRemoveLink(index)}
+                            />
                           )}
                         </div>
                       </div>
                     ))}
                   </div>
-                ) : null}
+                )}
               </div>
             }
           />
@@ -147,7 +149,7 @@ export const RequestResultModal = ({ openModal, setOpenModal, onClickSendAsResul
 
         <Field
           multiline
-          // disabled={disableFields}
+          disabled={proposal}
           containerClasses={classNames.commentFieldWrapper}
           labelClasses={classNames.label}
           className={classNames.commentField}
@@ -160,35 +162,44 @@ export const RequestResultModal = ({ openModal, setOpenModal, onClickSendAsResul
         />
 
         <div className={classNames.dragAndDropWrapper}>
-          <UploadFilesInput
-            withComment
-            title={t(TranslationKey.Files)}
-            dragAndDropBtnHeight={55}
-            images={images}
-            setImages={setImages}
-            maxNumber={50}
-            maxHeight={160}
-          />
+          {proposal ? (
+            <PhotoAndFilesSlider
+              files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
+            />
+          ) : (
+            <UploadFilesInput
+              withComment
+              fullWidth
+              title={t(TranslationKey.Files)}
+              dragAndDropBtnHeight={55}
+              images={images}
+              setImages={setImages}
+              maxNumber={50}
+              maxHeight={160}
+            />
+          )}
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <Button
-            success
-            disableElevation
-            disabled={disabledBtn}
-            className={cx(classNames.button)}
-            onClick={() => {
-              onClickSendAsResult({
-                message: formFields.result,
-                files: images.map(el => ({ ...el, image: el.file })),
-                amazonOrderId: formFields.amazonOrderId,
-                publicationLinks: formFields.publicationLinks,
-              })
-              setOpenModal()
-            }}
-          >
-            {t(TranslationKey.Send)}
-          </Button>
+          {!!onClickSendAsResult && (
+            <Button
+              success
+              disableElevation
+              disabled={disabledBtn}
+              className={classNames.button}
+              onClick={() => {
+                onClickSendAsResult({
+                  message: formFields.result,
+                  files: images.map(el => ({ ...el, image: el.file })),
+                  amazonOrderId: formFields.amazonOrderId,
+                  publicationLinks: formFields.publicationLinks,
+                })
+                setOpenModal()
+              }}
+            >
+              {t(TranslationKey.Send)}
+            </Button>
+          )}
 
           <Button
             disableElevation

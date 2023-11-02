@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Typography } from '@mui/material'
 
+import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Text } from '@components/shared/text'
@@ -22,8 +23,6 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-logistic-tariff-form.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 
 export const AddOrEditLogisticTariffForm = observer(
   ({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate }) => {
@@ -253,14 +252,22 @@ export const AddOrEditLogisticTariffForm = observer(
                   {t(TranslationKey.Rates)}
                 </Text>
 
-                <CustomSwitcher
-                  condition={currencyType}
-                  nameFirstArg={currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || ''}
-                  nameSecondArg={currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || ''}
-                  firstArgValue={currencyTypes.DOLLAR}
-                  secondArgValue={currencyTypes.YUAN}
-                  changeConditionHandler={handleChange}
-                />
+                <div>
+                  <CustomSwitcher
+                    condition={currencyType}
+                    switcherSettings={[
+                      {
+                        label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
+                        value: currencyTypes.DOLLAR,
+                      },
+                      {
+                        label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
+                        value: currencyTypes.YUAN,
+                      },
+                    ]}
+                    changeConditionHandler={handleChange}
+                  />
+                </div>
               </div>
 
               <div className={classNames.courseWrapper}>

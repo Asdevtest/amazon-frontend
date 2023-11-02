@@ -19,6 +19,8 @@ const persistProperties = [
   'chatMessageState',
   'uiTheme',
   'destinationsFavourites',
+  'mutedChats',
+  'isMuteChats',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -34,7 +36,10 @@ class SettingsModelStatic {
   isHydrated = false
   breadcrumbsForProfile = null
   showHints = true
-  noticeOfSimpleChats = true
+
+  isMuteChats = false
+  mutedChats = []
+  numberAllChats = null
 
   lastCrumbAdditionalText = ''
 
@@ -72,6 +77,44 @@ class SettingsModelStatic {
     )
   }
 
+  loadValue(key) {
+    const value = localStorage.getItem(key)
+
+    return value !== null ? JSON.parse(value) : null
+  }
+
+  saveValue(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  onToggleMuteCurrentChat(chatId) {
+    this.setMutedChat(chatId)
+  }
+
+  onToggleMuteAllChats(allChats) {
+    this.setMutedChats(allChats)
+    this.isMuteChats = !this.isMuteChats
+  }
+
+  setMutedChat(chatId) {
+    if (this.mutedChats.includes(chatId)) {
+      this.mutedChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+    } else {
+      this.mutedChats.push(chatId)
+    }
+
+    this.isMuteChats = this.numberAllChats === this.mutedChats.length ? true : false
+  }
+
+  setMutedChats(allChats) {
+    if (this.isMuteChats) {
+      this.mutedChats.length = 0
+    } else {
+      this.numberAllChats = allChats.length
+      this.mutedChats = [...allChats.map(chat => chat._id)]
+    }
+  }
+
   async checkAppVersion() {
     const response = await axios({
       method: 'get',
@@ -101,6 +144,24 @@ class SettingsModelStatic {
 
       window.location.reload()
     }
+  }
+
+  resetLocalStorageAndCach() {
+    localStorage.clear()
+
+    // Очистка кэша
+    if (window.caches && window.caches.delete) {
+      caches.keys().then(names => {
+        for (const name of names) {
+          caches.delete(name)
+        }
+      })
+    } else {
+      // Для старых версий Edge используем следующий способ очистки кэша
+      window.location.reload(true)
+    }
+
+    window.location.reload()
   }
 
   changeLastCrumbAdditionalText(text) {
@@ -134,10 +195,6 @@ class SettingsModelStatic {
 
   onTriggerShowHints() {
     this.showHints = !this.showHints
-  }
-
-  onTriggerNoticeOfSimpleChats() {
-    this.noticeOfSimpleChats = !this.noticeOfSimpleChats
   }
 
   setDataGridState(state, tableKey) {

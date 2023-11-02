@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { DataGrid } from '@mui/x-data-grid'
-
+import { observer } from 'mobx-react'
 import React, { useMemo } from 'react'
 
-import { observer } from 'mobx-react'
+import { DataGrid } from '@mui/x-data-grid'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -12,6 +11,8 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
     () => <DataGrid key={SettingsModel.languageTag} disableVirtualization {...restProps} />,
 
     [
+      SettingsModel.uiTheme,
+      SettingsModel.languageTag,
       restProps.rows,
       restProps.columns,
       restProps.loading,
@@ -22,11 +23,11 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
       restProps.filterModel,
       restProps.rowSelectionModel,
       restProps.slotProps?.columnMenu,
-      SettingsModel.uiTheme,
       restProps.propsToRerender?.onHover,
       restProps.propsToRerender?.unitsOption,
       restProps.propsToRerender?.isArchive,
       restProps.propsToRerender?.currentData,
+      restProps.propsToRerender?.productViewMode,
     ],
   )
 

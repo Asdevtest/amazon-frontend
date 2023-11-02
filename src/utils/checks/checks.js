@@ -1,5 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
+import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -54,6 +55,7 @@ export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logics
 
 export const checkIsImageLink = link =>
   link?.endsWith('.png') ||
+  link?.endsWith('.PNG') ||
   link?.endsWith('.jpg') ||
   link?.endsWith('.ico') ||
   link?.endsWith('.gif') ||
@@ -62,9 +64,17 @@ export const checkIsImageLink = link =>
   link?.endsWith('.avif') ||
   link?.endsWith('.jpeg') ||
   link?.endsWith('.rotated-image') ||
-  link?.includes('rotated-image') ||
+  link?.endsWith('.jfif') ||
   link?.includes('placeimg.com')
 
+export const checkIsDocumentLink = link =>
+  link?.endsWith('.doc') ||
+  link?.endsWith('.docx') ||
+  link?.endsWith('.pdf') ||
+  link?.endsWith('.xlsx') ||
+  link?.endsWith('.xls') ||
+  link?.endsWith('.txt') ||
+  (link?.includes('.com') && !link?.includes('placeimg.com'))
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 
@@ -96,3 +106,19 @@ export const checkIsStringFilesSame = (str1, str2) => {
 export const isStringInArray = (str, arr) => arr.includes(str)
 
 export const checkDateByDeadline = date => (date !== null ? date < new Date() : false)
+
+export const checkIsImageUrlValid = async selectedImageUrl =>
+  new Promise(resolve => {
+    const img = new Image()
+    img.src = selectedImageUrl
+
+    img.onload = () => {
+      resolve(true)
+    }
+
+    img.onerror = () => {
+      resolve(false)
+    }
+  })
+
+export const checkIsValidProposalStatusToShowResoult = status => statusesValidToShowResoult.includes(status)

@@ -1,15 +1,13 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -17,8 +15,9 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
 import { styles } from './supervisor-ready-to-check-view.style'
+
+import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
 
 export const SupervisorReadyToCheckViewRaw = props => {
   const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel({ history: props.history }))
@@ -30,7 +29,7 @@ export const SupervisorReadyToCheckViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.btnsWrapper}>
           <Button
             color="primary"
@@ -47,6 +46,7 @@ export const SupervisorReadyToCheckViewRaw = props => {
             checkboxSelection
             pagination
             useResizeContainer
+            paginationModel={viewModel.paginationModel}
             classes={{
               root: classNames.root,
               footerContainer: classNames.footerContainer,
@@ -58,6 +58,9 @@ export const SupervisorReadyToCheckViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -73,11 +76,12 @@ export const SupervisorReadyToCheckViewRaw = props => {
             rowHeight={100}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
         </div>
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

@@ -1,24 +1,38 @@
 import React from 'react'
 
-import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
+
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
   FeesValuesWithCalculateBtnCell,
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
-  MultilineStatusCell,
-  TagsCell,
+  ProductAsinCell,
   RedFlagsCell,
+  SelectRowCell,
+  TagsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const buyerProductsViewColumns = handlers => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => handlers.onClickShowProduct(params.row)}
+      />
+    ),
+    width: 80,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
@@ -26,6 +40,7 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => {
       const product = params.row.originalData
+      console.log(product)
 
       return (
         <ProductAsinCell
@@ -36,7 +51,7 @@ export const buyerProductsViewColumns = handlers => [
         />
       )
     },
-    width: 350,
+    width: 260,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -46,7 +61,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 150,
+    width: 170,
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
@@ -54,7 +69,7 @@ export const buyerProductsViewColumns = handlers => [
       />
     ),
 
-    columnKey: columnnsKeys.client.INVENTORY_STATUS,
+    columnKey: columnnsKeys.buyer.MY_PRODUCTS_STATUS,
   },
 
   {
@@ -63,7 +78,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 135,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -119,7 +134,7 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    minWidth: 50,
+    width: 75,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -171,17 +186,17 @@ export const buyerProductsViewColumns = handlers => [
   },
 
   {
-    field: 'ideasVerified',
-    headerName: t(TranslationKey['Verified ideas']),
+    field: 'ideasFinished',
+    headerName: t(TranslationKey['Realized ideas']),
     renderHeader: () => (
       <MultilineTextHeaderCell
-        text={t(TranslationKey['Verified ideas'])}
+        text={t(TranslationKey['Realized ideas'])}
         // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 125,
     type: 'number',
 
     columnKey: columnnsKeys.shared.QUANTITY,

@@ -16,11 +16,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterWrapper: {
-    padding: '8px 11px',
     height: '52px',
-    margin: '2px',
     display: 'flex',
     alignItems: 'center',
+    marginRight: 400,
 
     position: 'absolute',
     zIndex: 999,
@@ -82,16 +81,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   amount: {
     marginLeft: '5px',
-  },
-
-  row: {
-    outline: '1px solid rgb(224, 224, 224)',
-    borderRadius: '5px',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(0.99)',
-    },
   },
 
   headerSubWrapper: {
@@ -216,22 +205,19 @@ export const useClassNames = makeStyles()(theme => ({
     height: 590,
     overflowY: 'auto',
     width: '100%',
-    borderBottom: '1px solid white',
     position: 'relative',
+    border: `1px solid  ${theme.palette.background.second}`,
+    boxShadow: theme.palette.boxShadow.paper,
+    borderRadius: 7,
   },
 
   virtualScroller: {
     minHeight: 150,
     maxHeight: 450,
   },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
+
   disabled: {
-    '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
+    WebkitTextFillColor: `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
     width: '160px !important',

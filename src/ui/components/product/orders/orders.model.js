@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -17,12 +17,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const chosenStatusSettings = {
-  ALL: 'ALL',
-  AT_PROCESS: 'AT_PROCESS',
-  CANCELED: 'CANCELED',
-  COMPLETED: 'COMPLETED',
-}
+import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
   history = undefined
@@ -46,13 +41,13 @@ export class OrdersModel {
   reorderOrder = undefined
   uploadedFiles = []
 
-  chosenStatus = chosenStatusSettings.ALL
-
   isPendingOrdering = false
 
   storekeepers = []
   destinations = []
   platformSettings = undefined
+
+  paginationModel = { page: 0, pageSize: 15 }
 
   confirmModalSettings = {
     isWarning: false,
@@ -65,22 +60,12 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.chosenStatus)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
-  get orderStatusData() {
-    return {
-      chosenStatusSettings,
-      chosenStatus: this.chosenStatus,
-      onChangeOrderStatusData: this.onChangeOrderStatusData,
-    }
-  }
-
-  constructor({ history, productId, showAtProcessOrders }) {
+  constructor({ history, productId }) {
     runInAction(() => {
       this.history = history
-
-      this.chosenStatus = showAtProcessOrders ? chosenStatusSettings.AT_PROCESS : chosenStatusSettings.ALL
 
       this.productId = productId
     })
@@ -98,59 +83,98 @@ export class OrdersModel {
     })
   }
 
+  isCheckedStatusByFilter = {
+    [chosenStatusesByFilter.ALL]: true,
+    [chosenStatusesByFilter.AT_PROCESS]: true,
+    [chosenStatusesByFilter.CANCELED]: true,
+    [chosenStatusesByFilter.COMPLETED]: true,
+  }
+
+  get orderStatusData() {
+    return {
+      isCheckedStatusByFilter: this.isCheckedStatusByFilter,
+      onCheckboxChange: this.onCheckboxChange,
+    }
+  }
+
+  onCheckboxChange(event) {
+    const { name, checked } = event.target
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+
+    if (name === ALL) {
+      this.isCheckedStatusByFilter = {
+        [ALL]: checked,
+        [AT_PROCESS]: checked,
+        [CANCELED]: checked,
+        [COMPLETED]: checked,
+      }
+    } else {
+      this.isCheckedStatusByFilter = {
+        ...this.isCheckedStatusByFilter,
+        [name]: checked,
+      }
+
+      if (
+        this.isCheckedStatusByFilter[AT_PROCESS] &&
+        this.isCheckedStatusByFilter[CANCELED] &&
+        this.isCheckedStatusByFilter[COMPLETED]
+      ) {
+        this.isCheckedStatusByFilter = {
+          ...this.isCheckedStatusByFilter,
+          [ALL]: true,
+        }
+      } else {
+        this.isCheckedStatusByFilter = {
+          ...this.isCheckedStatusByFilter,
+          [ALL]: false,
+        }
+      }
+    }
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.loadData()
+  }
+
   onClickResetFilters() {
-    this.chosenStatus = chosenStatusSettings.ALL
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+
+    this.isCheckedStatusByFilter = {
+      [ALL]: true,
+      [AT_PROCESS]: true,
+      [CANCELED]: true,
+      [COMPLETED]: true,
+    }
+
     this.getOrdersByProductId()
   }
 
   get isSomeFilterOn() {
-    return this.chosenStatus !== chosenStatusSettings.ALL
+    return { isActiveFilter: Object.values(this.isCheckedStatusByFilter).includes(false) }
   }
 
   getCurrentData() {
-    switch (this.chosenStatus) {
-      case chosenStatusSettings.ALL:
-        return toJS(this.orders)
-      case chosenStatusSettings.AT_PROCESS:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-          ),
-        )
-      case chosenStatusSettings.CANCELED:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-          ),
-        )
-      case chosenStatusSettings.COMPLETED:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-          ),
-        )
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
-      default:
-        return toJS(this.orders)
+    let filteredOrders = toJS(this.orders)
+
+    if (!this.isCheckedStatusByFilter[ALL]) {
+      filteredOrders = filteredOrders.filter(el => {
+        const { status } = el.originalData
+
+        return (
+          (this.isCheckedStatusByFilter[AT_PROCESS] && selectedStatus.includes(status)) ||
+          (this.isCheckedStatusByFilter[CANCELED] && canceledStatus.includes(status)) ||
+          (this.isCheckedStatusByFilter[COMPLETED] && completedStatus.includes(status))
+        )
+      })
     }
 
-    // return toJS(this.orders)
-  }
-
-  onChangeOrderStatusData(status) {
-    runInAction(() => {
-      this.chosenStatus = status === this.chosenStatus ? chosenStatusSettings.ALL : status
-    })
+    return toJS(filteredOrders)
   }
 
   async loadData() {

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20050Rows from './InlineResponse20050Rows';
 
 /**
  * The InlineResponse20050 model module.
@@ -47,11 +48,11 @@ class InlineResponse20050 {
         if (data) {
             obj = obj || new InlineResponse20050();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20050Rows]);
             }
         }
         return obj;
@@ -61,16 +62,16 @@ class InlineResponse20050 {
 }
 
 /**
- * GUID заказа
- * @member {String} _id
+ * Общее кол-во идей
+ * @member {Number} count
  */
-InlineResponse20050.prototype['_id'] = undefined;
+InlineResponse20050.prototype['count'] = undefined;
 
 /**
- * id заказа
- * @member {Number} id
+ * Список идей
+ * @member {Array.<module:model/InlineResponse20050Rows>} rows
  */
-InlineResponse20050.prototype['id'] = undefined;
+InlineResponse20050.prototype['rows'] = undefined;
 
 
 

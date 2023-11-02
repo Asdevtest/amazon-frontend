@@ -17,9 +17,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: 'white',
     backgroundColor: 'rgba(0, 123, 255, 1)',
     borderRadius: '4px',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
   },
   title: {
     fontSize: '24px',
@@ -53,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainCardWrapper: {
     padding: '16px',
     marginBottom: '24px',
-    backgroundColor: theme.palette.background.second,
+    backgroundColor: theme.palette.background.general,
   },
   parseButtonsWrapper: {
     minWidth: 250,
@@ -110,11 +107,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
-    color: 'white',
-    // backgroundColor: theme.palette.primary.main,
-    borderRadius: '4px',
+    maxHeight: 40,
+    maxWidth: 40,
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: 4,
   },
 
   iconBtnRemove: {
@@ -158,5 +155,45 @@ export const useClassNames = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+
+  mainCard: {
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  card: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  topPartCardWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: 30,
+  },
+
+  variationWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  variationText: {
+    fontSize: '16px',
+    fontWeight: 600,
+    color: theme.palette.text.second,
+  },
+
+  variationIcon: {
+    width: '24px !important',
+    height: '24px !important',
+    color: theme.palette.text.second,
+  },
+
+  parentVariation: {
+    color: theme.palette.primary.main,
   },
 }))

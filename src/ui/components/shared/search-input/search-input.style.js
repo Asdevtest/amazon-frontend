@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     height: 36,
     position: 'relative',
+    borderRadius: '41px',
   },
 
   inputAdornmentRoot: {
@@ -19,7 +20,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputClass: {
-    paddingLeft: '15px !important',
+    [theme.breakpoints.down(768)]: {
+      '&::placeholder': {
+        fontSize: 14,
+      },
+    },
   },
 
   icon: {
@@ -45,6 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
   submit: {
     height: '100%',
     padding: '9px 20px 8px 20px',
-    borderRadius: 2,
+    borderRadius: '24px',
   },
 }))

@@ -1,27 +1,24 @@
-/* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React from 'react'
-
 import { t } from 'i18n-js'
 
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  NormalActionBtnCell,
   OrderCell,
-  MultilineTextCell,
+  PriorityAndChinaDeliverCell,
+  RenderFieldValueCell,
+  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  DownloadAndCopyBtnsCell,
-  NormalActionBtnCell,
-  PriorityAndChinaDeliverCell,
-  SuccessActionBtnCell,
-  RenderFieldValueCell,
-  IconHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -48,7 +45,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 100,
     sortable: false,
 
@@ -66,7 +63,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         status={params.row.originalData.status}
       />
     ),
-    width: 50,
+    width: 75,
     // sortable: false,
 
     columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
@@ -77,7 +74,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
-    width: 290,
+    width: 390,
     sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
@@ -93,7 +90,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
-    width: 100,
+    width: 160,
     sortable: false,
 
     columnKey: columnnsKeys.client.ORDERS_STATUS,
@@ -124,7 +121,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         )}
       </>
     ),
-    width: 200,
+    width: 180,
     filterable: false,
     sortable: false,
   },
@@ -147,7 +144,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 100,
     type: 'number',
     sortable: false,
 
@@ -172,7 +169,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
     renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
-    width: 120,
+    width: 140,
     sortable: false,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -204,7 +201,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 150,
 
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -245,8 +242,8 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-    renderCell: params => <MultilineTextCell withTooltip leftAlign threeLines text={params.value} />,
-    width: 120,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    width: 200,
     sortable: false,
 
     columnKey: columnnsKeys.shared.STRING,
@@ -256,8 +253,8 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'clientComment',
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-    renderCell: params => <MultilineTextCell withTooltip leftAlign threeLines text={params.value} />,
-    width: 120,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    width: 200,
     sortable: false,
 
     columnKey: columnnsKeys.shared.STRING,

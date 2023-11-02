@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
@@ -14,7 +13,6 @@ import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buye
 
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 export class BuyerFreeOrdersViewModel {
@@ -50,6 +48,23 @@ export class BuyerFreeOrdersViewModel {
 
   constructor({ history }) {
     this.history = history
+
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onChangeFilterModel({
+        items: [
+          {
+            field: 'ID',
+            operator: '=',
+            value: orderId,
+          },
+        ],
+      })
+
+      this.getOrdersVacant()
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -70,7 +85,7 @@ export class BuyerFreeOrdersViewModel {
   setDataGridState() {
     const requestState = {
       sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
+      // filterModel: toJS(this.filterModel),
       paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
@@ -84,7 +99,7 @@ export class BuyerFreeOrdersViewModel {
     runInAction(() => {
       if (state) {
         this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        // this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
         this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
@@ -134,6 +149,7 @@ export class BuyerFreeOrdersViewModel {
   async getOrdersVacant() {
     try {
       const result = await BuyerModel.getOrdersVacant()
+
       runInAction(() => {
         this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
@@ -160,11 +176,13 @@ export class BuyerFreeOrdersViewModel {
   }
 
   async onClickTableRowBtn(order, noPush) {
+    const { status, buyer } = order.originalData
+
     try {
-      if (order.originalData.buyer) {
-        await BuyerModel.setOrdersAtProcess(order.originalData._id)
-      } else {
+      if (!buyer || status === OrderStatusByKey[OrderStatus.FORMED] || status === OrderStatusByKey[OrderStatus.NEW]) {
         await BuyerModel.pickupOrder(order.originalData._id)
+      } else {
+        await BuyerModel.setOrdersAtProcess(order.originalData._id)
       }
 
       if (!noPush) {

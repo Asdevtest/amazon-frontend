@@ -4,29 +4,42 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
-    flexWrap: 'wrap',
-    // maxWidth: '60%',
-    // flexGrow: 1,
+    alignItems: 'center',
     justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 5,
+
+    [theme.breakpoints.down(768)]: {
+      padding: '0 5px',
+    },
   },
 
   groupText: {
-    marginLeft: 5,
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+    },
   },
 
   groupTitle: {
     fontWeight: 600,
-    margin: '0 5px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
     maxWidth: 200,
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 160,
+      fontSize: 14,
+      wordWrap: 'break-word',
+    },
   },
 
   changeTitleWrapper: {
     display: 'flex',
     marginBottom: 30,
     alignItems: 'center',
+    gap: 5,
+
+    [theme.breakpoints.down(768)]: {
+      marginBottom: 20,
+    },
   },
 
   changeIcon: {
@@ -37,13 +50,17 @@ export const useClassNames = makeStyles()(theme => ({
     width: 150,
     height: 100,
     objectFit: 'contain',
-
     margin: '0 10px',
-
     cursor: 'pointer',
     transition: '.3s ease',
     '&:hover': {
       transform: 'scale(1.05)',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      margin: '0 5px',
+      width: 50,
+      height: 50,
     },
   },
 }))

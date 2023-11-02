@@ -1,26 +1,23 @@
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import {
-  mapTaskOperationTypeKeyToEnum,
-  TaskOperationType,
-  taskOperationTypeTranslate,
-} from '@constants/task/task-operation-type'
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { AlertShield } from '@components/shared/alert-shield'
+import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
+import { DownloadIcon } from '@components/shared/svg-icons'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -28,10 +25,9 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 import { styles } from './warehouse-vacant-tasks-view.style'
-import { Button } from '@components/shared/buttons/button'
-import { DownloadIcon } from '@components/shared/svg-icons'
+
+import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 
 export const WarehouseVacantTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseVacantViewModel({ history: props.history }))
@@ -52,7 +48,7 @@ export const WarehouseVacantTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <TaskPrioritySelector
             currentPriority={viewModel.curTaskPriority}
@@ -94,32 +90,10 @@ export const WarehouseVacantTasksViewRaw = props => {
               </Button>
             )}
 
-            <div className={classNames.boxesFiltersWrapper}>
-              <Button
-                disabled={viewModel.curTaskType === null}
-                className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
-                variant="text"
-                onClick={() => viewModel.onClickOperationTypeBtn(null)}
-              >
-                {t(TranslationKey['All tasks'])}
-              </Button>
-
-              {Object.keys(mapTaskOperationTypeKeyToEnum)
-                .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-                .map(type => (
-                  <Button
-                    key={type}
-                    disabled={viewModel.curTaskType === type}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
-                    })}
-                    variant="text"
-                    onClick={() => viewModel.onClickOperationTypeBtn(type)}
-                  >
-                    {taskOperationTypeTranslate(type)}
-                  </Button>
-                ))}
-            </div>
+            <BuyerTypeTaskSelect
+              curTaskType={viewModel.curTaskType}
+              onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
+            />
           </div>
 
           <SearchInput
@@ -144,10 +118,6 @@ export const WarehouseVacantTasksViewRaw = props => {
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
               filterForm: classNames.filterForm,
-
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              iconSeparator: classNames.iconSeparator,
             }}
             getRowClassName={getRowClassName}
             sortingMode="server"
@@ -165,6 +135,9 @@ export const WarehouseVacantTasksViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -184,7 +157,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showTaskInfoModal}
@@ -219,13 +192,12 @@ export const WarehouseVacantTasksViewRaw = props => {
         onClickBottomBtn={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
       />
 
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

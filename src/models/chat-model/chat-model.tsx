@@ -16,9 +16,9 @@ import {
   ChatMessageType,
   OnReadMessageResponse,
   OnTypingMessageResponse,
-  patchInfoGroupChatParams,
   RemoveUsersFromGroupChatParams,
   TypingMessageRequestParams,
+  patchInfoGroupChatParams,
 } from '@services/websocket-chat-service/interfaces'
 
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
@@ -59,8 +59,8 @@ class ChatModelStatic {
     )
   }
 
-  get noticeOfSimpleChats() {
-    return SettingsModel.noticeOfSimpleChats
+  get mutedChats() {
+    return SettingsModel.mutedChats
   }
 
   constructor() {
@@ -102,10 +102,8 @@ class ChatModelStatic {
       return
     }
     try {
-      // console.log('crmItemId, crmItemType ', crmItemId, crmItemType)
-      // console.log('getChats')
       const getChatsResult = await this.websocketChatService.getChats(crmItemId, crmItemType)
-      console.log('getChatsResult ', getChatsResult)
+
       runInAction(() => {
         this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
@@ -130,8 +128,6 @@ class ChatModelStatic {
       return
     }
     try {
-      // console.log('getSimpleChats')
-
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
@@ -139,8 +135,6 @@ class ChatModelStatic {
           messages: chat.messages,
         }))
       })
-
-      console.log('getSimpleChatsResult', getSimpleChatsResult)
     } catch (error) {
       console.warn(error)
     }
@@ -174,8 +168,6 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-
-    // console.log('***SEND_MESSAGE', params)
 
     if (params.files?.length) {
       for (let i = 0; i < params.files.length; i++) {
@@ -224,7 +216,6 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-    // console.log('***TYPING_MESSAGE!!!')
     await this.websocketChatService.typingMessage(params)
     // return plainToInstance(ChatMessageContract, sendMessageResult)
   }
@@ -274,14 +265,10 @@ class ChatModelStatic {
   }
 
   private onNewOrderDeadlineNotification(notification: object[]) {
-    // console.log('notification', notification)
-
     SettingsModel.setSnackNotifications({ key: snackNoticeKey.ORDER_DEADLINE, notice: notification })
   }
 
   private onUserIdea(notification: object[]) {
-    // console.log('notification', notification)
-
     SettingsModel.setSnackNotifications({ key: snackNoticeKey.IDEAS, notice: notification })
   }
 
@@ -295,8 +282,6 @@ class ChatModelStatic {
 
   private onNewMessage(newMessage: ChatMessageContract) {
     if (newMessage.type === ChatMessageType.SYSTEM) {
-      // console.log('SYS')
-
       this.getSimpleChats()
     }
 
@@ -305,7 +290,15 @@ class ChatModelStatic {
       newMessage,
     )
 
-    // console.log('***NEW_MESSAGE_IS_COME!!!', message)
+    if (
+      message.user?._id !== this.userId &&
+      message.type === ChatMessageType.USER &&
+      !this.mutedChats.includes(message.chatId)
+    ) {
+      SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
+
+      noticeSound.play()
+    }
 
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
@@ -320,25 +313,15 @@ class ChatModelStatic {
 
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
-    if (message.user?._id !== this.userId && message.type === ChatMessageType.USER) {
-      SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
-    }
-
     if (findSimpleChatIndexById !== -1) {
-      // console.log('***NEW_MESSAGE_IS_COME!!!', message)
-
-      if (this.noticeOfSimpleChats && message.user?._id !== this.userId) {
-        noticeSound.play()
-
-        // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
-      }
-
       runInAction(() => {
         this.simpleChats[findSimpleChatIndexById].messages = [
           ...this.simpleChats[findSimpleChatIndexById].messages.filter(mes => mes._id !== message._id),
           message,
         ]
       })
+
+      this.removeTypingUser(message.chatId, message.userId)
 
       if (
         checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
@@ -361,8 +344,6 @@ class ChatModelStatic {
   }
 
   private onReadMessage(response: OnReadMessageResponse) {
-    // console.log('***MY_MESSAGE_IS_READ_!!!')
-
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
     if (findChatIndexById !== -1) {
@@ -388,26 +369,25 @@ class ChatModelStatic {
     }
   }
 
-  private onTypingMessage(response: OnTypingMessageResponse) {
-    // console.log('***ON_TYPING_MESSAGE!!!')
+  private removeTypingUser(chatId: string, userId: string) {
+    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.userId === userId)
 
+    runInAction(() => {
+      this.typingUsers.splice(typingUserToRemove, 1)
+    })
+  }
+
+  private onTypingMessage(response: OnTypingMessageResponse) {
     runInAction(() => {
       this.typingUsers = [...this.typingUsers, response]
     })
 
     setTimeout(() => {
-      const typingUserToRemove = this.typingUsers.findIndex(
-        el => el.chatId === response.chatId && el.userId === response.userId,
-      )
-
-      runInAction(() => {
-        this.typingUsers.splice(typingUserToRemove, 1)
-      })
-    }, 3000)
+      this.removeTypingUser(response.chatId, response.userId)
+    }, 10000)
   }
 
   private onNewChat(newChat: ChatContract) {
-    // console.log('***ON_NEW_CHAT!!!')
     this.getSimpleChats()
 
     const chat = plainToInstance<ChatContract, unknown>(ChatContract, newChat)

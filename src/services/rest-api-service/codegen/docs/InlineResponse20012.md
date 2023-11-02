@@ -4,11 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | The unique identifier of the box. | [optional] 
-**cubicMeters** | **Number** | Объем в м ^ 3 | [optional] 
-**deliveryCost** | **Number** | The delivery cost of the box. | [optional] 
-**volumeWeightKgWarehouse** | **Number** | The volume weight of the box in kg. | [optional] 
-**weightFinalAccountingKgWarehouse** | **Number** | The weight of the box in kg. | [optional] 
-**deliveryRate** | **Number** | The delivery rate of the box. $/kg | [optional] 
+**_id** | **String** | GUID в базе данных | [optional] 
+**type** | **String** |  | [optional] 
+**requests** | [**[ApiV1AnnouncementsMyRequests]**](ApiV1AnnouncementsMyRequests.md) |  | [optional] 
+**linksToMediaFiles** | **[String]** |  | [optional] 
+**title** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата обновления. | [optional] 
 
 

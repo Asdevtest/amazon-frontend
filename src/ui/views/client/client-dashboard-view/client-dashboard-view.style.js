@@ -27,7 +27,9 @@ export const styles = theme => ({
     height: '40px',
     width: '156px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    gap: '15px',
+    whiteSpace: 'nowrap',
   },
 
   balanceWrapper: {
@@ -39,8 +41,8 @@ export const styles = theme => ({
   },
 
   icon: {
-    width: 11,
-    height: 11,
+    width: 15,
+    height: 15,
   },
 
   withdrawBtn: {

@@ -1,18 +1,19 @@
-import { Typography, Paper, Checkbox, Link } from '@mui/material'
-
 import React from 'react'
 
-import { getOrderStatusOptionByCode } from '@constants/statuses/order-status'
+import { Checkbox, Link, Paper, Typography } from '@mui/material'
+
+import { getOrderStatusOptionByCode } from '@constants/orders/order-status'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 
 import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './before-after-box.style'
+
 import { TaskInfoBoxItemCard } from './task-info-box-item-card'
 
 export const BeforeAfterBox = ({ box, isCurrentBox, taskType, volumeWeightCoefficient }) => {

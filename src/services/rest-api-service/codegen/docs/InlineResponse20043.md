@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id созданного профайла | [optional] 
+**tasks** | [**InlineResponse20043Tasks**](InlineResponse20043Tasks.md) |  | [optional] 
+**boxes** | [**InlineResponse20043Boxes**](InlineResponse20043Boxes.md) |  | [optional] 
+**batches** | [**InlineResponse20043Batches**](InlineResponse20043Batches.md) |  | [optional] 
 
 

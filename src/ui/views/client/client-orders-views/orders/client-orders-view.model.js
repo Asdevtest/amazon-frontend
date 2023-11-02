@@ -2,13 +2,15 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
@@ -19,8 +21,6 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { ShopModel } from '@models/shop-model'
-import { GeneralModel } from '@models/general-model'
 
 const filtersFields = [
   'id',
@@ -72,8 +72,10 @@ export class ClientOrdersViewModel {
   checkPendingData = []
   shopsData = []
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   selectedProduct = undefined
   reorderOrdersData = []
@@ -250,9 +252,11 @@ export class ClientOrdersViewModel {
       exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
 
     const clientCommentFilter =
-      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+      exclusion !== 'clientComment' &&
+      this.columnMenuSettings.clientComment?.currentFilterData.map(item => `"${item}"`).join(',')
     const buyerCommentFilter =
-      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+      exclusion !== 'buyerComment' &&
+      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
@@ -878,14 +882,24 @@ export class ClientOrdersViewModel {
 
       if (!this.error) {
         runInAction(() => {
-          this.acceptMessage = t(TranslationKey['The order has been created'])
-          this.showAcceptMessage = true
-          if (this.showAcceptMessage) {
-            setTimeout(() => {
-              this.acceptMessage = ''
-              this.showAcceptMessage = false
-            }, 3000)
+          this.alertShieldSettings = {
+            showAlertShield: true,
+            alertShieldMessage: t(TranslationKey['The order has been created']),
           }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              ...this.alertShieldSettings,
+              showAlertShield: false,
+            }
+
+            setTimeout(() => {
+              this.alertShieldSettings = {
+                showAlertShield: false,
+                alertShieldMessage: '',
+              }
+            }, 1000)
+          }, 3000)
         })
       }
       this.onTriggerOpenModal('showConfirmModal')
@@ -913,11 +927,20 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push(
+    const win = window.open(
       `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
         order.originalData._id
       }&order-human-friendly-id=${order.originalData.id}`,
+      '_blank',
     )
+
+    win.focus()
+
+    /* this.history.push(
+      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
+        order.originalData._id
+      }&order-human-friendly-id=${order.originalData.id}`,
+    ) */
   }
 
   onTriggerOpenModal(modalState) {

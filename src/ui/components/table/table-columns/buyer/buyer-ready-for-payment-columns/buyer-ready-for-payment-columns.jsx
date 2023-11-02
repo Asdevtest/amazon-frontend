@@ -1,39 +1,35 @@
-/* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React from 'react'
+import { Checkbox } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
+  PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
-  StringListCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-import { Checkbox } from '@mui/material'
 
 export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
   const arr = [
     {
-      field: 'idAndItem',
+      field: 'id',
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      sortable: false,
+      renderCell: params => <MultilineTextCell text={params.row.idAndItem} />,
+      sortable: true,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -62,7 +58,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
       renderCell: params => <OrderCell product={params.row.originalData.product} />,
       sortable: false,
-      width: 400,
+      width: 280,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
@@ -72,11 +68,10 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Payment documents']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
       renderCell: params => (
-        <MultilineTextCell
-          text={<Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />}
-        />
+        <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />
       ),
-      width: 100,
+      width: 120,
+      align: 'center',
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
@@ -129,18 +124,13 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
         />
       ),
-      renderCell: params => {
-        return (
-          <StringListCell
-            sourceString={params?.row?.originalData?.payments?.map(method => method?.paymentMethod?.title)}
-            maxItemsDisplay={3}
-            maxLettersInItem={15}
-            onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params?.row?.originalData)}
-          />
-        )
-      },
-      width: 178,
-      align: 'center',
+      renderCell: params => (
+        <PaymentMethodsCell
+          paymentMethods={params.row.originalData.payments}
+          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
+        />
+      ),
+      width: 180,
       sortable: false,
 
       columnKey: columnnsKeys.shared.PAYMENTS,
@@ -164,9 +154,9 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         />
       ),
       type: 'number',
-      width: 90,
+      width: 115,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.buyer.TO_PAY,
     },
 
     {
@@ -179,7 +169,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      width: 160,
+      width: 140,
       sortable: false,
       filterable: false,
     },
@@ -191,7 +181,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => (
         <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
       ),
-      width: 160,
+      width: 120,
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
@@ -210,8 +200,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
     {
       field: 'deadline',
-      headerName: 'Deadline',
-      renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+      headerName: t(TranslationKey.Deadline),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
         params.row.originalData.status < 20 ? (
           <MultilineTextCell
@@ -223,14 +213,14 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         ) : (
           <MultilineTextCell text={'-'} />
         ),
-      width: 200,
+      width: 100,
 
       columnKey: columnnsKeys.shared.DATE,
     },
 
     {
       field: 'paymentDateToSupplier',
-      headerName: 'Payment date',
+      headerName: t(TranslationKey['Payment date']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment date'])} />,
       renderCell: params => (
         <MultilineTextCell
@@ -272,7 +262,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => (
         <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
       ),
-      width: 150,
+      width: 120,
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
@@ -293,7 +283,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
       sortable: false,
 
@@ -304,7 +294,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'buyerComment',
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-      renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
       sortable: false,
 
@@ -329,7 +319,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 130,
+      width: 100,
       // type: 'date',
 
       columnKey: columnnsKeys.shared.DATE,

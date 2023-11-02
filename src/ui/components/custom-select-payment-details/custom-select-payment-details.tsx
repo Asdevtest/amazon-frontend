@@ -3,11 +3,11 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
+import { FC, useEffect, useState } from 'react'
+
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import { Checkbox, Input, MenuItem, Select, Typography } from '@mui/material'
-
-import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,11 +20,13 @@ import { useClassNames } from './custom-select-payment-details.style'
 interface PaymentMethodsObject {
   title: string
   _id: string
+  iconImage: string
 }
 
 interface CurrentPaymentMethodsObject {
   title: string
   _id: string
+  iconImage: string
   updatedAt: string
 }
 
@@ -61,6 +63,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
   const [isEmpty, setIsEmpty] = useState(true)
 
   const initValue = currentPaymentMethods.map(item => ({
+    iconImage: item?.iconImage,
     title: item?.title,
     _id: item?._id,
   }))
@@ -78,17 +81,21 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
       setIsEmpty(false)
 
       return (
-        <div className={cx(classNames.paymentMethodsPlaccholder, { [classNames.generalText]: generalText })}>
-          <Typography className={classNames.selectedItemText}>
-            {valuesToRender?.map(valueToRender => valueToRender?.title).join(' / ')}
-          </Typography>
+        <div className={cx(classNames.paymentMethods, { [classNames.generalText]: generalText })}>
+          {valuesToRender?.map((valueToRender, index) => (
+            <div key={valueToRender.title} className={classNames.paymentMethod}>
+              <img src={valueToRender.iconImage} alt={valueToRender.title} className={classNames.paymentMethodIcon} />
+              <p className={classNames.paymentMethodTitle}>{valueToRender.title}</p>
+              {index !== valuesToRender.length - 1 && '/'}
+            </div>
+          ))}
         </div>
       )
     } else {
       setIsEmpty(true)
 
       return (
-        <div className={classNames.paymentMethodsPlaccholder}>
+        <div className={classNames.paymentMethodsPlaceholder}>
           {!isReadOnly ? (
             <>
               <Typography className={classNames.placeholderText}>{t(TranslationKey.Add)}</Typography>
@@ -103,7 +110,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
   }
 
   return (
-    <div className={cx(classNames.root)}>
+    <div className={classNames.root}>
       <Field
         label={t(TranslationKey['Payment methods']) + ':'}
         labelClasses={cx(classNames.paymentMethodsLabel, labelClass)}
@@ -158,22 +165,32 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               {!onlyRead &&
                 paymentMethods?.map((paymentMethod, paymentMethodIndex) => (
                   // @ts-ignore
-                  <MenuItem key={paymentMethodIndex} value={paymentMethod}>
+                  <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
-                    <Typography>{paymentMethod?.title}</Typography>
+                    <img
+                      src={paymentMethod.iconImage}
+                      alt={paymentMethod.title}
+                      className={classNames.paymentMethodIcon}
+                    />
+                    <p className={classNames.paymentMethodTitle}>{paymentMethod.title}</p>
                   </MenuItem>
                 ))}
 
               {onlyRead &&
                 value?.map((paymentMethod, paymentMethodIndex) => (
                   // @ts-ignore
-                  <MenuItem key={paymentMethodIndex} value={paymentMethod}>
+                  <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
                     <Checkbox
                       disabled
                       color="primary"
                       checked={value?.some(item => item?._id === paymentMethod?._id)}
                     />
-                    <Typography>{paymentMethod?.title}</Typography>
+                    <img
+                      src={paymentMethod.iconImage}
+                      alt={paymentMethod.title}
+                      className={classNames.paymentMethodIcon}
+                    />
+                    <p className={classNames.paymentMethodTitle}>{paymentMethod.title}</p>
                   </MenuItem>
                 ))}
             </Select>

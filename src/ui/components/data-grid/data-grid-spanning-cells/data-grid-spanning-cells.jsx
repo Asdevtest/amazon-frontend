@@ -1,16 +1,16 @@
-import { Checkbox, Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React from 'react'
-
 import { withStyles } from 'tss-react/mui'
 
+import { Checkbox, Typography } from '@mui/material'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 import { styles } from './data-grid-spanning-cells.style'
-import { cx } from '@emotion/css'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { getGroupDataByDestinationId } from '@utils/array'
 
 export const DestinationVariationsSpanningCell = React.memo(
   withStyles(
@@ -22,6 +22,7 @@ export const DestinationVariationsSpanningCell = React.memo(
       activeDedestinationVariationt,
       selectVariationTariff,
       withoutRate,
+      isRemovedDestinationRestriction,
     }) => {
       const groupedData = getGroupDataByDestinationId(destinationVariations)
 
@@ -42,23 +43,29 @@ export const DestinationVariationsSpanningCell = React.memo(
                 </Typography>
               </div>
               <div className={cx(classNames.destinationWrapper, classNames.weightWrapper)}>
-                {varians.map((variant, variantIndex) => (
-                  <div key={variantIndex} className={classNames.variantWrapper}>
-                    {!!showCheckbox && (
-                      <Checkbox
-                        disabled={activeDestinationId && activeDestinationId !== variant?.destination?._id}
-                        checked={activeDedestinationVariationt === variant._id}
-                        classes={{ root: classNames.checkboxRoot }}
-                        onClick={() => selectVariationTariff(variant._id, variant?.destination?._id)}
-                      />
-                    )}
-                    <Typography className={cx(classNames.destinationVariationText)}>{`${
-                      !!variant.minWeight && t(TranslationKey.From) + ' '
-                    }${variant.minWeight} ${!!variant.maxWeight && t(TranslationKey.To) + ' '}${
-                      variant.maxWeight
-                    }`}</Typography>
-                  </div>
-                ))}
+                {varians.map((variant, variantIndex) => {
+                  const isNotValidDestination = activeDestinationId && activeDestinationId !== variant?.destination?._id
+
+                  return (
+                    <div key={variantIndex} className={classNames.variantWrapper}>
+                      {!!showCheckbox && (
+                        <Checkbox
+                          disabled={isNotValidDestination && !isRemovedDestinationRestriction}
+                          checked={activeDedestinationVariationt === variant._id}
+                          classes={{ root: classNames.checkboxRoot }}
+                          onClick={() =>
+                            selectVariationTariff(variant._id, variant?.destination?._id, isNotValidDestination)
+                          }
+                        />
+                      )}
+                      <Typography className={cx(classNames.destinationVariationText)}>{`${
+                        !!variant.minWeight && t(TranslationKey.From) + ' '
+                      }${variant.minWeight} ${!!variant.maxWeight && t(TranslationKey.To) + ' '}${
+                        variant.maxWeight
+                      }`}</Typography>
+                    </div>
+                  )
+                })}
               </div>
               {!withoutRate && (
                 <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>

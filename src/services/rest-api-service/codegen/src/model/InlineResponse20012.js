@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
 
 /**
  * The InlineResponse20012 model module.
@@ -47,23 +49,32 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('cubicMeters')) {
-                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('deliveryCost')) {
-                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
             }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('deliveryRate')) {
-                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -73,40 +84,52 @@ class InlineResponse20012 {
 }
 
 /**
- * The unique identifier of the box.
- * @member {String} guid
+ * GUID в базе данных
+ * @member {String} _id
  */
-InlineResponse20012.prototype['guid'] = undefined;
+InlineResponse20012.prototype['_id'] = undefined;
 
 /**
- * Объем в м ^ 3
- * @member {Number} cubicMeters
+ * @member {String} type
  */
-InlineResponse20012.prototype['cubicMeters'] = undefined;
+InlineResponse20012.prototype['type'] = undefined;
 
 /**
- * The delivery cost of the box.
- * @member {Number} deliveryCost
+ * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
  */
-InlineResponse20012.prototype['deliveryCost'] = undefined;
+InlineResponse20012.prototype['requests'] = undefined;
 
 /**
- * The volume weight of the box in kg.
- * @member {Number} volumeWeightKgWarehouse
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineResponse20012.prototype['volumeWeightKgWarehouse'] = undefined;
+InlineResponse20012.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * The weight of the box in kg.
- * @member {Number} weightFinalAccountingKgWarehouse
+ * @member {String} title
  */
-InlineResponse20012.prototype['weightFinalAccountingKgWarehouse'] = undefined;
+InlineResponse20012.prototype['title'] = undefined;
 
 /**
- * The delivery rate of the box. $/kg
- * @member {Number} deliveryRate
+ * @member {String} description
  */
-InlineResponse20012.prototype['deliveryRate'] = undefined;
+InlineResponse20012.prototype['description'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ */
+InlineResponse20012.prototype['createdBy'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20012.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20012.prototype['updatedAt'] = undefined;
 
 
 

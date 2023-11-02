@@ -59,8 +59,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNumberPhoto: {
-    width: 225,
-    height: 130,
+    maxWidth: 225,
+    width: '100%',
     objectFit: 'contain',
     cursor: 'pointer',
     transition: '.3s ease',
@@ -155,7 +155,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productsWrapper: {
-    overflow: 'auto',
+    overflow: 'hidden',
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
@@ -283,6 +283,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '225px',
     height: 220,
     paddingBottom: 30,

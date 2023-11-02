@@ -2,18 +2,18 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    // minHeight: '373px',
     borderRadius: '4px',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
+    background: theme.palette.background.general,
     padding: '30px 20px ',
     width: 300,
-    height: 500,
+    height: '100%',
   },
 
   cardHeader: {
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: 10,
   },
 
   cardTitleBlockWrapper: {
@@ -26,7 +26,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '20px',
-    // height: '50px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -50,29 +49,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  userInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: '100%',
-    marginBottom: '10px',
-  },
-
-  cardImg: {
-    width: '40px',
-    height: '40px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    marginRight: '5px',
-  },
-
   actionButton: {
     width: '254px',
     height: '40px',
-  },
-
-  nameRatingWrapper: {
-    marginLeft: '10px',
   },
 
   mainInfosWrapper: {
@@ -96,7 +75,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   priceAmazonWrapper: {
     display: 'flex',
-    // flexWrap: 'nowrap',
     maxWidth: 150,
   },
 
@@ -113,7 +91,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    // color: '#656565',
   },
 
   accentText: {
@@ -151,5 +128,35 @@ export const useClassNames = makeStyles()(theme => ({
 
   idText: {
     color: theme.palette.text.general,
+  },
+
+  idAndPriorityWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 5,
+  },
+
+  priorityIcon: {
+    width: 16,
+    height: 18,
+  },
+
+  yellowBackground: {
+    background: `${theme.palette.background.yellowRow} !important`,
+    border: '2px solid #C69109',
+  },
+
+  redBackground: {
+    background: `${theme.palette.background.redRow} !important`,
+    border: '2px solid #D70D0D',
+  },
+
+  yellowColor: {
+    color: `#C69109`,
+  },
+
+  redColor: {
+    color: `#D70D0D`,
   },
 }))

@@ -44,7 +44,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   blockInfoWrapper: {
     display: 'flex',
-    width: 121,
+    width: 145,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -235,7 +235,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: 7,
-    background: theme.palette.text.negativeMain,
+    background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
     padding: 20,
   },
@@ -289,13 +289,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   requestInfoWrapper: {
-    flex: 1,
     display: 'flex',
     justifyContent: 'space-between',
+    background: theme.palette.background.general,
     borderRadius: 7,
-    background: theme.palette.text.negativeMain,
-    boxShadow: theme.palette.boxShadow.paper,
     padding: 20,
+    height: 171,
   },
 
   requestInformationTitleWrapper: {
@@ -306,7 +305,7 @@ export const useClassNames = makeStyles()(theme => ({
   doneIcon: {
     width: '19px !important',
     height: '19px !important',
-    color: '#0B903E',
+    color: theme.palette.other.succes,
   },
 
   confirmationWrapper: {
@@ -323,8 +322,8 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: 7,
-    background: theme.palette.text.negativeMain,
     boxShadow: theme.palette.boxShadow.paper,
+    background: theme.palette.background.general,
     padding: 20,
     gap: 20,
   },
@@ -333,5 +332,20 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 7,
+  },
+
+  priorityWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  prioritySubWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  priorityIcon: {
+    width: 16,
+    height: 18,
   },
 }))

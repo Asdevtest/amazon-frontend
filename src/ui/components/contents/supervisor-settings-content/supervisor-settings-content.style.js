@@ -10,12 +10,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonWrapper: {
+    marginTop: 10,
     display: 'flex',
     justifyContent: 'space-between',
   },
   dataGridWrapper: {
-    marginTop: '30px',
-    height: '73vh',
+    marginTop: '20px',
+    height: '74vh',
   },
   row: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

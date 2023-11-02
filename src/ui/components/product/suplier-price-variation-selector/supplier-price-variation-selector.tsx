@@ -1,12 +1,15 @@
-import React, { ChangeEvent, FC, useState } from 'react'
-import { useSupplierPriceVariationSelectorStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.styles'
-import { Typography } from '@mui/material'
-import { Field } from '@components/shared/field'
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { Input } from '@components/shared/input'
 import { cx } from '@emotion/css'
-import { t } from '@utils/translations'
+import React, { ChangeEvent, FC, useState } from 'react'
+
+import { Typography } from '@mui/material'
+
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { useSupplierPriceVariationSelectorStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.styles'
+import { Field } from '@components/shared/field'
+
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { t } from '@utils/translations'
 
 interface VariationType {
   quantity: number
@@ -59,7 +62,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
                     setQuantity(String(999_999))
                     return
                   }
-                  setQuantity(e.target.value)
+                  setQuantity(String(Math.trunc(Number(e.target.value))))
                 }
               }}
             />

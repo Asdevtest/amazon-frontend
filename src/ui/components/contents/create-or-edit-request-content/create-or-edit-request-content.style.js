@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
 
     padding: 30,
-    minHeight: 760,
+    minHeight: 740,
 
     display: 'flex',
     flexDirection: 'column',
@@ -206,6 +206,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.main,
   },
+
   requestTitle: {
     maxHeight: 150,
     maxWidth: '320px !important',
@@ -214,10 +215,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
   },
-  typoSpan: {
-    fontWeight: 600,
-    color: theme.palette.text.main,
-  },
+
   oldPrice: {
     textDecoration: 'line-through',
   },
@@ -262,6 +260,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
   },
 
+  labelWithoutMargin: {
+    marginBottom: 0,
+  },
+
   dateAndTimeWrapper: {
     width: '100%',
     display: 'flex',
@@ -282,10 +284,8 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxAndButtonWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    gap: '30px',
     alignItems: 'flex-start',
-    // gap: '30px',
-    // alignItems: 'center',
   },
 
   checkboxAndButtonWrapperMarginTop: {
@@ -293,7 +293,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   checkboxProposalWrapper: {
-    width: '375px !important',
+    width: '100% !important',
   },
   checkboxesWrapper: {
     width: '100%',
@@ -434,6 +434,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '185px !important',
   },
 
+  executorContainer: {
+    width: '100% !important',
+  },
+
   requestTypeField: {
     width: '100%',
     height: 40,
@@ -454,12 +458,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  dateAndTimeContainerleft: {
-    width: '377px !important',
+  dateAndTimeContainer: {
+    width: '100p% !important',
   },
-  dateAndTimeContainerRight: {
-    width: '378px !important',
-  },
+
   dateField: {
     width: '100%',
   },
@@ -469,36 +471,26 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
   },
-  asinWrapper: {
-    display: 'flex',
-    width: 'fit-content',
-    gap: 5,
-  },
+
   changePerformerBtn: {
-    width: 190,
+    // width: 190,
+    whiteSpace: 'nowrap',
   },
 
-  performerWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-  },
   performerAndButtonSubWrapper: {
     display: 'flex',
 
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
+
   performerAndButtonWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'space-between',
-    justifyContent: 'flex-end',
-
-    width: 378,
-
-    gap: 20,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    width: '100% !important',
   },
+
   userInfo: {
     display: 'flex',
     alignItems: 'center',
@@ -508,15 +500,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: 28,
     height: 28,
   },
-  nameWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
   performerDescriptionText: {
     maxHeight: 76,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    wordWrap: 'break-word',
 
     display: '-webkit-box',
     WebkitLineClamp: 3,
@@ -569,20 +558,22 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#FB1D5B',
   },
 
+  customSubMainWrapperAsin: {
+    padding: '10px 10px !important',
+    width: '260px !important',
+  },
+
   customSubMainWrapper: {
-    padding: '10px 0 !important',
-    width: '185px !important',
+    padding: '10px 10px !important',
+    width: '371px !important',
   },
 
   customSearchInput: {
-    marginLeft: 5,
+    margin: 0,
 
-    width: 158,
+    width: '100%',
     height: 30,
     marginBottom: 20,
-  },
-  orderText: {
-    width: 'fit-content',
   },
 
   editorMaxHeight: {
@@ -602,5 +593,14 @@ export const useClassNames = makeStyles()(theme => ({
   priorityText: {
     display: 'flex',
     gap: 15,
+  },
+
+  copyAsinlinkSpan: {
+    fontSize: 16,
+  },
+
+  executorWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }))

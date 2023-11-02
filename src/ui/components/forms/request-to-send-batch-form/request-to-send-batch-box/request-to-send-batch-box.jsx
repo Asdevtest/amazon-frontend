@@ -1,18 +1,19 @@
 import { cx } from '@emotion/css'
-import { Typography, Checkbox } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Checkbox, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Modal } from '@components/shared/modal'
 
-import { calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
+import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixedWithDollarSign, toFixedWithKg, getShortenStringIfLongerThanCount } from '@utils/text'
+import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './request-to-send-batch-box.styles'
@@ -67,7 +68,13 @@ export const RequestToSendBatchBox = ({
 
                 <div className={classNames.boxItemSubInfoWrapper}>
                   <div className={classNames.boxItemSubSubInfoWrapper}>
-                    <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
+                    <AsinOrSkuLink
+                      withCopyValue
+                      withAttributeTitle={'asin'}
+                      textStyles={classNames.asinTitle}
+                      attributeTitleTextStyles={classNames.asinTitle}
+                      asin={box.items[0].product.asin}
+                    />
 
                     <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
                       TranslationKey['pcs.'],
@@ -129,7 +136,13 @@ export const RequestToSendBatchBox = ({
 
                   <div className={classNames.boxItemSubInfoWrapper}>
                     <div className={classNames.boxItemSubSubInfoWrapper}>
-                      <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
+                      <AsinOrSkuLink
+                        withCopyValue
+                        withAttributeTitle={'asin'}
+                        textStyles={classNames.asinTitle}
+                        attributeTitleTextStyles={classNames.asinTitle}
+                        asin={box.items[0].product.asin}
+                      />
 
                       <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} ${t(
                         TranslationKey['pcs.'],

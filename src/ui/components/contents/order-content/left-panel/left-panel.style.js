@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    padding: '15px 15px',
     width: '500px',
   },
   amazonTitle: {
@@ -19,7 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '98px',
     width: '92px',
     margin: '0 50px 0 0',
-    objectFit: 'cover',
+    objectFit: 'contain',
     objectPosition: 'center',
   },
 
@@ -53,9 +52,6 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '34px 0 30px',
   },
 
-  asinTypo: {
-    color: theme.palette.text.second,
-  },
   divider: {
     margin: '10px 0',
   },
@@ -68,10 +64,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '79px',
   },
 
-  copyValueWrapper: {
+  productInfoWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     gap: '10px',
-    marginTop: '19px',
   },
 }))

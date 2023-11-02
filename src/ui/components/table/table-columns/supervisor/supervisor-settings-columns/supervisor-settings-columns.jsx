@@ -1,12 +1,9 @@
-import React from 'react'
-
-// import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
   EditOrRemoveIconBtnsCell,
   MultilineTextAlignLeftCell,
+  MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -27,7 +24,7 @@ export const supervisorSettingsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
 
     width: 535,
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
   {
     field: 'action',

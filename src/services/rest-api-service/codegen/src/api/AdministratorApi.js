@@ -17,6 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject from '../model/InlineObject';
 import InlineObject1 from '../model/InlineObject1';
+import InlineObject10 from '../model/InlineObject10';
 import InlineObject2 from '../model/InlineObject2';
 import InlineObject3 from '../model/InlineObject3';
 import InlineObject4 from '../model/InlineObject4';
@@ -24,8 +25,11 @@ import InlineObject5 from '../model/InlineObject5';
 import InlineObject6 from '../model/InlineObject6';
 import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
+import InlineObject9 from '../model/InlineObject9';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
+import InlineResponse20010 from '../model/InlineResponse20010';
+import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
@@ -33,6 +37,7 @@ import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse2006 from '../model/InlineResponse2006';
 import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse2009 from '../model/InlineResponse2009';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import SuccessResponseBodyWithGuid from '../model/SuccessResponseBodyWithGuid';
@@ -218,11 +223,11 @@ export default class AdministratorApi {
 
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Получить список отзывов/жалоб
+     * ## Получить список отзывов/жалоб   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
      */
     apiV1AdminsFeedbackGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -241,7 +246,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2007];
+      let returnType = [InlineResponse20010];
       return this.apiClient.callApi(
         '/api/v1/admins/feedback', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -250,11 +255,11 @@ export default class AdministratorApi {
     }
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Получить список отзывов/жалоб
+     * ## Получить список отзывов/жалоб   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
      */
     apiV1AdminsFeedbackGet(opts) {
       return this.apiV1AdminsFeedbackGetWithHttpInfo(opts)
@@ -651,6 +656,71 @@ export default class AdministratorApi {
 
 
     /**
+     * # Получить список заказов с пагинацией.
+     * ## Получить список заказов с пагинацией.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status Статусы заказа (можно указать несколько через запятую).
+     * @param {String} opts.filters                Возможные поля:  asin, amazonTitle, skusByClient, id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     */
+    apiV1AdminsOrdersPagGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': opts['status'],
+        'filters': opts['filters'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse2002;
+      return this.apiClient.callApi(
+        '/api/v1/admins/orders/pag', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список заказов с пагинацией.
+     * ## Получить список заказов с пагинацией.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status Статусы заказа (можно указать несколько через запятую).
+     * @param {String} opts.filters                Возможные поля:  asin, amazonTitle, skusByClient, id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     */
+    apiV1AdminsOrdersPagGet(opts) {
+      return this.apiV1AdminsOrdersPagGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Внести изменения в продукт (снять с биржи).
      * ## Внести изменения в продукт (снять с биржи).   
      * @param {String} guid GUID продукта в БД.
@@ -765,7 +835,7 @@ export default class AdministratorApi {
      * ## Получить все оплаты, которые были начислены всем ролям.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
     apiV1AdminsPaymentsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -784,7 +854,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2003];
+      let returnType = [InlineResponse2004];
       return this.apiClient.callApi(
         '/api/v1/admins/payments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -797,7 +867,7 @@ export default class AdministratorApi {
      * ## Получить все оплаты, которые были начислены всем ролям.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
     apiV1AdminsPaymentsGet(opts) {
       return this.apiV1AdminsPaymentsGetWithHttpInfo(opts)
@@ -812,7 +882,7 @@ export default class AdministratorApi {
      * ## Привязать/отвязать юзера к товару   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject8} opts.body 
+     * @param {module:model/InlineObject10} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1AdminsProductLinkOrUnlinkUserRolePatchWithHttpInfo(opts) {
@@ -845,7 +915,7 @@ export default class AdministratorApi {
      * ## Привязать/отвязать юзера к товару   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject8} opts.body 
+     * @param {module:model/InlineObject10} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1AdminsProductLinkOrUnlinkUserRolePatch(opts) {
@@ -857,11 +927,76 @@ export default class AdministratorApi {
 
 
     /**
+     * # Получить список товаров c пагинацией.
+     * ## Получить список товаров c пагинацией.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status Статусы продукта (можно указать несколько через запятую).
+     * @param {String} opts.filters                Возможные поля: asin, amazonTitle, skusByClient               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
+     */
+    apiV1AdminsProductsPagGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': opts['status'],
+        'filters': opts['filters'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse2008;
+      return this.apiClient.callApi(
+        '/api/v1/admins/products/pag', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список товаров c пагинацией.
+     * ## Получить список товаров c пагинацией.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status Статусы продукта (можно указать несколько через запятую).
+     * @param {String} opts.filters                Возможные поля: asin, amazonTitle, skusByClient               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
+     */
+    apiV1AdminsProductsPagGet(opts) {
+      return this.apiV1AdminsProductsPagGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Получить список вакантных товаров.
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
      */
     apiV1AdminsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -880,7 +1015,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2007];
       return this.apiClient.callApi(
         '/api/v1/admins/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -893,7 +1028,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
      */
     apiV1AdminsProductsVacGet(opts) {
       return this.apiV1AdminsProductsVacGetWithHttpInfo(opts)
@@ -1000,8 +1135,8 @@ export default class AdministratorApi {
 
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * # Удалить новый красный флаг
+     * ## Удалить новый красный флаг
      * @param {String} guid GUID красного флага в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -1038,8 +1173,8 @@ export default class AdministratorApi {
     }
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * # Удалить новый красный флаг
+     * ## Удалить новый красный флаг
      * @param {String} guid GUID красного флага в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -1054,8 +1189,64 @@ export default class AdministratorApi {
 
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Изменить красный флаг
+     * ## Изменить красный флаг   
+     * @param {String} guid GUID красного флага в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject8} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AdminsRedFlagsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsRedFlagsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/admins/red_flags/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Изменить красный флаг
+     * ## Изменить красный флаг   
+     * @param {String} guid GUID красного флага в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject8} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AdminsRedFlagsGuidPatch(guid, opts) {
+      return this.apiV1AdminsRedFlagsGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Создать новый красный флаг
+     * ##  Создать новый красный флаг  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject7} opts.body 
@@ -1087,8 +1278,8 @@ export default class AdministratorApi {
     }
 
     /**
-     * #  Получить список отзывов/репортов
-     * ## Получить список отзывов/репортов   
+     * #  Создать новый красный флаг
+     * ##  Создать новый красный флаг  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject7} opts.body 
@@ -1157,7 +1348,7 @@ export default class AdministratorApi {
      * @param {Number} value интервал нотификаций касательно дедлайна ордера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2006} and HTTP response
      */
     apiV1AdminsSetTimeToDeadlinePendingOrderValuePatchWithHttpInfo(value, opts) {
       opts = opts || {};
@@ -1181,7 +1372,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2005;
+      let returnType = InlineResponse2006;
       return this.apiClient.callApi(
         '/api/v1/admins/set_timeToDeadlinePendingOrder/{value}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1195,10 +1386,115 @@ export default class AdministratorApi {
      * @param {Number} value интервал нотификаций касательно дедлайна ордера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2006}
      */
     apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts) {
       return this.apiV1AdminsSetTimeToDeadlinePendingOrderValuePatchWithHttpInfo(value, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Удалить массив тегов
+     * ## Удалить массив тегов   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AdminsTagsDeleteWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/admins/tags', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Удалить массив тегов
+     * ## Удалить массив тегов   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AdminsTagsDelete(opts) {
+      return this.apiV1AdminsTagsDeleteWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Редактирование тега
+     * ## Редактирование тега   
+     * @param {String} guid GUID тега в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject9} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AdminsTagsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1AdminsTagsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/admins/tags/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Редактирование тега
+     * ## Редактирование тега   
+     * @param {String} guid GUID тега в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject9} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AdminsTagsGuidPatch(guid, opts) {
+      return this.apiV1AdminsTagsGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1211,7 +1507,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
     apiV1AdminsTasksLightGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1231,7 +1527,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2004];
+      let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/admins/tasks_light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1245,10 +1541,81 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */
     apiV1AdminsTasksLightGet(opts) {
       return this.apiV1AdminsTasksLightGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить список задач c пагинацией.
+     * ## Получить список задач c пагинацией.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status Статус задачи (можно указать несколько через запятую).
+     * @param {String} opts.type Тип задачи (можно указать несколько через запятую).
+     * @param {String} opts.priority Приоритет задачи (можно указать несколько через запятую).
+     * @param {String} opts.filters                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
+     */
+    apiV1AdminsTasksPagGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': opts['status'],
+        'type': opts['type'],
+        'priority': opts['priority'],
+        'filters': opts['filters'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse2009;
+      return this.apiClient.callApi(
+        '/api/v1/admins/tasks/pag', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список задач c пагинацией.
+     * ## Получить список задач c пагинацией.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status Статус задачи (можно указать несколько через запятую).
+     * @param {String} opts.type Тип задачи (можно указать несколько через запятую).
+     * @param {String} opts.priority Приоритет задачи (можно указать несколько через запятую).
+     * @param {String} opts.filters                Возможные поля: asin, amazonTitle, skusByClient, Id               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
+     */
+    apiV1AdminsTasksPagGet(opts) {
+      return this.apiV1AdminsTasksPagGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1260,7 +1627,7 @@ export default class AdministratorApi {
      * ## Включить/выключить сервер   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2006} and HTTP response
      */
     apiV1AdminsToggleServerPatchWithHttpInfo(opts) {
       opts = opts || {};
@@ -1279,7 +1646,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2005;
+      let returnType = InlineResponse2006;
       return this.apiClient.callApi(
         '/api/v1/admins/toggle_server', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1292,7 +1659,7 @@ export default class AdministratorApi {
      * ## Включить/выключить сервер   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2006}
      */
     apiV1AdminsToggleServerPatch(opts) {
       return this.apiV1AdminsToggleServerPatchWithHttpInfo(opts)
@@ -1308,7 +1675,7 @@ export default class AdministratorApi {
      * @param {Number} role Роль юзера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
     apiV1AdminsUsersByRoleGetWithHttpInfo(role, opts) {
       opts = opts || {};
@@ -1332,7 +1699,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = [InlineResponse20011];
       return this.apiClient.callApi(
         '/api/v1/admins/users_by_role', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1346,7 +1713,7 @@ export default class AdministratorApi {
      * @param {Number} role Роль юзера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
     apiV1AdminsUsersByRoleGet(role, opts) {
       return this.apiV1AdminsUsersByRoleGetWithHttpInfo(role, opts)
@@ -1409,7 +1776,7 @@ export default class AdministratorApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2003} and HTTP response
      */
     apiV1AdminsUsersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -1433,7 +1800,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse2003;
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1447,7 +1814,7 @@ export default class AdministratorApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2003}
      */
     apiV1AdminsUsersGuidGet(guid, opts) {
       return this.apiV1AdminsUsersGuidGetWithHttpInfo(guid, opts)

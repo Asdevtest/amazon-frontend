@@ -1,24 +1,22 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
-import { Checkbox, Menu, Typography } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
 
-import { t } from 'i18n-js'
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
+import { Checkbox, Menu, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { SearchInput } from '@components/shared/search-input'
 
+import { t } from '@utils/translations'
+
 import { useClassNames } from './data-grid-custom-columns-button.style'
 
-export const DataGridCustomColumnsButton = props => {
+export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) => {
   const { classes: classNames } = useClassNames()
-  const { className, columsBtnSettings, ...other } = props
 
-  const { columnsModel, changeColumnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
+  const { columnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
 
   const [menuAnchor, setMenuAnchor] = useState(null)
   const handleClick = event => {
@@ -28,19 +26,30 @@ export const DataGridCustomColumnsButton = props => {
     setMenuAnchor(null)
   }
 
-  const [itemsForRender, setItemsForRender] = useState(columnsModel || [])
+  const getCurrentData = () => columnsModel?.filter(column => column?.type !== 'checkboxSelection')
+
+  const [filteredColumnsModel, setFilteredColumnsModel] = useState(getCurrentData())
+
+  const [itemsForRender, setItemsForRender] = useState(filteredColumnsModel || [])
+
   const [nameSearchValue, setNameSearchValue] = useState('')
 
   useEffect(() => {
-    setItemsForRender(columnsModel)
+    setItemsForRender(filteredColumnsModel)
+  }, [filteredColumnsModel])
+
+  useEffect(() => {
+    setFilteredColumnsModel(getCurrentData())
   }, [columnsModel])
 
   useEffect(() => {
     if (nameSearchValue) {
-      const filter = columnsModel?.filter(item => item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()))
+      const filter = filteredColumnsModel?.filter(item =>
+        item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()),
+      )
       setItemsForRender(filter)
     } else {
-      setItemsForRender(columnsModel)
+      setItemsForRender(filteredColumnsModel)
     }
   }, [nameSearchValue])
 
@@ -55,9 +64,9 @@ export const DataGridCustomColumnsButton = props => {
 
   const onClickAllItemBtn = () => {
     if (isSomeItemChecked) {
-      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
+      onColumnVisibilityModelChange(filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
     } else {
-      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
+      onColumnVisibilityModelChange(filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
     }
   }
 
@@ -88,6 +97,7 @@ export const DataGridCustomColumnsButton = props => {
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
+              onKeyDown={e => e.stopPropagation()}
             />
           </div>
 
@@ -98,7 +108,9 @@ export const DataGridCustomColumnsButton = props => {
                 checked={!columnVisibilityModel || !isSomeItemChecked}
                 onClick={onClickAllItemBtn}
               />
-              <div className={classNames.shopName}>{t(TranslationKey.All)}</div>
+              <div title={t(TranslationKey.All)} className={classNames.shopName}>
+                {t(TranslationKey.All)}
+              </div>
             </div>
 
             {itemsForRender.map((el, index) => (
@@ -110,7 +122,9 @@ export const DataGridCustomColumnsButton = props => {
                   }
                   onClick={() => onClickItem(el.field)}
                 />
-                <div className={classNames.shopName}>{el.headerName}</div>
+                <div title={el.headerName} className={classNames.shopName}>
+                  {el.headerName}
+                </div>
               </div>
             ))}
           </div>

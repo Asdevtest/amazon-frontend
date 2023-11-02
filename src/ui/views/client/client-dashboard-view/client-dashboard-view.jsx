@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getClientDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,8 +11,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
-// import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import { MainContent } from '@components/layout/main-content'
 import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'
@@ -21,8 +18,9 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ClientDashboardViewModel } from './client-dashboard-view.model'
 import { styles } from './client-dashboard-view.style'
+
+import { ClientDashboardViewModel } from './client-dashboard-view.model'
 
 export const ClientDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ClientDashboardViewModel({ history: props.history }))
@@ -39,7 +37,7 @@ export const ClientDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classes.userInfoWrapper}>
           <div className={classes.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classes.cardImg} />
@@ -52,8 +50,8 @@ export const ClientDashboardViewRaw = props => {
                   className={classes.button}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
-                  {t(TranslationKey.Deposit)}
                   <img src="/assets/icons/white-plus.svg" className={classes.icon} />
+                  {t(TranslationKey.Deposit)}
                 </Button>
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
@@ -87,7 +85,7 @@ export const ClientDashboardViewRaw = props => {
           onClickViewMore={viewModel.onClickInfoCardViewMode}
           onClickAddProduct={viewModel.onClickAddProduct}
         />
-      </MainContent>
+      </div>
       <UserMoneyTransferModal
         openModal={viewModel.showTransferModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}

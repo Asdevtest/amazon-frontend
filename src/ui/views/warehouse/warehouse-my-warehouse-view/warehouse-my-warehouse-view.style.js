@@ -80,8 +80,8 @@ export const styles = theme => ({
     height: 36,
   },
   datagridWrapper: {
-    marginTop: '10px',
-    height: '84vh',
+    marginTop: '20px',
+    height: '82vh',
   },
   filterForm: {
     [theme.breakpoints.down(768)]: {

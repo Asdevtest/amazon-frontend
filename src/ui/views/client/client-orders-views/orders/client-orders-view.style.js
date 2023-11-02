@@ -16,6 +16,12 @@ export const styles = theme => ({
     padding: '0 25px',
   },
 
+  buttonDanger: {
+    '&:disabled': {
+      color: `${theme.palette.button.disabledDangerText} !important`,
+    },
+  },
+
   invis: {
     width: 261,
   },
@@ -38,14 +44,13 @@ export const styles = theme => ({
   },
 
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
   datagridWrapper: {
-    height: 'calc(100vh - 200px)',
+    height: '79vh',
   },
   root: {
     border: '0 !important',

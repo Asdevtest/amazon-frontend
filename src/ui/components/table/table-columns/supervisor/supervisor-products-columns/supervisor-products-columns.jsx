@@ -1,6 +1,7 @@
-import React from 'react'
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
-import { colorByProductStatus, ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -9,13 +10,27 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductAsinCell,
+  RedFlagsCell,
+  SelectRowCell,
+  TagsCell,
   ToFixedWithDollarSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
 
-export const supervisorProductsViewColumns = () => [
+export const supervisorProductsViewColumns = handlers => [
+  {
+    ...GRID_CHECKBOX_SELECTION_COL_DEF,
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => handlers.onClickShowProduct(params.row?.originalData?._id)}
+      />
+    ),
+    width: 80,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
@@ -34,6 +49,8 @@ export const supervisorProductsViewColumns = () => [
       )
     },
     width: 350,
+
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -48,6 +65,8 @@ export const supervisorProductsViewColumns = () => [
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
+
+    columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
   {
@@ -55,7 +74,10 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 140,
+    align: 'center',
+
+    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
 
   {
@@ -66,26 +88,39 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     type: 'number',
     width: 100,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'researcherName',
+    field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+      <UserLinkCell
+        blackText
+        name={params.row.originalData.createdBy?.name}
+        userId={params.row.originalData.createdBy?._id}
+      />
     ),
+
     width: 170,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'buyerName',
+    field: 'buyer',
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.row.originalData.buyer?.name} userId={params.row.originalData.buyer?._id} />
+    ),
     width: 170,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -96,6 +131,8 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -106,6 +143,8 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
     type: 'number',
     minWidth: 100,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -119,13 +158,13 @@ export const supervisorProductsViewColumns = () => [
           params.value
             ? {
                 background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-                '-webkit-background-clip': 'text',
-                '-webkit-text-fill-color': 'transparent',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }
             : {
                 background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-                '-webkit-background-clip': 'text',
-                '-webkit-text-fill-color': 'transparent',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }
         }
         color={params.value ? '#00b746' : 'red'}
@@ -134,6 +173,28 @@ export const supervisorProductsViewColumns = () => [
     ),
     minWidth: 50,
     type: 'boolean',
+    sortable: false,
+    columnKey: columnnsKeys.shared.YES_NO,
+  },
+
+  {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
+    width: 160,
+    sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    width: 130,
+    sortable: false,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {
@@ -144,6 +205,8 @@ export const supervisorProductsViewColumns = () => [
     width: 120,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -155,5 +218,7 @@ export const supervisorProductsViewColumns = () => [
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

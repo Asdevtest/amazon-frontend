@@ -50,7 +50,7 @@ export const styles = theme => ({
   },
 
   dataGridWrapper: {
-    height: '84vh',
+    height: '82vh',
   },
 
   totalPriceWrapper: {
@@ -75,5 +75,9 @@ export const styles = theme => ({
 
   totalPriceTextWrapper: {
     display: 'flex',
+  },
+
+  loadingCircle: {
+    zIndex: 10000,
   },
 })

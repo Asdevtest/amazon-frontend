@@ -1,6 +1,6 @@
-import { Box, Container, Typography, Link } from '@mui/material'
+import { useState } from 'react'
 
-import React, { useState } from 'react'
+import { Container, Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,7 +23,7 @@ export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, ite
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{title ? title : t(TranslationKey['Add barcode'])}</Typography>
+      <p className={classNames.modalTitle}>{title ? title : t(TranslationKey['Add barcode'])}</p>
 
       {barCode && (
         <Field
@@ -31,7 +31,7 @@ export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, ite
           inputComponent={
             <div className={classNames.barCodeWrapper}>
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
-                <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                <p className={classNames.link}>{t(TranslationKey.View)}</p>
               </Link>
               <CopyValue text={barCode} />
             </div>
@@ -43,7 +43,7 @@ export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, ite
         <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber || 1} />
       </div>
 
-      <Box className={classNames.saveBox}>
+      <div className={classNames.saveBox}>
         <Button
           success
           disabled={!files.length && !tmpCode?.length}
@@ -55,7 +55,7 @@ export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, ite
         <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
-      </Box>
+      </div>
     </Container>
   )
 }

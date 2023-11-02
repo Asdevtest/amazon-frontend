@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject57 model module.
@@ -23,11 +22,12 @@ class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
      * @alias module:model/InlineObject57
-     * @param name {String} Название профиля
+     * @param clientComment {String} 
+     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(name) { 
+    constructor(clientComment, priceForClient) { 
         
-        InlineObject57.initialize(this, name);
+        InlineObject57.initialize(this, clientComment, priceForClient);
     }
 
     /**
@@ -35,8 +35,9 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj, clientComment, priceForClient) { 
+        obj['clientComment'] = clientComment;
+        obj['priceForClient'] = priceForClient;
     }
 
     /**
@@ -50,14 +51,11 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -67,22 +65,15 @@ class InlineObject57 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * @member {String} clientComment
  */
-InlineObject57.prototype['name'] = undefined;
+InlineObject57.prototype['clientComment'] = undefined;
 
 /**
- * Название ОС
- * @member {String} os
- * @default 'mac'
+ * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+ * @member {Number} priceForClient
  */
-InlineObject57.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject57.prototype['navigator'] = undefined;
+InlineObject57.prototype['priceForClient'] = undefined;
 
 
 

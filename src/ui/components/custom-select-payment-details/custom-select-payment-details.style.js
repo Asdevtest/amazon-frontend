@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -10,14 +9,13 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 !important',
   },
   selectIsNotEmpty: {
-    // padding: '10px 73px 10px 15px !important',
-    padding: '0 73px 0 15px !important',
+    padding: '0 100px 0 50px !important',
   },
 
   paymentMethodsLabel: {
     fontWeight: 600,
     fontSize: 14,
-    lineHeight: '19pх',
+    lineHeight: '19px',
 
     whiteSpace: 'nowrap',
 
@@ -52,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
-  paymentMethodsPlaccholder: {
+  paymentMethodsPlaceholder: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -78,19 +76,9 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  selectedItemText: {
-    textAlign: 'center',
-
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-
-    color: theme.palette.primary.main,
-  },
-
   generalText: {
     '&.Mui-disabled': {
-      '-webkit-text-fill-color': `${theme.palette.primary.main} !important`,
+      WebkitTextFillColor: `${theme.palette.primary.main} !important`,
     },
   },
 
@@ -106,5 +94,31 @@ export const useClassNames = makeStyles()(theme => ({
     height: '13px !important',
 
     color: theme.palette.primary.main,
+  },
+
+  paymentMethods: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 5,
+    padding: '5px 0',
+  },
+
+  paymentMethod: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  paymentMethodIcon: {
+    width: 19,
+    height: 19,
+    borderRadius: '50%',
+  },
+
+  paymentMethodTitle: {
+    fontSize: 14,
+    lineHeight: '19px',
   },
 }))

@@ -1,14 +1,15 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
@@ -19,7 +20,6 @@ import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-f
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
-import { MainContent } from '@components/layout/main-content'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
@@ -34,9 +34,9 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 import { styles } from './warehouse-my-warehouse-view.style'
-import { SettingsModel } from '@models/settings-model'
+
+import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
 export const WarehouseMyWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))
@@ -85,7 +85,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
 
@@ -99,8 +99,8 @@ export const WarehouseMyWarehouseViewRaw = props => {
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
-            // disableVirtualization
             key={SettingsModel.languageTag}
+            disableVirtualization
             checkboxSelection
             pagination
             localeText={getLocalizationByLanguageTag()}
@@ -136,6 +136,9 @@ export const WarehouseMyWarehouseViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: viewModel.columnMenuSettings,
 
               toolbar: {
@@ -163,7 +166,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
             }
           />
         </div>
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showBoxViewModal}

@@ -5,19 +5,24 @@ export const styles = theme => ({
   },
 
   attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#C69109',
+    },
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
-  },
-
-  headerWrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-
-    gap: 20,
   },
 
   footerContainer: {
@@ -36,7 +41,7 @@ export const styles = theme => ({
 
   dataGridWrapper: {
     marginTop: '20px',
-    height: 'calc(100vh - 280px)',
+    height: '70vh',
   },
 
   selectStatusFilterButton: {
@@ -51,11 +56,11 @@ export const styles = theme => ({
     fontWeight: 600,
     '&.Mui-disabled': {
       opacity: '.3',
+      color: theme.palette.primary.main,
       backgroundColor: 'transparent',
     },
   },
   badge: {
-    margin: '0 auto',
     height: 20,
     width: 'fit-content',
     background: theme.palette.primary.main,
@@ -75,6 +80,15 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    marginLeft: '50%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 10,
+  },
+
+  searchInput: {
+    width: '100%',
+    maxWidth: 320,
   },
 })

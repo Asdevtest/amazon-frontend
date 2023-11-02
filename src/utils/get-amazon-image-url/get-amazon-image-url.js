@@ -1,17 +1,29 @@
 import {
-  amazonImageUrlSmallPostfix,
-  amazonImageUrlPrefix,
   amazonImageUrlBigPostfix,
+  amazonImageUrlPrefix,
+  amazonImageUrlSmallPostfix,
 } from '@constants/configs/amazon-images'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
 export const getAmazonImageUrl = (str, big) => {
   if (str) {
     if (str.includes(BACKEND_API_URL)) {
-      return big ? str : str + '.preview.webp'
-    } else if (str.includes('http')) {
+      if (str.includes('.preview.webp')) {
+        return str
+      } else {
+        return big ? str : str + '.preview.webp'
+      }
+    } else if (str.includes('placeimg.com')) {
       return str
+    } else if (str.includes('.com')) {
+      return '/assets/img/no-photo.jpg'
     } else if (str.includes('base64')) {
+      return str
+    } else if (
+      str.includes(amazonImageUrlBigPostfix) ||
+      str.includes(amazonImageUrlSmallPostfix) ||
+      str.includes('_AC_SL1500_')
+    ) {
       return str
     } else {
       return `${amazonImageUrlPrefix}${str}${big ? amazonImageUrlBigPostfix : amazonImageUrlSmallPostfix}`

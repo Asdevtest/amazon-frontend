@@ -2,10 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '36px !important',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    minWidth: '30px !important',
+    cursor: 'pointer',
     color: '#fff',
     height: 40,
+    borderRadius: 7,
     // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
   },
@@ -15,6 +16,10 @@ export const useClassNames = makeStyles()(theme => ({
       background: theme.palette.button.disabledBackground,
       color: theme.palette.button.disabledText,
     },
+  },
+
+  disabled: {
+    cursor: 'unset !important',
   },
 
   success: {
@@ -74,7 +79,7 @@ export const useClassNames = makeStyles()(theme => ({
   tooltipsCenterWrapper: {
     position: 'absolute',
     top: 'calc(50% - 10.5px)',
-    right: '10px',
+    right: 15,
     zIndex: '10',
 
     display: 'flex',
@@ -101,5 +106,9 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
+  },
+
+  small: {
+    height: '30px',
   },
 }))

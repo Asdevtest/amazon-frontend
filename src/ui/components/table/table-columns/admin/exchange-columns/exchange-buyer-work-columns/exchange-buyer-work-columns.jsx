@@ -3,12 +3,12 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
-  MultilineTextCell,
-  NormDateCell,
-  UserLinkCell,
-  MultilineTextHeaderCell,
   MultilineStatusCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  ProductAsinCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -97,8 +97,9 @@ export const exchangeBuyerWorkColumns = () => [
     field: 'buyer',
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.row.originalData.buyer?.name} userId={params.row.originalData.buyer?._id} />
+    ),
     width: 200,
   },
 

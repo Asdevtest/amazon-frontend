@@ -2,7 +2,7 @@ export const styles = theme => ({
   buttonBox: {
     textAlign: 'left',
     marginRight: '0',
-    padding: '16px 0',
+    marginTop: 10,
     display: 'flex',
     gap: 30,
   },
@@ -12,7 +12,7 @@ export const styles = theme => ({
   },
 
   datagridWrapper: {
-    marginTop: '10px',
+    marginTop: '20px',
     height: '74vh',
   },
   root: {
@@ -66,6 +66,6 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.general,
   },
 })

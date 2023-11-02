@@ -1,20 +1,19 @@
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { UsersViewModel } from './users-view.model'
 import { styles } from './users-view.style'
+
+import { UsersViewModel } from './users-view.model'
 
 export const UsersViewRaw = props => {
   const [viewModel] = useState(() => new UsersViewModel({ history: props.history }))
@@ -22,7 +21,7 @@ export const UsersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div>
           <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
 
@@ -40,7 +39,7 @@ export const UsersViewRaw = props => {
             </Button>
           </div>
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

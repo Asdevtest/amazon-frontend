@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID в базе данных | [optional] 
-**name** | **String** | Имя пользователя. | [optional] 
+**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
+**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
+**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
 
 

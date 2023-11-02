@@ -1,13 +1,14 @@
 import { cx } from '@emotion/css'
-import { Tab, Tabs, Typography, Table, TableBody, TableHead, TableContainer, Paper } from '@mui/material'
-
 import React from 'react'
+
+import { Paper, Tab, Table, TableBody, TableContainer, TableHead, Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './active-orders.style'
+
 import { ExchangeProductItem } from './exchange-product-item'
 
 export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handlerClickButtonPrivateLabel }) => {

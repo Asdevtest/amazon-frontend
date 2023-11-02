@@ -70,6 +70,12 @@ class InlineResponse200 {
             if (data.hasOwnProperty('currentSupplierId')) {
                 obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
             }
+            if (data.hasOwnProperty('parentProductId')) {
+                obj['parentProductId'] = ApiClient.convertToType(data['parentProductId'], 'String');
+            }
+            if (data.hasOwnProperty('hasChildren')) {
+                obj['hasChildren'] = ApiClient.convertToType(data['hasChildren'], 'Boolean');
+            }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
@@ -265,8 +271,8 @@ class InlineResponse200 {
             if (data.hasOwnProperty('ideasOnCheck')) {
                 obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
             }
-            if (data.hasOwnProperty('ideasVerified')) {
-                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            if (data.hasOwnProperty('ideasFinished')) {
+                obj['ideasFinished'] = ApiClient.convertToType(data['ideasFinished'], 'Number');
             }
             if (data.hasOwnProperty('ideasClosed')) {
                 obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
@@ -319,6 +325,18 @@ InlineResponse200.prototype['currentSupplier'] = undefined;
  * @member {String} currentSupplierId
  */
 InlineResponse200.prototype['currentSupplierId'] = undefined;
+
+/**
+ * Гуид родительского продукта
+ * @member {String} parentProductId
+ */
+InlineResponse200.prototype['parentProductId'] = undefined;
+
+/**
+ * Имеет ли дочерние продукты данный продукт (по parentProductId)
+ * @member {Boolean} hasChildren
+ */
+InlineResponse200.prototype['hasChildren'] = undefined;
 
 /**
  * Категория
@@ -701,9 +719,9 @@ InlineResponse200.prototype['fbaFbmStockSum'] = undefined;
 InlineResponse200.prototype['ideasOnCheck'] = undefined;
 
 /**
- * @member {Number} ideasVerified
+ * @member {Number} ideasFinished
  */
-InlineResponse200.prototype['ideasVerified'] = undefined;
+InlineResponse200.prototype['ideasFinished'] = undefined;
 
 /**
  * @member {Number} ideasClosed

@@ -1,30 +1,25 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { React, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
 
-import {
-  inchesCoefficient,
-  poundsCoefficient,
-  poundsWeightCoefficient,
-  sizesType,
-} from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -32,7 +27,6 @@ import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-supplier-modal-content.style'
-import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
@@ -128,8 +122,6 @@ export const AddOrEditSupplierModalContent = observer(
         batchTotalCostInDollar:
           +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
 
-        // lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
-
         boxProperties: {
           ...tmpSupplier.boxProperties,
           boxLengthCm:
@@ -175,6 +167,7 @@ export const AddOrEditSupplierModalContent = observer(
     }
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const renderFooterModalButtons = () => {
       if (outsideProduct) {
@@ -215,35 +208,6 @@ export const AddOrEditSupplierModalContent = observer(
                     makeMainSupplier,
                     editPhotosOfSupplier,
                   })
-                  // setTmpSupplier({
-                  //   amount: '',
-                  //   comment: '',
-                  //   link: '',
-                  //   lotcost: '',
-                  //   minlot: '',
-                  //   name: '',
-                  //   price: '',
-                  //   images: [],
-
-                  //   paymentMethods: [],
-
-                  //   priceInYuan: '',
-                  //   batchDeliveryCostInDollar: 0,
-                  //   batchDeliveryCostInYuan: 0,
-                  //   batchTotalCostInDollar: '',
-                  //   batchTotalCostInYuan: '',
-
-                  //   boxProperties: {
-                  //     amountInBox: '',
-                  //     boxLengthCm: '',
-                  //     boxWidthCm: '',
-                  //     boxHeightCm: '',
-                  //     boxWeighGrossKg: '',
-                  //   },
-                  // })
-
-                  // setPhotosOfSupplier(() => [])
-                  // setMakeMainSupplier(false)
                   onTriggerShowModal()
                 }}
               >
@@ -294,34 +258,6 @@ export const AddOrEditSupplierModalContent = observer(
         )
       }
     }
-
-    // const onChangePaymentMethod = event => {
-    //   if (Array.isArray(event)) {
-    //     if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [],
-    //       })
-    //     } else {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [...event],
-    //       })
-    //     }
-    //   } else {
-    //     if (tmpSupplier?.paymentMethods?.some(item => item?._id === event?._id)) {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: tmpSupplier?.paymentMethods?.filter(item => item?._id !== event?._id),
-    //       })
-    //     } else {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [...tmpSupplier.paymentMethods, event],
-    //       })
-    //     }
-    //   }
-    // }
 
     const onChangePaymentMethod = event => {
       const selectedValues = event
@@ -514,13 +450,13 @@ export const AddOrEditSupplierModalContent = observer(
             />
           </div>
 
-          <div className={classNames.nameBlock}>
+          <div className={cx(classNames.nameBlock, classNames.nameBlockFlexStart)}>
             {onlyRead ? (
               <Field
                 tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
                 label={t(TranslationKey.Link) + '*'}
                 inputProps={{ maxLength: 2000 }}
-                containerClasses={classNames.linkContainerOnlyRead}
+                containerClasses={classNames.linkContainer}
                 labelClasses={classNames.normalLabel}
                 inputComponent={
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
@@ -960,13 +896,12 @@ export const AddOrEditSupplierModalContent = observer(
               </div>
             ) : null}
             <div className={classNames.photoAndFilesWrapper}>
-              <PhotoAndFilesCarousel
-                small
+              <PhotoAndFilesSlider
+                smallSlider
+                showPreviews
                 withoutMakeMainImage
                 isEditable={!onlyRead}
                 files={tmpSupplier.images}
-                width="300px"
-                imagesForLoad={editPhotosOfSupplier}
                 onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
               />
             </div>
@@ -981,10 +916,12 @@ export const AddOrEditSupplierModalContent = observer(
           <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
         )}
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={tmpSupplier.images}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={tmpSupplier.images}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
         />
 
         <Modal

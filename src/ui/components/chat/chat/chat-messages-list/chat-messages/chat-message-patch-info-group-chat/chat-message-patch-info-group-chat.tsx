@@ -1,14 +1,13 @@
-import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined'
-import { Typography } from '@mui/material'
+import { FC, useState } from 'react'
 
-import React, { FC, useState } from 'react'
+import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageRemovePatchInfoGroupChatContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -39,29 +38,28 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
           blackText={undefined}
           withAvatar={undefined}
           maxNameWidth={undefined}
-          customStyles={undefined}
           customClassNames={undefined}
         />
 
-        <Typography className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</Typography>
+        <p className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</p>
       </div>
 
       <div>
         {titleIsChanged ? (
           <div className={classNames.changeTitleWrapper}>
-            <Typography className={classNames.groupText}>{t(TranslationKey.Title)}</Typography>
+            <p className={classNames.groupText}>{t(TranslationKey.Title)}</p>
 
-            <Typography className={classNames.groupTitle}>{`"${message.data.prevData?.title}"`}</Typography>
+            <p className={classNames.groupTitle}>{`"${message.data.prevData?.title}"`}</p>
 
             <ArrowRightAltOutlinedIcon className={classNames.changeIcon} />
 
-            <Typography className={classNames.groupTitle}>{`"${message.data.updatedData?.title}"`}</Typography>
+            <p className={classNames.groupTitle}>{`"${message.data.updatedData?.title}"`}</p>
           </div>
         ) : null}
 
         {imageIsChanged ? (
           <div className={classNames.changeTitleWrapper}>
-            <Typography className={classNames.groupText}>{t(TranslationKey.Image)}</Typography>
+            <p className={classNames.groupText}>{t(TranslationKey.Image)}</p>
 
             <img
               className={classNames.groupImage}
@@ -94,12 +92,12 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
         ) : null}
       </div>
 
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+      <ImageModal
+        imageList={bigImagesOptions.images}
+        currentImageIndex={bigImagesOptions.imgIndex}
+        isOpenModal={showPhotosModal}
+        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
       />
     </div>
   )

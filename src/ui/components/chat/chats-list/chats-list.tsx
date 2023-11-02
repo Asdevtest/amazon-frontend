@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cx } from '@emotion/css'
-import { Box, Tabs } from '@mui/material'
-
-import React, { FC, ReactElement, useEffect, useMemo } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { FC, useEffect, useMemo } from 'react'
+
+import { Tabs } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,50 +12,33 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { ChatListItem } from './chat-list-item'
-import { useClassNames } from './chats-list.style'
+import { useClassNames } from './chats-list.styles'
 
-interface TabPanelProps {
-  children: ReactElement
-  value?: string
-  index?: string
-}
+import { chatListMapper } from './chats-list-mapper'
 
 const tabsValues = {
   IN_WORK: 'IN_WORK',
   SOLVED: 'SOLVED',
 }
 
-const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box /* paddingTop={3} */>{children}</Box>}
-  </div>
-)
-
 interface Props {
+  userId: string
   isFreelanceOwner: boolean
   chats: ChatContract[]
   chatSelectedId?: string
   typingUsers?: OnTypingMessageResponse[]
-  userId: string
   onClickChat: (chat: ChatContract) => void
+  mutedChats?: string[]
 }
 
 export const ChatsList: FC<Props> = observer(
-  ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner }) => {
+  ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner, mutedChats }) => {
     const { classes: classNames } = useClassNames()
-
-    // console.log('chats', chats)
 
     const solvedChats = isFreelanceOwner
       ? useMemo(
@@ -85,7 +66,7 @@ export const ChatsList: FC<Props> = observer(
     return (
       <div className={classNames.root}>
         {isFreelanceOwner ? (
-          <React.Fragment>
+          <>
             <Tabs
               variant={'fullWidth'}
               classes={{
@@ -99,101 +80,34 @@ export const ChatsList: FC<Props> = observer(
               }}
             >
               <ITab
-                value={tabsValues.IN_WORK}
                 label={t(TranslationKey['In the work'])}
-                tooltipAttentionContent={undefined}
-                tooltipInfoContent={undefined}
-                withIcon={undefined}
+                value={tabsValues.IN_WORK}
                 classes={{
                   selected: classNames.selected,
                   root: classNames.tabRoot,
                 }}
-                textColor="primary"
               />
 
-              {
-                <ITab
-                  label={t(TranslationKey.EXECUTED_IN_PLURAL_KEY)}
-                  value={tabsValues.SOLVED}
-                  tooltipAttentionContent={undefined}
-                  tooltipInfoContent={undefined}
-                  withIcon={undefined}
-                  classes={{
-                    selected: classNames.selected,
-                    root: classNames.tabRoot,
-                  }}
-                  textColor="primary"
-                />
-              }
+              <ITab
+                label={t(TranslationKey.EXECUTED_IN_PLURAL_KEY)}
+                value={tabsValues.SOLVED}
+                classes={{
+                  selected: classNames.selected,
+                  root: classNames.tabRoot,
+                }}
+              />
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.IN_WORK}>
-              <>
-                {inWorkChats.map((chat: ChatContract) => {
-                  const isSelected = chatSelectedId === chat._id
-
-                  return (
-                    <div
-                      key={`chat_${chat._id}`}
-                      className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
-                    >
-                      <ChatListItem
-                        typingUsers={typingUsers}
-                        userId={userId}
-                        chat={chat}
-                        isSelected={isSelected}
-                        onClick={() => onClickChat(chat)}
-                      />
-                    </div>
-                  )
-                })}
-              </>
+              {chatListMapper(inWorkChats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SOLVED}>
-              <>
-                {solvedChats.map((chat: ChatContract) => {
-                  const isSelected = chatSelectedId === chat._id
-
-                  return (
-                    <div
-                      key={`chat_${chat._id}`}
-                      className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
-                    >
-                      <ChatListItem
-                        typingUsers={typingUsers}
-                        userId={userId}
-                        chat={chat}
-                        isSelected={isSelected}
-                        onClick={() => onClickChat(chat)}
-                      />
-                    </div>
-                  )
-                })}
-              </>
+              {chatListMapper(solvedChats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)}
             </TabPanel>
-          </React.Fragment>
+          </>
         ) : (
-          <div className={classNames.root}>
-            {chats.map((chat: ChatContract) => {
-              const isSelected = chatSelectedId === chat._id
-
-              return (
-                <div
-                  key={`chat_${chat._id}`}
-                  className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
-                >
-                  <ChatListItem
-                    typingUsers={typingUsers}
-                    userId={userId}
-                    chat={chat}
-                    isSelected={isSelected}
-                    onClick={() => onClickChat(chat)}
-                  />
-                </div>
-              )
-            })}
-          </div>
+          chatListMapper(chats, userId, typingUsers, chatSelectedId, onClickChat, mutedChats)
         )}
       </div>
     )

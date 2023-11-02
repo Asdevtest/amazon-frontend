@@ -22,10 +22,11 @@ class InlineObject10 {
     /**
      * Constructs a new <code>InlineObject10</code>.
      * @alias module:model/InlineObject10
+     * @param productId {String} ГУид продукта
      */
-    constructor() { 
+    constructor(productId) { 
         
-        InlineObject10.initialize(this);
+        InlineObject10.initialize(this, productId);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject10 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId) { 
+        obj['productId'] = productId;
     }
 
     /**
@@ -47,17 +49,17 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('checkedById')) {
+                obj['checkedById'] = ApiClient.convertToType(data['checkedById'], 'String');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
         }
         return obj;
@@ -67,24 +69,28 @@ class InlineObject10 {
 }
 
 /**
- * @member {Number} type
+ * ГУид продукта
+ * @member {String} productId
  */
-InlineObject10.prototype['type'] = undefined;
+InlineObject10.prototype['productId'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * Гуид баера
+ * @member {String} buyerId
  */
-InlineObject10.prototype['linksToMediaFiles'] = undefined;
+InlineObject10.prototype['buyerId'] = undefined;
 
 /**
- * @member {String} title
+ * Гуид супервизора
+ * @member {String} checkedById
  */
-InlineObject10.prototype['title'] = undefined;
+InlineObject10.prototype['checkedById'] = undefined;
 
 /**
- * @member {String} description
+ * Гуид клиента
+ * @member {String} clientId
  */
-InlineObject10.prototype['description'] = undefined;
+InlineObject10.prototype['clientId'] = undefined;
 
 
 

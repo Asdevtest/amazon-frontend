@@ -22,10 +22,12 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
+     * @param batchIds {Array.<String>} 
+     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor() { 
+    constructor(batchIds, archive) { 
         
-        InlineObject21.initialize(this);
+        InlineObject21.initialize(this, batchIds, archive);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, batchIds, archive) { 
+        obj['batchIds'] = batchIds;
+        obj['archive'] = archive;
     }
 
     /**
@@ -47,44 +51,11 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('batchIds')) {
+                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('prepId')) {
-                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
-            }
-            if (data.hasOwnProperty('variationTariffId')) {
-                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
         }
         return obj;
@@ -94,81 +65,15 @@ class InlineObject21 {
 }
 
 /**
- * GUID пункта назначения коробки
- * @member {String} destinationId
+ * @member {Array.<String>} batchIds
  */
-InlineObject21.prototype['destinationId'] = undefined;
+InlineObject21.prototype['batchIds'] = undefined;
 
 /**
- * GUID тарифа к сторкипера
- * @member {String} logicsTariffId
+ * Заархивирована ли партия
+ * @member {Boolean} archive
  */
-InlineObject21.prototype['logicsTariffId'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject21.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject21.prototype['fbaNumber'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} clientComment
- */
-InlineObject21.prototype['clientComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject21.prototype['referenceId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject21.prototype['trackNumberText'] = undefined;
-
-/**
- * @member {Array.<String>} trackNumberFile
- */
-InlineObject21.prototype['trackNumberFile'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject21.prototype['upsTrackNumber'] = undefined;
-
-/**
- * shippingLabel коробки
- * @member {String} shippingLabel
- */
-InlineObject21.prototype['shippingLabel'] = undefined;
-
-/**
- * shippingLabel проклеен сторкипером
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject21.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Значение информационного ключа
- * @member {String} prepId
- */
-InlineObject21.prototype['prepId'] = undefined;
-
-/**
- * Гуид вариации
- * @member {String} variationTariffId
- */
-InlineObject21.prototype['variationTariffId'] = undefined;
+InlineObject21.prototype['archive'] = undefined;
 
 
 

@@ -1,23 +1,22 @@
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { AppealsListCard } from '@components/cards/appeals-list-card/appeals-list-card'
-import { MainContent } from '@components/layout/main-content'
+
+import { styles } from './moderator-appeals-view.style'
 
 // import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import { ModeratorAppealsViewModel } from './moderator-appeals-view.model'
-import { styles } from './moderator-appeals-view.style'
 
 export const ModeratorAppealsViewRaw = props => {
   const [viewModel] = useState(() => new ModeratorAppealsViewModel({ history: props.history }))
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <AppealsListCard onClickViewMore={viewModel.onClickViewMore} />
-      </MainContent>
+      </div>
 
       {/* <ConfirmationModal
           openModal={showConfirmModal}

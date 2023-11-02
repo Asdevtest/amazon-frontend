@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject61 model module.
@@ -22,11 +23,11 @@ class InlineObject61 {
     /**
      * Constructs a new <code>InlineObject61</code>.
      * @alias module:model/InlineObject61
-     * @param title {String} Тег
+     * @param name {String} Название профиля
      */
-    constructor(title) { 
+    constructor(name) { 
         
-        InlineObject61.initialize(this, title);
+        InlineObject61.initialize(this, name);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject61 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,8 +50,14 @@ class InlineObject61 {
         if (data) {
             obj = obj || new InlineObject61();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
+            }
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -60,10 +67,22 @@ class InlineObject61 {
 }
 
 /**
- * Тег
- * @member {String} title
+ * Название профиля
+ * @member {String} name
  */
-InlineObject61.prototype['title'] = undefined;
+InlineObject61.prototype['name'] = undefined;
+
+/**
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
+ */
+InlineObject61.prototype['os'] = 'mac';
+
+/**
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
+ */
+InlineObject61.prototype['navigator'] = undefined;
 
 
 

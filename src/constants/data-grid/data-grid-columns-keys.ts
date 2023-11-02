@@ -3,6 +3,8 @@ export const columnnsKeys = {
   buyer: {
     MY_ORDERS_STATUS: 'MY_ORDERS_STATUS',
     ORDERS_PRIORITY: 'ORDERS_PRIORITY',
+    MY_PRODUCTS_STATUS: 'MY_PRODUCTS_STATUS',
+    TO_PAY: 'TO_PAY',
   },
   storekeeper: {},
   client: {
@@ -31,7 +33,11 @@ export const columnnsKeys = {
     INVENTORY_IN_STOCK: 'INVENTORY_IN_STOCK',
     INVENTORY_BARCODE: 'INVENTORY_BARCODE',
 
+    IDEAS_STATUS: 'IDEAS_STATUS',
+
     FREELANCER_REQUEST_LISTING: 'FREELANCER_REQUEST_LISTING',
+
+    IDEA_SHOPS: 'IDEA_SHOPS',
   },
   researcher: {},
   freelancer: {
@@ -40,6 +46,7 @@ export const columnnsKeys = {
 
   shared: {
     DATE: 'DATE',
+    DATE_DETAILS: 'DATE_DETAILS',
     QUANTITY: 'QUANTITY',
     STRING: 'STRING',
     PRODUCT_ORDERS_STATUS: 'PRODUCT_ORDERS_STATUS',
@@ -48,5 +55,10 @@ export const columnnsKeys = {
     MY_REQUESTS_ORDERS_STATUS: 'MY_REQUESTS_ORDERS_STATUS',
     PAYMENTS: 'PAYMENTS',
     RED_FLAGS: 'RED_FLAGS',
+    YES_NO: 'YES_NO',
+    BATCHES_PRODUCTS: 'BATCHES_PRODUCTS',
+    BATCHES_SHIPPING_DATE: 'BATCHES_SHIPPING_DATE',
+    BATCHES_TRACKING: 'BATCHES_TRACKING',
+    SECONDS: 'SECONDS',
   },
 }

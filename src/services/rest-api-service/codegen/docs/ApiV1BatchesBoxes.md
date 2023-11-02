@@ -42,6 +42,7 @@ Name | Type | Description | Notes
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
+**lastRateTariff** | **Number** | Рейт за кг из тарифа | [optional] 
 **variationTariff** | [**ApiV1AdminsTasksLightVariationTariff**](ApiV1AdminsTasksLightVariationTariff.md) |  | [optional] 
 **items** | [**[ApiV1BatchesItems]**](ApiV1BatchesItems.md) | Массив коробок. | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 

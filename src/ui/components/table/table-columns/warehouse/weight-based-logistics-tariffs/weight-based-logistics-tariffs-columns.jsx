@@ -3,16 +3,16 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  MultilineTextCell,
-  WarehouseTariffDatesCell,
   EditOrRemoveIconBtnsCell,
   MultilineTextAlignLeftCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
-import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDestinationData) => [
   {
@@ -119,22 +119,18 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 130,
-    renderCell: params => {
-      // const handlersMemo = useMemo(() => handlers, [])
-      // const rowMemo = useMemo(() => params.row, [])
+    width: 160,
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        isArchive={getIsArchive()}
+      />
+    ),
 
-      return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey.Edit)}
-          tooltipSecondButton={t(TranslationKey.Remove)}
-          handlers={/* handlersMemo */ handlers}
-          row={/* rowMemo */ params.row}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          isArchive={getIsArchive()}
-        />
-      )
-    },
     filterable: false,
     sortable: false,
   },

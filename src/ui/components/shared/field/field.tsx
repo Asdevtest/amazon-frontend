@@ -1,11 +1,10 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
+import { observer } from 'mobx-react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
+
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-
-import React, { FC, ReactElement, useState, useEffect } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -13,7 +12,6 @@ import { Input } from '@components/shared/input'
 import { InputWithIcon } from '@components/shared/input/input'
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-// import {StyleClass} from '../../../types/class-name-types'
 import { useClassNames } from './field.style'
 
 interface Props {
@@ -28,8 +26,6 @@ interface Props {
   successText?: string
   oneLine?: boolean
   withIcon?: boolean
-  // children?: React.ReactNode
-  // inputComponent?: JSX.Element | JSX.Element[]
 }
 
 export const Field: FC<Props> = observer(
@@ -112,12 +108,12 @@ export const Field: FC<Props> = observer(
           {inputComponent ||
             (withIcon ? (
               <InputWithIcon
-                className={cx(classNames.input, inputClasses, { [classNames.errorActive]: !!error })}
+                className={cx(/* classNames.input,  */ inputClasses, { [classNames.errorActive]: !!error })}
                 {...restProps}
               />
             ) : (
               <Input
-                className={cx(classNames.input, inputClasses, { [classNames.errorActive]: !!error })}
+                className={cx(/* classNames.input,  */ inputClasses, { [classNames.errorActive]: !!error })}
                 {...restProps}
               />
             ))}

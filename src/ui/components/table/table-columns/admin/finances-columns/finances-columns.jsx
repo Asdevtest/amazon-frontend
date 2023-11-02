@@ -3,9 +3,9 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
   ScrollingCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -77,7 +77,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    width: 800,
+    width: 700,
     renderCell: params => (
       <ScrollingCell
         fontSize={'14px'}

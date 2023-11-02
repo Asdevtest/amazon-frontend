@@ -4,6 +4,7 @@ import {
   checkIsAdmin,
   checkIsBuyer,
   checkIsClient,
+  checkIsDocumentLink,
   checkIsImageLink,
   checkIsMoreNCharactersAfterDot,
   checkIsMoreTwoCharactersAfterDot,
@@ -523,6 +524,7 @@ describe('Test findTariffInStorekeepersData(storekeepers, storekeeperId, logicsT
 describe('Test checkIsImageLink(link)', () => {
   const validTestValue = [
     { enter: 'img.png', expect: true },
+    { enter: 'img.PNG', expect: true },
     { enter: 'img.jpg', expect: true },
     { enter: 'img.ico', expect: true },
     { enter: 'img.gif', expect: true },
@@ -530,6 +532,8 @@ describe('Test checkIsImageLink(link)', () => {
     { enter: 'img.webp', expect: true },
     { enter: 'img.avif', expect: true },
     { enter: 'img.jpeg', expect: true },
+    { enter: 'img.rotated-image', expect: true },
+    { enter: 'img.jfif', expect: true },
   ]
 
   const unvalidTestValue = [
@@ -548,6 +552,35 @@ describe('Test checkIsImageLink(link)', () => {
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(checkIsImageLink(value.enter)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test checkIsDocumentLink(link)', () => {
+  const validTestValue = [
+    { enter: 'file.doc', expect: true },
+    { enter: 'file.docx', expect: true },
+    { enter: 'file.pdf', expect: true },
+    { enter: 'file.xlsx', expect: true },
+    { enter: 'file.xls', expect: true },
+  ]
+
+  const unvalidTestValue = [
+    { enter: '', expect: false },
+    { enter: 'google.com', expect: false },
+    { enter: '10.1211221', expect: false },
+    { enter: 'storekeeper', expect: false },
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid props', () => {
+      expect(checkIsDocumentLink(value.enter)).toBe(value.expect)
+    })
+  })
+
+  unvalidTestValue.forEach(value => {
+    test('Unvalid props', () => {
+      expect(checkIsDocumentLink(value.enter)).toBe(value.expect)
     })
   })
 })

@@ -1,9 +1,8 @@
-import { Typography, IconButton, Grid, Checkbox } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import { observer } from 'mobx-react'
+import { Checkbox, Grid, IconButton, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -151,7 +150,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                   />
                   <Button
                     disableElevation
-                    disabled={skuLine === ''}
+                    disabled={skuLine === '' || !!formFields.skusByClient.length}
                     className={classNames.defaultBtn}
                     variant="contained"
                     color="primary"

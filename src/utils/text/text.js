@@ -4,17 +4,19 @@ import QueryString from 'qs'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { NotificationType } from '@constants/keys/notifications'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
 
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -70,12 +72,39 @@ export const minsToTime = mins => {
     return `${days >= 1 ? Math.floor(days) + ' ' + t(TranslationKey.days) : ''} ${
       hours >= 1
         ? hours <= 23
-          ? hours + ' ' + t(TranslationKey.hour)
-          : (hours % 24) + ' ' + t(TranslationKey.hour)
+          ? Math.floor(hours) + ' ' + t(TranslationKey.hour)
+          : Math.floor(hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
-    } ${lastMins === 0 ? '' : lastMins + ' ' + t(TranslationKey.minute) + '.'}`
+    } ${
+      Math.floor(lastMins) === 0
+        ? Math.floor(lastMins * 60) + ' ' + t(TranslationKey.sec)
+        : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
+    }`
   } else {
     return null
+  }
+}
+
+export const secondsToTime = secs => {
+  if (secs >= 60) {
+    const days = Math.floor(secs / 86400)
+    const hours = Math.floor((secs % 86400) / 3600)
+    const minutes = Math.floor((secs % 3600) / 60)
+    const seconds = Math.floor(secs % 60)
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds,
+    }
+  } else {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: secs,
+    }
   }
 }
 
@@ -168,8 +197,32 @@ export const getTableByColumn = (column, hint) => {
       'clientComment',
       'buyerComment',
       'partiallyPaid',
+      'boxesCount',
+      'etd',
+      'eta',
+      'cls',
+      'trackingNumber',
+      'arrivalDate',
+      'deliveryTotalPrice',
+      'partialPaymentAmountRmb',
     ].includes(column)
   ) {
+    if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+      return 'batches'
+    }
+
+    if (['totalPrice'].includes(column) && hint === 'batches') {
+      return 'orders'
+    }
+
+    if (['buyerComment'].includes(column) && hint === 'ideas') {
+      return 'ideas'
+    }
+
+    if (['amount'].includes(column) && hint === 'ideas') {
+      return 'products'
+    }
+
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
@@ -184,6 +237,12 @@ export const getTableByColumn = (column, hint) => {
       'asin',
       'skusByClient',
       'amazonTitle',
+      'parentProductSkusByClient',
+      'parentProductAmazonTitle',
+      'parentProductAsin',
+      'childProductAmazonTitle',
+      'childProductSkusByClient',
+      'childProductAsin',
       'shopIds',
       'strategyStatus',
       'amountInOrders',
@@ -203,9 +262,13 @@ export const getTableByColumn = (column, hint) => {
       'purchaseQuantity',
       'ideasClosed',
       'ideasVerified',
+      'ideasFinished',
       'bsr',
       'fbaamount',
       'client',
+      'buyer',
+      'childProductShopIds',
+      'parentProductShopIds',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -213,13 +276,17 @@ export const getTableByColumn = (column, hint) => {
     // } else {
     return 'products'
     // }
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
+  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy'].includes(column)) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
+    } else if (hint === 'batches') {
+      return 'batches'
+    } else if (hint === 'ideas') {
+      return 'ideas'
     } else {
       return 'requests'
     }
@@ -229,7 +296,7 @@ export const getTableByColumn = (column, hint) => {
       'typeTask',
       'price',
       'timeoutAt',
-      'createdBy',
+      // 'createdBy',
       'subUsers',
       'priority',
       'priceAmazon',
@@ -240,10 +307,37 @@ export const getTableByColumn = (column, hint) => {
     if (hint === 'orders') {
       return 'orders'
     }
+    if (hint === 'batches') {
+      return 'batches'
+    }
+    if (hint === 'ideas') {
+      return 'ideas'
+    }
 
     return 'requests'
-  } else if (['productionTerm'].includes(column)) {
+  } else if (['productionTerm', 'minlot'].includes(column)) {
     return 'suppliers'
+  } else if (['finalWeight'].includes(column)) {
+    return 'batches'
+  } else if (
+    [
+      'comments',
+      'dateStatusOnCheck',
+      'minBatch',
+      'dateStatusProductCreating',
+      'dateStatusProductCreating',
+      'dateStatusAddingAsin',
+      'intervalStatusNew',
+      'intervalStatusOnCheck',
+      'intervalStatusSupplierSearch',
+      'intervalStatusSupplierFound',
+      'intervalStatusProductCreating',
+      'intervalStatusAddingAsin',
+      'intervalStatusFinished',
+      'intervalsSum',
+    ].includes(column)
+  ) {
+    return 'ideas'
   }
 }
 
@@ -253,15 +347,70 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+    case columnnsKeys.buyer.MY_PRODUCTS_STATUS:
+      return t(productStatusTranslateKey(ProductStatusByCode[status]))
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
+    case columnnsKeys.client.IDEAS_STATUS:
+      return ideaStatusTranslate(ideaStatusByCode[status])
     default:
       return status
   }
 }
 
 export const replaceCommaByDot = str => str.replaceAll(',', '.')
+
+const imgTypes = [
+  '.bmp',
+  '.cdr',
+  '.gif',
+  '.heif',
+  '.ico',
+  '.jpeg',
+  '.jpg',
+  '.pbm',
+  '.pcx',
+  '.pgm',
+  '.png',
+  '.ppm',
+  '.psd',
+  '.raw',
+  '.svg',
+  '.tga',
+  '.tif',
+  '.wbmp',
+  '.web',
+  '.xbm',
+  '.xpm',
+  '.jfif',
+  '.webp',
+]
+
+export const imagesRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))`, 'i')
+export const imagesWithPreviewRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))\\.preview\\.webp`, 'i')
+
+export const getHumanFriendlyNotificationType = type => {
+  switch (type) {
+    case NotificationType.Box:
+      return t(TranslationKey.Box)
+
+    case NotificationType.Order:
+      return t(TranslationKey.Order)
+
+    case NotificationType.Idea:
+      return t(TranslationKey.Idea)
+
+    case NotificationType.Request:
+      return t(TranslationKey.Request)
+
+    case NotificationType.Proposal:
+      return t(TranslationKey.Proposal)
+
+    default:
+      break
+  }
+}

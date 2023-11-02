@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
-import { Box, Container, Link, Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React, { useState } from 'react'
+
+import { Box, Container, Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './supplier-payment-form.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const SupplierPaymentForm = ({
   item,
@@ -51,7 +52,7 @@ export const SupplierPaymentForm = ({
 
       <Box className={classNames.saveBox}>
         <Button
-          // disabled={!files.length}
+          success
           className={classNames.actionButton}
           onClick={() => {
             onClickSaveButton(files, editPhotos)
@@ -60,7 +61,11 @@ export const SupplierPaymentForm = ({
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button className={classNames.actionButton} onClick={onCloseModal}>
+        <Button
+          className={cx(classNames.actionButton, classNames.cancelButton)}
+          variant={'text'}
+          onClick={onCloseModal}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </Box>

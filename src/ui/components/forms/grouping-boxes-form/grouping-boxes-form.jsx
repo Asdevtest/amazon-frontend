@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Link, Radio, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import {
   getConversion,
@@ -16,11 +15,15 @@ import {
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { BigPlusIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
@@ -30,10 +33,6 @@ import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed } from
 import { t } from '@utils/translations'
 
 import { useClassNames } from './grouping-boxes-form.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Input } from '@components/shared/input'
-import { BigPlusIcon } from '@components/shared/svg-icons'
-import { BoxStatus } from '@constants/statuses/box-status'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -91,12 +90,28 @@ const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   )
 }
 
-const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio }) => {
+const Box = ({
+  isNewBox,
+  isActiveOneBox,
+  destinations,
+  box,
+  onChangeField,
+  onRemoveBox,
+  index,
+  basicBox,
+  onClickBasicBoxRadio,
+}) => {
   const { classes: classNames } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
+
+  useEffect(() => {
+    if (isActiveOneBox) {
+      onClickBasicBoxRadio(box)
+    }
+  }, [isActiveOneBox])
 
   return (
     <div className={classNames.box}>
@@ -106,7 +121,7 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
 
           <div className={classNames.radioWrapper}>
             {(basicBox?._id === box._id || !basicBox) && (
-              <Radio checked={box._id === basicBox?._id} onClick={() => onClickBasicBoxRadio(box)} />
+              <Radio checked={box._id === basicBox?._id || isActiveOneBox} onClick={() => onClickBasicBoxRadio(box)} />
             )}
 
             <Typography className={classNames.standartText}>{t(TranslationKey['Basic box'])}</Typography>
@@ -238,14 +253,16 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
               <div className={classNames.sizesTitleWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey.Dimensions)}</Typography>
 
-                <CustomSwitcher
-                  condition={sizeSetting}
-                  nameFirstArg={unitsOfChangeOptions.EU}
-                  nameSecondArg={unitsOfChangeOptions.US}
-                  firstArgValue={unitsOfChangeOptions.EU}
-                  secondArgValue={unitsOfChangeOptions.US}
-                  changeConditionHandler={condition => setSizeSetting(condition)}
-                />
+                <div>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    switcherSettings={[
+                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                    ]}
+                    changeConditionHandler={condition => setSizeSetting(condition)}
+                  />
+                </div>
               </div>
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
@@ -376,6 +393,8 @@ export const GroupingBoxesForm = observer(
     const [newBoxes, setNewBoxes] = useState([])
 
     const [basicBox, setBasicBox] = useState(null)
+
+    const isActiveOneBox = oldBoxes.length === 1 && !basicBox
 
     const onClickBasicBoxRadio = box => {
       if (basicBox?._id !== box._id) {
@@ -532,6 +551,7 @@ export const GroupingBoxesForm = observer(
                     storekeepers={storekeepers}
                     index={boxIndex}
                     box={box}
+                    isActiveOneBox={isActiveOneBox}
                     onRemoveBox={onRemoveOldBox}
                     onClickBasicBoxRadio={onClickBasicBoxRadio}
                   />

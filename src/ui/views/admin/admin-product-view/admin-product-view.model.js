@@ -52,6 +52,7 @@ export class AdminProductViewModel {
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   supplierModalReadOnly = false
 
@@ -79,11 +80,6 @@ export class AdminProductViewModel {
       this.productId = url.searchParams.get('product-id')
     })
 
-    // if (location.state) {
-    //   runInAction(() => {
-    //     this.inInventory = location.state.inInventory
-    //   })
-    // }
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -98,6 +94,11 @@ export class AdminProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }
@@ -130,9 +131,7 @@ export class AdminProductViewModel {
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        runInAction(() => {
-          this.product = result
-        })
+        this.product = result
 
         updateProductAutoCalculatedFields.call(this)
       })

@@ -1,28 +1,33 @@
 /* eslint-disable no-prototype-builtins */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, useState } from 'react'
-import { observer } from 'mobx-react'
-import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
-import RemoveIcon from '@mui/icons-material/Remove'
-import { Typography } from '@mui/material'
-import { t } from '@utils/translations'
-import { Input } from '@components/shared/input'
-import { TranslationKey } from '@constants/translations/translation-key'
-import { Field } from '@components/shared/field'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
-import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { cx } from '@emotion/css'
-import { Button } from '@components/shared/buttons/button'
+import { observer } from 'mobx-react'
+import React, { FC, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
+import RemoveIcon from '@mui/icons-material/Remove'
+import { Typography } from '@mui/material'
 
-import { LogisticTariffInterface } from '../../../../types/logistics-tariff'
+import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Button } from '@components/shared/buttons/button'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+
+import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
-import { DestinationType, DestinationVariationType } from '../../../../types/destination'
+import { t } from '@utils/translations'
+
+import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
+
+import { DestinationType, DestinationVariationType } from '../../../../typings/destination'
+import { LogisticTariffInterface } from '../../../../typings/logistics-tariff'
 
 interface FormFields {
   tariffType: number
@@ -101,7 +106,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       minWeightInKg: tariffToEdit?.minWeightInKg || 0,
       archive: tariffToEdit?.archive || false,
       yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
-      destinationVariations: tariffToEdit?.destinationVariations || [emptyDestinationVariation],
+      destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
+        ...variation,
+        pricePerKgUsd: toFixed(variation.pricePerKgUsd, 2),
+        pricePerKgRmb: toFixed(variation.pricePerKgRmb, 2),
+      })) || [emptyDestinationVariation],
     }
 
     const [formFields, setFormFields] = useState<FormFields>(initialState)
@@ -370,11 +379,21 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             <div className={classNames.customSwitcherWrapper}>
               <CustomSwitcher
                 condition={currentCurrency}
-                nameFirstArg={currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || ''}
-                nameSecondArg={currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || ''}
-                firstArgValue={currencyTypes.DOLLAR}
-                secondArgValue={currencyTypes.YUAN}
-                changeConditionHandler={(currency: string) => setCurrentCurrency(currency)}
+                switcherSettings={[
+                  {
+                    label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
+                    value: currencyTypes.DOLLAR,
+                  },
+                  {
+                    label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
+                    value: currencyTypes.YUAN,
+                  },
+                ]}
+                changeConditionHandler={value => {
+                  if (typeof value === 'string') {
+                    setCurrentCurrency(value)
+                  }
+                }}
               />
             </div>
 

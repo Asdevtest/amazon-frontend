@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
+import { ClassNamesArg } from '@emotion/react'
+import { observer } from 'mobx-react'
+import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-
-import React, { FC, ReactElement, useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { useClassNames } from './button.style'
+
 import { StyledButton } from './styled-button'
 
 enum tooltipPositions {
@@ -19,7 +20,7 @@ enum tooltipPositions {
   Center = 'center',
 }
 
-interface Props {
+interface Props extends PropsWithChildren {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
@@ -32,12 +33,14 @@ interface Props {
   disabled?: boolean
   onClick?: () => void
   disableElevation?: boolean
-  btnWrapperStyle?: string
-  children?: ReactElement | string
+  btnWrapperStyle?: string | ClassNamesArg
+  small?: boolean
+  defaultButtonTooltip?: string
 }
 
 export const Button: FC<Props> = observer(
   ({
+    defaultButtonTooltip,
     tooltipAttentionContent,
     tooltipInfoContent,
     tooltipPosition,
@@ -50,6 +53,7 @@ export const Button: FC<Props> = observer(
     className,
     disabled,
     btnWrapperStyle,
+    small,
     ...restProps
   }) => {
     const { classes: classNames } = useClassNames()
@@ -68,6 +72,7 @@ export const Button: FC<Props> = observer(
         {/* @ts-ignore */}
         <StyledButton
           disableElevation
+          title={defaultButtonTooltip || ''}
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}
@@ -78,8 +83,9 @@ export const Button: FC<Props> = observer(
                 [classNames.success]: success,
                 [classNames.danger]: danger,
                 [classNames.border]: border,
-                // [classNames.disabled]: disabled,
                 [classNames.defaultButton]: !success && !danger && !variant,
+                [classNames.disabled]: disabled,
+                [classNames.small]: small,
               },
               className,
             ),

@@ -4,9 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**product** | [**ApiV1IdeasNotificationsProduct**](ApiV1IdeasNotificationsProduct.md) |  | [optional] 
-**idea** | [**ApiV1IdeasNotificationsIdea**](ApiV1IdeasNotificationsIdea.md) |  | [optional] 
-**createdBy** | [**ApiV1IdeasNotificationsCreatedBy**](ApiV1IdeasNotificationsCreatedBy.md) |  | [optional] 
-**createdAt** | **String** |  | [optional] 
+**products** | [**InlineResponse20046Products**](InlineResponse20046Products.md) |  | [optional] 
+**checking** | [**InlineResponse20046Checking**](InlineResponse20046Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20042Finances**](InlineResponse20042Finances.md) |  | [optional] 
 
 

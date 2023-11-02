@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -29,13 +27,17 @@ export const SupervisorProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.product ? (
           <ProductWrapper
             imagesForLoad={viewModel.imagesForLoad}
+            platformSettings={viewModel.platformSettings}
+            user={viewModel.userInfo}
             userRole={viewModel.userInfo.role}
             product={viewModel.getCurrentData()}
             productBase={viewModel.productBase}
+            productVariations={viewModel.productVariations}
+            navigateToProduct={viewModel.navigateToProduct}
             selectedSupplier={viewModel.selectedSupplier}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
             handleSupplierButtons={viewModel.onClickSupplierButtons}
@@ -48,7 +50,7 @@ export const SupervisorProductView = observer(props => {
             onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           />
         ) : undefined}
-      </MainContent>
+      </div>
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
@@ -77,7 +79,7 @@ export const SupervisorProductView = observer(props => {
           viewModel.onTriggerOpenModal('showWarningModal')
         }}
       />
-      <ConfirmationModal
+      {/* <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
@@ -86,6 +88,21 @@ export const SupervisorProductView = observer(props => {
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={() => {
           viewModel.onSaveProductData()
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      /> */}
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => {
+          viewModel.confirmModalSettings.onClickOkBtn()
           viewModel.onTriggerOpenModal('showConfirmModal')
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}

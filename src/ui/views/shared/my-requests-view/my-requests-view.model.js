@@ -6,6 +6,7 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -14,9 +15,8 @@ import { myRequestsViewColumns } from '@components/table/table-columns/overall/m
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
-import { GeneralModel } from '@models/general-model'
 
-const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
+const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS, RequestStatus.EXPIRED]
 
 // const filtersFields = ['status', 'typeTask']
 
@@ -42,17 +42,23 @@ const filtersFields = [
 export class MyRequestsViewModel {
   history = undefined
   requestStatus = undefined
+  loadTableStatus = undefined
   error = undefined
 
   showRequestForm = false
   showConfirmModal = false
+  showRequestDetailModal = false
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+    error: undefined,
+  }
 
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
+  currentRequestDetails = undefined
 
   nameSearchValue = ''
   onHover = null
@@ -98,6 +104,7 @@ export class MyRequestsViewModel {
   rowHandlers = {
     onToggleUploadedToListing: (id, uploadedToListingState) =>
       this.onToggleUploadedToListing(id, uploadedToListingState),
+    onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
   }
 
   columnsModel = myRequestsViewColumns(
@@ -145,8 +152,11 @@ export class MyRequestsViewModel {
       this.history = history
 
       if (location?.state) {
-        this.acceptMessage = location?.state?.acceptMessage
-        this.showAcceptMessage = location?.state?.showAcceptMessage
+        this.alertShieldSettings = {
+          showAlertShield: location?.state?.showAcceptMessage,
+          alertShieldMessage: location?.state?.acceptMessage,
+          error: location?.state?.error,
+        }
 
         const state = { ...history?.location?.state }
         delete state?.acceptMessage
@@ -160,10 +170,19 @@ export class MyRequestsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     runInAction(() => {
-      if (this.showAcceptMessage) {
+      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       }
     })
@@ -177,9 +196,7 @@ export class MyRequestsViewModel {
 
     reaction(
       () => this.isRequestsAtWork,
-      () => {
-        this.currentData = this.getCustomRequests()
-      },
+      () => this.getCustomRequests(),
     )
 
     reaction(
@@ -190,6 +207,9 @@ export class MyRequestsViewModel {
     )
   }
 
+  get user() {
+    return UserModel.userInfo
+  }
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
@@ -218,6 +238,7 @@ export class MyRequestsViewModel {
   onClickChangeCatigory(value) {
     runInAction(() => {
       this.isRequestsAtWork = value
+      this.loadTableStatus = loadingStatuses.loading
     })
   }
 
@@ -482,6 +503,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -506,7 +528,10 @@ export class MyRequestsViewModel {
 
         this.rowCount = result.count
       })
+      this.setRequestStatus(loadingStatuses.success)
+      this.loadTableStatus = loadingStatuses.success
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -731,5 +756,37 @@ export class MyRequestsViewModel {
       }
       this.getCustomRequests()
     })
+  }
+
+  async getRequestDetail(id) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const response = await RequestModel.getCustomRequestById(id)
+
+      runInAction(() => {
+        this.currentRequestDetails = response
+      })
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  handleOpenRequestDetailModal(id) {
+    this.getRequestDetail(id).then(() => {
+      this.onTriggerOpenModal('showRequestDetailModal')
+    })
+  }
+
+  onClickOpenInNewTab(id) {
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.user.role]
+      }/freelance/my-requests/custom-request?request-id=${id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 }

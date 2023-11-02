@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20038Finances from './InlineResponse20038Finances';
-import InlineResponse20040Products from './InlineResponse20040Products';
 
 /**
  * The InlineResponse20040 model module.
@@ -23,6 +21,7 @@ import InlineResponse20040Products from './InlineResponse20040Products';
 class InlineResponse20040 {
     /**
      * Constructs a new <code>InlineResponse20040</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20040
      */
     constructor() { 
@@ -49,11 +48,8 @@ class InlineResponse20040 {
         if (data) {
             obj = obj || new InlineResponse20040();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20040Products.constructFromObject(data['products']);
-            }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -63,14 +59,9 @@ class InlineResponse20040 {
 }
 
 /**
- * @member {module:model/InlineResponse20040Products} products
+ * @member {Number} priceForClient
  */
-InlineResponse20040.prototype['products'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20038Finances} finances
- */
-InlineResponse20040.prototype['finances'] = undefined;
+InlineResponse20040.prototype['priceForClient'] = undefined;
 
 
 

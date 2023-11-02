@@ -1,21 +1,18 @@
-import React from 'react'
-
 import {
-  colorByProductStatus,
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
+  colorByProductStatus,
 } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  AsinCell,
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
-  AsinCell,
   ToFixedWithDollarSignCell,
-  MultilineStatusCell,
-  MultilineTextAlignLeftCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -95,7 +92,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey["Supervisor's comment"]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign twoLines text={params.value} />,
 
     filterable: false,
     sortable: false,

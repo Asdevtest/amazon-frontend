@@ -2,10 +2,10 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
-import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { BoxesModel } from '@models/boxes-model'
 import { BoxesWarehouseUpdateBoxInTaskContract } from '@models/boxes-model/boxes-model.contracts'
@@ -334,7 +334,7 @@ export class WarehouseMyTasksViewModel {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
 
-        data = { ...data, images: [...data.images, ...this.imagesOfBox] }
+        data = { ...data, images: [...this.imagesOfBox] }
       }
 
       const updateBoxData = {

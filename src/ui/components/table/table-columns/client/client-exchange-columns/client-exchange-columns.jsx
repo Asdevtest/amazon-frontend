@@ -37,7 +37,7 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
 
-    width: 120,
+    width: 140,
   },
 
   {
@@ -145,6 +145,7 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     width: 130,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    sortable: false,
   },
 
   {

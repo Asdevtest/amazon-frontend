@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид юзера | [optional] 
-**name** | **String** | Имя юзера | [optional] 
+**count** | **Number** | Количество товаров | [optional] 
+**rows** | [**[InlineResponse200]**](InlineResponse200.md) | Массив товаров | [optional] 
 
 

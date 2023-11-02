@@ -23,8 +23,8 @@ import {
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
-  getObjectFilteredByKeyArrayWhiteList,
   getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
@@ -137,6 +137,8 @@ export class SupervisorProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  platformSettings = undefined
+
   supplierModalReadOnly = false
 
   paymentMethods = []
@@ -165,8 +167,25 @@ export class SupervisorProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history }) {
+  setOpenModal = undefined
+
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickOkBtn: () => this.onSaveProductData(),
+  }
+
+  constructor({ history, setOpenModal }) {
     const url = new URL(window.location.href)
+
+    if (setOpenModal) {
+      this.setOpenModal = setOpenModal
+    }
 
     runInAction(() => {
       this.history = history
@@ -183,13 +202,41 @@ export class SupervisorProductViewModel {
           this.product = this.product ? { ...this.product } : undefined
         }),
     )
+
+    reaction(
+      () => this.productId,
+      () => this.loadData(),
+    )
   }
 
   async loadData() {
     try {
       await this.getProductById()
+      await this.getProductsVariations()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async getProductsVariations() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
+
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -211,20 +258,19 @@ export class SupervisorProductViewModel {
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
         this.product = result
-
         this.productBase = result
-
-        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
-
         this.updateImagesForLoad(result.images)
 
         updateProductAutoCalculatedFields.call(this)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -326,19 +372,23 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus(withoutStatus)
+        this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)
 
         break
       case 'cancel':
         this.history.push('/supervisor/products')
         break
+
+      case 'closeModal':
+        this.setOpenModal()
+        break
     }
   }
 
-  async openConfirmModalWithTextByStatus(withoutStatus) {
+  async openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler) {
     try {
       runInAction(() => {
         this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
@@ -352,7 +402,7 @@ export class SupervisorProductViewModel {
               case 'bsr':
                 return (value && parseInt(value)) || 0
               case 'amazon':
-                return value && parseFloat(value)
+                return (value && parseFloat(value)) || 0
               case 'weight':
                 return value && parseFloat(value)
               case 'length':
@@ -386,12 +436,16 @@ export class SupervisorProductViewModel {
       await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
 
       runInAction(() => {
-        this.confirmMessage = withoutStatus
-          ? confirmMessageWithoutStatus()
-          : confirmMessageByProductStatus()[this.curUpdateProductData.status]
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: withoutStatus
+            ? confirmMessageWithoutStatus()
+            : confirmMessageByProductStatus()[this.curUpdateProductData.status],
+          onClickOkBtn: () => this.onSaveProductData(updateDataHandler),
+        }
       })
 
-      if (this.confirmMessage) {
+      if (this.confirmModalSettings.message) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
         runInAction(() => {
@@ -418,7 +472,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async onSaveProductData() {
+  async onSaveProductData(updateDataHandler) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
@@ -454,13 +508,39 @@ export class SupervisorProductViewModel {
       }
 
       await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
-      this.setActionStatus(loadingStatuses.success)
 
-      this.history.push('/supervisor/products')
+      await this.loadData()
+      this.showSuccesAlert()
+      updateDataHandler && (await updateDataHandler())
+
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)
     }
+  }
+
+  async showSuccesAlert() {
+    runInAction(() => {
+      this.alertShieldSettings = {
+        showAlertShield: true,
+        alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+      }
+
+      setTimeout(() => {
+        this.alertShieldSettings = {
+          ...this.alertShieldSettings,
+          showAlertShield: false,
+        }
+
+        setTimeout(() => {
+          this.alertShieldSettings = {
+            showAlertShield: false,
+            alertShieldMessage: '',
+          }
+        }, 1000)
+      }, 3000)
+    })
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -630,71 +710,32 @@ export class SupervisorProductViewModel {
     }
   }
 
-  // async onClickParseProductData(productDataParser, product) {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     runInAction(() => {
-  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     })
-  //     if (product.asin) {
-  //       const parseResult = await (() => {
-  //         switch (productDataParser) {
-  //           case ProductDataParser.AMAZON:
-  //             return ProductModel.parseAmazon(product.asin)
-  //           case ProductDataParser.SELLCENTRAL:
-  //             return ProductModel.parseParseSellerCentral(product.asin)
-  //         }
-  //       })()
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
+  }
 
-  //       switch (productDataParser) {
-  //         case ProductDataParser.AMAZON:
-  //           this.weightParserAmazon = parseResult.weight || 0
-  //           break
-  //         case ProductDataParser.SELLCENTRAL:
-  //           this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-  //           break
-  //       }
+  clearProduct() {
+    runInAction(() => {
+      this.product = undefined
+    })
+  }
 
-  //       runInAction(() => {
-  //         if (Object.keys(parseResult).length > 5) {
-  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-  //           runInAction(() => {
-  //             this.product = {
-  //               ...this.product,
-  //               ...parseFieldsAdapter(parseResult, productDataParser),
-  //               weight:
-  //                 this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-  //                   ? this.product.weight
-  //                   : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-  //               // Вернуть старый вариант парса
-  //               // weight:
-  //               //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-  //               //     ? this.product.weight
-  //               //     : parseResult.weight * poundsWeightCoefficient,
+  async updateProductId(productId) {
+    runInAction(() => {
+      this.productId = productId
+    })
 
-  //               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-  //               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-  //               fbafee: this.product.fbafee,
-  //             }
-  //           })
-  //         }
-  //         updateProductAutoCalculatedFields.call(this)
-  //       })
-  //     } else {
-  //       runInAction(() => {
-  //         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
-  //       })
-  //     }
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  //     this.setActionStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     if (error.body && error.body.message) {
-  //       runInAction(() => {
-  //         this.error = error.body.message
-  //       })
-  //     }
-  //   }
-  // }
+  async navigateToProduct(id) {
+    const win = window.open(`/supervisor/products/product?product-id=${id}`, '_blank')
+    win.focus()
+  }
 }

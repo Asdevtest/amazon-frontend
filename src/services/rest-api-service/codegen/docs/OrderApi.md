@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1OrdersCheckPendingOrderByProductGuidGet
 
-> [InlineResponse20050] apiV1OrdersCheckPendingOrderByProductGuidGet(guid, opts)
+> [InlineResponse20055] apiV1OrdersCheckPendingOrderByProductGuidGet(guid, opts)
 
 # Проверить, существует ли заказ в статусах 0, 2, 3(formed, pending, readyForBuyout) с данным продуктом
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20050]**](InlineResponse20050.md)
+[**[InlineResponse20055]**](InlineResponse20055.md)
 
 ### Authorization
 

@@ -12,9 +12,10 @@ import {
   getModelNameWithotPostfix,
   getShortenStringIfLongerThanCount,
   minsToTime,
+  secondsToTime,
   shortAsin,
-  shortenDocumentString,
   shortSku,
+  shortenDocumentString,
   timeToDeadlineInHoursAndMins,
   toFixed,
   toFixedWithCm,
@@ -730,6 +731,53 @@ describe('Test shortAsin(value)', () => {
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(shortAsin(value.enter)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test secondsToTime(seconds)', () => {
+  const validTestValue = [
+    {
+      enter: 60,
+      expect: {
+        days: 0,
+        hours: 0,
+        minutes: 1,
+        seconds: 0,
+      },
+    },
+    {
+      enter: 120,
+      expect: {
+        days: 0,
+        hours: 0,
+        minutes: 2,
+        seconds: 0,
+      },
+    },
+    {
+      enter: 130,
+      expect: {
+        days: 0,
+        hours: 0,
+        minutes: 2,
+        seconds: 10,
+      },
+    },
+    {
+      enter: 13000,
+      expect: {
+        days: 0,
+        hours: 3,
+        minutes: 36,
+        seconds: 40,
+      },
+    },
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid prosp', () => {
+      expect(secondsToTime(value.enter)).toBe(value.expect)
     })
   })
 })

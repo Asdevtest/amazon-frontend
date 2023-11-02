@@ -1,16 +1,14 @@
 import { cx } from '@emotion/css'
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-
-import React from 'react'
-
 import { observer } from 'mobx-react'
 
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { NewSupplier } from '@components/shared/svg-icons'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -146,7 +144,7 @@ export const EditOrderSuppliersTable = observer(
                     <Typography className={classNames.textCell}>{supplier.comment}</Typography>
                   </TableCell>
                   <TableCell>
-                    <PhotoAndFilesCarousel small files={supplier.images} width="400px" />
+                    <PhotoAndFilesSlider smallSlider small files={supplier.images} />
                   </TableCell>
                   <TableCell className={classNames.alignCenter}>
                     <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />

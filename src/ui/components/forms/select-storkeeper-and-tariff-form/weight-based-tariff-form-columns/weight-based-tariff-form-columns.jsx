@@ -3,15 +3,15 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormalActionBtnCell,
-  MultilineTextCell,
-  WarehouseTariffDatesCell,
-  MultilineTextHeaderCell,
   MultilineTextAlignLeftCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
-import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 export const WeightBasedTariffFormColumns = (
   showCheckbox,
@@ -19,6 +19,7 @@ export const WeightBasedTariffFormColumns = (
   currentDestinationId,
   onClickSelectTariff,
   setVariationTariff,
+  isRemovedDestinationRestriction,
 ) => [
   {
     field: 'name',
@@ -50,6 +51,7 @@ export const WeightBasedTariffFormColumns = (
         activeDestinationId={currentDestinationId}
         activeDedestinationVariationt={variationTariffId}
         selectVariationTariff={setVariationTariff}
+        isRemovedDestinationRestriction={isRemovedDestinationRestriction}
       />
     ),
     width: 149,
@@ -123,7 +125,8 @@ export const WeightBasedTariffFormColumns = (
           ((currentDestinationId &&
             params.row.originalData?.destinationVariations.every(
               item => item?.destination?._id !== currentDestinationId,
-            )) ||
+            ) &&
+            !isRemovedDestinationRestriction) ||
             !variationTariffId ||
             params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
         }

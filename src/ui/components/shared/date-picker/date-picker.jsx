@@ -1,5 +1,16 @@
 /* eslint-disable no-unused-vars */
 import DateFnsUtils from '@date-io/date-fns'
+import { cx } from '@emotion/css'
+import enLocale from 'date-fns/locale/en-US'
+import ruLocale from 'date-fns/locale/ru'
+import zhLocale from 'date-fns/locale/zh-CN'
+import { useEffect, useState } from 'react'
+
+import {
+  KeyboardDatePicker,
+  KeyboardDateTimePicker, // KeyboardTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers'
 import TextField from '@mui/material/TextField'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 // import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
@@ -8,24 +19,15 @@ import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
-import { useEffect, useState } from 'react'
-
-import {
-  KeyboardDatePicker,
-  KeyboardDateTimePicker, // KeyboardTimePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers'
-import enLocale from 'date-fns/locale/en-US'
-import ruLocale from 'date-fns/locale/ru'
-import zhLocale from 'date-fns/locale/zh-CN'
-
 import { UiTheme } from '@constants/theme/themes'
 import { LanguageKey } from '@constants/translations/language-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { t } from '@utils/translations'
+
 import { useClassNames } from './date-picker.style'
-import { cx } from '@emotion/css'
 
 const getLocalByLanguageTag = languageTag => {
   switch (languageTag) {
@@ -198,11 +200,14 @@ export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) 
             },
           }}
           inputProps={{
+            title: placeholder,
             placeholder,
             className: cx(classNames.root, { [classNames.error]: error }),
           }}
           value={value ? value : null}
-          renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
+          renderInput={params => (
+            <TextField {...params} title={t(TranslationKey.Date)} helperText={null} variant="standard" size="small" />
+          )}
           onChange={newValue => {
             onChange(newValue)
           }}

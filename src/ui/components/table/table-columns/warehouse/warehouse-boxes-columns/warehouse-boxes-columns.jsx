@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,11 +16,10 @@ import {
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
   {
@@ -28,7 +28,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 80,
     columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
 
@@ -38,7 +38,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 160,
+    width: 140,
     sortable: false,
 
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -49,7 +49,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    width: 380,
+    width: 320,
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} imageSize={'big'} />
@@ -144,7 +144,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
-    width: 200,
+    width: 140,
     sortable: false,
   },
 
@@ -153,7 +153,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
+    renderCell: params => <MultilineTextCell text={params.value} noText={t(TranslationKey['Outside Batch'])} />,
     type: 'number',
     width: 110,
 
@@ -167,14 +167,16 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
         component={
-          <CustomSwitcher
-            condition={getUnitsOption()}
-            nameFirstArg={unitsOfChangeOptions.EU}
-            nameSecondArg={unitsOfChangeOptions.US}
-            firstArgValue={unitsOfChangeOptions.EU}
-            secondArgValue={unitsOfChangeOptions.US}
-            changeConditionHandler={handlers.onChangeUnitsOption}
-          />
+          <div>
+            <CustomSwitcher
+              condition={getUnitsOption()}
+              switcherSettings={[
+                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+              ]}
+              changeConditionHandler={handlers.onChangeUnitsOption}
+            />
+          </div>
         }
       />
     ),

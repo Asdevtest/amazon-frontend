@@ -1,14 +1,8 @@
 import { cx } from '@emotion/css'
-import {
-  /* Divider,  */
-  Grid,
-  Typography,
-  Avatar,
-} from '@mui/material'
-import Rating from '@mui/material/Rating'
 
-import React from 'react'
+import Typography from '@mui/material/Typography'
 
+import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByRequestStatus } from '@constants/requests/request-status'
 import {
@@ -19,176 +13,192 @@ import {
 } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
-// import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
-import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-short-card.style'
 
-export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
+export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
+  const getCardClassName = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return classNames.redBackground
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return classNames.yellowBackground
+    }
+  }
+
+  const getDeadlineColor = timeoutAt => {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+      return classNames.redColor
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+      return classNames.yellowColor
+    }
+  }
+
   return (
-    <Grid item>
-      <div className={classNames.cardWrapper}>
-        <div className={classNames.cardHeader}>
-          <div className={classNames.userInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
+    <div
+      className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}
+      onDoubleClick={() => onDoubleClick(item._id)}
+    >
+      <div className={classNames.cardHeader}>
+        <UserLink
+          blueText
+          withAvatar
+          ratingSize="large"
+          name={item?.createdBy?.name}
+          userId={item?.createdBy?._id}
+          rating={item?.createdBy?.rating}
+          customAvatarStyles={{ width: 40, height: 40 }}
+          customStyles={{ fontSize: 16, lineHeight: '20px' }}
+          customRatingClass={{ fontSize: 20, opacity: 1 }}
+        />
 
-            <div className={classNames.nameRatingWrapper}>
-              <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
-
-              <Rating disabled value={item?.createdBy?.rating} />
-            </div>
-          </div>
-
+        <div className={classNames.idAndPriorityWrapper}>
           <div className={classNames.idWrapper}>
             <Typography className={classNames.idTitle}>{t(TranslationKey.ID) + ':'}</Typography>
             <Typography className={cx(classNames.idTitle, classNames.idText)}>{item.humanFriendlyId}</Typography>
           </div>
-        </div>
 
-        <div className={classNames.cardTitleBlockWrapper}>
-          <Typography className={classNames.cardTitle}>{item.title}</Typography>
-        </div>
-
-        <div className={classNames.cardActionBlockWrapper}>
-          <div className={classNames.mainInfosWrapper}>
-            <div>
-              {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
-                <Field
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.fieldContainer}
-                  label={t(TranslationKey['Product price'])}
-                  inputComponent={
-                    <div className={classNames.priceAmazonWrapper}>
-                      {/* <Typography className={cx(classNames.cashBackPrice, classNames.dontWrapText)}>
-                        {`$ ${toFixed(item.priceAmazon - (item.priceAmazon * item.cashBackInPercent) / 100, 2)}`}
-                      </Typography>
-
-                      <Typography className={cx(classNames.redText, classNames.dontWrapText)}>{`$ ${toFixed(
-                        item.priceAmazon,
-                        2,
-                      )}`}</Typography> */}
-
-                      <VacantRequestPriceCell
-                        AlignLeft
-                        price={item.priceAmazon}
-                        cashBackInPercent={item.cashBackInPercent}
-                      />
-                    </div>
-                  }
-                />
-              ) : null}
-
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey['Request price'])}
-                inputComponent={
-                  <Typography className={classNames.accentText}>{toFixedWithDollarSign(item.price, 2)}</Typography>
-                }
-              />
-
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Time)}
-                inputComponent={
-                  <Typography className={classNames.accentText}>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(
-                    TranslationKey.hour,
-                  )} `}</Typography>
-                }
-              />
-
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Updated)}
-                inputComponent={
-                  <Typography className={classNames.accentText}>
-                    {formatNormDateTimeWithParseISO(item.updatedAt)}
-                  </Typography>
-                }
-              />
-            </div>
-
-            <div>
-              {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
-                <Field
-                  labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-                  containerClasses={classNames.fieldContainer}
-                  label={'CashBack'}
-                  inputComponent={
-                    <Typography className={cx(classNames.accentText, classNames.rightText)}>
-                      {toFixed(item.cashBackInPercent, 2) + '%'}
-                    </Typography>
-                  }
-                />
-              ) : null}
-
-              <Field
-                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Status)}
-                inputComponent={
-                  <Typography
-                    className={cx(classNames.accentText, classNames.rightText)}
-                    style={{ color: colorByRequestStatus(item.status) }}
-                  >
-                    {MyRequestStatusTranslate(item.status)}
-                  </Typography>
-                }
-              />
-
-              <Field
-                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey['Request type'])}
-                inputComponent={
-                  <Typography className={cx(classNames.accentText, classNames.rightText)}>
-                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
-                  </Typography>
-                }
-              />
-              <Field
-                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Deadline)}
-                inputComponent={
-                  <Typography
-                    className={cx(classNames.accentText, classNames.rightText, classNames.dontWrapText)}
-                  >{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
-                }
-              />
-            </div>
-          </div>
-
-          <Button
-            tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-            variant="contained"
-            color="primary"
-            className={classNames.actionButton}
-            onClick={() => onClickViewMore(item._id)}
-          >
-            {t(TranslationKey.Details)}
-          </Button>
-          <Typography className={classNames.cardSubTitle}>
-            {translateProposalsLeftMessage(
-              item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
-              item?.maxAmountOfProposals,
-            )}
-          </Typography>
+          {Number(item?.priority) === requestPriority.urgentPriority && (
+            <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+          )}
         </div>
       </div>
-    </Grid>
+
+      <OrderCell withoutSku imageSize={'small'} product={item.product} />
+
+      <div className={classNames.cardTitleBlockWrapper}>
+        <Typography className={classNames.cardTitle}>{item.title}</Typography>
+      </div>
+
+      <div className={classNames.cardActionBlockWrapper}>
+        <div className={classNames.mainInfosWrapper}>
+          <div>
+            {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey['Product price'])}
+                inputComponent={
+                  <div className={classNames.priceAmazonWrapper}>
+                    <VacantRequestPriceCell
+                      AlignLeft
+                      price={item.priceAmazon}
+                      cashBackInPercent={item.cashBackInPercent}
+                    />
+                  </div>
+                }
+              />
+            ) : null}
+
+            <Field
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey['Request price'])}
+              inputComponent={
+                <Typography className={classNames.accentText}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+              }
+            />
+
+            <Field
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey.Time)}
+              inputComponent={
+                <Typography className={cx(classNames.accentText, getDeadlineColor(item?.timeoutAt))}>{`${Math.round(
+                  getDistanceBetweenDatesInSeconds(item?.timeoutAt) / 3600,
+                )} ${t(TranslationKey.hour)} `}</Typography>
+              }
+            />
+
+            <Field
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey.Updated)}
+              inputComponent={
+                <Typography className={classNames.accentText}>
+                  {formatNormDateTimeWithParseISO(item.updatedAt)}
+                </Typography>
+              }
+            />
+          </div>
+
+          <div>
+            {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+              <Field
+                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
+                containerClasses={classNames.fieldContainer}
+                label={'CashBack'}
+                inputComponent={
+                  <Typography className={cx(classNames.accentText, classNames.rightText)}>
+                    {toFixed(item.cashBackInPercent, 2) + '%'}
+                  </Typography>
+                }
+              />
+            ) : null}
+
+            <Field
+              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey.Status)}
+              inputComponent={
+                <Typography
+                  className={cx(classNames.accentText, classNames.rightText)}
+                  style={{ color: colorByRequestStatus(item.status) }}
+                >
+                  {MyRequestStatusTranslate(item.status)}
+                </Typography>
+              }
+            />
+
+            <Field
+              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey['Request type'])}
+              inputComponent={
+                <Typography className={cx(classNames.accentText, classNames.rightText)}>
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
+                </Typography>
+              }
+            />
+            <Field
+              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey.Deadline)}
+              inputComponent={
+                <Typography
+                  className={cx(classNames.accentText, classNames.rightText, classNames.dontWrapText)}
+                >{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
+              }
+            />
+          </div>
+        </div>
+
+        <Button
+          tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
+          variant="contained"
+          color="primary"
+          className={classNames.actionButton}
+          onClick={() => onClickViewMore(item._id)}
+        >
+          {t(TranslationKey.Details)}
+        </Button>
+        <Typography className={classNames.cardSubTitle}>
+          {translateProposalsLeftMessage(
+            item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
+            item?.maxAmountOfProposals,
+          )}
+        </Typography>
+      </div>
+    </div>
   )
 }

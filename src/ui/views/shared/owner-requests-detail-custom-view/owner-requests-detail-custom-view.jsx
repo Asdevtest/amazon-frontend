@@ -1,10 +1,9 @@
-import InboxIcon from '@mui/icons-material/Inbox'
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import InboxIcon from '@mui/icons-material/Inbox'
+import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,20 +13,22 @@ import { RequestDesignerResultClientForm } from '@components/forms/request-desig
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form/request-proposal-accept-or-reject-result-form'
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
-import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 import { styles } from './owner-requests-detail-custom-view.style'
+
+import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
+
+import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 
 export const OwnerRequestDetailCustomViewRaw = props => {
   const chatRef = useRef()
@@ -55,15 +56,17 @@ export const OwnerRequestDetailCustomViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
+            userInfo={viewModel.userInfo}
             request={viewModel.request}
             requestProposals={viewModel.requestProposals}
             requestAnnouncement={viewModel.requestAnnouncement}
             onClickPublishBtn={viewModel.onClickPublishBtn}
             onClickEditBtn={viewModel.onClickEditBtn}
             onClickCancelBtn={viewModel.onClickCancelBtn}
+            onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
             onClickAbortBtn={viewModel.onClickAbortBtn}
             onRecoverRequest={viewModel.onRecoverRequest}
             onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
@@ -129,6 +132,10 @@ export const OwnerRequestDetailCustomViewRaw = props => {
                     typingUsers={viewModel.typingUsers}
                     chats={viewModel.chats}
                     userId={viewModel.userInfo._id}
+                    mutedChats={viewModel.mutedChats}
+                    messagesFound={viewModel.messagesFound}
+                    mesSearchValue={viewModel.mesSearchValue}
+                    curFoundedMessage={viewModel.curFoundedMessage}
                     chatSelectedId={viewModel.chatSelectedId}
                     chatMessageHandlers={{
                       onClickProposalAccept: viewModel.onClickOrderProposal,
@@ -147,6 +154,10 @@ export const OwnerRequestDetailCustomViewRaw = props => {
                     onSubmitMessage={viewModel.onSubmitMessage}
                     onClickChat={viewModel.onClickChat}
                     onTypingMessage={viewModel.onTypingMessage}
+                    onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
+                    onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
+                    onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                    onCloseMesSearchValue={viewModel.onCloseMesSearchValue}
                   />
                 </ChatRequestAndRequestProposalContext.Provider>
               </div>
@@ -160,7 +171,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
             </Button>
           </div>
         )}
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
         <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
@@ -176,7 +187,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         setOpenModal={viewModel.triggerShowResultToCorrectFormModal}
       >
         <RequestProposalResultToCorrectForm
-          onPressSubmitForm={viewModel.onPressSubmitRequestProposalResultToCorrectForm}
+          onPressSubmitForm={viewModel.onSubmitSendInForReworkInRequestProposalResultToCorrectForm}
         />
       </Modal>
 
@@ -196,7 +207,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
           curResultMedia={viewModel.curResultMedia}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
           onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
-          onPressSubmitDesignerResultToCorrect={viewModel.onPressSubmitDesignerResultToCorrect}
+          onPressSubmitDesignerResultToCorrect={viewModel.onSubmitSendInForReworkInProposalResultAccept}
         />
       </Modal>
 
@@ -216,7 +227,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
@@ -241,13 +252,12 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

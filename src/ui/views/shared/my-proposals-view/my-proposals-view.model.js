@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -8,6 +7,7 @@ import {
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
 } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -15,8 +15,8 @@ import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class MyProposalsViewModel {
   history = undefined
@@ -47,6 +47,7 @@ export class MyProposalsViewModel {
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
   showRequestStandartResultModal = false
+  showRequestResultModal = false
   selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
@@ -255,8 +256,11 @@ export class MyProposalsViewModel {
 
   async getUserInfo() {
     const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
+
+    runInAction(() => {
+      this.userInfo = result
+      this.userRole = UserRoleCodeMap[result.role]
+    })
   }
 
   async loadData() {
@@ -319,6 +323,8 @@ export class MyProposalsViewModel {
 
     if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.BLOGGER) {
+      this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showRequestStandartResultModal')
     }

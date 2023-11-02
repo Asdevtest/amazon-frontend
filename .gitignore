@@ -29,6 +29,6 @@ yarn-error.log*
 
 .vscode
 
-/src/services/rest-api-service
+/src/services/rest-api-service/codegen
 
 .schema.json

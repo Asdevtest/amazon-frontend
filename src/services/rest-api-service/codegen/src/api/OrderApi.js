@@ -17,7 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject72 from '../model/InlineObject72';
 import InlineObject73 from '../model/InlineObject73';
-import InlineResponse20050 from '../model/InlineResponse20050';
+import InlineResponse20055 from '../model/InlineResponse20055';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -47,7 +47,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20050>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20055>} and HTTP response
      */
     apiV1OrdersCheckPendingOrderByProductGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -71,7 +71,7 @@ export default class OrderApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20050];
+      let returnType = [InlineResponse20055];
       return this.apiClient.callApi(
         '/api/v1/orders/check_pending_order_by_product/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -85,7 +85,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20050>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20055>}
      */
     apiV1OrdersCheckPendingOrderByProductGuidGet(guid, opts) {
       return this.apiV1OrdersCheckPendingOrderByProductGuidGetWithHttpInfo(guid, opts)

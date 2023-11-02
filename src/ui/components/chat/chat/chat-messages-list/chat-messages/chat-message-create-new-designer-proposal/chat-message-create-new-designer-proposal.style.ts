@@ -2,133 +2,79 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
-    width: 1200,
+    maxWidth: 1075,
+    padding: 30,
     margin: '0 auto',
-    // border: '1px solid #4CAF50',
-    borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
-  },
+    borderRadius: 7,
+    backgroundColor: theme.palette.background.general,
 
-  headerText: {
-    color: theme.palette.text.general,
-    fontSize: 14,
-    fontWeight: 600,
-    lineHeight: '140%',
-    textTransform: 'uppercase',
-    marginBottom: 20,
-  },
-
-  timeText: {
-    color: theme.palette.text.second,
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '16px',
-    position: 'absolute',
-    top: 0,
-    right: 20,
-  },
-
-  descriptionText: {
-    color: theme.palette.text.second,
-    fontSize: 16,
-    minHeight: 100,
-    wordBreak: 'break-word',
-    whiteSpace: 'pre-line',
-  },
-
-  footerWrapper: {
-    marginTop: '20px',
-  },
-  btnsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '48px',
-    gap: 40,
-  },
-
-  actionButton: {
-    padding: '0 15px',
-  },
-
-  editButton: {
-    width: '252px',
-  },
-
-  successBtn: {
-    width: '197px',
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
+    [theme.breakpoints.down(768)]: {
+      padding: '20px 16px',
     },
   },
 
   mainWrapper: {
     display: 'flex',
-    gap: 20,
-    position: 'relative',
+    gap: 30,
+
+    [theme.breakpoints.down(1365)]: {
+      flexDirection: 'column',
+      gap: 20,
+    },
+  },
+
+  mainWrapperShowChatInfo: {
+    [theme.breakpoints.down(1750)]: {
+      flexDirection: 'column',
+    },
   },
 
   mainSubWrapper: {
-    minWidth: 250,
-    maxWidth: '50%',
-    // width: 'max-content',
-  },
-
-  divider: {
-    height: 'auto',
-  },
-
-  labelValueBlockWrapper: {
-    minWidth: 260,
-    maxWidth: 'max-content',
-
-    // marginBottom: 24,
-  },
-
-  accentText: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: theme.palette.text.general,
-    whiteSpace: 'nowrap',
-  },
-
-  infosWrapper: {
-    // width: 'max-content',
+    minWidth: 300,
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     gap: 20,
+    flex: 1,
 
-    // display: 'grid',
-    // gridTemplateColumns: 'repeat(2, 1fr)',
-    // width: '100%',
-    // gridAutoColumns: 'max-content',
-    // grid: 'auto-flow',
-
-    minHeight: 120,
+    [theme.breakpoints.down(1280)]: {
+      minWidth: 'max-content',
+    },
   },
 
-  infosProposalWrapper: {
+  mainSubWrapperShowChatInfo: {
+    [theme.breakpoints.down(1350)]: {
+      minWidth: 'max-content',
+    },
+  },
+
+  header: {
     display: 'flex',
-    // flexWrap: 'wrap',
-    gap: 20,
-
-    minHeight: 120,
-  },
-
-  fieldLabel: {
-    fontSize: 14,
-    color: theme.palette.text.second,
-  },
-
-  massageHeaderWrapper: {
-    display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+  },
+
+  headerText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    color: theme.palette.text.general,
+  },
+
+  timeText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
+    },
   },
 
   idWrapper: {
@@ -136,20 +82,115 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
+  idText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 600,
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
+    },
+  },
+
   idTitle: {
     color: theme.palette.text.general,
   },
-  idText: {
-    fontWeight: 600,
+
+  descriptionText: {
+    width: '100%',
+    maxHeight: 150,
+    overflow: 'auto',
+    color: theme.palette.text.second,
+    wordBreak: 'break-word',
+    whiteSpace: 'pre-line',
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+  },
+
+  infosWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  labelValueBlock: {
+    width: '100%',
+
+    [theme.breakpoints.down(768)]: {
+      flexWrap: 'wrap',
+      gap: 5,
+    },
+  },
+
+  labelValueBlockShowChatInfo: {
+    [theme.breakpoints.down(1350)]: {
+      flexWrap: 'wrap',
+      gap: 5,
+    },
+  },
+
+  accentText: {
     fontSize: 14,
     lineHeight: '19px',
+    fontWeight: 600,
+    color: theme.palette.text.general,
+    whiteSpace: 'nowrap',
+  },
 
+  fieldLabel: {
+    marginBottom: 10,
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
-  paragraphWrapper: {
-    minHeight: 180,
-    marginTop: 20,
-    marginBottom: 10,
+  divider: {
+    width: 1,
+    height: 'auto',
+    background: 'rgba(255, 255, 255, 0.12)',
+
+    [theme.breakpoints.down(1365)]: {
+      width: '100%',
+      height: 1,
+    },
+  },
+
+  dividerShowChatInfo: {
+    [theme.breakpoints.down(1750)]: {
+      height: 1,
+      width: 'auto',
+    },
+  },
+
+  btnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'end',
+    marginTop: '20px',
+    gap: 40,
+  },
+
+  actionButton: {
+    padding: '0 15px',
+  },
+
+  successBtn: {
+    backgroundColor: '#4CAF50',
+
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#4CAF50',
+    },
   },
 }))

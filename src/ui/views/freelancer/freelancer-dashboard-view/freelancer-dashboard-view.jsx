@@ -1,9 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getFreelancerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,14 +10,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
-import { MainContent } from '@components/layout/main-content'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { FreelancerDashboardViewModel } from './freelacer-dashboard-view.model'
 import { styles } from './freelancer-dashboard-view.style'
+
+import { FreelancerDashboardViewModel } from './freelacer-dashboard-view.model'
 
 export const FreelancerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new FreelancerDashboardViewModel({ history: props.history }))
@@ -35,7 +34,7 @@ export const FreelancerDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
@@ -66,7 +65,7 @@ export const FreelancerDashboardViewRaw = props => {
             onClickViewMore={viewModel.onClickInfoCardViewMode}
           />
         ))}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

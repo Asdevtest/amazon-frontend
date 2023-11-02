@@ -1,53 +1,47 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Divider, Grid, Link, Typography, Tooltip } from '@mui/material'
-
-import React, { useMemo, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
+import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
 
 import {
   getConversion,
-  getWeightConversion,
   getWeightSizesType,
-  getlengthConversion,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
 import {
-  getShortenStringIfLongerThanCount,
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
+  getShortenStringIfLongerThanCount,
   shortAsin,
   toFixed,
-  toFixedWithKg,
-  getNewTariffTextForBoxOrOrder,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const BoxViewForm = observer(
   ({
@@ -167,9 +161,7 @@ export const BoxViewForm = observer(
             </div>
           </div>
         </div>
-
         <Divider className={classNames.divider} />
-
         <div className={classNames.blocksWrapper}>
           <div className={classNames.blockWrapper}>
             <Grid container className={classNames.deliveryInfoWrapper}>
@@ -211,7 +203,7 @@ export const BoxViewForm = observer(
               <div className={classNames.imgWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
-                  <PhotoCarousel small files={box.images} />
+                  <PhotoAndFilesSlider withoutFiles files={box.images} />
                 </div>
               </div>
 
@@ -220,14 +212,16 @@ export const BoxViewForm = observer(
                   <div className={classNames.sizesSubWrapper}>
                     <Typography className={classNames.label}>{t(TranslationKey.Dimensions) + ':'}</Typography>
 
-                    <CustomSwitcher
-                      condition={sizeSetting}
-                      nameFirstArg={unitsOfChangeOptions.EU}
-                      nameSecondArg={unitsOfChangeOptions.US}
-                      firstArgValue={unitsOfChangeOptions.EU}
-                      secondArgValue={unitsOfChangeOptions.US}
-                      changeConditionHandler={condition => setSizeSetting(condition)}
-                    />
+                    <div>
+                      <CustomSwitcher
+                        condition={sizeSetting}
+                        switcherSettings={[
+                          { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                          { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                        ]}
+                        changeConditionHandler={condition => setSizeSetting(condition)}
+                      />
+                    </div>
                   </div>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Length) + ': '}
@@ -401,7 +395,9 @@ export const BoxViewForm = observer(
                       className={classNames.trackNumberPhotoBtn}
                       onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                     >
-                      {formFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                      {formFields.tmpTrackNumberFile[0]
+                        ? t(TranslationKey['File added'])
+                        : t(TranslationKey['Photo track numbers'])}
                     </Button>
                   </div>
 
@@ -428,20 +424,14 @@ export const BoxViewForm = observer(
                               setBigImagesOptions({
                                 ...bigImagesOptions,
 
-                                images: [
-                                  formFields.tmpTrackNumberFile[index]
-                                    ? typeof formFields.tmpTrackNumberFile[index] === 'string'
-                                      ? formFields.tmpTrackNumberFile[index]
-                                      : formFields.tmpTrackNumberFile[index]?.data_url
-                                    : formFields.trackNumberFile[index],
-                                ],
+                                images: [...formFields.tmpTrackNumberFile, ...formFields.trackNumberFile],
                               })
                             }}
                           />
                         ))}
                       </CustomSlider>
                     ) : (
-                      <Typography>{'no photo track number...'}</Typography>
+                      <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                     )}
                   </div>
                 </div>
@@ -449,7 +439,6 @@ export const BoxViewForm = observer(
             </div>
           </div>
         </div>
-
         <div className={classNames.commentsWrapper}>
           <Field
             multiline
@@ -477,7 +466,6 @@ export const BoxViewForm = observer(
             onChange={onChangeField('storekeeperComment')}
           />
         </div>
-
         <div className={classNames.buttonsWrapper}>
           {isEdit && (
             <Button success onClick={() => onSubmitChangeFields(formFields)}>
@@ -489,7 +477,6 @@ export const BoxViewForm = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
-
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={'Track number'}
@@ -503,13 +490,12 @@ export const BoxViewForm = observer(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
-
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          imageList={bigImagesOptions.images}
+          handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
         />
       </div>
     )
@@ -526,7 +512,7 @@ const Content = React.memo(
           <div key={index} className={classNames.productWrapper}>
             <div className={classNames.leftColumn}>
               <div className={classNames.photoWrapper}>
-                <PhotoCarousel isAmazonPhoto files={item.product.images} />
+                <PhotoAndFilesSlider withoutFiles files={item.product.images} />
               </div>
               <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                 <Typography className={classNames.amazonTitle}>
@@ -562,7 +548,7 @@ const Content = React.memo(
                 value={item.product.hsCode}
                 placeholder={t(TranslationKey['Not available'])}
                 inputComponent={
-                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id, true)}>
                     {t(TranslationKey['HS code'])}
                   </Button>
                 }
@@ -571,13 +557,13 @@ const Content = React.memo(
 
               <div className={classNames.priorityWrapper}>
                 <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
-                {item.order.priority === '40' ? (
+                {item.order.priority === orderPriority.urgentPriority ? (
                   <div className={classNames.rushOrderWrapper}>
                     <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
                     <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
                   </div>
                 ) : null}
-                {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
+                {item.order.priority !== orderPriority.urgentPriority && !item.order.expressChinaDelivery ? (
                   <div className={classNames.rushOrderWrapper}>
                     <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
                   </div>

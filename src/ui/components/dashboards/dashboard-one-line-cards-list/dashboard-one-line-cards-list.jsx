@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { CircularProgress, Typography } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
-
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { CircularProgress, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -35,8 +34,8 @@ export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore,
         </div>
         {isClient ? (
           <Button success className={classNames.addButton} onClick={() => onClickAddProduct(config.route)}>
-            {t(TranslationKey['Add product'])}
             <img src="/assets/icons/white-plus.svg" className={classNames.iconBtn} />
+            {t(TranslationKey['Add product'])}
           </Button>
         ) : null}
       </div>

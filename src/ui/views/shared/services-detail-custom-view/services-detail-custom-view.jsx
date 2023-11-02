@@ -1,22 +1,21 @@
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-undef */
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { MyServicesInfoCustom } from '@components/my-services/my-services-info-custom'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 import { styles } from './services-detail-custom-view.style'
+
+import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 
 export const ServicesDetailCustomViewRaw = props => {
   const [viewModel] = useState(
@@ -34,7 +33,7 @@ export const ServicesDetailCustomViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backBtnWrapper}>
           <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
             {t(TranslationKey.Back)}
@@ -54,7 +53,7 @@ export const ServicesDetailCustomViewRaw = props => {
             <CustomSearchRequestDetails request={viewModel.request} announcementData={viewModel.announcementData} />
           </div>
         ) : null}
-      </MainContent>
+      </div>
 
       {/* <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}

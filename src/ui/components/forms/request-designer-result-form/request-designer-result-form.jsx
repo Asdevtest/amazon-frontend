@@ -2,6 +2,11 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { nanoid } from 'nanoid'
+import React, { useCallback, useEffect, useState } from 'react'
+import { DndProvider, useDrag, useDrop } from 'react-dnd'
+import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -9,15 +14,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typography, Zoom } from '@mui/material'
 
-import React, { useCallback, useState } from 'react'
-
-import { nanoid } from 'nanoid'
-import { DndProvider, useDrag, useDrop } from 'react-dnd'
-import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -29,8 +28,9 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ImageEditForm } from '../image-edit-form'
 import { useClassNames } from './request-designer-result-form.style'
+
+import { ImageEditForm } from '../image-edit-form'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -239,12 +239,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const [comment, setComment] = useState(proposal.details.result)
 
-  const [imageEditOpen, setImageEditOpen] = useState(false)
-
-  const onClickToShowDetails = () => {
-    setShowDetails(!showDetails)
-  }
-
   const sourceImagesData = isRework
     ? proposal.proposal.media.map(el => ({
         image: el.fileLink,
@@ -254,7 +248,32 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
       }))
     : [{ image: null, comment: '', commentByClient: '', _id: nanoid() }]
 
+  const [imageEditOpen, setImageEditOpen] = useState(false)
+  const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
+
+  const [filteredImages, setFilteredImages] = useState([])
+
+  useEffect(() => {
+    setFilteredImages(
+      imagesData
+        .filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
+        .map(el => {
+          const url = typeof el?.image === 'string' ? el?.image : el?.image?.data_url
+
+          return {
+            url,
+            title: el.comment,
+            comment: el.commentByClient,
+            _id: el._id,
+          }
+        }),
+    )
+  }, [imagesData])
+
+  const onClickToShowDetails = () => {
+    setShowDetails(!showDetails)
+  }
 
   const onChangeImageFileds = useCallback(
     (field, imageId) => event => {
@@ -271,10 +290,10 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
     setImagesData(() => [...imagesData, { image: null, comment: '', commentByClient: '', _id: nanoid() }])
   }
 
-  const onClickRemoveImageObj = () => {
+  const onClickRemoveImageObj = id => {
     // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
 
-    setImagesData(() => imagesData.map(el => (el._id === curImageId ? { ...el, image: null } : el)))
+    setImagesData(() => imagesData.map(el => (el._id === id ? { ...el, image: null } : el)))
 
     setCurImageId(() => null)
   }
@@ -458,8 +477,8 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
                 imagesData={imagesData}
                 setImagesData={setImagesData}
                 setCurImageId={id => {
-                  console.log('id:', id)
                   setCurImageId(id)
+                  setCurImageIndex(filteredImages.findIndex(el => el._id === id))
                 }}
                 setShowImageModal={setShowImageModal}
                 showImageModal={showImageModal}
@@ -518,38 +537,37 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           onSave={onClickEditImageSubmit}
         />
       </Modal>
-      {showImageModal && (
-        <BigObjectImagesModal
-          isRedImageComment
-          openModal={showImageModal}
-          setOpenModal={() => setShowImageModal(!showImageModal)}
-          imagesData={imagesData.map(el => ({ ...el, imageComment: el?.commentByClient || '' }))}
-          curImageId={curImageId}
-          renderBtns={() => (
-            <>
-              <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
-                <ModeOutlinedIcon />
-              </Button>
 
-              <Button className={cx(classNames.imagesModalBtn)}>
-                <AutorenewIcon />
-                <input
-                  multiple
-                  type={'file'}
-                  className={classNames.pasteInput}
-                  defaultValue={''}
-                  onChange={onUploadFile(curImageId)}
-                />
-              </Button>
+      <ImageModal
+        showPreviews
+        isOpenModal={showImageModal}
+        handleOpenModal={() => setShowImageModal(!showImageModal)}
+        imageList={filteredImages}
+        currentImageIndex={curImageIndex}
+        handleCurrentImageIndex={index => setCurImageIndex(index)}
+        controls={(index, image) => (
+          <>
+            <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
+              <ModeOutlinedIcon />
+            </Button>
 
-              <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
-                <DeleteOutlineOutlinedIcon />
-              </Button>
-            </>
-          )}
-          setCurImageId={setCurImageId}
-        />
-      )}
+            <Button className={cx(classNames.imagesModalBtn)}>
+              <AutorenewIcon />
+              <input
+                multiple
+                type={'file'}
+                className={classNames.pasteInput}
+                defaultValue={''}
+                onChange={onUploadFile(image?._id)}
+              />
+            </Button>
+
+            <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(image?.id)}>
+              <DeleteOutlineOutlinedIcon />
+            </Button>
+          </>
+        )}
+      />
     </div>
   )
 }

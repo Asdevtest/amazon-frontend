@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { isNull, isUndefined } from '@utils/checks'
 
 export const getObjectKeys = target => Object.keys(target)
@@ -11,7 +12,7 @@ export const getObjectFilteredByKeyArrayWhiteList = (obj, keyArr, skipUndefined,
   Object.keys(obj)
     .filter(key => keyArr.includes(key))
     .reduce((acc, key) => {
-      if ((skipUndefined && isUndefined(obj[key])) || (!keepNull && isNull(obj[key]))) {
+      if ((skipUndefined && isUndefined(obj[key])) || (!keepNull && isNull(obj[key]) && key !== 'deadline')) {
         return acc
       } else {
         acc[key] = valueModifier ? valueModifier(key, obj[key]) : obj[key]
@@ -64,4 +65,45 @@ export const filterNullValues = obj => {
   })
 
   return result
+}
+
+export const objectDeepCompare = (obj1, obj2) => {
+  // Сравнение по ссылкам
+  if (typeof obj1 !== typeof obj2) {
+    return false
+  }
+
+  // Если это простые типы (числа, строки, булевы значения), сравнить их напрямую
+  if (typeof obj1 !== 'object' || obj1 === null || obj2 === null) {
+    return obj1 === obj2
+  }
+
+  // Если это массивы, сравнить их элементы
+  if (Array.isArray(obj1)) {
+    if (obj1.length !== obj2.length) {
+      return false
+    }
+    for (let i = 0; i < obj1.length; i++) {
+      if (!objectDeepCompare(obj1[i], obj2[i])) {
+        return false
+      }
+    }
+    return true
+  }
+
+  // Если это объекты, сравнить их свойства
+  const keys1 = Object.keys(obj1)
+  const keys2 = Object.keys(obj2)
+
+  if (keys1.length !== keys2.length) {
+    return false
+  }
+
+  for (const key of keys1) {
+    if (!obj2.hasOwnProperty(key) || !objectDeepCompare(obj1[key], obj2[key])) {
+      return false
+    }
+  }
+
+  return true
 }

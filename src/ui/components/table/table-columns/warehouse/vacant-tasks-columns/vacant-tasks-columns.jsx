@@ -1,19 +1,18 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
+  NormalActionBtnCell,
   StringListCell,
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -21,7 +20,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Action)} />,
 
     renderCell: params => (
       <NormalActionBtnCell
@@ -31,7 +30,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
     ),
-    width: window.innerWidth < 1282 ? 150 : 190,
+    width: window.innerWidth < 1282 ? 150 : 165,
     filterable: false,
     sortable: false,
   },
@@ -39,7 +38,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
     renderCell: params => (
@@ -54,9 +53,9 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'reason',
     headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Comment)} />,
 
-    width: 271,
+    width: 280,
 
     renderCell: params => (
       <ChangeInputCommentCell
@@ -73,19 +72,18 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
 
-    width: 180,
+    width: 130,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Description)} />,
 
-    // width: window.innerWidth < 1282 ? 338 : 850,
-    width: 290,
+    width: 330,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -93,12 +91,10 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'asin',
     headerName: 'ASIN',
-    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={'ASIN'} />,
 
-    renderCell: params => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
-    ),
-    width: window.innerWidth < 1282 ? 101 : 135,
+    renderCell: params => <MultipleAsinCell asinList={params.value} />,
+    width: window.innerWidth < 1282 ? 101 : 140,
     sortable: false,
   },
 
@@ -110,9 +106,8 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
-    width: window.innerWidth < 1282 ? 85 : 119,
+    width: window.innerWidth < 1282 ? 85 : 140,
     sortable: false,
-    align: 'center',
   },
 
   {
@@ -123,7 +118,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     align: 'center',
     type: 'number',
-    width: window.innerWidth < 1282 ? 75 : 134,
+    width: window.innerWidth < 1282 ? 75 : 130,
     sortable: false,
   },
 
@@ -133,7 +128,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <CheckboxCell checked={params.value} />,
-    width: 160,
+    width: 100,
     type: 'boolean',
   },
 
@@ -143,7 +138,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    width: window.innerWidth < 1282 ? 54 : 160,
+    width: window.innerWidth < 1282 ? 54 : 100,
     sortable: false,
   },
 
@@ -154,6 +149,5 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
     width: window.innerWidth < 1282 ? 95 : 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    // type: 'date',
   },
 ]

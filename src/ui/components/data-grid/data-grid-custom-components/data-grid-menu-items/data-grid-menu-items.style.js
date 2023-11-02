@@ -47,7 +47,7 @@ export const styles = theme => ({
     overflowY: 'auto',
     textAlign: 'center',
 
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    boxShadow: theme.palette.boxShadow.filter,
   },
 
   shop: {
@@ -183,5 +183,90 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 15,
+  },
+
+  universalFilterWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 300,
+    padding: '20px 21px',
+    gap: 20,
+  },
+
+  universalFilterSearchInputWrapper: {
+    width: '100%',
+    height: 30,
+  },
+
+  universalFilterBody: {
+    width: '100%',
+    minHeight: 50,
+    maxHeight: 245,
+    overflowY: 'auto',
+    textAlign: 'center',
+    boxShadow: theme.palette.boxShadow.filter,
+  },
+
+  fullName: {
+    width: 'max-content',
+  },
+
+  dateDetailsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 310,
+    padding: '10px 20px',
+    gap: 20,
+  },
+
+  searchLabel: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+    marginRight: 10,
+  },
+
+  radioOptions: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  radioOptionDate: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+    textTransform: 'capitalize',
+  },
+
+  inpunts: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+    padding: 10,
+    border: `1px solid #656565`,
+    borderRadius: 7,
+  },
+
+  inpuntContainer: {
+    display: 'flex',
+    gap: 10,
+  },
+
+  inpunt: {
+    width: 80,
+    borderBottom: `1px solid #656565`,
+  },
+
+  redFlagIcon: {
+    width: 24,
+    height: 24,
   },
 })

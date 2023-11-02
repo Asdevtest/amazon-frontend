@@ -1,19 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import isEqual from 'lodash.isequal'
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import { Button, Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import isEqual from 'lodash.isequal'
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
+import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -33,7 +34,7 @@ const WithSearchSelectRaw = observer(
     onClickNotChosen,
     placeholder,
     searchFields,
-    CustomBtn,
+    CustomButton,
     isFlat,
     favourites,
     withoutSearch,
@@ -42,6 +43,8 @@ const WithSearchSelectRaw = observer(
     currentShops,
     searchOnlyFields,
     asinSelect,
+    selectedAsins,
+    masterUserSelect,
     fieldNameStyles,
     buttonStyles,
     customItemsWrapper,
@@ -56,6 +59,7 @@ const WithSearchSelectRaw = observer(
     changeColorById,
     getRowValue,
     onClickSubmitBtn,
+    isWithoutItemsTooltip,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -199,15 +203,15 @@ const WithSearchSelectRaw = observer(
                   {firstItems}
 
                   {dataToRenderSortedByFavourites?.map((el, index) =>
-                    CustomBtn ? (
-                      <CustomBtn
+                    CustomButton ? (
+                      <CustomButton
                         key={index}
-                        item={el}
-                        onClick={e => {
-                          e.stopPropagation()
-
+                        data={el}
+                        onClickCustomButton={() => {
                           onClickSelect(el)
-                          handleClose()
+                          if (!notCloseOneClick) {
+                            handleClose()
+                          }
                         }}
                       />
                     ) : (
@@ -234,11 +238,17 @@ const WithSearchSelectRaw = observer(
                               {checkbox && (
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
-                              <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
+                              {!isWithoutItemsTooltip ? (
+                                <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
+                                  <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
+                                    {getRowValue ? getRowValue(el) : el[fieldName]}
+                                  </Typography>
+                                </Tooltip>
+                              ) : (
                                 <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
-                              </Tooltip>
+                              )}
                             </React.Fragment>
                           ))}
 
@@ -262,7 +272,17 @@ const WithSearchSelectRaw = observer(
                             </>
                           )}
 
-                          {asinSelect && <SelectProductAsinCellWithourTitle preventDefault product={el} />}
+                          {asinSelect && (
+                            <SelectProductAsinCellWithourTitle
+                              preventDefault
+                              product={el}
+                              withCheckbox={checkbox}
+                              checkboxChecked={selectedAsins?.some(asin => asin?._id === el?._id)}
+                              onClickCheckbox={() => onClickSelect(el)}
+                            />
+                          )}
+
+                          {masterUserSelect && <MasterUserItem id={el?._id} name={el?.name} rating={el?.rating} />}
 
                           {favourites ? (
                             <StarOutlinedIcon
@@ -287,9 +307,18 @@ const WithSearchSelectRaw = observer(
                   )}
                 </div>
 
-                {onClickSubmitBtn && (
+                {(checkbox || onClickSubmitBtn) && (
                   <div className={classNames.submitWrapper}>
-                    <Button className={classNames.apply} variant="contained" onClick={onClickSubmitBtn}>
+                    <Button
+                      className={classNames.apply}
+                      onClick={() => {
+                        if (onClickSubmitBtn) {
+                          onClickSubmitBtn()
+                        } else {
+                          handleClose()
+                        }
+                      }}
+                    >
                       {t(TranslationKey.Apply)}
                     </Button>
                   </div>

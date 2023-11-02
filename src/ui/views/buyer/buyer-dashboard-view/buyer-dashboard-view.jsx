@@ -1,8 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { getBuyerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,15 +11,14 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
 // import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import { MainContent } from '@components/layout/main-content'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 import { styles } from './buyer-dashboard-view.style'
-import { observer } from 'mobx-react'
+
+import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 
 export const BuyerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))
@@ -36,7 +35,7 @@ export const BuyerDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
@@ -67,7 +66,7 @@ export const BuyerDashboardViewRaw = props => {
               onClickViewMore={viewModel.onClickInfoCardViewMode}
             />
           ))}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

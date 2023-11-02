@@ -47,20 +47,11 @@ class InlineObject102 {
         if (data) {
             obj = obj || new InlineObject102();
 
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('onCheckedIdeaId')) {
+                obj['onCheckedIdeaId'] = ApiClient.convertToType(data['onCheckedIdeaId'], 'String');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('onFinishedIdeaId')) {
+                obj['onFinishedIdeaId'] = ApiClient.convertToType(data['onFinishedIdeaId'], 'String');
             }
         }
         return obj;
@@ -70,34 +61,18 @@ class InlineObject102 {
 }
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Гуид идеи в статусе onChecked(10)
+ * @member {String} onCheckedIdeaId
+ * @default 'null'
  */
-InlineObject102.prototype['commentByClient'] = undefined;
+InlineObject102.prototype['onCheckedIdeaId'] = 'null';
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Гуид идеи в статусе finished(20)
+ * @member {String} onFinishedIdeaId
+ * @default 'null'
  */
-InlineObject102.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineObject102.prototype['fileLink'] = undefined;
-
-/**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
- */
-InlineObject102.prototype['proposalId'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} requestId
- */
-InlineObject102.prototype['requestId'] = undefined;
+InlineObject102.prototype['onFinishedIdeaId'] = 'null';
 
 
 

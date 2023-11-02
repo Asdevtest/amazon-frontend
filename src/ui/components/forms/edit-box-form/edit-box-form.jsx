@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Chip, Divider, Typography } from '@mui/material'
-
-import React, { useState, useEffect } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+
+import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -14,38 +13,37 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
-
+import { CopyValue } from '@components/shared/copy-value'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-// import {checkIsImageLink} from '@utils/checks'
 import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 import { useClassNames } from './edit-box-form.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
-import { CopyValue } from '@components/shared/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { BoxStatus } from '@constants/statuses/box-status'
+
+import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -345,7 +343,7 @@ export const EditBoxForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoCarousel isAmazonPhoto files={item.product.images} />
+                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
                           </div>
 
                           <>
@@ -513,9 +511,9 @@ export const EditBoxForm = observer(
                           data={
                             boxFields.logicsTariffId &&
                             currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                              ? destinations
-                                  .filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
-                                  .filter(el => el?._id === destinationId)
+                              ? destinations.filter(
+                                  el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
+                                )
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}
@@ -537,31 +535,15 @@ export const EditBoxForm = observer(
                         <Button
                           disableElevation
                           color="primary"
-                          variant={boxFields.storekeeperId && 'text'}
-                          className={cx(classNames.storekeeperBtnDefault, {
+                          disabled={!boxFields.storekeeperId}
+                          className={cx({
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
-                            [classNames.storekeeperBtnColored]:
-                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {/* {boxFields.storekeeperId
-                            ? `${
-                                storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
-                                t(TranslationKey['Not available'])
-                              } /  
-                        ${
-                          boxFields.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-                            : t(TranslationKey.Select)} */}
-
-                          {boxFields.storekeeperId
+                          {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
@@ -659,14 +641,16 @@ export const EditBoxForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
-                    changeConditionHandler={condition => setSizeSetting(condition)}
-                  />
+                  <div>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      switcherSettings={[
+                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                      ]}
+                      changeConditionHandler={condition => setSizeSetting(condition)}
+                    />
+                  </div>
                 </div>
 
                 <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />
@@ -675,7 +659,7 @@ export const EditBoxForm = observer(
                   <Typography className={classNames.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
+                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
                 </div>
 
                 <div className={classNames.commentsWrapper}>
@@ -760,12 +744,12 @@ export const EditBoxForm = observer(
           </Button>
         </div>
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal

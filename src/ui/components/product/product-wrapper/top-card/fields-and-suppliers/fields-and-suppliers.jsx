@@ -1,17 +1,16 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Box, Grid, Link, ListItemText, MenuItem, Select, Tooltip, Typography } from '@mui/material'
-import MuiCheckbox from '@mui/material/Checkbox'
-
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useState } from 'react'
 
+import AddIcon from '@mui/icons-material/Add'
+import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
+
+import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
+  ProductStrategyStatus,
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
-  ProductStrategyStatus,
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,15 +22,16 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
-import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './fields-and-suppliers.style'
-import { UserRole } from '@constants/keys/user-roles'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -48,9 +48,13 @@ export const FieldsAndSuppliers = observer(
     curUserRole,
     onChangeField,
     product,
+    productVariations,
+    navigateToProduct,
+    unbindProductHandler,
     productBase,
     formFieldsValidationErrors,
     shops,
+    onTriggerOpenModal,
     onClickHsCode,
     onClickParseProductData,
   }) => {
@@ -61,9 +65,6 @@ export const FieldsAndSuppliers = observer(
     const onChangeShop = shopId => {
       onChangeField('shopIds')({ target: { value: shopId ? [shopId] : [] } })
     }
-
-    console.log('shops', shops)
-    console.log('product', product)
 
     const isEditRedFlags =
       showActionBtns && (checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole) || checkIsClient(curUserRole))
@@ -229,8 +230,7 @@ export const FieldsAndSuppliers = observer(
               <Typography className={classNames.label}>{t(TranslationKey['Delivery Method'])}</Typography>
               <div className={classNames.productCheckboxBoxWrapper}>
                 <Box className={classNames.productCheckboxBox}>
-                  <Typography className={classNames.label}>{t(TranslationKey.FBA)}</Typography>
-                  <MuiCheckbox
+                  <Radio
                     disabled={
                       !(
                         checkIsSupervisor(curUserRole) ||
@@ -242,15 +242,15 @@ export const FieldsAndSuppliers = observer(
                           !product.archive)
                       )
                     }
-                    color="primary"
+                    classes={{ root: classNames.radioRoot }}
                     checked={product.fba}
-                    onClick={() => onChangeField('fba')({ target: { value: !product.fba } })}
+                    onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
+                  <Typography className={classNames.radioLabel}>{t(TranslationKey.FBA)}</Typography>
                 </Box>
 
                 <Box className={classNames.productCheckboxBox}>
-                  <Typography className={classNames.label}>{'FBM'}</Typography>
-                  <MuiCheckbox
+                  <Radio
                     disabled={
                       !(
                         checkIsSupervisor(curUserRole) ||
@@ -262,10 +262,11 @@ export const FieldsAndSuppliers = observer(
                           !product.archive)
                       )
                     }
-                    color="primary"
+                    classes={{ root: classNames.radioRoot }}
                     checked={!product.fba}
-                    onClick={() => onChangeField('fba')({ target: { value: !product.fba } })}
+                    onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
+                  <Typography className={classNames.radioLabel}>{'FBM'}</Typography>
                 </Box>
               </div>
             </div>
@@ -290,20 +291,13 @@ export const FieldsAndSuppliers = observer(
                       }
                       value={product.strategyStatus}
                       className={classNames.nativeSelect}
-                      input={<Input className={classNames.nativeSelect} />}
                       onChange={onChangeField('strategyStatus')}
                     >
-                      {/* <MenuItem disabled value={null} className={classNames.strategyOption}> */}
-                      {/*   <em>{t(TranslationKey['not selected'])}</em> */}
-                      {/* </MenuItem> */}
                       {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
                         <MenuItem
                           key={statusIndex}
                           value={statusCode}
-                          className={cx(classNames.strategyOption, {
-                            [classNames.disabledOption]:
-                              checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
-                          })}
+                          className={classNames.strategyOption}
                           disabled={
                             checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                           }
@@ -465,6 +459,67 @@ export const FieldsAndSuppliers = observer(
               </div>
             ) : null}
           </div>
+
+          {product?.parentProductId || !!productVariations?.childProducts?.length ? (
+            <div className={classNames.interconnectedProductsWrapper}>
+              <div
+                className={cx(classNames.interconnectedProductsHeader, {
+                  [classNames.interconnectedProductsHeaderPadding]:
+                    (product?.parentProductId && productVariations?.childProducts?.length >= 4) ||
+                    (!product?.parentProductId && productVariations?.childProducts?.length >= 5),
+                })}
+              >
+                <p className={classNames.subUsersTitle}>
+                  {product?.parentProductId
+                    ? t(TranslationKey['Interconnected products'])
+                    : t(TranslationKey.Variations)}
+                </p>
+
+                {checkIsClient(curUserRole) && !product?.parentProductId && (
+                  <Button className={classNames.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+                    <AddIcon className={classNames.plusIcon} />
+                  </Button>
+                )}
+              </div>
+              <div className={classNames.interconnectedProductsBodyWrapper}>
+                {product?.parentProductId && (
+                  <InterconnectedProducts
+                    isParent
+                    showRemoveButton={checkIsClient(curUserRole)}
+                    variationProduct={{
+                      _id: productVariations?._id,
+                      asin: productVariations?.asin,
+                      skusByClient: productVariations?.skusByClient,
+                      images: productVariations?.images,
+                      shopIds: productVariations?.shopIds,
+                      amazonTitle: productVariations?.amazonTitle,
+                    }}
+                    navigateToProduct={navigateToProduct}
+                    unbindProductHandler={unbindProductHandler}
+                    productId={product?._id}
+                  />
+                )}
+
+                {productVariations?.childProducts
+                  ?.filter(variationProduct => variationProduct?._id !== product?._id)
+                  .map((variationProduct, variationProductIndex) => (
+                    <InterconnectedProducts
+                      key={variationProductIndex}
+                      showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
+                      productId={product?._id}
+                      variationProduct={variationProduct}
+                      navigateToProduct={navigateToProduct}
+                      unbindProductHandler={unbindProductHandler}
+                    />
+                  ))}
+              </div>
+            </div>
+          ) : checkIsClient(curUserRole) ? (
+            <Button className={classNames.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+              <PlusIcon className={classNames.plusIcon} />
+              {t(TranslationKey['Add product linkage'])}
+            </Button>
+          ) : null}
         </Box>
 
         {checkIsBuyer(curUserRole) ? (
@@ -481,48 +536,6 @@ export const FieldsAndSuppliers = observer(
         ) : null}
         {checkIsClient(curUserRole) ? (
           <div className={classNames.shopsWrapper}>
-            {/* <Field
-              label={t(TranslationKey.Shop)}
-              containerClasses={classNames.allowedRoleContainer}
-              inputComponent={
-                <div className={classNames.shopsFieldWrapper}>
-                  <Select
-                    displayEmpty
-                    disabled={
-                      !(
-                        shops.length ||
-                        (checkIsClient(curUserRole) &&
-                          product.isCreatedByClient &&
-                          clientToEditStatuses.includes(productBase.status) &&
-                          checkIsClient(curUserRole) &&
-                          !product.archive)
-                      )
-                    }
-                    value={product.shopIds[0] || null}
-                    input={<Input className={classNames.nativeSelect} />}
-                    className={classNames.nativeSelect}
-                    onChange={onChangeShop}
-                  >
-                    <MenuItem value={null} className={classNames.strategyOption}>
-                      <em>{t(TranslationKey['not selected'])}</em>
-                    </MenuItem>
-                    {shops.map((shop, index) => (
-                      <MenuItem key={index} value={shop._id} className={classNames.shopOption}>
-                        <Tooltip title={shop.name}>
-                          <div className={classNames.menuItemWrapper}>
-                            <ListItemText
-                              primary={getShortenStringIfLongerThanCount(shop.name, 17)}
-                              className={classNames.shopName}
-                            />
-                          </div>
-                        </Tooltip>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </div>
-              }
-            /> */}
-
             <Field
               label={t(TranslationKey.Shop)}
               labelClasses={classNames.spanLabelSmall}

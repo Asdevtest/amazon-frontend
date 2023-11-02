@@ -12,9 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
+import InlineResponse20042Finances from './InlineResponse20042Finances';
+import InlineResponse20046Checking from './InlineResponse20046Checking';
+import InlineResponse20046Products from './InlineResponse20046Products';
 
 /**
  * The InlineResponse20046 model module.
@@ -50,17 +50,14 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20046Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20046Checking.constructFromObject(data['checking']);
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20042Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -70,24 +67,19 @@ class InlineResponse20046 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * @member {module:model/InlineResponse20046Products} products
  */
-InlineResponse20046.prototype['product'] = undefined;
+InlineResponse20046.prototype['products'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ * @member {module:model/InlineResponse20046Checking} checking
  */
-InlineResponse20046.prototype['idea'] = undefined;
+InlineResponse20046.prototype['checking'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
+ * @member {module:model/InlineResponse20042Finances} finances
  */
-InlineResponse20046.prototype['createdBy'] = undefined;
-
-/**
- * @member {String} createdAt
- */
-InlineResponse20046.prototype['createdAt'] = undefined;
+InlineResponse20046.prototype['finances'] = undefined;
 
 
 

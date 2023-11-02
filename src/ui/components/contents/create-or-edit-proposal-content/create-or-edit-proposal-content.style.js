@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainLeftWrapper: {
-    width: '25%',
+    width: '27%',
   },
 
   title: {
@@ -31,16 +31,17 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifySelf: 'flex-end',
-    alignSelf: 'flex-end',
-    marginBottom: '20px',
+    justifyContent: 'flex-start',
+    gap: 12,
+    marginBottom: 17,
   },
 
   footerWrapper: {
     display: 'flex',
+    width: '100%',
     alignSelf: 'flex-end',
     justifySelf: 'flex-end',
-
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
 
     // marginTop: 10,
@@ -49,7 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     gap: 20,
-    margin: '0 0 0 100px',
   },
 
   backBtn: {
@@ -57,7 +57,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   successBtn: {
-    marginLeft: '60px',
     width: '210px',
   },
 
@@ -94,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   adviceWrapper: {
-    width: '26%',
+    width: '25%',
   },
   adviceTitle: {
     fontSize: '30px',
@@ -155,7 +154,6 @@ export const useClassNames = makeStyles()(theme => ({
       marginRight: '60px',
       fontSize: '16px',
       lineHeight: '19px',
-      color: theme.palette.text.general,
     },
   },
   subTitle: {
@@ -182,12 +180,12 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  checkbox: { padding: 0 },
+
   checkboxLabel: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.general,
-    marginRight: '83px',
   },
 
   nameFieldWrapper: {
@@ -284,6 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+    marginBottom: 10,
   },
   imageFileInputSubTitle: {
     fontSize: 14,
@@ -299,21 +298,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
   infoBlockWrapper: {
     display: 'flex',
-
+    gap: 20,
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   infoCellWrapper: {
     display: 'flex',
     flexDirection: 'column',
   },
   lastInfoCellWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+    minWidth: 100,
   },
-  requestInfoText: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
+
   editorMaxHeight: {
     maxHeight: 300,
   },

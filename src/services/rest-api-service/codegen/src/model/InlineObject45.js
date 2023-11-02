@@ -47,8 +47,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('refundPrice')) {
+                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject45 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * Сумма воврата
+ * @member {Number} refundPrice
  */
-InlineObject45.prototype['guids'] = undefined;
+InlineObject45.prototype['refundPrice'] = undefined;
 
 
 

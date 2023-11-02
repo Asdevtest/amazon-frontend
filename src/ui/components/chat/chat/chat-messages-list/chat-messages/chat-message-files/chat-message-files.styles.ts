@@ -31,6 +31,7 @@ export const useChatMessageFileStyles = makeStyles()(theme => ({
     gap: '3px',
 
     p: {
+      margin: '0',
       fontSize: 14,
       lineHeight: 1,
       color: theme.palette.text.general,

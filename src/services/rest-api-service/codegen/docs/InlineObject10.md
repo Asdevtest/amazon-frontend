@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **Number** |  | [optional] 
-**linksToMediaFiles** | **[String]** |  | [optional] 
-**title** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
+**productId** | **String** | ГУид продукта | 
+**buyerId** | **String** | Гуид баера | [optional] 
+**checkedById** | **String** | Гуид супервизора | [optional] 
+**clientId** | **String** | Гуид клиента | [optional] 
 
 

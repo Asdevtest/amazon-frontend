@@ -75,6 +75,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '15px',
+    opacity: '1 !important', // undisabled style
+
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       fontWeight: 600,
@@ -133,6 +135,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   writeBtn: {
     marginTop: 20,
+    color: '#fff',
+
     [theme.breakpoints.down(768)]: {
       width: '260px',
       height: 40,

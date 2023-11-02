@@ -22,11 +22,11 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor(totalCost) { 
+    constructor(timeoutAt) { 
         
-        InlineObject97.initialize(this, totalCost);
+        InlineObject97.initialize(this, timeoutAt);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -60,10 +63,16 @@ class InlineObject97 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject97.prototype['totalCost'] = undefined;
+InlineObject97.prototype['timeoutAt'] = undefined;
+
+/**
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
+ */
+InlineObject97.prototype['maxAmountOfProposals'] = undefined;
 
 
 

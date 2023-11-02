@@ -3,15 +3,12 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: '15px 0',
+
     paddingRight: '5px',
     [theme.breakpoints.down(768)]: {
-      display: 'flex',
       flexDirection: 'column-reverse',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      margin: '15px 0',
       gap: 15,
+
       '& > :nth-of-type(1)': {
         order: 0,
       },
@@ -26,8 +23,8 @@ export const styles = theme => ({
 
   leftBtnsWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
+    gap: 25,
+
     [theme.breakpoints.down(768)]: {
       gap: '15px',
     },
@@ -46,7 +43,11 @@ export const styles = theme => ({
     },
   },
   createBtn: {
-    width: '200px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '8px 20px 8px 15px',
+    gap: 10,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
@@ -117,8 +118,8 @@ export const styles = theme => ({
     },
   },
   datagridWrapper: {
-    marginTop: '10px',
-    height: 'calc(100vh - 250px)',
+    marginTop: '20px',
+    height: '80vh',
   },
 
   searchInput: {

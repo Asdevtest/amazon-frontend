@@ -1,10 +1,12 @@
 export const styles = theme => ({
   img: {
-    height: '64px',
-    width: '64px',
+    height: '58px',
+    width: '58px',
     marginRight: '16px',
     objectFit: 'contain',
     objectPosition: 'center',
+    borderRadius: '4px',
+    border: `1px solid #E0E0E0`,
   },
   productCellImg: {
     height: '43px',
@@ -23,6 +25,11 @@ export const styles = theme => ({
     gap: 10,
   },
 
+  manyItemsMainWrapperTooltip: {
+    maxHeight: 260,
+    overflow: 'auto',
+  },
+
   checkboxWrapper: {
     width: '100%',
     display: 'flex',
@@ -33,7 +40,8 @@ export const styles = theme => ({
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
+    paddingLeft: '10px',
   },
 
   clockIcon: {
@@ -55,7 +63,6 @@ export const styles = theme => ({
 
   asinCell: {
     padding: '12px 0px',
-    // height: '88px',
     scope: 'row',
     position: 'relative',
     width: '100%',
@@ -66,6 +73,7 @@ export const styles = theme => ({
   },
   asinCellContainer: {
     display: 'inline-flex',
+    alignItems: 'center',
     width: '100%',
   },
   csCodeTypoWrapper: {
@@ -73,11 +81,10 @@ export const styles = theme => ({
   },
   csCodeTypo: {
     fontSize: '14px',
-    lineHeight: '18px',
+    lineHeight: '19px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    maxWidth: '215px',
-    // maxWidth: '100%',
+    maxWidth: '165px',
 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -85,7 +92,7 @@ export const styles = theme => ({
 
   typoCell: {
     fontSize: '14px',
-    lineHeight: '21px',
+    lineHeight: '19px',
     color: 'rgba(189, 194, 209, 1)',
   },
 
@@ -97,15 +104,18 @@ export const styles = theme => ({
     gap: '3px',
   },
 
+  defaultText: {
+    color: theme.palette.text.general,
+  },
+
   typoSpan: {
-    marginLeft: 10,
-    color: theme.palette.text.second,
+    color: `${theme.palette.text.second} !important`,
   },
 
   linkSpan: {
-    marginLeft: 10,
     color: theme.palette.primary.main,
   },
+
   cellBtn: {
     color: 'rgba(0, 123, 255, 1)',
     paddingTop: '0px',
@@ -131,9 +141,12 @@ export const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '7px',
+    height: '30px',
+    width: '100%',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+
   barcodeChipHover: {
     '&:hover, &:focus': {
       backgroundColor: theme.palette.primary.main,
@@ -147,9 +160,12 @@ export const styles = theme => ({
   },
 
   barcodeChipNoExists: {
-    // color: '#F5CF00',
     backgroundColor: '#F5CF00',
     color: '#001029',
+
+    '&:hover, &:focus': {
+      color: '#fff',
+    },
   },
 
   inputValueNoExists: {
@@ -159,7 +175,7 @@ export const styles = theme => ({
 
   chipStock: {
     width: '100%',
-
+    minWidth: '125px',
     backgroundcolor: theme.palette.text.general,
   },
 
@@ -167,13 +183,16 @@ export const styles = theme => ({
     width: '100%',
     height: 36,
     textAlign: 'center',
+    fontSize: 14,
+    lineHeight: '19px',
+    padding: 0,
   },
 
   changeInputComment: {
     width: '100%',
     height: 'auto',
     whiteSpace: 'pre-wrap',
-    overflow: 'hidden',
+    overflow: 'auto',
     paddingLeft: 5,
 
     '&::placeholder': {
@@ -203,17 +222,25 @@ export const styles = theme => ({
   },
 
   order: {
+    width: '100%',
     display: 'flex',
     alignItems: 'flex-start',
     gap: 10,
+    padding: '10px 0',
   },
 
   orderImg: {
     height: 64,
     width: 64,
-    objectFit: 'cover',
+    // objectFit: 'cover',
+    objectFit: 'contain',
     objectPosition: 'center',
     borderRadius: 4,
+  },
+
+  orderImageSmall: {
+    height: 56,
+    width: 56,
   },
 
   orderImageBig: {
@@ -225,22 +252,29 @@ export const styles = theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 190,
+    maxWidth: 185,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
   orderText: {
-    fontSize: '14px',
-
-    maxWidth: 200,
+    fontSize: 13,
+    maxWidth: 165,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
 
+  asinText: {
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
   orderTextSpan: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: 'rgb(189, 194, 209)',
   },
+
   select: {
     backgroundcolor: theme.palette.text.general,
   },
@@ -269,17 +303,19 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'no-wrap',
     gap: 16,
+    marginRight: 10,
   },
 
   gridBoxesWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
+    gap: 5,
   },
 
   superboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    gap: 5,
     marginRight: 5,
   },
 
@@ -315,7 +351,6 @@ export const styles = theme => ({
     fontWeight: 600,
     fontSize: 14,
     color: theme.palette.primary.main,
-    // width: '50px',
   },
   taskDescriptionCountWrapper: {
     marginLeft: 5,
@@ -332,6 +367,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '2px',
+    marginRight: 20,
 
     [theme.breakpoints.down(1282)]: {
       flexDirection: 'column',
@@ -343,8 +379,8 @@ export const styles = theme => ({
   gridBoxWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '2px',
-    marginRight: 30,
+    gap: 5,
+    marginRight: 20,
   },
 
   blockProductsImagesWrapper: {
@@ -478,9 +514,8 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflowY: 'auto',
-    margin: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    margin: '10px 0',
+    padding: '5px 0',
   },
 
   smallRowImgWrapper: {
@@ -493,10 +528,18 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    overflowY: 'auto',
     height: '100%',
     width: '100%',
     padding: '5px',
+    maxHeight: 240,
+    overflow: 'auto',
+  },
+
+  withScrollBatchBoxesWrapper: {
+    justifyContent: 'center',
+    gap: 15,
+    maxHeight: 'unset',
+    overflow: 'unset',
   },
 
   batchProductsSubWrapper: {
@@ -504,10 +547,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    width: 480,
-
-    maxHeight: 500,
-    overflow: 'auto',
+    width: '100%',
   },
 
   batchProductsWrapper: {
@@ -518,22 +558,40 @@ export const styles = theme => ({
     borderRadius: '10px',
     padding: '3px',
     marginBottom: '5px',
+    width: '100%',
+  },
 
-    width: 510,
-    maxHeight: 500,
-    overflow: 'hidden',
+  batchProductInfoWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  amountBoxesWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  amountBoxesText: {
+    width: 34,
+    fontSize: 14,
+    fontWeight: 400,
+    whiteSpace: 'nowrap',
+    color: theme.palette.primary.main,
   },
 
   batchProductsBoxesLength: {
     fontSize: 26,
     fontWeight: 600,
     color: theme.palette.primary.main,
-    padding: '0 5px',
+    paddingRight: 5,
   },
 
   batchProductTitle: {
     whiteSpace: 'nowrap',
-    maxWidth: '360px',
+    maxWidth: 225,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -541,7 +599,7 @@ export const styles = theme => ({
   needPay: {
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
+    width: 'fit-content',
   },
 
   alertText: {
@@ -602,11 +660,8 @@ export const styles = theme => ({
 
   multilineTextWrapper: {
     width: '100%',
-    height: '100%',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'start',
     padding: '5px 0',
+    overflow: 'hidden',
   },
 
   illuminationCell: {
@@ -614,40 +669,44 @@ export const styles = theme => ({
   },
 
   multilineText: {
-    width: '100%',
-    maxHeight: '100%',
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
-    fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '16px',
-  },
-
-  threeMultilineText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 48,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
+    lineHeight: '19px',
+    wordBreak: 'break-word',
+    overflowWrap: 'anywhere',
   },
 
   oneMultilineText: {
-    justifyContent: 'center',
-    height: 16,
+    height: 19,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     display: '-webkit-box',
     WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  twoMultilineText: {
+    maxHeight: 38,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  threeMultilineText: {
+    maxHeight: 57,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -679,14 +738,10 @@ export const styles = theme => ({
   },
 
   statusMultilineText: {
-    width: '100%',
-    maxHeight: '100%',
-    textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
   },
 
   multilineTextAlignLeftHeaderWrapper: {
@@ -741,6 +796,8 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    fontSize: '14px',
+    lineHeight: '19px',
   },
 
   multilineTextAlignLeft: {
@@ -749,7 +806,7 @@ export const styles = theme => ({
     whiteSpace: 'pre-wrap',
     fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '17px',
+    lineHeight: '19px',
     fontFamily: 'inherit',
     border: 'none',
     backgroundColor: 'inherit',
@@ -760,7 +817,7 @@ export const styles = theme => ({
 
   fourLinesTextAlignLeft: {
     justifyContent: 'center',
-    height: 65,
+    height: 'auto',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -778,10 +835,14 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
+  },
+
+  multilineTextHeaderCenter: {
     justifyContent: 'center',
   },
 
-  multilineTextHeaderWrapperWithComponent: {
+  multilineTextHeaderSpaceBetween: {
     justifyContent: 'space-between',
   },
 
@@ -802,8 +863,19 @@ export const styles = theme => ({
   multilineHeaderText: {
     width: 'fit-content',
     textAlign: 'center',
-    // whiteSpace: 'normal',
+    color: theme.palette.text.general,
 
+    fontWeight: '600',
+    fontSize: '12px',
+    lineHeight: '14px',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+  },
+
+  shopOrderText: {
+    width: '100%',
+    textAlign: 'center',
     color: theme.palette.text.general,
 
     fontWeight: '600',
@@ -816,6 +888,7 @@ export const styles = theme => ({
 
   adaptText: {
     fontSize: 14,
+    fontWeight: 400,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -840,7 +913,6 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    padding: '0 10px',
   },
 
   renderFieldValueCellText: {
@@ -896,9 +968,28 @@ export const styles = theme => ({
   },
 
   copyAsin: {
+    width: '100%',
     display: 'flex',
-    gap: '2px',
+    gap: 5,
     alignItems: 'center',
+  },
+
+  boxInfoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: 158,
+    gap: 5,
+  },
+
+  boxInfoText: {
+    fontSize: 13,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+
+  orderTextSpanAsin: {
+    color: theme.palette.primary.main,
   },
 
   flexDirectionColumn: {
@@ -920,6 +1011,11 @@ export const styles = theme => ({
 
   statusTextChat: {
     fontSize: '18px',
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
   statusWrapper: {
@@ -931,7 +1027,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    gap: '40px',
+    gap: 20,
   },
 
   addPermissionBtn: {
@@ -941,7 +1037,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '20px',
   },
 
   userAvatar: {
@@ -1024,12 +1119,6 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
-  normalActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -1041,30 +1130,13 @@ export const styles = theme => ({
   },
 
   actionBtn: {
-    display: 'flex',
-    width: 175,
     height: 30,
-    padding: '0 12px',
+    padding: '0 15px',
 
     [theme.breakpoints.down(1282)]: {
-      width: 128,
-      fontWeight: 400,
       fontSize: 13,
       lineHeight: 18,
     },
-  },
-
-  smallActionBtn: {
-    display: 'flex',
-    height: 30,
-    width: 120,
-    padding: '0 15px',
-  },
-
-  successActionBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   copyImgButton: {
@@ -1109,36 +1181,26 @@ export const styles = theme => ({
 
   fourMonthesStockLabel: {
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
     marginBottom: '5px',
   },
 
   removeOrEditBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
+    padding: 0,
+    height: 30,
+    width: 30,
+
+    '> svg': {
+      width: 18,
+      height: 18,
+    },
   },
 
   editOrRemoveIconBtnsCell: {
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: '40px',
+    gap: 20,
     padding: '15px 0',
-  },
-
-  editOrRemoveIconBtnsSubCell: {
-    width: 'min-content',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 15,
-  },
-
-  editOrRemoveBtnWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    flexDirection: 'column',
   },
 
   editOrRemoveBtnText: {
@@ -1203,18 +1265,10 @@ export const styles = theme => ({
   headerIcon: {
     width: '14px !important',
     height: '14px !important',
-
     color: 'gray',
-
-    // zIndex: -1000,
-    // zIndex: 100000000000,
-
     position: 'absolute',
-    // right: -5,
-    // right: -7,
     right: -15,
-    top: 15,
-
+    top: 20,
     overflow: 'visible',
   },
 
@@ -1227,6 +1281,12 @@ export const styles = theme => ({
   },
 
   normalizeLink: {
+    maxWidth: 140,
+    fontSize: 14,
+    lineHeight: '19px',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
     color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
@@ -1235,6 +1295,8 @@ export const styles = theme => ({
     },
   },
   linkWrapper: {
+    fontSize: 14,
+    lineHeight: '19px',
     cursor: 'pointer',
   },
 
@@ -1337,25 +1399,19 @@ export const styles = theme => ({
   iconWrapper: {
     display: 'flex',
     gap: 5,
-    paddingLeft: 5,
   },
   destinationAndTariffWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-    padding: '10px 0',
+    padding: '20px 0',
   },
   storekeeperBtn: {
     height: 'auto',
-    width: '100%',
+    width: 160,
+    marginTop: 10,
     whiteSpace: 'normal',
-    color: theme.palette.text.general,
+    color: '#fff',
+    background: theme.palette.primary.main,
   },
-  destination: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+
   cursorPointer: {
     cursor: 'pointer',
   },
@@ -1380,7 +1436,7 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    width: '100%',
+    width: 160,
     height: 30,
     marginBottom: 10,
   },
@@ -1413,7 +1469,7 @@ export const styles = theme => ({
     },
 
     stringListMenuWrapper: {
-      width: 150,
+      width: 160,
       padding: '10px',
       maxHeight: 400,
     },
@@ -1448,7 +1504,8 @@ export const styles = theme => ({
   },
   asinCellMainWrapper: {
     display: 'flex',
-    width: 'fit-content',
+    alignItems: 'center',
+    flex: 1,
     height: '100%',
 
     gap: 5,
@@ -1462,19 +1519,14 @@ export const styles = theme => ({
   },
   attributeWrapper: {
     display: 'flex',
-
     gap: 5,
   },
   asinAndSkuTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
-
-    maxWidth: 115,
-
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
@@ -1482,13 +1534,14 @@ export const styles = theme => ({
     color: theme.palette.text.second,
   },
   attributeLink: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.general,
   },
   nativeSelect: {
     [theme.breakpoints.down(1282)]: {
       width: 130,
     },
-    // width: '210px',
     '& > div': {
       display: 'flex',
       gap: 8,
@@ -1496,6 +1549,8 @@ export const styles = theme => ({
     },
   },
   attributeMissing: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.second,
   },
   colorRed: {
@@ -1546,9 +1601,9 @@ export const styles = theme => ({
     },
   },
   ChangeInputCommentCellWrapper: {
-    padding: '16px 0',
     display: 'flex',
     width: '100%',
+    padding: '20px 10px',
   },
 
   menuItem: {
@@ -1626,7 +1681,7 @@ export const styles = theme => ({
 
     color: theme.palette.primary.main,
     fontSize: 14,
-    lineHeight: '140%',
+    lineHeight: '19px',
     fontWeight: 400,
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -1641,8 +1696,7 @@ export const styles = theme => ({
     padding: '10px 0',
     display: 'flex',
     flexWrap: 'wrap',
-    height: '100%',
-    gap: 12,
+    gap: 10,
 
     p: {
       padding: 0,
@@ -1651,38 +1705,36 @@ export const styles = theme => ({
   },
 
   tags: {
-    p: {
-      padding: 0,
-      margin: 0,
-    },
+    padding: '10px 0',
   },
 
   tagItem: {
-    fontSize: 14,
-    fontWeight: 400,
     maxWidth: 130,
+    fontSize: 14,
+    lineHeight: '19px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
 
   batchTrackingWrapper: {
-    width: '100%',
+    padding: '20px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
   },
 
   batchTrackingTitle: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
-
     margin: '0 !important',
   },
 
   batchTrackingContainer: {
-    width: '100%',
+    margin: '0 !important',
   },
+
   arrivalDateWrapper: {
     display: 'flex',
   },
@@ -1742,9 +1794,11 @@ export const styles = theme => ({
     gap: 3,
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: 14,
+    lineHeight: '19px',
 
     svg: {
-      fontSize: '16px',
+      fontSize: 16,
       color: theme.palette.primary.main,
       stroke: '#fff',
     },
@@ -1767,5 +1821,233 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 7,
+  },
+
+  selectRowCellWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    gap: '5px',
+    paddingLeft: 5,
+  },
+
+  buttonsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    gap: '20px',
+  },
+
+  shareLinkIconWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+  },
+
+  shareLinkIcon: {
+    color: theme.palette.primary.main,
+    width: '21px !important',
+    height: '21px !important',
+    cursor: 'pointer',
+  },
+
+  tooltip: {
+    background: theme.palette.primary.main,
+  },
+
+  arrow: {
+    color: theme.palette.primary.main,
+  },
+
+  abbreviatedBatchProductsWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: 5,
+  },
+
+  abbreviatedImg: {
+    width: 28,
+    height: 28,
+  },
+
+  abbreviatedTitle: {
+    fontSize: 14,
+    fontWeight: 400,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  abbreviatedBatchProductInfoWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  abbreviatedWrapperDivider: {
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRight: 'none',
+    borderLeft: 'none',
+  },
+
+  div: {
+    display: 'flex',
+    width: 104,
+    marginRight: 15,
+  },
+
+  ideaActions: {
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    button: {
+      height: 30,
+    },
+  },
+
+  ideaRequestsControls: {
+    display: 'flex',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+
+    button: {
+      height: 30,
+      display: 'flex',
+      gap: 5,
+      minWidth: '155px !important',
+
+      svg: {
+        width: 12,
+      },
+    },
+  },
+
+  buttonWithIcon: {
+    height: 30,
+    display: 'flex',
+    gap: 5,
+
+    svg: {
+      width: 12,
+    },
+  },
+
+  ideaSupplier: {
+    p: {
+      fontSize: 14,
+    },
+  },
+
+  ideaRequestsWrapper: {
+    display: 'flex',
+    gap: 20,
+    alignItems: 'center',
+    padding: '16px 0',
+    height: '100%',
+    width: '990px',
+    overflowY: 'auto',
+  },
+
+  ideaWrapper: {
+    padding: '10px 0 ',
+    width: '100%',
+  },
+
+  ideaProductActionButton: {
+    width: '100%',
+  },
+
+  secondsTimeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+
+    p: {
+      fontSize: 14,
+      fontWeight: 400,
+    },
+  },
+
+  yellowColor: {
+    color: `#C69109`,
+  },
+
+  redColor: {
+    color: `#D70D0D`,
+  },
+
+  abbreviatedBatchProductInfoMainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  abbreviatedBatchProductsSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  abbreviatedBatchProductsWrapperEnd: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
+  selectedProductWrapper: {
+    display: 'flex',
+    gap: '5px',
+    alignItems: 'center',
+  },
+
+  paymentMethods: {
+    cursor: 'pointer',
+    width: 150,
+    padding: '10px 0',
+    display: 'flex',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  paymentMethod: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: 5,
+  },
+
+  paymentMethodIcon: {
+    width: 19,
+    height: 19,
+    borderRadius: '50%',
+  },
+
+  paymentMethodTitle: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
+  notificationId: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
+
+  multipleAsinWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
   },
 })

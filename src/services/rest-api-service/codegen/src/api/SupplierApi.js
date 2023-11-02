@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import ApiV1AdminsGetProductsByStatusSuppliers from '../model/ApiV1AdminsGetProductsByStatusSuppliers';
 import BadRequestError from '../model/BadRequestError';
-import InlineObject120 from '../model/InlineObject120';
 import InlineObject121 from '../model/InlineObject121';
 import InlineObject122 from '../model/InlineObject122';
 import InlineObject123 from '../model/InlineObject123';
-import InlineResponse20073 from '../model/InlineResponse20073';
+import InlineObject124 from '../model/InlineObject124';
+import InlineResponse20078 from '../model/InlineResponse20078';
 import InlineResponse20114 from '../model/InlineResponse20114';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -205,7 +205,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject121} opts.body 
+     * @param {module:model/InlineObject122} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
@@ -244,7 +244,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject121} opts.body 
+     * @param {module:model/InlineObject122} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -260,7 +260,7 @@ export default class SupplierApi {
      * ##  Получить все доступные методы оплаты для поставщика
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20073>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20078>} and HTTP response
      */
     apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -279,7 +279,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20073];
+      let returnType = [InlineResponse20078];
       return this.apiClient.callApi(
         '/api/v1/suppliers/payment_methods', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -292,7 +292,7 @@ export default class SupplierApi {
      * ##  Получить все доступные методы оплаты для поставщика
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20073>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20078>}
      */
     apiV1SuppliersPaymentMethodsGet(opts) {
       return this.apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts)
@@ -303,12 +303,12 @@ export default class SupplierApi {
 
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Изменить метод оплаты
+     * ## Изменить метод оплаты
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject123} opts.body 
+     * @param {module:model/InlineObject124} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersPaymentMethodsGuidPatchWithHttpInfo(guid, opts) {
@@ -342,12 +342,12 @@ export default class SupplierApi {
     }
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Изменить метод оплаты
+     * ## Изменить метод оплаты
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject123} opts.body 
+     * @param {module:model/InlineObject124} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersPaymentMethodsGuidPatch(guid, opts) {
@@ -359,11 +359,11 @@ export default class SupplierApi {
 
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Добавить метод оплаты
+     * ## Добавить метод оплаты
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject122} opts.body 
+     * @param {module:model/InlineObject123} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
      */
     apiV1SuppliersPaymentMethodsPostWithHttpInfo(opts) {
@@ -392,11 +392,11 @@ export default class SupplierApi {
     }
 
     /**
-     * # Получить все доступные методы оплаты для поставщика
-     * ##  Получить все доступные методы оплаты для поставщика
+     * # Добавить метод оплаты
+     * ## Добавить метод оплаты
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject122} opts.body 
+     * @param {module:model/InlineObject123} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
      */
     apiV1SuppliersPaymentMethodsPost(opts) {
@@ -412,7 +412,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject120} opts.body 
+     * @param {module:model/InlineObject121} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20114} and HTTP response
      */
     apiV1SuppliersPostWithHttpInfo(opts) {
@@ -445,7 +445,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject120} opts.body 
+     * @param {module:model/InlineObject121} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20114}
      */
     apiV1SuppliersPost(opts) {

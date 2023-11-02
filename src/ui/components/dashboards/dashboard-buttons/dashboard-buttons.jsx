@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material'
-
 import React from 'react'
-
 import { useHistory } from 'react-router-dom'
+
+import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,7 +25,8 @@ export const DashboardButtons = ({ user, routes }) => {
     (user.needConfirmPriceChange?.boxes || 0) +
     (user.needConfirmPriceChange?.orders || 0) +
     (user.needUpdateTariff?.boxes || 0) +
-    (user.freelanceNotices?.length || 0)
+    (user.freelanceNotices?.length || 0) +
+    (user.updatesOnIdeas || 0)
 
   return (
     <div className={classNames.buttonsWrapper}>
@@ -34,7 +34,6 @@ export const DashboardButtons = ({ user, routes }) => {
         <div
           className={classNames.buttonWrapper}
           onClick={() => {
-            console.log(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
             history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
           }}
         >

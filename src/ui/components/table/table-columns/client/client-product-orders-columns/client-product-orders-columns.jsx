@@ -1,17 +1,15 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React from 'react'
-
 import { t } from 'i18n-js'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
-  orderColorByStatus,
   OrderStatus,
   OrderStatusByCode,
   OrderStatusByKey,
   OrderStatusTranslate,
-} from '@constants/statuses/order-status'
+  orderColorByStatus,
+} from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -19,8 +17,8 @@ import {
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   NormDateCell,
+  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,
@@ -31,7 +29,7 @@ import {
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
+export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -70,13 +68,17 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
   {
     field: 'orderStatus',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        isFilterActive={chosenStatus() !== 'ALL'}
-        text={t(TranslationKey.Status)}
-        Icon={FilterAltOutlinedIcon}
-      />
-    ),
+    renderHeader: () => {
+      const { isActiveFilter } = isSomeFilterOn()
+
+      return (
+        <MultilineTextHeaderCell
+          isFilterActive={isActiveFilter}
+          text={t(TranslationKey.Status)}
+          Icon={FilterAltOutlinedIcon}
+        />
+      )
+    },
 
     width: 160,
     renderCell: params => (
@@ -105,7 +107,7 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
         ) : (
           <SuccessActionBtnCell
             bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
           />
         )}
       </>
@@ -224,7 +226,7 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     width: 160,
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -232,7 +234,7 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextCell withTooltip leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 120,
     sortable: false,
   },
@@ -242,7 +244,7 @@ export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextCell withTooltip leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 120,
     sortable: false,
   },

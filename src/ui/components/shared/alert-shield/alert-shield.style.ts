@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-import { makeStyles } from 'tss-react/mui'
 
+/* eslint-disable no-unused-vars */
 import { keyframes } from '@emotion/react'
+import { makeStyles } from 'tss-react/mui'
 
 const fadeIn = keyframes`
   0% {
@@ -39,7 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '63px',
     zIndex: 999,
     opacity: 0,
-    transform: 'translateY(-200%)',
   },
 
   fadeInAnimation: {

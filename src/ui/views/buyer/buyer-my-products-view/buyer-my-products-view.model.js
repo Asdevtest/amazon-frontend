@@ -4,15 +4,16 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BuyerModel } from '@models/buyer-model'
+import { GeneralModel } from '@models/general-model'
 import { ResearcherModel } from '@models/researcher-model'
 import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/buyer-products-columns'
 
 import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
-import { GeneralModel } from '@models/general-model'
 
 const filtersFields = [
   'shopIds',
@@ -39,6 +40,7 @@ const filtersFields = [
   'purchaseQuantity',
   'ideasClosed',
   'ideasVerified',
+  'ideasFinished',
   'tags',
   'redFlags',
   'bsr',
@@ -58,6 +60,7 @@ export class BuyerMyProductsViewModel {
 
   rowHandlers = {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
+    onClickShowProduct: row => this.onClickTableRow(row),
   }
 
   rowCount = 0
@@ -94,8 +97,14 @@ export class BuyerMyProductsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  productCardModal = false
+
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   constructor({ history, location }) {
@@ -257,15 +266,13 @@ export class BuyerMyProductsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
         this.rowCount = result.count
-
         this.baseNoConvertedProducts = result.rows
-
         this.productsMy = buyerProductsDataConverter(result.rows)
       })
       this.setRequestStatus(loadingStatuses.success)
@@ -338,8 +345,6 @@ export class BuyerMyProductsViewModel {
 
         `buyers/products/pag/my?filters=${this.getFilter(column)}`,
       )
-
-      console.log('data', data)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -450,6 +455,9 @@ export class BuyerMyProductsViewModel {
 
     const fbaAmountFilter = exclusion !== 'fbaamount' && this.columnMenuSettings.fbaamount.currentFilterData.join(',')
 
+    const ideasFinishedFilter =
+      exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -541,6 +549,10 @@ export class BuyerMyProductsViewModel {
         ideasVerified: { $eq: ideasVerifiedFilter },
       }),
 
+      ...(ideasFinishedFilter && {
+        ideasFinished: { $eq: ideasFinishedFilter },
+      }),
+
       ...(tagsFilter && {
         tags: { $eq: tagsFilter },
       }),
@@ -559,5 +571,25 @@ export class BuyerMyProductsViewModel {
     })
 
     return filter
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.history.push(`/buyer/my-products?product-id=${row.originalData._id}`)
+    } else {
+      this.history.push(`/buyer/my-products`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
+  onClickShowProduct(id) {
+    const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
+
+    win.focus()
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

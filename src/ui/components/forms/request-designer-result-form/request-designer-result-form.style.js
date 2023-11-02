@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { borderRadius } from '@mui/system'
-
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -167,7 +164,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainImageWrapper: {
     position: 'relative',
     padding: 3,
-    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='90' stroke-linecap='square'/%3e%3c/svg%3e")`,
+    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' strokeWidth='4' strokeDasharray='6%2c 14' strokeDashoffset='90' strokeLinecap='square'/%3e%3c/svg%3e")`,
   },
 
   imageObjIndex: {

@@ -1,15 +1,13 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
@@ -21,8 +19,9 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientExchangeViewModel } from './client-exchange-view.model'
 import { styles } from './client-exchange-view.style'
+
+import { ClientExchangeViewModel } from './client-exchange-view.model'
 
 export const ClientExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))
@@ -35,7 +34,7 @@ export const ClientExchangeViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <MemoDataGrid
           pagination
           useResizeContainer
@@ -61,6 +60,9 @@ export const ClientExchangeViewRaw = props => {
             columnMenuIcon: FilterAltOutlinedIcon,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
@@ -75,7 +77,7 @@ export const ClientExchangeViewRaw = props => {
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
@@ -110,7 +112,7 @@ export const ClientExchangeViewRaw = props => {
       <ConfirmationModal
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
         title={viewModel.confirmModalSettings.confirmTitle}
         message={viewModel.confirmModalSettings.confirmMessage}
         successBtnText={t(TranslationKey.Yes)}

@@ -2,54 +2,83 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    padding: '16px 32px',
+    padding: '30px 50px 20px',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 100,
   },
+
   containerTitle: {
-    fontSize: '18px',
-    fontWeight: 400,
-    lineHeight: '140%',
+    fontSize: 18,
+    lineHeight: '25px',
   },
+
+  infosWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 100,
+  },
+
+  orderTitle: {
+    color: theme.palette.text.general,
+  },
+
+  orderText: {
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  field: {
+    marginBottom: '0 !important',
+  },
+
+  orderItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   panelsWrapper: {
     display: 'flex',
-    justifyContent: 'space-around',
-    marginTop: '30px',
+    justifyContent: 'space-beetwen',
+    gap: 45,
+    padding: '30px 50px',
   },
-  tableWrapper: {
-    padding: '16px',
+
+  divider: {
+    height: 720,
   },
-  container: {
-    marginBottom: '24px',
+
+  suppliersWrapper: {
+    padding: '0 50px 30px',
   },
-  tableText: {
-    color: theme.palette.text.general,
-    fontSize: '18px',
-    fontWeight: 500,
-    lineHeight: '28px',
+
+  supplierTitle: {
+    marginBottom: 5,
+    fontSize: 18,
+    lineHeight: '25px',
   },
-  noBoxesText: {
-    color: theme.palette.text.general,
-    fontSize: '18px',
-    fontWeight: 400,
-    lineHeight: '22px',
-    marginBottom: '24px',
+
+  supplierButtonWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 10,
+  },
+
+  supplierButtonText: {
+    maxWidth: 98,
+    fontSize: 12,
+    lineHeight: '14px',
+    color: theme.palette.text.second,
   },
 
   btnsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
-    padding: '0 20px',
-
-    width: '100%',
-  },
-
-  btnsSubWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    gap: 40,
+    justifyContent: 'space-between',
+    padding: '0 50px 30px',
   },
 
   button: {
@@ -62,95 +91,41 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#FFF',
   },
 
-  orderNumWrapper: {
+  btnsSubWrapper: {
     display: 'flex',
-    marginLeft: '171px',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 40,
   },
 
-  orderItemWrapper: {
-    display: 'flex',
-    marginLeft: '69px',
-    alignItems: 'center',
+  tableWrapper: {
+    padding: '0 50px 30px',
   },
 
-  orderNum: {
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '19px',
+  container: {
+    marginBottom: 10,
+  },
+
+  tableText: {
     color: theme.palette.text.general,
   },
 
-  orderPrice: {
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '19px',
+  noBoxesText: {
     color: theme.palette.text.general,
-  },
-
-  orderPriceWrapper: {
-    display: 'flex',
-    marginLeft: '69px',
-    alignItems: 'center',
-  },
-
-  titleSpan: {
-    marginLeft: 28,
-    fontWeight: '600',
-    fontSize: '16px',
+    fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
   },
 
   label: {
-    fontSize: '16px',
-    fontWeight: 400,
+    fontSize: 16,
     lineHeight: '19px',
     color: theme.palette.text.general,
   },
 
-  field: {
-    marginBottom: '0 !important',
-  },
-
-  divider: {
-    height: '720px',
-  },
-
-  supplierActionsWrapper: {
-    display: 'flex',
-  },
-  supplierContainer: {
-    marginBottom: '20px',
-    display: 'flex',
-    gap: '16px',
-  },
-  supplierButtonWrapper: {
-    display: 'flex',
-    gap: '10px',
-    alignItems: 'center',
-  },
   iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
-    color: 'white',
-    backgroundColor: 'rgba(0, 123, 255, 1)',
-    borderRadius: '4px',
-
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
-  },
-  supplierButtonText: {
-    maxWidth: '98px',
-    fontSize: '12px',
-    lineHeight: '14px',
-    fontWeight: '400',
-    // color: theme.palette.text.second,
-
-    color: theme.palette.text.second,
-  },
-  suppliersWrapper: {
-    padding: '0 20px',
+    maxHeight: 40,
+    maxWidth: 40,
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: 4,
   },
 }))

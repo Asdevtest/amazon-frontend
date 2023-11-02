@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
-     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject56
-     * @param shippingLabel {String} shippingLabel
+     * @param productIds {Array.<String>} 
      */
-    constructor(shippingLabel) { 
+    constructor(productIds) { 
         
-        InlineObject56.initialize(this, shippingLabel);
+        InlineObject56.initialize(this, productIds);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, shippingLabel) { 
-        obj['shippingLabel'] = shippingLabel;
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -50,8 +49,8 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -61,10 +60,9 @@ class InlineObject56 {
 }
 
 /**
- * shippingLabel
- * @member {String} shippingLabel
+ * @member {Array.<String>} productIds
  */
-InlineObject56.prototype['shippingLabel'] = undefined;
+InlineObject56.prototype['productIds'] = undefined;
 
 
 

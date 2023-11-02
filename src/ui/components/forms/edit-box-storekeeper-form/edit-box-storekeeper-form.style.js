@@ -15,27 +15,19 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  labelsInfoWrapper: {
-    width: '480px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '27px',
-  },
-
   trackNumberPhotoBtn: {
     width: 230,
   },
 
   trackNumberPhotoWrapper: {
-    width: 230,
-    height: 130,
-
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
+    minWidth: 230,
+    width: 'max-content',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
+    height: '100%',
   },
 
   trackNumberPhoto: {
@@ -116,7 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     width: '230px',
     height: '30px',
   },
@@ -175,16 +167,12 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    gap: 20,
+    gap: 30,
   },
 
   storekeeperBtn: {
     height: '32px',
     width: '230px',
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
   },
 
   sizesTitleWrapper: {
@@ -299,9 +287,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
-  },
   label: {
     marginBottom: 0,
   },

@@ -4,8 +4,8 @@ export const styles = theme => ({
   },
 
   dataGridWrapper: {
-    marginTop: 30,
-    height: '55vh',
+    marginTop: 20,
+    height: '51vh',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
   },
 
@@ -30,17 +30,5 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
-  },
-
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-  },
-  iconSeparator: {
-    padding: '0 1px',
   },
 })

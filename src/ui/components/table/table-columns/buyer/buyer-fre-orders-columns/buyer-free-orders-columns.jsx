@@ -1,18 +1,15 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  OrderCell,
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
   MultilineTextCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   NormalActionBtnCell,
-  UserLinkCell,
-  MultilineTextHeaderCell,
-  DownloadAndCopyBtnsCell,
-  MultilineTextAlignLeftCell,
-  IconHeaderCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -25,8 +22,8 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 65,
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     type: 'number',
   },
 
@@ -34,7 +31,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     field: 'priorityAndChinaDelivery',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-    width: 60,
+    width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         priority={params.row.originalData.priority}
@@ -44,6 +41,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     ),
     sortable: false,
     filterable: false,
+    align: 'center',
   },
 
   {
@@ -51,7 +49,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 200,
+    width: 150,
     renderCell: params => (
       <NormalActionBtnCell
         tooltipText={t(TranslationKey['To assign the order to Byer'])}
@@ -69,7 +67,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 280,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
   },
 
@@ -80,7 +78,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 150,
+    width: 100,
   },
 
   {
@@ -88,9 +86,9 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Price),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
-    width: 90,
+    width: 110,
   },
 
   {
@@ -98,7 +96,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 200,
+    width: 130,
     renderCell: params => (
       <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
     ),
@@ -109,9 +107,10 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row?.originalData?.orderSupplier?.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
     sortable: false,
+    type: 'number',
   },
 
   {
@@ -120,12 +119,6 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
 
     renderCell: params => (
-      // <MultilineTextCell
-      //   withLineBreaks
-      //   tooltipText={formatNormDateTime(params.value)}
-      //   color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-      //   text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
-      // />
       <MultilineTextCell
         withLineBreaks
         tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
@@ -133,7 +126,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
         text={params.value ? formatDate(params.value) : ''}
       />
     ),
-    width: 200,
+    width: 100,
   },
 
   {
@@ -141,8 +134,9 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Re-search supplier']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
-    width: 100,
+    width: 120,
     renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    type: 'boolean',
   },
 
   {
@@ -153,7 +147,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 200,
+    width: 140,
   },
 
   {
@@ -164,7 +158,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
     ),
-    width: 200,
+    width: 120,
   },
 
   {
@@ -173,7 +167,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+    width: 160,
   },
 
   {
@@ -181,7 +175,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 400,
   },
 
@@ -191,7 +185,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    width: 100,
     // type: 'date',
   },
 ]

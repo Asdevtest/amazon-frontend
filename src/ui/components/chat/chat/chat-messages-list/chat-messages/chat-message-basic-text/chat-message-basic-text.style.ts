@@ -2,103 +2,115 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    padding: '14px 10px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
+    padding: '10px 10px 5px 10px',
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    maxWidth: 690,
-
+    flexDirection: 'column',
+    gap: 10,
+    maxWidth: 490,
     backgroundColor: theme.palette.background.chatMyMessage,
-    borderRadius: 20,
-  },
+    borderRadius: 15,
 
-  isFound: {
-    // borderLeft: `8px solid ${theme.palette.primary.main}`,
-    borderLeft: `8px solid #D8B704`,
-  },
+    [theme.breakpoints.down(1280)]: {
+      maxWidth: 320,
+    },
 
-  isFoundIncomming: {
-    borderLeft: 'none',
+    [theme.breakpoints.down(1024)]: {
+      maxWidth: 390,
+    },
 
-    // borderRight: `8px solid ${theme.palette.primary.main}`,
-    borderRight: `8px solid #D8B704`,
+    [theme.breakpoints.down(768)]: {
+      gap: 5,
+    },
   },
 
   rootIsIncomming: {
     backgroundColor: `${theme.palette.background.chatIncomeMessage} !important`,
   },
 
+  isFound: {
+    borderLeft: `8px solid #D8B704`,
+  },
+
+  isFoundIncomming: {
+    borderLeft: 'none',
+    borderRight: `8px solid #D8B704`,
+  },
+
+  subWrapper: {
+    flex: '1 1 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
   highlightClassName: {
     color: theme.palette.primary.main,
-    // color: 'red',
-
     backgroundColor: 'rgb(201, 229, 114)',
-  },
-
-  timeText: {
-    fontSize: '14px',
-    minWidth: 45,
-    paddingLeft: '5px',
-
-    color: theme.palette.text.second,
-  },
-
-  messageText: {
-    marginRight: '30px !important',
-
-    whiteSpace: 'pre-wrap',
-    fontSize: 18,
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-
-    width: '100%',
-    [theme.breakpoints.down(768)]: {
-      marginRight: '30px !important',
-
-      whiteSpace: 'pre-wrap',
-      fontSize: 14,
-      lineHeight: '19px',
-
-      width: '100%',
-    },
   },
 
   highlightText: {
     whiteSpace: 'pre-wrap',
-
     fontSize: 18,
-    lineHeight: '140%',
+    lineHeight: '25px',
     color: theme.palette.primary.main,
   },
 
   highlight: {
     backgroundColor: '#D8B704',
-
     color: '#001029 !important',
-
     borderRadius: 4,
-
     padding: 3,
   },
 
   filesMainWrapper: {
-    paddingBottom: '10px',
-    borderRadius: '4px',
+    [theme.breakpoints.down(768)]: {
+      maxWidth: 220,
+    },
   },
 
-  subWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
+  messageText: {
+    width: '100%',
+    fontSize: 18,
+    lineHeight: '25px',
+    wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap',
+    color: theme.palette.text.general,
+
+    [theme.breakpoints.down(768)]: {
+      minWidth: 80,
+      fontSize: 12,
+      lineHeight: '16px',
+      maxWidth: 220,
+    },
   },
 
-  readIconsWrapper: {
-    width: 35,
+  infoContainer: {
     display: 'flex',
-    alignItems: 'flex-end',
-    marginLeft: 10,
+    justifyContent: 'flex-end',
+    gap: 10,
+
+    [theme.breakpoints.down(768)]: {
+      gap: 5,
+    },
+  },
+
+  timeText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+  },
+
+  icon: {
+    height: '24px !important',
+
+    [theme.breakpoints.down(768)]: {
+      height: '18px !important',
+    },
   },
 
   isReadIcon: {

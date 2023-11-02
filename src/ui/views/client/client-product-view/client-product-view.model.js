@@ -30,6 +30,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { ProductVariation } from '@typings/product'
+
 const formFieldsDefault = {
   checkednotes: '',
   amazon: 0,
@@ -103,9 +105,16 @@ export class ClientProductViewModel {
   actionStatus = undefined
   acceptMessage = ''
 
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   product = undefined
   productBase = undefined
   productId = undefined
+  productVariations = undefined
+  productsToBind = undefined
 
   storekeepersData = []
   shopsData = []
@@ -117,16 +126,20 @@ export class ClientProductViewModel {
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   selectedSupplier = undefined
 
   showWarningModal = false
   showConfirmModal = false
   showAddOrEditSupplierModal = false
+  showBindProductModal = false
 
   supplierModalReadOnly = false
 
   showTab = undefined
+
+  setOpenModal = undefined
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
@@ -159,13 +172,16 @@ export class ClientProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history }) {
+  constructor({ history, setOpenModal }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
       this.history = history
+      this.productId = url.searchParams.get('product-id')
 
-      // this.productId = url.searchParams.get("product-id");
+      if (setOpenModal) {
+        this.setOpenModal = setOpenModal
+      }
 
       this.showTab = url.searchParams.get('show-tab')
     })
@@ -178,6 +194,11 @@ export class ClientProductViewModel {
         runInAction(() => {
           this.product = this.product ? { ...this.product } : undefined
         }),
+    )
+
+    reaction(
+      () => this.productId,
+      () => this.loadData(),
     )
   }
 
@@ -199,11 +220,103 @@ export class ClientProductViewModel {
 
   async loadData() {
     try {
-      // await this.getProductById();
+      await this.getProductById()
       await this.getShops()
+      await this.getProductsVariations()
+      await UserModel.getPlatformSettings().then(platformSettings =>
+        runInAction(() => {
+          this.platformSettings = platformSettings
+        }),
+      )
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onClickGetProductsToBind(option) {
+    try {
+      const result = await ClientModel.getProductPermissionsData(
+        option === ProductVariation.PARENT ? { isChild: false } : { isChild: false, isParent: false },
+      )
+      runInAction(() => {
+        this.productsToBind = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async bindUnbindProducts(option, products) {
+    try {
+      if (option === ProductVariation.CHILD) {
+        await ProductModel.unbindProducts({
+          parentProductId: this.product?._id,
+          childProductIds: products?.map(product => product?._id),
+        })
+      } else {
+        await ProductModel.unbindProducts({
+          parentProductId: products?.[0]?._id,
+          childProductIds: [this.product?._id],
+        })
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showBindProductModal')
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async getProductsVariations() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
+
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log('error', error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async unbindProductHandler(childProductIds) {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey['Product unbundling']),
+        message: t(TranslationKey['Are you sure you want to unbind the product?']),
+        successBtnText: t(TranslationKey.Yes),
+        cancelBtnText: t(TranslationKey.Cancel),
+        onClickOkBtn: () => this.unbindProduct(childProductIds),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async unbindProduct(childProductIds) {
+    try {
+      await ProductModel.unbindProducts({
+        parentProductId: null,
+        childProductIds: [childProductIds],
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/client/inventory/product?product-id=${id}`, '_blank')
+    win.focus()
   }
 
   updateImagesForLoad(images) {
@@ -220,6 +333,7 @@ export class ClientProductViewModel {
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
@@ -227,13 +341,15 @@ export class ClientProductViewModel {
 
         this.productBase = result
 
-        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
+        this.imagesForLoad = []
 
         this.updateImagesForLoad(result.images)
 
         updateProductAutoCalculatedFields.call(this)
+        this.setRequestStatus(loadingStatuses.success)
       })
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -346,10 +462,10 @@ export class ClientProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus(withoutStatus)
+        this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)
         break
       case 'cancel':
         this.product.archive
@@ -364,7 +480,7 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onDeleteProduct(),
+            onClickOkBtn: () => this.onDeleteProduct(isModal, updateDataHandler),
           }
         })
 
@@ -380,24 +496,33 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
             successBtnText: t(TranslationKey.Yes),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRestoreProduct(),
+            onClickOkBtn: () => this.onRestoreProduct(isModal, updateDataHandler),
           }
         })
 
         this.onTriggerOpenModal('showConfirmModal')
 
         break
+      case 'closeModal':
+        this.setOpenModal()
+        break
     }
   }
 
-  async onRestoreProduct() {
+  async onRestoreProduct(isModal, updateDataHandler) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: false }, ['archive']),
       )
 
-      this.history.goBack()
+      await updateDataHandler()
+
+      if (isModal) {
+        this.setOpenModal()
+      } else {
+        this.history.goBack()
+      }
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -406,14 +531,20 @@ export class ClientProductViewModel {
     }
   }
 
-  async onDeleteProduct() {
+  async onDeleteProduct(isModal, updateDataHandler) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: true }, ['archive']),
       )
 
-      this.history.goBack()
+      await updateDataHandler()
+
+      if (isModal) {
+        this.setOpenModal()
+      } else {
+        this.history.goBack()
+      }
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -424,7 +555,7 @@ export class ClientProductViewModel {
     }
   }
 
-  async openConfirmModalWithTextByStatus(withoutStatus) {
+  async openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler) {
     try {
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
@@ -475,8 +606,7 @@ export class ClientProductViewModel {
       }
 
       await this.onSaveProductData()
-
-      await this.loadData()
+      updateDataHandler && (await updateDataHandler())
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -518,9 +648,23 @@ export class ClientProductViewModel {
       this.getProductById()
 
       runInAction(() => {
-        this.acceptMessage = t(TranslationKey['Data was successfully saved'])
+        this.alertShieldSettings = {
+          showAlertShield: true,
+          alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+        }
+
         setTimeout(() => {
-          this.acceptMessage = ''
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       })
 
@@ -615,6 +759,15 @@ export class ClientProductViewModel {
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
+        boxProperties: supplier?.boxProperties
+          ? supplier.boxProperties
+          : {
+              amountInBox: null,
+              boxHeightCm: null,
+              boxLengthCm: null,
+              boxWeighGrossKg: null,
+              boxWidthCm: null,
+            },
       }
 
       if (photosOfSupplier.length) {
@@ -840,73 +993,9 @@ export class ClientProductViewModel {
     })
   }
 
-  // async onClickParseProductData(productDataParser, product) {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     runInAction(() => {
-  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     })
-
-  //     if (product.asin) {
-  //       const parseResult = await (() => {
-  //         switch (productDataParser) {
-  //           case ProductDataParser.AMAZON:
-  //             return ProductModel.parseAmazon(product.asin)
-  //           case ProductDataParser.SELLCENTRAL:
-  //             return ProductModel.parseParseSellerCentral(product.asin)
-  //         }
-  //       })()
-
-  //       switch (productDataParser) {
-  //         case ProductDataParser.AMAZON:
-  //           this.weightParserAmazon = parseResult.weight || 0
-  //           break
-  //         case ProductDataParser.SELLCENTRAL:
-  //           this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-  //           break
-  //       }
-
-  //       runInAction(() => {
-  //         if (Object.keys(parseResult).length > 5) {
-  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-  //           runInAction(() => {
-  //             this.product = {
-  //               ...this.product,
-  //               ...parseFieldsAdapter(parseResult, productDataParser),
-  //               weight:
-  //                 this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-  //                   ? this.product.weight
-  //                   : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-  //               // Вернуть старый вариант парса
-  //               // weight:
-  //               //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-  //               //     ? this.product.weight
-  //               //     : parseResult.weight * poundsWeightCoefficient,
-
-  //               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-  //               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-  //               fbafee: this.product.fbafee,
-  //             }
-  //           })
-  //         }
-  //         updateProductAutoCalculatedFields.call(this)
-  //       })
-  //     } else {
-  //       runInAction(() => {
-  //         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
-  //       })
-  //     }
-
-  //     this.setActionStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     if (error.body && error.body.message) {
-  //       runInAction(() => {
-  //         this.error = error.body.message
-  //       })
-  //     }
-  //   }
-  // }
+  clearProduct() {
+    runInAction(() => {
+      this.product = undefined
+    })
+  }
 }

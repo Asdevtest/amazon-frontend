@@ -5,9 +5,6 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: 30,
   },
-  taskTypeWrapper: {
-    display: 'flex',
-  },
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

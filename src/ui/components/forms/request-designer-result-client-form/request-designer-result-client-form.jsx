@@ -2,19 +2,19 @@
 
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { nanoid } from 'nanoid'
+import React, { useEffect, useRef, useState } from 'react'
+
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import { Link, Typography, Avatar, Checkbox, ClickAwayListener, Menu, Tooltip } from '@mui/material'
+import { Avatar, Checkbox, ClickAwayListener, Link, Menu, Tooltip, Typography } from '@mui/material'
 import Zoom from '@mui/material/Zoom'
-
-import React, { useRef, useState } from 'react'
-
-import { nanoid } from 'nanoid'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
@@ -188,29 +188,27 @@ export const RequestDesignerResultClientForm = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  // console.log('request', request)
-  // console.log('userInfo', userInfo)
-
   const isNotClient =
-    userInfo._id !== request.request?.createdBy?._id && userInfo.masterUser?._id !== request.request?.createdBy?._id
+    userInfo._id !== request?.request?.createdBy?._id && userInfo.masterUser?._id !== request?.request?.createdBy?._id
 
   const proposalIsAccepted = [
     RequestProposalStatus.ACCEPTED_BY_CLIENT,
     RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-  ].includes(proposal.proposal.status)
+  ].includes(proposal?.proposal?.status)
 
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [curImageId, setCurImageId] = useState(null)
+  const [curImageIndex, setCurImageIndex] = useState(0)
 
   const [comment, setComment] = useState('')
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  const sourceImagesData = (curResultMedia ?? proposal.proposal.media).map(el => ({
+  const sourceImagesData = (proposal.proposal.media ?? curResultMedia).map(el => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
@@ -219,6 +217,24 @@ export const RequestDesignerResultClientForm = ({
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
+  const [filteredImages, setFilteredImages] = useState([])
+
+  useEffect(() => {
+    setFilteredImages(
+      imagesData
+        .filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
+        .map(el => {
+          const url = typeof el?.image === 'string' ? el?.image : el?.image?.data_url
+
+          return {
+            url,
+            title: el.comment,
+            comment: el.commentByClient,
+            _id: el._id,
+          }
+        }),
+    )
+  }, [imagesData])
 
   const onChangeImageFileds = (field, imageId) => event => {
     const findImage = { ...imagesData.find(el => el._id === imageId) }
@@ -254,18 +270,12 @@ export const RequestDesignerResultClientForm = ({
 
   const onClickAllDownload = () => {
     imagesForDownload.forEach(el =>
-      // downloadFileByLink(typeof el.image === 'string' ? el.image : el.image.data_url, el.comment),
-
       typeof el.image === 'string' ? downloadFileByLink(el.image) : downloadFile(el.image.file),
     )
   }
 
   const sourceFormFields = {
-    // price: proposalToEdit?.price || request?.request.price,
     execution_time: '',
-    // comment: proposalToEdit?.comment || '',
-    // linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
-    // title: proposalToEdit?.title || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -275,21 +285,9 @@ export const RequestDesignerResultClientForm = ({
     if (['execution_time'].includes(fieldName)) {
       newFormFields[fieldName] = Number(event) || ''
     }
-    // else if (
-    //   ['price'].includes(fieldName) &&
-    //   !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
-    // ) {
-    //   return
-    // } else if (['title'].includes(fieldName)) {
-    //   newFormFields[fieldName] = event.target.value.replace(/\n/g, '')
-    // } else {
-    //   newFormFields[fieldName] = event.target.value
-    // }
 
     setFormFields(newFormFields)
   }
-
-  // const disableSubmit = imagesData.every(el => !el.image)
 
   return (
     <div className={classNames.modalMainWrapper}>
@@ -297,7 +295,7 @@ export const RequestDesignerResultClientForm = ({
         <div className={classNames.titleWrapper}>
           <Typography className={cx(classNames.headerLabel)}>{`${t(TranslationKey['Request result'])} /`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel)}>{`ID ${request.request.humanFriendlyId}`}</Typography>
+          <Typography className={cx(classNames.headerLabel)}>{`ID ${request?.request?.humanFriendlyId}`}</Typography>
         </div>
         <div className={classNames.headerRightSubWrapper}>
           <Field
@@ -305,7 +303,7 @@ export const RequestDesignerResultClientForm = ({
             label={t(TranslationKey['Source Files'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              proposal.proposal.sourceFiles?.[0]?.sourceFile ? (
+              proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
                 <div className={classNames.viewLinkWrapper}>
                   <Link href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)} target="_blank">
                     {t(TranslationKey.View)}
@@ -345,15 +343,11 @@ export const RequestDesignerResultClientForm = ({
             label={'ASIN'}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request.request.asin}`}
-                >
-                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request.request.asin}</span>
-                </a>
-              </Typography>
+              <AsinOrSkuLink
+                withCopyValue
+                asin={proposal?.request?.asin || request?.request?.asin}
+                textStyles={classNames.simpleSpan}
+              />
             }
           />
         </div>
@@ -368,127 +362,15 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
-            setCurImageId={setCurImageId}
+            setCurImageId={id => {
+              setCurImageId(id)
+              setCurImageIndex(filteredImages.findIndex(el => el._id === id))
+            }}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
             onClickCommentBtn={onClickCommentBtn}
           />
-          // <div key={item._id} className={classNames.imageObjWrapper}>
-          //   <div className={classNames.imageObjSubWrapper}>
-          //     <Checkbox
-          //       color="primary"
-          //       checked={imagesForDownload.some(el => el._id === item._id)}
-          //       onClick={() => onClickAddDownload(item)}
-          //     />
-
-          //     <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>
-          //       {index + 1}
-          //     </Typography>
-
-          //     <Typography className={cx(classNames.imageObjTitle /* , classNames.textMargin */)}>
-          //       {getShortenStringIfLongerThanCount(item.comment, 20)}
-          //     </Typography>
-          //   </div>
-          //   <div
-          //     className={cx(
-          //       classNames.imageWrapper,
-
-          //       {[classNames.isHaveImage]: !!item.image},
-          //       {[classNames.mainImageWrapper]: index === 0},
-          //     )}
-          //   >
-          //     {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-
-          //     <div className={classNames.imageListItem}>
-          //       <Avatar
-          //         className={classNames.image}
-          //         classes={{img: classNames.image}}
-          //         src={
-          //           typeof item.image === 'string'
-          //             ? checkIsImageLink(item.image)
-          //               ? item.image
-          //               : '/assets/icons/file.png'
-          //             : item.image?.file.type.includes('image')
-          //             ? item.image?.data_url
-          //             : '/assets/icons/file.png'
-          //         }
-          //         alt={''}
-          //         variant="square"
-          //         onClick={() => {
-          //           if (checkIsImageLink(item.image?.file?.name || item.image)) {
-          //             setCurImageId(item._id)
-          //             setShowImageModal(!showImageModal)
-          //           } else {
-          //             window.open(item.image?.data_url || item.image, '__blank')
-          //           }
-          //         }}
-          //       />
-          //     </div>
-          //   </div>
-
-          //   {!item.isEditCommentOpen && !noShowActions && (
-          //     <Button className={cx(classNames.commentBtn)} onClick={() => onClickCommentBtn(item._id)}>
-          //       {t(TranslationKey.Comment)}
-          //       <img
-          //         src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
-          //         className={classNames.commentIcon}
-          //       />
-          //     </Button>
-          //   )}
-
-          //   {item.isEditCommentOpen && !noShowActions && (
-          //     <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => onClickCommentBtn(item._id)}>
-          //       <div className={cx(classNames.commentBtnWrapper)}>
-          //         <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
-          //           <Typography>{t(TranslationKey.Comment)}</Typography>
-
-          //           <ArrowDropUpIcon />
-          //         </div>
-
-          //         {/* <Input
-          //           multiline
-          //           inputProps={{maxLength: 500}}
-          //           minRows={5}
-          //           maxRows={10}
-          //           variant="filled"
-          //           className={classNames.imageObjInput}
-          //           classes={{input: classNames.subImageObjInput}}
-          //           value={item.commentByClient}
-          //           onChange={onChangeImageFileds('commentByClient', item._id)}
-          //         /> */}
-
-          //         <Menu
-          //           opnen
-          //           keepMounted
-          //           // anchorEl={menuAnchor}
-          //           anchorEl={el => (ref?.current = el)}
-          //           autoFocus={false}
-          //           // classes={{paper: classNames.menu, list: classNames.list}}
-          //           // onClose={handleClose}
-          //         >
-          //           <Input
-          //             multiline
-          //             inputProps={{maxLength: 500}}
-          //             minRows={5}
-          //             maxRows={10}
-          //             variant="filled"
-          //             className={classNames.imageObjInput}
-          //             classes={{input: classNames.subImageObjInput}}
-          //             value={item.commentByClient}
-          //             onChange={onChangeImageFileds('commentByClient', item._id)}
-          //           />
-          //         </Menu>
-          //       </div>
-          //     </ClickAwayListener>
-          //   )}
-
-          //   {/* <div className={classNames.imageObjSubWrapper}>
-          //     <Typography className={cx(classNames.clientComment )}>
-          //       {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
-          //     </Typography>
-          //   </div> */}
-          // </div>
         ))}
       </div>
 
@@ -523,15 +405,6 @@ export const RequestDesignerResultClientForm = ({
           </>
         )}
 
-        {/* <Field
-          labelClasses={classNames.fieldLabel}
-          inputClasses={classNames.linkInput}
-          label={t(TranslationKey['Link to sources']) + ':'}
-          containerClasses={classNames.containerField}
-          value={sourceLink}
-          onChange={e => setSourceLink(e.target.value)}
-        /> */}
-
         <div className={classNames.downloadsWrapper}>
           <div className={classNames.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
             <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
@@ -552,14 +425,13 @@ export const RequestDesignerResultClientForm = ({
             <Button
               // disabled /* ={disableSubmit} */
               className={cx(classNames.button)}
-              onClick={() => {
+              onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
                   timeLimitInMinutes: formFields.execution_time /* .filter(el => el.image) */,
                   imagesData,
                 })
-                setOpenModal()
-              }}
+              }
             >
               {t(TranslationKey['Send in for rework'])}
             </Button>
@@ -582,12 +454,13 @@ export const RequestDesignerResultClientForm = ({
         </Button>
       </div>
 
-      <BigObjectImagesModal
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({ ...el, imageComment: el.commentByClient || '' }))}
-        curImageId={curImageId}
-        setCurImageId={setCurImageId}
+      <ImageModal
+        showPreviews
+        isOpenModal={showImageModal}
+        handleOpenModal={() => setShowImageModal(!showImageModal)}
+        imageList={filteredImages}
+        currentImageIndex={curImageIndex}
+        handleCurrentImageIndex={index => setCurImageIndex(index)}
       />
     </div>
   )

@@ -1,10 +1,9 @@
 import { cx } from '@emotion/css'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import { Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

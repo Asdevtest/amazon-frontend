@@ -1,14 +1,13 @@
-import { Grid, Typography, Paper } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React from 'react'
 
-import { observer } from 'mobx-react'
+import { Grid, Paper, Typography } from '@mui/material'
 
 import {
-  colorByProductStatus,
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
+  colorByProductStatus,
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -58,8 +57,8 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 12 }}
                     containerClasses={classNames.infoContainer}
                     inputClasses={classNames.infoInput}
-                    label={t(TranslationKey['Amazon price']) + '*'}
-                    error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
+                    label={t(TranslationKey['Amazon price'])}
+                    // error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
                     value={product.amazon === 0 ? 0 : product.amazon || ''}
                     onChange={onChangeField('amazon')}
                   />
@@ -169,7 +168,7 @@ export const BottomCard = observer(
 
               <div className={classNames.infoWrapper}>
                 <div className={classNames.infoSubWrapper}>
-                  <Field
+                  {/* <Field
                     disabled
                     error={formFieldsValidationErrors.maxDelivery}
                     containerClasses={classNames.infoContainer}
@@ -177,7 +176,7 @@ export const BottomCard = observer(
                     label={t(TranslationKey['Max delivery price, $'])}
                     value={product.maxDelivery === 0 ? 0 : toFixed(product.maxDelivery, 2) || 0}
                     onChange={onChangeField('maxDelivery')}
-                  />
+                  /> */}
                   <Field
                     tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
                     disabled={defaultFieldDisable}

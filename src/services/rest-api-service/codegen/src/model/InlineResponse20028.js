@@ -47,11 +47,14 @@ class InlineResponse20028 {
         if (data) {
             obj = obj || new InlineResponse20028();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('totalPriceInYuan')) {
+                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('totalPriceInUSD')) {
+                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
+            }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
             }
         }
         return obj;
@@ -61,16 +64,22 @@ class InlineResponse20028 {
 }
 
 /**
- * GUID в базе данных
- * @member {String} _id
+ * total price in yuan for these statuses
+ * @member {Number} totalPriceInYuan
  */
-InlineResponse20028.prototype['_id'] = undefined;
+InlineResponse20028.prototype['totalPriceInYuan'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * total price in USD for these statuses
+ * @member {Number} totalPriceInUSD
  */
-InlineResponse20028.prototype['name'] = undefined;
+InlineResponse20028.prototype['totalPriceInUSD'] = undefined;
+
+/**
+ * Total partialPaymentAmountRmb
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse20028.prototype['partialPaymentAmountRmb'] = undefined;
 
 
 

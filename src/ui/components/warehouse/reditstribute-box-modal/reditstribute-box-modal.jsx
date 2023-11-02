@@ -1,16 +1,18 @@
 import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Chip, IconButton, Link, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { operationTypes } from '@constants/keys/operation-types'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,19 +25,17 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 // import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './reditstribute-box-modal.style'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
-import { tariffTypes } from '@constants/keys/tariff-types'
-import { BoxStatus } from '@constants/statuses/box-status'
 
 const Box = ({
   showCheckbox,
@@ -110,7 +110,9 @@ const Box = ({
                     </div>
                   </div>
 
-                  <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
+                  <Typography className={classNames.title}>
+                    {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
+                  </Typography>
                 </div>
 
                 <div>
@@ -150,9 +152,9 @@ const Box = ({
                     data={
                       box?.variationTariffId &&
                       currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations
-                            // ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
-                            ?.filter(el => el._id === box?.destinationId)
+                        ? destinations?.filter(
+                            el => el._id === (box?.destinationId || box?.variationTariff?.destinationId),
+                          )
                         : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
                     }
                     searchFields={['name']}

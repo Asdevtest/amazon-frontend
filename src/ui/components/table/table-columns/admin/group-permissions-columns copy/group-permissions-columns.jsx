@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextAlignLeftHeaderCell,
   EditOrRemoveIconBtnsCell,
-  ShortDateCell,
   MultilineTextAlignLeftCell,
+  MultilineTextAlignLeftHeaderCell,
+  ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -54,20 +52,15 @@ export const adminGroupPermissionsColumns = handlers => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 180,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
-      return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey.Edit)}
-          tooltipSecondButton={t(TranslationKey.Remove)}
-          handlers={handlersMemo}
-          row={rowMemo}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      )
-    },
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row.originalData}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

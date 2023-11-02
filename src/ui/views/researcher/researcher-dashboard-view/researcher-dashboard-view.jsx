@@ -1,9 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Avatar, Paper, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { getResearcherDashboardCardConfig } from '@constants/navigation/dashboard-configs'
@@ -12,15 +11,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
-import { MainContent } from '@components/layout/main-content'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 import { styles } from './researcher-dashboard-view.style'
+
+import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 
 export const ResearcherDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history: props.history }))
@@ -37,7 +36,7 @@ export const ResearcherDashboardViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
             <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
@@ -69,7 +68,7 @@ export const ResearcherDashboardViewRaw = props => {
             onClickViewMore={viewModel.onClickInfoCardViewMode}
           />
         ))}
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

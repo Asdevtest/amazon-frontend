@@ -1,3 +1,4 @@
+import { Errors } from '@constants/errors'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { OtherModel } from '@models/other-model'
@@ -17,7 +18,7 @@ export const dataURLtoFile = (dataurl, filename) => {
   return new File([u8arr], filename, { type: mime })
 }
 
-const onPostImage = async imageData => {
+export const onPostImage = async imageData => {
   const formData = new FormData()
 
   const fileWithoutSpaces = new File([imageData.file], imageData.file?.name.replace(/ /g, ''), {
@@ -36,14 +37,14 @@ const onPostImage = async imageData => {
   }
 }
 
-const uploadFileByUrl = async image => {
+export const uploadFileByUrl = async image => {
   try {
     const result = await OtherModel.uploadFileByUrl(image)
 
     return BACKEND_API_URL + '/uploads/' + result.fileName
   } catch (error) {
     console.log(error)
-    return image
+    throw new Error(Errors.INVALID_IMAGE)
   }
 }
 

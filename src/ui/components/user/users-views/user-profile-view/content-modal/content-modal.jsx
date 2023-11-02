@@ -1,16 +1,16 @@
+import React from 'react'
+
 import {
   Container,
   Divider,
-  Typography,
   Table,
   TableBody,
-  TableRow,
   TableCell,
-  TableHead,
   TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
 } from '@mui/material'
-
-import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

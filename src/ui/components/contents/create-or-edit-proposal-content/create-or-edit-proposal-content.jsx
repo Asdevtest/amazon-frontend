@@ -1,19 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
+import { useState } from 'react'
+
 import CircleIcon from '@mui/icons-material/Circle'
 import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
@@ -24,7 +25,6 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-proposal-content.style'
-import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 export const CreateOrEditProposalContent = ({
   onCreateSubmit,
@@ -143,10 +143,10 @@ export const CreateOrEditProposalContent = ({
               <UserLink
                 blackText
                 name={request?.request?.createdBy?.name || request.createdBy?.name}
-                userId={request.createdBy?._id}
+                userId={request?.request?.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
-                <Rating disabled value={request?.request.createdBy?.rating || request.createdBy?.rating} />
+                <Rating readOnly value={request?.request.createdBy?.rating || request.createdBy?.rating} />
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ export const CreateOrEditProposalContent = ({
 
             <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
               <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={cx(classNames.requestTitle, classNames.requestInfoText)}>
+              <Typography className={classNames.requestTitle}>
                 {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
               </Typography>
             </div>
@@ -312,39 +312,16 @@ export const CreateOrEditProposalContent = ({
               {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
             </div>
           </div>
-
-          <div className={classNames.checkboxWrapper}>
-            <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
-            <Checkbox color="primary" checked={checked} onChange={() => setChecked(!checked)} />
-          </div>
-
-          <div className={classNames.middleSubWrapper}>
-            <Field
-              disabled={!checked}
-              label={t(TranslationKey['Enter the offer price'])}
-              inputProps={{ maxLength: 10 }}
-              value={formFields.price}
-              onChange={onChangeField('price')}
-            />
-
-            <SetDuration
-              title={t(TranslationKey['Time to complete'])}
-              duration={formFields.execution_time}
-              titleStyle={classNames.titleStyle}
-              setTotalTimeInMinute={onChangeField('execution_time')}
-            />
-
-            {/* <Field
-              label={t(TranslationKey['Time to complete, min*'])}
-              inputProps={{maxLength: 8}}
-              containerClasses={classNames.dateWrapper}
-              value={formFields.execution_time}
-              onChange={onChangeField('execution_time')}
-            /> */}
-          </div>
         </div>
 
         <div className={classNames.footerWrapper}>
+          <SetDuration
+            title={t(TranslationKey['Time to complete']) + '*'}
+            duration={formFields.execution_time}
+            titleStyle={classNames.titleStyle}
+            setTotalTimeInMinute={onChangeField('execution_time')}
+          />
+
           <div className={classNames.buttonsWrapper}>
             <Button
               success

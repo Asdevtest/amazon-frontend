@@ -13,20 +13,23 @@
 
 
 import ApiClient from "../ApiClient";
+import ApiV1AdminsGetProductsByStatusCreatedBy from '../model/ApiV1AdminsGetProductsByStatusCreatedBy';
 import BadRequestError from '../model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from '../model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from '../model/CheckIsUniqueNameOrEmailSchema';
 import ConflictInTheState from '../model/ConflictInTheState';
 import ForbiddenError from '../model/ForbiddenError';
-import InlineObject124 from '../model/InlineObject124';
 import InlineObject125 from '../model/InlineObject125';
 import InlineObject126 from '../model/InlineObject126';
 import InlineObject127 from '../model/InlineObject127';
 import InlineObject128 from '../model/InlineObject128';
 import InlineObject129 from '../model/InlineObject129';
-import InlineResponse20074 from '../model/InlineResponse20074';
-import InlineResponse20075 from '../model/InlineResponse20075';
-import InlineResponse20076 from '../model/InlineResponse20076';
+import InlineObject130 from '../model/InlineObject130';
+import InlineObject131 from '../model/InlineObject131';
+import InlineResponse20079 from '../model/InlineResponse20079';
+import InlineResponse20080 from '../model/InlineResponse20080';
+import InlineResponse20081 from '../model/InlineResponse20081';
+import InlineResponse20082 from '../model/InlineResponse20082';
 import InlineResponse20112 from '../model/InlineResponse20112';
 import InternalServerError from '../model/InternalServerError';
 import LinkSubuserInputSchema from '../model/LinkSubuserInputSchema';
@@ -65,7 +68,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject127} opts.body 
+     * @param {module:model/InlineObject129} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangeForgottenPasswordPostWithHttpInfo(opts) {
@@ -98,7 +101,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject127} opts.body 
+     * @param {module:model/InlineObject129} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangeForgottenPasswordPost(opts) {
@@ -114,7 +117,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject125} opts.body 
+     * @param {module:model/InlineObject127} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangePasswordPatchWithHttpInfo(opts) {
@@ -147,7 +150,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject125} opts.body 
+     * @param {module:model/InlineObject127} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangePasswordPatch(opts) {
@@ -212,7 +215,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20075>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20081>} and HTTP response
      */
     apiV1UsersContactsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -231,7 +234,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20075];
+      let returnType = [InlineResponse20081];
       return this.apiClient.callApi(
         '/api/v1/users/contacts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -244,7 +247,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20075>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20081>}
      */
     apiV1UsersContactsGet(opts) {
       return this.apiV1UsersContactsGetWithHttpInfo(opts)
@@ -371,7 +374,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20076>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20082>} and HTTP response
      */
     apiV1UsersFeedbackGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -396,7 +399,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20076];
+      let returnType = [InlineResponse20082];
       return this.apiClient.callApi(
         '/api/v1/users/feedback/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -411,7 +414,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20076>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20082>}
      */
     apiV1UsersFeedbackGuidGet(guid, opts) {
       return this.apiV1UsersFeedbackGuidGetWithHttpInfo(guid, opts)
@@ -427,7 +430,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject129} opts.body 
+     * @param {module:model/InlineObject131} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersFeedbackGuidPatchWithHttpInfo(guid, opts) {
@@ -466,7 +469,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject129} opts.body 
+     * @param {module:model/InlineObject131} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersFeedbackGuidPatch(guid, opts) {
@@ -483,7 +486,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject128} opts.body 
+     * @param {module:model/InlineObject130} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20112} and HTTP response
      */
     apiV1UsersFeedbackGuidPostWithHttpInfo(guid, opts) {
@@ -522,7 +525,7 @@ export default class UserApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject128} opts.body 
+     * @param {module:model/InlineObject130} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20112}
      */
     apiV1UsersFeedbackGuidPost(guid, opts) {
@@ -539,7 +542,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20076>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20082>} and HTTP response
      */
     apiV1UsersFeedbackMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -559,7 +562,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20076];
+      let returnType = [InlineResponse20082];
       return this.apiClient.callApi(
         '/api/v1/users/feedback/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -573,7 +576,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.role Фиьлтр по роли создателя отзыва на момент создания
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20076>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20082>}
      */
     apiV1UsersFeedbackMyGet(opts) {
       return this.apiV1UsersFeedbackMyGetWithHttpInfo(opts)
@@ -588,7 +591,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject126} opts.body 
+     * @param {module:model/InlineObject128} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersForgotPasswordPostWithHttpInfo(opts) {
@@ -621,7 +624,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject126} opts.body 
+     * @param {module:model/InlineObject128} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersForgotPasswordPost(opts) {
@@ -783,6 +786,70 @@ export default class UserApi {
 
 
     /**
+     * Получить список мастеров
+     * ## Получить список мастеров       role - Для клиента - 35 и 40, для админа - все       specs - Необязательный, может быть CSV       
+     * @param {Number} role Роль юзеров
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.specs Роль юзеров
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} and HTTP response
+     */
+    apiV1UsersMastersGetWithHttpInfo(role, guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'role' is set
+      if (role === undefined || role === null) {
+        throw new Error("Missing the required parameter 'role' when calling apiV1UsersMastersGet");
+      }
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1UsersMastersGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+        'role': role,
+        'specs': opts['specs']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [ApiV1AdminsGetProductsByStatusCreatedBy];
+      return this.apiClient.callApi(
+        '/api/v1/users/masters', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить список мастеров
+     * ## Получить список мастеров       role - Для клиента - 35 и 40, для админа - все       specs - Необязательный, может быть CSV       
+     * @param {Number} role Роль юзеров
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.specs Роль юзеров
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>}
+     */
+    apiV1UsersMastersGet(role, guid, opts) {
+      return this.apiV1UsersMastersGetWithHttpInfo(role, guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Обновления информации о себе самим пользователем.
      * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
      * @param {Object} opts Optional parameters
@@ -879,11 +946,128 @@ export default class UserApi {
 
 
     /**
+     * Архивировать нотификации пользователя.
+     * ## Архивировать нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersNotificationsArchivePatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/notifications/archive', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Архивировать нотификации пользователя.
+     * ## Архивировать нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersNotificationsArchivePatch(opts) {
+      return this.apiV1UsersNotificationsArchivePatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить нотификации пользователя.
+     * ## Получить нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -> anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Boolean} opts.archive Заархивирована ли нотификация
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20079} and HTTP response
+     */
+    apiV1UsersNotificationsPagMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'filters': opts['filters'],
+        'archive': opts['archive'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType'],
+        'storekeeperId': opts['storekeeperId']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20079;
+      return this.apiClient.callApi(
+        '/api/v1/users/notifications/pag/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить нотификации пользователя.
+     * ## Получить нотификации пользователя.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -> anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {Boolean} opts.archive Заархивирована ли нотификация
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20079}
+     */
+    apiV1UsersNotificationsPagMyGet(opts) {
+      return this.apiV1UsersNotificationsPagMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Выдача настроек сервера.
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20074} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20080} and HTTP response
      */
     apiV1UsersPlatformSettingsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -902,7 +1086,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20074;
+      let returnType = InlineResponse20080;
       return this.apiClient.callApi(
         '/api/v1/users/platform_settings', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -915,7 +1099,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20074}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20080}
      */
     apiV1UsersPlatformSettingsGet(opts) {
       return this.apiV1UsersPlatformSettingsGetWithHttpInfo(opts)
@@ -968,6 +1152,62 @@ export default class UserApi {
      */
     apiV1UsersPost(opts) {
       return this.apiV1UsersPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Добавление определенных специализаций сабам фрилансера
+     * ## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject125} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1UsersShareSpecSubGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1UsersShareSpecSubGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/users/share_spec_sub/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Добавление определенных специализаций сабам фрилансера
+     * ## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
+     * @param {String} guid 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject125} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1UsersShareSpecSubGuidPost(guid, opts) {
+      return this.apiV1UsersShareSpecSubGuidPostWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1028,7 +1268,7 @@ export default class UserApi {
      * ## Создание/изменение subNote, если null, то удаляется
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject124} opts.body 
+     * @param {module:model/InlineObject126} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersSubNotePatchWithHttpInfo(opts) {
@@ -1061,7 +1301,7 @@ export default class UserApi {
      * ## Создание/изменение subNote, если null, то удаляется
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject124} opts.body 
+     * @param {module:model/InlineObject126} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersSubNotePatch(opts) {

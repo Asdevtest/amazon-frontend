@@ -1,16 +1,13 @@
-import React from 'react'
-
-import { orderColorByStatus, OrderStatusByCode } from '@constants/statuses/order-status'
+import { OrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
-  OrderCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
   DownloadAndCopyBtnsCell,
-  MultilineTextAlignLeftCell,
   IconHeaderCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -98,6 +95,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderCell: params => (
       <MultilineTextCell
         leftAlign
+        maxLength={56}
         text={params.value}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
@@ -178,7 +176,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment to order']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
     width: 225,
   },
 ]

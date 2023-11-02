@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject42 {
     /**
      * Constructs a new <code>InlineObject42</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject42
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor() { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject42.initialize(this);
+        InlineObject42.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject42 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -47,8 +50,8 @@ class InlineObject42 {
         if (data) {
             obj = obj || new InlineObject42();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -58,10 +61,10 @@ class InlineObject42 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject42.prototype['refundPrice'] = undefined;
+InlineObject42.prototype['totalPriceChanged'] = undefined;
 
 
 

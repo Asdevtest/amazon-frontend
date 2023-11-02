@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,6 +12,7 @@ import { UserModel } from '@models/user-model'
 
 import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
+import { checkIsFreelancer } from '@utils/checks'
 import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -117,6 +119,7 @@ export class ProfileViewModel {
     })
     this.setDataGridState()
   }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -139,7 +142,11 @@ export class ProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getProductsVacant()
+
+      if (!checkIsFreelancer(UserRoleCodeMap[UserModel.userInfo.role])) {
+        await this.getProductsVacant()
+      }
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -349,5 +356,9 @@ export class ProfileViewModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  resetProfileDataValidation() {
+    this.checkValidationNameOrEmail = {}
   }
 }

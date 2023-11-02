@@ -2,104 +2,161 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '869px',
-    padding: '10px 0',
-    justifyContent: 'center',
+    maxWidth: 1075,
+    margin: '0 auto',
+    display: 'flex',
     alignItems: 'center',
-    display: 'flex',
+    justifyContent: 'center',
     flexDirection: 'column',
-  },
-  statusTextDesciption: {
-    color: 'grey',
-    fontSize: '18px',
-    marginBottom: 0,
-    display: 'flex',
-    alignItems: 'end',
-    gap: '10px',
-  },
-  statusText: {
-    fontSize: '18px',
-    color: 'black',
-  },
-  detailsWrapper: {
-    marginTop: '5px',
-    width: '100%',
-    backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
-    borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: 700,
-
-    color: theme.palette.text.general,
-  },
-  reasonWrapper: {
-    marginTop: '10px',
-  },
-  reasonText: {
-    color: theme.palette.text.general,
+    gap: 10,
   },
 
   headerAndTimeWrapper: {
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  timeWrapper: {
-    marginLeft: '20px',
-  },
-  timeText: {
-    color: theme.palette.text.second,
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '16px',
-  },
-  footerWrapper: {
-    marginTop: 25,
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+    gap: 100,
   },
-  footerRow: {
+
+  titleText: {
     width: '100%',
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+    color: theme.palette.text.general,
 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
 
-    '&:not(:first-of-type)': {
-      marginTop: '20px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
     },
   },
-  labelValueBlockWrapper: {
+
+  timeText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+  },
+
+  reasonText: {
+    fontSize: 18,
+    lineHeight: '25px',
+    wordBreak: 'break-all',
+    color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+  },
+
+  statusTextDesciption: {
     display: 'flex',
+    alignItems: 'end',
     gap: 10,
+    color: 'grey',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+  },
+
+  statusText: {
+    color: 'black',
+    fontSize: 18,
+    lineHeight: '25px',
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+  },
+
+  detailsWrapper: {
+    width: '100%',
+    padding: 30,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
+    backgroundColor: theme.palette.background.general,
+    borderRadius: 4,
+
+    [theme.breakpoints.down(768)]: {
+      padding: 20,
+    },
+  },
+
+  footerWrapper: {
+    width: '100%',
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 20,
+
+    [theme.breakpoints.down(1280)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+  },
+
+  footerWrapperShowChatInfo: {
+    [theme.breakpoints.down(1450)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+  },
+
+  labelValueBlockWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 
   actionButton: {
-    height: '40px',
-    width: 217,
+    width: 150,
   },
+
   successBtn: {
-    width: '107px',
-    marginLeft: '30px',
     backgroundColor: '#4CAF50',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#4CAF50',
     },
   },
+
   editBtn: {
-    width: '214px',
     backgroundColor: '#F44336',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#F44336',
@@ -108,7 +165,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   btnsWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },

@@ -1,23 +1,22 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminInventoryViewModel } from './admin-inventory-view.model'
 import { styles } from './admin-inventory-view.style'
+
+import { AdminInventoryViewModel } from './admin-inventory-view.model'
 
 export const AdminInventoryViewRaw = props => {
   const [viewModel] = useState(() => new AdminInventoryViewModel({ history: props.history }))
@@ -30,7 +29,7 @@ export const AdminInventoryViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.topHeaderBtnsWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -64,6 +63,9 @@ export const AdminInventoryViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -80,7 +82,7 @@ export const AdminInventoryViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { CreateOrEditTradingShopContent } from '@components/contents/create-or-edit-trading-shop-content'
-import { MainContent } from '@components/layout/main-content'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
@@ -26,7 +24,7 @@ export const CreateOrEditTradingShopView = observer(props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         {SettingsModel.languageTag && (
           <CreateOrEditTradingShopContent
             progressValue={viewModel.progressValue}
@@ -37,7 +35,7 @@ export const CreateOrEditTradingShopView = observer(props => {
             onEditSubmit={viewModel.onSubmitEditRequest}
           />
         )}
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

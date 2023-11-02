@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID заказа | [optional] 
-**id** | **Number** | id заказа | [optional] 
+**count** | **Number** | Общее кол-во идей | [optional] 
+**rows** | [**[InlineResponse20050Rows]**](InlineResponse20050Rows.md) | Список идей | [optional] 
 
 

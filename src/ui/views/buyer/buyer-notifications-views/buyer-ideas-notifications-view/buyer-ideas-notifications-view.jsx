@@ -1,23 +1,22 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerIdeasNotificationsViewModel } from './buyer-ideas-notifications-view.model'
 import { styles } from './buyer-ideas-notifications-view.style'
+
+import { BuyerIdeasNotificationsViewModel } from './buyer-ideas-notifications-view.model'
 
 export const BuyerIdeasNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new BuyerIdeasNotificationsViewModel({ history: props.history }))
@@ -29,7 +28,7 @@ export const BuyerIdeasNotificationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
           {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
         </Button>
@@ -60,6 +59,9 @@ export const BuyerIdeasNotificationsViewRaw = props => {
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -79,7 +81,7 @@ export const BuyerIdeasNotificationsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

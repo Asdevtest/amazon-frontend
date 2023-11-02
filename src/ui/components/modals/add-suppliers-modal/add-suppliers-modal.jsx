@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import { Container, Link, Typography } from '@mui/material'
-
 import React, { useState } from 'react'
+
+import { Container, Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,6 +18,7 @@ import { t } from '@utils/translations'
 // import {checkIsPositiveNum} from '@utils/checks'
 // import {t} from '@utils/translations'
 import { useClassNames } from './add-suppliers-modal.style'
+
 import Template from './template.xlsx'
 
 export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, progressValue }) => {

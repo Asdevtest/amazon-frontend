@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**refundPrice** | **Number** | Сумма воврата | [optional] 
+**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
 
 

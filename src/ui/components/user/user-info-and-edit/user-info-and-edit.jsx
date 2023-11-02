@@ -1,32 +1,21 @@
-import { Tabs } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { UserBalance } from './user-balance'
-import { UserEdit } from './user-edit'
 import { useClassNames } from './user-info-and-edit.style'
 
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <div>{children}</div>}
-  </div>
-)
+import { UserBalance } from './user-balance'
+import { UserEdit } from './user-edit'
 
 export const UserInfoAndEdit = observer(({ user }) => {
   const { classes: classNames } = useClassNames()

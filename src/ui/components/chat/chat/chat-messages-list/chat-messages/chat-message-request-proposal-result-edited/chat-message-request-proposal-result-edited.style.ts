@@ -2,138 +2,209 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
-    width: '869px',
+    maxWidth: 1075,
+    padding: 30,
     margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
     border: '1px solid #4CAF50',
-    borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
+    backgroundColor: theme.palette.background.general,
+    borderRadius: 7,
+
+    [theme.breakpoints.down(768)]: {
+      padding: '20px 16px',
     },
   },
+
   headerAndTimeWrapper: {
-    flexDirection: 'row',
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    gap: 20,
   },
 
   headerText: {
-    color: theme.palette.text.general,
     fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
-    lineHeight: '140%',
     textTransform: 'uppercase',
-  },
-  timeWrapper: {
-    marginLeft: '20px',
-  },
-  timeText: {
-    color: theme.palette.text.second,
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '16px',
-  },
-  mainInfoWrapper: {
-    width: '100%',
-    marginTop: 20,
+    color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
 
-  titleText: {
+  timeText: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
-    fontSize: 18,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
+    },
   },
-  descriptionWrapper: {
-    marginTop: 18,
-  },
+
   descriptionText: {
-    color: theme.palette.text.second,
+    width: '100%',
     fontSize: 18,
-    maxHeight: 150,
+    lineHeight: '25px',
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
-    overflowY: 'auto',
-    overflowX: 'hidden',
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
   },
+
   resultWrapper: {
     width: '100%',
-    marginTop: 25,
     display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: 50,
+
+    [theme.breakpoints.down(1350)]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 20,
+    },
   },
 
-  resultText: {
-    fontSize: 18,
-    fontWeight: 400,
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-    // whiteSpace: 'pre',
-    maxHeight: 150,
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-word',
-    overflowY: 'auto',
-    overflowX: 'hidden',
+  resultWrapperShowChatInfo: {
+    [theme.breakpoints.down(1550)]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 20,
+    },
   },
 
-  timeToCheckBlockWrapper: {
+  infoWrapper: {
     display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     flexDirection: 'column',
-    alignItems: 'end',
+    gap: 20,
+
+    [theme.breakpoints.down(1350)]: {
+      alignItems: 'flex-start',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
-  timeToCheckBlockLabelText: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
+
+  infoWrapperShowChatInfo: {
+    [theme.breakpoints.down(1550)]: {
+      alignItems: 'flex-start',
+    },
   },
-  timeToCheckBlockValueWrapper: {
-    width: '158px',
-    padding: '8px 16px 7px 56px',
-    backgroundColor: theme.palette.background.general,
-    borderRadius: '4px',
-    marginTop: 15,
-    textAlign: 'end',
-  },
-  timeToCheckBlockValueText: {
-    fontSize: '15px',
+
+  fieldLabel: {
+    marginBottom: 5,
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 10,
+      lineHeight: '14px',
+    },
   },
-  footerWrapper: {
-    marginTop: '20px',
+
+  fieldContainer: {
+    width: 'max-content',
+    marginBottom: 0,
   },
+
+  infoItem: {
+    height: 40,
+    maxWidth: 'max-content',
+    padding: '0 15px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    fontSize: 18,
+    lineHeight: '25px',
+    color: theme.palette.text.general,
+    background: theme.palette.background.green,
+    borderRadius: 7,
+
+    [theme.breakpoints.down(1280)]: {
+      fontSize: 16,
+      lineHeight: '22px',
+    },
+
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+  },
+
   btnsWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '48px',
+    justifyContent: 'flex-end',
+    gap: 20,
+
+    [theme.breakpoints.down(768)]: {
+      flexWrap: 'wrap',
+    },
   },
 
-  btnEditWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '48px',
+  btnsWrapperShowChatInfo: {
+    [theme.breakpoints.down(1350)]: {
+      flexWrap: 'wrap',
+    },
   },
-  actionBtnWrapperStyleNotFirst: {
-    marginLeft: '42px',
+
+  button: {
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
+
+  buttonShowChatInfo: {
+    [theme.breakpoints.down(1350)]: {
+      width: '100%',
+    },
+  },
+
   actionButton: {
-    flex: 1,
-    display: 'flex',
+    width: '100%',
+    padding: '0 15px',
   },
 
-  editButton: {
-    width: '252px',
-  },
+  editButton: {},
 
   successBtn: {
-    width: '197px',
     backgroundColor: '#4CAF50',
+
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#4CAF50',

@@ -9,11 +9,11 @@ export const styles = theme => ({
     borderBottom: '1px solid rgba(217, 222, 229, 1)',
   },
   cellValueNumber: {
-    width: 60,
-    textAlign: 'left',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    // width: 60,
+    // textAlign: 'left',
+    // whiteSpace: 'nowrap',
+    // overflow: 'hidden',
+    // textOverflow: 'ellipsis',
   },
   centerCell: {
     textAlign: 'center',
@@ -50,6 +50,7 @@ export const styles = theme => ({
   },
   csCodeTypoWrapper: {
     width: '100%',
+    marginLeft: 10,
   },
   csCodeTypo: {
     fontSize: '14px',
@@ -102,7 +103,7 @@ export const styles = theme => ({
     maxHeight: '100%',
     fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '19px',
     color: theme.palette.text.main,
   },
   amountCell: {

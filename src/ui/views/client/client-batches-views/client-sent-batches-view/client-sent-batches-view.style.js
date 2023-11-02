@@ -27,8 +27,8 @@ export const styles = theme => ({
     height: '52px',
   },
   datagridWrapper: {
-    marginTop: '10px',
-    height: '76vh',
+    marginTop: '20px',
+    height: '73vh',
   },
 
   searchInput: {
@@ -52,17 +52,24 @@ export const styles = theme => ({
   },
   archiveAddBtn: {
     width: 230,
-    border: '1px solid #FF1616',
-    color: '#FF1616',
+    display: 'flex',
+    gap: 10,
+    border: `1px solid ${theme.palette.other.rejected}`,
+    color: theme.palette.other.rejected,
+    transition: 'all 0.3s ease-in-out',
 
     '&:hover': {
-      border: '1px solid #FF1616',
+      border: `1px solid ${theme.palette.other.rejected}`,
       opacity: 0.6,
     },
 
     '&:disabled': {
-      color: '#FEB9B9',
       borderColor: '#FEB9B9',
+      color: '#FEB9B9',
+    },
+
+    '&.Mui-disabled': {
+      background: 'none',
     },
   },
   simpleBtnsWrapper: {
@@ -72,11 +79,7 @@ export const styles = theme => ({
   },
 
   boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
     display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {

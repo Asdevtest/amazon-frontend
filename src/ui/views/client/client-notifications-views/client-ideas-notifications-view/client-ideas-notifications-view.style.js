@@ -1,17 +1,17 @@
 export const styles = theme => ({
   tableWrapper: {
-    marginTop: '24px',
+    marginTop: '10px',
     width: '100%',
-    height: '85vh',
+    height: '80vh',
   },
 
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
   },
+
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
   },
 
@@ -30,7 +30,7 @@ export const styles = theme => ({
   },
 
   archiveHandler: {
-    color: '#5BA0FE',
+    color: theme.palette.text.general,
     marginLeft: 'auto',
   },
 })

@@ -4,15 +4,16 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
 import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
 import { BuyerModel } from '@models/buyer-model'
+import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
@@ -25,10 +26,8 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
-
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { GeneralModel } from '@models/general-model'
 
 const updateOrderKeys = [
   'deliveryMethod',
@@ -76,11 +75,13 @@ const filtersFields = [
   'createdAt',
   'updatedAt',
   'partiallyPaid',
+  'partialPaymentAmountRmb',
 ]
 
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
+  savingOrderStatus = undefined
   error = undefined
 
   // НЕ было до создания фильтрации по статусам (3 строки)
@@ -212,12 +213,17 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       this.history = history
     })
-    // this.isShowPartialPayment = routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname;
     if (
       routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname ||
       routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT === history.location.pathname
     ) {
       this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
+    }
+
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onClickOrder(orderId)
     }
 
     if (location.state?.orderId) {
@@ -326,16 +332,22 @@ export class BuyerMyOrdersViewModel {
       exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData?.map(el => el._id).join(',')
 
     const clientCommentFilter =
-      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+      exclusion !== 'clientComment' &&
+      this.columnMenuSettings.clientComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     const buyerCommentFilter =
-      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+      exclusion !== 'buyerComment' &&
+      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
 
     const partiallyPaidFilter =
       exclusion !== 'partiallyPaid' && this.columnMenuSettings.partiallyPaid?.currentFilterData.join(',')
+
+    const partialPaymentAmountRmbFilter =
+      exclusion !== 'partialPaymentAmountRmb' &&
+      this.columnMenuSettings.partialPaymentAmountRmb?.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -424,6 +436,7 @@ export class BuyerMyOrdersViewModel {
       ...(clientCommentFilter && {
         clientComment: { $eq: clientCommentFilter },
       }),
+
       ...(buyerCommentFilter && {
         buyerComment: { $eq: buyerCommentFilter },
       }),
@@ -437,6 +450,10 @@ export class BuyerMyOrdersViewModel {
 
       ...(partiallyPaidFilter && {
         partiallyPaid: { $eq: partiallyPaidFilter },
+      }),
+
+      ...(partialPaymentAmountRmbFilter && {
+        partialPaymentAmountRmb: { $eq: partialPaymentAmountRmbFilter },
       }),
     })
 
@@ -463,11 +480,6 @@ export class BuyerMyOrdersViewModel {
       }
     })
   }
-
-  // onLeaveColumnField() {
-  //   this.onHover = null
-  //   this.getDataGridState()
-  // }
 
   onClickResetFilters() {
     runInAction(() => {
@@ -785,20 +797,16 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async onClickHsCode(id) {
+  async onClickHsCode(id, showModal) {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    if (showModal) {
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    }
   }
 
   getCurrentData() {
-    // if (this.columnMenuSettings.paymentMethod.currentFilterData.length) {
-    //   const curPaymentsIds = this.columnMenuSettings.paymentMethod.currentFilterData.map(el => el._id)
-
-    //   return toJS(this.ordersMy).filter(el =>
-    //     el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
-    //   )
-    // } else {
     return toJS(this.ordersMy)
-    // }
   }
 
   async setColumnsModel() {
@@ -885,17 +893,11 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
-      await Promise.all([
-        ProductModel.getProductsHsCodeByGuid(orderData.product._id),
-        this.onClickHsCode(orderData.product._id),
-        this.getSuppliersPaymentMethods(),
-      ])
+      await Promise.all([this.onClickHsCode(orderData.product._id), this.getSuppliersPaymentMethods()])
 
       runInAction(() => {
         this.selectedOrder = orderData
-
         this.clearImagesForLoad()
-
         this.updateImagesForLoad(orderData.images)
       })
       this.getBoxesOfOrder(orderId)
@@ -1000,6 +1002,8 @@ export class BuyerMyOrdersViewModel {
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.savingOrderStatus = loadingStatuses.isLoading
+
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
@@ -1015,8 +1019,8 @@ export class BuyerMyOrdersViewModel {
 
       orderFields = {
         ...orderFields,
+        partiallyPaid: Number(orderFields.partiallyPaid) || 0,
         partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
-        partialPayment: Number(orderFields.partialPayment) || 0,
         images: this.readyImages,
       }
       // }
@@ -1171,6 +1175,7 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
+      this.savingOrderStatus = loadingStatuses.success
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
@@ -1184,6 +1189,7 @@ export class BuyerMyOrdersViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      this.savingOrderStatus = loadingStatuses.failed
       console.log(error)
     }
   }

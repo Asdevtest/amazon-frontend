@@ -1,9 +1,9 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import AddIcon from '@mui/icons-material/Add'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -12,8 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
-// import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -25,8 +23,9 @@ import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { SubUsersViewModel } from './sub-users-view.model'
 import { styles } from './sub-users-view.style'
+
+import { SubUsersViewModel } from './sub-users-view.model'
 
 export const SubUsersViewRaw = props => {
   const [viewModel] = useState(() => new SubUsersViewModel({ history: props.history }))
@@ -38,7 +37,7 @@ export const SubUsersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.subUserHeader}>
           <div />
 
@@ -55,6 +54,7 @@ export const SubUsersViewRaw = props => {
               className={classNames.addUserButton}
               onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
             >
+              <AddIcon />
               {t(TranslationKey['Add a user'])}
             </Button>
           </div>
@@ -78,13 +78,16 @@ export const SubUsersViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            rowHeight={145}
+            rows={viewModel.getCurrentData()}
+            getRowHeight={() => 'auto'}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -102,7 +105,7 @@ export const SubUsersViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
+      </div>
       <Modal
         openModal={viewModel.showAddSubUserModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}

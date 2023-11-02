@@ -1,23 +1,22 @@
+import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
-import { MainContent } from '@components/layout/main-content'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { DealsOnReviewModel } from './deals-on-review-view.model'
 import { styles } from './deals-on-review-view.style'
+
+import { DealsOnReviewModel } from './deals-on-review-view.model'
 
 export const DealsOnReviewViewRaw = props => {
   const [viewModel] = useState(() => new DealsOnReviewModel({ history: props.history }))
@@ -39,7 +38,7 @@ export const DealsOnReviewViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.tablePanelWrapper}>
           <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
             <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
@@ -74,7 +73,7 @@ export const DealsOnReviewViewRaw = props => {
             </div>
           )}
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

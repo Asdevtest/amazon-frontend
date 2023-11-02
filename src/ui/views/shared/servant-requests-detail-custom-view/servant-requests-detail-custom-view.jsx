@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -10,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -24,8 +21,9 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 import { styles } from './servant-requests-detail-custom-view.style'
+
+import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 
 const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
@@ -56,11 +54,9 @@ export const RequestDetailCustomViewRaw = props => {
     viewModel.chatSelectedId &&
     viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
 
-  console.log(findRequestProposalForCurChat)
-
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.backBtnWrapper}>
           <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
             {t(TranslationKey.Back)}
@@ -92,15 +88,20 @@ export const RequestDetailCustomViewRaw = props => {
               }}
             >
               <MultipleChats
+                isFreelanceOwner
                 chats={viewModel.chats}
                 typingUsers={viewModel.typingUsers}
                 userId={viewModel.userInfo?._id}
+                mutedChats={viewModel.mutedChats}
+                messagesFound={viewModel.messagesFound}
+                mesSearchValue={viewModel.mesSearchValue}
+                curFoundedMessage={viewModel.curFoundedMessage}
                 chatSelectedId={viewModel.chatSelectedId}
                 chatMessageHandlers={{
                   onClickReworkProposal: viewModel.onClickReworkProposal,
                   onClickOpenRequest: viewModel.onClickOpenRequest,
                 }}
-                renderAdditionalButtons={(params, resetAllInputs) => (
+                renderAdditionalButtons={() => (
                   <div className={classNames.additionalButtonsWrapper}>
                     {findRequestProposalForCurChat &&
                     requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status) ? (
@@ -150,11 +151,15 @@ export const RequestDetailCustomViewRaw = props => {
                 onSubmitMessage={viewModel.onSubmitMessage}
                 onClickChat={viewModel.onClickChat}
                 onTypingMessage={viewModel.onTypingMessage}
+                onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
+                onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
+                onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                onCloseMesSearchValue={viewModel.onCloseMesSearchValue}
               />
             </ChatRequestAndRequestProposalContext.Provider>
           </div>
         ) : null}
-      </MainContent>
+      </div>
 
       <WarningInfoModal
         isWarning={viewModel.warningInfoModalSettings.isWarning}

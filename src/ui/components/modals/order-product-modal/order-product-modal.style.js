@@ -11,9 +11,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   pendingOrderWrapper: {
     display: 'flex',
-    gap: 20,
+    alignItems: 'center',
+    gap: 7,
     cursor: 'pointer',
-    marginRight: 20,
+  },
+
+  checkbox: {
+    padding: 0,
   },
 
   modalButton: {
@@ -240,6 +244,11 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
+  cellText: {
+    fontWeight: 400,
+    lineHeight: 1.75,
+  },
+
   commentCellBtn: {
     width: '100%',
     cursor: 'auto',
@@ -256,10 +265,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'end',
-    textAlign: 'right',
-    gap: '10px',
-    marginTop: '30px',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 50,
+    marginTop: 30,
   },
   buyNowBtn: {
     color: '#fff',
@@ -279,10 +288,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sumText: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '400',
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.general,
-    marginTop: '10px',
   },
 }))

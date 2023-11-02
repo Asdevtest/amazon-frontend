@@ -1,9 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    height: 'calc(100vh - 250px)',
-    [theme.breakpoints.down(1282)]: {
-      height: 'calc(100vh - 250px)',
-    },
+    height: '70vh',
   },
 
   headerWrapper: {
@@ -14,9 +11,9 @@ export const styles = theme => ({
   },
 
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.paper,
     backgroundColor: theme.palette.background.general,
+    borderRadius: 20,
   },
 
   footerContainer: {

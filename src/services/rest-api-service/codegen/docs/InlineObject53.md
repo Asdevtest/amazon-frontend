@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productIds** | **[String]** |  | 
+**clientComment** | **String** |  | [optional] 
 
 

@@ -1,27 +1,30 @@
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { forwardRef, ReactElement } from 'react'
-
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
+import { ReactElement, forwardRef } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { SettingsModel } from '@models/settings-model'
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
+
+import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
+import { SearchInput } from '@components/shared/search-input'
+import { NoSelectedChat } from '@components/shared/svg-icons'
 
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
+import { useClassNames } from './multiple-chats.styles'
+
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
 import { ChatsList } from '../chats-list'
-import { useClassNames } from './multiple-chats.style'
-import { NoSelectedChat } from '@components/shared/svg-icons'
+import { SearchResult } from '../search-result'
 
 export interface IFile {
   data_url: string
@@ -45,15 +48,16 @@ interface Props {
   isFreelanceOwner: boolean
   searchFilter: string
   chats: ChatContract[]
+  curFoundedMessage: ChatContract
+  mutedChats: string[]
   userId: string
+  mesSearchValue: string
   currentOpponent?: CurrentOpponent
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   typingUsers?: OnTypingMessageResponse[]
-  toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
   onSubmitMessage: (message: string, files: IFile[], chat: string, replyMessageId: string | null) => void
@@ -63,6 +67,10 @@ interface Props {
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
+  onToggleMuteCurrentChat: () => void
+  onChangeMesSearchValue: () => void
+  onChangeCurFoundedMessage: () => void
+  onCloseMesSearchValue: () => void
 }
 
 export const MultipleChats = observer(
@@ -71,28 +79,34 @@ export const MultipleChats = observer(
       {
         isFreelanceOwner,
         searchPhrase,
-        toScrollMesId,
         messagesFound,
         typingUsers,
+        mesSearchValue,
         searchFilter,
         chats,
         userId,
+        mutedChats,
         chatSelectedId,
         chatMessageHandlers,
+        curFoundedMessage,
         updateData,
         onSubmitMessage,
         onClickChat,
         renderAdditionalButtons,
         onTypingMessage,
         currentOpponent,
-        onClickBackButton,
         onClickAddUsersToGroupChat,
         onRemoveUsersFromGroupChat,
         onClickEditGroupChatInfo,
+        onToggleMuteCurrentChat,
+        onChangeMesSearchValue,
+        onChangeCurFoundedMessage,
+        onCloseMesSearchValue,
       },
       ref,
     ) => {
       const { classes: classNames } = useClassNames()
+      const { isMobileResolution } = useCreateBreakpointResolutions()
 
       const filteredChats = chats
         .filter(el => {
@@ -112,84 +126,88 @@ export const MultipleChats = observer(
         })
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
+      const isChatSelectedAndFound = isNotUndefined(chatSelectedId) && findChatByChatId
+      const isMuteCurrentChat = mutedChats.includes(findChatByChatId ? findChatByChatId?._id : '')
+      const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
 
       return (
-        <div ref={ref} className={classNames.root}>
-          {
-            <div
-              className={cx(classNames.chatsWrapper, {
-                [classNames.hideChatsWrapper]: !!isNotUndefined(chatSelectedId) && !!findChatByChatId,
-              })}
-            >
-              <ChatsList
-                userId={userId}
-                typingUsers={typingUsers}
-                isFreelanceOwner={isFreelanceOwner}
-                chats={filteredChats}
-                chatSelectedId={chatSelectedId}
-                onClickChat={onClickChat}
-              />
-            </div>
-          }
-          {SettingsModel.languageTag && window.innerWidth >= 768 && (
-            <div className={classNames.chatWrapper}>
-              {isNotUndefined(chatSelectedId) && findChatByChatId ? (
-                <Chat
-                  userId={userId}
-                  chat={findChatByChatId}
-                  messages={findChatByChatId.messages}
-                  chatMessageHandlers={chatMessageHandlers}
-                  toScrollMesId={toScrollMesId}
-                  messagesFound={messagesFound}
-                  searchPhrase={searchPhrase}
-                  renderAdditionalButtons={renderAdditionalButtons}
-                  updateData={updateData}
-                  onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
-                  }
-                  onTypingMessage={onTypingMessage}
-                  onClickBackButton={onClickBackButton}
-                  onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
-                  onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
-                  onClickEditGroupChatInfo={onClickEditGroupChatInfo}
-                />
-              ) : (
-                <div className={classNames.noChatWrapper}>
-                  <NoSelectedChat className={classNames.noSelectedChatIcon} />
-                  <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
-                  <Typography className={classNames.noChatSubTitle}>
-                    {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
-                  </Typography>
-                </div>
-              )}
-            </div>
-          )}
+        <div ref={ref} className={classNames.wrapper}>
+          <div
+            className={cx(classNames.leftSide, {
+              [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+            })}
+          >
+            <ChatsList
+              userId={userId}
+              typingUsers={typingUsers}
+              isFreelanceOwner={isFreelanceOwner}
+              chats={filteredChats}
+              chatSelectedId={chatSelectedId}
+              mutedChats={mutedChats}
+              onClickChat={onClickChat}
+            />
+          </div>
 
-          {isNotUndefined(chatSelectedId) && findChatByChatId && window.innerWidth < 768 && (
-            <div className={classNames.chatWrapper}>
-              {
-                <Chat
-                  userId={userId}
-                  chat={findChatByChatId}
-                  currentOpponent={currentOpponent}
-                  messages={findChatByChatId.messages}
-                  chatMessageHandlers={chatMessageHandlers}
-                  renderAdditionalButtons={renderAdditionalButtons}
-                  updateData={updateData}
-                  onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
-                  }
-                  onTypingMessage={onTypingMessage}
-                  onClickBackButton={onClickBackButton}
-                  onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
-                  onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
-                  onClickEditGroupChatInfo={onClickEditGroupChatInfo}
-                />
-              }
-            </div>
-          )}
+          <div className={classNames.rightSide}>
+            {isChatSelectedAndFound && (
+              <div className={classNames.header}>
+                <div className={classNames.searchMessageContainer}>
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    placeholder={t(TranslationKey['Message Search'])}
+                    value={mesSearchValue}
+                    onChange={onChangeMesSearchValue}
+                  />
+
+                  {messagesFound?.length ? (
+                    <SearchResult
+                      curFoundedMessageIndex={curFoundedMessageIndex}
+                      messagesFound={messagesFound}
+                      onClose={onCloseMesSearchValue}
+                      onChangeCurFoundedMessage={onChangeCurFoundedMessage}
+                    />
+                  ) : mesSearchValue ? (
+                    <p className={classNames.searchResult}>{t(TranslationKey['Not found'])}</p>
+                  ) : null}
+                </div>
+
+                <ChatSoundNotification isMuteChat={isMuteCurrentChat} onToggleMuteChat={onToggleMuteCurrentChat} />
+              </div>
+            )}
+
+            {isChatSelectedAndFound ? (
+              <Chat
+                isFreelanceOwner={isFreelanceOwner}
+                userId={userId}
+                chat={findChatByChatId}
+                messages={findChatByChatId.messages}
+                chatMessageHandlers={chatMessageHandlers}
+                toScrollMesId={curFoundedMessage?._id}
+                messagesFound={messagesFound}
+                searchPhrase={searchPhrase}
+                classNamesWrapper={classNames.chatWrapper}
+                renderAdditionalButtons={renderAdditionalButtons}
+                updateData={updateData}
+                currentOpponent={currentOpponent}
+                onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
+                }
+                onTypingMessage={onTypingMessage}
+                onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+                onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+                onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+              />
+            ) : !isMobileResolution ? (
+              <div className={classNames.noSelectedChatWrapper}>
+                <NoSelectedChat className={classNames.noSelectedChatIcon} />
+                <p className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
+                <p className={classNames.noChatSubTitle}>
+                  {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
+                </p>
+              </div>
+            ) : null}
+          </div>
         </div>
       )
     },

@@ -8,6 +8,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ChatModel } from '@models/chat-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -40,6 +41,18 @@ export class RequestDetailCustomViewModel {
   chatSelectedId = undefined
   chatIsConnected = false
 
+  mesSearchValue = ''
+  messagesFound = []
+  curFoundedMessage = undefined
+
+  get isMuteChats() {
+    return SettingsModel.isMuteChats
+  }
+
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
+
   get chats() {
     return ChatModel.chats
   }
@@ -59,6 +72,15 @@ export class RequestDetailCustomViewModel {
       this.requestId = url.searchParams.get('request-id')
     })
 
+    reaction(
+      () => this.chatSelectedId,
+      () => {
+        runInAction(() => {
+          this.mesSearchValue = ''
+        })
+      },
+    )
+
     runInAction(() => {
       this.history = history
 
@@ -70,6 +92,28 @@ export class RequestDetailCustomViewModel {
         this.chatSelectedId = location.state.chatId
       }
     })
+
+    reaction(
+      () => this.mesSearchValue,
+      () => {
+        runInAction(() => {
+          if (this.mesSearchValue && this.chatSelectedId) {
+            const mesAr = this.chats
+              .find(el => el._id === this.chatSelectedId)
+              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+
+            this.messagesFound = mesAr
+
+            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+          } else {
+            this.curFoundedMessage = undefined
+
+            this.messagesFound = []
+          }
+        })
+      },
+    )
+
     makeAutoObservable(this, undefined, { autoBind: true })
     try {
       if (ChatModel.isConnected) {
@@ -95,6 +139,14 @@ export class RequestDetailCustomViewModel {
     }
   }
 
+  onToggleMuteCurrentChat() {
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+  }
+
+  onToggleMuteAllChats() {
+    SettingsModel.onToggleMuteAllChats(this.chats)
+  }
+
   onTypingMessage(chatId) {
     ChatModel.typingMessage({ chatId })
   }
@@ -109,6 +161,24 @@ export class RequestDetailCustomViewModel {
     } else {
       this.onTriggerOpenModal('showRequestResultModal')
     }
+  }
+
+  onChangeCurFoundedMessage(index) {
+    runInAction(() => {
+      this.curFoundedMessage = this.messagesFound[index]
+    })
+  }
+
+  onChangeMesSearchValue(e) {
+    runInAction(() => {
+      this.mesSearchValue = e.target.value
+    })
+  }
+
+  onCloseMesSearchValue() {
+    runInAction(() => {
+      this.mesSearchValue = ''
+    })
   }
 
   async loadData() {
@@ -145,9 +215,14 @@ export class RequestDetailCustomViewModel {
   async onSubmitMessage(message, files, chatIdId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
+        crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
         files: files?.map(item => item?.file),
+        user: {
+          name: UserModel.userInfo.name,
+          _id: UserModel.userInfo._id,
+        },
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {

@@ -1,41 +1,35 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Box, Grid, Paper, Typography, Alert } from '@mui/material'
-
-import React, { useState } from 'react'
+import { observer } from 'mobx-react'
+import React from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import { observer } from 'mobx-react'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+import { Alert, Paper, Typography } from '@mui/material'
 
-import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageEditForm } from '@components/forms/image-edit-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { BindProductForm } from '@components/forms/bind-product-form'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { useClassNames } from './top-card.style'
+
 import { TableSupplier } from '../../table-supplier'
+
 import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
-import { useClassNames } from './top-card.style'
-import { CustomSlider } from '@components/shared/custom-slider'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -56,8 +50,12 @@ export const TopCard = observer(
     onChangeField,
     actionStatus,
     product,
+    productVariations,
+    navigateToProduct,
+    unbindProductHandler,
     shops,
-
+    modal,
+    platformSettings,
     productBase,
     onClickSupplierBtns,
     selectedSupplier,
@@ -68,133 +66,21 @@ export const TopCard = observer(
     handleProductActionButtons,
     onChangeImagesForLoad,
     acceptMessage,
+    showAcceptMessage,
+    showBindProductModal,
+    productsToBind,
+    onTriggerOpenModal,
+    onClickGetProductsToBind,
     onClickHsCode,
+    onClickNextButton,
   }) => {
-    const { classes: classNames } = useClassNames()
-
-    const [showImageModal, setShowImageModal] = useState(false)
-
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-
-    const [imageEditOpen, setImageEditOpen] = useState(false)
+    const { classes: classNames, cx } = useClassNames()
 
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
 
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
-
-    const onClickRemoveImageObj = imageIndex => {
-      const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
-
-      onChangeImagesForLoad(newArr)
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        imgIndex: bigImagesOptions.imgIndex - 1 < 0 ? 0 : bigImagesOptions.imgIndex - 1,
-        images: newArr,
-      }))
-
-      if (!newArr.length) {
-        setShowImageModal(false)
-      }
-    }
-
-    const onUploadFile = imageIndex => async evt => {
-      if (evt.target.files.length === 0) {
-        return
-      } else {
-        const filesArr = Array.from(evt.target.files)
-
-        evt.preventDefault()
-
-        const readyFilesArr = filesArr.map(el => ({
-          data_url: URL.createObjectURL(el),
-          file: new File([el], el.name?.replace(/ /g, ''), {
-            type: el.type,
-            lastModified: el.lastModified,
-          }),
-        }))
-
-        // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
-
-        onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
-        setBigImagesOptions(() => ({
-          ...bigImagesOptions,
-          images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
-        }))
-      }
-    }
-
-    const onClickMakeMainImageObj = (imageIndex, image) => {
-      onChangeImagesForLoad([image, ...imagesForLoad.filter((el, i) => i !== imageIndex)])
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        imgIndex: 0,
-        images: [image, ...imagesForLoad.filter((el, i) => i !== imageIndex)],
-      }))
-    }
-
-    const onClickEditImage = () => {
-      setImageEditOpen(!imageEditOpen)
-    }
-
-    const onClickEditImageSubmit = image => {
-      // bigImagesOptions.images[bigImagesOptions.imgIndex]
-
-      onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
-      }))
-    }
-
-    const bigImagesModalControls = (imageIndex, image) => (
-      <>
-        {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
-          !product.archive &&
-          showActionBtns && (
-            <>
-              <>
-                {imageIndex === 0 ? (
-                  <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
-                    <StarOutlinedIcon />
-                  </div>
-                ) : (
-                  <Button
-                    disabled={imageIndex === 0}
-                    // success={imageIndex === 0}
-                    className={cx(classNames.imagesModalBtn)}
-                    onClick={() => onClickMakeMainImageObj(imageIndex, image)}
-                  >
-                    <StarOutlinedIcon />
-                  </Button>
-                )}
-              </>
-              <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
-                <ModeOutlinedIcon />
-              </Button>
-
-              <Button className={cx(classNames.imagesModalBtn)}>
-                <AutorenewIcon />
-                <input
-                  type={'file'}
-                  className={classNames.pasteInput}
-                  defaultValue={''}
-                  onChange={onUploadFile(imageIndex)}
-                />
-              </Button>
-
-              <Button
-                danger
-                className={cx(classNames.imagesModalBtn)}
-                onClick={() => onClickRemoveImageObj(imageIndex)}
-              >
-                <DeleteOutlineOutlinedIcon />
-              </Button>
-            </>
-          )}
-      </>
-    )
 
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
@@ -215,83 +101,48 @@ export const TopCard = observer(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
+    const isChildProduct = product.parentProductId
+
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
-          <Grid container spacing={2}>
-            <Grid container item sm={7} xs={12}>
-              <Grid item xs={12}>
-                <Box>
-                  {product.images && product.images.length ? (
-                    <div className={classNames.carouselWrapper}>
-                      <CustomSlider>
-                        {(checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad).map(
-                          (imageHash, index) => (
-                            <img
-                              key={index}
-                              alt=""
-                              className={classNames.carouselImage}
-                              // src={getAmazonImageUrl(imageHash, true)}
+          <div className={classNames.topPartCardWrapper}>
+            <div className={classNames.mainCard}>
+              <div className={classNames.variationWrapper}>
+                {!isChildProduct ? (
+                  <ParentProductIcon className={classNames.parentVariation} />
+                ) : (
+                  <VariationIcon className={classNames.variationIcon} />
+                )}
 
-                              src={
-                                typeof imageHash === 'string'
-                                  ? getAmazonImageUrl(imageHash, true)
-                                  : imageHash?.file.type.includes('image')
-                                  ? imageHash?.data_url
-                                  : '/assets/icons/file.png'
-                              }
-                              onClick={() => {
-                                setShowImageModal(!showImageModal)
-                                setBigImagesOptions({
-                                  images:
-                                    checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole)
-                                      ? product.images
-                                      : imagesForLoad,
-                                  imgIndex: index,
-                                })
-                              }}
-                            />
-                          ),
-                        )}
-                      </CustomSlider>
-                    </div>
-                  ) : undefined}
-                </Box>
+                <p className={cx(classNames.variationText, { [classNames.parentVariation]: !isChildProduct })}>
+                  {isChildProduct ? t(TranslationKey['Child product']) : t(TranslationKey['Parent product'])}
+                </p>
+              </div>
+              <div className={classNames.card}>
+                {product.images && product.images.length ? (
+                  <div className={classNames.carouselWrapper}>
+                    <PhotoAndFilesSlider
+                      showPreviews
+                      withoutFiles
+                      bigSlider
+                      isEditable={clientToEdit}
+                      files={product.images}
+                      onChangeImagesForLoad={onChangeImagesForLoad}
+                    />
+                  </div>
+                ) : undefined}
+
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (
                   <div className={classNames.actionsWrapper}>
-                    {/* <Box className={classNames.parseButtonsWrapper}>
-                      <React.Fragment>
-                        <Button
-                          tooltipInfoContent={t(
-                            TranslationKey[
-                              'Fills the card with the necessary information from the Amazon page by ASIN'
-                            ],
-                          )}
-                          className={classNames.buttonParseAmazon}
-                          onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
-                        >
-                          {'Parse Amazon'}
-                        </Button>
-                        <Button
-                          tooltipInfoContent={t(
-                            TranslationKey['Fills the card with the necessary information from Seller Central by ASIN'],
-                          )}
-                          className={classNames.buttonParseAmazon}
-                          onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
-                        >
-                          {'Parse Seller central'}
-                        </Button>
-                      </React.Fragment>
-                    </Box> */}
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
+                          fullWidth
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
-                          // maxNumber={50 - product.images?.length < 0 ? 0 : 50 - product.images?.length}
-                          // acceptType={['jpg', 'gif', 'png', 'jpeg', 'pdf']}
                           maxNumber={50}
                         />
                       </div>
@@ -309,35 +160,41 @@ export const TopCard = observer(
                       : alertFailedText || t(TranslationKey['Fields not filled in'])}
                   </Alert>
                 ) : undefined}
-              </Grid>
+              </div>
               <FieldsAndSuppliers
                 user={user}
                 showActionBtns={showActionBtns}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 curUserRole={curUserRole}
                 product={product}
+                productVariations={productVariations}
+                navigateToProduct={navigateToProduct}
+                unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
                 selectedSupplier={selectedSupplier}
+                onTriggerOpenModal={onTriggerOpenModal}
                 onChangeField={onChangeField}
                 onClickSupplierBtns={onClickSupplierBtns}
                 onClickSupplier={onClickSupplier}
                 onClickHsCode={onClickHsCode}
                 onClickParseProductData={onClickParseProductData}
               />
-            </Grid>
+            </div>
             <RightSideComments
+              modal={modal}
               showActionBtns={showActionBtns}
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}
               acceptMessage={acceptMessage}
+              showAcceptMessage={showAcceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}
               onChangeField={onChangeField}
             />
-          </Grid>
+          </div>
 
           {!checkIsResearcher(curUserRole) && (
             <>
@@ -518,6 +375,7 @@ export const TopCard = observer(
 
               <TableSupplier
                 // isClient
+                platformSettings={platformSettings}
                 product={product}
                 productBaseData={productBase}
                 selectedSupplier={selectedSupplier}
@@ -533,23 +391,21 @@ export const TopCard = observer(
           {actionStatus === loadingStatuses.isLoading && !showProgress ? <CircularProgressWithLabel /> : null}
         </Paper>
 
-        <BigImagesModal
-          showPreviews
-          openModal={showImageModal}
-          setOpenModal={() => setShowImageModal(!showImageModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          controls={bigImagesModalControls}
-        />
-
-        <Modal openModal={imageEditOpen} setOpenModal={() => setImageEditOpen(!imageEditOpen)}>
-          <ImageEditForm
-            item={bigImagesOptions.images[bigImagesOptions.imgIndex]}
-            setOpenModal={() => setImageEditOpen(!imageEditOpen)}
-            onSave={onClickEditImageSubmit}
-          />
-        </Modal>
+        {showBindProductModal && (
+          <Modal
+            noPadding
+            openModal={showBindProductModal}
+            setOpenModal={() => onTriggerOpenModal('showBindProductModal')}
+          >
+            <BindProductForm
+              sourceProduct={product}
+              productsToBind={productsToBind}
+              onClickGetProductsToBind={onClickGetProductsToBind}
+              onClickNextButton={onClickNextButton}
+              onClickCancelButton={() => onTriggerOpenModal('showBindProductModal')}
+            />
+          </Modal>
+        )}
 
         {/* <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
           <CustomImageGallery images={bigImagesOptions.images} imgIndex={bigImagesOptions.imgIndex} />

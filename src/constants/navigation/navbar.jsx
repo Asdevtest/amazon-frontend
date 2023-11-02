@@ -6,8 +6,9 @@ import {
   DashboardIcon,
   ExchangeIcon,
   Feedback,
-  FreelanceIcon,
   FreeOrdersIcon,
+  FreelanceIcon,
+  IdeasIcon,
   InventoryIcon,
   Message,
   MyBatchesIcon,
@@ -17,11 +18,11 @@ import {
   MyProductsIcon,
   MyUsersIcon,
   MyWarehouseIcon,
+  NewTasksIcon,
   SearchIcon,
   SettingsIcon,
   ShopsIcon,
   TasksIcon,
-  NewTasksIcon,
   TradingShops,
   UsersPermissionsIcon,
 } from '@components/shared/svg-icons'
@@ -31,6 +32,7 @@ import { t } from '@utils/translations'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
+
 import { navBarActiveCategory, navBarActiveSubCategory } from './navbar-active-category'
 
 export const navbarConfig = () => ({
@@ -52,6 +54,11 @@ export const navbarConfig = () => ({
       route: '/client/freelance/my-requests',
       subtitles: [
         {
+          subtitle: t(TranslationKey['Service exchange']),
+          subRoute: '/client/freelance/service-exchange',
+          key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
+        },
+        {
           subtitle: t(TranslationKey['My requests']),
           subRoute: '/client/freelance/my-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
@@ -67,12 +74,6 @@ export const navbarConfig = () => ({
         //   subRoute: '/client/freelance/my-proposals',
         //   key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
         // },
-        //
-        {
-          subtitle: t(TranslationKey['Service exchange']),
-          subRoute: '/client/freelance/service-exchange',
-          key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
-        },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
@@ -89,6 +90,74 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
+    },
+
+    {
+      icon: IdeasIcon,
+      route: '/client/ideas',
+      title: t(TranslationKey.Ideas),
+      subtitles: [
+        {
+          subtitle: t(TranslationKey['New ideas']),
+          subRoute: '/client/ideas/new',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['On checking']),
+          subRoute: '/client/ideas/on-checking',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Search for suppliers']),
+          subRoute: '/client/ideas/search-suppliers',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Creating a product card']),
+          subRoute: '/client/ideas/create-card',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Adding ASIN']),
+          subRoute: '/client/ideas/add-asin',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Realized ideas']),
+          subRoute: '/client/ideas/realized',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey['Rejected and closed']),
+          subRoute: '/client/ideas/closed',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT),
+        },
+        {
+          subtitle: t(TranslationKey.All),
+          subRoute: '/client/ideas/all',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
+        },
+      ],
+      key: navBarActiveCategory.NAVBAR_IDEAS,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => Object.values(permissionsKeys.client.ideas).includes(item.key)),
     },
 
     {
@@ -244,13 +313,18 @@ export const navbarConfig = () => ({
     {
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
-      route: '/client/notifications/orders-notifications',
+      route: '/client/notifications',
       subtitles: [
         { subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications' },
         { subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
         { subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications' },
-        { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
-        { subtitle: t(TranslationKey.Freelance), subRoute: '/client/notifications/freelance-notifications' },
+        // { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
+        { subtitle: t(TranslationKey['Request messages']), subRoute: '/client/notifications/freelance-notifications' },
+        {
+          subtitle: t(TranslationKey['General notifications']),
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/client/notifications/general-notifications-view',
+        },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -432,7 +506,15 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Notifications),
       route: '/freelancer/notifications',
       subtitles: [
-        { subtitle: t(TranslationKey.Freelance), subRoute: '/freelancer/notifications/freelance-notifications' },
+        {
+          subtitle: t(TranslationKey['Request messages']),
+          subRoute: '/freelancer/notifications/freelance-notifications',
+        },
+        {
+          subtitle: t(TranslationKey['General notifications']),
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/freelancer/notifications/general-notifications-view',
+        },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -452,27 +534,6 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR),
     },
 
-    {
-      icon: FreelanceIcon,
-      title: t(TranslationKey.Freelance),
-      route: '/supervisor/freelance/vacant-deals',
-      subtitles: [
-        {
-          subtitle: t(TranslationKey['Vacant deals']),
-          subRoute: '/supervisor/freelance/vacant-deals',
-          key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-        },
-        {
-          subtitle: t(TranslationKey['Deals on review']),
-          subRoute: '/supervisor/freelance/deals-on-review',
-          key: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
-        },
-      ],
-      key: navBarActiveCategory.NAVBAR_DEALS,
-      checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
-    },
     {
       icon: TasksIcon,
       title: t(TranslationKey['Ready to check']),
@@ -748,7 +809,17 @@ export const navbarConfig = () => ({
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
       route: '/buyer/notifications/ideas-notifications',
-      subtitles: [{ subtitle: t(TranslationKey['On ideas']), subRoute: '/buyer/notifications/ideas-notifications' }],
+      subtitles: [
+        // {
+        //   subtitle: t(TranslationKey['On ideas']),
+        //   subRoute: '/buyer/notifications/ideas-notifications',
+        // },
+        {
+          subtitle: t(TranslationKey['General notifications']),
+          key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+          subRoute: '/buyer/notifications/general-notifications-view',
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||

@@ -1,27 +1,26 @@
-/* eslint-disable no-unused-vars */
-import { Box, Tabs } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { TabPanel } from '@components/shared/tab-panel'
 
-import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
+import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { useClassNames } from './product-wrapper.style'
 
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
-import { Listing } from '../listing'
+import { ManagementTabView } from '../management-tab-view'
 import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
+
 import { BottomCard } from './bottom-card'
-import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
 
 const tabsValues = {
@@ -31,6 +30,7 @@ const tabsValues = {
   LISTING: 'LISTING',
   SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
   FREELANCE: 'FREELANCE',
+  MANAGEMENT: 'MANAGEMENT',
 }
 
 const getTab = tabKey => {
@@ -46,18 +46,6 @@ const getTab = tabKey => {
   }
 }
 
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
-
 export const ProductWrapper = observer(
   ({
     showTab,
@@ -67,87 +55,95 @@ export const ProductWrapper = observer(
     progressValue,
     alertFailedText,
     product,
+    productVariations,
+    navigateToProduct,
+    unbindProductHandler,
     shops,
     productBase,
     userRole,
-
+    modal,
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
+    platformSettings,
     onClickSupplier,
     onClickSetProductStatusBtn,
     onChangeField,
     actionStatus,
     handleProductActionButtons,
+    setCurrentTab,
     onClickParseProductData,
     onChangeImagesForLoad,
     acceptMessage,
+    showAcceptMessage,
+    showBindProductModal,
+    productsToBind,
+    onTriggerOpenModal,
+    onClickGetProductsToBind,
     onClickHsCode,
+    onClickNextButton,
   }) => {
     const { classes: classNames } = useClassNames()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
-    const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
+    const [tabIndex, setTabIndex] = useState(getTab(showTab))
+
+    const isClientOrAdmin = checkIsClient(curUserRole) || checkIsAdmin(curUserRole)
 
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
-    }, [SettingsModel.languageTag, userRole])
+    }, [userRole])
 
     return (
       <>
         {SettingsModel.languageTag && (
-          <React.Fragment>
-            <Tabs
-              variant={'fullWidth'}
-              classes={{
-                root: classNames.row,
-                indicator: classNames.indicator,
-              }}
-              value={tabIndex}
-              onChange={(e, value) => {
+          <div className={classNames.mainWrapper}>
+            <CustomSwitcher
+              switchMode="medium"
+              condition={tabIndex}
+              switcherSettings={[
+                {
+                  label: () => t(TranslationKey['Basic information']),
+                  value: tabsValues.MAIN_INFO,
+                },
+
+                isClientOrAdmin && {
+                  label: () => t(TranslationKey.Orders),
+                  value: tabsValues.ORDERS,
+                },
+
+                isClientOrAdmin && {
+                  label: () => t(TranslationKey.Integrations),
+                  value: tabsValues.INTEGRATIONS,
+                },
+                isClientOrAdmin && {
+                  label: () => t(TranslationKey.Freelance),
+                  value: tabsValues.FREELANCE,
+                },
+
+                !checkIsResearcher(curUserRole) && {
+                  icon: product.ideasOnCheck > 0,
+                  label: () => t(TranslationKey['Suppliers and Ideas']),
+                  value: tabsValues.SUPPLIERS_AND_IDEAS,
+                },
+
+                checkIsAdmin(curUserRole) && {
+                  label: () => t(TranslationKey.Management),
+                  value: tabsValues.MANAGEMENT,
+                },
+              ].filter(item => item)}
+              changeConditionHandler={value => {
                 setTabIndex(value)
+                setCurrentTab && setCurrentTab(value)
               }}
-            >
-              <ITab
-                tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
-                value={tabsValues.MAIN_INFO}
-                label={t(TranslationKey['Basic information'])}
-              />
+            />
 
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
-                  label={t(TranslationKey.Orders)}
-                  value={tabsValues.ORDERS}
-                />
-              )}
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
-                  label={t(TranslationKey.Integrations)}
-                  value={tabsValues.INTEGRATIONS}
-                />
-              )}
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />
-              )}
-
-              {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
-
-              {!checkIsResearcher(curUserRole) && (
-                <ITab
-                  label={t(TranslationKey['Suppliers and Ideas'])}
-                  value={tabsValues.SUPPLIERS_AND_IDEAS}
-                  withIcon={!!product.ideaCount}
-                />
-              )}
-            </Tabs>
-
-            <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
+                languageTag={SettingsModel.languageTag}
+                platformSettings={platformSettings}
+                modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}
                 showProgress={showProgress}
@@ -155,13 +151,22 @@ export const ProductWrapper = observer(
                 alertFailedText={alertFailedText}
                 curUserRole={curUserRole}
                 product={product}
+                productVariations={productVariations}
+                navigateToProduct={navigateToProduct}
+                unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
                 selectedSupplier={selectedSupplier}
                 actionStatus={actionStatus}
                 acceptMessage={acceptMessage}
+                showAcceptMessage={showAcceptMessage}
+                showBindProductModal={showBindProductModal}
+                productsToBind={productsToBind}
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
+                onClickNextButton={onClickNextButton}
+                onTriggerOpenModal={onTriggerOpenModal}
+                onClickGetProductsToBind={onClickGetProductsToBind}
                 onChangeField={onChangeField}
                 onClickSetProductStatusBtn={onClickSetProductStatusBtn}
                 onClickSupplierBtns={handleSupplierButtons}
@@ -181,26 +186,34 @@ export const ProductWrapper = observer(
               )}
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.ORDERS}>
+              <Orders
+                modal={modal}
+                productId={product._id}
+                showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS}
+              />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations productId={product._id} />
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
+              <Integrations modal={modal} productId={product._id} />
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
-              <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
-            </TabPanel> */}
+        <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
+      </TabPanel> */}
 
-            <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
-              <Freelance productId={product._id} />
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
+              <Freelance modal={modal} productId={product._id} />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
-          </React.Fragment>
+
+            <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
+              <ManagementTabView product={product} />
+            </TabPanel>
+          </div>
         )}
       </>
     )

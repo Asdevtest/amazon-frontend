@@ -3,8 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
-    gap: '10px',
+    gap: '20px',
     width: '100%',
+    marginTop: 10,
     flexDirection: 'column',
   },
   placeAddBtnWrapper: {
@@ -37,6 +38,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: '52px',
   },
   datagridWrapper: {
-    height: '77vh',
+    height: '75vh',
   },
 }))

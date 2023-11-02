@@ -1,16 +1,14 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
-import { MainContent } from '@components/layout/main-content'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -18,8 +16,9 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminFeedbackViewModel } from './admin-feedback-view.model'
 import { styles } from './admin-feedback-view.style'
+
+import { AdminFeedbackViewModel } from './admin-feedback-view.model'
 
 export const AdminFeedbackViewRaw = props => {
   const [viewModel] = useState(() => new AdminFeedbackViewModel({ history: props.history }))
@@ -31,7 +30,7 @@ export const AdminFeedbackViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div className={classNames.headerWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -48,6 +47,7 @@ export const AdminFeedbackViewRaw = props => {
           localeText={getLocalizationByLanguageTag()}
           classes={{
             row: classNames.row,
+            root: classNames.root,
             footerContainer: classNames.footerContainer,
             footerCell: classNames.footerCell,
             toolbarContainer: classNames.toolbarContainer,
@@ -66,6 +66,9 @@ export const AdminFeedbackViewRaw = props => {
             columnMenuIcon: FilterAltOutlinedIcon,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
@@ -92,7 +95,7 @@ export const AdminFeedbackViewRaw = props => {
             onSubmit={viewModel.onClickWriteBtn}
           />
         </Modal>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

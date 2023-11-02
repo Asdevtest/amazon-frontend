@@ -4,37 +4,47 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperId** | **String** | GUID storekeeper-a | 
-**buyerId** | **String** | GUID баера | [optional] 
-**item** | **String** |  | [optional] 
-**logicsTariffId** | **String** | GUID тарифа доставки | 
-**priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
-**destinationId** | **String** | GUID пункта назначения. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | 
-**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
-**clientComment** | **String** | Комментарии клиента. | [optional] 
-**productId** | **String** | GUID заказанного продукта | 
+**asin** | **String** | ASIN продукта | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**category** | **String** | Категория | [optional] 
+**lamazon** | **String** | Ссылка на этот продукт на амазоне. | [optional] 
+**bsr** | **Number** |  | [optional] 
+**fba** | **Boolean** | Признак fba | [optional] 
+**amazon** | **Number** |  | [optional] 
+**height** | **Number** |  | [optional] 
+**width** | **Number** |  | [optional] 
+**length** | **Number** |  | [optional] 
+**weight** | **Number** |  | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**icomment** | **String** | Комментарии к товару. | [optional] 
+**clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
 **images** | **[String]** | Массив изображений. | [optional] 
-**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
-**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
-**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
-**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
-
-
-
-## Enum: PriorityEnum
-
-
-* `10` (value: `"10"`)
-
-* `20` (value: `"20"`)
-
-* `30` (value: `"30"`)
-
-* `40` (value: `"40"`)
-
-* `50` (value: `"50"`)
-
-
+**amazonDescription** | **String** |  | [optional] 
+**amazonDetail** | **String** |  | [optional] 
+**amazonTitle** | **String** |  | [optional] 
+**material** | **String** | Материл продукта | [optional] 
+**productUsage** | **String** | Применение продукта | [optional] 
+**chinaTitle** | **String** | chinese title? | [optional] 
+**minpurchase** | **Number** |  | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**margin** | **Number** | Маржа | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
+**archive** | **Boolean** | Флаг указывает что продукт в архиве. | [optional] 
+**hsCode** | **String** | hsCode продукта. | [optional] 
+**niche** | **String** | Ниша | [optional] 
+**asins** | **String** | Асины | [optional] 
+**totalRevenue** | **String** | Общий доход | [optional] 
+**coefficient** | **String** | Коэффициент прибыли | [optional] 
+**avgRevenue** | **String** | Средний доход | [optional] 
+**avgBSR** | **String** | Средний BSR | [optional] 
+**avgPrice** | **String** | Средняя цена | [optional] 
+**avgReviews** | **String** | Средний отзывы | [optional] 
+**fourMonthesStock** | **Number** | Поле для калькуляции дозакупок | [optional] 
+**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
+**redFlags** | [**[ApiV1ClientsProductsGuidRedFlags]**](ApiV1ClientsProductsGuidRedFlags.md) |  | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 

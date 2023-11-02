@@ -1,10 +1,9 @@
-import { Container, Button, Typography, Select, Checkbox, ListItemText, MenuItem, Rating } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
+import { Button, Checkbox, Container, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
-import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'

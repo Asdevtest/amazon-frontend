@@ -3,13 +3,13 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
-  SupplierCell,
-  NormDateCell,
-  UserLinkCell,
+  MultilineStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  MultilineStatusCell,
+  NormDateCell,
+  ProductAsinCell,
+  SupplierCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'

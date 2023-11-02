@@ -18,10 +18,14 @@ Method | HTTP request | Description
 [**apiV1UsersInfoGet**](UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 [**apiV1UsersInfoGuidGet**](UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 [**apiV1UsersLinkSubUserPatch**](UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
+[**apiV1UsersMastersGet**](UserApi.md#apiV1UsersMastersGet) | **GET** /api/v1/users/masters | Получить список мастеров
 [**apiV1UsersMePatch**](UserApi.md#apiV1UsersMePatch) | **PATCH** /api/v1/users/me | # Обновления информации о себе самим пользователем.
 [**apiV1UsersMySubUsersGet**](UserApi.md#apiV1UsersMySubUsersGet) | **GET** /api/v1/users/my_sub-users | Получить список сабюзеров мастер пользователя.
+[**apiV1UsersNotificationsArchivePatch**](UserApi.md#apiV1UsersNotificationsArchivePatch) | **PATCH** /api/v1/users/notifications/archive | Архивировать нотификации пользователя.
+[**apiV1UsersNotificationsPagMyGet**](UserApi.md#apiV1UsersNotificationsPagMyGet) | **GET** /api/v1/users/notifications/pag/my | Получить нотификации пользователя.
 [**apiV1UsersPlatformSettingsGet**](UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
 [**apiV1UsersPost**](UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
+[**apiV1UsersShareSpecSubGuidPost**](UserApi.md#apiV1UsersShareSpecSubGuidPost) | **POST** /api/v1/users/share_spec_sub/{guid} | #  Добавление определенных специализаций сабам фрилансера
 [**apiV1UsersSignInPost**](UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
 [**apiV1UsersSubNotePatch**](UserApi.md#apiV1UsersSubNotePatch) | **PATCH** /api/v1/users/sub_note | Создание/изменение subNote
 [**apiV1UsersUnlinkSubUserPatch**](UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
@@ -51,7 +55,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject127() // InlineObject127 | 
+  'body': new TestSwagger.InlineObject129() // InlineObject129 | 
 };
 apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -67,7 +71,7 @@ apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject127**](InlineObject127.md)|  | [optional] 
+ **body** | [**InlineObject129**](InlineObject129.md)|  | [optional] 
 
 ### Return type
 
@@ -105,7 +109,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject125() // InlineObject125 | 
+  'body': new TestSwagger.InlineObject127() // InlineObject127 | 
 };
 apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -121,7 +125,7 @@ apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject125**](InlineObject125.md)|  | [optional] 
+ **body** | [**InlineObject127**](InlineObject127.md)|  | [optional] 
 
 ### Return type
 
@@ -193,7 +197,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20075] apiV1UsersContactsGet(opts)
+> [InlineResponse20081] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -231,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20075]**](InlineResponse20075.md)
+[**[InlineResponse20081]**](InlineResponse20081.md)
 
 ### Authorization
 
@@ -355,7 +359,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackGuidGet
 
-> [InlineResponse20076] apiV1UsersFeedbackGuidGet(guid, opts)
+> [InlineResponse20082] apiV1UsersFeedbackGuidGet(guid, opts)
 
 Получить отзывы оставленые юзеру по его гуиду
 
@@ -397,7 +401,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20076]**](InlineResponse20076.md)
+[**[InlineResponse20082]**](InlineResponse20082.md)
 
 ### Authorization
 
@@ -432,7 +436,7 @@ let apiInstance = new TestSwagger.UserApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject129() // InlineObject129 | 
+  'body': new TestSwagger.InlineObject131() // InlineObject131 | 
 };
 apiInstance.apiV1UsersFeedbackGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -449,7 +453,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject129**](InlineObject129.md)|  | [optional] 
+ **body** | [**InlineObject131**](InlineObject131.md)|  | [optional] 
 
 ### Return type
 
@@ -488,7 +492,7 @@ let apiInstance = new TestSwagger.UserApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject128() // InlineObject128 | 
+  'body': new TestSwagger.InlineObject130() // InlineObject130 | 
 };
 apiInstance.apiV1UsersFeedbackGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -505,7 +509,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject128**](InlineObject128.md)|  | [optional] 
+ **body** | [**InlineObject130**](InlineObject130.md)|  | [optional] 
 
 ### Return type
 
@@ -523,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackMyGet
 
-> [InlineResponse20076] apiV1UsersFeedbackMyGet(opts)
+> [InlineResponse20082] apiV1UsersFeedbackMyGet(opts)
 
 Получить отзывы оставленые юзеру
 
@@ -563,7 +567,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20076]**](InlineResponse20076.md)
+[**[InlineResponse20082]**](InlineResponse20082.md)
 
 ### Authorization
 
@@ -597,7 +601,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject126() // InlineObject126 | 
+  'body': new TestSwagger.InlineObject128() // InlineObject128 | 
 };
 apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -613,7 +617,7 @@ apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject126**](InlineObject126.md)|  | [optional] 
+ **body** | [**InlineObject128**](InlineObject128.md)|  | [optional] 
 
 ### Return type
 
@@ -789,6 +793,64 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1UsersMastersGet
+
+> [ApiV1AdminsGetProductsByStatusCreatedBy] apiV1UsersMastersGet(role, guid, opts)
+
+Получить список мастеров
+
+## Получить список мастеров       role - Для клиента - 35 и 40, для админа - все       specs - Необязательный, может быть CSV       
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let role = 56; // Number | Роль юзеров
+let guid = null; // String | 
+let opts = {
+  'specs': "specs_example", // String | Роль юзеров
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1UsersMastersGet(role, guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **role** | **Number**| Роль юзеров | 
+ **guid** | [**String**](.md)|  | 
+ **specs** | **String**| Роль юзеров | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1UsersMePatch
 
 > String apiV1UsersMePatch(opts)
@@ -895,9 +957,129 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1UsersNotificationsArchivePatch
+
+> String apiV1UsersNotificationsArchivePatch(opts)
+
+Архивировать нотификации пользователя.
+
+## Архивировать нотификации пользователя.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': ["null"] // [String] | 
+};
+apiInstance.apiV1UsersNotificationsArchivePatch(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**[String]**](String.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1UsersNotificationsPagMyGet
+
+> InlineResponse20079 apiV1UsersNotificationsPagMyGet(opts)
+
+Получить нотификации пользователя.
+
+## Получить нотификации пользователя.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let opts = {
+  'filters': "filters_example", // String |                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -> anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'archive': true, // Boolean | Заархивирована ли нотификация
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'storekeeperId': null, // String | GUID склада который нужно получить.
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1UsersNotificationsPagMyGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | **String**|                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **archive** | **Boolean**| Заархивирована ли нотификация | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20079**](InlineResponse20079.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20074 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20080 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -935,7 +1117,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20074**](InlineResponse20074.md)
+[**InlineResponse20080**](InlineResponse20080.md)
 
 ### Authorization
 
@@ -984,6 +1166,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserFullSchema**](UserFullSchema.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1UsersShareSpecSubGuidPost
+
+> String apiV1UsersShareSpecSubGuidPost(guid, opts)
+
+#  Добавление определенных специализаций сабам фрилансера
+
+## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+
+let apiInstance = new TestSwagger.UserApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject125() // InlineObject125 | 
+};
+apiInstance.apiV1UsersShareSpecSubGuidPost(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject125**](InlineObject125.md)|  | [optional] 
+
+### Return type
+
+**String**
 
 ### Authorization
 
@@ -1065,7 +1297,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject124() // InlineObject124 | 
+  'body': new TestSwagger.InlineObject126() // InlineObject126 | 
 };
 apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1081,7 +1313,7 @@ apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject124**](InlineObject124.md)|  | [optional] 
+ **body** | [**InlineObject126**](InlineObject126.md)|  | [optional] 
 
 ### Return type
 

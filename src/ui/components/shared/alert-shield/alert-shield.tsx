@@ -1,28 +1,30 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { ClassNamesArg, cx } from '@emotion/css'
 import React, { FC } from 'react'
+
+import Alert from '@mui/material/Alert'
+
 import { useClassNames } from './alert-shield.style'
-import { Alert } from '@mui/material'
-import { cx } from '@emotion/css'
 
 interface AlertShieldProps {
   acceptMessage?: string
   showAcceptMessage?: boolean
+  alertShieldWrapperStyle?: ClassNamesArg
 }
 
 export const AlertShield: FC<AlertShieldProps> = React.memo(props => {
   const { classes: classNames } = useClassNames()
 
-  const { acceptMessage, showAcceptMessage } = props
+  const { acceptMessage, showAcceptMessage, alertShieldWrapperStyle, ...rest } = props
 
   return (
     <div
-      // @ts-ignore
-      className={cx(classNames.acceptMessageWrapper, {
-        [classNames.fadeInAnimation]: showAcceptMessage && acceptMessage,
-        [classNames.fadeOutAnimation]: !showAcceptMessage && acceptMessage,
+      className={cx(classNames.acceptMessageWrapper, alertShieldWrapperStyle, {
+        [classNames.fadeInAnimation]: !!showAcceptMessage && !!acceptMessage,
+        [classNames.fadeOutAnimation]: !showAcceptMessage && !!acceptMessage,
       })}
     >
-      <Alert classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }} severity="success">
+      <Alert classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }} {...rest}>
         {acceptMessage}
       </Alert>
     </div>

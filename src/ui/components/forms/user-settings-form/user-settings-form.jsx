@@ -1,9 +1,8 @@
-import { TextareaAutosize, Typography } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import { TextareaAutosize, Typography } from '@mui/material'
 
 import { renderSettingsRuLabelByKey } from '@constants/keys/user-settings-labels-to-render'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,8 +13,9 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { UserSettingsModel } from './user-settings-form.model'
 import { useClassNames } from './user-settings-form.style'
+
+import { UserSettingsModel } from './user-settings-form.model'
 
 export const UserSettingsForm = observer(() => {
   const { classes: classNames } = useClassNames()

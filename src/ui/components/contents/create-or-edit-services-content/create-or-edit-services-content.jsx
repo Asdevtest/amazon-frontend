@@ -1,24 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import CircleIcon from '@mui/icons-material/Circle'
-import { Typography, Select, Input, InputAdornment, MenuItem } from '@mui/material'
-
 import React, { useEffect, useState } from 'react'
+
+import { Input, InputAdornment, MenuItem, Select, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList, objectDeepCompare } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-services-content.style'
-import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 export const CreateOrEditServiceContent = ({
   data,
@@ -34,12 +31,6 @@ export const CreateOrEditServiceContent = ({
 
   const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
 
-  const [images, setImages] = useState([])
-
-  useEffect(() => {
-    setFormFields(sourceFormFields)
-  }, [data])
-
   const sourceFormFields = {
     type: data?.type || '',
     title: data?.title || '',
@@ -49,11 +40,30 @@ export const CreateOrEditServiceContent = ({
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [data])
+
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (formFields.linksToMediaFiles.length > 0) {
+      setImages(formFields.linksToMediaFiles)
+    }
+  }, [formFields.linksToMediaFiles])
+
+  useEffect(() => {
+    setFormFields(prevFormFields => ({
+      ...prevFormFields,
+      linksToMediaFiles: images,
+    }))
+  }, [images])
+
   const disabledSubmitButton =
     !formFields.title ||
     !formFields.description ||
     !formFields.type ||
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+    (objectDeepCompare(formFields, sourceFormFields) && !images.length)
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
@@ -130,9 +140,9 @@ export const CreateOrEditServiceContent = ({
           maxNumber={50}
           isNotShowActionsBtns={!images.length}
         />
-        {formFields.linksToMediaFiles?.length ? (
+        {/* {formFields.linksToMediaFiles?.length ? (
           <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
-        ) : null}
+        ) : null} */}
       </div>
 
       <div className={classNames.buttonsWrapper}>

@@ -1,17 +1,15 @@
-/* eslint-disable no-unused-vars */
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { Divider, Typography, Button } from '@mui/material'
-
-import React from 'react'
+import { Button, Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './left-panel.style'
+
 import { ProductParameters } from './product-parameters'
 
 export const LeftPanel = ({
@@ -32,22 +30,10 @@ export const LeftPanel = ({
       <div className={classNames.product}>
         <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
 
-        <div>
+        <div className={classNames.productInfoWrapper}>
           <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.text}>
-              <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
-            </Typography>
-            {order.product.asin ? <CopyValue text={order.product.asin} /> : null}
-          </div>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.text}>
-              <span className={classNames.asinTypo}>{t(TranslationKey.SKU) + ': '}</span>{' '}
-              {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
-            </Typography>
-
-            {order.product?.skusByClient.slice()[0] ? <CopyValue text={order.product.skusByClient.slice()[0]} /> : null}
-          </div>
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order?.product?.asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={order.product?.skusByClient?.[0]} />
         </div>
       </div>
 

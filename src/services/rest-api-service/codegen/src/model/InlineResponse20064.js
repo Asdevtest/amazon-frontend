@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20064 model module.
@@ -23,7 +21,6 @@ import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 class InlineResponse20064 {
     /**
      * Constructs a new <code>InlineResponse20064</code>.
-     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20064
      */
     constructor() { 
@@ -50,35 +47,29 @@ class InlineResponse20064 {
         if (data) {
             obj = obj || new InlineResponse20064();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('owner')) {
-                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('monthlyMultiplier')) {
-                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            }
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -88,62 +79,52 @@ class InlineResponse20064 {
 }
 
 /**
- * GUID магазина на продажу.
- * @member {String} _id
- */
-InlineResponse20064.prototype['_id'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
- */
-InlineResponse20064.prototype['owner'] = undefined;
-
-/**
- * Имя магазина для продажи
- * @member {String} title
- */
-InlineResponse20064.prototype['title'] = undefined;
-
-/**
- * Статус магазина для продажи
- * @member {String} status
- */
-InlineResponse20064.prototype['status'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину
- * @member {Array.<String>} files
- */
-InlineResponse20064.prototype['files'] = undefined;
-
-/**
- * Стоимость магазина
+ * Цена за каждое предложение.
  * @member {Number} price
  */
 InlineResponse20064.prototype['price'] = undefined;
 
 /**
- * Ежемесячный множитель
- * @member {Number} monthlyMultiplier
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20064.prototype['monthlyMultiplier'] = undefined;
+InlineResponse20064.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * @member {module:model/ApiV1ShopSellStatistics} statistics
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20064.prototype['statistics'] = undefined;
+InlineResponse20064.prototype['platformMargin'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
  */
-InlineResponse20064.prototype['businessStartDate'] = undefined;
+InlineResponse20064.prototype['requestSupervisorFeeInPercent'] = undefined;
 
 /**
- * Детали магазина
- * @member {String} shopDetails
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
  */
-InlineResponse20064.prototype['shopDetails'] = undefined;
+InlineResponse20064.prototype['supervisorFee'] = undefined;
+
+/**
+ * Сумма.
+ * @member {Number} unitCost
+ */
+InlineResponse20064.prototype['unitCost'] = undefined;
+
+/**
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
+ */
+InlineResponse20064.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Итого.
+ * @member {Number} totalCost
+ */
+InlineResponse20064.prototype['totalCost'] = undefined;
 
 
 

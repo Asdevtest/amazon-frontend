@@ -43,7 +43,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     width: 190,
-    color: theme.palette.text.general,
 
     whiteSpace: 'nowrap',
     overflow: 'hidden',

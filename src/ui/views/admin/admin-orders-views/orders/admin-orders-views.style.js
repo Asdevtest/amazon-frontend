@@ -30,7 +30,7 @@ export const styles = theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: 'calc(100vh - 260px)',
+    height: '70vh',
   },
   root: {
     border: '0 !important',
@@ -52,7 +52,6 @@ export const styles = theme => ({
     height: '52px',
   },
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'center',

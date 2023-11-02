@@ -4,6 +4,7 @@ export const styles = theme => ({
     transition: '0.3s ease',
   },
   root: {
+    height: '80vh',
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
@@ -23,7 +24,6 @@ export const styles = theme => ({
     height: '52px',
   },
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'center',

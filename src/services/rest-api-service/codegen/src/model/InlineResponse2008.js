@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse200 from './InlineResponse200';
 
 /**
  * The InlineResponse2008 model module.
@@ -47,11 +48,11 @@ class InlineResponse2008 {
         if (data) {
             obj = obj || new InlineResponse2008();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse200]);
             }
         }
         return obj;
@@ -61,16 +62,16 @@ class InlineResponse2008 {
 }
 
 /**
- * Гуид юзера
- * @member {String} _id
+ * Количество товаров
+ * @member {Number} count
  */
-InlineResponse2008.prototype['_id'] = undefined;
+InlineResponse2008.prototype['count'] = undefined;
 
 /**
- * Имя юзера
- * @member {String} name
+ * Массив товаров
+ * @member {Array.<module:model/InlineResponse200>} rows
  */
-InlineResponse2008.prototype['name'] = undefined;
+InlineResponse2008.prototype['rows'] = undefined;
 
 
 

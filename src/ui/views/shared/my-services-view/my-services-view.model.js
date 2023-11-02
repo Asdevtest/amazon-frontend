@@ -1,20 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import {
-  freelanceRequestTypeByCode,
-  freelanceRequestType,
-  freelanceRequestTypeByKey,
-} from '@constants/statuses/freelance-request-type'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
-
-import { checkIsFreelancer } from '@utils/checks'
 
 export class MyServicesViewModel {
   history = undefined
@@ -25,6 +18,11 @@ export class MyServicesViewModel {
   showAcceptMessage = null
   acceptMessage = null
 
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   userInfo = []
@@ -33,8 +31,6 @@ export class MyServicesViewModel {
   announcements = []
 
   currentData = []
-
-  bigImagesOptions = {}
 
   nameSearchValue = undefined
 
@@ -52,8 +48,10 @@ export class MyServicesViewModel {
     })
 
     if (location.state) {
-      this.acceptMessage = location.state.acceptMessage
-      this.showAcceptMessage = location.state.showAcceptMessage
+      this.alertShieldSettings = {
+        showAlertShield: location?.state?.showAcceptMessage,
+        alertShieldMessage: location?.state?.acceptMessage,
+      }
 
       const state = { ...history.location.state }
       delete state.acceptMessage
@@ -80,10 +78,19 @@ export class MyServicesViewModel {
     )
 
     runInAction(() => {
-      if (this.showAcceptMessage) {
+      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       }
     })
@@ -91,8 +98,11 @@ export class MyServicesViewModel {
 
   async getUserInfo() {
     const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
+
+    runInAction(() => {
+      this.userInfo = result
+      this.userRole = UserRoleCodeMap[result.role]
+    })
   }
 
   async loadData() {
@@ -143,9 +153,9 @@ export class MyServicesViewModel {
     await this.getMyAnnouncementsData()
   }
 
-  onChangeViewMode(event, nextView) {
+  onChangeViewMode(value) {
     runInAction(() => {
-      this.viewMode = nextView
+      this.viewMode = value
     })
     this.setTableModeState()
   }
@@ -160,13 +170,6 @@ export class MyServicesViewModel {
     this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
       data: data._id,
     })
-  }
-
-  onClickThumbnail(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
-    this.onTriggerOpenModal('showImageModal')
   }
 
   onTriggerOpenModal(modalState) {

@@ -18,7 +18,7 @@ export const styles = theme => ({
   },
   label: {
     fontSize: '14px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     color: theme.palette.text.general,
   },
@@ -33,17 +33,23 @@ export const styles = theme => ({
   loginBtn: {
     width: 200,
     height: 40,
+    color: '#fff',
+    boxShadow: 'none',
+
+    '&:hover, &:active': {
+      boxShadow: 'none',
+    },
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
-    color: '#fff',
   },
 
   forgotPassword: {
     marginLeft: '20px',
     fontSize: '14px',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     color: theme.palette.text.second,
 
@@ -53,18 +59,19 @@ export const styles = theme => ({
     },
   },
 
-  visibilityIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 35,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
-    color: theme.palette.text.second,
-  },
-
   inputAdornment: {
     position: 'absolute',
     left: 0,
+  },
+
+  inputAdornmentVisibility: {
+    position: 'absolute',
+    right: 0,
+  },
+
+  visibilityIcon: {
+    cursor: 'pointer',
+    color: theme.palette.text.second,
   },
 
   input: {

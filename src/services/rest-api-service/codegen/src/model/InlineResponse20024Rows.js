@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20020 from './InlineResponse20020';
+import InlineResponse20019 from './InlineResponse20019';
 import InlineResponse20024Group from './InlineResponse20024Group';
 
 /**
@@ -53,7 +53,7 @@ class InlineResponse20024Rows {
                 obj['group'] = InlineResponse20024Group.constructFromObject(data['group']);
             }
             if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [InlineResponse20020]);
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [InlineResponse20019]);
             }
         }
         return obj;
@@ -68,7 +68,7 @@ class InlineResponse20024Rows {
 InlineResponse20024Rows.prototype['group'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse20020>} boxes
+ * @member {Array.<module:model/InlineResponse20019>} boxes
  */
 InlineResponse20024Rows.prototype['boxes'] = undefined;
 

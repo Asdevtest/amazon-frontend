@@ -1,20 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { Component, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import React, { Component, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CreateOrEditProposalContent } from '@components/contents/create-or-edit-proposal-content'
-import { MainContent } from '@components/layout/main-content'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
-import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 import { styles } from './create-or-edit-proposal-view.style'
+
+import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
 export const CreateOrEditProposalViewRaw = props => {
   const [viewModel] = useState(
@@ -28,13 +27,7 @@ export const CreateOrEditProposalViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
-        {/* <div className={classNames.backBtnWrapper}>
-                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
-                  {t(TranslationKey.Back)}
-                </Button>
-              </div> */}
-
+      <div>
         <CreateOrEditProposalContent
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
@@ -44,7 +37,7 @@ export const CreateOrEditProposalViewRaw = props => {
           onCreateSubmit={viewModel.onSubmitCreateProposal}
           onEditSubmit={viewModel.onSubmitEditProposal}
         />
-      </MainContent>
+      </div>
 
       <TwoVerticalChoicesModal
         openModal={viewModel.showResultModal}
@@ -53,11 +46,6 @@ export const CreateOrEditProposalViewRaw = props => {
           viewModel.onClickResultModal({ goBack: true })
         }}
         title={viewModel.infoModalText}
-        // topBtnText={t(TranslationKey['To vacant requests'])}
-        // bottomBtnText={t(TranslationKey['To the list of proposals'])}
-        // onClickTopBtn={() => onClickResultModal({goBack: true})}
-        // onClickBottomBtn={() => onClickResultModal({goBack: false})}
-
         topBtnText={t(TranslationKey['Go to request'])}
         bottomBtnText={t(TranslationKey['To vacant requests'])}
         thirdBtnText={t(TranslationKey['To the list of proposals'])}

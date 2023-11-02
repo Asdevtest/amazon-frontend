@@ -173,7 +173,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   researchLabel: {
-    // width: 100,
     color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
@@ -224,7 +223,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     padding: '0 25px',
     whiteSpace: 'nowrap',
-    color: '#fff !important',
+    color: '#fff',
   },
   checkboxWithButton: {
     display: 'flex',
@@ -238,7 +237,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputError: {
     '.Mui-disabled': {
-      '-webkit-text-fill-color': 'red !important',
+      WebkitTextFillColor: 'red !important',
     },
   },
 
@@ -290,7 +289,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 230,
+    width: '100%',
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
@@ -372,5 +371,9 @@ export const useClassNames = makeStyles()(theme => ({
     '.MuiInputBase-root': {
       width: 'unset',
     },
+  },
+
+  supplierPaymentButtonBtnWrapperStyle: {
+    width: '100%',
   },
 }))

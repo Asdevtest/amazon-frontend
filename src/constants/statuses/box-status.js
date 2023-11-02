@@ -41,6 +41,7 @@ export const colorByBoxStatus = status => {
       BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
       BoxStatus.IN_BATCH,
       BoxStatus.ACCEPTED_IN_PROCESSING,
+      BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
     ].includes(status)
   ) {
     return {
@@ -50,8 +51,8 @@ export const colorByBoxStatus = status => {
   if ([BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.IN_BATCH_ON_THE_WAY].includes(status)) {
     return {
       background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-      '-webkit-background-clip': 'text',
-      '-webkit-text-fill-color': 'transparent',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
       textFillColor: 'transparent',
     }

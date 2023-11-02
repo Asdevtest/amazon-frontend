@@ -1,20 +1,19 @@
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { AdminWarehouseViewModel } from './admin-warehouse-view.model'
 import { styles } from './admin-warehouse-view.style'
+
+import { AdminWarehouseViewModel } from './admin-warehouse-view.model'
 
 export const AdminWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new AdminWarehouseViewModel({ history: props.history }))
@@ -22,7 +21,7 @@ export const AdminWarehouseViewRaw = props => {
 
   return (
     <React.Fragment>
-      <MainContent>
+      <div>
         <div>
           <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Warehouse'])}</Typography>
 
@@ -54,7 +53,7 @@ export const AdminWarehouseViewRaw = props => {
                   </Button> */}
           </div>
         </div>
-      </MainContent>
+      </div>
     </React.Fragment>
   )
 }

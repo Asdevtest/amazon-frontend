@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material'
-
 import React, { FC, useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,12 +9,14 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { PaymentMethodCard } from './payment-method-card'
 import { useClassNames } from './payment-methods-form.style'
+
+import { PaymentMethodCard } from './payment-method-card'
 
 interface PaymentMethod {
   _id: string
   title: string
+  iconImage: string
 }
 
 interface Payments {

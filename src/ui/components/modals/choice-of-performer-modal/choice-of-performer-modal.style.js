@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { keyframes } from '@emotion/react'
-
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -8,12 +5,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 20,
+    gap: '30px',
     width: 1700,
     height: 770,
   },
   cardsWrapper: {
-    padding: '10px 0',
+    display: 'flex',
+    gap: 40,
+    flexWrap: 'wrap',
+    padding: 10,
     height: '100%',
     width: '100%',
     overflowY: 'auto',
@@ -23,7 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 390,
+    width: 410,
   },
 
   upWrapper: {
@@ -36,5 +36,44 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
+  },
+
+  label: {
+    fontSize: '14px',
+    fontWeight: 400,
+    color: theme.palette.text.second,
+    margin: '0 !important',
+  },
+
+  executorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    width: 'fit-content',
+    margin: '0 !important',
+  },
+
+  customSubMainWrapper: {
+    padding: '10px 10px !important',
+    width: '371px !important',
+  },
+
+  customSearchInput: {
+    margin: 0,
+    width: '100%',
+    height: 30,
+    marginBottom: 20,
+  },
+
+  footerWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '20px',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  cancelButton: {
+    color: theme.palette.text.general,
   },
 }))

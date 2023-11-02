@@ -1,12 +1,12 @@
 import { cx } from '@emotion/css'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { Link } from 'react-router-dom'
-
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 
 import { Button } from '@components/shared/buttons/button'
@@ -14,8 +14,9 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import { NavbarSubCategory } from '../navbar-sub-category'
 import { useClassNames } from './navbar-collapse.style'
+
+import { NavbarSubCategory } from '../navbar-sub-category'
 
 export const NavbarCollapse = ({
   activeCategory,
@@ -23,7 +24,6 @@ export const NavbarCollapse = ({
   category,
   index,
   userInfo,
-  onChangeSubCategory,
   currentViewModel,
   shortNavbar,
   showHighPriorityNotification,
@@ -40,9 +40,8 @@ export const NavbarCollapse = ({
     setMenuAnchor(null)
   }
 
-  const onClickCategory = subIndex => {
+  const onClickCategory = () => {
     shortNavbar && handleClose()
-    onChangeSubCategory && onChangeSubCategory(subIndex)
   }
 
   const renderNotificationBySubRoute = subRoute => {
@@ -108,6 +107,13 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      // case '/shared/general-notifications-view':
+      //   return (
+      //     <ListItemIcon>
+      //       {<div className={classNames.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
+      //     </ListItemIcon>
+      //   )
+
       case '/client/my-orders/pending-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
 
@@ -137,6 +143,47 @@ export const NavbarCollapse = ({
 
       case '/buyer/all-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.allOrders}</div>}</ListItemIcon>
+
+      case '/client/ideas/new':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.new}</div>}</ListItemIcon>
+
+      case '/client/ideas/on-checking':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.onCheck}</div>}</ListItemIcon>
+
+      case '/client/ideas/search-suppliers':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.supplierSearch}</div>}</ListItemIcon>
+
+      case '/client/ideas/create-card':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.productCreating}</div>}</ListItemIcon>
+
+      case '/client/ideas/add-asin':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.addingAsin}</div>}</ListItemIcon>
+
+      case '/client/ideas/realized':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.finished}</div>}</ListItemIcon>
+
+      case '/client/ideas/closed':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.ideas.rejectedOrClosed}</div>}</ListItemIcon>
+
+      case `/${UserRoleCodeMapForRoutes[userInfo?.role]}/notifications/general-notifications-view`:
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.notificationCounter}</div>}</ListItemIcon>
+
+      case '/client/ideas/all':
+        return (
+          <ListItemIcon>
+            {
+              <div className={classNames.badge}>
+                {userInfo.ideas.new +
+                  userInfo.ideas.onCheck +
+                  userInfo.ideas.supplierSearch +
+                  userInfo.ideas.productCreating +
+                  userInfo.ideas.addingAsin +
+                  userInfo.ideas.finished +
+                  userInfo.ideas.rejectedOrClosed}
+              </div>
+            }
+          </ListItemIcon>
+        )
 
       default:
         return null

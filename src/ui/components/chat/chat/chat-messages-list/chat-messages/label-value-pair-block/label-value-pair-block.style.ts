@@ -11,8 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
   },
   rootGreen: {
-    // backgroundColor: '#D9FAE5',
-
     backgroundColor: theme.palette.background.green,
   },
 
@@ -21,19 +19,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
   labelText: {
     fontWeight: 400,
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',
-    textAlign: 'center',
   },
 
   valueText: {
     fontWeight: 400,
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',
-    textAlign: 'center',
   },
 }))
