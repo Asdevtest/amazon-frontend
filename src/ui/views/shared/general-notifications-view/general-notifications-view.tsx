@@ -115,6 +115,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
           <MemoDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedRowIds}
             rowCount={viewModel.rowCount}

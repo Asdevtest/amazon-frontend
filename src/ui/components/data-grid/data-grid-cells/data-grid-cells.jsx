@@ -754,10 +754,10 @@ export const ChangeInputCommentCell = React.memo(
       text,
       disabled,
       maxLength,
-      rowsCount,
+      rowsCount = 2,
       fieldName,
       placeholder,
-      disableMultiline,
+      disableMultiline = false,
     }) => {
       const [value, setValue] = useState('')
       const [isEdited, setIsEdited] = useState(false)
@@ -772,8 +772,7 @@ export const ChangeInputCommentCell = React.memo(
           <Input
             multiline={!disableMultiline}
             autoFocus={false}
-            // minRows={rowsCount || 2}
-            // maxRows={rowsCount || 2}
+            rows={rowsCount}
             inputProps={{ maxLength: maxLength ? maxLength : 256 }}
             placeholder={placeholder ?? t(TranslationKey.Comment)}
             disabled={disabled}

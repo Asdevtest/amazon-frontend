@@ -42,6 +42,7 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
           <MemoDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

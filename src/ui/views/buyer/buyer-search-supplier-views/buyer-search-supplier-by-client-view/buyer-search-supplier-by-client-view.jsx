@@ -42,6 +42,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
           <MemoDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             columnVisibilityModel={viewModel.columnVisibilityModel}
             slotProps={{
               baseTooltip: {

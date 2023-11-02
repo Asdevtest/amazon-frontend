@@ -107,6 +107,7 @@ export const StockReportRaw = props => {
         <MemoDataGrid
           useResizeContainer
           checkboxSelection
+          disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           rowSelectionModel={viewModel.selectedRows}

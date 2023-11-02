@@ -42,6 +42,7 @@ export const SupervisorReadyToCheckViewRaw = props => {
           <MemoDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             paginationModel={viewModel.paginationModel}
             slotProps={{
               baseTooltip: {
