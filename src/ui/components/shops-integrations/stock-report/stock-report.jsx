@@ -107,6 +107,7 @@ export const StockReportRaw = props => {
         <CustomDataGrid
           useResizeContainer
           checkboxSelection
+          disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           rowSelectionModel={viewModel.selectedRows}

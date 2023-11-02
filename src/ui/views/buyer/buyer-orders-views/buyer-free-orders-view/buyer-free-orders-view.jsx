@@ -42,6 +42,7 @@ export const BuyerFreeOrdersViewRaw = props => {
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}

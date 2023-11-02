@@ -78,6 +78,7 @@ export const ClientOrdersViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <CustomDataGrid
             useResizeContainer
+            disableRowSelectionOnClick
             checkboxSelection={viewModel.isPendingOrdering}
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}

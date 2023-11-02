@@ -195,7 +195,6 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
 
   changeInputComment: {
     width: '100%',
-    height: '100% !important',
     whiteSpace: 'pre-wrap',
     overflow: 'auto',
     fontSize: 14,
@@ -238,8 +237,9 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
   },
 
   orderImg: {
-    height: 64,
-    width: 64,
+    height: 60,
+    width: 60,
+    // objectFit: 'cover',
     objectFit: 'contain',
     objectPosition: 'center',
     borderRadius: 4,
@@ -259,7 +259,7 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
-    maxWidth: 185,
+    maxWidth: 210,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -622,9 +622,10 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
   },
 
   OrderCellError: {
+    fontSize: 12,
+    lineHeight: '16px',
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
   },
 
   trashWrapper: {
@@ -1620,8 +1621,7 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
 
   changeInputCommentCellWrapper: {
     width: '100%',
-    height: '100%',
-    padding: '10px',
+    padding: '10px 0',
   },
 
   menuItem: {
@@ -1941,7 +1941,7 @@ export const useDataGridCellsStyles = makeStyles()(theme => ({
       height: 30,
       display: 'flex',
       gap: 5,
-      minWidth: '155px !important',
+      minWidth: '170px !important',
 
       svg: {
         width: 12,

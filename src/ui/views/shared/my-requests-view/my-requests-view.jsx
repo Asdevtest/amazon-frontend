@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
 
@@ -22,19 +21,13 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { styles } from './my-requests-view.style'
+import { useStyles } from './my-requests-view.style'
 
 import { MyRequestsViewModel } from './my-requests-view.model'
 
-export const MyRequestsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new MyRequestsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+export const MyRequestsView = observer(({ history, location }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new MyRequestsViewModel({ history, location }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -43,27 +36,27 @@ export const MyRequestsViewRaw = props => {
   const getCellClassName = params =>
     params.row.originalData.countProposalsByStatuses.waitedProposals &&
     params.field === 'waitedProposals' &&
-    classNames.waitingCheckedBacklighting
+    styles.waitingCheckedBacklighting
 
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && viewModel.isRequestsAtWork) {
-      return [classNames.deadlineBorder, classNames.redBorder]
+      return [styles.deadlineBorder, styles.redBorder]
     } else if (
       getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 172800 &&
       viewModel.isRequestsAtWork
     ) {
-      return [classNames.deadlineBorder, classNames.yellowBorder]
+      return [styles.deadlineBorder, styles.yellowBorder]
     }
   }
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.placeRequestBtnWrapper}>
+        <div className={styles.placeRequestBtnWrapper}>
           <div />
 
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(
               TranslationKey.ASIN,
             )}, ${t(TranslationKey.ID)}`}
@@ -80,7 +73,7 @@ export const MyRequestsViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.switchButtonWrapper}>
+        <div className={styles.switchButtonWrapper}>
           <CustomSwitcher
             fullWidth
             switchMode={'big'}
@@ -93,7 +86,7 @@ export const MyRequestsViewRaw = props => {
           />
         </div>
 
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           {viewModel.loadTableStatus === loadingStatuses.success ? (
             <CustomDataGrid
               propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
@@ -205,6 +198,4 @@ export const MyRequestsViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const MyRequestsView = withStyles(observer(MyRequestsViewRaw), styles)
+})

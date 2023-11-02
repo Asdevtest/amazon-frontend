@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -44,7 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 30,
-    gap: 30,
+    gap: 20,
   },
 
   containerField: {
@@ -57,7 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   button: {
-    padding: '0 25px',
+    padding: '0 15px',
     whiteSpace: 'nowrap',
   },
 
@@ -68,16 +67,15 @@ export const useClassNames = makeStyles()(theme => ({
   downloadsWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: 30,
+    gap: 20,
   },
 
   downloadsCheckWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    gap: 10,
     transition: '.3s ease',
     cursor: 'pointer',
+
     '&:hover': {
       transform: 'scale(1.05)',
     },
@@ -85,7 +83,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentBtn: {
     width: 161,
-
     display: 'flex',
     justifyContent: 'center',
     position: 'relative',

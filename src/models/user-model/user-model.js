@@ -8,7 +8,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
 
-const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
+const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken']
 
 const stateModelName = 'UserModel'
 
@@ -213,8 +213,8 @@ class UserModelStatic {
     return response.data
   }
 
-  async getMasterUsers(role, id, specs) {
-    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, id, specs })
+  async getMasterUsers(role, guid, specs) {
+    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, guid, specs })
     return response.data
   }
 

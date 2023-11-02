@@ -41,6 +41,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

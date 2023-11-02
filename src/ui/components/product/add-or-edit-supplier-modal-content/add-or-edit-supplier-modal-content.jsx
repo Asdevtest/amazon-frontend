@@ -50,29 +50,21 @@ export const AddOrEditSupplierModalContent = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = value => {
-      setSizeSetting(value)
+    const handleChange = newAlignment => {
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (value === unitsOfChangeOptions.US) {
         setTmpSupplier({
           ...tmpSupplier,
           boxProperties: {
             ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / inchesCoefficient, 2),
+            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / multiplier, 2),
+            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / multiplier, 2),
+            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / multiplier, 2),
           },
         })
-      } else {
-        setTmpSupplier({
-          ...tmpSupplier,
-          boxProperties: {
-            ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2),
-          },
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 

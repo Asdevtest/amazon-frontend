@@ -3,7 +3,6 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { adminExchangeStatusesByCategory } from '@constants/table/tables-filter-btns-configs'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
@@ -11,9 +10,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { exchangeInventoryColumns } from '@components/table/table-columns/admin/inventory-columns'
 
-import { adminProductsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
 const statuses = [
@@ -107,7 +104,7 @@ export class AdminInventoryViewModel {
       () => this.products,
       () =>
         runInAction(() => {
-          this.currentData = toJS(this.products)
+          this.currentData = this.getCurrentData()
         }),
     )
   }
@@ -207,6 +204,10 @@ export class AdminInventoryViewModel {
         this.products = []
       })
     }
+  }
+
+  getCurrentData() {
+    return this.products
   }
 
   onSelectionModel(model) {

@@ -98,6 +98,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedBatches}
             rowCount={viewModel.rowCount}

@@ -93,6 +93,7 @@ export class ClientInStockBoxesViewModel {
 
   curBox = undefined
   showBoxViewModal = false
+  isCurrentTarrifsButton = false
 
   selectedBoxes = []
   selectedRows = []
@@ -677,7 +678,7 @@ export class ClientInStockBoxesViewModel {
         updateBoxWhiteList,
       )
 
-      const editBoxesResult = await this.editBox({ id: this.selectedBox._id, data: requestBox })
+      const editBoxesResult = await this.editBox(this.selectedBox._id, requestBox)
 
       await this.postTask({
         idsData: [editBoxesResult.guid],
@@ -848,6 +849,7 @@ export class ClientInStockBoxesViewModel {
   openModalAndClear() {
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
     this.changeItem = null
+    this.isCurrentTarrifsButton = false
   }
 
   async getClientDestinations() {
@@ -873,15 +875,11 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-
-      await Promise.allSettled([
-        this.getStorekeepers(),
-        this.getDestinations(),
-        this.getClientDestinations(),
-        this.getShops(),
-        this.getBoxesMy(),
-      ])
-
+      await this.getStorekeepers()
+      this.getDestinations()
+      this.getClientDestinations()
+      this.getShops()
+      this.getBoxesMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -1445,7 +1443,7 @@ export class ClientInStockBoxesViewModel {
           updateBoxWhiteList,
         )
 
-        const editBoxesResult = await this.editBox({ id, data: requestBox })
+        const editBoxesResult = await this.editBox(id, requestBox)
 
         await this.updateBarCodesInInventory(dataToBarCodeChange)
 
@@ -1672,11 +1670,15 @@ export class ClientInStockBoxesViewModel {
     await ClientModel.getDestinations()
 
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    runInAction(() => {
+      this.isCurrentTarrifsButton = true
+    })
   }
 
-  async editBox(box) {
+  async editBox(guid, body) {
     try {
-      const result = await BoxesModel.editBox(box)
+      const result = await BoxesModel.editBox(guid, body)
 
       return result
     } catch (error) {

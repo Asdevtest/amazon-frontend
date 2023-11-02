@@ -83,6 +83,7 @@ export const WarehouseMyTasksViewRaw = props => {
         <div className={classNames.tableWrapper}>
           <CustomDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
@@ -92,7 +93,7 @@ export const WarehouseMyTasksViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            getRowHeight={() => 147}
+            getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

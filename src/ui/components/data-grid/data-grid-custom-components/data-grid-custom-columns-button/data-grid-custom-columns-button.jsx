@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Checkbox, Menu, Typography } from '@mui/material'
@@ -14,61 +13,48 @@ import { t } from '@utils/translations'
 import { useClassNames } from './data-grid-custom-columns-button.style'
 
 export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const { columnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
 
   const [menuAnchor, setMenuAnchor] = useState(null)
+  const [filteredColumnsModel, setFilteredColumnsModel] = useState([])
+  const [nameSearchValue, setNameSearchValue] = useState('')
+
   const handleClick = event => {
     setMenuAnchor(event.currentTarget)
   }
   const handleClose = () => {
     setMenuAnchor(null)
+    setNameSearchValue('')
   }
 
-  const getCurrentData = () => columnsModel?.filter(column => column?.type !== 'checkboxSelection')
-
-  const [filteredColumnsModel, setFilteredColumnsModel] = useState(getCurrentData())
-
-  const [itemsForRender, setItemsForRender] = useState(filteredColumnsModel || [])
-
-  const [nameSearchValue, setNameSearchValue] = useState('')
-
   useEffect(() => {
-    setItemsForRender(filteredColumnsModel)
-  }, [filteredColumnsModel])
+    if (columnsModel) {
+      const filteredData = columnsModel?.filter(column => column?.type !== 'checkboxSelection')
 
-  useEffect(() => {
-    setFilteredColumnsModel(getCurrentData())
-  }, [columnsModel])
-
-  useEffect(() => {
-    if (nameSearchValue) {
-      const filter = filteredColumnsModel?.filter(item =>
-        item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()),
-      )
-      setItemsForRender(filter)
-    } else {
-      setItemsForRender(filteredColumnsModel)
+      setFilteredColumnsModel(filteredData)
     }
-  }, [nameSearchValue])
+  }, [columnsModel])
 
   const onClickItem = field => {
     onColumnVisibilityModelChange({
       ...columnVisibilityModel,
-      [field]: columnVisibilityModel?.[field] !== false ? false : true,
+      [field]: !columnVisibilityModel?.[field],
     })
   }
 
   const isSomeItemChecked = columnVisibilityModel && Object.values(columnVisibilityModel).some(el => el === false)
 
   const onClickAllItemBtn = () => {
-    if (isSomeItemChecked) {
-      onColumnVisibilityModelChange(filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
-    } else {
-      onColumnVisibilityModelChange(filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
-    }
+    onColumnVisibilityModelChange(
+      filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: isSomeItemChecked }), {}),
+    )
   }
+
+  const itemsForRender = filteredColumnsModel.filter(item =>
+    item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()),
+  )
 
   return (
     <div>
@@ -95,9 +81,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
               <SearchInput
                 inputClasses={classNames.searchInput}
                 placeholder={t(TranslationKey.Search)}
-                onChange={e => {
-                  setNameSearchValue(e.target.value)
-                }}
+                onChange={e => setNameSearchValue(e.target.value)}
                 onKeyDown={e => e.stopPropagation()}
               />
             </div>

@@ -74,6 +74,7 @@ export const WarehouseCanceledTasksViewRaw = props => {
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}

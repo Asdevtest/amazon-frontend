@@ -42,6 +42,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
+            disableRowSelectionOnClick
             columnVisibilityModel={viewModel.columnVisibilityModel}
             slotProps={{
               baseTooltip: {

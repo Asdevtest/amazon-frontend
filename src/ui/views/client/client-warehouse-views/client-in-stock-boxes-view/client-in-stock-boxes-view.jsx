@@ -161,6 +161,7 @@ export const ClientInStockBoxesViewRaw = props => {
         <div className={classNames.tasksWrapper}>
           <CustomDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
@@ -390,6 +391,7 @@ export const ClientInStockBoxesViewRaw = props => {
       <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
         <SelectStorekeeperAndTariffForm
           showCheckbox
+          RemoveDestinationRestriction={!viewModel.isCurrentTarrifsButton}
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)

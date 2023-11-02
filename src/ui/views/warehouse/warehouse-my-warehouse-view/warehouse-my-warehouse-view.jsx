@@ -94,6 +94,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             propsToRerender={{ unitsOption: viewModel.unitsOption }}
             isRowSelectable={params =>

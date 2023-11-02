@@ -99,6 +99,7 @@ export const ClientSentBatchesViewRaw = props => {
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             propsToRerender={{ productViewMode: viewModel.productViewMode }}
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}

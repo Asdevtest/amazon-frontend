@@ -25,8 +25,6 @@ export const AdminInventoryViewRaw = props => {
     viewModel.getDataGridState()
   }, [])
 
-  console.log(viewModel.columnMenuSettings)
-
   return (
     <React.Fragment>
       <div>

@@ -144,6 +144,7 @@ export const SupervisorProductsViewRaw = props => {
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             rowCount={viewModel.rowCount}
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}

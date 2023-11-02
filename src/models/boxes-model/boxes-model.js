@@ -41,38 +41,38 @@ class BoxesModelStatic {
     return response.data
   }
 
-  editBox = async ({ guid, data }) => {
+  editBox = async (guid, body) => {
     const response = await restApiService.boxesApi.apiV1BoxesEditGuidPost({
       guid,
-      body: data,
+      body,
     })
     return response.data
   }
 
-  editBoxAtClient = async (guid, data) => {
+  editBoxAtClient = async (guid, body) => {
     const response = await restApiService.boxesApi.apiV1BoxesClientsGuidPatch({
       guid,
-      body: data,
+      body,
     })
     return response.data
   }
 
-  editIsFormed = async (guid, data) => {
+  editIsFormed = async (guid, body) => {
     const response = await restApiService.boxesApi.apiV1BoxesIsFormedGuidPatch({
       guid,
-      body: data,
+      body,
     })
     return response.data
   }
 
-  regroupBoxes = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesSuperboxRegroupPatch({ body: data })
+  regroupBoxes = async body => {
+    const response = await restApiService.boxesApi.apiV1BoxesSuperboxRegroupPatch({ body })
     return response.data
   }
 
-  cancelSplitBoxes = async id => {
+  cancelSplitBoxes = async guid => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
-      body: { guid: id },
+      body: { guid },
     })
     return response.data
   }

@@ -105,6 +105,7 @@ export const WarehouseVacantTasksViewRaw = props => {
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
@@ -114,7 +115,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            getRowHeight={() => 148}
+            getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

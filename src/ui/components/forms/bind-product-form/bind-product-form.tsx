@@ -88,6 +88,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       <div className={classNames.selectWrapper}>
         {/* @ts-ignore */}
         <WithSearchSelect
+          // @ts-ignore
           asinSelect
           grayBorder
           blackSelectedItem

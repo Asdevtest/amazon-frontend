@@ -70,13 +70,13 @@ export const ImageModal: FC<Props> = observer(
 
     return (
       <Modal
+        missClickModalOn
         openModal={isOpenModal}
         setOpenModal={() => {
           handleOpenModal()
           handleCurrentImageIndex(photoIndex)
           updateImagesForLoad()
         }}
-        missClickModalOn={undefined}
         isWarning={false}
         dialogContextClassName={styles.modalContainer}
       >
@@ -109,8 +109,8 @@ export const ImageModal: FC<Props> = observer(
                       <img src={currentPhoto} alt={`Photo ${photoIndex}`} />
                     )}
 
-                    {photosTitles?.[photoIndex] && (
-                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[photoIndex]}</p>
+                    {photosTitles?.[index] && (
+                      <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[index]}</p>
                     )}
                   </div>
                 )

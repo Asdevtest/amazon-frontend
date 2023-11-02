@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 
@@ -17,7 +15,7 @@ interface FreelanceTypeTaskSelectProps {
   onChangeViewMode: (value: string) => void
 }
 
-export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = props => {
+export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
   const { withTabelView, withoutBlockCardView, viewMode, onChangeViewMode } = props
   const { classes: classNames, cx } = useClassNames()
 
@@ -61,4 +59,4 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = props => {
       changeConditionHandler={value => typeof value === 'string' && onChangeViewMode(value)}
     />
   )
-}
+})
