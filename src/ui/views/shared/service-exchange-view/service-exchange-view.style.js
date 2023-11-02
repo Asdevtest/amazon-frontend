@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
 
   emptyTableWrapper: {
     width: '100%',
-    height: '40vh',
+    height: '60vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,6 +30,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   emptyTableText: {
+    fontSize: 24,
     color: theme.palette.text.second,
   },
 
