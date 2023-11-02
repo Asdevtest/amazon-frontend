@@ -31,56 +31,54 @@ export const ServiceExchangeView = observer(({ history }) => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={styles.tablePanelWrapper}>
-          <div className={styles.toggleBtnAndtaskTypeWrapper}>
-            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      <div className={styles.tablePanelWrapper}>
+        <div className={styles.toggleBtnAndtaskTypeWrapper}>
+          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <FreelanceTypeTaskSelect
-              selectedTaskType={viewModel.selectedTaskType}
-              onClickTaskType={viewModel.onClickTaskType}
-            />
-          </div>
-
-          <SearchInput
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-            value={viewModel.nameSearchValue}
-            onChange={viewModel.onSearchChange}
+          <FreelanceTypeTaskSelect
+            selectedTaskType={viewModel.selectedTaskType}
+            onClickTaskType={viewModel.onClickTaskType}
           />
         </div>
 
-        <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
-          {viewModel.currentData.map(service =>
-            isListPosition ? (
-              <ServiceExchangeCardList
-                key={service._id}
-                order
-                service={service}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOrderBtn}
-              />
-            ) : (
-              <ServiceExchangeCard
-                key={service._id}
-                order
-                service={service}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOrderBtn}
-              />
-            ),
-          )}
-        </div>
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
+          value={viewModel.nameSearchValue}
+          onChange={viewModel.onSearchChange}
+        />
+      </div>
 
-        {!viewModel.currentData && (
-          <div className={styles.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={styles.emptyTableText}>
-              {t(TranslationKey.Missing)}
-            </Typography>
-          </div>
+      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+        {viewModel.currentData.map(service =>
+          isListPosition ? (
+            <ServiceExchangeCardList
+              key={service._id}
+              order
+              service={service}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOrderBtn}
+            />
+          ) : (
+            <ServiceExchangeCard
+              key={service._id}
+              order
+              service={service}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOrderBtn}
+            />
+          ),
         )}
       </div>
+
+      {!viewModel.currentData && (
+        <div className={styles.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <Typography variant="h5" className={styles.emptyTableText}>
+            {t(TranslationKey.Missing)}
+          </Typography>
+        </div>
+      )}
 
       <ImageModal
         imageList={viewModel.bigImagesOptions.images}

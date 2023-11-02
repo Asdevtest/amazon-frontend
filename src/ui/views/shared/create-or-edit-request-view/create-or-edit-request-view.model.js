@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -66,10 +67,13 @@ export class CreateOrEditRequestViewModel {
         asin: url.searchParams.get('asin'),
       }
 
+      const announcementId = url.searchParams.get('announcementId')
+      if (announcementId) {
+        this.announcementId = announcementId
+      }
+
       if (location.state) {
         this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
-        this.executor = location.state?.executor
       }
     })
 
@@ -108,9 +112,9 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async getMasterUsersData(specsType) {
+  async getMasterUsersData(specsType, guid = '') {
     try {
-      this.masterUsersData = await UserModel.getMasterUsers(35, '', specsType)
+      this.masterUsersData = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, specsType)
     } catch (error) {
       runInAction(() => {
         this.error = error
@@ -304,9 +308,13 @@ export class CreateOrEditRequestViewModel {
   }
 
   async getAnnouncementData() {
-    const id = this.announcementId || this.requestToEdit?.request?.announcementId
-    if (id) {
-      this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(id)
+    const guid = this.announcementId || this.requestToEdit?.request?.announcementId
+    if (guid) {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+      runInAction(() => {
+        this.choosenAnnouncements = result
+        this.executor = result?.createdBy
+      })
     }
   }
 
