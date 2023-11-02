@@ -73,12 +73,11 @@ export class ClientOrderViewModel {
   }
 
   constructor({ history }) {
-    const url = new URL(window.location.href)
+    this.history = history
 
-    runInAction(() => {
-      this.history = history
-      this.orderId = url.searchParams.get('orderId')
-    })
+    const url = new URL(window.location.href)
+    this.orderId = url.searchParams.get('orderId')
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -117,13 +116,11 @@ export class ClientOrderViewModel {
   }
 
   onChangeSelectedSupplier(supplier) {
-    runInAction(() => {
-      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-        this.selectedSupplier = undefined
-      } else {
-        this.selectedSupplier = supplier
-      }
-    })
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   async onTriggerAddOrEditSupplierModal() {
@@ -203,9 +200,7 @@ export class ClientOrderViewModel {
   }
 
   onDoubleClickBarcode = item => {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
 
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
@@ -254,23 +249,17 @@ export class ClientOrderViewModel {
     })
   }
 
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
-
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
+    this.ordersDataStateToSubmit = ordersDataState
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -474,14 +463,12 @@ export class ClientOrderViewModel {
   }
 
   onClickCancelOrder() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        confirmTitle: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-        onClickConfirm: () => this.onSubmitCancelOrder(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onClickConfirm: () => this.onSubmitCancelOrder(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -499,14 +486,10 @@ export class ClientOrderViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }
