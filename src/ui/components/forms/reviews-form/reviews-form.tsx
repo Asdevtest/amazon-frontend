@@ -12,14 +12,14 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
-import { ShortUserType } from '@typings/master-user'
+import { IShortUser } from '@typings/master-user'
 
 import { useReviewsFormStyles } from './reviews-form.styles'
 
 interface ReviewsFormProps {
   onClickCloseButton: () => void
   reviews: FeedbackType[]
-  user?: ShortUserType
+  user?: IShortUser
 }
 
 export const ReviewsForm = observer((props: ReviewsFormProps) => {

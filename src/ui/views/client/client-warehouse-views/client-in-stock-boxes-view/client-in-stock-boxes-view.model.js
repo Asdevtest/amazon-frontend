@@ -1328,7 +1328,6 @@ export class ClientInStockBoxesViewModel {
       }
     } catch (error) {
       console.log(error)
-
       runInAction(() => {
         this.error = error
       })
