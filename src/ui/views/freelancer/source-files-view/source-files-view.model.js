@@ -158,15 +158,13 @@ export class SourceFilesViewModel {
     }
   }
 
-  async onClickRemoveBtn(row) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey.Attention),
-        message: t(TranslationKey['Do you want to delete the source file?']),
-        onClickSuccess: () => this.removeSourceData(row),
-      }
-    })
+  onClickRemoveBtn(row) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Do you want to delete the source file?']),
+      onClickSuccess: () => this.removeSourceData(row),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
