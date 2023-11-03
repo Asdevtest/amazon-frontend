@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useImageModalStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalContainer: {
     height: '80vh',
     padding: 40,

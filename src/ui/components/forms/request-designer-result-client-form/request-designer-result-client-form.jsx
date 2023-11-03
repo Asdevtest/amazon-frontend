@@ -28,17 +28,19 @@ import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload
 
 import { useClassNames } from './request-designer-result-client-form.style'
 
-const Slot = ({
-  item,
-  onChangeImageFileds,
-  onClickCommentBtn,
-  noShowActions,
-  showImageModal,
-  setShowImageModal,
-  index,
-  imagesForDownload,
-  onClickAddDownload,
-}) => {
+const Slot = props => {
+  const {
+    item,
+    onChangeImageFileds,
+    onClickCommentBtn,
+    noShowActions,
+    showImageModal,
+    setShowImageModal,
+    index,
+    setCurImageIndex,
+    imagesForDownload,
+    onClickAddDownload,
+  } = props
   const { classes: classNames } = useClassNames()
 
   const menuAnchor = useRef()
@@ -94,6 +96,8 @@ const Slot = ({
               alt={''}
               variant="square"
               onClick={() => {
+                setCurImageIndex(index)
+
                 if (checkIsImageLink(item.image?.file?.name || item.image)) {
                   setShowImageModal(!showImageModal)
                 } else {
@@ -168,16 +172,17 @@ const Slot = ({
   )
 }
 
-export const RequestDesignerResultClientForm = ({
-  onClickProposalResultAccept,
-  onPressSubmitDesignerResultToCorrect,
-  request,
-  setOpenModal,
-  proposal,
-  userInfo,
-  curResultMedia,
-  onlyRead,
-}) => {
+export const RequestDesignerResultClientForm = props => {
+  const {
+    onClickProposalResultAccept,
+    onPressSubmitDesignerResultToCorrect,
+    request,
+    setOpenModal,
+    proposal,
+    userInfo,
+    curResultMedia,
+    onlyRead,
+  } = props
   const { classes: classNames } = useClassNames()
 
   const isNotClient =
@@ -290,11 +295,10 @@ export const RequestDesignerResultClientForm = ({
   return (
     <div className={classNames.modalMainWrapper}>
       <div className={classNames.headerWrapper}>
-        <div className={classNames.titleWrapper}>
-          <Typography className={cx(classNames.headerLabel)}>{`${t(TranslationKey['Request result'])} /`}</Typography>
+        <Typography className={classNames.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
+          request?.request?.humanFriendlyId
+        }`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel)}>{`ID ${request?.request?.humanFriendlyId}`}</Typography>
-        </div>
         <div className={classNames.headerRightSubWrapper}>
           <Field
             labelClasses={classNames.fieldLabel}
@@ -356,6 +360,7 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
+            setCurImageIndex={setCurImageIndex}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
