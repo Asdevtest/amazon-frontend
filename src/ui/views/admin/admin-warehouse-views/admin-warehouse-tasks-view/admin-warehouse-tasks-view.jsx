@@ -37,7 +37,7 @@ export const AdminWarehouseTasksViewRaw = props => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowCount={viewModel.rowsCount}
           getRowId={row => row._id}
           getRowHeight={() => 'auto'}

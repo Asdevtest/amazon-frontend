@@ -56,7 +56,7 @@ class AdministratorModelStatic {
 
   getTasksPag = async data => {
     const response = await restApiService.administratorApi.apiV1AdminsTasksPagGet(data)
-    return response
+    return response.data
   }
 
   getSettings = async () => {
