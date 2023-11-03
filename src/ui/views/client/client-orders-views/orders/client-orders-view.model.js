@@ -655,7 +655,7 @@ export class ClientOrdersViewModel {
   async onClickReorder(item) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const res = await OrderModel.checkPendingOrderByProductGuid(item.product._id)
+      const res = await OrderModel.checkPendingOrderByProductGuid(item?._id)
 
       if (res?.length) {
         runInAction(() => {

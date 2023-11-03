@@ -149,10 +149,6 @@ class ChatModelStatic {
           },
           isAllMessagesLoaded: chatMessages.rows.length < limit,
         }
-        // * Удалить после окончательного переделывания чата
-        // if (offset === 0) {
-        //   this[chatType][index].lastMessage = chatMessages.rows[chatMessages.rows.length - 1]
-        // }
       })
     } catch (error) {
       console.warn(error)
@@ -181,7 +177,6 @@ class ChatModelStatic {
             limit: 20,
             offset: 0,
           },
-          lastMessage: chat.messages[chat.messages.length - 1],
           isAllMessagesLoaded: false,
         }))
       })

@@ -242,7 +242,7 @@ export class ClientProductViewModel {
           : { isChild: false, isParent: false, shopId: this.product?.shopIds?.[0] || null },
       )
       runInAction(() => {
-        this.productsToBind = result
+        this.productsToBind = result.rows
       })
     } catch (error) {
       console.log(error)

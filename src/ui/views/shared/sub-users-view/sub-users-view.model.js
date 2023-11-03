@@ -310,7 +310,7 @@ export class SubUsersViewModel {
       const productPermissionsData = await methodByRole()
 
       runInAction(() => {
-        this.productPermissionsData = clientInventoryDataConverter(productPermissionsData)
+        this.productPermissionsData = clientInventoryDataConverter(productPermissionsData?.rows)
           .filter(el => !el.originalData.archive)
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
