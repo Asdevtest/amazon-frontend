@@ -19,35 +19,11 @@ import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS, RequestStatus.EXPIRED]
-
-// const filtersFields = ['status', 'typeTask']
-
-const filtersFields = [
-  'humanFriendlyId',
-  'updatedAt',
-  'status',
-  'title',
-  'typeTask',
-  'price',
-  'timeoutAt',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'createdBy',
-  'sub',
-  'subUsers',
-  'priority',
-  'createdAt',
-  'announcementCreatedBy',
-  'taskComplexity',
-  'shopIds',
-]
+import { allowStatuses, filtersFields } from './my-requests-view.constants'
 
 export class MyRequestsViewModel {
   history = undefined
   requestStatus = undefined
-  loadTableStatus = undefined
 
   showRequestForm = false
   showConfirmModal = false
@@ -98,11 +74,11 @@ export class MyRequestsViewModel {
   }
 
   get userInfo() {
-    return UserModel.userInfo || {}
+    return UserModel.userInfo
   }
 
   get languageTag() {
-    return SettingsModel.languageTag || {}
+    return SettingsModel.languageTag
   }
 
   get isSomeFilterOn() {
@@ -163,50 +139,44 @@ export class MyRequestsViewModel {
   }
 
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+    this.history = history
 
-      if (location?.state) {
-        this.alertShieldSettings = {
-          showAlertShield: location?.state?.showAcceptMessage,
-          alertShieldMessage: location?.state?.acceptMessage,
-          error: location?.state?.error,
-        }
-
-        const state = { ...history?.location?.state }
-        delete state?.acceptMessage
-        delete state?.showAcceptMessage
-        history.replace({ ...history?.location, state })
+    if (location?.state) {
+      this.alertShieldSettings = {
+        showAlertShield: location?.state?.showAcceptMessage,
+        alertShieldMessage: location?.state?.acceptMessage,
+        error: location?.state?.error,
       }
 
-      this.setDefaultStatuses()
-    })
+      const state = { ...history?.location?.state }
+      delete state?.acceptMessage
+      delete state?.showAcceptMessage
+      history.replace({ ...history?.location, state })
+    }
+
+    this.setDefaultStatuses()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
-    runInAction(() => {
-      if (this.alertShieldSettings.showAlertShield) {
+    if (this.alertShieldSettings.showAlertShield) {
+      setTimeout(() => {
+        this.alertShieldSettings = {
+          ...this.alertShieldSettings,
+          showAlertShield: false,
+        }
+
         setTimeout(() => {
           this.alertShieldSettings = {
-            ...this.alertShieldSettings,
             showAlertShield: false,
+            alertShieldMessage: '',
           }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-            }
-          }, 1000)
-        }, 3000)
-      }
-    })
+        }, 1000)
+      }, 3000)
+    }
 
     reaction(
       () => this.isRequestsAtWork,
-      () => {
-        this.setDefaultStatuses()
-      },
+      () => this.setDefaultStatuses(),
     )
 
     reaction(
@@ -216,43 +186,32 @@ export class MyRequestsViewModel {
 
     reaction(
       () => this.searchRequests,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
-  get user() {
-    return UserModel.userInfo
-  }
-
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onChangePaginationModel(model) {
     this.paginationModel = model
+
     this.getCustomRequests()
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
-    runInAction(() => {
-      this.isRequestsAtWork = value
-      this.loadTableStatus = loadingStatuses.loading
-    })
+    this.isRequestsAtWork = value
   }
 
   setDataGridState() {
@@ -280,16 +239,13 @@ export class MyRequestsViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
 
     this.setDataGridState()
-
     this.getCustomRequests()
   }
 
@@ -306,35 +262,31 @@ export class MyRequestsViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.setDefaultStatuses()
 
@@ -386,7 +338,7 @@ export class MyRequestsViewModel {
 
   onClickEditBtn() {
     this.history.push(
-      `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
       { requestId: this.currentRequestDetails.request._id },
     )
   }
@@ -422,9 +374,8 @@ export class MyRequestsViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getCustomRequests()
   }
 
@@ -437,9 +388,7 @@ export class MyRequestsViewModel {
   }
 
   onClickRemoveBtn(row) {
-    runInAction(() => {
-      this.researchIdToRemove = row.request._id
-    })
+    this.researchIdToRemove = row.request._id
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -468,8 +417,6 @@ export class MyRequestsViewModel {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
 
         this.rowCount = result.count
-
-        this.loadTableStatus = loadingStatuses.success
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -672,9 +619,8 @@ export class MyRequestsViewModel {
     } else {
       newSelectedRequests.push(index)
     }
-    runInAction(() => {
-      this.selectedRequests = newSelectedRequests
-    })
+
+    this.selectedRequests = newSelectedRequests
   }
 
   onClickTableRow(item) {
@@ -689,29 +635,23 @@ export class MyRequestsViewModel {
   }
 
   onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
+    this.curPage = e
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   handleListingFilters(onListing, notOnListing) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        onListingFiltersData: {
-          ...this.columnMenuSettings.onListingFiltersData,
-          onListing,
-          notOnListing,
-        },
-      }
-      this.getCustomRequests()
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      onListingFiltersData: {
+        ...this.columnMenuSettings.onListingFiltersData,
+        onListing,
+        notOnListing,
+      },
+    }
+    this.getCustomRequests()
   }
 
   async getRequestDetail(id) {
@@ -742,7 +682,7 @@ export class MyRequestsViewModel {
   onClickOpenInNewTab(id) {
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/my-requests/custom-request?request-id=${id}`,
       '_blank',
     )
@@ -759,20 +699,19 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showRequestDetailModal')
 
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       console.log(error)
     }
   }
 
   onClickCancelBtn() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Delete request?']),
-        onSubmit: () => this.onDeleteRequest(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Delete request?']),
+      onSubmit: () => this.onDeleteRequest(),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -783,7 +722,7 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showRequestDetailModal')
 
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -835,7 +774,7 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showConfirmWithCommentModal')
       this.onTriggerOpenModal('showRequestDetailModal')
 
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       console.log(error)
     }

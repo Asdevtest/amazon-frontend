@@ -1,15 +1,46 @@
-export const styles = theme => ({
-  addProductBtnsWrapper: {
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  header: {
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
+  },
+
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    width: '330px',
+    height: 36,
   },
 
   btnsWrapper: {
+    marginRight: 10,
     display: 'flex',
+    gap: 20,
+  },
 
-    '& > :not(:first-of-type)': {
-      marginLeft: '30px',
-    },
+  openArchiveBtn: {
+    width: 230,
+    color: theme.palette.primary.main,
+  },
+
+  actionButtonWithPlus: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    minWidth: '180px !important',
+  },
+
+  icon: {
+    width: 16,
+    height: 16,
   },
 
   archiveAddBtn: {
@@ -33,69 +64,6 @@ export const styles = theme => ({
     '&.Mui-disabled': {
       background: 'none',
     },
-  },
-
-  openArchiveBtn: {
-    width: 230,
-    color: theme.palette.primary.main,
-  },
-
-  button: {
-    marginBottom: 5,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    color: theme.palette.primary.main,
-
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, .2)',
-    },
-  },
-
-  shopsFiltersWrapper: {
-    display: 'flex',
-    gap: 30,
-    marginBottom: 20,
-  },
-
-  icon: {
-    width: 16,
-    height: 16,
-  },
-
-  simpleBtnsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '20px',
-    paddingRight: '5px',
-  },
-
-  btnWrapperStyle: {
-    height: 40,
-  },
-
-  topHeaderBtnsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  rightAddingBtn: {
-    width: 282,
-    display: 'flex',
-    justifyContent: 'center',
-    position: 'relative',
-    paddingRight: '40px',
-  },
-
-  flexCenterBtn: {
-    justifyContent: 'center',
-  },
-
-  searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '330px',
-    height: 36,
   },
 
   datagridWrapper: {
@@ -142,20 +110,7 @@ export const styles = theme => ({
     },
   },
 
-  actionButtonWithPlus: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '9px',
-    minWidth: '180px !important',
-  },
-
-  headerWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
   modalDialogContext: {
     padding: 0,
   },
-})
+}))

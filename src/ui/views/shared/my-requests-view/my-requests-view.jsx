@@ -52,7 +52,7 @@ export const MyRequestsView = observer(({ history, location }) => {
   return (
     <React.Fragment>
       <div>
-        <div className={styles.placeRequestBtnWrapper}>
+        <div className={styles.header}>
           <div />
 
           <SearchInput
@@ -73,21 +73,19 @@ export const MyRequestsView = observer(({ history, location }) => {
           </Button>
         </div>
 
-        <div className={styles.switchButtonWrapper}>
-          <CustomSwitcher
-            fullWidth
-            switchMode={'big'}
-            condition={viewModel.isRequestsAtWork}
-            switcherSettings={[
-              { label: () => t(TranslationKey['Requests in progress']), value: true },
-              { label: () => t(TranslationKey['Completed requests']), value: false },
-            ]}
-            changeConditionHandler={viewModel.onClickChangeCatigory}
-          />
-        </div>
+        <CustomSwitcher
+          fullWidth
+          switchMode={'big'}
+          condition={viewModel.isRequestsAtWork}
+          switcherSettings={[
+            { label: () => t(TranslationKey['Requests in progress']), value: true },
+            { label: () => t(TranslationKey['Completed requests']), value: false },
+          ]}
+          changeConditionHandler={viewModel.onClickChangeCatigory}
+        />
 
         <div className={styles.datagridWrapper}>
-          {viewModel.loadTableStatus === loadingStatuses.success ? (
+          {viewModel.requestStatus === loadingStatuses.success ? (
             <MemoDataGrid
               propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
               localeText={getLocalizationByLanguageTag()}
@@ -122,13 +120,11 @@ export const MyRequestsView = observer(({ history, location }) => {
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
               loading={viewModel.requestStatus === loadingStatuses.isLoading}
-              onColumnHeaderEnter={params => {
-                viewModel.onHoverColumnField(params.field)
-              }}
+              onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
               onColumnHeaderLeave={viewModel.onLeaveColumnField}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onPaginationModelChange={viewModel.onChangePaginationModel}
               onFilterModelChange={viewModel.onChangeFilterModel}
               onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
             />
