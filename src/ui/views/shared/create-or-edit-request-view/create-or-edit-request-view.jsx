@@ -3,11 +3,15 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
+
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
@@ -20,9 +24,13 @@ export const CreateOrEditRequestView = observer(props => {
         location: props.location,
       }),
   )
+  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
     viewModel.loadData()
+    useProductsPermissions.getPermissionsData()
+
+    console.log('useProductsPermissions', useProductsPermissions.permissionsData)
   }, [])
 
   return (
@@ -32,7 +40,7 @@ export const CreateOrEditRequestView = observer(props => {
           mainContentRef={mainContentRef}
           executor={viewModel.executor}
           choosenAnnouncements={viewModel.choosenAnnouncements}
-          permissionsData={viewModel.permissionsData}
+          permissionsData={useProductsPermissions.permissionsData}
           masterUsersData={viewModel.masterUsersData}
           announcements={viewModel.announcements}
           platformSettingsData={viewModel.platformSettingsData}
