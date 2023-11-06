@@ -165,9 +165,7 @@ export class GoodsDaysReportModel {
 
   async getMyDailyReportsLast30Days() {
     try {
-      const result = await SellerBoardModel.getMyDailyReportsLast30Days(
-        this.currentShop && { shopId: this.currentShop._id },
-      )
+      const result = await SellerBoardModel.getMyDailyReportsLast30Days(this.currentShop._id)
 
       runInAction(() => {
         this.sellerBoardLast30DayData = stockReportDataConverter(result).sort(

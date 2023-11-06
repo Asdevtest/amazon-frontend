@@ -147,6 +147,8 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+
 import { styles } from './data-grid-cells.style'
 
 export const UserCell = React.memo(
@@ -1215,20 +1217,14 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       onClickSetTariff,
       disabled,
     }) => {
-      const currentStorekeeper = storekeepers?.find(el => el._id === boxesMy?.storekeeper?._id)
-      const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)
-
-      const tariffName = currentTariff?.name
-
-      const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
-
-      const firstNumOfCode = curDestination?.zipCode?.[0]
-
-      const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
-
-      const tariffRate =
-        currentTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-        currentTariff?.destinationVariations?.find(el => el._id === boxesMy?.variationTariff?._id)?.pricePerKgUsd
+      const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+        destinations,
+        storekeepers,
+        boxesMy?.destination?._id,
+        boxesMy?.storekeeper?._id,
+        boxesMy?.logicsTariff?._id,
+        boxesMy?.variationTariff?._id,
+      )
 
       return (
         <div className={classNames.destinationAndTariffWrapper}>
@@ -1240,10 +1236,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
             }
             data={
               boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                ? destinations
-                    // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-                    // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
-                    .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
+                ? destinations.filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
                 : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
             }
             searchFields={['name']}
@@ -1266,19 +1259,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               setShowSelectionStorekeeperAndTariffModal()
             }}
           >
-            {/* {boxesMy?.storekeeper?._id
-                ? `${
-                    storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name ||
-                    t(TranslationKey['Not available'])
-                  } /
-                        ${
-                          boxesMy?.storekeeper?._id
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-                : t(TranslationKey.Select)} */}
             {boxesMy?.storekeeper?._id
               ? `${
                   boxesMy?.storekeeper?._id
