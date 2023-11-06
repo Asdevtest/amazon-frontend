@@ -59,9 +59,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
         sx={{
           height: '30px !important',
         }}
-        onClick={() => {
-          handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
-        }}
+        onClick={() => handlers.onClickReplyBtn(params.row._id)}
       >
         {t(TranslationKey.Reply)}
       </Button>
