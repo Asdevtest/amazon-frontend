@@ -178,7 +178,6 @@ class UserModelStatic {
 
   async getMySubUsers() {
     const response = await restApiService.userApi.apiV1UsersMySubUsersGet()
-    console.log('getMySubUsers', response)
     return response.data
   }
 

@@ -788,7 +788,7 @@ export const ChangeInputCommentCell = React.memo(
                             setShow(false)
                             setIsEdited(false)
                           }, 2000)
-                          onClickSubmit()
+                          onClickSubmit(value)
                         }}
                       />
                       <ClearIcon
@@ -2025,7 +2025,12 @@ export const CommentUsersCell = React.memo(
   withStyles(
     ({ classes: classNames, handler, id, comment, maxLength }) => (
       <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={id} text={comment} maxLength={maxLength || 128} onClickSubmit={handler} />
+        <ChangeInputCommentCell
+          id={id}
+          text={comment}
+          maxLength={maxLength || 128}
+          onClickSubmit={reason => handler(reason)}
+        />
       </div>
     ),
     styles,
