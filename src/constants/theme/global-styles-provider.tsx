@@ -1,6 +1,6 @@
-import { GlobalStyles, Theme } from '@mui/material'
+import { GlobalStyles } from '@mui/material'
 
-const styles = (theme: Theme) => ({
+const styles = () => ({
   '*': {
     display: 'none !important',
   },

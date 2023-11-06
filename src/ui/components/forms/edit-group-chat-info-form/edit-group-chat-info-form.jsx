@@ -4,7 +4,7 @@ import Avatar from 'react-avatar-edit'
 
 import { Avatar as AvatarMui } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'

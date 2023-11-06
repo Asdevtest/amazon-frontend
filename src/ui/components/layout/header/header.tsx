@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
