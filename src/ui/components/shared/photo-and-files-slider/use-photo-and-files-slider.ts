@@ -33,6 +33,12 @@ export const usePhotoAndFilesSlider = (
   }, [photos.length])
 
   useEffect(() => {
+    if (startPhotoIndex !== undefined) {
+      setPhotoIndex(startPhotoIndex)
+    }
+  }, [startPhotoIndex])
+
+  useEffect(() => {
     const photoFiltering = (files || []).reduce((result: Array<string | IUploadFile>, el) => {
       const currentFile = typeof el === 'string' ? el : el?.file?.name
       const isImage = checkIsImageLink(currentFile)

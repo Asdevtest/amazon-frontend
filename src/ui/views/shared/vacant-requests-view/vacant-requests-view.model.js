@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -17,29 +17,11 @@ import { FreelancerVacantRequestColumns } from '@components/table/table-columns/
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const filtersFields = [
-  'humanFriendlyId',
-  'updatedAt',
-  'status',
-  'title',
-  'typeTask',
-  'price',
-  'timeoutAt',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'createdBy',
-  'subUsers',
-  'priceAmazon',
-  'withoutConfirmation',
-  'taskComplexity',
-]
+import { filtersFields } from './vacant-requests-view.constants'
 
 export class VacantRequestsViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   nameSearchValue = ''
 
@@ -49,13 +31,11 @@ export class VacantRequestsViewModel {
   currentData = []
   currentRequestDetails = undefined
 
-  userInfo = []
-  userRole = undefined
-
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
 
+  pageSizeOptions = [15, 25, 50, 100]
   paginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel = {}
 
@@ -119,33 +99,23 @@ export class VacantRequestsViewModel {
   )
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.languageTag,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.requests,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -174,9 +144,8 @@ export class VacantRequestsViewModel {
   }
 
   onChangeViewMode(value) {
-    runInAction(() => {
-      this.viewMode = value
-    })
+    this.viewMode = value
+
     this.setTableModeState()
   }
 
@@ -185,33 +154,20 @@ export class VacantRequestsViewModel {
   }
 
   onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
+    this.selectedTaskType = taskType
+
     this.getRequestsVacant()
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
-  }
-
-  async getUserInfo() {
-    const result = await UserModel.userInfo
-
-    runInAction(() => {
-      this.userInfo = result
-      this.userRole = UserRoleCodeMap[result.role]
-    })
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getUserInfo()
       this.getTableModeState()
-      this.getRequestsVacant()
+      await this.getRequestsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -355,6 +311,8 @@ export class VacantRequestsViewModel {
 
   async onClickFilterBtn(column) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
         column,
@@ -368,42 +326,34 @@ export class VacantRequestsViewModel {
         }
       }
 
-      // this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
 
     this.setTableModeState()
     this.getRequestsVacant()
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getRequestsVacant()
   }
 
@@ -412,106 +362,80 @@ export class VacantRequestsViewModel {
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getRequestsVacant()
   }
 
-  async onClickViewMore(id) {
-    try {
-      window
-        .open(
-          `/${
-            UserRoleCodeMapForRoutes[this.user.role]
-          }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
-          '_blank',
-        )
-        .focus()
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
-  }
+  onClickViewMore(id) {
+    console.log('1')
+    const win = window.open(
+      `/${UserRoleCodeMapForRoutes[this.user?.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      '_blank',
+    )
 
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    win.focus()
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   onTriggerSortMode() {
-    runInAction(() => {
-      if (this.sortMode === tableSortMode.DESK) {
-        this.sortMode = tableSortMode.ASC
-        this.sortModel[0] = {
-          ...this.sortModel[0],
-          sort: tableSortMode.ASC,
-          field: 'updatedAt',
-        }
-      } else {
-        this.sortMode = tableSortMode.DESK
-        this.sortModel[0] = {
-          ...this.sortModel[0],
-          sort: tableSortMode.DESC,
-          field: 'updatedAt',
-        }
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+      this.sortModel[0] = {
+        ...this.sortModel[0],
+        sort: tableSortMode.ASC,
+        field: 'updatedAt',
       }
-    })
+    } else {
+      this.sortMode = tableSortMode.DESK
+      this.sortModel[0] = {
+        ...this.sortModel[0],
+        sort: tableSortMode.DESC,
+        field: 'updatedAt',
+      }
+    }
 
     this.getRequestsVacant()
     this.setTableModeState()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.getRequestsVacant()
     this.setTableModeState()
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-    this.setTableModeState()
+    this.sortModel = sortModel
 
+    this.setTableModeState()
     this.getRequestsVacant()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   async getRequestDetail(id) {
@@ -540,9 +464,10 @@ export class VacantRequestsViewModel {
   }
 
   onClickSuggest() {
+    console.log('2')
     this.history.push(
       `/${
-        UserRoleCodeMapForRoutes[this.userInfo.role]
+        UserRoleCodeMapForRoutes[this.user?.role]
       }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${
         this.currentRequestDetails.request._id
       }`,
@@ -550,9 +475,10 @@ export class VacantRequestsViewModel {
   }
 
   onClickOpenInNewTab(id) {
+    console.log('3')
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.user?.role]
       }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       '_blank',
     )

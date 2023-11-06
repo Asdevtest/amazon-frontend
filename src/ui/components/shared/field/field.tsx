@@ -26,6 +26,9 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   successText?: string
   oneLine?: boolean
   withIcon?: boolean
+  inputProps?: {
+    maxLength?: number
+  }
 }
 
 export const Field: FC<Props> = observer(

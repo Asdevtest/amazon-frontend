@@ -9,6 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
     backgroundColor: theme.palette.customSwitcher.background,
     borderRadius: '21px',
+    width: 'fit-content',
   },
 
   fullWidthWrapper: {

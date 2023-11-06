@@ -1,9 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import { Box, Typography } from '@mui/material'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,82 +15,72 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
-import { styles } from './my-services-view.style'
+import { useStyles } from './my-services-view.style'
 
 import { MyServicesViewModel } from './my-services-view.model'
 
-export const MyServicesViewRaw = ({ classes: classNames, history, location }) => {
+export const MyServicesView = observer(({ history, location }) => {
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new MyServicesViewModel({ history, location }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
+  const isListPosition = viewModel.viewMode === tableViewMode.LIST
+
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      <div className={styles.tablePanelWrapper}>
+        <div className={styles.toggleBtnAndtaskTypeWrapper}>
+          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <FreelanceTypeTaskSelect
-              selectedTaskType={viewModel.selectedTaskType}
-              onClickTaskType={viewModel.onClickTaskType}
-            />
-          </div>
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by Title, Description'])}
-              value={viewModel.nameSearchValue}
-              onChange={viewModel.onSearchSubmit}
-            />
-          </div>
-
-          <div className={classNames.createServiceBtnWrapper}>
-            <Button success className={cx(classNames.rightAddingBtn)} onClick={viewModel.onClickCreateServiceBtn}>
-              {t(TranslationKey['Create a service'])}
-            </Button>
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedTaskType={viewModel.selectedTaskType}
+            onClickTaskType={viewModel.onClickTaskType}
+          />
         </div>
-        <Box
-          display="grid"
-          gridTemplateColumns={
-            viewModel.viewMode === tableViewMode.LIST
-              ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
-              : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
-          }
-        >
-          {viewModel.currentData.map((service, serviceKey) =>
-            viewModel.viewMode === tableViewMode.LIST ? (
-              <ServiceExchangeCardList
-                key={serviceKey}
-                service={service}
-                pathname={viewModel.history?.location?.pathname}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOpenButton}
-              />
-            ) : (
-              <ServiceExchangeCard
-                key={serviceKey}
-                service={service}
-                pathname={viewModel.history?.location?.pathname}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOpenButton}
-              />
-            ),
-          )}
-        </Box>
-        {!viewModel.currentData.length && (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey.Missing)}
-            </Typography>
-          </div>
+
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by Title, Description'])}
+          value={viewModel.nameSearchValue}
+          onChange={viewModel.onSearchSubmit}
+        />
+
+        <Button success className={styles.rightAddingBtn} onClick={viewModel.onClickCreateServiceBtn}>
+          {t(TranslationKey['Create a service'])}
+        </Button>
+      </div>
+
+      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+        {viewModel.currentData.map((service, serviceKey) =>
+          isListPosition ? (
+            <ServiceExchangeCardList
+              key={serviceKey}
+              service={service}
+              pathname={viewModel.history?.location?.pathname}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOpenButton}
+            />
+          ) : (
+            <ServiceExchangeCard
+              key={serviceKey}
+              service={service}
+              pathname={viewModel.history?.location?.pathname}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOpenButton}
+            />
+          ),
         )}
       </div>
+
+      {!viewModel.currentData.length && (
+        <div className={styles.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
+        </div>
+      )}
 
       <ImageModal
         showPreviews
@@ -113,6 +99,4 @@ export const MyServicesViewRaw = ({ classes: classNames, history, location }) =>
       )}
     </React.Fragment>
   )
-}
-
-export const MyServicesView = withStyles(observer(MyServicesViewRaw), styles)
+})

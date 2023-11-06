@@ -47,7 +47,6 @@ export class ClientInventoryViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-  actionStatus = undefined
 
   product = undefined
   ordersDataStateToSubmit = undefined
@@ -238,15 +237,11 @@ export class ClientInventoryViewModel {
   }
 
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     if (location.state) {
-      runInAction(() => {
-        this.isArchive = location.state.isArchive
-        this.isModalOpen = location.state.isModalOpen
-      })
+      this.isArchive = location.state.isArchive
+      this.isModalOpen = location.state.isModalOpen
 
       const state = { ...history.location.state }
       delete state.isModalOpen
@@ -257,10 +252,7 @@ export class ClientInventoryViewModel {
 
     reaction(
       () => this.productsMy,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -273,26 +265,22 @@ export class ClientInventoryViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
-    this.setDataGridState()
-  }
-
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
     this.getProductsMy()
   }
 
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+  onChangePaginationModel(model) {
+    this.paginationModel = model
+
+    this.setDataGridState()
+    this.getProductsMy()
+  }
+
+  onChangeColumnVisibilityModel(model) {
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getProductsMy()
   }
@@ -396,17 +384,13 @@ export class ClientInventoryViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-    this.setDataGridState()
+    this.sortModel = sortModel
 
+    this.setDataGridState()
     this.getProductsMy()
   }
 
@@ -419,9 +403,7 @@ export class ClientInventoryViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getProductsMy()
   }
@@ -470,23 +452,20 @@ export class ClientInventoryViewModel {
 
   onClickTriggerArchOrResetProducts() {
     if (this.checkIsNoEditProductSelected()) {
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-      })
+      this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
+
       this.onTriggerOpenModal('showInfoModal')
       return
     }
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: this.isArchive ? false : true,
-        confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
-        confirmMessage: this.isArchive
-          ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
-          : t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
-        onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: this.isArchive ? false : true,
+      confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
+      confirmMessage: this.isArchive
+        ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
+        : t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
+      onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -507,9 +486,7 @@ export class ClientInventoryViewModel {
   }
 
   onTriggerArchive() {
-    runInAction(() => {
-      this.selectedRowIds = []
-    })
+    this.selectedRowIds = []
 
     this.isArchive
       ? this.history.push('/client/inventory', { isArchive: !this.isArchive })
@@ -524,7 +501,8 @@ export class ClientInventoryViewModel {
     try {
       this.getDataGridState()
 
-      await Promise.all([this.getShops(), this.getProductsMy()])
+      await this.getShops()
+      await this.getProductsMy()
 
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
@@ -536,7 +514,10 @@ export class ClientInventoryViewModel {
   async onClickVariationRadioButton() {
     try {
       const result = await ClientModel.getProductPermissionsData({ isChild: false })
-      this.productsToLaunch = result
+
+      runInAction(() => {
+        this.productsToLaunch = result
+      })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -673,41 +654,35 @@ export class ClientInventoryViewModel {
   }
 
   onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        isNeedPurchaseFilterData: {
-          ...this.columnMenuSettings.isNeedPurchaseFilterData,
-          isNeedPurchaseFilter,
-          isNotNeedPurchaseFilter,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      isNeedPurchaseFilterData: {
+        ...this.columnMenuSettings.isNeedPurchaseFilterData,
+        isNeedPurchaseFilter,
+        isNotNeedPurchaseFilter,
+      },
+    }
 
     this.getProductsMy()
   }
 
   onChangeIsHaveBarCodeFilter(value) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        isHaveBarCodeFilterData: {
-          ...this.columnMenuSettings.isHaveBarCodeFilterData,
-          isHaveBarCodeFilter: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      isHaveBarCodeFilterData: {
+        ...this.columnMenuSettings.isHaveBarCodeFilterData,
+        isHaveBarCodeFilter: value,
+      },
+    }
 
     this.getProductsMy()
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   async onClickFilterBtn(column) {
@@ -755,35 +730,31 @@ export class ClientInventoryViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getProductsMy()
     this.getDataGridState()
@@ -1019,7 +990,7 @@ export class ClientInventoryViewModel {
     ])
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
+    await this.loadData()
 
     runInAction(() => {
       this.selectedProduct = undefined
@@ -1048,7 +1019,7 @@ export class ClientInventoryViewModel {
 
   async onSaveProductData(productId, updateProductData) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         toJS(updateProductData),
@@ -1058,10 +1029,10 @@ export class ClientInventoryViewModel {
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
       await this.loadData()
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -1093,10 +1064,9 @@ export class ClientInventoryViewModel {
   }
 
   showBarcodeOrHscode(barcode, hscode) {
-    runInAction(() => {
-      this.currentHscode = hscode
-      this.currentBarcode = barcode
-    })
+    this.currentHscode = hscode
+    this.currentBarcode = barcode
+
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
@@ -1113,28 +1083,26 @@ export class ClientInventoryViewModel {
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
+    this.ordersDataStateToSubmit = ordersDataState
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => {
-          this.onTriggerOpenModal('showConfirmModal')
-          this.onSubmitOrderProductModal()
-        },
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onSubmitOrderProductModal()
+      },
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.error = undefined
         this.showProgress = true
@@ -1190,9 +1158,9 @@ export class ClientInventoryViewModel {
       const noProductBaseUpdate = true
       await this.getProductsMy(noProductBaseUpdate)
 
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1291,7 +1259,7 @@ export class ClientInventoryViewModel {
       })
       this.onTriggerOpenModal('showSuccessModal')
 
-      this.loadData()
+      await this.loadData()
 
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
@@ -1338,7 +1306,7 @@ export class ClientInventoryViewModel {
 
       await SellerBoardModel.refreshProducts(this.selectedRowIds)
 
-      this.loadData()
+      await this.loadData()
 
       runInAction(() => {
         this.successModalText = t(TranslationKey['Products will be updated soon'])
@@ -1476,7 +1444,7 @@ export class ClientInventoryViewModel {
     try {
       await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRowIds)
 
-      this.loadData()
+      await this.loadData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -1491,7 +1459,7 @@ export class ClientInventoryViewModel {
         priceForClient: priceForSeekSupplier,
       })
 
-      this.loadData()
+      await this.loadData()
 
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -1665,7 +1633,7 @@ export class ClientInventoryViewModel {
     try {
       await ClientModel.updateProductBarCode(product._id, { barCode: null })
 
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -1675,7 +1643,7 @@ export class ClientInventoryViewModel {
     try {
       await ProductModel.editProductsHsCods([{ productId: product._id, hsCode: '' }])
 
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -1726,7 +1694,7 @@ export class ClientInventoryViewModel {
       })
       this.onTriggerOpenModal('showSuccessModal')
 
-      this.loadData()
+      await this.loadData()
     } catch (error) {
       runInAction(() => {
         this.showInfoModalTitle = t(TranslationKey["You can't bind"])
@@ -1738,27 +1706,16 @@ export class ClientInventoryViewModel {
   }
 
   onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
+    this.curPage = e
+
     this.getProductsMy()
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.selectedProduct = item
   }
 }

@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -11,9 +11,7 @@ import { UserModel } from '@models/user-model'
 
 import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
 
-import { adminTasksDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
 const filtersFields = []
@@ -26,6 +24,7 @@ export class AdminWarehouseTasksViewModel {
 
   tasksData = []
   curOpenedTask = {}
+  currentData = []
 
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
@@ -47,6 +46,13 @@ export class AdminWarehouseTasksViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => this.tasksData,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async loadData() {

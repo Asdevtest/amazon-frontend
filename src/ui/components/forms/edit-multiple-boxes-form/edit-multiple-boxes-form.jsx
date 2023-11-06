@@ -3,9 +3,6 @@ import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
 
@@ -16,6 +13,7 @@ import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -32,526 +30,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
 
-const Box = ({
-  userInfo,
-  showCheckbox,
-  destinations,
-  storekeepers,
-  box,
-  onChangeField,
-  onRemoveBox,
-  newBoxes,
-  setNewBoxes,
-  destinationsFavourites,
-  setDestinationsFavouritesItem,
-}) => {
-  const { classes: classNames } = useClassNames()
-
-  const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
-  const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-
-  const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
-
-  const onClickBarcode = item => {
-    setCurProductToEditBarcode(item)
-
-    setShowSetBarcodeModal(!showSetBarcodeModal)
-  }
-
-  const isMasterBox = box.amount && box.amount > 1
-
-  const [showFullCard, setShowFullCard] = useState(true)
-
-  const onClickSaveBarcode = product => value => {
-    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
-
-    const newFormFields = { ...targetBox }
-
-    newFormFields.items = [
-      ...targetBox.items.map(el => (el.product._id === product.product._id ? { ...el, tmpBarCode: value } : el)),
-    ]
-
-    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? newFormFields : newBox))
-
-    setNewBoxes(updatedNewBoxes)
-
-    setShowSetBarcodeModal(!showSetBarcodeModal)
-  }
-
-  const onChangeBarcodeGlued = (product, field) => value => {
-    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
-
-    const newFormFields = { ...targetBox }
-
-    if (field === 'isBarCodeAttachedByTheStorekeeper' && value) {
-      newFormFields.items = [
-        ...targetBox.items.map(el =>
-          el.product._id === product.product._id
-            ? { ...el, [field]: value, isBarCodeAlreadyAttachedByTheSupplier: false }
-            : el,
-        ),
-      ]
-    } else if (field === 'isBarCodeAlreadyAttachedByTheSupplier' && value) {
-      newFormFields.items = [
-        ...targetBox.items.map(el =>
-          el.product._id === product.product._id
-            ? { ...el, [field]: value, isBarCodeAttachedByTheStorekeeper: false }
-            : el,
-        ),
-      ]
-    } else {
-      newFormFields.items = [
-        ...targetBox.items.map(el => (el.product._id === product.product._id ? { ...el, [field]: value } : el)),
-      ]
-    }
-
-    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? newFormFields : newBox))
-
-    setNewBoxes(updatedNewBoxes)
-  }
-
-  const setShippingLabel = () => value => {
-    onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
-  }
-
-  const onClickShippingLabel = () => {
-    setShowSetShippingLabelModal(!showSetShippingLabelModal)
-  }
-
-  const onDeleteShippingLabel = () => {
-    onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
-  }
-
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
-    onChangeField(
-      {
-        storekeeperId,
-        logicsTariffId: tariffId,
-        variationTariffId,
-        destinationId,
-        isSameDestination: variationTariffId ? isSameDestination : true,
-      },
-      'part',
-      box._id,
-    )
-
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-  }
-
-  const curDestination = destinations.find(el => el._id === box.destinationId)
-
-  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
-  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const tariffName = currentLogicsTariff?.name
-
-  const selectedVariationTariff = currentLogicsTariff?.destinationVariations?.find(
-    el => el._id === box?.variationTariffId,
-  )
-
-  const tariffRate = toFixed(
-    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate || selectedVariationTariff?.pricePerKgUsd,
-    2,
-  )
-
-  const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
-
-  useEffect(() => {
-    if (box?.variationTariffId) {
-      onChangeField({ isSameDestination }, 'part', box._id)
-    }
-  }, [isSameDestination, box?.variationTariffId, box?._id])
-
-  return (
-    <div className={classNames.box}>
-      <div className={classNames.itemWrapper}>
-        <div className={classNames.orderWrapper}>
-          {box.items.map((order, orderIndex) => (
-            <div key={`box_${box._id}_${orderIndex}`} className={classNames.orderWrapper}>
-              <div key={orderIndex} className={classNames.order}>
-                <img className={classNames.img} src={getAmazonImageUrl(order.product?.images[0])} />
-                <div>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asinTitle}>{t(TranslationKey.Box)}</Typography>
-                    <Typography className={classNames.asinValue}>{box.humanFriendlyId}</Typography>
-                  </div>
-
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
-
-                    {order.product.asin ? <CopyValue text={order.product.asin} /> : null}
-                  </div>
-
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asinTitle}>{t(TranslationKey.SKU)}</Typography>
-                    <Typography className={classNames.asinValue}>
-                      {order.product.skusByClient?.length ? order.product.skusByClient[0] : '-'}
-                    </Typography>
-
-                    {order.product.skusByClient?.length ? <CopyValue text={order.product.skusByClient[0]} /> : null}
-                  </div>
-
-                  <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
-
-                  <Field
-                    labelClasses={classNames.label}
-                    label={t(TranslationKey.BarCode)}
-                    inputComponent={
-                      <div>
-                        <Chip
-                          classes={{
-                            root: classNames.barcodeChip,
-                            clickable: classNames.barcodeChipHover,
-                            deletable: classNames.barcodeChipHover,
-                            deleteIcon: classNames.barcodeChipIcon,
-                            label: classNames.barcodeChiplabel,
-                          }}
-                          className={cx({ [classNames.barcodeChipExists]: order.barCode })}
-                          size="small"
-                          label={
-                            order.tmpBarCode?.length
-                              ? t(TranslationKey['File added'])
-                              : order.barCode
-                              ? order.barCode
-                              : t(TranslationKey['Set Barcode'])
-                          }
-                          onClick={() => onClickBarcode(order)}
-                          // onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
-                        />
-                      </div>
-                    }
-                  />
-                  {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
-                    <div
-                      className={cx({
-                        // Раскоментить если нужно будет подсвечивать
-                        // [classNames.containerAccent]:
-                        //   (order.isBarCodeAlreadyAttachedByTheSupplier || order.isBarCodeAttachedByTheStorekeeper) &&
-                        //   !order.barCode &&
-                        //   !order.tmpBarCode?.length,
-                      })}
-                    >
-                      <Field
-                        oneLine
-                        labelClasses={classNames.label}
-                        tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
-                        containerClasses={classNames.checkboxContainer}
-                        // containerClasses={cx(classNames.checkboxContainer, {
-                        //   [classNames.containerAccent]: true,
-                        // })}
-                        label={t(TranslationKey['The barcode is glued by the supplier'])}
-                        inputComponent={
-                          <Checkbox
-                            checked={order.isBarCodeAlreadyAttachedByTheSupplier}
-                            onClick={() =>
-                              onChangeBarcodeGlued(
-                                order,
-                                'isBarCodeAlreadyAttachedByTheSupplier',
-                              )(!order.isBarCodeAlreadyAttachedByTheSupplier)
-                            }
-                          />
-                        }
-                      />
-                      <Field
-                        oneLine
-                        labelClasses={classNames.label}
-                        tooltipInfoContent={t(
-                          TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
-                        )}
-                        containerClasses={classNames.checkboxContainer}
-                        label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                        inputComponent={
-                          <Checkbox
-                            checked={order.isBarCodeAttachedByTheStorekeeper}
-                            onClick={() =>
-                              onChangeBarcodeGlued(
-                                order,
-                                'isBarCodeAttachedByTheStorekeeper',
-                              )(!order.isBarCodeAttachedByTheStorekeeper)
-                            }
-                          />
-                        }
-                      />
-                    </div>
-                  ) : null}
-                </div>
-
-                <div>
-                  <Field
-                    disabled
-                    label={t(TranslationKey.Quantity)}
-                    className={classNames.orderInput}
-                    labelClasses={classNames.label}
-                    value={isMasterBox ? box.amount : order.amount}
-                    tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-                  />
-
-                  {isMasterBox ? <Typography className={classNames.superBox}>{`SB x ${box.amount}`}</Typography> : null}
-                </div>
-              </div>
-              {isMasterBox ? (
-                <Typography className={classNames.subTitle}>{`${t(TranslationKey['Units in a box'])} ${
-                  box.items[0].amount
-                }`}</Typography>
-              ) : undefined}
-            </div>
-          ))}
-          {showFullCard ? (
-            <div className={classNames.itemSubWrapper}>
-              <Field
-                error={!box.isSameDestination && t(TranslationKey['Incorrect destination or tariff'])}
-                containerClasses={classNames.field}
-                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
-                label={t(TranslationKey.Destination)}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <WithSearchSelect
-                    width={230}
-                    favourites={destinationsFavourites}
-                    selectedItemName={
-                      destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
-                    }
-                    data={
-                      box.variationTariffId &&
-                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations.filter(
-                            el => el?._id === (box?.destinationId || box?.variationTariff?.destinationId),
-                          )
-                        : destinations.filter(el => el?.storekeeper?._id !== box?.storekeeperId)
-                    }
-                    searchFields={['name']}
-                    onClickNotChosen={() => onChangeField({ target: { value: null } }, 'destinationId', box._id)}
-                    onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
-                    onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                  />
-                }
-              />
-
-              <Field
-                containerClasses={classNames.field}
-                tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
-                label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <Button
-                    variant={box.logicsTariffId && 'text'}
-                    className={cx({
-                      [classNames.storekeeperBtn]: !box.logicsTariffId,
-                      [classNames.storekeeperTrafficBtn]: box.logicsTariffId,
-                    })}
-                    onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-                  >
-                    {box.logicsTariffId
-                      ? `${box.logicsTariffId ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'}`
-                      : t(TranslationKey.Select)}
-                  </Button>
-                }
-              />
-
-              <Field
-                inputProps={{ maxLength: 255 }}
-                tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                containerClasses={classNames.field}
-                labelClasses={classNames.label}
-                inputClasses={cx(classNames.fieldInput, {
-                  [classNames.inputAccent]:
-                    (box.shippingLabel || box.tmpShippingLabel?.length) &&
-                    !box.fbaShipment &&
-                    !curDestination?.storekeeper,
-                })}
-                label={t(TranslationKey['FBA Shipment'])}
-                value={box.fbaShipment}
-                onChange={e => onChangeField(e, 'fbaShipment', box._id)}
-              />
-
-              <Field
-                label={t(TranslationKey['Shipping label']) + ':'}
-                tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <Chip
-                    classes={{
-                      root: classNames.barcodeChip,
-                      clickable: classNames.barcodeChipHover,
-                      deletable: classNames.barcodeChipHover,
-                      deleteIcon: classNames.barcodeChipIcon,
-                      label: classNames.barcodeChiplabel,
-                    }}
-                    className={cx({ [classNames.barcodeChipExists]: box.shippingLabel })}
-                    size="small"
-                    label={
-                      box.tmpShippingLabel?.length
-                        ? t(TranslationKey['File added'])
-                        : box.shippingLabel
-                        ? trimBarcode(box.shippingLabel)
-                        : t(TranslationKey['Set Shipping Label'])
-                    }
-                    onClick={() => onClickShippingLabel()}
-                    onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                  />
-                }
-              />
-
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
-                <Field
-                  oneLine
-                  labelClasses={classNames.label}
-                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-                  inputComponent={
-                    <div className={classNames.checkboxWrapper}>
-                      <Checkbox
-                        color="primary"
-                        checked={box.isShippingLabelAttachedByStorekeeper}
-                        onChange={e => onChangeField(e, 'isShippingLabelAttachedByStorekeeper', box._id)}
-                      />
-                      {/* <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
-                    </div>
-                  }
-                />
-              ) : null}
-            </div>
-          ) : null}
-
-          <div className={classNames.bottomBlockWrapper}>
-            <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(box._id)}>
-              <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-            </IconButton>
-            <div className={classNames.incomingBtnWrapper}>
-              <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-                <Typography className={classNames.tablePanelViewText}>
-                  {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-                </Typography>
-
-                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Modal
-        openModal={showSetShippingLabelModal}
-        setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
-      >
-        <SetShippingLabelModal
-          tmpShippingLabel={box.tmpShippingLabel}
-          item={box}
-          onClickSaveShippingLabel={shippingLabel => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
-        />
-      </Modal>
-
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-      >
-        <SelectStorekeeperAndTariffForm
-          RemoveDestinationRestriction
-          showCheckbox={showCheckbox}
-          destinationsData={destinations}
-          storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
-          curStorekeeperId={box.storekeeperId}
-          curTariffId={box.logicsTariffId}
-          currentDestinationId={box?.destinationId}
-          currentVariationTariffId={box?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
-        />
-      </Modal>
-
-      <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
-        <SetBarcodeModal
-          tmpCode={curProductToEditBarcode?.tmpBarCode}
-          item={curProductToEditBarcode}
-          onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
-          onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-        />
-      </Modal>
-    </div>
-  )
-}
-
-const NewBoxes = ({
-  showCheckbox,
-  userInfo,
-  newBoxes,
-  onChangeField,
-  destinations,
-  storekeepers,
-  visibleBoxes,
-  setVisibleBoxes,
-  onRemoveBox,
-  setNewBoxes,
-  destinationsFavourites,
-  setDestinationsFavouritesItem,
-}) => {
-  const { classes: classNames } = useClassNames()
-
-  const [nameSearchValue, setNameSearchValue] = useState('')
-
-  useEffect(() => {
-    if (nameSearchValue) {
-      setVisibleBoxes(
-        newBoxes.filter(
-          el =>
-            el.items.some(item => item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase())) ||
-            el.items.some(item =>
-              item.product.skusByClient?.some(sku => sku.toLowerCase().includes(nameSearchValue.toLowerCase())),
-            ) ||
-            el.items.some(item => item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase())),
-        ),
-      )
-    } else {
-      setVisibleBoxes(newBoxes)
-    }
-  }, [newBoxes, nameSearchValue])
-
-  return (
-    <div className={classNames.newBoxes}>
-      <div className={classNames.currentBoxTitle}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey.Boxes)}</Typography>
-
-        <Typography className={classNames.searchCount}>{`${visibleBoxes.length} / ${newBoxes.length}`}</Typography>
-
-        <SearchInput
-          inputClasses={classNames.searchInput}
-          value={nameSearchValue}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onChange={e => setNameSearchValue(e.target.value)}
-        />
-      </div>
-
-      {visibleBoxes.map((box, boxIndex) => (
-        <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
-          <Box
-            isNewBox
-            showCheckbox={showCheckbox}
-            userInfo={userInfo}
-            newBoxes={newBoxes}
-            destinations={destinations}
-            storekeepers={storekeepers}
-            index={boxIndex}
-            box={box}
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-            setNewBoxes={setNewBoxes}
-            onChangeField={onChangeField}
-            onRemoveBox={onRemoveBox}
-          />
-        </div>
-      ))}
-    </div>
-  )
-}
+import { NewBoxes } from './new-boxes/new-boxes'
 
 export const EditMultipleBoxesForm = observer(
   ({
@@ -566,6 +45,9 @@ export const EditMultipleBoxesForm = observer(
     setDestinationsFavouritesItem,
   }) => {
     const { classes: classNames } = useClassNames()
+
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
 
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
@@ -625,11 +107,53 @@ export const EditMultipleBoxesForm = observer(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
-      setSharedFields({ ...sharedFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-      setDestinationId(destinationId)
+    const onSubmitSelectStorekeeperAndTariff = (
+      storekeeperId,
+      tariffId,
+      variationTariffId,
+      destinationId,
+      isSelectedDestinationNotValid,
+    ) => {
+      if (isSelectedDestinationNotValid) {
+        setConfirmModalSettings({
+          isWarning: true,
+          title: t(TranslationKey.Attention),
+          confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          onClickConfirm: () => {
+            setSharedFields({
+              ...sharedFields,
+              storekeeperId,
+              logicsTariffId: tariffId,
+              variationTariffId,
+              destinationId,
+            })
+            setDestinationId(destinationId)
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          },
+
+          onClickCancelBtn: () => {
+            setSharedFields({
+              ...sharedFields,
+              storekeeperId,
+              logicsTariffId: tariffId,
+              variationTariffId,
+              destinationId: null,
+            })
+            setDestinationId(null)
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          },
+        })
+
+        setShowConfirmModal(true)
+      } else {
+        setSharedFields({ ...sharedFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+        setDestinationId(destinationId)
+
+        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+      }
     }
 
     const setShippingLabel = () => value => {
@@ -681,34 +205,6 @@ export const EditMultipleBoxesForm = observer(
         onCloseModal()
       }
     }, [newBoxes.length])
-
-    // const onChangeField = (e, field, boxId) => {
-    //   console.log('VALUE', e)
-
-    //   const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
-
-    //   if (field === 'part') {
-    //     const updatedTargetBox = {
-    //       ...targetBox,
-    //       ...e,
-    //     }
-
-    //     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-    //     console.log('updatedNewBoxes', updatedNewBoxes)
-
-    //     setNewBoxes(updatedNewBoxes)
-    //   } else {
-    //     const updatedTargetBox = {
-    //       ...targetBox,
-    //       [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
-    //     }
-
-    //     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-    //     setNewBoxes(updatedNewBoxes)
-    //   }
-    // }
 
     const onChangeField = (e, field, boxId) => {
       setNewBoxes(prevBoxes => {
@@ -1177,6 +673,18 @@ export const EditMultipleBoxesForm = observer(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
       </div>
     )
   },

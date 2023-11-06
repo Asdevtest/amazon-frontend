@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -71,12 +69,10 @@ export const ServiceExchangeView = observer(({ history }) => {
         )}
       </div>
 
-      {!viewModel.currentData && (
+      {!viewModel.currentData.length && (
         <div className={styles.emptyTableWrapper}>
           <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={styles.emptyTableText}>
-            {t(TranslationKey.Missing)}
-          </Typography>
+          <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
         </div>
       )}
 

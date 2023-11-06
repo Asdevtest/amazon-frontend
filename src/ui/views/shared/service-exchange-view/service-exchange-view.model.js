@@ -25,25 +25,18 @@ export class ServiceExchangeViewModel {
   nameSearchValue = undefined
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.announcements,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.nameSearchValue,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -90,16 +83,14 @@ export class ServiceExchangeViewModel {
   }
 
   async onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
+    this.selectedTaskType = taskType
+
     await this.getVacAnnouncementsData()
   }
 
   onChangeViewMode(value) {
-    runInAction(() => {
-      this.viewMode = value
-    })
+    this.viewMode = value
+
     this.setTableModeState()
   }
 
@@ -110,27 +101,20 @@ export class ServiceExchangeViewModel {
   }
 
   onClickThumbnail(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
+    this.bigImagesOptions = data
+
     this.onTriggerOpenModal('showImageModal')
   }
 
   setBigImagesOptions(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
+    this.bigImagesOptions = data
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   onSearchChange(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 }

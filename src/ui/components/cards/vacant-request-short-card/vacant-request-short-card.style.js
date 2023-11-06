@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
     padding: '30px 20px ',
-    width: 300,
+    width: '100%',
     height: '100%',
   },
 
