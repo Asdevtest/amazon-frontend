@@ -53,12 +53,6 @@ export const useStyles = makeStyles()(() => ({
     gap: 48,
   },
 
-  files: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 30,
-  },
-
   flexColumnContainer: {
     display: 'flex',
     flexDirection: 'column',
