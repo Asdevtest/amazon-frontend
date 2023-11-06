@@ -78,7 +78,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleInfoModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -104,7 +104,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleInfoModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -126,7 +126,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleConfirmModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

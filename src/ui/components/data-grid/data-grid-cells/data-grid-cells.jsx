@@ -3495,11 +3495,23 @@ export const OpenInNewTabCell = React.memo(
         placement="top"
         classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
       >
-        <NavLink to={href || ''} target="_blank" onClick={event => event.stopPropagation()}>
-          <div className={styles.iconWrapper} onClick={() => !href && onClickOpenInNewTab()}>
+        <div
+          className={styles.iconWrapper}
+          onClick={event => {
+            event.stopPropagation()
+            if (!href) {
+              onClickOpenInNewTab()
+            }
+          }}
+        >
+          {href ? (
+            <NavLink to={href || ''} target="_blank">
+              <ShareLinkIcon className={styles.shareLinkIcon} />
+            </NavLink>
+          ) : (
             <ShareLinkIcon className={styles.shareLinkIcon} />
-          </div>
-        </NavLink>
+          )}
+        </div>
       </Tooltip>
     )
   }, styles),
