@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
@@ -22,31 +21,25 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-my-tasks-view.style'
+import { useStyles } from './warehouse-my-tasks-view.style'
 
 import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
 
-export const WarehouseMyTasksViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new WarehouseMyTasksViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+export const WarehouseMyTasksView = observer(({ history, location }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseMyTasksViewModel({ history, location }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const getRowClassName = params =>
-    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
+    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <TaskPrioritySelector
             currentPriority={viewModel.curTaskPriority}
             handleActivePriority={viewModel.onClickTaskPriorityBtn}
@@ -59,7 +52,6 @@ export const WarehouseMyTasksViewRaw = props => {
               viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
                 .operationType !== TaskOperationType.RECEIVE
             }
-            className={classNames.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
@@ -67,7 +59,7 @@ export const WarehouseMyTasksViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <BuyerTypeTaskSelect
             curTaskType={viewModel.curTaskType}
             onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
@@ -75,12 +67,12 @@ export const WarehouseMyTasksViewRaw = props => {
 
           <SearchInput
             value={viewModel.nameSearchValue}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <MemoDataGrid
             checkboxSelection
             disableRowSelectionOnClick
@@ -112,7 +104,7 @@ export const WarehouseMyTasksViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
           />
@@ -132,7 +124,7 @@ export const WarehouseMyTasksViewRaw = props => {
 
       <Modal
         missClickModalOn
-        dialogContextClassName={classNames.resolveTaskModalContent}
+        dialogContextClassName={styles.resolveTaskModalContent}
         openModal={viewModel.showEditTaskModal}
         setOpenModal={viewModel.onTriggerEditTaskModal}
       >
@@ -178,6 +170,4 @@ export const WarehouseMyTasksViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const WarehouseMyTasksView = withStyles(observer(WarehouseMyTasksViewRaw), styles)
+})

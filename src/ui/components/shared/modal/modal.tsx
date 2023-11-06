@@ -80,7 +80,7 @@ export const Modal: FC<ModalProps> = props => {
         (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false))
       }
     >
-      <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />
+      <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
 
       <DialogContent
         className={cx(
