@@ -6,7 +6,7 @@ import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { LanguageKey } from '@constants/translations/language-key'
 
 import { setI18nConfig } from '@utils/translations'

@@ -22,6 +22,10 @@
   src: local('Manrope'), url('./fonts/Manrope-Bold.ttf') format('ttf');
 }
 
+:root {
+  color-scheme: dark light;
+}
+
 /* Reset and base styles  */
 * {
   padding: 0px;

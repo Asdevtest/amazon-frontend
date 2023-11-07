@@ -1,21 +1,6 @@
 import { createTheme } from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
-  // MuiButton: {
-  //   defaultProps: {
-  //     sx: {
-  //       '&.Mui-disabled': {
-  //         backgroundColor: '#a0a0a4',
-  //       },
-  //     },
-  //   },
-  //   styleOverrides: {
-  //     root: {
-  //       textTransform: 'none',
-  //     },
-  //   },
-  // },
-
   MuiAvatar: {
     styleOverrides: {
       fallback: {
