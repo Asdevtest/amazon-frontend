@@ -788,7 +788,7 @@ export const ChangeInputCommentCell = React.memo(
                             setShow(false)
                             setIsEdited(false)
                           }, 2000)
-                          onClickSubmit()
+                          onClickSubmit(value)
                         }}
                       />
                       <ClearIcon
