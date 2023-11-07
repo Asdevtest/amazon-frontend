@@ -38,6 +38,7 @@ interface Props extends PropsWithChildren {
   small?: boolean
   defaultButtonTooltip?: string
   startIcon?: ReactElement
+  transparent?: boolean
 }
 
 export const Button: FC<Props> = React.memo(
@@ -56,6 +57,7 @@ export const Button: FC<Props> = React.memo(
     disabled,
     btnWrapperStyle,
     small,
+    transparent,
     ...restProps
   }) => {
     const { classes: classNames } = useClassNames()
@@ -88,6 +90,7 @@ export const Button: FC<Props> = React.memo(
                 [classNames.defaultButton]: !success && !danger && !variant,
                 [classNames.disabled]: disabled,
                 [classNames.small]: small,
+                [classNames.transparent]: transparent,
               },
               className,
             ),
