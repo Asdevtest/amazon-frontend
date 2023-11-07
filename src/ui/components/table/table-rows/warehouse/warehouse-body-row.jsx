@@ -9,6 +9,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
@@ -55,49 +56,6 @@ const WarehouseBodyRowRaw = ({
     </div>
   )
 
-  const ProductCell = ({ product }) => (
-    <div className={classNames.asinCell}>
-      <div className={classNames.asinCellContainer}>
-        <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images.slice()[0])} />
-
-        <div className={classNames.csCodeTypoWrapper}>
-          <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
-          <div className={classNames.copyAsin}>
-            <Typography className={classNames.typoCell}>
-              {t(TranslationKey.ASIN)}
-
-              {product.asin ? (
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://www.amazon.com/dp/${product.asin}`}
-                  className={classNames.normalizeLink}
-                >
-                  <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
-                </a>
-              ) : (
-                <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-              )}
-            </Typography>
-            {product.asin ? <CopyValue text={product.asin} /> : null}
-          </div>
-
-          <div className={classNames.copyAsin}>
-            <Typography className={classNames.typoCell}>
-              {t(TranslationKey.SKU)}
-              <span className={classNames.typoSpan}>
-                {product.skusByClient.slice()[0]
-                  ? shortSku(product.skusByClient.slice()[0])
-                  : t(TranslationKey.Missing)}
-              </span>
-            </Typography>
-            {product.skusByClient.slice()[0] ? <CopyValue text={product.skusByClient.slice()[0]} /> : null}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-
   const isMasterBox = !(!box.amount || box.amount === 1) && !areSubBoxes
 
   return (
@@ -126,7 +84,12 @@ const WarehouseBodyRowRaw = ({
               <BoxUpdatedAt product={box} />
             </TableCell>
             <TableCell>
-              <ProductCell product={order.product} />
+              <ProductAsinCell
+                image={order?.product?.images?.[0]}
+                amazonTitle={order?.product?.amazonTitle}
+                asin={order?.product?.asin}
+                skusByClient={order?.product?.skusByClient?.[0]}
+              />
             </TableCell>
 
             {orderIndex === 0 && (

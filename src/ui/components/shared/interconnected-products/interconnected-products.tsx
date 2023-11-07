@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
@@ -36,6 +37,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
   return (
     <div className={classNames.root}>
       {isParent ? (
+        // @ts-ignore
         <ParentProductIcon className={classNames.parentVariationIcon} />
       ) : (
         <VariationIcon className={classNames.variationIcon} />

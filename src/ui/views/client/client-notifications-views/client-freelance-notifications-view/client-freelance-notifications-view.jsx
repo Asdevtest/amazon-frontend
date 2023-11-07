@@ -5,7 +5,7 @@ import { withStyles } from 'tss-react/mui'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { ClientFreelanceNotificationsViewModel } from '@views/client/client-notifications-views/client-freelance-notifications-view/client-freelance-notifications-view.model'
 
@@ -25,7 +25,7 @@ export const ClientFreelanceNotificationsViewRaw = props => {
   return (
     <React.Fragment>
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           paginationMode="client"
           localeText={getLocalizationByLanguageTag()}

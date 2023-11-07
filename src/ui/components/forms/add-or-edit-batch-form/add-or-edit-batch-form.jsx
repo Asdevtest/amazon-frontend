@@ -17,8 +17,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -483,7 +483,7 @@ export const AddOrEditBatchForm = observer(
               </Typography>
             </div>
 
-            <MemoDataGrid
+            <CustomDataGrid
               checkboxSelection
               initialState={{
                 sorting: {
@@ -580,7 +580,7 @@ export const AddOrEditBatchForm = observer(
                 {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
               </Typography>
             </div>
-            <MemoDataGrid
+            <CustomDataGrid
               checkboxSelection
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}

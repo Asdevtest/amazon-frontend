@@ -18,7 +18,7 @@ import {
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -202,7 +202,7 @@ export const AccessToProductForm = React.memo(
 
               {selectedShop === shop?._id ? (
                 <div className={classNames.tableWrapper}>
-                  <MemoDataGrid
+                  <CustomDataGrid
                     keepNonExistentRowsSelected
                     checkboxSelection
                     disableRowSelectionOnClick
