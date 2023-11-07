@@ -74,7 +74,7 @@ import {
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { MAX_LENGTH_TITLE } from '@constants/text'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -788,7 +788,7 @@ export const ChangeInputCommentCell = React.memo(
                             setShow(false)
                             setIsEdited(false)
                           }, 2000)
-                          onClickSubmit()
+                          onClickSubmit(value)
                         }}
                       />
                       <ClearIcon

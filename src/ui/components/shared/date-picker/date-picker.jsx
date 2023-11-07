@@ -19,7 +19,7 @@ import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { LanguageKey } from '@constants/translations/language-key'
 import { TranslationKey } from '@constants/translations/translation-key'
 

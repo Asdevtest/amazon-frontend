@@ -258,6 +258,7 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
 
       UserModel.getUserInfo()
+
       await this.getTasksVacant()
     } catch (error) {
       console.log(error)
@@ -267,6 +268,10 @@ export class WarehouseVacantViewModel {
   async updateTaskComment(taskId, priority, reason) {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+
+      UserModel.getUserInfo()
+
+      await this.getTasksVacant()
     } catch (error) {
       console.log(error)
     }

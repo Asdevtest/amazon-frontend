@@ -479,6 +479,7 @@ export class WarehouseMyTasksViewModel {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
 
       UserModel.getUserInfo()
+
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
@@ -488,6 +489,10 @@ export class WarehouseMyTasksViewModel {
   async updateTaskComment(taskId, priority, reason) {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+
+      UserModel.getUserInfo()
+
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
     }

@@ -1,5 +1,5 @@
 import { darkTheme, lightTheme } from '@constants/theme/mui-theme'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
