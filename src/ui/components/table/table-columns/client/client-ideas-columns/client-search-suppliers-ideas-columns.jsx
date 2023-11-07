@@ -9,10 +9,10 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaSupplier,
+  IdeaSupplierCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OnCheckingIdeaActions,
+  OnCheckingIdeaActionsCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
@@ -68,7 +68,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <OnCheckingIdeaActions
+      <OnCheckingIdeaActionsCell
         isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
         onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row.originalData)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
@@ -112,7 +112,10 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
     renderCell: params => (
-      <IdeaSupplier suppliers={params.value} onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)} />
+      <IdeaSupplierCell
+        suppliers={params.value}
+        onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)}
+      />
     ),
     width: 176,
     sortable: false,

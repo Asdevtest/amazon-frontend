@@ -36,7 +36,7 @@ export const UserRoleCodeMapForRoutes: Record<number, string> = {
   60: 'moderator',
 }
 
-export const UserRolePrettyMap = {
+export const UserRolePrettyMap: Record<number, string> = {
   0: 'Admin',
   10: 'Client',
   20: 'Supervisor',
@@ -55,4 +55,4 @@ export const UserRolesForAdminProduct = {
   buyer: 40,
 }
 
-export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)
+export const mapUserRoleEnumToKey: Record<string, number> = objectFlip(UserRoleCodeMap, parseInt)

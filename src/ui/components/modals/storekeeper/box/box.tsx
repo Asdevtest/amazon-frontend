@@ -8,7 +8,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Chip, IconButton, Link } from '@mui/material'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,6 +28,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './box.style'
 
@@ -132,20 +133,14 @@ export const Box: FC<BoxProps> = React.memo(props => {
     }
   }
 
-  const curDestination = destinations.find(el => el._id === box.destinationId)
-  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
-  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const tariffName = currentLogicsTariff?.name
-
-  const tariffRate =
-    // @ts-ignore
-    currentLogicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate ||
-    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    box.destinationId,
+    box.storekeeperId,
+    box.logicsTariffId,
+    box.variationTariffId,
+  )
 
   return (
     <div className={styles.box}>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
@@ -26,7 +26,7 @@ export const AdminWarehouseTasksView = observer(({ history }) => {
   return (
     <React.Fragment>
       <div className={styles.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           sortingMode="server"
           paginationMode="server"

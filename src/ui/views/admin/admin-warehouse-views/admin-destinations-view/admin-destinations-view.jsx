@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -41,7 +41,7 @@ export const AdminDestinationsViewRaw = props => {
       </div>
 
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}

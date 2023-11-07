@@ -24,7 +24,7 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { PlusIcon } from '@components/shared/svg-icons'
@@ -73,7 +73,7 @@ export const ClientIdeasView = observer(props => {
       </div>
 
       <div className={styles.datagridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}

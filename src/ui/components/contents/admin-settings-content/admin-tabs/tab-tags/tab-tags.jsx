@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -50,7 +50,7 @@ export const TabTags = observer(() => {
       </div>
 
       <div className={classNames.datagridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           checkboxSelection
           useResizeContainer
           disableRowSelectionOnClick

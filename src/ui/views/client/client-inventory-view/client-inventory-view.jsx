@@ -30,7 +30,7 @@ import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-s
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { ArchiveIcon } from '@components/shared/svg-icons'
@@ -202,7 +202,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         </div>
 
         <div className={styles.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover }}
@@ -263,8 +263,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
           />
         </div>
       </div>
-
-      {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
 
       <Modal
         openModal={viewModel.showSendOwnProductModal}
@@ -556,6 +554,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         />
       )}
 
+      {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )

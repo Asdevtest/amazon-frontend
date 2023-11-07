@@ -8,7 +8,7 @@ import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
@@ -67,7 +67,7 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
           />
         </div>
         <div className={styles.tableWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick

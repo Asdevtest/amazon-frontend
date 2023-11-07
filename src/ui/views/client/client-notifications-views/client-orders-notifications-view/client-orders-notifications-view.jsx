@@ -6,7 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -26,7 +26,7 @@ export const ClientOrdersNotificationsViewRaw = props => {
   return (
     <React.Fragment>
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}

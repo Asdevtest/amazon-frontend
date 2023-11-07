@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
@@ -73,7 +73,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
           />
         </div>
         <div className={styles.tableWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}

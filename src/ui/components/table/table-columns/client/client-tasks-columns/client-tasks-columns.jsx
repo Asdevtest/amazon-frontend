@@ -93,7 +93,6 @@ export const clientTasksViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    // renderCell: params => <AsinCopyCell asinData={params.value} />,
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
