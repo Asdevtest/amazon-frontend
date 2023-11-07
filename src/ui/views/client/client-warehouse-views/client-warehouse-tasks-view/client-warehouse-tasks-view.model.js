@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,7 +26,6 @@ const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 export class ClientWarehouseTasksViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   tasksMy = []
 
@@ -104,17 +101,14 @@ export class ClientWarehouseTasksViewModel {
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   handleActivePriority(newPriority) {
-    runInAction(() => {
-      this.currentPriority = newPriority
-    })
+    this.currentPriority = newPriority
+
     this.getTasksMy()
   }
 
@@ -127,9 +121,6 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -150,9 +141,8 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getTasksMy()
   }
 
@@ -165,40 +155,30 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   startEditTaskPriority(taskId, newPriority) {
-    runInAction(() => {
-      this.editPriorityData = { taskId, newPriority }
-      this.showEditPriorityData = true
-    })
+    this.editPriorityData = { taskId, newPriority }
+    this.showEditPriorityData = true
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.getTasksMy()
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.getTasksMy()
     this.setDataGridState()
   }
@@ -228,24 +208,18 @@ export class ClientWarehouseTasksViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.getTasksMy()
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBoxes = model
-    })
+    this.selectedBoxes = model
   }
 
   onClickReportBtn() {
@@ -268,7 +242,7 @@ export class ClientWarehouseTasksViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      // this.getDataGridState()
+      this.getDataGridState()
 
       await Promise.all([this.getStorekeepers(), this.getTasksMy()])
 
@@ -317,15 +291,13 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   columnMenuSettings = {
@@ -378,8 +350,6 @@ export class ClientWarehouseTasksViewModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
-
         this.tasksMy = []
       })
     }
@@ -402,9 +372,6 @@ export class ClientWarehouseTasksViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -458,9 +425,7 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   async cancelTask(taskId, comment) {
@@ -470,9 +435,6 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -527,9 +489,6 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -540,9 +499,6 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -553,9 +509,6 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -566,9 +519,6 @@ export class ClientWarehouseTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 }

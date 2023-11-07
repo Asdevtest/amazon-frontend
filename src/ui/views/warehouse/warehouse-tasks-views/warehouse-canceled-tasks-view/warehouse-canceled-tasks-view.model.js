@@ -17,7 +17,6 @@ import { objectToUrlQs } from '@utils/text'
 export class WarehouseCanceledTasksViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   tasksMy = []
   curOpenedTask = {}
@@ -31,11 +30,11 @@ export class WarehouseCanceledTasksViewModel {
 
   selectedTasks = []
 
-  rowCount = 0
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
+
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
@@ -46,16 +45,13 @@ export class WarehouseCanceledTasksViewModel {
   showTaskInfoModal = false
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   setDataGridState() {
@@ -82,55 +78,46 @@ export class WarehouseCanceledTasksViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getTasksMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getTasksMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.setDataGridState()
     this.getTasksMy()
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getTasksMy()
   }
 
   onClickOperationTypeBtn(type) {
-    runInAction(() => {
-      this.curTaskType = type
-    })
+    this.curTaskType = type
+
     this.getTasksMy()
   }
 
   onClickTaskPriorityBtn(type) {
-    runInAction(() => {
-      this.curTaskPriority = type
-    })
+    this.curTaskPriority = type
+
     this.getTasksMy()
   }
 
@@ -139,9 +126,7 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedTasks = model
-    })
+    this.selectedTasks = model
   }
 
   onClickReportBtn() {
@@ -158,9 +143,7 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
@@ -227,8 +210,6 @@ export class WarehouseCanceledTasksViewModel {
       runInAction(() => {
         this.rowCount = result.count
 
-        // this.tasksMyBase = result.rows
-
         this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({ ...el, beforeBoxes: el.boxesBefore })))
       })
 
@@ -236,7 +217,6 @@ export class WarehouseCanceledTasksViewModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.tasksMy = []
       })
       this.setRequestStatus(loadingStatuses.failed)
@@ -244,8 +224,6 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

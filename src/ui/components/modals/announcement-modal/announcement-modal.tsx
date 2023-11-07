@@ -41,7 +41,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal} dialogContextClassName={styles.modalWrapper}>
+    <Modal openModal={isOpenModal} setOpenModal={onOpenModal} dialogClassName={styles.modalWrapper}>
       <div className={styles.header}>
         <p className={styles.mainTitle}>{service.title}</p>
 

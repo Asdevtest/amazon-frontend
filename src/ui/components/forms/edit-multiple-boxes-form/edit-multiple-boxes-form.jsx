@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
-import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
+import { Checkbox, Chip, Typography } from '@mui/material'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -17,14 +17,11 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -99,7 +96,7 @@ export const EditMultipleBoxesForm = observer(
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
-    const onClickBarcode = item => {
+    const onClickBarcode = () => {
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 

@@ -1,7 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -22,20 +21,20 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-vacant-tasks-view.style'
+import { useStyles } from './warehouse-vacant-tasks-view.style'
 
 import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 
-export const WarehouseVacantTasksViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseVacantViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const WarehouseVacantTasksView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseVacantViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const getRowClassName = params =>
-    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
+    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   const isDisableDowloadButton =
     !viewModel.selectedTasks.length ||
@@ -46,7 +45,7 @@ export const WarehouseVacantTasksViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <TaskPrioritySelector
             currentPriority={viewModel.curTaskPriority}
             handleActivePriority={viewModel.onClickTaskPriorityBtn}
@@ -56,7 +55,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             <Button
               variant="contained"
               disabled={!viewModel.selectedTasks.length}
-              className={classNames.pickupOrdersButton}
+              className={styles.pickupOrdersButton}
               onClick={viewModel.onClickPickupManyTasksBtn}
             >
               {t(TranslationKey['Take on the work of the selected'])}
@@ -65,22 +64,22 @@ export const WarehouseVacantTasksViewRaw = props => {
 
           <Button
             disabled={isDisableDowloadButton}
-            className={classNames.pickupOrdersButton}
+            className={styles.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
             <DownloadIcon
-              className={cx(classNames.downloadIcon, { [classNames.disabledDownloadIcon]: isDisableDowloadButton })}
+              className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisableDowloadButton })}
             />
           </Button>
         </div>
 
-        <div className={classNames.headerWrapper}>
-          <div className={classNames.headerContainer}>
+        <div className={styles.headerWrapper}>
+          <div className={styles.headerContainer}>
             {window.innerWidth > 1281 && (
               <Button
                 disabled={!viewModel.selectedTasks.length}
-                className={classNames.pickupOrdersButton}
+                className={styles.pickupOrdersButton}
                 onClick={viewModel.onClickPickupManyTasksBtn}
               >
                 {t(TranslationKey['Take on the work of the selected'])}
@@ -95,13 +94,13 @@ export const WarehouseVacantTasksViewRaw = props => {
 
           <SearchInput
             value={viewModel.nameSearchValue}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -134,7 +133,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
@@ -182,6 +181,4 @@ export const WarehouseVacantTasksViewRaw = props => {
       )}
     </React.Fragment>
   )
-}
-
-export const WarehouseVacantTasksView = withStyles(observer(WarehouseVacantTasksViewRaw), styles)
+})

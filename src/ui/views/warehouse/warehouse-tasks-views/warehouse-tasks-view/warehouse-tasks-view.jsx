@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
@@ -11,60 +10,55 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-tasks-view.style'
+import { useStyles } from './warehouse-tasks-view.style'
 
 import { WarehouseTasksViewModel } from './warehouse-tasks-view.model'
 
-export const WarehouseTasksViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseTasksViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const WarehouseTasksView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseTasksViewModel({ history }))
 
   return (
     <React.Fragment>
       <div>
         <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Tasks'])}</Typography>
+          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Tasks'])}</Typography>
 
-          <div className={classNames.btnsWrapper}>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickVacantTask}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['New tasks'])}</Typography>
+          <div className={styles.btnsWrapper}>
+            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickVacantTask}>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['New tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickMyTasks}>
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['My tasks'])}</Typography>
+            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickMyTasks}>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['My tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
             <Button
-              className={classNames.button}
+              className={styles.button}
               color="primary"
               variant="outlined"
               onClick={viewModel.onClickCompletedTasks}
             >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Completed tasks'])}</Typography>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['Completed tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
             <Button
-              className={classNames.button}
+              className={styles.button}
               color="primary"
               variant="outlined"
               onClick={viewModel.onClickCanceledTasks}
             >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Canceled tasks'])}</Typography>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['Canceled tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
@@ -73,6 +67,4 @@ export const WarehouseTasksViewRaw = props => {
       </div>
     </React.Fragment>
   )
-}
-
-export const WarehouseTasksView = withStyles(observer(WarehouseTasksViewRaw), styles)
+})

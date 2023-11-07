@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,13 +11,13 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-warehouse-tasks-view.style'
+import { useStyles } from './admin-warehouse-tasks-view.style'
 
 import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 
-export const AdminWarehouseTasksViewRaw = props => {
-  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const AdminWarehouseTasksView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -26,7 +25,7 @@ export const AdminWarehouseTasksViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           sortingMode="server"
@@ -64,7 +63,7 @@ export const AdminWarehouseTasksViewRaw = props => {
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
@@ -82,6 +81,4 @@ export const AdminWarehouseTasksViewRaw = props => {
       </Modal>
     </React.Fragment>
   )
-}
-
-export const AdminWarehouseTasksView = withStyles(observer(AdminWarehouseTasksViewRaw), styles)
+})

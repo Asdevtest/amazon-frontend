@@ -111,7 +111,7 @@ export const ClientIdeasView = observer(props => {
       </div>
 
       <Modal
-        dialogContextClassName={styles.modalDialogContext}
+        dialogClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
