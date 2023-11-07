@@ -36,6 +36,7 @@ interface Props extends PropsWithChildren {
   btnWrapperStyle?: string | ClassNamesArg
   small?: boolean
   defaultButtonTooltip?: string
+  transparent?: boolean
 }
 
 export const Button: FC<Props> = observer(
@@ -54,6 +55,7 @@ export const Button: FC<Props> = observer(
     disabled,
     btnWrapperStyle,
     small,
+    transparent,
     ...restProps
   }) => {
     const { classes: classNames } = useClassNames()
@@ -86,6 +88,7 @@ export const Button: FC<Props> = observer(
                 [classNames.defaultButton]: !success && !danger && !variant,
                 [classNames.disabled]: disabled,
                 [classNames.small]: small,
+                [classNames.transparent]: transparent,
               },
               className,
             ),

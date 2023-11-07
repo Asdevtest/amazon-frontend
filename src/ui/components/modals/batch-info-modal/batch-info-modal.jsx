@@ -346,15 +346,6 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
-            <div className={classNames.boxCounterWrapper}>
-              <Typography className={classNames.boxCounterText}>
-                {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-              </Typography>
-              <Typography className={classNames.boxCounterCount}>
-                {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
-              </Typography>
-            </div>
-
             <MemoDataGrid
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
@@ -376,6 +367,16 @@ export const BatchInfoModal = observer(
                     columnVisibilityModel: viewModel.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
+                  children: (
+                    <div className={classNames.boxCounterWrapper}>
+                      <Typography className={classNames.boxCounterText}>
+                        {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                      </Typography>
+                      <Typography className={classNames.boxCounterCount}>
+                        {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
+                      </Typography>
+                    </div>
+                  ),
                 },
               }}
               getRowId={dataToRender => dataToRender._id}
@@ -385,6 +386,7 @@ export const BatchInfoModal = observer(
                 isActualGreaterTheVolume,
                 currentBatch.actualShippingCost,
                 currentBatch.finalWeight,
+                currentBatch.status,
               )}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}

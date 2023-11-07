@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useMemo } from 'react'
-
+import { BatchStatus } from '@constants/statuses/batch-status'
 import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,8 +14,9 @@ import {
   PricePerUnitCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
 
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchInfoModalColumn = (
@@ -26,6 +25,7 @@ export const batchInfoModalColumn = (
   isActualGreaterTheVolume,
   actualShippingCost,
   finalWeight,
+  status,
 ) => [
   {
     field: 'boxes',
@@ -70,7 +70,27 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
+    renderCell: params => {
+      const isTooltip = status === BatchStatus.HAS_DISPATCHED && params.row.lastRateTariff === 0
+
+      return (
+        <Button
+          disabled
+          transparent
+          tooltipAttentionContent={
+            isTooltip
+              ? t(
+                  TranslationKey[
+                    'This rate may have an irrelevant value as the rate may have been changed after shipment.'
+                  ],
+                )
+              : ''
+          }
+        >
+          <MultilineTextCell threeLines maxLength={80} text={getNewTariffTextForBoxOrOrder(params.row)} />
+        </Button>
+      )
+    },
     width: 200,
   },
 
