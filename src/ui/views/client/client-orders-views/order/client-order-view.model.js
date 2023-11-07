@@ -81,34 +81,41 @@ export class ClientOrderViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async updateOrderId(orderId) {
-    runInAction(() => {
-      this.orderId = orderId
-    })
-
-    try {
-      await Promise.all([this.getOrderById(), this.getBoxesOfOrder(this.orderId)])
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const [destinations, storekeepers] = await Promise.all([
-        ClientModel.getDestinations(),
-        StorekeeperModel.getStorekeepers(),
-        this.getVolumeWeightCoefficient(),
-      ])
-
-      runInAction(() => {
-        this.destinations = destinations
-        this.storekeepers = storekeepers
-      })
+      await this.getStorekeepers()
+      await this.getDestinations()
+      this.getVolumeWeightCoefficient()
+      await this.getOrderById()
+      this.getBoxesOfOrder(this.orderId)
 
       this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getDestinations() {
+    try {
+      const destinations = await ClientModel.getDestinations()
+      runInAction(() => {
+        this.destinations = destinations
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+      runInAction(() => {
+        this.storekeepers = storekeepers
+      })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -139,18 +146,6 @@ export class ClientOrderViewModel {
       }
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
       })
     } catch (error) {
       console.log(error)

@@ -516,7 +516,7 @@ export class ClientInventoryViewModel {
       const result = await ClientModel.getProductPermissionsData({ isChild: false })
 
       runInAction(() => {
-        this.productsToLaunch = result
+        this.productsToLaunch = result.rows
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

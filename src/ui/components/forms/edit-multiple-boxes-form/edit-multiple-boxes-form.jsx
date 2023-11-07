@@ -28,6 +28,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+
 import { useClassNames } from './edit-multiple-boxes-form.style'
 
 import { NewBoxes } from './new-boxes/new-boxes'
@@ -300,22 +302,13 @@ export const EditMultipleBoxesForm = observer(
       onSubmit(newBoxes, selectedBoxes)
     }
 
-    const curDestination = destinations.find(el => el._id === sharedFields.destinationId)
-
-    const firstNumOfCode = curDestination?.zipCode[0]
-
-    const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-    const currentStorekeeper = storekeepers.find(el => el._id === sharedFields.storekeeperId)
-    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)
-
-    const tariffName = currentLogicsTariff?.name
-
-    const tariffRate = toFixed(
-      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-        currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)
-          ?.pricePerKgUsd,
-      2,
+    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+      destinations,
+      storekeepers,
+      sharedFields.destinationId,
+      sharedFields.storekeeperId,
+      sharedFields.logicsTariffId,
+      sharedFields.variationTariffId,
     )
 
     const disabledSubmitBtn =
@@ -360,10 +353,8 @@ export const EditMultipleBoxesForm = observer(
                       }
                       data={
                         sharedFields.variationTariffId &&
-                        currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                          ? destinations
-                              // .filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
-                              .filter(el => el?._id === destinationId)
+                        currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                          ? destinations.filter(el => el?._id === destinationId)
                           : destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
                       }
                       searchFields={['name']}
