@@ -225,7 +225,7 @@ export class ClientInventoryViewModel {
     () => this.columnMenuSettings,
     () => this.onHover,
   )
-  paginationModel = { page: 0, pageSize: 100 }
+  paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
   get userInfo() {

@@ -17,7 +17,7 @@ interface ChangeInputCellProps {
   disabled?: boolean
   isInts?: boolean
   maxLength?: number
-  checkValue: (value: string | undefined) => boolean
+  checkValue: (value: string | undefined | boolean | number) => boolean
   onClickSubmit: (rowId: string, value: string | undefined) => void
 }
 

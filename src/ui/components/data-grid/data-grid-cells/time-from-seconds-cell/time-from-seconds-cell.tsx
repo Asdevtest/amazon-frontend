@@ -1,0 +1,47 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React, { CSSProperties, FC } from 'react'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { secondsToTime } from '@utils/text'
+import { t } from '@utils/translations'
+
+import { useDataGridCellStyles } from './time-from-seconds-cell.style'
+
+import { MultilineTextCell } from '../data-grid-cells'
+
+interface TimeFromSecondsCellProps {
+  seconds: number
+  color?: CSSProperties
+}
+
+export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = React.memo(({ seconds, color }) => {
+  const { classes: styles } = useDataGridCellStyles()
+
+  const time = secondsToTime(seconds)
+
+  return seconds >= 60 ? (
+    // @ts-ignore
+    <div className={styles.secondsTimeWrapper} style={color && { color }}>
+      {time.days > 0 && (
+        <p>
+          {time.days} {t(TranslationKey.days)}
+        </p>
+      )}
+
+      {time.hours > 0 && (
+        <p>
+          {time.hours} {t(TranslationKey.hour)}
+        </p>
+      )}
+
+      {time.minutes > 0 && (
+        <p>
+          {time.minutes} {t(TranslationKey.minute)}
+        </p>
+      )}
+    </div>
+  ) : (
+    <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
+  )
+})

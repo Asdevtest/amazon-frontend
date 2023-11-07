@@ -103,6 +103,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
         // @ts-ignore
         id={params.row._id}
         comment={params?.row?.note?.comment}
+        // @ts-ignore
         handler={handlers.onClickSaveComment}
       />
     ),

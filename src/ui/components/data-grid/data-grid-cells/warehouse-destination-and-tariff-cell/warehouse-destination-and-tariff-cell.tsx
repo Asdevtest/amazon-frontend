@@ -13,13 +13,13 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { DestinationType } from '@typings/destination'
+import { IDestination } from '@typings/destination'
 
 import { useDataGridCellStyles } from './warehouse-destination-and-tariff-cell.style'
 
 interface WarehouseDestinationAndTariffCellProps {
   boxesMy: any
-  destinations: DestinationType[]
+  destinations: IDestination[]
   destinationsFavourites: any[]
   setDestinationsFavouritesItem: any
   storekeepers: any[]
@@ -61,6 +61,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
     <div className={styles.destinationAndTariffWrapper}>
       {/* @ts-ignore */}
       <WithSearchSelect
+        // @ts-ignore
         disabled={disabled}
         width={160}
         selectedItemName={
@@ -85,7 +86,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
         disableElevation
         disabled={disabled}
         className={styles.storekeeperBtn}
-        onClick={e => {
+        onClick={(e: any) => {
           e.stopPropagation()
           onClickSetTariff(boxesMy)
           setShowSelectionStorekeeperAndTariffModal()

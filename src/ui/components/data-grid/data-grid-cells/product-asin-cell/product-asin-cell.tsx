@@ -7,12 +7,12 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { useDataGridCellStyles } from './product-asin-cell.style'
 
 interface ProductAsinCellProps {
-  image: string
   amazonTitle: string
   asin: string
   skusByClient?: string
   withoutImage?: boolean
   withoutSku?: boolean
+  image?: string
 }
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {

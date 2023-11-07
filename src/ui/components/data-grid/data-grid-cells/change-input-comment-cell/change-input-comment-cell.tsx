@@ -14,7 +14,7 @@ import { useDataGridCellStyles } from './change-input-comment-cell.style'
 
 interface ChangeInputCommentCellProps {
   onClickSubmit: () => void
-  onChangeText: (fieldName: string) => (value: string) => void
+  onChangeText?: (fieldName: string) => (value: string) => void
   text: string
   disabled?: boolean
   maxLength?: number

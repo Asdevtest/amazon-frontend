@@ -17,7 +17,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  FreelancerMyProposalsActions,
+  FreelancerMyProposalsActionsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OrderCell,
@@ -41,7 +41,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey.Priority),
     renderHeader: () => (
       <MultilineTextHeaderCell
-        // @ts-ignore
         textCenter
         component={<img src="/assets/icons/bookmark.svg" />}
         // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
@@ -53,7 +52,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       <PriorityAndChinaDeliverCell
         // @ts-ignore
         isRequest
-        priority={params.value}
+        priority={Number(params.value)}
         onClickOpenInNewTab={() => handlers.onClickOpenButton(params.row?.originalData?.request?._id)}
       />
     ),
@@ -233,7 +232,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: (params: GridCellParams) => (
-      <FreelancerMyProposalsActions
+      <FreelancerMyProposalsActionsCell
         // @ts-ignore
         status={params.row.originalData.status}
         onClickDeleteButton={() =>

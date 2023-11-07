@@ -12,7 +12,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NotificationMessage,
+  NotificationMessageCell,
   ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
@@ -90,7 +90,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
       const notification = params?.row?.data?.[0] || params?.row?.data
 
       return (
-        <NotificationMessage
+        <NotificationMessageCell
           // @ts-ignore
           notificationType={params?.row?.type}
           notification={notification}
