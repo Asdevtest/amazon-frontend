@@ -1,5 +1,5 @@
 export const styles = theme => ({
-  dialogContextClassName: {
+  dialogClassName: {
     width: '1200px',
   },
 

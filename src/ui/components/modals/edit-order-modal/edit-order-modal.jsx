@@ -1028,7 +1028,7 @@ export const EditOrderModal = observer(
         <Modal
           openModal={collapseCreateOrEditBoxBlock}
           setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          dialogContextClassName={classNames.dialogContextClassName}
+          dialogClassName={classNames.dialogClassName}
         >
           <CreateBoxForm
             isEdit={isEdit}

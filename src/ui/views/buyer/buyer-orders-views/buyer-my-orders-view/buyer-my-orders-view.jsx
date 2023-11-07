@@ -165,7 +165,7 @@ export const BuyerMyOrdersViewRaw = props => {
           viewModel.setUpdateSupplierData(false)
           viewModel.onTriggerOpenModal('showOrderModal')
         }}
-        dialogContextClassName={classNames.dialogContextClassName}
+        dialogClassName={classNames.dialogClassName}
       >
         <EditOrderModal
           platformSettings={viewModel.platformSettings}

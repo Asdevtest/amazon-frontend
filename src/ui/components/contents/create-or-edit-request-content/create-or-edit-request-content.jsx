@@ -1285,7 +1285,7 @@ export const CreateOrEditRequestContent = observer(
         <Modal
           openModal={showCheckRequestByTypeExists}
           setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-          dialogContextClassName={classNames.dialogContextClassName}
+          dialogClassName={classNames.dialogClassName}
         >
           <CheckRequestByTypeExists
             requestsData={requestIds}

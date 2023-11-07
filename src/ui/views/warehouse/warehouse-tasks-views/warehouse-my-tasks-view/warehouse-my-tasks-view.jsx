@@ -124,7 +124,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
 
       <Modal
         missClickModalOn
-        dialogContextClassName={styles.resolveTaskModalContent}
+        dialogClassName={styles.resolveTaskModalContent}
         openModal={viewModel.showEditTaskModal}
         setOpenModal={viewModel.onTriggerEditTaskModal}
       >

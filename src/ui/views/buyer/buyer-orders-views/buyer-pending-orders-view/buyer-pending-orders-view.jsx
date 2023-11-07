@@ -84,7 +84,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         missClickModalOn
         openModal={viewModel.showOrderModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
-        dialogContextClassName={classNames.dialogContextClassName}
+        dialogClassName={classNames.dialogClassName}
       >
         <EditOrderModal
           isPendingOrder
