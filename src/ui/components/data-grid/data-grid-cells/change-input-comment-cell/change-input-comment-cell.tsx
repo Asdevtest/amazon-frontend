@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 import { useDataGridCellStyles } from './change-input-comment-cell.style'
 
 interface ChangeInputCommentCellProps {
-  onClickSubmit: () => void
+  onClickSubmit: (value: string) => void
   onChangeText?: (fieldName: string) => (value: string) => void
   text: string
   disabled?: boolean
@@ -61,7 +61,7 @@ export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = React.mem
                         setShow(false)
                         setIsEdited(false)
                       }, 2000)
-                      onClickSubmit()
+                      onClickSubmit(value)
                     }}
                   />
                   <ClearIcon

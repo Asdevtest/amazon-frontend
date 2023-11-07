@@ -228,8 +228,8 @@ export class ClientInStockBoxesViewModel {
 
   rowCount = 0
   sortModel = []
-  filterModel = { items: [] }
 
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
     this.rowHandlers,
@@ -272,27 +272,21 @@ export class ClientInStockBoxesViewModel {
   }
 
   constructor({ history }) {
+    this.history = history
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.history = history
+    this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
+    this.nameSearchValue = url.searchParams.get('search-text')
 
-      this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
-      this.nameSearchValue = url.searchParams.get('search-text')
-    })
+    if (history.location.state?.dataGridFilter) {
+      this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
+    }
 
-    runInAction(() => {
-      this.history = history
-    })
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.boxesMy,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
@@ -318,33 +312,25 @@ export class ClientInStockBoxesViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-      // this.paginationModel = { ...model, page: 0 }
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getBoxesMy()
   }
 
   onChangeUnitsOption(option) {
-    runInAction(() => {
-      this.unitsOption = option
-    })
+    this.unitsOption = option
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getBoxesMy()
   }
@@ -382,27 +368,18 @@ export class ClientInStockBoxesViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
-    this.requestStatus = loadingStatuses.isLoading
-    this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
+    this.getBoxesMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBoxes = model
-    })
+    this.selectedBoxes = model
 
     const selectedRows = model.map(id => this.boxesMy.find(row => row.id === id))
 
@@ -418,11 +395,9 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickStorekeeperBtn(currentStorekeeperId) {
-    runInAction(() => {
-      this.selectedBoxes = []
+    this.selectedBoxes = []
 
-      this.currentStorekeeperId = currentStorekeeperId
-    })
+    this.currentStorekeeperId = currentStorekeeperId
 
     this.getBoxesMy()
   }
@@ -485,9 +460,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   setSelectedBox(item) {
-    runInAction(() => {
-      this.selectedBox = item
-    })
+    this.selectedBox = item
   }
 
   onClickShippingLabel(item) {
@@ -497,14 +470,12 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickReturnBoxesToStockBtn() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
-        onClickConfirm: () => this.returnBoxesToStock(),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
+      onClickConfirm: () => this.returnBoxesToStock(),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -540,34 +511,17 @@ export class ClientInStockBoxesViewModel {
   onDoubleClickShippingLabel = item => {
     this.setSelectedBox(item)
 
-    // if (!item.fbaShipment) {
-    //   runInAction(() => {
-    //     this.warningInfoModalSettings = {
-    //       isWarning: true,
-    //       title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-    //     }
-    //   })
-
-    //   this.onTriggerOpenModal('showWarningInfoModal')
-
-    //   this.onTriggerOpenModal('showSetChipValueModal')
-    // }
-
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
 
   onChangeIsFormed(value) {
-    runInAction(() => {
-      // this.isFormed = value
-
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        isFormedData: {
-          ...this.columnMenuSettings.isFormedData,
-          isFormed: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      isFormedData: {
+        ...this.columnMenuSettings.isFormedData,
+        isFormed: value,
+      },
+    }
 
     this.getBoxesMy()
   }
@@ -602,12 +556,11 @@ export class ClientInStockBoxesViewModel {
       !this.selectedBox.fbaShipment &&
       !this.destinations.find(el => el._id === this.selectedBox.destination?._id)?.storekeeper
     ) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-        }
-      })
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+      }
+
       this.onTriggerOpenModal('showWarningInfoModal')
       this.onTriggerOpenModal('showSetChipValueModal')
     }
@@ -708,53 +661,47 @@ export class ClientInStockBoxesViewModel {
   onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-          sourceBox?.storekeeper?.name
-        } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
-        onClickConfirm: () =>
-          this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        sourceBox?.storekeeper?.name
+      } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
+      onClickConfirm: () =>
+        this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
   }
 
   onClickConfirmCreateChangeTasks(id, boxData, sourceData, priority, priorityReason) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage:
-          !boxData.clientTaskComment &&
-          boxData.items.every(item => !item.tmpBarCode.length) &&
-          // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
-          (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
-            ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
-            : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
-                TranslationKey['to change the Box'],
-              )} № ${boxData?.humanFriendlyId}`,
-        onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage:
+        !boxData.clientTaskComment &&
+        boxData.items.every(item => !item.tmpBarCode.length) &&
+        // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
+          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+          : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
+              TranslationKey['to change the Box'],
+            )} № ${boxData?.humanFriendlyId}`,
+      onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
   }
 
   onClickConfirmCreateMergeTasks(boxBody, comment, priority, priorityReason) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-          this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
-        } ${t(TranslationKey['to merge boxes'])}`,
-        onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
+      } ${t(TranslationKey['to merge boxes'])}`,
+      onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
   }
 
   onClickFbaShipment(item) {
@@ -802,21 +749,17 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickRemoveBoxFromBatch(boxId) {
-    runInAction(() => {
-      this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
-    })
+    this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   async onClickSavePrepId(itemId, value) {
@@ -836,9 +779,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickDestinationBtn(curDestinationId) {
-    runInAction(() => {
-      this.curDestinationId = curDestinationId
-    })
+    this.curDestinationId = curDestinationId
 
     this.requestStatus = loadingStatuses.isLoading
     this.getBoxesMy().then(() => {
@@ -913,15 +854,11 @@ export class ClientInStockBoxesViewModel {
   }
 
   onModalRedistributeBoxAddNewBox(value) {
-    runInAction(() => {
-      this.modalRedistributeBoxAddNewBox = value
-    })
+    this.modalRedistributeBoxAddNewBox = value
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.requestStatus = loadingStatuses.isLoading
     this.getBoxesMy().then(() => {
@@ -1111,9 +1048,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onRemoveBoxFromSelected(boxId) {
-    runInAction(() => {
-      this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
-    })
+    this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
 
     if (this.selectedBoxes.length < 2) {
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -1659,9 +1594,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   async onClickCurrentTariffsBtn() {
@@ -1729,32 +1662,28 @@ export class ClientInStockBoxesViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getBoxesMy()
     this.getDataGridState()
@@ -1964,9 +1893,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   triggerRequestToSendBatchModal() {
-    runInAction(() => {
-      this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
-    })
+    this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
   }
 
   async updateTaskPriority(taskId, priority, reason) {
