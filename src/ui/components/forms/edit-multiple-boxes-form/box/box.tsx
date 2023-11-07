@@ -8,7 +8,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Checkbox, Chip, IconButton } from '@mui/material'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,10 +24,12 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed, trimBarcode } from '@utils/text'
+import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './box.style'
 
@@ -209,24 +210,20 @@ export const Box: FC<BoxProps> = React.memo(props => {
   }
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
-
   const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
   const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const tariffName = currentLogicsTariff?.name
 
   const selectedVariationTariff = currentLogicsTariff?.destinationVariations?.find(
     el => el._id === box?.variationTariffId,
   )
 
-  const tariffRate = toFixed(
-    // @ts-ignore
-    currentLogicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || selectedVariationTariff?.pricePerKgUsd,
-    2,
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    box.destinationId,
+    box.storekeeperId,
+    box.logicsTariffId,
+    box.variationTariffId,
   )
 
   const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id

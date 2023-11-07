@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +19,7 @@ interface AsinOrSkuLinkProps {
   attributeTitleTextStyles?: string
 }
 
-export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
+export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = React.memo(
   ({ asin, sku, withCopyValue, withAttributeTitle, textStyles, attributeTitleTextStyles, missingValueTextStyles }) => {
     const { classes: classNames, cx } = useClassNames()
 

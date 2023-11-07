@@ -8,8 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import {
@@ -79,7 +79,7 @@ export const SupplierApproximateCalculationsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               rows={
                 curStorekeeper.tariffLogistics?.length
                   ? supplierWeightBasedApproximateCalculationsDataConverter(
@@ -98,7 +98,7 @@ export const SupplierApproximateCalculationsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               rows={
                 curStorekeeper.tariffLogistics?.length
                   ? supplierApproximateCalculationsDataConverter(

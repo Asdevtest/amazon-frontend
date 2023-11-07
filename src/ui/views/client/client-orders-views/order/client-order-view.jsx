@@ -19,23 +19,13 @@ import { t } from '@utils/translations'
 
 import { ClientOrderViewModel } from './client-order-view.model'
 
-export const ClientOrderView = observer(({ history, location }) => {
+export const ClientOrderView = observer(({ history }) => {
   const [viewModel] = useState(() => new ClientOrderViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
-
     SettingsModel.changeLastCrumbAdditionalText('')
   }, [])
-
-  useEffect(() => {
-    const queries = new URLSearchParams(location.search)
-    const orderId = queries.get('orderId')
-
-    if (orderId) {
-      viewModel.updateOrderId(orderId)
-    }
-  }, [location.search])
 
   return (
     <React.Fragment>
@@ -71,7 +61,6 @@ export const ClientOrderView = observer(({ history, location }) => {
         <OrderProductModal
           isPendingOrdering
           reorderOrdersData={[viewModel.order]}
-          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}

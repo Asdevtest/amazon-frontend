@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -31,6 +30,8 @@ import { Text } from '@components/shared/text'
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './edit-box-form.style'
 
@@ -225,19 +226,14 @@ export const EditBoxForm = observer(
         !priorityReason?.length) ||
       boxFields.status !== BoxStatus.IN_STOCK
 
-    const curDestination = destinations.find(el => el._id === boxFields.destinationId)
-    const currentStorekeeper = storekeepers.find(el => el._id === boxFields.storekeeperId)
-    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)
-
-    const firstNumOfCode = curDestination?.zipCode[0]
-
-    const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-    const tariffName = currentLogicsTariff?.name
-
-    const tariffRate =
-      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariffId)?.pricePerKgUsd
+    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+      destinations,
+      storekeepers,
+      boxFields.destinationId,
+      boxFields.storekeeperId,
+      boxFields.logicsTariffId,
+      boxFields.variationTariffId,
+    )
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
@@ -474,7 +470,7 @@ export const EditBoxForm = observer(
                           }
                           data={
                             boxFields.logicsTariffId &&
-                            currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                            currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                               ? destinations.filter(
                                   el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
                                 )

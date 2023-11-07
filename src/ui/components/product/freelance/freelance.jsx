@@ -9,8 +9,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -80,7 +80,7 @@ export const Freelance = observer(({ productId, modal }) => {
         />
       </div>
       <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
-        <MemoDataGrid
+        <CustomDataGrid
           localeText={getLocalizationByLanguageTag()}
           propsToRerender={{ onHover }}
           rowCount={rowCount}
