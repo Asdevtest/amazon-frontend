@@ -40,7 +40,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props 
               [styles.orderImageBig]: imageSize === 'big',
             })}
           />
-          <>
+          <div>
             <p className={styles.manyItemsOrderTitle}>{item.product.amazonTitle}</p>
 
             <AsinOrSkuLink withAttributeTitle={'asin'} asin={item.product.asin} />
@@ -58,7 +58,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props 
             {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
               <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
             )}
-          </>
+          </div>
         </div>
       ))}
 

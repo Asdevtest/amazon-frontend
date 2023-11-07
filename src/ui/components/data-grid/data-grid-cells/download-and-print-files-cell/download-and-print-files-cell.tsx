@@ -57,7 +57,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
         {files.map((el: any, index: number) => (
           <div key={index}>
             <p className={styles.dapTitle}>{el.title}</p>
-            {el.fileUrl && (
+            {el?.fileUrl && (
               <Box display="flex" gap="8px" alignItems="center">
                 <Button
                   className={styles.dapBtn}
@@ -66,7 +66,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
                     handleImagePreview(el)
                   }}
                 >
-                  <span>{el.fileName}</span>.{el.fileType}
+                  <span>{el?.fileName}</span>
                 </Button>
 
                 <IconButton
@@ -90,13 +90,13 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
       </Box>
 
       <Box display="none">
-        <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
+        <img ref={imageRef} src={getAmazonImageUrl(selectedImage?.fileUrl)} alt="Printed Image" />
       </Box>
 
       <ImageModal
         isOpenModal={isOpenModal}
         handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
-        imageList={[selectedImage.fileUrl]}
+        imageList={[selectedImage?.fileUrl]}
         currentImageIndex={0}
         handleCurrentImageIndex={() => null}
       />

@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, KeyboardEvent, useEffect, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
-import { Input, InputAdornment } from '@mui/material'
+import { InputAdornment } from '@mui/material'
 
+import { Input } from '@components/shared/input'
 import { SaveIcon } from '@components/shared/svg-icons'
 
 import { checkIsMoreNCharactersAfterDot, checkIsNumberWithDot, checkIsPositiveNum } from '@utils/checks'
@@ -87,7 +90,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = React.memo(props => {
             ) : null}
           </InputAdornment>
         }
-        onChange={e => {
+        onChange={(e: any) => {
           if (isInts) {
             if (
               checkIsPositiveNum(e.target.value) &&
@@ -100,7 +103,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = React.memo(props => {
             setValue(e.target.value)
           }
         }}
-        onKeyDown={e => {
+        onKeyDown={(e: any) => {
           e.stopPropagation()
         }}
         onBlur={() => setIsMyInputFocused(false)}

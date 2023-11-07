@@ -39,7 +39,7 @@ export const OrderCell: FC<OrderCellProps> = React.memo(props => {
           [styles.orderImageSmall]: imageSize === 'small',
         })}
       />
-      <>
+      <div>
         <p className={styles.orderTitle}>{product?.amazonTitle}</p>
 
         <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={product.asin} />
@@ -73,7 +73,7 @@ export const OrderCell: FC<OrderCellProps> = React.memo(props => {
         )}
 
         {error && <span className={styles.OrderCellError}>{error}</span>}
-      </>
+      </div>
     </div>
   )
 })
