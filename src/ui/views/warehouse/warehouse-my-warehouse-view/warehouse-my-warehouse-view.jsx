@@ -20,7 +20,7 @@ import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-box-tasks-modal'
@@ -92,7 +92,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
           <div />
         </div>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}

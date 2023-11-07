@@ -6,7 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { AdminContentModal } from '@components/user/users-views/sub-users-view/admin-content-modal'
@@ -34,40 +34,40 @@ export const AdminUsersViewRaw = ({ classes: classNames, history }) => {
           placeholder={t(TranslationKey.search)}
           onChange={viewModel.onChangeNameSearchValue}
         />
-      </div>
 
-      <div className={classNames.datagridWrapper}>
-        <MemoDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
-          rowHeight={80}
-          rowCount={viewModel.rowCount}
-          rows={viewModel.getCurrentData()}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+        <div className={classNames.datagridWrapper}>
+          <CustomDataGrid
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rowHeight={80}
+            rowCount={viewModel.rowCount}
+            rows={viewModel.getCurrentData()}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
               },
-            },
-          }}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-        />
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </div>
       </div>
 
       <Modal

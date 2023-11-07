@@ -1,0 +1,23 @@
+import React, { FC } from 'react'
+
+import { useDataGridCellStyles } from './orders-ids-items-cell.style'
+
+import { MultilineTextCell } from '../data-grid-cells'
+
+interface OrdersIdsItemsCellProps {
+  value: string
+}
+
+export const OrdersIdsItemsCell: FC<OrdersIdsItemsCellProps> = React.memo(({ value }) => {
+  const { classes: styles } = useDataGridCellStyles()
+  const sortedValue = value?.split('item')
+  const orderIds = sortedValue[0]
+  const ordersItems = 'item' + sortedValue[1]
+
+  return (
+    <div className={styles.orderIdsItemsWrapper}>
+      <MultilineTextCell text={orderIds} />
+      <MultilineTextCell text={ordersItems} />
+    </div>
+  )
+})

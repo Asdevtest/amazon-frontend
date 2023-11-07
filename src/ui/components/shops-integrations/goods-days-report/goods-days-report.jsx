@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -69,7 +69,7 @@ export const GoodsDaysReportRaw = props => {
         </div>
 
         <div className={className.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick

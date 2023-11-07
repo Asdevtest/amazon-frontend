@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -61,7 +61,7 @@ export const WarehouseTariffs = observer(() => {
         </Button>
       </div>
 
-      <MemoDataGrid
+      <CustomDataGrid
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}

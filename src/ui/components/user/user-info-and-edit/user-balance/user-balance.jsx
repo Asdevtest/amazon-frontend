@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/admin-balance-modal'
 
@@ -72,7 +72,7 @@ export const UserBalance = observer(({ userId }) => {
         </Button>
       </div>
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           getRowClassName={getRowClassName}
           sortModel={sortModel}
