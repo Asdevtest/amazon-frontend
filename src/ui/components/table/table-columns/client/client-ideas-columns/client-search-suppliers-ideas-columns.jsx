@@ -162,6 +162,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     },
     width: 120,
     type: 'number',
+    sortable: false,
     filterable: false,
   },
 
@@ -174,6 +175,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 80,
     type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
+    sortable: false,
   },
 
   {
@@ -185,6 +187,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 115,
     type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
+    sortable: false,
   },
 
   {
