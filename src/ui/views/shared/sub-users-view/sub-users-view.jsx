@@ -13,7 +13,7 @@ import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -58,7 +58,7 @@ export const SubUsersViewRaw = props => {
           </div>
         </div>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             disableEnforceFocus
             useResizeContainer
             disableRowSelectionOnClick

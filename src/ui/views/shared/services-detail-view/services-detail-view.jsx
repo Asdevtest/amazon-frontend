@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyServicesInfo } from '@components/my-services/my-services-info'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -43,7 +43,7 @@ export const ServiceDetailsViewRaw = props => {
         />
 
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}

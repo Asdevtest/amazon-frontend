@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, ReactElement, useEffect, useState } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -17,14 +17,13 @@ enum tooltipPositions {
   BaseLine = 'baseLine',
 }
 
-interface Props {
+interface Props extends PropsWithChildren {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner | tooltipPositions.BaseLine
   className?: string
   containerClasses?: string
   style?: {}
-  children?: string
 }
 
 export const Text: FC<Props> = observer(

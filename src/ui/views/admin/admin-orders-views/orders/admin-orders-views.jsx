@@ -5,8 +5,8 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { adminOrdersBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -25,7 +25,7 @@ export const AdminOrdersViews = observer(({ history }) => {
   }, [])
 
   return (
-    <>
+    <div>
       <div className={classNames.searchContainer}>
         <SearchInput
           inputClasses={classNames.searchInput}
@@ -42,7 +42,7 @@ export const AdminOrdersViews = observer(({ history }) => {
         />
       </div>
       <div className={classNames.datagridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
@@ -82,6 +82,6 @@ export const AdminOrdersViews = observer(({ history }) => {
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
-    </>
+    </div>
   )
 })

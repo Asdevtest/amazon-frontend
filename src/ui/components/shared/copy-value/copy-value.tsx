@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
@@ -11,7 +11,7 @@ interface CopyValueProps {
   disabled?: boolean
 }
 
-export const CopyValue: FC<CopyValueProps> = ({ text, disabled }) => {
+export const CopyValue: FC<CopyValueProps> = React.memo(({ text, disabled }) => {
   const { classes: classNames } = useClassNames()
 
   const [copied, setCopied] = useState(false)
@@ -37,4 +37,4 @@ export const CopyValue: FC<CopyValueProps> = ({ text, disabled }) => {
       )}
     </div>
   )
-}
+})

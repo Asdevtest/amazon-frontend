@@ -1,8 +1,8 @@
-import { observer } from 'mobx-react'
+import React from 'react'
 
 import { Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './auth-page-banner.style'
 
-export const AuthPageBanner = observer(() => {
+export const AuthPageBanner = React.memo(() => {
   const { classes: classNames } = useClassNames()
 
   return (

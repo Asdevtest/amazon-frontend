@@ -18,8 +18,8 @@ import { BoxViewForm } from '@components/forms/box-view-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
@@ -355,7 +355,7 @@ export const BatchInfoModal = observer(
               </Typography>
             </div>
 
-            <MemoDataGrid
+            <CustomDataGrid
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
               columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -376,6 +376,16 @@ export const BatchInfoModal = observer(
                     columnVisibilityModel: viewModel.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
+                  children: (
+                    <div className={classNames.boxCounterWrapper}>
+                      <Typography className={classNames.boxCounterText}>
+                        {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                      </Typography>
+                      <Typography className={classNames.boxCounterCount}>
+                        {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
+                      </Typography>
+                    </div>
+                  ),
                 },
               }}
               getRowId={dataToRender => dataToRender._id}
@@ -385,6 +395,7 @@ export const BatchInfoModal = observer(
                 isActualGreaterTheVolume,
                 currentBatch.actualShippingCost,
                 currentBatch.finalWeight,
+                currentBatch.status,
               )}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}

@@ -7,13 +7,7 @@ import { ProductModel } from '@models/product-model'
 
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.styles'
 
-interface Flag {
-  _id: string
-  iconImage: string
-  productCount: number
-  title: string
-  value: number
-}
+import { Flag } from '@typings/flag'
 
 interface RedFlagsProps {
   isEditMode?: boolean

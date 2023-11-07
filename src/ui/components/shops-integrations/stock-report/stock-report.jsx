@@ -13,7 +13,7 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
@@ -104,7 +104,7 @@ export const StockReportRaw = props => {
       </div>
 
       <div className={className.dataGridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick

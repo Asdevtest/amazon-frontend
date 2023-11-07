@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react'
 import { Chip, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -31,6 +30,8 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeepe
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './merge-boxes-modal.style'
 
@@ -215,20 +216,14 @@ export const MergeBoxesModal = ({
     !boxBody.heightCmWarehouse ||
     !boxBody.weighGrossKgWarehouse
 
-  const curDestination = destinations.find(el => el._id === boxBody.destinationId)
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const currentStorekeeper = storekeepers.find(el => el._id === boxBody.storekeeperId)
-  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)
-
-  const tariffName = currentLogicsTariff?.name
-
-  const tariffRate =
-    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-    currentLogicsTariff?.destinationVariations?.find(el => el._id === boxBody?.variationTariffId)?.pricePerKgUsd
+  const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    boxBody.destinationId,
+    boxBody.storekeeperId,
+    boxBody.logicsTariffId,
+    boxBody.variationTariffId,
+  )
 
   const boxData = selectedBoxes.map(box => box.items)
 
@@ -346,8 +341,7 @@ export const MergeBoxesModal = ({
                       t(TranslationKey['Not chosen'])
                     }
                     data={
-                      boxBody.logicsTariffId &&
-                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                      boxBody.logicsTariffId && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                         ? destinations.filter(
                             el => el?._id === (destinationId || selectedBoxes[0]?.variationTariff?.destinationId),
                           )
