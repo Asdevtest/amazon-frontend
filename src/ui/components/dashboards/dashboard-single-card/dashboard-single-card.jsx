@@ -1,28 +1,25 @@
-import { observer } from 'mobx-react'
+import { memo } from 'react'
 
-import { CircularProgress, Typography } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {t} from '@utils/translations'
-import { useClassNames } from './dashboard-single-card.style'
+import { useStyles } from './dashboard-single-card.style'
 
-export const DashboardSingleCard = observer(({ item, valuesData, onClickViewMore }) => {
-  const { classes: classNames } = useClassNames()
+export const DashboardSingleCard = memo(({ item, valuesData, onClickViewMore }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route)}>
-      <div className={classNames.imagesWrapper}>
+    <div className={styles.cardWrapper} onClick={() => onClickViewMore(item.route)}>
+      <div className={styles.imagesWrapper}>
         <img src="/assets/img/box.png" />
         <img src={item.icon} />
         <img src={item.subIcon} />
       </div>
-      <div className={classNames.textWrapper}>
-        {/* cardValueTitle */}
-        <Typography className={classNames.cardTitle}>{item.title}</Typography>
+      <div className={styles.textWrapper}>
+        <p className={styles.cardTitle}>{item.title}</p>
         {valuesData[item.dataKey] === 0 || valuesData[item.dataKey] === '-' || !valuesData[item.dataKey] ? (
-          <Typography className={classNames.cardValueTitle}>{0}</Typography>
+          <p className={styles.cardValueTitle}>{0}</p>
         ) : valuesData[item.dataKey] ? (
-          <Typography className={classNames.cardValueTitle}>{valuesData[item.dataKey]}</Typography>
+          <p className={styles.cardValueTitle}>{valuesData[item.dataKey]}</p>
         ) : (
           <CircularProgress color="primary" thickness={2} />
         )}
