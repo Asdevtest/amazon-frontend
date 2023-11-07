@@ -2,7 +2,7 @@ import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  BoxesAndQuantity,
+  BoxesAndQuantityCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormalActionBtnCell,
@@ -63,7 +63,7 @@ export const productInTransferColumns = handlers => [
       <MultilineTextHeaderCell text={t(TranslationKey['Boxes and the quantity of the selected product in them'])} />
     ),
 
-    renderCell: params => <BoxesAndQuantity boxesData={params?.row} />,
+    renderCell: params => <BoxesAndQuantityCell boxesData={params?.row} />,
     width: 154,
   },
 

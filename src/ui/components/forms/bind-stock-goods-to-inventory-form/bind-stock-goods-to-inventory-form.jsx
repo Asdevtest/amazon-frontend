@@ -9,7 +9,7 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -150,7 +150,7 @@ export const BindStockGoodsToInventoryForm = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               rows={toJS(inventoryData)}
               columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
@@ -162,7 +162,7 @@ export const BindStockGoodsToInventoryForm = observer(
           </Typography>
 
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
+            <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
           </div>
 
           <div className={classNames.btnsWrapper}>

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
@@ -19,10 +21,10 @@ export const SelectProductButton = (props: {
   return (
     <Button variant="text" className={classNames.button} onClick={onClickCustomButton}>
       <SelectProductAsinCellWithourTitle
+        // @ts-ignore
         preventDefault
         product={data}
         withCheckbox={checkbox}
-        // checkboxChecked={selectedAsins?.some(asin => asin?._id === el?._id)}
         onClickCheckbox={onClickCustomButton}
       />
     </Button>

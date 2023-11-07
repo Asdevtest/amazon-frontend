@@ -4,9 +4,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
+  RenderFieldValueCell,
   SmallRowImageCell,
   TrashCell,
-  renderFieldValueCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -67,7 +67,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => RenderFieldValueCell(params.value),
     width: 120,
   },
 

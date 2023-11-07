@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import { observer } from 'mobx-react'
-import { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -31,15 +32,16 @@ interface Props extends PropsWithChildren {
   border?: boolean
   className?: string
   disabled?: boolean
-  onClick?: () => void
+  onClick?: (target?: any) => void
   disableElevation?: boolean
   btnWrapperStyle?: string | ClassNamesArg
   small?: boolean
   defaultButtonTooltip?: string
+  startIcon?: ReactElement
   transparent?: boolean
 }
 
-export const Button: FC<Props> = observer(
+export const Button: FC<Props> = React.memo(
   ({
     defaultButtonTooltip,
     tooltipAttentionContent,
@@ -108,12 +110,6 @@ export const Button: FC<Props> = observer(
                 onClose={() => setOpenAttentionTooltip(false)}
                 onOpen={() => setOpenAttentionTooltip(true)}
               >
-                {/* <img
-                  className={classNames.tooltip}
-                  src="/assets/icons/attention.svg"
-                  onClick={() => setOpenAttentionTooltip(true)}
-                /> */}
-
                 <div>
                   <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
                 </div>

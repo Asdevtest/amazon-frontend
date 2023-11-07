@@ -239,7 +239,7 @@ export class ClientProductViewModel {
       const result = await ClientModel.getProductPermissionsData(
         option === ProductVariation.PARENT
           ? { isChild: false }
-          : { isChild: false, isParent: false, shopId: this.product?.shopIds?.[0] || null },
+          : { isChild: false, isParent: false, shopId: this.product?.shopIds?.[0] },
       )
       runInAction(() => {
         this.productsToBind = result.rows

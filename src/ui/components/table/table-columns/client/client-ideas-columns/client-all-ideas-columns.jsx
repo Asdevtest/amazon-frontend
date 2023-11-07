@@ -3,13 +3,13 @@ import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@const
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AllIdeasActions,
+  AllIdeasActionsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
-  TimeFromSeconds,
+  TimeFromSecondsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -141,7 +141,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => <AllIdeasActions row={params.row} rowHandlers={rowHandlers} />,
+    renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
     width: 300,
     sortable: false,
     filterable: false,
@@ -163,7 +163,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.New),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 91,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -173,7 +173,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['On checking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 105,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -183,7 +183,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Supplier search']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 110,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -193,7 +193,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Supplier found']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 120,
 
     columnKey: columnnsKeys.shared.DATE_DETAILS,
@@ -204,7 +204,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Card creating']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Card creating'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 100,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -214,7 +214,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Adding ASIN']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Adding ASIN'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 106,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -224,7 +224,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Verifying),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Verifying)} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 105,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   }, */
@@ -234,7 +234,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Elapsed time']),
     renderHeader: () => <MultilineTextHeaderCell color="#0B903E" text={t(TranslationKey['Elapsed time'])} />,
 
-    renderCell: params => <TimeFromSeconds color="#0B903E" seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell color="#0B903E" seconds={params.value} />,
 
     width: 120,
 

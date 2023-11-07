@@ -499,15 +499,12 @@ export class ClientInventoryViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
       await this.getShops()
       await this.getProductsMy()
 
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -519,7 +516,7 @@ export class ClientInventoryViewModel {
       const result = await ClientModel.getProductPermissionsData({ isChild: false })
 
       runInAction(() => {
-        this.productsToLaunch = result
+        this.productsToLaunch = result.rows
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

@@ -9,8 +9,8 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { ArchiveIcon } from '@components/shared/svg-icons'
@@ -79,7 +79,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
         </div>
 
         <div className={styles.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick

@@ -10,7 +10,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -61,7 +61,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
 
   return (
     <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
-      <MemoDataGrid
+      <CustomDataGrid
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}

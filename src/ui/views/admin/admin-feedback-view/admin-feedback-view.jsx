@@ -5,7 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -36,7 +36,7 @@ export const AdminFeedbackView = observer(({ history }) => {
       </div>
 
       <div className={styles.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           sortingMode="client"
           paginationMode="client"

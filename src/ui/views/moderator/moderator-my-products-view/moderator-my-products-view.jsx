@@ -14,7 +14,7 @@ export const ModeratorMyProductsViewRaw = props => {
     <React.Fragment>
       <div>
         <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
-        {/* <MemoDataGrid
+        {/* <CustomDataGrid
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}
                 getRowClassName={getRowClassName}
