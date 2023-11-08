@@ -232,6 +232,11 @@ class SettingsModelStatic {
       this.snackNotifications = { ...this.snackNotifications, [key]: notice }
     })
   }
+
+  setAuthorizationData(accessToken, refreshToken) {
+    const userModel = this.loadValue('UserModel')
+    this.saveValue('UserModel', { ...userModel, accessToken, refreshToken })
+  }
 }
 
 export const SettingsModel = new SettingsModelStatic()

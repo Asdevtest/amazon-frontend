@@ -25,14 +25,8 @@ class UserModelStatic {
     makePersistable(this, { name: stateModelName, properties: persistProperties }).then(persistStore => {
       runInAction(() => {
         this.isHydrated = persistStore.isHydrated
-        if (this.accessToken) {
-          restApiService.setAccessToken(this.accessToken)
-
-          // this.getUserInfo()
-        }
       })
     })
-    restApiService.setAccessToken(this.accessToken)
   }
 
   isAuthenticated() {
@@ -45,32 +39,30 @@ class UserModelStatic {
     this.userInfo = undefined
     this.userId = undefined
     this.masterUserId = undefined
-    restApiService.removeAccessToken()
+    SettingsModel.setAuthorizationData(undefined, undefined)
 
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)
   }
 
   async signIn(email, password) {
-    await restApiService.userApi
-      .apiV1UsersSignInPost({
-        body: {
-          email,
-          password,
-        },
-      })
-      .then(responseData => {
-        const response = responseData.data
-        const accessToken = response.accessToken
-        const refreshToken = response.refreshToken
-        runInAction(() => {
-          this.accessToken = accessToken
-          this.refreshToken = refreshToken
-        })
-        restApiService.setAccessToken(accessToken)
+    const result = await restApiService.userApi.apiV1UsersSignInPost({
+      body: {
+        email,
+        password,
+      },
+    })
 
-        return accessToken
-      })
+    const response = result.data
+    const accessToken = response.accessToken
+    const refreshToken = response.refreshToken
+
+    runInAction(() => {
+      this.accessToken = accessToken
+      this.refreshToken = refreshToken
+    })
+
+    SettingsModel.setAuthorizationData(accessToken, refreshToken)
   }
 
   async signUp({ name, email, password }) {
