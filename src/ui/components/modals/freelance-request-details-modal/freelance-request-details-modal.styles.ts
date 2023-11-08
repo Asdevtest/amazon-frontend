@@ -7,7 +7,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
 
   wrapper: {
     height: '100%',
-    maxHeight: '884px',
     overflowY: 'hidden',
   },
 
