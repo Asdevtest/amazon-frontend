@@ -7,6 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 801,
     width: 1692,
     gap: 20,
+    padding: 20,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',

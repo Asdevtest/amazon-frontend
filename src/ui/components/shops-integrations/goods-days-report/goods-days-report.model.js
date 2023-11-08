@@ -17,7 +17,6 @@ import { t } from '@utils/translations'
 export class GoodsDaysReportModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   currentShop = undefined
 
@@ -84,16 +83,13 @@ export class GoodsDaysReportModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
@@ -142,7 +138,6 @@ export class GoodsDaysReportModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -150,7 +145,8 @@ export class GoodsDaysReportModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.all([this.getShops(), this.getMyDailyReportsLast30Days()])
+      this.getShops()
+      this.getMyDailyReportsLast30Days()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -174,7 +170,6 @@ export class GoodsDaysReportModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -186,7 +181,9 @@ export class GoodsDaysReportModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.successModalText = t(TranslationKey['Row deleted'])
+      runInAction(() => {
+        this.successModalText = t(TranslationKey['Row deleted'])
+      })
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)

@@ -2,7 +2,7 @@ import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
+import { Checkbox, Divider, Grid, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -393,7 +393,7 @@ export const AddOrEditSupplierModalContent = observer(
         !boxPropertiesIsFullAndMainsValues)
 
     return (
-      <Container disableGutters className={classNames.modalContainer}>
+      <div className={classNames.modalContainer}>
         {onlyRead ? (
           <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
         ) : (
@@ -926,7 +926,7 @@ export const AddOrEditSupplierModalContent = observer(
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>
-      </Container>
+      </div>
     )
   },
 )

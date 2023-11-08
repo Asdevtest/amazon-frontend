@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { useState } from 'react'
 
-import { Container, Link, Typography } from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,7 +22,7 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
   const [images, setImages] = useState('')
 
   return (
-    <Container disableGutters className={classNames.root}>
+    <div className={classNames.root}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Adding a list of suppliers'])}</Typography>
       <div className={classNames.linkWrapper}>
         <Typography>{t(TranslationKey['For easier completion'])}</Typography>
@@ -50,6 +50,6 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
       {showProgress && (
         <CircularProgressWithLabel value={progressValue} title={`${t(TranslationKey['Loading data'])}...`} />
       )}
-    </Container>
+    </div>
   )
 }

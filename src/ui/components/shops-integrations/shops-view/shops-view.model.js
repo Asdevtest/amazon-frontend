@@ -17,7 +17,6 @@ import { t } from '@utils/translations'
 export class ShopsViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   tabsValues = undefined
   onChangeTabIndex = undefined
@@ -123,18 +122,15 @@ export class ShopsViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -174,9 +170,10 @@ export class ShopsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
+
       await this.getShops()
 
-      this.getDataGridState()
       this.selectedShopFilters = this.shopsData
 
       this.setRequestStatus(loadingStatuses.success)
@@ -198,7 +195,6 @@ export class ShopsViewModel {
       }
     } catch (error) {
       console.log(error)
-      this.error = error
 
       this.shopsData = []
     }
@@ -211,19 +207,23 @@ export class ShopsViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey.Updated),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey.Updated),
+        }
+      })
+
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
-      this.error = error
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey.Error),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey.Error),
+        }
+      })
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -232,12 +232,13 @@ export class ShopsViewModel {
   async removeShopById() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       await ShopModel.removeShopById(this.selectedShop._id)
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
     }
   }
 
@@ -246,14 +247,14 @@ export class ShopsViewModel {
       await this.removeShopById()
 
       this.loadData()
+
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
-  async onSubmitShopForm(data, shopId) {
+  onSubmitShopForm(data, shopId) {
     this.confirmModalSettings = {
       isWarning: true,
       title: t(TranslationKey.Attention),
@@ -264,25 +265,32 @@ export class ShopsViewModel {
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
+
   async createShop(data, shopId) {
     try {
       if (shopId) {
         await ShopModel.editShop(shopId, data)
 
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Store changed']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Store changed']),
+          }
+        })
+
         this.onTriggerOpenModal('showWarningModal')
       } else {
         await ShopModel.createShop(data)
 
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Store created']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Store created']),
+          }
+        })
         this.onTriggerOpenModal('showWarningModal')
       }
 
@@ -290,12 +298,13 @@ export class ShopsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: error.body.message,
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: error.body.message,
+        }
+      })
       this.onTriggerOpenModal('showWarningModal')
     }
   }
