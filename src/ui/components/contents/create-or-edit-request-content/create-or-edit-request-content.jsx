@@ -485,6 +485,7 @@ export const CreateOrEditRequestContent = observer(
                             (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
                             t(TranslationKey['Select ASIN'])
                           }
+                          onScrollItemList={() => console.log('12')}
                           onClickSelect={el => {
                             onChangeField('request')('asin')(el.asin)
                             onChangeField('request')('productId')(el._id)

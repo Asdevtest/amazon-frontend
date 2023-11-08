@@ -28,6 +28,16 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 //   }
 // }
 
+interface IPermissionsData {
+  _id: string
+  asin: string
+  shopIds: string[]
+  amazonTitle: string
+  skusByClient: string[]
+  buyerId: string
+  images: string[]
+}
+
 export class UseProductsPermissions {
   callback: (options: any) => any
   options = {
@@ -38,8 +48,10 @@ export class UseProductsPermissions {
     // filters - при использовании поиска передавать значения [skusByClient][$contains]= + [asin][$contains]=
   }
 
+  isCanLoadMore = true
+
   requestStatus = loadingStatuses.success
-  permissionsData = []
+  permissionsData: IPermissionsData[] = []
   constructor(callback: any, options?: any) {
     makeAutoObservable(this)
 
@@ -68,6 +80,29 @@ export class UseProductsPermissions {
       runInAction(() => {
         this.permissionsData = result.rows
       })
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  async loadMoreDataHadler() {
+    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatuses.success) return
+
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      this.options.offset += this.options.limit
+      const result = await this.callback(this.options)
+
+      runInAction(() => {
+        this.permissionsData = [...this.permissionsData, ...result.rows]
+      })
+
+      if (result.rows.length < this.options.limit) {
+        this.isCanLoadMore = false
+      }
 
       this.requestStatus = loadingStatuses.success
     } catch (error) {

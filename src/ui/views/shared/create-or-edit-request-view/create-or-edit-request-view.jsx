@@ -29,8 +29,6 @@ export const CreateOrEditRequestView = observer(props => {
   useEffect(() => {
     viewModel.loadData()
     useProductsPermissions.getPermissionsData()
-
-    console.log('useProductsPermissions', useProductsPermissions.permissionsData)
   }, [])
 
   return (

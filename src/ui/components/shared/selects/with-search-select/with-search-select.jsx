@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -55,6 +55,7 @@ export const WithSearchSelect = memo(
     getRowValue,
     onClickSubmitBtn,
     isWithoutItemsTooltip,
+    onScrollItemList,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -63,6 +64,21 @@ export const WithSearchSelect = memo(
     const [dataToRender, setDataToRender] = useState(data)
 
     const [anchorEl, setAnchorEl] = useState(null)
+
+    const itemsWrapperRef = useRef(null)
+
+    useEffect(() => {
+      const scrollContainer = itemsWrapperRef.current
+
+      if (scrollContainer) {
+        scrollContainer.addEventListener('scroll', onScrollItemList)
+
+        // Убираем обработчик события при размонтировании компонента
+        return () => {
+          scrollContainer.removeEventListener('scroll', onScrollItemList)
+        }
+      }
+    }, [])
 
     const handleClick = event => {
       if (anchorEl) {
@@ -179,7 +195,10 @@ export const WithSearchSelect = memo(
                     onChange={e => setNameSearchValue(e.target.value)}
                   />
                 ) : null}
-                <div className={cx(styles.itemsWrapper, customItemsWrapper)}>
+                <div
+                  ref={onScrollItemList ? itemsWrapperRef : null}
+                  className={cx(styles.itemsWrapper, customItemsWrapper)}
+                >
                   {onClickNotChosen && (
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
