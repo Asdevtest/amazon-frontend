@@ -82,14 +82,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalWrapper: {
-    minWidth: 800,
+    padding: 30,
+    maxWidth: 1200,
   },
-  paper: {
-    height: 'max-content',
-    width: '100%',
-  },
+  paper: {},
 
   buttonsBox: {
+    marginTop: 20,
     textAlign: 'right',
     display: 'flex',
     justifyContent: 'end',
