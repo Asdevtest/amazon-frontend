@@ -50,7 +50,7 @@ const Slot = props => {
   }
 
   return (
-    <div key={item._id} className={classNames.imageObjWrapper}>
+    <div className={classNames.imageObjWrapper}>
       <div className={classNames.imageObjSubWrapper}>
         <Checkbox
           color="primary"
@@ -457,16 +457,18 @@ export const RequestDesignerResultClientForm = props => {
         </Button>
       </div>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages.map(el => el.url)}
-        photosTitles={filteredImages.map(el => el.title)}
-        photosComments={filteredImages.map(el => el.comment)}
-        currentImageIndex={curImageIndex}
-        handleCurrentImageIndex={index => setCurImageIndex(index)}
-      />
+      {showImageModal && (
+        <ImageModal
+          showPreviews
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={filteredImages.map(el => el.url)}
+          photosTitles={filteredImages.map(el => el.title)}
+          photosComments={filteredImages.map(el => el.comment)}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
+        />
+      )}
     </div>
   )
 }
