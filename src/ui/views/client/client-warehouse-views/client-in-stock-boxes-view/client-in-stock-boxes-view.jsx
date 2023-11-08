@@ -209,7 +209,7 @@ export const ClientInStockBoxesViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             onCellDoubleClick={params =>

@@ -12,6 +12,12 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     background: 'rgba(0, 0, 0, 0.6)',
+    opacity: 0,
+    transition: 'opacity 0.3s',
+  },
+
+  openModal: {
+    opacity: 1,
   },
 
   contentWrapper: {

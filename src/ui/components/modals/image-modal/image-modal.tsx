@@ -71,7 +71,6 @@ export const ImageModal: FC<Props> = memo(props => {
 
   return (
     <Modal
-      missClickModalOn
       openModal={isOpenModal}
       setOpenModal={() => {
         handleOpenModal()

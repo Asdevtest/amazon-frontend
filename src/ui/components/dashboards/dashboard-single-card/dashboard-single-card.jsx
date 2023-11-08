@@ -8,7 +8,7 @@ export const DashboardSingleCard = memo(({ item, valuesData, onClickViewMore }) 
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.cardWrapper} onClick={() => onClickViewMore(item.route)}>
+    <div className={styles.cardWrapper} onClick={() => onClickViewMore(item.route, item.dataGridFilter)}>
       <div className={styles.imagesWrapper}>
         <img src="/assets/img/box.png" />
         <img src={item.icon} />

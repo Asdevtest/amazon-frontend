@@ -10,6 +10,8 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './modal.style'
 
+import { ModalPortal } from './modal-portal'
+
 interface ModalProps extends PropsWithChildren {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
@@ -44,8 +46,11 @@ export const Modal: FC<ModalProps> = memo(props => {
   }
 
   return (
-    <>
-      <div className={cx(styles.dialogWrapper, dialogClassName)} onClick={handleModalClick}>
+    <ModalPortal>
+      <div
+        className={cx(styles.dialogWrapper, dialogClassName, openModal && styles.openModal)}
+        onClick={handleModalClick}
+      >
         <div className={cx(styles.contentWrapper, contentWrapperClassName)} onClick={e => e.preventDefault()}>
           <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
 
@@ -63,6 +68,6 @@ export const Modal: FC<ModalProps> = memo(props => {
         onClickSuccessBtn={() => setOpenModal(false)}
         onClickCancelBtn={() => setShowMissclickModal(!showMissclickModal)}
       />
-    </>
+    </ModalPortal>
   )
 })
