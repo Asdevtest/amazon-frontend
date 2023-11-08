@@ -80,7 +80,6 @@ class SettingsModelStatic {
 
   loadValue(key) {
     const value = localStorage.getItem(key)
-
     return value !== null ? JSON.parse(value) : null
   }
 
