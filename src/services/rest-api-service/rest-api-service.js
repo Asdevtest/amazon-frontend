@@ -28,8 +28,6 @@ import { SupervisorApi } from './codegen/api/supervisor-api'
 import { SupplierApi } from './codegen/api/supplier-api'
 import { UserApi } from './codegen/api/user-api'
 
-const apiKeyPrefix = 'Bearer'
-
 class RestApiService {
   openapiConfig = new Configuration()
 
@@ -61,22 +59,6 @@ class RestApiService {
     this.chatsApi = new ChatsApi(this.openapiConfig, undefined, this.axiosInstance)
     this.orderApi = new OrderApi(this.openapiConfig, undefined, this.axiosInstance)
     this.generalApi = new GeneralApi(this.openapiConfig, undefined, this.axiosInstance)
-  }
-
-  setAccessToken = accessToken => {
-    // this.openapiConfig.baseOptions = {
-    //   headers: { Authorization: `${apiKeyPrefix} ${accessToken}` },
-    // }
-    // this.openapiConfig.accessToken = `${accessToken}`
-    this.axiosInstance.defaults.headers.Authorization = `${apiKeyPrefix} ${accessToken}`
-  }
-
-  removeAccessToken = () => {
-    // this.openapiConfig.baseOptions = {
-    //   headers: { Authorization: '' },
-    // }
-    // this.openapiConfig.accessToken = ''
-    this.axiosInstance.defaults.headers.Authorization = `${apiKeyPrefix}`
   }
 }
 
